@@ -1,13 +1,25 @@
 <script>
 	import CheatSheetCard from './_CheatSheetCard.svelte';
+	import { page } from '$app/stores';
 	import { cheatSheet } from './cheat-sheet';
+	import metatags from '$lib/stores/metatags';
+
+	metatags.title('Svelte Society - Cheat Sheet.');
+	metatags.desc('No time to read the docs? Just use the cheat sheet! :)');
+	metatags.url($page.host + $page.path);
 </script>
 
-<main>
-	{#each cheatSheet as item}
-		<CheatSheetCard {...item} />
-	{/each}
-</main>
+<div class="wrapper">
+	<div class="intro">
+		<h1>Svelte Cheat Sheet</h1>
+		<p>No time to read the docs? Just read this cheat sheet! :)</p>
+	</div>
+	<main>
+		{#each cheatSheet as item}
+			<CheatSheetCard {...item} />
+		{/each}
+	</main>
+</div>
 
 <style>
 	main {
@@ -20,5 +32,9 @@
 		main > :global(.card) {
 			max-width: 95%;
 		}
+	}
+	.intro {
+		margin: 0 auto;
+		margin-bottom: var(--space-600) 0;
 	}
 </style>

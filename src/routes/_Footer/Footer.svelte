@@ -4,19 +4,21 @@
 	var year = date.getFullYear();
 </script>
 
-<footer class="shaded">
-	<div>&copy; Svelte Society {year}</div>
+<div class="shaded">
+	<footer class="wrapper">
+		<div>&copy; Svelte Society {year}</div>
 
-	<div>
-		Want to contribute? Pick up an issue on
-		<a
-			class="ghlink"
-			href="https://github.com/svelte-society/sveltesociety.dev"
-			target="_blank"
-			rel="noopener">GitHub</a
-		>!
-	</div>
-</footer>
+		<div>
+			Want to contribute? Pick up an issue on
+			<a
+				class="ghlink"
+				href="https://github.com/svelte-society/sveltesociety.dev"
+				target="_blank"
+				rel="noopener">GitHub</a
+			>!
+		</div>
+	</footer>
+</div>
 
 <style>
 	.shaded {
@@ -42,7 +44,6 @@
 			justify-content: space-between;
 			max-width: unset;
 			padding: 2em;
-			font-size: 15px;
 		}
 	}
 	@media print {
