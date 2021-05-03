@@ -1,6 +1,6 @@
 <script>
 	import Header from './_Header/Header.svelte';
-	import Footer from './_Footer/Footer.svelte';
+	import Footer from './_Footer.svelte';
 	import metatags from '$lib/stores/metatags';
 	import '../app.postcss';
 </script>

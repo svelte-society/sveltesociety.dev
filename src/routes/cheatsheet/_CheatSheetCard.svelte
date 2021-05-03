@@ -29,7 +29,7 @@
 			<span transition:fly={{ x: 20 }}> Copied to clipboard </span>
 		{/if}
 
-		<a href on:click|preventDefault={copy} title="Copy to clipborad">📋</a>
+		<button on:click={copy} aria-label="Copy to clipborad">📋</button>
 		<a href={doc} target="_blank" title="Go to documentation">📃</a>
 		<a href={repl} target="_blank" title="See in REPL">💻</a>
 	</section>
@@ -88,6 +88,12 @@
 		font-size: 1.25rem;
 		margin-left: 20px;
 		text-decoration: none;
+	}
+	button {
+		background: none;
+		border: none;
+		cursor: pointer;
+		font-size: 1.25rem;
 	}
 	.card > .content {
 		display: block;
