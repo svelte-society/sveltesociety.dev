@@ -9,17 +9,11 @@
 	metatags.url($page.host + $page.path);
 </script>
 
-<div class="wrapper">
-	<div class="intro">
-		<h1>Svelte Cheat Sheet</h1>
-		<p>No time to read the docs? Just read this cheat sheet! :)</p>
-	</div>
-	<main>
-		{#each cheatSheet as item}
-			<CheatSheetCard {...item} />
-		{/each}
-	</main>
-</div>
+<main>
+	{#each cheatSheet as item}
+		<CheatSheetCard {...item} />
+	{/each}
+</main>
 
 <style>
 	main {
