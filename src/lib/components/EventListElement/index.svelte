@@ -18,11 +18,13 @@
 	{#if isPast === true}
 		<span class="past-event">Past event</span>
 	{/if}
-	<h2><a href={url}> {title} </a></h2>
+	<h2>
+		<a href={url}> {title} </a>
+	</h2>
 	<p>
-		<span class="icon-wrapper"
-			><Icon name="calendar" width="25px" height="25px" />{formatDate(date)}</span
-		>
+		<span class="icon-wrapper">
+			<Icon name="calendar" width="25px" height="25px" />{formatDate(date)}
+		</span>
 	</p>
 </figure>
 
