@@ -1,8 +1,11 @@
 <script lang="ts" context="module">
-	export const prerender = true;
-	export async function load({ session }) {
-		const events = session.events;
-		return { props: { events } };
+	export async function load({ fetch }) {
+		const res = await fetch('/events/events');
+		if (res.ok) return { props: { events: await res.json() } };
+		return {
+			status: res.status,
+			error: new Error()
+		};
 	}
 
 </script>
@@ -10,13 +13,13 @@
 <script lang="ts">
 	import Societies from '$lib/components/Societies/index.svelte';
 	import EventListElement from '$lib/components/EventListElement/index.svelte';
-	export let events = [];
+	export let events = {};
 
 </script>
 
 <div class="wrapper">
 	<section class="event-wrapper">
-		{#each events as event}
+		{#each events.events as event}
 			<EventListElement
 				title={event.title}
 				url={'/events/' + event.filename.replace('.svx', '')}
