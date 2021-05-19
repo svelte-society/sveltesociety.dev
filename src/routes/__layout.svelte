@@ -19,9 +19,9 @@
 
 <div class="container">
 	<Header />
-
-	<slot />
-
+	<main>
+		<slot />
+	</main>
 	<Footer />
 </div>
 
@@ -31,4 +31,9 @@
 		display: grid;
 		grid-template-rows: 0fr 1fr 0fr;
 	}
+
+	main {
+		min-height: 100vh;
+	}
+
 </style>
