@@ -1,53 +1,52 @@
 [
-    {
-      "continent": "🇪🇺 Europe",
-      "type": "contintent"
-    },
-    {
-      "name": "London Svelte Meetup",
-      "country": "🇬🇧 Great Britain",
-      "url": "https://www.meetup.com/svelte/"
-    },
-    {
-      "name": "Svelte Dublin",
-      "country": "🇮🇪 Ireland",
-      "url": "https://www.downtomeet.com/Svelte-Dublin"
-    },
-    {
-      "name": "Sveltejs Meetup Hamburg",
-      "country": "🇩🇪 Germany",
-      "url": "https://www.meetup.com/de-DE/Svelte-js-Meetup-Hamburg/",
-      "githuburl": "https://github.com/svelte-meetup-hamburg/meetups/issues"
-    },
-    {
-      "name": "Amsterdam SvelteJS",
-      "country": "🇳🇱 Netherlands",
-      "url": "https://www.meetup.com/Amsterdam-SvelteJS/"
-    },
-    {
-      "name": "Svelte Bergen",
-      "country": "🇳🇴 Norway",
-      "twitter": "@stephanevanraes",
-      "url": "https://www.downtomeet.com/Svelte-Bergen"
-    },
-    {
-      "name": "Svelte Society Stockholm",
-      "country": "🇸🇪 Sweden",
-      "twitter": "@kevmodrome",
-      "url": "https://www.downtomeet.com/Svelte-Society-Stockholm"
-    },
-    {
-      "continent": "South America",
-      "type": "contintent"
-    },
-    {
-      "name": "Svelte Brasil",
-      "country": "🇧🇷 Brazil",
-      "telegram": "https://t.me/sveltebrasil",
-      "twitter": "@sveltebrasil",
-      "url": "https://sveltebrasil.dev/",
-      "youtube": "https://www.youtube.com/channel/UCp8jamqJRGg86eMnewxjWng",
-      "githuburl": "https://github.com/svelte-brasil"
-    }
-  ]
-  
+	{
+		"continent": "🇪🇺 Europe",
+		"type": "contintent"
+	},
+	{
+		"name": "London Svelte Meetup",
+		"country": "🇬🇧 Great Britain",
+		"url": "https://www.meetup.com/svelte/"
+	},
+	{
+		"name": "Svelte Dublin",
+		"country": "🇮🇪 Ireland",
+		"url": "https://www.downtomeet.com/Svelte-Dublin"
+	},
+	{
+		"name": "Sveltejs Meetup Hamburg",
+		"country": "🇩🇪 Germany",
+		"url": "https://www.meetup.com/de-DE/Svelte-js-Meetup-Hamburg/",
+		"githuburl": "https://github.com/svelte-meetup-hamburg/meetups/issues"
+	},
+	{
+		"name": "Amsterdam SvelteJS",
+		"country": "🇳🇱 Netherlands",
+		"url": "https://www.meetup.com/Amsterdam-SvelteJS/"
+	},
+	{
+		"name": "Svelte Bergen",
+		"country": "🇳🇴 Norway",
+		"twitter": "@stephanevanraes",
+		"url": "https://www.downtomeet.com/Svelte-Bergen"
+	},
+	{
+		"name": "Svelte Society Stockholm",
+		"country": "🇸🇪 Sweden",
+		"twitter": "@kevmodrome",
+		"url": "https://www.downtomeet.com/Svelte-Society-Stockholm"
+	},
+	{
+		"continent": "South America",
+		"type": "contintent"
+	},
+	{
+		"name": "Svelte Brasil",
+		"country": "🇧🇷 Brazil",
+		"telegram": "https://t.me/sveltebrasil",
+		"twitter": "@sveltebrasil",
+		"url": "https://sveltebrasil.dev/",
+		"youtube": "https://www.youtube.com/channel/UCp8jamqJRGg86eMnewxjWng",
+		"githuburl": "https://github.com/svelte-brasil"
+	}
+]
