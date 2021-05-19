@@ -15,16 +15,7 @@ const config = {
 	extensions: extensions,
 	kit: {
 		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte',
-		hydrate: true,
-		prerender: {
-			crawl: true,
-			enabled: true,
-			force: false,
-			pages: ['*']
-		},
-		router: true,
-		ssr: true
+		target: '#svelte'
 	}
 };
 
