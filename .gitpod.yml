@@ -7,7 +7,15 @@ ports:
 # List the start up tasks. You can start them in parallel in multiple terminals. See https://www.gitpod.io/docs/config-start-tasks/
 tasks:
   - init: curl -f https://get.pnpm.io/v6.js | node - add --global pnpm && pnpm install
-    command: pnpm dev
+    command: |
+      echo "Applying a temporary workaround until https://github.com/vitejs/vite/pull/1992 is fixed"
+      (
+        cd ./node_modules/vite/dist/node/chunks/ &&
+        sed -i 's/JSON.stringify(port)/JSON.stringify(443)/g' * &&
+        export WSS_HOST=`gp url 24678 | sed 's#https://##g'` &&
+        sed -i "s#JSON.stringify(host)#JSON.stringify(\"$WSS_HOST\")#g" *
+      )
+    pnpm dev
 
 github:
   prebuilds:
