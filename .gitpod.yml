@@ -1,0 +1,42 @@
+ports:
+  - port: 3000
+    onOpen: open-preview
+  - port: 10000
+    onOpen: ignore
+
+# List the start up tasks. You can start them in parallel in multiple terminals. See https://www.gitpod.io/docs/config-start-tasks/
+tasks:
+  - init: curl -f https://get.pnpm.io/v6.js | node - add --global pnpm && pnpm install
+    command: |
+      echo "Applying a temporary workaround until https://github.com/vitejs/vite/pull/1992 is fixed"
+      (
+        cd ./node_modules/vite/dist/node/chunks/ &&
+        sed -i 's/JSON.stringify(port)/JSON.stringify(443)/g' * &&
+        export WSS_HOST=`gp url 24678 | sed 's#https://##g'` &&
+        sed -i "s#JSON.stringify(host)#JSON.stringify(\"$WSS_HOST\")#g" *
+      )
+    pnpm dev
+
+github:
+  prebuilds:
+    # enable for the master/default branch (defaults to true)
+    master: true
+    # enable for all branches in this repo (defaults to false)
+    branches: true
+    # enable for pull requests coming from this repo (defaults to true)
+    pullRequests: true
+    # enable for pull requests coming from forks (defaults to false)
+    pullRequestsFromForks: true
+    # add a check to pull requests (defaults to true)
+    addCheck: true
+    # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
+    addComment: false
+    # add a "Review in Gitpod" button to the pull request's description (defaults to false)
+    addBadge: true
+    # add a label once the prebuild is ready to pull requests (defaults to false)
+    addLabel: false
+
+vscode:
+  extensions:
+    - svelte.svelte-vscode
+    - esbenp.prettier-vscode
