@@ -1,0 +1,3956 @@
+[
+    {
+    "title": "svelte-adapter-firebase",
+    "description": "SvelteKit adapter for Firebase Hosting rewrites to either Cloud Functions or Cloud Run for a Svelte SSR experience",
+    "url": "https://github.com/jthegedus/svelte-adapter-firebase",
+    "npm": "https://www.npmjs.com/package/svelte-adapter-firebase",
+    "tags": [
+      "integrations",
+      "cli tools"
+    ],
+    "addedOn": "2021-03-31T00:00:00Z",
+    "category": "Integrations"
+  },
+  {
+    "title": "SCR Svelte Client Router",
+    "url": "https://arthurgermano.github.io/svelte-client-router/#/svelte-client-router",
+    "npm": "svelte-client-router",
+    "description": "Svelte Client Router is everything you need and think when routing SPA's. This is The Svelte Router for SPA!",
+    "tags": [
+      "routers"
+    ],
+    "addedOn": "2021-04-27T00:00:00Z",
+    "category": "Routers"
+  },
+  {
+    "title": "@cloudedots/svelte-forms",
+    "url": "https://github.com/cloudedots-projects/svelte-forms",
+    "npm": "@cloudedots/svelte-forms",
+    "description": "Svelte Forms Library with Validation.",
+    "tags": [
+      "forms",
+      "form validation",
+      "components and libraries"
+    ],
+    "addedOn": "2021-04-30T16:00:03.282Z",
+    "category": "Forms & User Input"
+  },
+  {
+    "title": "felte",
+    "url": "https://felte.dev",
+    "npm": "felte",
+    "description": "An extensible form library for Svelte",
+    "image": "https://felte.dev/felte-logo-thin.png",
+    "tags": [
+      "forms",
+      "validation",
+      "components and libraries"
+    ],
+    "addedOn": "2021-03-26T22:09:06.050Z",
+    "category": "Forms & User Input"
+  },
+  {
+    "title": "sveltefire",
+    "url": "https://github.com/codediodeio/sveltefire",
+    "npm": "sveltefire",
+    "description": "Cybernetically enhanced Firebase apps 💪🔥",
+    "image": "",
+    "tags": [
+      "components and libraries"
+    ],
+    "addedOn": "2021-03-24T01:02:03Z",
+    "category": "Integration"
+  },
+  {
+    "title": "svelte-time-picker",
+    "url": "https://gitlab.com/public-e-soa-com/svelte-time-picker",
+    "npm": "https://www.npmjs.com/package/svelte-time-picker",
+    "description": "Time Picker UI for Svelte, inspired by the MaterialUI React Time Picker",
+    "image": "https://camo.githubusercontent.com/c10e998262061f5565fe7b1a99261980c4761a90109108768a25ba9f0b0512e0/68747470733a2f2f652d736f612e636f6d2f7374702f6d6f64616c2e706e67",
+    "tags": [
+      "components and libraries",
+      "time and date"
+    ],
+    "addedOn": "2021-03-04T07:27:00Z",
+    "category": "Forms & User Input"
+  },
+  {
+    "title": "svelte-formula",
+    "url": "https://github.com/tanepiper/svelte-formula",
+    "npm": "https://www.npmjs.com/package/svelte-formula",
+    "description": "Zero Configuration Reactive Forms for Svelte",
+    "tags": [
+      "components and libraries",
+      "forms",
+      "validation"
+    ],
+    "addedOn": "2021-02-19T19:30:00Z",
+    "category": "Forms & User Input"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "A lightweight datepicker with neat animations and a unique UX",
+    "image": "",
+    "npm": "svelte-calendar",
+    "stars": 201,
+    "tags": [
+      "components and libraries",
+      "time and date"
+    ],
+    "title": "svelte-calendar",
+    "url": "https://github.com/6eDesign/svelte-calendar"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Boilerplate with TypeScript, Webpack, Storybook, Travis CI, SCSS, Babel, EsLint, Prettier, Jest",
+    "image": "",
+    "stars": 51,
+    "tags": [
+      "templates"
+    ],
+    "title": "agusID/boilerplate-svelte",
+    "url": "https://github.com/agusID/boilerplate-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "Svelte tags input is a component to use with Svelte and easily enter tags and customize some functions",
+    "image": "",
+    "npm": "svelte-tags-input",
+    "stars": 70,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "svelte-tags-input",
+    "url": "https://github.com/agustinl/svelte-tags-input"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Generate a JSON documentation for a Svelte component",
+    "image": "",
+    "npm": "sveltedoc-parser",
+    "stars": 33,
+    "tags": [
+      "components and libraries",
+      "development and documentation"
+    ],
+    "title": "sveltedoc-parser",
+    "url": "https://github.com/alexprey/sveltedoc-parser"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "Easy use Aovi to validate forms or values in your components",
+    "image": "",
+    "npm": "aovi-svelte",
+    "stars": 2,
+    "tags": [
+      "forms and validation",
+      "components and libraries"
+    ],
+    "title": "aovi-svelte",
+    "url": "https://github.com/AlexxNB/aovi-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "Svelte UI components based on super lightweight chota CSS framework.",
+    "image": "",
+    "npm": "svelte-chota",
+    "stars": 92,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "svelte-chota",
+    "url": "https://github.com/alexxnb/svelte-chota"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "A rapid way to write documentation for your Svelte components",
+    "image": "",
+    "npm": "@svelte-docs/core",
+    "stars": 81,
+    "tags": [
+      "components and libraries",
+      "development and documentation"
+    ],
+    "title": "@svelte-docs/core",
+    "url": "https://github.com/AlexxNB/svelte-docs"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design Pattern",
+    "description": "Simple eventbus realization based on internal Svelte's tools only",
+    "image": "",
+    "npm": "svelte-eventbus",
+    "stars": 14,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-eventbus",
+    "url": "https://github.com/AlexxNB/svelte-eventbus"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Write Svelte components in markdown syntax",
+    "image": "",
+    "npm": "svelte-preprocess-markdown",
+    "stars": 66,
+    "tags": [
+      "integrations",
+      "preprocessors"
+    ],
+    "title": "svelte-preprocess-markdown",
+    "url": "https://github.com/AlexxNB/svelte-preprocess-markdown"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Highly declarative, very tiny (~3.8 Kb), dependency free router",
+    "image": "",
+    "npm": "tinro",
+    "stars": 123,
+    "tags": [
+      "routers"
+    ],
+    "title": "tinro",
+    "url": "https://github.com/AlexxNB/tinro"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Font Awesome 5 for Svelte",
+    "image": "",
+    "npm": "fa-svelte",
+    "stars": 48,
+    "tags": [
+      "components and libraries",
+      "fonts and icons"
+    ],
+    "title": "fa-svelte",
+    "url": "https://github.com/alphapeter/fa-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Framework agnostic UI router for SPAs with specific support for Svelte",
+    "image": "",
+    "npm": "crayon-svelte",
+    "stars": 298,
+    "tags": [
+      "routers"
+    ],
+    "title": "crayon-svelte",
+    "url": "https://github.com/alshdavid/crayon"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Component that performs fullscreen in DOM Elements",
+    "image": "",
+    "npm": "svelte-fullscreen",
+    "stars": 17,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-fullscreen",
+    "url": "https://github.com/andrelmlins/svelte-fullscreen"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Responsive grid system based on Bootstrap for Svelte",
+    "image": "",
+    "npm": "svelte-grid-responsive",
+    "stars": 8,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-grid-responsive",
+    "url": "https://github.com/andrelmlins/svelte-grid-responsive"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Infinite Scroll Component to Svelte",
+    "image": "",
+    "npm": "svelte-infinite-scroll",
+    "stars": 74,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-infinite-scroll",
+    "url": "https://github.com/andrelmlins/svelte-infinite-scroll"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "An example repo of a Svelte app that is IE11 compatible",
+    "image": "",
+    "stars": 27,
+    "tags": [
+      "templates"
+    ],
+    "title": "angelozehr/svelte-example-museums",
+    "url": "https://github.com/angelozehr/svelte-example-museums"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "A truffle box for Svelte, a seed for building an Ethereum dapp using Truffle",
+    "image": "",
+    "stars": 30,
+    "tags": [
+      "templates"
+    ],
+    "title": "antony/svelte-box",
+    "url": "https://github.com/antony/svelte-box"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "Generate dynamic forms for sveltejs, Sveltekit, Routify and Sapper",
+    "image": "",
+    "npm": "svelte-formly",
+    "stars": 112,
+    "tags": [
+      "components and libraries",
+      "forms",
+      "forms and validation",
+      "reactive forms",
+      "validation"
+    ],
+    "title": "svelte-formly",
+    "url": "https://github.com/arabdevelop/svelte-formly"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Stores",
+    "description": "Svelte store with a websocket backend",
+    "image": "",
+    "npm": "svelte-websocket-store",
+    "stars": 45,
+    "tags": [
+      "components and libraries",
+      "stores and state"
+    ],
+    "title": "svelte-websocket-store",
+    "url": "https://github.com/arlac77/svelte-websocket-store"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Typescript template for Svelte v3",
+    "image": "",
+    "stars": 21,
+    "tags": [
+      "templates"
+    ],
+    "title": "Axelen123/svelte-ts-template",
+    "url": "https://github.com/Axelen123/svelte-ts-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "Bootstrap 4 components for Svelte",
+    "image": "",
+    "npm": "sveltestrap",
+    "stars": 419,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "sveltestrap",
+    "url": "https://github.com/bestguy/sveltestrap"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "A GDPR compliant cookie consent banner implementation",
+    "image": "",
+    "npm": "@beyonk/gdpr-cookie-consent-banner",
+    "stars": 44,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "@beyonk/gdpr-cookie-consent-banner",
+    "url": "https://github.com/beyonk-adventures/gdpr-cookie-consent-banner"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "A super lightweight, super simple carousel for Svelte 3",
+    "image": "",
+    "npm": "@beyonk/svelte-carousel",
+    "stars": 109,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "@beyonk/svelte-carousel",
+    "url": "https://github.com/beyonk-adventures/svelte-carousel"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Component template with LiveReload and Jest unit testing",
+    "image": "",
+    "stars": 13,
+    "tags": [
+      "templates"
+    ],
+    "title": "beyonk-adventures/svelte-component-livereload-template",
+    "url": "https://github.com/beyonk-adventures/svelte-component-livereload-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Integration",
+    "description": "A Facebook customer chat integration for Svelte / Sapper",
+    "image": "",
+    "npm": "@beyonk/svelte-facebook-customer-chat",
+    "stars": 1,
+    "tags": [
+      "components and libraries",
+      "third party services"
+    ],
+    "title": "@beyonk/svelte-facebook-customer-chat",
+    "url": "https://github.com/beyonk-adventures/svelte-facebook-customer-chat"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Integration",
+    "description": "A Facebook pixel module for Svelte / Sapper",
+    "image": "",
+    "npm": "@beyonk/svelte-facebook-pixel",
+    "stars": 5,
+    "tags": [
+      "components and libraries",
+      "third party services"
+    ],
+    "title": "@beyonk/svelte-facebook-pixel",
+    "url": "https://github.com/beyonk-adventures/svelte-facebook-pixel"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Integration",
+    "description": "Google Analytics tracking module for Svelte / Sapper",
+    "image": "",
+    "npm": "@beyonk/svelte-google-analytics",
+    "stars": 9,
+    "tags": [
+      "components and libraries",
+      "third party services"
+    ],
+    "title": "@beyonk/svelte-google-analytics",
+    "url": "https://github.com/beyonk-adventures/svelte-google-analytics"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Integration",
+    "description": "Google Maps integration for Svelte",
+    "image": "",
+    "npm": "@beyonk/svelte-googlemaps",
+    "stars": 22,
+    "tags": [
+      "components and libraries",
+      "maps"
+    ],
+    "title": "@beyonk/svelte-googlemaps",
+    "url": "https://github.com/beyonk-adventures/svelte-googlemaps"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Integration",
+    "description": "Mapbox integration for Svelte",
+    "image": "",
+    "npm": "@beyonk/svelte-mapbox",
+    "stars": 77,
+    "tags": [
+      "components and libraries",
+      "maps"
+    ],
+    "title": "@beyonk/svelte-mapbox",
+    "url": "https://github.com/beyonk-adventures/svelte-mapbox"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "Svelte toast notifications that can be used in any JS application",
+    "image": "",
+    "npm": "@beyonk/svelte-notifications",
+    "stars": 114,
+    "tags": [
+      "components and libraries",
+      "notifications"
+    ],
+    "title": "@beyonk/svelte-notifications",
+    "url": "https://github.com/beyonk-adventures/svelte-notifications"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Scroll Spy component for Svelte",
+    "image": "",
+    "npm": "@beyonk/svelte-scrollspy",
+    "stars": 21,
+    "tags": [
+      "components and libraries",
+      "interactions"
+    ],
+    "title": "@beyonk/svelte-scrollspy",
+    "url": "https://github.com/beyonk-adventures/svelte-scrollspy"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "SVG icons for popular brands",
+    "image": "",
+    "npm": "svelte-simple-icons",
+    "stars": 7,
+    "tags": [
+      "components and libraries",
+      "fonts and icons"
+    ],
+    "title": "svelte-simple-icons",
+    "url": "https://github.com/beyonk-adventures/svelte-simple-icons"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Integration",
+    "description": "Trustpilot Trustboxes for Svelte / Sapper",
+    "image": "",
+    "npm": "@beyonk/svelte-trustpilot",
+    "stars": 1,
+    "tags": [
+      "components and libraries",
+      "third party services"
+    ],
+    "title": "@beyonk/svelte-trustpilot",
+    "url": "https://github.com/beyonk-adventures/svelte-trustpilot"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "A complete implementation with components, store, unit e2e tests and linting.",
+    "image": "",
+    "stars": 22,
+    "tags": [
+      "templates"
+    ],
+    "title": "TodoMVC Svelte",
+    "url": "https://github.com/blacksonic/todomvc-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Electron Svelte boilerplate",
+    "image": "",
+    "stars": 41,
+    "tags": [
+      "templates",
+      "electron"
+    ],
+    "title": "Blade67/Sveltron",
+    "url": "https://github.com/Blade67/Sveltron"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "An easy-to-use SPA router for Svelte",
+    "image": "",
+    "npm": "@bjornlu/svelte-router",
+    "stars": 10,
+    "tags": [
+      "routers"
+    ],
+    "title": "@bjornlu/svelte-router",
+    "url": "https://github.com/bluwy/svelte-router"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "A template to create multi-page application powered by Webpack",
+    "image": "",
+    "stars": 11,
+    "tags": [
+      "templates"
+    ],
+    "title": "brandonxiang/svelte-webpack-mpa",
+    "url": "https://github.com/brandonxiang/svelte-webpack-mpa"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Data Visualisation",
+    "description": "A list with animated drag-n-drop functionality",
+    "image": "",
+    "npm": "svelte-sortable-list",
+    "stars": 64,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-sortable-list",
+    "url": "https://github.com/brunomolteni/svelte-sortable-list"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Data Visualisation",
+    "description": "A grid for displaying and editing any amount of data",
+    "image": "",
+    "npm": "svelte-data-grid",
+    "stars": 88,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-data-grid",
+    "url": "https://github.com/bsssshhhhhhh/svelte-data-grid"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Stores",
+    "description": "Writable store that syncs with the browser's search params",
+    "image": "",
+    "npm": "query-store",
+    "stars": 17,
+    "tags": [
+      "components and libraries",
+      "stores and state"
+    ],
+    "title": "query-store",
+    "url": "https://github.com/buhrmi/query-store"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "Bulma components for Svelte",
+    "image": "",
+    "npm": "svelma",
+    "stars": 348,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "svelma",
+    "url": "https://github.com/c0bra/svelma"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "Svelte forms validation made easy",
+    "image": "",
+    "npm": "svelte-forms",
+    "stars": 89,
+    "tags": [
+      "components and libraries",
+      "forms and validation"
+    ],
+    "title": "svelte-forms",
+    "url": "https://github.com/chainlist/svelte-forms"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Data Visualisation",
+    "description": "A component to render a credit card preview - useful for ecommerce.",
+    "image": "",
+    "npm": "svelte-credit-cards",
+    "stars": 20,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-credit-cards",
+    "url": "https://github.com/CharlyJazz/svelte-credit-card"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "The bare minimum boilerplate to use Svelte in electron",
+    "image": "",
+    "stars": 7,
+    "tags": [
+      "templates",
+      "electron"
+    ],
+    "title": "chuanqisun/svelte-electron-template",
+    "url": "https://github.com/chuanqisun/svelte-electron-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Svelte support for (Neo)Vim",
+    "image": "",
+    "npm": "coc-svelte",
+    "stars": 49,
+    "tags": [
+      "integrations",
+      "editor tools"
+    ],
+    "title": "coc-svelte",
+    "url": "https://github.com/coc-extensions/coc-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "A Svelte component to hide your header on scroll",
+    "image": "",
+    "npm": "svelte-headroom",
+    "stars": 49,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-headroom",
+    "url": "https://github.com/collardeau/svelte-headroom"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Tiny FontAwesome 5 component for Svelte",
+    "image": "",
+    "npm": "svelte-fa",
+    "stars": 67,
+    "tags": [
+      "components and libraries",
+      "fonts and icons"
+    ],
+    "title": "svelte-fa",
+    "url": "https://github.com/Cweili/svelte-fa"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Minimal boilerplate example of Svelte with Typescript using Parcel. This also includes scss support",
+    "image": "",
+    "stars": 46,
+    "tags": [
+      "templates"
+    ],
+    "title": "dafn/svelte-typescript-parcel",
+    "url": "https://github.com/dafn/svelte-typescript-parcel"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Minimal boilerplate example of Svelte with Typescript using Rollup. This also includes scss support",
+    "image": "",
+    "stars": 78,
+    "tags": [
+      "templates"
+    ],
+    "title": "dafn/svelte-typescript-rollup",
+    "url": "https://github.com/dafn/svelte-typescript-rollup"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Data Visualisation",
+    "description": "A table with sorting and filtering",
+    "image": "",
+    "npm": "svelte-table",
+    "stars": 96,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-table",
+    "url": "https://github.com/dasDaniel/svelte-table"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "Component for moveable, draggable, resizable, scalable, rotatable, and more",
+    "image": "",
+    "npm": "svelte-moveable",
+    "stars": 0,
+    "tags": [
+      "components and libraries",
+      "interactions"
+    ],
+    "title": "svelte-moveable",
+    "url": "https://github.com/daybrush/moveable/tree/master/packages/svelte-moveable"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "A Ruler component that can draw grids and scroll infinitely",
+    "image": "",
+    "npm": "svelte-ruler",
+    "stars": 0,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "svelte-ruler",
+    "url": "https://github.com/daybrush/ruler/tree/master/packages/svelte-ruler"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Starter Webpack template for Sapper apps using tailwindcss, postcss, purgecss, and svelte-preprocess.",
+    "image": "",
+    "stars": 7,
+    "tags": [
+      "templates"
+    ],
+    "title": "Sapper (Webpack) + TailwindCSS Template",
+    "url": "https://github.com/deanpress/sapper-tailwind-webpack-starter"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Skeleton app with Parcel, Jest, ESLint, Prettier, Babel, Wallaby",
+    "image": "",
+    "stars": 5,
+    "tags": [
+      "templates"
+    ],
+    "title": "devghost/svelte",
+    "url": "https://github.com/devghost/svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "rating widget for the web",
+    "image": "",
+    "npm": "waxwing-rating",
+    "stars": 5,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "waxwing-rating",
+    "url": "https://github.com/dmitrykurmanov/waxwing-rating"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Auth0 component library",
+    "image": "",
+    "npm": "@dopry/svelte-auth0",
+    "stars": 18,
+    "tags": [
+      "components and libraries",
+      "integrations",
+      "auth"
+    ],
+    "title": "@dopry/svelte-auth0",
+    "url": "https://github.com/dopry/svelte-auth0"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Feather icons for Svelte",
+    "image": "",
+    "npm": "svelte-feather-icons",
+    "stars": 41,
+    "tags": [
+      "components and libraries",
+      "fonts and icons"
+    ],
+    "title": "svelte-feather-icons",
+    "url": "https://github.com/dylanblokhuis/svelte-feather-icons"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "summernote extension for Svelte, a wysiwyg editor",
+    "image": "",
+    "npm": "@easylogic/svelte-summernote",
+    "stars": 5,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "@easylogic/svelte-summernote",
+    "url": "https://github.com/easylogic/svelte-summernote"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Helper for Svelte components to ease development. Used by `svelte-loader",
+    "image": "",
+    "npm": "svelte-dev-helper",
+    "stars": 6,
+    "tags": [
+      "components and libraries",
+      "development and documentation"
+    ],
+    "title": "svelte-dev-helper",
+    "url": "https://github.com/ekhaled/svelte-dev-helper"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "svelte template with basic babel setup for ie11 compatibility",
+    "image": "",
+    "stars": 0,
+    "tags": [
+      "templates"
+    ],
+    "title": "svelte-ie11",
+    "url": "https://github.com/elsonigo/svelte-ie11"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "A declarative Svelte routing library with SSR support",
+    "image": "",
+    "npm": "svelte-routing",
+    "stars": 1057,
+    "tags": [
+      "routers"
+    ],
+    "title": "svelte-routing",
+    "url": "https://github.com/EmilTholin/svelte-routing"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "A rate component for Svelte apps",
+    "image": "",
+    "npm": "svelte-rate-it",
+    "stars": 27,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "svelte-rate-it",
+    "url": "https://github.com/emrekara37/svelte-rate-it"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "A user interface for inputting date ranges",
+    "image": "",
+    "npm": "@equipmentshare/date-range-input",
+    "stars": 8,
+    "tags": [
+      "components and libraries",
+      "time and date"
+    ],
+    "title": "@equipmentshare/date-range-input",
+    "url": "https://github.com/EquipmentShare/date-range-input"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Data Visualisation",
+    "description": "Tree view component for svelte",
+    "image": "",
+    "npm": "svelte-tree",
+    "stars": 3,
+    "tags": [
+      "components and libraries",
+      "tree"
+    ],
+    "title": "svelte-tree",
+    "url": "https://github.com/esinx/svelte-tree"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Svelte JavaScript syntax highlighting for vim",
+    "image": "",
+    "stars": 128,
+    "tags": [
+      "integrations",
+      "editor tools"
+    ],
+    "title": "vim-svelte",
+    "url": "https://github.com/evanleck/vim-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "Material components library for Svelte using the stylesheet of Vuetify",
+    "image": "",
+    "npm": "svelteify",
+    "stars": 40,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "svelteify",
+    "url": "https://github.com/exybore/svelteify"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Typescript + Storybook + Webpack boilerplate",
+    "image": "",
+    "stars": 35,
+    "tags": [
+      "templates"
+    ],
+    "title": "farhan2106/svelte-typescript",
+    "url": "https://github.com/farhan2106/svelte-typescript"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Typescript + Storybook + Webpack with SSR boilerplate",
+    "image": "",
+    "stars": 8,
+    "tags": [
+      "templates"
+    ],
+    "title": "farhan2106/svelte-typescript-ssr",
+    "url": "https://github.com/farhan2106/svelte-typescript-ssr"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "A simple, small, and content-agnostic modal for Svelte",
+    "image": "",
+    "npm": "svelte-simple-modal",
+    "stars": 82,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-simple-modal",
+    "url": "https://github.com/flekschas/svelte-simple-modal"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Integration",
+    "description": "Svelte integration for FormidableLabs URQL",
+    "image": "",
+    "tags": [
+      "components and libraries",
+      "stores and state",
+      "graphql"
+    ],
+    "title": "@urql/svelte",
+    "url": "https://github.com/FormidableLabs/urql/tree/master/packages/svelte-urql"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Starter for Svelte 3/rollup/typescript/vscode",
+    "image": "",
+    "stars": 45,
+    "tags": [
+      "templates"
+    ],
+    "title": "geakstr/svelte-3-rollup-typescript-vscode",
+    "url": "https://github.com/geakstr/svelte-3-rollup-typescript-vscode"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Icon components for Svelte, featuring many icon sets",
+    "image": "",
+    "npm": "svelte-icons",
+    "stars": 54,
+    "tags": [
+      "components and libraries",
+      "fonts and icons"
+    ],
+    "title": "svelte-icons",
+    "url": "https://github.com/gibdig/svelte-icons"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Integration",
+    "description": "Svelte controlling native components via Nativescript",
+    "image": "",
+    "npm": "svelte-native",
+    "stars": 679,
+    "tags": [
+      "native"
+    ],
+    "title": "svelte-native",
+    "url": "https://github.com/halfnelson/svelte-native"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "A simple and reusable typewriter effect for your Svelte applications",
+    "image": "",
+    "npm": "svelte-typewriter",
+    "stars": 53,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-typewriter",
+    "url": "https://github.com/henriquehbr/svelte-typewriter"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "A zero-config CLI to bundle Svelte apps (WIP)",
+    "image": "",
+    "npm": "svb",
+    "stars": 25,
+    "tags": [
+      "integrations",
+      "cli tools"
+    ],
+    "title": "svb",
+    "url": "https://github.com/himynameisdave/svb"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "A Svelte component to format and display a copyright notice.",
+    "image": "",
+    "npm": "svelte-copyright",
+    "stars": 4,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-copyright",
+    "url": "https://github.com/himynameisdave/svelte-copyright"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "A simple and reusable flexbox component for Svelte",
+    "image": "",
+    "npm": "svelte-flex",
+    "stars": 23,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-flex",
+    "url": "https://github.com/himynameisdave/svelte-flex"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Data Visualisation",
+    "description": "Svelte bindings for frappe-charts.",
+    "image": "",
+    "npm": "svelte-frappe-charts",
+    "stars": 65,
+    "tags": [
+      "charts",
+      "components and libraries"
+    ],
+    "title": "svelte-frappe-charts",
+    "url": "https://github.com/himynameisdave/svelte-frappe-charts"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "Easy-to-use, Customizable Material Design components for Svelte",
+    "image": "",
+    "npm": "svmd",
+    "stars": 8,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "svmd",
+    "url": "https://github.com/hkh12/svmd"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "A small starter template to get up and running with Svelte v3",
+    "image": "",
+    "stars": 35,
+    "tags": [
+      "templates"
+    ],
+    "title": "Holben888/svelte-starter-template",
+    "url": "https://github.com/Holben888/svelte-starter-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "Svelte Material UI Components",
+    "image": "",
+    "npm": "svelte-material-ui",
+    "stars": 1204,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "svelte-material-ui",
+    "url": "https://github.com/hperrin/svelte-material-ui"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "Svelte implementation of the Carbon Design System",
+    "image": "",
+    "npm": "carbon-components-svelte",
+    "stars": 314,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "carbon-components-svelte",
+    "url": "https://github.com/IBM/carbon-components-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "A pretty cool UI kit for Svelte",
+    "image": "",
+    "npm": "attractions",
+    "stars": 48,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "attractions",
+    "url": "https://github.com/illright/attractions"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Vite plugin for compiling Svelte components",
+    "image": "",
+    "npm": "vite-plugin-svelte",
+    "stars": 44,
+    "tags": [
+      "integrations",
+      "bundler plugins"
+    ],
+    "title": "vite-plugin-svelte",
+    "url": "https://github.com/intrnl/vite-plugin-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Router for SPAs using Svelte 3",
+    "image": "",
+    "npm": "svelte-spa-router",
+    "stars": 523,
+    "tags": [
+      "routers"
+    ],
+    "title": "svelte-spa-router",
+    "url": "https://github.com/ItalyPaleAle/svelte-spa-router"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Svelte ecommerce - Headless, Authentication, Cart & Checkout, TailwindCSS, Server Rendered, Proxy + API Integrated, Animations, Stores, Lazy Loading, Loading Indicators, Carousel, Instant Search, Faceted Filters, 1 command deploy to production, Open Source, MIT license",
+    "image": "",
+    "stars": 215,
+    "tags": [
+      "templates"
+    ],
+    "title": "sapper-ecommerce",
+    "url": "https://github.com/itswadesh/sapper-ecommerce"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "Flatpickr component for Svelte",
+    "image": "",
+    "npm": "svelte-flatpickr",
+    "stars": 35,
+    "tags": [
+      "components and libraries",
+      "time and date"
+    ],
+    "title": "svelte-flatpickr",
+    "url": "https://github.com/jacobmischka/svelte-flatpickr"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "A Svelte router powered by lukeed/navaid",
+    "image": "",
+    "npm": "svelte-navaid",
+    "stars": 12,
+    "tags": [
+      "routers"
+    ],
+    "title": "svelte-navaid",
+    "url": "https://github.com/jacwright/svelte-navaid"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "A cli svelte compiler & watcher that works with snowpack",
+    "image": "",
+    "npm": "svelvet",
+    "stars": 296,
+    "tags": [
+      "integrations",
+      "bundler plugins"
+    ],
+    "title": "svelvet",
+    "url": "https://github.com/jakedeichert/svelvet"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Svelte router using a store and components",
+    "image": "",
+    "npm": "@jamen/svelte-router",
+    "stars": 8,
+    "tags": [
+      "routers"
+    ],
+    "title": "@jamen/svelte-router",
+    "url": "https://github.com/jamen/svelte-router"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Svelte + Storybook + Tailwind - Starter Template",
+    "image": "",
+    "stars": 161,
+    "tags": [
+      "templates"
+    ],
+    "title": "jerriclynsjohn/svelte-storybook-tailwind",
+    "url": "https://github.com/jerriclynsjohn/svelte-storybook-tailwind"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Router component for Svelte",
+    "image": "",
+    "npm": "svelte-router",
+    "stars": 61,
+    "tags": [
+      "routers"
+    ],
+    "title": "svelte-router",
+    "url": "https://github.com/jikkai/svelte-router"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "Svelte component for position and area selection with Leaflet",
+    "image": "",
+    "npm": "svelte-pick-a-place",
+    "stars": 42,
+    "tags": [
+      "components and libraries",
+      "maps"
+    ],
+    "title": "svelte-pick-a-place",
+    "url": "https://github.com/jimutt/svelte-pick-a-place"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "Tabs component for Svelte",
+    "image": "",
+    "npm": "svelte-tabs",
+    "stars": 60,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-tabs",
+    "url": "https://github.com/joeattardi/svelte-tabs"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Integration",
+    "description": "Simple package that makes ML more accessible",
+    "image": "",
+    "npm": "svelteml",
+    "stars": 19,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelteml",
+    "url": "https://github.com/john--kane/svelteml"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Data Visualisation",
+    "description": "A simple tool for comparing two images.",
+    "image": "",
+    "npm": "svelte-compare-image-slider",
+    "stars": 3,
+    "tags": [
+      "components and libraries",
+      "images"
+    ],
+    "title": "svelte-compare-image-slider",
+    "url": "https://github.com/johnwalley/compare-image-slider"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "A template to help you start developing SPAs with Svelte and Firebase",
+    "image": "",
+    "stars": 80,
+    "tags": [
+      "templates"
+    ],
+    "title": "jorgegorka/svelte-firebase",
+    "url": "https://github.com/jorgegorka/svelte-firebase"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Svelte router specially designed for Single Page Applications (SPA)",
+    "image": "",
+    "npm": "svelte-router-spa",
+    "stars": 237,
+    "tags": [
+      "routers"
+    ],
+    "title": "svelte-router-spa",
+    "url": "https://github.com/jorgegorka/svelte-router"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "SvelteJS and TailwindCSS template",
+    "image": "",
+    "stars": 1,
+    "tags": [
+      "templates"
+    ],
+    "title": "justinekizhak/svelte-tailwind-template",
+    "url": "https://github.com/justinekizhak/svelte-tailwind-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Ever wanted to have reactive css variables in Svelte? What if I tell you there's a way?",
+    "image": "",
+    "npm": "svelte-css-vars",
+    "stars": 119,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-css-vars",
+    "url": "https://github.com/kaisermann/svelte-css-vars"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Internationalization library for Svelte",
+    "image": "",
+    "npm": "svelte-i18n",
+    "stars": 342,
+    "tags": [
+      "components and libraries",
+      "internationalization"
+    ],
+    "title": "svelte-i18n",
+    "url": "https://github.com/kaisermann/svelte-i18n"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Dynamically load a Svelte component",
+    "image": "",
+    "npm": "svelte-loadable",
+    "stars": 185,
+    "tags": [
+      "components and libraries",
+      "async loading"
+    ],
+    "title": "svelte-loadable",
+    "url": "https://github.com/kaisermann/svelte-loadable"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "A Svelte preprocessor with baked in support for common preprocessors",
+    "image": "",
+    "npm": "svelte-preprocess",
+    "stars": 808,
+    "tags": [
+      "integrations",
+      "preprocessors"
+    ],
+    "title": "svelte-preprocess",
+    "url": "https://github.com/kaisermann/svelte-preprocess"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "A simple router for Svelte 3",
+    "image": "",
+    "npm": "svero",
+    "stars": 214,
+    "tags": [
+      "routers"
+    ],
+    "title": "svero",
+    "url": "https://github.com/kazzkiq/svero"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "Simple and flexible notifications system",
+    "image": "",
+    "npm": "svelte-notifications",
+    "stars": 163,
+    "tags": [
+      "components and libraries",
+      "notifications"
+    ],
+    "title": "svelte-notifications",
+    "url": "https://github.com/keenethics/svelte-notifications"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "CLI tool for svelte to help you be productive",
+    "image": "",
+    "npm": "baelte",
+    "stars": 84,
+    "tags": [
+      "integrations",
+      "cli tools"
+    ],
+    "title": "baelte",
+    "url": "https://github.com/kennethlarsen/baelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Testing",
+    "description": "Component that renders its children with lifecycle hooks to simplify testing",
+    "image": "",
+    "npm": "svelte-fragment-component",
+    "stars": 0,
+    "tags": [
+      "components and libraries",
+      "testing",
+      "jsx"
+    ],
+    "title": "svelte-fragment-component",
+    "url": "https://github.com/kenoxa/svelte-fragment-component"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Testing",
+    "description": "Tagged Template syntax for svelte to simplify testing",
+    "image": "",
+    "npm": "svelte-htm",
+    "stars": 2,
+    "tags": [
+      "components and libraries",
+      "testing",
+      "jsx"
+    ],
+    "title": "svelte-htm",
+    "url": "https://github.com/kenoxa/svelte-htm"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Testing",
+    "description": "JSX for svelte to simplify testing",
+    "image": "",
+    "npm": "svelte-jsx",
+    "stars": 4,
+    "tags": [
+      "components and libraries",
+      "testing",
+      "jsx"
+    ],
+    "title": "svelte-jsx",
+    "url": "https://github.com/kenoxa/svelte-jsx"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "A custom component that adds a favicon and a badge that you can use to show for example number of unread messages.",
+    "image": "",
+    "npm": "svelte-favicon-badge",
+    "stars": 59,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-favicon-badge",
+    "url": "https://github.com/kevmodrome/svelte-favicon-badge"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "A preprocessor for Svelte that can be used to fetch data before components are compiled.",
+    "image": "",
+    "npm": "svelte-preprocessor-fetch",
+    "stars": 42,
+    "tags": [
+      "integrations",
+      "preprocessors"
+    ],
+    "title": "svelte-preprocessor-fetch",
+    "url": "https://github.com/kevmodrome/svelte-preprocessor-fetch"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Redux binding to Svelte based on react-redux",
+    "image": "",
+    "npm": "svelte-redux-connect",
+    "stars": 9,
+    "tags": [
+      "components and libraries",
+      "stores and state"
+    ],
+    "title": "svelte-redux-connect",
+    "url": "https://github.com/kolodziejczak-sz/svelte-redux-connect"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Testing",
+    "description": "Jest Svelte component transformer",
+    "image": "",
+    "npm": "svelte-jest",
+    "stars": 35,
+    "tags": [
+      "testing"
+    ],
+    "title": "svelte-jest",
+    "url": "https://github.com/ktsn/svelte-jest"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Emacs major mode for Svelte",
+    "image": "",
+    "stars": 17,
+    "tags": [
+      "integrations",
+      "editor tools"
+    ],
+    "title": "svelte-mode",
+    "url": "https://github.com/leafOfTree/svelte-mode"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Vim syntax and indent plugin for .svelte files",
+    "image": "",
+    "stars": 31,
+    "tags": [
+      "integrations",
+      "editor tools"
+    ],
+    "title": "vim-svelte-plugin",
+    "url": "https://github.com/leafOfTree/vim-svelte-plugin"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Data Visualisation",
+    "description": "Baidu Echarts(v3.0 & v4.0) components for Svelte wrapper",
+    "image": "",
+    "npm": "echarts-for-svelte",
+    "stars": 14,
+    "tags": [
+      "components and libraries",
+      "charts"
+    ],
+    "title": "echarts-for-svelte",
+    "url": "https://github.com/liyuanqiu/echarts-for-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Integration",
+    "description": "Lottie player component for use with Svelte for viewing Lottie animations.",
+    "image": "",
+    "npm": "@lottiefiles/svelte-lottie-player",
+    "stars": 25,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "@lottiefiles/svelte-lottie-player",
+    "url": "https://github.com/LottieFiles/svelte-lottie-player"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Template for building phonegap hybrid applications with Svelte",
+    "image": "",
+    "stars": 8,
+    "tags": [
+      "templates",
+      "mobile"
+    ],
+    "title": "lpshanley/svelte-phonegap",
+    "url": "https://github.com/lpshanley/svelte-phonegap"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "LESS preprocessor",
+    "image": "",
+    "npm": "svelte-preprocess-less",
+    "stars": 7,
+    "tags": [
+      "integrations",
+      "preprocessors"
+    ],
+    "title": "svelte-preprocess-less",
+    "url": "https://github.com/ls-age/svelte-preprocess-less"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "SASS/SCSS preprocessor",
+    "image": "",
+    "npm": "svelte-preprocess-sass",
+    "stars": 73,
+    "tags": [
+      "integrations",
+      "preprocessors"
+    ],
+    "title": "svelte-preprocess-sass",
+    "url": "https://github.com/ls-age/svelte-preprocess-sass"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Universal PWA Builder (WIP)",
+    "image": "",
+    "npm": "@pwa/cli",
+    "stars": 2960,
+    "tags": [
+      "integrations",
+      "cli tools"
+    ],
+    "title": "@pwa/cli",
+    "url": "https://github.com/lukeed/pwa"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Minimal setup for building svelte as a web component module",
+    "image": "",
+    "stars": 1,
+    "tags": [
+      "templates"
+    ],
+    "title": "LunaTK/svelte-web-component-builder",
+    "url": "https://github.com/LunaTK/svelte-web-component-builder"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Easy router for Svelte framework",
+    "image": "",
+    "npm": "svelte-easyroute",
+    "stars": 62,
+    "tags": [
+      "routers"
+    ],
+    "title": "svelte-easyroute",
+    "url": "https://github.com/lyohaplotinka/svelte-easyroute"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "A Svelte component that monitors an element enters or leaves the viewport.🔥",
+    "image": "",
+    "npm": "svelte-inview",
+    "stars": 11,
+    "tags": [
+      "components and libraries",
+      "async loading",
+      "intersection observer",
+      "viewport"
+    ],
+    "title": "svelte-inview",
+    "url": "https://github.com/maciekgrzybek/svelte-inview"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Tailwindcss v1 + Svelte v3 = <3",
+    "image": "",
+    "stars": 95,
+    "tags": [
+      "templates"
+    ],
+    "title": "marcograhl/tailwindcss-svelte-starter",
+    "url": "https://github.com/marcograhl/tailwindcss-svelte-starter"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Svelte template with webpack, babel, eslint and scss. Using browserslist with corejs for legacy browser support",
+    "image": "",
+    "stars": 1,
+    "tags": [
+      "templates"
+    ],
+    "title": "svelte-webpack-babel-scss",
+    "url": "https://github.com/markoboy/svelte-webpack-babel-scss"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "Material design components for Svelte using Tailwind CSS",
+    "image": "",
+    "npm": "smelte",
+    "stars": 649,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "smelte",
+    "url": "https://github.com/matyunya/smelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Image processing with Sharp for Svelte",
+    "image": "",
+    "npm": "svelte-image",
+    "stars": 303,
+    "tags": [
+      "components and libraries",
+      "images"
+    ],
+    "title": "svelte-image",
+    "url": "https://github.com/matyunya/svelte-image"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Lazyload images or anything component for Svelte",
+    "image": "",
+    "npm": "svelte-waypoint",
+    "stars": 56,
+    "tags": [
+      "components and libraries",
+      "images"
+    ],
+    "title": "svelte-waypoint",
+    "url": "https://github.com/matyunya/svelte-waypoint"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "Form components using Yup for validation",
+    "image": "",
+    "npm": "sveltejs-forms",
+    "stars": 126,
+    "tags": [
+      "components and libraries",
+      "forms and validation"
+    ],
+    "title": "sveltejs-forms",
+    "url": "https://github.com/mdauner/sveltejs-forms"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Simple, declarative routing for single page apps built with Svelte",
+    "image": "",
+    "npm": "svelte-navigator",
+    "stars": 36,
+    "tags": [
+      "routers"
+    ],
+    "title": "svelte-navigator",
+    "url": "https://github.com/mefechoel/svelte-navigator"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Build cybernetically enhanced web apps with Meteor and Svelte",
+    "image": "",
+    "stars": 92,
+    "tags": [
+      "components and libraries",
+      "stores and state"
+    ],
+    "title": "Svelte for Meteor",
+    "url": "https://github.com/meteor-svelte/meteor-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Data Visualisation",
+    "description": "a framework for mostly-reusable graphics with Svelte",
+    "image": "",
+    "npm": "layercake",
+    "stars": 256,
+    "tags": [
+      "components and libraries",
+      "charts"
+    ],
+    "title": "layercake",
+    "url": "https://github.com/mhkeller/layercake"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "A Javascript REPL (code editor and code results) component",
+    "image": "",
+    "stars": 7,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "Browser REPL JS",
+    "url": "https://github.com/milafrerichs/browser-repl-js"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "resizable layout component for svelte",
+    "image": "",
+    "stars": 0,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-layout-resizable",
+    "url": "https://github.com/milahu/svelte-layout-resizable"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "compile time eval for svelte components",
+    "image": "",
+    "stars": 0,
+    "tags": [
+      "preprocessors",
+      "ssr"
+    ],
+    "title": "svelte-preval",
+    "url": "https://github.com/milahu/svelte-preval"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Svelte + Tailwind = ❤",
+    "image": "",
+    "stars": 82,
+    "tags": [
+      "templates"
+    ],
+    "title": "muhajirdev/svelte-tailwind-template",
+    "url": "https://github.com/muhajirdev/svelte-tailwind-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Boilerplate code with Typescript and Sass bundled by Webpack",
+    "image": "",
+    "stars": 12,
+    "tags": [
+      "templates"
+    ],
+    "title": "n0th1ng-else/svelte-typescript-sass",
+    "url": "https://github.com/n0th1ng-else/svelte-typescript-sass"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Arrange infinite card elements according to various layout types like masonry",
+    "image": "",
+    "npm": "@egjs/svelte-infinitegrid",
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "@egjs/svelte-infinitegrid",
+    "url": "https://github.com/naver/egjs-infinitegrid/blob/master/packages/svelte-infinitegrid"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Modern build process with Svelte, WebPack, PurgeCSS, code splitting, lazy loading...etc",
+    "image": "",
+    "stars": 0,
+    "tags": [
+      "templates",
+      "testing",
+      "typescript",
+      "code splitting",
+      "lazy loading",
+      "webpack",
+      "preprocessors"
+    ],
+    "title": "NazimAli2017/svelte-template",
+    "url": "https://github.com/NazimAli2017/svelte-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Offline-Capable todo list built with Svelte, PouchDB and CouchDB",
+    "image": "",
+    "stars": 32,
+    "tags": [
+      "templates"
+    ],
+    "title": "neighbourhoodie/svelte-pouchdb-couchdb",
+    "url": "https://github.com/neighbourhoodie/svelte-pouchdb-couchdb"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Starter Rollup template for Sapper apps with Firebase functions",
+    "image": "",
+    "stars": 13,
+    "tags": [
+      "ssr",
+      "templates"
+    ],
+    "title": "Sapper - Firebase functions",
+    "url": "https://github.com/nhristov/sapper-template-firebase"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Starter Rollup template for Sapper apps using postcss, purgecss, cssnano, tailwindcss and svelte-preprocess",
+    "image": "",
+    "stars": 17,
+    "tags": [
+      "templates"
+    ],
+    "title": "Sapper - PostCSS, Tailwind CSS, PurgeCSS, cssnano",
+    "url": "https://github.com/nhristov/sapper-template-rollup"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Template with Typescript, Sass, Storybook, Webpack",
+    "image": "",
+    "stars": 13,
+    "tags": [
+      "templates"
+    ],
+    "title": "nitro52/svelte-typescript-sass-template",
+    "url": "https://github.com/nitro52/svelte-typescript-sass-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "Svelte Component that tracks a users progress through a page as they scroll",
+    "image": "",
+    "npm": "svelte-page-progress",
+    "stars": 4,
+    "tags": [
+      "intersection observer",
+      "viewport",
+      "components and libraries"
+    ],
+    "title": "svelte-page-progress",
+    "url": "https://github.com/NomanGul/svelte-page-progress"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Starter to built Electron apps with Svelte and Better SQLite3",
+    "image": "",
+    "stars": 5,
+    "tags": [
+      "templates",
+      "electron",
+      "database"
+    ],
+    "title": "nye/svelte-electron-better-sqlite3-starter",
+    "url": "https://github.com/nye/svelte-electron-better-sqlite3-starter"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "A multiseries, SVG progressbar component made with Svelte",
+    "image": "",
+    "npm": "@okrad/svelte-progressbar",
+    "stars": 37,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "@okrad/svelte-progressbar",
+    "url": "https://github.com/okrad/svelte-progressbar"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Svelte webpack template with routing and lazy-loading",
+    "image": "",
+    "stars": 14,
+    "tags": [
+      "templates"
+    ],
+    "title": "OrdinaryJellyfish/svelte-routing-template",
+    "url": "https://github.com/OrdinaryJellyfish/svelte-routing-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Svelte application boilerplate with Webpack, Sass, BabelJS, Fetch, PostCSS, Jest, and .Env",
+    "image": "",
+    "stars": 188,
+    "tags": [
+      "templates"
+    ],
+    "title": "pankod/svelte-boilerplate",
+    "url": "https://github.com/pankod/svelte-boilerplate"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Internationalize your Svelte apps using format-message and Intl object",
+    "image": "",
+    "npm": "svelte-intl",
+    "stars": 30,
+    "tags": [
+      "components and libraries",
+      "internationalization"
+    ],
+    "title": "svelte-intl",
+    "url": "https://github.com/Panya/svelte-intl"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "Style it your way UI components with dynamic Form Builder.",
+    "image": "",
+    "stars": 9,
+    "tags": [
+      "components and libraries",
+      "templates",
+      "inputs and widgets",
+      "forms and validation",
+      "component sets",
+      "layout and structure",
+      "templates"
+    ],
+    "title": "svelta",
+    "url": "https://github.com/Parables/svelta"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Wrapper for FetchQL, a GraphQL query client",
+    "image": "",
+    "npm": "svql",
+    "stars": 35,
+    "tags": [
+      "components and libraries",
+      "stores and state"
+    ],
+    "title": "svql",
+    "url": "https://github.com/pateketrueke/svql"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Basic router with queryParams and hash-based routing support",
+    "image": "",
+    "npm": "yrv",
+    "stars": 101,
+    "tags": [
+      "routers"
+    ],
+    "title": "yrv",
+    "url": "https://github.com/pateketrueke/yrv"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "A base for building Svelte component library",
+    "image": "",
+    "stars": 44,
+    "tags": [
+      "templates"
+    ],
+    "title": "patoi/svelte-component-library-template",
+    "url": "https://github.com/patoi/svelte-component-library-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Stores",
+    "description": "Asyncable store for Svelte 3 which is store a value as promise.",
+    "image": "",
+    "npm": "svelte-asyncable",
+    "stars": 26,
+    "tags": [
+      "stores and state",
+      "async data"
+    ],
+    "title": "svelte-asyncable",
+    "url": "https://github.com/PaulMaly/svelte-asyncable"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "SVG placeholder components for loading content",
+    "image": "",
+    "npm": "svelte-content-loader",
+    "stars": 82,
+    "tags": [
+      "components and libraries",
+      "async loading"
+    ],
+    "title": "svelte-content-loader",
+    "url": "https://github.com/PaulMaly/svelte-content-loader"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Simple Svelte component to compare two images using slider.",
+    "image": "",
+    "npm": "svelte-image-compare",
+    "stars": 10,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-image-compare",
+    "url": "https://github.com/PaulMaly/svelte-image-compare"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "IMask input component and action for Svelte 3.",
+    "image": "",
+    "npm": "svelte-imask",
+    "stars": 43,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "svelte-imask",
+    "url": "https://github.com/PaulMaly/svelte-imask"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Simple config-based router with DX similar to VueRouter. Works well on the server-side",
+    "image": "",
+    "npm": "svelte-page-router",
+    "stars": 17,
+    "tags": [
+      "routers"
+    ],
+    "title": "svelte-page-router",
+    "url": "https://github.com/PaulMaly/svelte-page-router"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "State-based router for Svelte 3.",
+    "image": "",
+    "npm": "svelte-pathfinder",
+    "stars": 30,
+    "tags": [
+      "routers",
+      "stores and state"
+    ],
+    "title": "svelte-pathfinder",
+    "url": "https://github.com/PaulMaly/svelte-pathfinder"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Simple Svelte component which automatically makes its contents scrollable ticker-style if it's necessary.",
+    "image": "",
+    "npm": "svelte-ticker",
+    "stars": 4,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-ticker",
+    "url": "https://github.com/PaulMaly/svelte-ticker"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Typescript preprocessor for Svelte 3",
+    "image": "",
+    "npm": "svelte-ts-preprocess",
+    "stars": 103,
+    "tags": [
+      "integrations",
+      "preprocessors"
+    ],
+    "title": "svelte-ts-preprocess",
+    "url": "https://github.com/PaulMaly/svelte-ts-preprocess"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Dynamically load a Svelte component with placeholders and preloading",
+    "image": "",
+    "npm": "svelte-viewpoint",
+    "stars": 14,
+    "tags": [
+      "components and libraries",
+      "async loading"
+    ],
+    "title": "svelte-viewpoint",
+    "url": "https://github.com/PaulMaly/svelte-viewpoint"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "A replacement for the select menu with searching, multiple selections, async data loading etc.,",
+    "image": "",
+    "npm": "select-madu",
+    "stars": 7,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "select-madu",
+    "url": "https://github.com/pavish/select-madu"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Svelte 3 starter with POI 12 and Prettier. Outputs web apps or web components",
+    "image": "",
+    "stars": 10,
+    "tags": [
+      "templates"
+    ],
+    "title": "pbastowski/svelte-poi-starter",
+    "url": "https://github.com/pbastowski/svelte-poi-starter"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "a matchMedia plugin for Svelte 3",
+    "image": "",
+    "npm": "svelte-match-media",
+    "stars": 26,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-match-media",
+    "url": "https://github.com/pearofducks/svelte-match-media"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Stores",
+    "description": "Writable stores for Firefox/Chrome extensions using `chrome.storage",
+    "image": "",
+    "npm": "svelte-webext-storage-adapter",
+    "stars": 8,
+    "tags": [
+      "components and libraries",
+      "stores and state",
+      "integrations"
+    ],
+    "title": "svelte-webext-storage-adapter",
+    "url": "https://github.com/PixievoltNo1/svelte-webext-storage-adapter"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Stores",
+    "description": "Two-way data-transforming stores",
+    "image": "",
+    "npm": "svelte-writable-derived",
+    "stars": 25,
+    "tags": [
+      "components and libraries",
+      "stores and state"
+    ],
+    "title": "svelte-writable-derived",
+    "url": "https://github.com/PixievoltNo1/svelte-writable-derived"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Stores",
+    "description": "A writable store with extra features",
+    "image": "",
+    "npm": "storez",
+    "stars": 11,
+    "tags": [
+      "components and libraries",
+      "stores and state"
+    ],
+    "title": "storez",
+    "url": "https://github.com/plrenaudin/svelte-storez"
+  },
+  {
+    "addedOn": "2021-01-15T22:22:22Z",
+    "category": "Stores",
+    "description": "Template for client side svelte store",
+    "image": "https://raw.githubusercontent.com/gitbreaker222/SvelteStore/master/docs/Svelte%20Store%20Logo.png",
+    "tags": [
+      "components and libraries",
+      "stores and state"
+    ],
+    "title": "SvelteStore",
+    "url": "https://github.com/gitbreaker222/SvelteStore"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "A markdown preprocessor for Svelte",
+    "image": "",
+    "npm": "mdsvex",
+    "stars": 493,
+    "tags": [
+      "integrations",
+      "preprocessors"
+    ],
+    "title": "mdsvex",
+    "url": "https://github.com/pngwn/MDsveX"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Integration",
+    "description": "Use Svelte components with Vue and React",
+    "image": "",
+    "npm": "svelte-adapter",
+    "stars": 163,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-adapter",
+    "url": "https://github.com/pngwn/svelte-adapter"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Testing",
+    "description": "Testing utilities for Svelte",
+    "image": "",
+    "npm": "svelte-test",
+    "stars": 24,
+    "tags": [
+      "testing"
+    ],
+    "title": "svelte-test",
+    "url": "https://github.com/pngwn/svelte-test"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Data Visualisation",
+    "description": "Svelte component for FusionCharts JavaScript charting library",
+    "image": "",
+    "npm": "svelte-fusioncharts",
+    "stars": 69,
+    "tags": [
+      "components and libraries",
+      "charts"
+    ],
+    "title": "svelte-fusioncharts",
+    "url": "https://github.com/priyanjitdey94/svelte-fusioncharts"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Svelte + Snowpack, TypeScript, SCSS, Jest with tight VSCode debugging",
+    "image": "",
+    "stars": 4,
+    "tags": [
+      "editor tools",
+      "templates",
+      "snowpack"
+    ],
+    "title": "svelte-ts-snowpack-vscode",
+    "url": "https://github.com/processtract/svelte-ts-snowpack-vscode"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Creates a new Svelte component from higlighted text",
+    "image": "",
+    "stars": 20,
+    "tags": [
+      "integrations",
+      "editor tools"
+    ],
+    "title": "vscode-svelte-component-extractor",
+    "url": "https://github.com/proverbial-ninja/vscode-svelte-component-extractor"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "Simple autocomplete / typeahead component for Svelte",
+    "image": "",
+    "stars": 51,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "Simple Svelte Autocomplete",
+    "url": "https://github.com/pstanoev/simple-svelte-autocomplete"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Simple Svelte 3 hash based router with global routes",
+    "image": "",
+    "npm": "svelte-hash-router",
+    "stars": 21,
+    "tags": [
+      "routers"
+    ],
+    "title": "svelte-hash-router",
+    "url": "https://github.com/pynnl/svelte-hash-router"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Typescript monorepo for Svelte v3 (preprocess, template, types)",
+    "image": "",
+    "stars": 211,
+    "tags": [
+      "templates"
+    ],
+    "title": "pyoner/svelte-typescript",
+    "url": "https://github.com/pyoner/svelte-typescript"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Typescript monorepo for Svelte v3 (preprocess, template, types)",
+    "image": "",
+    "npm": "@pyoner/svelte-ts-preprocess",
+    "stars": 211,
+    "tags": [
+      "integrations",
+      "preprocessors"
+    ],
+    "title": "@pyoner/svelte-ts-preprocess",
+    "url": "https://github.com/pyoner/svelte-typescript"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "A color picker component for Svelte",
+    "image": "",
+    "npm": "svelte-color-picker",
+    "stars": 50,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "svelte-color-picker",
+    "url": "https://github.com/qintarp/svelte-color-picker"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Development helper for inspecting and opening Svelte components in your editor",
+    "image": "",
+    "npm": "svelte-inspector",
+    "stars": 54,
+    "tags": [
+      "components and libraries",
+      "development and documentation"
+    ],
+    "title": "svelte-inspector",
+    "url": "https://github.com/qutran/svelte-inspector"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Ultimate Svelte router",
+    "image": "",
+    "npm": "swheel",
+    "stars": 43,
+    "tags": [
+      "routers"
+    ],
+    "title": "swheel",
+    "url": "https://github.com/qutran/swheel"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Chrome/Firefox extension that allows inspection of Svelte components and state",
+    "image": "",
+    "stars": 395,
+    "tags": [
+      "components and libraries",
+      "development and documentation"
+    ],
+    "title": "Svelte DevTools",
+    "url": "https://github.com/RedHatter/svelte-devtools"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "An accessible dialog component for Svelte apps",
+    "image": "",
+    "npm": "svelte-accessible-dialog",
+    "stars": 8,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-accessible-dialog",
+    "url": "https://github.com/reecelucas/svelte-accessible-dialog"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Svelte App with Firebase Authentication for all purposes",
+    "image": "",
+    "stars": 35,
+    "tags": [
+      "templates"
+    ],
+    "title": "ricalamino/svelte-firebase-auth",
+    "url": "https://github.com/ricalamino/svelte-firebase-auth"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Data Visualisation",
+    "description": "Experimental charting library for Svelte",
+    "image": "",
+    "npm": "@sveltejs/pancake",
+    "stars": 531,
+    "tags": [
+      "components and libraries",
+      "charts"
+    ],
+    "title": "@sveltejs/pancake",
+    "url": "https://github.com/Rich-Harris/pancake"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "A template for building Electron apps with Svelte (**VERSION 2**)",
+    "image": "",
+    "stars": 72,
+    "tags": [
+      "templates",
+      "electron"
+    ],
+    "title": "Rich-Harris/svelte-template-electron",
+    "url": "https://github.com/Rich-Harris/svelte-template-electron"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Clone of official Svelte template with added HMR support using Nollup",
+    "image": "",
+    "stars": 45,
+    "tags": [
+      "templates"
+    ],
+    "title": "rixo/svelte-template-hot",
+    "url": "https://github.com/rixo/svelte-template-hot"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "A select component for Svelte apps",
+    "image": "",
+    "npm": "svelte-select",
+    "stars": 305,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "svelte-select",
+    "url": "https://github.com/rob-balfre/svelte-select"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Awesome SVG icon component for Svelte JS, built with Font Awesome icons",
+    "image": "",
+    "npm": "svelte-awesome",
+    "stars": 156,
+    "tags": [
+      "components and libraries",
+      "fonts and icons"
+    ],
+    "title": "svelte-awesome",
+    "url": "https://github.com/RobBrazier/svelte-awesome"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Compile Svelte components with Rollup",
+    "image": "",
+    "npm": "rollup-plugin-svelte",
+    "stars": 282,
+    "tags": [
+      "integrations",
+      "bundler plugins"
+    ],
+    "title": "rollup-plugin-svelte",
+    "url": "https://github.com/rollup/rollup-plugin-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Testing",
+    "description": "Jest Transformer for Svelte components",
+    "image": "",
+    "npm": "jest-transform-svelte",
+    "stars": 33,
+    "tags": [
+      "testing"
+    ],
+    "title": "jest-transform-svelte",
+    "url": "https://github.com/rspieker/jest-transform-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "An `<ImgEncoder>` component for editing and compressing profile pictures",
+    "image": "",
+    "npm": "svelte-image-encoder",
+    "stars": 25,
+    "tags": [
+      "components and libraries",
+      "images"
+    ],
+    "title": "svelte-image-encoder",
+    "url": "https://github.com/saabi/svelte-image-encoder"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Yeoman generator generating a boilerplate Svelte.js app with all of svelte-preprocess' options",
+    "image": "",
+    "npm": "generator-svelte",
+    "stars": 15,
+    "tags": [
+      "templates",
+      "preprocessors"
+    ],
+    "title": "generator-svelte",
+    "url": "https://github.com/Samuel-Martineau/generator-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "A dependency free multiple item JavaScript carousel",
+    "image": "",
+    "npm": "multicarousel",
+    "stars": 31,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "multicarousel",
+    "url": "https://github.com/sciactive/multicarousel"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Data Visualisation",
+    "description": "Customizable version of GitHub's contribution graph",
+    "image": "",
+    "npm": "svelte-heatmap",
+    "stars": 49,
+    "tags": [
+      "components and libraries",
+      "time and date"
+    ],
+    "title": "svelte-heatmap",
+    "url": "https://github.com/scottbedard/svelte-heatmap"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "A carousel with touch support",
+    "image": "",
+    "npm": "svelte-swipe",
+    "stars": 110,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-swipe",
+    "url": "https://github.com/SharifClick/svelte-swipe"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Manage your views and routing using class decorators and dependency injection",
+    "image": "",
+    "npm": "@slick-for/svelte",
+    "stars": 24,
+    "tags": [
+      "routers"
+    ],
+    "title": "@slick-for/svelte",
+    "url": "https://github.com/shavyg2/slick-for-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "A boilerplate with Material, Babel, PostCSS, and Webpack",
+    "image": "",
+    "stars": 96,
+    "tags": [
+      "templates"
+    ],
+    "title": "Shyam-Chen/svelte-play",
+    "url": "https://github.com/Shyam-Chen/Svelte-Play"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Marquee fully responsive and adaptive for Svelte",
+    "image": "",
+    "npm": "svelte-marquee",
+    "stars": 1,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-marquee",
+    "url": "https://github.com/silvestrevivo/svelte-marquee"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "Range Slider Input, with Multi-handle and Pips features",
+    "image": "",
+    "npm": "svelte-range-slider-pips",
+    "stars": 5,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets",
+      "forms and validation",
+      "interactions"
+    ],
+    "title": "svelte-range-slider-pips",
+    "url": "https://github.com/simeydotme/svelte-range-slider-pips"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "An infinite scroll component for Svelte apps",
+    "image": "",
+    "npm": "svelte-infinite-loading",
+    "stars": 27,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-infinite-loading",
+    "url": "https://github.com/Skayo/svelte-infinite-loading"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "A Svelte template for browserify",
+    "image": "",
+    "stars": 3,
+    "tags": [
+      "templates"
+    ],
+    "title": "soapdog/svelte-template-browserify",
+    "url": "https://github.com/soapdog/svelte-template-browserify"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Integration",
+    "description": "A minimal and lightweight wrapper for the Web Monetization API",
+    "image": "",
+    "npm": "svelte-monetization",
+    "stars": 12,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-monetization",
+    "url": "https://github.com/sorxrob/svelte-monetization"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "Simple Svelte form model handler and input validations",
+    "image": "",
+    "npm": "@spaceavocado/svelte-form",
+    "stars": 26,
+    "tags": [
+      "components and libraries",
+      "forms and validation"
+    ],
+    "title": "@spaceavocado/svelte-form",
+    "url": "https://github.com/spaceavocado/svelte-form"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Simple Svelte Router for Single Page Applications (SPA)",
+    "image": "",
+    "npm": "@spaceavocado/svelte-router",
+    "stars": 40,
+    "tags": [
+      "routers"
+    ],
+    "title": "@spaceavocado/svelte-router",
+    "url": "https://github.com/spaceavocado/svelte-router"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Boilerplate template project for SPA router spaceavocado/svelte-router",
+    "image": "",
+    "stars": 6,
+    "tags": [
+      "templates"
+    ],
+    "title": "spaceavocado/svelte-router-template",
+    "url": "https://github.com/spaceavocado/svelte-router-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Component to easily generate multitone images",
+    "image": "",
+    "npm": "svelte-multitoneimage",
+    "stars": 5,
+    "tags": [
+      "components and libraries",
+      "images"
+    ],
+    "title": "svelte-multitoneimage",
+    "url": "https://github.com/stephane-vanraes/svelte-multitoneimage"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Flexible circular progress bar component",
+    "image": "",
+    "npm": "svelte-progresscircle",
+    "stars": 6,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-progresscircle",
+    "url": "https://github.com/stephane-vanraes/svelte-progresscircle"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Boilerplate with Webpack, Cypress, Travis CI, Storybook, and SASS",
+    "image": "",
+    "stars": 15,
+    "tags": [
+      "templates"
+    ],
+    "title": "stephanepericat/svelte-boilerplate",
+    "url": "https://github.com/stephanepericat/svelte-boilerplate"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Template with VSCode, Prettier, ESLint, Cypress, and Rollup",
+    "image": "",
+    "stars": 3,
+    "tags": [
+      "templates"
+    ],
+    "title": "SteveALee/svelte-code-cypress-project",
+    "url": "https://github.com/SteveALee/svelte-code-cypress-project"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Testing",
+    "description": "UI component dev & test",
+    "image": "",
+    "stars": 53730,
+    "tags": [
+      "testing"
+    ],
+    "title": "storybookjs",
+    "url": "https://github.com/storybookjs/storybook"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "A UI component library for Svelte implementing Google's Material Design specification",
+    "image": "",
+    "npm": "svelte-toolbox",
+    "stars": 68,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "svelte-toolbox",
+    "url": "https://github.com/svelte-toolbox/svelte-toolbox"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "Automated Svelte routes",
+    "image": "",
+    "npm": "routify",
+    "stars": 823,
+    "tags": [
+      "routers",
+      "ssr"
+    ],
+    "title": "routify",
+    "url": "https://github.com/sveltech/routify"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "A base for building shareable Svelte components",
+    "image": "",
+    "stars": 303,
+    "tags": [
+      "templates"
+    ],
+    "title": "sveltejs/component-template",
+    "url": "https://github.com/sveltejs/component-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "Svelte actions for cross-platform gesture detection (work in progress)",
+    "image": "",
+    "npm": "@sveltejs/gestures",
+    "stars": 60,
+    "tags": [
+      "components and libraries",
+      "interactions"
+    ],
+    "title": "@sveltejs/gestures",
+    "url": "https://github.com/sveltejs/gestures"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "A (very experimental) project to bring WebGL to Svelte",
+    "image": "",
+    "npm": "@sveltejs/gl",
+    "stars": 399,
+    "tags": [
+      "webgl"
+    ],
+    "title": "@sveltejs/gl",
+    "url": "https://github.com/sveltejs/gl"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "A language server and VSCode extension for Svelte, useful for TypeScript support in templates",
+    "image": "",
+    "npm": "language-tools",
+    "stars": 419,
+    "tags": [
+      "integrations",
+      "editor tools"
+    ],
+    "title": "language-tools",
+    "url": "https://github.com/sveltejs/language-tools"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Starter template for Sapper apps",
+    "image": "",
+    "stars": 623,
+    "tags": [
+      "templates"
+    ],
+    "title": "sveltejs/sapper-template",
+    "url": "https://github.com/sveltejs/sapper-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Webpack loader for Svelte components",
+    "image": "",
+    "npm": "svelte-loader",
+    "stars": 387,
+    "tags": [
+      "integrations",
+      "bundler plugins"
+    ],
+    "title": "svelte-loader",
+    "url": "https://github.com/sveltejs/svelte-loader"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "The `<Repl>` component used on the Svelte website",
+    "image": "",
+    "npm": "@sveltejs/svelte-repl",
+    "stars": 169,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "@sveltejs/svelte-repl",
+    "url": "https://github.com/sveltejs/svelte-repl"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "A `<Scroller>` component for Svelte apps",
+    "image": "",
+    "npm": "@sveltejs/svelte-scroller",
+    "stars": 131,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "@sveltejs/svelte-scroller",
+    "url": "https://github.com/sveltejs/svelte-scroller"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "A component for building Blender-style layouts in Svelte apps (**VERSION 2**)",
+    "image": "",
+    "npm": "@sveltejs/svelte-subdivide",
+    "stars": 90,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "@sveltejs/svelte-subdivide",
+    "url": "https://github.com/sveltejs/svelte-subdivide"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design Pattern",
+    "description": "A virtual list component for Svelte apps",
+    "image": "",
+    "npm": "@sveltejs/svelte-virtual-list",
+    "stars": 312,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "@sveltejs/svelte-virtual-list",
+    "url": "https://github.com/sveltejs/svelte-virtual-list"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Template for building basic applications with Svelte with rollup",
+    "image": "",
+    "stars": 800,
+    "tags": [
+      "templates"
+    ],
+    "title": "sveltejs/template",
+    "url": "https://github.com/sveltejs/template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Template for building basic applications with Svelte and custom elements",
+    "image": "",
+    "stars": 17,
+    "tags": [
+      "templates"
+    ],
+    "title": "sveltejs/template-custom-element",
+    "url": "https://github.com/sveltejs/template-custom-element"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Template for building basic Svelte applications with webpack",
+    "image": "",
+    "stars": 205,
+    "tags": [
+      "templates"
+    ],
+    "title": "sveltejs/template-webpack",
+    "url": "https://github.com/sveltejs/template-webpack"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Starter template for Cordova featuring hot reload",
+    "image": "",
+    "stars": 15,
+    "tags": [
+      "templates",
+      "mobile"
+    ],
+    "title": "syonip/svelte-cordova",
+    "url": "https://github.com/syonip/svelte-cordova"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "PostCSS preprocessor",
+    "image": "",
+    "npm": "svelte-preprocess-postcss",
+    "stars": 26,
+    "tags": [
+      "integrations",
+      "preprocessors"
+    ],
+    "title": "svelte-preprocess-postcss",
+    "url": "https://github.com/TehShrike/svelte-preprocess-postcss"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Routers",
+    "description": "abstract-state-router renderer for Svelte",
+    "image": "",
+    "npm": "svelte-state-renderer",
+    "stars": 29,
+    "tags": [
+      "routers"
+    ],
+    "title": "svelte-state-renderer",
+    "url": "https://github.com/TehShrike/svelte-state-renderer"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Testing",
+    "description": "Simple and complete DOM testing utilities that encourage good practices",
+    "image": "",
+    "npm": "@testing-library/svelte",
+    "stars": 319,
+    "tags": [
+      "testing"
+    ],
+    "title": "@testing-library/svelte",
+    "url": "https://github.com/testing-library/svelte-testing-library"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "Svelte component for file upload and file dropzone.",
+    "image": "",
+    "npm": "svelte-file-dropzone",
+    "stars": 14,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "svelte-file-dropzone",
+    "url": "https://github.com/thecodejack/svelte-file-dropzone"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Integration",
+    "description": "Svelte integration for Apollo GraphQL",
+    "image": "",
+    "npm": "svelte-apollo",
+    "stars": 522,
+    "tags": [
+      "components and libraries",
+      "stores and state"
+    ],
+    "title": "svelte-apollo",
+    "url": "https://github.com/timhall/svelte-apollo"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Stores",
+    "description": "Use observables in Svelte components with ease",
+    "image": "",
+    "npm": "svelte-observable",
+    "stars": 40,
+    "tags": [
+      "components and libraries",
+      "stores and state"
+    ],
+    "title": "svelte-observable",
+    "url": "https://github.com/timhall/svelte-observable"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "Fomantic-UI components for Svelte 3",
+    "image": "",
+    "npm": "sveltemantic",
+    "stars": 40,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "sveltemantic",
+    "url": "https://github.com/titans-inc/sveltemantic"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "modular-css` preprocessor",
+    "image": "",
+    "npm": "@modular-css/svelte",
+    "stars": 0,
+    "tags": [
+      "integrations",
+      "preprocessors"
+    ],
+    "title": "@modular-css/svelte",
+    "url": "https://github.com/tivac/modular-css/tree/master/packages/svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "A lightweight library for managing forms in Svelte",
+    "image": "",
+    "npm": "svelte-forms-lib",
+    "stars": 160,
+    "tags": [
+      "components and libraries",
+      "forms and validation"
+    ],
+    "title": "svelte-forms-lib",
+    "url": "https://github.com/tjinauyeung/svelte-forms-lib"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Provides syntax highlighting of Svelte components in WebStorm and friends",
+    "image": "",
+    "stars": 288,
+    "tags": [
+      "integrations",
+      "editor tools"
+    ],
+    "title": "svelte-intellij",
+    "url": "https://github.com/tomblachut/svelte-intellij"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "A showcase app for all Ionic UI elements to create awesome mobile apps. Published as web app too.",
+    "image": "",
+    "stars": 113,
+    "tags": [
+      "components and libraries",
+      "component sets",
+      "templates",
+      "mobile"
+    ],
+    "title": "Ionic Svelte UI demo",
+    "url": "https://github.com/Tommertom/svelte-ionic-app"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Starter pack for Rollup, Typescript, and VSCode",
+    "image": "",
+    "stars": 6,
+    "tags": [
+      "templates"
+    ],
+    "title": "tonyrewin/svelte3-ts-boilerplate",
+    "url": "https://github.com/tonyrewin/svelte3-ts-boilerplate"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "console.log()-like interactive inspector for Svelte 3",
+    "image": "",
+    "npm": "svelte-inspect",
+    "stars": 33,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "svelte-inspect",
+    "url": "https://github.com/trbrc/svelte-inspect"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Developer Experience",
+    "description": "Format your Svelte components using Prettier",
+    "image": "",
+    "npm": "prettier-plugin-svelte",
+    "stars": 230,
+    "tags": [
+      "components and libraries",
+      "development and documentation"
+    ],
+    "title": "prettier-plugin-svelte",
+    "url": "https://github.com/UnwrittenFun/prettier-plugin-svelte"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "A responsive, draggable and resizable grid layout, for Svelte",
+    "image": "",
+    "npm": "svelte-grid",
+    "stars": 367,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-grid",
+    "url": "https://github.com/vaheqelyan/svelte-grid"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "User Interaction",
+    "description": "A smart popover component for Svelte",
+    "image": "",
+    "npm": "svelte-popover",
+    "stars": 38,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-popover",
+    "url": "https://github.com/vaheqelyan/svelte-popover"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "A Svelte component to crop images with easy interactions",
+    "image": "",
+    "npm": "svelte-easy-crop",
+    "stars": 64,
+    "tags": [
+      "components and libraries",
+      "images"
+    ],
+    "title": "svelte-easy-crop",
+    "url": "https://github.com/ValentinH/svelte-easy-crop"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "A set of Svelte UI components inspired by Google's Material Design",
+    "image": "",
+    "npm": "svelte-mui",
+    "stars": 193,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "svelte-mui",
+    "url": "https://github.com/vikignt/svelte-mui"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Focused on making embedding and using media elements for the web simple.",
+    "image": "",
+    "stars": 917,
+    "tags": [
+      "video",
+      "audio",
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "Vime",
+    "url": "https://github.com/vime-js/vime"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "🔌 Simple Svelte component to detect offline & online changes.",
+    "image": "",
+    "npm": "s-offline",
+    "stars": 14,
+    "tags": [
+      "offline and online detection",
+      "network events"
+    ],
+    "title": "s-offline",
+    "url": "https://github.com/vinayakkulkarni/s-offline"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "A fast, friendly, and fun web UI kit for everyone",
+    "image": "",
+    "npm": "minna-ui",
+    "stars": 84,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "minna-ui",
+    "url": "https://github.com/WeAreGenki/minna-ui"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Template with TypeScript, Babel, Jest, Svelte-Testing-Library, Eslint, and Prettier",
+    "image": "",
+    "stars": 4,
+    "tags": [
+      "templates"
+    ],
+    "title": "will-wow/svelte-typescript-template",
+    "url": "https://github.com/will-wow/svelte-typescript-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "CSS media queries in Svelte",
+    "image": "",
+    "npm": "svelte-media-query",
+    "stars": 27,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-media-query",
+    "url": "https://github.com/xelaok/svelte-media-query"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design Pattern",
+    "description": "Reactive MVVM with MobX & Svelte",
+    "image": "",
+    "npm": "svelte-mobx",
+    "stars": 25,
+    "tags": [
+      "components and libraries",
+      "stores and state"
+    ],
+    "title": "svelte-mobx",
+    "url": "https://github.com/xelaok/svelte-mobx"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Watch element resize in Svelte",
+    "image": "",
+    "npm": "svelte-watch-resize",
+    "stars": 13,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-watch-resize",
+    "url": "https://github.com/xelaok/svelte-watch-resize"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "Input masking component for Svelte (credit cards, phones, dates, numbers, etc.)",
+    "image": "",
+    "npm": "svelte-input-mask",
+    "stars": 42,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets"
+    ],
+    "title": "svelte-input-mask",
+    "url": "https://github.com/xnimorz/svelte-input-mask"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "Easily customizable library for validation scenarios in svelte components.",
+    "image": "",
+    "npm": "svelidation",
+    "stars": 30,
+    "tags": [
+      "components and libraries",
+      "forms and validation"
+    ],
+    "title": "svelidation",
+    "url": "https://github.com/yazonnile/svelidation"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "A base for building shareable Svelte 3 components",
+    "image": "",
+    "stars": 161,
+    "tags": [
+      "templates"
+    ],
+    "title": "YogliB/svelte-component-template",
+    "url": "https://github.com/YogliB/svelte-component-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "A base for building shareable Svelte 3 components.",
+    "image": "",
+    "stars": 161,
+    "tags": [
+      "templates"
+    ],
+    "title": "svelte-component-template",
+    "url": "https://github.com/YogliB/svelte-component-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Forms & User Input",
+    "description": "A Svelte component wrapper around FullCalendar.",
+    "image": "",
+    "npm": "svelte-fullcalendar",
+    "stars": 35,
+    "tags": [
+      "components and libraries",
+      "time and date"
+    ],
+    "title": "svelte-fullcalendar",
+    "url": "https://github.com/YogliB/svelte-fullcalendar"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Boilerplate",
+    "description": "Skip setup and start code with SENT (Sapper.js, Express.js, Node.js, Typescript) and other tools template",
+    "image": "",
+    "stars": 55,
+    "tags": [
+      "templates"
+    ],
+    "title": "Zimtir/SENT-template",
+    "url": "https://github.com/Zimtir/SENT-template"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "Svelte item list with pagination",
+    "image": "",
+    "npm": "svelte-item-list",
+    "stars": 1,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "svelte-item-list",
+    "url": "https://github.com/Zimtir/svelte-item-list"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "Web-components library built with Svelte",
+    "image": "",
+    "npm": "@zooplus/zoo-web-components",
+    "stars": 27,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "@zooplus/zoo-web-components",
+    "url": "https://github.com/zooplus/zoo-web-components"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "Design System",
+    "description": "Svelte UI kit based on Atol design",
+    "image": "",
+    "npm": "svelte-atoms",
+    "stars": 10,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "svelte-atoms",
+    "url": "https://gitlab.com/az67128/svelte-atoms"
+  },
+  {
+    "addedOn": "2020-09-29T14:39:13Z",
+    "category": "",
+    "description": "frictionless state management",
+    "image": "",
+    "npm": "overmind-svelte",
+    "stars": 1000,
+    "tags": [
+      "stores and state"
+    ],
+    "title": "overmind-svelte",
+    "url": "https://overmindjs.org"
+  },
+  {
+    "addedOn": "2020-12-14T09:15:00Z",
+    "category": "",
+    "description": "A tiny but mighty list virtualization library for Svelte, with zero dependencies - Supports variable heights/widths, sticky items, scrolling to index, and more!",
+    "image": "",
+    "npm": "svelte-tiny-virtual-list",
+    "stars": 3,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "svelte-tiny-virtual-list",
+    "url": "https://github.com/Skayo/svelte-tiny-virtual-list"
+  },
+  {
+    "addedOn": "2021-01-08T20:11:39.581Z",
+    "category": "Forms & User Input",
+    "description": "Drop files(s) or click to browse file system",
+    "image": "",
+    "npm": "@svelte-parts/drop-file",
+    "stars": 1,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets",
+      "component sets",
+      "typescript"
+    ],
+    "title": "@svelte-parts/drop-file",
+    "url": "https://svelte-parts.surge.sh/drop-file"
+  },
+  {
+    "addedOn": "2021-01-08T20:11:39.581Z",
+    "category": "Forms & User Input",
+    "description": "A markdown editor and codemirror wrapper",
+    "image": "",
+    "npm": "@svelte-parts/editor",
+    "stars": 1,
+    "tags": [
+      "components and libraries",
+      "inputs and widgets",
+      "component sets",
+      "typescript"
+    ],
+    "title": "@svelte-parts/editor",
+    "url": "https://svelte-parts.surge.sh/editor"
+  },
+  {
+    "addedOn": "2021-01-08T20:11:39.581Z",
+    "category": "Forms & User Input",
+    "description": "Yet another form component",
+    "image": "",
+    "npm": "@svelte-parts/form",
+    "stars": 1,
+    "tags": [
+      "components and libraries",
+      "forms and validation",
+      "component sets",
+      "typescript"
+    ],
+    "title": "@svelte-parts/form",
+    "url": "https://svelte-parts.surge.sh/form"
+  },
+  {
+    "addedOn": "2021-01-08T20:11:39.581Z",
+    "category": "",
+    "description": "SVG icons from feather icons, maki icons and octicons",
+    "image": "",
+    "npm": "@svelte-parts/icons",
+    "stars": 1,
+    "tags": [
+      "components and libraries",
+      "fonts and icons",
+      "component sets"
+    ],
+    "title": "@svelte-parts/icons",
+    "url": "https://svelte-parts.surge.sh/icons"
+  },
+  {
+    "addedOn": "2021-01-08T20:11:39.581Z",
+    "category": "",
+    "description": "Allow pan and zoom on images",
+    "image": "",
+    "npm": "@svelte-parts/zoom",
+    "stars": 1,
+    "tags": [
+      "components and libraries",
+      "component sets",
+      "typescript"
+    ],
+    "title": "@svelte-parts/zoom",
+    "url": "https://svelte-parts.surge.sh/zoom"
+  },
+  {
+    "addedOn": "2021-01-12T15:59:39.581Z",
+    "category": "Integration",
+    "description": "Use Appwrite in Svelte components",
+    "image": "",
+    "npm": "svelte-appwrite",
+    "stars": 11,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "svelte-appwrite",
+    "url": "https://github.com/appwrite/sdk-for-svelte"
+  },
+  {
+    "addedOn": "2021-02-06T14:00:39.581Z",
+    "category": "",
+    "description": "svelte-pdf provides a component for rendering PDF documents using PDF.js",
+    "image": "",
+    "npm": "svelte-pdf",
+    "stars": 41,
+    "tags": [
+      "components and libraries",
+      "pdf"
+    ],
+    "title": "svelte-pdf",
+    "url": "https://github.com/vinodnimbalkar/svelte-pdf"
+  },
+  {
+    "addedOn": "2021-02-02T18:08:37.886Z",
+    "category": "Developer Experience",
+    "description": "Vscode extension to sort your CSS properties, and make them easy to read",
+    "image": "",
+    "stars": 0,
+      "tags": [
+        "editor tools"
+     ],
+     "title": "vscode-css-sort",
+     "url": "https://github.com/apriliandi246/vscode-css-sort"
+  },
+  {
+    "addedOn": "2021-01-28T00:20:00Z",
+    "category": "Routers",
+    "description": "Light & reactive one-component router for Svelte",
+    "image": "",
+    "npm": "svelte-micro",
+    "stars": 24,
+    "tags": [
+      "routers"
+    ],
+    "title": "svelte-micro",
+    "url": "https://github.com/ayndqy/svelte-micro"
+  },
+  {
+    "addedOn": "2021-02-26T23:46:44Z",
+    "category": "component sets",
+    "description": "A set of Fomantic-UI components for Svelte framework",
+    "image": "",
+    "npm": "svantic",
+    "stars": 1,
+    "tags": [
+      "component sets",
+      "components and libraries"
+    ],
+    "title": "svantic",
+    "url": "https://github.com/ryu-man/svantic"
+  },
+  {
+    "addedOn": "2021-02-20T19:00:00Z",
+    "category": "Stores",
+    "description": "Memento design pattern (undo/redo) in Svelte",
+    "image": "data:image/gif;base64,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",
+    "npm": "@macfja/svelte-undoable",
+    "stars": 28,
+    "tags": [
+      "stores and state"
+    ],
+    "title": "Undoable store",
+    "url": "https://github.com/macfja/svelte-undoable"
+  },
+  {
+    "addedOn": "2021-03-02T19:00:00Z",
+    "category": "User Interaction",
+    "description": "A collection of renderless/headless components for Svelte",
+    "image": "",
+    "npm": "renderless-svelte",
+    "stars": 61,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "Renderless Svelte",
+    "url": "https://github.com/stephane-vanraes/renderless-svelte"
+  },
+  {
+    "addedOn": "2021-03-19T20:44:00Z",
+    "category": "Stores",
+    "description": "Set of simple state machines for Svelte applications",
+    "image": "",
+    "npm": "svate",
+    "stars": 1,
+    "tags": [
+      "components and libraries",
+      "stores and state"
+    ],
+    "title": "svate",
+    "url": "https://github.com/AlexxNB/svate"
+  },
+  {
+    "addedOn": "2021-04-05T11:52:00Z",
+    "category": "Unclassified",
+    "description": "Performant and powerful remote data synchronization for Svelte",
+    "image": "https://raw.githubusercontent.com/SvelteStack/svelte-query/main/docs/src/images/svelte-query-og.png",
+    "npm": "@sveltestack/svelte-query",
+    "tags": [
+      "components and libraries",
+      "stores and state"
+    ],
+    "title": "@sveltestack/svelte-query",
+    "url": "https://github.com/SvelteStack/svelte-query"
+  },
+  {
+    "title": "svelte-parallax",
+    "url": "https://github.com/kindoflew/svelte-parallax",
+    "npm": "svelte-parallax",
+    "description": "A spring-based parallax component for Svelte, based on react-spring/parallax.",
+    "image": "",
+    "tags": [
+      "components and libraries"
+    ],
+    "addedOn": "2021-04-08T17:58:00Z",
+    "category": "User Interaction"
+  },
+  {
+    "title": "Simple Modal",
+    "url": "https://svelte.dev/repl/514f1335749a4eae9d34ad74dc277f20?version=3.37.0",
+    "description": "A simple, almost barebones modal popup component that can be easily modified to your needs.",
+    "image": "https://user-images.githubusercontent.com/42390521/114045339-010d5000-9899-11eb-9a32-565d1673652d.png",
+    "tags": [
+      "components and libraries"
+    ],
+    "addedOn": "2021-04-08T14:00:00.000Z",
+    "category": "User Interaction"
+  },
+  {
+    "addedOn": "2021-04-17T19:00:00Z",
+    "category": "Stores",
+    "description": "A (high order) store that keep its value through pages and reloads",
+    "npm": "@macfja/svelte-persistent-store",
+    "stars": 42,
+    "tags": [
+      "stores and state"
+    ],
+    "title": "Persistent Store",
+    "url": "https://github.com/MacFJA/svelte-persistent-store"
+  },
+  {
+    "addedOn": "2021-04-17T19:00:00Z",
+    "category": "Stores",
+    "description": "A (high order) store that can be requested to update itself",
+    "npm": "@macfja/svelte-invalidable",
+    "stars": 0,
+    "tags": [
+      "stores and state"
+    ],
+    "title": "Invalidable Store",
+    "url": "https://github.com/MacFJA/svelte-invalidable"
+  }, {
+    "addedOn": "2021-04-21T18:12:25.602Z",
+    "category": "User Interaction",
+    "description": "The awesome carousel component for Svelte 3",
+    "image": "https://raw.githubusercontent.com/vadimkorr/svelte-carousel/main/docs/svelte-carousel-logo-md.png",
+    "npm": "svelte-carousel",
+    "stars": 11,
+    "tags": [
+      "components and libraries",
+      "layout and structure"
+    ],
+    "title": "svelte-carousel",
+    "url": "https://github.com/vadimkorr/svelte-carousel"
+  },
+  {
+    "addedOn": "2021-05-02T15:53:00.632Z",
+    "category": "Stores",
+    "description": "Immutable store for Svelte with full Typescript support and Redux Devtools integration",
+    "npm": "svelte-restate",
+    "stars": 0,
+    "tags": [
+      "stores and state"
+    ],
+    "title": "Svelte Restate",
+    "url": "https://github.com/endenwer/svelte-restate"
+  },
+  {
+    "addedOn": "2021-05-13T20:03:07.660Z",
+    "category": "User Interaction",
+    "description": "Declarative pincode component for Svelte",
+    "image": "",
+    "npm": "svelte-pincode",
+    "stars": 1,
+    "tags": [
+      "component sets",
+      "components and libraries"
+    ],
+    "title": "svelte-pincode",
+    "url": "https://github.com/metonym/svelte-pincode"
+  },
+  {
+    "addedOn": "2021-05-13T07:32:00Z",
+    "category": "Animations",
+    "description": "Official tsParticles Svelte Component - Easily create highly customizable particle animations and use them as animated backgrounds for your website.",
+    "image": "",
+    "npm": "svelte-particles",
+    "stars": 1794,
+    "tags": [
+      "components and libraries",
+      "component sets",
+      "typescript",
+      "animations"
+    ],
+    "title": "svelte-particles",
+    "url": "https://github.com/matteobruni/tsparticles"
+  }
+]
