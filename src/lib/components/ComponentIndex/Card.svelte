@@ -83,9 +83,9 @@
     <div>
       {#if stars > 0}
         {#if (repo || url).includes('github')}
-          <img src="/github_logo.svg" alt="github logo" />
+          <img src="/images/github_logo.svg" alt="github logo" />
         {:else if (repo || url).includes('gitlab')}
-          <img src="/gitlab_logo.svg" alt="gitlab logo" />
+          <img src="/images/gitlab_logo.svg" alt="gitlab logo" />
         {:else}
           &#9733;
         {/if}
