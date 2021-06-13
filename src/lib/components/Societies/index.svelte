@@ -6,7 +6,7 @@
 
 <!--society section-->
 <div class="society-wrapper">
-	<h5 class="title">Societys arround the world</h5>
+	<h3 class="title">Societies around the world</h3>
 	{#each societies as society}
 		{#if society.continent}
 			<h6 class="continent">{society.continent}</h6>

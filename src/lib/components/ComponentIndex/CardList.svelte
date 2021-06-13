@@ -7,7 +7,6 @@
     font-family: Overpass;
     font-style: normal;
     font-weight: 600;
-    font-size: 27px;
     line-height: 150%;
     margin-bottom: 1rem;
   }
@@ -38,7 +37,7 @@
 </style>
 
 <div class="list">
-  <h1 id="category-{escape(title)}">{title} <a href="#{escape(title)}">#</a></h1>
+  <h1 id="category-{escape(title)}">{title} <a href="#category-{escape(title)}">#</a></h1>
   <div class="grid">
     <slot />
   </div>

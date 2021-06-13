@@ -158,7 +158,7 @@
   }
 </style>
 
-<main>
+<main class="wrapper">
   <h1>Components</h1>
   <div class="controls">
     <div class="inputs">

@@ -1,6 +1,6 @@
-# create-svelte
+# Svelte Society 2021 Website
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+Using SvelteKit!
 
 ## Creating a project
 

@@ -44,6 +44,7 @@
 		margin: 0 auto;
 		line-height: 1.6;
 		max-width: 60ch;
+		margin-bottom: var(--space-300);
 	}
 	ul {
 		display: grid;

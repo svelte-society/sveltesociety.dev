@@ -11,12 +11,17 @@
   export let npm = "";
   export let repo = "";
 
+  let clipboardCopy = false
   const copyToClipboard = (text) => {
     navigator.permissions.query({name: "clipboard-write"}).then(result => {
       if (result.state == "granted" || result.state == "prompt") {
         navigator.clipboard.writeText(text)
+        clipboardCopy = true
+        setTimeout(() => {
+          clipboardCopy = false
+        }, 1000)
       }
-    });
+    }).catch(() => alert("Clipboard copy Permission denied"));
   }
 </script>
 
@@ -29,8 +34,14 @@
     background: #f3f6f9;
     border-radius: 5px;
   }
-  .card h1 {
+  .card h3 {
     word-break: break-word;
+  }
+  h3 a {
+    text-decoration: none;
+  }
+  h3 a:hover {
+    text-decoration: underline;
   }
   .active,
   .card:hover {
@@ -59,21 +70,18 @@
       font-size: 0.9rem;
     }
 
-    .card h1 {
+    .card h3 {
       font-size: 24px;
     }
   }
 </style>
 
 <div class="card" class:active id="component-{escape(title)}">
-  {#if image}
-    <img src={image} alt={title} />
-  {/if}
-  <h1>
-    <a href={url}>{title}</a> <a href="#component-{escape(title)}">#</a>
-    {#if npm}<Tag click={() => copyToClipboard(`npm install ${npm}`)} variant="copy" title="npm install {npm}"/>{/if}
-  </h1>
-  <p class="flex-grow">{description}</p>
+  <h3>
+    <a href={url}>{title}</a>
+    {#if npm}<Tag click={() => copyToClipboard(`npm install ${npm}`)} variant="copy" title={clipboardCopy ? 'copied!' : `npm install ${npm}`}/>{/if}
+  </h3>
+  <p class="flex-grow"><a href="#component-{escape(title)}">#</a> {description}</p>
   <div class="card__tags">
     {#each tags as tag}
       <Tag title={tag} variant='blue' />
@@ -83,15 +91,21 @@
     <div>
       {#if stars > 0}
         {#if (repo || url).includes('github')}
-          <img src="/images/github_logo.svg" alt="github logo" />
+          <img style="display:inline" src="/images/github_logo.svg" alt="github logo" />
         {:else if (repo || url).includes('gitlab')}
-          <img src="/images/gitlab_logo.svg" alt="gitlab logo" />
-        {:else}
-          &#9733;
+          <img style="display:inline" src="/images/gitlab_logo.svg" alt="gitlab logo" />
+        <!-- {:else} -->
         {/if}
-        {stars}
       {/if}
     </div>
-    <div>{new Intl.DateTimeFormat('en-Us').format(Date.parse(addedOn))}</div>
+    <div>
+      &#9733;
+      <code>{stars}</code>
+    </div>
+    <!-- commenting out dates just cause it is not very updated yet - all the cards show same date. put back in when we have better scraping -->
+    <!-- <datetime value={addedOn}>{new Intl.DateTimeFormat('en-Us').format(Date.parse(addedOn))}</datetime> -->
   </div>
+  {#if image}
+    <img src={image} alt={title} />
+  {/if}
 </div>
