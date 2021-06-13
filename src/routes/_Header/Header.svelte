@@ -23,11 +23,9 @@
 						>{name}</Link
 					>
 				{/each}
-			</ul>
-			<div class="logo">
-				<a href="/"> <img alt="Svelte Society Logo" src="/images/logo.svg" /> </a>
-			</div>
-			<ul>
+				<li class="logo">
+					<a href="/"> <img alt="Svelte Society Logo" src="/images/logo.svg" /> </a>
+				</li>
 				{#each linksRight as [path, name]}
 					<Link {path} active={path === '/' ? $page.path === '/' : $page.path.includes(path)}
 						>{name}</Link
@@ -66,6 +64,12 @@
 	@media screen and (max-width: 920px) {
 		nav {
 			grid-template-columns: auto;
+		}
+		.logo {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 3rem;
 		}
 	}
 	.logo {
