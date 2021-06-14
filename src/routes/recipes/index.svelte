@@ -12,6 +12,7 @@
 <script>
   import CategoryTree from "$lib/components/recipes/CategoryTree.svelte";
   import Icon from "$lib/components/Icon/index.svelte";
+  import { page } from '$app/stores';
   export let categories = [];
 </script>
 
@@ -44,7 +45,7 @@
                   >{category.meta.title}</a
                 >
               </div>
-              <CategoryTree nodes={category.children} />
+              <CategoryTree currentPath={page.path} nodes={category.children} />
             </div>
           {/if}
         {/each}
