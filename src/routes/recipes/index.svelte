@@ -99,23 +99,32 @@
 <style>
   .content-wrap {
     align-items: center;
-    width: var(--width-content);
+    width: 65ch;
     margin: 0 auto;
   }
   .navigation-block {
     padding: 1rem;
-    width: var(--width-content);
+  }
+  .navigation-content h3 {
+    display:flex;
+    justify-content: center;
   }
 
   .categories-wrap {
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     flex-wrap: wrap;
-    padding-top: 1rem;
+    padding: 1rem;
+  }
+	@media screen and (max-width: 920px) {
+		.categories-wrap {
+			grid-template-columns: auto;
+		}
   }
   .category-style {
     width: 50%;
     padding: 1rem 0;
+    place-self: center;
   }
   @media screen and (max-width: 1200px) {
     .category-style {
@@ -153,11 +162,19 @@
   .recipes-block {
     background: #f3f6f9;
   }
+  .d-flex {
+    display: grid;
+    grid-template-columns: 50px auto;
+  }
   .list-meta {
     align-items: center;
   }
   .list-title {
     color: var(--svelte-grey);
     margin-left: 1rem;
+    text-decoration: none;
+  }
+  .list-title:hover {
+    text-decoration: underline;
   }
 </style>
