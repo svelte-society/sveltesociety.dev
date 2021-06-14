@@ -1,0 +1,9 @@
+---
+title: Design Patterns
+layout: recipeCategory
+icon: "palette"
+---
+
+<!-- routify:options index=1 -->
+
+Some description of this category should go here.

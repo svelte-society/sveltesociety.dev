@@ -1,22 +1,17 @@
 <svelte:head>
-  <title>About Svelte Society</title>
+  <title>Svelte Recipes</title>
+  <link rel="stylesheet" href="/prism.css" />
 </svelte:head>
-<div class="wrapper">
+
+<div class="home-wrap">
   <slot />
 </div>
 
 <style>
-  .wrapper {
-    max-width: 65ch;
-  }
-  .wrapper :global(h2), .wrapper :global(h3) {
-    margin-top: 2rem;
-    margin-bottom: 1.25rem;
-  }
-  .wrapper :global(p) {
-    margin-bottom: 1.25rem;
-  }
-  .wrapper :global(li) {
-    margin-bottom: 1.1rem;
+  :global(article blockquote) {
+    background: rgba(255, 62, 1, 0.2);
+    border-radius: 5px 0px 0px 5px;
+    color: black;
+    border-left: 2px solid #ff3e01;
   }
 </style>

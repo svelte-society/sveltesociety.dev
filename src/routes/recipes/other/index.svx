@@ -1,0 +1,9 @@
+---
+title: Other
+layout: recipeCategory
+icon: "archive"
+---
+
+<!-- routify:options index=1 -->
+
+Some description of this category should go here.

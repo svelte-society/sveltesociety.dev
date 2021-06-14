@@ -1,3 +1,0 @@
-# Recipes
-
-This part of the site is still under construction. Help us out! https://github.com/svelte-society/sveltesociety-2021/

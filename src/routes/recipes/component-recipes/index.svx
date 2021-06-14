@@ -1,0 +1,9 @@
+---
+title: Component Recipes
+layout: recipeCategory
+icon: "code"
+---
+
+<!-- routify:options index=1 -->
+
+Some description of this category should go here.
