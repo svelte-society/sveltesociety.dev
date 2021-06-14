@@ -34,7 +34,7 @@
         {#each categories as category}
           {#if category}
             <div class="category-style">
-              <div class="d-flex list-meta">
+              <div class="list-meta">
                 <Icon
                   name={category.meta.icon}
                   width="2em"
@@ -162,12 +162,10 @@
   .recipes-block {
     background: #f3f6f9;
   }
-  .d-flex {
-    display: grid;
-    grid-template-columns: 50px auto;
-  }
   .list-meta {
     align-items: center;
+    display: grid;
+    grid-template-columns: 50px auto;
   }
   .list-title {
     color: var(--svelte-grey);
