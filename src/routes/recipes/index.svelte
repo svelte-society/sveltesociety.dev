@@ -36,11 +36,13 @@
           {#if category}
             <div class="category-style">
               <div class="list-meta">
-                <Icon
-                  name={category.meta.icon}
-                  width="2em"
-                  height="2em"
-                />
+                <div class="icon-circle">
+                  <Icon
+                    name={category.meta.icon}
+                    width="1.5em"
+                    height="1.5em"
+                  />
+                </div>
                 <a href={category.path} class="list-title"
                   >{category.meta.title}</a
                 >
@@ -98,6 +100,15 @@
 </div>
 
 <style>
+  .icon-circle {
+    border: 2px solid black;
+    border-radius: 50%;
+    height: 2em;
+    width: 2em;
+    display: grid;
+    place-items: center;
+    padding-left: 4px;
+  }
   .content-wrap {
     align-items: center;
     width: 65ch;
@@ -123,9 +134,8 @@
 		}
   }
   .category-style {
-    width: 50%;
-    padding: 1rem 0;
-    place-self: center;
+    padding: 1rem;
+
   }
   @media screen and (max-width: 1200px) {
     .category-style {
@@ -172,6 +182,8 @@
     color: var(--svelte-grey);
     margin-left: 1rem;
     text-decoration: none;
+    text-transform: uppercase;
+    font-family: Georgia, 'Times New Roman', Times, serif
   }
   .list-title:hover {
     text-decoration: underline;

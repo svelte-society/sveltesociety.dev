@@ -188,8 +188,6 @@
     }
     svg.docker {
       color: #2496ed;
-      width: 1.39em;
-      height: 1em;
     }
     svg.double-checkmark {
       color: #84cc16;

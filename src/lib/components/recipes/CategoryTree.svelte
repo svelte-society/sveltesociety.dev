@@ -6,7 +6,7 @@
 <style>
   ul {
     list-style: none;
-    margin: 0 0 0 1rem;
+    margin: 0 0 0 1.75rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
@@ -19,6 +19,12 @@
   }
   li.active::before {
     color: var(--svelte-grey);
+  }
+  a {
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
   }
   li.active a {
     font-weight: bold;
