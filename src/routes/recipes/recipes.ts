@@ -2,17 +2,29 @@
  * @type {import('@sveltejs/kit').RequestHandler}
  */
 export async function get() {
-	const categories = await Promise.all(
+	const pages = await Promise.all(
 		Object.entries(import.meta.glob('./**/*.svx'))
-		.filter(([path, page]) => path.includes('index'))
 		.map(async ([path, page]) => {
 			const { metadata } = await page();
 			const filename = path.split('/').pop();
-			path = 'recipes' + path.substring(1, path.length - 'index.svx'.length);
-			// TODO: populate children
-			return { meta: metadata, filename, path, children: [] };
+			path = 'recipes' + path.substring(1, path.length - '.svx'.length);
+			if (path.endsWith('/index')) {
+				path = path.substring(0, path.length - 'index'.length);
+			}
+			return { meta: metadata, filename, path };
 		})
 	);
+
+	const categories = pages.filter(page => page.meta.layout === 'recipeCategory');
+
+	categories.forEach(category => {
+		category.children = [];
+		pages.forEach(p => {
+			if (category !== p && p.path.startsWith(category.path)) {
+				category.children.push(p);
+			}
+		});
+	});
 
 	if (categories) {
 		return {

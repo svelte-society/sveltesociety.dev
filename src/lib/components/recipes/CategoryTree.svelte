@@ -1,6 +1,6 @@
 <script>
   export let nodes;
-  let page = 'TODO';
+  let page = { path: 'TODO' };
 </script>
 
 <style>
