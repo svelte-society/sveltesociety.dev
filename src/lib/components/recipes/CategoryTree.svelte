@@ -38,7 +38,7 @@
 <ul>
   {#each nodes.filter((r) => !r.path.includes('/index')) as node}
     <li class:active={page.path.includes(node.path)}>
-      <a href={node.path}>{node.meta.frontmatter.title}</a>
+      <a href={node.path}>{node.meta.title}</a>
     </li>
   {/each}
 </ul>

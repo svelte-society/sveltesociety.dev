@@ -143,6 +143,9 @@
       },
     ];
     let displayIcon = icons.find((e) => e.name === name);
+    if (!displayIcon) {
+      throw Error(`Could not find icon with name ${name}`);
+    }
   </script>
   <svg
     class="svgicon {name}"

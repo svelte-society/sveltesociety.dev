@@ -4,11 +4,13 @@
 export async function get() {
 	const categories = await Promise.all(
 		Object.entries(import.meta.glob('./**/*.svx'))
-		.filter(([path, page]) => !path.includes('index'))
+		.filter(([path, page]) => path.includes('index'))
 		.map(async ([path, page]) => {
 			const { metadata } = await page();
 			const filename = path.split('/').pop();
-			return { ...metadata, filename };
+			path = 'recipes' + path.substring(1, path.length - 'index.svx'.length);
+			// TODO: populate children
+			return { meta: metadata, filename, path, children: [] };
 		})
 	);
 

@@ -35,22 +35,16 @@
           {#if category}
             <div class="category-style">
               <div class="d-flex list-meta">
-                <!--
-                TODO: need to populate these
                 <Icon
-                  name={category.meta.frontmatter.icon}
+                  name={category.meta.icon}
                   width="2em"
                   height="2em"
                 />
-                <a href={category.parent.path} class="list-title"
-                  >{category.title}</a
+                <a href={category.path} class="list-title"
+                  >{category.meta.title}</a
                 >
-                -->
-                {category.title}
               </div>
-              <!--
-              <CategoryTree nodes={category.parent.children} />
-              -->
+              <CategoryTree nodes={category.children} />
             </div>
           {/if}
         {/each}
