@@ -1,6 +1,6 @@
 <script>
   export let nodes;
-  let page = { path: 'TODO' };
+  export let currentPath;
 </script>
 
 <style>
@@ -36,8 +36,8 @@
 </style>
 
 <ul>
-  {#each nodes.filter((r) => !r.path.includes('/index')) as node}
-    <li class:active={page.path.includes(node.path)}>
+  {#each nodes.filter((r) => r.meta.layout !== 'recipeCategory') as node}
+    <li class:active={node.path.includes(node.path)}>
       <a href={node.path}>{node.meta.title}</a>
     </li>
   {/each}
