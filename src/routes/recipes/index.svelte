@@ -1,19 +1,8 @@
-<script lang="ts" context="module">
-  export async function load({ fetch }) {
-    const res = await fetch('/recipes/recipes');
-    if (res.ok) return { props: { categories: await res.json() } };
-    return {
-      status: res.status,
-      error: new Error()
-    };
-  }
-</script>
-
 <script>
   import CategoryTree from "$lib/components/recipes/CategoryTree.svelte";
   import Icon from "$lib/components/Icon/index.svelte";
   import { page } from '$app/stores';
-  export let categories = [];
+  import { categories } from '$lib/stores/recipes';
 </script>
 
 <div class="content-wrap">
@@ -32,7 +21,7 @@
     <div class="navigation-content">
       <h3>Pick a Category to Get Started</h3>
       <div class="categories-wrap">
-        {#each categories as category}
+        {#each $categories as category}
           {#if category}
             <div class="category-style">
               <div class="list-meta">

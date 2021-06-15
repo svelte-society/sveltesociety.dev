@@ -9,7 +9,11 @@ const config = {
 		preprocess(),
 		mdsvex({
 			extensions: extensions,
-			layout: { eventPage: './src/lib/layouts/EventPage.svelte' }
+			layout: {
+				eventPage: './src/lib/layouts/EventPage.svelte',
+				recipe: './src/lib/layouts/Recipe.svelte',
+				recipeCategory: './src/lib/layouts/RecipeCategory.svelte'
+			}
 		})
 	],
 	extensions: extensions,
