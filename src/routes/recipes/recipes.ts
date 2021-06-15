@@ -7,9 +7,9 @@ export async function get() {
 		.map(async ([path, page]) => {
 			const { metadata } = await page();
 			const filename = path.split('/').pop();
-			path = 'recipes' + path.substring(1, path.length - '.svx'.length);
+			path = '/recipes' + path.substring(1, path.length - '.svx'.length);
 			if (path.endsWith('/index')) {
-				path = path.substring(0, path.length - 'index'.length);
+				path = path.substring(0, path.length - '/index'.length);
 			}
 			return { meta: metadata, filename, path };
 		})

@@ -3,7 +3,7 @@
   import { categories } from '$lib/stores/recipes';
   import { page } from '$app/stores';
 
-  const childrenNodes = $categories.find(c => c.path === $page.path);
+  const childrenNodes = $categories.find(c => c.path === $page.path).children || [];
 
   export let title,
     description = "";
