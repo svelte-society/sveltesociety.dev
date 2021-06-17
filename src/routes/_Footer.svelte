@@ -12,7 +12,7 @@
 			Want to contribute? Pick up an issue on
 			<a
 				class="ghlink"
-				href="https://github.com/svelte-society/sveltesociety.dev"
+				href="https://github.com/svelte-society/sveltesociety-2021/"
 				target="_blank"
 				rel="noopener">GitHub</a
 			>!

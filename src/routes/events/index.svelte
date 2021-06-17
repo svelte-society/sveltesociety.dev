@@ -34,7 +34,6 @@
 <style>
 	.wrapper {
 		display: flex;
-		margin: 2vh 3vw;
 	}
 	.event-wrapper {
 		flex: 1 1 auto;

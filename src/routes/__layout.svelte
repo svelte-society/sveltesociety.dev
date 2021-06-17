@@ -31,9 +31,9 @@
 		display: grid;
 		grid-template-rows: 0fr 1fr 0fr;
 	}
-
-	main {
-		min-height: 100vh;
+	.container main {
+		padding-left: 1rem;
+		padding-bottom: 1rem;
 	}
 
 </style>

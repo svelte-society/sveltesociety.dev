@@ -13,13 +13,13 @@
 <div class="wrapper">
 	<h1>Welcome to Svelte Society!</h1>
 	<p>
-		We are a bunch of losely connected groups around the world that strive to push Svelte into the
-		mainstream. On this page you can find resources such as events, an <a href="/components"
-			>up-to-date list of components</a
-		> as well as recipes and other kinds of media.
+		We are a volunteer global network of Svelte fans that strive to promote Svelte and its ecosystem.
+		As a service to the community, this site is a central index of <a href="/events">events</a>,
+		a <a href="/components">components directory</a>, as well as <a href="/receipes">recipes</a> and other useful resources.
+		Join us or help us out!
 	</p>
 	<p>
-		If you want to reach out to us or just find other like-minded people from around the world you
+		If you want to reach out to us or find like-minded people from around the world you
 		can check out the resources below:
 	</p>
 	<ul>
@@ -33,6 +33,10 @@
 			>Twitter</Link
 		>
 	</ul>
+	<p>
+		We also run the biannual <a href="https://sveltesummit.com/">Svelte Summit</a> conference 
+		and host <a href="https://www.svelteradio.com/">the Svelte Radio podcast</a>.
+	</p>
 </div>
 
 <style>
@@ -44,6 +48,7 @@
 		margin: 0 auto;
 		line-height: 1.6;
 		max-width: 60ch;
+		margin-bottom: var(--space-300);
 	}
 	ul {
 		display: grid;
