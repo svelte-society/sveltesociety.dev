@@ -42,8 +42,7 @@
 		>
 	</ul>
 	<p>
-		We also run the biannual <a href="https://sveltesummit.com/">Svelte Summit</a> conference and
-		host <a href="https://www.svelteradio.com/">the Svelte Radio podcast</a>.
+		We also run the biannual <a href="https://sveltesummit.com/">Svelte Summit</a> conference.
 	</p>
 </div>
 
