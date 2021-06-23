@@ -3,14 +3,14 @@
 
 	import { page } from '$app/stores';
 	const linksLeft = [
-		['/', 'home'],
-		['/recipes', 'recipes'],
-		['/components', 'components']
+		['/about', 'about'],
+		['/components', 'components'],
+		['/tooling', 'tooling']
 	];
 	const linksRight = [
+		['/recipes', 'recipes'],
 		['/cheatsheet', 'cheat sheet'],
-		['/events', 'events'],
-		['/about', 'about']
+		['/events', 'events']
 	];
 </script>
 
