@@ -9,7 +9,7 @@
       "cli tools"
     ],
     "addedOn": "2021-03-31T00:00:00Z",
-    "category": "Integrations"
+    "category": "SvelteKit Adapters"
   },
   {
     "title": "SCR Svelte Client Router",
@@ -3785,7 +3785,7 @@
   },
   {
     "addedOn": "2021-02-26T23:46:44Z",
-    "category": "component sets",
+    "category": "Design System",
     "description": "A set of Fomantic-UI components for Svelte framework",
     "image": "",
     "npm": "svantic",
@@ -3840,7 +3840,7 @@
   },
   {
     "addedOn": "2021-04-05T11:52:00Z",
-    "category": "Unclassified",
+    "category": "",
     "description": "Performant and powerful remote data synchronization for Svelte",
     "image": "https://raw.githubusercontent.com/SvelteStack/svelte-query/main/docs/src/images/svelte-query-og.png",
     "npm": "@sveltestack/svelte-query",
