@@ -6,10 +6,11 @@
 
 <div class="shaded">
 	<footer class="wrapper">
-		<div>&copy; Svelte Society {year}</div>
-
-		<div>
-			Want to contribute? Pick up an issue on
+		<div class="centered">&copy; {year} Svelte Society
+			•
+			<a href="/about">Code of Conduct</a>
+			•
+			Contribute on
 			<a
 				class="ghlink"
 				href="https://github.com/svelte-society/sveltesociety-2021/"
@@ -24,6 +25,10 @@
 	.shaded {
 		max-width: 100%;
 		background: #f3f6f9;
+	}
+
+	.centered {
+		margin: 0 auto;
 	}
 
 	a {
