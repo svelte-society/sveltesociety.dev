@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Svelte Society - Svelte Tooling</title>
+  <title>Tooling - Svelte Society</title>
 </svelte:head>
 <div class="wrapper">
   <slot />

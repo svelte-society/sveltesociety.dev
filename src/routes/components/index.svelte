@@ -157,6 +157,9 @@
     }
   }
 </style>
+<svelte:head>
+  <title>Components - Svelte Society</title>
+</svelte:head>
 
 <main class="wrapper">
   <h1>Components</h1>
