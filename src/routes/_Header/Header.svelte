@@ -3,7 +3,7 @@
 
 	import { page } from '$app/stores';
 	const linksLeft = [
-		['/about', 'about'],
+		['/boilerplates', 'boilerplates'],
 		['/components', 'components'],
 		['/tooling', 'tooling']
 	];
