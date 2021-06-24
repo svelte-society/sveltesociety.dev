@@ -748,5 +748,95 @@
     "tags": [],
     "title": "stephane-vanraes/blog-template",
     "url": "https://github.com/stephane-vanraes/blog-template"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:21Z",
+    "category": "Svelte Add",
+    "description": "Add PostCSS to your Svelte project",
+    "image": "",
+    "stars": 16,
+    "tags": [],
+    "title": "svelte-add/postcss",
+    "url": "https://github.com/svelte-add/postcss"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:22Z",
+    "category": "Svelte Add",
+    "description": "Add Tailwind CSS to your Svelte project",
+    "image": "",
+    "stars": 243,
+    "tags": [],
+    "title": "svelte-add/tailwindcss",
+    "url": "https://github.com/svelte-add/tailwindcss"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:23Z",
+    "category": "Svelte Add",
+    "description": "Add Bluma to your Svelte project",
+    "image": "",
+    "stars": 3,
+    "tags": [],
+    "title": "svelte-add/bulma",
+    "url": "https://github.com/svelte-add/bulma"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:24Z",
+    "category": "Svelte Add",
+    "description": "SvelteKit adder for CoffeeScript",
+    "image": "",
+    "stars": 2,
+    "tags": [],
+    "title": "Leftium/coffeescript-adder",
+    "url": "https://github.com/Leftium/coffeescript-adder"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:26Z",
+    "category": "Svelte Add",
+    "description": "A command to add a GraphQL server to your Svelte project",
+    "image": "",
+    "stars": 18,
+    "tags": [],
+    "title": "svelte-add/graphql-server",
+    "url": "https://github.com/svelte-add/graphql-server"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:27Z",
+    "category": "Svelte Add",
+    "description": "A command to add hosting on Firebase to your Svelte project",
+    "image": "",
+    "stars": 2,
+    "tags": [],
+    "title": "svelte-add/firebase-hosting",
+    "url": "https://github.com/svelte-add/firebase-hosting"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:28Z",
+    "category": "Svelte Add",
+    "description": "Add mdsvex to your Svelte project",
+    "image": "",
+    "stars": 31,
+    "tags": [],
+    "title": "svelte-add/mdsvex",
+    "url": "https://github.com/svelte-add/mdsvex"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:25Z",
+    "category": "Svelte Add",
+    "description": "Add Pug to SvelteKit.",
+    "image": "",
+    "stars": 0,
+    "tags": [],
+    "title": "Leftium/pug-adder",
+    "url": "https://github.com/Leftium/pug-adder"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:29Z",
+    "category": "Svelte Add",
+    "description": "Add Supabase to your Svelte project",
+    "image": "",
+    "stars": 29,
+    "tags": [],
+    "title": "joshnuss/svelte-supabase",
+    "url": "https://github.com/joshnuss/svelte-supabase"
   }
 ]
