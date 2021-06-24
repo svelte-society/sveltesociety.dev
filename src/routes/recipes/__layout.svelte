@@ -19,7 +19,6 @@
 
 <svelte:head>
   <title>Svelte Recipes</title>
-  <link rel="stylesheet" href="/prism.css" />
 </svelte:head>
 
 <div class="container">
