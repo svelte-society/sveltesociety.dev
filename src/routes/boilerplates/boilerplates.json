@@ -5,9 +5,7 @@
     "description": "Boilerplate with TypeScript, Webpack, Storybook, Travis CI, SCSS, Babel, EsLint, Prettier, Jest",
     "image": "",
     "stars": 51,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "agusID/boilerplate-svelte",
     "url": "https://github.com/agusID/boilerplate-svelte"
   },
@@ -17,9 +15,7 @@
     "description": "An example repo of a Svelte app that is IE11 compatible",
     "image": "",
     "stars": 27,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "angelozehr/svelte-example-museums",
     "url": "https://github.com/angelozehr/svelte-example-museums"
   },
@@ -29,9 +25,7 @@
     "description": "A truffle box for Svelte, a seed for building an Ethereum dapp using Truffle",
     "image": "",
     "stars": 30,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "antony/svelte-box",
     "url": "https://github.com/antony/svelte-box"
   },
@@ -41,9 +35,7 @@
     "description": "Typescript template for Svelte v3",
     "image": "",
     "stars": 21,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "Axelen123/svelte-ts-template",
     "url": "https://github.com/Axelen123/svelte-ts-template"
   },
@@ -53,9 +45,7 @@
     "description": "Component template with LiveReload and Jest unit testing",
     "image": "",
     "stars": 13,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "beyonk-adventures/svelte-component-livereload-template",
     "url": "https://github.com/beyonk-adventures/svelte-component-livereload-template"
   },
@@ -65,9 +55,7 @@
     "description": "A complete implementation with components, store, unit e2e tests and linting.",
     "image": "",
     "stars": 22,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "TodoMVC Svelte",
     "url": "https://github.com/blacksonic/todomvc-svelte"
   },
@@ -78,7 +66,6 @@
     "image": "",
     "stars": 41,
     "tags": [
-      "templates",
       "electron"
     ],
     "title": "Blade67/Sveltron",
@@ -90,9 +77,7 @@
     "description": "A template to create multi-page application powered by Webpack",
     "image": "",
     "stars": 11,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "brandonxiang/svelte-webpack-mpa",
     "url": "https://github.com/brandonxiang/svelte-webpack-mpa"
   },
@@ -103,7 +88,6 @@
     "image": "",
     "stars": 7,
     "tags": [
-      "templates",
       "electron"
     ],
     "title": "chuanqisun/svelte-electron-template",
@@ -115,9 +99,7 @@
     "description": "Minimal boilerplate example of Svelte with Typescript using Parcel. This also includes scss support",
     "image": "",
     "stars": 46,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "dafn/svelte-typescript-parcel",
     "url": "https://github.com/dafn/svelte-typescript-parcel"
   },
@@ -127,9 +109,7 @@
     "description": "Minimal boilerplate example of Svelte with Typescript using Rollup. This also includes scss support",
     "image": "",
     "stars": 78,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "dafn/svelte-typescript-rollup",
     "url": "https://github.com/dafn/svelte-typescript-rollup"
   },
@@ -139,9 +119,7 @@
     "description": "Starter Webpack template for Sapper apps using tailwindcss, postcss, purgecss, and svelte-preprocess.",
     "image": "",
     "stars": 7,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "Sapper (Webpack) + TailwindCSS Template",
     "url": "https://github.com/deanpress/sapper-tailwind-webpack-starter"
   },
@@ -151,9 +129,7 @@
     "description": "Skeleton app with Parcel, Jest, ESLint, Prettier, Babel, Wallaby",
     "image": "",
     "stars": 5,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "devghost/svelte",
     "url": "https://github.com/devghost/svelte"
   },
@@ -163,9 +139,7 @@
     "description": "Svelte template with basic Babel setup for IE11 compatibility",
     "image": "",
     "stars": 0,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "svelte-ie11",
     "url": "https://github.com/elsonigo/svelte-ie11"
   },
@@ -175,9 +149,7 @@
     "description": "Typescript + Storybook + Webpack boilerplate",
     "image": "",
     "stars": 35,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "farhan2106/svelte-typescript",
     "url": "https://github.com/farhan2106/svelte-typescript"
   },
@@ -187,9 +159,7 @@
     "description": "Typescript + Storybook + Webpack with SSR boilerplate",
     "image": "",
     "stars": 8,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "farhan2106/svelte-typescript-ssr",
     "url": "https://github.com/farhan2106/svelte-typescript-ssr"
   },
@@ -199,9 +169,7 @@
     "description": "Starter for Svelte 3/rollup/typescript/vscode",
     "image": "",
     "stars": 45,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "geakstr/svelte-3-rollup-typescript-vscode",
     "url": "https://github.com/geakstr/svelte-3-rollup-typescript-vscode"
   },
@@ -211,9 +179,7 @@
     "description": "A small starter template to get up and running with Svelte v3",
     "image": "",
     "stars": 35,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "Holben888/svelte-starter-template",
     "url": "https://github.com/Holben888/svelte-starter-template"
   },
@@ -223,9 +189,7 @@
     "description": "Svelte ecommerce - Headless, Authentication, Cart & Checkout, TailwindCSS, Server Rendered, Proxy + API Integrated, Animations, Stores, Lazy Loading, Loading Indicators, Carousel, Instant Search, Faceted Filters, 1 command deploy to production, Open Source, MIT license",
     "image": "",
     "stars": 215,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "sapper-ecommerce",
     "url": "https://github.com/itswadesh/sapper-ecommerce"
   },
@@ -235,9 +199,7 @@
     "description": "Svelte + Storybook + Tailwind - Starter Template",
     "image": "",
     "stars": 161,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "jerriclynsjohn/svelte-storybook-tailwind",
     "url": "https://github.com/jerriclynsjohn/svelte-storybook-tailwind"
   },
@@ -247,9 +209,7 @@
     "description": "A template to help you start developing SPAs with Svelte and Firebase",
     "image": "",
     "stars": 80,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "jorgegorka/svelte-firebase",
     "url": "https://github.com/jorgegorka/svelte-firebase"
   },
@@ -259,9 +219,7 @@
     "description": "SvelteJS and TailwindCSS template",
     "image": "",
     "stars": 1,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "justinekizhak/svelte-tailwind-template",
     "url": "https://github.com/justinekizhak/svelte-tailwind-template"
   },
@@ -272,7 +230,6 @@
     "image": "",
     "stars": 8,
     "tags": [
-      "templates",
       "mobile"
     ],
     "title": "lpshanley/svelte-phonegap",
@@ -284,9 +241,7 @@
     "description": "Minimal setup for building svelte as a web component module",
     "image": "",
     "stars": 1,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "LunaTK/svelte-web-component-builder",
     "url": "https://github.com/LunaTK/svelte-web-component-builder"
   },
@@ -296,9 +251,7 @@
     "description": "Tailwindcss v1 + Svelte v3 = <3",
     "image": "",
     "stars": 95,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "marcograhl/tailwindcss-svelte-starter",
     "url": "https://github.com/marcograhl/tailwindcss-svelte-starter"
   },
@@ -308,9 +261,7 @@
     "description": "Svelte template with webpack, babel, eslint and scss. Using browserslist with corejs for legacy browser support",
     "image": "",
     "stars": 1,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "svelte-webpack-babel-scss",
     "url": "https://github.com/markoboy/svelte-webpack-babel-scss"
   },
@@ -333,9 +284,7 @@
     "description": "Svelte + Tailwind = ❤",
     "image": "",
     "stars": 82,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "muhajirdev/svelte-tailwind-template",
     "url": "https://github.com/muhajirdev/svelte-tailwind-template"
   },
@@ -345,9 +294,7 @@
     "description": "Boilerplate code with Typescript and Sass bundled by Webpack",
     "image": "",
     "stars": 12,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "n0th1ng-else/svelte-typescript-sass",
     "url": "https://github.com/n0th1ng-else/svelte-typescript-sass"
   },
@@ -358,7 +305,6 @@
     "image": "",
     "stars": 0,
     "tags": [
-      "templates",
       "testing",
       "typescript",
       "code splitting",
@@ -375,9 +321,7 @@
     "description": "Offline-Capable todo list built with Svelte, PouchDB and CouchDB",
     "image": "",
     "stars": 32,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "neighbourhoodie/svelte-pouchdb-couchdb",
     "url": "https://github.com/neighbourhoodie/svelte-pouchdb-couchdb"
   },
@@ -400,9 +344,7 @@
     "description": "Starter Rollup template for Sapper apps using postcss, purgecss, cssnano, tailwindcss and svelte-preprocess",
     "image": "",
     "stars": 17,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "Sapper - PostCSS, Tailwind CSS, PurgeCSS, cssnano",
     "url": "https://github.com/nhristov/sapper-template-rollup"
   },
@@ -412,9 +354,7 @@
     "description": "Template with Typescript, Sass, Storybook, Webpack",
     "image": "",
     "stars": 13,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "nitro52/svelte-typescript-sass-template",
     "url": "https://github.com/nitro52/svelte-typescript-sass-template"
   },
@@ -425,7 +365,6 @@
     "image": "",
     "stars": 5,
     "tags": [
-      "templates",
       "electron",
       "database"
     ],
@@ -438,9 +377,7 @@
     "description": "Svelte webpack template with routing and lazy-loading",
     "image": "",
     "stars": 14,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "OrdinaryJellyfish/svelte-routing-template",
     "url": "https://github.com/OrdinaryJellyfish/svelte-routing-template"
   },
@@ -450,9 +387,7 @@
     "description": "Svelte application boilerplate with Webpack, Sass, BabelJS, Fetch, PostCSS, Jest, and .Env",
     "image": "",
     "stars": 188,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "pankod/svelte-boilerplate",
     "url": "https://github.com/pankod/svelte-boilerplate"
   },
@@ -462,9 +397,7 @@
     "description": "A base for building Svelte component library",
     "image": "",
     "stars": 44,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "patoi/svelte-component-library-template",
     "url": "https://github.com/patoi/svelte-component-library-template"
   },
@@ -474,9 +407,7 @@
     "description": "Svelte 3 starter with POI 12 and Prettier. Outputs web apps or web components",
     "image": "",
     "stars": 10,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "pbastowski/svelte-poi-starter",
     "url": "https://github.com/pbastowski/svelte-poi-starter"
   },
@@ -488,7 +419,6 @@
     "stars": 4,
     "tags": [
       "editor tools",
-      "templates",
       "snowpack"
     ],
     "title": "svelte-ts-snowpack-vscode",
@@ -500,9 +430,7 @@
     "description": "Typescript monorepo for Svelte v3 (preprocess, template, types)",
     "image": "",
     "stars": 211,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "pyoner/svelte-typescript",
     "url": "https://github.com/pyoner/svelte-typescript"
   },
@@ -526,9 +454,7 @@
     "description": "Svelte App with Firebase Authentication for all purposes",
     "image": "",
     "stars": 35,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "ricalamino/svelte-firebase-auth",
     "url": "https://github.com/ricalamino/svelte-firebase-auth"
   },
@@ -539,7 +465,6 @@
     "image": "",
     "stars": 72,
     "tags": [
-      "templates",
       "electron"
     ],
     "title": "Rich-Harris/svelte-template-electron",
@@ -551,9 +476,7 @@
     "description": "Clone of official Svelte template with added HMR support using Nollup",
     "image": "",
     "stars": 45,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "rixo/svelte-template-hot",
     "url": "https://github.com/rixo/svelte-template-hot"
   },
@@ -565,7 +488,6 @@
     "npm": "generator-svelte",
     "stars": 15,
     "tags": [
-      "templates",
       "preprocessors"
     ],
     "title": "generator-svelte",
@@ -577,9 +499,7 @@
     "description": "A boilerplate with Material, Babel, PostCSS, and Webpack",
     "image": "",
     "stars": 96,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "Shyam-Chen/svelte-play",
     "url": "https://github.com/Shyam-Chen/Svelte-Play"
   },
@@ -589,9 +509,7 @@
     "description": "A Svelte template for browserify",
     "image": "",
     "stars": 3,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "soapdog/svelte-template-browserify",
     "url": "https://github.com/soapdog/svelte-template-browserify"
   },
@@ -601,9 +519,7 @@
     "description": "Boilerplate template project for SPA router spaceavocado/svelte-router",
     "image": "",
     "stars": 6,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "spaceavocado/svelte-router-template",
     "url": "https://github.com/spaceavocado/svelte-router-template"
   },
@@ -613,9 +529,7 @@
     "description": "Boilerplate with Webpack, Cypress, Travis CI, Storybook, and SASS",
     "image": "",
     "stars": 15,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "stephanepericat/svelte-boilerplate",
     "url": "https://github.com/stephanepericat/svelte-boilerplate"
   },
@@ -625,9 +539,7 @@
     "description": "Template with VSCode, Prettier, ESLint, Cypress, and Rollup",
     "image": "",
     "stars": 3,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "SteveALee/svelte-code-cypress-project",
     "url": "https://github.com/SteveALee/svelte-code-cypress-project"
   },
@@ -637,9 +549,7 @@
     "description": "A base for building shareable Svelte components",
     "image": "",
     "stars": 303,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "sveltejs/component-template",
     "url": "https://github.com/sveltejs/component-template"
   },
@@ -649,9 +559,7 @@
     "description": "Starter template for Sapper apps",
     "image": "",
     "stars": 623,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "sveltejs/sapper-template",
     "url": "https://github.com/sveltejs/sapper-template"
   },
@@ -661,9 +569,7 @@
     "description": "Template for building basic applications with Svelte with rollup",
     "image": "",
     "stars": 800,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "sveltejs/template",
     "url": "https://github.com/sveltejs/template"
   },
@@ -673,9 +579,7 @@
     "description": "Template for building basic applications with Svelte and custom elements",
     "image": "",
     "stars": 17,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "sveltejs/template-custom-element",
     "url": "https://github.com/sveltejs/template-custom-element"
   },
@@ -685,9 +589,7 @@
     "description": "Template for building basic Svelte applications with webpack",
     "image": "",
     "stars": 205,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "sveltejs/template-webpack",
     "url": "https://github.com/sveltejs/template-webpack"
   },
@@ -698,7 +600,6 @@
     "image": "",
     "stars": 15,
     "tags": [
-      "templates",
       "mobile"
     ],
     "title": "syonip/svelte-cordova",
@@ -713,7 +614,6 @@
     "tags": [
       "components and libraries",
       "component sets",
-      "templates",
       "mobile"
     ],
     "title": "Ionic Svelte UI demo",
@@ -725,9 +625,7 @@
     "description": "Starter pack for Rollup, Typescript, and VSCode",
     "image": "",
     "stars": 6,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "tonyrewin/svelte3-ts-boilerplate",
     "url": "https://github.com/tonyrewin/svelte3-ts-boilerplate"
   },
@@ -737,9 +635,7 @@
     "description": "Template with TypeScript, Babel, Jest, Svelte-Testing-Library, Eslint, and Prettier",
     "image": "",
     "stars": 4,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "will-wow/svelte-typescript-template",
     "url": "https://github.com/will-wow/svelte-typescript-template"
   },
@@ -749,9 +645,7 @@
     "description": "A base for building shareable Svelte 3 components",
     "image": "",
     "stars": 161,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "YogliB/svelte-component-template",
     "url": "https://github.com/YogliB/svelte-component-template"
   },
@@ -761,9 +655,7 @@
     "description": "A base for building shareable Svelte 3 components.",
     "image": "",
     "stars": 161,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "svelte-component-template",
     "url": "https://github.com/YogliB/svelte-component-template"
   },
@@ -773,10 +665,88 @@
     "description": "Skip setup and start code with SENT (Sapper.js, Express.js, Node.js, Typescript) and other tools template",
     "image": "",
     "stars": 55,
-    "tags": [
-      "templates"
-    ],
+    "tags": [],
     "title": "Zimtir/SENT-template",
     "url": "https://github.com/Zimtir/SENT-template"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:13Z",
+    "category": "SvelteKit",
+    "description": "SvelteKit template with TailwindCSS, Storybook, TypeScript and Sass.",
+    "image": "",
+    "stars": 26,
+    "tags": [],
+    "title": "tejasag/sveltetron-9000",
+    "url": "https://github.com/tejasag/sveltetron-9000"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:14Z",
+    "category": "SvelteKit",
+    "description": "SvelteKit Starter template with Typescript, Postcss, scss, TailwindCSS, Storybook, husky, and eslint.",
+    "image": "",
+    "stars": 67,
+    "tags": [],
+    "title": "navneetsharmaui/sveltekit-starter",
+    "url": "https://github.com/navneetsharmaui/sveltekit-starter"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:15Z",
+    "category": "SvelteKit",
+    "description": "SvelteKit boilerplate with Koa for building backend API, Typescript support, Docker support",
+    "image": "",
+    "stars": 0,
+    "tags": [],
+    "title": "kaladivo/svelte-kit-koa-boilerplate",
+    "url": "https://github.com/kaladivo/svelte-kit-koa-boilerplate"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:16Z",
+    "category": "SvelteKit",
+    "description": "SvelteKit template with Stripe Checkout and Typescript.",
+    "image": "",
+    "stars": 25,
+    "tags": [],
+    "title": "srmullen/sveltekit-stripe",
+    "url": "https://github.com/srmullen/sveltekit-stripe"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:17Z",
+    "category": "SvelteKit",
+    "description": "A minimalistic blog template built with SvelteKit and MDsveX",
+    "image": "",
+    "stars": 24,
+    "tags": [],
+    "title": "mvasigh/sveltekit-mdsvex-blog",
+    "url": "https://github.com/mvasigh/sveltekit-mdsvex-blog"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:18Z",
+    "category": "SvelteKit",
+    "description": "A personal website built with SvelteKit",
+    "image": "",
+    "stars": 1,
+    "tags": [],
+    "title": "babichjacob/university-website",
+    "url": "https://github.com/babichjacob/university-website"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:19Z",
+    "category": "SvelteKit",
+    "description": "Personal website and blog written from scratch with SvelteKit and TailwindCSS.",
+    "image": "",
+    "stars": 39,
+    "tags": [],
+    "title": "mhatvan/markushatvan.com",
+    "url": "https://github.com/mhatvan/markushatvan.com"
+  },
+  {
+    "addedOn": "2021-06-24T14:39:20Z",
+    "category": "SvelteKit",
+    "description": "A simplistic SvelteKit template for blogs",
+    "image": "",
+    "stars": 3,
+    "tags": [],
+    "title": "stephane-vanraes/blog-template",
+    "url": "https://github.com/stephane-vanraes/blog-template"
   }
 ]
