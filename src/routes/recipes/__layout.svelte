@@ -18,7 +18,7 @@
 </script>
 
 <svelte:head>
-  <title>Svelte Recipes</title>
+  <title>Recipes - Svelte Society</title>
 </svelte:head>
 
 <div class="container">

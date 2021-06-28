@@ -8,8 +8,11 @@
 	metatags.desc('Svelte Society is a community-driven effort to organise and promote SvelteJS.');
 	metatags.image(metatagImage);
 	metatags.url($page.host + $page.path);
-
 </script>
+
+<svelte:head>
+	<title>Home - Svelte Society</title>
+</svelte:head>
 
 <div class="wrapper">
 	<h1>Welcome to Svelte Society!</h1>
@@ -66,5 +69,4 @@
 		margin: calc(var(--space-600) * 3) 0;
 		padding: 0;
 	}
-
 </style>

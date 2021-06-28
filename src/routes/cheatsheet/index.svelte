@@ -9,6 +9,9 @@
 	metatags.url($page.host + $page.path);
 </script>
 
+<svelte:head>
+  <title>Cheatsheet - Svelte Society</title>
+</svelte:head>
 <main>
 	{#each cheatSheet as item}
 		<CheatSheetCard {...item} />

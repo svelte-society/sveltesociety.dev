@@ -158,6 +158,10 @@
   }
 </style>
 
+<svelte:head>
+  <title>Boilerplates - Svelte Society</title>
+</svelte:head>
+
 <main class="wrapper">
   <h1>Boilerplates</h1>
   <div class="controls">
