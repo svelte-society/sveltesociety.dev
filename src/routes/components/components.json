@@ -995,13 +995,13 @@
     "description": "Vite plugin for compiling Svelte components",
     "image": "",
     "npm": "vite-plugin-svelte",
-    "stars": 44,
+    "stars": 136,
     "tags": [
       "integrations",
       "bundler plugins"
     ],
     "title": "vite-plugin-svelte",
-    "url": "https://github.com/intrnl/vite-plugin-svelte"
+    "url": "https://github.com/sveltejs/vite-plugin-svelte"
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
