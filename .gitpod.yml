@@ -15,7 +15,7 @@ tasks:
         export WSS_HOST=`gp url 24678 | sed 's#https://##g'` &&
         sed -i "s#JSON.stringify(host)#JSON.stringify(\"$WSS_HOST\")#g" *
       )
-    pnpm dev
+      pnpm dev
 
 github:
   prebuilds:
