@@ -3,7 +3,6 @@
   export let active = false;
   export let title = "";
   export let description = "";
-  export let image = "";
   export let tags = [];
   export let stars = 0;
   export let addedOn = new Date();
@@ -105,7 +104,4 @@
     <!-- commenting out dates just cause it is not very updated yet - all the cards show same date. put back in when we have better scraping -->
     <!-- <datetime value={addedOn}>{new Intl.DateTimeFormat('en-Us').format(Date.parse(addedOn))}</datetime> -->
   </div>
-  {#if image}
-    <img src={image} alt={title} />
-  {/if}
 </div>
