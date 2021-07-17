@@ -1,14 +1,24 @@
 [
-    {
+  {
     "title": "svelte-adapter-firebase",
     "description": "SvelteKit adapter for Firebase Hosting rewrites to either Cloud Functions or Cloud Run for a Svelte SSR experience",
     "url": "https://github.com/jthegedus/svelte-adapter-firebase",
     "npm": "https://www.npmjs.com/package/svelte-adapter-firebase",
     "tags": [
-      "integrations",
-      "cli tools"
+      "integrations"
     ],
     "addedOn": "2021-03-31T00:00:00Z",
+    "category": "SvelteKit Adapters"
+  },
+  {
+    "title": "svelte-adapter-deno",
+    "description": "SvelteKit adapter that generates a standalone Deno server.",
+    "url": "https://github.com/pluvial/svelte-adapter-deno",
+    "npm": "https://www.npmjs.com/package/svelte-adapter-deno",
+    "tags": [
+      "integrations"
+    ],
+    "addedOn": "2021-07-12T00:00:00Z",
     "category": "SvelteKit Adapters"
   },
   {
