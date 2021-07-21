@@ -758,5 +758,14 @@
     "tags": [],
     "title": "joshnuss/svelte-supabase",
     "url": "https://github.com/joshnuss/svelte-supabase"
+  },
+  {
+    "addedOn": "2021-07-21T11:39:29Z",
+    "category": "Svelte Add",
+    "description": "Add Jest to your SvelteKit project",
+    "stars": 6,
+    "tags": [],
+    "title": "rossyman/svelte-add-jest",
+    "url": "https://github.com/rossyman/svelte-add-jest"
   }
 ]
