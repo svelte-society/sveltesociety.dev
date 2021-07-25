@@ -1,5 +1,16 @@
 [
   {
+    "title": "svelte-fast-marquee",
+    "description": "A Marquee component for Svelte inspired by react-fast-marquee.",
+    "url": "https://github.com/abosch19/svelte-fast-marquee",
+    "npm": "https://www.npmjs.com/package/svelte-fast-marquee",
+    "tags": [
+      "components and libraries"
+    ],
+    "addedOn": "2021-08-25T00:00:00Z",
+    "category": ""
+  },
+  {
     "title": "svelte-adapter-firebase",
     "description": "SvelteKit adapter for Firebase Hosting rewrites to either Cloud Functions or Cloud Run for a Svelte SSR experience",
     "url": "https://github.com/jthegedus/svelte-adapter-firebase",
