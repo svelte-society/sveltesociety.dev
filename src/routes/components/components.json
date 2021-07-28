@@ -1,5 +1,14 @@
 [
   {
+    "title": "svelte-query",
+    "description": "Performant and powerful remote data synchronization for Svelte",
+    "url": "https://github.com/SvelteStack/svelte-query",
+    "npm": "https://www.npmjs.com/package/@sveltestack/svelte-query",
+    "tags": [
+      "components and libraries"
+    ]
+  },
+  {
     "title": "svelte-adapter-firebase",
     "description": "SvelteKit adapter for Firebase Hosting rewrites to either Cloud Functions or Cloud Run for a Svelte SSR experience",
     "url": "https://github.com/jthegedus/svelte-adapter-firebase",
