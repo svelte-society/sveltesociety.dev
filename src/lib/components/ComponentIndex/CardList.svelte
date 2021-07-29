@@ -9,6 +9,7 @@
     font-weight: 600;
     line-height: 150%;
     margin-bottom: 1rem;
+    @apply text-4xl;
   }
   .grid {
     display: grid;
