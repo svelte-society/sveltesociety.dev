@@ -1,5 +1,17 @@
 [
   {
+    "title": "svelte-remixicon",
+    "description": "An icon library for svelte based on Remix Icon. Consists of more than 2000 icons.",
+    "url": "https://github.com/ABarnob/svelte-remixicon",
+    "npm": "https://www.npmjs.com/package/svelte-remixicon",
+    "tags": [
+      "components and libraries",
+      "fonts and icons"
+    ],
+    "addedOn": "2021-07-29T00:00:00Z",
+    "category": "User Interaction"
+  },
+  {
     "title": "svelte-adapter-firebase",
     "description": "SvelteKit adapter for Firebase Hosting rewrites to either Cloud Functions or Cloud Run for a Svelte SSR experience",
     "url": "https://github.com/jthegedus/svelte-adapter-firebase",
