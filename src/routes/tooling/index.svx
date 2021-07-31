@@ -8,8 +8,7 @@
 - [esbuild-svelte](https://github.com/EMH333/esbuild-svelte)
   - esbuild plugin
 - [rollup-plugin-svelte-hot](https://github.com/rixo/rollup-plugin-svelte-hot)
-  - Rollup plugin
-  - HMR
+  - Rollup plugin with HMR support
 - [parcel-plugin-svelte](https://github.com/DeMoorJasper/parcel-plugin-svelte)
   - Parcel plugin
 - [sveltify](https://github.com/tehshrike/sveltify)

@@ -5,7 +5,7 @@
 </script>
 
 <div class="shaded">
-	<footer class="wrapper">
+	<footer class="container mx-auto">
 		<div class="centered">&copy; {year} Svelte Society
 			•
 			<a href="/about">Code of Conduct</a>
