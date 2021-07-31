@@ -2969,9 +2969,7 @@
     "stars": 36,
     "tags": [
       "components and libraries",
-      "time and date",
-      "calendar",
-      "events"
+      "time and date"
     ],
     "title": "Event Calendar",
     "url": "https://github.com/vkurko/calendar"
