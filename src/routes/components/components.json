@@ -1,5 +1,14 @@
 [
   {
+    "title": "sswe",
+    "description": "Svelte stale while revalidate (SWR) data fetching strategy",
+    "url": "https://github.com/ConsoleTVs/sswr",
+    "npm": "https://www.npmjs.com/package/sswr",
+    "tags": [
+      "components and libraries"
+    ]
+  },
+  {
     "title": "svelte-adapter-firebase",
     "description": "SvelteKit adapter for Firebase Hosting rewrites to either Cloud Functions or Cloud Run for a Svelte SSR experience",
     "url": "https://github.com/jthegedus/svelte-adapter-firebase",
