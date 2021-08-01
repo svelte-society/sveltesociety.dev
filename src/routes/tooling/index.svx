@@ -22,6 +22,11 @@
 - [rules_svelte](https://github.com/thelgevold/rules_svelte)
   - Bazel Rules
 
+### Debugging
+
+- [svelte-devtools](https://github.com/RedHatter/svelte-devtools)
+  - An extension that allows inspection of Svelte component hierarchy and state in the Firefox and Chrome developer tools.
+
 ### Preprocessors
 
 - [svelte-preprocess](https://github.com/sveltejs/svelte-preprocess) (**official**)
@@ -32,6 +37,7 @@
 - [svelte-preprocess-css-hash](https://github.com/jiangfengming/svelte-preprocess-css-hash)
   - Provides a mechanism to suffix css class names with a hash to avoid conflicts.
 - [svelte-preprocess-html-asset](https://github.com/jiangfengming/svelte-preprocess-html-asset)
+- [svelte-preprocessor-fetch](https://github.com/kevmodrome/svelte-preprocessor-fetch)
 
 ## Linting and formatting
 
@@ -61,3 +67,5 @@
 - [Sublime Text: Svelte Syntax Highlighting](https://packagecontrol.io/packages/Svelte)
 - [SvelteNova](https://github.com/laosb/SvelteNova)
   - Svelte language support for Nova Editor by Panic.
+- [Svelte Component Extractor](https://github.com/proverbial-ninja/vscode-svelte-component-extractor)
+  - Highlight text in VS Code and extract it to a new component.
