@@ -77,10 +77,10 @@
 
 <div class="card" class:active id="component-{escape(title)}">
   <h3>
-    <a href={url}>{title}</a>
+    <a href="#component-{escape(title)}">#</a> <a href={url}>{title}</a>
     {#if npm}<Tag click={() => copyToClipboard(`npm install ${npm}`)} variant="copy" title={clipboardCopy ? 'copied!' : `npm install ${npm}`}/>{/if}
   </h3>
-  <p class="flex-grow"><a href="#component-{escape(title)}">#</a> {description}</p>
+  <p class="flex-grow">{description}</p>
   <div class="card__tags">
     {#each tags as tag}
       <Tag title={tag} variant='blue' />
