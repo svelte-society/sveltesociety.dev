@@ -1,6 +1,6 @@
 <script>
   import CategoryTree from "$lib/components/recipes/CategoryTree.svelte";
-	import Icon from '$lib/components/Icon/index.svelte';
+  import Icon from '$lib/components/Icon/index.svelte';
   import { categories } from '$lib/stores/recipes';
   import { page } from '$app/stores';
 
