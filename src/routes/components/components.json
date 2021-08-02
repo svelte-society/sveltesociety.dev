@@ -2968,5 +2968,18 @@
     ],
     "title": "svelte-particles",
     "url": "https://github.com/matteobruni/tsparticles"
+  },
+  {
+    "addedOn": "2021-07-14T13:23:59.236Z",
+    "category": "Rich Text Editor",
+    "description": "Svelte components for tiptap v2",
+    "npm": "svelte-tiptap",
+    "stars": 2,
+    "tags": [
+      "components and libraries",
+      "rich text editor"
+    ],
+    "title": "svelte-tiptap",
+    "url": "https://github.com/sibiraj-s/svelte-tiptap"
   }
 ]
