@@ -71,7 +71,7 @@
     width: 35%;
     font-family: Overpass;
     border-width: 0;
-    background: #f3f6f9 url(/search-icon.svg) 98% no-repeat;
+    background: #f3f6f9 url(/images/search-icon.svg) 98% no-repeat;
     margin: 0;
     padding: 10px 15px;
   }
