@@ -43,6 +43,10 @@
 </script>
 
 <style>
+  h1 {
+    @apply text-5xl;
+  }
+
   .controls {
     display: flex;
     justify-content: space-between;

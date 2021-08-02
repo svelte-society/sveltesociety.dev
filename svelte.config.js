@@ -7,7 +7,9 @@ const extensions = [`.svelte`, '.md', `.mdx`, '.svx'];
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	preprocess: [
-		preprocess(),
+		preprocess({
+			"postcss": true
+		}),
 		mdsvex({
 			extensions: extensions,
 			layout: {
@@ -21,7 +23,14 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte'
+		target: '#svelte',
+		vite: {
+			optimizeDeps: {
+				// workaround Vite issue to fix highlighting on cheatsheet
+				// https://github.com/metonym/svelte-highlight/issues/158
+				include: ["highlight.js/lib/core"],
+			}
+		}
 	}
 };
 

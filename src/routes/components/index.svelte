@@ -42,7 +42,11 @@
   $: categories = Array.from(new Set(dataToDisplay.map(item => item.category)))
 </script>
 
-<style>
+<style> 
+  h1 {
+    @apply text-5xl;
+  }
+
   .controls {
     display: flex;
     justify-content: space-between;
