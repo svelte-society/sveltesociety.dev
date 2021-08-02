@@ -19,7 +19,7 @@
 	<p class="mb-4">
 		We are a volunteer global network of Svelte fans that strive to promote Svelte and its
 		ecosystem. As a service to the community, this site is a central index of <a href="/events">events</a>,
-		a <a href="/components">components directory</a>, as well as <a href="/receipes">recipes</a> and
+		a <a href="/components">components directory</a>, as well as <a href="/recipes">recipes</a> and
 		other useful resources. Join us or help us out!
 	</p>
 	<p class="mb-4">

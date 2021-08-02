@@ -1,5 +1,6 @@
 <script>
   import CategoryTree from "$lib/components/recipes/CategoryTree.svelte";
+	import Icon from '$lib/components/Icon/index.svelte';
   import { categories } from '$lib/stores/recipes';
   import { page } from '$app/stores';
 
@@ -14,7 +15,7 @@
     <h1>Table of Contents</h1>
     {#each $categories as node}
       <div class="TOCLink" class:active={$page.path.includes(node.path)}>
-        <img src={node.meta.icon} alt="" />
+        <Icon name={node.meta.icon} />
         <a href={node.path}>{node.meta.title}</a>
       </div>
       {#if $page.path.includes(node.path)}
