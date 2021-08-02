@@ -47,6 +47,10 @@
     @apply text-5xl;
   }
 
+  hr {
+    margin-block: 4rem;
+  }
+
   .controls {
     display: flex;
     justify-content: space-between;
@@ -57,7 +61,7 @@
 
   .inputs {
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(4, auto);
     grid-gap: 0.5rem;
     margin-right: 2rem;
   }
