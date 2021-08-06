@@ -58,7 +58,7 @@
 		padding: var(--space-600) 1rem;
 	}
 
-	@media screen and (max-width: 920px) {
+	@media screen and (max-width: 1280px) {
 		ul {
 			grid-template-columns: auto;
 		}
