@@ -42,11 +42,11 @@ const initialTags: Metatags = {
 type MetaTagsStore = {
     subscribe: Writable<Metatags>["subscribe"],
     set: Writable<Metatags>["set"],
-    title: (title: string) => string,
-    desc: (desc: string) => string,
-    image: (image: string) => string,
-    alt: (alt: string) => string,
-    url: (url: string) => string
+    title: (title: string) => void,
+    desc: (desc: string) => void,
+    image: (image: string) => void,
+    alt: (alt: string) => void,
+    url: (url: string) => void
 }
 
 function CreateMetatagsStore(): MetaTagsStore {
