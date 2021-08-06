@@ -1040,6 +1040,19 @@
     "url": "https://github.com/kaisermann/svelte-i18n"
   },
   {
+    "addedOn": "2021-08-06T16:08:13Z",
+    "category": "",
+    "description": "Integration of Fluent localization system for Svelte",
+    "npm": "@nubolab-ffwd/svelte-fluent",
+    "stars": 5,
+    "tags": [
+      "components and libraries",
+      "internationalization"
+    ],
+    "title": "svelte-fluent",
+    "url": "https://github.com/nubolab-ffwd/svelte-fluent"
+  },
+  {
     "addedOn": "2020-09-29T14:39:13Z",
     "category": "",
     "description": "Dynamically load a Svelte component",
