@@ -53,7 +53,7 @@ The callback function passed to `my_store.subscribe` is called immediately and w
 
 #### `store.set`
 
-Optionally, a store can have a `set` method. Whenever there is an assignment to a variable prepended with `$` in a Svelte component it calls the `set` method of that variable with newly mutated or reassigned `$variable` as an argument. Typically, this `set` argument should update the store value and call all subscribers, but this is not required. For example, Svelte's `tweened` and `spring` stores do not immediately update their values but rather schedule updates on every frame for as long as the animation lasts. If you decide to take this approach with `set`, we advise not [binding](tutorial/store-bindings) to these stores as the behaviour could be unpredictable.
+Optionally, a store can have a `set` method. Whenever there is an assignment to a variable prepended with `$` in a Svelte component it calls the `set` method of that variable with newly mutated or reassigned `$variable` as an argument. Typically, this `set` argument should update the store value and call all subscribers, but this is not required. For example, Svelte's `tweened` and `spring` stores do not immediately update their values but rather schedule updates on every frame for as long as the animation lasts. If you decide to take this approach with `set`, we advise not [binding](https://svelte.dev/tutorial/store-bindings) to these stores as the behaviour could be unpredictable.
 
 This:
 
