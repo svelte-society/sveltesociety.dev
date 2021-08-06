@@ -13,7 +13,7 @@
 			Contribute on
 			<a
 				class="ghlink"
-				href="https://github.com/svelte-society/sveltesociety-2021/"
+				href="https://github.com/svelte-society/sveltesociety.dev/"
 				target="_blank"
 				rel="noopener">GitHub</a
 			>!
