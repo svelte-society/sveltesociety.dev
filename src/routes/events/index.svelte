@@ -17,6 +17,10 @@
 
 </script>
 
+<svelte:head>
+  <title>Events - Svelte Society</title>
+</svelte:head>
+
 <div class="wrapper">
 	<section class="event-wrapper">
 		{#each events.events as event}
@@ -34,7 +38,6 @@
 <style>
 	.wrapper {
 		display: flex;
-		margin: 2vh 3vw;
 	}
 	.event-wrapper {
 		flex: 1 1 auto;

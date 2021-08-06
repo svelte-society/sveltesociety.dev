@@ -143,6 +143,9 @@
       },
     ];
     let displayIcon = icons.find((e) => e.name === name);
+    if (!displayIcon) {
+      throw Error(`Could not find icon with name ${name}`);
+    }
   </script>
   <svg
     class="svgicon {name}"
@@ -185,8 +188,6 @@
     }
     svg.docker {
       color: #2496ed;
-      width: 1.39em;
-      height: 1em;
     }
     svg.double-checkmark {
       color: #84cc16;

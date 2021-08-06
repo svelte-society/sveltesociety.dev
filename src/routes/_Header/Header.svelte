@@ -3,31 +3,29 @@
 
 	import { page } from '$app/stores';
 	const linksLeft = [
-		['/', 'home'],
-		['/recipes', 'recipes'],
-		['/components', 'components']
+		['/templates', 'templates'],
+		['/components', 'components'],
+		['/tooling', 'tooling']
 	];
 	const linksRight = [
+		['/recipes', 'recipes'],
 		['/cheatsheet', 'cheat sheet'],
-		['/events', 'events'],
-		['/about', 'about']
+		['/events', 'events']
 	];
 </script>
 
 <div class="shaded" id="title">
-	<header class="wrapper">
-		<nav>
+	<header class="container mx-auto">
+		<nav class="pt-8 pb-8">
 			<ul>
 				{#each linksLeft as [path, name]}
 					<Link {path} active={path === '/' ? $page.path === '/' : $page.path.includes(path)}
 						>{name}</Link
 					>
 				{/each}
-			</ul>
-			<div class="logo">
-				<a href="/"> <img alt="Svelte Society Logo" src="/images/logo.svg" /> </a>
-			</div>
-			<ul>
+				<li class="logo">
+					<a href="/"> <img alt="Svelte Society Logo" src="/images/logo.svg" /> </a>
+				</li>
 				{#each linksRight as [path, name]}
 					<Link {path} active={path === '/' ? $page.path === '/' : $page.path.includes(path)}
 						>{name}</Link
@@ -45,18 +43,15 @@
 		margin-bottom: calc(var(--space-600) * 2);
 	}
 
-	nav {
-		display: grid;
-		grid-gap: var(--space-600);
-		grid-template-columns: auto auto auto;
-		justify-content: center;
-		place-items: center;
-		font-weight: bold;
-	}
-
 	ul {
 		list-style: none;
 		padding: 0;
+		display: grid;
+		grid-gap: var(--space-600);
+		grid-template-columns: repeat(3, 1fr) auto repeat(3, 1fr);
+		justify-content: center;
+		place-items: center;
+		font-weight: bold;
 	}
 
 	header {
@@ -64,8 +59,14 @@
 	}
 
 	@media screen and (max-width: 920px) {
-		nav {
+		ul {
 			grid-template-columns: auto;
+		}
+		.logo {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 3rem;
 		}
 	}
 	.logo {

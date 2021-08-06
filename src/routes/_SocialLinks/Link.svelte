@@ -1,5 +1,6 @@
 <script>
 	export let path, image, alt;
+
 </script>
 
 <li>
@@ -20,5 +21,7 @@
 		color: black;
 		display: grid;
 		place-items: center;
+		text-align: center;
 	}
+
 </style>

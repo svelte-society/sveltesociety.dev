@@ -1,0 +1,9 @@
+---
+title: Svelte Language Fundamentals
+layout: recipeCategory
+icon: "double-checkmark"
+---
+
+<!-- routify:options index=1 -->
+
+Some description of this category should go here.
