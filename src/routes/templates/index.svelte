@@ -2,7 +2,7 @@
   import ComponentCard from "$lib/components/ComponentIndex/Card.svelte";
   import List from "$lib/components/ComponentIndex/CardList.svelte";
   import Button from "$lib/components/ComponentIndex/ArrowButton.svelte";
-  import components from "./boilerplates.json";
+  import components from "./templates.json";
 
   let searchValue;
   let searchTag;
@@ -167,11 +167,11 @@
 </style>
 
 <svelte:head>
-  <title>Boilerplates - Svelte Society</title>
+  <title>Templates - Svelte Society</title>
 </svelte:head>
 
 <main class="wrapper">
-  <h1>Boilerplates</h1>
+  <h1>Templates</h1>
   <div class="controls">
     <div class="inputs">
       <Button active={filterTag.length > 0}>
@@ -192,7 +192,7 @@
           {/each}
         </ul>
       </Button>
-      <Button on:click={() => location.href = "/help/components"}>Submit a component</Button>
+      <Button on:click={() => location.href = "/help/components"}>Submit a template</Button>
       <Button active={sorting !== ''}>
         Sort
         <ul slot="menu" role="menu" class="popin no-wrap">
@@ -209,7 +209,7 @@
     <input
       class="searchbar"
       type="text"
-      placeholder="Search for components..."
+      placeholder="Search for templates..."
       bind:value={searchValue} />
     <span class="searchbar-count">{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span>
   </div>
