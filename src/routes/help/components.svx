@@ -8,7 +8,7 @@ h2 { font-size: 23px; }
 
 To add a new component on the website, the process is rather simple.
 
-You have to add your component in [components.json](https://github.com/svelte-society/sveltesociety.dev/blob/master/src/pages/components/components.json) 
+You have to add your component in [components.json](https://github.com/svelte-society/sveltesociety.dev/blob/master/src/routes/components/components.json) 
 
 ## Forking the project
 
