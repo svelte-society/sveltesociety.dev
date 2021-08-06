@@ -5,41 +5,41 @@
   <slot />
 </div>
 
-<style global>
+<style>
   .wrapper {
     max-width: 65ch;
   }
 
-  .wrapper p {
+  .wrapper :global(p) {
     margin-bottom: 1.25rem;
   }
 
-  .wrapper ul {
+  .wrapper :global(ul) {
     @apply list-disc;
     @apply list-inside;
   }
-  .wrapper li {
+  .wrapper :global(li) {
     margin-bottom: 1.1rem;
   }
-  .wrapper ul ul {
+  .wrapper :global(ul) :global(ul) {
     @apply mt-4;
     @apply ml-4;
   }
 
-  .wrapper h1 {
+  .wrapper :global(h1) {
     font-weight: 700;
     @apply text-6xl;
     @apply mb-4;
   }
 
-  .wrapper h2 {
+  .wrapper :global(h2) {
     font-weight: 700;
     @apply text-4xl;
     @apply mt-6;
     @apply mb-4;
   }
 
-  .wrapper h3 {
+  .wrapper :global(h3) {
     font-weight: 600;
     @apply text-2xl;
     @apply mb-2;
