@@ -1,27 +1,13 @@
 <script>
 	export let path, image, alt;
-
 </script>
 
-<li>
-	<a href={path}><img src={image} {alt} /><slot /></a>
+<li class="flex flex-wrap justify-center font-bold">
+	<a href={path} class="no-underline text-current text-center"><img src={image} {alt} /><slot /></a>
 </li>
 
 <style>
-	li {
-		display: grid;
-		place-items: center;
-		font-weight: 900;
-	}
 	img {
 		width: 128px;
 	}
-	a {
-		text-decoration: none;
-		color: black;
-		display: grid;
-		place-items: center;
-		text-align: center;
-	}
-
 </style>

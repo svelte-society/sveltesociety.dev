@@ -12,20 +12,20 @@
 	<title>Home - Svelte Society</title>
 </svelte:head>
 
-<div class="text-2xl">
-	<h1 class="text-7xl mt-20 mb-10">Welcome to Svelte Society!</h1>
-	<p class="mb-4">
+<div class="text-2xl max-w-5xl mx-auto grid grid-cols-1 gap-10">
+	<h1 class="text-center">Welcome to Svelte Society!</h1>
+	<p>
 		We are a volunteer global network of Svelte fans that strive to promote Svelte and its
 		ecosystem. As a service to the community, this site is a central index of <a href="/events"
 			>events</a
 		>, a <a href="/components">components directory</a>, as well as <a href="/recipes">recipes</a> and
 		other useful resources. Join us or help us out!
 	</p>
-	<p class="mb-4">
+	<p>
 		If you want to reach out to us or find like-minded people from around the world you can check
 		out the resources below:
 	</p>
-	<ul class="mt-10 mb-14 ml-40 mr-40">
+	<ul>
 		<Link path="https://youtube.com/SvelteSociety" image="images/youtube.svg" alt="YouTube icon"
 			>YouTube</Link
 		>
@@ -49,15 +49,6 @@
 </div>
 
 <style>
-	h1 {
-		text-align: center;
-	}
-	p {
-		margin-left: auto;
-		margin-right: auto;
-		line-height: 1.6;
-		max-width: 60ch;
-	}
 	ul {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
