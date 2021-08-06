@@ -11,16 +11,13 @@
 	<!-- Open Graph Info -->
 	<meta property="og:title" content={metatags.title} />
 	<meta property="og:description" content={metatags.desc} />
-	{#if url || canonical}
-		<meta property="og:url" content={url || canonical} />
-	{/if}
-	<meta property="og:image" content={pageImage} />
-	<meta property="og:image:alt" content={pageImageAlt} />
+	<meta property="og:image" content={metatags.image} />
+	<meta property="og:image:alt" content={metatags.alt} />
 
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={metatags.title} />
 	<meta name="twitter:description" content={metatags.desc} />
-	<meta name="twitter:image" content={pageImage} />
-	<meta name="twitter:image:alt" content={pageImageAlt} />
+	<meta name="twitter:image" content={metatags.image} />
+	<meta name="twitter:image:alt" content={metatags.alt} />
 </svelte:head>
