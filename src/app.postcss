@@ -6,15 +6,18 @@
 @font-face {
 	font-family: Inter;
 	src: url(/fonts/Inter-Regular.woff2);
+	font-display: swap;
 }
 @font-face {
 	font-family: Overpass;
 	src: url(/fonts/Overpass-SemiBold.woff2);
+	font-display: swap;
 	font-weight: 600;
 }
 @font-face {
 	font-family: Overpass;
 	src: url(/fonts/Overpass-Bold.woff2);
+	font-display: swap;
 	font-weight: bold;
 }
 
@@ -96,7 +99,10 @@ h4 {
 }
 
 h1 {
-	@apply text-5xl lg:text-7xl mt-20 mb-10;
+	@apply text-5xl lg:text-7xl;
+}
+
+h2 {
 }
 
 a {
