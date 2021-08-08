@@ -23,8 +23,8 @@
   .arrow {
     margin-left: 25px;
     height: 16px;
-    -webkit-mask: url(/right-arrow.svg) no-repeat center;
-    mask: url(/right-arrow.svg) no-repeat center;
+    -webkit-mask: url(/images/right-arrow.svg) no-repeat center;
+    mask: url(/images/right-arrow.svg) no-repeat center;
     background-color: #7e7e93;
   }
   div:hover .arrow {

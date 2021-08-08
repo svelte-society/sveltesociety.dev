@@ -3,7 +3,7 @@
 
 	import { page } from '$app/stores';
 	const linksLeft = [
-		['/boilerplates', 'boilerplates'],
+		['/templates', 'templates'],
 		['/components', 'components'],
 		['/tooling', 'tooling']
 	];
@@ -15,8 +15,8 @@
 </script>
 
 <div class="shaded" id="title">
-	<header class="wrapper">
-		<nav>
+	<header class="container mx-auto">
+		<nav class="pt-8 pb-8">
 			<ul>
 				{#each linksLeft as [path, name]}
 					<Link {path} active={path === '/' ? $page.path === '/' : $page.path.includes(path)}
@@ -58,7 +58,7 @@
 		padding: var(--space-600) 1rem;
 	}
 
-	@media screen and (max-width: 920px) {
+	@media screen and (max-width: 1280px) {
 		ul {
 			grid-template-columns: auto;
 		}

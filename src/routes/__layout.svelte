@@ -1,8 +1,8 @@
 <script>
+	import '../app.postcss';
 	import Header from './_Header/Header.svelte';
 	import Footer from './_Footer.svelte';
 	import metatags from '$lib/stores/metatags';
-	import '../app.postcss';
 </script>
 
 <svelte:head>
@@ -17,23 +17,10 @@
 	{/each}
 </svelte:head>
 
-<div class="container">
-	<Header />
+<Header />
+<div class="container mx-auto px-4 pb-4">
 	<main>
 		<slot />
 	</main>
-	<Footer />
 </div>
-
-<style>
-	div {
-		min-height: calc(100vh - 6px);
-		display: grid;
-		grid-template-rows: 0fr 1fr 0fr;
-	}
-	.container main {
-		padding-left: 1rem;
-		padding-bottom: 1rem;
-	}
-
-</style>
+<Footer />

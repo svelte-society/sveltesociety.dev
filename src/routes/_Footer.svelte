@@ -5,7 +5,7 @@
 </script>
 
 <div class="shaded">
-	<footer class="wrapper">
+	<footer class="container mx-auto">
 		<div class="centered">&copy; {year} Svelte Society
 			•
 			<a href="/about">Code of Conduct</a>
@@ -13,7 +13,7 @@
 			Contribute on
 			<a
 				class="ghlink"
-				href="https://github.com/svelte-society/sveltesociety-2021/"
+				href="https://github.com/svelte-society/sveltesociety.dev/"
 				target="_blank"
 				rel="noopener">GitHub</a
 			>!

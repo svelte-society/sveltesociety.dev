@@ -2,11 +2,9 @@
 	import Link from './_SocialLinks/Link.svelte';
 	import { page } from '$app/stores';
 	import metatags from '$lib/stores/metatags';
-	import metatagImage from './metatag.png';
 
 	metatags.title('Svelte Society - a community for Svelte users around the world.');
 	metatags.desc('Svelte Society is a community-driven effort to organise and promote SvelteJS.');
-	metatags.image(metatagImage);
 	metatags.url($page.host + $page.path);
 </script>
 
@@ -14,13 +12,13 @@
 	<title>Home - Svelte Society</title>
 </svelte:head>
 
-<div class="wrapper">
-	<h1>Welcome to Svelte Society!</h1>
+<div class="text-2xl max-w-5xl mx-auto grid grid-cols-1 gap-10">
+	<h1 class="text-center">Welcome to Svelte Society!</h1>
 	<p>
 		We are a volunteer global network of Svelte fans that strive to promote Svelte and its
 		ecosystem. As a service to the community, this site is a central index of <a href="/events"
 			>events</a
-		>, a <a href="/components">components directory</a>, as well as <a href="/receipes">recipes</a> and
+		>, a <a href="/components">components directory</a>, as well as <a href="/recipes">recipes</a> and
 		other useful resources. Join us or help us out!
 	</p>
 	<p>
@@ -44,29 +42,18 @@
 			>Podcast</Link
 		>
 	</ul>
-	<p>
+	<p class="mb-4">
 		We also run the biannual <a href="https://sveltesummit.com/">Svelte Summit</a> conference and
 		host <a href="https://www.svelteradio.com/">the Svelte Radio podcast</a>.
 	</p>
 </div>
 
 <style>
-	h1 {
-		text-align: center;
-		margin-bottom: var(--space-300);
-	}
-	p {
-		margin: 0 auto;
-		line-height: 1.6;
-		max-width: 60ch;
-		margin-bottom: var(--space-300);
-	}
 	ul {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 		grid-gap: var(--space-600);
 		list-style-type: none;
-		margin: calc(var(--space-600) * 3) 0;
 		padding: 0;
 	}
 </style>

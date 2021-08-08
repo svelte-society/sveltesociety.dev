@@ -1,5 +1,15 @@
 [
   {
+    "title": "sswe",
+    "category": "",
+    "description": "Svelte stale while revalidate (SWR) data fetching strategy",
+    "url": "https://github.com/ConsoleTVs/sswr",
+    "npm": "https://www.npmjs.com/package/sswr",
+    "tags": [
+      "components and libraries"
+    ]
+  },
+  {
     "title": "svelte-adapter-firebase",
     "description": "SvelteKit adapter for Firebase Hosting rewrites to either Cloud Functions or Cloud Run for a Svelte SSR experience",
     "url": "https://github.com/jthegedus/svelte-adapter-firebase",
@@ -158,19 +168,6 @@
     ],
     "title": "svelte-chota",
     "url": "https://github.com/alexxnb/svelte-chota"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "A rapid way to write documentation for your Svelte components",
-    "npm": "@svelte-docs/core",
-    "stars": 81,
-    "tags": [
-      "components and libraries",
-      "development and documentation"
-    ],
-    "title": "@svelte-docs/core",
-    "url": "https://github.com/AlexxNB/svelte-docs"
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
@@ -549,19 +546,6 @@
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "Svelte support for (Neo)Vim",
-    "npm": "coc-svelte",
-    "stars": 49,
-    "tags": [
-      "integrations",
-      "editor tools"
-    ],
-    "title": "coc-svelte",
-    "url": "https://github.com/coc-extensions/coc-svelte"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
     "category": "User Interaction",
     "description": "A Svelte component to hide your header on scroll",
     "npm": "svelte-headroom",
@@ -681,7 +665,7 @@
   {
     "addedOn": "2020-09-29T14:39:13Z",
     "category": "Developer Experience",
-    "description": "Helper for Svelte components to ease development. Used by `svelte-loader",
+    "description": "Helper for Svelte components to ease development. Used by `svelte-loader`",
     "npm": "svelte-dev-helper",
     "stars": 6,
     "tags": [
@@ -741,18 +725,6 @@
     ],
     "title": "svelte-tree",
     "url": "https://github.com/esinx/svelte-tree"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "Svelte JavaScript syntax highlighting for vim",
-    "stars": 128,
-    "tags": [
-      "integrations",
-      "editor tools"
-    ],
-    "title": "vim-svelte",
-    "url": "https://github.com/evanleck/vim-svelte"
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
@@ -828,19 +800,6 @@
     ],
     "title": "svelte-typewriter",
     "url": "https://github.com/henriquehbr/svelte-typewriter"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "A zero-config CLI to bundle Svelte apps (WIP)",
-    "npm": "svb",
-    "stars": 25,
-    "tags": [
-      "integrations",
-      "cli tools"
-    ],
-    "title": "svb",
-    "url": "https://github.com/himynameisdave/svb"
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
@@ -933,19 +892,6 @@
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "Vite plugin for compiling Svelte components",
-    "npm": "vite-plugin-svelte",
-    "stars": 136,
-    "tags": [
-      "integrations",
-      "bundler plugins"
-    ],
-    "title": "vite-plugin-svelte",
-    "url": "https://github.com/sveltejs/vite-plugin-svelte"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
     "category": "Routers",
     "description": "Router for SPAs using Svelte 3",
     "npm": "svelte-spa-router",
@@ -980,19 +926,6 @@
     ],
     "title": "svelte-navaid",
     "url": "https://github.com/jacwright/svelte-navaid"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "A cli svelte compiler & watcher that works with snowpack",
-    "npm": "svelvet",
-    "stars": 296,
-    "tags": [
-      "integrations",
-      "bundler plugins"
-    ],
-    "title": "svelvet",
-    "url": "https://github.com/jakedeichert/svelvet"
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
@@ -1121,19 +1054,6 @@
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "A Svelte preprocessor with baked in support for common preprocessors",
-    "npm": "svelte-preprocess",
-    "stars": 808,
-    "tags": [
-      "integrations",
-      "preprocessors"
-    ],
-    "title": "svelte-preprocess",
-    "url": "https://github.com/kaisermann/svelte-preprocess"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
     "category": "Routers",
     "description": "A simple router for Svelte 3",
     "npm": "svero",
@@ -1156,19 +1076,6 @@
     ],
     "title": "svelte-notifications",
     "url": "https://github.com/keenethics/svelte-notifications"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "CLI tool for svelte to help you be productive",
-    "npm": "baelte",
-    "stars": 84,
-    "tags": [
-      "integrations",
-      "cli tools"
-    ],
-    "title": "baelte",
-    "url": "https://github.com/kennethlarsen/baelte"
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
@@ -1226,19 +1133,6 @@
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "A preprocessor for Svelte that can be used to fetch data before components are compiled.",
-    "npm": "svelte-preprocessor-fetch",
-    "stars": 42,
-    "tags": [
-      "integrations",
-      "preprocessors"
-    ],
-    "title": "svelte-preprocessor-fetch",
-    "url": "https://github.com/kevmodrome/svelte-preprocessor-fetch"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
     "category": "",
     "description": "Redux binding to Svelte based on react-redux",
     "npm": "svelte-redux-connect",
@@ -1264,30 +1158,6 @@
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "Emacs major mode for Svelte",
-    "stars": 17,
-    "tags": [
-      "integrations",
-      "editor tools"
-    ],
-    "title": "svelte-mode",
-    "url": "https://github.com/leafOfTree/svelte-mode"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "Vim syntax and indent plugin for .svelte files",
-    "stars": 31,
-    "tags": [
-      "integrations",
-      "editor tools"
-    ],
-    "title": "vim-svelte-plugin",
-    "url": "https://github.com/leafOfTree/vim-svelte-plugin"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
     "category": "Data Visualisation",
     "description": "Baidu Echarts(v3.0 & v4.0) components for Svelte wrapper",
     "npm": "echarts-for-svelte",
@@ -1310,32 +1180,6 @@
     ],
     "title": "@lottiefiles/svelte-lottie-player",
     "url": "https://github.com/LottieFiles/svelte-lottie-player"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "LESS preprocessor",
-    "npm": "svelte-preprocess-less",
-    "stars": 7,
-    "tags": [
-      "integrations",
-      "preprocessors"
-    ],
-    "title": "svelte-preprocess-less",
-    "url": "https://github.com/ls-age/svelte-preprocess-less"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "SASS/SCSS preprocessor",
-    "npm": "svelte-preprocess-sass",
-    "stars": 73,
-    "tags": [
-      "integrations",
-      "preprocessors"
-    ],
-    "title": "svelte-preprocess-sass",
-    "url": "https://github.com/ls-age/svelte-preprocess-sass"
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
@@ -1674,19 +1518,6 @@
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "Typescript preprocessor for Svelte 3",
-    "npm": "svelte-ts-preprocess",
-    "stars": 103,
-    "tags": [
-      "integrations",
-      "preprocessors"
-    ],
-    "title": "svelte-ts-preprocess",
-    "url": "https://github.com/PaulMaly/svelte-ts-preprocess"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
     "category": "",
     "description": "Dynamically load a Svelte component with placeholders and preloading",
     "npm": "svelte-viewpoint",
@@ -1827,18 +1658,6 @@
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "Creates a new Svelte component from higlighted text",
-    "stars": 20,
-    "tags": [
-      "integrations",
-      "editor tools"
-    ],
-    "title": "vscode-svelte-component-extractor",
-    "url": "https://github.com/proverbial-ninja/vscode-svelte-component-extractor"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
     "category": "Forms & User Input",
     "description": "Simple autocomplete / typeahead component for Svelte",
     "stars": 51,
@@ -1901,18 +1720,6 @@
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "Chrome/Firefox extension that allows inspection of Svelte components and state",
-    "stars": 395,
-    "tags": [
-      "components and libraries",
-      "development and documentation"
-    ],
-    "title": "Svelte DevTools",
-    "url": "https://github.com/RedHatter/svelte-devtools"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
     "category": "User Interaction",
     "description": "An accessible dialog component for Svelte apps",
     "npm": "svelte-accessible-dialog",
@@ -1961,19 +1768,6 @@
     ],
     "title": "svelte-awesome",
     "url": "https://github.com/RobBrazier/svelte-awesome"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "Compile Svelte components with Rollup",
-    "npm": "rollup-plugin-svelte",
-    "stars": 282,
-    "tags": [
-      "integrations",
-      "bundler plugins"
-    ],
-    "title": "rollup-plugin-svelte",
-    "url": "https://github.com/rollup/rollup-plugin-svelte"
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
@@ -2216,32 +2010,6 @@
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "A language server and VSCode extension for Svelte, useful for TypeScript support in templates",
-    "npm": "language-tools",
-    "stars": 419,
-    "tags": [
-      "integrations",
-      "editor tools"
-    ],
-    "title": "language-tools",
-    "url": "https://github.com/sveltejs/language-tools"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "Webpack loader for Svelte components",
-    "npm": "svelte-loader",
-    "stars": 387,
-    "tags": [
-      "integrations",
-      "bundler plugins"
-    ],
-    "title": "svelte-loader",
-    "url": "https://github.com/sveltejs/svelte-loader"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
     "category": "Forms & User Input",
     "description": "The `<Repl>` component used on the Svelte website",
     "npm": "@sveltejs/svelte-repl",
@@ -2291,19 +2059,6 @@
     ],
     "title": "@sveltejs/svelte-virtual-list",
     "url": "https://github.com/sveltejs/svelte-virtual-list"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "PostCSS preprocessor",
-    "npm": "svelte-preprocess-postcss",
-    "stars": 26,
-    "tags": [
-      "integrations",
-      "preprocessors"
-    ],
-    "title": "svelte-preprocess-postcss",
-    "url": "https://github.com/TehShrike/svelte-preprocess-postcss"
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
@@ -2383,19 +2138,6 @@
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "modular-css` preprocessor",
-    "npm": "@modular-css/svelte",
-    "stars": 0,
-    "tags": [
-      "integrations",
-      "preprocessors"
-    ],
-    "title": "@modular-css/svelte",
-    "url": "https://github.com/tivac/modular-css/tree/master/packages/svelte"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
     "category": "Forms & User Input",
     "description": "A lightweight library for managing forms in Svelte",
     "npm": "svelte-forms-lib",
@@ -2406,44 +2148,6 @@
     ],
     "title": "svelte-forms-lib",
     "url": "https://github.com/tjinauyeung/svelte-forms-lib"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "Provides syntax highlighting of Svelte components in WebStorm and friends",
-    "stars": 288,
-    "tags": [
-      "integrations",
-      "editor tools"
-    ],
-    "title": "svelte-intellij",
-    "url": "https://github.com/tomblachut/svelte-intellij"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "console.log()-like interactive inspector for Svelte 3",
-    "npm": "svelte-inspect",
-    "stars": 33,
-    "tags": [
-      "components and libraries",
-      "inputs and widgets"
-    ],
-    "title": "svelte-inspect",
-    "url": "https://github.com/trbrc/svelte-inspect"
-  },
-  {
-    "addedOn": "2020-09-29T14:39:13Z",
-    "category": "Developer Experience",
-    "description": "Format your Svelte components using Prettier",
-    "npm": "prettier-plugin-svelte",
-    "stars": 230,
-    "tags": [
-      "components and libraries",
-      "development and documentation"
-    ],
-    "title": "prettier-plugin-svelte",
-    "url": "https://github.com/UnwrittenFun/prettier-plugin-svelte"
   },
   {
     "addedOn": "2020-09-29T14:39:13Z",
@@ -2778,17 +2482,6 @@
     "url": "https://github.com/vinodnimbalkar/svelte-pdf"
   },
   {
-    "addedOn": "2021-02-02T18:08:37.886Z",
-    "category": "Developer Experience",
-    "description": "Vscode extension to sort your CSS properties, and make them easy to read",
-    "stars": 0,
-      "tags": [
-        "editor tools"
-     ],
-     "title": "vscode-css-sort",
-     "url": "https://github.com/apriliandi246/vscode-css-sort"
-  },
-  {
     "addedOn": "2021-01-28T00:20:00Z",
     "category": "Routers",
     "description": "Light & reactive one-component router for Svelte",
@@ -2959,6 +2652,19 @@
     ],
     "title": "svelte-particles",
     "url": "https://github.com/matteobruni/tsparticles"
+  },
+  {
+    "addedOn": "2021-07-14T13:23:59.236Z",
+    "category": "Rich Text Editor",
+    "description": "Svelte components for tiptap v2",
+    "npm": "svelte-tiptap",
+    "stars": 2,
+    "tags": [
+      "components and libraries",
+      "rich text editor"
+    ],
+    "title": "svelte-tiptap",
+    "url": "https://github.com/sibiraj-s/svelte-tiptap"
   },
   {
     "addedOn": "2021-07-25T20:00:00Z",

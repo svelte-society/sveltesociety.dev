@@ -7,7 +7,7 @@
 
 <div class="content-wrap">
   <div class="my-1">
-    <h1>Cookbook</h1>
+    <h1 class="text-5xl mt-6 mb-4">Cookbook</h1>
     <p class="intro">
       This cookbook serves shows users how best-in-practice code is written in
       Svelte. You’ll learn how to import third-party libraries, external scripts
