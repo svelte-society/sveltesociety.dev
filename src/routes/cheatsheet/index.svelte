@@ -10,28 +10,11 @@
 </script>
 
 <svelte:head>
-  <title>Cheatsheet - Svelte Society</title>
+	<title>Cheatsheet - Svelte Society</title>
 </svelte:head>
-<main>
+<h1 class="text-5xl mb-5">Cheat Sheet</h1>
+<main class="flex flex-wrap items-stretch gap-x-5 gap-y-10">
 	{#each cheatSheet as item}
 		<CheatSheetCard {...item} />
 	{/each}
 </main>
-
-<style>
-	main {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: flex-start;
-		max-width: 100%;
-	}
-	@media (max-width: 960px) {
-		main > :global(.card) {
-			max-width: 95%;
-		}
-	}
-	.intro {
-		margin: 0 auto;
-		margin-bottom: var(--space-600) 0;
-	}
-</style>

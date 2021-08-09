@@ -18,9 +18,7 @@
 </svelte:head>
 
 <Header />
-<div class="container mx-auto px-4 pb-4">
-	<main>
-		<slot />
-	</main>
-</div>
+<main class="container mx-auto py-10 px-5 lg:py-20">
+	<slot />
+</main>
 <Footer />
