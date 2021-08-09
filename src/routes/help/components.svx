@@ -2,6 +2,9 @@
 pre {
 	@apply bg-gray-100 p-4 rounded-2xl text-gray-900 overflow-x-auto;
 }
+h1 {
+	@apply mt-10;
+}
 h2 {
 	@apply text-3xl mt-8 mb-4;
 }
@@ -9,7 +12,7 @@ table {
 	@apply border my-8;
 }
 th, td {
-	@apply px-8 py-4;
+	@apply p-4;
 }
 thead {
 	@apply border-b text-left bg-gray-200;
