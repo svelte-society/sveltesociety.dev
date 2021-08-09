@@ -30,6 +30,17 @@
     ],
     "addedOn": "2021-03-31T00:00:00Z",
     "category": "SvelteKit Adapters"
+  },  
+  {
+    "title": "architect/sveltekit-adapter",
+    "description": "Adapter for Svelte apps that creates a Begin or Architect app, using a function for dynamic server rendering.",
+    "url": "https://github.com/architect/sveltekit-adapter",
+    "npm": "https://www.npmjs.com/package/@architect/sveltekit-adapter",
+    "tags": [
+      "integrations"
+    ],
+    "addedOn": "2021-08-09T00:00:00Z",
+    "category": "SvelteKit Adapters"
   },
   {
     "title": "svelte-adapter-deno",
