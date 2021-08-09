@@ -51,9 +51,6 @@ const config = {
 				500: 'clamp(2.0519rem, 1.7092rem + 1.7134vw, 2.93rem)',
 				600: 'clamp(2.4625rem, 1.9945rem + 2.3402vw, 3.6619rem)',
 				700: 'clamp(2.955rem, 2.3218rem + 3.1659vw, 4.5775rem)'
-			},
-			gridTemplateColumns: {
-				auto: 'auto'
 			}
 		}
 	},
