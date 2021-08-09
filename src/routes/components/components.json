@@ -2665,5 +2665,19 @@
     ],
     "title": "svelte-tiptap",
     "url": "https://github.com/sibiraj-s/svelte-tiptap"
+  },
+  {
+    "addedOn": "2021-07-25T20:00:00Z",
+    "category": "Data Visualisation",
+    "description": "Full-sized drag & drop event calendar with resource view",
+    "image": "",
+    "npm": "@event-calendar/core",
+    "stars": 36,
+    "tags": [
+      "components and libraries",
+      "time and date"
+    ],
+    "title": "Event Calendar",
+    "url": "https://github.com/vkurko/calendar"
   }
 ]
