@@ -25,6 +25,7 @@
     "description": "SvelteKit adapter for Firebase Hosting rewrites to either Cloud Functions or Cloud Run for a Svelte SSR experience",
     "url": "https://github.com/jthegedus/svelte-adapter-firebase",
     "npm": "https://www.npmjs.com/package/svelte-adapter-firebase",
+    "stars": 49,
     "tags": [
       "integrations"
     ],
@@ -36,6 +37,7 @@
     "description": "Adapter for Svelte apps that creates a Begin or Architect app, using a function for dynamic server rendering.",
     "url": "https://github.com/architect/sveltekit-adapter",
     "npm": "https://www.npmjs.com/package/@architect/sveltekit-adapter",
+    "stars": 0,
     "tags": [
       "integrations"
     ],
@@ -47,6 +49,7 @@
     "description": "SvelteKit adapter that generates a standalone Deno server.",
     "url": "https://github.com/pluvial/svelte-adapter-deno",
     "npm": "https://www.npmjs.com/package/svelte-adapter-deno",
+    "stars": 20,
     "tags": [
       "integrations"
     ],
