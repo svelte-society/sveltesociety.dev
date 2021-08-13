@@ -29,7 +29,7 @@
 			<span transition:fly={{ x: 20 }}> Copied to clipboard </span>
 		{/if}
 
-		<button on:click={copy} aria-label="Copy to clipborad">📋</button>
+		<button on:click={copy} aria-label="Copy to clipboard" title="Copy to clipboard">📋</button>
 		<a href={doc} target="_blank" title="Go to documentation">📃</a>
 		<a href={repl} target="_blank" title="See in REPL">💻</a>
 	</section>

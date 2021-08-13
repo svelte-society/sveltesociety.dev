@@ -1,14 +1,29 @@
 <style>
-code { background: #eee; }
-pre { background: #eee; color: #333; padding: 1rem; border-radius: 1rem }
-h2 { font-size: 23px; }
+pre {
+	@apply bg-gray-100 p-4 rounded-2xl text-gray-900 overflow-x-auto;
+}
+h2 {
+	@apply text-3xl mt-8 mb-4;
+}
+table {
+	@apply border my-8;
+}
+th, td {
+	@apply px-8 py-4;
+}
+thead {
+	@apply border-b text-left bg-gray-200;
+}
+tr:nth-of-type(2n) {
+	@apply bg-gray-50;
+}
 </style>
 
 # How to submit a new component?
 
 To add a new component on the website, the process is rather simple.
 
-You have to add your component in [components.json](https://github.com/svelte-society/sveltesociety.dev/blob/master/src/pages/components/components.json) 
+You have to add your component in [components.json](https://github.com/svelte-society/sveltesociety.dev/blob/master/src/routes/components/components.json)
 
 ## Forking the project
 
@@ -18,36 +33,36 @@ You can fork the [GitHub project](https://github.com/svelte-society/sveltesociet
 
 You can edit and propose your changes [directly in GitHub](https://github.com/svelte-society/sveltesociety.dev/edit/master/src/pages/components/components.json)
 
-<hr />
-
 # What information should I give ?
 
 Each component is represented by a JSON Object.
 
 The object contains:
- - how the component should be named (`title`)
- - the url where to found it (`url`)
- - a short description of the components (`description`)
- - a list of tags (`tags`, avoid creating new tags)
- - an image to quickly view what your component is all about (`image`)
- - the date when the component have been added on the website (`addedOn`, generally it's today)
- - the category of the component (`category`, one of `Boilerplate`, `Data Visualisation`, `Design Pattern`, `Design System`, `Developer Experience`, `Forms & User Input`, `Integration`, `Routers`, `Stores`, `Testing`, `User Interaction`)
- - the npm name of the component (`npm`)
 
-_(keys `npm`, `url`, `description`, `image`, `category` are optional)_
+| Field                    | Description                                                                                                                                                                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `title`                  | Name of the component                                                                                                                                                                                                          |
+| `url` (optional)         | The URL where to find it                                                                                                                                                                                                       |
+| `description` (optional) | A short description of the component                                                                                                                                                                                           |
+| `tags`                   | A list of tags (avoid creating new tags)                                                                                                                                                                                       |
+| `image` (optional)       | An image to quickly view what your component is all about                                                                                                                                                                      |
+| `addedOn`                | The date when the component have been added on the website (generally it's today)                                                                                                                                              |
+| `category` (optional)    | The category of the component (one of `Boilerplate`, `Data Visualisation`, `Design Pattern`, `Design System`, `Developer Experience`, `Forms & User Input`, `Integration`, `Routers`, `Stores`, `Testing`, `User Interaction`) |
+| `npm` (optional)         | The npm name of the component                                                                                                                                                                                                  |
 
-Here an example:
+## Example
+
 ```json
 {
-  "title": "svelte-calendar",
-  "url": "https://github.com/6eDesign/svelte-calendar",
-  "description": "A lightweight date picker with neat animations and a unique UX",
-  "tags": [
-    "components and libraries",
-    "time and date"
-  ],
-  "image": "",
-  "addedOn": "2020-09-29T14:39:13Z",
-  "category": "Forms & User Input"
+	"title": "svelte-calendar",
+	"url": "https://github.com/6eDesign/svelte-calendar",
+	"description": "A lightweight date picker with neat animations and a unique UX",
+	"tags": [
+		"components and libraries",
+		"time and date"
+	],
+	"image": "",
+	"addedOn": "2020-09-29T14:39:13Z",
+	"category": "Forms & User Input"
 }
 ```

@@ -5,16 +5,19 @@
 
 @font-face {
 	font-family: Inter;
-	src: url(fonts/Inter-Regular.woff2);
+	src: url(/fonts/Inter-Regular.woff2);
+	font-display: swap;
 }
 @font-face {
 	font-family: Overpass;
-	src: url(fonts/Overpass-SemiBold.woff2);
+	src: url(/fonts/Overpass-SemiBold.woff2);
+	font-display: swap;
 	font-weight: 600;
 }
 @font-face {
 	font-family: Overpass;
-	src: url(fonts/Overpass-Bold.woff2);
+	src: url(/fonts/Overpass-Bold.woff2);
+	font-display: swap;
 	font-weight: bold;
 }
 
@@ -87,9 +90,19 @@ body {
 	font-family: Inter;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
 	font-family: Overpass;
 	font-weight: bold;
+}
+
+h1 {
+	@apply text-5xl lg:text-7xl;
+}
+
+h2 {
 }
 
 a {

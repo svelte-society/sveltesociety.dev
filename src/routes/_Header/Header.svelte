@@ -3,7 +3,7 @@
 
 	import { page } from '$app/stores';
 	const linksLeft = [
-		['/boilerplates', 'boilerplates'],
+		['/templates', 'templates'],
 		['/components', 'components'],
 		['/tooling', 'tooling']
 	];
@@ -14,17 +14,23 @@
 	];
 </script>
 
-<div class="shaded" id="title">
-	<header class="container mx-auto">
-		<nav class="pt-8 pb-8">
-			<ul>
+<header class="bg-basics-100 py-6 px-4">
+	<div class="container mx-auto">
+		<nav class="py-8">
+			<ul class="grid gap-6 justify-center place-items-center font-bold xl:flex">
 				{#each linksLeft as [path, name]}
 					<Link {path} active={path === '/' ? $page.path === '/' : $page.path.includes(path)}
 						>{name}</Link
 					>
 				{/each}
-				<li class="logo">
-					<a href="/"> <img alt="Svelte Society Logo" src="/images/logo.svg" /> </a>
+				<li class="absolute right-4 top-4 xl:flex xl:relative xl:-inset-0 xl:items-center">
+					<a href="/">
+						<img
+							alt="Svelte Society Logo"
+							src="/images/logo.svg"
+							class="w-12 h-12 xl:w-32 xl:h-32"
+						/>
+					</a>
 				</li>
 				{#each linksRight as [path, name]}
 					<Link {path} active={path === '/' ? $page.path === '/' : $page.path.includes(path)}
@@ -33,54 +39,12 @@
 				{/each}
 			</ul>
 		</nav>
-	</header>
-</div>
+	</div>
+</header>
 
 <style>
-	.shaded {
-		max-width: 100%;
-		background: #f3f6f9;
-		margin-bottom: calc(var(--space-600) * 2);
-	}
-
-	ul {
-		list-style: none;
-		padding: 0;
-		display: grid;
-		grid-gap: var(--space-600);
-		grid-template-columns: repeat(3, 1fr) auto repeat(3, 1fr);
-		justify-content: center;
-		place-items: center;
-		font-weight: bold;
-	}
-
-	header {
-		padding: var(--space-600) 1rem;
-	}
-
-	@media screen and (max-width: 920px) {
-		ul {
-			grid-template-columns: auto;
-		}
-		.logo {
-			position: absolute;
-			right: 0;
-			top: 0;
-			width: 3rem;
-		}
-	}
-	.logo {
-		display: flex;
-		align-items: center;
-	}
-
-	img {
-		width: 120px;
-		height: 120px;
-	}
-
 	@media print {
-		.shaded {
+		header {
 			display: none;
 		}
 	}
