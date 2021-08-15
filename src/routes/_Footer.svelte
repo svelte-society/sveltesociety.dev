@@ -27,9 +27,6 @@
 </div>
 
 <style>
-	footer {
-		max-width: unset;
-	}
 	@media print {
 		footer {
 			display: none;
