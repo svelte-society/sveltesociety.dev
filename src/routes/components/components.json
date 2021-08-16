@@ -1197,6 +1197,18 @@
     "url": "https://github.com/kolodziejczak-sz/svelte-redux-connect"
   },
   {
+    "addedOn": "2021-08-13T14:39:13Z",
+    "category": "Testing",
+    "description": "A Jest transformer for Svelte - compile your components before importing them into tests.",
+    "npm": "svelte-jester",
+    "stars": 80,
+    "tags": [
+      "testing"
+    ],
+    "title": "svelte-jester",
+    "url": "https://github.com/mihar-22/svelte-jester"
+  },
+  {
     "addedOn": "2020-09-29T14:39:13Z",
     "category": "Testing",
     "description": "Jest Svelte component transformer",
