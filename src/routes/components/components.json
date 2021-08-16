@@ -2719,6 +2719,20 @@
     "url": "https://github.com/sibiraj-s/svelte-tiptap"
   },
   {
+    "addedOn": "2021-08-12T17:30:00Z",
+    "category": "Design System",
+    "description": "PaperCSS components for Svelte",
+    "image": "",
+    "npm": "spaper",
+    "stars": 1,
+    "tags": [
+      "components and libraries",
+      "component sets"
+    ],
+    "title": "Spaper",
+    "url": "https://github.com/Oli8/spaper"
+  },
+  {
     "addedOn": "2021-07-25T20:00:00Z",
     "category": "Data Visualisation",
     "description": "Full-sized drag & drop event calendar with resource view",
