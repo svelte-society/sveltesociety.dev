@@ -99,16 +99,21 @@
 		display: flex;
 		justify-content: center;
 	}
-
 	.categories-wrap {
 		display: grid;
-		grid-template-columns: 1fr 1fr 1fr 1fr;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 		flex-wrap: wrap;
 		padding: 1rem;
 	}
-	@media screen and (max-width: 920px) {
+	@media screen and (max-width: 1024px) {
 		.categories-wrap {
-			grid-template-columns: auto;
+			grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+		}
+	}
+	@media screen and (max-width: 600px) {
+		.categories-wrap {
+
+			grid-template-columns: 1fr
 		}
 	}
 	.category-style {
