@@ -2731,5 +2731,17 @@
     ],
     "title": "Event Calendar",
     "url": "https://github.com/vkurko/calendar"
+  },
+  {
+    "addedOn": "2021-08-13T05:51:23.981Z",
+    "category": "Design System",
+    "description": "Straight-forward Svelte UI, made with Windi CSS",
+    "npm": "@kahi-ui/framework",
+    "stars": 37,
+    "tags": [
+      "components and libraries"
+    ],
+    "title": "Kahi UI",
+    "url": "https://github.com/novacbn/kahi-ui"
   }
 ]
