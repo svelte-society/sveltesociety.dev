@@ -2769,5 +2769,15 @@
     ],
     "title": "Kahi UI",
     "url": "https://github.com/novacbn/kahi-ui"
+  },
+  {
+    "title": "Svelte Multi Adapter",
+    "category": "SvelteKit Adapters",
+    "description": "An adapter to launch multiple adapter",
+    "npm": "@macfja/svelte-multi-adapter",
+    "stars": 0,
+    "tags": [],
+    "url": "https://github.com/macfja/svelte-adapter-multi#readme",
+    "addedOn": "2021-08-23T15:40:00.000Z"
   }
 ]
