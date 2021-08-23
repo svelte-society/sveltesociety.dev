@@ -9,6 +9,7 @@
   export let url = "";
   export let npm = "";
   export let repo = "";
+  export let manager = "npm"
 
   let clipboardCopy = false
 	const copyToClipboard = (text) => {
@@ -20,6 +21,16 @@
 			})
 			.catch(() => alert('Clipboard copy Permission denied'));
 	};
+
+  const packageManagers = {
+    'npm':  "npm install",
+    "pnpm":  "pnpm add",
+    "yarn":  "yarn add"
+  }
+
+  const cleanupNpm = (npm) => {
+    return npm.replace('https://www.npmjs.com/package/', '')
+  }
 </script>
 
 <style>
@@ -76,7 +87,7 @@
 <div class="card" class:active id="component-{escape(title)}">
   <h3>
     <a href="#component-{escape(title)}">#</a> <a href={url}>{title}</a>
-    {#if npm}<Tag click={() => copyToClipboard(`npm install ${npm}`)} variant="copy" title={clipboardCopy ? 'copied!' : `npm install ${npm}`}/>{/if}
+    {#if npm}<Tag click={() => copyToClipboard(`${packageManagers[manager]}l ${cleanupNpm(npm)}`)} variant="copy" title={clipboardCopy ? 'copied!' : `${packageManagers[manager]} ${cleanupNpm(npm)}`}/>{/if}
   </h3>
   <p class="flex-grow">{description}</p>
   <div class="card__tags">

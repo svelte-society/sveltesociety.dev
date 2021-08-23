@@ -11,6 +11,7 @@
   let filterTag = []
   let filterCategory = null
   let sorting = 'added_desc';
+  let packageManager = 'npm'
 
   const intersection = (array1, array2) => {
     return array1.filter(item => array2.includes(item))
@@ -203,6 +204,14 @@
             <li><label><input type="radio" bind:group={sorting} value="name_desc"> Name Desc</label></li>
         </ul>
       </Button>
+      <Button small active={packageManager !== ''}>
+        Package Manager
+        <ul slot="menu" role="menu" class="popin no-wrap">
+          <li><label><input type="radio" bind:group={packageManager} value="npm"> NPM</label></li>
+          <li><label><input type="radio" bind:group={packageManager} value="pnpm"> PNPM</label></li>
+          <li><label><input type="radio" bind:group={packageManager} value="yarn"> Yarn</label></li>
+        </ul>
+      </Button>
     </div>
 
     <input
@@ -216,7 +225,7 @@
   {#each categories as category}
     <List title={category||"Unclassified"}>
       {#each dataToDisplay.filter(d => d.category === category) as data}
-        <ComponentCard {...data} />
+        <ComponentCard {...data} manager={packageManager} />
       {/each}
     </List>
   {/each}
