@@ -767,5 +767,19 @@
     "tags": [],
     "title": "rossyman/svelte-add-jest",
     "url": "https://github.com/rossyman/svelte-add-jest"
-  }
+  },
+  {
+    "addedOn": "2021-08-23T11:39:29Z",
+    "category": "SvelteKit",
+    "description": "SvelteKit blog powered with mdsvex, json schema support, sitemap.xml, RSS-feed and other tools required for good SEO.",
+    "stars": 1,
+    "tags": [
+      "ssr",
+      "templates",
+      "mdsvex",
+      "seo"
+    ],
+    "title": "MailCheck-co/mailcheck.site",
+    "url": "https://github.com/MailCheck-co/mailcheck.site"
+  },
 ]
