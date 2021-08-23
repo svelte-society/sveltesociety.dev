@@ -14,7 +14,7 @@
     "title": "svelte-fast-marquee",
     "description": "A Marquee component for Svelte inspired by react-fast-marquee.",
     "url": "https://github.com/abosch19/svelte-fast-marquee",
-    "npm": "https://www.npmjs.com/package/svelte-fast-marquee",
+    "npm": "svelte-fast-marquee",
     "tags": [
       "components and libraries"
     ],
