@@ -11,17 +11,15 @@
   export let repo = "";
 
   let clipboardCopy = false
-  const copyToClipboard = (text) => {
-    navigator.permissions.query({name: "clipboard-write"}).then(result => {
-      if (result.state == "granted" || result.state == "prompt") {
-        navigator.clipboard.writeText(text)
-        clipboardCopy = true
-        setTimeout(() => {
-          clipboardCopy = false
-        }, 1000)
-      }
-    }).catch(() => alert("Clipboard copy Permission denied"));
-  }
+	const copyToClipboard = (text) => {
+		navigator.clipboard
+			.writeText(text)
+			.then(() => {
+				clipboardCopy = true;
+				setTimeout(() => (clipboardCopy = false), 1000);
+			})
+			.catch(() => alert('Clipboard copy Permission denied'));
+	};
 </script>
 
 <style>
