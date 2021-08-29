@@ -1,5 +1,5 @@
 <script>
-	import '../app.postcss';
+	import '../app.css';
 	import Header from './_Header/Header.svelte';
 	import Footer from './_Footer.svelte';
 	import metatags from '$lib/stores/metatags';

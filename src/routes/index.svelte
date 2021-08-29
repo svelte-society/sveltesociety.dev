@@ -28,17 +28,22 @@
 		</p>
 	</section>
 	<ul class="flex flex-wrap gap-x-20 gap-y-6 justify-center">
-		<Link path="https://youtube.com/SvelteSociety" image="images/youtube.svg" alt="YouTube icon"
-			>YouTube</Link
-		>
 		<Link path="https://discord.gg/svelte" image="images/discord.svg" alt="Discord icon"
 			>Discord</Link
+		>
+		<Link path="https://youtube.com/SvelteSociety" image="images/youtube.svg" alt="YouTube icon"
+			>YouTube</Link
 		>
 		<Link path="https://twitter.com/sveltesociety" image="images/twitter.svg" alt="Twitter icon"
 			>Twitter</Link
 		>
+	</ul>
+	<ul class="flex flex-wrap gap-x-20 gap-y-6 justify-center">
 		<Link path="https://svelte.substack.com/" image="images/newsletter.svg" alt="Newsletter icon"
 			>Newsletter</Link
+		>
+		<Link path="https://www.reddit.com/r/sveltejs/" image="images/reddit.svg" alt="Reddit icon"
+			>Reddit</Link
 		>
 		<Link path="https://www.svelteradio.com/" image="images/radio.svg" alt="Radio icon"
 			>Podcast</Link
