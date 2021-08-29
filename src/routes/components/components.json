@@ -3,7 +3,7 @@
     "title": "svelte-number-spinner",
     "description": "A number input field that can be controlled by mouse/touch drag, arrow keys or usual editing.",
     "url": "https://github.com/bohnacker/svelte-number-spinner",
-    "npm": "https://www.npmjs.com/package/svelte-number-spinner",
+    "npm": "svelte-number-spinner",
     "tags": [
        "components and libraries",
        "inputs and widgets"
