@@ -1,6 +1,7 @@
 <script>
   export const primary = false;
   export let active = false;
+  export let small = false
 </script>
 
 <style>
@@ -13,6 +14,10 @@
     align-items: center;
     padding: 5px 15px;
     position: relative;
+  }
+  div.small {
+    font-size: 0.8em;
+    padding: 3px 10px;
   }
   div:hover {
     cursor: pointer;
@@ -37,8 +42,8 @@
   .popin {
     display: none;
     position: absolute;
-    left: calc(100% - 1rem);
-    top: 1rem;
+    left: calc(100% - 1em);
+    top: 1em;
     z-index: 100;
     margin: 0;
     padding: 0;
@@ -59,7 +64,7 @@
   }
 </style>
 
-<div on:click>
+<div on:click class:small>
   <span>
     <slot />
   </span>
