@@ -7,7 +7,7 @@
 <div class="w-full bg-basics-100">
 	<footer class="container mx-auto p-8 md:p-12">
 		<div
-			class="mx-auto flex flex-col md:flex-row items-center md:justify-between md:w-5/6 lg:w-2/3 xl:w-1/3 2xl:w-1/4"
+			class="mx-auto grid gap-2 md:gap-6 md:flex items-center justify-center text-center"
 		>
 			<span>&copy; {year} Svelte Society</span>
 			<span>•</span>
