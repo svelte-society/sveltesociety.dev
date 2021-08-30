@@ -95,7 +95,7 @@
       <Tag title={tag} variant='blue' />
     {/each}
   </div>
-  {#if stars > 0}
+  {#if typeof stars !== 'undefined'}
     <div class="card__bottom">
       <div>
         {#if (repo || url).includes('github')}
