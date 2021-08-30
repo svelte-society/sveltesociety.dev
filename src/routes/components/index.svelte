@@ -11,7 +11,7 @@
   const allCategories = Array.from(new Set(components.map(item => item.category).flat()))
   let filterTag = []
   let filterCategory = null
-  let sorting = 'added_desc';
+  let sorting = 'stars_desc';
   let packageManager = 'npm'
 
   const intersection = (array1, array2) => {

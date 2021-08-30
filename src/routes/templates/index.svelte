@@ -11,7 +11,7 @@
 	const allCategories = Array.from(new Set(components.map((item) => item.category).flat()));
 	let filterTag = [];
 	let filterCategory = null;
-	let sorting = 'added_desc';
+	let sorting = 'stars_desc';
 
 	const intersection = (array1, array2) => {
 		return array1.filter((item) => array2.includes(item));
