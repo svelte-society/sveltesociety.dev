@@ -1,7 +1,10 @@
 <script>
-	import '../app.css';
-	import Header from './_Header/Header.svelte';
-	import Footer from './_Footer.svelte';
+	// import '../app.css';
+	import '$styles/reset.css';
+	import '$styles/root.css';
+	import '$styles/globals.css';
+	import Header from '$layout/Header.svelte';
+	import Footer from '$layout/Footer.svelte';
 	import metatags from '$lib/stores/metatags';
 </script>
 

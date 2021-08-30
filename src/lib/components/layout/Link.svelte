@@ -9,7 +9,7 @@
 </li>
 
 <style>
-	a {
+	/* a {
 		color: black;
 		font-size: var(--font-100);
 		text-decoration: none;
@@ -30,7 +30,7 @@
 
 	li a:hover {
 		border-bottom: 4px solid var(--color);
-	}
+	} */
 	.active {
 		border-bottom: 4px solid var(--color);
 	}

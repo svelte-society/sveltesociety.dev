@@ -1,15 +1,12 @@
 import adapter from '@sveltejs/adapter-static';
-import preprocess from 'svelte-preprocess';
 import { mdsvex } from 'mdsvex';
+import path from 'path';
 
 const extensions = [`.svelte`, '.md', `.mdx`, '.svx'];
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	preprocess: [
-		preprocess({
-			"postcss": true
-		}),
 		mdsvex({
 			extensions: extensions,
 			layout: {
@@ -28,7 +25,17 @@ const config = {
 			optimizeDeps: {
 				// workaround Vite issue to fix highlighting on cheatsheet
 				// https://github.com/metonym/svelte-highlight/issues/158
-				include: ["highlight.js/lib/core"],
+				include: ['highlight.js/lib/core']
+			},
+			resolve: {
+				alias: {
+					// these are the aliases and paths to them
+					$components: path.resolve('./src/lib/components'),
+					$layout: path.resolve('./src/lib/components/layout'),
+					$layouts: path.resolve('./src/lib/layouts'),
+					$styles: path.resolve('./src/lib/styles'),
+					$stores: path.resolve('./src/lib/stores')
+				}
 			}
 		}
 	}

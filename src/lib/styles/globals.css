@@ -1,0 +1,56 @@
+body {
+	border-top: 6px solid var(--color);
+	font-family: Inter;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-family: Overpass;
+	font-weight: bold;
+}
+
+h1 {
+	@apply text-5xl lg:text-7xl;
+}
+
+h2 {
+}
+
+a {
+	color: var(--color);
+}
+
+[href]:hover {
+	text-decoration: none;
+}
+
+figcaption {
+	font-size: var(--font-100);
+	font-style: italic;
+	margin-top: 1rem;
+	margin-left: 1rem;
+}
+
+blockquote {
+	padding-left: var(--font-200);
+	border-left: 5px solid;
+	font-style: italic;
+}
+
+::selection {
+	color: #fff;
+	background: rgba(0, 0, 0, 0.99);
+}
+
+.heading {
+	text-align: center;
+	margin: var(--space-600);
+	max-width: 60ch;
+}
+
+.container {
+	margin: 0 auto;
+	width: 100%;
+}

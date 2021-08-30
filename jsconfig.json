@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"$components": ["src/lib/components"],
+			"$layout": ["src/lib/components/layout"],
+			"$layouts": ["src/lib/layouts"],
+			"$lib": ["src/lib"],
+			"$styles": ["src/lib/styles"],
+			"$stores": ["src/lib/stores"]
+		}
+	},
+	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.svelte"]
+}

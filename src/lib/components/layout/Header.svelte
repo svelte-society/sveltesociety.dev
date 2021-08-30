@@ -43,6 +43,16 @@
 </header>
 
 <style>
+	nav {
+		padding: 2rem 0;
+	}
+	header {
+		background: var(--accent-color);
+		color: var(--header-text-color);
+		padding: 1.5rem 1rem;
+	}
+	@media (min-width: 1280px) {
+	}
 	@media print {
 		header {
 			display: none;
