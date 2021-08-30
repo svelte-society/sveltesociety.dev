@@ -4,7 +4,7 @@
   export let title = "";
   export let description = "";
   export let tags = [];
-  export let stars = 0;
+  export let stars;
   export let addedOn = new Date();
   export let url = "";
   export let npm = "";
