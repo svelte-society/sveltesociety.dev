@@ -11,6 +11,7 @@
 		"test": "jest"
 	},
 	"devDependencies": {
+		"@octokit/graphql": "^4.7.0",
 		"@sveltejs/adapter-static": "next",
 		"@sveltejs/kit": "next",
 		"@types/jest": "^27.0.1",
