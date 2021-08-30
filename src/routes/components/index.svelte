@@ -3,7 +3,7 @@
   import List from "$lib/components/ComponentIndex/CardList.svelte";
   import Button from "$lib/components/ComponentIndex/ArrowButton.svelte";
   import components from "./components.json";
-	import { compare } from '$lib/utils/sort';
+  import { compare } from '$lib/utils/sort';
 
   let searchValue;
   let searchTag;
