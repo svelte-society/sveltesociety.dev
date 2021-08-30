@@ -6,7 +6,7 @@
 		"description": "Compile Svelte components with Rollup",
 		"url": "https://github.com/sveltejs/rollup-plugin-svelte",
 		"tags": ["official"],
-		"stars": 396
+		"stars": 400
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -15,7 +15,7 @@
 		"description": "Webpack loader for svelte components",
 		"url": "https://github.com/sveltejs/svelte-loader",
 		"tags": ["official"],
-		"stars": 486
+		"stars": 491
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -24,7 +24,7 @@
 		"description": "This is the official svelte plugin for vite",
 		"url": "https://github.com/sveltejs/vite-plugin-svelte",
 		"tags": ["official"],
-		"stars": 193
+		"stars": 213
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -33,7 +33,7 @@
 		"description": "An esbuild plugin to compile Svelte components",
 		"url": "https://github.com/EMH333/esbuild-svelte",
 		"tags": [],
-		"stars": 100
+		"stars": 106
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -51,7 +51,7 @@
 		"description": "A parcel plugin that enables svelte support",
 		"url": "https://github.com/DeMoorJasper/parcel-plugin-svelte",
 		"tags": [],
-		"stars": 217
+		"stars": 216
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -105,7 +105,7 @@
 		"description": "An extension that allows inspection of Svelte component hierarchy and state in the Firefox and Chrome developer tools",
 		"url": "https://github.com/RedHatter/svelte-devtools",
 		"tags": [],
-		"stars": 548
+		"stars": 553
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -114,7 +114,7 @@
 		"description": "A ✨ magical ✨ Svelte preprocessor with sensible defaults and support for: PostCSS, SCSS, Less, Stylus, Coffeescript, TypeScript, Pug and much more",
 		"url": "https://github.com/sveltejs/svelte-preprocess",
 		"tags": ["official"],
-		"stars": 1100
+		"stars": 1119
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -132,7 +132,7 @@
 		"description": "Svelte preprocessor support for modular-css",
 		"url": "https://github.com/tivac/modular-css/tree/main/packages/svelte",
 		"tags": [],
-		"stars": 239
+		"stars": 240
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -177,7 +177,7 @@
 		"description": "An ESLint plugin for Svelte v3 components.",
 		"url": "https://github.com/sveltejs/eslint-plugin-svelte3",
 		"tags": ["official"],
-		"stars": 284
+		"stars": 289
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -186,7 +186,7 @@
 		"description": "Format your svelte components using prettier.",
 		"url": "https://github.com/sveltejs/prettier-plugin-svelte",
 		"tags": ["official"],
-		"stars": 375
+		"stars": 381
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -213,7 +213,7 @@
 		"description": "Vim syntax highlighting and indentation for Svelte 3 components.",
 		"url": "https://github.com/evanleck/vim-svelte",
 		"tags": [],
-		"stars": 187
+		"stars": 192
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -231,7 +231,7 @@
 		"description": "Svelte support for (Neo)Vim",
 		"url": "https://github.com/coc-extensions/coc-svelte",
 		"tags": [],
-		"stars": 95
+		"stars": 97
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -240,7 +240,7 @@
 		"description": "Emacs major mode including support for Svelte",
 		"url": "https://github.com/fxbois/web-mode",
 		"tags": [],
-		"stars": 1448
+		"stars": 1454
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
