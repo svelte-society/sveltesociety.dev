@@ -95,22 +95,22 @@
       <Tag title={tag} variant='blue' />
     {/each}
   </div>
-  <div class="card__bottom">
-    <div>
-      {#if stars > 0}
+  {#if stars > 0}
+    <div class="card__bottom">
+      <div>
         {#if (repo || url).includes('github')}
           <img style="display:inline" src="/images/github_logo.svg" alt="github logo" />
         {:else if (repo || url).includes('gitlab')}
           <img style="display:inline" src="/images/gitlab_logo.svg" alt="gitlab logo" />
         <!-- {:else} -->
         {/if}
-      {/if}
+      </div>
+      <div>
+        &#9733;
+        <code>{stars}</code>
+      </div>
+      <!-- commenting out dates just cause it is not very updated yet - all the cards show same date. put back in when we have better scraping -->
+      <!-- <datetime value={addedOn}>{new Intl.DateTimeFormat('en-Us').format(Date.parse(addedOn))}</datetime> -->
     </div>
-    <div>
-      &#9733;
-      <code>{stars}</code>
-    </div>
-    <!-- commenting out dates just cause it is not very updated yet - all the cards show same date. put back in when we have better scraping -->
-    <!-- <datetime value={addedOn}>{new Intl.DateTimeFormat('en-Us').format(Date.parse(addedOn))}</datetime> -->
-  </div>
+  {/if}
 </div>
