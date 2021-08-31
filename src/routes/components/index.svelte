@@ -3,6 +3,7 @@
   import List from "$lib/components/ComponentIndex/CardList.svelte";
   import Button from "$lib/components/ComponentIndex/ArrowButton.svelte";
   import components from "./components.json";
+  import { compare } from '$lib/utils/sort';
 
   let searchValue;
   let searchTag;
@@ -10,7 +11,7 @@
   const allCategories = Array.from(new Set(components.map(item => item.category).flat()))
   let filterTag = []
   let filterCategory = null
-  let sorting = 'added_desc';
+  let sorting = 'stars_desc';
   let packageManager = 'npm'
 
   const intersection = (array1, array2) => {
@@ -29,16 +30,7 @@
     }
 
     return true
-  }).sort((componentA, componentB) => {
-    switch (sorting) {
-      case "added_desc": return new Date(componentB.addedOn || '').getTime() - new Date(componentA.addedOn || '').getTime()
-      case "added_asc": return new Date(componentA.addedOn || '').getTime() - new Date(componentB.addedOn || '').getTime()
-      case "name_asc": return componentA.title.toLowerCase().localeCompare(componentB.title.toLowerCase())
-      case "name_desc": return componentB.title.toLowerCase().localeCompare(componentA.title.toLowerCase())
-      case "stars_desc": return (componentB.stars || 0) - (componentA.stars || 0)
-      case "stars_asc": return (componentA.stars || 0) - (componentB.stars || 0)
-    }
-  });
+  }).sort(compare(sorting));
   $: tagSearchResult = searchTag ? tags.filter(item => item.includes(searchTag)) : tags
   $: categories = Array.from(new Set(dataToDisplay.map(item => item.category)))
 </script>
