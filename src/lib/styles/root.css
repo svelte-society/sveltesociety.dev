@@ -37,8 +37,8 @@
 	--primary-color: var(--primary);
 	--header-text-color: var(--white);
 
-  /* *******MAX WIDTH OF CONTENT******* */
-  --max-width: 1024px;
+	/* *******MAX WIDTH OF CONTENT******* */
+	--max-width: 1024px;
 
 	/************FONTS***************/
 	--font-heading: 'Overpass', sans-serif;
@@ -66,43 +66,41 @@
 	--s-4: 1rem;
 	--s-5: 1.25rem;
 	--s-6: 1.5rem;
-  --s-7: 1.75rem;
-  --s-8: 2rem;
-  --s-9: 2.25rem;
-  --s-10: 2.5rem;
-  --s-11: 2.75rem;
-  --s-12: 3rem;
-  --s-14: 3.5rem;
-  --s-16: 4rem;
-  --s-20: 5rem;
-  --s-24: 6rem;
-  --s-28: 7rem;
-  --s-32: 8rem;
-  --s-36: 9rem;
-  --s-40: 10rem;
-  --s-44: 11rem;
-  --s-48: 12rem;
-  --s-52: 13rem;
-  --s-56: 14rem;
-  --s-60: 15rem;
-  --s-64: 16rem;
-  --s-72: 18rem;
-  --s-80: 20rem;
-  --s-90: 24rem;
+	--s-7: 1.75rem;
+	--s-8: 2rem;
+	--s-9: 2.25rem;
+	--s-10: 2.5rem;
+	--s-11: 2.75rem;
+	--s-12: 3rem;
+	--s-14: 3.5rem;
+	--s-16: 4rem;
+	--s-20: 5rem;
+	--s-24: 6rem;
+	--s-28: 7rem;
+	--s-32: 8rem;
+	--s-36: 9rem;
+	--s-40: 10rem;
+	--s-44: 11rem;
+	--s-48: 12rem;
+	--s-52: 13rem;
+	--s-56: 14rem;
+	--s-60: 15rem;
+	--s-64: 16rem;
+	--s-72: 18rem;
+	--s-80: 20rem;
+	--s-90: 24rem;
 
-/************** WIDTHS **************/
-  --s-auto: auto;
-  --s-1fourth: 25%;
-  --s-1third: 33.3333333%
-  --s-1half: 50%;
-  --s-2thirds: 66.666667%
-  --s-3fourths: 75%;
-  --s-full: 100%;
-  --s-screen: 100vw;
-  --s-min: min-content;
-  --s-max: max-content;
-
-
+	/************** WIDTHS **************/
+	--s-auto: auto;
+	--s-1fourth: 25%;
+	--s-1third: 33.3333333%;
+	--s-1half: 50%;
+	--s-2thirds: 66.666667%;
+	--s-3fourths: 75%;
+	--s-full: 100%;
+	--s-screen: 100vw;
+	--s-min: min-content;
+	--s-max: max-content;
 
 	/************BOX SHADOWS***************/
 	--shadow-dreamy: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
