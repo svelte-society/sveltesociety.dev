@@ -3,6 +3,7 @@
 	import List from '$lib/components/ComponentIndex/CardList.svelte';
 	import Button from '$lib/components/ComponentIndex/ArrowButton.svelte';
 	import tools from './tools.json';
+	import { compare } from '$lib/utils/sort';
 
 	const tags = Array.from(new Set(tools.map((item) => item.tags).flat()));
 	const allCategories = Array.from(new Set(tools.map((item) => item.category).flat()));
@@ -11,7 +12,7 @@
 		searchTag,
 		filterTag = [],
 		filterCategory = null,
-		sorting = 'added_desc';
+		sorting = 'stars_desc';
 
 	const intersection = (array1, array2) => {
 		return array1.filter((item) => array2.includes(item));
@@ -35,22 +36,7 @@
 
 			return true;
 		})
-		.sort((toolA, toolB) => {
-			switch (sorting) {
-				case 'added_desc':
-					return new Date(toolB.addedOn || '').getTime() - new Date(toolA.addedOn || '').getTime();
-				case 'added_asc':
-					return new Date(toolA.addedOn || '').getTime() - new Date(toolB.addedOn || '').getTime();
-				case 'name_asc':
-					return toolA.title.toLowerCase().localeCompare(toolB.title.toLowerCase());
-				case 'name_desc':
-					return toolB.title.toLowerCase().localeCompare(toolA.title.toLowerCase());
-				case 'stars_desc':
-					return (toolB.stars || 0) - (toolA.stars || 0);
-				case 'stars_asc':
-					return (toolA.stars || 0) - (toolB.stars || 0);
-			}
-		});
+		.sort(compare(sorting));
 	$: tagSearchResult = searchTag ? tags.filter((item) => item.includes(searchTag)) : tags;
 	$: categories = Array.from(new Set(dataToDisplay.map((item) => item.category)));
 </script>
