@@ -21,7 +21,19 @@
 </svelte:head>
 
 <Header />
-<main class="container mx-auto py-10 px-5 lg:py-20">
+<main class="container">
 	<slot />
 </main>
 <Footer />
+
+<style>
+  main {
+    padding: var(--s-10) var(--s-5) var(--s-20);
+  }
+
+  @media (min-width: 1024px) {
+    main {
+      padding: var(--s-20) 0 var(--s-40);
+    }
+  }
+</style>

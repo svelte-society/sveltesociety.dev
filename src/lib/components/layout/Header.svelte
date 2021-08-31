@@ -14,28 +14,24 @@
 	];
 </script>
 
-<header class="bg-basics-100 py-6 px-4">
-	<div class="container mx-auto">
-		<nav class="py-8">
-			<ul class="grid gap-6 justify-center place-items-center font-bold xl:flex">
+<header>
+	<div class="container">
+		<nav>
+			<ul>
 				{#each linksLeft as [path, name]}
-					<Link {path} active={path === '/' ? $page.path === '/' : $page.path.includes(path)}
-						>{name}</Link
-					>
+					<Link {path} active={path === '/' ? $page.path === '/' : $page.path.includes(path)}>
+						{name}
+					</Link>
 				{/each}
-				<li class="absolute right-4 top-4 xl:flex xl:relative xl:-inset-0 xl:items-center">
+				<li>
 					<a href="/">
-						<img
-							alt="Svelte Society Logo"
-							src="/images/logo.svg"
-							class="w-12 h-12 xl:w-32 xl:h-32"
-						/>
+						<img alt="Svelte Society Logo" src="/images/logo.svg" />
 					</a>
 				</li>
 				{#each linksRight as [path, name]}
-					<Link {path} active={path === '/' ? $page.path === '/' : $page.path.includes(path)}
-						>{name}</Link
-					>
+					<Link {path} active={path === '/' ? $page.path === '/' : $page.path.includes(path)}>
+						{name}
+					</Link>
 				{/each}
 			</ul>
 		</nav>
@@ -43,15 +39,45 @@
 </header>
 
 <style>
-	nav {
-		padding: 2rem 0;
-	}
 	header {
 		background: var(--accent-color);
 		color: var(--header-text-color);
-		padding: 1.5rem 1rem;
+		padding: var(--s-6) var(--s-4);
+	}
+	nav {
+		padding: 2rem 0;
+	}
+	ul {
+		display: grid;
+		gap: var(--s-6);
+		justify-content: center;
+		place-items: center;
+		font-weight: 800;
+	}
+	li {
+		position: absolute;
+		right: var(--s-4);
+		top: var(--s-4);
+	}
+	img {
+		width: var(--s-12);
+		height: var(--s-12);
 	}
 	@media (min-width: 1280px) {
+		ul {
+			display: flex;
+			justify-content: space-between;
+		}
+		li {
+			display: flex;
+			position: relative;
+			inset: 0;
+			align-items: center;
+		}
+		img {
+			width: var(--s-32);
+			height: var(--s-32);
+		}
 	}
 	@media print {
 		header {

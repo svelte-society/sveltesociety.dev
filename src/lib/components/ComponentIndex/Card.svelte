@@ -43,7 +43,8 @@
     border-radius: 5px;
   }
   .card h3 {
-    word-break: break-word;
+    word-break: none;
+    font-size: var(--font-300);
   }
   h3 a {
     text-decoration: none;

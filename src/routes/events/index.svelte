@@ -21,7 +21,7 @@
   <title>Events - Svelte Society</title>
 </svelte:head>
 
-<div class="wrapper">
+<article class="wrapper">
 	<section class="event-wrapper">
 		{#each events.events as event}
 			<EventListElement
@@ -33,7 +33,7 @@
 		{/each}
 	</section>
 	<Societies />
-</div>
+</article>
 
 <style>
 	.wrapper {

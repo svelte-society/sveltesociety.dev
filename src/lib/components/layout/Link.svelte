@@ -9,29 +9,24 @@
 </li>
 
 <style>
-	/* a {
-		color: black;
-		font-size: var(--font-100);
-		text-decoration: none;
-		border-bottom: 4px solid transparent;
-		transition: border-bottom 0.2s;
-	}
+  li {
+    text-transform: uppercase;
+  }
+  a {
+    text-decoration: none;
+    color: var(--inherit);
+    transition: border-bottom .2s;
+    font-size: var(--font-100);
+  }
+
 	a.nav-item {
 		letter-spacing: 0.05rem;
-		font-weight: lighter;
+		font-weight: 400;
 	}
-	li {
-		display: inline-block;
-		margin: 0 0.5rem;
-	}
-	li a {
-		text-transform: uppercase;
-	}
-
 	li a:hover {
-		border-bottom: 4px solid var(--color);
-	} */
+		border-bottom: 4px solid var(--primary);
+	} 
 	.active {
-		border-bottom: 4px solid var(--color);
+		border-bottom: 4px solid var(--primary);
 	}
 </style>

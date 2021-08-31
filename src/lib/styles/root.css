@@ -37,6 +37,9 @@
 	--primary-color: var(--primary);
 	--header-text-color: var(--white);
 
+  /* *******MAX WIDTH OF CONTENT******* */
+  --max-width: 1024px;
+
 	/************FONTS***************/
 	--font-heading: 'Overpass', sans-serif;
 	--font-body: 'Inter', sans-serif;
@@ -51,13 +54,54 @@
 	--font-600: clamp(2.4625rem, 1.9945rem + 2.3402vw, 3.6619rem);
 	--font-700: clamp(2.955rem, 2.3218rem + 3.1659vw, 4.5775rem);
 
-	/************SCREEN SIZES***************/
-  --mq-sm: '640px'
-  --mq-md: '768px'
-  --mq-lg: '1024px'
-  --mq-xl: '1280px'
-  --mq-2xl: '1536px'
-  --mq-3xl: '2000px'
+	/* ************SPACING AND SIZES************ */
+	--s-0: 0px;
+	--s-05: 0.125rem;
+	--s-1: 0.25rem;
+	--s-15: 0.375rem;
+	--s-2: 0.5rem;
+	--s-25: 0.625rem;
+	--s-3: 0.75rem;
+	--s-35: 0.875rem;
+	--s-4: 1rem;
+	--s-5: 1.25rem;
+	--s-6: 1.5rem;
+  --s-7: 1.75rem;
+  --s-8: 2rem;
+  --s-9: 2.25rem;
+  --s-10: 2.5rem;
+  --s-11: 2.75rem;
+  --s-12: 3rem;
+  --s-14: 3.5rem;
+  --s-16: 4rem;
+  --s-20: 5rem;
+  --s-24: 6rem;
+  --s-28: 7rem;
+  --s-32: 8rem;
+  --s-36: 9rem;
+  --s-40: 10rem;
+  --s-44: 11rem;
+  --s-48: 12rem;
+  --s-52: 13rem;
+  --s-56: 14rem;
+  --s-60: 15rem;
+  --s-64: 16rem;
+  --s-72: 18rem;
+  --s-80: 20rem;
+  --s-90: 24rem;
+
+/************** WIDTHS **************/
+  --s-auto: auto;
+  --s-1fourth: 25%;
+  --s-1third: 33.3333333%
+  --s-1half: 50%;
+  --s-2thirds: 66.666667%
+  --s-3fourths: 75%;
+  --s-full: 100%;
+  --s-screen: 100vw;
+  --s-min: min-content;
+  --s-max: max-content;
+
 
 
 	/************BOX SHADOWS***************/

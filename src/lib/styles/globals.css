@@ -1,29 +1,17 @@
 body {
-	border-top: 6px solid var(--color);
-	font-family: Inter;
-}
-
-h1,
-h2,
-h3,
-h4 {
-	font-family: Overpass;
-	font-weight: bold;
-}
-
-h1 {
-	@apply text-5xl lg:text-7xl;
-}
-
-h2 {
+	border-top: 6px solid var(--primary);
+	font-family: var(--font-body);
+	font-size: var(--font-200);
 }
 
 a {
-	color: var(--color);
+	color: var(--link-color);
 }
 
-[href]:hover {
-	text-decoration: none;
+blockquote {
+	padding-left: var(--font-200);
+	border-left: 5px solid;
+	font-style: italic;
 }
 
 figcaption {
@@ -33,24 +21,63 @@ figcaption {
 	margin-left: 1rem;
 }
 
-blockquote {
-	padding-left: var(--font-200);
-	border-left: 5px solid;
-	font-style: italic;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-heading);
+	font-weight: bold;
 }
 
-::selection {
-	color: #fff;
-	background: rgba(0, 0, 0, 0.99);
+h1 {
+	font-size: var(--font-700);
 }
 
-.heading {
-	text-align: center;
-	margin: var(--space-600);
-	max-width: 60ch;
+h2 {
+	font-size: var(--font-600);
 }
+
+h3 {
+	font-size: var(--font-500);
+}
+
+h4 {
+	font-size: var(--font-400);
+}
+
+h5 {
+	font-size: var(--font-300);
+}
+
+h6 {
+	font-size: var(--font-200);
+}
+
+li {
+	list-style: none;
+}
+
+/* *******UTILITY CLASSES********* */
 
 .container {
 	margin: 0 auto;
 	width: 100%;
+	max-width: var(--max-width);
+}
+
+.heading {
+	text-align: center;
+	margin: var(--s-6);
+}
+
+.text-center {
+	text-align: center;
+}
+
+.center {
+	display: grid;
+	place-items: center;
+	place-content: center;
 }

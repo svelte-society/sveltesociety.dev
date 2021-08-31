@@ -13,9 +13,9 @@
 	<title>Home - Svelte Society</title>
 </svelte:head>
 
-<section class="py-10 px-5 max-w-5xl mx-auto text-200 grid grid-cols-1 gap-10 lg:gap-20">
-	<h1 class="text-center">Welcome to Svelte Society!</h1>
-	<section class="grid gap-5">
+<h1 class="text-center">Welcome to Svelte Society!</h1>
+<article>
+	<section>
 		<p>
 			We are a volunteer global network of Svelte fans that strive to promote Svelte and its
 			ecosystem. As a service to the community, this site is a central index of <a href="/events"
@@ -28,7 +28,7 @@
 			out the resources below:
 		</p>
 	</section>
-	<ul class="flex flex-wrap gap-x-20 gap-y-6 justify-center">
+	<ul>
 		<Link path="https://discord.gg/svelte">
 			<img src="images/discord.svg" alt="" />
 			Discord
@@ -42,7 +42,7 @@
 			Twitter
 		</Link>
 	</ul>
-	<ul class="flex flex-wrap gap-x-20 gap-y-6 justify-center">
+	<ul>
 		<Link path="https://svelte.substack.com/">
 			<img src="images/newsletter.svg" alt="" />
 			Newsletter
@@ -56,8 +56,29 @@
 			Podcast
 		</Link>
 	</ul>
-	<p>
-		We also run the <a href="https://sveltesummit.com/">Svelte Summit</a> conference and host
-		<a href="https://www.svelteradio.com/">the Svelte Radio podcast</a>.
+	<p class="text-center">
+		We also run the <a href="https://sveltesummit.com/">Svelte Summit</a> conference.
 	</p>
-</section>
+</article>
+
+  <style>
+    article{
+      display: grid;
+      gap: var(--s-20);
+    }
+    section {
+      display: grid;
+      gap: var(--s-5);
+    }
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: var(--s-20);
+      row-gap: var(--s-5);
+      justify-content: space-around;
+      text-align: center;
+    }
+    img {
+      width: 128px;
+    }
+  </style>
