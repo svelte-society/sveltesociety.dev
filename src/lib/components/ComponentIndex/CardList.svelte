@@ -3,7 +3,7 @@
 </script>
 
 <style>
-  h1 {
+  h2 {
     font-family: Overpass;
     font-style: normal;
     font-weight: 600;
@@ -38,7 +38,7 @@
 </style>
 
 <div class="list">
-  <h1 id="category-{escape(title)}">{title} <a href="#category-{escape(title)}">#</a></h1>
+  <h2 id="category-{escape(title)}">{title} <a href="#category-{escape(title)}">#</a></h2>
   <div class="grid">
     <slot />
   </div>

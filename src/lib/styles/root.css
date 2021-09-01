@@ -38,7 +38,7 @@
 	--header-text-color: var(--white);
 
 	/* *******MAX WIDTH OF CONTENT******* */
-	--max-width: 1024px;
+	--max-width: 1496px;
 
 	/************FONTS***************/
 	--font-heading: 'Overpass', sans-serif;
@@ -56,21 +56,15 @@
 
 	/* ************SPACING AND SIZES************ */
 	--s-0: 0px;
-	--s-05: 0.125rem;
 	--s-1: 0.25rem;
-	--s-15: 0.375rem;
 	--s-2: 0.5rem;
-	--s-25: 0.625rem;
 	--s-3: 0.75rem;
-	--s-35: 0.875rem;
 	--s-4: 1rem;
 	--s-5: 1.25rem;
 	--s-6: 1.5rem;
 	--s-7: 1.75rem;
 	--s-8: 2rem;
-	--s-9: 2.25rem;
 	--s-10: 2.5rem;
-	--s-11: 2.75rem;
 	--s-12: 3rem;
 	--s-14: 3.5rem;
 	--s-16: 4rem;

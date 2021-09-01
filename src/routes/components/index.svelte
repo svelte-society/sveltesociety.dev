@@ -45,6 +45,7 @@
   }
 
   .controls {
+    font-size: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
