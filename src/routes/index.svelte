@@ -13,8 +13,8 @@
 	<title>Home - Svelte Society</title>
 </svelte:head>
 
-<h1 class="text-center">Welcome to Svelte Society!</h1>
-<article>
+<article class="container">
+  <h1 class="text-center">Welcome to Svelte Society!</h1>
 	<section>
 		<p>
 			We are a volunteer global network of Svelte fans that strive to promote Svelte and its
@@ -63,8 +63,12 @@
 
   <style>
     article{
+      max-width: 1024px;
       display: grid;
       gap: var(--s-20);
+    }
+    h1 {
+      margin: 0;
     }
     section {
       display: grid;

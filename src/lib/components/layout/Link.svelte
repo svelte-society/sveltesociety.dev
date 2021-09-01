@@ -16,7 +16,7 @@
     text-decoration: none;
     color: var(--inherit);
     transition: border-bottom .2s;
-    font-size: var(--font-100);
+    font-size: var(--font-200);
   }
 
 	a.nav-item {

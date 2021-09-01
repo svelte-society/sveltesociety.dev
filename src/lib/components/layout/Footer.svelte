@@ -27,7 +27,7 @@
     background-color: var(--accent);
     color: var(--white);
     padding: var(--s-8);
-    font-size: var(--font-100);
+    font-size: var(--font-200);
   }
   .container {
     display: grid;

@@ -46,13 +46,13 @@
 	--font-code: 'Fira Mono', monospace;
 
 	/************FONT SIZES***************/
-	--font-100: clamp(0.9894rem, 0.9072rem + 0.411vw, 1.2rem);
-	--font-200: clamp(1.1875rem, 1.0655rem + 0.6098vw, 1.5rem);
-	--font-300: clamp(1.425rem, 1.2494rem + 0.878vw, 1.875rem);
-	--font-400: clamp(1.71rem, 1.4627rem + 1.2366vw, 2.3438rem);
-	--font-500: clamp(2.0519rem, 1.7092rem + 1.7134vw, 2.93rem);
-	--font-600: clamp(2.4625rem, 1.9945rem + 2.3402vw, 3.6619rem);
-	--font-700: clamp(2.955rem, 2.3218rem + 3.1659vw, 4.5775rem);
+	--font-100: 0.75rem;
+	--font-200: clamp(1rem, 1.0655rem + 0.6098vw, 1.25rem);
+	--font-300: clamp(1.25rem, 1.2494rem + 0.878vw, 1.333rem);
+	--font-400: clamp(1.5rem, 1.4627rem + 1.2366vw, 1.777rem);
+	--font-500: clamp(2.0519rem, 1.7092rem + 1.7134vw, 2.369rem);
+	--font-600: clamp(2.4625rem, 1.9945rem + 2.3402vw, 3.157rem);
+	--font-700: clamp(2.955rem, 2.3218rem + 3.1659vw, 4.209rem);
 
 	/* ************SPACING AND SIZES************ */
 	--s-0: 0px;

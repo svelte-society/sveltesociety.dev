@@ -23,8 +23,8 @@
   main {
     display: flex;
     flex-wrap: wrap;
+    align-items: stretch;
     justify-items: stretch;
-    row-gap: var(--s-5);
-    column-gap: var(--s-10);
+    gap: var(--s-10);
   }
 </style>

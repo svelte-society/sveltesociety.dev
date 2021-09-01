@@ -6,12 +6,14 @@
 
 <style>
   div {
+    font-size: 1rem;
     border: 2px solid #7e7e93;
     border-radius: 5px;
     background-color: white;
     color: #7e7e93;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 5px 15px;
     position: relative;
   }
@@ -33,13 +35,14 @@
     background-color: #7e7e93;
   }
   div:hover .arrow {
-    background-color: var(--color);
+    background-color: #7e7e93;
   }
   .arrow.active {
-    background-color: var(--color-secondary);
+    background-color: #7e7e93;
   }
 
   .popin {
+    font-size: 1rem;
     display: none;
     position: absolute;
     left: calc(100% - 1em);

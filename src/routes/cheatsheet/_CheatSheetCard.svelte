@@ -43,11 +43,8 @@
 	.card {
 		box-shadow: var(--shadow-dreamy);
 		background: var(--white);
-		width: fit-content;
 		border-radius: 10px;
-		margin-left: 10px;
-		margin-bottom: 10px;
-		flex: 1;
+		flex: 0 1 30%;
 	}
 	.title {
 		background-color: var(--secondary);
@@ -71,7 +68,7 @@
 		width: var(--s-5);
 		height: var(--s-5);
 		border-radius: 50%;
-		background-color: var(--link-color);
+		background-color: var(--primary);
 		box-shadow: 25px 0 0 0 var(--caution), 50px 0 0 0 var(--success);
 		margin-right: 50px;
 		margin-left: 20px;
