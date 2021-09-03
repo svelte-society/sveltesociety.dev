@@ -8,10 +8,11 @@ const extensions = [`.svelte`, '.md', `.mdx`, '.svx'];
 const config = {
 	preprocess: [
 		preprocess({
-			"postcss": true
+			postcss: true
 		}),
 		mdsvex({
-			extensions: extensions,
+			// Breaks svelte-select when .svelte extension is included
+			extensions: extensions.filter((ext) => ext !== '.svelte'),
 			layout: {
 				eventPage: './src/lib/layouts/EventPage.svelte',
 				recipe: './src/lib/layouts/Recipe.svelte',
@@ -28,7 +29,7 @@ const config = {
 			optimizeDeps: {
 				// workaround Vite issue to fix highlighting on cheatsheet
 				// https://github.com/metonym/svelte-highlight/issues/158
-				include: ["highlight.js/lib/core"],
+				include: ['highlight.js/lib/core']
 			}
 		}
 	}

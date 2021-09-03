@@ -1,0 +1,71 @@
+<script>
+	import SvelteSelect from 'svelte-select';
+
+	export let value;
+	export let label = '';
+</script>
+
+<div class="themed">
+	{#if label}
+		<span>{label}</span>
+	{/if}
+	<SvelteSelect containerClasses="select-container" bind:value {...$$restProps} />
+</div>
+
+<style>
+	span {
+		font-size: 0.875rem;
+	}
+	.themed {
+		--inputFontSize: 0.875rem;
+		--multiItemActiveBG: var(--color);
+		--height: 1rem;
+		--borderHoverColor: var(--color);
+		--borderFocusColor: var(--color);
+		--itemHoverBG: var(--color-shadow);
+		--itemIsActiveBG: var(--color);
+		--indicatorTop: calc(50% - 13px);
+
+		position: relative;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.themed :global(.select-container) {
+		cursor: pointer;
+		flex: 1;
+		align-items: center;
+		padding: 1rem;
+		gap: 10px;
+		min-width: 150px;
+		min-height: 3rem;
+	}
+
+	.themed :global(.multiSelectItem) {
+		font-size: 0.875rem;
+		align-items: center;
+		--multiItemBorderRadius: var(--radius-100);
+		--multiItemHeight: 1.25rem;
+		--multiItemMargin: 0;
+		--multiItemPadding: 0.2rem 0.3rem;
+		--multiClearBG: transparent;
+		--multiClearFill: var(--color-text-secondary);
+		--multiClearHoverBG: transparent;
+		--multiClearHoverFill: var(--color-bg);
+		--multiLabelMargin: 1px 5px 0 0;
+	}
+
+	.themed :global(input) {
+		height: 1rem !important;
+		cursor: pointer !important;
+	}
+
+	.themed :global(.multiSelectItem_clear) {
+		position: static;
+		cursor: pointer;
+	}
+
+	.themed :global(.listItem) {
+		--height: 1.4rem;
+	}
+</style>
