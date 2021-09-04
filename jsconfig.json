@@ -6,6 +6,7 @@
 			"$layout": ["src/lib/components/layout"],
 			"$layouts": ["src/lib/layouts"],
 			"$lib": ["src/lib"],
+			"$utils": ["src/lib/utils"],
 			"$styles": ["src/lib/styles"],
 			"$stores": ["src/lib/stores"]
 		}

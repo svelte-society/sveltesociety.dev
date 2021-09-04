@@ -30,10 +30,4 @@
   main {
     padding: var(--s-10) var(--s-5) var(--s-20);
   }
-
-  @media (min-width: 1024px) {
-    main {
-      padding: var(--s-20) 0 var(--s-40);
-    }
-  }
 </style>

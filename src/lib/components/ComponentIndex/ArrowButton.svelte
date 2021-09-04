@@ -8,23 +8,23 @@
   div {
     font-size: 1rem;
     border: 2px solid var(--dark-gray);
-    border-radius: 5px;
+    border-radius: 3px;
+    height: 100%;
     background-color: white;
     color: var(--dark-gray);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5px 15px;
+    padding: var(--s-2);
     position: relative;
   }
   div.small {
     font-size: var(--font-100);
-    padding: 3px 10px;
   }
   div:hover {
     cursor: pointer;
-    border-color: var(--primary);
-    color: var(--primary);
+    border-color: var(--secondary);
+    color: var(--secondary);
   }
 
   .arrow {
@@ -35,7 +35,7 @@
     background-color: var(--dark-gray);
   }
   div:hover .arrow {
-    background-color: var(--dark-gray);
+    background-color: var(--secondary);
   }
   .arrow.active {
     background-color: var(--dark-gray);
@@ -52,7 +52,7 @@
     z-index: 100;
     margin: 0;
     padding: 0;
-    border: 2px solid var(--primary);
+    border: 2px solid var(--secondary);
     border-radius: 5px;
     background: white;
   }
