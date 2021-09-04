@@ -14,8 +14,9 @@
   }
   a {
     text-decoration: none;
+    border-bottom: transparent;
     color: var(--inherit);
-    transition: border-bottom .2s;
+    transition: var(--link-transition);
     font-size: var(--font-200);
   }
 

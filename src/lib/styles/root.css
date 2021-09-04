@@ -23,6 +23,7 @@
 	--accent: #011627;
 	--orange: #f97316;
 	--gray: #c1cfda;
+	--dark-gray: #7e7e93;
 	--black: #12130f;
 	--white: #f3f6f9;
 	--success: #29bf12;
@@ -46,7 +47,7 @@
 	--font-code: 'Fira Mono', monospace;
 
 	/************FONT SIZES***************/
-	--font-100: 0.75rem;
+	--font-100: 0.85rem;
 	--font-200: clamp(1rem, 1.0655rem + 0.6098vw, 1.25rem);
 	--font-300: clamp(1.25rem, 1.2494rem + 0.878vw, 1.333rem);
 	--font-400: clamp(1.5rem, 1.4627rem + 1.2366vw, 1.777rem);
@@ -108,4 +109,8 @@
 		0 4px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.1), 0 16px 16px rgba(0, 0, 0, 0.05);
 	--shadow-diffuse: 0 1px 1px rgba(0, 0, 0, 0.08), 0 2px 2px rgba(0, 0, 0, 0.12),
 		0 4px 4px rgba(0, 0, 0, 0.16), 0 8px 8px rgba(0, 0, 0, 0.2);
+
+	/* ***********TRANSITIONS************* */
+	--link-transition: border-bottom 0.15s ease-out;
+	--menu-transition: scale 0.2s ease-out;
 }

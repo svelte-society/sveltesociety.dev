@@ -6,6 +6,18 @@ body {
 
 a {
 	color: var(--link-color);
+	text-decoration: none;
+	border-bottom: 1px solid var(--link-color);
+	transition: var(--link-transition);
+}
+
+h3 > a {
+	border-bottom: none;
+}
+
+h3 > a:hover {
+	border-bottom: none;
+	text-decoration: none;
 }
 
 blockquote {

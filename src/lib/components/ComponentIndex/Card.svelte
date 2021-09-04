@@ -46,12 +46,6 @@
     word-break: none;
     font-size: var(--font-300);
   }
-  h3 a {
-    text-decoration: none;
-  }
-  h3 a:hover {
-    text-decoration: underline;
-  }
   .active,
   .card:hover {
     background: #e8f3fe;

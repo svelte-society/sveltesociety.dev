@@ -7,10 +7,10 @@
 <style>
   div {
     font-size: 1rem;
-    border: 2px solid #7e7e93;
+    border: 2px solid var(--dark-gray);
     border-radius: 5px;
     background-color: white;
-    color: #7e7e93;
+    color: var(--dark-gray);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -18,13 +18,13 @@
     position: relative;
   }
   div.small {
-    font-size: 0.8em;
+    font-size: var(--font-100);
     padding: 3px 10px;
   }
   div:hover {
     cursor: pointer;
-    border-color: var(--color) !important;
-    color: var(--color) !important;
+    border-color: var(--primary);
+    color: var(--primary);
   }
 
   .arrow {
@@ -32,37 +32,39 @@
     height: 16px;
     -webkit-mask: url(/images/right-arrow.svg) no-repeat center;
     mask: url(/images/right-arrow.svg) no-repeat center;
-    background-color: #7e7e93;
+    background-color: var(--dark-gray);
   }
   div:hover .arrow {
-    background-color: #7e7e93;
+    background-color: var(--dark-gray);
   }
   .arrow.active {
-    background-color: #7e7e93;
+    background-color: var(--dark-gray);
   }
 
   .popin {
-    font-size: 1rem;
+    min-width: 250px;
+    width: 100%;
+    font-size: var(--font-100);
     display: none;
     position: absolute;
-    left: calc(100% - 1em);
-    top: 1em;
+      left: var(--s-4);
+      top: 100%;
     z-index: 100;
     margin: 0;
     padding: 0;
-    border: 2px solid var(--color);
+    border: 2px solid var(--primary);
     border-radius: 5px;
     background: white;
   }
   div:hover .popin:not(:empty) {
     display: block;
   }
+  
 
-  @media screen and (max-width: 700px) {
+  @media screen and (min-width: 700px) {
     .popin {
-      left: 1rem;
-      right: 1rem;
-      top: 100%
+      left: 95%;
+      top: var(--s-4);
     }
   }
 </style>
@@ -72,5 +74,5 @@
     <slot />
   </span>
   <div class="arrow" class:active />
-  <span class="popin"><slot name="menu"></slot></span>
+  <section class="popin"><slot name="menu"></slot></section>
 </div>

@@ -54,9 +54,10 @@
   }
 
   .inputs {
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-    grid-gap: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: var(--s-2);
     margin-right: 2rem;
   }
 
@@ -77,11 +78,14 @@
   }
 
   ul.popin {
-    padding: 0.5ex;
+    display: grid;
+    gap: var(--s-2);
+    padding: var(--s-2);
     margin: 0;
-    font-size: 0.7em;
+    font-size: var(--font-100);
     max-height: 50vh;
     overflow-y: auto;
+    overflow-x: hidden;
   }
 
   ul.popin li {
@@ -127,6 +131,10 @@
     margin: 0 1ex 0 0;
   }
 
+  .submit {
+    align-self: flex-end;
+  }
+
   @media screen and (max-width: 1024px) {
     .controls {
       flex-flow: column-reverse;
@@ -139,8 +147,9 @@
     }
 
     .searchbar {
-      align-self: flex-end;
+      align-self: stretch;
       margin-bottom: 1ex;
+      width: auto;
     }
   }
 
@@ -151,11 +160,6 @@
 
     .inputs {
       grid-template-columns: auto;
-    }
-
-    .searchbar {
-      width: auto;
-      align-self: stretch;
     }
   }
 </style>
@@ -185,7 +189,7 @@
           {/each}
         </ul>
       </Button>
-      <Button on:click={() => location.href = "/help/components"}>Submit a component</Button>
+      
       <Button active={sorting !== ''}>
         Sort
         <ul slot="menu" role="menu" class="popin no-wrap">
@@ -205,6 +209,7 @@
           <li><label><input type="radio" bind:group={packageManager} value="yarn"> Yarn</label></li>
         </ul>
       </Button>
+      <a href = "/help/components" class="submit">Submit a component</a>
     </div>
 
     <input
