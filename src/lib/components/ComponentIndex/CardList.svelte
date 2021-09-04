@@ -3,7 +3,7 @@
 </script>
 
 <style>
-  h2 {
+  h1 {
     font-family: Overpass;
     font-style: normal;
     font-weight: 600;
@@ -19,7 +19,6 @@
   .list {
     margin-bottom: 5rem;
   }
-
   @media screen and (max-width: 1024px) {
     .grid {
       max-width: calc(var(--width-card) * 2 + 25px);
@@ -27,7 +26,6 @@
       margin: 0 auto;
     }
   }
-
   @media screen and (max-width: 700px) {
     .grid {
       max-width: var(--width-card);
@@ -38,7 +36,7 @@
 </style>
 
 <div class="list">
-  <h2 id="category-{escape(title)}">{title} <a href="#category-{escape(title)}">#</a></h2>
+  <h1 id="category-{escape(title)}">{title} <a href="#category-{escape(title)}">#</a></h1>
   <div class="grid">
     <slot />
   </div>
