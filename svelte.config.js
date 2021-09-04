@@ -8,7 +8,8 @@ const extensions = [`.svelte`, '.md', `.mdx`, '.svx'];
 const config = {
 	preprocess: [
 		mdsvex({
-			extensions: extensions,
+			// Breaks svelte-select when .svelte extension is included
+			extensions: extensions.filter((ext) => ext !== '.svelte'),
 			layout: {
 				eventPage: './src/lib/layouts/EventPage.svelte',
 				recipe: './src/lib/layouts/Recipe.svelte',
