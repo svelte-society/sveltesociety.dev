@@ -70,7 +70,6 @@
 				showIndicator
 				isClearable={false}
 			/>
-
 			<Button small active={packageManager !== ''}>
 				Package Manager
 				<ul slot="menu" role="menu" class="popin no-wrap">

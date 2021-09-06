@@ -6,6 +6,7 @@
 
 <style>
   div {
+    align-self: flex-end;
     font-size: 1rem;
     border: 2px solid var(--dark-gray);
     border-radius: 3px;
@@ -15,7 +16,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--s-2);
+    padding: 13.5px var(--s-2);
     position: relative;
   }
   div.small {

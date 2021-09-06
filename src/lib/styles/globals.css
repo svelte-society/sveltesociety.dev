@@ -107,23 +107,24 @@ hr {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	gap: var(--s-4);
 	font-family: Overpass;
 	position: relative;
 }
 .inputs {
-	display: grid;
-	grid-template-columns: repeat(4, auto);
-	grid-gap: 0.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--s-2);
 	margin-right: 2rem;
 }
 .searchbar {
-	align-self: flex-start;
+	align-self: flex-end;
+	padding: var(--s-5) var(--s-2);
 	width: 35%;
 	font-family: Overpass;
 	border-width: 0;
 	background: #f3f6f9 url(/images/search-icon.svg) 98% no-repeat;
 	margin: 0;
-	padding: 10px 15px;
 	border: 1px solid transparent;
 }
 .searchbar:focus {
