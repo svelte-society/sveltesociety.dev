@@ -364,7 +364,7 @@ import Widget from '.Widget.svelte'
     content:
       `
 <script>
-import onMount from 'svelte'
+import { onMount } from 'svelte'
 
 onMount(() => {
   console.log('Mounting')
