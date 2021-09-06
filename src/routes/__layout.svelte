@@ -1,7 +1,10 @@
 <script>
-	import '../app.css';
-	import Header from './_Header/Header.svelte';
-	import Footer from './_Footer.svelte';
+	// import '../app.css';
+	import '$styles/reset.css';
+	import '$styles/root.css';
+	import '$styles/globals.css';
+	import Header from '$layout/Header.svelte';
+	import Footer from '$layout/Footer.svelte';
 	import metatags from '$lib/stores/metatags';
 </script>
 
@@ -18,7 +21,13 @@
 </svelte:head>
 
 <Header />
-<main class="container mx-auto py-10 px-5 lg:py-20">
+<main class="container">
 	<slot />
 </main>
 <Footer />
+
+<style>
+  main {
+    padding: var(--s-10) var(--s-5) var(--s-20);
+  }
+</style>

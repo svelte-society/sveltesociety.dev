@@ -17,14 +17,12 @@
 		font-size: 0.875rem;
 	}
 	.themed {
-		--inputFontSize: 0.875rem;
-		--multiItemActiveBG: var(--color);
-		--height: 1rem;
-		--borderHoverColor: var(--color);
-		--borderFocusColor: var(--color);
-		--itemHoverBG: var(--color-shadow);
-		--itemIsActiveBG: var(--color);
-		--indicatorTop: calc(50% - 13px);
+		/* --inputFontSize: 0.875rem; */
+		--multiItemActiveBG: var(--secondary);
+		--borderHoverColor: var(--secondary);
+		--borderFocusColor: var(--secondary);
+		--itemIsActiveBG: var(--secondary);
+		/* --indicatorTop: calc(50% - 13px); */
 
 		position: relative;
 		display: flex;
@@ -35,7 +33,7 @@
 		cursor: pointer;
 		flex: 1;
 		align-items: center;
-		padding: 1rem;
+		padding: var(--s-2);
 		gap: 10px;
 		min-width: 150px;
 		min-height: 3rem;
@@ -44,12 +42,12 @@
 	.themed :global(.multiSelectItem) {
 		font-size: 0.875rem;
 		align-items: center;
-		--multiItemBorderRadius: var(--radius-100);
+		--multiItemBorderRadius: var(--s-1);
 		--multiItemHeight: 1.25rem;
 		--multiItemMargin: 0;
 		--multiItemPadding: 0.2rem 0.3rem;
 		--multiClearBG: transparent;
-		--multiClearFill: var(--color-text-secondary);
+		--multiClearFill: var(--secondary);
 		--multiClearHoverBG: transparent;
 		--multiClearHoverFill: var(--color-bg);
 		--multiLabelMargin: 1px 5px 0 0;
@@ -65,7 +63,4 @@
 		cursor: pointer;
 	}
 
-	.themed :global(.listItem) {
-		--height: 1.4rem;
-	}
 </style>

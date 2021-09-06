@@ -1,10 +1,10 @@
 <script>
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
 	import List from '$lib/components/ComponentIndex/CardList.svelte';
-	import Button from '$lib/components/ComponentIndex/ArrowButton.svelte';
 	import components from './templates.json';
 	import { compare, selectSortItems } from '$lib/utils/sort';
 	import Select from '$lib/components/Select.svelte';
+import SearchLayout from '$lib/layouts/SearchLayout.svelte';
 
 	let searchValue;
 
@@ -57,9 +57,8 @@
 	<title>Templates - Svelte Society</title>
 </svelte:head>
 
-<main class="wrapper">
-	<h1>Templates</h1>
-	<div class="controls">
+<SearchLayout title="Templates">
+	<section class="controls" slot="controls">
 		<div class="inputs">
 			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />
 			<Select
@@ -78,20 +77,20 @@
 				isClearable={false}
 			/>
 
-			<Button on:click={() => (location.href = '/help/components')}>Submit a template</Button>
-		</div>
-
+      <a href='/help/components' class="submit">Submit a template</a>
+    </div>
+    
 		<input
-			class="searchbar"
-			type="text"
-			placeholder="Search for templates..."
-			bind:value={searchValue}
+    class="searchbar"
+    type="text"
+    placeholder="Search for templates..."
+    bind:value={searchValue}
 		/>
 		<span class="searchbar-count"
-			>{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
+    >{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
 		>
-	</div>
-	<hr />
+</section>
+<section slot="items">
 	{#each categories as category}
 		<List title={category || 'Unclassified'}>
 			{#each dataToDisplay.filter((d) => d.category === category) as data}
@@ -99,81 +98,6 @@
 			{/each}
 		</List>
 	{/each}
-</main>
+</section>
+</SearchLayout>
 
-<style>
-	h1 {
-		@apply text-5xl;
-	}
-
-	hr {
-		margin-block: 4rem;
-	}
-
-	.controls {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		font-family: Overpass;
-		position: relative;
-	}
-
-	.inputs {
-		display: grid;
-		grid-template-columns: repeat(4, auto);
-		grid-gap: 0.5rem;
-		margin-right: 2rem;
-		padding-top: 1rem;
-	}
-
-	.searchbar {
-		height: 100%;
-		width: 35%;
-		font-family: Overpass;
-		border-width: 0;
-		background: #f3f6f9 url(/images/search-icon.svg) 98% no-repeat;
-		margin: 0;
-		padding: 10px 15px;
-	}
-
-	.searchbar-count {
-		position: absolute;
-		top: 100%;
-		right: 0;
-	}
-
-	@media screen and (max-width: 1024px) {
-		.controls {
-			flex-flow: column-reverse;
-		}
-		.inputs {
-			align-self: flex-start;
-			width: 100%;
-			grid-template-columns: repeat(3, auto);
-		}
-
-		.searchbar {
-			align-self: flex-end;
-			margin-bottom: 1ex;
-		}
-	}
-
-	@media screen and (max-width: 700px) {
-		.controls {
-			align-items: stretch;
-		}
-
-		.inputs {
-			grid-template-columns: auto;
-		}
-
-		.searchbar {
-			width: auto;
-			align-self: stretch;
-		}
-
-		:global(.select-container) {
-			width: 100%;
-		}
-	}
-</style>

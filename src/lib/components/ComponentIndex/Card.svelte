@@ -43,13 +43,8 @@
     border-radius: 5px;
   }
   .card h3 {
-    word-break: break-word;
-  }
-  h3 a {
-    text-decoration: none;
-  }
-  h3 a:hover {
-    text-decoration: underline;
+    word-break: none;
+    font-size: var(--font-300);
   }
   .active,
   .card:hover {

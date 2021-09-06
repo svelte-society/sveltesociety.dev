@@ -4,11 +4,8 @@
 	var year = date.getFullYear();
 </script>
 
-<div class="w-full bg-basics-100">
-	<footer class="container mx-auto p-8 md:p-12">
-		<div
-			class="mx-auto grid gap-2 md:gap-6 md:flex items-center justify-center text-center"
-		>
+	<footer>
+		<div class="container">
 			<span>&copy; {year} Svelte Society</span>
 			<span>•</span>
 			<a class="underline" href="/about">Code of Conduct</a>
@@ -24,9 +21,30 @@
 			</span>
 		</div>
 	</footer>
-</div>
 
 <style>
+  footer {
+    background-color: var(--accent);
+    color: var(--white);
+    padding: var(--s-8);
+    font-size: var(--font-200);
+  }
+  .container {
+    display: grid;
+    gap: var(--s-2);
+    justify-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  @media (min-width: 768px) {
+    footer {
+      padding: var(--s-12);
+    }
+    .container {
+      display: flex;
+      gap: var(--s-6);
+    }
+  }
 	@media print {
 		footer {
 			display: none;

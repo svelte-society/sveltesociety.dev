@@ -6,23 +6,25 @@
 
 <style>
   div {
-    border: 2px solid #7e7e93;
-    border-radius: 5px;
+    font-size: 1rem;
+    border: 2px solid var(--dark-gray);
+    border-radius: 3px;
+    height: 100%;
     background-color: white;
-    color: #7e7e93;
+    color: var(--dark-gray);
     display: flex;
     align-items: center;
-    padding: 5px 15px;
+    justify-content: space-between;
+    padding: var(--s-2);
     position: relative;
   }
   div.small {
-    font-size: 0.8em;
-    padding: 3px 10px;
+    font-size: var(--font-100);
   }
   div:hover {
     cursor: pointer;
-    border-color: var(--color) !important;
-    color: var(--color) !important;
+    border-color: var(--secondary);
+    color: var(--secondary);
   }
 
   .arrow {
@@ -30,36 +32,39 @@
     height: 16px;
     -webkit-mask: url(/images/right-arrow.svg) no-repeat center;
     mask: url(/images/right-arrow.svg) no-repeat center;
-    background-color: #7e7e93;
+    background-color: var(--dark-gray);
   }
   div:hover .arrow {
-    background-color: var(--color);
+    background-color: var(--secondary);
   }
   .arrow.active {
-    background-color: var(--color-secondary);
+    background-color: var(--dark-gray);
   }
 
   .popin {
+    min-width: 250px;
+    width: 100%;
+    font-size: var(--font-100);
     display: none;
     position: absolute;
-    left: calc(100% - 1em);
-    top: 1em;
+      left: var(--s-4);
+      top: 100%;
     z-index: 100;
     margin: 0;
     padding: 0;
-    border: 2px solid var(--color);
+    border: 2px solid var(--secondary);
     border-radius: 5px;
     background: white;
   }
   div:hover .popin:not(:empty) {
     display: block;
   }
+  
 
-  @media screen and (max-width: 700px) {
+  @media screen and (min-width: 700px) {
     .popin {
-      left: 1rem;
-      right: 1rem;
-      top: 100%
+      left: 95%;
+      top: var(--s-4);
     }
   }
 </style>
@@ -69,5 +74,5 @@
     <slot />
   </span>
   <div class="arrow" class:active />
-  <span class="popin"><slot name="menu"></slot></span>
+  <section class="popin"><slot name="menu"></slot></section>
 </div>

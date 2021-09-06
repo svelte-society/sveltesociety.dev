@@ -8,7 +8,7 @@
 	export let doc = '';
 	export let repl = '';
 	let isCopied = false;
-	function copy(): void {
+	function copy() {
 		const element = document.getElementById(title).firstChild;
 		if (navigator.clipboard) {
 			navigator.clipboard.writeText(element.innerText);
@@ -42,17 +42,14 @@
 <style>
 	.card {
 		box-shadow: var(--shadow-dreamy);
-		background: #f8f8f8;
-		width: fit-content;
+		background: var(--white);
 		border-radius: 10px;
-		margin-left: 10px;
-		margin-bottom: 10px;
-		flex: 1;
+		flex: 0 1 30%;
 	}
 	.title {
-		background-color: firebrick;
-		padding: var(--space-fixed-200);
-		color: #ffffff;
+		background-color: var(--secondary);
+		padding: var(--s-4);
+    color: var(--white);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -64,15 +61,15 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		overflow: hidden;
-		font-size: 1em;
+		font-size: var(--font-200);
 	}
 	.circles {
 		display: block;
-		width: var(--space-fixed-300);
-		height: var(--space-fixed-300);
+		width: var(--s-5);
+		height: var(--s-5);
 		border-radius: 50%;
-		background-color: var(--color-red);
-		box-shadow: 25px 0 0 0 var(--color-yellow), 50px 0 0 0 var(--color-green);
+		background-color: var(--primary);
+		box-shadow: 25px 0 0 0 var(--caution), 50px 0 0 0 var(--success);
 		margin-right: 50px;
 		margin-left: 20px;
 	}
@@ -81,7 +78,7 @@
 		justify-content: flex-end;
 		padding: 10px;
 		padding-bottom: 0;
-		color: var(--color-red);
+		color: var(--link-color);
 		font-size: 0.8rem;
 	}
 	.links > a {
@@ -97,7 +94,7 @@
 	}
 	.card > .content {
 		display: block;
-		padding: 0 var(--space-fixed-200);
+		padding: 0 var(--s-2);
 		height: calc(100% - 48px);
 		overflow-x: auto;
 		font-size: 0.8rem;
