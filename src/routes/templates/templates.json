@@ -581,10 +581,19 @@
 		"addedOn": "2021-06-24T14:39:14Z",
 		"category": "SvelteKit",
 		"description": "SvelteKit Starter template with Typescript, Postcss, scss, TailwindCSS, Storybook, husky, and eslint.",
-		"stars": 144,
-		"tags": [],
+		"stars": 148,
+		"tags": ["blog", "seo", "ssr", "storybook", "templates"],
 		"title": "navneetsharmaui/sveltekit-starter",
 		"url": "https://github.com/navneetsharmaui/sveltekit-starter"
+	},
+	{
+		"addedOn": "2021-09-07T14:39:14Z",
+		"category": "SvelteKit",
+		"description": "SvelteKit Blog Starter template with Typescript, Postcss, scss, TailwindCSS, Storybook, husky, and eslint. The template is free to use and developers are welcome to contribute to it.",
+		"stars": 0,
+		"tags": ["blog", "mdsvex", "seo", "ssr", "storybook", "templates"],
+		"title": "navneetsharmaui/sveltekit-blog",
+		"url": "https://github.com/navneetsharmaui/sveltekit-blog"
 	},
 	{
 		"addedOn": "2021-06-24T14:39:15Z",
