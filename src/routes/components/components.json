@@ -2195,5 +2195,19 @@
 		"tags": [],
 		"url": "https://github.com/macfja/svelte-adapter-multi#readme",
 		"addedOn": "2021-08-23T15:40:00.000Z"
+	},
+	{
+		"title": "svelte-multiselect",
+		"url": "https://github.com/janosh/svelte-multiselect",
+		"description": "Keyboard-friendly, zero-dependency multi-select component",
+		"tags": [
+			"components and libraries",
+			"inputs and widgets",
+			"forms and validation",
+			"interactions"
+		],
+		"image": "",
+		"addedOn": "2021-09-07T10:00:00Z",
+		"category": "Forms & User Input"
 	}
 ]
