@@ -71,7 +71,7 @@
 				isClearable={false}
 			/>
 			<Button small active={packageManager !== ''}>
-				Package Manager
+				{packageManager.toUpperCase()}
 				<ul slot="menu" role="menu" class="popin no-wrap">
 					<li><label><input type="radio" bind:group={packageManager} value="npm" /> NPM</label></li>
 					<li>
