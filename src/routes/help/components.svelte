@@ -3,20 +3,10 @@
 
 	const allTags = Array.from(new Set(components.map((item) => item.tags).flat()));
 	const tagItems = allTags.map((t) => ({ label: t, value: t }));
-	const allCategories = [
-		'Boilerplate',
-		'Data Visualisation',
-		'Design Pattern',
-		'Design System',
-		'Developer Experience',
-		'Forms & User Input',
-		'Integration',
-		'Routers',
-		'Stores',
-		'Testing',
-		'User Interaction'
-	];
-	const categoryItems = allCategories.map((cat) => ({ label: cat, value: cat }));
+	const allCategories = Array.from(new Set(components.map((item) => item.category).flat()));
+	const categoryItems = allCategories
+		.filter((cat) => cat !== '')
+		.map((cat) => ({ label: cat, value: cat }));
 
 	let clipboardCopy = false;
 	const copyToClipboard = (text) => {
@@ -155,8 +145,7 @@
 
 <h2>JSON Snippet</h2>
 <pre>
-  {JSON.stringify(jsonSnippet,null,4)}
-  <button on:click={() => copyToClipboard(JSON.stringify(jsonSnippet,null,4))}>{clipboardCopy ? 'Copied' : 'Copy'}</button>
+	{JSON.stringify(jsonSnippet,null,4)}<button on:click={() => copyToClipboard(JSON.stringify(jsonSnippet,null,4))}>{clipboardCopy ? 'Copied' : 'Copy'}</button>
 </pre>
 
 <style>
@@ -172,6 +161,7 @@
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: var(--s-4) var(--s-20);
+		padding-block: var(--s-5);
 	}
 
 	.input-wrapper {
