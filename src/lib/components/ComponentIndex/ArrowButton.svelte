@@ -9,13 +9,12 @@
     font-size: 1rem;
     border: 2px solid var(--dark-gray);
     border-radius: 3px;
-    height: 100%;
     background-color: white;
     color: var(--dark-gray);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--s-2);
+    padding: 13.5px var(--s-2);
     position: relative;
   }
   div.small {
@@ -59,6 +58,10 @@
   div:hover .popin:not(:empty) {
     display: block;
   }
+
+  span {
+    font-size: 0.875rem;
+  }
   
 
   @media screen and (min-width: 700px) {
@@ -68,7 +71,8 @@
     }
   }
 </style>
-
+<span>
+Package Manager
 <div on:click class:small>
   <span>
     <slot />
@@ -76,3 +80,4 @@
   <div class="arrow" class:active />
   <section class="popin"><slot name="menu"></slot></section>
 </div>
+</span>
