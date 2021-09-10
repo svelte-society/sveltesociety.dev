@@ -11,7 +11,6 @@
 		let formattedDate = rawDate.toDateString();
 		return formattedDate;
 	}
-
 </script>
 
 <figure class="event-tile">
@@ -29,9 +28,9 @@
 </figure>
 
 <style>
-  h2 {
-    font-size: var(--font-300);
-  }
+	h2 {
+		font-size: var(--font-300);
+	}
 	.event-tile {
 		--tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 		box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
@@ -40,9 +39,9 @@
 		margin-top: 3rem;
 		border-radius: 0.5rem;
 		background: var(--white);
-    display: grid;
-    gap: var(--s-2);
-    justify-items: flex-start;
+		display: grid;
+		gap: var(--s-2);
+		justify-items: flex-start;
 	}
 	.event-tile:hover {
 		filter: brightness(1.1);
@@ -76,5 +75,4 @@
 				var(--tw-shadow);
 		}
 	}
-
 </style>

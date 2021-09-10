@@ -1,6 +1,5 @@
 <script>
 	export let title = '';
-
 </script>
 
 <div>
@@ -19,5 +18,4 @@
 		text-align: start;
 		display: block;
 	}
-
 </style>

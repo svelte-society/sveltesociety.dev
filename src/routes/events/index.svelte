@@ -7,18 +7,16 @@
 			error: new Error()
 		};
 	}
-
 </script>
 
 <script lang="ts">
 	import Societies from '$lib/components/Societies/index.svelte';
 	import EventListElement from '$lib/components/EventListElement/index.svelte';
 	export let events = {};
-
 </script>
 
 <svelte:head>
-  <title>Events - Svelte Society</title>
+	<title>Events - Svelte Society</title>
 </svelte:head>
 
 <article class="wrapper">
@@ -50,5 +48,4 @@
 			flex-direction: column;
 		}
 	}
-
 </style>

@@ -14,7 +14,7 @@
 </svelte:head>
 
 <article class="container">
-  <h1 class="text-center">Welcome to Svelte Society!</h1>
+	<h1 class="text-center">Welcome to Svelte Society!</h1>
 	<section>
 		<p>
 			We are a volunteer global network of Svelte fans that strive to promote Svelte and its
@@ -61,28 +61,28 @@
 	</p>
 </article>
 
-  <style>
-    article{
-      max-width: 1024px;
-      display: grid;
-      gap: var(--s-20);
-    }
-    h1 {
-      margin: 0;
-    }
-    section {
-      display: grid;
-      gap: var(--s-5);
-    }
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-      column-gap: var(--s-20);
-      row-gap: var(--s-5);
-      justify-content: space-around;
-      text-align: center;
-    }
-    img {
-      width: 128px;
-    }
-  </style>
+<style>
+	article {
+		max-width: 1024px;
+		display: grid;
+		gap: var(--s-20);
+	}
+	h1 {
+		margin: 0;
+	}
+	section {
+		display: grid;
+		gap: var(--s-5);
+	}
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: var(--s-20);
+		row-gap: var(--s-5);
+		justify-content: space-around;
+		text-align: center;
+	}
+	img {
+		width: 128px;
+	}
+</style>

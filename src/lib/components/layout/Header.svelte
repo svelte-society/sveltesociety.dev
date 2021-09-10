@@ -63,9 +63,9 @@
 		width: var(--s-12);
 		height: var(--s-12);
 	}
-  .logo {
-    border-bottom: none;
-  }
+	.logo {
+		border-bottom: none;
+	}
 	@media (min-width: 1280px) {
 		ul {
 			display: flex;

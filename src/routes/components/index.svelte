@@ -83,7 +83,7 @@
 				</ul>
 			</Button>
 		</div>
-    
+
 		<a href="/help/components" class="submit">Submit a component</a>
 		<input
 			class="searchbar"

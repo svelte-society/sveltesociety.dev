@@ -1,7 +1,6 @@
 <script>
 	import Icon from '$lib/components/Icon/index.svelte';
 	import societies from './societies.json';
-
 </script>
 
 <!--society section-->
@@ -100,5 +99,4 @@
 				var(--tw-shadow);
 		}
 	}
-
 </style>

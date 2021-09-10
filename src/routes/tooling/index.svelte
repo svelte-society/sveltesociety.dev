@@ -1,7 +1,7 @@
 <script>
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
 	import List from '$lib/components/ComponentIndex/CardList.svelte';
-  import SearchLayout from '$layouts/SearchLayout.svelte';
+	import SearchLayout from '$layouts/SearchLayout.svelte';
 	import tools from './tools.json';
 	import Select from '$lib/components/Select.svelte';
 	import { compare, selectSortItems } from '$lib/utils/sort';
@@ -75,7 +75,7 @@
 				showIndicator
 				isClearable={false}
 			/>
-      <a href="/help/components" class="submit">Submit a tool</a>
+			<a href="/help/components" class="submit">Submit a tool</a>
 		</div>
 
 		<input
@@ -89,13 +89,12 @@
 		>
 	</section>
 	<section slot="items">
-	{#each categories as category}
-		<List title={category || 'Unclassified'}>
-			{#each dataToDisplay.filter((d) => d.category === category) as data}
-				<ComponentCard {...data} />
-			{/each}
-		</List>
-	{/each}
-
-</section>
+		{#each categories as category}
+			<List title={category || 'Unclassified'}>
+				{#each dataToDisplay.filter((d) => d.category === category) as data}
+					<ComponentCard {...data} />
+				{/each}
+			</List>
+		{/each}
+	</section>
 </SearchLayout>

@@ -4,7 +4,7 @@
 	import components from './templates.json';
 	import { compare, selectSortItems } from '$lib/utils/sort';
 	import Select from '$lib/components/Select.svelte';
-import SearchLayout from '$lib/layouts/SearchLayout.svelte';
+	import SearchLayout from '$lib/layouts/SearchLayout.svelte';
 
 	let searchValue;
 
@@ -77,27 +77,26 @@ import SearchLayout from '$lib/layouts/SearchLayout.svelte';
 				isClearable={false}
 			/>
 
-      <a href='/help/components' class="submit">Submit a template</a>
-    </div>
-    
+			<a href="/help/components" class="submit">Submit a template</a>
+		</div>
+
 		<input
-    class="searchbar"
-    type="text"
-    placeholder="Search for templates..."
-    bind:value={searchValue}
+			class="searchbar"
+			type="text"
+			placeholder="Search for templates..."
+			bind:value={searchValue}
 		/>
 		<span class="searchbar-count"
-    >{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
+			>{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
 		>
-</section>
-<section slot="items">
-	{#each categories as category}
-		<List title={category || 'Unclassified'}>
-			{#each dataToDisplay.filter((d) => d.category === category) as data}
-				<ComponentCard {...data} />
-			{/each}
-		</List>
-	{/each}
-</section>
+	</section>
+	<section slot="items">
+		{#each categories as category}
+			<List title={category || 'Unclassified'}>
+				{#each dataToDisplay.filter((d) => d.category === category) as data}
+					<ComponentCard {...data} />
+				{/each}
+			</List>
+		{/each}
+	</section>
 </SearchLayout>
-
