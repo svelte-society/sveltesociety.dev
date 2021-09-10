@@ -3,7 +3,7 @@
 </script>
 
 <div class="list">
-	<h1 id="category-{escape(title)}">{title} <a href="#category-{escape(title)}">#</a></h1>
+	<h1 id="category-{encodeURI(title)}">{title} <a href="#category-{encodeURI(title)}">#</a></h1>
 	<div class="grid">
 		<slot />
 	</div>

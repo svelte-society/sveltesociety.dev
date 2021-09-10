@@ -4,8 +4,7 @@
 	import { categories } from '$lib/stores/recipes';
 	import { page } from '$app/stores';
 
-	export let title,
-		description = '';
+	export let title;
 </script>
 
 <main>
@@ -39,9 +38,6 @@
 	}
 	.TOCLink.active a {
 		font-weight: bold;
-	}
-	.TOCLink img {
-		height: 1em;
 	}
 	@media (min-width: 1024px) {
 		main {

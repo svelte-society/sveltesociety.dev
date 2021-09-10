@@ -59,20 +59,4 @@
 	a:hover {
 		text-decoration: underline;
 	}
-
-	/* mobile design */
-	@media only screen and (max-width: 768px) {
-		.wrapper {
-			display: flex;
-			flex-direction: column;
-		}
-		.society-wrapper {
-			flex: 0 1 auto;
-			margin-top: 5%;
-			padding: 2rem;
-			--tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-			box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
-				var(--tw-shadow);
-		}
-	}
 </style>

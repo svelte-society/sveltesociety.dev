@@ -1,6 +1,5 @@
 <script>
 	export let nodes;
-	export let currentPath;
 </script>
 
 <ul>

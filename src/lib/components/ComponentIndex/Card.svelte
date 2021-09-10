@@ -5,7 +5,6 @@
 	export let description = '';
 	export let tags = [];
 	export let stars;
-	export let addedOn = new Date();
 	export let url = '';
 	export let npm = '';
 	export let repo = '';
@@ -33,9 +32,9 @@
 	};
 </script>
 
-<div class="card" class:active id="component-{escape(title)}">
+<div class="card" class:active id="component-{encodeURI(title)}">
 	<h3>
-		<a href="#component-{escape(title)}">#</a> <a href={url}>{title}</a>
+		<a href="#component-{encodeURI(title)}">#</a> <a href={url}>{title}</a>
 		{#if npm}<Tag
 				click={() => copyToClipboard(`${packageManagers[manager]}l ${cleanupNpm(npm)}`)}
 				variant="copy"
