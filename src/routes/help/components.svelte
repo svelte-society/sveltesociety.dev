@@ -2,11 +2,12 @@
 	import components from '../components/components.json';
 
 	const allTags = Array.from(new Set(components.map((item) => item.tags).flat()));
-	const tagItems = allTags.map((t) => ({ label: t, value: t }));
+	const tagItems = allTags.map((tag) => ({ label: tag, value: tag })).sort(ascending);
 	const allCategories = Array.from(new Set(components.map((item) => item.category).flat()));
 	const categoryItems = allCategories
 		.filter((cat) => cat !== '')
-		.map((cat) => ({ label: cat, value: cat }));
+		.map((cat) => ({ label: cat, value: cat }))
+		.sort(ascending);
 
 	let clipboardCopy = false;
 	const copyToClipboard = (text) => {
@@ -38,6 +39,10 @@
 		addedOn,
 		category
 	};
+
+	function ascending(a, b) {
+		return a.label > b.label ? 1 : -1;
+	}
 </script>
 
 <h1>How to submit a new component?</h1>
