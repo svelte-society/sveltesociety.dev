@@ -72,7 +72,7 @@
 <p><code>*</code> marked fields are required</p>
 <div class="json-generator">
 	<div class="input-wrapper">
-		<label for="title">Title*:</label>
+		<label for="title" class="required">Title:</label>
 		<div>
 			<input id="title" type="text" required bind:value={title} />
 			<span class="input-helper">Name of the component</span>
@@ -107,7 +107,7 @@
 		</div>
 	</div>
 	<div class="input-wrapper">
-		<label for="adden-on">Added On*:</label>
+		<label for="adden-on" class="required">Added On:</label>
 		<div>
 			<input id="adden-on" type="date" required bind:value={addedOn} />
 			<span class="input-helper">
@@ -127,7 +127,7 @@
 		</div>
 	</div>
 	<div class="input-wrapper">
-		<label for="tags">Tags*:</label>
+		<label for="tags" class="required">Tags:</label>
 		<div>
 			<select id="tags" multiple required bind:value={tags}>
 				{#each tagItems as tag}
@@ -196,6 +196,11 @@
 	.input-helper {
 		color: var(--dark-gray);
 		font-size: var(--font-100);
+	}
+
+	.required::after {
+		content: '*';
+		color: var(--error);
 	}
 
 	pre {
