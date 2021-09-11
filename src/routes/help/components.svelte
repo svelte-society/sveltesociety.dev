@@ -45,7 +45,7 @@
 	}
 </script>
 
-<h1>How to submit a new component?</h1>
+<h1>Submitting a new component</h1>
 <p>
 	To add a new component on the website, the process is rather simple. You have to add your
 	component in <a
@@ -62,7 +62,7 @@
 	</a>, add your component and then propose a Pull request.
 </p>
 
-<h2>Edit the file</h2>
+<h2>Editing the file</h2>
 <p>
 	You can edit and propose your changes <a
 		href="https://github.com/svelte-society/sveltesociety.dev/edit/master/src/pages/components/components.json"
@@ -71,13 +71,12 @@
 	</a>
 </p>
 
-<h2>What information should I give ?</h2>
+<h2>Generating file contents snippet</h2>
 <p>
 	Each component is represented by a JSON Object. Use the generator below to generate the JSON
 	Object.
 </p>
 
-<h2>Generator</h2>
 <p><code>*</code> marked fields are required</p>
 <div class="json-generator">
 	<div class="input-wrapper">
