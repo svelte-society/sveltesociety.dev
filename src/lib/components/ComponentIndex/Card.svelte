@@ -1,5 +1,7 @@
 <script>
 	import Tag from '../Tag.svelte';
+	import { copyToClipboard } from '$lib/utils/clipboard';
+
 	export let active = false;
 	export let title = '';
 	export let description = '';
@@ -11,14 +13,12 @@
 	export let manager = 'npm';
 
 	let clipboardCopy = false;
-	const copyToClipboard = (text) => {
-		navigator.clipboard
-			.writeText(text)
-			.then(() => {
-				clipboardCopy = true;
-				setTimeout(() => (clipboardCopy = false), 1000);
-			})
-			.catch(() => alert('Clipboard copy Permission denied'));
+
+	const copy = () => {
+		copyToClipboard(`${packageManagers[manager]}l ${cleanupNpm(npm)}`).then(
+			() => (clipboardCopy = false)
+		);
+		clipboardCopy = true;
 	};
 
 	const packageManagers = {
@@ -36,7 +36,7 @@
 	<h3>
 		<a href="#component-{encodeURI(title)}">#</a> <a href={url}>{title}</a>
 		{#if npm}<Tag
-				click={() => copyToClipboard(`${packageManagers[manager]}l ${cleanupNpm(npm)}`)}
+				click={() => copy()}
 				variant="copy"
 				title={clipboardCopy ? 'copied!' : `${packageManagers[manager]} ${cleanupNpm(npm)}`}
 			/>{/if}
