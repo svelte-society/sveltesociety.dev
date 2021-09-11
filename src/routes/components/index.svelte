@@ -1,4 +1,6 @@
 <script>
+	import { persist, localStorage } from '@macfja/svelte-persistent-store';
+	import { writable } from 'svelte/store';
 	import SearchLayout from '$layouts/SearchLayout.svelte';
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
 	import List from '$components/ComponentIndex/CardList.svelte';
@@ -21,7 +23,7 @@
 	let sorting = 'stars_desc';
 	let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
 	$: sorting = selectedSorting?.value || 'stars_desc';
-	let packageManager = 'npm';
+	let packageManager = persist(writable('npm'), localStorage(), 'packageManager');
 	const intersection = (array1, array2) => {
 		return array1.filter((item) => array2.includes(item));
 	};
@@ -70,15 +72,17 @@
 				showIndicator
 				isClearable={false}
 			/>
-			<Button small active={packageManager !== ''}>
-				{packageManager.toUpperCase()}
+			<Button small active={$packageManager !== ''}>
+				{$packageManager.toUpperCase()}
 				<ul slot="menu" role="menu" class="popin no-wrap">
-					<li><label><input type="radio" bind:group={packageManager} value="npm" /> NPM</label></li>
 					<li>
-						<label><input type="radio" bind:group={packageManager} value="pnpm" /> PNPM</label>
+						<label><input type="radio" bind:group={$packageManager} value="npm" /> NPM</label>
 					</li>
 					<li>
-						<label><input type="radio" bind:group={packageManager} value="yarn" /> Yarn</label>
+						<label><input type="radio" bind:group={$packageManager} value="pnpm" /> PNPM</label>
+					</li>
+					<li>
+						<label><input type="radio" bind:group={$packageManager} value="yarn" /> Yarn</label>
 					</li>
 				</ul>
 			</Button>
@@ -99,7 +103,7 @@
 		{#each categories as category}
 			<List title={category || 'Unclassified'}>
 				{#each dataToDisplay.filter((d) => d.category === category) as data}
-					<ComponentCard {...data} manager={packageManager} />
+					<ComponentCard {...data} manager={$packageManager} />
 				{/each}
 			</List>
 		{/each}
