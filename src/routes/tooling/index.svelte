@@ -4,20 +4,17 @@
 	import SearchLayout from '$layouts/SearchLayout.svelte';
 	import tools from './tools.json';
 	import Select from '$lib/components/Select.svelte';
+	import { extractUnique } from '$lib/utils/extractUnique';
 	import { compare, selectSortItems } from '$lib/utils/sort';
+	import components from '../templates/templates.json';
 
 	let searchValue;
 
-	const tags = Array.from(new Set(tools.map((item) => item.tags).flat()));
-	const tagItems = tags.map((t) => ({ label: t, value: t }));
+	const tagItems = extractUnique(tools, 'tags');
 	let filterTag = [];
 	let selectedTags = null;
 
-	const allCategories = Array.from(new Set(tools.map((item) => item.category).flat()));
-	const categoryItems = [
-		{ label: 'all', value: null },
-		...allCategories.map((cat) => ({ label: cat, value: cat }))
-	];
+	const categoryItems = [{ label: 'all', value: null }, ...extractUnique(components, 'category')];
 	let selectedCategory = null;
 	let filterCategory = null;
 
@@ -48,7 +45,7 @@
 		})
 		.sort(compare(sorting));
 
-	$: categories = Array.from(new Set(dataToDisplay.map((item) => item.category)));
+	$: categories = extractUnique(dataToDisplay, 'category');
 	$: filterTag = selectedTags?.map((obj) => obj.value) || [];
 </script>
 
@@ -90,8 +87,8 @@
 	</section>
 	<section slot="items">
 		{#each categories as category}
-			<List title={category || 'Unclassified'}>
-				{#each dataToDisplay.filter((d) => d.category === category) as data}
+			<List title={category.label || 'Unclassified'}>
+				{#each dataToDisplay.filter((d) => d.category === category.value) as data}
 					<ComponentCard {...data} />
 				{/each}
 			</List>
