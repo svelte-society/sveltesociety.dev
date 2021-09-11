@@ -1,5 +1,6 @@
 <script>
-	import { localStore } from '$lib/utils/localStore';
+	import { persist, localStorage } from '@macfja/svelte-persistent-store';
+	import { writable } from 'svelte/store';
 	import SearchLayout from '$layouts/SearchLayout.svelte';
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
 	import List from '$components/ComponentIndex/CardList.svelte';
@@ -22,7 +23,7 @@
 	let sorting = 'stars_desc';
 	let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
 	$: sorting = selectedSorting?.value || 'stars_desc';
-	let packageManager = localStore('packageManager', 'npm');
+	let packageManager = persist(writable('npm'), localStorage(), 'packageManager');
 	const intersection = (array1, array2) => {
 		return array1.filter((item) => array2.includes(item));
 	};
