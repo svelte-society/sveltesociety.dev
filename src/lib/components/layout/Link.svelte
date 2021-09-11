@@ -9,16 +9,16 @@
 </li>
 
 <style>
-  li {
-    text-transform: uppercase;
-  }
-  a {
-    text-decoration: none;
-    border-bottom: transparent;
-    color: var(--inherit);
-    transition: var(--link-transition);
-    font-size: var(--font-200);
-  }
+	li {
+		text-transform: uppercase;
+	}
+	a {
+		text-decoration: none;
+		border-bottom: transparent;
+		color: var(--inherit);
+		transition: var(--link-transition);
+		font-size: var(--font-200);
+	}
 
 	a.nav-item {
 		letter-spacing: 0.05rem;
@@ -26,7 +26,7 @@
 	}
 	li a:hover {
 		border-bottom: 4px solid var(--primary);
-	} 
+	}
 	.active {
 		border-bottom: 4px solid var(--primary);
 	}

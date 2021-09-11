@@ -2216,12 +2216,7 @@
 		"description": "Add OAuth2 authorization in Svelte (and SvelteKit, works with SSR)",
 		"npm": "@macfja/svelte-oauth2",
 		"stars": 3,
-		"tags": [
-			"auth",
-			"integrations",
-			"ssr",
-			"third party services"
-		],
+		"tags": ["auth", "integrations", "ssr", "third party services"],
 		"url": "https://github.com/macfja/svelte-oauth2#readme",
 		"addedOn": "2021-09-10T20:00:00.000Z"
 	}

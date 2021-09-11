@@ -1,4 +1,5 @@
 import adapter from '@sveltejs/adapter-static';
+import preprocess from 'svelte-preprocess';
 import { mdsvex, escapeSvelte } from 'mdsvex';
 import hljs from 'highlight.js';
 import path from 'path';
@@ -8,6 +9,7 @@ const extensions = [`.svelte`, '.md', `.mdx`, '.svx'];
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	preprocess: [
+		preprocess(),
 		mdsvex({
 			// Breaks svelte-select when .svelte extension is included
 			extensions: extensions.filter((ext) => ext !== '.svelte'),

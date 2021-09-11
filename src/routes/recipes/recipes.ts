@@ -1,10 +1,10 @@
+import type { EndpointOutput } from '@sveltejs/kit';
 /**
  * @type {import('@sveltejs/kit').RequestHandler}
  */
-export async function get() {
+export async function get(): Promise<EndpointOutput> {
 	const pages = await Promise.all(
-		Object.entries(import.meta.glob('./**/*.svx'))
-		.map(async ([path, page]) => {
+		Object.entries(import.meta.glob('./**/*.svx')).map(async ([path, page]) => {
 			const { metadata } = await page();
 			const filename = path.split('/').pop();
 			path = '/recipes' + path.substring(1, path.length - '.svx'.length);
@@ -15,11 +15,11 @@ export async function get() {
 		})
 	);
 
-	const categories = pages.filter(page => page.meta.layout === 'recipeCategory');
+	const categories = pages.filter((page) => page.meta.layout === 'recipeCategory');
 
-	categories.forEach(category => {
+	categories.forEach((category) => {
 		category.children = [];
-		pages.forEach(p => {
+		pages.forEach((p) => {
 			if (category !== p && p.path.startsWith(category.path)) {
 				category.children.push(p);
 			}

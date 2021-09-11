@@ -29,7 +29,7 @@
 	}
 
 	.themed :global(.select-container) {
-    border: 2px solid var(--dark-gray);
+		border: 2px solid var(--dark-gray);
 		cursor: pointer;
 		flex: 1;
 		align-items: center;
@@ -62,5 +62,4 @@
 		position: static;
 		cursor: pointer;
 	}
-
 </style>
