@@ -55,13 +55,6 @@
 	</a>
 </p>
 
-<h2>Forking the project</h2>
-<p>
-	You can fork the <a href="https://github.com/svelte-society/sveltesociety.dev/">
-		GitHub project
-	</a>, add your component and then propose a Pull request.
-</p>
-
 <h2>Editing the file</h2>
 <p>
 	You can edit and propose your changes <a
