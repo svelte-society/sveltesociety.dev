@@ -112,8 +112,7 @@
 	}
 	@media screen and (max-width: 600px) {
 		.categories-wrap {
-
-			grid-template-columns: 1fr
+			grid-template-columns: 1fr;
 		}
 	}
 	.category-style {

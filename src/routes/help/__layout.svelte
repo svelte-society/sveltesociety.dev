@@ -1,6 +1,6 @@
 <svelte:head>
-  <title>Help</title>
+	<title>Help</title>
 </svelte:head>
 <main>
-  <slot />
+	<slot />
 </main>

@@ -2,7 +2,7 @@ import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 
 type Recipe = {
-	meta: any;
+	meta: unknown;
 	filename: string;
 	path: string;
 	children: Recipe[];
