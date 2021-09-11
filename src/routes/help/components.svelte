@@ -95,7 +95,7 @@
 	<div class="input-wrapper">
 		<label for="npm">NPM:</label>
 		<div>
-			<input id="npm" type="url" bind:value={npm} />
+			<input id="npm" type="text" bind:value={npm} />
 			<span class="input-helper">The npm name of the component</span>
 		</div>
 	</div>
