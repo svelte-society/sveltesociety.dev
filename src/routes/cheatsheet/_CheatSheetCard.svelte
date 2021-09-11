@@ -1,5 +1,5 @@
 <script lang="ts">
-	import './highlight.css';
+	import '$styles/highlight.css';
 	import { HighlightSvelte } from 'svelte-highlight';
 	import { fly } from 'svelte/transition';
 
@@ -49,7 +49,7 @@
 	.title {
 		background-color: var(--secondary);
 		padding: var(--s-4);
-    color: var(--white);
+		color: var(--white);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
