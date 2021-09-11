@@ -66,8 +66,7 @@
 
 <h2>Generating file contents snippet</h2>
 <p>
-	Each component is represented by a JSON Object. Use the generator below to generate the JSON
-	Object.
+	Each component is represented by a JSON Object. Use the generator below to generate the Object.
 </p>
 
 <p><code>*</code> marked fields are required</p>
