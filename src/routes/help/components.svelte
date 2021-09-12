@@ -1,23 +1,15 @@
 <script>
 	import components from '../components/components.json';
+	import { copyToClipboard } from '$lib/utils/clipboard';
+	import { extractUnique } from '$lib/utils/extractUnique';
 
-	const allTags = Array.from(new Set(components.map((item) => item.tags).flat()));
-	const tagItems = allTags.map((tag) => ({ label: tag, value: tag })).sort(ascending);
-	const allCategories = Array.from(new Set(components.map((item) => item.category).flat()));
-	const categoryItems = allCategories
-		.filter((cat) => cat !== '')
-		.map((cat) => ({ label: cat, value: cat }))
-		.sort(ascending);
+	const tagItems = extractUnique(components, 'tags');
+	const categoryItems = extractUnique(components, 'category');
 
 	let clipboardCopy = false;
-	const copyToClipboard = (text) => {
-		navigator.clipboard
-			.writeText(text)
-			.then(() => {
-				clipboardCopy = true;
-				setTimeout(() => (clipboardCopy = false), 1000);
-			})
-			.catch(() => alert('Clipboard copy Permission denied'));
+	const copy = () => {
+		copyToClipboard(JSON.stringify(jsonSnippet, null, 4)).then(() => (clipboardCopy = false));
+		clipboardCopy = true;
 	};
 
 	let title = 'svelte-calender';
@@ -39,10 +31,6 @@
 		addedOn,
 		category
 	};
-
-	function ascending(a, b) {
-		return a.label > b.label ? 1 : -1;
-	}
 
 	function padWithZero(date) {
 		return date.toString().padStart(2, '0');
@@ -154,7 +142,7 @@
 
 <h2>JSON Snippet</h2>
 <pre>
-	{JSON.stringify(jsonSnippet,null,4)}<button on:click={() => copyToClipboard(JSON.stringify(jsonSnippet,null,4))}>{clipboardCopy ? 'Copied' : 'Copy'}</button>
+	{JSON.stringify(jsonSnippet,null,4)}<button on:click={copy}>{clipboardCopy ? 'Copied' : 'Copy'}</button>
 </pre>
 
 <style>
