@@ -1,7 +1,4 @@
 <style>
-pre {
-	@apply bg-gray-100 p-4 rounded-2xl text-gray-900 overflow-x-auto;
-}
 h1 {
 	@apply mt-10;
 }

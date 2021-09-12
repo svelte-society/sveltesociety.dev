@@ -23,13 +23,13 @@
 		--borderFocusColor: var(--secondary);
 		--itemIsActiveBG: var(--secondary);
 		/* --indicatorTop: calc(50% - 13px); */
-
 		position: relative;
 		display: flex;
 		flex-direction: column;
 	}
 
 	.themed :global(.select-container) {
+		border: 2px solid var(--dark-gray);
 		cursor: pointer;
 		flex: 1;
 		align-items: center;
@@ -49,8 +49,8 @@
 		--multiClearBG: transparent;
 		--multiClearFill: var(--secondary);
 		--multiClearHoverBG: transparent;
-		--multiClearHoverFill: var(--color-bg);
-		--multiLabelMargin: 1px 5px 0 0;
+		/* --multiClearHoverFill: var(--white); */
+		/* --multiLabelMargin: 1px 5px 0 0; */
 	}
 
 	.themed :global(input) {
@@ -62,5 +62,4 @@
 		position: static;
 		cursor: pointer;
 	}
-
 </style>

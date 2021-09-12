@@ -3,21 +3,17 @@
 	import List from '$lib/components/ComponentIndex/CardList.svelte';
 	import components from './templates.json';
 	import { compare, selectSortItems } from '$lib/utils/sort';
+	import { extractUnique } from '$lib/utils/extractUnique';
 	import Select from '$lib/components/Select.svelte';
-import SearchLayout from '$lib/layouts/SearchLayout.svelte';
+	import SearchLayout from '$lib/layouts/SearchLayout.svelte';
 
 	let searchValue;
 
-	const tags = Array.from(new Set(components.map((item) => item.tags).flat()));
-	const tagItems = tags.map((t) => ({ label: t, value: t }));
+	const tagItems = extractUnique(components, 'tags');
 	let filterTag = [];
 	let selectedTags = null;
 
-	const allCategories = Array.from(new Set(components.map((item) => item.category).flat()));
-	const categoryItems = [
-		{ label: 'all', value: null },
-		...allCategories.map((cat) => ({ label: cat, value: cat }))
-	];
+	const categoryItems = [{ label: 'all', value: null }, ...extractUnique(components, 'category')];
 	let selectedCategory = null;
 	let filterCategory = null;
 
@@ -49,7 +45,7 @@ import SearchLayout from '$lib/layouts/SearchLayout.svelte';
 		})
 		.sort(compare(sorting));
 
-	$: categories = Array.from(new Set(dataToDisplay.map((item) => item.category)));
+	$: categories = extractUnique(dataToDisplay, 'category');
 	$: filterTag = selectedTags?.map((obj) => obj.value) || [];
 </script>
 
@@ -77,27 +73,26 @@ import SearchLayout from '$lib/layouts/SearchLayout.svelte';
 				isClearable={false}
 			/>
 
-      <a href='/help/components' class="submit">Submit a template</a>
-    </div>
-    
+			<a href="/help/components" class="submit">Submit a template</a>
+		</div>
+
 		<input
-    class="searchbar"
-    type="text"
-    placeholder="Search for templates..."
-    bind:value={searchValue}
+			class="searchbar"
+			type="text"
+			placeholder="Search for templates..."
+			bind:value={searchValue}
 		/>
 		<span class="searchbar-count"
-    >{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
+			>{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
 		>
-</section>
-<section slot="items">
-	{#each categories as category}
-		<List title={category || 'Unclassified'}>
-			{#each dataToDisplay.filter((d) => d.category === category) as data}
-				<ComponentCard {...data} />
-			{/each}
-		</List>
-	{/each}
-</section>
+	</section>
+	<section slot="items">
+		{#each categories as category}
+			<List title={category.label || 'Unclassified'}>
+				{#each dataToDisplay.filter((d) => d.category === category.value) as data}
+					<ComponentCard {...data} />
+				{/each}
+			</List>
+		{/each}
+	</section>
 </SearchLayout>
-

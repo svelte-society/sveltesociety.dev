@@ -2195,5 +2195,29 @@
 		"tags": [],
 		"url": "https://github.com/macfja/svelte-adapter-multi#readme",
 		"addedOn": "2021-08-23T15:40:00.000Z"
+	},
+	{
+		"title": "svelte-multiselect",
+		"url": "https://github.com/janosh/svelte-multiselect",
+		"description": "Keyboard-friendly, zero-dependency multi-select component",
+		"tags": [
+			"components and libraries",
+			"inputs and widgets",
+			"forms and validation",
+			"interactions"
+		],
+		"image": "",
+		"addedOn": "2021-09-07T10:00:00Z",
+		"category": "Forms & User Input"
+	},
+	{
+		"title": "Svelte (and SvelteKit) OAuth2",
+		"category": "Integration",
+		"description": "Add OAuth2 authorization in Svelte (and SvelteKit, works with SSR)",
+		"npm": "@macfja/svelte-oauth2",
+		"stars": 3,
+		"tags": ["auth", "integrations", "ssr", "third party services"],
+		"url": "https://github.com/macfja/svelte-oauth2#readme",
+		"addedOn": "2021-09-10T20:00:00.000Z"
 	}
 ]

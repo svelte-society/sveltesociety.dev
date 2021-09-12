@@ -20,11 +20,11 @@
 </main>
 
 <style>
-  main {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    justify-items: stretch;
-    gap: var(--s-10);
-  }
+	main {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: stretch;
+		justify-items: stretch;
+		gap: var(--s-10);
+	}
 </style>

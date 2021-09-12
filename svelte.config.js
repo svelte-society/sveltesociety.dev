@@ -1,5 +1,7 @@
 import adapter from '@sveltejs/adapter-static';
-import { mdsvex } from 'mdsvex';
+import preprocess from 'svelte-preprocess';
+import { mdsvex, escapeSvelte } from 'mdsvex';
+import hljs from 'highlight.js';
 import path from 'path';
 
 const extensions = [`.svelte`, '.md', `.mdx`, '.svx'];
@@ -7,6 +9,7 @@ const extensions = [`.svelte`, '.md', `.mdx`, '.svx'];
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	preprocess: [
+		preprocess(),
 		mdsvex({
 			// Breaks svelte-select when .svelte extension is included
 			extensions: extensions.filter((ext) => ext !== '.svelte'),
@@ -14,6 +17,12 @@ const config = {
 				eventPage: './src/lib/layouts/EventPage.svelte',
 				recipe: './src/lib/layouts/Recipe.svelte',
 				recipeCategory: './src/lib/layouts/RecipeCategory.svelte'
+			},
+			highlight: {
+				highlighter: (code) => {
+					const highlighted = escapeSvelte(hljs.highlightAuto(code).value);
+					return `{@html \`<pre class="hljs"><code>${highlighted}</code></pre>\`}`;
+				}
 			}
 		})
 	],

@@ -1,7 +1,8 @@
 <script lang="ts">
-	import './highlight.css';
+	import '$styles/highlight.css';
 	import { HighlightSvelte } from 'svelte-highlight';
 	import { fly } from 'svelte/transition';
+	import { copyToClipboard } from '$lib/utils/clipboard';
 
 	export let title = '';
 	export let content = '';
@@ -9,12 +10,8 @@
 	export let repl = '';
 	let isCopied = false;
 	function copy() {
-		const element = document.getElementById(title).firstChild;
-		if (navigator.clipboard) {
-			navigator.clipboard.writeText(element.innerText);
-			isCopied = true;
-			setTimeout(() => (isCopied = false), 1500);
-		}
+		copyToClipboard(content).then(() => (isCopied = false));
+		isCopied = true;
 	}
 </script>
 
@@ -49,7 +46,7 @@
 	.title {
 		background-color: var(--secondary);
 		padding: var(--s-4);
-    color: var(--white);
+		color: var(--white);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;

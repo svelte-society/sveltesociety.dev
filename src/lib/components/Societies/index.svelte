@@ -1,7 +1,6 @@
 <script>
 	import Icon from '$lib/components/Icon/index.svelte';
 	import societies from './societies.json';
-
 </script>
 
 <!--society section-->
@@ -66,11 +65,6 @@
 			var(--tw-shadow);
 		border-radius: 0.5rem;
 	}
-	h5.title {
-		font-size: 1.5em;
-		margin-block-start: 0.8em;
-		margin-block-end: 0.5em;
-	}
 	h6.continent {
 		font-size: 25px;
 		color: #64748b;
@@ -100,5 +94,4 @@
 				var(--tw-shadow);
 		}
 	}
-
 </style>

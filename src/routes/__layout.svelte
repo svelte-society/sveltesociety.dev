@@ -27,7 +27,7 @@
 <Footer />
 
 <style>
-  main {
-    padding: var(--s-10) var(--s-5) var(--s-20);
-  }
+	main {
+		padding: var(--s-10) var(--s-5) var(--s-20);
+	}
 </style>

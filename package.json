@@ -11,6 +11,7 @@
 		"test": "jest"
 	},
 	"devDependencies": {
+		"@macfja/svelte-persistent-store": "^1.2.0",
 		"@octokit/graphql": "^4.7.0",
 		"@sveltejs/adapter-static": "next",
 		"@sveltejs/kit": "next",
@@ -20,6 +21,7 @@
 		"eslint": "^7.22.0",
 		"eslint-config-prettier": "^8.1.0",
 		"eslint-plugin-svelte3": "^3.2.0",
+		"highlight.js": "^11.2.0",
 		"jest": "^27.1.0",
 		"mdsvex": "^0.9.3",
 		"prettier": "~2.2.1",
