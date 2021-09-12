@@ -27,7 +27,7 @@
 	let image = '';
 	let category = 'Forms & User Input';
 	let tags = ['components and libraries', 'time and date'];
-	let addedOn = '';
+	let addedOn = todaysDate();
 
 	$: jsonSnippet = {
 		title,
@@ -42,6 +42,19 @@
 
 	function ascending(a, b) {
 		return a.label > b.label ? 1 : -1;
+	}
+
+	function padWithZero(date) {
+		return date.toString().padStart(2, '0');
+	}
+
+	function todaysDate() {
+		const date = new Date();
+		const day = padWithZero(date.getDate());
+		const month = padWithZero(date.getMonth() + 1);
+		const year = date.getFullYear();
+		const sep = '-';
+		return [year, month, day].join(sep);
 	}
 </script>
 
