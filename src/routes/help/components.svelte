@@ -193,6 +193,11 @@
 		padding: var(--s-2);
 	}
 
+	input:invalid,
+	select:invalid {
+		border-color: var(--error);
+	}
+
 	.input-helper {
 		color: var(--dark-gray);
 		font-size: var(--font-100);
