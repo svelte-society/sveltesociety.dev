@@ -4,7 +4,6 @@ export const extractUnique = (
 ): Array<Record<'label' | 'value', unknown>> => {
 	const extracted = Array.from(new Set(source.map((item) => item[field]).flat()));
 	return extracted
-		.filter((value) => !!value)
 		.map((value) => ({ label: value, value }))
 		.sort((a, b) => {
 			if (typeof a.value === 'string' && typeof b.value === 'string') {

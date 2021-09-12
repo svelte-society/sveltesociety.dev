@@ -4,7 +4,9 @@
 	import { extractUnique } from '$lib/utils/extractUnique';
 
 	const tagItems = extractUnique(components, 'tags');
-	const categoryItems = extractUnique(components, 'category');
+	const categoryItems = [
+		...extractUnique(components, 'category').filter((cat) => cat.label !== '')
+	];
 
 	let clipboardCopy = false;
 	const copy = () => {
