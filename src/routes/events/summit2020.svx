@@ -2,7 +2,6 @@
 title: Svelte Summit 2020
 layout: eventPage
 date: 2020-10-18
-isPast: true
 ---
 
 The SVELTE SUMMIT on OCT 18 2020 was the 2nd virtual conference about svelte.
