@@ -88,7 +88,7 @@
 	<div class="input-wrapper">
 		<label for="desc">Description:</label>
 		<div>
-			<input id="desc" type="url" bind:value={description} />
+			<input id="desc" type="text" bind:value={description} />
 			<span class="input-helper">A short description of the component</span>
 		</div>
 	</div>
