@@ -119,7 +119,7 @@
 		<label for="category">Category:</label>
 		<div>
 			<select id="category" bind:value={category}>
-				{#each categoryItems as category}
+				{#each categoryItems as category (category.label)}
 					<option value={category.value}>{category.label}</option>
 				{/each}
 			</select>
@@ -130,7 +130,7 @@
 		<label for="tags" class="required">Tags:</label>
 		<div>
 			<select id="tags" multiple required bind:value={tags}>
-				{#each tagItems as tag}
+				{#each tagItems as tag (tag.label)}
 					<option value={tag.value}>{tag.label}</option>
 				{/each}
 			</select>
