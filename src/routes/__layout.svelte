@@ -31,9 +31,9 @@
 		padding: var(--s-10) var(--s-5) var(--s-20);
 	}
 
-  @media (min-width: 1280px) {
-    main {
-      padding: var(--s-20) var(--s-5);
-    }
-  }
+	@media (min-width: 1280px) {
+		main {
+			padding: var(--s-20) var(--s-5);
+		}
+	}
 </style>

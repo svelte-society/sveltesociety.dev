@@ -86,9 +86,9 @@
 		width: 128px;
 	}
 
-  @media (min-width: 1280px) {
-    article {
-      gap: var(--s-20);
-    }
-  }
+	@media (min-width: 1280px) {
+		article {
+			gap: var(--s-20);
+		}
+	}
 </style>
