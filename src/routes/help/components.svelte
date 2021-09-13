@@ -1,12 +1,32 @@
 <script>
 	import components from '../components/components.json';
+	import templates from '../templates/templates.json';
+	import tools from '../tooling/tools.json';
+	import { tick } from 'svelte';
+	import { page } from '$app/stores';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 	import { extractUnique } from '$lib/utils/extractUnique';
 
-	const tagItems = extractUnique(components, 'tags');
-	const categoryItems = [
-		...extractUnique(components, 'category').filter((cat) => cat.label !== '')
-	];
+	const typeQuery = $page.query.get('type');
+	const types = ['Component', 'Template', 'Tool'].map((t) => ({
+		label: t,
+		value: t.toLowerCase()
+	}));
+
+	const data = {
+		component: {
+			tags: extractUnique(components, 'tags'),
+			categories: [...extractUnique(components, 'category').filter((cat) => cat.label !== '')]
+		},
+		template: {
+			tags: extractUnique(templates, 'tags'),
+			categories: extractUnique(templates, 'category')
+		},
+		tool: {
+			tags: extractUnique(tools, 'tags'),
+			categories: extractUnique(tools, 'category')
+		}
+	};
 
 	let clipboardCopy = false;
 	const copy = () => {
@@ -14,23 +34,27 @@
 		clipboardCopy = true;
 	};
 
-	let title = 'svelte-calender';
-	let url = 'https://github.com/6eDesign/svelte-calendar';
-	let description = 'A lightweight date picker with neat animations and a unique UX';
-	let npm = 'svelte-calender';
-	let category = 'Forms & User Input';
-	let tags = ['components and libraries', 'time and date'];
+	let type = types.find((t) => t.value == typeQuery)?.value || types[0].value;
+	let title = 'svelte-lorem-ipsum';
+	let url = 'https://github.com/sveltejs/svelte-lorem-ipsum';
+	let description = 'A dummy text generator that does not exist';
+	let npm = 'svelte-lorem-ipsum';
 	let addedOn = todaysDate();
+	let category = '';
+	let tags = [];
 
 	$: jsonSnippet = {
 		title,
 		url,
 		description,
 		npm,
-		tags,
 		addedOn,
-		category
+		category,
+		tags
 	};
+
+	$: currentTags = data[type].tags;
+	$: currentCategories = data[type].categories;
 
 	function padWithZero(date) {
 		return date.toString().padStart(2, '0');
@@ -44,6 +68,13 @@
 		const sep = '-';
 		return [year, month, day].join(sep);
 	}
+
+	async function setCategoryAndTag() {
+		await tick();
+		tags = [currentTags[0].value];
+		category = currentCategories[0].value;
+	}
+	setCategoryAndTag();
 </script>
 
 <h1>Submitting a new component</h1>
@@ -72,6 +103,17 @@
 
 <p><code>*</code> marked fields are required</p>
 <div class="json-generator">
+	<div class="input-wrapper">
+		<label for="type">Type:</label>
+		<div>
+			<select id="type" bind:value={type} on:change={setCategoryAndTag}>
+				{#each types as type (type.label)}
+					<option value={type.value}>{type.label}</option>
+				{/each}
+			</select>
+			<span class="input-helper">The type of snippet to generate</span>
+		</div>
+	</div>
 	<div class="input-wrapper">
 		<label for="title" class="required">Title:</label>
 		<div>
@@ -113,7 +155,7 @@
 		<label for="category">Category:</label>
 		<div>
 			<select id="category" bind:value={category}>
-				{#each categoryItems as category (category.label)}
+				{#each currentCategories as category (category.label)}
 					<option value={category.value}>{category.label}</option>
 				{/each}
 			</select>
@@ -124,7 +166,7 @@
 		<label for="tags" class="required">Tags:</label>
 		<div>
 			<select id="tags" multiple required bind:value={tags}>
-				{#each tagItems as tag (tag.label)}
+				{#each currentTags as tag (tag.label)}
 					<option value={tag.value}>{tag.label}</option>
 				{/each}
 			</select>
