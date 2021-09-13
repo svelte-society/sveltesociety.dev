@@ -73,7 +73,7 @@
 				isClearable={false}
 			/>
 
-			<a href="/help/components?type=template" class="submit">Submit a template</a>
+			<a href="/help/submitting?type=template" class="submit">Submit a template</a>
 		</div>
 
 		<input

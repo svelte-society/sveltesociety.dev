@@ -72,7 +72,7 @@
 				showIndicator
 				isClearable={false}
 			/>
-			<a href="/help/components?type=tool" class="submit">Submit a tool</a>
+			<a href="/help/submitting?type=tool" class="submit">Submit a tool</a>
 		</div>
 
 		<input
