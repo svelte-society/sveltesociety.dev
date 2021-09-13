@@ -18,7 +18,6 @@
 	let url = 'https://github.com/6eDesign/svelte-calendar';
 	let description = 'A lightweight date picker with neat animations and a unique UX';
 	let npm = 'svelte-calender';
-	let image = '';
 	let category = 'Forms & User Input';
 	let tags = ['components and libraries', 'time and date'];
 	let addedOn = todaysDate();
@@ -29,7 +28,6 @@
 		description,
 		npm,
 		tags,
-		image,
 		addedOn,
 		category
 	};
@@ -100,13 +98,6 @@
 		<div>
 			<input id="npm" type="text" bind:value={npm} />
 			<span class="input-helper">The npm name of the component</span>
-		</div>
-	</div>
-	<div class="input-wrapper">
-		<label for="img">Image:</label>
-		<div>
-			<input id="img" type="url" bind:value={image} />
-			<span class="input-helper">An image to quickly view what your component is all about</span>
 		</div>
 	</div>
 	<div class="input-wrapper">
