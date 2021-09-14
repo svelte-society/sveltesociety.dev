@@ -3,6 +3,7 @@
 	import components from '../components/components.json';
 	import templates from '../templates/templates.json';
 	import tools from '../tooling/tools.json';
+	import { tick } from 'svelte';
 	import { page } from '$app/stores';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 	import { extractUnique } from '$lib/utils/extractUnique';
@@ -68,6 +69,12 @@
 		const sep = '-';
 		return [year, month, day].join(sep);
 	}
+
+	async function clearCategoryAndTags() {
+		await tick();
+		category = null;
+		tags = null;
+	}
 </script>
 
 <h1>Submitting a new component</h1>
@@ -99,7 +106,14 @@
 	<div class="input-wrapper">
 		<label for="type">Type:</label>
 		<div>
-			<SvelteSelect id="type" items={types} isClearable={false} showIndicator bind:value={type} />
+			<SvelteSelect
+				id="type"
+				items={types}
+				isClearable={false}
+				showIndicator
+				bind:value={type}
+				on:select={clearCategoryAndTags}
+			/>
 			<span class="input-helper">The type of snippet to generate</span>
 		</div>
 	</div>
