@@ -224,7 +224,7 @@
 
 	input {
 		width: 100%;
-		padding: var(--s-2);
+		padding: var(--s-2) 16px;
 		border: var(--border);
 		border-radius: var(--borderRadius);
 		font-size: inherit;
