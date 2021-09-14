@@ -1,8 +1,8 @@
 <script>
+	import SvelteSelect from 'svelte-select';
 	import components from '../components/components.json';
 	import templates from '../templates/templates.json';
 	import tools from '../tooling/tools.json';
-	import { tick } from 'svelte';
 	import { page } from '$app/stores';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 	import { extractUnique } from '$lib/utils/extractUnique';
@@ -34,14 +34,14 @@
 		clipboardCopy = true;
 	};
 
-	let type = types.find((t) => t.value == typeQuery)?.value || types[0].value;
+	let type = types.find((t) => t.value == typeQuery) || types[0];
 	let title = 'svelte-lorem-ipsum';
 	let url = 'https://github.com/sveltejs/svelte-lorem-ipsum';
 	let description = 'A dummy text generator that does not exist';
 	let npm = 'svelte-lorem-ipsum';
 	let addedOn = todaysDate();
-	let category = '';
-	let tags = [];
+	let category;
+	let tags;
 
 	$: jsonSnippet = {
 		title,
@@ -49,12 +49,12 @@
 		description,
 		npm,
 		addedOn,
-		category,
-		tags
+		category: category?.value,
+		tags: tags?.map((tag) => tag.value)
 	};
 
-	$: currentTags = data[type].tags;
-	$: currentCategories = data[type].categories;
+	$: currentTags = data[type.value].tags;
+	$: currentCategories = data[type.value].categories;
 
 	function padWithZero(date) {
 		return date.toString().padStart(2, '0');
@@ -68,13 +68,6 @@
 		const sep = '-';
 		return [year, month, day].join(sep);
 	}
-
-	async function setCategoryAndTag() {
-		await tick();
-		tags = [currentTags[0].value];
-		category = currentCategories[0].value;
-	}
-	setCategoryAndTag();
 </script>
 
 <h1>Submitting a new component</h1>
@@ -106,11 +99,7 @@
 	<div class="input-wrapper">
 		<label for="type">Type:</label>
 		<div>
-			<select id="type" bind:value={type} on:change={setCategoryAndTag}>
-				{#each types as type (type.label)}
-					<option value={type.value}>{type.label}</option>
-				{/each}
-			</select>
+			<SvelteSelect id="type" items={types} isClearable={false} showIndicator bind:value={type} />
 			<span class="input-helper">The type of snippet to generate</span>
 		</div>
 	</div>
@@ -154,22 +143,20 @@
 	<div class="input-wrapper">
 		<label for="category">Category:</label>
 		<div>
-			<select id="category" bind:value={category}>
-				{#each currentCategories as category (category.label)}
-					<option value={category.value}>{category.label}</option>
-				{/each}
-			</select>
+			<SvelteSelect
+				id="category"
+				items={currentCategories}
+				isClearable={false}
+				showIndicator
+				bind:value={category}
+			/>
 			<span class="input-helper">The category of the component</span>
 		</div>
 	</div>
 	<div class="input-wrapper">
 		<label for="tags" class="required">Tags:</label>
 		<div>
-			<select id="tags" multiple required bind:value={tags}>
-				{#each currentTags as tag (tag.label)}
-					<option value={tag.value}>{tag.label}</option>
-				{/each}
-			</select>
+			<SvelteSelect id="category" items={currentTags} showIndicator isMulti bind:value={tags} />
 			<span class="input-helper">A list of tags</span>
 		</div>
 	</div>
