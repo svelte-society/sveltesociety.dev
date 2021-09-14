@@ -184,6 +184,15 @@
 	}
 
 	.input-wrapper {
+		--borderRadius: 5px;
+		--border: 2px solid var(--dark-gray);
+		--borderFocusColor: var(--secondary);
+		--borderHoverColor: var(--secondary);
+		--itemIsActiveBG: var(--secondary);
+		--multiItemActiveBG: var(--secondary);
+		--indicatorColor: var(--dark-gray);
+		--indicatorTop: calc(50% - 13px);
+
 		display: flex;
 		gap: var(--s-4);
 	}
@@ -199,26 +208,18 @@
 		flex-direction: column;
 	}
 
-	input,
-	select {
+	input {
 		width: 100%;
 		padding: var(--s-2);
-		border: 1px solid var(--gray);
-		border-radius: 5px;
+		border: var(--border);
+		border-radius: var(--borderRadius);
 		font-size: inherit;
 	}
 
-	select[multiple] {
-		padding: 0;
-	}
-
-	select[multiple] option {
-		padding: var(--s-2);
-	}
-
-	input:invalid,
-	select:invalid {
-		border-color: var(--error);
+	input:hover,
+	input:focus {
+		outline: none;
+		border-color: var(--borderFocusColor);
 	}
 
 	.input-helper {
