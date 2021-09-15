@@ -44,6 +44,7 @@
 	let category;
 	let tags;
 
+	$: pathName = `${type.value}s`;
 	$: jsonSnippet = {
 		title,
 		url,
@@ -79,21 +80,8 @@
 
 <h1>Submitting a new component</h1>
 <p>
-	To add a new component on the website, the process is rather simple. You have to add your
-	component in <a
-		href="https://github.com/svelte-society/sveltesociety.dev/blob/master/src/routes/components/components.json"
-	>
-		components.json
-	</a>
-</p>
-
-<h2>Editing the file</h2>
-<p>
-	You can edit and propose your changes <a
-		href="https://github.com/svelte-society/sveltesociety.dev/edit/master/src/pages/components/components.json"
-	>
-		directly in GitHub
-	</a>
+	To add a new component on the website, the process is rather simple. You have to add a snippet in
+	the appropriate file.
 </p>
 
 <h2>Generating file contents snippet</h2>
@@ -180,6 +168,22 @@
 <pre>
 	{JSON.stringify(jsonSnippet,null,4)}<button on:click={copy}>{clipboardCopy ? 'Copied' : 'Copy'}</button>
 </pre>
+<br />
+Copy this snippet and add it to
+<a
+	href="https://github.com/svelte-society/sveltesociety.dev/blob/staging/src/routes/{pathName ==
+	'tools'
+		? 'tooling'
+		: pathName}/{pathName}.json"
+>
+	{pathName}.json</a
+>. You can propose your changes
+<a
+	href="https://github.com/svelte-society/sveltesociety.dev/edit/staging/src/routes/{pathName ==
+	'tools'
+		? 'tooling'
+		: pathName}/{pathName}.json">directly in GitHub</a
+>.
 
 <style>
 	.json-generator,
