@@ -50,10 +50,10 @@
 </script>
 
 <svelte:head>
-	<title>Tooling - Svelte Society</title>
+	<title>Tools - Svelte Society</title>
 </svelte:head>
 
-<SearchLayout title="Tooling">
+<SearchLayout title="Tools">
 	<section slot="controls" class="controls">
 		<div class="inputs">
 			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />

@@ -2,12 +2,13 @@
 	import SvelteSelect from 'svelte-select';
 	import components from '../components/components.json';
 	import templates from '../templates/templates.json';
-	import tools from '../tooling/tools.json';
+	import tools from '../tools/tools.json';
 	import { tick } from 'svelte';
 	import { page } from '$app/stores';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 	import { extractUnique } from '$lib/utils/extractUnique';
 
+	const repoURL = 'https://github.com/svelte-society/sveltesociety.dev';
 	const typeQuery = $page.query.get('type');
 	const types = ['Component', 'Template', 'Tool'].map((t) => ({
 		label: t,
@@ -170,20 +171,9 @@
 </pre>
 <br />
 Copy this snippet and add it to
-<a
-	href="https://github.com/svelte-society/sveltesociety.dev/blob/staging/src/routes/{pathName ==
-	'tools'
-		? 'tooling'
-		: pathName}/{pathName}.json"
->
-	{pathName}.json</a
->. You can propose your changes
-<a
-	href="https://github.com/svelte-society/sveltesociety.dev/edit/staging/src/routes/{pathName ==
-	'tools'
-		? 'tooling'
-		: pathName}/{pathName}.json">directly in GitHub</a
->.
+<a href="{repoURL}/blob/staging/src/routes/{pathName}/{pathName}.json">{pathName}.json</a>. You can
+propose your changes
+<a href="{repoURL}/edit/staging/src/routes/{pathName}/{pathName}.json">directly in GitHub</a>.
 
 <style>
 	.json-generator,
