@@ -14,7 +14,7 @@
 	let filterTag = [];
 	let selectedTags = null;
 
-	const categoryItems = [{ label: 'all', value: null }, ...extractUnique(components, 'category')];
+	const categoryItems = [{ label: 'All', value: null }, ...extractUnique(components, 'category')];
 	let selectedCategory = null;
 	let filterCategory = null;
 
@@ -50,10 +50,10 @@
 </script>
 
 <svelte:head>
-	<title>Tooling - Svelte Society</title>
+	<title>Tools - Svelte Society</title>
 </svelte:head>
 
-<SearchLayout title="Tooling">
+<SearchLayout title="Tools">
 	<section slot="controls" class="controls">
 		<div class="inputs">
 			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />
@@ -72,7 +72,7 @@
 				showIndicator
 				isClearable={false}
 			/>
-			<a href="/help/components" class="submit">Submit a tool</a>
+			<a href="/help/submitting?type=tool" class="submit">Submit a tool</a>
 		</div>
 
 		<input

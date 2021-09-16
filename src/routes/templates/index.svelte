@@ -13,7 +13,7 @@
 	let filterTag = [];
 	let selectedTags = null;
 
-	const categoryItems = [{ label: 'all', value: null }, ...extractUnique(components, 'category')];
+	const categoryItems = [{ label: 'All', value: null }, ...extractUnique(components, 'category')];
 	let selectedCategory = null;
 	let filterCategory = null;
 
@@ -73,7 +73,7 @@
 				isClearable={false}
 			/>
 
-			<a href="/help/components" class="submit">Submit a template</a>
+			<a href="/help/submitting?type=template" class="submit">Submit a template</a>
 		</div>
 
 		<input

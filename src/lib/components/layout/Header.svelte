@@ -5,7 +5,7 @@
 	const linksLeft = [
 		['/templates', 'templates'],
 		['/components', 'components'],
-		['/tooling', 'tooling']
+		['/tools', 'tools']
 	];
 	const linksRight = [
 		['/recipes', 'recipes'],
