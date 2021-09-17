@@ -3,13 +3,11 @@
 	import components from '../components/components.json';
 	import templates from '../templates/templates.json';
 	import tools from '../tools/tools.json';
-	import { tick } from 'svelte';
-	import { page } from '$app/stores';
+	import { onMount, tick } from 'svelte';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 	import { extractUnique } from '$lib/utils/extractUnique';
 
 	const repoURL = 'https://github.com/svelte-society/sveltesociety.dev';
-	const typeQuery = $page.query.get('type');
 	const types = ['Component', 'Template', 'Tool'].map((t) => ({
 		label: t,
 		value: t.toLowerCase()
@@ -36,7 +34,7 @@
 		clipboardCopy = true;
 	};
 
-	let type = types.find((t) => t.value == typeQuery) || types[0];
+	let type = types[0];
 	let title = 'svelte-lorem-ipsum';
 	let url = 'https://github.com/sveltejs/svelte-lorem-ipsum';
 	let description = 'A dummy text generator that does not exist';
@@ -58,6 +56,11 @@
 
 	$: currentTags = data[type.value].tags;
 	$: currentCategories = data[type.value].categories;
+
+	onMount(() => {
+		const typeQuery = new URLSearchParams(location.search).get('type');
+		type = types.find((t) => t.value == typeQuery) || types[0];
+	});
 
 	function padWithZero(date) {
 		return date.toString().padStart(2, '0');
