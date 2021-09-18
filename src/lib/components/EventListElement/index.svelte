@@ -3,7 +3,9 @@
 	export let title,
 		date,
 		url = '';
-	export let isPast = false;
+
+	const MILLIS_IN_A_DAY = 24 * 60 * 60 * 1000;
+	$: isPast = Date.now() - new Date(date).getTime() > MILLIS_IN_A_DAY;
 
 	// function that formats the standard ISO formatted date param in a better to read date format
 	function formatDate(inputDate) {

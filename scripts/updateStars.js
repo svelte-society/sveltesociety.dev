@@ -12,7 +12,7 @@ import prettier from 'prettier';
 const files = [
 	'src/routes/components/components.json',
 	'src/routes/templates/templates.json',
-	'src/routes/tooling/tools.json'
+	'src/routes/tools/tools.json'
 ];
 
 if (!process.env.GH_TOKEN) {

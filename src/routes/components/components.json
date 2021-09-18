@@ -2159,7 +2159,6 @@
 		"addedOn": "2021-08-12T17:30:00Z",
 		"category": "Design System",
 		"description": "PaperCSS components for Svelte",
-		"image": "",
 		"npm": "spaper",
 		"stars": 4,
 		"tags": ["components and libraries", "component sets"],
@@ -2170,7 +2169,6 @@
 		"addedOn": "2021-07-25T20:00:00Z",
 		"category": "Data Visualisation",
 		"description": "Full-sized drag & drop event calendar with resource view",
-		"image": "",
 		"npm": "@event-calendar/core",
 		"stars": 41,
 		"tags": ["components and libraries", "time and date"],
@@ -2207,7 +2205,6 @@
 			"forms and validation",
 			"interactions"
 		],
-		"image": "",
 		"addedOn": "2021-09-07T10:00:00Z",
 		"category": "Forms & User Input",
 		"stars": 4

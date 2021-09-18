@@ -28,7 +28,6 @@
 				title={event.title}
 				url={'/events/' + event.filename.replace('.svx', '')}
 				date={event.date}
-				isPast={event.isPast}
 			/>
 		{/each}
 	</section>
