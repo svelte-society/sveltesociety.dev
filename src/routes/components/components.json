@@ -2235,5 +2235,31 @@
 		"tags": ["auth", "integrations", "ssr", "third party services"],
 		"url": "https://github.com/macfja/svelte-oauth2#readme",
 		"addedOn": "2021-09-10T20:00:00.000Z"
+	},
+	{
+	    "title": "filedrop-svelte",
+	    "url": "https://github.com/chanced/filedrop-svelte",
+	    "description": "file dropzone action & component",
+	    "npm": "filedrop-svelte",
+	    "addedOn": "2021-09-20",
+	    "category": "Forms & User Input",
+	    "tags": [
+		"interactions",
+		"forms",
+		"inputs and widgets"
+	    ]		
+	},
+	
+	{
+	    "title": "focus-svelte",
+	    "url": "https://github.com/chanced/focus-svelte",
+	    "description": "focus lock for accessibility",
+	    "npm": "focus-svelte",
+	    "addedOn": "2021-09-20",
+	    "category": "Forms & User Input",
+	    "tags": [
+		"interactions",
+		"forms"
+	    ]
 	}
 ]
