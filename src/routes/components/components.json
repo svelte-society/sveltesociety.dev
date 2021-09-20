@@ -2205,9 +2205,26 @@
 			"forms and validation",
 			"interactions"
 		],
+		"npm": "svelte-multiselect",
 		"addedOn": "2021-09-07T10:00:00Z",
 		"category": "Forms & User Input",
 		"stars": 4
+	},
+	{
+		"title": "svelte-toc",
+		"url": "https://github.com/janosh/svelte-toc",
+		"description": "Sticky responsive table of contents component for SvelteKit projects",
+		"tags": [
+			"components and libraries",
+			"async loading",
+			"intersection observer",
+			"table of contents",
+			"in-page navigation",
+			"doc sites"
+		],
+		"npm": "svelte-toc",
+		"addedOn": "2021-09-07T10:00:00Z",
+		"category": "User Interaction"
 	},
 	{
 		"title": "Svelte (and SvelteKit) OAuth2",
