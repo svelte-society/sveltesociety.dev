@@ -65,7 +65,7 @@
 	article {
 		max-width: 1024px;
 		display: grid;
-		gap: var(--s-20);
+		gap: var(--s-10);
 	}
 	h1 {
 		margin: 0;
@@ -84,5 +84,11 @@
 	}
 	img {
 		width: 128px;
+	}
+
+	@media (min-width: 1280px) {
+		article {
+			gap: var(--s-20);
+		}
 	}
 </style>
