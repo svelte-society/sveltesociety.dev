@@ -2,7 +2,6 @@
 title: Svelte Society Day 2020
 layout: eventPage
 date: 2020-04-26
-isPast: true
 ---
 
 The Svelte Society Day 2020 was an event especially for people new at Svelte with helpful tutorials and advices.

@@ -3,7 +3,9 @@
 	export let title,
 		date,
 		url = '';
-	export let isPast = false;
+
+	const MILLIS_IN_A_DAY = 24 * 60 * 60 * 1000;
+	$: isPast = Date.now() - new Date(date).getTime() > MILLIS_IN_A_DAY;
 
 	// function that formats the standard ISO formatted date param in a better to read date format
 	function formatDate(inputDate) {
@@ -11,7 +13,6 @@
 		let formattedDate = rawDate.toDateString();
 		return formattedDate;
 	}
-
 </script>
 
 <figure class="event-tile">
@@ -29,6 +30,9 @@
 </figure>
 
 <style>
+	h2 {
+		font-size: var(--font-300);
+	}
 	.event-tile {
 		--tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 		box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
@@ -36,13 +40,16 @@
 		padding: 2rem;
 		margin-top: 3rem;
 		border-radius: 0.5rem;
-		background: #f3f6f9;
+		background: var(--white);
+		display: grid;
+		gap: var(--s-2);
+		justify-items: flex-start;
 	}
 	.event-tile:hover {
-		background: #e8f3fe;
+		filter: brightness(1.1);
 	}
 	.past-event {
-		background-color: #fcd34d;
+		background-color: var(--caution);
 		padding: 0.3rem;
 		border-radius: 0.6rem;
 		margin-bottom: 1rem;
@@ -54,21 +61,4 @@
 	a:hover {
 		text-decoration: underline;
 	}
-
-	/* mobile design */
-	@media only screen and (max-width: 768px) {
-		.wrapper {
-			display: flex;
-			flex-direction: column;
-		}
-		.society-wrapper {
-			flex: 0 1 auto;
-			margin-top: 5%;
-			padding: 2rem;
-			--tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-			box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
-				var(--tw-shadow);
-		}
-	}
-
 </style>

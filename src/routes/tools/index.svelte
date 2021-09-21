@@ -1,35 +1,34 @@
 <script>
-	import { persist, localStorage } from '@macfja/svelte-persistent-store';
-	import { writable } from 'svelte/store';
-	import SearchLayout from '$layouts/SearchLayout.svelte';
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
-	import List from '$components/ComponentIndex/CardList.svelte';
-	import Button from '$components/ComponentIndex/ArrowButton.svelte';
-	import components from './components.json';
-	import { compare, selectSortItems } from '$lib/utils/sort';
+	import List from '$lib/components/ComponentIndex/CardList.svelte';
+	import SearchLayout from '$layouts/SearchLayout.svelte';
+	import tools from './tools.json';
+	import Select from '$lib/components/Select.svelte';
 	import { extractUnique } from '$lib/utils/extractUnique';
-	import Select from '$components/Select.svelte';
+	import { compare, selectSortItems } from '$lib/utils/sort';
+	import components from '../templates/templates.json';
+
 	let searchValue;
-	const tagItems = extractUnique(components, 'tags');
+
+	const tagItems = extractUnique(tools, 'tags');
 	let filterTag = [];
 	let selectedTags = null;
-	const categoryItems = [
-		{ label: 'All', value: null },
-		...extractUnique(components, 'category').filter((cat) => cat.value !== '')
-	];
+
+	const categoryItems = [{ label: 'All', value: null }, ...extractUnique(components, 'category')];
 	let selectedCategory = null;
 	let filterCategory = null;
-	let sorting = 'stars_desc';
+
 	let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
 	$: sorting = selectedSorting?.value || 'stars_desc';
-	let packageManager = persist(writable('npm'), localStorage(), 'packageManager');
+
 	const intersection = (array1, array2) => {
 		return array1.filter((item) => array2.includes(item));
 	};
-	$: filterCategory = selectedCategory?.value || null;
-	$: dataToDisplay = components
+
+	$: dataToDisplay = tools
 		.filter((component) => {
 			if (!searchValue && filterTag.length === 0 && filterCategory === null) return true;
+
 			if (
 				(searchValue &&
 					!(
@@ -41,19 +40,21 @@
 			) {
 				return false;
 			}
+
 			return true;
 		})
 		.sort(compare(sorting));
+
 	$: categories = extractUnique(dataToDisplay, 'category');
 	$: filterTag = selectedTags?.map((obj) => obj.value) || [];
 </script>
 
 <svelte:head>
-	<title>Components - Svelte Society</title>
+	<title>Tools - Svelte Society</title>
 </svelte:head>
 
-<SearchLayout title="Components">
-	<section class="controls" slot="controls">
+<SearchLayout title="Tools">
+	<section slot="controls" class="controls">
 		<div class="inputs">
 			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />
 			<Select
@@ -71,27 +72,13 @@
 				showIndicator
 				isClearable={false}
 			/>
-			<Button small active={$packageManager !== ''}>
-				{$packageManager.toUpperCase()}
-				<ul slot="menu" role="menu" class="popin no-wrap">
-					<li>
-						<label><input type="radio" bind:group={$packageManager} value="npm" /> NPM</label>
-					</li>
-					<li>
-						<label><input type="radio" bind:group={$packageManager} value="pnpm" /> PNPM</label>
-					</li>
-					<li>
-						<label><input type="radio" bind:group={$packageManager} value="yarn" /> Yarn</label>
-					</li>
-				</ul>
-			</Button>
+			<a href="/help/submitting?type=tool" class="submit">Submit a tool</a>
 		</div>
 
-		<a href="/help/submitting?type=component" class="submit">Submit a component</a>
 		<input
 			class="searchbar"
 			type="text"
-			placeholder="Search for components..."
+			placeholder="Search for templates..."
 			bind:value={searchValue}
 		/>
 		<span class="searchbar-count"
@@ -102,7 +89,7 @@
 		{#each categories as category}
 			<List title={category.label || 'Unclassified'}>
 				{#each dataToDisplay.filter((d) => d.category === category.value) as data}
-					<ComponentCard {...data} manager={$packageManager} />
+					<ComponentCard {...data} />
 				{/each}
 			</List>
 		{/each}

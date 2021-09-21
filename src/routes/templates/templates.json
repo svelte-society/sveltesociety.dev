@@ -21,7 +21,7 @@
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "A truffle box for Svelte, a seed for building an Ethereum dapp using Truffle",
-		"stars": 47,
+		"stars": 48,
 		"tags": [],
 		"title": "antony/svelte-box",
 		"url": "https://github.com/antony/svelte-box"
@@ -57,7 +57,7 @@
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Electron Svelte boilerplate",
-		"stars": 46,
+		"stars": 47,
 		"tags": ["electron"],
 		"title": "Blade67/Sveltron",
 		"url": "https://github.com/Blade67/Sveltron"
@@ -219,7 +219,7 @@
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Tailwindcss v1 + Svelte v3 = <3",
-		"stars": 107,
+		"stars": 106,
 		"tags": [],
 		"title": "marcograhl/tailwindcss-svelte-starter",
 		"url": "https://github.com/marcograhl/tailwindcss-svelte-starter"
@@ -327,7 +327,7 @@
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Svelte application boilerplate with Webpack, Sass, BabelJS, Fetch, PostCSS, Jest, and .Env",
-		"stars": 239,
+		"stars": 240,
 		"tags": [],
 		"title": "pankod/svelte-boilerplate",
 		"url": "https://github.com/pankod/svelte-boilerplate"
@@ -400,7 +400,7 @@
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Clone of official Svelte template with added HMR support using Nollup",
-		"stars": 59,
+		"stars": 60,
 		"tags": [],
 		"title": "rixo/svelte-template-hot",
 		"url": "https://github.com/rixo/svelte-template-hot"
@@ -410,7 +410,7 @@
 		"category": "Svelte",
 		"description": "Yeoman generator generating a boilerplate Svelte.js app with all of svelte-preprocess' options",
 		"npm": "generator-svelte",
-		"stars": 24,
+		"stars": 25,
 		"tags": ["preprocessors"],
 		"title": "generator-svelte",
 		"url": "https://github.com/Samuel-Martineau/generator-svelte"
@@ -464,7 +464,7 @@
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "A base for building shareable Svelte components",
-		"stars": 435,
+		"stars": 439,
 		"tags": [],
 		"title": "sveltejs/component-template",
 		"url": "https://github.com/sveltejs/component-template"
@@ -473,7 +473,7 @@
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Sapper",
 		"description": "Starter template for Sapper apps",
-		"stars": 724,
+		"stars": 725,
 		"tags": [],
 		"title": "sveltejs/sapper-template",
 		"url": "https://github.com/sveltejs/sapper-template"
@@ -482,7 +482,7 @@
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Template for building basic applications with Svelte with rollup",
-		"stars": 1293,
+		"stars": 1309,
 		"tags": [],
 		"title": "sveltejs/template",
 		"url": "https://github.com/sveltejs/template"
@@ -518,7 +518,7 @@
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "A showcase app for all Ionic UI elements to create awesome mobile apps. Published as web app too.",
-		"stars": 193,
+		"stars": 194,
 		"tags": ["components and libraries", "component sets", "mobile"],
 		"title": "Ionic Svelte UI demo",
 		"url": "https://github.com/Tommertom/svelte-ionic-app"
@@ -572,7 +572,7 @@
 		"addedOn": "2021-06-24T14:39:13Z",
 		"category": "SvelteKit",
 		"description": "SvelteKit template with TailwindCSS, Storybook, TypeScript and Sass.",
-		"stars": 29,
+		"stars": 30,
 		"tags": [],
 		"title": "tejasag/sveltetron-9000",
 		"url": "https://github.com/tejasag/sveltetron-9000"
@@ -581,10 +581,19 @@
 		"addedOn": "2021-06-24T14:39:14Z",
 		"category": "SvelteKit",
 		"description": "SvelteKit Starter template with Typescript, Postcss, scss, TailwindCSS, Storybook, husky, and eslint.",
-		"stars": 144,
-		"tags": [],
+		"stars": 148,
+		"tags": ["blog", "seo", "ssr", "storybook", "templates"],
 		"title": "navneetsharmaui/sveltekit-starter",
 		"url": "https://github.com/navneetsharmaui/sveltekit-starter"
+	},
+	{
+		"addedOn": "2021-09-07T14:39:14Z",
+		"category": "SvelteKit",
+		"description": "SvelteKit Blog Starter template with Typescript, Postcss, scss, TailwindCSS, Storybook, husky, and eslint. The template is free to use and developers are welcome to contribute to it.",
+		"stars": 0,
+		"tags": ["blog", "mdsvex", "seo", "ssr", "storybook", "templates"],
+		"title": "navneetsharmaui/sveltekit-blog",
+		"url": "https://github.com/navneetsharmaui/sveltekit-blog"
 	},
 	{
 		"addedOn": "2021-06-24T14:39:15Z",
@@ -599,7 +608,7 @@
 		"addedOn": "2021-06-24T14:39:16Z",
 		"category": "SvelteKit",
 		"description": "SvelteKit template with Stripe Checkout and Typescript.",
-		"stars": 29,
+		"stars": 30,
 		"tags": [],
 		"title": "srmullen/sveltekit-stripe",
 		"url": "https://github.com/srmullen/sveltekit-stripe"
@@ -608,7 +617,7 @@
 		"addedOn": "2021-06-24T14:39:17Z",
 		"category": "SvelteKit",
 		"description": "A minimalistic blog template built with SvelteKit and MDsveX",
-		"stars": 35,
+		"stars": 36,
 		"tags": [],
 		"title": "mvasigh/sveltekit-mdsvex-blog",
 		"url": "https://github.com/mvasigh/sveltekit-mdsvex-blog"
@@ -626,7 +635,7 @@
 		"addedOn": "2021-06-24T14:39:19Z",
 		"category": "SvelteKit",
 		"description": "Personal website and blog written from scratch with SvelteKit and TailwindCSS.",
-		"stars": 47,
+		"stars": 50,
 		"tags": [],
 		"title": "mhatvan/markushatvan.com",
 		"url": "https://github.com/mhatvan/markushatvan.com"
@@ -653,7 +662,7 @@
 		"addedOn": "2021-06-24T14:39:22Z",
 		"category": "Svelte Add",
 		"description": "Add Tailwind CSS to your Svelte project",
-		"stars": 282,
+		"stars": 289,
 		"tags": [],
 		"title": "svelte-add/tailwindcss",
 		"url": "https://github.com/svelte-add/tailwindcss"
@@ -698,7 +707,7 @@
 		"addedOn": "2021-06-24T14:39:28Z",
 		"category": "Svelte Add",
 		"description": "Add mdsvex to your Svelte project",
-		"stars": 35,
+		"stars": 36,
 		"tags": [],
 		"title": "svelte-add/mdsvex",
 		"url": "https://github.com/svelte-add/mdsvex"

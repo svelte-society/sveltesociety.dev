@@ -1,5 +1,7 @@
 <script lang="ts" context="module">
-	export async function load({ fetch }) {
+	import type { LoadInput, LoadOutput } from '@sveltejs/kit';
+
+	export async function load({ fetch }: LoadInput): Promise<LoadOutput> {
 		const res = await fetch('/events/events');
 		if (res.ok) return { props: { events: await res.json() } };
 		return {
@@ -7,33 +9,30 @@
 			error: new Error()
 		};
 	}
-
 </script>
 
 <script lang="ts">
 	import Societies from '$lib/components/Societies/index.svelte';
 	import EventListElement from '$lib/components/EventListElement/index.svelte';
 	export let events = {};
-
 </script>
 
 <svelte:head>
-  <title>Events - Svelte Society</title>
+	<title>Events - Svelte Society</title>
 </svelte:head>
 
-<div class="wrapper">
+<article class="wrapper">
 	<section class="event-wrapper">
 		{#each events.events as event}
 			<EventListElement
 				title={event.title}
 				url={'/events/' + event.filename.replace('.svx', '')}
 				date={event.date}
-				isPast={event.isPast}
 			/>
 		{/each}
 	</section>
 	<Societies />
-</div>
+</article>
 
 <style>
 	.wrapper {
@@ -50,5 +49,4 @@
 			flex-direction: column;
 		}
 	}
-
 </style>

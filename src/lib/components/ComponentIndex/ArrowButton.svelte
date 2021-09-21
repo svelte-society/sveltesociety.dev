@@ -1,73 +1,83 @@
 <script>
-  export const primary = false;
-  export let active = false;
-  export let small = false
+	export const primary = false;
+	export let active = false;
+	export let small = false;
 </script>
 
+<span>
+	Package Manager
+	<div on:click class:small>
+		<span>
+			<slot />
+		</span>
+		<div class="arrow" class:active />
+		<section class="popin"><slot name="menu" /></section>
+	</div>
+</span>
+
 <style>
-  div {
-    border: 2px solid #7e7e93;
-    border-radius: 5px;
-    background-color: white;
-    color: #7e7e93;
-    display: flex;
-    align-items: center;
-    padding: 5px 15px;
-    position: relative;
-  }
-  div.small {
-    font-size: 0.8em;
-    padding: 3px 10px;
-  }
-  div:hover {
-    cursor: pointer;
-    border-color: var(--color) !important;
-    color: var(--color) !important;
-  }
+	div {
+		font-size: 1rem;
+		border: 2px solid var(--dark-gray);
+		border-radius: 3px;
+		background-color: white;
+		color: var(--dark-gray);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 13.5px var(--s-2);
+		position: relative;
+	}
+	div.small {
+		font-size: var(--font-100);
+	}
+	div:hover {
+		cursor: pointer;
+		border-color: var(--secondary);
+		color: var(--secondary);
+	}
 
-  .arrow {
-    margin-left: 25px;
-    height: 16px;
-    -webkit-mask: url(/images/right-arrow.svg) no-repeat center;
-    mask: url(/images/right-arrow.svg) no-repeat center;
-    background-color: #7e7e93;
-  }
-  div:hover .arrow {
-    background-color: var(--color);
-  }
-  .arrow.active {
-    background-color: var(--color-secondary);
-  }
+	.arrow {
+		margin-left: 25px;
+		height: 16px;
+		-webkit-mask: url(/images/right-arrow.svg) no-repeat center;
+		mask: url(/images/right-arrow.svg) no-repeat center;
+		background-color: var(--dark-gray);
+	}
+	div:hover .arrow {
+		background-color: var(--secondary);
+	}
+	.arrow.active {
+		background-color: var(--dark-gray);
+	}
 
-  .popin {
-    display: none;
-    position: absolute;
-    left: calc(100% - 1em);
-    top: 1em;
-    z-index: 100;
-    margin: 0;
-    padding: 0;
-    border: 2px solid var(--color);
-    border-radius: 5px;
-    background: white;
-  }
-  div:hover .popin:not(:empty) {
-    display: block;
-  }
+	.popin {
+		min-width: 250px;
+		width: 100%;
+		font-size: var(--font-100);
+		display: none;
+		position: absolute;
+		left: var(--s-4);
+		top: 100%;
+		z-index: 100;
+		margin: 0;
+		padding: 0;
+		border: 2px solid var(--secondary);
+		border-radius: 5px;
+		background: white;
+	}
+	div:hover .popin:not(:empty) {
+		display: block;
+	}
 
-  @media screen and (max-width: 700px) {
-    .popin {
-      left: 1rem;
-      right: 1rem;
-      top: 100%
-    }
-  }
+	span {
+		font-size: 0.875rem;
+	}
+
+	@media screen and (min-width: 700px) {
+		.popin {
+			left: 95%;
+			top: var(--s-4);
+		}
+	}
 </style>
-
-<div on:click class:small>
-  <span>
-    <slot />
-  </span>
-  <div class="arrow" class:active />
-  <span class="popin"><slot name="menu"></slot></span>
-</div>
