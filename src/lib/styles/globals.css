@@ -2,6 +2,13 @@ body {
 	border-top: 6px solid var(--primary);
 	font-family: var(--font-body);
 	font-size: var(--font-200);
+	min-height: 100vh;
+}
+
+#svelte {
+	min-height: 99.7vh;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
 }
 
 a {
@@ -193,18 +200,3 @@ ul.popin li input {
 		grid-template-columns: repeat(4, auto);
 	}
 }
-/* @media screen and (max-width: 1024px) {
-	.controls {
-		flex-flow: column-reverse;
-		align-items: stretch;
-	}
-	.inputs {
-		grid-template-columns: auto;
-		width: 100%;
-	}
-	.searchbar {
-		align-self: flex-start;
-		margin-bottom: 1ex;
-		width: var(--s-full);
-	}
-} */
