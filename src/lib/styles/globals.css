@@ -5,7 +5,7 @@ body {
 	min-height: 100vh;
 }
 
-#svelte {
+#sveltekit-entry {
 	min-height: 99.7vh;
 	display: grid;
 	grid-template-rows: auto 1fr auto;

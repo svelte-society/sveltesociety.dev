@@ -60,7 +60,6 @@
 		Stores: 'stores',
 		'SvelteKit Adapters': 'adapters',
 		Testing: 'testing',
-		Unclassified: 'unclassified',
 		'User Interaction': 'ui'
 	};
 </script>
@@ -119,7 +118,7 @@
 		{#each categories as category}
 			<List
 				title={category.label || 'Unclassified'}
-				id={categoryId[category.label || 'Unclassified'] || category.label}
+				id={categoryId[category.label] || category.label || 'unclassified'}
 			>
 				{#each dataToDisplay.filter((d) => d.category === category.value) as data}
 					<ComponentCard {...data} manager={$packageManager} />
