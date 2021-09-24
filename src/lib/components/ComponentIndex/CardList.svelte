@@ -1,9 +1,10 @@
 <script>
 	export let title;
+	export let id = `category-${encodeURI(title)}`;
 </script>
 
 <div class="list">
-	<h1 id="category-{encodeURI(title)}">{title} <a href="#category-{encodeURI(title)}">#</a></h1>
+	<h1 {id}>{title} <a href="#{id}">#</a></h1>
 	<div class="grid">
 		<slot />
 	</div>
