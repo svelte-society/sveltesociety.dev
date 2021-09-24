@@ -1,6 +1,6 @@
 <script>
-	export let title,
-		id = `category-${encodeURI(title)}`;
+	export let title;
+	export let id = `category-${encodeURI(title)}`;
 </script>
 
 <div class="list">
