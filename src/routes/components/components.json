@@ -2235,5 +2235,21 @@
 		"tags": ["auth", "integrations", "ssr", "third party services"],
 		"url": "https://github.com/macfja/svelte-oauth2#readme",
 		"addedOn": "2021-09-10T20:00:00.000Z"
+	},
+	{
+    		"title": "svelte-boring-avatars",
+    		"url": "https://github.com/paolotiu/svelte-boring-avatars",
+    		"description": "Svelte port of Boring Avatars",
+    		"npm": "svelte-boring-avatars",
+    		"addedOn": "2021-09-28",
+    		"category": "Design Pattern",
+		"stars": 16,
+    		"tags": [
+        		"components and libraries",
+        		"images",
+        		"typescript",
+        		"ssr",
+        		"fonts and icons"
+    		]
 	}
 ]
