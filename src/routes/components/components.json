@@ -2237,6 +2237,22 @@
 		"addedOn": "2021-09-10T20:00:00.000Z"
 	},
 	{
+    		"title": "svelte-boring-avatars",
+    		"url": "https://github.com/paolotiu/svelte-boring-avatars",
+    		"description": "Svelte port of Boring Avatars",
+    		"npm": "svelte-boring-avatars",
+    		"addedOn": "2021-09-28",
+    		"category": "Design Pattern",
+		"stars": 16,
+    		"tags": [
+        		"components and libraries",
+        		"images",
+        		"typescript",
+        		"ssr",
+        		"fonts and icons"
+    		]
+	},
+	{
 	    "title": "filedrop-svelte",
 	    "url": "https://github.com/chanced/filedrop-svelte",
 	    "description": "file dropzone action & component",
