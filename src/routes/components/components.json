@@ -2249,7 +2249,6 @@
 		"inputs and widgets"
 	    ]		
 	},
-	
 	{
 	    "title": "focus-svelte",
 	    "url": "https://github.com/chanced/focus-svelte",
@@ -2261,5 +2260,17 @@
 		"interactions",
 		"forms"
 	    ]
+  },
+  {
+      "title": "svelte-translate",
+      "url": "https://github.com/noelmugnier/svelte-translate",
+      "description": "Use a dynamic translation service (loaded from xx-XX.json files) and fallback to the text in html tags if no translations are provided.",
+      "npm": "svelte-translate",
+      "addedOn": "2021-09-29",
+      "category": "Developer Experience",
+      "tags": [
+    "components and libraries",
+    "internationalization"
+      ]
 	}
 ]

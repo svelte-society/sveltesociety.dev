@@ -47,6 +47,13 @@
 
 	$: categories = extractUnique(dataToDisplay, 'category');
 	$: filterTag = selectedTags?.map((obj) => obj.value) || [];
+
+	const categoryId = {
+		Sapper: 'sapper',
+		Svelte: 'svelte',
+		'Svelte Add': 'adders',
+		SvelteKit: 'svelte-kit'
+	};
 </script>
 
 <svelte:head>
@@ -88,7 +95,7 @@
 	</section>
 	<section slot="items">
 		{#each categories as category}
-			<List title={category.label || 'Unclassified'}>
+			<List title={category.label || 'Unclassified'} id={categoryId[category.label] || category.label || 'unclassified'}>
 				{#each dataToDisplay.filter((d) => d.category === category.value) as data}
 					<ComponentCard {...data} />
 				{/each}
