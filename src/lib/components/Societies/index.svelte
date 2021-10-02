@@ -8,9 +8,9 @@
 	<h3 class="title">Societies around the world</h3>
 	{#each societies as society}
 		{#if society.continent}
-			<h6 class="continent">{society.continent}</h6>
+			<h4 class="continent">{society.continent}</h4>
 		{:else}
-			<p class="society">{society.country}</p>
+			<h5 class="society">{society.country}</h5>
 			<ul class="society">
 				<li>
 					<span class="icon-wrapper">
@@ -59,28 +59,30 @@
 		margin-top: 5%;
 		margin-left: 5%;
 		margin-right: 0;
-		padding: 2rem;
-		--tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-		box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
-			var(--tw-shadow);
-		border-radius: 0.5rem;
+		padding: var(--s-8);
+		box-shadow: var(--shadow-dreamy);
+		border-radius: var(--s-2);
 	}
-	h6.continent {
-		font-size: 25px;
-		color: #64748b;
-		margin-block-start: 2em;
-		margin-block-end: 1em;
+	h4.continent {
+		font-size: var(--font-400);
+		color: var(--dark-gray);
+		margin-block-start: var(--s-8);
+		margin-block-end: var(--s-4);
 		margin-left: -8px;
 	}
 	ul.society {
-		margin-top: 0;
+		margin-top: var(--s-0);
+		margin-bottom: var(--s-4);
 		list-style-type: none;
 	}
-	p.society {
+	h5.society {
+		font-size: var(--font-300);
 		margin-bottom: 0;
 	}
 	span.icon-wrapper {
-		font-size: 0.8em;
+		font-size: var(--font-200);
+		margin-top: var(--s-1);
+		margin-bottom: var(--s-1);
 	}
 
 	/* mobile design */
@@ -88,10 +90,9 @@
 		.society-wrapper {
 			flex: 0 1 auto;
 			margin-top: 5%;
-			padding: 2rem;
-			--tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-			box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
-				var(--tw-shadow);
+			margin-left: auto;
+			margin-right: auto;
+			padding: var(--s-8);
 		}
 	}
 </style>
