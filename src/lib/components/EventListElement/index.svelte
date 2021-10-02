@@ -15,7 +15,7 @@
 	}
 </script>
 
-<figure class="event-tile">
+<article class="event-tile">
 	{#if isPast === true}
 		<span class="past-event">Past event</span>
 	{/if}
@@ -27,19 +27,20 @@
 			<Icon name="calendar" width="25px" height="25px" />{formatDate(date)}
 		</span>
 	</p>
-</figure>
+</article>
 
 <style>
 	h2 {
-		font-size: var(--font-300);
+		font-size: var(--font-400);
+		margin-bottom: var(--s-2);
 	}
 	.event-tile {
 		--tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 		box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
 			var(--tw-shadow);
-		padding: 2rem;
-		margin-top: 3rem;
-		border-radius: 0.5rem;
+		padding: var(--s-8);
+		margin-top: var(--s-12);
+		border-radius: var(--s-2);
 		background: var(--white);
 		display: grid;
 		gap: var(--s-2);
@@ -50,9 +51,10 @@
 	}
 	.past-event {
 		background-color: var(--caution);
-		padding: 0.3rem;
-		border-radius: 0.6rem;
-		margin-bottom: 1rem;
+		padding: var(--s-1);
+		border-radius: var(--s-2);
+		margin-bottom: var(--s-4);
+		font-size: var(--s-4);
 	}
 
 	a {
@@ -60,5 +62,8 @@
 	}
 	a:hover {
 		text-decoration: underline;
+	}
+	span.icon-wrapper {
+		font-family: var(--font-heading);
 	}
 </style>
