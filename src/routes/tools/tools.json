@@ -279,11 +279,11 @@
 		"stars": 19
 	},
 	{
-	    	"title": "svelte-translate-tools",
-	    	"url": "https://github.com/noelmugnier/svelte-translate-tools",
-	    	"description": "Translation tools to extract/generate/compile translation files for your Svelte App (must be used with the package svelte-translate) at build time.",
-	    	"npm": "svelte-translate-tools",
-	    	"addedOn": "2021-09-29",
-	    	"category": "Bundler Plugins"
+		"title": "svelte-translate-tools",
+		"url": "https://github.com/noelmugnier/svelte-translate-tools",
+		"description": "Translation tools to extract/generate/compile translation files for your Svelte App (must be used with the package svelte-translate) at build time.",
+		"npm": "svelte-translate-tools",
+		"addedOn": "2021-09-29",
+		"category": "Bundler Plugins"
 	}
 ]

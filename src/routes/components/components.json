@@ -2237,56 +2237,40 @@
 		"addedOn": "2021-09-10T20:00:00.000Z"
 	},
 	{
-    		"title": "svelte-boring-avatars",
-    		"url": "https://github.com/paolotiu/svelte-boring-avatars",
-    		"description": "Svelte port of Boring Avatars",
-    		"npm": "svelte-boring-avatars",
-    		"addedOn": "2021-09-28",
-    		"category": "Design Pattern",
+		"title": "svelte-boring-avatars",
+		"url": "https://github.com/paolotiu/svelte-boring-avatars",
+		"description": "Svelte port of Boring Avatars",
+		"npm": "svelte-boring-avatars",
+		"addedOn": "2021-09-28",
+		"category": "Design Pattern",
 		"stars": 16,
-    		"tags": [
-        		"components and libraries",
-        		"images",
-        		"typescript",
-        		"ssr",
-        		"fonts and icons"
-    		]
+		"tags": ["components and libraries", "images", "typescript", "ssr", "fonts and icons"]
 	},
 	{
-	    "title": "filedrop-svelte",
-	    "url": "https://github.com/chanced/filedrop-svelte",
-	    "description": "file dropzone action & component",
-	    "npm": "filedrop-svelte",
-	    "addedOn": "2021-09-20",
-	    "category": "Forms & User Input",
-	    "tags": [
-		"interactions",
-		"forms",
-		"inputs and widgets"
-	    ]		
+		"title": "filedrop-svelte",
+		"url": "https://github.com/chanced/filedrop-svelte",
+		"description": "file dropzone action & component",
+		"npm": "filedrop-svelte",
+		"addedOn": "2021-09-20",
+		"category": "Forms & User Input",
+		"tags": ["interactions", "forms", "inputs and widgets"]
 	},
 	{
-	    "title": "focus-svelte",
-	    "url": "https://github.com/chanced/focus-svelte",
-	    "description": "focus lock for accessibility",
-	    "npm": "focus-svelte",
-	    "addedOn": "2021-09-20",
-	    "category": "Forms & User Input",
-	    "tags": [
-		"interactions",
-		"forms"
-	    ]
-  },
-  {
-      "title": "svelte-translate",
-      "url": "https://github.com/noelmugnier/svelte-translate",
-      "description": "Use a dynamic translation service (loaded from xx-XX.json files) and fallback to the text in html tags if no translations are provided.",
-      "npm": "svelte-translate",
-      "addedOn": "2021-09-29",
-      "category": "Developer Experience",
-      "tags": [
-    "components and libraries",
-    "internationalization"
-      ]
+		"title": "focus-svelte",
+		"url": "https://github.com/chanced/focus-svelte",
+		"description": "focus lock for accessibility",
+		"npm": "focus-svelte",
+		"addedOn": "2021-09-20",
+		"category": "Forms & User Input",
+		"tags": ["interactions", "forms"]
+	},
+	{
+		"title": "svelte-translate",
+		"url": "https://github.com/noelmugnier/svelte-translate",
+		"description": "Use a dynamic translation service (loaded from xx-XX.json files) and fallback to the text in html tags if no translations are provided.",
+		"npm": "svelte-translate",
+		"addedOn": "2021-09-29",
+		"category": "Developer Experience",
+		"tags": ["components and libraries", "internationalization"]
 	}
 ]
