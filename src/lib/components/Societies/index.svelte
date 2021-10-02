@@ -74,6 +74,7 @@
 	}
 	ul.society {
 		margin-top: 0;
+		margin-bottom: 1em;
 		list-style-type: none;
 	}
 	p.society {
@@ -81,6 +82,8 @@
 	}
 	span.icon-wrapper {
 		font-size: 0.8em;
+		margin-top: 0.3em;
+		margin-bottom: 0.3em;
 	}
 
 	/* mobile design */
