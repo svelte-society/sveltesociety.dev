@@ -17,10 +17,6 @@
 	export let events = {};
 </script>
 
-<svelte:head>
-	<title>Events - Svelte Society</title>
-</svelte:head>
-
 <article class="wrapper">
 	<section class="event-wrapper">
 		{#each events.events as event}

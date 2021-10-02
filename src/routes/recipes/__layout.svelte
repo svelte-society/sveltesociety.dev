@@ -19,10 +19,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Recipes - Svelte Society</title>
-</svelte:head>
-
 <div class="container">
 	<slot />
 </div>

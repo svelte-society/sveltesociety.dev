@@ -1,5 +1,4 @@
 <script>
-	// import Link from '../lib/components/_SocialLinks/Link.svelte';
 	import Link from '$layout/Link.svelte';
 	import { page } from '$app/stores';
 	import metatags from '$lib/stores/metatags';
@@ -8,10 +7,6 @@
 	metatags.desc('Svelte Society is a community-driven effort to organise and promote SvelteJS.');
 	metatags.url($page.host + $page.path);
 </script>
-
-<svelte:head>
-	<title>Home - Svelte Society</title>
-</svelte:head>
 
 <article class="container">
 	<h1 class="text-center">Welcome to Svelte Society!</h1>

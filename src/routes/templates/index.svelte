@@ -56,10 +56,6 @@
 	};
 </script>
 
-<svelte:head>
-	<title>Templates - Svelte Society</title>
-</svelte:head>
-
 <SearchLayout title="Templates">
 	<section class="controls" slot="controls">
 		<div class="inputs">
@@ -95,7 +91,10 @@
 	</section>
 	<section slot="items">
 		{#each categories as category}
-			<List title={category.label || 'Unclassified'} id={categoryId[category.label] || category.label || 'unclassified'}>
+			<List
+				title={category.label || 'Unclassified'}
+				id={categoryId[category.label] || category.label || 'unclassified'}
+			>
 				{#each dataToDisplay.filter((d) => d.category === category.value) as data}
 					<ComponentCard {...data} />
 				{/each}

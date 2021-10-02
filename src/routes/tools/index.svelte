@@ -53,13 +53,9 @@
 		Debugging: 'debugging',
 		'Editor Extensions': 'editor-support',
 		'Linting and Formatting': 'code-quality',
-		'Preprocessors': 'preprocessors'
+		Preprocessors: 'preprocessors'
 	};
 </script>
-
-<svelte:head>
-	<title>Tools - Svelte Society</title>
-</svelte:head>
 
 <SearchLayout title="Tools">
 	<section slot="controls" class="controls">
@@ -95,7 +91,10 @@
 	</section>
 	<section slot="items">
 		{#each categories as category}
-			<List title={category.label || 'Unclassified'} id={categoryId[category.label] || category.label || 'unclassified'}>
+			<List
+				title={category.label || 'Unclassified'}
+				id={categoryId[category.label] || category.label || 'unclassified'}
+			>
 				{#each dataToDisplay.filter((d) => d.category === category.value) as data}
 					<ComponentCard {...data} />
 				{/each}
