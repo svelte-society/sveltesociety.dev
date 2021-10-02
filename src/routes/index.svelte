@@ -9,9 +9,9 @@
 	metatags.url($page.host + $page.path);
 </script>
 
-<svelte:head>
-	<title>Home - Svelte Society</title>
-</svelte:head>
+<!-- <svelte:head>
+	<title>{$metatags.title}</title>
+</svelte:head> -->
 
 <article class="container">
 	<h1 class="text-center">Welcome to Svelte Society!</h1>

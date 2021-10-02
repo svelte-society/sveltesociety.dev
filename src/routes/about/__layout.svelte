@@ -1,13 +1,14 @@
 <svelte:head>
-	<title>About Svelte Society</title>
+	<title>About - Svelte Society</title>
 </svelte:head>
-<div class="wrapper">
+<main class="wrapper">
 	<slot />
-</div>
+</main>
 
 <style>
 	.wrapper {
 		max-width: 65ch;
+		margin-inline: auto;
 	}
 	.wrapper :global(h2),
 	.wrapper :global(h3) {

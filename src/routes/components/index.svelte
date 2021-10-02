@@ -64,10 +64,6 @@
 	};
 </script>
 
-<svelte:head>
-	<title>Components - Svelte Society</title>
-</svelte:head>
-
 <SearchLayout title="Components">
 	<section class="controls" slot="controls">
 		<div class="inputs">
