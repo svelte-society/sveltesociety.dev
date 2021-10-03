@@ -13,7 +13,7 @@
 <style>
 	ul {
 		list-style: none;
-		margin: 0 0 0 1.75rem;
+		margin: 1rem 0 0 1.75rem;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 	}
