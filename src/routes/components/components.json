@@ -1,5 +1,15 @@
 [
 	{
+    "title": "svelte-virtual-table",
+    "description": "A virtual, sortable table for Svelte ",
+    "url": "https://github.com/BernhardWebstudio/svelte-virtual-table",
+    "npm": "svelte-virtual-table",
+		"tags": ["components and libraries"],
+    "addedOn": "2021-10-04",
+    "category": "Data Visualisation",
+		"stars": 1
+	},
+	{
 		"title": "svelte-number-spinner",
 		"description": "A number input field that can be controlled by mouse/touch drag, arrow keys or usual editing.",
 		"url": "https://github.com/bohnacker/svelte-number-spinner",
