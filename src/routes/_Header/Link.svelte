@@ -3,7 +3,7 @@
 </script>
 
 <li>
-	<a href={path} class:active class="nav-item">
+	<a href={path} class:active class="nav-item" sveltekit:prefetch>
 		<slot />
 	</a>
 </li>
