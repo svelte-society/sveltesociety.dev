@@ -24,7 +24,7 @@
 					>
 				{/each}
 				<li class="absolute right-4 top-4 xl:flex xl:relative xl:-inset-0 xl:items-center">
-					<a href="/">
+					<a href="/" sveltekit:prefetch>
 						<img
 							alt="Svelte Society Logo"
 							src="/images/logo.svg"

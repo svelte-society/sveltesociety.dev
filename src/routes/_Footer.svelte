@@ -11,7 +11,7 @@
 		>
 			<span>&copy; {year} Svelte Society</span>
 			<span>•</span>
-			<a class="underline" href="/about">Code of Conduct</a>
+			<a class="underline" href="/about" sveltekit:prefetch>Code of Conduct</a>
 			<span>•</span>
 			<span>
 				Contribute on
