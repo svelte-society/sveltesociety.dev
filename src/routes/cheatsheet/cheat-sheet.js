@@ -472,7 +472,7 @@ onMount(() => {
 `
 	},
   {
-    title: 'dynamic_component',
+    title: 'Dynamic component',
     repl: `${replPath}/e5d239c2a3574d0aa0f4d33b46ea58fd`,
     doc: `${docPath}#svelte_component`,
     content: `<!-- Title1.svelte -->
