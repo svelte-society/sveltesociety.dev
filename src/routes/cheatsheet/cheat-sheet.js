@@ -481,6 +481,7 @@ onMount(() => {
 <!-- Title2.svelte -->
 <h2>    Component 2  </h2>
 
+<!-- App.svelte -->
 <script>
   import Title1 from './Title1.svelte'
   import Title2 from './Title2.svelte'
