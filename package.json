@@ -8,7 +8,8 @@
 		"preview": "svelte-kit preview",
 		"lint": "prettier --check . && eslint --ignore-path .gitignore .",
 		"format": "prettier --write .",
-		"test": "jest"
+		"test": "jest",
+		"prepare": "husky install"
 	},
 	"devDependencies": {
 		"@macfja/svelte-persistent-store": "^1.2.0",
@@ -22,7 +23,9 @@
 		"eslint-plugin-svelte3": "^3.2.0",
 		"graphql-request": "^3.5.0",
 		"highlight.js": "^11.2.0",
+		"husky": "^7.0.2",
 		"jest": "^27.1.0",
+		"lint-staged": "^11.1.2",
 		"mdsvex": "^0.9.3",
 		"prettier": "~2.2.1",
 		"prettier-plugin-svelte": "^2.2.0",
@@ -36,5 +39,8 @@
 	"type": "module",
 	"dependencies": {
 		"svelte-highlight": "^3.2.0"
+	},
+	"lint-staged": {
+		"*.{js,ts,css,md,svx,svelte}": "prettier --write"
 	}
 }
