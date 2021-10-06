@@ -471,11 +471,11 @@ onMount(() => {
 </script>
 `
 	},
-  {
-    title: 'Dynamically select a component',
-    repl: `${replPath}/e5d239c2a3574d0aa0f4d33b46ea58fd`,
-    doc: `${docPath}#svelte_component`,
-    content: `<!-- Title1.svelte -->
+	{
+		title: 'Dynamically select a component',
+		repl: `${replPath}/e5d239c2a3574d0aa0f4d33b46ea58fd`,
+		doc: `${docPath}#svelte_component`,
+		content: `<!-- Title1.svelte -->
 <h1>    Component 1  </h1>
 
 <!-- Title2.svelte -->
@@ -496,5 +496,5 @@ onMount(() => {
 </select>
 
 <svelte:component this={component} />`
-  }
+	}
 ];
