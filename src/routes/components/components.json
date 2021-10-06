@@ -1,12 +1,12 @@
 [
 	{
-    "title": "svelte-virtual-table",
-    "description": "A virtual, sortable table for Svelte ",
-    "url": "https://github.com/BernhardWebstudio/svelte-virtual-table",
-    "npm": "svelte-virtual-table",
+		"title": "svelte-virtual-table",
+		"description": "A virtual, sortable table for Svelte ",
+		"url": "https://github.com/BernhardWebstudio/svelte-virtual-table",
+		"npm": "svelte-virtual-table",
 		"tags": ["components and libraries"],
-    "addedOn": "2021-10-04",
-    "category": "Data Visualisation",
+		"addedOn": "2021-10-04",
+		"category": "Data Visualisation",
 		"stars": 1
 	},
 	{
