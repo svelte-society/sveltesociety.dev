@@ -25,43 +25,43 @@ Assuming you want to toggle on and off a modern and a legacy build using a `IS_L
 ```js
 // // rollup.config.js
 // other imports
-import svelte from "rollup-plugin-svelte";
-import babel from "rollup-plugin-babel";
+import svelte from 'rollup-plugin-svelte';
+import babel from 'rollup-plugin-babel';
 
 const legacy = !!process.env.IS_LEGACY_BUILD;
 
 export default {
-  // etc...
-  plugins: [
-    svelte({
-      // etc..
-    }),
-    // this should come after the Svelte plugin
-    legacy &&
-      babel({
-        extensions: [".js", ".mjs", ".html", ".svelte"],
-        runtimeHelpers: true,
-        exclude: ["node_modules/@babel/**"],
-        presets: [
-          [
-            "@babel/preset-env",
-            {
-              targets: "> 0.25%, not dead",
-            },
-          ],
-        ],
-        plugins: [
-          "@babel/plugin-syntax-dynamic-import",
-          [
-            "@babel/plugin-transform-runtime",
-            {
-              useESModules: true,
-            },
-          ],
-        ],
-      }),
-    // ...
-  ],
+	// etc...
+	plugins: [
+		svelte({
+			// etc..
+		}),
+		// this should come after the Svelte plugin
+		legacy &&
+			babel({
+				extensions: ['.js', '.mjs', '.html', '.svelte'],
+				runtimeHelpers: true,
+				exclude: ['node_modules/@babel/**'],
+				presets: [
+					[
+						'@babel/preset-env',
+						{
+							targets: '> 0.25%, not dead'
+						}
+					]
+				],
+				plugins: [
+					'@babel/plugin-syntax-dynamic-import',
+					[
+						'@babel/plugin-transform-runtime',
+						{
+							useESModules: true
+						}
+					]
+				]
+			})
+		// ...
+	]
 };
 ```
 

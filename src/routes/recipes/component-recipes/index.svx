@@ -1,7 +1,7 @@
 ---
 title: Component Recipes
 layout: recipeCategory
-icon: "code"
+icon: 'code'
 ---
 
 <!-- routify:options index=1 -->

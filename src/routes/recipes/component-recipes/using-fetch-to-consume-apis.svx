@@ -16,18 +16,17 @@ We can declare a `data` variable and use the `onMount` lifecycle to fetch on mou
 ```svelte
 <!-- https://svelte.dev/repl/99c18a89f05d4682baa83cb673135f05?version=3.20.1 -->
 <script>
-  import { onMount } from "svelte";
-  let data;
-  onMount(async () => {
-    data = await fetch(
-      "https://api.coindesk.com/v1/bpi/currentprice.json"
-    ).then((x) => x.json());
-  });
+	import { onMount } from 'svelte';
+	let data;
+	onMount(async () => {
+		data = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json').then((x) => x.json());
+	});
 </script>
 
 <pre>
   {JSON.stringify(data, null, 2)}
 </pre>
+
 ```
 
 You can further improve this implementation by showing a placeholder while `data` is undefined and also showing an error notification if an error occurs.
@@ -41,22 +40,20 @@ This example is exactly equal to Method 1 above:
 ```svelte
 <!-- https://svelte.dev/repl/977486a651a34eb5bd9167f989ae3e71?version=3.20.1 -->
 <script>
-  let promise = fetch(
-    "https://api.coindesk.com/v1/bpi/currentprice.json"
-  ).then((x) => x.json());
+	let promise = fetch('https://api.coindesk.com/v1/bpi/currentprice.json').then((x) => x.json());
 </script>
 
 {#await promise}
-<!-- optionally show something while promise is pending -->
+	<!-- optionally show something while promise is pending -->
 {:then data}
-<!-- promise was fulfilled -->
-<pre>
+	<!-- promise was fulfilled -->
+	<pre>
 		{JSON.stringify(data, null, 2)}
-	</pre
->
+	</pre>
 {:catch error}
-<!-- optionally show something while promise was rejected -->
+	<!-- optionally show something while promise was rejected -->
 {/await}
+
 ```
 
 Here you can see that it is very intuitive where to place your loading placeholder and error display.
@@ -79,20 +76,17 @@ If we don't want to immediately load data on component mount, we can wait for us
 ```svelte
 <!-- https://svelte.dev/repl/2a8db7627c4744008203ecf12806eb1f?version=3.20.1 -->
 <script>
-  let data;
-  const handleClick = async () => {
-    data = await fetch(
-      "https://api.coindesk.com/v1/bpi/currentprice.json"
-    ).then((x) => x.json());
-  };
+	let data;
+	const handleClick = async () => {
+		data = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json').then((x) => x.json());
+	};
 </script>
 
-<button on:click="{handleClick}">
-  Click to Load Data
-</button>
+<button on:click={handleClick}> Click to Load Data </button>
 <pre>
   {JSON.stringify(data, null, 2)}
 </pre>
+
 ```
 
 The user now has an intuitive way to refresh their data.
@@ -106,29 +100,25 @@ It would be better to make all these commonplace UI idioms declarative. Await bl
 ```svelte
 <!-- https://svelte.dev/repl/98ec1a9a45af4d75ac5bbcb1b5bcb160?version=3.20.1 -->
 <script>
-  let promise;
-  const handleClick = () => {
-    promise = fetch(
-      "https://api.coindesk.com/v1/bpi/currentprice.json"
-    ).then((x) => x.json());
-  };
+	let promise;
+	const handleClick = () => {
+		promise = fetch('https://api.coindesk.com/v1/bpi/currentprice.json').then((x) => x.json());
+	};
 </script>
 
-<button on:click="{handleClick}">
-  Click to Load Data
-</button>
+<button on:click={handleClick}> Click to Load Data </button>
 
 {#await promise}
-<!-- optionally show something while promise is pending -->
+	<!-- optionally show something while promise is pending -->
 {:then data}
-<!-- promise was fulfilled -->
-<pre>
+	<!-- promise was fulfilled -->
+	<pre>
     {JSON.stringify(data, null, 2)}
-  </pre
->
+  </pre>
 {:catch error}
-<!-- optionally show something while promise was rejected -->
+	<!-- optionally show something while promise was rejected -->
 {/await}
+
 ```
 
 The trick here is we can simply reassign the `promise` to trigger a refetch, which then also clears the UI of stale data while fetching.
@@ -140,32 +130,30 @@ Of course, it is up to you what UX you want - you may wish to keep displaying st
 ```svelte
 <!-- https://svelte.dev/repl/21e932515ab24a6fb7ab6d411cce2799?version=3.20.1 -->
 <script>
-  let promise1, promise2;
-  const handleClick = () => {
-    promise2 = new Promise((res) =>
-      setTimeout(() => res(Math.random()), 1000)
-    ).then((x) => {
-      promise1 = promise2;
-      return x;
-    });
-  };
+	let promise1, promise2;
+	const handleClick = () => {
+		promise2 = new Promise((res) => setTimeout(() => res(Math.random()), 1000)).then((x) => {
+			promise1 = promise2;
+			return x;
+		});
+	};
 </script>
 
-<button on:click="{handleClick}">
-  Click to Load Data {#await promise2}🌀{/await}
+<button on:click={handleClick}>
+	Click to Load Data {#await promise2}🌀{/await}
 </button>
 
 {#await promise1}
-<!-- optionally show something while promise is pending -->
+	<!-- optionally show something while promise is pending -->
 {:then value}
-<!-- promise was fulfilled -->
-<pre>
+	<!-- promise was fulfilled -->
+	<pre>
     {value}
-  </pre
->
+  </pre>
 {:catch error}
-<!-- optionally show something while promise was rejected -->
+	<!-- optionally show something while promise was rejected -->
 {/await}
+
 ```
 
 **Method 4: Data Stores**
@@ -181,34 +169,35 @@ It can be simpler to keep promises out of components, and only put async logic i
 ```js
 // https://svelte.dev/repl/483ce4b0743f41238584076baadb9fe7?version=3.20.1
 // store.js
-import { writable } from "svelte/store";
+import { writable } from 'svelte/store';
 
 export const count = writable(0);
 export const isFetching = writable(false);
 
 export function getNewCount() {
-  isFetching.set(true);
-  return new Promise((res) =>
-    setTimeout(() => {
-      res(count.set(Math.random()));
-      isFetching.set(false);
-    }, 1000)
-  );
+	isFetching.set(true);
+	return new Promise((res) =>
+		setTimeout(() => {
+			res(count.set(Math.random()));
+			isFetching.set(false);
+		}, 1000)
+	);
 }
 ```
 
 ```svelte
 <script>
-  import { getNewCount, count, isFetching } from "./store";
+	import { getNewCount, count, isFetching } from './store';
 </script>
 
-<button on:click="{getNewCount}">
-  Click to Load Data {#if $isFetching}🌀{/if}
+<button on:click={getNewCount}>
+	Click to Load Data {#if $isFetching}🌀{/if}
 </button>
 
 <pre>
 {$count}
 </pre>
+
 ```
 
 This has the added benefit of keeping state around if the component gets remounted again with no need for a new data fetch.

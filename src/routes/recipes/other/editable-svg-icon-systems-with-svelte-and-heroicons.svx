@@ -2,6 +2,7 @@
 title: Editable SVG Icon Systems with Svelte and Heroicons
 layout: recipe
 ---
+
 There are many ways to create an SVG Icon System, but one method that takes advantage of Svelte's capabilities is to create editable inline icons as components. Some of the advantages of this way of working is:
 
 - They are easy to edit on the fly
@@ -22,18 +23,19 @@ The next step is to create a base icon component (`Icon.svelte`). Start with the
 
 ```svelte
 <svg
-  xmlns="http://www.w3.org/2000/svg"
-  width={width}
-  height={height}
-  viewBox="0 0 20 20"
-  aria-labelledby={name}
-  role="presentation"
+	xmlns="http://www.w3.org/2000/svg"
+	{width}
+	{height}
+	viewBox="0 0 20 20"
+	aria-labelledby={name}
+	role="presentation"
 >
-  <title id={name} lang="en">{`${name} icon`}</title>
-  <g stroke={color} fill={color}>
-    <slot />
-  </g>
+	<title id={name} lang="en">{`${name} icon`}</title>
+	<g stroke={color} fill={color}>
+		<slot />
+	</g>
 </svg>
+
 ```
 
 You can use this `Icon` component as is - the only thing you might need to update is the `viewBox` depending on the `viewBox` of the icons you are using. The `width`, `height`, `color`, and `name` props of the icon will allow the icon to be dynamically updated.
@@ -44,11 +46,12 @@ Our script will look like this:
 
 ```svelte
 <script>
-  export let width = 16
-  export let height = 16
-  export let name = ''
-  export let color = 'currentColor'
+	export let width = 16;
+	export let height = 16;
+	export let name = '';
+	export let color = 'currentColor';
 </script>
+
 ```
 
 The default `color` prop is set to `currentColor` so the icon will inherit the color of whatever text surrounds it. Of course, this csn be overridden with a specific color.
@@ -58,41 +61,34 @@ The default `color` prop is set to `currentColor` so the icon will inherit the c
 To use it, say we had a Svelte component called `PencilAlt.svelte` that contained only our icon svg paths like so:
 
 ```svelte
+<path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
 <path
-  d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+	fill-rule="evenodd"
+	d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+	clip-rule="evenodd"
 />
-<path
-  fill-rule="evenodd"
-  d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-  clip-rule="evenodd"
-/>
+
 ```
 
 We can use the `Icon` component as follows:
 
 ```svelte
 <Icon name="pencil-alt"><PencilAlt /></Icon>
+
 ```
 
 Now, if we’d like to make many sizes for the icon, we can do so very easily:
 
 ```svelte
 <p>
-  <!-- you can pass in a smaller width and height -->
-  <Icon
-    width="12"
-    height="12"
-    name="pencilAlt"
-  ><PencilAlt /></Icon>
-  <!-- or you can use the default, which is 16 -->
-  <Icon name="pencilAlt"><PencilAlt /></Icon>
-  <!-- or bump up the size, too -->
-  <Icon
-    width="30"
-    height="30"
-    name="pencilAlt"
-  ><PencilAlt /></Icon>
+	<!-- you can pass in a smaller width and height -->
+	<Icon width="12" height="12" name="pencilAlt"><PencilAlt /></Icon>
+	<!-- or you can use the default, which is 16 -->
+	<Icon name="pencilAlt"><PencilAlt /></Icon>
+	<!-- or bump up the size, too -->
+	<Icon width="30" height="30" name="pencilAlt"><PencilAlt /></Icon>
 </p>
+
 ```
 
 ### Additional Notes
