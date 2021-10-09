@@ -1,5 +1,4 @@
 <script>
-	import CategoryTree from '$lib/components/recipes/CategoryTree.svelte';
 	import Icon from '$lib/components/Icon/index.svelte';
 	import { categories } from '$lib/stores/recipes';
 	import { page } from '$app/stores';
@@ -18,9 +17,6 @@
 					<Icon name={node.meta.icon} />
 					<a href={node.path}>{node.meta.title}</a>
 				</div>
-				<!-- {#if $page.path.includes(node.path)}
-				<CategoryTree nodes={node.children} />
-			{/if} -->
 			{/each}
 		</div>
 	</div>
