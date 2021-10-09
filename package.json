@@ -6,7 +6,7 @@
 		"start": "svelte-kit dev --open",
 		"build": "svelte-kit build",
 		"preview": "svelte-kit preview",
-		"lint": "prettier --check . && eslint --ignore-path .gitignore .",
+		"lint": "prettier --check ./**/*.{js,ts,css,md,svx,svelte,html,json} && eslint --ignore-path .gitignore .",
 		"format": "prettier --write ./**/*.{js,ts,css,md,svx,svelte,html,json}",
 		"test": "jest",
 		"prepare": "husky install"
