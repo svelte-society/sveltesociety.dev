@@ -21,7 +21,7 @@ test("should render", () => {
 });
 ```
 
-`results` is an object containing a series of methods that can be used to query the rendered component in a variety of ways. You can see a list of all query methods in the testing-library documentation [testing-library documentation](https://testing-library.com/docs/queries/about#types-of-queries).
+`results` is an object containing a series of methods that can be used to query the rendered component in a variety of ways. You can see a list of all query methods in the [testing-library documentation](https://testing-library.com/docs/queries/about#types-of-queries).
 
 ### Changing component props
 
