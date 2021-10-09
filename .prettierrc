@@ -5,8 +5,8 @@
 	"printWidth": 100,
 	"overrides": [
 		{
-		  "files": "*.svx",
-		  "options": { "parser": "mdx" }
+			"files": "*.svx",
+			"options": { "parser": "mdx" }
 		}
-	  ]
+	]
 }
