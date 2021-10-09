@@ -2,6 +2,7 @@
 title: Using Future JS Syntax in Svelte with Babel
 layout: recipe
 ---
+
 The other, less common but still handy usecase for Babel with Svelte is transpiling _future_ syntax inside `<script>` tags. For example, the [Stage 3 Optional Chaining proposal](https://babeljs.io/docs/en/babel-plugin-proposal-optional-chaining) is popular, but not yet in browsers, and more relevantly, is not yet understood by [Acorn](https://github.com/acornjs/acorn), which is what Svelte uses to parse `<script>` tags.
 
 <details>
@@ -11,17 +12,18 @@ Example usage:
 
 ```svelte
 <script>
-  let foo = {
-    bar: {
-      baz: true,
-    },
-  };
-  let sub = foo?.ban?.baz;
+	let foo = {
+		bar: {
+			baz: true
+		}
+	};
+	let sub = foo?.ban?.baz;
 </script>
 
 <main>
-  <h1>Hello {sub}!</h1>
+	<h1>Hello {sub}!</h1>
 </main>
+
 ```
 
 When we try to run this, Acorn throws a `ParseError: Unexpected token` error.
@@ -55,25 +57,25 @@ Of course, make sure that `@babel/core` and whatever plugins you use are install
 Alternatively, you might wish to use [`svelte-preprocess`](https://github.com/kaisermann/svelte-preprocess/) instead, for its' other features:
 
 ```js
-import preprocess from "svelte-preprocess";
+import preprocess from 'svelte-preprocess';
 // ...
 preprocess: preprocess({
-  babel: {
-    presets: [
-      [
-        "@babel/preset-env",
-        {
-          loose: true,
-          // No need for babel to resolve modules
-          modules: false,
-          targets: {
-            // ! Very important. Target es6+
-            esmodules: true,
-          },
-        },
-      ],
-    ],
-  },
+	babel: {
+		presets: [
+			[
+				'@babel/preset-env',
+				{
+					loose: true,
+					// No need for babel to resolve modules
+					modules: false,
+					targets: {
+						// ! Very important. Target es6+
+						esmodules: true
+					}
+				}
+			]
+		]
+	}
 });
 // ...
 ```

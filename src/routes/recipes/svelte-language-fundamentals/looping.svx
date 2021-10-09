@@ -13,34 +13,42 @@ You can use spread operator `[...value]` for [Map](https://developer.mozilla.org
 
 ```svelte
 <script>
-  const map = new Map([['.svelte', 'Svelte'], ['.js', 'JavaScript']]);
+	const map = new Map([
+		['.svelte', 'Svelte'],
+		['.js', 'JavaScript']
+	]);
 </script>
 
 {#each [...map] as [key, value]}
 	<div>
 		{key}: {value}
-  </div>
+	</div>
 {/each}
+
 ```
 
 Both [`Map.keys()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/keys) and [`Map.values()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/values) method return an iterable. To use `{#each}` with iterable, you can use spread operator `[...value]` on the iterable.
 
 ```svelte
 <script>
-  const map = new Map([['.svelte', 'Svelte'], ['.js', 'JavaScript']]);
+	const map = new Map([
+		['.svelte', 'Svelte'],
+		['.js', 'JavaScript']
+	]);
 </script>
 
 {#each [...map.keys()] as key}
 	<div>
 		{key}
-  </div>
+	</div>
 {/each}
 
 {#each [...map.values()] as value}
 	<div>
 		{value}
-  </div>
+	</div>
 {/each}
+
 ```
 
 ### Looping a set
@@ -49,7 +57,7 @@ You can use spread operator `[...value]` for [Set](https://developer.mozilla.org
 
 ```svelte
 <script>
-  const set = new Set(['.svelte', '.js']);
+	const set = new Set(['.svelte', '.js']);
 </script>
 
 {#each [...set] as item}
@@ -57,6 +65,7 @@ You can use spread operator `[...value]` for [Set](https://developer.mozilla.org
 		{item}
 	</div>
 {/each}
+
 ```
 
 ### Looping a string
@@ -65,7 +74,7 @@ You can use spread operator `[...value]` for [Set](https://developer.mozilla.org
 
 ```svelte
 <script>
-  const string = 'Svelte';
+	const string = 'Svelte';
 </script>
 
 {#each string as character}
@@ -73,6 +82,7 @@ You can use spread operator `[...value]` for [Set](https://developer.mozilla.org
 		{character}
 	</div>
 {/each}
+
 ```
 
 ### Looping a generator function
@@ -94,6 +104,7 @@ To use `{#each}` with generator function, you can use spread operator `[...value
 		{item}
 	</div>
 {/each}
+
 ```
 
 ### Binding to a spread item
@@ -102,29 +113,37 @@ Once you spread a Map, Set, Generator, or any Iterable, you are creating a new a
 
 ```svelte
 <script>
-  const map = new Map([['.svelte', 'Svelte'], ['.js', 'JavaScript']]);
+	const map = new Map([
+		['.svelte', 'Svelte'],
+		['.js', 'JavaScript']
+	]);
 </script>
 
 {#each [...map] as [key, value]}
-  <!-- You can't change the value of the input, nor the value in the map -->
-  <input bind:value={value} />
+	<!-- You can't change the value of the input, nor the value in the map -->
+	<input bind:value />
 {/each}
+
 ```
 
 To workaround this, you can use `on:input` listener
 
 ```svelte
 <script>
-  const map = new Map([['.svelte', 'Svelte'], ['.js', 'JavaScript']]);
+	const map = new Map([
+		['.svelte', 'Svelte'],
+		['.js', 'JavaScript']
+	]);
 </script>
 
 {#each [...map] as [key, value]}
-  <input
-    {value}
-    on:input={(event) => {
-      map.set(key, event.currentTarget.value);
-      map = map;
-    }}
-  />
+	<input
+		{value}
+		on:input={(event) => {
+			map.set(key, event.currentTarget.value);
+			map = map;
+		}}
+	/>
 {/each}
+
 ```

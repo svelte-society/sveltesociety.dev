@@ -57,10 +57,7 @@ The object contains:
 	"title": "svelte-calendar",
 	"url": "https://github.com/6eDesign/svelte-calendar",
 	"description": "A lightweight date picker with neat animations and a unique UX",
-	"tags": [
-		"components and libraries",
-		"time and date"
-	],
+	"tags": ["components and libraries", "time and date"],
 	"image": "",
 	"addedOn": "2020-09-29T14:39:13Z",
 	"category": "Forms & User Input"

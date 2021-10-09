@@ -1,7 +1,7 @@
 ---
 title: Build Setup
 layout: recipeCategory
-icon: "hammer"
+icon: 'hammer'
 ---
 
 <!-- routify:options index=1 -->
