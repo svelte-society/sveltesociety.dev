@@ -7,15 +7,17 @@ Sometimes your template code doesn't match your CSS. If you generate html via `{
 
 ```svelte
 <div>
-  <Paragraph />
-  <Paragraph />
-  <Paragraph />
+	<Paragraph />
+	<Paragraph />
+	<Paragraph />
 </div>
+
 <style>
-  div :global(p + p) {
-    margin-top: 1rem;
-  }
+	div :global(p + p) {
+		margin-top: 1rem;
+	}
 </style>
+
 ```
 
 Now that `p` styling will be output by Svelte, AND it won't leak out to the rest of your app.

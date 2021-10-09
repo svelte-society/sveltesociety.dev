@@ -1,7 +1,7 @@
 ---
 title: Other
 layout: recipeCategory
-icon: "archive"
+icon: 'archive'
 ---
 
 <!-- routify:options index=1 -->
