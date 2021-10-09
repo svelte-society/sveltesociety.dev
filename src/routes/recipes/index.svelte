@@ -3,170 +3,179 @@
 	import Icon from '$lib/components/Icon/index.svelte';
 	import { page } from '$app/stores';
 	import { categories } from '$lib/stores/recipes';
+	import metatags from '$lib/stores/metatags';
+
+	let title = 'Recipes - Svelte Society';
+
+	metatags.title(title);
+	metatags.desc(
+		'This cookbook serves shows users how best-in-practice code is written in Svelte. You’ll learn how to import third-party libraries, external scripts as well as how to handle common problems that you will have to solve often.'
+	);
+	metatags.url($page.host + $page.path);
 </script>
 
-<div class="content-wrap">
-	<div class="my-1">
-		<h1 class="text-5xl mt-6 mb-4">Cookbook</h1>
-		<p class="intro">
-			This cookbook serves shows users how best-in-practice code is written in Svelte. You’ll learn
-			how to import third-party libraries, external scripts as well as how to handle common problems
-			that you will have to solve often.
-		</p>
-	</div>
-</div>
-<section class="recipes-block">
-	<div class="navigation-block my-1">
-		<div class="navigation-content">
-			<h3>Pick a Category to Get Started</h3>
-			<div class="categories-wrap">
-				{#each $categories as category}
-					{#if category}
-						<div class="category-style">
-							<div class="list-meta">
-								<div class="icon-circle">
-									<Icon name={category.meta.icon} width="1.5em" height="1.5em" />
-								</div>
-								<a href={category.path} class="list-title">{category.meta.title}</a>
-							</div>
+<svelte:head>
+	<title>{title}</title>
+</svelte:head>
+
+<article>
+	<h1>Cookbook</h1>
+
+	<section class="categories">
+		<div class="intro">
+			<h2>Pick a Category to Get Started</h2>
+			<p>
+				This cookbook serves shows users how best-in-practice code is written in Svelte. You’ll
+				learn how to import third-party libraries, external scripts as well as how to handle common
+				problems that you will have to solve often.
+			</p>
+		</div>
+		<div class="category-wrapper">
+			{#each $categories as category}
+				{#if category}
+					<section class="category">
+						<h3>
+							<Icon name={category.meta.icon} width="50px" height="50px" />
+
+							<a href={category.path} class="list-title">{category.meta.title}</a>
+						</h3>
+						<div class="category-list">
 							<CategoryTree currentPath={page.path} nodes={category.children} />
 						</div>
-					{/if}
-				{/each}
-			</div>
+					</section>
+				{/if}
+			{/each}
 		</div>
-	</div>
-</section>
-
-<div class="content-wrap">
-	<div class="my-1">
-		<h3>What can I expect from these recipes?</h3>
-		<p>
-			The Svelte compiler expects all components it receives to be valid Svelte syntax. To use
-			compile-to-js or compile-to-css languages, you need to make sure that any non-standard syntax
-			is transformed before Svelte tries to parse it. To enable this Svelte provides a preprocess
-			method allowing you to transform different parts of the component before it reaches the
-			compiler. With <b>svelte.preprocess</b> you have a great deal of flexibility in how you write your
-			components while ensuring that the Svelte compiler receives a plain component.
-		</p>
-	</div>
-	<div class="signup-block my-1">
-		<h3>Do you want to write a recipe?</h3>
-		<p>
-			We’re looking for new recipes and recipe authors. Are you interested? Just submit a issue with
-			a recipe below!
-		</p>
-		<a href="https://github.com/svelte-society/sveltesociety.dev/issues/new" class="button"
-			>Submit</a
-		>
-	</div>
-	<div class="my-1">
-		<h3>Where to get started</h3>
-		<p>
-			If you want the quickest way to get started, clone <a
-				href="https://github.com/sveltejs/template">the Official Svelte App template</a
-			>. If you want a custom setup, head to the
-			<a href="/recipes/build-setup">Build Setup recipes</a>.
-		</p>
-		<p>
-			If you are writing a Svelte component library, check the <a
-				href="https://github.com/sveltejs/component-template"
-				>the Official Svelte Component template</a
-			>.
-		</p>
-	</div>
-</div>
+	</section>
+	<section class="bottom-wrapper">
+		<section>
+			<h3>What can I expect from these recipes?</h3>
+			<p>
+				The Svelte compiler expects all components it receives to be valid Svelte syntax. To use
+				compile-to-js or compile-to-css languages, you need to make sure that any non-standard
+				syntax is transformed before Svelte tries to parse it. To enable this Svelte provides a
+				preprocess method allowing you to transform different parts of the component before it
+				reaches the compiler. With <b>svelte.preprocess</b> you have a great deal of flexibility in how
+				you write your components while ensuring that the Svelte compiler receives a plain component.
+			</p>
+		</section>
+		<section>
+			<h3>Where to get started</h3>
+			<p>
+				If you want the quickest way to get started, clone <a
+					href="https://github.com/sveltejs/template">the Official Svelte App template</a
+				>. If you want a custom setup, head to the
+				<a href="/recipes/build-setup">Build Setup recipes</a>.
+			</p>
+			<p>
+				If you are writing a Svelte component library, check the <a
+					href="https://github.com/sveltejs/component-template"
+					>the Official Svelte Component template</a
+				>.
+			</p>
+		</section>
+		<section class="recipe">
+			<h3>Do you want to write a recipe?</h3>
+			<p>
+				We’re looking for new recipes and recipe authors. Are you interested? Just submit a issue
+				with a recipe below!
+			</p>
+			<a href="https://github.com/svelte-society/sveltesociety.dev/issues/new" class="button">
+				Submit
+			</a>
+		</section>
+	</section>
+</article>
 
 <style>
-	.icon-circle {
-		border: 2px solid black;
-		border-radius: 50%;
-		height: 2em;
-		width: 2em;
+	.intro {
+		max-width: 80ch;
+		margin-inline: auto;
+	}
+	.categories {
+		background: var(--white);
+		padding: var(--s-4) var(--s-10) var(--s-10);
+	}
+
+	.category-wrapper {
+		margin-top: var(--s-10);
 		display: grid;
-		place-items: center;
-		padding-left: 4px;
+		gap: var(--s-12);
 	}
-	.content-wrap {
-		align-items: center;
-		width: 65ch;
-		margin: 0 auto;
+	.category {
+		background-color: var(--gray);
+		border-radius: var(--s-2);
+		box-shadow: var(--shadow-short);
+		padding-inline: var(--s-4);
 	}
-	.navigation-block {
-		padding: 1rem;
+	.category-list {
+		padding: var(--s-2) var(--s-4) var(--s-4) 3.8rem;
 	}
-	.navigation-content h3 {
+
+	h3 {
 		display: flex;
-		justify-content: center;
+		align-items: center;
 	}
-	.categories-wrap {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		flex-wrap: wrap;
-		padding: 1rem;
-	}
-	@media screen and (max-width: 1024px) {
-		.categories-wrap {
-			grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-		}
-	}
-	@media screen and (max-width: 600px) {
-		.categories-wrap {
-			grid-template-columns: 1fr;
-		}
-	}
-	.category-style {
-		padding: 1rem;
-	}
-	@media screen and (max-width: 1200px) {
-		.category-style {
-			width: 100%;
-		}
-		.content-wrap,
-		.content-wrap {
-			width: inherit;
-			padding: 0 1rem;
-		}
-	}
-	.signup-block {
-		background: #ecf6ff;
-		padding: 1rem;
-	}
+
 	a.button {
 		text-decoration: none;
 		display: block;
-		margin: 0;
 		border-radius: var(--border-radius);
 		display: inline-block;
 		font-size: medium;
 		font-weight: bold;
-		margin: 1.5rem 0 0.5rem 0;
-		padding: 1rem 2rem;
-		background-color: var(--color-secondary);
-		border: 2px solid var(--color-secondary);
-		color: var(--color-bg);
+		padding: var(--s-4) var(--s-6);
+		border-radius: var(--s-1);
+		background-color: var(--orange);
+		color: var(--white);
+		box-shadow: var(--shadow-short);
+		transition: all 0.2s ease-out;
 	}
 
 	a.button:hover {
 		cursor: pointer;
-		filter: brightness(var(--hover-brightness));
+		filter: brightness(1.1);
+		box-shadow: var(--shadow-diffuse);
 	}
-	.recipes-block {
-		background: #f3f6f9;
-	}
-	.list-meta {
-		align-items: center;
-		display: grid;
-		grid-template-columns: 50px auto;
+	a.button:active {
+		position: relative;
+		top: 1px;
+		box-shadow: 0 0 0 2px var(--accent);
 	}
 	.list-title {
-		color: var(--svelte-grey);
+		color: var(--black);
 		margin-left: 1rem;
 		text-decoration: none;
 		text-transform: uppercase;
-		font-family: Georgia, 'Times New Roman', Times, serif;
+		position: relative;
+		top: 4px;
 	}
-	.list-title:hover {
-		text-decoration: underline;
+
+	.bottom-wrapper {
+		max-width: 80ch;
+		margin-inline: auto;
+	}
+
+	.recipe {
+		margin-top: var(--s-10);
+		margin-inline: auto;
+		background-color: var(--white);
+		border-radius: var(--s-2);
+		padding: var(--s-10);
+		display: grid;
+		gap: var(--s-4);
+		justify-items: flex-start;
+	}
+	.recipe h3 {
+		margin: 0;
+	}
+
+	@media (min-width: 1280px) {
+		.category-wrapper {
+			grid-template-columns: 1fr 1fr;
+		}
+		.recipe {
+			padding: var(--s-20);
+		}
 	}
 </style>

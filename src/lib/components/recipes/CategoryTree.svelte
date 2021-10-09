@@ -13,19 +13,8 @@
 <style>
 	ul {
 		list-style: none;
-		margin: 1rem 0 0 1.75rem;
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-	}
-	li::before {
-		content: '•';
-		color: var(--svelte-grey-light);
-		display: inline-block;
-		width: 1em;
-		margin-left: -1em;
-	}
-	li.active::before {
-		color: var(--svelte-grey);
+		gap: var(--s-2);
 	}
 	a {
 		text-decoration: none;

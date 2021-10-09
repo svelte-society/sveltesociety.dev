@@ -11,16 +11,18 @@
 
 <main>
 	<div class="TOC">
-		<h1>Table of Contents</h1>
-		{#each $categories as node}
-			<div class="TOCLink" class:active={$page.path.includes(node.path)}>
-				<Icon name={node.meta.icon} />
-				<a href={node.path}>{node.meta.title}</a>
-			</div>
-			{#if $page.path.includes(node.path)}
+		<strong>Table of Contents</strong>
+		<div class="TOCList">
+			{#each $categories as node}
+				<div class="TOCLink" class:active={$page.path.includes(node.path)}>
+					<Icon name={node.meta.icon} />
+					<a href={node.path}>{node.meta.title}</a>
+				</div>
+				<!-- {#if $page.path.includes(node.path)}
 				<CategoryTree nodes={node.children} />
-			{/if}
-		{/each}
+			{/if} -->
+			{/each}
+		</div>
 	</div>
 	<article>
 		<h1>{title}</h1>
@@ -37,17 +39,31 @@
 </main>
 
 <style>
+	strong {
+		font-size: var(--font-500);
+	}
+
 	.TOCLink {
-		align-items: baseline;
-		display: grid;
-		grid-template-columns: auto 1fr;
-		grid-gap: 10px;
+		display: flex;
+		gap: var(--s-2);
 		padding: 1rem 0;
-		border-bottom: 1px solid #d0deec;
+		border-bottom: 1px solid var(--gray);
 		font-size: 1.1em;
+	}
+	.TOCLink a {
+		border-bottom: none;
+		position: relative;
+		top: 3px;
 	}
 	.TOCLink.active a {
 		font-weight: bold;
+	}
+	.TOCList {
+		padding-block: var(--s-4);
+		padding-inline: var(--s-4) 0;
+	}
+	h1 {
+		margin-top: 0;
 	}
 	@media (min-width: 1024px) {
 		main {
