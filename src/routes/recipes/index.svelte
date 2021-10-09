@@ -88,28 +88,30 @@
 </article>
 
 <style>
+	article {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+	}
 	.intro {
 		max-width: 80ch;
 		margin-inline: auto;
 	}
 	.categories {
 		background: var(--white);
-		padding: var(--s-4) var(--s-10) var(--s-10);
+		padding: var(--s-2);
 	}
 
 	.category-wrapper {
 		margin-top: var(--s-10);
 		display: grid;
 		gap: var(--s-12);
+		grid-template-columns: minmax(0, 1fr);
 	}
 	.category {
 		background-color: var(--gray);
 		border-radius: var(--s-2);
 		box-shadow: var(--shadow-short);
 		padding-inline: var(--s-4);
-	}
-	.category-list {
-		padding: var(--s-2) var(--s-4) var(--s-4) 3.8rem;
 	}
 
 	h3 {
@@ -173,6 +175,12 @@
 	@media (min-width: 1280px) {
 		.category-wrapper {
 			grid-template-columns: 1fr 1fr;
+		}
+		.categories {
+			padding: var(--s-4) var(--s-10) var(--s-10);
+		}
+		.category-list {
+			padding: var(--s-2) var(--s-4) var(--s-4) 3.8rem;
 		}
 		.recipe {
 			padding: var(--s-20);
