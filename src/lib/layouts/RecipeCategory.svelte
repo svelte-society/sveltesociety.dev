@@ -35,6 +35,11 @@
 </main>
 
 <style>
+	article {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+	}
+
 	strong {
 		font-size: var(--font-500);
 	}
