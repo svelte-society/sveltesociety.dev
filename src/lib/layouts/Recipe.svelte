@@ -34,6 +34,7 @@
 	article {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
+		align-content: flex-start;
 	}
 
 	strong {
