@@ -1,9 +1,9 @@
 ---
 title: Publishing and Deploying
 layout: recipeCategory
-icon: "docker"
+icon: 'docker'
 ---
 
 <!-- routify:options index=1 -->
 
-Some description of this category should go here.
+## Recipes

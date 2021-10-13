@@ -11,5 +11,14 @@ Everyone was welcome, to attend and submit a talk at [sessionize](https://sessio
 Here you can rewatch the full livestream:
 
 <p align="center">
-    <iframe width="789" height="444" src="https://www.youtube.com/embed/fnr9XWvjJHw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen alt="Summit livestream"></iframe>
+	<iframe
+		width="789"
+		height="444"
+		src="https://www.youtube.com/embed/fnr9XWvjJHw"
+		title="YouTube video player"
+		frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+		allowfullscreen
+		alt="Summit livestream"
+	></iframe>
 </p>

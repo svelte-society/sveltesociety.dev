@@ -470,5 +470,31 @@ onMount(() => {
   })()
 </script>
 `
+	},
+	{
+		title: 'Dynamically select a component',
+		repl: `${replPath}/e5d239c2a3574d0aa0f4d33b46ea58fd`,
+		doc: `${docPath}#svelte_component`,
+		content: `<!-- Title1.svelte -->
+<h1>    Component 1  </h1>
+
+<!-- Title2.svelte -->
+<h2>    Component 2  </h2>
+
+<!-- App.svelte -->
+<script>
+  import Title1 from './Title1.svelte'
+  import Title2 from './Title2.svelte'
+
+  let component = Title1
+  let name = 'world';
+</script>
+
+<select bind:value={component}>
+  <option value={Title1}>Title 1</option>
+  <option value={Title2}>Title 2</option>
+</select>
+
+<svelte:component this={component} />`
 	}
 ];

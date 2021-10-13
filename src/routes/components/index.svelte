@@ -46,11 +46,23 @@
 		.sort(compare(sorting));
 	$: categories = extractUnique(dataToDisplay, 'category');
 	$: filterTag = selectedTags?.map((obj) => obj.value) || [];
-</script>
 
-<svelte:head>
-	<title>Components - Svelte Society</title>
-</svelte:head>
+	const categoryId = {
+		Animations: 'animations',
+		'Data Visualisation': 'data-vis',
+		'Design Pattern': 'design-patterns',
+		'Design System': 'design-systems',
+		'Developer Experience': 'dx',
+		'Forms & User Input': 'input',
+		Integration: 'integrations',
+		'Rich Text Editor': 'text-editors',
+		Routers: 'routers',
+		Stores: 'stores',
+		'SvelteKit Adapters': 'adapters',
+		Testing: 'testing',
+		'User Interaction': 'ui'
+	};
+</script>
 
 <SearchLayout title="Components">
 	<section class="controls" slot="controls">
@@ -100,7 +112,10 @@
 	</section>
 	<section slot="items">
 		{#each categories as category}
-			<List title={category.label || 'Unclassified'}>
+			<List
+				title={category.label || 'Unclassified'}
+				id={categoryId[category.label] || category.label || 'unclassified'}
+			>
 				{#each dataToDisplay.filter((d) => d.category === category.value) as data}
 					<ComponentCard {...data} manager={$packageManager} />
 				{/each}

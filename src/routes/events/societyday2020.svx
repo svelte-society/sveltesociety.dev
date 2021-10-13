@@ -9,7 +9,15 @@ The Svelte Society Day 2020 was an event especially for people new at Svelte wit
 You can find a playlist with all the talks on [youtube](https://www.youtube.com/playlist?list=PL8bMgX1kyZTiuZQLa8vZ8GTW0pNcEH9TZ) or you can check out the livestream of Svelte Society Day 2020 here:
 
 <div class="fullscreen-embed">
-<iframe title="Svelte Society Day 2020 Livestream" width="560" height="315" src="https://www.youtube.com/embed/0rnG-OlzGSs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<iframe
+		title="Svelte Society Day 2020 Livestream"
+		width="560"
+		height="315"
+		src="https://www.youtube.com/embed/0rnG-OlzGSs"
+		frameborder="0"
+		allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		allowfullscreen
+	></iframe>
 </div>
 
 **Talk timestamps:**

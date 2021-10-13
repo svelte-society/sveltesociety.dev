@@ -2,6 +2,7 @@
 title: Unit Testing Svelte Components
 layout: recipe
 ---
+
 _Some assumptions here, this was pulled from something I wrote and the context was different. Edits will be required._
 
 When testing svelte components in a node environment and using them outside of a Svelte application, we will be mostly interacting programmatically with Svelte’s client-side API as well as the helpers found in @testing-library/svelte.
@@ -11,17 +12,17 @@ When testing svelte components in a node environment and using them outside of a
 Creating a component is as simple as passing the component constructor, and any initial props, to the provided render function.
 
 ```js
-import { render } from "@testing-library/svelte";
-import Button from "../src/Button.svelte";
+import { render } from '@testing-library/svelte';
+import Button from '../src/Button.svelte';
 
-test("should render", () => {
-  const results = render(Button, { props: { label: "a button" } });
+test('should render', () => {
+	const results = render(Button, { props: { label: 'a button' } });
 
-  expect(() => results.getByLabelText("a button")).not.toThrow();
+	expect(() => results.getByLabelText('a button')).not.toThrow();
 });
 ```
 
-`results` is an object containing a series of methods that can be used to query the rendered component in a variety of ways. You can see a list of all query methods in the testing-library documentation [link].
+`results` is an object containing a series of methods that can be used to query the rendered component in a variety of ways. You can see a list of all query methods in the [testing-library documentation](https://testing-library.com/docs/queries/about#types-of-queries).
 
 ### Changing component props
 
@@ -30,16 +31,16 @@ A components props can be changed or set by calling the .\$set method of the com
 Svelte schedules all component updates for completion asynchronously in the next micro-task. Awaiting the action that triggers that micro-task will ensure that the component has been updated before proceeding through the code. This also applies to any Svelte component update, regardless of whether it is programmatically changed (via component.\$set) or via a ‘user’ action (such as clicking a button). For this to work we need to make sure that we make the test’s callback function async, so we can use await in the body.
 
 ```js
-import { render } from "@testing-library/svelte";
-import Button from "../src/Button.svelte";
+import { render } from '@testing-library/svelte';
+import Button from '../src/Button.svelte';
 
-test("should render", async () => {
-  const { getByLabelText, component } = render(Button, {
-    props: { label: "a button" },
-  });
+test('should render', async () => {
+	const { getByLabelText, component } = render(Button, {
+		props: { label: 'a button' }
+	});
 
-  await component.$set({ label: "another button" });
-  expect(() => results.getByLabelText("another button")).not.toThrow();
+	await component.$set({ label: 'another button' });
+	expect(() => results.getByLabelText('another button')).not.toThrow();
 });
 ```
 
@@ -48,21 +49,21 @@ test("should render", async () => {
 Component events have a different API to props and it is important we take the time to test them correctly. We will use a combination of jest mock functions and the svelte event API to make sure our component event is calling the provided handler. We can provide an event handler to a component event via a component's .$on method. The .$on method returns and off method, if we need to remove the listener.
 
 ```js
-import { render, fireEvent } from "@testing-library/svelte";
-import Button from "../src/Button.svelte";
+import { render, fireEvent } from '@testing-library/svelte';
+import Button from '../src/Button.svelte';
 
-test("events should work", () => {
-  const { getByLabelText, component } = render(Button, {
-    props: { label: "a button" },
-  });
+test('events should work', () => {
+	const { getByLabelText, component } = render(Button, {
+		props: { label: 'a button' }
+	});
 
-  const mock = Jest.fn();
-  const button = getByLabelText("a button");
+	const mock = Jest.fn();
+	const button = getByLabelText('a button');
 
-  component.$on("submit", mock);
-  fireEvent.click(button);
+	component.$on('submit', mock);
+	fireEvent.click(button);
 
-  expect(mock).toHaveBeenCalled();
+	expect(mock).toHaveBeenCalled();
 });
 ```
 
@@ -72,28 +73,29 @@ Slots are more difficult to test as there is no programmatic interface for worki
 
 ```svelte
 <script>
-  export let Component;
+	export let Component;
 </script>
 
 <svelte:component this={Component}>
-  <h1 data-testid="slot">Test Data</h1>
+	<h1 data-testid="slot">Test Data</h1>
 </svelte:component>
+
 ```
 
 Then the component you wish to test can be passed to the constructor as a prop in order to mount the component correctly:
 
 ```js
-import { render } from "@testing-library/svelte";
+import { render } from '@testing-library/svelte';
 
-import SlotTest from "./SlotTest.svelte";
-import ComponentToBeTested from "./ComponentToBeTested.svelte";
+import SlotTest from './SlotTest.svelte';
+import ComponentToBeTested from './ComponentToBeTested.svelte';
 
-test("it should render slotted content", () => {
-  const { getByTestId } = render(SlotTest, {
-    props: { Component: ComponentToBeTested },
-  });
+test('it should render slotted content', () => {
+	const { getByTestId } = render(SlotTest, {
+		props: { Component: ComponentToBeTested }
+	});
 
-  expect(getByTestId("slot")).not.toThrow();
+	expect(getByTestId('slot')).not.toThrow();
 });
 ```
 
@@ -103,51 +105,53 @@ As with slots, there is no programmatic interface for the Context API (setContex
 
 ```svelte
 <script>
-  import { setContext } from "svelte";
+	import { setContext } from 'svelte';
 
-  export let Component;
-  export let context_key;
-  export let context_value;
+	export let Component;
+	export let context_key;
+	export let context_value;
 
-  setContext(key, value);
+	setContext(key, value);
 </script>
 
 <svelte:component this={Component} />
+
 ```
 
 The component we wish to test looks something like this:
 
 ```svelte
 <script>
-  import { KEY } from './Parent.svelte';
+	import { KEY } from './Parent.svelte';
 
-  const ctx = getContext(KEY);
+	const ctx = getContext(KEY);
 </script>
 
 <button>{ctx.title}</button>
+
 ```
 
 We can test this like so:
 
 ```js
-import { render } from "@testing-library/svelte";
+import { render } from '@testing-library/svelte';
 
-import ContextTest from "./ContextTest.svelte";
-import ComponentToBeTested from "./ComponentToBeTested.svelte";
+import ContextTest from './ContextTest.svelte';
+import ComponentToBeTested from './ComponentToBeTested.svelte';
 // Context is keyed, we need to get the actual key to ensure the correct context is selected by the child.
-import { KEY } from "./OriginalParentComponent.svelte";
+import { KEY } from './OriginalParentComponent.svelte';
 
-test("it should render slotted content", () => {
-  const { getByRole } = render(ContextTest, {
-    props: {
-      Component: ComponentToBeTested,
-      context_key: KEY,
-      context_value: { title: "Hello" },
-    },
-  });
-  const button = getByRole("button");
+test('it should render slotted content', () => {
+	const { getByRole } = render(ContextTest, {
+		props: {
+			Component: ComponentToBeTested,
+			context_key: KEY,
+			context_value: { title: 'Hello' }
+		}
+	});
+	const button = getByRole('button');
 
-  expect(button.innerHTML).toBe("Hello");
+	expect(button.innerHTML).toBe('Hello');
 });
 ```
 

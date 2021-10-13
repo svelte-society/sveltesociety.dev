@@ -47,11 +47,14 @@
 
 	$: categories = extractUnique(dataToDisplay, 'category');
 	$: filterTag = selectedTags?.map((obj) => obj.value) || [];
-</script>
 
-<svelte:head>
-	<title>Templates - Svelte Society</title>
-</svelte:head>
+	const categoryId = {
+		Sapper: 'sapper',
+		Svelte: 'svelte',
+		'Svelte Add': 'adders',
+		SvelteKit: 'svelte-kit'
+	};
+</script>
 
 <SearchLayout title="Templates">
 	<section class="controls" slot="controls">
@@ -88,7 +91,10 @@
 	</section>
 	<section slot="items">
 		{#each categories as category}
-			<List title={category.label || 'Unclassified'}>
+			<List
+				title={category.label || 'Unclassified'}
+				id={categoryId[category.label] || category.label || 'unclassified'}
+			>
 				{#each dataToDisplay.filter((d) => d.category === category.value) as data}
 					<ComponentCard {...data} />
 				{/each}

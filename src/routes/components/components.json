@@ -1,5 +1,15 @@
 [
 	{
+		"title": "svelte-virtual-table",
+		"description": "A virtual, sortable table for Svelte ",
+		"url": "https://github.com/BernhardWebstudio/svelte-virtual-table",
+		"npm": "svelte-virtual-table",
+		"tags": ["components and libraries"],
+		"addedOn": "2021-10-04",
+		"category": "Data Visualisation",
+		"stars": 1
+	},
+	{
 		"title": "svelte-number-spinner",
 		"description": "A number input field that can be controlled by mouse/touch drag, arrow keys or usual editing.",
 		"url": "https://github.com/bohnacker/svelte-number-spinner",
@@ -2235,5 +2245,51 @@
 		"tags": ["auth", "integrations", "ssr", "third party services"],
 		"url": "https://github.com/macfja/svelte-oauth2#readme",
 		"addedOn": "2021-09-10T20:00:00.000Z"
+	},
+	{
+		"title": "svelte-boring-avatars",
+		"url": "https://github.com/paolotiu/svelte-boring-avatars",
+		"description": "Svelte port of Boring Avatars",
+		"npm": "svelte-boring-avatars",
+		"addedOn": "2021-09-28",
+		"category": "Design Pattern",
+		"stars": 16,
+		"tags": ["components and libraries", "images", "typescript", "ssr", "fonts and icons"]
+	},
+	{
+		"title": "filedrop-svelte",
+		"url": "https://github.com/chanced/filedrop-svelte",
+		"description": "file dropzone action & component",
+		"npm": "filedrop-svelte",
+		"addedOn": "2021-09-20",
+		"category": "Forms & User Input",
+		"tags": ["interactions", "forms", "inputs and widgets"]
+	},
+	{
+		"title": "focus-svelte",
+		"url": "https://github.com/chanced/focus-svelte",
+		"description": "focus lock for accessibility",
+		"npm": "focus-svelte",
+		"addedOn": "2021-09-20",
+		"category": "Forms & User Input",
+		"tags": ["interactions", "forms"]
+	},
+	{
+		"title": "svelte-translate",
+		"url": "https://github.com/noelmugnier/svelte-translate",
+		"description": "Use a dynamic translation service (loaded from xx-XX.json files) and fallback to the text in html tags if no translations are provided.",
+		"npm": "svelte-translate",
+		"addedOn": "2021-09-29",
+		"category": "Developer Experience",
+		"tags": ["components and libraries", "internationalization"]
+	},
+	{
+		"title": "svelte-adapter-azure-swa",
+		"url": "https://github.com/geoffrich/svelte-adapter-azure-swa",
+		"description": "SvelteKit adapter for Azure Static Web Apps.",
+		"npm": "svelte-adapter-azure-swa",
+		"addedOn": "2021-10-12",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"]
 	}
 ]

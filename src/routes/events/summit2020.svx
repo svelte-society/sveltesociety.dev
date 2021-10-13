@@ -10,7 +10,15 @@ Check out the [Svelte Summit website](https://sveltesummit.com/) or watch the ni
 
 <div class="fullscreen-embed">
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/vHHLLJA0b70" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Svelte Summit 2020"></iframe>
+<iframe
+	width="560"
+	height="315"
+	src="https://www.youtube.com/embed/vHHLLJA0b70"
+	frameborder="0"
+	allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+	allowfullscreen
+	title="Svelte Summit 2020"
+></iframe>
 
 </div>
 

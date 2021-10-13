@@ -30,7 +30,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte',
+		target: '#sveltekit-entry',
 		vite: {
 			optimizeDeps: {
 				// workaround Vite issue to fix highlighting on cheatsheet

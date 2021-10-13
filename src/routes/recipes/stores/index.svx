@@ -5,14 +5,22 @@ icon: database
 ---
 
 <!-- routify:options index=1 -->
-<script>
-  import Warning from '../../../lib/components/recipes/Warning.svelte'
-</script>
+
+<script>import Warning from '../../../lib/components/recipes/Warning.svelte'</script>
 
 ## This needs to be re-organised into separate recipes
 
 <Warning>
-This guide assumes you understand the basics of Svelte Stores. If you aren't familiar with them then working through the <a href="http://www.svelte.dev/tutorial/writable-stores" target="_blank">relevant tutorial</a> and reading the <a href="http://www.svelte.dev/docs#svelte_store" target="_blank">store documentation</a> are highly recommended.
+	This guide assumes you understand the basics of Svelte Stores. If you aren't familiar with them
+	then working through the{' '}
+	<a href="http://www.svelte.dev/tutorial/writable-stores" target="_blank">
+		relevant tutorial
+	</a>{' '}
+	and reading the{' '}
+	<a href="http://www.svelte.dev/docs#svelte_store" target="_blank">
+		store documentation
+	</a>{' '}
+	are highly recommended.
 </Warning>
 
 Svelte stores offer a simple mechanism to handle shared state in your Svelte application but looking beyond the built-in store implementations will unlock a whole world of power that you could never have dreamed of. In this episode of _The Tinest Kitchen_ we'll take a close look at [The Store Contract](#The_Store_Contract), learn how to implement [Custom Stores](#Custom_Stores), by making use of the built-in store API, and explore how we can implement [a completely custom store]() without using the built-in stores at all.
@@ -32,7 +40,7 @@ The following examples aren't the _exact_ code that Svelte produces, rather, sim
 This:
 
 ```js
-import { my_store } from "./store.js";
+import { my_store } from './store.js';
 
 console.log($my_store);
 ```
@@ -40,7 +48,7 @@ console.log($my_store);
 Becomes something like this:
 
 ```js
-import { my_store } from "./store.js";
+import { my_store } from './store.js';
 
 let $my_store;
 const unsubscribe = my_store.subscribe((value) => ($my_store = value));
@@ -58,13 +66,13 @@ Optionally, a store can have a `set` method. Whenever there is an assignment to 
 This:
 
 ```js
-$my_store = "Hello";
+$my_store = 'Hello';
 ```
 
 Will become something like:
 
 ```js
-$my_store = "Hello";
+$my_store = 'Hello';
 my_store.set($my_store);
 ```
 
@@ -73,13 +81,13 @@ The same is true when assigning to a nested property of a store.
 This:
 
 ```js
-$my_store.greeting = "Hello";
+$my_store.greeting = 'Hello';
 ```
 
 Becomes:
 
 ```js
-$my_store.greeting = "Hello";
+$my_store.greeting = 'Hello';
 my_store.set($my_store);
 ```
 
@@ -108,11 +116,11 @@ To implement this store, we need to create two writable stores, write custom `se
 We define a function first as this implementation is a store _creator_ allowing us plenty of flexibility. The function needs to take two parameters, each being a callback function which is called when the stores are updated. The first function takes the first store value and returns a value that sets the value of the second store. The second argument does the opposite. One of these functions is called when the relevant `set` method is called.
 
 ```js
-import { writable } from "svelte/store";
+import { writable } from 'svelte/store';
 
 function synced(a_to_b, b_to_a) {
-  const a = writable();
-  const b = writable();
+	const a = writable();
+	const b = writable();
 }
 ```
 
@@ -121,14 +129,14 @@ The `set` methods call their own `set` with the provided value and call the part
 ```js
 // called when store_a.set is called or its binding reruns
 function a_set($a) {
-  a.set($a);
-  b.set(a_to_b($a));
+	a.set($a);
+	b.set(a_to_b($a));
 }
 
 // called when store_b.set is called or its binding reruns
 function b_set($b) {
-  a.set(b_to_a($b));
-  b.set($b);
+	a.set(b_to_a($b));
+	b.set($b);
 }
 ```
 
@@ -136,19 +144,19 @@ All we need to do now is return an array of objects each containing the correct 
 
 ```js
 return [
-  { subscribe: a.subscribe, set: a_set },
-  { subscribe: b.subscribe, set: b_set },
+	{ subscribe: a.subscribe, set: a_set },
+	{ subscribe: b.subscribe, set: b_set }
 ];
 ```
 
 Inside a component, we can use this synced store creator by deconstructing the returned array. This ensures Svelte can subscribe to each store individually, as stores definitions need to be at the top level for this to happen. This store can be imported and reused in any component.
 
 ```js
-import { synced } from "./synced.js";
+import { synced } from './synced.js';
 
 const [a, a_plus_five] = synced(
-  (a) => a + 5,
-  (b) => a - 5
+	(a) => a + 5,
+	(b) => a - 5
 );
 
 $a = 0; // set an initial value
@@ -160,31 +168,30 @@ See it in action below. The following example uses the `synced` store to convert
 
 ```html
 <script>
-  import { synced } from "./linkable";
+	import { synced } from './linkable';
 
-  export let initialCelsius = null;
-  export let initialFahrenheit = null;
+	export let initialCelsius = null;
+	export let initialFahrenheit = null;
 
-  const [C, F] = synced(
-    (C) => (C * 9) / 5 + 32,
-    (F) => ((F - 32) * 5) / 9
-  );
+	const [C, F] = synced(
+		(C) => (C * 9) / 5 + 32,
+		(F) => ((F - 32) * 5) / 9
+	);
 
-  if (initialCelsius && initialFahrenheit) {
-    console.error(
-      "You can only set one initial temperature. Please set initialCelsius or initialFahrenheit but not both."
-    );
-  } else if (initialCelsius) {
-    $C = initialCelsius;
-  } else if (initialFahrenheit) {
-    $F = initialFahrenheit;
-  } else {
-    $C = 0;
-  }
+	if (initialCelsius && initialFahrenheit) {
+		console.error(
+			'You can only set one initial temperature. Please set initialCelsius or initialFahrenheit but not both.'
+		);
+	} else if (initialCelsius) {
+		$C = initialCelsius;
+	} else if (initialFahrenheit) {
+		$F = initialFahrenheit;
+	} else {
+		$C = 0;
+	}
 </script>
 
-<input bind:value="{$C}" type="number" /> ºC =
-<input bind:value="{$F}" type="number" /> ºF
+<input bind:value="{$C}" type="number" /> ºC = <input bind:value="{$F}" type="number" /> ºF
 ```
 
 Play around with it in the [REPL](https://svelte.dev/repl/abbc56bdbd6e45c8ad5cd6f75108c6d8?version=3).
@@ -197,27 +204,27 @@ The most basic implementation would look something like this ([REPL](https://sve
 
 ```js
 function writable(init) {
-  let _val = init;
-  const subs = [];
+	let _val = init;
+	const subs = [];
 
-  const subscribe = (cb) => {
-    subs.push(cb);
-    cb(_val);
+	const subscribe = (cb) => {
+		subs.push(cb);
+		cb(_val);
 
-    return () => {
-      const index = subs.findIndex((fn) => fn === cb);
-      subs.splice(index, 1);
-    };
-  };
+		return () => {
+			const index = subs.findIndex((fn) => fn === cb);
+			subs.splice(index, 1);
+		};
+	};
 
-  const set = (v) => {
-    _val = v;
-    subs.forEach((fn) => fn(_val));
-  };
+	const set = (v) => {
+		_val = v;
+		subs.forEach((fn) => fn(_val));
+	};
 
-  const update = (fn) => set(fn(_val));
+	const update = (fn) => set(fn(_val));
 
-  return { subscribe, set, update };
+	return { subscribe, set, update };
 }
 ```
 
