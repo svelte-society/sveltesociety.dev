@@ -2290,8 +2290,15 @@
 	    "npm": "svelecte",
 	    "addedOn": "2021-10-10",
 	    "category": "Forms & User Input",
-	    "tags": [
-		"components and libraries", "forms", "interactions", "inputs and widgets"
-	    ]
+	    "tags": ["components and libraries", "forms", "interactions", "inputs and widgets"]
+  },
+  {
+		"title": "svelte-adapter-azure-swa",
+		"url": "https://github.com/geoffrich/svelte-adapter-azure-swa",
+		"description": "SvelteKit adapter for Azure Static Web Apps.",
+		"npm": "svelte-adapter-azure-swa",
+		"addedOn": "2021-10-12",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"]
 	}
 ]
