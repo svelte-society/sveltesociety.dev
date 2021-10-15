@@ -64,7 +64,7 @@
 		"description": "Adapter for Svelte apps that creates a Begin or Architect app, using a function for dynamic server rendering.",
 		"url": "https://github.com/architect/sveltekit-adapter",
 		"npm": "https://www.npmjs.com/package/@architect/sveltekit-adapter",
-		"stars": 0,
+		"stars": 3,
 		"tags": ["integrations"],
 		"addedOn": "2021-08-09T00:00:00Z",
 		"category": "SvelteKit Adapters"
@@ -2200,7 +2200,7 @@
 		"category": "SvelteKit Adapters",
 		"description": "An adapter to launch multiple adapter",
 		"npm": "@macfja/svelte-multi-adapter",
-		"stars": 0,
+		"stars": 1,
 		"tags": [],
 		"url": "https://github.com/macfja/svelte-adapter-multi#readme",
 		"addedOn": "2021-08-23T15:40:00.000Z"
