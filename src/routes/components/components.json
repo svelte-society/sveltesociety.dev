@@ -2288,6 +2288,7 @@
 		"url": "https://github.com/geoffrich/svelte-adapter-azure-swa",
 		"description": "SvelteKit adapter for Azure Static Web Apps.",
 		"npm": "svelte-adapter-azure-swa",
+		"stars": 7,
 		"addedOn": "2021-10-12",
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"]
