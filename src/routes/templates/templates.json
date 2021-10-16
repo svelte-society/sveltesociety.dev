@@ -100,15 +100,6 @@
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Sapper",
-		"description": "Starter Webpack template for Sapper apps using tailwindcss, postcss, purgecss, and svelte-preprocess.",
-		"stars": 8,
-		"tags": [],
-		"title": "Sapper (Webpack) + TailwindCSS Template",
-		"url": "https://github.com/deanpress/sapper-tailwind-webpack-starter"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Skeleton app with Parcel, Jest, ESLint, Prettier, Babel, Wallaby",
 		"stars": 6,
@@ -165,10 +156,10 @@
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Svelte ecommerce - Headless, Authentication, Cart & Checkout, TailwindCSS, Server Rendered, Proxy + API Integrated, Animations, Stores, Lazy Loading, Loading Indicators, Carousel, Instant Search, Faceted Filters, 1 command deploy to production, Open Source, MIT license",
-		"stars": 215,
+		"stars": 486,
 		"tags": [],
-		"title": "sapper-ecommerce",
-		"url": "https://github.com/itswadesh/sapper-ecommerce"
+		"title": "svelte-commerce",
+		"url": "https://github.com/itswadesh/svelte-commerce"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -277,24 +268,6 @@
 		"tags": [],
 		"title": "neighbourhoodie/svelte-pouchdb-couchdb",
 		"url": "https://github.com/neighbourhoodie/svelte-pouchdb-couchdb"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Sapper",
-		"description": "Starter Rollup template for Sapper apps with Firebase functions",
-		"stars": 32,
-		"tags": ["ssr", "templates"],
-		"title": "Sapper - Firebase functions",
-		"url": "https://github.com/nhristov/sapper-template-firebase"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Sapper",
-		"description": "Starter Rollup template for Sapper apps using postcss, purgecss, cssnano, tailwindcss and svelte-preprocess",
-		"stars": 30,
-		"tags": [],
-		"title": "Sapper - PostCSS, Tailwind CSS, PurgeCSS, cssnano",
-		"url": "https://github.com/nhristov/sapper-template-rollup"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -471,15 +444,6 @@
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Sapper",
-		"description": "Starter template for Sapper apps",
-		"stars": 725,
-		"tags": [],
-		"title": "sveltejs/sapper-template",
-		"url": "https://github.com/sveltejs/sapper-template"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Template for building basic applications with Svelte with rollup",
 		"stars": 1309,
@@ -558,15 +522,6 @@
 		"tags": [],
 		"title": "svelte-component-template",
 		"url": "https://github.com/YogliB/svelte-component-template"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Sapper",
-		"description": "Skip setup and start code with SENT (Sapper.js, Express.js, Node.js, Typescript) and other tools template",
-		"stars": 68,
-		"tags": [],
-		"title": "Zimtir/SENT-template",
-		"url": "https://github.com/Zimtir/SENT-template"
 	},
 	{
 		"addedOn": "2021-06-24T14:39:13Z",
