@@ -2284,6 +2284,15 @@
 		"tags": ["components and libraries", "internationalization"]
 	},
 	{
+		"title": "svelecte",
+		"url": "https://github.com/mskocik/svelecte",
+		"description": "Selectize-like autocomplete select/multiselect/tagging component",
+		"npm": "svelecte",
+		"addedOn": "2021-10-10",
+		"category": "Forms & User Input",
+		"tags": ["components and libraries", "forms", "interactions", "inputs and widgets"]
+	},
+	{
 		"title": "svelte-adapter-azure-swa",
 		"url": "https://github.com/geoffrich/svelte-adapter-azure-swa",
 		"description": "SvelteKit adapter for Azure Static Web Apps.",
