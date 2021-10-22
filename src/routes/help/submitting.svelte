@@ -51,7 +51,8 @@
 		npm,
 		addedOn,
 		category: category?.value,
-		tags: tags?.map((tag) => tag.value)
+		tags: tags?.map((tag) => tag.value),
+		stars: 0
 	};
 
 	$: currentTags = data[type.value].tags;
