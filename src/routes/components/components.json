@@ -2312,15 +2312,12 @@
 		"tags": ["integrations"]
 	},
 	{
-	    	"title": "svelte-adapter-appengine",
-	    	"url": "https://github.com/halfdanj/svelte-adapter-appengine",
-	    	"description": "SvelteKit adapter for Google Cloud App Engine",
-	    	"npm": "svelte-adapter-appengine",
-	    	"stars": 0,
-	    	"addedOn": "2021-10-20",
-	    	"category": "SvelteKit Adapters",
-	    	"tags": ["integrations"]
-		"addedOn": "2021-10-12",
+		"title": "svelte-adapter-appengine",
+		"url": "https://github.com/halfdanj/svelte-adapter-appengine",
+		"description": "SvelteKit adapter for Google Cloud App Engine",
+		"npm": "svelte-adapter-appengine",
+		"stars": 0,
+		"addedOn": "2021-10-20",
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"]
 	}
