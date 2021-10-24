@@ -285,5 +285,15 @@
 		"npm": "svelte-translate-tools",
 		"addedOn": "2021-09-29",
 		"category": "Bundler Plugins"
+	},
+	{
+		"title": "svelte-reactive-css-preprocess",
+		"url": "https://github.com/srmullen/svelte-reactive-css-preprocess",
+		"description": "Automatically update css on component state changes.",
+		"npm": "svelte-reactive-css-preprocess",
+		"addedOn": "2021-10-24",
+		"category": "Preprocessors",
+		"tags": [],
+		"stars": 28
 	}
 ]
