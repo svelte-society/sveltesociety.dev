@@ -18,10 +18,16 @@
 
 <style>
 	main {
-		display: flex;
-		flex-wrap: wrap;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		align-items: stretch;
 		justify-items: stretch;
 		gap: var(--s-10);
+	}
+	@media (min-width: 1280px) {
+		main {
+			display: flex;
+			flex-wrap: wrap;
+		}
 	}
 </style>
