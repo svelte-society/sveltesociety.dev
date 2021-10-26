@@ -109,7 +109,7 @@ Another situation that can sometimes cause unexpected results is when you reassi
     num: 0
   };
 
-  function(obj) {
+  function updateNum(obj) {
     obj.num = 25;
   }
 </script>
