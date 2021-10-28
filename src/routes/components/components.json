@@ -6,7 +6,14 @@
 		"npm": "date-picker-svelte",
 		"addedOn": "2021-10-23",
 		"category": "Forms & User Input",
-		"tags": [ "time and date", "forms", "components and libraries", "form validation", "inputs and widgets", "component sets"]
+		"tags": [
+			"time and date",
+			"forms",
+			"components and libraries",
+			"form validation",
+			"inputs and widgets",
+			"component sets"
+		]
 	},
 	{
 		"title": "svelte-virtual-table",
