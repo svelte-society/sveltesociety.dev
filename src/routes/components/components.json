@@ -2314,14 +2314,12 @@
 	},
 	{
 		"title": "sveltekit-adapter-browser-extension",
-    		"url": "https://github.com/antony/sveltekit-adapter-browser-extension",
+		"url": "https://github.com/antony/sveltekit-adapter-browser-extension",
 		"description": "Build browser extensions with Svelte",
 		"npm": "",
 		"addedOn": "2021-10-29",
 		"category": "SvelteKit Adapters",
-		"tags": [
-			"integrations"
-		],
+		"tags": ["integrations"],
 		"stars": 25
 	}
 ]
