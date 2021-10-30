@@ -1,5 +1,21 @@
 [
 	{
+		"title": "Date Picker Svelte",
+		"url": "https://github.com/probablykasper/date-picker-svelte",
+		"description": "Date and time picker for Svelte",
+		"npm": "date-picker-svelte",
+		"addedOn": "2021-10-23",
+		"category": "Forms & User Input",
+		"tags": [
+			"time and date",
+			"forms",
+			"components and libraries",
+			"form validation",
+			"inputs and widgets",
+			"component sets"
+		]
+	},
+	{
 		"title": "svelte-virtual-table",
 		"description": "A virtual, sortable table for Svelte ",
 		"url": "https://github.com/BernhardWebstudio/svelte-virtual-table",
