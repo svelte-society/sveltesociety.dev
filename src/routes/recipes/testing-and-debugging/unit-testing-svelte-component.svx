@@ -26,9 +26,9 @@ test('should render', () => {
 
 ### Changing component props
 
-A components props can be changed or set by calling the .\$set method of the component itself. results also has a component key which contains the component instance giving us access to Svelte’s full client-side API.
+A components props can be changed or set by calling the .$set method of the component itself. results also has a component key which contains the component instance giving us access to Svelte’s full client-side API.
 
-Svelte schedules all component updates for completion asynchronously in the next micro-task. Awaiting the action that triggers that micro-task will ensure that the component has been updated before proceeding through the code. This also applies to any Svelte component update, regardless of whether it is programmatically changed (via component.\$set) or via a ‘user’ action (such as clicking a button). For this to work we need to make sure that we make the test’s callback function async, so we can use await in the body.
+Svelte schedules all component updates for completion asynchronously in the next micro-task. Awaiting the action that triggers that micro-task will ensure that the component has been updated before proceeding through the code. This also applies to any Svelte component update, regardless of whether it is programmatically changed (via component.$set) or via a ‘user’ action (such as clicking a button). For this to work we need to make sure that we make the test’s callback function async, so we can use await in the body.
 
 ```js
 import { render } from '@testing-library/svelte';
