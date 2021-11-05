@@ -40,7 +40,7 @@ test('should render', async () => {
 	});
 
 	await component.$set({ label: 'another button' });
-	expect(() => results.getByLabelText('another button')).not.toThrow();
+	expect(() => getByLabelText('another button')).not.toThrow();
 });
 ```
 
