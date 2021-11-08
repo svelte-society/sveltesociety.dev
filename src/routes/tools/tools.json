@@ -295,5 +295,14 @@
 		"category": "Preprocessors",
 		"tags": [],
 		"stars": 28
+	},
+	{
+		"title": "svelte-subcomponent-preprocessor",
+		"url": "https://github.com/srmullen/svelte-subcomponent-preprocessor",
+		"description": "Write more than one component per svelte file",
+		"npm": "svelte-subcomponent-preprocessor",
+		"addedOn": "2021-11-08",
+		"category": "Preprocessors",
+		"stars": 7
 	}
 ]
