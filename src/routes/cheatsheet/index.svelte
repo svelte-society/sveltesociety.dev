@@ -1,12 +1,10 @@
 <script>
 	import CheatSheetCard from './_CheatSheetCard.svelte';
-	import { page } from '$app/stores';
 	import { cheatSheet } from './cheat-sheet';
 	import metatags from '$lib/stores/metatags';
 
 	metatags.title('Cheat Sheet');
 	metatags.desc('No time to read the docs? Just use the cheat sheet! :)');
-	metatags.url($page.host + $page.path);
 </script>
 
 <h1>Cheat Sheet</h1>

@@ -9,7 +9,6 @@
 	metatags.desc(
 		'This cookbook serves shows users how best-in-practice code is written in Svelte. You’ll learn how to import third-party libraries, external scripts as well as how to handle common problems that you will have to solve often.'
 	);
-	metatags.url($page.host + $page.path);
 </script>
 
 <article>

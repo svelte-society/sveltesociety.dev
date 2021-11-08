@@ -1,11 +1,9 @@
 <script>
 	import Link from '$layout/Link.svelte';
-	import { page } from '$app/stores';
 	import metatags from '$lib/stores/metatags';
 
 	metatags.title('Home');
 	metatags.desc('Svelte Society is a community-driven effort to organise and promote SvelteJS.');
-	metatags.url($page.host + $page.path);
 </script>
 
 <article class="container">

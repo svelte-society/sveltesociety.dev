@@ -6,6 +6,10 @@
 	import Header from '$layout/Header.svelte';
 	import Footer from '$layout/Footer.svelte';
 	import metatags from '$lib/stores/metatags';
+	import { page } from '$app/stores';
+
+	// update our URL meta on page transitions
+	page.subscribe(() => metatags.url($page.host + $page.path));
 </script>
 
 <svelte:head>
