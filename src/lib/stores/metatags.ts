@@ -53,6 +53,7 @@ type MetaTagsStore = {
 	image: (image: string) => void;
 	alt: (alt: string) => void;
 	url: (url: string) => void;
+	reset: () => void;
 };
 
 function CreateMetatagsStore(): MetaTagsStore {
@@ -72,6 +73,7 @@ function CreateMetatagsStore(): MetaTagsStore {
 	const alt = (alt) =>
 		update((curr) => ({ ...curr, alt: alt, 'og:image:alt': alt, 'twitter:image:alt': alt }));
 	const url = (url) => update((curr) => ({ ...curr, 'og:url': url }));
+	const reset = () => set(initialTags);
 
 	return {
 		subscribe,
@@ -80,7 +82,8 @@ function CreateMetatagsStore(): MetaTagsStore {
 		title,
 		desc,
 		image,
-		alt
+		alt,
+		reset
 	};
 }
 
