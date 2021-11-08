@@ -12,7 +12,6 @@
 	// as metadata set on one page can find its self on another
 	// page.
 	navigating.subscribe((res) => {
-		console.log(res);
 		if (res) {
 			metatags.reset();
 		} else {
