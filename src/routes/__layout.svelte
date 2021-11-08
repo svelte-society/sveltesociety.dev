@@ -6,19 +6,6 @@
 	import Header from '$layout/Header.svelte';
 	import Footer from '$layout/Footer.svelte';
 	import metatags from '$lib/stores/metatags';
-	import { page, navigating } from '$app/stores';
-
-	// We need to reset our metadata on each navigation
-	// as metadata set on one page can find its self on another
-	// page.
-	navigating.subscribe((res) => {
-		if (res) {
-			metatags.reset();
-		} else {
-			// update our URL meta on page transitions
-			metatags.url($page.host + $page.path);
-		}
-	});
 </script>
 
 <svelte:head>

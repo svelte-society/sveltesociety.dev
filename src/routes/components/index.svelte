@@ -11,7 +11,7 @@
 	import Select from '$components/Select.svelte';
 	import metatags from '$lib/stores/metatags';
 
-	metatags.title('Components');
+	metatags.update({ title: 'Components' });
 
 	let searchValue;
 	const tagItems = extractUnique(components, 'tags');

@@ -16,7 +16,7 @@
 	import EventListElement from '$lib/components/EventListElement/index.svelte';
 	import metatags from '$lib/stores/metatags';
 
-	metatags.title('Events');
+	metatags.update({ title: 'Events' });
 	export let events = {};
 </script>
 

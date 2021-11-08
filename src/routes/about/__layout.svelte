@@ -1,7 +1,7 @@
 <script>
 	import metatags from '$lib/stores/metatags';
 
-	metatags.title('About');
+	metatags.update({ title: 'About' });
 </script>
 
 <main class="wrapper">

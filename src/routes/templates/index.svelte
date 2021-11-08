@@ -8,7 +8,7 @@
 	import SearchLayout from '$lib/layouts/SearchLayout.svelte';
 	import metatags from '$lib/stores/metatags';
 
-	metatags.title('Templates');
+	metatags.update({ title: 'Templates' });
 
 	let searchValue;
 

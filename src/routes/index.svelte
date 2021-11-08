@@ -2,8 +2,10 @@
 	import Link from '$layout/Link.svelte';
 	import metatags from '$lib/stores/metatags';
 
-	metatags.title('Home');
-	metatags.desc('Svelte Society is a community-driven effort to organise and promote SvelteJS.');
+	metatags.update({
+		title: 'Home',
+		description: 'Svelte Society is a community-driven effort to organise and promote SvelteJS.'
+	});
 </script>
 
 <article class="container">

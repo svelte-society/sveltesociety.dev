@@ -2,7 +2,7 @@
 	import metatags from '$lib/stores/metatags';
 
 	export let title = '';
-	metatags.title(title);
+	metatags.update({ title });
 </script>
 
 <div>

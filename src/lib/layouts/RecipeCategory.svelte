@@ -8,7 +8,7 @@
 
 	export let title;
 
-	metatags.title(title);
+	metatags.update({ title });
 </script>
 
 <main>

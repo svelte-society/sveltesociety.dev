@@ -9,7 +9,7 @@
 	import components from '../templates/templates.json';
 	import metatags from '$lib/stores/metatags';
 
-	metatags.title('Tools');
+	metatags.update({ title: 'Tools' });
 
 	let searchValue;
 

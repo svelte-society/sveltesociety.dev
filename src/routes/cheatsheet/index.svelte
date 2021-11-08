@@ -3,8 +3,10 @@
 	import { cheatSheet } from './cheat-sheet';
 	import metatags from '$lib/stores/metatags';
 
-	metatags.title('Cheat Sheet');
-	metatags.desc('No time to read the docs? Just use the cheat sheet! :)');
+	metatags.update({
+		title: 'Cheat Sheet',
+		description: 'No time to read the docs? Just use the cheat sheet! :)'
+	});
 </script>
 
 <h1>Cheat Sheet</h1>

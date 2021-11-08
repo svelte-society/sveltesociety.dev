@@ -20,6 +20,10 @@ type Metatags = {
 	'og:url': string;
 };
 
+type UpdateMetaTags = Partial<
+	Pick<Metatags, 'title' | 'description' | 'type' | 'image' | 'alt'> & { url: string }
+>;
+
 const initialTags: Metatags = {
 	title: 'Svelte Society',
 	description:
@@ -53,27 +57,44 @@ type MetaTagsStore = {
 	image: (image: string) => void;
 	alt: (alt: string) => void;
 	url: (url: string) => void;
-	reset: () => void;
+	update: (opts: UpdateMetaTags) => void;
 };
 
 function CreateMetatagsStore(): MetaTagsStore {
 	const { subscribe, set, update } = writable(initialTags);
 
-	const title = (title) =>
-		update((curr) => ({ ...curr, title: title, 'og:title': title, 'twitter:title': title }));
-	const desc = (desc) =>
-		update((curr) => ({
-			...curr,
-			description: desc,
-			'og:description': desc,
-			'twitter:description': desc
-		}));
-	const image = (image) =>
-		update((curr) => ({ ...curr, image: image, 'og:image': image, 'twitter:image': image }));
-	const alt = (alt) =>
-		update((curr) => ({ ...curr, alt: alt, 'og:image:alt': alt, 'twitter:image:alt': alt }));
-	const url = (url) => update((curr) => ({ ...curr, 'og:url': url }));
-	const reset = () => set(initialTags);
+	const getTitles = (title: string) => ({ title, 'og:title': title, 'twitter:title': title });
+	const getDescriptions = (desc: string) => ({
+		description: desc,
+		'og:description': desc,
+		'twitter:description': desc
+	});
+	const getImages = (image: string) => ({ image, 'og:image': image, 'twitter:image': image });
+	const getAlts = (alt: string) => ({ alt, 'og:image:alt': alt, 'twitter:image:alt': alt });
+	const getUrls = (url: string) => ({ 'og:url': url });
+
+	const title = (title: string) => update((curr) => ({ ...curr, ...getTitles(title) }));
+	const desc = (desc: string) => update((curr) => ({ ...curr, ...getDescriptions(desc) }));
+	const image = (image: string) => update((curr) => ({ ...curr, ...getImages(image) }));
+	const alt = (alt: string) => update((curr) => ({ ...curr, ...getAlts(alt) }));
+	const url = (url: string) => update((curr) => ({ ...curr, ...getUrls(url) }));
+
+	const setUpdate = (opts: UpdateMetaTags) => {
+		const titles = opts.title ? getTitles(opts.title) : {};
+		const descriptions = opts.description ? getDescriptions(opts.description) : {};
+		const images = opts.image ? getImages(opts.image) : {};
+		const alts = opts.alt ? getAlts(opts.alt) : {};
+		const urls = opts.url ? getUrls(opts.url) : {};
+
+		set({
+			...initialTags,
+			...titles,
+			...descriptions,
+			...images,
+			...alts,
+			...urls
+		});
+	};
 
 	return {
 		subscribe,
@@ -83,7 +104,7 @@ function CreateMetatagsStore(): MetaTagsStore {
 		desc,
 		image,
 		alt,
-		reset
+		update: setUpdate
 	};
 }
 
