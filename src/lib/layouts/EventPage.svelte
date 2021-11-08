@@ -1,5 +1,8 @@
 <script>
+	import metatags from '$lib/stores/metatags';
+
 	export let title = '';
+	metatags.title(title);
 </script>
 
 <div>

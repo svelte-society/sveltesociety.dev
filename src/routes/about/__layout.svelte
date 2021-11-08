@@ -1,6 +1,9 @@
-<svelte:head>
-	<title>About - Svelte Society</title>
-</svelte:head>
+<script>
+	import metatags from '$lib/stores/metatags';
+
+	metatags.title('About');
+</script>
+
 <main class="wrapper">
 	<slot />
 </main>

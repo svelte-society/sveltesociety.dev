@@ -3,8 +3,10 @@
 	import Icon from '$lib/components/Icon/index.svelte';
 	import { categories } from '$lib/stores/recipes';
 	import { page } from '$app/stores';
-
+	import metatags from '$lib/stores/metatags';
 	export let title;
+
+	metatags.title(title);
 </script>
 
 <main>

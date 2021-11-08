@@ -7,6 +7,9 @@
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import { compare, selectSortItems } from '$lib/utils/sort';
 	import components from '../templates/templates.json';
+	import metatags from '$lib/stores/metatags';
+
+	metatags.title('Tools');
 
 	let searchValue;
 

@@ -6,6 +6,9 @@
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import Select from '$lib/components/Select.svelte';
 	import SearchLayout from '$lib/layouts/SearchLayout.svelte';
+	import metatags from '$lib/stores/metatags';
+
+	metatags.title('Templates');
 
 	let searchValue;
 

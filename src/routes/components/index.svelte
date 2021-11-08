@@ -9,6 +9,10 @@
 	import { compare, selectSortItems } from '$lib/utils/sort';
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import Select from '$components/Select.svelte';
+	import metatags from '$lib/stores/metatags';
+
+	metatags.title('Components');
+
 	let searchValue;
 	const tagItems = extractUnique(components, 'tags');
 	let filterTag = [];

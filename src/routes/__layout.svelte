@@ -6,19 +6,16 @@
 	import Header from '$layout/Header.svelte';
 	import Footer from '$layout/Footer.svelte';
 	import metatags from '$lib/stores/metatags';
-	import { page } from '$app/stores';
-
-	let path = $page.path.split('/').toString().replace(',', '');
-	if ($page.path === '/') path = 'Home';
-	const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 </script>
 
 <svelte:head>
 	{#each Object.entries($metatags) as [property, content]}
 		{#if content}
-			{#if ['title', 'description', 'image'].includes(property)}
+			{#if property === 'title'}
+				<title>{content} - Svelte Society</title>
+				<meta name={property} content={`${content} - Svelte Society`} />
+			{:else if ['description', 'image'].includes(property)}
 				<meta name={property} {content} />
-				<title>{capitalize(path)} - Svelte Society</title>
 			{:else}
 				<meta {property} {content} />
 			{/if}
