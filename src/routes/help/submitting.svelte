@@ -30,7 +30,7 @@
 
 	let clipboardCopy = false;
 	const copy = () => {
-		copyToClipboard(JSON.stringify(jsonSnippet, null, 4)).then(() => (clipboardCopy = false));
+		copyToClipboard(JSON.stringify(jsonSnippet, null, '\t')).then(() => (clipboardCopy = false));
 		clipboardCopy = true;
 	};
 
@@ -171,7 +171,7 @@
 
 <h2>JSON Snippet</h2>
 <pre>
-	{JSON.stringify(jsonSnippet,null,4)}<button on:click={copy}>{clipboardCopy ? 'Copied' : 'Copy'}</button>
+	{JSON.stringify(jsonSnippet,null,'\t')}<button on:click={copy}>{clipboardCopy ? 'Copied' : 'Copy'}</button>
 </pre>
 <br />
 Copy this snippet and add it to
@@ -246,6 +246,7 @@ propose your changes
 
 	pre {
 		position: relative;
+		tab-size: 4;
 	}
 
 	pre button {
