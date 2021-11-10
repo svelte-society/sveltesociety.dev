@@ -702,5 +702,21 @@
 		"tags": ["ssr", "templates", "mdsvex", "seo"],
 		"title": "MailCheck-co/mailcheck.site",
 		"url": "https://github.com/MailCheck-co/mailcheck.site"
-	}
+	},
+	{
+    "title": "simple cloud music",
+    "url": "https://github.com/dufu1991/simple-cloud-music",
+    "description": "简洁的的第三方网易云音乐播放器",
+    "npm": "",
+    "addedOn": "2021-11-10",
+    "category": "Svelte",
+    "tags": [
+        "component sets",
+        "integrations",
+        "components and libraries",
+        "mobile",
+        "stores and state"
+    ],
+    "stars": 0
+}
 ]
