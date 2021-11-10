@@ -2,11 +2,14 @@
 	import Icon from '$lib/components/Icon/index.svelte';
 	import { categories } from '$lib/stores/recipes';
 	import { page } from '$app/stores';
+	import Seo from '$lib/components/Seo.svelte';
 
 	const childrenNodes = $categories.find((c) => c.path === $page.url.pathname).children || [];
 
 	export let title;
 </script>
+
+<Seo {title} />
 
 <main>
 	<div class="TOC">

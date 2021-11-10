@@ -1,13 +1,3 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit';
-
-	export const load: Load = async function ({ stuff }) {
-		stuff.metatags.title = 'Svelte Society - submit component, template, tool.';
-		stuff.metatags.description = 'Expand the Svelte ecosystem by contributing your work!';
-		return { stuff };
-	};
-</script>
-
 <script lang="ts">
 	import SvelteSelect from 'svelte-select';
 	import components from '../components/components.json';
@@ -16,6 +6,7 @@
 	import { onMount, tick } from 'svelte';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 	import { extractUnique } from '$lib/utils/extractUnique';
+	import Seo from '$lib/components/Seo.svelte';
 
 	const repoURL = 'https://github.com/svelte-society/sveltesociety.dev';
 	const types = ['Component', 'Template', 'Tool'].map((t) => ({
@@ -92,6 +83,8 @@
 		tags = null;
 	}
 </script>
+
+<Seo title="Submit component" />
 
 <h1>Submitting a new component</h1>
 <p>

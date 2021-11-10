@@ -11,6 +11,7 @@
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
 	import { compare, selectSortItems } from '$lib/utils/sort';
 	import { extractUnique } from '$lib/utils/extractUnique';
+	import Seo from '$lib/components/Seo.svelte';
 
 	let searchValue;
 	const tagItems = extractUnique(components, 'tags');
@@ -69,6 +70,8 @@
 		'User Interaction': 'ui'
 	};
 </script>
+
+<Seo title="Components" />
 
 <SearchLayout title="Components">
 	<section class="controls" slot="controls">
