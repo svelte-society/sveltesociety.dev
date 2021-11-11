@@ -19,3 +19,5 @@ jobs:
       with:
         prettier_options: --write **/*.json
         only_changed: True
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v7
