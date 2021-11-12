@@ -2366,5 +2366,15 @@
 		"addedOn": "2022-01-09",
 		"tags": ["internationalization"],
 		"stars": 176
+	},
+	{
+		"title": "svelty-picker",
+		"url": "https://github.com/mskocik/svelty-picker",
+		"description": "Simple date & time picker you will love",
+		"npm": "svelty-picker",
+		"addedOn": "2021-11-12",
+		"category": "Forms & User Input",
+		"tags": ["forms","inputs and widgets","interactions","time and date"],
+		"stars": 0
 	}
 ]
