@@ -11,20 +11,17 @@
 
 	const tagItems = extractUnique(components, 'tags');
 	let filterTag = [];
-	let selectedTags = null;
 
 	const categoryItems = [{ label: 'All', value: null }, ...extractUnique(components, 'category')];
-	let selectedCategory = null;
 	let filterCategory = null;
 
-	let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
-	$: sorting = selectedSorting?.value || 'stars_desc';
+	let selectedSorting = null;
+	$: sorting = selectedSorting || 'stars_desc';
 
 	const intersection = (array1, array2) => {
 		return array1.filter((item) => array2.includes(item));
 	};
 
-	$: filterCategory = selectedCategory?.value || null;
 	$: dataToDisplay = components
 		.filter((component) => {
 			if (!searchValue && filterTag.length === 0 && filterCategory === null) return true;
@@ -46,7 +43,6 @@
 		.sort(compare(sorting));
 
 	$: categories = extractUnique(dataToDisplay, 'category');
-	$: filterTag = selectedTags?.map((obj) => obj.value) || [];
 
 	const categoryId = {
 		Sapper: 'sapper',
@@ -59,21 +55,18 @@
 <SearchLayout title="Templates">
 	<section class="controls" slot="controls">
 		<div class="inputs">
-			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />
+			<Select bind:value={filterTag} options={tagItems} multiple collapseSelection label="Tags" />
 			<Select
 				label="Category"
-				bind:value={selectedCategory}
-				items={categoryItems}
+				bind:value={filterCategory}
+				options={categoryItems}
 				placeholder="Category"
-				isClearable={false}
-				showIndicator
 			/>
 			<Select
-				items={selectSortItems}
+				options={selectSortItems}
 				bind:value={selectedSorting}
+				valueField="value"
 				label="Sorting"
-				showIndicator
-				isClearable={false}
 			/>
 
 			<a href="/help/submitting?type=template" class="submit">Submit a template</a>

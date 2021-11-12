@@ -115,7 +115,7 @@ hr {
 .controls {
 	display: grid;
 	justify-content: stretch;
-	align-items: center;
+	align-items: flex-start;
 	gap: var(--s-4);
 	font-family: Overpass;
 	position: relative;
@@ -128,15 +128,18 @@ hr {
 	padding: 20.5px var(--s-2);
 	border: 2px solid var(--dark-gray);
 	border-radius: 2px;
-	align-self: flex-end;
+	align-self: flex-start;
 	grid-row: 1/2;
 	font-family: Overpass;
 	background: #f3f6f9 url(/images/search-icon.svg) 98% no-repeat;
-	margin: 0;
+	margin: 19px 0 0;
 }
 .searchbar:focus {
 	outline: none;
-	border: 1px solid var(--secondary);
+	border: 2px solid var(--secondary);
+}
+.searchbar:focus::placeholder {
+	color: var(--secondary);
 }
 .searchbar-count {
 	position: absolute;

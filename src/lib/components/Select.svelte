@@ -1,5 +1,5 @@
 <script>
-	import SvelteSelect from 'svelte-select';
+	import Svelecte from 'svelecte';
 
 	export let value;
 	export let label = '';
@@ -9,7 +9,7 @@
 	{#if label}
 		<span>{label}</span>
 	{/if}
-	<SvelteSelect containerClasses="select-container" bind:value {...$$restProps} />
+	<Svelecte class="themed-svelecte" bind:value {...$$restProps} />
 </div>
 
 <style>
@@ -17,49 +17,38 @@
 		font-size: 0.875rem;
 	}
 	.themed {
-		/* --inputFontSize: 0.875rem; */
-		--multiItemActiveBG: var(--secondary);
-		--borderHoverColor: var(--secondary);
-		--borderFocusColor: var(--secondary);
-		--itemIsActiveBG: var(--secondary);
-		/* --indicatorTop: calc(50% - 13px); */
 		position: relative;
 		display: flex;
 		flex-direction: column;
 	}
 
-	.themed :global(.select-container) {
+	.themed :global(.sv-control) {
+		min-height: 62px;
 		border: 2px solid var(--dark-gray);
-		cursor: pointer;
-		flex: 1;
-		align-items: center;
-		padding: var(--s-2);
-		gap: 10px;
-		min-width: 150px;
-		min-height: 3rem;
 	}
-
-	.themed :global(.multiSelectItem) {
-		font-size: 0.875rem;
-		align-items: center;
-		--multiItemBorderRadius: var(--s-1);
-		--multiItemHeight: 1.25rem;
-		--multiItemMargin: 0;
-		--multiItemPadding: 0.2rem 0.3rem;
-		--multiClearBG: transparent;
-		--multiClearFill: var(--secondary);
-		--multiClearHoverBG: transparent;
-		/* --multiClearHoverFill: var(--white); */
-		/* --multiLabelMargin: 1px 5px 0 0; */
+	.themed :global(.sv-control:hover) {
+		border: 2px solid var(--secondary);
 	}
-
-	.themed :global(input) {
-		height: 1rem !important;
-		cursor: pointer !important;
+	.themed :global(.sv-content) {
+		padding: calc(13.5px - 4px) var(--s-2);
 	}
-
-	.themed :global(.multiSelectItem_clear) {
-		position: static;
-		cursor: pointer;
+	.themed :global(.sv-control .indicator-container svg) {
+		width: 36px;
+		height: 36px;
+		fill: var(--dark-gray);
+	}
+	.themed :global(.sv-control:hover .indicator-container svg) {
+		fill: var(--secondary);
+	}
+	.themed :global(.sv-item) {
+		border-radius: 4px;
+	}
+	.themed :global(a.sv-item-btn) {
+		border-width: 0;
+	}
+	.themed :global(a.sv-item-btn svg) {
+		height: 20px;
+		width: 20px;
+		max-width: 20px;
 	}
 </style>

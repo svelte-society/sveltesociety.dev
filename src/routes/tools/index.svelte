@@ -10,16 +10,14 @@
 
 	let searchValue;
 
-	const tagItems = extractUnique(tools, 'tags');
+	const tagItems = extractUnique(tools, 'tags').filter((tag) => tag.value);
 	let filterTag = [];
-	let selectedTags = null;
 
 	const categoryItems = [{ label: 'All', value: null }, ...extractUnique(components, 'category')];
-	let selectedCategory = null;
 	let filterCategory = null;
 
-	let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
-	$: sorting = selectedSorting?.value || 'stars_desc';
+	let selectedSorting = null;
+	$: sorting = selectedSorting || 'stars_desc';
 
 	const intersection = (array1, array2) => {
 		return array1.filter((item) => array2.includes(item));
@@ -35,7 +33,7 @@
 						component.title.toLowerCase().includes(searchValue.toLowerCase()) ||
 						component.description.toLowerCase().includes(searchValue.toLowerCase())
 					)) ||
-				(filterTag.length > 0 && intersection(filterTag, component.tags).length === 0) ||
+				(filterTag.length > 0 && intersection(filterTag, component.tags || []).length === 0) ||
 				(filterCategory !== null && component.category !== filterCategory)
 			) {
 				return false;
@@ -46,7 +44,6 @@
 		.sort(compare(sorting));
 
 	$: categories = extractUnique(dataToDisplay, 'category');
-	$: filterTag = selectedTags?.map((obj) => obj.value) || [];
 
 	const categoryId = {
 		'Bundler Plugins': 'bundling',
@@ -60,22 +57,14 @@
 <SearchLayout title="Tools">
 	<section slot="controls" class="controls">
 		<div class="inputs">
-			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />
+			<Select bind:value={filterTag} options={tagItems} multiple label="Tags" />
 			<Select
 				label="Category"
-				bind:value={selectedCategory}
-				items={categoryItems}
+				bind:value={filterCategory}
+				options={categoryItems}
 				placeholder="Category"
-				isClearable={false}
-				showIndicator
 			/>
-			<Select
-				items={selectSortItems}
-				bind:value={selectedSorting}
-				label="Sorting"
-				showIndicator
-				isClearable={false}
-			/>
+			<Select options={selectSortItems} bind:value={selectedSorting} label="Sorting" />
 			<a href="/help/submitting?type=tool" class="submit">Submit a tool</a>
 		</div>
 
