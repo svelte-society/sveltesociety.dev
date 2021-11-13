@@ -357,7 +357,7 @@ import { onMount } from 'svelte'
 
 onMount(() => {
   console.log('Mounting')
-  return () => (consolo.log('going out'))
+  return () => console.log('going out')
 })
 </script>
 
