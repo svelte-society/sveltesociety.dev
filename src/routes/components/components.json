@@ -2347,5 +2347,13 @@
 		"category": "Stores",
 		"tags": ["in-page navigation","stores and state"],
 		"stars": 1
+	}, {
+	   	"title": "@joeinnes/svelte-image",
+	    	"url": "https://github.com/joeinnes/svelte-image",
+    		"description": "Svelte Component for using image CDNs to dynamically serve responsive images.",
+    		"npm": "@joeinnes/svelte-image",
+	    	"addedOn": "2021-11-15",
+    		"tags": ["images", "cdn"],
+    		"stars": 0
 	}
 ]
