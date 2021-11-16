@@ -2347,5 +2347,15 @@
 		"category": "Stores",
 		"tags": ["in-page navigation","stores and state"],
 		"stars": 1
+	},
+	{
+		"title": "@budgetdraw/sveltekit-cloudflare-adapter",
+		"url": "https://github.com/budgetdraw/sveltekit-cloudflare-adapter",
+		"description": "Alternative SvelteKit adapter for Cloudflare workers. Designed to be standalone and not use wrangler.",
+		"npm": "@budgetdraw/sveltekit-cloudflare-adapter",
+		"addedOn": "2021-11-15",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 0
 	}
 ]
