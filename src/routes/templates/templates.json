@@ -702,5 +702,19 @@
 		"tags": ["ssr", "templates", "mdsvex", "seo"],
 		"title": "MailCheck-co/mailcheck.site",
 		"url": "https://github.com/MailCheck-co/mailcheck.site"
+	},
+	{
+    		"title": "svelte-postgrest-template",
+    		"url": "https://github.com/guyromm/svelte-postgrest-template",
+    		"description": "SvelteKit & auth with a PostgreSQL + postgREST backend",
+    		"npm": "",
+    		"addedOn": "2021-11-17",
+    		"tags": [
+        		"database",
+        		"integrations",
+        		"templates",
+        		"ssr"
+    		],
+    		"stars": 0
 	}
 ]
