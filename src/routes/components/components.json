@@ -2396,5 +2396,15 @@
 		"category": "Forms & User Input",
 		"tags": ["components and libraries", "forms", "inputs and widgets"],
 		"stars": 11 
+	},
+	{
+		"title": "sveltekit-adapter-wordpress-shortcode",
+		"url": "https://github.com/tomatrow/sveltekit-adapter-wordpress-shortcode",
+		"description": "Build wordpress shortcode plugins with SvelteKit",
+		"npm": "sveltekit-adapter-wordpress-shortcode",
+		"addedOn": "2021-01-18",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 6
 	}
 ]
