@@ -1,51 +1,19 @@
 <script>
-	import { persist, localStorage } from '@macfja/svelte-persistent-store';
-	import { writable } from 'svelte/store';
 	import SearchLayout from '$layouts/SearchLayout.svelte';
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
 	import List from '$components/ComponentIndex/CardList.svelte';
-	import Button from '$components/ComponentIndex/ArrowButton.svelte';
 	import components from './components.json';
-	import { compare, selectSortItems } from '$lib/utils/sort';
+	import { selectSortItems } from '$lib/utils/sort';
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import Select from '$components/Select.svelte';
-	let searchValue;
+	import { Operator, createSearch } from '$lib/stores/search';
+	import { packageManager, availablePackageManager } from '$lib/stores/userConfig';
+
 	const tagItems = extractUnique(components, 'tags');
-	let filterTag = [];
-	let selectedTags = null;
 	const categoryItems = [
 		{ label: 'All', value: null },
 		...extractUnique(components, 'category').filter((cat) => cat.value !== '')
 	];
-	let selectedCategory = null;
-	let filterCategory = null;
-	let sorting = 'stars_desc';
-	let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
-	$: sorting = selectedSorting?.value || 'stars_desc';
-	let packageManager = persist(writable('npm'), localStorage(), 'packageManager');
-	const intersection = (array1, array2) => {
-		return array1.filter((item) => array2.includes(item));
-	};
-	$: filterCategory = selectedCategory?.value || null;
-	$: dataToDisplay = components
-		.filter((component) => {
-			if (!searchValue && filterTag.length === 0 && filterCategory === null) return true;
-			if (
-				(searchValue &&
-					!(
-						component.title.toLowerCase().includes(searchValue.toLowerCase()) ||
-						component.description.toLowerCase().includes(searchValue.toLowerCase())
-					)) ||
-				(filterTag.length > 0 && intersection(filterTag, component.tags).length === 0) ||
-				(filterCategory !== null && component.category !== filterCategory)
-			) {
-				return false;
-			}
-			return true;
-		})
-		.sort(compare(sorting));
-	$: categories = extractUnique(dataToDisplay, 'category');
-	$: filterTag = selectedTags?.map((obj) => obj.value) || [];
 
 	const categoryId = {
 		Animations: 'animations',
@@ -62,6 +30,40 @@
 		Testing: 'testing',
 		'User Interaction': 'ui'
 	};
+
+	let searchValue;
+	let selectedTags = null;
+	let selectedCategory = null;
+	let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
+
+	const search = createSearch(components);
+
+	$: search.filter(
+		'tags',
+		selectedTags?.map((obj) => obj.value),
+		Operator.or
+	);
+	$: search.filter('category', selectedCategory?.value, Operator.exact);
+	$: search.filterGroup(
+		['title', 'description'],
+		searchValue || '',
+		Operator.contains,
+		Operator.or
+	);
+	$: search.sort(
+		selectedSorting.value.substring(0, selectedSorting.value.indexOf('_')),
+		selectedSorting.value.endsWith('asc')
+	);
+
+	$: categories = Object.values(
+		$search.reduce((grouped, item) => {
+			if (!Object.keys(grouped).includes(item.category)) {
+				grouped[item.category] = { label: item.category, value: item.category, items: [] };
+			}
+			grouped[item.category].items.push(item);
+			return grouped;
+		}, {})
+	).sort((a, b) => a.value.localeCompare(b.value));
 </script>
 
 <SearchLayout title="Components">
@@ -83,20 +85,13 @@
 				showIndicator
 				isClearable={false}
 			/>
-			<Button small active={$packageManager !== ''}>
-				{$packageManager.toUpperCase()}
-				<ul slot="menu" role="menu" class="popin no-wrap">
-					<li>
-						<label><input type="radio" bind:group={$packageManager} value="npm" /> NPM</label>
-					</li>
-					<li>
-						<label><input type="radio" bind:group={$packageManager} value="pnpm" /> PNPM</label>
-					</li>
-					<li>
-						<label><input type="radio" bind:group={$packageManager} value="yarn" /> Yarn</label>
-					</li>
-				</ul>
-			</Button>
+			<Select
+				items={availablePackageManager}
+				bind:valueValue={$packageManager}
+				label="Package Manager"
+				showIndicator
+				isClearable={false}
+			/>
 		</div>
 
 		<a href="/help/submitting?type=component" class="submit">Submit a component</a>
@@ -107,7 +102,7 @@
 			bind:value={searchValue}
 		/>
 		<span class="searchbar-count"
-			>{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
+			>{$search.length} result{#if $search.length !== 1}s{/if}</span
 		>
 	</section>
 	<section slot="items">
@@ -116,7 +111,7 @@
 				title={category.label || 'Unclassified'}
 				id={categoryId[category.label] || category.label || 'unclassified'}
 			>
-				{#each dataToDisplay.filter((d) => d.category === category.value) as data}
+				{#each category.items as data}
 					<ComponentCard {...data} manager={$packageManager} />
 				{/each}
 			</List>

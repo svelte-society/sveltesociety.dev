@@ -3,13 +3,22 @@
 
 	export let value;
 	export let label = '';
+
+	export let valueValue;
+	export let items;
+
+	$: if (value) valueValue = value.value;
+
+	if (value === undefined) {
+		value = items.find((item) => item.value === valueValue);
+	}
 </script>
 
 <div class="themed">
 	{#if label}
 		<span>{label}</span>
 	{/if}
-	<SvelteSelect containerClasses="select-container" bind:value {...$$restProps} />
+	<SvelteSelect containerClasses="select-container" bind:value {items} {...$$restProps} />
 </div>
 
 <style>

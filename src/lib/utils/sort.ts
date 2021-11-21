@@ -4,6 +4,7 @@ type SortableEntity = {
 	stars?: number;
 };
 
+// @TODO to remove, don't seem to be used
 export const compare = (sorting: string) => {
 	return (sortableEntityA: SortableEntity, sortableEntityB: SortableEntity): number => {
 		switch (sorting) {
@@ -34,10 +35,10 @@ export const compare = (sorting: string) => {
 };
 
 export const sortMap = {
-	added_desc: 'Added Desc',
-	added_asc: 'Added Asc',
-	name_asc: 'Name Asc',
-	name_desc: 'Name Desc',
+	addedOn_desc: 'Added Desc',
+	addedOn_asc: 'Added Asc',
+	title_asc: 'Name Asc',
+	title_desc: 'Name Desc',
 	stars_desc: 'Stars Desc',
 	stars_asc: 'Stars Asc'
 };

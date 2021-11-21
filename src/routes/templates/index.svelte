@@ -1,52 +1,16 @@
 <script>
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
 	import List from '$lib/components/ComponentIndex/CardList.svelte';
-	import components from './templates.json';
-	import { compare, selectSortItems } from '$lib/utils/sort';
+	import templates from './templates.json';
+	import { selectSortItems } from '$lib/utils/sort';
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import Select from '$lib/components/Select.svelte';
 	import SearchLayout from '$lib/layouts/SearchLayout.svelte';
+	import { Operator, createSearch } from '$lib/stores/search';
 
-	let searchValue;
-
-	const tagItems = extractUnique(components, 'tags');
-	let filterTag = [];
-	let selectedTags = null;
-
-	const categoryItems = [{ label: 'All', value: null }, ...extractUnique(components, 'category')];
-	let selectedCategory = null;
-	let filterCategory = null;
-
-	let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
-	$: sorting = selectedSorting?.value || 'stars_desc';
-
-	const intersection = (array1, array2) => {
-		return array1.filter((item) => array2.includes(item));
-	};
-
-	$: filterCategory = selectedCategory?.value || null;
-	$: dataToDisplay = components
-		.filter((component) => {
-			if (!searchValue && filterTag.length === 0 && filterCategory === null) return true;
-
-			if (
-				(searchValue &&
-					!(
-						component.title.toLowerCase().includes(searchValue.toLowerCase()) ||
-						component.description.toLowerCase().includes(searchValue.toLowerCase())
-					)) ||
-				(filterTag.length > 0 && intersection(filterTag, component.tags).length === 0) ||
-				(filterCategory !== null && component.category !== filterCategory)
-			) {
-				return false;
-			}
-
-			return true;
-		})
-		.sort(compare(sorting));
-
-	$: categories = extractUnique(dataToDisplay, 'category');
-	$: filterTag = selectedTags?.map((obj) => obj.value) || [];
+	const tagItems = extractUnique(templates, 'tags');
+	const categoryItems = [{ label: 'All', value: null }, ...extractUnique(templates, 'category')];
+	const search = createSearch(templates);
 
 	const categoryId = {
 		Sapper: 'sapper',
@@ -54,6 +18,38 @@
 		'Svelte Add': 'adders',
 		SvelteKit: 'svelte-kit'
 	};
+
+	let searchValue;
+	let selectedTags = null;
+	let selectedCategory = null;
+	let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
+
+	$: search.filter(
+		'tags',
+		selectedTags?.map((obj) => obj.value),
+		Operator.or
+	);
+	$: search.filter('category', selectedCategory?.value, Operator.exact);
+	$: search.filterGroup(
+		['title', 'description'],
+		searchValue || '',
+		Operator.contains,
+		Operator.or
+	);
+	$: search.sort(
+		selectedSorting.value.substring(0, selectedSorting.value.indexOf('_')),
+		selectedSorting.value.endsWith('asc')
+	);
+
+	$: categories = Object.values(
+		$search.reduce((grouped, item) => {
+			if (!Object.keys(grouped).includes(item.category)) {
+				grouped[item.category] = { label: item.category, value: item.category, items: [] };
+			}
+			grouped[item.category].items.push(item);
+			return grouped;
+		}, {})
+	).sort((a, b) => a.value.localeCompare(b.value));
 </script>
 
 <SearchLayout title="Templates">
@@ -86,7 +82,7 @@
 			bind:value={searchValue}
 		/>
 		<span class="searchbar-count"
-			>{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
+			>{$search.length} result{#if $search.length !== 1}s{/if}</span
 		>
 	</section>
 	<section slot="items">
@@ -95,7 +91,7 @@
 				title={category.label || 'Unclassified'}
 				id={categoryId[category.label] || category.label || 'unclassified'}
 			>
-				{#each dataToDisplay.filter((d) => d.category === category.value) as data}
+				{#each category.items as data}
 					<ComponentCard {...data} />
 				{/each}
 			</List>

@@ -2345,7 +2345,7 @@
 		"npm": "svelte-fsm",
 		"addedOn": "2021-11-01",
 		"category": "Stores",
-		"tags": ["in-page navigation","stores and state"],
+		"tags": ["in-page navigation", "stores and state"],
 		"stars": 1
 	}
 ]

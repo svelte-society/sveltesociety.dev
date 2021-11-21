@@ -42,11 +42,13 @@
 			/>{/if}
 	</h3>
 	<p class="flex-grow">{description}</p>
-	<div class="card__tags">
-		{#each tags as tag}
-			<Tag title={tag} variant="blue" />
-		{/each}
-	</div>
+	{#if typeof tags !== 'undefined'}
+		<div class="card__tags">
+			{#each tags as tag}
+				<Tag title={tag} variant="blue" />
+			{/each}
+		</div>
+	{/if}
 	{#if typeof stars !== 'undefined'}
 		<div class="card__bottom">
 			<div>
