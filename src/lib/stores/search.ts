@@ -1,4 +1,4 @@
-import { readable } from 'svelte/store';
+import { Readable, readable } from 'svelte/store';
 
 export enum Operator {
 	and,
@@ -18,12 +18,15 @@ type filterGroup = {
 	operator: Operator;
 	groupOperator: Operator;
 };
+type SearchableObject = {
+	[key: string]: unknown;
+};
 
 const intersection = (array1, array2) => {
 	return array1.filter((item) => array2.includes(item));
 };
 
-const filterObject = (object, filter: filter, defaultValue: boolean = true) => {
+const filterObject = (object: SearchableObject, filter: filter, defaultValue = true) => {
 	const filterValue = filter.value;
 	const itemValue = object[filter.field];
 
@@ -57,8 +60,8 @@ const filterObject = (object, filter: filter, defaultValue: boolean = true) => {
 	return defaultValue;
 };
 
-export const createSearch = (data) => {
-	let sourceData = data;
+export const createSearch = (data: Array<SearchableObject>): Readable<Array<SearchableObject>> => {
+	const sourceData = data;
 	let filters: Record<string, filter> = {};
 	let filterGroups: Record<string, filterGroup> = {};
 	let order = { field: 'name', ascending: true };
@@ -83,12 +86,12 @@ export const createSearch = (data) => {
 		filterGroups[key] = { fields, value, operator, groupOperator };
 		update();
 	};
-	const sort = (field: string, ascending: boolean = true) => {
+	const sort = (field: string, ascending = true) => {
 		order = { field, ascending };
 		update();
 	};
 
-	let searchResult = readable([], (set) => {
+	const searchResult = readable([], (set) => {
 		updateStore = set;
 	});
 
@@ -110,8 +113,8 @@ export const createSearch = (data) => {
 				});
 			})
 			.sort((itemA, itemB) => {
-				let firstValue = order.ascending ? itemA[order.field] : itemB[order.field];
-				let secondValue = order.ascending ? itemB[order.field] : itemA[order.field];
+				const firstValue = order.ascending ? itemA[order.field] : itemB[order.field];
+				const secondValue = order.ascending ? itemB[order.field] : itemA[order.field];
 
 				if (firstValue === undefined && secondValue === undefined) {
 					return 0;
