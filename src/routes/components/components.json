@@ -2347,5 +2347,15 @@
 		"category": "Stores",
 		"tags": ["in-page navigation","stores and state"],
 		"stars": 1
+	},
+	{
+    		"title": "svelte-slider",
+   		"url": "https://github.com/korywka/svelte-slider",
+    		"description": "Single and Range sliders",
+    		"npm": "svelte-slider",
+    		"addedOn": "2021-11-23",
+    		"category": "Forms & User Input",
+    		"tags": ["components and libraries", "forms", "inputs and widgets"],
+		"stars": 10
 	}
 ]
