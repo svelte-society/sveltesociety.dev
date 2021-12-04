@@ -6,7 +6,8 @@
 	import { selectSortItems } from '$lib/utils/sort';
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import Select from '$components/Select.svelte';
-	import { Operator, createSearch } from '$lib/stores/search';
+	import { createSearch } from '$lib/stores/search';
+	import { configureSearch, groupedByCategory } from '$lib/utils/search';
 	import { packageManager, availablePackageManager } from '$lib/stores/userConfig';
 
 	const tagItems = extractUnique(components, 'tags');
@@ -37,33 +38,15 @@
 	let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
 
 	const search = createSearch(components);
-
-	$: search.filter(
-		'tags',
-		selectedTags?.map((obj) => obj.value),
-		Operator.or
-	);
-	$: search.filter('category', selectedCategory?.value, Operator.exact);
-	$: search.filterGroup(
-		['title', 'description'],
-		searchValue || '',
-		Operator.contains,
-		Operator.or
-	);
-	$: search.sort(
-		selectedSorting.value.substring(0, selectedSorting.value.indexOf('_')),
-		selectedSorting.value.endsWith('asc')
+	$: configureSearch(
+		search,
+		selectedTags?.map((obj) => obj.value) ?? [],
+		selectedCategory?.value,
+		searchValue ?? '',
+		selectedSorting.value
 	);
 
-	$: categories = Object.values(
-		$search.reduce((grouped, item) => {
-			if (!Object.keys(grouped).includes(item.category)) {
-				grouped[item.category] = { label: item.category, value: item.category, items: [] };
-			}
-			grouped[item.category].items.push(item);
-			return grouped;
-		}, {})
-	).sort((a, b) => a.value.localeCompare(b.value));
+	const categories = groupedByCategory(search);
 </script>
 
 <SearchLayout title="Components">
@@ -106,7 +89,7 @@
 		>
 	</section>
 	<section slot="items">
-		{#each categories as category}
+		{#each $categories as category (category.value)}
 			<List
 				title={category.label || 'Unclassified'}
 				id={categoryId[category.label] || category.label || 'unclassified'}

@@ -1,4 +1,5 @@
-import { Readable, readable } from 'svelte/store';
+import { readable } from 'svelte/store';
+import type { Readable } from 'svelte/store';
 
 export enum Operator {
 	and,
@@ -18,7 +19,7 @@ type filterGroup = {
 	operator: Operator;
 	groupOperator: Operator;
 };
-type SearchableObject = {
+export type SearchableObject = {
 	[key: string]: unknown;
 };
 
@@ -35,7 +36,7 @@ const filterObject = (object: SearchableObject, filter: filter, defaultValue = t
 		typeof filterValue === 'string' &&
 		filterValue.trim() !== ''
 	) {
-		return itemValue.includes(filterValue.trim());
+		return (itemValue as string).toLowerCase().includes(filterValue.toLowerCase().trim());
 	}
 	if (
 		filter.operator === Operator.exact &&
@@ -60,7 +61,14 @@ const filterObject = (object: SearchableObject, filter: filter, defaultValue = t
 	return defaultValue;
 };
 
-export const createSearch = (data: Array<SearchableObject>): Readable<Array<SearchableObject>> => {
+export interface Searchable extends Readable<Array<SearchableObject>> {
+	filter(field: string, value, operator: Operator);
+	filterGroup(fields: Array<string>, value, operator: Operator, groupOperator: Operator);
+	sort(field: string, ascending: boolean);
+	resetFilters();
+}
+
+export const createSearch = (data: Array<SearchableObject>): Searchable => {
 	const sourceData = data;
 	let filters: Record<string, filter> = {};
 	let filterGroups: Record<string, filterGroup> = {};
@@ -120,17 +128,25 @@ export const createSearch = (data: Array<SearchableObject>): Readable<Array<Sear
 					return 0;
 				}
 
+				const firstValueAsDate = Date.parse(firstValue as string);
+				const secondValueAsDate = Date.parse(secondValue as string);
+
 				const isDate =
-					!isNaN(new Date(firstValue).valueOf()) || !isNaN(new Date(secondValue).valueOf());
+					typeof firstValue === 'string' &&
+					typeof secondValue === 'string' &&
+					!isNaN(firstValueAsDate) &&
+					!isNaN(secondValueAsDate);
 
 				if (isDate) {
-					return new Date(firstValue || 0).getTime() - new Date(secondValue || 0).getTime();
+					return (firstValueAsDate || 0) - (secondValueAsDate || 0);
 				}
 				if (typeof firstValue === 'number' || typeof secondValue === 'number') {
-					return parseInt(firstValue || 0) - parseInt(secondValue || 0);
+					return (parseInt(firstValue as string) || 0) - (parseInt(secondValue as string) || 0);
 				}
 
-				return (firstValue || '').toLowerCase().localeCompare((secondValue || '').toLowerCase());
+				return (firstValue as string)
+					.toLowerCase()
+					.localeCompare((secondValue as string).toLowerCase());
 			});
 
 		updateStore(filtered);
