@@ -29,10 +29,9 @@
 		"mdsvex": "^0.9.3",
 		"prettier": "~2.2.1",
 		"prettier-plugin-svelte": "^2.2.0",
-		"svelecte": "^3.2.1",
+		"svelecte": "^3.4.0",
 		"svelte": "^3.44.1",
 		"svelte-preprocess": "^4.7.4",
-		"svelte-select": "^4.4.0",
 		"ts-jest": "^27.0.5",
 		"tslib": "^2.0.0",
 		"typescript": "^4.4.2"
