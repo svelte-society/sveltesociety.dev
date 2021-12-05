@@ -1,5 +1,5 @@
 <script>
-	import SvelteSelect from 'svelte-select';
+	import Svelecte from 'svelecte';
 	import components from '../components/components.json';
 	import templates from '../templates/templates.json';
 	import tools from '../tools/tools.json';
@@ -34,7 +34,7 @@
 		clipboardCopy = true;
 	};
 
-	let type = types[0];
+	let type = types[0].value;
 	let title = 'svelte-lorem-ipsum';
 	let url = 'https://github.com/sveltejs/svelte-lorem-ipsum';
 	let description = 'A dummy text generator that does not exist';
@@ -43,24 +43,25 @@
 	let category;
 	let tags;
 
-	$: pathName = `${type.value}s`;
+	$: pathName = `${type}s`;
 	$: jsonSnippet = {
 		title,
 		url,
 		description,
 		npm,
 		addedOn,
-		category: category?.value,
-		tags: tags?.map((tag) => tag.value),
+		category: category || undefined,
+		tags: tags,
 		stars: 0
 	};
 
-	$: currentTags = data[type.value].tags;
-	$: currentCategories = data[type.value].categories;
+	$: currentTags = data[type].tags;
+	$: currentCategories = data[type].categories;
 
 	onMount(() => {
 		const typeQuery = new URLSearchParams(location.search).get('type');
-		type = types.find((t) => t.value == typeQuery) || types[0];
+		const typeObj = types.find((t) => t.value == typeQuery) || types[0];
+		type = typeObj.value;
 	});
 
 	function padWithZero(date) {
@@ -95,18 +96,11 @@
 </p>
 
 <p><code>*</code> marked fields are required</p>
-<div class="json-generator">
+<div class="json-generator themed-svelecte">
 	<div class="input-wrapper">
 		<label for="type">Type:</label>
 		<div>
-			<SvelteSelect
-				id="type"
-				items={types}
-				isClearable={false}
-				showIndicator
-				bind:value={type}
-				on:select={clearCategoryAndTags}
-			/>
+			<Svelecte id="type" options={types} bind:value={type} on:change={clearCategoryAndTags} />
 			<span class="input-helper">The type of snippet to generate</span>
 		</div>
 	</div>
@@ -150,20 +144,14 @@
 	<div class="input-wrapper">
 		<label for="category">Category:</label>
 		<div>
-			<SvelteSelect
-				id="category"
-				items={currentCategories}
-				isClearable={false}
-				showIndicator
-				bind:value={category}
-			/>
+			<Svelecte id="category" options={currentCategories} bind:value={category} />
 			<span class="input-helper">The category of the component</span>
 		</div>
 	</div>
 	<div class="input-wrapper">
 		<label for="tags" class="required">Tags:</label>
 		<div>
-			<SvelteSelect id="category" items={currentTags} showIndicator isMulti bind:value={tags} />
+			<Svelecte id="category" options={currentTags} multiple bind:value={tags} />
 			<span class="input-helper">A list of tags</span>
 		</div>
 	</div>
@@ -195,6 +183,28 @@ propose your changes
 		padding-block: var(--s-5);
 	}
 
+	.themed-svelecte :global(.svelecte-control) {
+		--sv-item-color: #000;
+		--sv-min-height: 43px;
+		--sv-border: 2px solid var(--dark-gray);
+		--sv-active-border: 2px solid var(--secondary);
+		--sv-item-active-bg: var(--secondary);
+		--sv-item-active-color: #fff;
+		--sv-item-btn-icon: #fff;
+		--sv-item-selected-bg: var(--secondary);
+		--sv-item-btn-bg: var(--secondary);
+		--sv-item-btn-bg-hover: #b32d00;
+	}
+	.themed-svelecte :global(.svelecte-control .sv-content) {
+		padding-left: 16px;
+	}
+	.themed-svelecte :global(.svelecte-control .sv-content.has-multiSelection) {
+		--sv-item-color: #fff;
+	}
+	.themed-svelecte :global(.sv-item) {
+		border-radius: 5px;
+		overflow: hidden;
+	}
 	.input-wrapper {
 		--borderRadius: 5px;
 		--border: 2px solid var(--dark-gray);
