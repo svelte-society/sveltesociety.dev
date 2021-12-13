@@ -73,15 +73,6 @@
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
-		"title": "meteor-svelte",
-		"category": "Bundler Plugins",
-		"description": "Build cybernetically enhanced web apps with Meteor and Svelte",
-		"url": "https://github.com/meteor-svelte/meteor-svelte",
-		"tags": [],
-		"stars": 106
-	},
-	{
-		"addedOn": "2021-08-09T10:14:05.723Z",
 		"title": "sveltejs-brunch",
 		"category": "Bundler Plugins",
 		"description": "Compile Svelte components inside Brunch projects",
@@ -295,5 +286,14 @@
 		"category": "Preprocessors",
 		"tags": [],
 		"stars": 28
-	}
+	},
+	{
+		"title": "melte",
+		"addedOn": "2021-12-13",
+		"category": "Bundler Plugins",
+		"description": "Build cybernetically enhanced web apps with Meteor and Svelte",
+		"url": "https://github.com/zodern/melte",
+		"tags": [],
+		"stars": 21
+	},
 ]
