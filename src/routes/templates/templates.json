@@ -702,5 +702,14 @@
 		"tags": ["ssr", "templates", "mdsvex", "seo"],
 		"title": "MailCheck-co/mailcheck.site",
 		"url": "https://github.com/MailCheck-co/mailcheck.site"
+	},
+	{
+	    "title": "sveltekit-package-template",
+	    "url": "https://github.com/tropix126/sveltekit-package-template",
+	    "description": "A barebones project that provides the essentials for writing highly-optimized, reusable packages in Svelte.",
+	    "addedOn": "2021-12-16",
+	    "category": "SvelteKit",
+	    "tags": ["components and libraries", "typescript", "preprocessors", "templates"],
+	    "stars": 14
 	}
 ]
