@@ -2347,5 +2347,19 @@
 		"category": "Stores",
 		"tags": ["in-page navigation","stores and state"],
 		"stars": 1
+	},
+	{
+	    "title": "svelte-codesandbox",
+	    "url": "https://github.com/tropix126/svelte-codesandbox",
+	    "description": "A powerful Svelte wrapper component around the CodeSandbox editor embed.",
+	    "npm": "svelte-codesandbox",
+	    "addedOn": "2021-12-16",
+	    "category": "Integration",
+	    "tags": [
+		"integrations",
+		"inputs and widgets",
+		"typescript"
+	    ],
+	    "stars": 0
 	}
 ]
