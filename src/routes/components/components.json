@@ -2347,5 +2347,18 @@
 		"category": "Stores",
 		"tags": ["in-page navigation","stores and state"],
 		"stars": 1
+	},
+	{
+		"title": "svelte-pin-input",
+		"url": "https://github.com/Yellowinq/svelte-pin-input",
+		"description": "Pin Input component for Svelte",
+		"npm": "@yellowinq/svelte-pin-input",
+		"addedOn": "2021-12-08",
+		"category": "Forms & User Input",
+		"tags": [
+			"inputs and widgets",
+			"components and libraries"
+		],
+		"stars": 0
 	}
 ]
