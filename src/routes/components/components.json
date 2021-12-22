@@ -2347,5 +2347,19 @@
 		"category": "Stores",
 		"tags": ["in-page navigation","stores and state"],
 		"stars": 1
+	},
+	{
+		"title": "SveadlessUI",
+		"url": "https://github.com/gibbu/sveadlessui",
+		"description": "HeadlessUI for Svelte.",
+		"npm": "sveadlessui",
+		"addedOn": "2021-12-22",
+		"category": "User Interaction",
+		"tags": [
+			"component sets",
+			"inputs and widgets",
+			"typescript"
+		],
+		"stars": 0
 	}
 ]
