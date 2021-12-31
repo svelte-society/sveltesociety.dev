@@ -2347,5 +2347,17 @@
 		"category": "Stores",
 		"tags": ["in-page navigation","stores and state"],
 		"stars": 1
+	},
+	{
+	    "title": "svelte-icons-pack",
+	    "url": "https://github.com/leshak/svelte-icons-pack",
+	    "description": "Icons pack.",
+	    "npm": "svelte-icons-pack",
+	    "addedOn": "2021-12-31",
+	    "category": "Design System",
+	    "tags": [
+		"fonts and icons"
+	    ],
+	    "stars": 4
 	}
 ]
