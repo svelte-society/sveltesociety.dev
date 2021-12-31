@@ -1,5 +1,18 @@
 [
 	{
+		"title": "Daisy UI",
+		"url": "https://daisyui.com/",
+		"description": "Tailwind CSS Components",
+		"npm": "daisyui",
+		"addedOn": "2021-12-31",
+		"category": "Design System",
+		"tags": [
+			"components and libraries",
+			"component sets"
+		],
+		"stars": 6934
+	},
+	{
 		"title": "Date Picker Svelte",
 		"url": "https://github.com/probablykasper/date-picker-svelte",
 		"description": "Date and time picker for Svelte",
