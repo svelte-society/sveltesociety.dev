@@ -2357,5 +2357,35 @@
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"],
 		"stars": 0
-	}
+	},
+	{
+	    	"title": "svelte-dx-table",
+	    	"url": "https://github.com/thecodejack/svelte-dx-table",
+	    	"description": "Simple dev friendly Svelte component for building a HTML Table with basic features like sorting by default.",
+	    	"npm": "svelte-dx-table",
+	    	"addedOn": "2022-01-04",
+	    	"category": "User Interaction",
+	    	"tags": ["components and libraries","layout and structure"],
+	    	"stars": 0
+	},
+	{
+	    	"title": "svelte-switch",
+	    	"url": "https://github.com/thecodejack/svelte-switch",
+	    	"description": "SvelteJS component for switch or toggle a boolean. User would be able to drag or click for toggling.",
+	    	"npm": "svelte-switch",
+	    	"addedOn": "2020-12-04",
+	    	"category": "Forms & User Input",
+	    	"tags": [ "components and libraries", "inputs and widgets"],
+	    	"stars": 16
+	},
+	{
+	    	"title": "svelte-pagination",
+	    	"url": "https://github.com/thecodejack/svelte-pagination",
+	    	"description": "Raw SvelteJS component for dynamic pagination. By applying styles, developer can acheive component in multiple forms.",
+	    	"npm": "svelte-pagination",
+	    	"addedOn": "2020-12-04",
+	    	"category": "Forms & User Input",
+	    	"tags": [ "components and libraries", "inputs and widgets"],
+	    	"stars": 2
+	},
 ]
