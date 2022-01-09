@@ -2357,5 +2357,14 @@
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"],
 		"stars": 0
+	},
+	{
+		"title": "svelte-intl-precompile",
+		"url": "https://svelte-intl-precompile.com/",
+		"description": "I18n library for Svelte.js that analyzes your keys at build time for max performance and minimal footprint",
+		"npm": "https://www.npmjs.com/package/svelte-intl-precompile",
+		"addedOn": "2022-01-09",
+		"tags": ["internationalization"],
+		"stars": 176
 	}
 ]
