@@ -702,5 +702,19 @@
 		"tags": ["ssr", "templates", "mdsvex", "seo"],
 		"title": "MailCheck-co/mailcheck.site",
 		"url": "https://github.com/MailCheck-co/mailcheck.site"
+	},
+	{
+   		"title": "Svelte + Tailwind + TS + Vite + Jest",
+		"url": "https://github.com/bholtbholt/svelte-template",
+		"description": "A starter template with Svelte, Tailwind 3, TypeScript, and Jest, running on Vite",
+		"npm": "",
+		"addedOn": "2022-01-09",
+		"category": "Svelte",
+		"tags": [
+			"templates",
+			"typescript",
+			"testing"
+		],
+		"stars": 0
 	}
 ]
