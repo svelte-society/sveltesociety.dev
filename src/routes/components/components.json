@@ -2366,5 +2366,15 @@
 		"addedOn": "2022-01-09",
 		"tags": ["internationalization"],
 		"stars": 176
+	},
+	{
+		"title": "svelte-cleavejs",
+		"url": "https://github.com/GCBenlloch/svelte-cleavejs",
+		"description": "Svelte action for Cleave.js input masking",
+		"npm": "svelte-cleavejs",
+		"addedOn": "2021-11-14",
+		"category": "User Interaction",
+		"tags": ["inputs and widgets"],
+		"stars": 0
 	}
 ]
