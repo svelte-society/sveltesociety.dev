@@ -313,5 +313,14 @@
 		"addedOn": "2021-11-08",
 		"category": "Preprocessors",
 		"stars": 7
+	},
+	{
+		"title": "typesafe-i18n",
+		"url": "https://github.com/ivanhofer/typesafe-i18n",
+		"description": "An opinionated, fully type-safe, lightweight localization library for TypeScript and JavaScript projects with no external dependencies.",
+		"npm": "typesafe-i18n",
+		"addedOn": "2021-12-08",
+		"tags": [],
+		"stars": 0
 	}
 ]
