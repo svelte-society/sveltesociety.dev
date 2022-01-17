@@ -2368,6 +2368,16 @@
 		"stars": 176
 	},
 	{
+		"title": "svelte-cleavejs",
+		"url": "https://github.com/GCBenlloch/svelte-cleavejs",
+		"description": "Svelte action for Cleave.js input masking",
+		"npm": "svelte-cleavejs",
+		"addedOn": "2021-11-14",
+		"category": "User Interaction",
+		"tags": ["inputs and widgets"],
+		"stars": 0
+	},
+	{
 		"title": "svelty-picker",
 		"url": "https://github.com/mskocik/svelty-picker",
 		"description": "Simple date & time picker you will love",
