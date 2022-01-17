@@ -2349,6 +2349,45 @@
 		"stars": 1
 	},
 	{
+		"title": "@budgetdraw/sveltekit-cloudflare-adapter",
+		"url": "https://github.com/budgetdraw/sveltekit-cloudflare-adapter",
+		"description": "Alternative SvelteKit adapter for Cloudflare workers. Designed to be standalone and not use wrangler.",
+		"npm": "@budgetdraw/sveltekit-cloudflare-adapter",
+		"addedOn": "2021-11-15",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 0
+	},
+	{
+		"title": "svelte-intl-precompile",
+		"url": "https://svelte-intl-precompile.com/",
+		"description": "I18n library for Svelte.js that analyzes your keys at build time for max performance and minimal footprint",
+		"npm": "https://www.npmjs.com/package/svelte-intl-precompile",
+		"addedOn": "2022-01-09",
+		"tags": ["internationalization"],
+		"stars": 176
+	},
+	{
+		"title": "svelte-cleavejs",
+		"url": "https://github.com/GCBenlloch/svelte-cleavejs",
+		"description": "Svelte action for Cleave.js input masking",
+		"npm": "svelte-cleavejs",
+		"addedOn": "2021-11-14",
+		"category": "User Interaction",
+		"tags": ["inputs and widgets"],
+		"stars": 0
+	},
+	{
+		"title": "svelty-picker",
+		"url": "https://github.com/mskocik/svelty-picker",
+		"description": "Simple date & time picker you will love",
+		"npm": "svelty-picker",
+		"addedOn": "2021-11-12",
+		"category": "Forms & User Input",
+		"tags": ["forms", "inputs and widgets", "interactions", "time and date"],
+		"stars": 0
+	},
+	{
 		"title": "svelte-slider",
 		"url": "https://github.com/korywka/svelte-slider",
 		"description": "Single and Range sliders",
@@ -2356,6 +2395,6 @@
 		"addedOn": "2021-11-23",
 		"category": "Forms & User Input",
 		"tags": ["components and libraries", "forms", "inputs and widgets"],
-		"stars": 11
+		"stars": 11 
 	}
 ]

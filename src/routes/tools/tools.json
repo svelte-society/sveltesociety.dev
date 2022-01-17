@@ -279,6 +279,15 @@
 		"stars": 19
 	},
 	{
+		"addedOn": "2022-01-15T10:14:05.723Z",
+		"title": "SvelteKit Snippets",
+		"category": "Editor Extensions",
+		"description": "Svelte & SvelteKit Snippets for VS Code",
+		"url": "https://github.com/stordahl/sveltekit-snippets",
+		"tags": [],
+		"stars": 16
+	},
+	{
 		"title": "svelte-translate-tools",
 		"url": "https://github.com/noelmugnier/svelte-translate-tools",
 		"description": "Translation tools to extract/generate/compile translation files for your Svelte App (must be used with the package svelte-translate) at build time.",
@@ -295,5 +304,23 @@
 		"category": "Preprocessors",
 		"tags": [],
 		"stars": 28
+	},
+	{
+		"title": "svelte-subcomponent-preprocessor",
+		"url": "https://github.com/srmullen/svelte-subcomponent-preprocessor",
+		"description": "Write more than one component per svelte file",
+		"npm": "svelte-subcomponent-preprocessor",
+		"addedOn": "2021-11-08",
+		"category": "Preprocessors",
+		"stars": 7
+	},
+	{
+		"title": "typesafe-i18n",
+		"url": "https://github.com/ivanhofer/typesafe-i18n",
+		"description": "An opinionated, fully type-safe, lightweight localization library for TypeScript and JavaScript projects with no external dependencies.",
+		"npm": "typesafe-i18n",
+		"addedOn": "2021-12-08",
+		"tags": [],
+		"stars": 0
 	}
 ]
