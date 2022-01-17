@@ -5,9 +5,7 @@
 		"category": "Bundler Plugins",
 		"description": "Compile Svelte components with Rollup",
 		"url": "https://github.com/sveltejs/rollup-plugin-svelte",
-		"tags": [
-			"official"
-		],
+		"tags": ["official"],
 		"stars": 402
 	},
 	{
@@ -16,9 +14,7 @@
 		"category": "Bundler Plugins",
 		"description": "Webpack loader for svelte components",
 		"url": "https://github.com/sveltejs/svelte-loader",
-		"tags": [
-			"official"
-		],
+		"tags": ["official"],
 		"stars": 492
 	},
 	{
@@ -27,9 +23,7 @@
 		"category": "Bundler Plugins",
 		"description": "This is the official svelte plugin for vite",
 		"url": "https://github.com/sveltejs/vite-plugin-svelte",
-		"tags": [
-			"official"
-		],
+		"tags": ["official"],
 		"stars": 225
 	},
 	{
@@ -119,9 +113,7 @@
 		"category": "Preprocessors",
 		"description": "A ✨ magical ✨ Svelte preprocessor with sensible defaults and support for: PostCSS, SCSS, Less, Stylus, Coffeescript, TypeScript, Pug and much more",
 		"url": "https://github.com/sveltejs/svelte-preprocess",
-		"tags": [
-			"official"
-		],
+		"tags": ["official"],
 		"stars": 1124
 	},
 	{
@@ -184,9 +176,7 @@
 		"category": "Linting and Formatting",
 		"description": "An ESLint plugin for Svelte v3 components.",
 		"url": "https://github.com/sveltejs/eslint-plugin-svelte3",
-		"tags": [
-			"official"
-		],
+		"tags": ["official"],
 		"stars": 289
 	},
 	{
@@ -195,9 +185,7 @@
 		"category": "Linting and Formatting",
 		"description": "Format your svelte components using prettier.",
 		"url": "https://github.com/sveltejs/prettier-plugin-svelte",
-		"tags": [
-			"official"
-		],
+		"tags": ["official"],
 		"stars": 388
 	},
 	{
@@ -206,9 +194,7 @@
 		"category": "Linting and Formatting",
 		"description": "Detects unused css. Adds Svelte A11y hints. Provides JavaScript/TypeScript diagnostics.",
 		"url": "https://www.npmjs.com/package/svelte-check",
-		"tags": [
-			"official"
-		],
+		"tags": ["official"],
 		"stars": 608
 	},
 	{
@@ -217,9 +203,7 @@
 		"category": "Editor Extensions",
 		"description": "Svelte language support for VS Code",
 		"url": "https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode",
-		"tags": [
-			"official"
-		],
+		"tags": ["official"],
 		"stars": 608
 	},
 	{
