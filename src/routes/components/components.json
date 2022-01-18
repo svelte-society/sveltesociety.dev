@@ -2398,6 +2398,16 @@
 		"stars": 11
 	},
 	{
+		"title": "sveltekit-adapter-wordpress-shortcode",
+		"url": "https://github.com/tomatrow/sveltekit-adapter-wordpress-shortcode",
+		"description": "Build wordpress shortcode plugins with SvelteKit",
+		"npm": "sveltekit-adapter-wordpress-shortcode",
+		"addedOn": "2021-01-18",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 6
+	},
+	{
 		"title": "Svelte Expirable store",
 		"url": "https://github.com/MacFJA/svelte-expirable",
 		"description": "A Svelte store with items that expire",
