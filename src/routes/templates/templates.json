@@ -712,5 +712,30 @@
 		"category": "SvelteKit",
 		"tags": ["blog", "code splitting", "lazy loading", "seo", "ssr", "templates", "typescript"],
 		"stars": 0
+	},
+	{
+		"title": "SENT-template",
+		"url": "https://github.com/Zimtir/SENT-template",
+		"description": "Skip setup and start code with SENT (Sapper Express Node Template) and other tools like TypeScript, Linters, Tests, Docker and so on",
+		"npm": "",
+		"addedOn": "2020-08-01",
+		"category": "Svelte",
+		"tags": [
+			"blog",
+			"code splitting",
+			"components and libraries",
+			"editor tools",
+			"integrations",
+			"preprocessors",
+			"stores and state",
+			"webpack",
+			"typescript",
+			"testing",
+			"ssr",
+			"storybook",
+			"templates",
+			"component sets"
+		],
+		"stars": 69
 	}
 ]
