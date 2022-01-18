@@ -2396,5 +2396,15 @@
 		"category": "Forms & User Input",
 		"tags": ["components and libraries", "forms", "inputs and widgets"],
 		"stars": 11
+	},
+	{
+		"title": "Svelte Expirable store",
+		"url": "https://github.com/MacFJA/svelte-expirable",
+		"description": "A Svelte store with items that expire",
+		"npm": "@macfja/svelte-expirable",
+		"addedOn": "2021-12-12",
+		"category": "Stores",
+		"tags": ["interactions", "notifications", "stores and state"],
+		"stars": 0
 	}
 ]
