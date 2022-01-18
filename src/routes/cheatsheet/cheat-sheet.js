@@ -437,6 +437,8 @@ onMount(() => {
     alert('count is dangerously high!')
     count = 9
   }
+  
+  $: ({ab, cd, ef: {gh} = {gh: {}}} = alphabet)
 
   let foo, bar, baz
 
