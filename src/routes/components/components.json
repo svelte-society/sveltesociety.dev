@@ -2416,5 +2416,15 @@
 		"category": "Stores",
 		"tags": ["interactions", "notifications", "stores and state"],
 		"stars": 0
+	},
+	{
+		"title": "Store2",
+		"url": "https://github.com/vkurko/svelte-store2",
+		"description": "Extended Svelte stores with additional methods",
+		"npm": "svelte-store2",
+		"addedOn": "2022-01-19",
+		"category": "Stores",
+		"tags": ["stores and state"],
+		"stars": 1
 	}
 ]
