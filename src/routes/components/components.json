@@ -2444,7 +2444,7 @@
 		"npm": "sveltekit-adapter-html-like",
 		"addedOn": "2022-01-21",
 		"category": "SvelteKit Adapters",
-		"tags": ["components and libraries"],
+		"tags": ["integrations"],
 		"stars": 0
 	}
 ]
