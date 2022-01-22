@@ -2436,5 +2436,15 @@
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"],
 		"stars": 1
+	},
+	{
+		"title": "sveltekit-adapter-html-like",
+		"url": "https://github.com/idleberg/sveltekit-adapter-html-like",
+		"description": "Adapter for SvelteKit apps that prerenders your site as static files for template engines such as PHP, Blade, Handlebars, EJS etc.",
+		"npm": "sveltekit-adapter-html-like",
+		"addedOn": "2022-01-21",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 0
 	}
 ]
