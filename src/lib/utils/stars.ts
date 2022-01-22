@@ -11,7 +11,7 @@ const githubNameRegexp = new RegExp(
 const gitlabNameRegExp = new RegExp('https://gitlab.com/([\\w-]+/[\\w-]+)');
 
 export function getStarsCount(repositoryUrl: string): number | undefined {
-	let repoInfo = getType(repositoryUrl);
+	const repoInfo = getType(repositoryUrl);
 	if (repoInfo === null) {
 		return undefined;
 	}
@@ -20,14 +20,14 @@ export function getStarsCount(repositoryUrl: string): number | undefined {
 
 function getType(repositoryUrl: string): RepoInfo | null {
 	if (githubNameRegexp.test(repositoryUrl)) {
-		let identifier = repositoryUrl.match(githubNameRegexp)[1].toLowerCase();
+		const identifier = repositoryUrl.match(githubNameRegexp)[1].toLowerCase();
 		return {
 			type: 'Github',
 			identifier
 		};
 	}
 	if (gitlabNameRegExp.test(repositoryUrl)) {
-		let identifier = repositoryUrl.match(gitlabNameRegExp)[1].toLowerCase();
+		const identifier = repositoryUrl.match(gitlabNameRegExp)[1].toLowerCase();
 		return {
 			type: 'Gitlab',
 			identifier
