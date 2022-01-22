@@ -1,0 +1,9 @@
+name: Update stars
+description: Update Github stars count
+inputs:
+  token:
+    description: GitHub token for GrphQl calls
+    required: false
+runs:
+  using: node12
+  main: 'main.cjs'
