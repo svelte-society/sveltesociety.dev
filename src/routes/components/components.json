@@ -1715,6 +1715,16 @@
 		"url": "https://github.com/sveltejs/svelte-virtual-list"
 	},
 	{
+	        "title": "Svelte Virtual List CE",
+	        "url": "https://github.com/gitbreaker222/svelte-virtual-list",
+	        "description": "A virtual list component for Svelte apps - Community Edition",
+	        "npm": "svelte-virtual-list-ce",
+	        "addedOn": "2022-01-23",
+	        "category": "Design Pattern",
+	        "tags": ["components and libraries", "layout and structure"],
+	        "stars": 0
+	}
+	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Routers",
 		"description": "abstract-state-router renderer for Svelte",
