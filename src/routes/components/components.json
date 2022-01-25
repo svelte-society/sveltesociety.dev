@@ -2446,5 +2446,15 @@
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"],
 		"stars": 0
+	},
+	{
+		"title": "svelte-gestures",
+		"url": "https://github.com/Rezi/svelte-gestures",
+		"description": "collection of gesture recognisers for Svelte.",
+		"npm": "svelte-gestures",
+		"addedOn": "2022-01-24",
+		"category": "User Interaction",
+		"tags": ["interactions", "inputs and widgets"],
+		"stars": 26
 	}
 ]
