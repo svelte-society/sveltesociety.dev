@@ -12,12 +12,12 @@
 		<strong>Table of Contents</strong>
 		<div class="TOCList">
 			{#each $categories as node}
-				<div class="TOCLink" class:active={$page.path.includes(node.path)}>
+				<div class="TOCLink" class:active={$page.url.pathname.includes(node.path)}>
 					<Icon name={node.meta.icon} />
 					<a href={node.path}>{node.meta.title}</a>
 				</div>
 				<div class="tree">
-					{#if $page.path.includes(node.path)}
+					{#if $page.url.pathname.includes(node.path)}
 						<CategoryTree nodes={node.children} />
 					{/if}
 				</div>

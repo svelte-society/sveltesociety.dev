@@ -1,17 +1,21 @@
+<script lang="ts" context="module">
+	import type { Load } from '@sveltejs/kit';
+
+	export const load: Load = async function ({ stuff }) {
+		stuff.metatags.title = 'Svelte Society - submit component, template, tool.';
+		stuff.metatags.description = 'Expand the Svelte ecosystem by contributing your work!';
+		return { stuff };
+	};
+</script>
+
 <script>
 	import SvelteSelect from 'svelte-select';
 	import components from '../components/components.json';
 	import templates from '../templates/templates.json';
 	import tools from '../tools/tools.json';
 	import { onMount, tick } from 'svelte';
-	import { page } from '$app/stores';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 	import { extractUnique } from '$lib/utils/extractUnique';
-	import metatags from '$lib/stores/metatags';
-
-	metatags.title('Svelte Society - submit component, template, tool.');
-	metatags.desc('Expand the Svelte ecosystem by contributing your work!');
-	metatags.url($page.host + $page.path);
 
 	const repoURL = 'https://github.com/svelte-society/sveltesociety.dev';
 	const types = ['Component', 'Template', 'Tool'].map((t) => ({

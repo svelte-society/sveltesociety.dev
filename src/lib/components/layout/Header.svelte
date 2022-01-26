@@ -19,7 +19,10 @@
 		<nav>
 			<ul>
 				{#each linksLeft as [path, name]}
-					<Link {path} active={path === '/' ? $page.path === '/' : $page.path.includes(path)}>
+					<Link
+						{path}
+						active={path === '/' ? $page.url.pathname === '/' : $page.url.pathname.includes(path)}
+					>
 						{name}
 					</Link>
 				{/each}
@@ -29,7 +32,10 @@
 					</a>
 				</li>
 				{#each linksRight as [path, name]}
-					<Link {path} active={path === '/' ? $page.path === '/' : $page.path.includes(path)}>
+					<Link
+						{path}
+						active={path === '/' ? $page.url.pathname === '/' : $page.url.pathname.includes(path)}
+					>
 						{name}
 					</Link>
 				{/each}

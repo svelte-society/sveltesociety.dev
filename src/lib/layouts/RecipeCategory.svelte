@@ -3,7 +3,7 @@
 	import { categories } from '$lib/stores/recipes';
 	import { page } from '$app/stores';
 
-	const childrenNodes = $categories.find((c) => c.path === $page.path).children || [];
+	const childrenNodes = $categories.find((c) => c.path === $page.url.pathname).children || [];
 
 	export let title;
 </script>
@@ -13,7 +13,7 @@
 		<strong>Table of Contents</strong>
 		<div class="TOCList">
 			{#each $categories as node}
-				<div class="TOCLink" class:active={$page.path.includes(node.path)}>
+				<div class="TOCLink" class:active={$page.url.pathname.includes(node.path)}>
 					<Icon name={node.meta.icon} />
 					<a href={node.path}>{node.meta.title}</a>
 				</div>

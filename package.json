@@ -38,7 +38,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"svelte-highlight": "^3.2.0"
+		"svelte-highlight": "^5.2.0"
 	},
 	"lint-staged": {
 		"*.{js,ts,css,md,svx,svelte,html,json}": "prettier --write"
