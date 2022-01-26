@@ -20,7 +20,7 @@
 	};
 </script>
 
-<script>
+<script lang="ts">
 	// import '../app.css';
 	import '$styles/reset.css';
 	import '$styles/root.css';
@@ -31,13 +31,10 @@
 	import { page } from '$app/stores';
 
 	const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
-	/*
 	let path =
-		!$page.url.pathname
+		$page.url.pathname === '/'
 			? 'Home'
 			: capitalize($page.url.pathname.split('/').toString().replace(',', ''));
-*/
-	let path = 'foobar';
 </script>
 
 <svelte:head>

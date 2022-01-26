@@ -8,7 +8,7 @@
 	};
 </script>
 
-<script>
+<script lang="ts">
 	import SvelteSelect from 'svelte-select';
 	import components from '../components/components.json';
 	import templates from '../templates/templates.json';

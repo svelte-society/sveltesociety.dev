@@ -9,7 +9,7 @@
 	};
 </script>
 
-<script>
+<script lang="ts">
 	import Link from '$layout/Link.svelte';
 </script>
 

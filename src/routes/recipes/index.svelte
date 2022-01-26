@@ -9,7 +9,7 @@
 	};
 </script>
 
-<script>
+<script lang="ts">
 	import CategoryTree from '$lib/components/recipes/CategoryTree.svelte';
 	import Icon from '$lib/components/Icon/index.svelte';
 	import { page } from '$app/stores';

@@ -8,7 +8,7 @@
 	};
 </script>
 
-<script>
+<script lang="ts">
 	import CheatSheetCard from './_CheatSheetCard.svelte';
 	import { cheatSheet } from './cheat-sheet';
 </script>
