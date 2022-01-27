@@ -1,11 +1,16 @@
-<script>
-	import Link from '$layout/Link.svelte';
-	import { page } from '$app/stores';
-	import metatags from '$lib/stores/metatags';
+<script lang="ts" context="module">
+	import type { Load } from '@sveltejs/kit';
 
-	metatags.title('Svelte Society - a community for Svelte users around the world.');
-	metatags.desc('Svelte Society is a community-driven effort to organise and promote SvelteJS.');
-	metatags.url($page.host + $page.path);
+	export const load: Load = async function ({ stuff }) {
+		stuff.metatags.title = 'Svelte Society - a community for Svelte users around the world.';
+		stuff.metatags.description =
+			'Svelte Society is a community-driven effort to organise and promote SvelteJS.';
+		return { stuff };
+	};
+</script>
+
+<script lang="ts">
+	import Link from '$layout/Link.svelte';
 </script>
 
 <article class="container">

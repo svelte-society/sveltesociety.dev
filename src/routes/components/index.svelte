@@ -1,14 +1,17 @@
 <script>
 	import { persist, localStorage } from '@macfja/svelte-persistent-store';
+	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
-	import SearchLayout from '$layouts/SearchLayout.svelte';
-	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
+
+	import components from './components.json';
 	import List from '$components/ComponentIndex/CardList.svelte';
 	import Button from '$components/ComponentIndex/ArrowButton.svelte';
-	import components from './components.json';
+	import Select from '$components/Select.svelte';
+	import SearchLayout from '$layouts/SearchLayout.svelte';
+	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
 	import { compare, selectSortItems } from '$lib/utils/sort';
 	import { extractUnique } from '$lib/utils/extractUnique';
-	import Select from '$components/Select.svelte';
+
 	let searchValue;
 	const tagItems = extractUnique(components, 'tags');
 	let filterTag = [];
@@ -22,7 +25,10 @@
 	let sorting = 'stars_desc';
 	let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
 	$: sorting = selectedSorting?.value || 'stars_desc';
-	let packageManager = persist(writable('npm'), localStorage(), 'packageManager');
+	let packageManager = writable('npm');
+	onMount(() => {
+		packageManager = persist(writable('npm'), localStorage(), 'packageManager');
+	});
 	const intersection = (array1, array2) => {
 		return array1.filter((item) => array2.includes(item));
 	};
