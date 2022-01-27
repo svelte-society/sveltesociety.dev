@@ -38,7 +38,7 @@
 							<a href={category.path} class="list-title">{category.meta.title}</a>
 						</h3>
 						<div class="category-list">
-							<CategoryTree currentPath={page.url.pathname} nodes={category.children} />
+							<CategoryTree currentPath={$page.url.pathname} nodes={category.children} />
 						</div>
 					</section>
 				{/if}
