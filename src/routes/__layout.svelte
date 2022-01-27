@@ -31,7 +31,7 @@
 	import { page } from '$app/stores';
 
 	const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
-	let path =
+	$: path =
 		$page.url.pathname === '/'
 			? 'Home'
 			: capitalize($page.url.pathname.split('/').toString().replace(',', ''));
