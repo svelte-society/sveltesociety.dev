@@ -2466,5 +2466,17 @@
 		"category": "User Interaction",
 		"tags": ["interactions", "inputs and widgets"],
 		"stars": 26
+	},
+	{
+	    "title": "svelte-adapter-github",
+	    "url": "https://github.com/malynium/svelte-adapter-github",
+	    "description": "Easily deploy your static site to GitHub Pages",
+	    "npm": "svelte-adapter-github",
+	    "addedOn": "2022-01-27",
+	    "category": "SvelteKit Adapters",
+	    "tags": [
+		"integrations"
+	    ],
+	    "stars": 0
 	}
 ]
