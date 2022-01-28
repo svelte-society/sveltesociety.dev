@@ -1,17 +1,12 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit';
-
-	export const load: Load = async function ({ stuff }) {
-		stuff.metatags.title = 'Svelte Society - a community for Svelte users around the world.';
-		stuff.metatags.description =
-			'Svelte Society is a community-driven effort to organise and promote SvelteJS.';
-		return { stuff };
-	};
-</script>
-
 <script lang="ts">
 	import Link from '$layout/Link.svelte';
+	import Seo from '$lib/components/Seo.svelte';
 </script>
+
+<Seo
+	title="Home"
+	description="Svelte Society is a community-driven effort to organise and promote SvelteJS."
+/>
 
 <article class="container">
 	<h1 class="text-center">Welcome to Svelte Society!</h1>

@@ -14,8 +14,11 @@
 <script lang="ts">
 	import Societies from '$lib/components/Societies/index.svelte';
 	import EventListElement from '$lib/components/EventListElement/index.svelte';
+	import Seo from '$lib/components/Seo.svelte';
 	export let events = {};
 </script>
+
+<Seo title="Events" />
 
 <article class="wrapper">
 	<section class="event-wrapper">

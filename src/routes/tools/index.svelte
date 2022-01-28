@@ -7,6 +7,7 @@
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import { compare, selectSortItems } from '$lib/utils/sort';
 	import components from '../templates/templates.json';
+	import Seo from '$lib/components/Seo.svelte';
 
 	let searchValue;
 
@@ -56,6 +57,8 @@
 		Preprocessors: 'preprocessors'
 	};
 </script>
+
+<Seo title="Tools" />
 
 <SearchLayout title="Tools">
 	<section slot="controls" class="controls">

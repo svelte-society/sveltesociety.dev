@@ -1,20 +1,15 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit';
-
-	export const load: Load = async function ({ stuff }) {
-		stuff.metatags.title = 'Recipes - Svelte Society';
-		stuff.metatags.description =
-			'This cookbook serves shows users how best-in-practice code is written in Svelte. You’ll learn how to import third-party libraries, external scripts as well as how to handle common problems that you will have to solve often.';
-		return { stuff };
-	};
-</script>
-
 <script lang="ts">
 	import CategoryTree from '$lib/components/recipes/CategoryTree.svelte';
 	import Icon from '$lib/components/Icon/index.svelte';
 	import { page } from '$app/stores';
 	import { categories } from '$lib/stores/recipes';
+	import Seo from '$lib/components/Seo.svelte';
 </script>
+
+<Seo
+	title="Recipes"
+	description="This cookbook serves shows users how best-in-practice code is written in Svelte. You’ll learn how to import third-party libraries, external scripts as well as how to handle common problems that you will have to solve often."
+/>
 
 <article>
 	<h1>Cookbook</h1>

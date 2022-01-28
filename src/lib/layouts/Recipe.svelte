@@ -3,9 +3,12 @@
 	import Icon from '$lib/components/Icon/index.svelte';
 	import { categories } from '$lib/stores/recipes';
 	import { page } from '$app/stores';
+	import Seo from '$lib/components/Seo.svelte';
 
 	export let title;
 </script>
+
+<Seo {title} />
 
 <main>
 	<div class="TOC">
