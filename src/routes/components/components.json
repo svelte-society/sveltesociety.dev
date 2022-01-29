@@ -1,5 +1,15 @@
 [
 	{
+		"title": "svelte-form-validation",
+		"url": "https://github.com/DhyeyMoliya/svelte-form-validation",
+		"npm": "svelte-form-validation",
+		"description": "Svelte Form Validation Library",
+		"tags": ["forms", "form validation", "components and libraries"],
+		"addedOn": "2021-11-14T17:10:00.000Z",
+		"category": "Forms & User Input",
+		"stars": 0
+	},
+	{
 		"title": "Date Picker Svelte",
 		"url": "https://github.com/probablykasper/date-picker-svelte",
 		"description": "Date and time picker for Svelte",
@@ -103,16 +113,6 @@
 		"tags": ["routers"],
 		"addedOn": "2021-04-27T00:00:00Z",
 		"category": "Routers"
-	},
-	{
-		"title": "@cloudedots/svelte-forms",
-		"url": "https://github.com/cloudedots-projects/svelte-forms",
-		"npm": "@cloudedots/svelte-forms",
-		"description": "Svelte Forms Library with Validation.",
-		"tags": ["forms", "form validation", "components and libraries"],
-		"addedOn": "2021-04-30T16:00:03.282Z",
-		"category": "Forms & User Input",
-		"stars": 1
 	},
 	{
 		"title": "felte",
