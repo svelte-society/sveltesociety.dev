@@ -15,7 +15,7 @@
 	let clipboardCopy = false;
 
 	const copy = () => {
-		copyToClipboard(`${packageManagers[manager]}l ${cleanupNpm(npm)}`).then(
+		copyToClipboard(`${packageManagers[manager]} ${cleanupNpm(npm)}`).then(
 			() => (clipboardCopy = false)
 		);
 		clipboardCopy = true;
