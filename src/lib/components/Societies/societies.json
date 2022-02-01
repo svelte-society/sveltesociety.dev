@@ -37,6 +37,12 @@
 		"url": "https://www.downtomeet.com/Svelte-Society-Stockholm"
 	},
 	{
+		"name": "Svelte Society CZ/SK",
+		"country": "🇨🇿 Czechia and 🇸🇰 Slovakia",
+		"discord": "https://discord.gg/snCuuPnqmH",
+		"url": "https://discord.gg/snCuuPnqmH"
+	},
+	{
 		"continent": "South America",
 		"type": "contintent"
 	},

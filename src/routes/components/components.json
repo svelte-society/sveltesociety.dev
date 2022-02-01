@@ -1,5 +1,31 @@
 [
 	{
+		"title": "svelte-form-validation",
+		"url": "https://github.com/DhyeyMoliya/svelte-form-validation",
+		"npm": "svelte-form-validation",
+		"description": "Svelte Form Validation Library",
+		"tags": ["forms", "form validation", "components and libraries"],
+		"addedOn": "2021-11-14T17:10:00.000Z",
+		"category": "Forms & User Input",
+		"stars": 0
+	},
+	{
+		"title": "Date Picker Svelte",
+		"url": "https://github.com/probablykasper/date-picker-svelte",
+		"description": "Date and time picker for Svelte",
+		"npm": "date-picker-svelte",
+		"addedOn": "2021-10-23",
+		"category": "Forms & User Input",
+		"tags": [
+			"time and date",
+			"forms",
+			"components and libraries",
+			"form validation",
+			"inputs and widgets",
+			"component sets"
+		]
+	},
+	{
 		"title": "svelte-virtual-table",
 		"description": "A virtual, sortable table for Svelte ",
 		"url": "https://github.com/BernhardWebstudio/svelte-virtual-table",
@@ -87,16 +113,6 @@
 		"tags": ["routers"],
 		"addedOn": "2021-04-27T00:00:00Z",
 		"category": "Routers"
-	},
-	{
-		"title": "@cloudedots/svelte-forms",
-		"url": "https://github.com/cloudedots-projects/svelte-forms",
-		"npm": "@cloudedots/svelte-forms",
-		"description": "Svelte Forms Library with Validation.",
-		"tags": ["forms", "form validation", "components and libraries"],
-		"addedOn": "2021-04-30T16:00:03.282Z",
-		"category": "Forms & User Input",
-		"stars": 1
 	},
 	{
 		"title": "felte",
@@ -1699,6 +1715,16 @@
 		"url": "https://github.com/sveltejs/svelte-virtual-list"
 	},
 	{
+		"title": "Svelte Virtual List CE",
+		"url": "https://github.com/gitbreaker222/svelte-virtual-list",
+		"description": "A virtual list component for Svelte apps - Community Edition",
+		"npm": "svelte-virtual-list-ce",
+		"addedOn": "2022-01-23",
+		"category": "Design Pattern",
+		"tags": ["components and libraries", "layout and structure"],
+		"stars": 0
+	},
+	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Routers",
 		"description": "abstract-state-router renderer for Svelte",
@@ -2321,5 +2347,134 @@
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"],
 		"stars": 0
+	},
+	{
+		"title": "sveltekit-adapter-browser-extension",
+		"url": "https://github.com/antony/sveltekit-adapter-browser-extension",
+		"description": "Build browser extensions with Svelte",
+		"npm": "",
+		"addedOn": "2021-10-29",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 25
+	},
+	{
+		"title": "svelte-fsm",
+		"url": "https://github.com/kenkunz/svelte-fsm",
+		"description": "Tiny, expressive, Svelte-optimized Finite State Machine library",
+		"npm": "svelte-fsm",
+		"addedOn": "2021-11-01",
+		"category": "Stores",
+		"tags": ["in-page navigation", "stores and state"],
+		"stars": 1
+	},
+	{
+		"title": "@budgetdraw/sveltekit-cloudflare-adapter",
+		"url": "https://github.com/budgetdraw/sveltekit-cloudflare-adapter",
+		"description": "Alternative SvelteKit adapter for Cloudflare workers. Designed to be standalone and not use wrangler.",
+		"npm": "@budgetdraw/sveltekit-cloudflare-adapter",
+		"addedOn": "2021-11-15",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 0
+	},
+	{
+		"title": "svelte-intl-precompile",
+		"url": "https://svelte-intl-precompile.com/",
+		"description": "I18n library for Svelte.js that analyzes your keys at build time for max performance and minimal footprint",
+		"npm": "https://www.npmjs.com/package/svelte-intl-precompile",
+		"addedOn": "2022-01-09",
+		"tags": ["internationalization"],
+		"stars": 176
+	},
+	{
+		"title": "svelte-cleavejs",
+		"url": "https://github.com/GCBenlloch/svelte-cleavejs",
+		"description": "Svelte action for Cleave.js input masking",
+		"npm": "svelte-cleavejs",
+		"addedOn": "2021-11-14",
+		"category": "User Interaction",
+		"tags": ["inputs and widgets"],
+		"stars": 0
+	},
+	{
+		"title": "svelty-picker",
+		"url": "https://github.com/mskocik/svelty-picker",
+		"description": "Simple date & time picker you will love",
+		"npm": "svelty-picker",
+		"addedOn": "2021-11-12",
+		"category": "Forms & User Input",
+		"tags": ["forms", "inputs and widgets", "interactions", "time and date"],
+		"stars": 0
+	},
+	{
+		"title": "svelte-slider",
+		"url": "https://github.com/korywka/svelte-slider",
+		"description": "Single and Range sliders",
+		"npm": "svelte-slider",
+		"addedOn": "2021-11-23",
+		"category": "Forms & User Input",
+		"tags": ["components and libraries", "forms", "inputs and widgets"],
+		"stars": 11
+	},
+	{
+		"title": "sveltekit-adapter-wordpress-shortcode",
+		"url": "https://github.com/tomatrow/sveltekit-adapter-wordpress-shortcode",
+		"description": "Build wordpress shortcode plugins with SvelteKit",
+		"npm": "sveltekit-adapter-wordpress-shortcode",
+		"addedOn": "2021-01-18",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 6
+	},
+	{
+		"title": "Svelte Expirable store",
+		"url": "https://github.com/MacFJA/svelte-expirable",
+		"description": "A Svelte store with items that expire",
+		"npm": "@macfja/svelte-expirable",
+		"addedOn": "2021-12-12",
+		"category": "Stores",
+		"tags": ["interactions", "notifications", "stores and state"],
+		"stars": 0
+	},
+	{
+		"title": "Store2",
+		"url": "https://github.com/vkurko/svelte-store2",
+		"description": "Extended Svelte stores with additional methods",
+		"npm": "svelte-store2",
+		"addedOn": "2022-01-19",
+		"category": "Stores",
+		"tags": ["stores and state"],
+		"stars": 1
+	},
+	{
+		"title": "Svelte(kit) adapter for Neutralino",
+		"url": "https://github.com/MacFJA/svelte-adapter-neutralino",
+		"description": "A SvelteKit adapter to generate a Neutralinojs application from a SvelteKit project",
+		"npm": "@macfja/svelte-adapter-neutralino",
+		"addedOn": "2021-12-12",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 1
+	},
+	{
+		"title": "sveltekit-adapter-html-like",
+		"url": "https://github.com/idleberg/sveltekit-adapter-html-like",
+		"description": "Adapter for SvelteKit apps that prerenders your site as static files for template engines such as PHP, Blade, Handlebars, EJS etc.",
+		"npm": "sveltekit-adapter-html-like",
+		"addedOn": "2022-01-21",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 0
+	},
+	{
+		"title": "svelte-gestures",
+		"url": "https://github.com/Rezi/svelte-gestures",
+		"description": "collection of gesture recognisers for Svelte.",
+		"npm": "svelte-gestures",
+		"addedOn": "2022-01-24",
+		"category": "User Interaction",
+		"tags": ["interactions", "inputs and widgets"],
+		"stars": 26
 	}
 ]

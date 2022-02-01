@@ -1,6 +1,9 @@
-<svelte:head>
-	<title>About - Svelte Society</title>
-</svelte:head>
+<script>
+	import Seo from '$lib/components/Seo.svelte';
+</script>
+
+<Seo title="About" />
+
 <main class="wrapper">
 	<slot />
 </main>
