@@ -186,9 +186,9 @@ export const cheatSheet = [
 		title: 'Render HTML',
 		repl: `${replPath}/44896bb6272d48b2a0a5909678b07cc9`,
 		doc: `${docPath}#html`,
-		content: `<scrit>
+		content: `<script>
   const myHtml = '<span><strong>My text:</strong> text</span>'
-</scrit>
+</script>
 
 {@html '<div>Content</div>'}
 
