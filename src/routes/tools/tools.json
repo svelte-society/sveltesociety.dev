@@ -327,7 +327,6 @@
 		"title": "walk-and-graph-svelte-components",
 		"url": "https://github.com/j2l/walk-and-graph-svelte-components",
 		"description": "CLI node script to walk svelte and js files, to draw a beautiful JPG of your dependencies aka \"imports\". No external dependency, only FS (Node). ",
-		"npm": "none",
 		"addedOn": "2022-02-03",
 		"category": "Debugging",
 		"tags": [],
