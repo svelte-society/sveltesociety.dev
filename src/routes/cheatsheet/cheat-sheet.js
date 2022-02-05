@@ -59,7 +59,7 @@ export const cheatSheet = [
 	{
 		title: 'Simple Bind',
 		repl: `${replPath}/505dfd64708844c7b28ead4834059d69`,
-		doc: `${docPath}#Attributes_and_props`,
+		doc: `${docPath}#template-syntax-attributes-and-props`,
 		content: `//MyLink.svelte
 <script>
     export let href = ''
