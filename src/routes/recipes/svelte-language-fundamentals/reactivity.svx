@@ -97,7 +97,7 @@ This is the sort of problem you may run into when dealing with objects. Since ob
 
 ```
 
-In this example, when we reassign `o.num` we are updating the value assigned to `obj` but since we are not updating the actual `obj` variable SVelte does not trigger an update. Svelte does not trace these kinds of values back to a variable defined at the top level and has no way of knowing if it has updated or not. Whenever you want to update the local component state, any reassignments must be performed on the _actual_ variable, not just the value itself.
+In this example, when we reassign `o.num` we are updating the value assigned to `obj` but since we are not updating the actual `obj` variable Svelte does not trigger an update. Svelte does not trace these kinds of values back to a variable defined at the top level and has no way of knowing if it has updated or not. Whenever you want to update the local component state, any reassignments must be performed on the _actual_ variable, not just the value itself.
 
 #### Shadowed variables
 
