@@ -1,5 +1,14 @@
 [
 	{
+		"title": "svelte-carbonbadge",
+		"url": "https://gitlab.com/davidhund/svelte-carbonbadge",
+		"description": "Svelte badge component for https://www.websitecarbon.com/",
+		"npm": "svelte-carbonbadge",
+		"addedOn": "2022-02-08",
+		"category": "Testing",
+		"stars": 0
+	},
+	{
 		"title": "svelte-form-validation",
 		"url": "https://github.com/DhyeyMoliya/svelte-form-validation",
 		"npm": "svelte-form-validation",
