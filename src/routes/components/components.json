@@ -2485,5 +2485,15 @@
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"],
 		"stars": 0
+	},
+	{
+		"title": "svelte-steps",
+		"url": "https://github.com/shaozi/svelte-steps",
+		"description": "A wizard steps component",
+		"npm": "svelte-steps",
+		"addedOn": "2022-02-10",
+		"category": "User Interaction",
+		"tags": ["inputs and widgets"],
+		"stars": 0
 	}
 ]
