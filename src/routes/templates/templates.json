@@ -1,5 +1,19 @@
 [
 	{
+    "title": "app-expenses",
+    "url": "https://github.com/ln-dev7/AppExpenses",
+    "description": "it's an expense application where you can add your expenses, modify them and they are stored in the localeStorage",
+    "npm": "",
+    "addedOn": "2022-02-18",
+    "category": "Svelte",
+    "tags": [
+        "stores and state",
+        "templates",
+        "editor tools"
+    ],
+    "stars": 0
+},
+	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Boilerplate with TypeScript, Webpack, Storybook, Travis CI, SCSS, Babel, EsLint, Prettier, Jest",
