@@ -2243,7 +2243,7 @@
 	{
 		"title": "svelte-multiselect",
 		"url": "https://github.com/janosh/svelte-multiselect",
-		"description": "Keyboard-friendly, zero-dependency multi-select component",
+		"description": "Keyboard-friendly multi-select component",
 		"tags": [
 			"components and libraries",
 			"inputs and widgets",
@@ -2253,7 +2253,7 @@
 		"npm": "svelte-multiselect",
 		"addedOn": "2021-09-07T10:00:00Z",
 		"category": "Forms & User Input",
-		"stars": 4
+		"stars": 36
 	},
 	{
 		"title": "svelte-toc",
@@ -2269,7 +2269,8 @@
 		],
 		"npm": "svelte-toc",
 		"addedOn": "2021-09-07T10:00:00Z",
-		"category": "User Interaction"
+		"category": "User Interaction",
+		"stars": 17
 	},
 	{
 		"title": "Svelte (and SvelteKit) OAuth2",
