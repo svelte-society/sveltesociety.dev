@@ -57,7 +57,7 @@ test('events should work', () => {
 		props: { label: 'a button' }
 	});
 
-	const mock = Jest.fn();
+	const mock = jest.fn();
 	const button = getByLabelText('a button');
 
 	component.$on('submit', mock);
