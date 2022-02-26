@@ -2496,5 +2496,15 @@
 		"category": "User Interaction",
 		"tags": ["inputs and widgets"],
 		"stars": 0
+	},
+	{
+		"title": "agnostic-svelte",
+		"description": "Svelte UI component library",
+		"url": "https://github.com/AgnosticUI/agnosticui/tree/master/agnostic-svelte",
+		"npm": "agnostic-svelte",
+		"addedOn": "2022-02-26",
+		"category": "Design System",
+		"tags": ["components and libraries", "component sets"],
+		"stars": 88
 	}
 ]
