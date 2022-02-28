@@ -723,6 +723,16 @@
 		"stars": 0
 	},
 	{
+		"title": "svelte-ts-tailwind-template",
+		"url": "https://github.com/colinbate/svelte-ts-tailwind-template",
+		"description": "Svelte app template with TypeScript and TailwindCSS.",
+		"npm": "",
+		"addedOn": "2022-02-28",
+		"category": "Svelte",
+		"tags": ["templates", "typescript"],
+		"stars": 0
+	}
+	{
 		"title": "SENT-template",
 		"url": "https://github.com/Zimtir/SENT-template",
 		"description": "Skip setup and start code with SENT (Sapper Express Node Template) and other tools like TypeScript, Linters, Tests, Docker and so on",
