@@ -1,5 +1,17 @@
 [
 	{
+	    "title": "svelte-lazy-loader",
+	    "url": "https://github.com/sawyerclick/svelte-lazy-loader",
+	    "description": "A lazy-loader component library for Svelte",
+	    "npm": "svelte-lazy-loader",
+	    "addedOn": "2022-02-27",
+	    "tags": [
+		"images",
+		"components and libraries"
+	    ],
+	    "stars": 0
+	}
+	{
 		"title": "svelte-carbonbadge",
 		"url": "https://gitlab.com/davidhund/svelte-carbonbadge",
 		"description": "Svelte badge component for https://www.websitecarbon.com/",
