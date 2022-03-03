@@ -322,5 +322,14 @@
 		"addedOn": "2021-12-08",
 		"tags": [],
 		"stars": 0
+	},
+	{
+		"title": "tolgee/svelte",
+		"url": "https://github.com/tolgee/tolgee-js/tree/main/packages/svelte",
+		"description": "Web-based localization tool enabling users to translate directly in the Svelte app they develop",
+		"npm": "@tolgee/svelte",
+		"addedOn": "2022-03-03",
+		"tags": [],
+		"stars": 0
 	}
 ]
