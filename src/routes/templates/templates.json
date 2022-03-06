@@ -756,5 +756,15 @@
 			"component sets"
 		],
 		"stars": 69
+	},
+	{
+		"title": "Yuyutsu",
+		"url": "https://github.com/sharu725/yuyutsu",
+		"description": "A minimal Sveltekit theme with a sidebar.",
+		"npm": "",
+		"addedOn": "2022-03-02",
+		"category": "SvelteKit",
+		"tags": ["blog", "markdown", "templates"],
+		"stars": 4
 	}
 ]
