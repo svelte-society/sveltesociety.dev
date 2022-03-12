@@ -2,12 +2,7 @@ export const extractUnique = (
 	source: Array<Record<string, unknown>>,
 	field: string
 ): Array<Record<'label' | 'value', unknown>> => {
-	const extracted = source.map((item) => {
-		if (!item[field]) {
-			return '';
-		}
-		return item[field];
-	});
+	const extracted = source.map((item) => item[field] ?? '');
 	const uniqued = Array.from(new Set(extracted.flat()));
 	return uniqued
 		.map((value) => ({ label: value, value }))
