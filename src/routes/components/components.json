@@ -2506,5 +2506,15 @@
 		"category": "Design System",
 		"tags": ["components and libraries", "component sets"],
 		"stars": 88
+	},
+	{
+		"title": "svelte-action-shiftclick",
+		"url": "https://github.com/xsthetic/svelte-action-shiftclick",
+		"description": "A Svelte action to mutli-select checkboxes with shift-click",
+		"npm": "svelte-action-shiftclick",
+		"addedOn": "2022-03-12",
+		"category": "Forms & User Input",
+		"tags": ["components and libraries", "forms", "inputs and widgets"],
+		"stars": 0
 	}
 ]
