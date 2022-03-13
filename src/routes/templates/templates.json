@@ -1,5 +1,17 @@
 [
 	{
+    		"title": "svelte-app",
+   		"url": "https://github.com/ln-dev7/userGithub",
+    		"description": "web application that retrieves information from a GitHub profile",
+    		"npm": "",
+   		"addedOn": "2022-03-13",
+   		"category": "Svelte",
+   		"tags": [
+        		"templates"
+    		],
+    		"stars": 0
+	},
+	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Boilerplate with TypeScript, Webpack, Storybook, Travis CI, SCSS, Babel, EsLint, Prettier, Jest",
