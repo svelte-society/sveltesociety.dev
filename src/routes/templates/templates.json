@@ -3,7 +3,7 @@
     		"title": "svelte-app",
    		"url": "https://github.com/ln-dev7/userGithub",
     		"description": "web application that retrieves information from a GitHub profile",
-    		"npm": "",
+    		"npm": "npm run dev",
    		"addedOn": "2022-03-13",
    		"category": "Svelte",
    		"tags": [
