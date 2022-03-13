@@ -766,5 +766,15 @@
 		"category": "SvelteKit",
 		"tags": ["blog", "markdown", "templates"],
 		"stars": 4
+	},
+	{
+		"title": "sveltekit-blog-template",
+		"url": "https://github.com/K-Sato1995/sveltekit-blog-template",
+		"description": "A minimalistic markdown based blog template built with Sveltekit",
+		"npm": "",
+		"addedOn": "2022-03-09",
+		"category": "SvelteKit",
+		"tags": ["blog", "templates"],
+		"stars": 0
 	}
 ]
