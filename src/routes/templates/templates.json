@@ -768,6 +768,16 @@
 		"stars": 4
 	},
 	{
+		"title": "sveltekit-blog-template",
+		"url": "https://github.com/K-Sato1995/sveltekit-blog-template",
+		"description": "A minimalistic markdown based blog template built with Sveltekit",
+		"npm": "",
+		"addedOn": "2022-03-09",
+		"category": "SvelteKit",
+		"tags": ["blog", "templates"],
+		"stars": 0
+	},
+  {
 		"title": "Urara",
 		"url": "https://github.com/importantimport/urara",
 		"description": "Sweet & Powerful SvelteKit Blog Template.",
@@ -776,5 +786,5 @@
 		"category": "SvelteKit",
 		"tags": ["blog", "mdsvex", "typescript", "templates"],
 		"stars": 30
-	}
+  }
 ]
