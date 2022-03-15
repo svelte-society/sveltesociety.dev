@@ -777,7 +777,7 @@
 		"tags": ["blog", "templates"],
 		"stars": 0
 	},
-  {
+	{
 		"title": "Urara",
 		"url": "https://github.com/importantimport/urara",
 		"description": "Sweet & Powerful SvelteKit Blog Template.",
@@ -786,5 +786,5 @@
 		"category": "SvelteKit",
 		"tags": ["blog", "mdsvex", "typescript", "templates"],
 		"stars": 30
-  }
+	}
 ]
