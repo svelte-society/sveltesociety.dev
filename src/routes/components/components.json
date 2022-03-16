@@ -2516,5 +2516,14 @@
 		"category": "Forms & User Input",
 		"tags": ["components and libraries", "forms", "inputs and widgets"],
 		"stars": 0
+	},
+	{
+		 "title": "svelte-savable",
+		 "url": "https://github.com/maverick-dev-55/svelte-savable",
+		 "description": "Save your svelte writables.",
+		 "npm": "svelte-savable",
+		 "addedOn": "2022-03-16",
+		 "category": "Stores",
+		 "stars": 0
 	}
 ]
