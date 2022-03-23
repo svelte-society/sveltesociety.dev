@@ -1,5 +1,21 @@
 [
 	{
+	    "title": "svelte-stopwatch",
+	    "url": "https://github.com/erokar/svelte-stopwatch",
+	    "description": "A Svelte timer component with a countdown option and events for start, stop and reset of the timer.",
+	    "npm": "svelte-stopwatch",
+	    "addedOn": "2022-03-23",
+	    "category": "User Interaction",
+	    "tags": [
+		"time and date",
+		"components and libraries",
+		"notifications",
+		"timer",
+		"countdown"
+	    ],
+	    "stars": 0
+	},
+	{
 		"title": "svelte-carbonbadge",
 		"url": "https://gitlab.com/davidhund/svelte-carbonbadge",
 		"description": "Svelte badge component for https://www.websitecarbon.com/",
