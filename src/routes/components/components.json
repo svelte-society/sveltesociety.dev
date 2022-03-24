@@ -2282,5 +2282,15 @@
 		"addedOn": "2021-09-29",
 		"category": "Developer Experience",
 		"tags": ["components and libraries", "internationalization"]
+	},
+	{
+	    "title": "BeerUi",
+	    "url": "https://github.com/beerui/BeerUi",
+	    "description": "A Svelte Ui Components",
+	    "npm": "https://www.npmjs.com/package/@brewer/beerui",
+	    "addedOn": "2022-03-24",
+	    "category": "Forms & User Input",
+	    "tags": ["components and libraries", "time and date"],
+	    "stars": 15
 	}
 ]
