@@ -2524,9 +2524,7 @@
 		"npm": "svelte-adapter-static-digitalocean",
 		"addedOn": "2022-03-26",
 		"category": "SvelteKit Adapters",
-		"tags": [
-			"integrations"
-		],
+		"tags": ["integrations"],
 		"stars": 0
 	}
 ]
