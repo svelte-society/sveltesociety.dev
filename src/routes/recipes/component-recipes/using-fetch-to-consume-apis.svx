@@ -164,7 +164,7 @@ One small flaw with our examples so far is that Svelte will still try to update 
 - it can still call callbacks
 - other code queued to run after a promise fulfills will still run, possibly causing unwanted side effects
 
-It can be simpler to keep promises out of components, and only put async logic in [Svelte Stores](https://svelte.dev/docs#svelte_store), where you read values and trigger custom methods to update values.
+It can be simpler to keep promises out of components, and only put async logic in [Svelte Stores](https://svelte.dev/docs#run-time-svelte-store), where you read values and trigger custom methods to update values.
 
 ```js
 // https://svelte.dev/repl/483ce4b0743f41238584076baadb9fe7?version=3.20.1
