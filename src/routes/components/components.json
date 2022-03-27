@@ -2516,5 +2516,15 @@
 		"category": "Forms & User Input",
 		"tags": ["components and libraries", "forms", "inputs and widgets"],
 		"stars": 0
+	},
+	{
+		"title": "svelte-adapter-static-digitalocean",
+		"url": "https://github.com/torstendittmann/svelte-adapter-static-digitalocean",
+		"description": "SvelteKit adapter for DigitalOcean App Platform static sites.",
+		"npm": "svelte-adapter-static-digitalocean",
+		"addedOn": "2022-03-26",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 0
 	}
 ]
