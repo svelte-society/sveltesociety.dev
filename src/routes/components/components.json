@@ -2526,5 +2526,15 @@
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"],
 		"stars": 0
+	},
+	{
+	    	"title": "Svend3r Charts",
+	    	"url": "https://github.com/oslabs-beta/svend3r",
+	    	"description": "Interactive plug and play charting library for Svelte",
+	    	"npm": "",
+	    	"addedOn": "2022-04-01",
+	    	"category": "Data Visualisation",
+	    	"tags": [ "charts", "components and libraries","templates"],
+	    	"stars": 0
 	}
 ]
