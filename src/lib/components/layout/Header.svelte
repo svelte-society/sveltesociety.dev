@@ -10,7 +10,8 @@
 	const linksRight = [
 		['/recipes', 'recipes'],
 		['/cheatsheet', 'cheat sheet'],
-		['/events', 'events']
+		['/events', 'events'],
+		['/resources', 'resources']
 	];
 </script>
 
