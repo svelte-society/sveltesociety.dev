@@ -796,5 +796,15 @@
 		"category": "SvelteKit",
 		"tags": ["blog", "mdsvex", "typescript", "templates"],
 		"stars": 30
+	},
+	{
+		"title": "Svelte-Typescript-Electron-Webpack",
+		"url": "https://github.com/ryan-way-boilerplate/stew",
+		"description": "Template with Svelte Typescript Electron and webpack",
+		"npm": "",
+		"addedOn": "2022-03-21",
+		"category": "Svelte",
+		"tags": ["typescript", "webpack", "electron"],
+		"stars": 0
 	}
 ]
