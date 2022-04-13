@@ -1,5 +1,19 @@
 [
 	{
+		"title": "SvelteKit Authentication Example",
+		"url": "https://github.com/nstuyvesant/sveltekit-auth-example",
+		"description": "How to integrate authentication into a SvelteKit project (includes Sign In with Google)",
+		"npm": "sveltekit-auth-example",
+		"addedOn": "2022-04-12",
+		"stars" 27,
+		"tags": [
+		   "typescript",
+		   "database",
+		   "ssr",
+		   "templates"
+		]
+	},
+	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Boilerplate with TypeScript, Webpack, Storybook, Travis CI, SCSS, Babel, EsLint, Prettier, Jest",
