@@ -9,7 +9,6 @@
 	];
 	const linksRight = [
 		['/recipes', 'recipes'],
-		['/cheatsheet', 'cheat sheet'],
 		['/events', 'events'],
 		['/resources', 'resources']
 	];

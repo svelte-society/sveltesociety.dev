@@ -12,6 +12,12 @@
 />
 
 <article>
+	<h1>Cheat Sheet</h1>
+
+	<div>
+		Check out <a href="/cheatsheet">the Cheat Sheet</a> to get a quick rundown of common Svelte features.
+	</div>
+
 	<h1>Cookbook</h1>
 
 	<section class="categories">
