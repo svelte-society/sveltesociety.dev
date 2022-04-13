@@ -1,16 +1,13 @@
 [
 	{
-	    "title": "CMSvelte",
-	    "url": "https://github.com/sawyerclick/CMSvelte",
-	    "description": "A Svelte template built with newsroom CMS's in mind",
-	    "npm": "",
-	    "addedOn": "2022-02-27",
-	    "category": "Svelte",
-	    "tags": [
-		"templates",
-		"blog"
-	    ],
-	    "stars": 0
+		"title": "CMSvelte",
+		"url": "https://github.com/sawyerclick/CMSvelte",
+		"description": "A Svelte template built with newsroom CMS's in mind",
+		"npm": "",
+		"addedOn": "2022-02-27",
+		"category": "Svelte",
+		"tags": ["templates", "blog"],
+		"stars": 0
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
