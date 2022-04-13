@@ -659,13 +659,13 @@
 		"url": "https://github.com/svelte-add/firebase-hosting"
 	},
 	{
-		"title": "vhs/svelte-headlessui-starter",
-		"url": "https://codeberg.org/vhs/svelte-headlessui-starter",
-		"description": "Svelte Headless UI Starter is a template designed to make it easier and faster to build libre Svelte apps using Headless UI.",
+		"title": "vhscom/svelte-headlessui-starter",
+		"url": "https://github.com/vhscom/svelte-headlessui-starter",
+		"description": "Template designed to make it faster and easier to build libre Svelte apps using Headless UI.",
 		"addedOn": "2022-02-26",
 		"category": "SvelteKit",
 		"tags": ["templates", "ssr", "typescript"],
-		"stars": 1
+		"stars": 15
 	},
 	{
 		"addedOn": "2021-06-24T14:39:28Z",
