@@ -2384,6 +2384,7 @@
 		"description": "I18n library for Svelte.js that analyzes your keys at build time for max performance and minimal footprint",
 		"npm": "https://www.npmjs.com/package/svelte-intl-precompile",
 		"addedOn": "2022-01-09",
+		"category": "",
 		"tags": ["internationalization"],
 		"stars": 176
 	},
