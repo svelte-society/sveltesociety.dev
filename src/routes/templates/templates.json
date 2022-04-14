@@ -806,5 +806,19 @@
 		"category": "Svelte",
 		"tags": ["typescript", "webpack", "electron"],
 		"stars": 0
+	},
+	{
+	    "title": "Svelte SCSS/TailwindCSS/Typescript Template",
+	    "url": "https://github.com/timoyo93/svelte-template",
+	    "description": "A template that uses TailwindCSS v3, Typescript and SCSS",
+	    "npm": "",
+	    "addedOn": "2022-04-14",
+	    "category": "Svelte",
+	    "tags": [
+		"templates",
+		"typescript",
+		"preprocessors"
+	    ],
+	    "stars": 0
 	}
 ]
