@@ -331,5 +331,15 @@
 		"addedOn": "2022-03-03",
 		"tags": [],
 		"stars": 0
-	}
+	},
+	{
+		"title": "@ota-meshi/eslint-plugin-svelte",
+		"url": "https://github.com/ota-meshi/eslint-plugin-svelte",
+		"description": "ESLint plugin that applies own rules to Svelte",
+		"npm": "@ota-meshi/eslint-plugin-svelte",
+		"addedOn": "2022-04-16",
+		"category": "Linting and Formatting",
+		"tags": [],
+		"stars": 0
+	}	
 ]
