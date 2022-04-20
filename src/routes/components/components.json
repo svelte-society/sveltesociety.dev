@@ -2546,5 +2546,16 @@
 		"category": "Data Visualisation",
 		"tags": ["charts", "components and libraries"],
 		"stars": 0
+	},
+	{
+		"title": "@egjs/svelte-flicking",
+		"url": "https://github.com/naver/egjs-flicking/tree/master/packages/svelte-flicking",
+		"description": "🎠 ♻️ Everyday 30 million people experience. It's reliable, flexible and extendable carousel.",
+		"npm": "@egjs/svelte-flicking",
+		"addedOn": "2022-04-20",
+		"category": "User Interaction",
+		"tags": ["interactions", "images", "typescript", "ssr", "layout and structure"
+	    ],
+	    "stars": 1968
 	}
 ]
