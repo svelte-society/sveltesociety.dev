@@ -6,13 +6,7 @@
 	    "npm": "svelte-stopwatch",
 	    "addedOn": "2022-03-23",
 	    "category": "User Interaction",
-	    "tags": [
-		"time and date",
-		"components and libraries",
-		"notifications",
-		"timer",
-		"countdown"
-	    ],
+	    "tags": ["time and date", "components and libraries"],
 	    "stars": 0
 	},
 	{
