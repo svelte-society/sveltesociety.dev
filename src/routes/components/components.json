@@ -2546,5 +2546,15 @@
 		"category": "Data Visualisation",
 		"tags": ["charts", "components and libraries"],
 		"stars": 0
+	},
+	{
+		"title": "sveltekit-form",
+		"url": "https://github.com/AircastDev/sveltekit-form",
+		"description": "A progressively enhanced form for SvelteKit, similar to Remix's <Form>",
+		"npm": "sveltekit-form",
+		"addedOn": "2022-04-28",
+		"category": "Forms & User Input",
+		"tags": ["typescript", "async data", "components and libraries", "forms"],
+		"stars": 0
 	}
 ]
