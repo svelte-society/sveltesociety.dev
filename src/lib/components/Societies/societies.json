@@ -63,6 +63,7 @@
 		"name": "Svelte Chicago",
 		"country": "🇺🇸 United States (chicago)",
 		"twitter": "@chicagosvelte",
-		"githuburl": "https://github.com/Svelte-Chicago"
+		"githuburl": "https://github.com/Svelte-Chicago",
+		"url": "https://sveltechi.dev"
 	}
 ]
