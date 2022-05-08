@@ -1,5 +1,15 @@
 [
 	{
+		"title": "CMSvelte",
+		"url": "https://github.com/sawyerclick/CMSvelte",
+		"description": "A Svelte template built with newsroom CMS's in mind",
+		"npm": "",
+		"addedOn": "2022-02-27",
+		"category": "Svelte",
+		"tags": ["templates", "blog"],
+		"stars": 0
+	},
+	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Boilerplate with TypeScript, Webpack, Storybook, Travis CI, SCSS, Babel, EsLint, Prettier, Jest",
@@ -100,15 +110,6 @@
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Sapper",
-		"description": "Starter Webpack template for Sapper apps using tailwindcss, postcss, purgecss, and svelte-preprocess.",
-		"stars": 8,
-		"tags": [],
-		"title": "Sapper (Webpack) + TailwindCSS Template",
-		"url": "https://github.com/deanpress/sapper-tailwind-webpack-starter"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Skeleton app with Parcel, Jest, ESLint, Prettier, Babel, Wallaby",
 		"stars": 6,
@@ -165,10 +166,10 @@
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Svelte ecommerce - Headless, Authentication, Cart & Checkout, TailwindCSS, Server Rendered, Proxy + API Integrated, Animations, Stores, Lazy Loading, Loading Indicators, Carousel, Instant Search, Faceted Filters, 1 command deploy to production, Open Source, MIT license",
-		"stars": 215,
+		"stars": 486,
 		"tags": [],
-		"title": "sapper-ecommerce",
-		"url": "https://github.com/itswadesh/sapper-ecommerce"
+		"title": "svelte-commerce",
+		"url": "https://github.com/itswadesh/svelte-commerce"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -277,24 +278,6 @@
 		"tags": [],
 		"title": "neighbourhoodie/svelte-pouchdb-couchdb",
 		"url": "https://github.com/neighbourhoodie/svelte-pouchdb-couchdb"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Sapper",
-		"description": "Starter Rollup template for Sapper apps with Firebase functions",
-		"stars": 32,
-		"tags": ["ssr", "templates"],
-		"title": "Sapper - Firebase functions",
-		"url": "https://github.com/nhristov/sapper-template-firebase"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Sapper",
-		"description": "Starter Rollup template for Sapper apps using postcss, purgecss, cssnano, tailwindcss and svelte-preprocess",
-		"stars": 30,
-		"tags": [],
-		"title": "Sapper - PostCSS, Tailwind CSS, PurgeCSS, cssnano",
-		"url": "https://github.com/nhristov/sapper-template-rollup"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -471,15 +454,6 @@
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Sapper",
-		"description": "Starter template for Sapper apps",
-		"stars": 725,
-		"tags": [],
-		"title": "sveltejs/sapper-template",
-		"url": "https://github.com/sveltejs/sapper-template"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Template for building basic applications with Svelte with rollup",
 		"stars": 1309,
@@ -558,15 +532,6 @@
 		"tags": [],
 		"title": "svelte-component-template",
 		"url": "https://github.com/YogliB/svelte-component-template"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Sapper",
-		"description": "Skip setup and start code with SENT (Sapper.js, Express.js, Node.js, Typescript) and other tools template",
-		"stars": 68,
-		"tags": [],
-		"title": "Zimtir/SENT-template",
-		"url": "https://github.com/Zimtir/SENT-template"
 	},
 	{
 		"addedOn": "2021-06-24T14:39:13Z",
@@ -704,6 +669,15 @@
 		"url": "https://github.com/svelte-add/firebase-hosting"
 	},
 	{
+		"title": "vhscom/svelte-headlessui-starter",
+		"url": "https://github.com/vhscom/svelte-headlessui-starter",
+		"description": "Template designed to make it faster and easier to build libre Svelte apps using Headless UI.",
+		"addedOn": "2022-02-26",
+		"category": "SvelteKit",
+		"tags": ["templates", "ssr", "typescript"],
+		"stars": 15
+	},
+	{
 		"addedOn": "2021-06-24T14:39:28Z",
 		"category": "Svelte Add",
 		"description": "Add mdsvex to your Svelte project",
@@ -747,5 +721,90 @@
 		"tags": ["ssr", "templates", "mdsvex", "seo"],
 		"title": "MailCheck-co/mailcheck.site",
 		"url": "https://github.com/MailCheck-co/mailcheck.site"
+	},
+	{
+		"title": "SvelteKit i18n Template ",
+		"url": "https://github.com/ivanhofer/typesafe-i18n-demo-sveltekit",
+		"description": "A fully working SEO optimized i18n template",
+		"npm": "",
+		"addedOn": "2021-12-08",
+		"category": "SvelteKit",
+		"tags": ["blog", "code splitting", "lazy loading", "seo", "ssr", "templates", "typescript"],
+		"stars": 0
+	},
+	{
+		"title": "svelte-ts-tailwind-template",
+		"url": "https://github.com/colinbate/svelte-ts-tailwind-template",
+		"description": "Svelte app template with TypeScript and TailwindCSS.",
+		"npm": "",
+		"addedOn": "2022-02-28",
+		"category": "Svelte",
+		"tags": ["templates", "typescript"],
+		"stars": 0
+	},
+	{
+		"title": "SENT-template",
+		"url": "https://github.com/Zimtir/SENT-template",
+		"description": "Skip setup and start code with SENT (Sapper Express Node Template) and other tools like TypeScript, Linters, Tests, Docker and so on",
+		"npm": "",
+		"addedOn": "2020-08-01",
+		"category": "Svelte",
+		"tags": [
+			"blog",
+			"code splitting",
+			"components and libraries",
+			"editor tools",
+			"integrations",
+			"preprocessors",
+			"stores and state",
+			"webpack",
+			"typescript",
+			"testing",
+			"ssr",
+			"storybook",
+			"templates",
+			"component sets"
+		],
+		"stars": 69
+	},
+	{
+		"title": "Yuyutsu",
+		"url": "https://github.com/sharu725/yuyutsu",
+		"description": "A minimal Sveltekit theme with a sidebar.",
+		"npm": "",
+		"addedOn": "2022-03-02",
+		"category": "SvelteKit",
+		"tags": ["blog", "markdown", "templates"],
+		"stars": 4
+	},
+	{
+		"title": "sveltekit-blog-template",
+		"url": "https://github.com/K-Sato1995/sveltekit-blog-template",
+		"description": "A minimalistic markdown based blog template built with Sveltekit",
+		"npm": "",
+		"addedOn": "2022-03-09",
+		"category": "SvelteKit",
+		"tags": ["blog", "templates"],
+		"stars": 0
+	},
+	{
+		"title": "Urara",
+		"url": "https://github.com/importantimport/urara",
+		"description": "Sweet & Powerful SvelteKit Blog Template.",
+		"npm": "",
+		"addedOn": "2022-03-09",
+		"category": "SvelteKit",
+		"tags": ["blog", "mdsvex", "typescript", "templates"],
+		"stars": 30
+	},
+	{
+		"title": "Svelte-Typescript-Electron-Webpack",
+		"url": "https://github.com/ryan-way-boilerplate/stew",
+		"description": "Template with Svelte Typescript Electron and webpack",
+		"npm": "",
+		"addedOn": "2022-03-21",
+		"category": "Svelte",
+		"tags": ["typescript", "webpack", "electron"],
+		"stars": 0
 	}
 ]

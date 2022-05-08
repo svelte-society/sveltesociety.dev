@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
 	import Link from '$layout/Link.svelte';
-	import { page } from '$app/stores';
-	import metatags from '$lib/stores/metatags';
-
-	metatags.title('Svelte Society - a community for Svelte users around the world.');
-	metatags.desc('Svelte Society is a community-driven effort to organise and promote SvelteJS.');
-	metatags.url($page.host + $page.path);
+	import Seo from '$lib/components/Seo.svelte';
 </script>
+
+<Seo
+	title="Home"
+	description="Svelte Society is a community-driven effort to organise and promote SvelteJS."
+/>
 
 <article class="container">
 	<h1 class="text-center">Welcome to Svelte Society!</h1>

@@ -1,13 +1,10 @@
-<script>
+<script lang="ts">
 	import CheatSheetCard from './_CheatSheetCard.svelte';
-	import { page } from '$app/stores';
 	import { cheatSheet } from './cheat-sheet';
-	import metatags from '$lib/stores/metatags';
-
-	metatags.title('Svelte Society - Cheat Sheet.');
-	metatags.desc('No time to read the docs? Just use the cheat sheet! :)');
-	metatags.url($page.host + $page.path);
+	import Seo from '$lib/components/Seo.svelte';
 </script>
+
+<Seo title="Cheat Sheet" description="No time to read the docs? Just use the cheat sheet! :)" />
 
 <h1>Cheat Sheet</h1>
 <main>
@@ -18,10 +15,16 @@
 
 <style>
 	main {
-		display: flex;
-		flex-wrap: wrap;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		align-items: stretch;
 		justify-items: stretch;
 		gap: var(--s-10);
+	}
+	@media (min-width: 1280px) {
+		main {
+			display: flex;
+			flex-wrap: wrap;
+		}
 	}
 </style>

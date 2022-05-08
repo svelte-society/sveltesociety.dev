@@ -3,21 +3,24 @@
 	import Icon from '$lib/components/Icon/index.svelte';
 	import { categories } from '$lib/stores/recipes';
 	import { page } from '$app/stores';
+	import Seo from '$lib/components/Seo.svelte';
 
 	export let title;
 </script>
+
+<Seo {title} />
 
 <main>
 	<div class="TOC">
 		<strong>Table of Contents</strong>
 		<div class="TOCList">
 			{#each $categories as node}
-				<div class="TOCLink" class:active={$page.path.includes(node.path)}>
+				<div class="TOCLink" class:active={$page.url.pathname.includes(node.path)}>
 					<Icon name={node.meta.icon} />
 					<a href={node.path}>{node.meta.title}</a>
 				</div>
 				<div class="tree">
-					{#if $page.path.includes(node.path)}
+					{#if $page.url.pathname.includes(node.path)}
 						<CategoryTree nodes={node.children} />
 					{/if}
 				</div>
@@ -34,6 +37,7 @@
 	article {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
+		align-content: flex-start;
 	}
 
 	strong {

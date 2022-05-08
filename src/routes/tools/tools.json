@@ -279,11 +279,67 @@
 		"stars": 19
 	},
 	{
+		"addedOn": "2022-01-15T10:14:05.723Z",
+		"title": "SvelteKit Snippets",
+		"category": "Editor Extensions",
+		"description": "Svelte & SvelteKit Snippets for VS Code",
+		"url": "https://github.com/stordahl/sveltekit-snippets",
+		"tags": [],
+		"stars": 16
+	},
+	{
 		"title": "svelte-translate-tools",
 		"url": "https://github.com/noelmugnier/svelte-translate-tools",
 		"description": "Translation tools to extract/generate/compile translation files for your Svelte App (must be used with the package svelte-translate) at build time.",
 		"npm": "svelte-translate-tools",
 		"addedOn": "2021-09-29",
 		"category": "Bundler Plugins"
+	},
+	{
+		"title": "svelte-reactive-css-preprocess",
+		"url": "https://github.com/srmullen/svelte-reactive-css-preprocess",
+		"description": "Automatically update css on component state changes.",
+		"npm": "svelte-reactive-css-preprocess",
+		"addedOn": "2021-10-24",
+		"category": "Preprocessors",
+		"tags": [],
+		"stars": 28
+	},
+	{
+		"title": "svelte-subcomponent-preprocessor",
+		"url": "https://github.com/srmullen/svelte-subcomponent-preprocessor",
+		"description": "Write more than one component per svelte file",
+		"npm": "svelte-subcomponent-preprocessor",
+		"addedOn": "2021-11-08",
+		"category": "Preprocessors",
+		"stars": 7
+	},
+	{
+		"title": "typesafe-i18n",
+		"url": "https://github.com/ivanhofer/typesafe-i18n",
+		"description": "An opinionated, fully type-safe, lightweight localization library for TypeScript and JavaScript projects with no external dependencies.",
+		"npm": "typesafe-i18n",
+		"addedOn": "2021-12-08",
+		"tags": [],
+		"stars": 0
+	},
+	{
+		"title": "tolgee/svelte",
+		"url": "https://github.com/tolgee/tolgee-js/tree/main/packages/svelte",
+		"description": "Web-based localization tool enabling users to translate directly in the Svelte app they develop",
+		"npm": "@tolgee/svelte",
+		"addedOn": "2022-03-03",
+		"tags": [],
+		"stars": 0
+	},
+	{
+		"title": "@ota-meshi/eslint-plugin-svelte",
+		"url": "https://github.com/ota-meshi/eslint-plugin-svelte",
+		"description": "ESLint plugin that applies own rules to Svelte",
+		"npm": "@ota-meshi/eslint-plugin-svelte",
+		"addedOn": "2022-04-16",
+		"category": "Linting and Formatting",
+		"tags": [],
+		"stars": 0
 	}
 ]

@@ -1,5 +1,49 @@
 [
 	{
+		"title": "svelte-lazy-loader",
+		"url": "https://github.com/sawyerclick/svelte-lazy-loader",
+		"description": "A lazy-loader component library for Svelte",
+		"npm": "svelte-lazy-loader",
+		"addedOn": "2022-02-27",
+		"tags": ["images", "components and libraries"],
+		"stars": 0
+	},
+	{
+		"title": "svelte-carbonbadge",
+		"url": "https://gitlab.com/davidhund/svelte-carbonbadge",
+		"description": "Svelte badge component for https://www.websitecarbon.com/",
+		"npm": "svelte-carbonbadge",
+		"addedOn": "2022-02-08",
+		"category": "Testing",
+		"stars": 0
+	},
+	{
+		"title": "svelte-form-validation",
+		"url": "https://github.com/DhyeyMoliya/svelte-form-validation",
+		"npm": "svelte-form-validation",
+		"description": "Svelte Form Validation Library",
+		"tags": ["forms", "form validation", "components and libraries"],
+		"addedOn": "2021-11-14T17:10:00.000Z",
+		"category": "Forms & User Input",
+		"stars": 0
+	},
+	{
+		"title": "Date Picker Svelte",
+		"url": "https://github.com/probablykasper/date-picker-svelte",
+		"description": "Date and time picker for Svelte",
+		"npm": "date-picker-svelte",
+		"addedOn": "2021-10-23",
+		"category": "Forms & User Input",
+		"tags": [
+			"time and date",
+			"forms",
+			"components and libraries",
+			"form validation",
+			"inputs and widgets",
+			"component sets"
+		]
+	},
+	{
 		"title": "svelte-virtual-table",
 		"description": "A virtual, sortable table for Svelte ",
 		"url": "https://github.com/BernhardWebstudio/svelte-virtual-table",
@@ -64,7 +108,7 @@
 		"description": "Adapter for Svelte apps that creates a Begin or Architect app, using a function for dynamic server rendering.",
 		"url": "https://github.com/architect/sveltekit-adapter",
 		"npm": "https://www.npmjs.com/package/@architect/sveltekit-adapter",
-		"stars": 0,
+		"stars": 3,
 		"tags": ["integrations"],
 		"addedOn": "2021-08-09T00:00:00Z",
 		"category": "SvelteKit Adapters"
@@ -87,16 +131,6 @@
 		"tags": ["routers"],
 		"addedOn": "2021-04-27T00:00:00Z",
 		"category": "Routers"
-	},
-	{
-		"title": "@cloudedots/svelte-forms",
-		"url": "https://github.com/cloudedots-projects/svelte-forms",
-		"npm": "@cloudedots/svelte-forms",
-		"description": "Svelte Forms Library with Validation.",
-		"tags": ["forms", "form validation", "components and libraries"],
-		"addedOn": "2021-04-30T16:00:03.282Z",
-		"category": "Forms & User Input",
-		"stars": 1
 	},
 	{
 		"title": "felte",
@@ -1699,6 +1733,16 @@
 		"url": "https://github.com/sveltejs/svelte-virtual-list"
 	},
 	{
+		"title": "Svelte Virtual List CE",
+		"url": "https://github.com/gitbreaker222/svelte-virtual-list",
+		"description": "A virtual list component for Svelte apps - Community Edition",
+		"npm": "svelte-virtual-list-ce",
+		"addedOn": "2022-01-23",
+		"category": "Design Pattern",
+		"tags": ["components and libraries", "layout and structure"],
+		"stars": 0
+	},
+	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Routers",
 		"description": "abstract-state-router renderer for Svelte",
@@ -2200,7 +2244,7 @@
 		"category": "SvelteKit Adapters",
 		"description": "An adapter to launch multiple adapter",
 		"npm": "@macfja/svelte-multi-adapter",
-		"stars": 0,
+		"stars": 1,
 		"tags": [],
 		"url": "https://github.com/macfja/svelte-adapter-multi#readme",
 		"addedOn": "2021-08-23T15:40:00.000Z"
@@ -2208,7 +2252,7 @@
 	{
 		"title": "svelte-multiselect",
 		"url": "https://github.com/janosh/svelte-multiselect",
-		"description": "Keyboard-friendly, zero-dependency multi-select component",
+		"description": "Keyboard-friendly multi-select component",
 		"tags": [
 			"components and libraries",
 			"inputs and widgets",
@@ -2218,7 +2262,7 @@
 		"npm": "svelte-multiselect",
 		"addedOn": "2021-09-07T10:00:00Z",
 		"category": "Forms & User Input",
-		"stars": 4
+		"stars": 36
 	},
 	{
 		"title": "svelte-toc",
@@ -2234,7 +2278,8 @@
 		],
 		"npm": "svelte-toc",
 		"addedOn": "2021-09-07T10:00:00Z",
-		"category": "User Interaction"
+		"category": "User Interaction",
+		"stars": 17
 	},
 	{
 		"title": "Svelte (and SvelteKit) OAuth2",
@@ -2284,13 +2329,232 @@
 		"tags": ["components and libraries", "internationalization"]
 	},
 	{
-	    "title": "BeerUi",
-	    "url": "https://github.com/beerui/BeerUi",
-	    "description": "A Svelte Ui Components",
-	    "npm": "https://www.npmjs.com/package/@brewer/beerui",
-	    "addedOn": "2022-03-24",
-	    "category": "Forms & User Input",
-	    "tags": ["components and libraries", "time and date"],
-	    "stars": 15
+	  "title": "BeerUi",
+	  "url": "https://github.com/beerui/BeerUi",
+	  "description": "A Svelte Ui Components",
+	  "npm": "https://www.npmjs.com/package/@brewer/beerui",
+	  "addedOn": "2022-03-24",
+	  "category": "Forms & User Input",
+	  "tags": ["components and libraries", "time and date"],
+	  "stars": 15
+  },
+  {
+		"title": "svelecte",
+		"url": "https://github.com/mskocik/svelecte",
+		"description": "Selectize-like autocomplete select/multiselect/tagging component",
+		"npm": "svelecte",
+		"addedOn": "2021-10-10",
+		"category": "Forms & User Input",
+		"tags": ["components and libraries", "forms", "interactions", "inputs and widgets"]
+	},
+	{
+		"title": "svelte-adapter-azure-swa",
+		"url": "https://github.com/geoffrich/svelte-adapter-azure-swa",
+		"description": "SvelteKit adapter for Azure Static Web Apps.",
+		"npm": "svelte-adapter-azure-swa",
+		"stars": 7,
+		"addedOn": "2021-10-12",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"]
+	},
+	{
+		"title": "svelte-adapter-appengine",
+		"url": "https://github.com/halfdanj/svelte-adapter-appengine",
+		"description": "SvelteKit adapter for Google Cloud App Engine",
+		"npm": "svelte-adapter-appengine",
+		"stars": 0,
+		"addedOn": "2021-10-20",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"]
+	},
+	{
+		"title": "sveltekit-adapter-browser-extension",
+		"url": "https://github.com/antony/sveltekit-adapter-browser-extension",
+		"description": "Build browser extensions with Svelte",
+		"npm": "",
+		"addedOn": "2021-10-29",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 25
+	},
+	{
+		"title": "svelte-fsm",
+		"url": "https://github.com/kenkunz/svelte-fsm",
+		"description": "Tiny, expressive, Svelte-optimized Finite State Machine library",
+		"npm": "svelte-fsm",
+		"addedOn": "2021-11-01",
+		"category": "Stores",
+		"tags": ["in-page navigation", "stores and state"],
+		"stars": 1
+	},
+	{
+		"title": "@budgetdraw/sveltekit-cloudflare-adapter",
+		"url": "https://github.com/budgetdraw/sveltekit-cloudflare-adapter",
+		"description": "Alternative SvelteKit adapter for Cloudflare workers. Designed to be standalone and not use wrangler.",
+		"npm": "@budgetdraw/sveltekit-cloudflare-adapter",
+		"addedOn": "2021-11-15",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 0
+	},
+	{
+		"title": "svelte-intl-precompile",
+		"url": "https://svelte-intl-precompile.com/",
+		"description": "I18n library for Svelte.js that analyzes your keys at build time for max performance and minimal footprint",
+		"npm": "https://www.npmjs.com/package/svelte-intl-precompile",
+		"addedOn": "2022-01-09",
+		"category": "",
+		"tags": ["internationalization"],
+		"stars": 176
+	},
+	{
+		"title": "svelte-cleavejs",
+		"url": "https://github.com/GCBenlloch/svelte-cleavejs",
+		"description": "Svelte action for Cleave.js input masking",
+		"npm": "svelte-cleavejs",
+		"addedOn": "2021-11-14",
+		"category": "User Interaction",
+		"tags": ["inputs and widgets"],
+		"stars": 0
+	},
+	{
+		"title": "svelty-picker",
+		"url": "https://github.com/mskocik/svelty-picker",
+		"description": "Simple date & time picker you will love",
+		"npm": "svelty-picker",
+		"addedOn": "2021-11-12",
+		"category": "Forms & User Input",
+		"tags": ["forms", "inputs and widgets", "interactions", "time and date"],
+		"stars": 0
+	},
+	{
+		"title": "svelte-slider",
+		"url": "https://github.com/korywka/svelte-slider",
+		"description": "Single and Range sliders",
+		"npm": "svelte-slider",
+		"addedOn": "2021-11-23",
+		"category": "Forms & User Input",
+		"tags": ["components and libraries", "forms", "inputs and widgets"],
+		"stars": 11
+	},
+	{
+		"title": "sveltekit-adapter-wordpress-shortcode",
+		"url": "https://github.com/tomatrow/sveltekit-adapter-wordpress-shortcode",
+		"description": "Build wordpress shortcode plugins with SvelteKit",
+		"npm": "sveltekit-adapter-wordpress-shortcode",
+		"addedOn": "2021-01-18",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 6
+	},
+	{
+		"title": "Svelte Expirable store",
+		"url": "https://github.com/MacFJA/svelte-expirable",
+		"description": "A Svelte store with items that expire",
+		"npm": "@macfja/svelte-expirable",
+		"addedOn": "2021-12-12",
+		"category": "Stores",
+		"tags": ["interactions", "notifications", "stores and state"],
+		"stars": 0
+	},
+	{
+		"title": "Store2",
+		"url": "https://github.com/vkurko/svelte-store2",
+		"description": "Extended Svelte stores with additional methods",
+		"npm": "svelte-store2",
+		"addedOn": "2022-01-19",
+		"category": "Stores",
+		"tags": ["stores and state"],
+		"stars": 1
+	},
+	{
+		"title": "Svelte(kit) adapter for Neutralino",
+		"url": "https://github.com/MacFJA/svelte-adapter-neutralino",
+		"description": "A SvelteKit adapter to generate a Neutralinojs application from a SvelteKit project",
+		"npm": "@macfja/svelte-adapter-neutralino",
+		"addedOn": "2021-12-12",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 1
+	},
+	{
+		"title": "sveltekit-adapter-html-like",
+		"url": "https://github.com/idleberg/sveltekit-adapter-html-like",
+		"description": "Adapter for SvelteKit apps that prerenders your site as static files for template engines such as PHP, Blade, Handlebars, EJS etc.",
+		"npm": "sveltekit-adapter-html-like",
+		"addedOn": "2022-01-21",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 0
+	},
+	{
+		"title": "svelte-gestures",
+		"url": "https://github.com/Rezi/svelte-gestures",
+		"description": "collection of gesture recognisers for Svelte.",
+		"npm": "svelte-gestures",
+		"addedOn": "2022-01-24",
+		"category": "User Interaction",
+		"tags": ["interactions", "inputs and widgets"],
+		"stars": 26
+	},
+	{
+		"title": "svelte-adapter-github",
+		"url": "https://github.com/malynium/svelte-adapter-github",
+		"description": "Easily deploy your static site to GitHub Pages",
+		"npm": "svelte-adapter-github",
+		"addedOn": "2022-02-01",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 0
+	},
+	{
+		"title": "svelte-steps",
+		"url": "https://github.com/shaozi/svelte-steps",
+		"description": "A wizard steps component",
+		"npm": "svelte-steps",
+		"addedOn": "2022-02-10",
+		"category": "User Interaction",
+		"tags": ["inputs and widgets"],
+		"stars": 0
+	},
+	{
+		"title": "agnostic-svelte",
+		"description": "Svelte UI component library",
+		"url": "https://github.com/AgnosticUI/agnosticui/tree/master/agnostic-svelte",
+		"npm": "agnostic-svelte",
+		"addedOn": "2022-02-26",
+		"category": "Design System",
+		"tags": ["components and libraries", "component sets"],
+		"stars": 88
+	},
+	{
+		"title": "svelte-action-shiftclick",
+		"url": "https://github.com/xsthetic/svelte-action-shiftclick",
+		"description": "A Svelte action to mutli-select checkboxes with shift-click",
+		"npm": "svelte-action-shiftclick",
+		"addedOn": "2022-03-12",
+		"category": "Forms & User Input",
+		"tags": ["components and libraries", "forms", "inputs and widgets"],
+		"stars": 0
+	},
+	{
+		"title": "svelte-adapter-static-digitalocean",
+		"url": "https://github.com/torstendittmann/svelte-adapter-static-digitalocean",
+		"description": "SvelteKit adapter for DigitalOcean App Platform static sites.",
+		"npm": "svelte-adapter-static-digitalocean",
+		"addedOn": "2022-03-26",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 0
+	},
+	{
+		"title": "Svend3r Charts",
+		"url": "https://github.com/oslabs-beta/svend3r",
+		"description": "Interactive plug and play charting library for Svelte",
+		"npm": "",
+		"addedOn": "2022-04-01",
+		"category": "Data Visualisation",
+		"tags": ["charts", "components and libraries"],
+		"stars": 0
 	}
 ]

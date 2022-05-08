@@ -1,24 +1,23 @@
-<script>
+<script lang="ts">
 	import CategoryTree from '$lib/components/recipes/CategoryTree.svelte';
 	import Icon from '$lib/components/Icon/index.svelte';
 	import { page } from '$app/stores';
 	import { categories } from '$lib/stores/recipes';
-	import metatags from '$lib/stores/metatags';
-
-	let title = 'Recipes - Svelte Society';
-
-	metatags.title(title);
-	metatags.desc(
-		'This cookbook serves shows users how best-in-practice code is written in Svelte. You’ll learn how to import third-party libraries, external scripts as well as how to handle common problems that you will have to solve often.'
-	);
-	metatags.url($page.host + $page.path);
+	import Seo from '$lib/components/Seo.svelte';
 </script>
 
-<svelte:head>
-	<title>{title}</title>
-</svelte:head>
+<Seo
+	title="Recipes"
+	description="This cookbook serves shows users how best-in-practice code is written in Svelte. You’ll learn how to import third-party libraries, external scripts as well as how to handle common problems that you will have to solve often."
+/>
 
 <article>
+	<h1>Cheat Sheet</h1>
+
+	<div>
+		Check out <a href="/cheatsheet">the Cheat Sheet</a> to get a quick rundown of common Svelte features.
+	</div>
+
 	<h1>Cookbook</h1>
 
 	<section class="categories">
@@ -40,7 +39,7 @@
 							<a href={category.path} class="list-title">{category.meta.title}</a>
 						</h3>
 						<div class="category-list">
-							<CategoryTree currentPath={page.path} nodes={category.children} />
+							<CategoryTree currentPath={$page.url.pathname} nodes={category.children} />
 						</div>
 					</section>
 				{/if}

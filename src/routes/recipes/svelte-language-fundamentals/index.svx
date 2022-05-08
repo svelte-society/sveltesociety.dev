@@ -5,3 +5,5 @@ icon: 'double-checkmark'
 ---
 
 <!-- routify:options index=1 -->
+
+## Recipes

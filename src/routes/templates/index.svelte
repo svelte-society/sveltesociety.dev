@@ -6,6 +6,7 @@
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import Select from '$lib/components/Select.svelte';
 	import SearchLayout from '$lib/layouts/SearchLayout.svelte';
+	import Seo from '$lib/components/Seo.svelte';
 
 	let searchValue;
 
@@ -55,6 +56,8 @@
 		SvelteKit: 'svelte-kit'
 	};
 </script>
+
+<Seo title="Templates" />
 
 <SearchLayout title="Templates">
 	<section class="controls" slot="controls">
