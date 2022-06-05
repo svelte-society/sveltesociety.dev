@@ -54,5 +54,16 @@
 		"url": "https://sveltebrasil.dev/",
 		"youtube": "https://www.youtube.com/channel/UCp8jamqJRGg86eMnewxjWng",
 		"githuburl": "https://github.com/svelte-brasil"
+	},
+	{
+		"continent": "North America",
+		"type": "contintent"
+	},
+	{
+		"name": "Svelte Chicago",
+		"country": "🇺🇸 United States (chicago)",
+		"twitter": "@sveltechicago",
+		"githuburl": "https://github.com/Svelte-Chicago",
+		"url": "https://sveltechi.dev"
 	}
 ]
