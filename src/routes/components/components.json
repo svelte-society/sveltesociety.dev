@@ -2546,5 +2546,15 @@
 		"category": "Data Visualisation",
 		"tags": ["charts", "components and libraries"],
 		"stars": 0
+	},
+	{
+		"title": "svelte-brick-gallery",
+		"url": "https://github.com/anotherempty/svelte-brick-gallery",
+		"description": "A masonry-like image gallery component for svelte",
+		"npm": "svelte-brick-gallery",
+		"addedOn": "2022-05-19",
+		"category": "User Interaction",
+		"tags": ["images", "layout and structure"],
+		"stars": 0
 	}
 ]
