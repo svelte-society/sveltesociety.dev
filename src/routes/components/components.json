@@ -5,7 +5,7 @@
 		"description": "Automatically chooses adapter for your current environment if possible",
 		"npm": "https://www.npmjs.com/package/@sveltejs/adapter-auto",
 		"addedOn": "2022-06-09",
-		"tags": ["intergrations"],
+		"tags": ["integrations"],
 		"category": "Sveltekit Adapters",
 		"stars": 8700
 	},
@@ -15,7 +15,7 @@
 		"description": "SvelteKit adapter that creates a Cloudflare Workers site using a function for dynamic server rendering.",
 		"npm": "https://www.npmjs.com/package/@sveltejs/adapter-cloudflare-workers",
 		"addedOn": "2022-06-09",
-		"tags": ["intergrations"],
+		"tags": ["integrations"],
 		"category": "Sveltekit Adapters",
 		"stars": 8700
 	},
@@ -25,7 +25,7 @@
 		"description": "SvelteKit adapter that creates a Cloudflare Workers site using a function for dynamic server rendering.",
 		"npm": "https://www.npmjs.com/package/@sveltejs/adapter-cloudflare-workers",
 		"addedOn": "2022-06-09",
-		"tags": ["intergrations"],
+		"tags": ["integrations"],
 		"category": "Sveltekit Adapters",
 		"stars": 8700
 	},
@@ -35,7 +35,7 @@
 		"description": "Adapter for building SvelteKit applications on Cloudflare Pages with Workers integration. If you're using adapter-auto, you don't need to install this — it's already included.",
 		"npm": "https://www.npmjs.com/package/@sveltejs/adapter-cloudflare",
 		"addedOn": "2022-06-09",
-		"tags": ["intergrations"],
+		"tags": ["integrations"],
 		"category": "Sveltekit Adapters",
 		"stars": 8700
 	},
@@ -45,7 +45,7 @@
 		"description": "Adapter for SvelteKit apps that generates a standalone Node server.",
 		"npm": "https://www.npmjs.com/package/@sveltejs/adapter-node",
 		"addedOn": "2022-06-09",
-		"tags": ["intergrations"],
+		"tags": ["integrations"],
 		"category": "Sveltekit Adapters",
 		"stars": 8700
 	},
@@ -55,7 +55,7 @@
 		"description": "Adapter for SvelteKit apps that prerenders your entire site as a collection of static files. If you'd like to prerender only some pages, you will need to use a different adapter together with the prerender option.",
 		"npm": "https://www.npmjs.com/package/@sveltejs/adapter-static",
 		"addedOn": "2022-06-09",
-		"tags": ["intergrations"],
+		"tags": ["integrations"],
 		"category": "Sveltekit Adapters",
 		"stars": 8700
 	},
@@ -65,7 +65,7 @@
 		"description": "A SvelteKit adapter that creates a Vercel app.If you're using adapter-auto, you don't need to install this unless you need to specify Vercel-specific options, since it's already included.",
 		"npm": "https://www.npmjs.com/package/@sveltejs/adapter-vercel",
 		"addedOn": "2022-06-09",
-		"tags": ["intergrations"],
+		"tags": ["integrations"],
 		"category": "Sveltekit Adapters",
 		"stars": 8700
 	},
