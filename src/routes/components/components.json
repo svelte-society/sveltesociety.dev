@@ -10,10 +10,10 @@
 		"stars": 8700
 	},
 	{
-		"title": "sveltekit-adapter-cloudflare-workers",
-		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare-workers",
-		"description": "SvelteKit adapter that creates a Cloudflare Workers site using a function for dynamic server rendering.",
-		"npm": "@sveltejs/adapter-cloudflare-workers",
+		"title": "sveltekit-adapter-netlify",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-netlify",
+		"description": "A SvelteKit adapter that creates a Netlify app. If you're using adapter-auto, you don't need to install this unless you need to specify Netlify-specific options, since it's already included.",
+		"npm": "@sveltejs/adapter-netlify",
 		"addedOn": "2022-06-09",
 		"tags": ["integrations"],
 		"category": "Sveltekit Adapters",
