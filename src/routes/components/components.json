@@ -1,5 +1,75 @@
 [
 	{
+		"title": "sveltekit-adapter-auto",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-auto",
+		"description": "Automatically chooses adapter for your current environment if possible",
+		"npm": "@sveltejs/adapter-auto",
+		"addedOn": "2022-06-09",
+		"tags": ["integrations"],
+		"category": "Sveltekit Adapters",
+		"stars": 8700
+	},
+	{
+		"title": "sveltekit-adapter-netlify",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-netlify",
+		"description": "A SvelteKit adapter that creates a Netlify app. If you're using adapter-auto, you don't need to install this unless you need to specify Netlify-specific options, since it's already included.",
+		"npm": "@sveltejs/adapter-netlify",
+		"addedOn": "2022-06-09",
+		"tags": ["integrations"],
+		"category": "Sveltekit Adapters",
+		"stars": 8700
+	},
+	{
+		"title": "sveltekit-adapter-cloudflare-workers",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare-workers",
+		"description": "SvelteKit adapter that creates a Cloudflare Workers site using a function for dynamic server rendering.",
+		"npm": "@sveltejs/adapter-cloudflare-workers",
+		"addedOn": "2022-06-09",
+		"tags": ["integrations"],
+		"category": "Sveltekit Adapters",
+		"stars": 8700
+	},
+	{
+		"title": "sveltekit-adapter-cloudflare",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare",
+		"description": "Adapter for building SvelteKit applications on Cloudflare Pages with Workers integration. If you're using adapter-auto, you don't need to install this — it's already included.",
+		"npm": "@sveltejs/adapter-cloudflare",
+		"addedOn": "2022-06-09",
+		"tags": ["integrations"],
+		"category": "Sveltekit Adapters",
+		"stars": 8700
+	},
+	{
+		"title": "sveltekit-adapter-node",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-node",
+		"description": "Adapter for SvelteKit apps that generates a standalone Node server.",
+		"npm": "@sveltejs/adapter-node",
+		"addedOn": "2022-06-09",
+		"tags": ["integrations"],
+		"category": "Sveltekit Adapters",
+		"stars": 8700
+	},
+	{
+		"title": "sveltekit-adapter-static",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-static",
+		"description": "Adapter for SvelteKit apps that prerenders your entire site as a collection of static files. If you'd like to prerender only some pages, you will need to use a different adapter together with the prerender option.",
+		"npm": "@sveltejs/adapter-static",
+		"addedOn": "2022-06-09",
+		"tags": ["integrations"],
+		"category": "Sveltekit Adapters",
+		"stars": 8700
+	},
+	{
+		"title": "sveltekit-adapter-vercel",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-vercel",
+		"description": "A SvelteKit adapter that creates a Vercel app.If you're using adapter-auto, you don't need to install this unless you need to specify Vercel-specific options, since it's already included.",
+		"npm": "@sveltejs/adapter-vercel",
+		"addedOn": "2022-06-09",
+		"tags": ["integrations"],
+		"category": "Sveltekit Adapters",
+		"stars": 8700
+	},
+	{
 		"title": "svelte-lazy-loader",
 		"url": "https://github.com/sawyerclick/svelte-lazy-loader",
 		"description": "A lazy-loader component library for Svelte",
