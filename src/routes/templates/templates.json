@@ -816,5 +816,25 @@
 		"category": "Svelte",
 		"tags": ["templates", "typescript", "preprocessors"],
 		"stars": 0
+	},
+	{
+		"title": "A Svelte + FAST + Vite starter project",
+		"url": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-starter",
+		"description": "A Svelte + FAST + Vite starter project",
+		"npm": "svelte-fast-vite-starter-project",
+		"addedOn": "2022-06-27",
+		"category": "Svelte",
+		"tags": ["templates"],
+		"stars": 0
+	},
+	{
+		"title": "A Svelte + FAST + Vite + TypeScript starter project",
+		"url": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-typescript-starter",
+		"description": "A Svelte + FAST + Vite + TypeScript starter project",
+		"npm": "svelte-fast-vite-typescript-starter-project",
+		"addedOn": "2022-06-27",
+		"category": "Svelte",
+		"tags": ["templates"],
+		"stars": 0
 	}
 ]
