@@ -790,12 +790,12 @@
 	{
 		"title": "Urara",
 		"url": "https://github.com/importantimport/urara",
-		"description": "Sweet & Powerful SvelteKit Blog Template.",
+		"description": "Sweet, Powerful, IndieWeb-Compatible SvelteKit Blog Starter.",
 		"npm": "",
 		"addedOn": "2022-03-09",
 		"category": "SvelteKit",
 		"tags": ["blog", "mdsvex", "typescript", "templates"],
-		"stars": 30
+		"stars": 130
 	},
 	{
 		"title": "Svelte-Typescript-Electron-Webpack",
