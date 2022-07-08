@@ -341,5 +341,15 @@
 		"category": "Linting and Formatting",
 		"tags": [],
 		"stars": 0
+	},
+	{
+		"title": "svodals",
+		"url": "https://github.com/mavthedev/svodals",
+		"description": "Cybernatically enhanced modals",
+		"npm": "@mavthedev/svodals",
+		"addedOn": "2022-07-07",
+		"category": "",
+		"tags": [],
+		"stars": 0
 	}
 ]
