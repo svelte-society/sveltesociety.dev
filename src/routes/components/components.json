@@ -1,4 +1,5 @@
-[{
+[
+	{
 		"title": "sveltekit-adapter-auto",
 		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-auto",
 		"description": "Automatically chooses adapter for your current environment if possible",
@@ -191,16 +192,6 @@
 		"tags": ["integrations"],
 		"addedOn": "2021-07-12T00:00:00Z",
 		"category": "SvelteKit Adapters"
-	},
-	{
-		"title": "svelte-adapter-bun",
-		"url": "https://github.com/gornostay25/svelte-adapter-bun",
-		"description": "SvelteKit adapter that generates a standalone Bun server.",
-		"npm": "svelte-adapter-bun",
-		"addedOn": "2022-07-10T00:00:00Z",
-		"category": "SvelteKit Adapters",
-		"stars": 0,
-		"tags": ["ssr", "integrations"]
 	},
 	{
 		"title": "SCR Svelte Client Router",
@@ -2635,5 +2626,15 @@
 		"category": "User Interaction",
 		"tags": ["images", "layout and structure"],
 		"stars": 0
+	},
+	{
+		"title": "SvelteKit Adapter Bun.js",
+		"url": "https://github.com/gornostay25/svelte-adapter-bun",
+		"description": "SvelteKit adapter that generates a standalone Bun server.",
+		"npm": "svelte-adapter-bun",
+		"addedOn": "2022-07-10T00:00:00Z",
+		"category": "SvelteKit Adapters",
+		"stars": 6,
+		"tags": ["ssr", "integrations"]
 	}
 ]
