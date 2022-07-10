@@ -2626,5 +2626,15 @@
 		"category": "User Interaction",
 		"tags": ["images", "layout and structure"],
 		"stars": 0
+	},
+	{
+		"title": "SvelteKit Adapter Bun.js",
+		"url": "https://github.com/gornostay25/svelte-adapter-bun",
+		"description": "SvelteKit adapter that generates a standalone Bun server.",
+		"npm": "svelte-adapter-bun",
+		"addedOn": "2022-07-10T00:00:00Z",
+		"category": "SvelteKit Adapters",
+		"stars": 6,
+		"tags": ["ssr", "integrations"]
 	}
 ]
