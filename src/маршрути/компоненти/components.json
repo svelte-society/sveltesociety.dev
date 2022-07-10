@@ -201,7 +201,7 @@
 		"addedOn": "2022-07-10T00:00:00Z",
 		"category": "SvelteKit Adapters",
 		"stars": 0,
-		"tags": ["ssr","integrations"],
+		"tags": ["ssr","integrations"]
 	},
 	{
 		"title": "SCR Svelte Client Router",
