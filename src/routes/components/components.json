@@ -194,6 +194,16 @@
 		"category": "SvelteKit Adapters"
 	},
 	{
+		"title": "svelte-adapter-bun",
+		"url": "https://github.com/gornostay25/svelte-adapter-bun",
+		"description": "SvelteKit adapter that generates a standalone Bun server.",
+		"npm": "svelte-adapter-bun",
+		"addedOn": "2022-07-10T00:00:00Z",
+		"category": "SvelteKit Adapters",
+		"stars": 0,
+		"tags": ["ssr","integrations"],
+	},
+	{
 		"title": "SCR Svelte Client Router",
 		"url": "https://arthurgermano.github.io/svelte-client-router/#/svelte-client-router",
 		"npm": "svelte-client-router",
