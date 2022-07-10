@@ -2626,5 +2626,15 @@
 		"category": "User Interaction",
 		"tags": ["images", "layout and structure"],
 		"stars": 0
-	}
+	},
+	{
+		"title": "svodals",
+		"url": "https://github.com/mavthedev/svodals",
+		"description": "Cybernatically enhanced modals",
+		"npm": "@mavthedev/svodals",
+		"addedOn": "2022-07-07",
+		"category": "User Interaction",
+		"tags": ["modals"],
+		"stars": 0
+	}	
 ]
