@@ -2636,5 +2636,15 @@
 		"category": "SvelteKit Adapters",
 		"stars": 6,
 		"tags": ["ssr", "integrations"]
+	},
+	{
+		"title": "svelte-headlessui",
+		"url": "https://github.com/rgossiaux/svelte-headlessui",
+		"description": "Unofficial Svelte port of the Headless UI component library",
+		"npm": "@rgossiaux/svelte-headlessui",
+		"addedOn": "2022-07-17",
+		"category": "Design System",
+		"stars": 840,
+		"tags": ["components and libraries", "component sets"]
 	}
 ]
