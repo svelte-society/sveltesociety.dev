@@ -1,5 +1,15 @@
 [
 	{
+		"title": "CMSvelte",
+		"url": "https://github.com/sawyerclick/CMSvelte",
+		"description": "A Svelte template built with newsroom CMS's in mind",
+		"npm": "",
+		"addedOn": "2022-02-27",
+		"category": "Svelte",
+		"tags": ["templates", "blog"],
+		"stars": 0
+	},
+	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Boilerplate with TypeScript, Webpack, Storybook, Travis CI, SCSS, Babel, EsLint, Prettier, Jest",
@@ -659,13 +669,13 @@
 		"url": "https://github.com/svelte-add/firebase-hosting"
 	},
 	{
-		"title": "vhs/svelte-headlessui-starter",
-		"url": "https://codeberg.org/vhs/svelte-headlessui-starter",
-		"description": "Svelte Headless UI Starter is a template designed to make it easier and faster to build libre Svelte apps using Headless UI.",
+		"title": "vhscom/svelte-headlessui-starter",
+		"url": "https://github.com/vhscom/svelte-headlessui-starter",
+		"description": "Template designed to make it faster and easier to build libre Svelte apps using Headless UI.",
 		"addedOn": "2022-02-26",
 		"category": "SvelteKit",
 		"tags": ["templates", "ssr", "typescript"],
-		"stars": 1
+		"stars": 15
 	},
 	{
 		"addedOn": "2021-06-24T14:39:28Z",
@@ -780,11 +790,51 @@
 	{
 		"title": "Urara",
 		"url": "https://github.com/importantimport/urara",
-		"description": "Sweet & Powerful SvelteKit Blog Template.",
+		"description": "Sweet, Powerful, IndieWeb-Compatible SvelteKit Blog Starter.",
 		"npm": "",
 		"addedOn": "2022-03-09",
 		"category": "SvelteKit",
 		"tags": ["blog", "mdsvex", "typescript", "templates"],
-		"stars": 30
+		"stars": 130
+	},
+	{
+		"title": "Svelte-Typescript-Electron-Webpack",
+		"url": "https://github.com/ryan-way-boilerplate/stew",
+		"description": "Template with Svelte Typescript Electron and webpack",
+		"npm": "",
+		"addedOn": "2022-03-21",
+		"category": "Svelte",
+		"tags": ["typescript", "webpack", "electron"],
+		"stars": 0
+	},
+	{
+		"title": "Svelte SCSS/TailwindCSS/Typescript Template",
+		"url": "https://github.com/timoyo93/svelte-template",
+		"description": "A template that uses TailwindCSS v3, Typescript and SCSS",
+		"npm": "",
+		"addedOn": "2022-04-14",
+		"category": "Svelte",
+		"tags": ["templates", "typescript", "preprocessors"],
+		"stars": 0
+	},
+	{
+		"title": "A Svelte + FAST + Vite starter project",
+		"url": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-starter",
+		"description": "A Svelte + FAST + Vite starter project",
+		"npm": "svelte-fast-vite-starter-project",
+		"addedOn": "2022-06-27",
+		"category": "Svelte",
+		"tags": ["templates"],
+		"stars": 0
+	},
+	{
+		"title": "A Svelte + FAST + Vite + TypeScript starter project",
+		"url": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-typescript-starter",
+		"description": "A Svelte + FAST + Vite + TypeScript starter project",
+		"npm": "svelte-fast-vite-typescript-starter-project",
+		"addedOn": "2022-06-27",
+		"category": "Svelte",
+		"tags": ["templates"],
+		"stars": 0
 	}
 ]
