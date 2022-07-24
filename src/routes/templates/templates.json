@@ -836,5 +836,19 @@
 		"category": "Svelte",
 		"tags": ["templates"],
 		"stars": 0
+	},
+	{
+   		 "title": "Svelte-Typescript-Routify-Tailwindcss-template",
+  		 "url": "https://github.com/skshahriarahmedraka/Svelte-Routify-ts-tailwindcss-template.git",
+		 "description": "Svelte & Typescript & Routify & Tailwindcss template",
+ 		 "npm": "",
+ 		 "addedOn": "2022-05-07",
+  		 "category": "Svelte",
+  		 "tags": [
+  		     "templates",
+   		     "typescript",
+  		     "integrations"
+   		 ],
+  		 "stars": 0
 	}
 ]
