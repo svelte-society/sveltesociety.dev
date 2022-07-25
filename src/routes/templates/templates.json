@@ -836,5 +836,18 @@
 		"category": "Svelte",
 		"tags": ["templates"],
 		"stars": 0
+	},
+	{
+    		"title": "svelte-vite-typescript-tailwindcss-template",
+    		"url": "https://github.com/skshahriarahmedraka/vite-svelte-tailwind-template.git",
+    		"description": "svelte & vite & typescript & tailwindcss",
+  		"npm": "",
+   		"addedOn": "2022-07-25",
+    		"category": "Svelte",
+   		"tags": [
+        		"templates",
+       			"typescript"
+    		],
+    		"stars": 0
 	}
 ]
