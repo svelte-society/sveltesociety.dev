@@ -2646,5 +2646,14 @@
 		"category": "Design System",
 		"stars": 840,
 		"tags": ["components and libraries", "component sets"]
+	},
+	{
+		"title": "svelte-switch-case",
+		"url": "https://github.com/l-portet/svelte-switch-case",
+		"description": "Switch case syntax for Svelte",
+		"npm": "svelte-switch-case",
+		"addedOn": "2022-07-25",
+		"tags": ["preprocessors"],
+		"stars": 0
 	}
 ]
