@@ -2646,5 +2646,15 @@
 		"category": "Design System",
 		"stars": 840,
 		"tags": ["components and libraries", "component sets"]
+	},
+	{
+		"title": "BeerUi",
+		"url": "https://github.com/beerui/BeerUi",
+		"description": "A Svelte Ui Components",
+		"npm": "@brewer/beerui",
+		"addedOn": "2022-03-24",
+		"category": "Forms & User Input",
+		"tags": ["components and libraries", "time and date"],
+		"stars": 22
 	}
 ]
