@@ -597,15 +597,6 @@
 		"url": "https://github.com/babichjacob/university-website"
 	},
 	{
-		"addedOn": "2021-06-24T14:39:19Z",
-		"category": "SvelteKit",
-		"description": "Personal website and blog written from scratch with SvelteKit and TailwindCSS.",
-		"stars": 50,
-		"tags": [],
-		"title": "mhatvan/markushatvan.com",
-		"url": "https://github.com/mhatvan/markushatvan.com"
-	},
-	{
 		"addedOn": "2021-06-24T14:39:20Z",
 		"category": "SvelteKit",
 		"description": "A simplistic SvelteKit template for blogs",
