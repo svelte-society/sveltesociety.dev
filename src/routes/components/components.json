@@ -2646,5 +2646,15 @@
 		"category": "Design System",
 		"stars": 840,
 		"tags": ["components and libraries", "component sets"]
+	},
+	{
+		"title": "skeleton",
+		"url": "https://github.com/Brain-Bones/skeleton",
+		"description": "A Svelte/Kit component library designed for use with Tailwind.",
+		"npm": "@brainandbones/skeleton",
+		"addedOn": "2022-08-01",
+		"category": "Design System",
+		"tags": ["components and libraries", "component sets"],
+		"stars": 101
 	}
 ]
