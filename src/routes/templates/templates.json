@@ -827,5 +827,15 @@
 		"category": "Svelte",
 		"tags": ["templates"],
 		"stars": 0
+	},
+	{
+    		"title": "davipon/svelte-add-vitest",
+    		"url": "https://github.com/davipon/svelte-add-vitest",
+    		"description": "Svelte adder for Vitest",
+    		"npm": "svelte-add-vitest",
+    		"addedOn": "2022-08-03",
+    		"category": "Svelte Add",
+    		"tags": ["testing"],
+    		"stars": 0
 	}
 ]
