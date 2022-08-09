@@ -2656,8 +2656,8 @@
 		"category": "Forms & User Input",
 		"tags": ["components and libraries", "time and date"],
 		"stars": 22
-  },
-  {
+	},
+	{
 		"title": "skeleton",
 		"url": "https://github.com/Brain-Bones/skeleton",
 		"description": "A Svelte/Kit component library designed for use with Tailwind.",
