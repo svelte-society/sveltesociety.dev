@@ -2677,13 +2677,13 @@
 		"tags": ["animations", "components and libraries", "interactions"],
 		"stars": 0
 	},
-  {
-    "title": "svelte-switch-case",
+  	{
+    		"title": "svelte-switch-case",
 		"url": "https://github.com/l-portet/svelte-switch-case",
 		"description": "Switch case syntax for Svelte",
 		"npm": "svelte-switch-case",
 		"addedOn": "2022-07-25",
 		"tags": ["preprocessors"],
-    "stars": 47
-  }
+    		"stars": 47
+  	}
 ]
