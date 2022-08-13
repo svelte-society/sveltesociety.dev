@@ -2666,5 +2666,15 @@
 		"category": "Design System",
 		"tags": ["components and libraries", "component sets"],
 		"stars": 101
+	},
+	{
+		"title": "svelte-hover-draw-svg",
+		"url": "https://github.com/davipon/svelte-hover-draw-svg",
+		"description": "A lightweight Svelte component to draw SVG on hover.",
+		"npm": "svelte-hover-draw-svg",
+		"addedOn": "2022-08-03",
+		"category": "User Interaction",
+		"tags": ["animations", "components and libraries", "interactions"],
+		"stars": 0
 	}
 ]
