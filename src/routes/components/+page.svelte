@@ -5,54 +5,22 @@
 
 	import components from './components.json';
 	import List from '$components/ComponentIndex/CardList.svelte';
-	import Button from '$components/ComponentIndex/ArrowButton.svelte';
 	import Select from '$components/Select.svelte';
 	import SearchLayout from '$layouts/SearchLayout.svelte';
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
-	import { compare, selectSortItems } from '$lib/utils/sort';
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import Seo from '$lib/components/Seo.svelte';
+	import Search from '$lib/components/Search.svelte';
 
 	let searchValue;
-	const tagItems = extractUnique(components, 'tags');
-	let filterTag = [];
-	let selectedTags = null;
-	const categoryItems = [
-		{ label: 'All', value: null },
-		...extractUnique(components, 'category').filter((cat) => cat.value !== '')
-	];
-	let selectedCategory = null;
-	let filterCategory = null;
-	let sorting = 'stars_desc';
-	let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
-	$: sorting = selectedSorting?.value || 'stars_desc';
+	let selectedPackageManager = { value: 'npm' };
 	let packageManager = writable('npm');
+	let dataToDisplay = [];
 	onMount(() => {
 		packageManager = persist(writable('npm'), localStorage(), 'packageManager');
 	});
-	const intersection = (array1, array2) => {
-		return array1.filter((item) => array2.includes(item));
-	};
-	$: filterCategory = selectedCategory?.value || null;
-	$: dataToDisplay = components
-		.filter((component) => {
-			if (!searchValue && filterTag.length === 0 && filterCategory === null) return true;
-			if (
-				(searchValue &&
-					!(
-						component.title.toLowerCase().includes(searchValue.toLowerCase()) ||
-						component.description.toLowerCase().includes(searchValue.toLowerCase())
-					)) ||
-				(filterTag.length > 0 && intersection(filterTag, component.tags).length === 0) ||
-				(filterCategory !== null && component.category !== filterCategory)
-			) {
-				return false;
-			}
-			return true;
-		})
-		.sort(compare(sorting));
+	$: $packageManager = selectedPackageManager.value;
 	$: categories = extractUnique(dataToDisplay, 'category');
-	$: filterTag = selectedTags?.map((obj) => obj.value) || [];
 
 	const categoryId = {
 		Animations: 'animations',
@@ -76,36 +44,37 @@
 <SearchLayout title="Components">
 	<section class="controls" slot="controls">
 		<div class="inputs">
-			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />
-			<Select
-				label="Category"
-				bind:value={selectedCategory}
-				items={categoryItems}
-				placeholder="Category"
-				isClearable={false}
-				showIndicator
+			<Search
+				data={components}
+				bind:query={searchValue}
+				sortableFields={{ addedOn: 'Added date', tile: 'Title', stars: 'Stars' }}
+				searchableFields={['title', 'description']}
+				facetsConfig={[
+					{
+						title: 'Category',
+						identifier: 'category',
+						isClearable: true,
+						showIndicator: true
+					},
+					{
+						title: 'Tags',
+						identifier: 'tags',
+						isMulti: true
+					}
+				]}
+				on:search={(a) => (dataToDisplay = a.detail.data.items)}
 			/>
 			<Select
-				items={selectSortItems}
-				bind:value={selectedSorting}
-				label="Sorting"
-				showIndicator
+				label="Package manager"
 				isClearable={false}
+				showIndicator
+				bind:value={selectedPackageManager}
+				items={[
+					{ label: 'NPM', value: 'npm' },
+					{ label: 'PNPM', value: 'pnpm' },
+					{ label: 'Yarn', value: 'yarn' }
+				]}
 			/>
-			<Button small active={$packageManager !== ''}>
-				{$packageManager.toUpperCase()}
-				<ul slot="menu" role="menu" class="popin no-wrap">
-					<li>
-						<label><input type="radio" bind:group={$packageManager} value="npm" /> NPM</label>
-					</li>
-					<li>
-						<label><input type="radio" bind:group={$packageManager} value="pnpm" /> PNPM</label>
-					</li>
-					<li>
-						<label><input type="radio" bind:group={$packageManager} value="yarn" /> Yarn</label>
-					</li>
-				</ul>
-			</Button>
 		</div>
 
 		<a href="/help/submitting?type=component" class="submit">Submit a component</a>
