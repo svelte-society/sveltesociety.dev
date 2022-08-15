@@ -64,7 +64,9 @@
 				title={category.label || 'Unclassified'}
 				id={categoryId[category.label] || category.label || 'unclassified'}
 			>
-				{#each dataToDisplay.filter((d) => d.category === category.value) as data}
+				{#each dataToDisplay.filter((d) => d.category === category.value || (!categories
+							.map((v) => v.value)
+							.includes(d.category) && category.value === '')) as data}
 					<ComponentCard {...data} />
 				{/each}
 			</List>
