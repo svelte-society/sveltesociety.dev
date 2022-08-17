@@ -2685,5 +2685,15 @@
 		"addedOn": "2022-07-25",
 		"tags": ["preprocessors"],
 		"stars": 47
+	},
+	{
+	    	"title": "casual-ui-svelte",
+	    	"url": "https://github.com/Blackman99/casual-ui",
+	    	"description": "A ui components lib that supports for Svelte3",
+	    	"npm": "casual-ui-svelte",
+	    	"addedOn": "2022-08-17",
+	    	"category": "User Interaction",
+	    	"tags": ["animations", "component sets", "form validation", "notifications"],
+	    	"stars": 32
 	}
 ]
