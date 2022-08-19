@@ -29,25 +29,16 @@ const config = {
 	extensions: extensions,
 	kit: {
 		adapter: adapter(),
-		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#sveltekit-entry',
-		vite: {
-			optimizeDeps: {
-				// workaround Vite issue to fix highlighting on cheatsheet
-				// https://github.com/metonym/svelte-highlight/issues/158
-				include: ['highlight.js/lib/core']
-			},
-			resolve: {
-				alias: {
-					// these are the aliases and paths to them
-					$components: path.resolve('./src/lib/components'),
-					$layout: path.resolve('./src/lib/components/layout'),
-					$layouts: path.resolve('./src/lib/layouts'),
-					$utils: path.resolve('./src/lib/utils'),
-					$styles: path.resolve('./src/lib/styles'),
-					$stores: path.resolve('./src/lib/stores')
-				}
-			}
+		alias: {
+			$components: path.resolve('./src/lib/components'),
+			$layout: path.resolve('./src/lib/components/layout'),
+			$layouts: path.resolve('./src/lib/layouts'),
+			$utils: path.resolve('./src/lib/utils'),
+			$styles: path.resolve('./src/lib/styles'),
+			$stores: path.resolve('./src/lib/stores')
+		},
+		prerender: {
+			default: true
 		}
 	}
 };

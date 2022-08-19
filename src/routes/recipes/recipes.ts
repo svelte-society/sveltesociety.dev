@@ -1,8 +1,6 @@
-import type { EndpointOutput } from '@sveltejs/kit';
-/**
- * @type {import('@sveltejs/kit').RequestHandler}
- */
-export async function get(): Promise<EndpointOutput> {
+import type { RequestHandler } from '@sveltejs/kit';
+
+export const GET: RequestHandler = async function () {
 	const pages = await Promise.all(
 		Object.entries(import.meta.glob('./**/*.svx')).map(async ([path, page]) => {
 			const { metadata } = await page();
@@ -35,4 +33,4 @@ export async function get(): Promise<EndpointOutput> {
 		error: new Error(),
 		body: undefined
 	};
-}
+};
