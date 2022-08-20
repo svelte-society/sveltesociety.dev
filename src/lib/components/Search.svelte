@@ -11,13 +11,18 @@
 		title: string;
 		isMulti?: boolean;
 	};
+	type SortField = {
+		identifier: string;
+		title: string;
+		ascending: boolean;
+	};
 	type FacetValue = { value: string } | Array<{ value: string }>;
 
 	export let facetsConfig: Array<Facet> = [];
 	export let data;
 	let sort = { value: 'stars_desc' };
 	export let searchableFields: Array<string> = [];
-	export let sortableFields: Record<string, string> = {};
+	export let sortableFields: Array<SortField> = [];
 	export let query = '';
 
 	let facets: Array<
@@ -32,11 +37,13 @@
 			}),
 			{}
 		),
-		sortings: Object.keys(sortableFields).reduce(
-			(object, line) => ({
+		sortings: sortableFields.reduce(
+			(object, { identifier, ascending }) => ({
 				...object,
-				[`${line}_asc`]: { field: line, order: 'asc' },
-				[`${line}_desc`]: { field: line, order: 'desc' }
+				[`${identifier}_${ascending ? 'asc' : 'desc'}`]: {
+					field: identifier,
+					order: ascending ? 'asc' : 'desc'
+				}
 			}),
 			{}
 		),
@@ -86,14 +93,10 @@
 {/each}
 
 <Select
-	items={Object.entries(sortableFields).reduce(
-		(fields, [field, label]) => [
-			...fields,
-			{ value: field + '_asc', label: label + ' ascending' },
-			{ value: field + '_desc', label: label + ' descending' }
-		],
-		[]
-	)}
+	items={sortableFields.map(({ identifier, title, ascending }) => ({
+		value: identifier + '_' + (ascending ? 'asc' : 'desc'),
+		label: title
+	}))}
 	bind:value={sort}
 	label="Sorting"
 	showIndicator

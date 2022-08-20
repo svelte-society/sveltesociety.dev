@@ -27,7 +27,13 @@
 			<Search
 				data={templates}
 				bind:query={searchValue}
-				sortableFields={{ addedOn: 'Added date', tile: 'Title', stars: 'Stars' }}
+				sortableFields={[
+					{ identifier: 'addedOn', title: 'Last added first', ascending: false },
+					{ identifier: 'addedOn', title: 'Oldest first', ascending: true },
+					{ identifier: 'title', title: 'Name (A-Z)', ascending: true },
+					{ identifier: 'title', title: 'Name (Z-A)', ascending: false },
+					{ identifier: 'stars', title: 'Most star first', ascending: false }
+				]}
 				searchableFields={['title', 'description']}
 				facetsConfig={[
 					{
