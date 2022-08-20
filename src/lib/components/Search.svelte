@@ -55,7 +55,7 @@
 		configurations as Configuration<string, string, string>
 	);
 
-	export function search() {
+	export function search(): void {
 		const results = searcher.search({
 			per_page: 100000,
 			query,
