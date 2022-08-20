@@ -28,6 +28,7 @@
 		<div class="inputs">
 			<Search
 				data={tools}
+				dataDefault={{ category: '' }}
 				bind:query={searchValue}
 				sortableFields={[
 					{ identifier: 'addedOn', title: 'Last added first', ascending: false },

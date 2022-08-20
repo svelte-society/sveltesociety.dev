@@ -6,7 +6,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	export type Facet = {
+	type Facet = {
 		identifier: string;
 		title: string;
 		isMulti?: boolean;
@@ -20,6 +20,7 @@
 
 	export let facetsConfig: Array<Facet> = [];
 	export let data;
+	export let dataDefault = {};
 	let sort = { value: 'stars_desc' };
 	export let searchableFields: Array<string> = [];
 	export let sortableFields: Array<SortField> = [];
@@ -49,8 +50,10 @@
 		),
 		searchableFields
 	};
-
-	const searcher = itemsjs(data, configurations as Configuration<string, string, string>);
+	const searcher = itemsjs(
+		data.map((line) => ({ ...dataDefault, ...line })),
+		configurations as Configuration<string, string, string>
+	);
 
 	export function search() {
 		const results = searcher.search({
@@ -62,9 +65,9 @@
 					let filterValue;
 					const facetValue = facet.value;
 					if (Array.isArray(facetValue)) {
-						filterValue = facetValue.map((value) => value.value);
+						filterValue = facetValue.map((value) => revertDefaultValue(value.value));
 					} else {
-						filterValue = [facetValue.value];
+						filterValue = [revertDefaultValue(facetValue.value)];
 					}
 					return {
 						...object,
@@ -86,10 +89,22 @@
 	}
 
 	$: query, facets, sort, search();
+
+	function defaultEmpty(values: Array<string>, defaultValue = 'Unclassified'): Array<string> {
+		return values.map((value) => value || defaultValue);
+	}
+	function revertDefaultValue(value: string, defaultValue = 'Unclassified'): string {
+		return value === defaultValue ? '' : value;
+	}
 </script>
 
 {#each facets as facet (facet.identifier)}
-	<Select {...facet} bind:value={facet.value} items={facet.values} label={facet.title} />
+	<Select
+		{...facet}
+		bind:value={facet.value}
+		items={defaultEmpty(facet.values)}
+		label={facet.title}
+	/>
 {/each}
 
 <Select
