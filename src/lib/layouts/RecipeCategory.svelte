@@ -17,8 +17,8 @@
 		<div class="TOCList">
 			{#each $categories as node}
 				<div class="TOCLink" class:active={$page.url.pathname.includes(node.path)}>
-					<Icon name={node.meta.icon} />
-					<a href={node.path}>{node.meta.title}</a>
+					<Icon name={node.icon} />
+					<a href={node.path}>{node.title}</a>
 				</div>
 			{/each}
 		</div>
@@ -30,7 +30,7 @@
 		<ul>
 			{#each childrenNodes as node}
 				<li>
-					<a href={node.path}>{node.meta.title}</a>
+					<a href={node.path}>{node.title}</a>
 				</li>
 			{/each}
 		</ul>
