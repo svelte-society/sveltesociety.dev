@@ -1,5 +1,19 @@
 [
 	{
+		"title": "sveltekit-windicss-flowbite-template",
+		"url": "https://github.com/AlessioGr/sveltekit-windicss-flowbite-template",
+		"description": "Minimal SvelteKit template with a perfect set-up for WindiCSS and Flowbite",
+		"npm": "",
+		"addedOn": "2022-08-23",
+		"category": "SvelteKit",
+		"tags": [
+			"templates",
+			"typescript",
+			"integrations"
+		],
+		"stars": 1
+	},
+	{
 		"title": "CMSvelte",
 		"url": "https://github.com/sawyerclick/CMSvelte",
 		"description": "A Svelte template built with newsroom CMS's in mind",
