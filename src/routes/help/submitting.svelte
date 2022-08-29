@@ -174,7 +174,9 @@
 
 <h2>JSON Snippet</h2>
 <pre>
-	{JSON.stringify(jsonSnippet,null,4)}<button on:click={copy}>{clipboardCopy ? 'Copied' : 'Copy'}</button>
+{JSON.stringify(jsonSnippet, null, 4)}<button on:click={copy}
+		>{clipboardCopy ? 'Copied' : 'Copy'}</button
+	>
 </pre>
 <br />
 Copy this snippet and add it to
