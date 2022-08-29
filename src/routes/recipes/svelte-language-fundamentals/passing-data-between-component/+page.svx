@@ -1,0 +1,110 @@
+---
+title: Passing data between components
+layout: recipe
+---
+
+<script>import Mermaid from "$lib/Mermaid.svelte"</script>
+
+## Stores
+
+<Mermaid>{`
+flowchart BT
+	subgraph External file
+		Store["store"]
+	end
+	C1[Component1.svelte] <-- "$store" --> Store
+	C2[Component2.svelte] <-- "$store" --> Store
+`}</Mermaid>
+
+If declared "globally" works in any configuration and you have "live" update
+
+## Global variable
+
+<Mermaid>{`
+flowchart BT
+	subgraph External file
+		Store["myVar"]
+	end
+	C1[Component1.svelte] <-- "myVar" --> Store
+	C2[Component2.svelte] <-- "myVar" --> Store
+`}</Mermaid>
+
+Works in any configuration, but you have the check for new value by yourself
+
+## Svelte event
+
+<Mermaid>{`
+flowchart BT
+	Child[Child.svelte] -->|on:myEvent| Parent[Parent.svelte]
+`}</Mermaid>
+
+Works only from child to parent context
+
+## get/setContext
+
+<Mermaid>{`
+flowchart TB
+	Parent[Parent.svelte]
+	Child[Child.svelte]
+	GrandChild[GrandChild.svelte]
+	Parent -.->|context| Child
+	Child -.->|inherit context| GrandChild
+	Child --> Parent
+	GrandChild --> Parent
+`}</Mermaid>
+
+Works in hierarchy context: parent declare context, any of children (or event lower) can update the context, parent (or any relation between) will have the change
+
+If combine with store, it enable "live" update
+
+## Props
+
+<Mermaid>{`
+flowchart TB
+	Parent[Parent.svelte]
+	Child[Child.svelte]
+	Parent <-->|bind:myVar| Child
+`}</Mermaid>
+
+Works in parent/child context: parent declare a variable, bind it in its child
+
+---
+
+<Mermaid>{`
+flowchart TB
+	Parent[Parent.svelte]
+	Child[Child.svelte]
+	Parent -->|"myVar=#123;myVar}"| Child
+`}</Mermaid>
+
+Works in parent to child context: parent declare a variable, give it to its child
+
+---
+
+<Mermaid>{`
+flowchart TB
+	Parent[Parent.svelte]
+	Child[Child.svelte]
+	Parent -->|"myFunc=#123;myFunc}"| Child
+	Child -->|"myFunc()"| Parent
+`}</Mermaid>
+
+Works in parent/child context: parent declare a function, give it to its child
+Then the child call the function that will run in the parent
+
+## DOM event
+
+<Mermaid>{`
+flowchart BT
+	Window
+	Body
+	Parent[Parent.svelte]
+	Child[Child.svelte]
+	Body -.- Window
+	Parent -.- Body
+	Child -->|on:myEvent| Parent
+	Child -->|on:myEvent| Body
+	Child -->|on:myEvent| Window
+`}</Mermaid>
+
+Works in hierarchy context: child send event and all components above can listen to it
