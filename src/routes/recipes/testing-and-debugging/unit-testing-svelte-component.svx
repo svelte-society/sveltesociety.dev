@@ -154,5 +154,3 @@ test('it should render slotted content', () => {
 	expect(button.innerHTML).toBe('Hello');
 });
 ```
-
-_to be written_
