@@ -1,6 +1,6 @@
 <script>
 	import templates from './templates.json';
-	import SearchableJson from '../_searchableJson.svelte';
+	import SearchableJson from '../searchableJson.svelte';
 
 	const categoryId = {
 		Sapper: 'sapper',

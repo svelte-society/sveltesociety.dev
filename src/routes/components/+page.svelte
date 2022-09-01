@@ -1,6 +1,6 @@
 <script>
 	import components from './components.json';
-	import SearchableJson from '../_searchableJson.svelte';
+	import SearchableJson from '../searchableJson.svelte';
 
 	const categoryId = {
 		Animations: 'animations',

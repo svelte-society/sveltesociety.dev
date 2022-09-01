@@ -1,6 +1,7 @@
 <script>
 	import Tag from '../Tag.svelte';
 	import { copyToClipboard } from '$lib/utils/clipboard';
+	import { packageManager as manager } from '$stores/packageManager';
 
 	export let active = false;
 	export let title = '';
@@ -10,12 +11,11 @@
 	export let url = '';
 	export let npm = '';
 	export let repo = '';
-	export let manager = 'npm';
 
 	let clipboardCopy = false;
 
 	const copy = () => {
-		copyToClipboard(`${packageManagers[manager]} ${cleanupNpm(npm)}`).then(
+		copyToClipboard(`${packageManagers[$manager]} ${cleanupNpm(npm)}`).then(
 			() => (clipboardCopy = false)
 		);
 		clipboardCopy = true;
@@ -38,7 +38,7 @@
 		{#if npm}<Tag
 				click={() => copy()}
 				variant="copy"
-				title={clipboardCopy ? 'copied!' : `${packageManagers[manager]} ${cleanupNpm(npm)}`}
+				title={clipboardCopy ? 'copied!' : `${packageManagers[$manager]} ${cleanupNpm(npm)}`}
 			/>{/if}
 	</h3>
 	<p class="flex-grow">{description}</p>

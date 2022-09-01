@@ -6,20 +6,16 @@
 	import Seo from '$lib/components/Seo.svelte';
 	import Search from '$lib/components/Search.svelte';
 	import Select from '../lib/components/Select.svelte';
-	import { localStorage, persist } from '@macfja/svelte-persistent-store';
-	import { writable } from 'svelte/store';
+	import { packageManager } from '$stores/packageManager';
 
 	export let data;
 	export let displayTitle = '';
 	export let displayTitleSingular = '';
 	export let submittingType = '';
 
-	let selectedPackageManager = { value: 'npm' };
-	const packageManager = persist(writable('npm'), localStorage(), 'packageManager');
 	let searchValue;
 	let dataToDisplay = [];
 
-	$: $packageManager = selectedPackageManager.value;
 	$: categories = extractUnique(dataToDisplay, 'category');
 
 	export let categoryId = {};
@@ -35,11 +31,10 @@
 				dataDefault={{ category: '' }}
 				bind:query={searchValue}
 				sortableFields={[
-					{ identifier: 'addedOn', title: 'Last added first', ascending: false },
-					{ identifier: 'addedOn', title: 'Oldest first', ascending: true },
-					{ identifier: 'title', title: 'Name (A-Z)', ascending: true },
-					{ identifier: 'title', title: 'Name (Z-A)', ascending: false },
-					{ identifier: 'stars', title: 'Most stars first', ascending: false }
+					{ identifier: 'addedOn', title: 'Most recent', ascending: false },
+					{ identifier: 'addedOn', title: 'Oldest', ascending: true },
+					{ identifier: 'title', title: 'Name', ascending: true },
+					{ identifier: 'stars', title: 'Stars', ascending: false }
 				]}
 				searchableFields={['title', 'description']}
 				facetsConfig={[
@@ -60,8 +55,10 @@
 			<Select
 				label="Package manager"
 				isClearable={false}
+				isSearchable={false}
 				showIndicator
-				bind:value={selectedPackageManager}
+				value={{ value: $packageManager }}
+				on:select={({ detail }) => ($packageManager = detail.value)}
 				items={[
 					{ label: 'NPM', value: 'npm' },
 					{ label: 'PNPM', value: 'pnpm' },

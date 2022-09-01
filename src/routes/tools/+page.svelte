@@ -1,6 +1,6 @@
 <script>
 	import tools from '../tools/tools.json';
-	import SearchableJson from '../_searchableJson.svelte';
+	import SearchableJson from '../searchableJson.svelte';
 
 	const categoryId = {
 		'Bundler Plugins': 'bundling',
