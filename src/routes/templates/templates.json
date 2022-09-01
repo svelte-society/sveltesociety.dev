@@ -837,5 +837,18 @@
 		"category": "Svelte Add",
 		"tags": ["testing"],
 		"stars": 0
+	},
+	{
+	    "title": "svelte-mpa",
+	    "url": "https://github.com/kokizzu/svelte-mpa",
+	    "description": "Multipage Svelte for any backend",
+	    "npm": "",
+	    "addedOn": "2022-09-01",
+	    "category": "Svelte",
+	    "tags": [
+		"templates",
+		"integrations"
+	    ],
+	    "stars": 0
 	}
 ]
