@@ -839,9 +839,9 @@
 		"stars": 0
 	},
 	{
-		"title": "QWER",
+		"title": "QWER Blog Starter",
 		"url": "https://github.com/kwchang0831/svelte-QWER",
-		"description": "✒︎ Simply Awesome Blog Starter built with SvelteKit and ❤",
+		"description": "Blog Starter built with SvelteKit and Love. 100 Lighthouse, SEO, Post tags and TOC, Atom feed, Sitemap, PWA, image optimisation, Giscus, UnoCSS, typesafe-i18n",
 		"npm": "",
 		"addedOn": "2022-08-28",
 		"category": "SvelteKit",
