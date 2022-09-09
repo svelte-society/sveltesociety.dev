@@ -105,13 +105,13 @@ Another situation that can sometimes cause unexpected results is when you reassi
 
 ```svelte
 <script>
-  let obj = {
-    num: 0
-  };
+	let obj = {
+		num: 0
+	};
 
-  function updateNum(obj) {
-    obj.num = 25;
-  }
+	function updateNum(obj) {
+		obj.num = 25;
+	}
 </script>
 
 <button on:click={() => updateNum(obj)}>Update</button>

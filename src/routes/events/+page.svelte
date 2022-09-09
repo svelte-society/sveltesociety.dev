@@ -1,28 +1,16 @@
-<script lang="ts" context="module">
-	import type { LoadInput, LoadOutput } from '@sveltejs/kit';
-
-	export async function load({ fetch }: LoadInput): Promise<LoadOutput> {
-		const res = await fetch('/events/events');
-		if (res.ok) return { props: { events: await res.json() } };
-		return {
-			status: res.status,
-			error: new Error()
-		};
-	}
-</script>
-
 <script lang="ts">
 	import Societies from '$lib/components/Societies/index.svelte';
 	import EventListElement from '$lib/components/EventListElement/index.svelte';
 	import Seo from '$lib/components/Seo.svelte';
-	export let events = {};
+	import type { PageData } from './$types';
+	export let data: PageData;
 </script>
 
 <Seo title="Events" />
 
 <article class="wrapper">
 	<section class="event-wrapper">
-		{#each events.events as event}
+		{#each data.events as event}
 			<EventListElement
 				title={event.title}
 				url={'/events/' + event.filename.replace('.svx', '')}

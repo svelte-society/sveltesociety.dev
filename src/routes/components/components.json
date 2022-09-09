@@ -2618,6 +2618,22 @@
 		"stars": 0
 	},
 	{
+		"title": "KitQL",
+		"url": "https://github.com/jycouet/kitql",
+		"description": "A set of tools, helping you building efficient apps in a fast way.",
+		"npm": "@kitql/all-in",
+		"addedOn": "2022-05-17",
+		"category": "Stores",
+		"tags": [
+			"async data",
+			"async loading",
+			"graphql",
+			"ssr",
+			"stores and state"
+		],
+		"stars": 0
+  },
+  {
 		"title": "svelte-brick-gallery",
 		"url": "https://github.com/anotherempty/svelte-brick-gallery",
 		"description": "A masonry-like image gallery component for svelte",
