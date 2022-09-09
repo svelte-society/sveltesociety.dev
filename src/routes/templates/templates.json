@@ -829,6 +829,21 @@
 		"stars": 0
 	},
 	{
+	    "title": "Swyxkit",
+	    "url": "https://github.com/sw-yx/swyxkit/",
+	    "description": "An opinionated blog starter for SvelteKit + Tailwind + Netlify. Refreshed for the great SvelteKit refactor of 2022!",
+	    "npm": "",
+	    "addedOn": "2022-09-09",
+	    "category": "SvelteKit",
+	    "tags": [
+		"blog",
+		"templates",
+		"mdsvex",
+		"markdown"
+	    ],
+	    "stars": 372
+	},
+	{
 		"title": "davipon/svelte-add-vitest",
 		"url": "https://github.com/davipon/svelte-add-vitest",
 		"description": "Svelte adder for Vitest",
