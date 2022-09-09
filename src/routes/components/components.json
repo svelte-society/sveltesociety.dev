@@ -1,5 +1,75 @@
 [
 	{
+		"title": "sveltekit-adapter-auto",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-auto",
+		"description": "Automatically chooses adapter for your current environment if possible",
+		"npm": "@sveltejs/adapter-auto",
+		"addedOn": "2022-06-09",
+		"tags": ["integrations"],
+		"category": "SvelteKit Adapters",
+		"stars": 8700
+	},
+	{
+		"title": "sveltekit-adapter-netlify",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-netlify",
+		"description": "A SvelteKit adapter that creates a Netlify app. If you're using adapter-auto, you don't need to install this unless you need to specify Netlify-specific options, since it's already included.",
+		"npm": "@sveltejs/adapter-netlify",
+		"addedOn": "2022-06-09",
+		"tags": ["integrations"],
+		"category": "SvelteKit Adapters",
+		"stars": 8700
+	},
+	{
+		"title": "sveltekit-adapter-cloudflare-workers",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare-workers",
+		"description": "SvelteKit adapter that creates a Cloudflare Workers site using a function for dynamic server rendering.",
+		"npm": "@sveltejs/adapter-cloudflare-workers",
+		"addedOn": "2022-06-09",
+		"tags": ["integrations"],
+		"category": "SvelteKit Adapters",
+		"stars": 8700
+	},
+	{
+		"title": "sveltekit-adapter-cloudflare",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare",
+		"description": "Adapter for building SvelteKit applications on Cloudflare Pages with Workers integration. If you're using adapter-auto, you don't need to install this — it's already included.",
+		"npm": "@sveltejs/adapter-cloudflare",
+		"addedOn": "2022-06-09",
+		"tags": ["integrations"],
+		"category": "SvelteKit Adapters",
+		"stars": 8700
+	},
+	{
+		"title": "sveltekit-adapter-node",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-node",
+		"description": "Adapter for SvelteKit apps that generates a standalone Node server.",
+		"npm": "@sveltejs/adapter-node",
+		"addedOn": "2022-06-09",
+		"tags": ["integrations"],
+		"category": "SvelteKit Adapters",
+		"stars": 8700
+	},
+	{
+		"title": "sveltekit-adapter-static",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-static",
+		"description": "Adapter for SvelteKit apps that prerenders your entire site as a collection of static files. If you'd like to prerender only some pages, you will need to use a different adapter together with the prerender option.",
+		"npm": "@sveltejs/adapter-static",
+		"addedOn": "2022-06-09",
+		"tags": ["integrations"],
+		"category": "SvelteKit Adapters",
+		"stars": 8700
+	},
+	{
+		"title": "sveltekit-adapter-vercel",
+		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-vercel",
+		"description": "A SvelteKit adapter that creates a Vercel app.If you're using adapter-auto, you don't need to install this unless you need to specify Vercel-specific options, since it's already included.",
+		"npm": "@sveltejs/adapter-vercel",
+		"addedOn": "2022-06-09",
+		"tags": ["integrations"],
+		"category": "SvelteKit Adapters",
+		"stars": 8700
+	},
+	{
 		"title": "svelte-lazy-loader",
 		"url": "https://github.com/sawyerclick/svelte-lazy-loader",
 		"description": "A lazy-loader component library for Svelte",
@@ -2562,5 +2632,84 @@
 			"stores and state"
 		],
 		"stars": 0
+  },
+  {
+		"title": "svelte-brick-gallery",
+		"url": "https://github.com/anotherempty/svelte-brick-gallery",
+		"description": "A masonry-like image gallery component for svelte",
+		"npm": "svelte-brick-gallery",
+		"addedOn": "2022-05-19",
+		"category": "User Interaction",
+		"tags": ["images", "layout and structure"],
+		"stars": 0
+	},
+	{
+		"title": "SvelteKit Adapter Bun.js",
+		"url": "https://github.com/gornostay25/svelte-adapter-bun",
+		"description": "SvelteKit adapter that generates a standalone Bun server.",
+		"npm": "svelte-adapter-bun",
+		"addedOn": "2022-07-10T00:00:00Z",
+		"category": "SvelteKit Adapters",
+		"stars": 6,
+		"tags": ["ssr", "integrations"]
+	},
+	{
+		"title": "svelte-headlessui",
+		"url": "https://github.com/rgossiaux/svelte-headlessui",
+		"description": "Unofficial Svelte port of the Headless UI component library",
+		"npm": "@rgossiaux/svelte-headlessui",
+		"addedOn": "2022-07-17",
+		"category": "Design System",
+		"stars": 840,
+		"tags": ["components and libraries", "component sets"]
+	},
+	{
+		"title": "BeerUi",
+		"url": "https://github.com/beerui/BeerUi",
+		"description": "A Svelte Ui Components",
+		"npm": "@brewer/beerui",
+		"addedOn": "2022-03-24",
+		"category": "Forms & User Input",
+		"tags": ["components and libraries", "time and date"],
+		"stars": 22
+	},
+	{
+		"title": "skeleton",
+		"url": "https://github.com/Brain-Bones/skeleton",
+		"description": "A Svelte/Kit component library designed for use with Tailwind.",
+		"npm": "@brainandbones/skeleton",
+		"addedOn": "2022-08-01",
+		"category": "Design System",
+		"tags": ["components and libraries", "component sets"],
+		"stars": 101
+	},
+	{
+		"title": "svelte-hover-draw-svg",
+		"url": "https://github.com/davipon/svelte-hover-draw-svg",
+		"description": "A lightweight Svelte component to draw SVG on hover.",
+		"npm": "svelte-hover-draw-svg",
+		"addedOn": "2022-08-03",
+		"category": "User Interaction",
+		"tags": ["animations", "components and libraries", "interactions"],
+		"stars": 0
+	},
+	{
+		"title": "svelte-switch-case",
+		"url": "https://github.com/l-portet/svelte-switch-case",
+		"description": "Switch case syntax for Svelte",
+		"npm": "svelte-switch-case",
+		"addedOn": "2022-07-25",
+		"tags": ["preprocessors"],
+		"stars": 47
+	},
+	{
+		"title": "casual-ui-svelte",
+		"url": "https://github.com/Blackman99/casual-ui",
+		"description": "A ui components lib that supports for Svelte3",
+		"npm": "casual-ui-svelte",
+		"addedOn": "2022-08-17",
+		"category": "User Interaction",
+		"tags": ["animations", "component sets", "form validation", "notifications"],
+		"stars": 32
 	}
 ]

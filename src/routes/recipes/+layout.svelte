@@ -1,22 +1,8 @@
-<script lang="ts" context="module">
+<script lang="ts">
 	import { categories } from '$lib/stores/recipes';
 	import '$styles/highlight.css';
-	import type { LoadInput, LoadOutput } from '@sveltejs/kit';
-
-	export async function load({ fetch }: LoadInput): Promise<LoadOutput> {
-		const res = await fetch('/recipes/recipes');
-		const recipeCategories = await res.json();
-
-		if (!res.ok) {
-			return {
-				status: res.status,
-				error: new Error()
-			};
-		}
-
-		categories.set(recipeCategories);
-		return { props: { categories: recipeCategories } };
-	}
+	export let data;
+	categories.set(data.categories);
 </script>
 
 <div class="container">

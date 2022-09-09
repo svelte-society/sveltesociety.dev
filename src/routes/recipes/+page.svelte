@@ -34,9 +34,9 @@
 				{#if category}
 					<section class="category">
 						<h3>
-							<Icon name={category.meta.icon} width="50px" height="50px" />
+							<Icon name={category.icon} width="50px" height="50px" />
 
-							<a href={category.path} class="list-title">{category.meta.title}</a>
+							<a href={category.path} class="list-title">{category.title}</a>
 						</h3>
 						<div class="category-list">
 							<CategoryTree currentPath={$page.url.pathname} nodes={category.children} />

@@ -597,15 +597,6 @@
 		"url": "https://github.com/babichjacob/university-website"
 	},
 	{
-		"addedOn": "2021-06-24T14:39:19Z",
-		"category": "SvelteKit",
-		"description": "Personal website and blog written from scratch with SvelteKit and TailwindCSS.",
-		"stars": 50,
-		"tags": [],
-		"title": "mhatvan/markushatvan.com",
-		"url": "https://github.com/mhatvan/markushatvan.com"
-	},
-	{
 		"addedOn": "2021-06-24T14:39:20Z",
 		"category": "SvelteKit",
 		"description": "A simplistic SvelteKit template for blogs",
@@ -790,12 +781,12 @@
 	{
 		"title": "Urara",
 		"url": "https://github.com/importantimport/urara",
-		"description": "Sweet & Powerful SvelteKit Blog Template.",
+		"description": "Sweet, Powerful, IndieWeb-Compatible SvelteKit Blog Starter.",
 		"npm": "",
 		"addedOn": "2022-03-09",
 		"category": "SvelteKit",
 		"tags": ["blog", "mdsvex", "typescript", "templates"],
-		"stars": 30
+		"stars": 130
 	},
 	{
 		"title": "Svelte-Typescript-Electron-Webpack",
@@ -805,6 +796,71 @@
 		"addedOn": "2022-03-21",
 		"category": "Svelte",
 		"tags": ["typescript", "webpack", "electron"],
+		"stars": 0
+	},
+	{
+		"title": "Svelte SCSS/TailwindCSS/Typescript Template",
+		"url": "https://github.com/timoyo93/svelte-template",
+		"description": "A template that uses TailwindCSS v3, Typescript and SCSS",
+		"npm": "",
+		"addedOn": "2022-04-14",
+		"category": "Svelte",
+		"tags": ["templates", "typescript", "preprocessors"],
+		"stars": 0
+	},
+	{
+		"title": "A Svelte + FAST + Vite starter project",
+		"url": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-starter",
+		"description": "A Svelte + FAST + Vite starter project",
+		"npm": "svelte-fast-vite-starter-project",
+		"addedOn": "2022-06-27",
+		"category": "Svelte",
+		"tags": ["templates"],
+		"stars": 0
+	},
+	{
+		"title": "A Svelte + FAST + Vite + TypeScript starter project",
+		"url": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-typescript-starter",
+		"description": "A Svelte + FAST + Vite + TypeScript starter project",
+		"npm": "svelte-fast-vite-typescript-starter-project",
+		"addedOn": "2022-06-27",
+		"category": "Svelte",
+		"tags": ["templates"],
+		"stars": 0
+	},
+	{
+	    "title": "Swyxkit",
+	    "url": "https://github.com/sw-yx/swyxkit/",
+	    "description": "An opinionated blog starter for SvelteKit + Tailwind + Netlify. Refreshed for the great SvelteKit refactor of 2022!",
+	    "npm": "",
+	    "addedOn": "2022-09-09",
+	    "category": "SvelteKit",
+	    "tags": [
+		"blog",
+		"templates",
+		"mdsvex",
+		"markdown"
+	    ],
+	    "stars": 372
+	},
+	{
+		"title": "davipon/svelte-add-vitest",
+		"url": "https://github.com/davipon/svelte-add-vitest",
+		"description": "Svelte adder for Vitest",
+		"npm": "svelte-add-vitest",
+		"addedOn": "2022-08-03",
+		"category": "Svelte Add",
+		"tags": ["testing"],
+		"stars": 0
+	},
+	{
+		"title": "svelte-mpa",
+		"url": "https://github.com/kokizzu/svelte-mpa",
+		"description": "Multipage Svelte for any backend",
+		"npm": "",
+		"addedOn": "2022-09-01",
+		"category": "Svelte",
+		"tags": ["templates", "integrations"],
 		"stars": 0
 	}
 ]
