@@ -1,7 +1,7 @@
 ---
-title: Other
+title: Publishing and Deploying
 layout: recipeCategory
-icon: 'archive'
+icon: 'docker'
 ---
 
 <!-- routify:options index=1 -->

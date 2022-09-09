@@ -1,8 +1,8 @@
 <script lang="ts">
 	import SvelteSelect from 'svelte-select';
-	import components from '../components/components.json';
-	import templates from '../templates/templates.json';
-	import tools from '../tools/tools.json';
+	import components from '../../components/components.json';
+	import templates from '../../templates/templates.json';
+	import tools from '../../tools/tools.json';
 	import { onMount, tick } from 'svelte';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 	import { extractUnique } from '$lib/utils/extractUnique';
@@ -31,7 +31,7 @@
 
 	let clipboardCopy = false;
 	const copy = () => {
-		copyToClipboard(JSON.stringify(jsonSnippet, null, 4)).then(() => (clipboardCopy = false));
+		copyToClipboard(JSON.stringify(jsonSnippet, null, '\t')).then(() => (clipboardCopy = false));
 		clipboardCopy = true;
 	};
 
@@ -174,7 +174,7 @@
 
 <h2>JSON Snippet</h2>
 <pre>
-{JSON.stringify(jsonSnippet, null, 4)}<button on:click={copy}
+{JSON.stringify(jsonSnippet, null, '\t')}<button on:click={copy}
 		>{clipboardCopy ? 'Copied' : 'Copy'}</button
 	>
 </pre>
