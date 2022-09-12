@@ -80,6 +80,14 @@
 			> by The Net Ninja
 		</li>
 	</ul>
+
+	<h2>Discovery</h2>
+	<ul>
+		<li>
+			For a curated list of SvelteKit examples in the wild, see
+			<a href="https://awesome-sveltekit.netlify.app">awesome-sveltekit</a>
+		</li>
+	</ul>
 </div>
 
 <style>
