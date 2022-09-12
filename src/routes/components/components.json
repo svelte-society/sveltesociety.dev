@@ -2363,6 +2363,16 @@
 		"stars": 30
 	},
 	{
+		"title": "svelte-bricks",
+		"url": "https://github.com/janosh/svelte-bricks",
+		"description": "Naive Svelte masonry component without column balancing (ragged columns at the bottom)",
+		"tags": ["components and libraries", "masonry layout", "media sites"],
+		"npm": "svelte-bricks",
+		"addedOn": "2022-09-11T10:00:00Z",
+		"category": "Design Pattern",
+		"stars": 29
+	},
+	{
 		"title": "Svelte (and SvelteKit) OAuth2",
 		"category": "Integration",
 		"description": "Add OAuth2 authorization in Svelte (and SvelteKit, works with SSR)",
