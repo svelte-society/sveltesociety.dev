@@ -2711,5 +2711,15 @@
 		"category": "User Interaction",
 		"tags": ["animations", "component sets", "form validation", "notifications"],
 		"stars": 32
+	},
+	{
+		"title": "flowbite-svelte",
+		"url": "https://github.com/themesberg/flowbite-svelte",
+    		"description": "Flowbite-Svelte is an official Flowbite component library for Svelte. All interactivities are handled by Svelte.",
+    		"npm": "flowbite-svelte",
+    		"addedOn": "2022-09-12",
+    		"category": "Design System",
+    		"tags": ["components and libraries"],
+    		"stars": 233
 	}
 ]
