@@ -50,3 +50,4 @@ Then you can write your Svelte components with TypeScript:
 More information from community blogposts:
 
 - https://codechips.me/how-to-use-typescript-with-svelte/
+- https://github.com/ivanhofer/sveltekit-typescript-showcase
