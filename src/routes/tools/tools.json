@@ -317,11 +317,11 @@
 	{
 		"title": "typesafe-i18n",
 		"url": "https://github.com/ivanhofer/typesafe-i18n",
-		"description": "An opinionated, fully type-safe, lightweight localization library for TypeScript and JavaScript projects with no external dependencies.",
+		"description": "A fully type-safe and lightweight internationalization library for all your TypeScript and JavaScript projects.",
 		"npm": "typesafe-i18n",
 		"addedOn": "2021-12-08",
-		"tags": [],
-		"stars": 0
+		"tags": ["components and libraries", "internationalization", "typescript"],
+		"stars": 1096
 	},
 	{
 		"title": "tolgee/svelte",
