@@ -6,11 +6,7 @@
 		"npm": "",
 		"addedOn": "2022-08-23",
 		"category": "SvelteKit",
-		"tags": [
-			"templates",
-			"typescript",
-			"integrations"
-		],
+		"tags": ["templates", "typescript", "integrations"],
 		"stars": 1
 	},
 	{
@@ -843,19 +839,14 @@
 		"stars": 0
 	},
 	{
-	    "title": "Swyxkit",
-	    "url": "https://github.com/sw-yx/swyxkit/",
-	    "description": "An opinionated blog starter for SvelteKit + Tailwind + Netlify. Refreshed for the great SvelteKit refactor of 2022!",
-	    "npm": "",
-	    "addedOn": "2022-09-09",
-	    "category": "SvelteKit",
-	    "tags": [
-		"blog",
-		"templates",
-		"mdsvex",
-		"markdown"
-	    ],
-	    "stars": 372
+		"title": "Swyxkit",
+		"url": "https://github.com/sw-yx/swyxkit/",
+		"description": "An opinionated blog starter for SvelteKit + Tailwind + Netlify. Refreshed for the great SvelteKit refactor of 2022!",
+		"npm": "",
+		"addedOn": "2022-09-09",
+		"category": "SvelteKit",
+		"tags": ["blog", "templates", "mdsvex", "markdown"],
+		"stars": 372
 	},
 	{
 		"title": "davipon/svelte-add-vitest",
@@ -876,8 +867,8 @@
 		"category": "SvelteKit",
 		"tags": ["blog", "markdown", "templates", "seo", "typescript"],
 		"stars": 30
-  },
-  {
+	},
+	{
 		"title": "svelte-mpa",
 		"url": "https://github.com/kokizzu/svelte-mpa",
 		"description": "Multipage Svelte for any backend",
