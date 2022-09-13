@@ -2624,16 +2624,10 @@
 		"npm": "@kitql/all-in",
 		"addedOn": "2022-05-17",
 		"category": "Stores",
-		"tags": [
-			"async data",
-			"async loading",
-			"graphql",
-			"ssr",
-			"stores and state"
-		],
+		"tags": ["async data", "async loading", "graphql", "ssr", "stores and state"],
 		"stars": 0
-  },
-  {
+	},
+	{
 		"title": "svelte-brick-gallery",
 		"url": "https://github.com/anotherempty/svelte-brick-gallery",
 		"description": "A masonry-like image gallery component for svelte",
