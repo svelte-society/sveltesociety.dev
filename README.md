@@ -1,12 +1,16 @@
-# Svelte Society 2021 Website
+# CULT Magazine
 
-Using SvelteKit!
+Welcome to our decentralized magazine. We are a volunteer global network of CULTDAO fans who promote freedom, fairness, education, transparency and love. Everyone is invited to contribute corresponding content.
+
+## Inspiration
+
+[Fairness](https://github.com/michael-spengler/fairness)
 
 ## Developing
 
 In order to start a development server:
 
-```bash
+```sh
 npm install
 npm run dev
 
@@ -18,7 +22,7 @@ npm run dev -- --open
 
 Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
 
-```bash
+```sh
 npm run build
 ```
 

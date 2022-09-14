@@ -12,10 +12,10 @@
 	<h1 class="text-center">Welcome to Svelte Society!</h1>
 	<section>
 		<p>
-			We are a volunteer global network of Svelte fans that strive to promote Svelte and its
-			ecosystem. As a service to the community, this site is a central index of <a href="/events"
-				>events</a
-			>, a <a href="/components">components directory</a>, as well as <a href="/recipes">recipes</a>
+			Welcome to our decentralized magazine. We are a volunteer global network of CULTDAO fans who
+			promote freedom, fairness, education, transparency and love. Everyone is invited to contribute
+			corresponding content. a <a href="/components">components directory</a>, as well as
+			<a href="/recipes">recipes</a>
 			and other useful resources. Join us or help us out!
 		</p>
 		<p>

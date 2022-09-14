@@ -1,7 +1,7 @@
 <script type="ts">
 	import { page } from '$app/stores';
 
-	const brand = 'Svelte Society';
+	const brand = 'CULT Magazine';
 
 	export let title = brand;
 	export let description =
