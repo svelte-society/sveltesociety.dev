@@ -1,7 +1,7 @@
 <script>
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
 	import List from '$lib/components/ComponentIndex/CardList.svelte';
-	import components from './templates.json';
+	import components from './cultproposals.json';
 	import { compare, selectSortItems } from '$lib/utils/sort';
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import Select from '$lib/components/Select.svelte';
@@ -57,9 +57,9 @@
 	};
 </script>
 
-<Seo title="Templates" />
+<Seo title="cultproposals" />
 
-<SearchLayout title="Templates">
+<SearchLayout title="cultproposals">
 	<section class="controls" slot="controls">
 		<div class="inputs">
 			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />
@@ -85,7 +85,7 @@
 		<input
 			class="searchbar"
 			type="text"
-			placeholder="Search for templates..."
+			placeholder="Search for cultproposals..."
 			bind:value={searchValue}
 		/>
 		<span class="searchbar-count"

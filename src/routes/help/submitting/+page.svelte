@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SvelteSelect from 'svelte-select';
 	import components from '../../components/components.json';
-	import templates from '../../templates/templates.json';
+	import cultproposals from '../../cultproposals/cultproposals.json';
 	import tools from '../../tools/tools.json';
 	import { onMount, tick } from 'svelte';
 	import { copyToClipboard } from '$lib/utils/clipboard';
@@ -20,8 +20,8 @@
 			categories: [...extractUnique(components, 'category').filter((cat) => cat.label !== '')]
 		},
 		template: {
-			tags: extractUnique(templates, 'tags'),
-			categories: extractUnique(templates, 'category')
+			tags: extractUnique(cultproposals, 'tags'),
+			categories: extractUnique(cultproposals, 'category')
 		},
 		tool: {
 			tags: extractUnique(tools, 'tags'),

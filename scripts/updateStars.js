@@ -11,7 +11,7 @@ import prettier from 'prettier';
 
 const files = [
 	'src/routes/components/components.json',
-	'src/routes/templates/templates.json',
+	'src/routes/cultproposals/cultproposals.json',
 	'src/routes/tools/tools.json'
 ];
 

@@ -6,7 +6,7 @@
 	import Select from '$lib/components/Select.svelte';
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import { compare, selectSortItems } from '$lib/utils/sort';
-	import components from '../templates/templates.json';
+	import components from '../cultproposals/cultproposals.json';
 	import Seo from '$lib/components/Seo.svelte';
 
 	let searchValue;
@@ -85,7 +85,7 @@
 		<input
 			class="searchbar"
 			type="text"
-			placeholder="Search for templates..."
+			placeholder="Search for cultproposals..."
 			bind:value={searchValue}
 		/>
 		<span class="searchbar-count"

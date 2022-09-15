@@ -3,8 +3,8 @@
 
 	import { page } from '$app/stores';
 	const linksLeft = [
-		['/templates', 'templates'],
-		['/components', 'components'],
+		['/cultproposals', 'CULT Proposals'],
+		['/components', 'RVLT Proposals'],
 		['/tools', 'tools']
 	];
 	const linksRight = [

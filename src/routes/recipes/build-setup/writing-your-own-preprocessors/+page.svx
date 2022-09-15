@@ -234,7 +234,7 @@ p Hello World!
 
 ```
 
-This guarantees no ambiguity when you have a Svelte codebase that is a mix of Pug and HTML templates. In order to process this you will have to add some checking and preprocessing:
+This guarantees no ambiguity when you have a Svelte codebase that is a mix of Pug and HTML cultproposals. In order to process this you will have to add some checking and preprocessing:
 
 ```js
 const pug = require('pug');

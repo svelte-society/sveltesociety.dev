@@ -6,11 +6,7 @@
 		"npm": "",
 		"addedOn": "2022-08-23",
 		"category": "SvelteKit",
-		"tags": [
-			"templates",
-			"typescript",
-			"integrations"
-		],
+		"tags": ["cultproposals", "typescript", "integrations"],
 		"stars": 1
 	},
 	{
@@ -20,7 +16,7 @@
 		"npm": "",
 		"addedOn": "2022-02-27",
 		"category": "Svelte",
-		"tags": ["templates", "blog"],
+		"tags": ["cultproposals", "blog"],
 		"stars": 0
 	},
 	{
@@ -561,7 +557,7 @@
 		"category": "SvelteKit",
 		"description": "SvelteKit Starter template with Typescript, Postcss, scss, TailwindCSS, Storybook, husky, and eslint.",
 		"stars": 148,
-		"tags": ["blog", "seo", "ssr", "storybook", "templates"],
+		"tags": ["blog", "seo", "ssr", "storybook", "cultproposals"],
 		"title": "navneetsharmaui/sveltekit-starter",
 		"url": "https://github.com/navneetsharmaui/sveltekit-starter"
 	},
@@ -570,7 +566,7 @@
 		"category": "SvelteKit",
 		"description": "SvelteKit Blog Starter template with Typescript, Postcss, scss, TailwindCSS, Storybook, husky, and eslint. The template is free to use and developers are welcome to contribute to it.",
 		"stars": 0,
-		"tags": ["blog", "mdsvex", "seo", "ssr", "storybook", "templates"],
+		"tags": ["blog", "mdsvex", "seo", "ssr", "storybook", "cultproposals"],
 		"title": "navneetsharmaui/sveltekit-blog",
 		"url": "https://github.com/navneetsharmaui/sveltekit-blog"
 	},
@@ -679,7 +675,7 @@
 		"description": "Template designed to make it faster and easier to build libre Svelte apps using Headless UI.",
 		"addedOn": "2022-02-26",
 		"category": "SvelteKit",
-		"tags": ["templates", "ssr", "typescript"],
+		"tags": ["cultproposals", "ssr", "typescript"],
 		"stars": 15
 	},
 	{
@@ -723,7 +719,7 @@
 		"category": "SvelteKit",
 		"description": "SvelteKit blog powered with mdsvex, json schema support, sitemap.xml, RSS-feed and other tools required for good SEO.",
 		"stars": 1,
-		"tags": ["ssr", "templates", "mdsvex", "seo"],
+		"tags": ["ssr", "cultproposals", "mdsvex", "seo"],
 		"title": "MailCheck-co/mailcheck.site",
 		"url": "https://github.com/MailCheck-co/mailcheck.site"
 	},
@@ -734,7 +730,7 @@
 		"npm": "",
 		"addedOn": "2021-12-08",
 		"category": "SvelteKit",
-		"tags": ["blog", "code splitting", "lazy loading", "seo", "ssr", "templates", "typescript"],
+		"tags": ["blog", "code splitting", "lazy loading", "seo", "ssr", "cultproposals", "typescript"],
 		"stars": 0
 	},
 	{
@@ -744,7 +740,7 @@
 		"npm": "",
 		"addedOn": "2022-02-28",
 		"category": "Svelte",
-		"tags": ["templates", "typescript"],
+		"tags": ["cultproposals", "typescript"],
 		"stars": 0
 	},
 	{
@@ -767,7 +763,7 @@
 			"testing",
 			"ssr",
 			"storybook",
-			"templates",
+			"cultproposals",
 			"component sets"
 		],
 		"stars": 69
@@ -779,7 +775,7 @@
 		"npm": "",
 		"addedOn": "2022-03-02",
 		"category": "SvelteKit",
-		"tags": ["blog", "markdown", "templates"],
+		"tags": ["blog", "markdown", "cultproposals"],
 		"stars": 4
 	},
 	{
@@ -789,7 +785,7 @@
 		"npm": "",
 		"addedOn": "2022-03-09",
 		"category": "SvelteKit",
-		"tags": ["blog", "templates"],
+		"tags": ["blog", "cultproposals"],
 		"stars": 0
 	},
 	{
@@ -799,7 +795,7 @@
 		"npm": "",
 		"addedOn": "2022-03-09",
 		"category": "SvelteKit",
-		"tags": ["blog", "mdsvex", "typescript", "templates"],
+		"tags": ["blog", "mdsvex", "typescript", "cultproposals"],
 		"stars": 130
 	},
 	{
@@ -819,7 +815,7 @@
 		"npm": "",
 		"addedOn": "2022-04-14",
 		"category": "Svelte",
-		"tags": ["templates", "typescript", "preprocessors"],
+		"tags": ["cultproposals", "typescript", "preprocessors"],
 		"stars": 0
 	},
 	{
@@ -829,7 +825,7 @@
 		"npm": "svelte-fast-vite-starter-project",
 		"addedOn": "2022-06-27",
 		"category": "Svelte",
-		"tags": ["templates"],
+		"tags": ["cultproposals"],
 		"stars": 0
 	},
 	{
@@ -839,23 +835,18 @@
 		"npm": "svelte-fast-vite-typescript-starter-project",
 		"addedOn": "2022-06-27",
 		"category": "Svelte",
-		"tags": ["templates"],
+		"tags": ["cultproposals"],
 		"stars": 0
 	},
 	{
-	    "title": "Swyxkit",
-	    "url": "https://github.com/sw-yx/swyxkit/",
-	    "description": "An opinionated blog starter for SvelteKit + Tailwind + Netlify. Refreshed for the great SvelteKit refactor of 2022!",
-	    "npm": "",
-	    "addedOn": "2022-09-09",
-	    "category": "SvelteKit",
-	    "tags": [
-		"blog",
-		"templates",
-		"mdsvex",
-		"markdown"
-	    ],
-	    "stars": 372
+		"title": "Swyxkit",
+		"url": "https://github.com/sw-yx/swyxkit/",
+		"description": "An opinionated blog starter for SvelteKit + Tailwind + Netlify. Refreshed for the great SvelteKit refactor of 2022!",
+		"npm": "",
+		"addedOn": "2022-09-09",
+		"category": "SvelteKit",
+		"tags": ["blog", "cultproposals", "mdsvex", "markdown"],
+		"stars": 372
 	},
 	{
 		"title": "davipon/svelte-add-vitest",
@@ -874,17 +865,17 @@
 		"npm": "",
 		"addedOn": "2022-08-28",
 		"category": "SvelteKit",
-		"tags": ["blog", "markdown", "templates", "seo", "typescript"],
+		"tags": ["blog", "markdown", "cultproposals", "seo", "typescript"],
 		"stars": 30
-  },
-  {
+	},
+	{
 		"title": "svelte-mpa",
 		"url": "https://github.com/kokizzu/svelte-mpa",
 		"description": "Multipage Svelte for any backend",
 		"npm": "",
 		"addedOn": "2022-09-01",
 		"category": "Svelte",
-		"tags": ["templates", "integrations"],
+		"tags": ["cultproposals", "integrations"],
 		"stars": 0
 	}
 ]
