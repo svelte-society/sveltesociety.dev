@@ -6,7 +6,7 @@
 
 <footer>
 	<div class="container">
-		<span>&copy; {year} Svelte Society</span>
+		<span>&copy; {year} CULT Magazine</span>
 		<span>•</span>
 		<a class="underline" href="/about">Code of Conduct</a>
 		<span>•</span>
@@ -14,7 +14,7 @@
 			Contribute on
 			<a
 				class="underline"
-				href="https://github.com/svelte-society/sveltesociety.dev/"
+				href="https://github.com/michael-spengler/cultmagazine"
 				target="_blank"
 				rel="noopener">GitHub</a
 			>!
