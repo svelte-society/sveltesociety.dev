@@ -1,0 +1,20 @@
+[
+	{
+		"addedOn": "2021-08-09T10:14:05.723Z",
+		"title": "Act of RVLT 973",
+		"category": "Designs",
+		"description": "Cool designs coming from 973",
+		"url": "https://drive.google.com/drive/folders/1uDpzUovNCFh2FRTxFSriiZLIOdAbZWHU",
+		"tags": ["official"],
+		"stars": 402
+	},
+	{
+		"addedOn": "2021-08-09T10:14:05.723Z",
+		"title": "svelte-loader",
+		"category": "Bundler Plugins",
+		"description": "Webpack loader for svelte components",
+		"url": "https://github.com/sveltejs/svelte-loader",
+		"tags": ["official"],
+		"stars": 492
+	}
+]

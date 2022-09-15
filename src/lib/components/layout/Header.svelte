@@ -5,7 +5,7 @@
 	const linksLeft = [
 		['/cultproposals', 'CULT Proposals'],
 		['/components', 'RVLT Proposals'],
-		['/tools', 'tools']
+		['/cultmaterial', 'Material']
 	];
 	const linksRight = [
 		['/recipes', 'recipes'],
