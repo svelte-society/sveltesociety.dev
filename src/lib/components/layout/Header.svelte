@@ -5,11 +5,11 @@
 	const linksLeft = [
 		['/cultproposals', 'CULT Proposals'],
 		['/components', 'RVLT Proposals'],
-		['/cultmaterial', 'Material']
+		['/recipes', 'markets']
 	];
 	const linksRight = [
-		['/recipes', 'recipes'],
 		['/events', 'events'],
+		['/cultmaterial', 'News'],
 		['/resources', 'resources']
 	];
 </script>

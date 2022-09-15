@@ -60,7 +60,7 @@
 
 <Seo title="Tools" />
 
-<SearchLayout title="Tools">
+<SearchLayout title="Material">
 	<section slot="controls" class="controls">
 		<div class="inputs">
 			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />
@@ -79,7 +79,7 @@
 				showIndicator
 				isClearable={false}
 			/>
-			<a href="/help/submitting?type=tool" class="submit">Submit a tool</a>
+			<a href="/help/submitting?type=tool" class="submit">Submit a material collection</a>
 		</div>
 
 		<input
