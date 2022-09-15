@@ -28,7 +28,8 @@
 				{/each}
 				<li>
 					<a href="/" class="logo">
-						<img alt="Svelte Society Logo" src="/images/logo.svg" />
+						<!-- <img alt="Svelte Society Logo" src="/images/logo.svg" /> -->
+						<img alt="CULT Magazine Logo" src="/images/logo.svg" />
 					</a>
 				</li>
 				{#each linksRight as [path, name]}

@@ -9,12 +9,15 @@
 />
 
 <article class="container">
-	<h1 class="text-center">Welcome to Svelte Society!</h1>
+	<h1 class="text-center">Welcome to the CULT Magazine</h1>
 	<section>
 		<p>
 			Welcome to our decentralized magazine. We are a volunteer global network of CULTDAO fans who
-			promote freedom, fairness, education, transparency and love. Everyone is invited to contribute
-			corresponding content. a <a href="/components">components directory</a>, as well as
+			promote freedom, fairness, education, transparency and love. Everyone is invited to collect
+			and contribute corresponding content.
+		</p>
+		<p>
+			You might be interested in <a href="/cultproposals">CULT Proposals</a>, as well as
 			<a href="/recipes">recipes</a>
 			and other useful resources. Join us or help us out!
 		</p>
@@ -24,35 +27,35 @@
 		</p>
 	</section>
 	<ul>
-		<Link path="https://discord.gg/svelte">
+		<Link path="https://discord.gg/wearecultdao">
 			<img src="images/discord.svg" alt="" />
 			Discord
 		</Link>
-		<Link path="https://youtube.com/SvelteSociety">
+		<Link path="https://rumble.com/c/c-1902267">
 			<img src="images/youtube.svg" alt="" />
 			YouTube
 		</Link>
-		<Link path="https://twitter.com/sveltesociety">
+		<Link path="https://twitter.com/MrOmodulus">
 			<img src="images/twitter.svg" alt="" />
 			Twitter
 		</Link>
 	</ul>
 	<ul>
-		<Link path="https://svelte.substack.com/">
+		<Link path="https://doc.cultdao.io/">
 			<img src="images/newsletter.svg" alt="" />
 			Newsletter
 		</Link>
-		<Link path="https://www.reddit.com/r/sveltejs/">
+		<Link path="https://www.reddit.com/r/cultdao/">
 			<img src="images/reddit.svg" alt="" />
 			Reddit
 		</Link>
-		<Link path="https://www.svelteradio.com/">
+		<Link path="https://www.cultradio.com/">
 			<img src="images/radio.svg" alt="" />
 			Podcast
 		</Link>
 	</ul>
 	<p class="text-center">
-		We also run the <a href="https://sveltesummit.com/">Svelte Summit</a> conference.
+		We also run the <a href="https://cultsummit.com/">CULT Summit</a> conference.
 	</p>
 </article>
 
