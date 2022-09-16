@@ -59,7 +59,7 @@
 
 <Seo title="cultproposals" />
 
-<SearchLayout title="cultproposals">
+<SearchLayout title="Cult Proposals">
 	<section class="controls" slot="controls">
 		<div class="inputs">
 			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />

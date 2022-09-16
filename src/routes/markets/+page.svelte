@@ -4,9 +4,9 @@
 	import Seo from '$lib/components/Seo.svelte';
 </script>
 
-<Seo title="Cheat Sheet" description="No time to read the docs? Just use the cheat sheet! :)" />
+<Seo title="CULT Markets" description="CULT Markets" />
 
-<h1>Cheat Sheet</h1>
+<h1>CULT Markets</h1>
 <main>
 	{#each cheatSheet as item}
 		<CheatSheetCard {...item} />

@@ -3,34 +3,10 @@ const docPath = 'https://svelte.dev/docs';
 
 export const cheatSheet = [
 	{
-		title: 'Svelte Component',
+		title: 'Shop To RVLT',
 		repl: `${replPath}/6a5416148c4b410b8ee0325eef54b107`,
 		doc: `${docPath}#component-format`,
-		content: `<!-- Widget.svelte -->
-<script>
-  export let textValue
-</script>
-
-<div class="container">
-  {textValue}
-</div>
-
-<style>
-.container {
-  color: blue;
-}
-</style>
-
-<!-- App.svelte -->
-<script>
-  import Widget from './Widget.svelte'
-  const title = 'App'
-</script>
-
-<header>{title}</header>
-
-<Widget textValue="I'm a svelte component" />
-`
+		content: `https://www.shop2revolt.com`
 	},
 	{
 		title: 'Expressions',

@@ -71,9 +71,9 @@
 	};
 </script>
 
-<Seo title="Components" />
+<Seo title="RVLT Proposals" />
 
-<SearchLayout title="Components">
+<SearchLayout title="RVLT Proposals">
 	<section class="controls" slot="controls">
 		<div class="inputs">
 			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />

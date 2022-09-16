@@ -13,15 +13,21 @@
 	<section>
 		<p>
 			Welcome to our decentralized magazine. We are a volunteer global network of CULTDAO fans who
-			promote freedom, fairness, education, transparency and love. Everyone is invited to collect
-			and contribute corresponding content via pull request on <a
+			promote freedom, fairness, education, transparency and love.
+		</p>
+		<p>
+			Everyone is invited to collect and contribute corresponding content via pull request on <a
 				href="https://github.com/michael-spengler/cultmagazine"
 				target="_blank">this repository</a
 			>.
 		</p>
 		<p>
-			You might be interested in <a href="/cultproposals">CULT Proposals</a>, as well as
-			<a href="/recipes">recipes</a>
+			You might be interested in <a href="/cultproposals">CULT Proposals</a>,
+			<a href="/cultproposals">RVLT Proposals</a>
+			<a href="/cultproposals">Markets</a>
+			<a href="/cultproposals">CULT Events</a>
+			<a href="/cultproposals">CULT News</a>
+			<a href="/cultproposals">CULT Resources</a>
 			and other useful resources. Join us or help us out!
 		</p>
 		<p>

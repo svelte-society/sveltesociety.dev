@@ -4,8 +4,8 @@
 	import { page } from '$app/stores';
 	const linksLeft = [
 		['/cultproposals', 'CULT Proposals'],
-		['/components', 'RVLT Proposals'],
-		['/recipes', 'markets']
+		['/rvltproposals', 'RVLT Proposals'],
+		['/markets', 'markets']
 	];
 	const linksRight = [
 		['/events', 'events'],
