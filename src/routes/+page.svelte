@@ -9,26 +9,29 @@
 />
 
 <article class="container">
-	<h1 class="text-center">Welcome to the CULT Magazine</h1>
-	<section>
+	<h1 class="text-center">CULT Magazine</h1>
+	<section class="text-center">
 		<p>
-			Welcome to our decentralized magazine. We are a volunteer global network of CULTDAO fans who
-			promote freedom, fairness, education, transparency and love.
+			We are a volunteer network of <a
+				href="https://coinmarketcap.com/currencies/cult-dao/"
+				target="_blank">CULTDAO</a
+			> fans promoting freedom, fairness, education, transparency and love.
 		</p>
 		<p>
-			Everyone is invited to collect and contribute corresponding content via pull request on <a
+			Everyone is invited to collect and contribute to this decentralized magazine via <a
 				href="https://github.com/michael-spengler/cultmagazine"
-				target="_blank">this repository</a
+				target="_blank">pull request</a
 			>.
 		</p>
 		<p>
-			You might be interested in <a href="/cultproposals">CULT Proposals</a>,
-			<a href="/cultproposals">RVLT Proposals</a>
-			<a href="/cultproposals">Markets</a>
-			<a href="/cultproposals">CULT Events</a>
-			<a href="/cultproposals">CULT News</a>
-			<a href="/cultproposals">CULT Resources</a>
-			and other useful resources. Join us or help us out!
+			You might be interested in <br /> <a href="/cultproposals">CULT Proposals</a>, <br />
+			<a href="/cultproposals">RVLT Proposals</a><br />
+			<a href="/cultproposals">Markets</a><br />
+			<a href="/cultproposals">CULT Events</a><br />
+			<a href="/cultproposals">CULT News</a><br />
+			<a href="/cultproposals">CULT Resources</a><br />
+			and other useful information in the context of our
+			<a href="https://coinmarketcap.com/currencies/cult-dao/" target="_blank">CULT</a>.
 		</p>
 		<p>
 			If you want to reach out to us or find like-minded people from around the world you can check

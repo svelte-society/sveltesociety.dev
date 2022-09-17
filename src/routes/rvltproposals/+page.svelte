@@ -73,6 +73,20 @@
 
 <Seo title="RVLT Proposals" />
 
+<embed
+	src="https://dune.com/embeds/1279317/2192218/6c162b5d-c755-4122-8596-cb70b3e0b254"
+	width="100%"
+	height="200"
+/>
+
+<p>
+	<embed
+		src="https://dune.com/embeds/1279379/2192339/a875789e-a062-49cb-9dfe-56ccf806d722"
+		width="25%"
+		height="200"
+	/>
+</p>
+
 <SearchLayout title="RVLT Proposals">
 	<section class="controls" slot="controls">
 		<div class="inputs">

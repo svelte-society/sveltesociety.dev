@@ -9,7 +9,7 @@
 	];
 	const linksRight = [
 		['/events', 'events'],
-		['/cultmaterial', 'News'],
+		['/news', 'News'],
 		['/resources', 'resources']
 	];
 </script>
@@ -29,7 +29,8 @@
 				<li>
 					<a href="/" class="logo">
 						<!-- <img alt="Svelte Society Logo" src="/images/logo.svg" /> -->
-						<img alt="CULT Magazine Logo" src="/images/logo.svg" />
+						<!-- <img alt="CULT Magazine Logo" src="/images/logo.svg" /> -->
+						<img alt="CULT Magazine Logo" src="/images/cult-mask-diamonds-sunglasses.png" />
 					</a>
 				</li>
 				{#each linksRight as [path, name]}

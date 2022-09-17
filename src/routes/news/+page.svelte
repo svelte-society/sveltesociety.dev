@@ -58,9 +58,9 @@
 	};
 </script>
 
-<Seo title="Tools" />
+<Seo title="CULT News" />
 
-<SearchLayout title="Material">
+<SearchLayout title="CULT News">
 	<section slot="controls" class="controls">
 		<div class="inputs">
 			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />
