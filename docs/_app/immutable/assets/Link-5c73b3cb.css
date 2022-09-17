@@ -1,0 +1,18 @@
+li.svelte-bs8x38.svelte-bs8x38 {
+	text-transform: uppercase;
+}
+a.svelte-bs8x38.svelte-bs8x38 {
+	text-decoration: none;
+	border-bottom: transparent;
+	color: var(--inherit);
+	transition: var(--link-transition);
+	font-size: var(--font-200);
+}
+a.nav-item.svelte-bs8x38.svelte-bs8x38 {
+	letter-spacing: 0.05rem;
+	font-weight: 400;
+}
+li.svelte-bs8x38 a.svelte-bs8x38:hover,
+.active.svelte-bs8x38.svelte-bs8x38 {
+	border-bottom: 4px solid var(--primary);
+}
