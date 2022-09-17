@@ -1,6 +1,4 @@
 <script lang="ts">
-	// import CheatSheetCard from './_CheatSheetCard.svelte';
-	// import { cheatSheet } from './cheat-sheet';
 	import Seo from '$lib/components/Seo.svelte';
 </script>
 
