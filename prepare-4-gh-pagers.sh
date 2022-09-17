@@ -1,1 +1,1 @@
-cp -r ./build ./docs && sed -i'' -e 's/href="\//href=".\//g' docs/index.html
+cp -r ./build ./docs && sed -i'' -e 's/href="\//href=".\//g' docs/index.html && sed -i'' -e 's/src="\//src=".\//g' docs/index.html
