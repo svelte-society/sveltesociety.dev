@@ -6,7 +6,7 @@ icon: database
 
 <!-- routify:options index=1 -->
 
-<script>import Warning from '../../../lib/components/recipes/Warning.svelte'</script>
+<script>import Warning from '../../../lib/components/markets/Warning.svelte'</script>
 
 ## This needs to be re-organised into separate recipes
 

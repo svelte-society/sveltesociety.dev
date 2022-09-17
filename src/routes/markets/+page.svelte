@@ -1,6 +1,6 @@
 <script lang="ts">
-	import CheatSheetCard from './_CheatSheetCard.svelte';
-	import { cheatSheet } from './cheat-sheet';
+	// import CheatSheetCard from './_CheatSheetCard.svelte';
+	// import { cheatSheet } from './cheat-sheet';
 	import Seo from '$lib/components/Seo.svelte';
 </script>
 
@@ -8,9 +8,10 @@
 
 <h1>CULT Markets</h1>
 <main>
-	{#each cheatSheet as item}
+	to be done
+	<!-- {#each cheatSheet as item}
 		<CheatSheetCard {...item} />
-	{/each}
+	{/each} -->
 </main>
 
 <style>

@@ -1,6 +1,6 @@
 # CULT Magazine
 
-Welcome to our decentralized magazine. We are a volunteer global network of CULTDAO fans who promote freedom, fairness, education, transparency and love. Everyone is invited to contribute corresponding content.
+Welcome to our decentralized magazine. We are a volunteer global network of CULTDAO fans who promote freedom, fairness, education, transparency and love. Everyone is invited to contribute corresponding content via pull request. You can also feel free to raise issues on this repository if you want to suggest improvement proposals etc.
 
 ## Inspiration
 

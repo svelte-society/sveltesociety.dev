@@ -1,5 +1,5 @@
 <script lang="ts">
-	import CategoryTree from '$lib/components/recipes/CategoryTree.svelte';
+	import CategoryTree from '$lib/components/markets/CategoryTree.svelte';
 	import Icon from '$lib/components/Icon/index.svelte';
 	import { page } from '$app/stores';
 	import { categories } from '$lib/stores/recipes';
