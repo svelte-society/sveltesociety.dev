@@ -1,0 +1,12 @@
+h2.svelte-1da61j2 {
+	margin-bottom: var(--s-6);
+}
+ul.svelte-1da61j2 {
+	padding-left: var(--s-6);
+	margin-top: var(--s-6);
+	margin-bottom: var(--s-10);
+}
+li.svelte-1da61j2 {
+	list-style: circle;
+	line-height: 150%;
+}
