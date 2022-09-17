@@ -1,0 +1,28 @@
+article.svelte-5llhzy {
+	max-width: 1024px;
+	display: grid;
+	gap: var(--s-10);
+}
+h1.svelte-5llhzy {
+	margin: 0;
+}
+section.svelte-5llhzy {
+	display: grid;
+	gap: var(--s-5);
+}
+ul.svelte-5llhzy {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: var(--s-20);
+	row-gap: var(--s-5);
+	justify-content: space-around;
+	text-align: center;
+}
+img.svelte-5llhzy {
+	width: 128px;
+}
+@media (min-width: 1280px) {
+	article.svelte-5llhzy {
+		gap: var(--s-20);
+	}
+}
