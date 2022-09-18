@@ -47,8 +47,11 @@
 			<a href="/resources">CULT Resources</a><br />
 		</p>
 		<p>
-			<a href="/markets">Markets</a><br />
+			<a href="/markets">CULT Markets</a><br />
 		</p>
+		<!-- <p>
+			<a href="/markets">CULT Chats (coming soon)</a><br />
+		</p> -->
 	</section>
 	<ul>
 		<Link path="https://discord.gg/wearecultdao">
