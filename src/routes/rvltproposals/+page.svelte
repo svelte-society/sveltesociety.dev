@@ -89,6 +89,11 @@
 </div>
 
 <p><br /></p>
+<embed
+	src="https://dune.com/embeds/1280979/2194908/ec83050f-257e-45b4-a382-f791020293c0"
+	width="100%"
+	height="1000"
+/>
 
 <h1>Further information will be provided soon.</h1>
 

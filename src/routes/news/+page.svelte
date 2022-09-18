@@ -64,10 +64,12 @@
 
 <p><br /></p>
 
-under construction - everyone is invited to add CULT news via<a
-	href="https://github.com/michael-spengler/cultmagazine"
-	target="_blank">pull request</a
->.
+Under construction - everyone is invited to add CULT news via pull request.
+
+<p><br /></p>
+The following is just to get some design- / layout ideas
+
+<p><br /></p>
 
 <SearchLayout title="CULT News">
 	<section slot="controls" class="controls">

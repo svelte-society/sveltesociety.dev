@@ -30,6 +30,18 @@
 	];
 </script>
 
+<h1>CULT Resources</h1>
+
+<p><br /></p>
+
+Under construction - everyone is invited to add CULT Resources via pull request. This should also be
+automated as far as possible to have all resources from acts of revolt easily available.
+
+<p><br /></p>
+The following is just to get some design- / layout- / first automation ideas
+
+<p><br /></p>
+
 <div>
 	<h2>Books</h2>
 

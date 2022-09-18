@@ -15,9 +15,9 @@
 <p><br /></p>
 
 under construction - we'll promote events where guests get free entrance when proving they have cult
-or rvlt in their wallet. the following is just to get some design- / layout ideas
+or rvlt in their wallet.
 <p><br /></p>
-the following is just to get some design- / layout ideas
+The following is just to get some design- / layout ideas
 <article class="wrapper">
 	<section class="event-wrapper">
 		{#each data.events as event}
