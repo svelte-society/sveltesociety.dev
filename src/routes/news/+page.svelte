@@ -63,7 +63,12 @@
 <div class="text-center">
 	<h1>CULT News</h1>
 
-	Everyone is invited to add CULT news via pull request.
+	Everyone is invited to add CULT news via<a
+		href="https://www.youtube.com/watch?v=8lGpZkjnkt4"
+		target="_blank"
+	>
+		pull request</a
+	>.
 	<!-- <a href="asdf"></a>  -->
 
 	<p><br /></p>

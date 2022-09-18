@@ -32,7 +32,7 @@
 		</p>
 		<p>You might be interested in</p>
 		<p>
-			<a href="/cultproposals">CULT Proposals</a>, <br />
+			<a href="/cultproposals">CULT Proposals</a><br />
 		</p>
 		<p>
 			<a href="/rvltproposals">RVLT Proposals</a><br />
