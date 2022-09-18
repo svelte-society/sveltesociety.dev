@@ -20,18 +20,19 @@ if (Deno.args[0].indexOf(443) === -1) {
 
 	console.log(`reading certificates from ${pathToCertificates}`);
 
-	// const cert = `${pathToCertificates}/fullchain.pem`;
-	const cert = `${pathToCertificates}/cert.pem`;
-	const key = `${pathToCertificates}/privkey.pem`;
+	const cert = await Deno.readTextFile(`/etc/letsencrypt/live/cultmagazine.org/fullchain.pem`);
+	const key = await Deno.readTextFile(`/etc/letsencrypt/live/cultmagazine.org/privkey.pem`);
+	console.log(cert.length);
+	console.log(key.length);
 
 	const options = {
-		cert,
-		key
-		// ca: fs.readFileSync('/path/to/ca.pem')
+		port,
+		certFile: '/etc/letsencrypt/live/cultmagazine.org/fullchain.pem',
+		keyFile: '/etc/letsencrypt/live/cultmagazine.org/privkey.pem'
 	};
 
 	try {
-		await app.listen(port, options);
+		await app.listen(options);
 		console.log(`server has started on https://localhost:${port} 🚀`);
 	} catch (error) {
 		console.log(`shit happened: ${error}`);
