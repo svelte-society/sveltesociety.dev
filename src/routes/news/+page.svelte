@@ -60,15 +60,26 @@
 
 <Seo title="CULT News" />
 
-<h1>CULT News</h1>
+<div class="text-center">
+	<h1>CULT News</h1>
 
-Everyone is invited to add CULT news via pull request.
-<!-- <a href="asdf"></a>  -->
+	Everyone is invited to add CULT news via pull request.
+	<!-- <a href="asdf"></a>  -->
 
-<p><br /></p>
-<h3>Cultoshi is Optimizing the CULT Mander's Voting Process</h3>
-<embed type="text/html" src="https://revolt.cultoshi.com/" width="100%" height="500" />
-
+	<p><br /></p>
+	<h3>revolt.cultoshi.com is Optimizing the Voting Process</h3>
+	<embed type="text/html" src="https://revolt.cultoshi.com/" width="100%" height="1100vh" />
+	<p><br /></p>
+	<p><br /></p>
+	<h3>CULT Chat Feature Under Construction</h3>
+	This decentralized chat feature will store messages on Polygon. Messages are considered transactions
+	- avoiding spam.
+	<p><br /></p>
+	<p><br /></p>
+	<h3>CULT Market Feature Under Construction</h3>
+	This decentralized markets feature will use Polygon as backend. There will be a decentralized content
+	moderation on what to show via the frontend. Images will be stored via ipfs.io.
+</div>
 <!-- 
 <p><br /></p>
 
