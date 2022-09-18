@@ -26,7 +26,7 @@ Before creating a production version of your app, install an [adapter](https://k
 npm run build
 ```
 
-## Deploying
+## Deploying on central server (current approach)
 
 I deployed this e.g. on server 116.203.185.185 using deno as runtime environment and pm2 as process manager.
 
@@ -35,8 +35,26 @@ pm2 start cultmagazine-server-opine.ts --interpreter="deno" --interpreter-args="
 
 ```
 
-116.203.185.185
+## Deploying on IPFS (future approach)
+
+Similar to how the deployment was done for the [cultkamasutra](https://cultkamasutra.eth.limo/).
+Ensuring the assets, resources, ideas are easily accessible to prevent dictatorship and to ensure freedom and fairness.
 
 ## https ssh enablement
 
 Using [eff's certbot](https://certbot.eff.org/instructions?ws=other&os=ubuntufocal) to get a certificate.
+
+## Manual on How to Monetize Such Contributions
+
+I submitted act of revolt [here](https://revolt.cultdao.io/submitProposal) with the following credentials:
+
+I programmed https://cultmagazine.org
+
+https://twitter.com/Peer2peerE
+
+I added "Article" in the latest commit messages on https://github.com/michael-spengler/cultmagazine.
+After collecting ideas on https://github.com/michael-spengler/fairness/blob/main/README.md I decided it's time :) to provide further cultdao ecosystem features. Earlier I provided: https://cultkamasutra.eth.limo
+
+https://cultmagazine.org
+
+0x9E972a43B3B8D68cD70930697E16429E47E88151
