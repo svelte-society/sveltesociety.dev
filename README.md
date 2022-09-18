@@ -1,6 +1,6 @@
 # CULT Magazine
 
-Welcome to our decentralized magazine. We are a volunteer global network of CULTDAO fans who promote freedom, fairness, education, transparency and love. Everyone is invited to contribute corresponding content via pull request. You can also feel free to raise issues on this repository if you want to suggest improvement proposals etc.
+Welcome to our decentralized magazine. We are a volunteer global network of CULTDAO fans who promote freedom, fairness, education, transparency and love. Everyone is invited to contribute corresponding content via [pull request](https://www.youtube.com/watch?v=8lGpZkjnkt4). You can also feel free to raise [issues](https://github.com/michael-spengler/cultmagazine/issues) on this repository if you want to suggest improvement proposals etc.
 
 ## Inspiration
 
@@ -52,9 +52,10 @@ I programmed https://cultmagazine.org
 
 https://twitter.com/Peer2peerE
 
+The idea of the cultmagazine.org is to have a decentralized magazine where everyone can contribute. All contributions can be submitted as acts of revolt. The cycle keyword shall be included in the commit message or in the corresponding pull request description on github.com.
 I added "Article" in the latest commit messages on https://github.com/michael-spengler/cultmagazine.
 After collecting ideas on https://github.com/michael-spengler/fairness/blob/main/README.md I decided it's time :) to provide further cultdao ecosystem features. Earlier I provided: https://cultkamasutra.eth.limo
 
-https://cultmagazine.org
+https://cultmagazine.org, https://github.com/michael-spengler/cultmagazine
 
 0x9E972a43B3B8D68cD70930697E16429E47E88151

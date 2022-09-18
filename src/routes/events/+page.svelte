@@ -9,15 +9,17 @@
 <Seo title="Events" />
 
 <p><br /></p>
+<div class="text-center">
+	<h1>CULT Events</h1>
+	Everyone is invited to add CULT news via pull request.
 
-<h1>CULT Events</h1>
-
-<p><br /></p>
-
-under construction - we'll promote events where guests get free entrance when proving they have cult
-or rvlt in their wallet.
-<p><br /></p>
-The following is just to get some design- / layout ideas
+	<p><br /></p>
+	We'll promote events where guests get free entrance when proving they have CULT or RVLT in their wallet.
+	<p><br /></p>
+	We'll also promote CULT related Twitter Spaces and Youtube Live Streams.
+	<p><br /></p>
+	The following is just to get some design- / layout ideas
+</div>
 <article class="wrapper">
 	<section class="event-wrapper">
 		{#each data.events as event}

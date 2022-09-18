@@ -6,8 +6,12 @@
 
 <h1>CULT Markets</h1>
 <main>
-	under construction - we'll promote peer 2 peer fiat on off ramps here - to avoid dictatorship and
-	to encourage freedom.
+	We'll promote peer 2 peer fiat on off ramps here - to avoid dictatorship and to encourage freedom.
+
+	<p><br /></p>
+
+	We'll also promote other freedom supporting markets here, while introducing community based (aka
+	decentralized) content moderation.
 	<!-- {#each cheatSheet as item}
 		<CheatSheetCard {...item} />
 	{/each} -->

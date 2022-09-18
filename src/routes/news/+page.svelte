@@ -62,13 +62,14 @@
 
 <h1>CULT News</h1>
 
+Everyone is invited to add CULT news via pull request.
+<!-- <a href="asdf"></a>  -->
+
 <p><br /></p>
+<h3>Cultoshi is Optimizing the CULT Mander's Voting Process</h3>
+<embed type="text/html" src="https://revolt.cultoshi.com/" width="100%" height="500" />
 
-Under construction - everyone is invited to add CULT news via pull request.
-
-<p><br /></p>
-The following is just to get some design- / layout ideas
-
+<!-- 
 <p><br /></p>
 
 <SearchLayout title="CULT News">
@@ -115,4 +116,4 @@ The following is just to get some design- / layout ideas
 			</List>
 		{/each}
 	</section>
-</SearchLayout>
+</SearchLayout> -->
