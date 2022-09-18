@@ -36,3 +36,7 @@ pm2 start cultmagazine-server-opine.ts --interpreter="deno" --interpreter-args="
 ```
 
 116.203.185.185
+
+## https ssh enablement
+
+Using [eff's certbot](https://certbot.eff.org/instructions?ws=other&os=ubuntufocal) to get a certificate.
