@@ -4,8 +4,12 @@
 <div class="text-center">
 	<h1>CULT Resources</h1>
 
-	Everyone is invited to add CULT Resources via pull request.<br />This should also be automated as
-	far as possible to have all resources from acts of revolt easily available.
+	Everyone is invited to add CULT Resources via<a
+		href="https://www.youtube.com/watch?v=8lGpZkjnkt4"
+		target="_blank"
+	>
+		pull request</a
+	>.<br />
 
 	<p><br /></p>
 	<h3>Meme Collection</h3>
