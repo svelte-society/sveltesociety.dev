@@ -12,16 +12,11 @@
 	<h1 class="text-center">CULT Magazine</h1>
 	<section class="text-center">
 		<p>
-			We are a volunteer network of <a
-				href="https://coinmarketcap.com/currencies/cult-dao/"
-				target="_blank">CULTDAO</a
-			> fans promoting freedom, fairness, education, and love.
-		</p>
-		<p>
-			You might also check other CULT platforms like
-			<a href="https://cultoshi.com" target="_blank"> cultoshi.com </a>,
-			<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com </a>,
-			<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com </a>
+			We are a network of <a href="https://cultdao.io" target="_blank">cultdao.io</a> fans promoting
+			freedom,
+			<a href="https://github.com/michael-spengler/fairness/blob/main/README.md" target="_blank">
+				fairness</a
+			>, education, and <a href="https://cultkamasutra.eth.limo/" target="_blank"> love</a>.
 		</p>
 		<p>
 			Everyone is invited to collect and contribute to this decentralized magazine via <a
@@ -30,18 +25,29 @@
 			>.
 		</p>
 		<p>
-			You might be interested in <br /> <a href="/cultproposals">CULT Proposals</a>, <br />
-			<a href="/rvltproposals">RVLT Proposals</a><br />
-			<a href="/news">CULT News</a><br />
-			<a href="/events">CULT Events</a><br />
-			<a href="/resources">CULT Resources</a><br />
-			<a href="/markets">Markets</a><br />
-			and other useful information in the context of our
-			<a href="https://coinmarketcap.com/currencies/cult-dao/" target="_blank">CULT</a>.
+			Each contribution can be submitted as an <a
+				href="https://revolt.cultdao.io/submitProposal"
+				target="_blank">act of revolt</a
+			>.
+		</p>
+		<p>You might be interested in</p>
+		<p>
+			<a href="/cultproposals">CULT Proposals</a>, <br />
 		</p>
 		<p>
-			If you want to reach out to us or find like-minded people from around the world you can check
-			out the resources below:
+			<a href="/rvltproposals">RVLT Proposals</a><br />
+		</p>
+		<p>
+			<a href="/news">CULT News</a><br />
+		</p>
+		<p>
+			<a href="/events">CULT Events</a><br />
+		</p>
+		<p>
+			<a href="/resources">CULT Resources</a><br />
+		</p>
+		<p>
+			<a href="/markets">Markets</a><br />
 		</p>
 	</section>
 	<ul>
@@ -72,8 +78,12 @@
 			Podcast
 		</Link>
 	</ul>
+
 	<p class="text-center">
-		We also run the <a href="https://cultsummit.com/">CULT Summit</a> conference.
+		We also recommend to visit
+		<a href="https://cultoshi.com" target="_blank"> cultoshi.com</a>,
+		<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a>,
+		<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
 	</p>
 </article>
 

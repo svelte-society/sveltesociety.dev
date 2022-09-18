@@ -12,12 +12,14 @@
 
 	A pretty cool CULT Meme Collection can be found<a
 		href="https://twitter.com/MrOmodulus/status/1557855262630768642?s=20&t=RmW7uokNAFP40Cj8GeMGzw"
-		target="_blank">here</a
+		target="_blank"
+	>
+		here</a
 	>
 	<p><br /></p>
 
 	<p><br /></p>
-	<h3>Evidence Links of Approved Acts.</h3>
+	<h3>Evidence Links of Approved Acts</h3>
 
 	<div>
 		<embed
