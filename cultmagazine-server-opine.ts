@@ -11,11 +11,9 @@ app.get('/', function (req, res) {
 	res.sendFile(`${pathToIndexHTML}/index.html`);
 });
 
-let port = 0;
+const port = Number(Deno.args[0]);
 
 if (Deno.args[0].indexOf(443) === -1) {
-	port = Number(Deno.args[0]);
-
 	app.listen(port, () => console.log(`server has started on http://localhost:${port} 🚀`));
 } else {
 	const pathToCertificates = '/etc/letsencrypt/live/cultmagazine.org';
