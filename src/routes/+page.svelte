@@ -15,7 +15,13 @@
 			We are a volunteer network of <a
 				href="https://coinmarketcap.com/currencies/cult-dao/"
 				target="_blank">CULTDAO</a
-			> fans promoting freedom, fairness, education, transparency and love.
+			> fans promoting freedom, fairness, education, and love.
+		</p>
+		<p>
+			You might also check other CULT platforms like
+			<a href="https://cultoshi.com" target="_blank"> cultoshi.com </a>,
+			<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com </a>,
+			<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com </a>
 		</p>
 		<p>
 			Everyone is invited to collect and contribute to this decentralized magazine via <a
@@ -25,8 +31,8 @@
 		</p>
 		<p>
 			You might be interested in <br /> <a href="/cultproposals">CULT Proposals</a>, <br />
-			<a href="/cultproposals">RVLT Proposals</a><br />
-			<a href="/cultproposals">Markets</a><br />
+			<a href="/rvltproposals">RVLT Proposals</a><br />
+			<a href="/rvltproposals">Markets</a><br />
 			<a href="/cultproposals">CULT Events</a><br />
 			<a href="/cultproposals">CULT News</a><br />
 			<a href="/cultproposals">CULT Resources</a><br />

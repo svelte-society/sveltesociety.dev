@@ -59,7 +59,24 @@
 
 <Seo title="cultproposals" />
 
-<SearchLayout title="Cult Proposals">
+<embed
+	src="https://dune.com/embeds/1280936/2194836/18828c7c-899f-487e-bc10-779fee1f1026"
+	width="100%"
+	height="200"
+/>
+
+<p><br /></p>
+<embed
+	src="https://dune.com/embeds/1280952/2194860/16501603-2aca-4a78-bb92-ddcd9ddedcb6"
+	width="100%"
+	height="1000"
+/>
+
+<p><br /></p>
+
+<h1>Further information will be provided soon.</h1>
+
+<!-- <SearchLayout title="Cult Proposals">
 	<section class="controls" slot="controls">
 		<div class="inputs">
 			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />
@@ -104,4 +121,4 @@
 			</List>
 		{/each}
 	</section>
-</SearchLayout>
+</SearchLayout> -->

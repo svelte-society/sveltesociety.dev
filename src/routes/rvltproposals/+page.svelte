@@ -79,15 +79,20 @@
 	height="200"
 />
 
-<p>
+<p><br /></p>
+<div style="margin-left: auto; margin-right:auto; width: 50vw">
 	<embed
 		src="https://dune.com/embeds/1279379/2192339/a875789e-a062-49cb-9dfe-56ccf806d722"
-		width="25%"
+		width="100%"
 		height="200"
 	/>
-</p>
+</div>
 
-<SearchLayout title="RVLT Proposals">
+<p><br /></p>
+
+<h1>Further information will be provided soon.</h1>
+
+<!-- <SearchLayout title="RVLT Proposals">
 	<section class="controls" slot="controls">
 		<div class="inputs">
 			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />
@@ -145,4 +150,4 @@
 			</List>
 		{/each}
 	</section>
-</SearchLayout>
+</SearchLayout> -->
