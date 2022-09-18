@@ -26,4 +26,11 @@ Before creating a production version of your app, install an [adapter](https://k
 npm run build
 ```
 
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+## Deploying
+
+I deployed this e.g. on server 116.203.185.185 using deno as runtime environment and pm2 as process manager.
+
+```sh
+pm2 start cultmagazine-server-opine.ts --interpreter="deno" --interpreter-args="run --allow-read --allow-env --allow-net" -- 80
+
+```
