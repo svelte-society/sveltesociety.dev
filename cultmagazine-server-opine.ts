@@ -20,7 +20,8 @@ if (Deno.args[0].indexOf(443) === -1) {
 
 	console.log(`reading certificates from ${pathToCertificates}`);
 
-	const cert = `${pathToCertificates}/fullchain.pem`;
+	// const cert = `${pathToCertificates}/fullchain.pem`;
+	const cert = `${pathToCertificates}/cert.pem`;
 	const key = `${pathToCertificates}/privkey.pem`;
 
 	const options = {
