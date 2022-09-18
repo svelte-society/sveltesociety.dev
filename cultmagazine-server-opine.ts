@@ -1,7 +1,7 @@
 import { opine, serveStatic } from 'https://deno.land/x/opine@2.3.3/mod.ts';
 
 const port = Number(Deno.args[0]);
-const pathToIndexHTML = `${Deno.cwd()}/build`;
+const pathToIndexHTML = `${Deno.cwd()}/docs`;
 const app = opine();
 app.use(serveStatic(pathToIndexHTML));
 
