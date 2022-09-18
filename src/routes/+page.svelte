@@ -32,10 +32,10 @@
 		<p>
 			You might be interested in <br /> <a href="/cultproposals">CULT Proposals</a>, <br />
 			<a href="/rvltproposals">RVLT Proposals</a><br />
-			<a href="/rvltproposals">Markets</a><br />
-			<a href="/cultproposals">CULT Events</a><br />
-			<a href="/cultproposals">CULT News</a><br />
-			<a href="/cultproposals">CULT Resources</a><br />
+			<a href="/markets">Markets</a><br />
+			<a href="/events">CULT Events</a><br />
+			<a href="/news">CULT News</a><br />
+			<a href="/resources">CULT Resources</a><br />
 			and other useful information in the context of our
 			<a href="https://coinmarketcap.com/currencies/cult-dao/" target="_blank">CULT</a>.
 		</p>

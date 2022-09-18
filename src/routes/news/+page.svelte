@@ -60,6 +60,15 @@
 
 <Seo title="CULT News" />
 
+<h1>CULT News</h1>
+
+<p><br /></p>
+
+under construction - everyone is invited to add CULT news via<a
+	href="https://github.com/michael-spengler/cultmagazine"
+	target="_blank">pull request</a
+>.
+
 <SearchLayout title="CULT News">
 	<section slot="controls" class="controls">
 		<div class="inputs">

@@ -6,7 +6,8 @@
 
 <h1>CULT Markets</h1>
 <main>
-	to be done
+	under construction - we'll promote peer 2 peer fiat on off ramps here - to avoid dictatorship and
+	to encourage freedom.
 	<!-- {#each cheatSheet as item}
 		<CheatSheetCard {...item} />
 	{/each} -->

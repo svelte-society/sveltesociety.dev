@@ -8,6 +8,16 @@
 
 <Seo title="Events" />
 
+<p><br /></p>
+
+<h1>CULT Events</h1>
+
+<p><br /></p>
+
+under construction - we'll promote events where guests get free entrance when proving they have cult
+or rvlt in their wallet. the following is just to get some design- / layout ideas
+<p><br /></p>
+the following is just to get some design- / layout ideas
 <article class="wrapper">
 	<section class="event-wrapper">
 		{#each data.events as event}
