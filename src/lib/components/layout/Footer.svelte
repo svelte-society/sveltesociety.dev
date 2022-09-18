@@ -7,8 +7,8 @@
 <footer>
 	<div class="container">
 		<span>&copy; {year} CULT Magazine</span>
-		<span>•</span>
-		<a class="underline" href="/about">Code of Conduct</a>
+		<!-- <span>•</span>
+		<a class="underline" href="/about">Code of Conduct</a> -->
 		<span>•</span>
 		<span>
 			Contribute on
