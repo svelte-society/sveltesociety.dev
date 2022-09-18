@@ -26,12 +26,16 @@ if (Deno.args[0].indexOf(443) === -1) {
 	const key = `${pathToCertificates}/privkey.pem`;
 
 	const options = {
+		port,
 		cert,
 		key
 		// ca: fs.readFileSync('/path/to/ca.pem')
 	};
 
-	app.listen(port, options, () =>
-		console.log(`server has started on https://localhost:${port} 🚀`)
-	);
+	try {
+		await app.listen(options);
+		console.log(`server has started on https://localhost:${port} 🚀`);
+	} catch (error) {
+		console.log(`shit happened: ${error}`);
+	}
 }

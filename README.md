@@ -31,7 +31,7 @@ npm run build
 I deployed this e.g. on server 116.203.185.185 using deno as runtime environment and pm2 as process manager.
 
 ```sh
-pm2 start cultmagazine-server-opine.ts --interpreter="deno" --interpreter-args="run --allow-read --allow-env --allow-net" -- 80
+pm2 start cultmagazine-server-opine.ts --interpreter="deno" --interpreter-args="run --allow-read --allow-env --allow-net" -- 443
 
 ```
 
