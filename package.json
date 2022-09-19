@@ -15,7 +15,7 @@
 	"devDependencies": {
 		"@macfja/svelte-persistent-store": "1.2.0",
 		"@sveltejs/adapter-static": "next",
-		"@sveltejs/kit": "^1.0.0-next.406",
+		"@sveltejs/kit": "next",
 		"@types/itemsjs": "^2.1.0",
 		"@types/jest": "^27.0.1",
 		"@typescript-eslint/eslint-plugin": "^4.19.0",
