@@ -109,6 +109,9 @@
 				<a href="https://uniswap.org" target="_blank"> uniswap.org </a>
 			</li>
 		</ol>
+
+		<!-- not adding the following yet because we might care about cookie stuff beforehand -->
+		<!-- <iframe width="420" height="315" src="https://www.youtube.com/watch?v=fW8amMCVAJQ&t=2s" /> -->
 	</div>
 </article>
 

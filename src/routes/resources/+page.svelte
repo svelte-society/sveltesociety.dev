@@ -4,17 +4,14 @@
 <div class="text-center">
 	<h1>CULT Resources</h1>
 
-	Everyone is invited to add CULT Resources via<a
-		href="https://www.youtube.com/watch?v=8lGpZkjnkt4"
-		target="_blank"
-	>
-		pull request</a
-	>.<br />
+	Everyone is invited to add CULT Resources via
+	<a href="https://www.youtube.com/watch?v=8lGpZkjnkt4" target="_blank"> pull request</a>.<br />
 
 	<p><br /></p>
 	<h3>Meme Collection</h3>
 
-	A pretty cool CULT Meme Collection can be found<a
+	A pretty cool CULT Meme Collection can be found
+	<a
 		href="https://twitter.com/MrOmodulus/status/1557855262630768642?s=20&t=RmW7uokNAFP40Cj8GeMGzw"
 		target="_blank"
 	>
