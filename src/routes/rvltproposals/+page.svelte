@@ -73,36 +73,43 @@
 
 <Seo title="RVLT Proposals" />
 
-<embed
-	src="https://dune.com/embeds/1279317/2192218/6c162b5d-c755-4122-8596-cb70b3e0b254"
-	width="100%"
-	height="200"
-/>
+<div class="text-center">
+	<h2>Acts of Revolt</h2>
+	<p><br /></p>
+	Feel free to submit your own<a href="https://revolt.cultdao.io/submitProposal" target="_blank"
+		>acts of revolt</a
+	>.
+	<p><br /></p>
 
-<p><br /></p>
-<div style="margin-left: auto; margin-right:auto; width: 50vw">
 	<embed
-		src="https://dune.com/embeds/1279379/2192339/a875789e-a062-49cb-9dfe-56ccf806d722"
+		src="https://dune.com/embeds/1279330/2192235/161e3edb-480c-451b-835f-078db00181e3"
+		width="100%"
+		height="700"
+	/>
+
+	<p><br /></p>
+	<embed
+		src="https://dune.com/embeds/1279317/2192218/6c162b5d-c755-4122-8596-cb70b3e0b254"
 		width="100%"
 		height="200"
 	/>
-</div>
 
-<p><br /></p>
-<embed
-	src="https://dune.com/embeds/1279330/2192235/161e3edb-480c-451b-835f-078db00181e3"
-	width="100%"
-	height="700"
-/>
-<!-- <p><br /></p>
+	<p><br /></p>
+	<div style="margin-left: auto; margin-right:auto; width: 50vw">
+		<embed
+			src="https://dune.com/embeds/1279379/2192339/a875789e-a062-49cb-9dfe-56ccf806d722"
+			width="100%"
+			height="200"
+		/>
+	</div>
+
+	<!-- <p><br /></p>
 <embed
 	src="https://dune.com/embeds/1280979/2194908/ec83050f-257e-45b4-a382-f791020293c0"
 	width="100%"
 	height="700"
 /> -->
-
-<h1>Further information will be provided soon.</h1>
-
+</div>
 <!-- <SearchLayout title="RVLT Proposals">
 	<section class="controls" slot="controls">
 		<div class="inputs">

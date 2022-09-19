@@ -4,7 +4,7 @@
 <div class="text-center">
 	<h1>CULT Resources</h1>
 
-	Everyone is invited to add CULT Resources via
+	Everyone is invited to add CULT resources via
 	<a href="https://www.youtube.com/watch?v=8lGpZkjnkt4" target="_blank"> pull request</a>.<br />
 
 	<p><br /></p>

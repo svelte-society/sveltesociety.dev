@@ -21,9 +21,9 @@
 	</p>
 
 	<p><br /></p>
-	We'll promote events where guests get free entrance when proving they have CULT or RVLT in their wallet.
+	We promote events where guests get free entrance when proving they have CULT or RVLT in their wallet.
 	<p><br /></p>
-	We'll also promote CULT related Twitter Spaces and Youtube Live Streams.
+	We also promote CULT related Twitter Spaces and Youtube Live Streams.
 	<p><br /></p>
 	The following is just to get some design- / layout ideas
 </div>

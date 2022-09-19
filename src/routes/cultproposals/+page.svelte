@@ -58,23 +58,29 @@
 </script>
 
 <Seo title="cultproposals" />
+<div class="text-center">
+	<h2>CULT Protocol Proposals</h2>
+	<p><br /></p>
+	Feel free to submit your own<a href="https://app.cultdao.io/submitProposal" target="_blank"
+		>CULT Protocol Proposal</a
+	>.
 
-<embed
-	src="https://dune.com/embeds/1280936/2194836/18828c7c-899f-487e-bc10-779fee1f1026"
-	width="100%"
-	height="200"
-/>
+	<p><br /></p>
+	<embed
+		src="https://dune.com/embeds/1280952/2194860/16501603-2aca-4a78-bb92-ddcd9ddedcb6"
+		width="100%"
+		height="1000"
+	/>
 
-<p><br /></p>
-<embed
-	src="https://dune.com/embeds/1280952/2194860/16501603-2aca-4a78-bb92-ddcd9ddedcb6"
-	width="100%"
-	height="1000"
-/>
+	<p><br /></p>
+	<embed
+		src="https://dune.com/embeds/1280936/2194836/18828c7c-899f-487e-bc10-779fee1f1026"
+		width="100%"
+		height="200"
+	/>
 
-<p><br /></p>
-
-<h1>Further information will be provided soon.</h1>
+	<p><br /></p>
+</div>
 
 <!-- <SearchLayout title="Cult Proposals">
 	<section class="controls" slot="controls">
