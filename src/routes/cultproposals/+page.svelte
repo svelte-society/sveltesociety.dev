@@ -79,6 +79,12 @@
 	/>
 
 	<p><br /></p>
+
+	<h3>Basic Tips for Newcomers</h3>
+	<p><br /></p>
+
+	In order to understand the utilites and the tokenomics you might want to read
+	<a href="https://cultdao.io/manifesto.pdf" target="_blank"> the manifesto</a>.
 </div>
 
 <!-- <SearchLayout title="Cult Proposals">

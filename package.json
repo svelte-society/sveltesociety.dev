@@ -5,7 +5,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"start": "vite dev --open",
-		"build": "vite build && cp -r ./build ./docs && ./prepare-4-gh-pages.sh",
+		"build": "rm -rf ./docs && vite build && cp -r ./build ./docs && ./prepare-4-gh-pages.sh",
 		"preview": "vite preview",
 		"lint": "prettier --check ./**/*.{js,ts,css,md,svelte,html,json} && eslint --ignore-path .gitignore .",
 		"format": "prettier --write ./**/*.{js,ts,css,md,svelte,html,json}",

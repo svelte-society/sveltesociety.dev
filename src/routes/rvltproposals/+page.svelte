@@ -77,7 +77,7 @@
 	<h2>Acts of Revolt</h2>
 	<p><br /></p>
 	Feel free to submit your own
-	<a href="https://revolt.cultdao.io/submitProposal" target="_blank">acts of revolt</a>.
+	<a href="https://revolt.cultdao.io/submitProposal" target="_blank">Acts of Revolt</a>.
 	<p><br /></p>
 
 	<embed
@@ -108,6 +108,12 @@
 	width="100%"
 	height="700"
 /> -->
+
+	<h3>Basic Tips for Newcomers</h3>
+	<p><br /></p>
+
+	In order to understand details on how Revolt 2 Earn works this
+	<a href="https://cultdao.io/rvlt.pdf" target="_blank"> documentation</a> might be valuable for you.
 </div>
 <!-- <SearchLayout title="RVLT Proposals">
 	<section class="controls" slot="controls">
