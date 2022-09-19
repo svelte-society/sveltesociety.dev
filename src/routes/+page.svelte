@@ -90,6 +90,38 @@
 	</p>
 
 	<div class="text-center">
+		<h3>State of the Game in September 2022</h3>
+		<p><br /></p>
+
+		During the upcoming winter, politicians want you hungry, cold and full of fear so that they can
+		offer you fucked up "solutions" like Central Bank Digital Currencies (CBDCs)... with which they
+		want to expand their power and take away your rights and freedom.<br /><br />
+		This is why politicians force young people (aka soldiers) to kill the victims of the other propaganda
+		mutually. <br /><br />
+		This is why politicians want to destroy farmers.<br /><br />
+		This is why politicians want to keep you stupid.<br /><br />
+		Everyone who is not doing anything against this injustice, seems to me like an opportunistic fucked
+		up b*tch - especially the ones who could easily afford to stand up for fairness, freedom and justice
+		every single day. <br /><br />
+
+		We are looking for content creators who care about fairness, freedom and justice to become
+		content creators for the
+		<a href="https://cultmagazine.org" target="_blank"> cultmagazine.org </a> <br /><br />
+
+		We are the A-Team. We support Decentralization.<br /><br />
+		CULT is the financial hub of a new, free society. <br />
+		RVLT is the council & support system.<br /><br />
+		Today is a great day to buy CULT.<br /><br />
+		1. read the manifesto <a href="https://cultdao.io" target="_blank">cultdao.io</a> <br /><br />
+		2. install <a href="https://metamask.io">metamask.io</a> <br /><br />
+		3. Add CULT asset --> custom token in metamask via smart contract address 0xf0f9d895aca5c8678f706fb8216fa22957685a13<br
+		/><br />
+		4. buy (the dip) CULT on <a href="https://uniswap.org"> uniswap.org</a><br /><br />
+		Feel free to contribute to our ecosystem project
+		<a href="https://github.com/michael-spengler/fairness#readme"> via pull request</a> <br /><br />
+		<a href="https://youtu.be/09maaUaRT4M?t=17">background info</a>
+	</div>
+	<div class="text-center">
 		<h3>Basic Tips for Newcomers</h3>
 		<p><br /></p>
 
