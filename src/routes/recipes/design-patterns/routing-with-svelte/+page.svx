@@ -7,8 +7,8 @@ _to be written_
 
 - A map for an app: what is routing
 - Different approaches
-  - XML-stylee: [svelte-routing](https://github.com/EmilTholin/svelte-routing)
-  - Express-stylee: [navaid](https://github.com/lukeed/navaid)
+  - XML-style: [svelte-routing](https://github.com/EmilTholin/svelte-routing)
+  - Express-style: [navaid](https://github.com/lukeed/navaid)
   - FS based routing: [routify](https://routify.dev/)
 
 ### Further Links

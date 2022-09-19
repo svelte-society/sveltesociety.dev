@@ -72,5 +72,17 @@
 		"twitter": "@sveltechicago",
 		"githuburl": "https://github.com/Svelte-Chicago",
 		"url": "https://sveltechi.dev"
+	},
+	{
+		"continent": "Asia",
+		"type": "contintent"
+	},
+	{
+		"name": "Svelte Japan",
+		"country": "🇯🇵 Japan",
+		"twitter": "@SvelteJapan",
+		"githuburl": "https://github.com/svelte-jp",
+		"url": "https://svelte-jp.connpass.com",
+		"discord": "https://discord.com/invite/YTXq3ZtBbx"
 	}
 ]

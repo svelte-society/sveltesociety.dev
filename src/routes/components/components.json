@@ -1,6 +1,6 @@
 [
 	{
-		"title": "sveltekit-adapter-auto",
+		"title": "@sveltejs/adapter-auto",
 		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-auto",
 		"description": "Automatically chooses adapter for your current environment if possible",
 		"npm": "@sveltejs/adapter-auto",
@@ -10,7 +10,7 @@
 		"stars": 8700
 	},
 	{
-		"title": "sveltekit-adapter-netlify",
+		"title": "@sveltejs/adapter-netlify",
 		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-netlify",
 		"description": "A SvelteKit adapter that creates a Netlify app. If you're using adapter-auto, you don't need to install this unless you need to specify Netlify-specific options, since it's already included.",
 		"npm": "@sveltejs/adapter-netlify",
@@ -20,7 +20,7 @@
 		"stars": 8700
 	},
 	{
-		"title": "sveltekit-adapter-cloudflare-workers",
+		"title": "@sveltejs/adapter-cloudflare-workers",
 		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare-workers",
 		"description": "SvelteKit adapter that creates a Cloudflare Workers site using a function for dynamic server rendering.",
 		"npm": "@sveltejs/adapter-cloudflare-workers",
@@ -30,7 +30,7 @@
 		"stars": 8700
 	},
 	{
-		"title": "sveltekit-adapter-cloudflare",
+		"title": "@sveltejs/adapter-cloudflare",
 		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare",
 		"description": "Adapter for building SvelteKit applications on Cloudflare Pages with Workers integration. If you're using adapter-auto, you don't need to install this — it's already included.",
 		"npm": "@sveltejs/adapter-cloudflare",
@@ -40,7 +40,7 @@
 		"stars": 8700
 	},
 	{
-		"title": "sveltekit-adapter-node",
+		"title": "@sveltejs/adapter-node",
 		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-node",
 		"description": "Adapter for SvelteKit apps that generates a standalone Node server.",
 		"npm": "@sveltejs/adapter-node",
@@ -50,7 +50,7 @@
 		"stars": 8700
 	},
 	{
-		"title": "sveltekit-adapter-static",
+		"title": "@sveltejs/adapter-static",
 		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-static",
 		"description": "Adapter for SvelteKit apps that prerenders your entire site as a collection of static files. If you'd like to prerender only some pages, you will need to use a different adapter together with the prerender option.",
 		"npm": "@sveltejs/adapter-static",
@@ -60,7 +60,7 @@
 		"stars": 8700
 	},
 	{
-		"title": "sveltekit-adapter-vercel",
+		"title": "@sveltejs/adapter-vercel",
 		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-vercel",
 		"description": "A SvelteKit adapter that creates a Vercel app.If you're using adapter-auto, you don't need to install this unless you need to specify Vercel-specific options, since it's already included.",
 		"npm": "@sveltejs/adapter-vercel",
@@ -2624,16 +2624,10 @@
 		"npm": "@kitql/all-in",
 		"addedOn": "2022-05-17",
 		"category": "Stores",
-		"tags": [
-			"async data",
-			"async loading",
-			"graphql",
-			"ssr",
-			"stores and state"
-		],
+		"tags": ["async data", "async loading", "graphql", "ssr", "stores and state"],
 		"stars": 0
-  },
-  {
+	},
+	{
 		"title": "svelte-brick-gallery",
 		"url": "https://github.com/anotherempty/svelte-brick-gallery",
 		"description": "A masonry-like image gallery component for svelte",
@@ -2720,6 +2714,35 @@
 		"addedOn": "2022-09-19",
 		"category": "Forms & User Input",
 		"tags": ["forms", "inputs and widgets",	"internationalization",	"typescript"],
-		"stars": 1
+		"stars": 2
+	},
+	{
+		"title": "typesafe-i18n",
+		"url": "https://github.com/ivanhofer/typesafe-i18n",
+		"category": "Developer Experience",
+		"description": "A fully type-safe and lightweight internationalization library for all your TypeScript and JavaScript projects.",
+		"npm": "typesafe-i18n",
+		"addedOn": "2022-09-13",
+		"tags": ["components and libraries", "internationalization", "typescript"],
+		"stars": 1096
+	},
+	{
+		"title": "tolgee/svelte",
+		"url": "https://github.com/tolgee/tolgee-js/tree/main/packages/svelte",
+		"description": "Web-based localization tool enabling users to translate directly in the Svelte app they develop",
+		"npm": "@tolgee/svelte",
+		"addedOn": "2022-03-03",
+		"tags": ["components and libraries", "internationalization"],
+		"stars": 159
+	},
+	{
+		"title": "sthemer",
+		"url": "https://github.com/ivanhofer/sthemer",
+		"category": "Design System",
+		"description": "A lightweight yet powerful solution to support multiple color schemes in your Svelte/SvelteKit application.",
+		"npm": "sthemer",
+		"addedOn": "2022-09-13",
+		"tags": ["components and libraries", "layout and structure", "ssr", "typescript"],
+		"stars": 8
 	}
 ]

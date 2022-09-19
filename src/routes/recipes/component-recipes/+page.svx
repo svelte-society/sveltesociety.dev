@@ -4,6 +4,4 @@ layout: recipeCategory
 icon: 'code'
 ---
 
-<!-- routify:options index=1 -->
-
 ## Recipes

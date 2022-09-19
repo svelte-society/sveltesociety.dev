@@ -15,7 +15,8 @@
 	"devDependencies": {
 		"@macfja/svelte-persistent-store": "1.2.0",
 		"@sveltejs/adapter-static": "next",
-		"@sveltejs/kit": "^1.0.0-next.406",
+		"@sveltejs/kit": "next",
+		"@types/itemsjs": "^2.1.0",
 		"@types/jest": "^27.0.1",
 		"@typescript-eslint/eslint-plugin": "^4.19.0",
 		"@typescript-eslint/parser": "^4.19.0",
@@ -25,6 +26,7 @@
 		"graphql-request": "^3.5.0",
 		"highlight.js": "^11.6.0",
 		"husky": "^7.0.2",
+		"itemsjs": "^2.1.20",
 		"jest": "^27.1.0",
 		"lint-staged": "^11.1.2",
 		"mdsvex": "^0.9.3",
@@ -36,7 +38,8 @@
 		"svelte-select": "^4.4.0",
 		"ts-jest": "^27.0.5",
 		"tslib": "^2.0.0",
-		"typescript": "^4.4.2"
+		"typescript": "^4.4.2",
+		"vite": "^3.1.3"
 	},
 	"lint-staged": {
 		"*.{js,ts,css,md,svx,svelte,html,json}": "prettier --write"
