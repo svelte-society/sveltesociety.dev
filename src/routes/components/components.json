@@ -2705,5 +2705,15 @@
 		"category": "User Interaction",
 		"tags": ["animations", "component sets", "form validation", "notifications"],
 		"stars": 32
+	},
+	{
+		"title": "typesafe-i18n",
+		"url": "https://github.com/ivanhofer/typesafe-i18n",
+		"category": "Developer Experience",
+		"description": "A fully type-safe and lightweight internationalization library for all your TypeScript and JavaScript projects.",
+		"npm": "typesafe-i18n",
+		"addedOn": "2022-09-13",
+		"tags": ["components and libraries", "internationalization", "typescript"],
+		"stars": 1096
 	}
 ]
