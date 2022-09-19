@@ -2724,5 +2724,15 @@
 		"addedOn": "2022-03-03",
 		"tags": ["components and libraries", "internationalization"],
 		"stars": 159
+	},
+	{
+		"title": "sthemer",
+		"url": "https://github.com/ivanhofer/sthemer",
+		"category": "Design System",
+		"description": "A lightweight yet powerful solution to support multiple color schemes in your Svelte/SvelteKit application.",
+		"npm": "sthemer",
+		"addedOn": "2022-09-13",
+		"tags": ["components and libraries", "layout and structure", "ssr", "typescript"],
+		"stars": 8
 	}
 ]
