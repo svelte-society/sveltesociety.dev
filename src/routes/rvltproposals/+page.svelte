@@ -76,9 +76,8 @@
 <div class="text-center">
 	<h2>Acts of Revolt</h2>
 	<p><br /></p>
-	Feel free to submit your own<a href="https://revolt.cultdao.io/submitProposal" target="_blank"
-		>acts of revolt</a
-	>.
+	Feel free to submit your own
+	<a href="https://revolt.cultdao.io/submitProposal" target="_blank">acts of revolt</a>.
 	<p><br /></p>
 
 	<embed

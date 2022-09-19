@@ -61,9 +61,8 @@
 <div class="text-center">
 	<h2>CULT Protocol Proposals</h2>
 	<p><br /></p>
-	Feel free to submit your own<a href="https://app.cultdao.io/submitProposal" target="_blank"
-		>CULT Protocol Proposal</a
-	>.
+	Feel free to submit your own
+	<a href="https://app.cultdao.io/submitProposal" target="_blank">CULT Protocol Proposal</a>.
 
 	<p><br /></p>
 	<embed
