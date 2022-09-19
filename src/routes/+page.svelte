@@ -88,6 +88,28 @@
 		<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a>,
 		<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
 	</p>
+
+	<div class="text-center">
+		<h3>Basic Tips for Newcomers</h3>
+		<p><br /></p>
+
+		<ol>
+			<li>
+				1. read the <a href="https://cultdao.io/manifesto.pdf" target="_blank"> manifesto </a>
+			</li>
+			<li>
+				2. install <a href="https://metamask.io" target="_blank"> metamask.io </a>
+			</li>
+			<li>
+				3. Add CULT asset --> custom token in metamask via smart contract address
+				0xf0f9d895aca5c8678f706fb8216fa22957685a13
+			</li>
+			<li>
+				4. buy (the dip) CULT on
+				<a href="https://uniswap.org" target="_blank"> uniswap.org </a>
+			</li>
+		</ol>
+	</div>
 </article>
 
 <style>

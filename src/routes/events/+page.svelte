@@ -12,7 +12,7 @@
 <div class="text-center">
 	<h1>CULT Events</h1>
 	<p>
-		Everyone is invited to add CULT news via <a
+		Everyone is invited to add CULT events via <a
 			href="https://www.youtube.com/watch?v=8lGpZkjnkt4"
 			target="_blank"
 		>
