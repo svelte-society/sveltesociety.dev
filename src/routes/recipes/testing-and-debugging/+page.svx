@@ -5,5 +5,3 @@ icon: 'bug'
 ---
 
 ## Recipes
-
-- https://github.com/davipon/svelte-component-test-recipes
