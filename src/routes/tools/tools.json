@@ -315,24 +315,6 @@
 		"stars": 7
 	},
 	{
-		"title": "typesafe-i18n",
-		"url": "https://github.com/ivanhofer/typesafe-i18n",
-		"description": "An opinionated, fully type-safe, lightweight localization library for TypeScript and JavaScript projects with no external dependencies.",
-		"npm": "typesafe-i18n",
-		"addedOn": "2021-12-08",
-		"tags": [],
-		"stars": 0
-	},
-	{
-		"title": "tolgee/svelte",
-		"url": "https://github.com/tolgee/tolgee-js/tree/main/packages/svelte",
-		"description": "Web-based localization tool enabling users to translate directly in the Svelte app they develop",
-		"npm": "@tolgee/svelte",
-		"addedOn": "2022-03-03",
-		"tags": [],
-		"stars": 0
-	},
-	{
 		"title": "@ota-meshi/eslint-plugin-svelte",
 		"url": "https://github.com/ota-meshi/eslint-plugin-svelte",
 		"description": "ESLint plugin that applies own rules to Svelte",
