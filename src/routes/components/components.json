@@ -2711,5 +2711,15 @@
 		"category": "User Interaction",
 		"tags": ["animations", "component sets", "form validation", "notifications"],
 		"stars": 32
+	},
+	{
+	        "title": "@specialdoom/proi-ui",
+	        "url": "https://github.com/specialdoom/proi-ui",
+	        "description": "yet another Svelte UI lib",
+	        "npm": "@specialdoom/proi-ui",
+	        "addedOn": "2022-01-01",
+	        "category": "User Interaction",
+	        "tags": ["component sets"],
+	    	"stars": 50
 	}
 ]
