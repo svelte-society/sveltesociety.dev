@@ -25,10 +25,10 @@ import {
 	C as s,
 	A as K
 } from '../../../../chunks/index-bbe4a303.js';
-import { E as L } from '../../../../chunks/EventPage-ba331521.js';
-import '../../../../chunks/Seo-459bd42e.js';
-import '../../../../chunks/stores-fc7ad523.js';
-import '../../../../chunks/singletons-55fcb37a.js';
+import { E as L } from '../../../../chunks/EventPage-3a878131.js';
+import '../../../../chunks/Seo-e788fda6.js';
+import '../../../../chunks/stores-47cc4d76.js';
+import '../../../../chunks/singletons-1ec496c0.js';
 function M(f) {
 	let e, o, l, d, t, a, p, b, y, r, x, h, $, E;
 	return {

@@ -1,76 +1,76 @@
 import {
 	S as s1,
 	i as o1,
-	s as c1,
-	L as k1,
-	M as H1,
-	m as _,
-	h as f,
+	s as i1,
+	L as S1,
+	M as T1,
+	m as C,
+	h,
 	n as v,
-	b as P,
-	A as x,
-	k as d,
-	q as H,
-	a as E,
-	l as g,
-	r as T,
-	c as M,
-	C as i,
-	f as k,
-	g as z1,
+	b as U,
+	A as O,
+	k as _,
+	q as $,
+	l as L,
+	r as M,
+	C as o,
+	f as H,
+	g as M1,
 	d as E1,
 	t as V,
-	D as M1,
+	D as A1,
 	e as g1,
-	v as G,
-	w as J,
-	x as W,
-	y as Y,
+	a as S,
+	v as j,
+	c as T,
+	w as G,
+	x as Y,
+	y as W,
 	u as _1
 } from '../../../chunks/index-bbe4a303.js';
-import { S as T1 } from '../../../chunks/Seo-459bd42e.js';
-import '../../../chunks/stores-fc7ad523.js';
-import '../../../chunks/singletons-55fcb37a.js';
-function P1(c) {
+import { S as H1 } from '../../../chunks/Seo-e788fda6.js';
+import '../../../chunks/stores-47cc4d76.js';
+import '../../../chunks/singletons-1ec496c0.js';
+function U1(s) {
 	let e,
-		r = c[3].svg + '',
+		r = s[3].svg + '',
 		l;
 	return {
 		c() {
-			(e = k1('svg')), this.h();
+			(e = S1('svg')), this.h();
 		},
 		l(t) {
-			e = H1(t, 'svg', { class: !0, focusable: !0, width: !0, height: !0, viewBox: !0 });
-			var n = _(e);
-			n.forEach(f), this.h();
+			e = T1(t, 'svg', { class: !0, focusable: !0, width: !0, height: !0, viewBox: !0 });
+			var n = C(e);
+			n.forEach(h), this.h();
 		},
 		h() {
-			v(e, 'class', (l = 'svgicon ' + c[0] + ' svelte-1dyed4p')),
+			v(e, 'class', (l = 'svgicon ' + s[0] + ' svelte-1dyed4p')),
 				v(e, 'focusable', 'false'),
-				v(e, 'width', c[1]),
-				v(e, 'height', c[2]),
-				v(e, 'viewBox', '0 0 ' + c[3].box);
+				v(e, 'width', s[1]),
+				v(e, 'height', s[2]),
+				v(e, 'viewBox', '0 0 ' + s[3].box);
 		},
 		m(t, n) {
-			P(t, e, n), (e.innerHTML = r);
+			U(t, e, n), (e.innerHTML = r);
 		},
 		p(t, [n]) {
 			n & 1 && l !== (l = 'svgicon ' + t[0] + ' svelte-1dyed4p') && v(e, 'class', l),
 				n & 2 && v(e, 'width', t[1]),
 				n & 4 && v(e, 'height', t[2]);
 		},
-		i: x,
-		o: x,
+		i: O,
+		o: O,
 		d(t) {
-			t && f(e);
+			t && h(e);
 		}
 	};
 }
-function V1(c, e, r) {
+function V1(s, e, r) {
 	let { name: l } = e,
 		{ width: t = '24px' } = e,
 		{ height: n = '24px' } = e,
-		s = [
+		u = [
 			{
 				box: '24 24',
 				name: 'archive',
@@ -210,19 +210,19 @@ function V1(c, e, r) {
     />`
 			}
 		].find((a) => a.name === l);
-	if (!s) throw Error(`Could not find icon with name ${l}`);
+	if (!u) throw Error(`Could not find icon with name ${l}`);
 	return (
-		(c.$$set = (a) => {
+		(s.$$set = (a) => {
 			'name' in a && r(0, (l = a.name)),
 				'width' in a && r(1, (t = a.width)),
 				'height' in a && r(2, (n = a.height));
 		}),
-		[l, t, n, s]
+		[l, t, n, u]
 	);
 }
 class t1 extends s1 {
 	constructor(e) {
-		super(), o1(this, e, V1, P1, c1, { name: 0, width: 1, height: 2 });
+		super(), o1(this, e, V1, U1, i1, { name: 0, width: 1, height: 2 });
 	}
 }
 const L1 = [
@@ -230,408 +230,410 @@ const L1 = [
 	{
 		name: 'London Svelte Meetup',
 		country: '\u{1F1EC}\u{1F1E7} Great Britain',
-		url: 'https://www.meetup.com/svelte/'
+		url: 'https://cultdao.io'
 	},
+	{ name: 'CULT Dublin', country: '\u{1F1EE}\u{1F1EA} Ireland', url: 'https://cultdao.io' },
 	{
-		name: 'Svelte Dublin',
-		country: '\u{1F1EE}\u{1F1EA} Ireland',
-		url: 'https://www.downtomeet.com/Svelte-Dublin'
-	},
-	{
-		name: 'Sveltejs Meetup Hamburg',
+		name: 'CULT Meetup Hamburg',
 		country: '\u{1F1E9}\u{1F1EA} Germany',
-		url: 'https://www.meetup.com/de-DE/Svelte-js-Meetup-Hamburg/',
-		githuburl: 'https://github.com/svelte-meetup-hamburg/meetups/issues'
+		url: 'https://cultdao.io',
+		githuburl: 'https://github.com/michael-spengler/cultmagazine'
 	},
+	{ name: 'Amsterdam CULT', country: '\u{1F1F3}\u{1F1F1} Netherlands', url: 'https://cultdao.io' },
 	{
-		name: 'Amsterdam SvelteJS',
-		country: '\u{1F1F3}\u{1F1F1} Netherlands',
-		url: 'https://www.meetup.com/Amsterdam-SvelteJS/'
-	},
-	{
-		name: 'Svelte Bergen',
+		name: 'CULT Bergen',
 		country: '\u{1F1F3}\u{1F1F4} Norway',
-		twitter: '@stephanevanraes',
-		url: 'https://www.downtomeet.com/Svelte-Bergen'
+		twitter: '@MrOmodulus',
+		url: 'https://cultdao.io'
 	},
 	{
-		name: 'Svelte Society Stockholm',
+		name: 'CULT Society Stockholm',
 		country: '\u{1F1F8}\u{1F1EA} Sweden',
-		twitter: '@kevmodrome',
-		url: 'https://www.downtomeet.com/Svelte-Society-Stockholm'
+		twitter: '@MrOmodulus',
+		url: 'https://cultdao.io'
 	},
 	{
-		name: 'Svelte Society CZ/SK',
+		name: 'CULT Society CZ/SK',
 		country: '\u{1F1E8}\u{1F1FF} Czechia and \u{1F1F8}\u{1F1F0} Slovakia',
-		discord: 'https://discord.gg/snCuuPnqmH',
-		url: 'https://discord.gg/snCuuPnqmH'
+		discord: 'https://discord.gg/wearecultdao',
+		url: 'https://cultdao.io'
 	},
 	{
-		name: 'Svelte Society Austria - Svienna',
+		name: 'CULT Society Austria - Svienna',
 		country: '\u{1F1E6}\u{1F1F9} Austria',
-		url: 'https://austria.sveltesociety.dev/',
-		discord: 'https://discord.gg/3XAVv99r',
-		twitter: '@svelteaustria'
+		url: 'https://cultdao.io',
+		discord: 'https://discord.gg/wearecultdao',
+		twitter: '@MrOmodulus'
 	},
 	{ continent: 'South America', type: 'contintent' },
 	{
-		name: 'Svelte Brasil',
+		name: 'CULT Brasil',
 		country: '\u{1F1E7}\u{1F1F7} Brazil',
+		telegram: 'https://t.me/cultdaothemany',
+		twitter: '@MrOmodulus',
+		url: 'https://cultdao.io',
+		youtube: 'https://rumble.com/c/c-1902267',
+		githuburl: 'https://github.com/michael-spengler/cultmagazine'
+	},
+	{ continent: 'Russia', type: 'contintent' },
+	{
+		name: 'CULT Moscow',
+		country: '\u{1F1F7}\u{1F1FA} Russia',
 		telegram: 'https://t.me/sveltebrasil',
-		twitter: '@sveltebrasil',
-		url: 'https://sveltebrasil.dev/',
-		youtube: 'https://www.youtube.com/channel/UCp8jamqJRGg86eMnewxjWng',
-		githuburl: 'https://github.com/svelte-brasil'
+		twitter: '@MrOmodulus',
+		url: 'https://cultdao.io/',
+		youtube: 'https://rumble.com/c/c-1902267',
+		githuburl: 'https://github.com/michael-spengler/cultmagazine'
 	},
 	{ continent: 'North America', type: 'contintent' },
 	{
-		name: 'Svelte Chicago',
+		name: 'CULT Chicago',
 		country: '\u{1F1FA}\u{1F1F8} United States (chicago)',
-		twitter: '@sveltechicago',
-		githuburl: 'https://github.com/Svelte-Chicago',
-		url: 'https://sveltechi.dev'
+		twitter: '@MrOmodulus',
+		githuburl: 'https://github.com/michael-spengler/cultmagazine',
+		url: 'https://cultdao.io'
 	}
 ];
-function C1(c, e, r) {
-	const l = c.slice();
+function C1(s, e, r) {
+	const l = s.slice();
 	return (l[0] = e[r]), l;
 }
-function D1(c) {
+function P1(s) {
 	let e,
-		r = c[0].country + '',
+		r = s[0].country + '',
 		l,
 		t,
 		n,
+		c,
 		u,
-		s,
 		a,
-		o,
-		h,
-		p = c[0].name + '',
-		b,
-		w,
-		S,
-		A,
-		U,
-		j,
+		f,
+		i,
+		k = s[0].name + '',
+		g,
+		d,
+		m,
+		y,
+		D,
+		q,
 		R;
 	a = new t1({ props: { name: 'globe' } });
-	let $ = c[0].twitter && B1(c),
-		B = c[0].telegram && I1(c),
-		I = c[0].youtube && N1(c),
-		D = c[0].githuburl && U1(c);
+	let E = s[0].twitter && D1(s),
+		B = s[0].telegram && B1(s),
+		I = s[0].youtube && I1(s),
+		P = s[0].githuburl && N1(s);
 	return {
 		c() {
-			(e = d('h5')),
-				(l = H(r)),
-				(t = E()),
-				(n = d('ul')),
-				(u = d('li')),
-				(s = d('span')),
-				G(a.$$.fragment),
-				(o = E()),
-				(h = d('a')),
-				(b = H(p)),
-				(w = E()),
-				$ && $.c(),
-				(S = E()),
+			(e = _('h5')),
+				(l = $(r)),
+				(t = S()),
+				(n = _('ul')),
+				(c = _('li')),
+				(u = _('span')),
+				j(a.$$.fragment),
+				(f = S()),
+				(i = _('a')),
+				(g = $(k)),
+				(d = S()),
+				E && E.c(),
+				(m = S()),
 				B && B.c(),
-				(A = E()),
+				(y = S()),
 				I && I.c(),
-				(U = E()),
-				D && D.c(),
-				(j = E()),
+				(D = S()),
+				P && P.c(),
+				(q = S()),
 				this.h();
 		},
-		l(C) {
-			e = g(C, 'H5', { class: !0 });
-			var N = _(e);
-			(l = T(N, r)), N.forEach(f), (t = M(C)), (n = g(C, 'UL', { class: !0 }));
-			var Z = _(n);
-			u = g(Z, 'LI', {});
-			var e1 = _(u);
-			s = g(e1, 'SPAN', { class: !0 });
-			var K = _(s);
-			J(a.$$.fragment, K), (o = M(K)), (h = g(K, 'A', { href: !0, rel: !0 }));
-			var O = _(h);
-			(b = T(O, p)),
-				O.forEach(f),
-				K.forEach(f),
-				e1.forEach(f),
-				(w = M(Z)),
-				$ && $.l(Z),
-				(S = M(Z)),
+		l(w) {
+			e = L(w, 'H5', { class: !0 });
+			var N = C(e);
+			(l = M(N, r)), N.forEach(h), (t = T(w)), (n = L(w, 'UL', { class: !0 }));
+			var Z = C(n);
+			c = L(Z, 'LI', {});
+			var e1 = C(c);
+			u = L(e1, 'SPAN', { class: !0 });
+			var J = C(u);
+			G(a.$$.fragment, J), (f = T(J)), (i = L(J, 'A', { href: !0, rel: !0 }));
+			var K = C(i);
+			(g = M(K, k)),
+				K.forEach(h),
+				J.forEach(h),
+				e1.forEach(h),
+				(d = T(Z)),
+				E && E.l(Z),
+				(m = T(Z)),
 				B && B.l(Z),
-				(A = M(Z)),
+				(y = T(Z)),
 				I && I.l(Z),
-				(U = M(Z)),
-				D && D.l(Z),
-				(j = M(Z)),
-				Z.forEach(f),
+				(D = T(Z)),
+				P && P.l(Z),
+				(q = T(Z)),
+				Z.forEach(h),
 				this.h();
 		},
 		h() {
 			v(e, 'class', 'society svelte-331ce1'),
-				v(h, 'href', c[0].url),
-				v(h, 'rel', 'noopener'),
-				v(s, 'class', 'icon-wrapper svelte-331ce1'),
+				v(i, 'href', s[0].url),
+				v(i, 'rel', 'noopener'),
+				v(u, 'class', 'icon-wrapper svelte-331ce1'),
 				v(n, 'class', 'society svelte-331ce1');
 		},
-		m(C, N) {
-			P(C, e, N),
-				i(e, l),
-				P(C, t, N),
-				P(C, n, N),
-				i(n, u),
-				i(u, s),
-				W(a, s, null),
-				i(s, o),
-				i(s, h),
-				i(h, b),
-				i(n, w),
-				$ && $.m(n, null),
-				i(n, S),
+		m(w, N) {
+			U(w, e, N),
+				o(e, l),
+				U(w, t, N),
+				U(w, n, N),
+				o(n, c),
+				o(c, u),
+				Y(a, u, null),
+				o(u, f),
+				o(u, i),
+				o(i, g),
+				o(n, d),
+				E && E.m(n, null),
+				o(n, m),
 				B && B.m(n, null),
-				i(n, A),
+				o(n, y),
 				I && I.m(n, null),
-				i(n, U),
-				D && D.m(n, null),
-				i(n, j),
+				o(n, D),
+				P && P.m(n, null),
+				o(n, q),
 				(R = !0);
 		},
-		p(C, N) {
-			C[0].twitter && $.p(C, N),
-				C[0].telegram && B.p(C, N),
-				C[0].youtube && I.p(C, N),
-				C[0].githuburl && D.p(C, N);
+		p(w, N) {
+			w[0].twitter && E.p(w, N),
+				w[0].telegram && B.p(w, N),
+				w[0].youtube && I.p(w, N),
+				w[0].githuburl && P.p(w, N);
 		},
-		i(C) {
-			R || (k(a.$$.fragment, C), k($), k(B), k(I), k(D), (R = !0));
+		i(w) {
+			R || (H(a.$$.fragment, w), H(E), H(B), H(I), H(P), (R = !0));
 		},
-		o(C) {
-			V(a.$$.fragment, C), V($), V(B), V(I), V(D), (R = !1);
+		o(w) {
+			V(a.$$.fragment, w), V(E), V(B), V(I), V(P), (R = !1);
 		},
-		d(C) {
-			C && f(e), C && f(t), C && f(n), Y(a), $ && $.d(), B && B.d(), I && I.d(), D && D.d();
+		d(w) {
+			w && h(e), w && h(t), w && h(n), W(a), E && E.d(), B && B.d(), I && I.d(), P && P.d();
 		}
 	};
 }
-function Z1(c) {
+function Z1(s) {
 	let e,
-		r = c[0].continent + '',
+		r = s[0].continent + '',
 		l;
 	return {
 		c() {
-			(e = d('h4')), (l = H(r)), this.h();
+			(e = _('h4')), (l = $(r)), this.h();
 		},
 		l(t) {
-			e = g(t, 'H4', { class: !0 });
-			var n = _(e);
-			(l = T(n, r)), n.forEach(f), this.h();
+			e = L(t, 'H4', { class: !0 });
+			var n = C(e);
+			(l = M(n, r)), n.forEach(h), this.h();
 		},
 		h() {
 			v(e, 'class', 'continent svelte-331ce1');
 		},
 		m(t, n) {
-			P(t, e, n), i(e, l);
+			U(t, e, n), o(e, l);
 		},
-		p: x,
-		i: x,
-		o: x,
+		p: O,
+		i: O,
+		o: O,
 		d(t) {
-			t && f(e);
+			t && h(e);
 		}
 	};
 }
-function B1(c) {
+function D1(s) {
 	let e,
 		r,
 		l,
 		t,
-		n = c[0].twitter + '',
-		u,
-		s;
+		n = s[0].twitter + '',
+		c,
+		u;
 	return (
 		(r = new t1({ props: { name: 'twitter' } })),
 		{
 			c() {
-				(e = d('span')), G(r.$$.fragment), (l = E()), (t = d('a')), (u = H(n)), this.h();
+				(e = _('span')), j(r.$$.fragment), (l = S()), (t = _('a')), (c = $(n)), this.h();
 			},
 			l(a) {
-				e = g(a, 'SPAN', { class: !0 });
-				var o = _(e);
-				J(r.$$.fragment, o), (l = M(o)), (t = g(o, 'A', { href: !0, rel: !0 }));
-				var h = _(t);
-				(u = T(h, n)), h.forEach(f), o.forEach(f), this.h();
+				e = L(a, 'SPAN', { class: !0 });
+				var f = C(e);
+				G(r.$$.fragment, f), (l = T(f)), (t = L(f, 'A', { href: !0, rel: !0 }));
+				var i = C(t);
+				(c = M(i, n)), i.forEach(h), f.forEach(h), this.h();
 			},
 			h() {
-				v(t, 'href', 'https://twitter.com/' + c[0].twitter),
+				v(t, 'href', 'https://twitter.com/' + s[0].twitter),
 					v(t, 'rel', 'noopener'),
 					v(e, 'class', 'icon-wrapper svelte-331ce1');
 			},
-			m(a, o) {
-				P(a, e, o), W(r, e, null), i(e, l), i(e, t), i(t, u), (s = !0);
+			m(a, f) {
+				U(a, e, f), Y(r, e, null), o(e, l), o(e, t), o(t, c), (u = !0);
 			},
-			p: x,
+			p: O,
 			i(a) {
-				s || (k(r.$$.fragment, a), (s = !0));
+				u || (H(r.$$.fragment, a), (u = !0));
 			},
 			o(a) {
-				V(r.$$.fragment, a), (s = !1);
+				V(r.$$.fragment, a), (u = !1);
 			},
 			d(a) {
-				a && f(e), Y(r);
+				a && h(e), W(r);
 			}
 		}
 	);
 }
-function I1(c) {
-	let e, r, l, t, n, u;
+function B1(s) {
+	let e, r, l, t, n, c;
 	return (
 		(r = new t1({ props: { name: 'telegram' } })),
 		{
 			c() {
-				(e = d('span')),
-					G(r.$$.fragment),
-					(l = E()),
-					(t = d('a')),
-					(n = H('Join on Telegram')),
+				(e = _('span')),
+					j(r.$$.fragment),
+					(l = S()),
+					(t = _('a')),
+					(n = $('Join on Telegram')),
 					this.h();
 			},
-			l(s) {
-				e = g(s, 'SPAN', { class: !0 });
-				var a = _(e);
-				J(r.$$.fragment, a), (l = M(a)), (t = g(a, 'A', { href: !0, target: !0, rel: !0 }));
-				var o = _(t);
-				(n = T(o, 'Join on Telegram')), o.forEach(f), a.forEach(f), this.h();
+			l(u) {
+				e = L(u, 'SPAN', { class: !0 });
+				var a = C(e);
+				G(r.$$.fragment, a), (l = T(a)), (t = L(a, 'A', { href: !0, target: !0, rel: !0 }));
+				var f = C(t);
+				(n = M(f, 'Join on Telegram')), f.forEach(h), a.forEach(h), this.h();
 			},
 			h() {
-				v(t, 'href', c[0].telegram),
+				v(t, 'href', s[0].telegram),
 					v(t, 'target', '_blank'),
 					v(t, 'rel', 'noopener'),
 					v(e, 'class', 'icon-wrapper svelte-331ce1');
 			},
-			m(s, a) {
-				P(s, e, a), W(r, e, null), i(e, l), i(e, t), i(t, n), (u = !0);
+			m(u, a) {
+				U(u, e, a), Y(r, e, null), o(e, l), o(e, t), o(t, n), (c = !0);
 			},
-			p: x,
-			i(s) {
-				u || (k(r.$$.fragment, s), (u = !0));
+			p: O,
+			i(u) {
+				c || (H(r.$$.fragment, u), (c = !0));
 			},
-			o(s) {
-				V(r.$$.fragment, s), (u = !1);
+			o(u) {
+				V(r.$$.fragment, u), (c = !1);
 			},
-			d(s) {
-				s && f(e), Y(r);
+			d(u) {
+				u && h(e), W(r);
 			}
 		}
 	);
 }
-function N1(c) {
+function I1(s) {
 	let e,
 		r,
 		l,
 		t,
-		n = c[0].name + '',
+		n = s[0].name + '',
+		c,
 		u,
-		s,
 		a;
 	return (
 		(r = new t1({ props: { name: 'youtube' } })),
 		{
 			c() {
-				(e = d('span')),
-					G(r.$$.fragment),
-					(l = E()),
-					(t = d('a')),
-					(u = H(n)),
-					(s = H(' YouTube Channel')),
+				(e = _('span')),
+					j(r.$$.fragment),
+					(l = S()),
+					(t = _('a')),
+					(c = $(n)),
+					(u = $(' YouTube Channel')),
 					this.h();
 			},
-			l(o) {
-				e = g(o, 'SPAN', { class: !0 });
-				var h = _(e);
-				J(r.$$.fragment, h), (l = M(h)), (t = g(h, 'A', { href: !0, target: !0, rel: !0 }));
-				var p = _(t);
-				(u = T(p, n)), (s = T(p, ' YouTube Channel')), p.forEach(f), h.forEach(f), this.h();
+			l(f) {
+				e = L(f, 'SPAN', { class: !0 });
+				var i = C(e);
+				G(r.$$.fragment, i), (l = T(i)), (t = L(i, 'A', { href: !0, target: !0, rel: !0 }));
+				var k = C(t);
+				(c = M(k, n)), (u = M(k, ' YouTube Channel')), k.forEach(h), i.forEach(h), this.h();
 			},
 			h() {
-				v(t, 'href', c[0].youtube),
+				v(t, 'href', s[0].youtube),
 					v(t, 'target', '_blank'),
 					v(t, 'rel', 'noopener'),
 					v(e, 'class', 'icon-wrapper svelte-331ce1');
 			},
-			m(o, h) {
-				P(o, e, h), W(r, e, null), i(e, l), i(e, t), i(t, u), i(t, s), (a = !0);
+			m(f, i) {
+				U(f, e, i), Y(r, e, null), o(e, l), o(e, t), o(t, c), o(t, u), (a = !0);
 			},
-			p: x,
-			i(o) {
-				a || (k(r.$$.fragment, o), (a = !0));
+			p: O,
+			i(f) {
+				a || (H(r.$$.fragment, f), (a = !0));
 			},
-			o(o) {
-				V(r.$$.fragment, o), (a = !1);
+			o(f) {
+				V(r.$$.fragment, f), (a = !1);
 			},
-			d(o) {
-				o && f(e), Y(r);
+			d(f) {
+				f && h(e), W(r);
 			}
 		}
 	);
 }
-function U1(c) {
-	let e, r, l, t, n, u, s;
+function N1(s) {
+	let e, r, l, t, n, c, u;
 	return (
 		(l = new t1({ props: { name: 'github' } })),
 		{
 			c() {
-				(e = d('li')),
-					(r = d('span')),
-					G(l.$$.fragment),
-					(t = E()),
-					(n = d('a')),
-					(u = H('GitHub')),
+				(e = _('li')),
+					(r = _('span')),
+					j(l.$$.fragment),
+					(t = S()),
+					(n = _('a')),
+					(c = $('GitHub')),
 					this.h();
 			},
 			l(a) {
-				e = g(a, 'LI', {});
-				var o = _(e);
-				r = g(o, 'SPAN', { class: !0 });
-				var h = _(r);
-				J(l.$$.fragment, h), (t = M(h)), (n = g(h, 'A', { href: !0, target: !0, rel: !0 }));
-				var p = _(n);
-				(u = T(p, 'GitHub')), p.forEach(f), h.forEach(f), o.forEach(f), this.h();
+				e = L(a, 'LI', {});
+				var f = C(e);
+				r = L(f, 'SPAN', { class: !0 });
+				var i = C(r);
+				G(l.$$.fragment, i), (t = T(i)), (n = L(i, 'A', { href: !0, target: !0, rel: !0 }));
+				var k = C(n);
+				(c = M(k, 'GitHub')), k.forEach(h), i.forEach(h), f.forEach(h), this.h();
 			},
 			h() {
-				v(n, 'href', c[0].githuburl),
+				v(n, 'href', s[0].githuburl),
 					v(n, 'target', '_blank'),
 					v(n, 'rel', 'noopener'),
 					v(r, 'class', 'icon-wrapper svelte-331ce1');
 			},
-			m(a, o) {
-				P(a, e, o), i(e, r), W(l, r, null), i(r, t), i(r, n), i(n, u), (s = !0);
+			m(a, f) {
+				U(a, e, f), o(e, r), Y(l, r, null), o(r, t), o(r, n), o(n, c), (u = !0);
 			},
-			p: x,
+			p: O,
 			i(a) {
-				s || (k(l.$$.fragment, a), (s = !0));
+				u || (H(l.$$.fragment, a), (u = !0));
 			},
 			o(a) {
-				V(l.$$.fragment, a), (s = !1);
+				V(l.$$.fragment, a), (u = !1);
 			},
 			d(a) {
-				a && f(e), Y(l);
+				a && h(e), W(l);
 			}
 		}
 	);
 }
-function b1(c) {
+function b1(s) {
 	let e, r, l, t;
-	const n = [Z1, D1],
-		u = [];
-	function s(a, o) {
+	const n = [Z1, P1],
+		c = [];
+	function u(a, f) {
 		return a[0].continent ? 0 : 1;
 	}
 	return (
-		(e = s(c)),
-		(r = u[e] = n[e](c)),
+		(e = u(s)),
+		(r = c[e] = n[e](s)),
 		{
 			c() {
 				r.c(), (l = g1());
@@ -639,247 +641,280 @@ function b1(c) {
 			l(a) {
 				r.l(a), (l = g1());
 			},
-			m(a, o) {
-				u[e].m(a, o), P(a, l, o), (t = !0);
+			m(a, f) {
+				c[e].m(a, f), U(a, l, f), (t = !0);
 			},
-			p(a, o) {
-				r.p(a, o);
+			p(a, f) {
+				r.p(a, f);
 			},
 			i(a) {
-				t || (k(r), (t = !0));
+				t || (H(r), (t = !0));
 			},
 			o(a) {
 				V(r), (t = !1);
 			},
 			d(a) {
-				u[e].d(a), a && f(l);
+				c[e].d(a), a && h(l);
 			}
 		}
 	);
 }
-function R1(c) {
+function R1(s) {
 	let e,
 		r,
 		l,
 		t,
 		n,
-		u = L1,
-		s = [];
-	for (let o = 0; o < u.length; o += 1) s[o] = b1(C1(c, u, o));
-	const a = (o) =>
-		V(s[o], 1, 1, () => {
-			s[o] = null;
+		c,
+		u,
+		a,
+		f = L1,
+		i = [];
+	for (let g = 0; g < f.length; g += 1) i[g] = b1(C1(s, f, g));
+	const k = (g) =>
+		V(i[g], 1, 1, () => {
+			i[g] = null;
 		});
 	return {
 		c() {
-			(e = d('div')), (r = d('h3')), (l = H('Societies around the world')), (t = E());
-			for (let o = 0; o < s.length; o += 1) s[o].c();
+			(e = _('div')),
+				(r = _('h3')),
+				(l = $('Societies around the world')),
+				(t = $(`
+	Maintain `)),
+				(n = _('a')),
+				(c = $('here')),
+				(u = $(` via pull request.
+	`));
+			for (let g = 0; g < i.length; g += 1) i[g].c();
 			this.h();
 		},
-		l(o) {
-			e = g(o, 'DIV', { class: !0 });
-			var h = _(e);
-			r = g(h, 'H3', { class: !0 });
-			var p = _(r);
-			(l = T(p, 'Societies around the world')), p.forEach(f), (t = M(h));
-			for (let b = 0; b < s.length; b += 1) s[b].l(h);
-			h.forEach(f), this.h();
+		l(g) {
+			e = L(g, 'DIV', { class: !0 });
+			var d = C(e);
+			r = L(d, 'H3', { class: !0 });
+			var m = C(r);
+			(l = M(m, 'Societies around the world')),
+				m.forEach(h),
+				(t = M(
+					d,
+					`
+	Maintain `
+				)),
+				(n = L(d, 'A', { href: !0, target: !0 }));
+			var y = C(n);
+			(c = M(y, 'here')),
+				y.forEach(h),
+				(u = M(
+					d,
+					` via pull request.
+	`
+				));
+			for (let D = 0; D < i.length; D += 1) i[D].l(d);
+			d.forEach(h), this.h();
 		},
 		h() {
-			v(r, 'class', 'title'), v(e, 'class', 'society-wrapper svelte-331ce1');
+			v(r, 'class', 'title'),
+				v(
+					n,
+					'href',
+					'https://github.com/michael-spengler/cultmagazine/blob/staging/src/lib/components/Societies/societies.json'
+				),
+				v(n, 'target', '_blank'),
+				v(e, 'class', 'society-wrapper svelte-331ce1');
 		},
-		m(o, h) {
-			P(o, e, h), i(e, r), i(r, l), i(e, t);
-			for (let p = 0; p < s.length; p += 1) s[p].m(e, null);
-			n = !0;
+		m(g, d) {
+			U(g, e, d), o(e, r), o(r, l), o(e, t), o(e, n), o(n, c), o(e, u);
+			for (let m = 0; m < i.length; m += 1) i[m].m(e, null);
+			a = !0;
 		},
-		p(o, [h]) {
-			if (h & 0) {
-				u = L1;
-				let p;
-				for (p = 0; p < u.length; p += 1) {
-					const b = C1(o, u, p);
-					s[p]
-						? (s[p].p(b, h), k(s[p], 1))
-						: ((s[p] = b1(b)), s[p].c(), k(s[p], 1), s[p].m(e, null));
+		p(g, [d]) {
+			if (d & 0) {
+				f = L1;
+				let m;
+				for (m = 0; m < f.length; m += 1) {
+					const y = C1(g, f, m);
+					i[m]
+						? (i[m].p(y, d), H(i[m], 1))
+						: ((i[m] = b1(y)), i[m].c(), H(i[m], 1), i[m].m(e, null));
 				}
-				for (z1(), p = u.length; p < s.length; p += 1) a(p);
+				for (M1(), m = f.length; m < i.length; m += 1) k(m);
 				E1();
 			}
 		},
-		i(o) {
-			if (!n) {
-				for (let h = 0; h < u.length; h += 1) k(s[h]);
-				n = !0;
+		i(g) {
+			if (!a) {
+				for (let d = 0; d < f.length; d += 1) H(i[d]);
+				a = !0;
 			}
 		},
-		o(o) {
-			s = s.filter(Boolean);
-			for (let h = 0; h < s.length; h += 1) V(s[h]);
-			n = !1;
+		o(g) {
+			i = i.filter(Boolean);
+			for (let d = 0; d < i.length; d += 1) V(i[d]);
+			a = !1;
 		},
-		d(o) {
-			o && f(e), M1(s, o);
+		d(g) {
+			g && h(e), A1(i, g);
 		}
 	};
 }
-class j1 extends s1 {
+class q1 extends s1 {
 	constructor(e) {
-		super(), o1(this, e, null, R1, c1, {});
+		super(), o1(this, e, null, R1, i1, {});
 	}
 }
-function w1(c) {
+function w1(s) {
 	let e, r;
 	return {
 		c() {
-			(e = d('span')), (r = H('Past event')), this.h();
+			(e = _('span')), (r = $('Past event')), this.h();
 		},
 		l(l) {
-			e = g(l, 'SPAN', { class: !0 });
-			var t = _(e);
-			(r = T(t, 'Past event')), t.forEach(f), this.h();
+			e = L(l, 'SPAN', { class: !0 });
+			var t = C(e);
+			(r = M(t, 'Past event')), t.forEach(h), this.h();
 		},
 		h() {
 			v(e, 'class', 'past-event svelte-16w909o');
 		},
 		m(l, t) {
-			P(l, e, t), i(e, r);
+			U(l, e, t), o(e, r);
 		},
 		d(l) {
-			l && f(e);
+			l && h(e);
 		}
 	};
 }
-function q1(c) {
+function x1(s) {
 	let e,
 		r,
 		l,
 		t,
 		n,
+		c,
 		u,
-		s,
 		a,
-		o,
-		h = y1(c[1]) + '',
-		p,
-		b,
-		w = c[3] === !0 && w1();
+		f,
+		i = y1(s[1]) + '',
+		k,
+		g,
+		d = s[3] === !0 && w1();
 	return (
-		(o = new t1({ props: { name: 'calendar', width: '25px', height: '25px' } })),
+		(f = new t1({ props: { name: 'calendar', width: '25px', height: '25px' } })),
 		{
 			c() {
-				(e = d('article')),
-					w && w.c(),
-					(r = E()),
-					(l = d('h2')),
-					(t = d('a')),
-					(n = H(c[0])),
-					(u = E()),
-					(s = d('p')),
-					(a = d('span')),
-					G(o.$$.fragment),
-					(p = H(h)),
+				(e = _('article')),
+					d && d.c(),
+					(r = S()),
+					(l = _('h2')),
+					(t = _('a')),
+					(n = $(s[0])),
+					(c = S()),
+					(u = _('p')),
+					(a = _('span')),
+					j(f.$$.fragment),
+					(k = $(i)),
 					this.h();
 			},
-			l(S) {
-				e = g(S, 'ARTICLE', { class: !0 });
-				var A = _(e);
-				w && w.l(A), (r = M(A)), (l = g(A, 'H2', { class: !0 }));
-				var U = _(l);
-				t = g(U, 'A', { href: !0, class: !0 });
-				var j = _(t);
-				(n = T(j, c[0])), j.forEach(f), U.forEach(f), (u = M(A)), (s = g(A, 'P', {}));
-				var R = _(s);
-				a = g(R, 'SPAN', { class: !0 });
-				var $ = _(a);
-				J(o.$$.fragment, $), (p = T($, h)), $.forEach(f), R.forEach(f), A.forEach(f), this.h();
+			l(m) {
+				e = L(m, 'ARTICLE', { class: !0 });
+				var y = C(e);
+				d && d.l(y), (r = T(y)), (l = L(y, 'H2', { class: !0 }));
+				var D = C(l);
+				t = L(D, 'A', { href: !0, class: !0 });
+				var q = C(t);
+				(n = M(q, s[0])), q.forEach(h), D.forEach(h), (c = T(y)), (u = L(y, 'P', {}));
+				var R = C(u);
+				a = L(R, 'SPAN', { class: !0 });
+				var E = C(a);
+				G(f.$$.fragment, E), (k = M(E, i)), E.forEach(h), R.forEach(h), y.forEach(h), this.h();
 			},
 			h() {
-				v(t, 'href', c[2]),
+				v(t, 'href', s[2]),
 					v(t, 'class', 'svelte-16w909o'),
 					v(l, 'class', 'svelte-16w909o'),
 					v(a, 'class', 'icon-wrapper svelte-16w909o'),
 					v(e, 'class', 'event-tile svelte-16w909o');
 			},
-			m(S, A) {
-				P(S, e, A),
-					w && w.m(e, null),
-					i(e, r),
-					i(e, l),
-					i(l, t),
-					i(t, n),
-					i(e, u),
-					i(e, s),
-					i(s, a),
-					W(o, a, null),
-					i(a, p),
-					(b = !0);
+			m(m, y) {
+				U(m, e, y),
+					d && d.m(e, null),
+					o(e, r),
+					o(e, l),
+					o(l, t),
+					o(t, n),
+					o(e, c),
+					o(e, u),
+					o(u, a),
+					Y(f, a, null),
+					o(a, k),
+					(g = !0);
 			},
-			p(S, [A]) {
-				S[3] === !0 ? w || ((w = w1()), w.c(), w.m(e, r)) : w && (w.d(1), (w = null)),
-					(!b || A & 1) && _1(n, S[0]),
-					(!b || A & 4) && v(t, 'href', S[2]),
-					(!b || A & 2) && h !== (h = y1(S[1]) + '') && _1(p, h);
+			p(m, [y]) {
+				m[3] === !0 ? d || ((d = w1()), d.c(), d.m(e, r)) : d && (d.d(1), (d = null)),
+					(!g || y & 1) && _1(n, m[0]),
+					(!g || y & 4) && v(t, 'href', m[2]),
+					(!g || y & 2) && i !== (i = y1(m[1]) + '') && _1(k, i);
 			},
-			i(S) {
-				b || (k(o.$$.fragment, S), (b = !0));
+			i(m) {
+				g || (H(f.$$.fragment, m), (g = !0));
 			},
-			o(S) {
-				V(o.$$.fragment, S), (b = !1);
+			o(m) {
+				V(f.$$.fragment, m), (g = !1);
 			},
-			d(S) {
-				S && f(e), w && w.d(), Y(o);
+			d(m) {
+				m && h(e), d && d.d(), W(f);
 			}
 		}
 	);
 }
-function y1(c) {
-	return new Date(c).toDateString();
+function y1(s) {
+	return new Date(s).toDateString();
 }
-function x1(c, e, r) {
+function O1(s, e, r) {
 	let l,
-		{ title: t, date: n, url: u = '' } = e;
-	const s = 24 * 60 * 60 * 1e3;
+		{ title: t, date: n, url: c = '' } = e;
+	const u = 24 * 60 * 60 * 1e3;
 	return (
-		(c.$$set = (a) => {
+		(s.$$set = (a) => {
 			'title' in a && r(0, (t = a.title)),
 				'date' in a && r(1, (n = a.date)),
-				'url' in a && r(2, (u = a.url));
+				'url' in a && r(2, (c = a.url));
 		}),
-		(c.$$.update = () => {
-			c.$$.dirty & 2 && r(3, (l = Date.now() - new Date(n).getTime() > s));
+		(s.$$.update = () => {
+			s.$$.dirty & 2 && r(3, (l = Date.now() - new Date(n).getTime() > u));
 		}),
-		[t, n, u, l]
+		[t, n, c, l]
 	);
 }
-class G1 extends s1 {
+class j1 extends s1 {
 	constructor(e) {
-		super(), o1(this, e, x1, q1, c1, { title: 0, date: 1, url: 2 });
+		super(), o1(this, e, O1, x1, i1, { title: 0, date: 1, url: 2 });
 	}
 }
-function S1(c, e, r) {
-	const l = c.slice();
+function z1(s, e, r) {
+	const l = s.slice();
 	return (l[1] = e[r]), l;
 }
-function $1(c) {
+function $1(s) {
 	let e, r;
 	return (
-		(e = new G1({
+		(e = new j1({
 			props: {
-				title: c[1].title,
-				url: '/events/' + c[1].filename.replace('.svx', ''),
-				date: c[1].date
+				title: s[1].title,
+				url: '/events/' + s[1].filename.replace('.svx', ''),
+				date: s[1].date
 			}
 		})),
 		{
 			c() {
-				G(e.$$.fragment);
+				j(e.$$.fragment);
 			},
 			l(l) {
-				J(e.$$.fragment, l);
+				G(e.$$.fragment, l);
 			},
 			m(l, t) {
-				W(e, l, t), (r = !0);
+				Y(e, l, t), (r = !0);
 			},
 			p(l, t) {
 				const n = {};
@@ -889,245 +924,245 @@ function $1(c) {
 					e.$set(n);
 			},
 			i(l) {
-				r || (k(e.$$.fragment, l), (r = !0));
+				r || (H(e.$$.fragment, l), (r = !0));
 			},
 			o(l) {
 				V(e.$$.fragment, l), (r = !1);
 			},
 			d(l) {
-				Y(e, l);
+				W(e, l);
 			}
 		}
 	);
 }
-function J1(c) {
+function G1(s) {
 	let e,
 		r,
 		l,
 		t,
 		n,
+		c,
 		u,
-		s,
 		a,
-		o,
-		h,
-		p,
-		b,
-		w,
-		S,
-		A,
-		U,
-		j,
+		f,
+		i,
+		k,
+		g,
+		d,
+		m,
+		y,
+		D,
+		q,
 		R,
-		$,
+		E,
 		B,
 		I,
-		D,
-		C,
+		P,
+		w,
 		N,
 		Z,
 		e1,
+		J,
 		K,
-		O,
-		q,
-		X,
-		i1,
+		x,
 		F,
+		c1,
+		Q,
 		r1;
-	e = new T1({ props: { title: 'Events' } });
-	let Q = c[0].events,
-		y = [];
-	for (let m = 0; m < Q.length; m += 1) y[m] = $1(S1(c, Q, m));
-	const A1 = (m) =>
-		V(y[m], 1, 1, () => {
-			y[m] = null;
+	e = new H1({ props: { title: 'Events' } });
+	let X = s[0].events,
+		z = [];
+	for (let p = 0; p < X.length; p += 1) z[p] = $1(z1(s, X, p));
+	const k1 = (p) =>
+		V(z[p], 1, 1, () => {
+			z[p] = null;
 		});
 	return (
-		(F = new j1({})),
+		(Q = new q1({})),
 		{
 			c() {
-				G(e.$$.fragment),
-					(r = E()),
-					(l = d('p')),
-					(t = d('br')),
-					(n = E()),
-					(u = d('div')),
-					(s = d('h1')),
-					(a = H('CULT Events')),
-					(o = E()),
-					(h = d('p')),
-					(p = H('Everyone is invited to add CULT events via ')),
-					(b = d('a')),
-					(w = H('pull request')),
-					(S = H('.')),
-					(A = E()),
-					(U = d('p')),
-					(j = d('br')),
-					(R = H(`
+				j(e.$$.fragment),
+					(r = S()),
+					(l = _('p')),
+					(t = _('br')),
+					(n = S()),
+					(c = _('div')),
+					(u = _('h1')),
+					(a = $('CULT Events')),
+					(f = S()),
+					(i = _('p')),
+					(k = $('Everyone is invited to add CULT events via ')),
+					(g = _('a')),
+					(d = $('pull request')),
+					(m = $('.')),
+					(y = S()),
+					(D = _('p')),
+					(q = _('br')),
+					(R = $(`
 	We promote events where guests get free entrance when proving they have CULT or RVLT in their wallet.
 	`)),
-					($ = d('p')),
-					(B = d('br')),
-					(I = H(`
+					(E = _('p')),
+					(B = _('br')),
+					(I = $(`
 	We also promote CULT related Twitter Spaces and Youtube Live Streams.
 
 	`)),
-					(D = d('p')),
-					(C = d('br')),
-					(N = E()),
-					(Z = d('p')),
-					(e1 = d('br')),
-					(K = H(`
+					(P = _('p')),
+					(w = _('br')),
+					(N = S()),
+					(Z = _('p')),
+					(e1 = _('br')),
+					(J = $(`
 	The following is just to get some design- / layout ideas`)),
-					(O = E()),
-					(q = d('article')),
-					(X = d('section'));
-				for (let m = 0; m < y.length; m += 1) y[m].c();
-				(i1 = E()), G(F.$$.fragment), this.h();
+					(K = S()),
+					(x = _('article')),
+					(F = _('section'));
+				for (let p = 0; p < z.length; p += 1) z[p].c();
+				(c1 = S()), j(Q.$$.fragment), this.h();
 			},
-			l(m) {
-				J(e.$$.fragment, m), (r = M(m)), (l = g(m, 'P', {}));
-				var z = _(l);
-				(t = g(z, 'BR', {})), z.forEach(f), (n = M(m)), (u = g(m, 'DIV', { class: !0 }));
-				var L = _(u);
-				s = g(L, 'H1', {});
-				var l1 = _(s);
-				(a = T(l1, 'CULT Events')), l1.forEach(f), (o = M(L)), (h = g(L, 'P', {}));
-				var a1 = _(h);
-				(p = T(a1, 'Everyone is invited to add CULT events via ')),
-					(b = g(a1, 'A', { href: !0, target: !0 }));
-				var h1 = _(b);
-				(w = T(h1, 'pull request')),
-					h1.forEach(f),
-					(S = T(a1, '.')),
-					a1.forEach(f),
-					(A = M(L)),
-					(U = g(L, 'P', {}));
-				var f1 = _(U);
-				(j = g(f1, 'BR', {})),
-					f1.forEach(f),
-					(R = T(
-						L,
+			l(p) {
+				G(e.$$.fragment, p), (r = T(p)), (l = L(p, 'P', {}));
+				var A = C(l);
+				(t = L(A, 'BR', {})), A.forEach(h), (n = T(p)), (c = L(p, 'DIV', { class: !0 }));
+				var b = C(c);
+				u = L(b, 'H1', {});
+				var l1 = C(u);
+				(a = M(l1, 'CULT Events')), l1.forEach(h), (f = T(b)), (i = L(b, 'P', {}));
+				var a1 = C(i);
+				(k = M(a1, 'Everyone is invited to add CULT events via ')),
+					(g = L(a1, 'A', { href: !0, target: !0 }));
+				var h1 = C(g);
+				(d = M(h1, 'pull request')),
+					h1.forEach(h),
+					(m = M(a1, '.')),
+					a1.forEach(h),
+					(y = T(b)),
+					(D = L(b, 'P', {}));
+				var f1 = C(D);
+				(q = L(f1, 'BR', {})),
+					f1.forEach(h),
+					(R = M(
+						b,
 						`
 	We promote events where guests get free entrance when proving they have CULT or RVLT in their wallet.
 	`
 					)),
-					($ = g(L, 'P', {}));
-				var m1 = _($);
-				(B = g(m1, 'BR', {})),
-					m1.forEach(f),
-					(I = T(
-						L,
+					(E = L(b, 'P', {}));
+				var m1 = C(E);
+				(B = L(m1, 'BR', {})),
+					m1.forEach(h),
+					(I = M(
+						b,
 						`
 	We also promote CULT related Twitter Spaces and Youtube Live Streams.
 
 	`
 					)),
-					(D = g(L, 'P', {}));
-				var v1 = _(D);
-				(C = g(v1, 'BR', {})), v1.forEach(f), (N = M(L)), (Z = g(L, 'P', {}));
-				var p1 = _(Z);
-				(e1 = g(p1, 'BR', {})),
-					p1.forEach(f),
-					(K = T(
-						L,
+					(P = L(b, 'P', {}));
+				var p1 = C(P);
+				(w = L(p1, 'BR', {})), p1.forEach(h), (N = T(b)), (Z = L(b, 'P', {}));
+				var v1 = C(Z);
+				(e1 = L(v1, 'BR', {})),
+					v1.forEach(h),
+					(J = M(
+						b,
 						`
 	The following is just to get some design- / layout ideas`
 					)),
-					L.forEach(f),
-					(O = M(m)),
-					(q = g(m, 'ARTICLE', { class: !0 }));
-				var n1 = _(q);
-				X = g(n1, 'SECTION', { class: !0 });
-				var d1 = _(X);
-				for (let u1 = 0; u1 < y.length; u1 += 1) y[u1].l(d1);
-				d1.forEach(f), (i1 = M(n1)), J(F.$$.fragment, n1), n1.forEach(f), this.h();
+					b.forEach(h),
+					(K = T(p)),
+					(x = L(p, 'ARTICLE', { class: !0 }));
+				var n1 = C(x);
+				F = L(n1, 'SECTION', { class: !0 });
+				var d1 = C(F);
+				for (let u1 = 0; u1 < z.length; u1 += 1) z[u1].l(d1);
+				d1.forEach(h), (c1 = T(n1)), G(Q.$$.fragment, n1), n1.forEach(h), this.h();
 			},
 			h() {
-				v(b, 'href', 'https://www.youtube.com/watch?v=8lGpZkjnkt4'),
-					v(b, 'target', '_blank'),
-					v(u, 'class', 'text-center'),
-					v(X, 'class', 'event-wrapper svelte-1g1aqj2'),
-					v(q, 'class', 'wrapper svelte-1g1aqj2');
+				v(g, 'href', 'https://www.youtube.com/watch?v=8lGpZkjnkt4'),
+					v(g, 'target', '_blank'),
+					v(c, 'class', 'text-center'),
+					v(F, 'class', 'event-wrapper svelte-1g1aqj2'),
+					v(x, 'class', 'wrapper svelte-1g1aqj2');
 			},
-			m(m, z) {
-				W(e, m, z),
-					P(m, r, z),
-					P(m, l, z),
-					i(l, t),
-					P(m, n, z),
-					P(m, u, z),
-					i(u, s),
-					i(s, a),
-					i(u, o),
-					i(u, h),
-					i(h, p),
-					i(h, b),
-					i(b, w),
-					i(h, S),
-					i(u, A),
-					i(u, U),
-					i(U, j),
-					i(u, R),
-					i(u, $),
-					i($, B),
-					i(u, I),
-					i(u, D),
-					i(D, C),
-					i(u, N),
-					i(u, Z),
-					i(Z, e1),
-					i(u, K),
-					P(m, O, z),
-					P(m, q, z),
-					i(q, X);
-				for (let L = 0; L < y.length; L += 1) y[L].m(X, null);
-				i(q, i1), W(F, q, null), (r1 = !0);
+			m(p, A) {
+				Y(e, p, A),
+					U(p, r, A),
+					U(p, l, A),
+					o(l, t),
+					U(p, n, A),
+					U(p, c, A),
+					o(c, u),
+					o(u, a),
+					o(c, f),
+					o(c, i),
+					o(i, k),
+					o(i, g),
+					o(g, d),
+					o(i, m),
+					o(c, y),
+					o(c, D),
+					o(D, q),
+					o(c, R),
+					o(c, E),
+					o(E, B),
+					o(c, I),
+					o(c, P),
+					o(P, w),
+					o(c, N),
+					o(c, Z),
+					o(Z, e1),
+					o(c, J),
+					U(p, K, A),
+					U(p, x, A),
+					o(x, F);
+				for (let b = 0; b < z.length; b += 1) z[b].m(F, null);
+				o(x, c1), Y(Q, x, null), (r1 = !0);
 			},
-			p(m, [z]) {
-				if (z & 1) {
-					Q = m[0].events;
-					let L;
-					for (L = 0; L < Q.length; L += 1) {
-						const l1 = S1(m, Q, L);
-						y[L]
-							? (y[L].p(l1, z), k(y[L], 1))
-							: ((y[L] = $1(l1)), y[L].c(), k(y[L], 1), y[L].m(X, null));
+			p(p, [A]) {
+				if (A & 1) {
+					X = p[0].events;
+					let b;
+					for (b = 0; b < X.length; b += 1) {
+						const l1 = z1(p, X, b);
+						z[b]
+							? (z[b].p(l1, A), H(z[b], 1))
+							: ((z[b] = $1(l1)), z[b].c(), H(z[b], 1), z[b].m(F, null));
 					}
-					for (z1(), L = Q.length; L < y.length; L += 1) A1(L);
+					for (M1(), b = X.length; b < z.length; b += 1) k1(b);
 					E1();
 				}
 			},
-			i(m) {
+			i(p) {
 				if (!r1) {
-					k(e.$$.fragment, m);
-					for (let z = 0; z < Q.length; z += 1) k(y[z]);
-					k(F.$$.fragment, m), (r1 = !0);
+					H(e.$$.fragment, p);
+					for (let A = 0; A < X.length; A += 1) H(z[A]);
+					H(Q.$$.fragment, p), (r1 = !0);
 				}
 			},
-			o(m) {
-				V(e.$$.fragment, m), (y = y.filter(Boolean));
-				for (let z = 0; z < y.length; z += 1) V(y[z]);
-				V(F.$$.fragment, m), (r1 = !1);
+			o(p) {
+				V(e.$$.fragment, p), (z = z.filter(Boolean));
+				for (let A = 0; A < z.length; A += 1) V(z[A]);
+				V(Q.$$.fragment, p), (r1 = !1);
 			},
-			d(m) {
-				Y(e, m), m && f(r), m && f(l), m && f(n), m && f(u), m && f(O), m && f(q), M1(y, m), Y(F);
+			d(p) {
+				W(e, p), p && h(r), p && h(l), p && h(n), p && h(c), p && h(K), p && h(x), A1(z, p), W(Q);
 			}
 		}
 	);
 }
-function W1(c, e, r) {
+function Y1(s, e, r) {
 	let { data: l } = e;
 	return (
-		(c.$$set = (t) => {
+		(s.$$set = (t) => {
 			'data' in t && r(0, (l = t.data));
 		}),
 		[l]
 	);
 }
-class F1 extends s1 {
+class Q1 extends s1 {
 	constructor(e) {
-		super(), o1(this, e, W1, J1, c1, { data: 0 });
+		super(), o1(this, e, Y1, G1, i1, { data: 0 });
 	}
 }
-export { F1 as default };
+export { Q1 as default };

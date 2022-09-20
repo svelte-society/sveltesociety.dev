@@ -6,6 +6,13 @@
 <!--society section-->
 <div class="society-wrapper">
 	<h3 class="title">Societies around the world</h3>
+	Maintain<a
+		href="https://github.com/michael-spengler/cultmagazine/blob/staging/src/lib/components/Societies/societies.json"
+		target="_blank"
+	>
+		here</a
+	>
+	via pull request.
 	{#each societies as society}
 		{#if society.continent}
 			<h4 class="continent">{society.continent}</h4>

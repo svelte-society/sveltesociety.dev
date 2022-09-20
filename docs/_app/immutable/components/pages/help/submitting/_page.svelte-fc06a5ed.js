@@ -59,9 +59,9 @@ import {
 import { e as Ht } from '../../../../chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js';
 import { c as di } from '../../../../chunks/components-9abf80d5.js';
 import { c as Ll } from '../../../../chunks/cultproposals-ee6a2386.js';
-import { S as tn } from '../../../../chunks/Seo-459bd42e.js';
-import '../../../../chunks/stores-fc7ad523.js';
-import '../../../../chunks/singletons-55fcb37a.js';
+import { S as tn } from '../../../../chunks/Seo-e788fda6.js';
+import '../../../../chunks/stores-47cc4d76.js';
+import '../../../../chunks/singletons-1ec496c0.js';
 const ln = (l) =>
 	new Promise((e) =>
 		navigator.clipboard

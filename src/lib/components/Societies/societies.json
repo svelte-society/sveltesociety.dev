@@ -6,71 +6,84 @@
 	{
 		"name": "London Svelte Meetup",
 		"country": "🇬🇧 Great Britain",
-		"url": "https://www.meetup.com/svelte/"
+		"url": "https://cultdao.io"
 	},
 	{
-		"name": "Svelte Dublin",
+		"name": "CULT Dublin",
 		"country": "🇮🇪 Ireland",
-		"url": "https://www.downtomeet.com/Svelte-Dublin"
+		"url": "https://cultdao.io"
 	},
 	{
-		"name": "Sveltejs Meetup Hamburg",
+		"name": "CULT Meetup Hamburg",
 		"country": "🇩🇪 Germany",
-		"url": "https://www.meetup.com/de-DE/Svelte-js-Meetup-Hamburg/",
-		"githuburl": "https://github.com/svelte-meetup-hamburg/meetups/issues"
+		"url": "https://cultdao.io",
+		"githuburl": "https://github.com/michael-spengler/cultmagazine"
 	},
 	{
-		"name": "Amsterdam SvelteJS",
+		"name": "Amsterdam CULT",
 		"country": "🇳🇱 Netherlands",
-		"url": "https://www.meetup.com/Amsterdam-SvelteJS/"
+		"url": "https://cultdao.io"
 	},
 	{
-		"name": "Svelte Bergen",
+		"name": "CULT Bergen",
 		"country": "🇳🇴 Norway",
-		"twitter": "@stephanevanraes",
-		"url": "https://www.downtomeet.com/Svelte-Bergen"
+		"twitter": "@MrOmodulus",
+		"url": "https://cultdao.io"
 	},
 	{
-		"name": "Svelte Society Stockholm",
+		"name": "CULT Society Stockholm",
 		"country": "🇸🇪 Sweden",
-		"twitter": "@kevmodrome",
-		"url": "https://www.downtomeet.com/Svelte-Society-Stockholm"
+		"twitter": "@MrOmodulus",
+		"url": "https://cultdao.io"
 	},
 	{
-		"name": "Svelte Society CZ/SK",
+		"name": "CULT Society CZ/SK",
 		"country": "🇨🇿 Czechia and 🇸🇰 Slovakia",
-		"discord": "https://discord.gg/snCuuPnqmH",
-		"url": "https://discord.gg/snCuuPnqmH"
+		"discord": "https://discord.gg/wearecultdao",
+		"url": "https://cultdao.io"
 	},
 	{
-		"name": "Svelte Society Austria - Svienna",
+		"name": "CULT Society Austria - Svienna",
 		"country": "🇦🇹 Austria",
-		"url": "https://austria.sveltesociety.dev/",
-		"discord": "https://discord.gg/3XAVv99r",
-		"twitter": "@svelteaustria"
+		"url": "https://cultdao.io",
+		"discord": "https://discord.gg/wearecultdao",
+		"twitter": "@MrOmodulus"
 	},
 	{
 		"continent": "South America",
 		"type": "contintent"
 	},
 	{
-		"name": "Svelte Brasil",
+		"name": "CULT Brasil",
 		"country": "🇧🇷 Brazil",
+		"telegram": "https://t.me/cultdaothemany",
+		"twitter": "@MrOmodulus",
+		"url": "https://cultdao.io",
+		"youtube": "https://rumble.com/c/c-1902267",
+		"githuburl": "https://github.com/michael-spengler/cultmagazine"
+	},
+	{
+		"continent": "Russia",
+		"type": "contintent"
+	},
+	{
+		"name": "CULT Moscow",
+		"country": "🇷🇺 Russia",
 		"telegram": "https://t.me/sveltebrasil",
-		"twitter": "@sveltebrasil",
-		"url": "https://sveltebrasil.dev/",
-		"youtube": "https://www.youtube.com/channel/UCp8jamqJRGg86eMnewxjWng",
-		"githuburl": "https://github.com/svelte-brasil"
+		"twitter": "@MrOmodulus",
+		"url": "https://cultdao.io/",
+		"youtube": "https://rumble.com/c/c-1902267",
+		"githuburl": "https://github.com/michael-spengler/cultmagazine"
 	},
 	{
 		"continent": "North America",
 		"type": "contintent"
 	},
 	{
-		"name": "Svelte Chicago",
+		"name": "CULT Chicago",
 		"country": "🇺🇸 United States (chicago)",
-		"twitter": "@sveltechicago",
-		"githuburl": "https://github.com/Svelte-Chicago",
-		"url": "https://sveltechi.dev"
+		"twitter": "@MrOmodulus",
+		"githuburl": "https://github.com/michael-spengler/cultmagazine",
+		"url": "https://cultdao.io"
 	}
 ]

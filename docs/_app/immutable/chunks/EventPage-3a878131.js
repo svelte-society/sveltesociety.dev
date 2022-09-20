@@ -25,7 +25,7 @@ import {
 	t as q,
 	y as z
 } from './index-bbe4a303.js';
-import { S as B } from './Seo-459bd42e.js';
+import { S as B } from './Seo-e788fda6.js';
 function J(l) {
 	let t, _, n, i, r, o, m, f;
 	t = new B({ props: { title: l[0] } });

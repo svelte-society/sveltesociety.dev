@@ -23,9 +23,9 @@ import {
 	A as Ct
 } from '../../chunks/index-bbe4a303.js';
 import { L as Bt } from '../../chunks/Link-c4428235.js';
-import { S as qr } from '../../chunks/Seo-459bd42e.js';
-import '../../chunks/stores-fc7ad523.js';
-import '../../chunks/singletons-55fcb37a.js';
+import { S as qr } from '../../chunks/Seo-e788fda6.js';
+import '../../chunks/stores-47cc4d76.js';
+import '../../chunks/singletons-1ec496c0.js';
 function Nr(y) {
 	let s, v, u;
 	return {
@@ -576,7 +576,8 @@ function Jr(y) {
 					(ra = o(`
 
 		We are looking for content creators who care about fairness, freedom and justice to become
-		content creators for the `)),
+		content creators for the
+		`)),
 					(O = e('a')),
 					(sa = o('cultmagazine.org')),
 					(la = d()),
@@ -623,7 +624,8 @@ function Jr(y) {
 					(Ia = e('br')),
 					(Da = e('br')),
 					(Ma = o(`
-		Feel free to contribute to our ecosystem project `)),
+		Feel free to contribute to our ecosystem project
+		`)),
 					(vt = e('a')),
 					(Sa = o('via pull request')),
 					(xa = d()),
@@ -885,7 +887,8 @@ function Jr(y) {
 						`
 
 		We are looking for content creators who care about fairness, freedom and justice to become
-		content creators for the `
+		content creators for the
+		`
 					)),
 					(O = a(f, 'A', { href: !0, target: !0 }));
 				var Br = h(O);
@@ -967,7 +970,8 @@ function Jr(y) {
 					(Ma = n(
 						f,
 						`
-		Feel free to contribute to our ecosystem project `
+		Feel free to contribute to our ecosystem project
+		`
 					)),
 					(vt = a(f, 'A', { href: !0 }));
 				var Ur = h(vt);
