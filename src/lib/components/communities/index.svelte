@@ -5,9 +5,10 @@
 
 <!--society section-->
 <div class="society-wrapper">
-	<h3 class="title">Communities around the world</h3>
-	Maintain<a
-		href="https://github.com/michael-spengler/cultmagazine/blob/staging/src/lib/components/Communities/Communities.json"
+	<h3 class="title">Communities Around the World</h3>
+	Maintain
+	<a
+		href="https://github.com/michael-spengler/cultmagazine/blob/staging/src/lib/components/communities/communities.json"
 		target="_blank"
 	>
 		here</a

@@ -23,14 +23,14 @@ import {
 	a as T,
 	v as j,
 	c as H,
-	w as G,
-	x as Y,
-	y as W,
+	w as W,
+	x as G,
+	y as Y,
 	u as _1
 } from '../../../chunks/index-bbe4a303.js';
-import { S as S1 } from '../../../chunks/Seo-e8d182e8.js';
-import '../../../chunks/stores-1645a409.js';
-import '../../../chunks/singletons-ce71c587.js';
+import { S as S1 } from '../../../chunks/Seo-75e3160f.js';
+import '../../../chunks/stores-e89956e6.js';
+import '../../../chunks/singletons-c431273f.js';
 function U1(s) {
 	let e,
 		r = s[3].svg + '',
@@ -354,7 +354,7 @@ function P1(s) {
 			var e1 = C(c);
 			u = L(e1, 'SPAN', { class: !0 });
 			var J = C(u);
-			G(a.$$.fragment, J), (f = H(J)), (i = L(J, 'A', { href: !0, rel: !0 }));
+			W(a.$$.fragment, J), (f = H(J)), (i = L(J, 'A', { href: !0, rel: !0 }));
 			var K = C(i);
 			(g = M(K, k)),
 				K.forEach(h),
@@ -386,7 +386,7 @@ function P1(s) {
 				U(w, n, N),
 				o(n, c),
 				o(c, u),
-				Y(a, u, null),
+				G(a, u, null),
 				o(u, f),
 				o(u, i),
 				o(i, g),
@@ -414,7 +414,7 @@ function P1(s) {
 			V(a.$$.fragment, w), V(E), V(B), V(I), V(P), (R = !1);
 		},
 		d(w) {
-			w && h(e), w && h(t), w && h(n), W(a), E && E.d(), B && B.d(), I && I.d(), P && P.d();
+			w && h(e), w && h(t), w && h(n), Y(a), E && E.d(), B && B.d(), I && I.d(), P && P.d();
 		}
 	};
 }
@@ -462,7 +462,7 @@ function D1(s) {
 			l(a) {
 				e = L(a, 'SPAN', { class: !0 });
 				var f = C(e);
-				G(r.$$.fragment, f), (l = H(f)), (t = L(f, 'A', { href: !0, rel: !0 }));
+				W(r.$$.fragment, f), (l = H(f)), (t = L(f, 'A', { href: !0, rel: !0 }));
 				var i = C(t);
 				(c = M(i, n)), i.forEach(h), f.forEach(h), this.h();
 			},
@@ -472,7 +472,7 @@ function D1(s) {
 					v(e, 'class', 'icon-wrapper svelte-331ce1');
 			},
 			m(a, f) {
-				U(a, e, f), Y(r, e, null), o(e, l), o(e, t), o(t, c), (u = !0);
+				U(a, e, f), G(r, e, null), o(e, l), o(e, t), o(t, c), (u = !0);
 			},
 			p: O,
 			i(a) {
@@ -482,7 +482,7 @@ function D1(s) {
 				V(r.$$.fragment, a), (u = !1);
 			},
 			d(a) {
-				a && h(e), W(r);
+				a && h(e), Y(r);
 			}
 		}
 	);
@@ -503,7 +503,7 @@ function B1(s) {
 			l(u) {
 				e = L(u, 'SPAN', { class: !0 });
 				var a = C(e);
-				G(r.$$.fragment, a), (l = H(a)), (t = L(a, 'A', { href: !0, target: !0, rel: !0 }));
+				W(r.$$.fragment, a), (l = H(a)), (t = L(a, 'A', { href: !0, target: !0, rel: !0 }));
 				var f = C(t);
 				(n = M(f, 'Join on Telegram')), f.forEach(h), a.forEach(h), this.h();
 			},
@@ -514,7 +514,7 @@ function B1(s) {
 					v(e, 'class', 'icon-wrapper svelte-331ce1');
 			},
 			m(u, a) {
-				U(u, e, a), Y(r, e, null), o(e, l), o(e, t), o(t, n), (c = !0);
+				U(u, e, a), G(r, e, null), o(e, l), o(e, t), o(t, n), (c = !0);
 			},
 			p: O,
 			i(u) {
@@ -524,7 +524,7 @@ function B1(s) {
 				V(r.$$.fragment, u), (c = !1);
 			},
 			d(u) {
-				u && h(e), W(r);
+				u && h(e), Y(r);
 			}
 		}
 	);
@@ -553,7 +553,7 @@ function I1(s) {
 			l(f) {
 				e = L(f, 'SPAN', { class: !0 });
 				var i = C(e);
-				G(r.$$.fragment, i), (l = H(i)), (t = L(i, 'A', { href: !0, target: !0, rel: !0 }));
+				W(r.$$.fragment, i), (l = H(i)), (t = L(i, 'A', { href: !0, target: !0, rel: !0 }));
 				var k = C(t);
 				(c = M(k, n)), (u = M(k, ' YouTube Channel')), k.forEach(h), i.forEach(h), this.h();
 			},
@@ -564,7 +564,7 @@ function I1(s) {
 					v(e, 'class', 'icon-wrapper svelte-331ce1');
 			},
 			m(f, i) {
-				U(f, e, i), Y(r, e, null), o(e, l), o(e, t), o(t, c), o(t, u), (a = !0);
+				U(f, e, i), G(r, e, null), o(e, l), o(e, t), o(t, c), o(t, u), (a = !0);
 			},
 			p: O,
 			i(f) {
@@ -574,7 +574,7 @@ function I1(s) {
 				V(r.$$.fragment, f), (a = !1);
 			},
 			d(f) {
-				f && h(e), W(r);
+				f && h(e), Y(r);
 			}
 		}
 	);
@@ -598,7 +598,7 @@ function N1(s) {
 				var f = C(e);
 				r = L(f, 'SPAN', { class: !0 });
 				var i = C(r);
-				G(l.$$.fragment, i), (t = H(i)), (n = L(i, 'A', { href: !0, target: !0, rel: !0 }));
+				W(l.$$.fragment, i), (t = H(i)), (n = L(i, 'A', { href: !0, target: !0, rel: !0 }));
 				var k = C(n);
 				(c = M(k, 'GitHub')), k.forEach(h), i.forEach(h), f.forEach(h), this.h();
 			},
@@ -609,7 +609,7 @@ function N1(s) {
 					v(r, 'class', 'icon-wrapper svelte-331ce1');
 			},
 			m(a, f) {
-				U(a, e, f), o(e, r), Y(l, r, null), o(r, t), o(r, n), o(n, c), (u = !0);
+				U(a, e, f), o(e, r), G(l, r, null), o(r, t), o(r, n), o(n, c), (u = !0);
 			},
 			p: O,
 			i(a) {
@@ -619,7 +619,7 @@ function N1(s) {
 				V(l.$$.fragment, a), (u = !1);
 			},
 			d(a) {
-				a && h(e), W(l);
+				a && h(e), Y(l);
 			}
 		}
 	);
@@ -679,9 +679,10 @@ function R1(s) {
 		c() {
 			(e = _('div')),
 				(r = _('h3')),
-				(l = $('Communities around the world')),
+				(l = $('Communities Around the World')),
 				(t = $(`
-	Maintain`)),
+	Maintain 
+	 `)),
 				(n = _('a')),
 				(c = $('here')),
 				(u = $(`
@@ -695,12 +696,13 @@ function R1(s) {
 			var d = C(e);
 			r = L(d, 'H3', { class: !0 });
 			var m = C(r);
-			(l = M(m, 'Communities around the world')),
+			(l = M(m, 'Communities Around the World')),
 				m.forEach(h),
 				(t = M(
 					d,
 					`
-	Maintain`
+	Maintain 
+	 `
 				)),
 				(n = L(d, 'A', { href: !0, target: !0 }));
 			var y = C(n);
@@ -720,7 +722,7 @@ function R1(s) {
 				v(
 					n,
 					'href',
-					'https://github.com/michael-spengler/cultmagazine/blob/staging/src/lib/components/Communities/Communities.json'
+					'https://github.com/michael-spengler/cultmagazine/blob/staging/src/lib/components/communities/communities.json'
 				),
 				v(n, 'target', '_blank'),
 				v(e, 'class', 'society-wrapper svelte-331ce1');
@@ -829,7 +831,7 @@ function x1(s) {
 				var R = C(u);
 				a = L(R, 'SPAN', { class: !0 });
 				var E = C(a);
-				G(f.$$.fragment, E), (k = M(E, i)), E.forEach(h), R.forEach(h), y.forEach(h), this.h();
+				W(f.$$.fragment, E), (k = M(E, i)), E.forEach(h), R.forEach(h), y.forEach(h), this.h();
 			},
 			h() {
 				v(t, 'href', s[2]),
@@ -848,7 +850,7 @@ function x1(s) {
 					o(e, c),
 					o(e, u),
 					o(u, a),
-					Y(f, a, null),
+					G(f, a, null),
 					o(a, k),
 					(g = !0);
 			},
@@ -865,7 +867,7 @@ function x1(s) {
 				V(f.$$.fragment, m), (g = !1);
 			},
 			d(m) {
-				m && h(e), d && d.d(), W(f);
+				m && h(e), d && d.d(), Y(f);
 			}
 		}
 	);
@@ -913,10 +915,10 @@ function $1(s) {
 				j(e.$$.fragment);
 			},
 			l(l) {
-				G(e.$$.fragment, l);
+				W(e.$$.fragment, l);
 			},
 			m(l, t) {
-				Y(e, l, t), (r = !0);
+				G(e, l, t), (r = !0);
 			},
 			p(l, t) {
 				const n = {};
@@ -932,12 +934,12 @@ function $1(s) {
 				V(e.$$.fragment, l), (r = !1);
 			},
 			d(l) {
-				W(e, l);
+				Y(e, l);
 			}
 		}
 	);
 }
-function G1(s) {
+function W1(s) {
 	let e,
 		r,
 		l,
@@ -1023,7 +1025,7 @@ function G1(s) {
 				(c1 = T()), j(Q.$$.fragment), this.h();
 			},
 			l(p) {
-				G(e.$$.fragment, p), (r = H(p)), (l = L(p, 'P', {}));
+				W(e.$$.fragment, p), (r = H(p)), (l = L(p, 'P', {}));
 				var A = C(l);
 				(t = L(A, 'BR', {})), A.forEach(h), (n = H(p)), (c = L(p, 'DIV', { class: !0 }));
 				var b = C(c);
@@ -1078,7 +1080,7 @@ function G1(s) {
 				F = L(n1, 'SECTION', { class: !0 });
 				var d1 = C(F);
 				for (let u1 = 0; u1 < z.length; u1 += 1) z[u1].l(d1);
-				d1.forEach(h), (c1 = H(n1)), G(Q.$$.fragment, n1), n1.forEach(h), this.h();
+				d1.forEach(h), (c1 = H(n1)), W(Q.$$.fragment, n1), n1.forEach(h), this.h();
 			},
 			h() {
 				v(g, 'href', 'https://www.youtube.com/watch?v=8lGpZkjnkt4'),
@@ -1088,7 +1090,7 @@ function G1(s) {
 					v(x, 'class', 'wrapper svelte-1g1aqj2');
 			},
 			m(p, A) {
-				Y(e, p, A),
+				G(e, p, A),
 					U(p, r, A),
 					U(p, l, A),
 					o(l, t),
@@ -1119,7 +1121,7 @@ function G1(s) {
 					U(p, x, A),
 					o(x, F);
 				for (let b = 0; b < z.length; b += 1) z[b].m(F, null);
-				o(x, c1), Y(Q, x, null), (r1 = !0);
+				o(x, c1), G(Q, x, null), (r1 = !0);
 			},
 			p(p, [A]) {
 				if (A & 1) {
@@ -1148,12 +1150,12 @@ function G1(s) {
 				V(Q.$$.fragment, p), (r1 = !1);
 			},
 			d(p) {
-				W(e, p), p && h(r), p && h(l), p && h(n), p && h(c), p && h(K), p && h(x), A1(z, p), W(Q);
+				Y(e, p), p && h(r), p && h(l), p && h(n), p && h(c), p && h(K), p && h(x), A1(z, p), Y(Q);
 			}
 		}
 	);
 }
-function Y1(s, e, r) {
+function G1(s, e, r) {
 	let { data: l } = e;
 	return (
 		(s.$$set = (t) => {
@@ -1164,7 +1166,7 @@ function Y1(s, e, r) {
 }
 class Q1 extends s1 {
 	constructor(e) {
-		super(), o1(this, e, Y1, G1, i1, { data: 0 });
+		super(), o1(this, e, G1, W1, i1, { data: 0 });
 	}
 }
 export { Q1 as default };

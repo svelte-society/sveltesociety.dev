@@ -25,9 +25,9 @@ import {
 import { c as Ct } from '../../../chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js';
 import { e as J } from '../../../chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js';
 import { c as Tt } from '../../../chunks/cultproposals-ee6a2386.js';
-import { S as Ut } from '../../../chunks/Seo-e8d182e8.js';
-import '../../../chunks/stores-1645a409.js';
-import '../../../chunks/singletons-ce71c587.js';
+import { S as Ut } from '../../../chunks/Seo-75e3160f.js';
+import '../../../chunks/stores-e89956e6.js';
+import '../../../chunks/singletons-c431273f.js';
 const ct = [
 	{
 		addedOn: '2021-08-09T10:14:05.723Z',
