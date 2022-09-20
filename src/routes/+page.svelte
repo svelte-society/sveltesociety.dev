@@ -5,7 +5,7 @@
 
 <Seo
 	title="Home"
-	description="Svelte Society is a community-driven effort to organise and promote SvelteJS."
+	description="We are a network of cultdao.io fans promoting freedom, fairness, education and love."
 />
 
 <article class="container">

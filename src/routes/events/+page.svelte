@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Societies from '$lib/components/Societies/index.svelte';
+	import Communities from '$lib/components/Communities/index.svelte';
 	import EventListElement from '$lib/components/EventListElement/index.svelte';
 	import Seo from '$lib/components/Seo.svelte';
 	import type { PageData } from './$types';
@@ -41,7 +41,7 @@
 			/>
 		{/each}
 	</section>
-	<Societies />
+	<Communities />
 </article>
 
 <style>
