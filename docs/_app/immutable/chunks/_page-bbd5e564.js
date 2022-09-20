@@ -14,29 +14,29 @@ async function l() {
 		Object.assign({
 			'./2021-summit-fall/+page.svx': () =>
 				s(
-					() => import('../components/pages/events/2021-summit-fall/_page.svx-a63a0e44.js'),
+					() => import('../components/pages/events/2021-summit-fall/_page.svx-d8641e27.js'),
 					[
-						'../components/pages/events/2021-summit-fall/_page.svx-a63a0e44.js',
+						'../components/pages/events/2021-summit-fall/_page.svx-d8641e27.js',
 						'index-bbe4a303.js',
-						'EventPage-77159662.js',
+						'EventPage-e4091eb9.js',
 						'../assets/EventPage-76af88bd.css',
-						'Seo-75e3160f.js',
-						'stores-e89956e6.js',
-						'singletons-c431273f.js'
+						'Seo-b200e40a.js',
+						'stores-0bbff353.js',
+						'singletons-a5b19bf6.js'
 					],
 					import.meta.url
 				),
 			'./2021-summit-spring/+page.svx': () =>
 				s(
-					() => import('../components/pages/events/2021-summit-spring/_page.svx-35c74862.js'),
+					() => import('../components/pages/events/2021-summit-spring/_page.svx-3d41984a.js'),
 					[
-						'../components/pages/events/2021-summit-spring/_page.svx-35c74862.js',
+						'../components/pages/events/2021-summit-spring/_page.svx-3d41984a.js',
 						'index-bbe4a303.js',
-						'EventPage-77159662.js',
+						'EventPage-e4091eb9.js',
 						'../assets/EventPage-76af88bd.css',
-						'Seo-75e3160f.js',
-						'stores-e89956e6.js',
-						'singletons-c431273f.js'
+						'Seo-b200e40a.js',
+						'stores-0bbff353.js',
+						'singletons-a5b19bf6.js'
 					],
 					import.meta.url
 				)

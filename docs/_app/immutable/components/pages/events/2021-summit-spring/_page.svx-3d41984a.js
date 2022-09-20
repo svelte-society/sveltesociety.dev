@@ -26,10 +26,10 @@ import {
 	C as u,
 	A as ae
 } from '../../../../chunks/index-bbe4a303.js';
-import { E as re } from '../../../../chunks/EventPage-77159662.js';
-import '../../../../chunks/Seo-75e3160f.js';
-import '../../../../chunks/stores-e89956e6.js';
-import '../../../../chunks/singletons-c431273f.js';
+import { E as re } from '../../../../chunks/EventPage-e4091eb9.js';
+import '../../../../chunks/Seo-b200e40a.js';
+import '../../../../chunks/stores-0bbff353.js';
+import '../../../../chunks/singletons-a5b19bf6.js';
 function se(g) {
 	let e, c, o, _, a, r, b, T, x, p, A, w, q, z, k, E, D, $, y, n, C;
 	return {

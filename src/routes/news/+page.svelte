@@ -66,7 +66,14 @@
 	Everyone is invited to add CULT news via
 	<a href="https://www.youtube.com/watch?v=8lGpZkjnkt4" target="_blank"> pull request</a>.
 	<!-- <a href="asdf"></a>  -->
+	<p><br /></p>
+	<h3>New CULT Shops Going Live</h3>
+	<br /><br />
+	<a href="https://dripxkarip.com" target="_blank"> dripxkarip.com</a><br /><br />
+	<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a><br /><br />
+	<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
 
+	<p><br /></p>
 	<p><br /></p>
 	<h3>revolt.cultoshi.com is Optimizing the Voting Process</h3>
 	<embed type="text/html" src="https://revolt.cultoshi.com/" width="100%" height="1100vh" />

@@ -86,6 +86,7 @@
 		We also recommend to visit
 		<a href="https://cultoshi.com" target="_blank"> cultoshi.com</a>,
 		<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a>,
+		<a href="https://dripxkarip.com" target="_blank"> dripxkarip.com</a>
 		<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
 	</p>
 

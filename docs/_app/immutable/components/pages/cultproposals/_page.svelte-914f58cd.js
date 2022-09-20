@@ -25,9 +25,9 @@ import {
 import { c as yt } from '../../../chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js';
 import { c as O } from '../../../chunks/cultproposals-ee6a2386.js';
 import { e as Q } from '../../../chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js';
-import { S as Et } from '../../../chunks/Seo-75e3160f.js';
-import '../../../chunks/stores-e89956e6.js';
-import '../../../chunks/singletons-c431273f.js';
+import { S as Et } from '../../../chunks/Seo-b200e40a.js';
+import '../../../chunks/stores-0bbff353.js';
+import '../../../chunks/singletons-a5b19bf6.js';
 function wt(B) {
 	let i,
 		p,

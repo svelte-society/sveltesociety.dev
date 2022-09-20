@@ -28,9 +28,9 @@ import {
 	y as Y,
 	u as _1
 } from '../../../chunks/index-bbe4a303.js';
-import { S as S1 } from '../../../chunks/Seo-75e3160f.js';
-import '../../../chunks/stores-e89956e6.js';
-import '../../../chunks/singletons-c431273f.js';
+import { S as S1 } from '../../../chunks/Seo-b200e40a.js';
+import '../../../chunks/stores-0bbff353.js';
+import '../../../chunks/singletons-a5b19bf6.js';
 function U1(s) {
 	let e,
 		r = s[3].svg + '',
@@ -681,8 +681,8 @@ function R1(s) {
 				(r = _('h3')),
 				(l = $('Communities Around the World')),
 				(t = $(`
-	Maintain 
-	 `)),
+	Maintain
+	`)),
 				(n = _('a')),
 				(c = $('here')),
 				(u = $(`
@@ -701,8 +701,8 @@ function R1(s) {
 				(t = M(
 					d,
 					`
-	Maintain 
-	 `
+	Maintain
+	`
 				)),
 				(n = L(d, 'A', { href: !0, target: !0 }));
 			var y = C(n);

@@ -21,9 +21,9 @@ import {
 	t as A,
 	y as P
 } from '../../../chunks/index-bbe4a303.js';
-import { S as B } from '../../../chunks/Seo-75e3160f.js';
-import '../../../chunks/stores-e89956e6.js';
-import '../../../chunks/singletons-c431273f.js';
+import { S as B } from '../../../chunks/Seo-b200e40a.js';
+import '../../../chunks/stores-0bbff353.js';
+import '../../../chunks/singletons-a5b19bf6.js';
 function H(M) {
 	let t, l, n, u, m, a, h, s, v, k, p;
 	return (
