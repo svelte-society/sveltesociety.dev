@@ -53,6 +53,17 @@
 			<a href="/markets">CULT Chats (coming soon)</a><br />
 		</p> -->
 	</section>
+
+	<iframe
+		width="100%"
+		height="600"
+		src="https://www.youtube.com/embed/J7GY1Xg6X20"
+		title="YouTube video player"
+		frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+		allowfullscreen
+	/>
+
 	<ul>
 		<Link path="https://discord.gg/wearecultdao">
 			<img src="images/discord.svg" alt="" />
