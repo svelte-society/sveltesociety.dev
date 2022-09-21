@@ -51,8 +51,8 @@
 
 	const categoryId = {
 		Sapper: 'sapper',
-		Svelte: 'svelte',
-		'Svelte Add': 'adders',
+		// Svelte: 'svelte',
+		// 'Svelte Add': 'adders',
 		SvelteKit: 'svelte-kit'
 	};
 </script>

@@ -35,7 +35,7 @@ import {
 	b as de,
 	i as We,
 	c as Fe
-} from './chunks/singletons-c216a8d1.js';
+} from './chunks/singletons-b2fe3e64.js';
 import { _ as V, H as ce, R as Oe, e as Me } from './chunks/preload-helper-e2690c66.js';
 function Ge(s, e) {
 	return s === '/' || e === 'ignore'
@@ -765,42 +765,42 @@ const mt = {},
 	re = [
 		() =>
 			V(
-				() => import('./chunks/0-0441fafc.js'),
+				() => import('./chunks/0-f313b864.js'),
 				[
-					'chunks/0-0441fafc.js',
-					'components/pages/_layout.svelte-a4bd9c03.js',
+					'chunks/0-f313b864.js',
+					'components/pages/_layout.svelte-2dee6f2a.js',
 					'assets/+layout-1798ff3d.css',
 					'chunks/index-2fad9c0c.js',
 					'chunks/Link-2f41dbb7.js',
 					'assets/Link-5c73b3cb.css',
-					'chunks/stores-47dd025f.js',
-					'chunks/singletons-c216a8d1.js'
+					'chunks/stores-6fbc4487.js',
+					'chunks/singletons-b2fe3e64.js'
 				],
 				import.meta.url
 			),
 		() =>
 			V(
-				() => import('./chunks/1-a110eaca.js'),
+				() => import('./chunks/1-ace402ca.js'),
 				[
-					'chunks/1-a110eaca.js',
-					'components/error.svelte-eb8ec0e0.js',
+					'chunks/1-ace402ca.js',
+					'components/error.svelte-994f80ec.js',
 					'chunks/index-2fad9c0c.js',
-					'chunks/stores-47dd025f.js',
-					'chunks/singletons-c216a8d1.js'
+					'chunks/stores-6fbc4487.js',
+					'chunks/singletons-b2fe3e64.js'
 				],
 				import.meta.url
 			),
 		() =>
 			V(
-				() => import('./chunks/2-e4323b4f.js'),
+				() => import('./chunks/2-bc7aca46.js'),
 				[
-					'chunks/2-e4323b4f.js',
-					'components/pages/about/_layout.svelte-38839ba7.js',
+					'chunks/2-bc7aca46.js',
+					'components/pages/about/_layout.svelte-ceca2bc8.js',
 					'assets/+layout-a7dc71bf.css',
 					'chunks/index-2fad9c0c.js',
-					'chunks/Seo-73f932eb.js',
-					'chunks/stores-47dd025f.js',
-					'chunks/singletons-c216a8d1.js'
+					'chunks/Seo-e54f64ab.js',
+					'chunks/stores-6fbc4487.js',
+					'chunks/singletons-b2fe3e64.js'
 				],
 				import.meta.url
 			),
@@ -816,17 +816,17 @@ const mt = {},
 			),
 		() =>
 			V(
-				() => import('./chunks/4-3a013d1c.js'),
+				() => import('./chunks/4-bf6b5f15.js'),
 				[
-					'chunks/4-3a013d1c.js',
-					'components/pages/_page.svelte-c15b507d.js',
+					'chunks/4-bf6b5f15.js',
+					'components/pages/_page.svelte-fd728fda.js',
 					'assets/+page-609cc40a.css',
 					'chunks/index-2fad9c0c.js',
 					'chunks/Link-2f41dbb7.js',
 					'assets/Link-5c73b3cb.css',
-					'chunks/Seo-73f932eb.js',
-					'chunks/stores-47dd025f.js',
-					'chunks/singletons-c216a8d1.js'
+					'chunks/Seo-e54f64ab.js',
+					'chunks/stores-6fbc4487.js',
+					'chunks/singletons-b2fe3e64.js'
 				],
 				import.meta.url
 			),
@@ -842,101 +842,100 @@ const mt = {},
 			),
 		() =>
 			V(
-				() => import('./chunks/6-512389af.js'),
+				() => import('./chunks/6-c00fafcb.js'),
 				[
-					'chunks/6-512389af.js',
-					'components/pages/cultproposals/_page.svelte-671524cf.js',
+					'chunks/6-c00fafcb.js',
+					'components/pages/cultproposals/_page.svelte-707bfaac.js',
 					'chunks/index-2fad9c0c.js',
 					'chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js',
 					'assets/Select-6318a4e1.css',
-					'chunks/cultproposals-ee6a2386.js',
+					'chunks/cultproposals-be315c4c.js',
 					'chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js',
 					'assets/Select-ddd51714.css',
-					'chunks/Seo-73f932eb.js',
-					'chunks/stores-47dd025f.js',
-					'chunks/singletons-c216a8d1.js'
+					'chunks/Seo-e54f64ab.js',
+					'chunks/stores-6fbc4487.js',
+					'chunks/singletons-b2fe3e64.js'
 				],
 				import.meta.url
 			),
 		() =>
 			V(
-				() => import('./chunks/7-527b2966.js'),
+				() => import('./chunks/7-a849f518.js'),
 				[
-					'chunks/7-527b2966.js',
-					'chunks/_page-05d16449.js',
+					'chunks/7-a849f518.js',
+					'chunks/_page-0a0e66c4.js',
 					'chunks/preload-helper-e2690c66.js',
-					'components/pages/events/_page.svelte-cd6f3914.js',
+					'components/pages/events/_page.svelte-3476916c.js',
 					'assets/+page-154cd178.css',
 					'chunks/index-2fad9c0c.js',
-					'chunks/Seo-73f932eb.js',
-					'chunks/stores-47dd025f.js',
-					'chunks/singletons-c216a8d1.js'
+					'chunks/Seo-e54f64ab.js',
+					'chunks/stores-6fbc4487.js',
+					'chunks/singletons-b2fe3e64.js'
 				],
 				import.meta.url
 			),
 		() =>
 			V(
-				() => import('./chunks/8-cce32dde.js'),
+				() => import('./chunks/8-591d19ad.js'),
 				[
-					'chunks/8-cce32dde.js',
-					'components/pages/events/2022-eth-barcelona/_page.svx-530dc9bf.js',
+					'chunks/8-591d19ad.js',
+					'components/pages/events/2022-eth-barcelona/_page.svx-88ee3ec5.js',
 					'assets/+page-76af88bd.css',
 					'chunks/index-2fad9c0c.js',
-					'chunks/Seo-73f932eb.js',
-					'chunks/stores-47dd025f.js',
-					'chunks/singletons-c216a8d1.js'
+					'chunks/Seo-e54f64ab.js',
+					'chunks/stores-6fbc4487.js',
+					'chunks/singletons-b2fe3e64.js'
 				],
 				import.meta.url
 			),
 		() =>
 			V(
-				() => import('./chunks/9-f679ec50.js'),
+				() => import('./chunks/9-bd8d1d5c.js'),
 				[
-					'chunks/9-f679ec50.js',
-					'components/pages/help/submitting/_page.svelte-7064cae5.js',
+					'chunks/9-bd8d1d5c.js',
+					'components/pages/help/submitting/_page.svelte-317b9a1b.js',
 					'assets/+page-891482f7.css',
 					'chunks/index-2fad9c0c.js',
 					'chunks/Select-8360dfd8.js',
 					'chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js',
 					'assets/Select-ddd51714.css',
 					'chunks/components-9abf80d5.js',
-					'chunks/cultproposals-ee6a2386.js',
-					'chunks/Seo-73f932eb.js',
-					'chunks/stores-47dd025f.js',
-					'chunks/singletons-c216a8d1.js'
+					'chunks/cultproposals-be315c4c.js',
+					'chunks/Seo-e54f64ab.js',
+					'chunks/stores-6fbc4487.js',
+					'chunks/singletons-b2fe3e64.js'
 				],
 				import.meta.url
 			),
 		() =>
 			V(
-				() => import('./chunks/10-8a84b9ad.js'),
+				() => import('./chunks/10-0d58d3ce.js'),
 				[
-					'chunks/10-8a84b9ad.js',
-					'components/pages/markets/_page.svelte-12752e0a.js',
+					'chunks/10-0d58d3ce.js',
+					'components/pages/markets/_page.svelte-f01cc138.js',
 					'assets/+page-613d2aea.css',
 					'chunks/index-2fad9c0c.js',
-					'chunks/Seo-73f932eb.js',
-					'chunks/stores-47dd025f.js',
-					'chunks/singletons-c216a8d1.js'
+					'chunks/Seo-e54f64ab.js',
+					'chunks/stores-6fbc4487.js',
+					'chunks/singletons-b2fe3e64.js'
 				],
 				import.meta.url
 			),
 		() =>
 			V(
-				() => import('./chunks/11-63ac2d5f.js'),
+				() => import('./chunks/11-f9894e34.js'),
 				[
-					'chunks/11-63ac2d5f.js',
-					'components/pages/news/_page.svelte-dae4b596.js',
+					'chunks/11-f9894e34.js',
+					'components/pages/news/_page.svelte-3b873939.js',
 					'chunks/index-2fad9c0c.js',
 					'chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js',
 					'assets/Select-6318a4e1.css',
 					'chunks/Select-8360dfd8.js',
 					'chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js',
 					'assets/Select-ddd51714.css',
-					'chunks/cultproposals-ee6a2386.js',
-					'chunks/Seo-73f932eb.js',
-					'chunks/stores-47dd025f.js',
-					'chunks/singletons-c216a8d1.js'
+					'chunks/Seo-e54f64ab.js',
+					'chunks/stores-6fbc4487.js',
+					'chunks/singletons-b2fe3e64.js'
 				],
 				import.meta.url
 			),
@@ -952,20 +951,20 @@ const mt = {},
 			),
 		() =>
 			V(
-				() => import('./chunks/13-5587187b.js'),
+				() => import('./chunks/13-35cbd6f0.js'),
 				[
-					'chunks/13-5587187b.js',
-					'components/pages/rvltproposals/_page.svelte-4d82d6c0.js',
+					'chunks/13-35cbd6f0.js',
+					'components/pages/rvltproposals/_page.svelte-1a8b2ef6.js',
 					'assets/+page-25b901e9.css',
 					'chunks/index-2fad9c0c.js',
-					'chunks/singletons-c216a8d1.js',
+					'chunks/singletons-b2fe3e64.js',
 					'chunks/components-9abf80d5.js',
 					'chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js',
 					'assets/Select-6318a4e1.css',
 					'chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js',
 					'assets/Select-ddd51714.css',
-					'chunks/Seo-73f932eb.js',
-					'chunks/stores-47dd025f.js'
+					'chunks/Seo-e54f64ab.js',
+					'chunks/stores-6fbc4487.js'
 				],
 				import.meta.url
 			)

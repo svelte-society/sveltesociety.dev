@@ -31,11 +31,11 @@ import {
 } from '../../../../chunks/index-2fad9c0c.js';
 import { S as ms, c as el } from '../../../../chunks/Select-8360dfd8.js';
 import { c as Ms } from '../../../../chunks/components-9abf80d5.js';
-import { c as yt } from '../../../../chunks/cultproposals-ee6a2386.js';
+import { c as yt } from '../../../../chunks/cultproposals-be315c4c.js';
 import { e as Ce } from '../../../../chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js';
-import { S as tl } from '../../../../chunks/Seo-73f932eb.js';
-import '../../../../chunks/stores-47dd025f.js';
-import '../../../../chunks/singletons-c216a8d1.js';
+import { S as tl } from '../../../../chunks/Seo-e54f64ab.js';
+import '../../../../chunks/stores-6fbc4487.js';
+import '../../../../chunks/singletons-b2fe3e64.js';
 function sl(n) {
 	let m,
 		c,
@@ -50,7 +50,7 @@ function sl(n) {
 		E,
 		T,
 		W,
-		$,
+		R,
 		y,
 		D,
 		S,
@@ -58,7 +58,7 @@ function sl(n) {
 		Ee,
 		d,
 		L,
-		R,
+		$,
 		Oe,
 		Ue,
 		P,
@@ -97,10 +97,10 @@ function sl(n) {
 		qt,
 		we,
 		Bt,
-		$t,
+		Rt,
 		ee,
 		de,
-		Rt,
+		$t,
 		kt,
 		te,
 		V,
@@ -208,7 +208,7 @@ function sl(n) {
 					(W = p(
 						'Each component is represented by a JSON Object. Use the generator below to generate the Object.'
 					)),
-					($ = v()),
+					(R = v()),
 					(y = a('p')),
 					(D = a('code')),
 					(S = p('*')),
@@ -216,7 +216,7 @@ function sl(n) {
 					(Ee = v()),
 					(d = a('div')),
 					(L = a('div')),
-					(R = a('label')),
+					($ = a('label')),
 					(Oe = p('Type:')),
 					(Ue = v()),
 					(P = a('div')),
@@ -254,10 +254,10 @@ function sl(n) {
 					(qt = v()),
 					(we = a('span')),
 					(Bt = p('A short description of the component')),
-					($t = v()),
+					(Rt = v()),
 					(ee = a('div')),
 					(de = a('label')),
-					(Rt = p('NPM:')),
+					($t = p('NPM:')),
 					(kt = v()),
 					(te = a('div')),
 					(V = a('input')),
@@ -327,13 +327,13 @@ propose your changes
 				ht(m.$$.fragment, e), (c = f(e)), (w = r(e, 'H1', {}));
 				var i = o(w);
 				(q = u(i, 'Submitting a new component')), i.forEach(s), (pe = f(e)), (B = r(e, 'P', {}));
-				var $e = o(B);
+				var Re = o(B);
 				(G = u(
-					$e,
+					Re,
 					`To add a new component on the website, the process is rather simple. You have to add a snippet in
 	the appropriate file.`
 				)),
-					$e.forEach(s),
+					Re.forEach(s),
 					(ue = f(e)),
 					(I = r(e, 'H2', {}));
 				var De = o(I);
@@ -347,7 +347,7 @@ propose your changes
 					'Each component is represented by a JSON Object. Use the generator below to generate the Object.'
 				)),
 					Le.forEach(s),
-					($ = f(e)),
+					(R = f(e)),
 					(y = r(e, 'P', {}));
 				var fs = o(y);
 				D = r(fs, 'CODE', {});
@@ -361,8 +361,8 @@ propose your changes
 				var _ = o(d);
 				L = r(_, 'DIV', { class: !0 });
 				var Ke = o(L);
-				R = r(Ke, 'LABEL', { for: !0, class: !0 });
-				var Ss = o(R);
+				$ = r(Ke, 'LABEL', { for: !0, class: !0 });
+				var Ss = o($);
 				(Oe = u(Ss, 'Type:')), Ss.forEach(s), (Ue = f(Ke)), (P = r(Ke, 'DIV', { class: !0 }));
 				var xe = o(P);
 				ht(g.$$.fragment, xe), (b = f(xe)), (z = r(xe, 'SPAN', { class: !0 }));
@@ -419,12 +419,12 @@ propose your changes
 					Cs.forEach(s),
 					rt.forEach(s),
 					at.forEach(s),
-					($t = f(_)),
+					(Rt = f(_)),
 					(ee = r(_, 'DIV', { class: !0 }));
 				var nt = o(ee);
 				de = r(nt, 'LABEL', { for: !0, class: !0 });
 				var Vs = o(de);
-				(Rt = u(Vs, 'NPM:')), Vs.forEach(s), (kt = f(nt)), (te = r(nt, 'DIV', { class: !0 }));
+				($t = u(Vs, 'NPM:')), Vs.forEach(s), (kt = f(nt)), (te = r(nt, 'DIV', { class: !0 }));
 				var ot = o(te);
 				(V = r(ot, 'INPUT', { id: !0, type: !0, class: !0 })),
 					(Jt = f(ot)),
@@ -469,13 +469,13 @@ propose your changes
 					(ne = r(_, 'DIV', { class: !0 }));
 				var ft = o(ne);
 				_e = r(ft, 'LABEL', { for: !0, class: !0 });
-				var $s = o(_e);
-				(ts = u($s, 'Tags:')), $s.forEach(s), (ss = f(ft)), (oe = r(ft, 'DIV', { class: !0 }));
+				var Rs = o(_e);
+				(ts = u(Rs, 'Tags:')), Rs.forEach(s), (ss = f(ft)), (oe = r(ft, 'DIV', { class: !0 }));
 				var ct = o(oe);
 				ht(H.$$.fragment, ct), (as = f(ct)), (Ne = r(ct, 'SPAN', { class: !0 }));
-				var Rs = o(Ne);
-				(rs = u(Rs, 'A list of tags')),
-					Rs.forEach(s),
+				var $s = o(Ne);
+				(rs = u($s, 'A list of tags')),
+					$s.forEach(s),
 					ct.forEach(s),
 					ft.forEach(s),
 					_.forEach(s),
@@ -483,17 +483,17 @@ propose your changes
 					(Ie = r(e, 'H2', {}));
 				var ks = o(Ie);
 				(ns = u(ks, 'JSON Snippet')), ks.forEach(s), (Je = f(e)), (U = r(e, 'PRE', { class: !0 }));
-				var Re = o(U);
-				(os = u(Re, '')), (He = u(Re, qe)), (me = r(Re, 'BUTTON', { class: !0 }));
+				var $e = o(U);
+				(os = u($e, '')), (He = u($e, qe)), (me = r($e, 'BUTTON', { class: !0 }));
 				var Js = o(me);
 				(Me = u(Js, Be)),
 					Js.forEach(s),
 					(is = u(
-						Re,
+						$e,
 						`
 `
 					)),
-					Re.forEach(s),
+					$e.forEach(s),
 					(Ye = f(e)),
 					(Ge = r(e, 'BR', {})),
 					(We = u(
@@ -518,8 +518,8 @@ propose your changes
 				(us = u(Hs, 'directly in GitHub')), Hs.forEach(s), (Ze = u(e, '.')), this.h();
 			},
 			h() {
-				l(R, 'for', 'type'),
-					l(R, 'class', 'svelte-b3ver3'),
+				l($, 'for', 'type'),
+					l($, 'class', 'svelte-b3ver3'),
 					l(z, 'class', 'input-helper svelte-b3ver3'),
 					l(P, 'class', 'svelte-b3ver3'),
 					l(L, 'class', 'input-wrapper svelte-b3ver3'),
@@ -595,7 +595,7 @@ propose your changes
 					h(e, E, i),
 					h(e, T, i),
 					t(T, W),
-					h(e, $, i),
+					h(e, R, i),
 					h(e, y, i),
 					t(y, D),
 					t(D, S),
@@ -603,8 +603,8 @@ propose your changes
 					h(e, Ee, i),
 					h(e, d, i),
 					t(d, L),
-					t(L, R),
-					t(R, Oe),
+					t(L, $),
+					t($, Oe),
 					t(L, Ue),
 					t(L, P),
 					bt(g, P, null),
@@ -644,10 +644,10 @@ propose your changes
 					t(x, qt),
 					t(x, we),
 					t(we, Bt),
-					t(d, $t),
+					t(d, Rt),
 					t(d, ee),
 					t(ee, de),
-					t(de, Rt),
+					t(de, $t),
 					t(ee, kt),
 					t(ee, te),
 					t(te, V),
@@ -719,9 +719,9 @@ propose your changes
 						(vs = !0));
 			},
 			p(e, [i]) {
-				const $e = {};
-				!je && i & 1 && ((je = !0), ($e.value = e[0]), bs(() => (je = !1))),
-					g.$set($e),
+				const Re = {};
+				!je && i & 1 && ((je = !0), (Re.value = e[0]), bs(() => (je = !1))),
+					g.$set(Re),
 					i & 2 && N.value !== e[1] && j(N, e[1]),
 					i & 4 && j(k, e[2]),
 					i & 8 && C.value !== e[3] && j(C, e[3]),
@@ -772,7 +772,7 @@ propose your changes
 					e && s(I),
 					e && s(E),
 					e && s(T),
-					e && s($),
+					e && s(R),
 					e && s(y),
 					e && s(Ee),
 					e && s(d),
@@ -826,7 +826,7 @@ function al(n, m, c) {
 	let E = G[0],
 		T = 'svelte-lorem-ipsum',
 		W = 'https://github.com/sveltejs/svelte-lorem-ipsum',
-		$ = 'A dummy text generator that does not exist',
+		R = 'A dummy text generator that does not exist',
 		y = 'svelte-lorem-ipsum',
 		D = ll(),
 		S,
@@ -844,11 +844,11 @@ function al(n, m, c) {
 	function L() {
 		(T = this.value), c(1, T);
 	}
-	function R() {
+	function $() {
 		(W = this.value), c(2, W);
 	}
 	function Oe() {
-		($ = this.value), c(3, $);
+		(R = this.value), c(3, R);
 	}
 	function Ue() {
 		(y = this.value), c(4, y);
@@ -871,7 +871,7 @@ function al(n, m, c) {
 						(q = {
 							title: T,
 							url: W,
-							description: $,
+							description: R,
 							npm: y,
 							addedOn: D,
 							category: S == null ? void 0 : S.value,
@@ -882,7 +882,7 @@ function al(n, m, c) {
 				n.$$.dirty & 1 && c(10, (pe = ue[E.value].tags)),
 				n.$$.dirty & 1 && c(9, (B = ue[E.value].categories));
 		}),
-		[E, T, W, $, y, D, S, A, I, B, pe, q, w, G, Ve, Ee, d, L, R, Oe, Ue, P, g, je]
+		[E, T, W, R, y, D, S, A, I, B, pe, q, w, G, Ve, Ee, d, L, $, Oe, Ue, P, g, je]
 	);
 }
 class cl extends Fs {

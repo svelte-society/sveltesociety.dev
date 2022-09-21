@@ -6,7 +6,7 @@
 	import Select from '$lib/components/Select.svelte';
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import { compare, selectSortItems } from '$lib/utils/sort';
-	import components from '../cultproposals/cultproposals.json';
+	import components from '../news/news.json';
 	import Seo from '$lib/components/Seo.svelte';
 
 	let searchValue;

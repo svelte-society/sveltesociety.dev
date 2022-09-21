@@ -78,7 +78,7 @@ function _() {
 		});
 		if (i.ok) {
 			const { version: f } = await i.json(),
-				o = f !== '1663760079881';
+				o = f !== '1663761320873';
 			return o && (e(!0), clearTimeout(t)), o;
 		} else throw new Error(`Version check failed: ${i.status}`);
 	}

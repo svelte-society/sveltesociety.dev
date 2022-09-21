@@ -1,20 +1,23 @@
 [
 	{
-		"addedOn": "2021-08-09T10:14:05.723Z",
 		"title": "Act of RVLT 973",
 		"category": "Promotion",
 		"description": "Cool designs coming from 973",
 		"url": "https://drive.google.com/drive/folders/1uDpzUovNCFh2FRTxFSriiZLIOdAbZWHU",
-		"tags": ["designs"],
-		"stars": 402
+		"tags": ["designs"]
 	},
 	{
-		"addedOn": "2021-08-09T10:14:05.723Z",
 		"title": "New CULT Shops Going Live",
 		"category": "Promotion",
 		"description": "New CULT Shops Going Live",
-		"url": "https://github.com/sveltejs/svelte-loader",
-		"tags": ["shops", "merchandise"],
-		"stars": 492
+		"url": "https://dripxkarip.com",
+		"tags": ["shops", "merchandise"]
+	},
+	{
+		"title": "revolt.cultoshi.com Optimizing the Voting Process",
+		"category": "Voting Process",
+		"description": "revolt.cultoshi.com simplifies the lives for CULTManders by simplifying the voting process enourmously.",
+		"url": "https://revolt.cultoshi.com",
+		"tags": ["voting", "cultoshi", "revolt", "revolt 2 earn"]
 	}
 ]

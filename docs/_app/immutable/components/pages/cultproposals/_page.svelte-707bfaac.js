@@ -1,7 +1,7 @@
 import {
 	S as pt,
-	i as mt,
-	s as ht,
+	i as ht,
+	s as mt,
 	v as ft,
 	a as b,
 	k as a,
@@ -23,17 +23,17 @@ import {
 	y as Pt
 } from '../../../chunks/index-2fad9c0c.js';
 import { c as yt } from '../../../chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js';
-import { c as O } from '../../../chunks/cultproposals-ee6a2386.js';
+import { c as O } from '../../../chunks/cultproposals-be315c4c.js';
 import { e as Q } from '../../../chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js';
-import { S as Et } from '../../../chunks/Seo-73f932eb.js';
-import '../../../chunks/stores-47dd025f.js';
-import '../../../chunks/singletons-c216a8d1.js';
+import { S as Et } from '../../../chunks/Seo-e54f64ab.js';
+import '../../../chunks/stores-6fbc4487.js';
+import '../../../chunks/singletons-b2fe3e64.js';
 function wt(B) {
 	let i,
 		p,
 		t,
-		m,
 		h,
+		m,
 		f,
 		d,
 		x,
@@ -73,8 +73,8 @@ function wt(B) {
 				ft(i.$$.fragment),
 					(p = b()),
 					(t = a('div')),
-					(m = a('h2')),
-					(h = g('CULT Protocol Proposals')),
+					(h = a('h2')),
+					(m = g('CULT Protocol Proposals')),
 					(f = b()),
 					(d = a('p')),
 					(x = a('br')),
@@ -116,9 +116,9 @@ function wt(B) {
 			l(s) {
 				dt(i.$$.fragment, s), (p = v(s)), (t = o(s, 'DIV', { class: !0 }));
 				var r = u(t);
-				m = o(r, 'H2', {});
-				var tt = u(m);
-				(h = P(tt, 'CULT Protocol Proposals')), tt.forEach(l), (f = v(r)), (d = o(r, 'P', {}));
+				h = o(r, 'H2', {});
+				var tt = u(h);
+				(m = P(tt, 'CULT Protocol Proposals')), tt.forEach(l), (f = v(r)), (d = o(r, 'P', {}));
 				var et = u(d);
 				(x = o(et, 'BR', {})),
 					et.forEach(l),
@@ -194,8 +194,8 @@ function wt(B) {
 				_t(i, s, r),
 					ut(s, p, r),
 					ut(s, t, r),
-					e(t, m),
-					e(m, h),
+					e(t, h),
+					e(h, m),
 					e(t, f),
 					e(t, d),
 					e(d, x),
@@ -243,9 +243,9 @@ function wt(B) {
 let W = null,
 	X = null;
 function Bt(B, i, p) {
-	let t, m;
+	let t, h;
 	Q(O, 'tags');
-	let h = [];
+	let m = [];
 	[...Q(O, 'category')];
 	let f = null,
 		d = { value: 'stars_desc', label: 'Stars Desc' };
@@ -255,23 +255,23 @@ function Bt(B, i, p) {
 			B.$$.dirty & 11 &&
 				p(
 					2,
-					(m = O.filter((c) =>
-						h.length === 0 && f === null
+					(h = O.filter((c) =>
+						m.length === 0 && f === null
 							? !0
-							: !((h.length > 0 && x(h, c.tags).length === 0) || (f !== null && c.category !== f))
+							: !((m.length > 0 && x(m, c.tags).length === 0) || (f !== null && c.category !== f))
 					).sort(yt(t)))
 				),
-				B.$$.dirty & 4 && Q(m, 'category');
+				B.$$.dirty & 4 && Q(h, 'category');
 		}),
 		p(3, (t = (d == null ? void 0 : d.value) || 'stars_desc')),
 		p(1, (f = (X == null ? void 0 : X.value) || null)),
-		p(0, (h = (W == null ? void 0 : W.map((c) => c.value)) || [])),
-		[h, f, m, t]
+		p(0, (m = (W == null ? void 0 : W.map((c) => c.value)) || [])),
+		[m, f, h, t]
 	);
 }
 class Ut extends pt {
 	constructor(i) {
-		super(), mt(this, i, Bt, wt, ht, {});
+		super(), ht(this, i, Bt, wt, mt, {});
 	}
 }
 export { Ut as default };
