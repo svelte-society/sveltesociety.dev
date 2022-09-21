@@ -2,7 +2,7 @@
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
 	import List from '$lib/components/ComponentIndex/CardList.svelte';
 	import SearchLayout from '$layouts/SearchLayout.svelte';
-	import tools from './tools.json';
+	import news from './news.json';
 	import Select from '$lib/components/Select.svelte';
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import { compare, selectSortItems } from '$lib/utils/sort';
@@ -11,7 +11,7 @@
 
 	let searchValue;
 
-	const tagItems = extractUnique(tools, 'tags');
+	const tagItems = extractUnique(news, 'tags');
 	let filterTag = [];
 	let selectedTags = null;
 
@@ -19,32 +19,31 @@
 	let selectedCategory = null;
 	let filterCategory = null;
 
-	let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
-	$: sorting = selectedSorting?.value || 'stars_desc';
+	// let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
+	// $: sorting = selectedSorting?.value || 'stars_desc';
 
 	const intersection = (array1, array2) => {
 		return array1.filter((item) => array2.includes(item));
 	};
 
-	$: dataToDisplay = tools
-		.filter((component) => {
-			if (!searchValue && filterTag.length === 0 && filterCategory === null) return true;
+	$: dataToDisplay = news.filter((component) => {
+		if (!searchValue && filterTag.length === 0 && filterCategory === null) return true;
 
-			if (
-				(searchValue &&
-					!(
-						component.title.toLowerCase().includes(searchValue.toLowerCase()) ||
-						component.description.toLowerCase().includes(searchValue.toLowerCase())
-					)) ||
-				(filterTag.length > 0 && intersection(filterTag, component.tags).length === 0) ||
-				(filterCategory !== null && component.category !== filterCategory)
-			) {
-				return false;
-			}
+		if (
+			(searchValue &&
+				!(
+					component.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+					component.description.toLowerCase().includes(searchValue.toLowerCase())
+				)) ||
+			(filterTag.length > 0 && intersection(filterTag, component.tags).length === 0) ||
+			(filterCategory !== null && component.category !== filterCategory)
+		) {
+			return false;
+		}
 
-			return true;
-		})
-		.sort(compare(sorting));
+		return true;
+	});
+	// .sort(compare(sorting));
 
 	$: categories = extractUnique(dataToDisplay, 'category');
 	$: filterTag = selectedTags?.map((obj) => obj.value) || [];
@@ -79,27 +78,26 @@
 					isClearable={false}
 					showIndicator
 				/>
-				<Select
+				<!-- <Select
 					items={selectSortItems}
 					bind:value={selectedSorting}
 					label="Sorting"
 					showIndicator
 					isClearable={false}
-				/>
-				<!-- <a href="/help/submitting?type=tool" class="submit">Submit a material collection</a> -->
+				/> -->
 			</div>
 
-			<input
-				class="searchbar"
-				type="text"
-				placeholder="Search for cultproposals..."
-				bind:value={searchValue}
-			/>
-			<span class="searchbar-count"
-				>{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
-			>
+			<div class="text-center">
+				<input
+					style="width: 100%"
+					class="searchbar text-center"
+					type="text"
+					placeholder="Search through cultnews..."
+					bind:value={searchValue}
+				/>
+			</div>
 		</section>
-		<!-- <section slot="items">
+		<section slot="items">
 			{#each categories as newsEntry}
 				<List
 					title={newsEntry.label || 'Unclassified'}
@@ -110,7 +108,7 @@
 					{/each}
 				</List>
 			{/each}
-		</section> -->
+		</section>
 	</SearchLayout>
 	<p><br /></p>
 	<h3>New CULT Shops Going Live</h3>
