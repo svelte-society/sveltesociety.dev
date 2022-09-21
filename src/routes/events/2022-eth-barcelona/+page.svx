@@ -1,0 +1,9 @@
+---
+title: 🍁 ETH Barcelona 2022
+layout: eventPage
+date: 2022-07-06
+---
+
+ETH Barcelona was co-sponsored by the CULT. What happens in Barcelona stays on the Blockchain.
+
+Get more information on the [ethbarcelona.com](https://ethbarcelona.com/).

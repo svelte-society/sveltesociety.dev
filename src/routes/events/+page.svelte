@@ -28,8 +28,16 @@
 	<p><br /></p>
 	<!-- <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Manifesto Mondays. Relax with frens<a href="https://t.co/mpFzpAlRut">https://t.co/mpFzpAlRut</a></p>&mdash; Mr O (@MrOmodulus) <a href="https://twitter.com/MrOmodulus/status/1571846579262218240?ref_src=twsrc%5Etfw">September 19, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
  -->
-	<p><br /></p>
-	The following is just to get some design- / layout ideas
+	<!-- <p><br /></p>
+	The following is just to get some design- / layout ideas -->
+
+	Maintain Events
+	<a
+		href="https://github.com/michael-spengler/cultmagazine/tree/staging/src/routes/events"
+		target="_blank"
+	>
+		here</a
+	>.
 </div>
 <article class="wrapper">
 	<section class="event-wrapper">

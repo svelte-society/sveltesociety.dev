@@ -63,9 +63,55 @@
 <div class="text-center">
 	<h1>CULT News</h1>
 
-	Everyone is invited to add CULT news via
+	Please add CULT news via
 	<a href="https://www.youtube.com/watch?v=8lGpZkjnkt4" target="_blank"> pull request</a>.
 	<!-- <a href="asdf"></a>  -->
+
+	<SearchLayout title="">
+		<section slot="controls" class="controls">
+			<div class="inputs">
+				<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />
+				<Select
+					label="Category"
+					bind:value={selectedCategory}
+					items={categoryItems}
+					placeholder="Category"
+					isClearable={false}
+					showIndicator
+				/>
+				<Select
+					items={selectSortItems}
+					bind:value={selectedSorting}
+					label="Sorting"
+					showIndicator
+					isClearable={false}
+				/>
+				<!-- <a href="/help/submitting?type=tool" class="submit">Submit a material collection</a> -->
+			</div>
+
+			<input
+				class="searchbar"
+				type="text"
+				placeholder="Search for cultproposals..."
+				bind:value={searchValue}
+			/>
+			<span class="searchbar-count"
+				>{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
+			>
+		</section>
+		<section slot="items">
+			{#each categories as newsEntry}
+				<List
+					title={newsEntry.label || 'Unclassified'}
+					id={categoryId[newsEntry.label] || newsEntry.label || 'unclassified'}
+				>
+					{#each dataToDisplay.filter((d) => d.category === newsEntry.value) as data}
+						<ComponentCard {...data} />
+					{/each}
+				</List>
+			{/each}
+		</section>
+	</SearchLayout>
 	<p><br /></p>
 	<h3>New CULT Shops Going Live</h3>
 	<br /><br />
@@ -88,51 +134,3 @@
 	This decentralized markets feature will use Polygon as backend. There will be a decentralized content
 	moderation on what to show via the frontend. Images will be stored via ipfs.io.
 </div>
-<!-- 
-<p><br /></p>
-
-<SearchLayout title="CULT News">
-	<section slot="controls" class="controls">
-		<div class="inputs">
-			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />
-			<Select
-				label="Category"
-				bind:value={selectedCategory}
-				items={categoryItems}
-				placeholder="Category"
-				isClearable={false}
-				showIndicator
-			/>
-			<Select
-				items={selectSortItems}
-				bind:value={selectedSorting}
-				label="Sorting"
-				showIndicator
-				isClearable={false}
-			/>
-			<a href="/help/submitting?type=tool" class="submit">Submit a material collection</a>
-		</div>
-
-		<input
-			class="searchbar"
-			type="text"
-			placeholder="Search for cultproposals..."
-			bind:value={searchValue}
-		/>
-		<span class="searchbar-count"
-			>{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
-		>
-	</section>
-	<section slot="items">
-		{#each categories as category}
-			<List
-				title={category.label || 'Unclassified'}
-				id={categoryId[category.label] || category.label || 'unclassified'}
-			>
-				{#each dataToDisplay.filter((d) => d.category === category.value) as data}
-					<ComponentCard {...data} />
-				{/each}
-			</List>
-		{/each}
-	</section>
-</SearchLayout> -->
