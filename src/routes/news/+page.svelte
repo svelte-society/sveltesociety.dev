@@ -99,7 +99,7 @@
 				>{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
 			>
 		</section>
-		<section slot="items">
+		<!-- <section slot="items">
 			{#each categories as newsEntry}
 				<List
 					title={newsEntry.label || 'Unclassified'}
@@ -110,7 +110,7 @@
 					{/each}
 				</List>
 			{/each}
-		</section>
+		</section> -->
 	</SearchLayout>
 	<p><br /></p>
 	<h3>New CULT Shops Going Live</h3>
