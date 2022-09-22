@@ -148,6 +148,7 @@
 /> -->
 	</article>
 </div>
+
 <!-- <SearchLayout title="RVLT Proposals">
 	<section class="controls" slot="controls">
 		<div class="inputs">
@@ -207,7 +208,6 @@
 		{/each}
 	</section>
 </SearchLayout> -->
-
 <style>
 	article {
 		max-width: 1024px;

@@ -21,9 +21,9 @@ import {
 	t as u,
 	y as C
 } from '../../../chunks/index-2fad9c0c.js';
-import { S as E } from '../../../chunks/Seo-6f305d95.js';
-import '../../../chunks/stores-8e12cdcd.js';
-import '../../../chunks/singletons-117469f9.js';
+import { S as E } from '../../../chunks/Seo-8756408d.js';
+import '../../../chunks/stores-05d1708f.js';
+import '../../../chunks/singletons-1c28ed6d.js';
 function F(l) {
 	let s, i, a, n;
 	s = new E({ props: { title: 'About' } });

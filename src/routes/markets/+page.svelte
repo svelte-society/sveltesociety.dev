@@ -7,32 +7,25 @@
 <div class="text-center">
 	<h2>CULT Markets</h2>
 	<p><br /></p>
-	<main>
-		We'll promote peer 2 peer fiat on off ramps here - to avoid dictatorship and to encourage
-		freedom.
+	The CULT markets feature is currently under construction.
+	<p><br /></p>
+	We'll promote peer 2 peer fiat on off ramps here - to avoid dictatorship and to encourage freedom.
 
-		<p><br /></p>
+	<p><br /></p>
 
-		We'll also promote other freedom supporting markets here, while introducing community based (aka
-		decentralized) content moderation.
-		<!-- {#each cheatSheet as item}
-		<CheatSheetCard {...item} />
-	{/each} -->
-	</main>
+	We'll also promote other freedom supporting markets here, while introducing community based (aka
+	decentralized) content moderation.
+
+	<p><br /></p>
+	<p><br /></p>
+
+	<iframe
+		width="100%"
+		height="600"
+		src="https://www.youtube.com/embed/J7GY1Xg6X20"
+		title="YouTube video player"
+		frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+		allowfullscreen
+	/>
 </div>
-
-<style>
-	main {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		align-items: stretch;
-		justify-items: stretch;
-		gap: var(--s-10);
-	}
-	@media (min-width: 1280px) {
-		main {
-			display: flex;
-			flex-wrap: wrap;
-		}
-	}
-</style>

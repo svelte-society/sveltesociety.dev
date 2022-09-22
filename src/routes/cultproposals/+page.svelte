@@ -87,9 +87,7 @@
 	<p><br /></p>
 	A broader overview on CULT statistics can be found in<a
 		href="https://dune.com/web3_data/CULT"
-		target="_blank"
-	>
-		this dashboard</a
+		target="_blank">this dashboard</a
 	>.
 	<!-- <p><br /></p>
 	<embed
@@ -141,6 +139,7 @@
 		</ul>
 	</article>
 </div>
+
 <!-- <SearchLayout title="Cult Proposals">
 	<section class="controls" slot="controls">
 		<div class="inputs">
@@ -187,7 +186,6 @@
 		{/each}
 	</section>
 </SearchLayout> -->
-
 <style>
 	article {
 		max-width: 1024px;

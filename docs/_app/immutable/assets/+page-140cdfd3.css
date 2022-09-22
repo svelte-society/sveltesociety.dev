@@ -1,13 +1,13 @@
-article.svelte-5obkcv {
+article.svelte-1avvr2c {
 	max-width: 1024px;
 	display: grid;
 	gap: var(--s-10);
 }
-section.svelte-5obkcv {
+section.svelte-1avvr2c {
 	display: grid;
 	gap: var(--s-5);
 }
-ul.svelte-5obkcv {
+ul.svelte-1avvr2c {
 	display: flex;
 	flex-wrap: wrap;
 	column-gap: var(--s-20);
@@ -15,11 +15,11 @@ ul.svelte-5obkcv {
 	justify-content: space-around;
 	text-align: center;
 }
-img.svelte-5obkcv {
+img.svelte-1avvr2c {
 	width: 128px;
 }
 @media (min-width: 1280px) {
-	article.svelte-5obkcv {
+	article.svelte-1avvr2c {
 		gap: var(--s-20);
 	}
 }

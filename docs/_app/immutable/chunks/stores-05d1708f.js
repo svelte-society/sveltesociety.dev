@@ -1,5 +1,5 @@
 import './index-2fad9c0c.js';
-import { s as r } from './singletons-117469f9.js';
+import { s as r } from './singletons-1c28ed6d.js';
 const t = () => {
 		const e = r,
 			s = {

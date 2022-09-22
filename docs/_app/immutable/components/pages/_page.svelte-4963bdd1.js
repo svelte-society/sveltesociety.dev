@@ -1,6 +1,6 @@
 import {
-	S as gs,
-	i as vs,
+	S as vs,
+	i as gs,
 	s as _s,
 	v as at,
 	a as p,
@@ -23,9 +23,9 @@ import {
 	A as Dt
 } from '../../chunks/index-2fad9c0c.js';
 import { L as zt } from '../../chunks/Link-2f41dbb7.js';
-import { S as $s } from '../../chunks/Seo-6f305d95.js';
-import '../../chunks/stores-8e12cdcd.js';
-import '../../chunks/singletons-117469f9.js';
+import { S as $s } from '../../chunks/Seo-8756408d.js';
+import '../../chunks/stores-05d1708f.js';
+import '../../chunks/singletons-1c28ed6d.js';
 function ws(y) {
 	let n, _, h;
 	return {
@@ -47,7 +47,7 @@ function ws(y) {
 		h() {
 			ct(n.src, (_ = 'images/discord.svg')) || a(n, 'src', _),
 				a(n, 'alt', ''),
-				a(n, 'class', 'svelte-5obkcv');
+				a(n, 'class', 'svelte-1avvr2c');
 		},
 		m(c, $) {
 			E(c, n, $), E(c, h, $);
@@ -79,7 +79,7 @@ function ks(y) {
 		h() {
 			ct(n.src, (_ = 'images/youtube.svg')) || a(n, 'src', _),
 				a(n, 'alt', ''),
-				a(n, 'class', 'svelte-5obkcv');
+				a(n, 'class', 'svelte-1avvr2c');
 		},
 		m(c, $) {
 			E(c, n, $), E(c, h, $);
@@ -111,7 +111,7 @@ function Es(y) {
 		h() {
 			ct(n.src, (_ = 'images/twitter.svg')) || a(n, 'src', _),
 				a(n, 'alt', ''),
-				a(n, 'class', 'svelte-5obkcv');
+				a(n, 'class', 'svelte-1avvr2c');
 		},
 		m(c, $) {
 			E(c, n, $), E(c, h, $);
@@ -143,7 +143,7 @@ function ys(y) {
 		h() {
 			ct(n.src, (_ = 'images/newsletter.svg')) || a(n, 'src', _),
 				a(n, 'alt', ''),
-				a(n, 'class', 'svelte-5obkcv');
+				a(n, 'class', 'svelte-1avvr2c');
 		},
 		m(c, $) {
 			E(c, n, $), E(c, h, $);
@@ -175,7 +175,7 @@ function Rs(y) {
 		h() {
 			ct(n.src, (_ = 'images/reddit.svg')) || a(n, 'src', _),
 				a(n, 'alt', ''),
-				a(n, 'class', 'svelte-5obkcv');
+				a(n, 'class', 'svelte-1avvr2c');
 		},
 		m(c, $) {
 			E(c, n, $), E(c, h, $);
@@ -207,7 +207,7 @@ function Bs(y) {
 		h() {
 			ct(n.src, (_ = 'images/radio.svg')) || a(n, 'src', _),
 				a(n, 'alt', ''),
-				a(n, 'class', 'svelte-5obkcv');
+				a(n, 'class', 'svelte-1avvr2c');
 		},
 		m(c, $) {
 			E(c, n, $), E(c, h, $);
@@ -225,7 +225,7 @@ function Ts(y) {
 		c,
 		$,
 		Kt,
-		g,
+		v,
 		T,
 		Qt,
 		j,
@@ -256,8 +256,8 @@ function Ts(y) {
 		ft,
 		ut,
 		be,
-		ge,
 		ve,
+		ge,
 		ht,
 		pt,
 		_e,
@@ -269,11 +269,11 @@ function Ts(y) {
 		Ee,
 		ye,
 		bt,
-		gt,
+		vt,
 		Re,
 		Be,
 		Te,
-		vt,
+		gt,
 		_t,
 		Ce,
 		Le,
@@ -343,8 +343,8 @@ function Ts(y) {
 		dr,
 		mr,
 		br,
-		gr,
 		vr,
+		gr,
 		_r,
 		$r,
 		wr,
@@ -405,9 +405,9 @@ function Ts(y) {
 		P,
 		jt,
 		ba,
-		ga,
-		qt,
 		va,
+		qt,
+		ga,
 		_a,
 		C,
 		Lt,
@@ -478,7 +478,7 @@ function Ts(y) {
 					(c = e('h2')),
 					($ = l('CULT Magazine')),
 					(Kt = p()),
-					(g = e('section')),
+					(v = e('section')),
 					(T = e('p')),
 					(Qt = l('We are a network of ')),
 					(j = e('a')),
@@ -513,8 +513,8 @@ function Ts(y) {
 					(ft = e('p')),
 					(ut = e('a')),
 					(be = l('CULT Proposals')),
-					(ge = e('br')),
-					(ve = p()),
+					(ve = e('br')),
+					(ge = p()),
 					(ht = e('p')),
 					(pt = e('a')),
 					(_e = l('Revolt 2 Earn')),
@@ -526,11 +526,11 @@ function Ts(y) {
 					(Ee = e('br')),
 					(ye = p()),
 					(bt = e('p')),
-					(gt = e('a')),
+					(vt = e('a')),
 					(Re = l('CULT Events')),
 					(Be = e('br')),
 					(Te = p()),
-					(vt = e('p')),
+					(gt = e('p')),
 					(_t = e('a')),
 					(Ce = l('CULT Resources')),
 					(Le = e('br')),
@@ -611,10 +611,10 @@ function Ts(y) {
 		want to expand their power and take away your rights and freedom.`)),
 					(mr = e('br')),
 					(br = e('br')),
-					(gr = l(`
+					(vr = l(`
 		This is why politicians force young people (aka soldiers) to kill the victims of the other propaganda
 		mutually. `)),
-					(vr = e('br')),
+					(gr = e('br')),
 					(_r = e('br')),
 					($r = l(`
 		This is why politicians want to destroy farmers.`)),
@@ -695,9 +695,9 @@ function Ts(y) {
 					(P = e('div')),
 					(jt = e('h3')),
 					(ba = l('Basic Tips for Newcomers')),
-					(ga = p()),
+					(va = p()),
 					(qt = e('p')),
-					(va = e('br')),
+					(ga = e('br')),
 					(_a = p()),
 					(C = e('ol')),
 					(Lt = e('li')),
@@ -729,9 +729,9 @@ function Ts(y) {
 				($ = o(Yt, 'CULT Magazine')),
 					Yt.forEach(s),
 					(Kt = d(m)),
-					(g = r(m, 'SECTION', { class: !0 }));
-				var v = u(g);
-				T = r(v, 'P', {});
+					(v = r(m, 'SECTION', { class: !0 }));
+				var g = u(v);
+				T = r(g, 'P', {});
 				var L = u(T);
 				(Qt = o(L, 'We are a network of ')), (j = r(L, 'A', { href: !0, target: !0 }));
 				var Vt = u(j);
@@ -754,8 +754,8 @@ function Ts(y) {
 					Ht.forEach(s),
 					(se = o(L, '.')),
 					L.forEach(s),
-					(le = d(v)),
-					(Y = r(v, 'P', {}));
+					(le = d(g)),
+					(Y = r(g, 'P', {}));
 				var Xt = u(Y);
 				(oe = o(
 					Xt,
@@ -767,8 +767,8 @@ function Ts(y) {
 					ja.forEach(s),
 					(ie = o(Xt, '.')),
 					Xt.forEach(s),
-					(ce = d(v)),
-					(F = r(v, 'P', {}));
+					(ce = d(g)),
+					(F = r(g, 'P', {}));
 				var Jt = u(F);
 				(fe = o(Jt, 'Each contribution can be submitted as an ')),
 					(H = r(Jt, 'A', { href: !0, target: !0 }));
@@ -777,22 +777,22 @@ function Ts(y) {
 					qa.forEach(s),
 					(he = o(Jt, '.')),
 					Jt.forEach(s),
-					(pe = d(v)),
-					(Mt = r(v, 'P', {}));
+					(pe = d(g)),
+					(Mt = r(g, 'P', {}));
 				var Na = u(Mt);
 				(de = o(Na, 'You might be interested in')),
 					Na.forEach(s),
-					(me = d(v)),
-					(ft = r(v, 'P', {}));
+					(me = d(g)),
+					(ft = r(g, 'P', {}));
 				var Aa = u(ft);
 				ut = r(Aa, 'A', { href: !0 });
 				var Ya = u(ut);
 				(be = o(Ya, 'CULT Proposals')),
 					Ya.forEach(s),
-					(ge = r(Aa, 'BR', {})),
+					(ve = r(Aa, 'BR', {})),
 					Aa.forEach(s),
-					(ve = d(v)),
-					(ht = r(v, 'P', {}));
+					(ge = d(g)),
+					(ht = r(g, 'P', {}));
 				var Ua = u(ht);
 				pt = r(Ua, 'A', { href: !0 });
 				var Va = u(pt);
@@ -800,8 +800,8 @@ function Ts(y) {
 					Va.forEach(s),
 					($e = r(Ua, 'BR', {})),
 					Ua.forEach(s),
-					(we = d(v)),
-					(dt = r(v, 'P', {}));
+					(we = d(g)),
+					(dt = r(g, 'P', {}));
 				var Pa = u(dt);
 				mt = r(Pa, 'A', { href: !0 });
 				var Fa = u(mt);
@@ -809,26 +809,26 @@ function Ts(y) {
 					Fa.forEach(s),
 					(Ee = r(Pa, 'BR', {})),
 					Pa.forEach(s),
-					(ye = d(v)),
-					(bt = r(v, 'P', {}));
+					(ye = d(g)),
+					(bt = r(g, 'P', {}));
 				var xa = u(bt);
-				gt = r(xa, 'A', { href: !0 });
-				var Ha = u(gt);
+				vt = r(xa, 'A', { href: !0 });
+				var Ha = u(vt);
 				(Re = o(Ha, 'CULT Events')),
 					Ha.forEach(s),
 					(Be = r(xa, 'BR', {})),
 					xa.forEach(s),
-					(Te = d(v)),
-					(vt = r(v, 'P', {}));
-				var Ia = u(vt);
+					(Te = d(g)),
+					(gt = r(g, 'P', {}));
+				var Ia = u(gt);
 				_t = r(Ia, 'A', { href: !0 });
 				var Oa = u(_t);
 				(Ce = o(Oa, 'CULT Resources')),
 					Oa.forEach(s),
 					(Le = r(Ia, 'BR', {})),
 					Ia.forEach(s),
-					(Ae = d(v)),
-					($t = r(v, 'P', {}));
+					(Ae = d(g)),
+					($t = r(g, 'P', {}));
 				var za = u($t);
 				wt = r(za, 'A', { href: !0 });
 				var Xa = u(wt);
@@ -836,7 +836,7 @@ function Ts(y) {
 					Xa.forEach(s),
 					(Pe = r(za, 'BR', {})),
 					za.forEach(s),
-					v.forEach(s),
+					g.forEach(s),
 					(xe = d(m)),
 					(B = r(m, 'IFRAME', {
 						width: !0,
@@ -967,13 +967,13 @@ function Ts(y) {
 					)),
 					(mr = r(f, 'BR', {})),
 					(br = r(f, 'BR', {})),
-					(gr = o(
+					(vr = o(
 						f,
 						`
 		This is why politicians force young people (aka soldiers) to kill the victims of the other propaganda
 		mutually. `
 					)),
-					(vr = r(f, 'BR', {})),
+					(gr = r(f, 'BR', {})),
 					(_r = r(f, 'BR', {})),
 					($r = o(
 						f,
@@ -1109,10 +1109,10 @@ function Ts(y) {
 				var us = u(jt);
 				(ba = o(us, 'Basic Tips for Newcomers')),
 					us.forEach(s),
-					(ga = d(It)),
+					(va = d(It)),
 					(qt = r(It, 'P', {}));
 				var hs = u(qt);
-				(va = r(hs, 'BR', {})), hs.forEach(s), (_a = d(It)), (C = r(It, 'OL', {}));
+				(ga = r(hs, 'BR', {})), hs.forEach(s), (_a = d(It)), (C = r(It, 'OL', {}));
 				var S = u(C);
 				Lt = r(S, 'LI', {});
 				var Ma = u(Lt);
@@ -1167,10 +1167,10 @@ function Ts(y) {
 					a(ut, 'href', '/cultproposals'),
 					a(pt, 'href', '/rvltproposals'),
 					a(mt, 'href', '/news'),
-					a(gt, 'href', '/events'),
+					a(vt, 'href', '/events'),
 					a(_t, 'href', '/resources'),
 					a(wt, 'href', '/markets'),
-					a(g, 'class', 'text-center svelte-5obkcv'),
+					a(v, 'class', 'text-center svelte-1avvr2c'),
 					a(B, 'width', '100%'),
 					a(B, 'height', '600'),
 					ct(B.src, (Sa = 'https://www.youtube.com/embed/J7GY1Xg6X20')) || a(B, 'src', Sa),
@@ -1185,8 +1185,8 @@ function Ts(y) {
 					a(kt, 'href', 'https://cultdao.io/manifesto.pdf'),
 					a(yt, 'href', 'https://cultdao.io/rvlt.pdf'),
 					a(w, 'class', 'text-center'),
-					a(A, 'class', 'svelte-5obkcv'),
-					a(U, 'class', 'svelte-5obkcv'),
+					a(A, 'class', 'svelte-1avvr2c'),
+					a(U, 'class', 'svelte-1avvr2c'),
 					a(O, 'href', 'https://cultoshi.com'),
 					a(O, 'target', '_blank'),
 					a(X, 'href', 'https://www.shop2revolt.com'),
@@ -1212,7 +1212,7 @@ function Ts(y) {
 					a(rt, 'href', 'https://uniswap.org'),
 					a(rt, 'target', '_blank'),
 					a(P, 'class', 'text-center'),
-					a(h, 'class', 'container svelte-5obkcv');
+					a(h, 'class', 'container svelte-1avvr2c');
 			},
 			m(b, m) {
 				lt(n, b, m),
@@ -1221,8 +1221,8 @@ function Ts(y) {
 					t(h, c),
 					t(c, $),
 					t(h, Kt),
-					t(h, g),
-					t(g, T),
+					t(h, v),
+					t(v, T),
 					t(T, Qt),
 					t(T, j),
 					t(j, Zt),
@@ -1233,48 +1233,48 @@ function Ts(y) {
 					t(T, N),
 					t(N, ae),
 					t(T, se),
-					t(g, le),
-					t(g, Y),
+					t(v, le),
+					t(v, Y),
 					t(Y, oe),
 					t(Y, V),
 					t(V, ne),
 					t(Y, ie),
-					t(g, ce),
-					t(g, F),
+					t(v, ce),
+					t(v, F),
 					t(F, fe),
 					t(F, H),
 					t(H, ue),
 					t(F, he),
-					t(g, pe),
-					t(g, Mt),
+					t(v, pe),
+					t(v, Mt),
 					t(Mt, de),
-					t(g, me),
-					t(g, ft),
+					t(v, me),
+					t(v, ft),
 					t(ft, ut),
 					t(ut, be),
-					t(ft, ge),
-					t(g, ve),
-					t(g, ht),
+					t(ft, ve),
+					t(v, ge),
+					t(v, ht),
 					t(ht, pt),
 					t(pt, _e),
 					t(ht, $e),
-					t(g, we),
-					t(g, dt),
+					t(v, we),
+					t(v, dt),
 					t(dt, mt),
 					t(mt, ke),
 					t(dt, Ee),
-					t(g, ye),
-					t(g, bt),
-					t(bt, gt),
-					t(gt, Re),
+					t(v, ye),
+					t(v, bt),
+					t(bt, vt),
+					t(vt, Re),
 					t(bt, Be),
-					t(g, Te),
-					t(g, vt),
-					t(vt, _t),
+					t(v, Te),
+					t(v, gt),
+					t(gt, _t),
 					t(_t, Ce),
-					t(vt, Le),
-					t(g, Ae),
-					t(g, $t),
+					t(gt, Le),
+					t(v, Ae),
+					t(v, $t),
 					t($t, wt),
 					t(wt, Ue),
 					t($t, Pe),
@@ -1338,8 +1338,8 @@ function Ts(y) {
 					t(i, dr),
 					t(i, mr),
 					t(i, br),
-					t(i, gr),
 					t(i, vr),
+					t(i, gr),
 					t(i, _r),
 					t(i, $r),
 					t(i, wr),
@@ -1400,9 +1400,9 @@ function Ts(y) {
 					t(h, P),
 					t(P, jt),
 					t(jt, ba),
-					t(P, ga),
+					t(P, va),
 					t(P, qt),
-					t(qt, va),
+					t(qt, ga),
 					t(P, _a),
 					t(P, C),
 					t(C, Lt),
@@ -1427,8 +1427,8 @@ function Ts(y) {
 			p(b, [m]) {
 				const Yt = {};
 				m & 1 && (Yt.$$scope = { dirty: m, ctx: b }), I.$set(Yt);
-				const v = {};
-				m & 1 && (v.$$scope = { dirty: m, ctx: b }), z.$set(v);
+				const g = {};
+				m & 1 && (g.$$scope = { dirty: m, ctx: b }), z.$set(g);
 				const L = {};
 				m & 1 && (L.$$scope = { dirty: m, ctx: b }), D.$set(L);
 				const Vt = {};
@@ -1465,9 +1465,9 @@ function Ts(y) {
 		}
 	);
 }
-class xs extends gs {
+class xs extends vs {
 	constructor(n) {
-		super(), vs(this, n, null, Ts, _s, {});
+		super(), gs(this, n, null, Ts, _s, {});
 	}
 }
 export { xs as default };

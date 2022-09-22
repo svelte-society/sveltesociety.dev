@@ -1,10 +1,10 @@
-import { default as c } from '../components/pages/rvltproposals/_page.svelte-0a2fc9e7.js';
+import { default as c } from '../components/pages/rvltproposals/_page.svelte-0f499c45.js';
 import './index-2fad9c0c.js';
-import './singletons-117469f9.js';
+import './singletons-1c28ed6d.js';
 import './components-9abf80d5.js';
 import './Select.svelte_svelte_type_style_lang-e1f3ca44.js';
 import './Select.svelte_svelte_type_style_lang-bb1ab90c.js';
-import './Seo-6f305d95.js';
-import './stores-8e12cdcd.js';
+import './Seo-8756408d.js';
+import './stores-05d1708f.js';
 import './Link-2f41dbb7.js';
 export { c as component };
