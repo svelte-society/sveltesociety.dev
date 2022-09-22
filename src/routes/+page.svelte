@@ -173,9 +173,7 @@
 		display: grid;
 		gap: var(--s-10);
 	}
-	h1 {
-		margin: 0;
-	}
+
 	section {
 		display: grid;
 		gap: var(--s-5);

@@ -1,0 +1,10 @@
+import { default as c } from '../components/pages/help/submitting/_page.svelte-0349793d.js';
+import './index-2fad9c0c.js';
+import './Select-8360dfd8.js';
+import './Select.svelte_svelte_type_style_lang-bb1ab90c.js';
+import './components-9abf80d5.js';
+import './cultproposals-be315c4c.js';
+import './Seo-6f305d95.js';
+import './stores-8e12cdcd.js';
+import './singletons-117469f9.js';
+export { c as component };
