@@ -2708,6 +2708,16 @@
 		"stars": 32
 	},
 	{
+		"title": "svelte-currency-input",
+		"url": "https://github.com/canutin/svelte-currency-input",
+		"description": "A form input that converts numbers to localized currency formats as you type",
+		"npm": "svelte-currency-input",
+		"addedOn": "2022-09-19",
+		"category": "Forms & User Input",
+		"tags": ["forms", "inputs and widgets",	"internationalization",	"typescript"],
+		"stars": 2
+	},
+	{
 		"title": "typesafe-i18n",
 		"url": "https://github.com/ivanhofer/typesafe-i18n",
 		"category": "Developer Experience",
