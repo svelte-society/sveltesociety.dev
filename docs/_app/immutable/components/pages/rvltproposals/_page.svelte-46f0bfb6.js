@@ -24,13 +24,13 @@ import {
 	o as Ke,
 	A as W
 } from '../../../chunks/index-2fad9c0c.js';
-import { w as xe } from '../../../chunks/singletons-1c28ed6d.js';
+import { w as xe } from '../../../chunks/singletons-ba6e48e5.js';
 import { c as Pe } from '../../../chunks/components-9abf80d5.js';
 import { c as ze } from '../../../chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js';
 import { e as Se } from '../../../chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js';
-import { S as Qe } from '../../../chunks/Seo-8756408d.js';
+import { S as Qe } from '../../../chunks/Seo-e1ee97dd.js';
 import { L as Q } from '../../../chunks/Link-2f41dbb7.js';
-import '../../../chunks/stores-05d1708f.js';
+import '../../../chunks/stores-764fbfd2.js';
 var We = {};
 (function (a) {
 	(a.defaults = {}),
@@ -478,7 +478,7 @@ function ot(a) {
 					(ue = u('br')),
 					(fe = R(`
 
-	Feel free to join us to explore how `)),
+	Feel free to join us to explore how`)),
 					(T = u('a')),
 					(de = R('Revolt 2 Earn works')),
 					(me = R(`.
@@ -552,7 +552,7 @@ function ot(a) {
 						i,
 						`
 
-	Feel free to join us to explore how `
+	Feel free to join us to explore how`
 					)),
 					(T = f(i, 'A', { href: !0, target: !0 }));
 				var ie = b(T);

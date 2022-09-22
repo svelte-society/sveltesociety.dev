@@ -35,7 +35,7 @@ import {
 	b as de,
 	i as We,
 	c as Fe
-} from './chunks/singletons-1c28ed6d.js';
+} from './chunks/singletons-ba6e48e5.js';
 import { _ as V, H as ce, R as Oe, e as Me } from './chunks/preload-helper-e2690c66.js';
 function Ge(s, e) {
 	return s === '/' || e === 'ignore'
@@ -765,42 +765,42 @@ const mt = {},
 	re = [
 		() =>
 			V(
-				() => import('./chunks/0-06f2a380.js'),
+				() => import('./chunks/0-47403eef.js'),
 				[
-					'chunks/0-06f2a380.js',
-					'components/pages/_layout.svelte-000bb399.js',
+					'chunks/0-47403eef.js',
+					'components/pages/_layout.svelte-85f297b5.js',
 					'assets/+layout-1798ff3d.css',
 					'chunks/index-2fad9c0c.js',
 					'chunks/Link-2f41dbb7.js',
 					'assets/Link-5c73b3cb.css',
-					'chunks/stores-05d1708f.js',
-					'chunks/singletons-1c28ed6d.js'
+					'chunks/stores-764fbfd2.js',
+					'chunks/singletons-ba6e48e5.js'
 				],
 				import.meta.url
 			),
 		() =>
 			V(
-				() => import('./chunks/1-8a442b5e.js'),
+				() => import('./chunks/1-082a0d99.js'),
 				[
-					'chunks/1-8a442b5e.js',
-					'components/error.svelte-0ad35fbd.js',
+					'chunks/1-082a0d99.js',
+					'components/error.svelte-3db2196a.js',
 					'chunks/index-2fad9c0c.js',
-					'chunks/stores-05d1708f.js',
-					'chunks/singletons-1c28ed6d.js'
+					'chunks/stores-764fbfd2.js',
+					'chunks/singletons-ba6e48e5.js'
 				],
 				import.meta.url
 			),
 		() =>
 			V(
-				() => import('./chunks/2-c056688f.js'),
+				() => import('./chunks/2-cc1017f8.js'),
 				[
-					'chunks/2-c056688f.js',
-					'components/pages/about/_layout.svelte-cec92aae.js',
+					'chunks/2-cc1017f8.js',
+					'components/pages/about/_layout.svelte-d75eeea1.js',
 					'assets/+layout-a7dc71bf.css',
 					'chunks/index-2fad9c0c.js',
-					'chunks/Seo-8756408d.js',
-					'chunks/stores-05d1708f.js',
-					'chunks/singletons-1c28ed6d.js'
+					'chunks/Seo-e1ee97dd.js',
+					'chunks/stores-764fbfd2.js',
+					'chunks/singletons-ba6e48e5.js'
 				],
 				import.meta.url
 			),
@@ -816,17 +816,17 @@ const mt = {},
 			),
 		() =>
 			V(
-				() => import('./chunks/4-8f140ecd.js'),
+				() => import('./chunks/4-816ea215.js'),
 				[
-					'chunks/4-8f140ecd.js',
-					'components/pages/_page.svelte-4963bdd1.js',
+					'chunks/4-816ea215.js',
+					'components/pages/_page.svelte-f6e343f5.js',
 					'assets/+page-140cdfd3.css',
 					'chunks/index-2fad9c0c.js',
 					'chunks/Link-2f41dbb7.js',
 					'assets/Link-5c73b3cb.css',
-					'chunks/Seo-8756408d.js',
-					'chunks/stores-05d1708f.js',
-					'chunks/singletons-1c28ed6d.js'
+					'chunks/Seo-e1ee97dd.js',
+					'chunks/stores-764fbfd2.js',
+					'chunks/singletons-ba6e48e5.js'
 				],
 				import.meta.url
 			),
@@ -842,10 +842,10 @@ const mt = {},
 			),
 		() =>
 			V(
-				() => import('./chunks/6-7043e5e8.js'),
+				() => import('./chunks/6-2096d034.js'),
 				[
-					'chunks/6-7043e5e8.js',
-					'components/pages/cultproposals/_page.svelte-0d818f51.js',
+					'chunks/6-2096d034.js',
+					'components/pages/cultproposals/_page.svelte-eecad463.js',
 					'assets/+page-9501578b.css',
 					'chunks/index-2fad9c0c.js',
 					'chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js',
@@ -853,9 +853,9 @@ const mt = {},
 					'chunks/cultproposals-be315c4c.js',
 					'chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js',
 					'assets/Select-ddd51714.css',
-					'chunks/Seo-8756408d.js',
-					'chunks/stores-05d1708f.js',
-					'chunks/singletons-1c28ed6d.js',
+					'chunks/Seo-e1ee97dd.js',
+					'chunks/stores-764fbfd2.js',
+					'chunks/singletons-ba6e48e5.js',
 					'chunks/Link-2f41dbb7.js',
 					'assets/Link-5c73b3cb.css'
 				],
@@ -863,40 +863,40 @@ const mt = {},
 			),
 		() =>
 			V(
-				() => import('./chunks/7-c55fe5a2.js'),
+				() => import('./chunks/7-bb5ddbb5.js'),
 				[
-					'chunks/7-c55fe5a2.js',
-					'chunks/_page-e916174a.js',
+					'chunks/7-bb5ddbb5.js',
+					'chunks/_page-7230967a.js',
 					'chunks/preload-helper-e2690c66.js',
-					'components/pages/events/_page.svelte-3e315812.js',
+					'components/pages/events/_page.svelte-03f627ed.js',
 					'assets/+page-154cd178.css',
 					'chunks/index-2fad9c0c.js',
-					'chunks/Seo-8756408d.js',
-					'chunks/stores-05d1708f.js',
-					'chunks/singletons-1c28ed6d.js'
+					'chunks/Seo-e1ee97dd.js',
+					'chunks/stores-764fbfd2.js',
+					'chunks/singletons-ba6e48e5.js'
 				],
 				import.meta.url
 			),
 		() =>
 			V(
-				() => import('./chunks/8-eafb04b8.js'),
+				() => import('./chunks/8-64d7c0f1.js'),
 				[
-					'chunks/8-eafb04b8.js',
-					'components/pages/events/2022-eth-barcelona/_page.svx-72a00c8c.js',
+					'chunks/8-64d7c0f1.js',
+					'components/pages/events/2022-eth-barcelona/_page.svx-ee6f04f8.js',
 					'assets/+page-76af88bd.css',
 					'chunks/index-2fad9c0c.js',
-					'chunks/Seo-8756408d.js',
-					'chunks/stores-05d1708f.js',
-					'chunks/singletons-1c28ed6d.js'
+					'chunks/Seo-e1ee97dd.js',
+					'chunks/stores-764fbfd2.js',
+					'chunks/singletons-ba6e48e5.js'
 				],
 				import.meta.url
 			),
 		() =>
 			V(
-				() => import('./chunks/9-57a17973.js'),
+				() => import('./chunks/9-acba7106.js'),
 				[
-					'chunks/9-57a17973.js',
-					'components/pages/help/submitting/_page.svelte-4a4e96e8.js',
+					'chunks/9-acba7106.js',
+					'components/pages/help/submitting/_page.svelte-a91cfe67.js',
 					'assets/+page-891482f7.css',
 					'chunks/index-2fad9c0c.js',
 					'chunks/Select-8360dfd8.js',
@@ -904,40 +904,40 @@ const mt = {},
 					'assets/Select-ddd51714.css',
 					'chunks/components-9abf80d5.js',
 					'chunks/cultproposals-be315c4c.js',
-					'chunks/Seo-8756408d.js',
-					'chunks/stores-05d1708f.js',
-					'chunks/singletons-1c28ed6d.js'
+					'chunks/Seo-e1ee97dd.js',
+					'chunks/stores-764fbfd2.js',
+					'chunks/singletons-ba6e48e5.js'
 				],
 				import.meta.url
 			),
 		() =>
 			V(
-				() => import('./chunks/10-8440836d.js'),
+				() => import('./chunks/10-54a8bf85.js'),
 				[
-					'chunks/10-8440836d.js',
-					'components/pages/markets/_page.svelte-6bfede2e.js',
+					'chunks/10-54a8bf85.js',
+					'components/pages/markets/_page.svelte-e807a95d.js',
 					'chunks/index-2fad9c0c.js',
-					'chunks/Seo-8756408d.js',
-					'chunks/stores-05d1708f.js',
-					'chunks/singletons-1c28ed6d.js'
+					'chunks/Seo-e1ee97dd.js',
+					'chunks/stores-764fbfd2.js',
+					'chunks/singletons-ba6e48e5.js'
 				],
 				import.meta.url
 			),
 		() =>
 			V(
-				() => import('./chunks/11-bceadc2d.js'),
+				() => import('./chunks/11-4eeb0eb1.js'),
 				[
-					'chunks/11-bceadc2d.js',
-					'components/pages/news/_page.svelte-eed8352e.js',
+					'chunks/11-4eeb0eb1.js',
+					'components/pages/news/_page.svelte-d0a9614b.js',
 					'chunks/index-2fad9c0c.js',
 					'chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js',
 					'assets/Select-6318a4e1.css',
 					'chunks/Select-8360dfd8.js',
 					'chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js',
 					'assets/Select-ddd51714.css',
-					'chunks/Seo-8756408d.js',
-					'chunks/stores-05d1708f.js',
-					'chunks/singletons-1c28ed6d.js'
+					'chunks/Seo-e1ee97dd.js',
+					'chunks/stores-764fbfd2.js',
+					'chunks/singletons-ba6e48e5.js'
 				],
 				import.meta.url
 			),
@@ -953,20 +953,20 @@ const mt = {},
 			),
 		() =>
 			V(
-				() => import('./chunks/13-bb73e061.js'),
+				() => import('./chunks/13-ef00372b.js'),
 				[
-					'chunks/13-bb73e061.js',
-					'components/pages/rvltproposals/_page.svelte-0f499c45.js',
+					'chunks/13-ef00372b.js',
+					'components/pages/rvltproposals/_page.svelte-46f0bfb6.js',
 					'assets/+page-75cb0965.css',
 					'chunks/index-2fad9c0c.js',
-					'chunks/singletons-1c28ed6d.js',
+					'chunks/singletons-ba6e48e5.js',
 					'chunks/components-9abf80d5.js',
 					'chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js',
 					'assets/Select-6318a4e1.css',
 					'chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js',
 					'assets/Select-ddd51714.css',
-					'chunks/Seo-8756408d.js',
-					'chunks/stores-05d1708f.js',
+					'chunks/Seo-e1ee97dd.js',
+					'chunks/stores-764fbfd2.js',
 					'chunks/Link-2f41dbb7.js',
 					'assets/Link-5c73b3cb.css'
 				],

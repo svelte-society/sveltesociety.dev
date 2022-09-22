@@ -17,8 +17,8 @@ import {
 	A as H,
 	E as B
 } from '../chunks/index-2fad9c0c.js';
-import { p as D } from '../chunks/stores-05d1708f.js';
-import '../chunks/singletons-1c28ed6d.js';
+import { p as D } from '../chunks/stores-764fbfd2.js';
+import '../chunks/singletons-ba6e48e5.js';
 function h(p) {
 	let r,
 		a = p[0].error.frame + '',

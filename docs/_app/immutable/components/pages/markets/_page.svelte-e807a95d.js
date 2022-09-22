@@ -16,47 +16,46 @@ import {
 	B as K,
 	x as N,
 	b as Y,
-	C as e,
+	C as t,
 	A as O,
 	f as Q,
 	t as Z,
-	y as tt
+	y as ee
 } from '../../../chunks/index-2fad9c0c.js';
-import { S as et } from '../../../chunks/Seo-8756408d.js';
-import '../../../chunks/stores-05d1708f.js';
-import '../../../chunks/singletons-1c28ed6d.js';
-function rt(D) {
-	let i, b, t, m, E, T, u, C, $, d, x, B, f, L, P, h, R, U, _, M, S, s, W, v;
+import { S as te } from '../../../chunks/Seo-e1ee97dd.js';
+import '../../../chunks/stores-764fbfd2.js';
+import '../../../chunks/singletons-ba6e48e5.js';
+function re(D) {
+	let i, b, e, m, E, T, u, C, $, d, x, B, f, L, P, h, R, U, _, M, S, s, W, v;
 	return (
-		(i = new et({ props: { title: 'CULT Markets', description: 'CULT Markets' } })),
+		(i = new te({ props: { title: 'CULT Markets', description: 'CULT Markets' } })),
 		{
 			c() {
 				V(i.$$.fragment),
 					(b = w()),
-					(t = o('div')),
+					(e = o('div')),
 					(m = o('h2')),
 					(E = y('CULT Markets')),
 					(T = w()),
 					(u = o('p')),
 					(C = o('br')),
 					($ = y(`
-	The CULT markets feature is currently under construction. 
+	The CULT markets feature is currently under construction.
 	`)),
 					(d = o('p')),
 					(x = o('br')),
 					(B = y(`
-		We'll promote peer 2 peer fiat on off ramps here - to avoid dictatorship and to encourage
-		freedom.
+	We'll promote peer 2 peer fiat on off ramps here - to avoid dictatorship and to encourage freedom.
 
-		`)),
+	`)),
 					(f = o('p')),
 					(L = o('br')),
 					(P = y(`
-		
-		We'll also promote other freedom supporting markets here, while introducing community based (aka
-		decentralized) content moderation.
-		
-		`)),
+
+	We'll also promote other freedom supporting markets here, while introducing community based (aka
+	decentralized) content moderation.
+
+	`)),
 					(h = o('p')),
 					(R = o('br')),
 					(U = w()),
@@ -67,8 +66,8 @@ function rt(D) {
 					this.h();
 			},
 			l(a) {
-				j(i.$$.fragment, a), (b = g(a)), (t = n(a, 'DIV', { class: !0 }));
-				var r = c(t);
+				j(i.$$.fragment, a), (b = g(a)), (e = n(a, 'DIV', { class: !0 }));
+				var r = c(e);
 				m = n(r, 'H2', {});
 				var q = c(m);
 				(E = k(q, 'CULT Markets')), q.forEach(l), (T = g(r)), (u = n(r, 'P', {}));
@@ -78,7 +77,7 @@ function rt(D) {
 					($ = k(
 						r,
 						`
-	The CULT markets feature is currently under construction. 
+	The CULT markets feature is currently under construction.
 	`
 					)),
 					(d = n(r, 'P', {}));
@@ -88,10 +87,9 @@ function rt(D) {
 					(B = k(
 						r,
 						`
-		We'll promote peer 2 peer fiat on off ramps here - to avoid dictatorship and to encourage
-		freedom.
+	We'll promote peer 2 peer fiat on off ramps here - to avoid dictatorship and to encourage freedom.
 
-		`
+	`
 					)),
 					(f = n(r, 'P', {}));
 				var F = c(f);
@@ -100,11 +98,11 @@ function rt(D) {
 					(P = k(
 						r,
 						`
-		
-		We'll also promote other freedom supporting markets here, while introducing community based (aka
-		decentralized) content moderation.
-		
-		`
+
+	We'll also promote other freedom supporting markets here, while introducing community based (aka
+	decentralized) content moderation.
+
+	`
 					)),
 					(h = n(r, 'P', {}));
 				var I = c(h);
@@ -137,31 +135,31 @@ function rt(D) {
 						'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
 					),
 					(s.allowFullscreen = !0),
-					p(t, 'class', 'text-center');
+					p(e, 'class', 'text-center');
 			},
 			m(a, r) {
 				N(i, a, r),
 					Y(a, b, r),
-					Y(a, t, r),
-					e(t, m),
-					e(m, E),
-					e(t, T),
-					e(t, u),
-					e(u, C),
-					e(t, $),
-					e(t, d),
-					e(d, x),
-					e(t, B),
-					e(t, f),
-					e(f, L),
-					e(t, P),
-					e(t, h),
-					e(h, R),
-					e(t, U),
-					e(t, _),
-					e(_, M),
-					e(t, S),
-					e(t, s),
+					Y(a, e, r),
+					t(e, m),
+					t(m, E),
+					t(e, T),
+					t(e, u),
+					t(u, C),
+					t(e, $),
+					t(e, d),
+					t(d, x),
+					t(e, B),
+					t(e, f),
+					t(f, L),
+					t(e, P),
+					t(e, h),
+					t(h, R),
+					t(e, U),
+					t(e, _),
+					t(_, M),
+					t(e, S),
+					t(e, s),
 					(v = !0);
 			},
 			p: O,
@@ -172,14 +170,14 @@ function rt(D) {
 				Z(i.$$.fragment, a), (v = !1);
 			},
 			d(a) {
-				tt(i, a), a && l(b), a && l(t);
+				ee(i, a), a && l(b), a && l(e);
 			}
 		}
 	);
 }
-class lt extends G {
+class le extends G {
 	constructor(i) {
-		super(), H(this, i, null, rt, J, {});
+		super(), H(this, i, null, re, J, {});
 	}
 }
-export { lt as default };
+export { le as default };

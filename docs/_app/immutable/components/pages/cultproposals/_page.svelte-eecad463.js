@@ -26,10 +26,10 @@ import {
 import { c as ke } from '../../../chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js';
 import { c as se } from '../../../chunks/cultproposals-be315c4c.js';
 import { e as re } from '../../../chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js';
-import { S as Te } from '../../../chunks/Seo-8756408d.js';
+import { S as Te } from '../../../chunks/Seo-e1ee97dd.js';
 import { L as O } from '../../../chunks/Link-2f41dbb7.js';
-import '../../../chunks/stores-05d1708f.js';
-import '../../../chunks/singletons-1c28ed6d.js';
+import '../../../chunks/stores-764fbfd2.js';
+import '../../../chunks/singletons-ba6e48e5.js';
 function Ie(_) {
 	let s, u, t;
 	return {
@@ -382,7 +382,7 @@ function Ce(_) {
 					(st = a('p')),
 					(Ut = a('br')),
 					(Mt = m(`
-	A broader overview on CULT statistics can be found in `)),
+	A broader overview on CULT statistics can be found in`)),
 					(D = a('a')),
 					(At = m('this dashboard')),
 					(Dt = m(`.
@@ -493,7 +493,7 @@ function Ce(_) {
 					(Mt = p(
 						l,
 						`
-	A broader overview on CULT statistics can be found in `
+	A broader overview on CULT statistics can be found in`
 					)),
 					(D = n(l, 'A', { href: !0, target: !0 }));
 				var me = h(D);
