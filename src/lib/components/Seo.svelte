@@ -7,7 +7,7 @@
 	export let description =
 		'We are a volunteer global network of Svelte fans that strive to promote Svelte and its ecosystem. As a service to the community, this site is a central index of events, a components directory, as well as recipes and other useful resources.';
 	export let image =
-		'https://raw.githubusercontent.com/svelte-society/sveltesociety.dev/main/static/images/metatag.png';
+		'https://raw.githubusercontent.com/michael-spengler/fairness/main/diagrams-documents-images/cult-money-1500x500.jpeg';
 	export let url = `https://${$page.host}${$page.url.pathname}`;
 	export let twitterHandle = '@sveltesociety';
 </script>

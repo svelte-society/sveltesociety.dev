@@ -26,10 +26,10 @@ import {
 import { c as ke } from '../../../chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js';
 import { c as se } from '../../../chunks/cultproposals-be315c4c.js';
 import { e as re } from '../../../chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js';
-import { S as Te } from '../../../chunks/Seo-e1ee97dd.js';
+import { S as Te } from '../../../chunks/Seo-3fd5630b.js';
 import { L as O } from '../../../chunks/Link-2f41dbb7.js';
-import '../../../chunks/stores-764fbfd2.js';
-import '../../../chunks/singletons-ba6e48e5.js';
+import '../../../chunks/stores-c115b864.js';
+import '../../../chunks/singletons-235174d6.js';
 function Ie(_) {
 	let s, u, t;
 	return {

@@ -31,8 +31,8 @@ import {
 	I as re
 } from '../../chunks/index-2fad9c0c.js';
 import { L as ee } from '../../chunks/Link-2f41dbb7.js';
-import { p as oe } from '../../chunks/stores-764fbfd2.js';
-import '../../chunks/singletons-ba6e48e5.js';
+import { p as oe } from '../../chunks/stores-c115b864.js';
+import '../../chunks/singletons-235174d6.js';
 function W(r, t, l) {
 	const e = r.slice();
 	return (e[3] = t[l][0]), (e[4] = t[l][1]), e;

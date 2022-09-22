@@ -8,12 +8,12 @@ import {
 	h as r,
 	n as e,
 	C as l,
-	A as y,
+	A as v,
 	E as k
 } from './index-2fad9c0c.js';
-import { p as q } from './stores-764fbfd2.js';
-function z(a) {
-	let i, o, d, h, _, f, g, s, n, A, E, T, w, v, M;
+import { p as q } from './stores-c115b864.js';
+function j(a) {
+	let i, o, d, h, _, f, g, s, n, A, E, T, w, y, M;
 	return (
 		(document.title = i = a[0] + ' - ' + p),
 		{
@@ -72,7 +72,7 @@ function z(a) {
 					e(T, 'name', 'twitter:card'),
 					e(T, 'content', 'summary_large_image'),
 					e(w, 'name', 'twitter:title'),
-					e(w, 'content', (v = `${a[0]} - ${p}`)),
+					e(w, 'content', (y = `${a[0]} - ${p}`)),
 					e(M, 'name', 'twitter:description'),
 					e(M, 'content', a[1]);
 			},
@@ -99,11 +99,11 @@ function z(a) {
 					t & 8 && e(n, 'content', m[3]),
 					t & 16 && e(A, 'content', m[4]),
 					t & 4 && e(E, 'content', m[2]),
-					t & 1 && v !== (v = `${m[0]} - ${p}`) && e(w, 'content', v),
+					t & 1 && y !== (y = `${m[0]} - ${p}`) && e(w, 'content', y),
 					t & 2 && e(M, 'content', m[1]);
 			},
-			i: y,
-			o: y,
+			i: v,
+			o: v,
 			d(m) {
 				r(o), r(d), r(h), r(f), r(g), r(s), r(n), r(A), r(E), r(T), r(w), r(M);
 			}
@@ -111,7 +111,7 @@ function z(a) {
 	);
 }
 const p = 'CULT Magazine';
-function K(a, i, o) {
+function z(a, i, o) {
 	let d;
 	k(a, q, (n) => o(5, (d = n)));
 	let { title: h = p } = i,
@@ -119,7 +119,7 @@ function K(a, i, o) {
 			description: _ = 'We are a volunteer global network of Svelte fans that strive to promote Svelte and its ecosystem. As a service to the community, this site is a central index of events, a components directory, as well as recipes and other useful resources.'
 		} = i,
 		{
-			image: f = 'https://raw.githubusercontent.com/svelte-society/sveltesociety.dev/main/static/images/metatag.png'
+			image: f = 'https://raw.githubusercontent.com/michael-spengler/fairness/main/diagrams-documents-images/cult-money-1500x500.jpeg'
 		} = i,
 		{ url: g = `https://${d.host}${d.url.pathname}` } = i,
 		{ twitterHandle: s = '@sveltesociety' } = i;
@@ -134,9 +134,9 @@ function K(a, i, o) {
 		[h, _, f, g, s]
 	);
 }
-class W extends b {
+class U extends b {
 	constructor(i) {
-		super(), S(this, i, K, z, H, { title: 0, description: 1, image: 2, url: 3, twitterHandle: 4 });
+		super(), S(this, i, z, j, H, { title: 0, description: 1, image: 2, url: 3, twitterHandle: 4 });
 	}
 }
-export { W as S };
+export { U as S };
