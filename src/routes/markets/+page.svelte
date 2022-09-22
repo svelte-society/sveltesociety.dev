@@ -4,18 +4,22 @@
 
 <Seo title="CULT Markets" description="CULT Markets" />
 
-<h1>CULT Markets</h1>
-<main>
-	We'll promote peer 2 peer fiat on off ramps here - to avoid dictatorship and to encourage freedom.
-
+<div class="text-center">
+	<h2>CULT Markets</h2>
 	<p><br /></p>
+	<main>
+		We'll promote peer 2 peer fiat on off ramps here - to avoid dictatorship and to encourage
+		freedom.
 
-	We'll also promote other freedom supporting markets here, while introducing community based (aka
-	decentralized) content moderation.
-	<!-- {#each cheatSheet as item}
+		<p><br /></p>
+
+		We'll also promote other freedom supporting markets here, while introducing community based (aka
+		decentralized) content moderation.
+		<!-- {#each cheatSheet as item}
 		<CheatSheetCard {...item} />
 	{/each} -->
-</main>
+	</main>
+</div>
 
 <style>
 	main {

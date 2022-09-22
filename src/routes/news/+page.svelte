@@ -60,10 +60,14 @@
 <Seo title="CULT News" />
 
 <div class="text-center">
-	<h1>CULT News</h1>
+	<h2>CULT News</h2>
 
+	<p><br /></p>
 	Please add CULT news via
 	<a href="https://www.youtube.com/watch?v=8lGpZkjnkt4" target="_blank"> pull request</a>.
+	<p><br /></p>
+	The latest CULT statistics can be found via
+	<a href="https://dune.com/web3_data/CULT" target="_blank"> this link</a>.
 	<!-- <a href="asdf"></a>  -->
 
 	<SearchLayout title="">

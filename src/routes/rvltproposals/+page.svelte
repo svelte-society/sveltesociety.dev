@@ -12,6 +12,7 @@
 	import { compare, selectSortItems } from '$lib/utils/sort';
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import Seo from '$lib/components/Seo.svelte';
+	import Link from '$layout/Link.svelte';
 
 	let searchValue;
 	const tagItems = extractUnique(components, 'tags');
@@ -80,40 +81,72 @@
 	<a href="https://revolt.cultdao.io/submitProposal" target="_blank">Acts of Revolt</a>.
 	<p><br /></p>
 
-	<embed
-		src="https://dune.com/embeds/1279330/2192235/161e3edb-480c-451b-835f-078db00181e3"
-		width="100%"
-		height="700"
-	/>
-
+	Feel free to join us to explore how<a href="https://cultdao.io/rvlt.pdf" target="_blank">
+		Revolt 2 Earn works</a
+	>.
 	<p><br /></p>
-	<embed
-		src="https://dune.com/embeds/1279317/2192218/6c162b5d-c755-4122-8596-cb70b3e0b254"
-		width="100%"
-		height="200"
-	/>
 
+	<br />
 	<p><br /></p>
-	<div style="margin-left: auto; margin-right:auto; width: 50vw">
+	<article class="container">
+		<ul>
+			<Link path="https://discord.gg/wearecultdao">
+				<img src="images/discord.svg" alt="" />
+				Discord
+			</Link>
+			<Link path="https://rumble.com/c/c-1902267">
+				<img src="images/youtube.svg" alt="" />
+				YouTube
+			</Link>
+			<Link path="https://twitter.com/MrOmodulus">
+				<img src="images/twitter.svg" alt="" />
+				Twitter
+			</Link>
+		</ul>
+		<ul>
+			<Link path="https://doc.cultdao.io/">
+				<img src="images/newsletter.svg" alt="" />
+				Newsletter
+			</Link>
+			<Link path="https://www.reddit.com/r/cultdao/">
+				<img src="images/reddit.svg" alt="" />
+				Reddit
+			</Link>
+			<Link path="https://www.cultradio.com/">
+				<img src="images/radio.svg" alt="" />
+				Podcast
+			</Link>
+		</ul>
+
 		<embed
-			src="https://dune.com/embeds/1279379/2192339/a875789e-a062-49cb-9dfe-56ccf806d722"
+			src="https://dune.com/embeds/1279330/2192235/161e3edb-480c-451b-835f-078db00181e3"
+			width="100%"
+			height="700"
+		/>
+
+		<p><br /></p>
+		<embed
+			src="https://dune.com/embeds/1279317/2192218/6c162b5d-c755-4122-8596-cb70b3e0b254"
 			width="100%"
 			height="200"
 		/>
-	</div>
 
-	<!-- <p><br /></p>
+		<p><br /></p>
+		<div style="margin-left: auto; margin-right:auto; width: 50vw">
+			<embed
+				src="https://dune.com/embeds/1279379/2192339/a875789e-a062-49cb-9dfe-56ccf806d722"
+				width="100%"
+				height="200"
+			/>
+		</div>
+
+		<!-- <p><br /></p>
 <embed
 	src="https://dune.com/embeds/1280979/2194908/ec83050f-257e-45b4-a382-f791020293c0"
 	width="100%"
 	height="700"
 /> -->
-
-	<h3>Basic Tips for Newcomers</h3>
-	<p><br /></p>
-
-	In order to understand details on how Revolt 2 Earn works this
-	<a href="https://cultdao.io/rvlt.pdf" target="_blank"> documentation</a> might be valuable for you.
+	</article>
 </div>
 <!-- <SearchLayout title="RVLT Proposals">
 	<section class="controls" slot="controls">
@@ -174,3 +207,29 @@
 		{/each}
 	</section>
 </SearchLayout> -->
+
+<style>
+	article {
+		max-width: 1024px;
+		display: grid;
+		gap: var(--s-10);
+	}
+
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: var(--s-20);
+		row-gap: var(--s-5);
+		justify-content: space-around;
+		text-align: center;
+	}
+	img {
+		width: 128px;
+	}
+
+	@media (min-width: 1280px) {
+		article {
+			gap: var(--s-20);
+		}
+	}
+</style>

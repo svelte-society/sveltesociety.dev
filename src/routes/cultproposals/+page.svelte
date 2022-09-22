@@ -7,6 +7,7 @@
 	import Select from '$lib/components/Select.svelte';
 	import SearchLayout from '$lib/layouts/SearchLayout.svelte';
 	import Seo from '$lib/components/Seo.svelte';
+	import Link from '$layout/Link.svelte';
 
 	let searchValue;
 
@@ -59,7 +60,16 @@
 
 <Seo title="cultproposals" />
 <div class="text-center">
-	<h2>CULT Protocol Proposals</h2>
+	<h2>CULT Tokenomics</h2>
+	<p><br /></p>
+	<div
+		class="text-center"
+		style="width: 85%; margin-left: auto; margin-right: auto; margin-bottom: 10vh"
+	>
+		<img src="/images/cult-tokenomics.png" alt="" style="width: 100%; text-align:center" />
+	</div>
+
+	<h3>CULT Protocol Proposals</h3>
 	<p><br /></p>
 	Feel free to submit your own
 	<a href="https://app.cultdao.io/submitProposal" target="_blank">CULT Protocol Proposals</a>.
@@ -72,21 +82,65 @@
 	/>
 
 	<p><br /></p>
+	<p><br /></p>
+	<h3>Further Statistics & Insights</h3>
+	<p><br /></p>
+	A broader overview on CULT statistics can be found in<a
+		href="https://dune.com/web3_data/CULT"
+		target="_blank"
+	>
+		this dashboard</a
+	>.
+	<!-- <p><br /></p>
 	<embed
 		src="https://dune.com/embeds/1280936/2194836/18828c7c-899f-487e-bc10-779fee1f1026"
 		width="100%"
 		height="200"
-	/>
+	/> -->
 
 	<p><br /></p>
-
-	<h3>Basic Tips for Newcomers</h3>
+	<p><br /></p>
+	<h3>Basic Info for Newcomers</h3>
 	<p><br /></p>
 
-	In order to understand the utilites and the tokenomics you might want to read
+	In order to fully understand the utilites and the tokenomics you might want to read
 	<a href="https://cultdao.io/manifesto.pdf" target="_blank"> the manifesto</a>.
-</div>
+	<p><br /></p>
 
+	We are an open friendly community. Feel free to join us:
+	<p><br /></p>
+
+	<article class="container">
+		<ul>
+			<Link path="https://discord.gg/wearecultdao">
+				<img src="images/discord.svg" alt="" />
+				Discord
+			</Link>
+			<Link path="https://rumble.com/c/c-1902267">
+				<img src="images/youtube.svg" alt="" />
+				YouTube
+			</Link>
+			<Link path="https://twitter.com/MrOmodulus">
+				<img src="images/twitter.svg" alt="" />
+				Twitter
+			</Link>
+		</ul>
+		<ul>
+			<Link path="https://doc.cultdao.io/">
+				<img src="images/newsletter.svg" alt="" />
+				Newsletter
+			</Link>
+			<Link path="https://www.reddit.com/r/cultdao/">
+				<img src="images/reddit.svg" alt="" />
+				Reddit
+			</Link>
+			<Link path="https://www.cultradio.com/">
+				<img src="images/radio.svg" alt="" />
+				Podcast
+			</Link>
+		</ul>
+	</article>
+</div>
 <!-- <SearchLayout title="Cult Proposals">
 	<section class="controls" slot="controls">
 		<div class="inputs">
@@ -133,3 +187,29 @@
 		{/each}
 	</section>
 </SearchLayout> -->
+
+<style>
+	article {
+		max-width: 1024px;
+		display: grid;
+		gap: var(--s-10);
+	}
+
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: var(--s-20);
+		row-gap: var(--s-5);
+		justify-content: space-around;
+		text-align: center;
+	}
+	img {
+		width: 128px;
+	}
+
+	@media (min-width: 1280px) {
+		article {
+			gap: var(--s-20);
+		}
+	}
+</style>

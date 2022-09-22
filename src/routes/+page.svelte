@@ -9,7 +9,7 @@
 />
 
 <article class="container">
-	<h1 class="text-center">CULT Magazine</h1>
+	<h2 class="text-center">CULT Magazine</h2>
 	<section class="text-center">
 		<p>
 			We are a network of <a href="https://cultdao.io" target="_blank">cultdao.io</a> fans promoting
@@ -35,7 +35,7 @@
 			<a href="/cultproposals">CULT Proposals</a><br />
 		</p>
 		<p>
-			<a href="/rvltproposals">RVLT Proposals</a><br />
+			<a href="/rvltproposals">Revolt 2 Earn</a><br />
 		</p>
 		<p>
 			<a href="/news">CULT News</a><br />
@@ -64,6 +64,14 @@
 		allowfullscreen
 	/>
 
+	<div class="text-center">
+		<a href="https://cultdao.io/manifesto.pdf">CULT</a> <br /><br /> is the financial hub of a new,
+		free society.
+		<p><br /><br /></p>
+		<a href="https://cultdao.io/rvlt.pdf">Revolt 2 Earn</a> <br /><br /> is the council & support
+		system.
+		<p><br /></p>
+	</div>
 	<ul>
 		<Link path="https://discord.gg/wearecultdao">
 			<img src="images/discord.svg" alt="" />
