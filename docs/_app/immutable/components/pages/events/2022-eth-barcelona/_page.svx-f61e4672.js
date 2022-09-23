@@ -30,9 +30,9 @@ import {
 	Q as k,
 	A as V
 } from '../../../../chunks/index-2fad9c0c.js';
-import { S as Z } from '../../../../chunks/Seo-afd568f6.js';
-import '../../../../chunks/stores-c737f437.js';
-import '../../../../chunks/singletons-87869784.js';
+import { S as Z } from '../../../../chunks/Seo-17746f97.js';
+import '../../../../chunks/stores-2990c9e9.js';
+import '../../../../chunks/singletons-1d1822e3.js';
 function x(i) {
 	let e, r, n, l, a, s, _, u;
 	e = new Z({ props: { title: i[0] } });

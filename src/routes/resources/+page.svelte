@@ -17,6 +17,11 @@
 	>
 		here</a
 	>
+
+	and
+	<a href="https://discord.com/channels/931866010447929364/984899457097269359" target="_blank">
+		here</a
+	>.
 	<p><br /></p>
 
 	<p><br /></p>

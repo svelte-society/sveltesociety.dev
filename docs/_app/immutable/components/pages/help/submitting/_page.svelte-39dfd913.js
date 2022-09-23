@@ -33,9 +33,9 @@ import { S as ms, c as el } from '../../../../chunks/Select-8360dfd8.js';
 import { c as Ms } from '../../../../chunks/components-9abf80d5.js';
 import { c as yt } from '../../../../chunks/cultproposals-be315c4c.js';
 import { e as Ce } from '../../../../chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js';
-import { S as tl } from '../../../../chunks/Seo-afd568f6.js';
-import '../../../../chunks/stores-c737f437.js';
-import '../../../../chunks/singletons-87869784.js';
+import { S as tl } from '../../../../chunks/Seo-17746f97.js';
+import '../../../../chunks/stores-2990c9e9.js';
+import '../../../../chunks/singletons-1d1822e3.js';
 function sl(n) {
 	let m,
 		c,

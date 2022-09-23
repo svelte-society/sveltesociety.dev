@@ -62,8 +62,10 @@
 <div class="text-center">
 	<h2>CULTDAO</h2>
 	<p><br /></p>
-	The<a href="https://cultdao.io/" target="_blank">CULTDAO </a> is a decentralized autonomous
-	organization which is already <a href="https://coinmarketcap.com/currencies/cult-dao/"> CULT</a>.
+	The
+	<a href="https://cultdao.io/" target="_blank"> CULTDAO </a>
+	is a decentralized autonomous organization which is already
+	<a href="https://coinmarketcap.com/currencies/cult-dao/"> CULT</a>.
 	<br /><br />
 
 	You can regard a
@@ -96,15 +98,16 @@
 	/><br />
 	Once you have CULT in your browserwallet, you can stake CULT by:<br /><br />
 
-	1. visiting https://app.cultdao.io/stake <br /><br />
+	1. visiting <a href="https://app.cultdao.io/stake" target="_blank"> app.cultdao.io/stake</a>
+	<br /><br />
 	2. following the obvious steps<br /><br />
 
 	If you face any difficulties feel free to reach out to our
 	<a href="https://discord.gg/wearecultdao" target="_blank"> discord community</a>. After following
 	the mentioned steps successfully, you are a shareholder of the CULTDAO. To understand the daily
 	business of your new decentralized company named CULTDAO we recommend to study the cult token
-	economics in detail. You will be amazed and impressed. That's at least how most of us felt after
-	understanding the beauty of the CULTDAO.<br /><br />
+	economics in detail.
+	<p><br /></p>
 	<h2>CULT Tokenomics</h2>
 	<p><br /></p>
 	<div
@@ -130,12 +133,8 @@
 	<p><br /></p>
 	<h3>Further Statistics & Insights</h3>
 	<p><br /></p>
-	A broader overview on CULT statistics can be found in<a
-		href="https://dune.com/web3_data/CULT"
-		target="_blank"
-	>
-		this dashboard</a
-	>.
+	A broader overview on CULT statistics can be found in
+	<a href="https://dune.com/web3_data/CULT" target="_blank"> this dashboard</a>.
 	<!-- <p><br /></p>
 	<embed
 		src="https://dune.com/embeds/1280936/2194836/18828c7c-899f-487e-bc10-779fee1f1026"
