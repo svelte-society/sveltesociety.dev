@@ -54,7 +54,7 @@
 		</p> -->
 	</section>
 
-	<iframe
+	<!-- <iframe
 		width="100%"
 		height="600"
 		src="https://www.youtube.com/embed/J7GY1Xg6X20"
@@ -62,7 +62,23 @@
 		frameborder="0"
 		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 		allowfullscreen
+	/> -->
+
+	<iframe
+		class="rumble"
+		width="100%"
+		height="600"
+		src="https://rumble.com/embed/v1in4yp/?pub=1e5w3p"
+		frameborder="0"
+		allowfullscreen
+		title="Getting Ready"
 	/>
+
+	<!-- <script>!function(r,u,m,b,l,e){r._Rumble=b,r[b]||(r[b]=function(){(r[b]._=r[b]._||[]).push(arguments);if(r[b]._.length==1){l=u.createElement(m),e=u.getElementsByTagName(m)[0],l.async=1,l.src="https://rumble.com/embedJS/u1e5w3p"+(arguments[1].video?'.'+arguments[1].video:'')+"/?url="+encodeURIComponent(location.href)+"&args="+encodeURIComponent(JSON.stringify([].slice.apply(arguments))),e.parentNode.insertBefore(l,e)}})}(window, document, "script", "Rumble");</script>
+	<div id="rumble_v1in4yp"></div>
+	<script>Rumble("play", {"video":"v1in4yp","div":"rumble_v1in4yp"});</script> -->
+
+	<!-- https://rumble.com/v1l9avx-cult.html -->
 
 	<div class="text-center">
 		<a href="https://cultdao.io/manifesto.pdf">CULT</a> <br /><br /> is the financial hub of a new,
@@ -131,15 +147,6 @@
 		We are the A-Team. We support Decentralization.<br /><br />
 		CULT is the financial hub of a new, free society. <br />
 		RVLT is the council & support system.<br /><br />
-		Today is a great day to buy CULT.<br /><br />
-		1. read the manifesto <a href="https://cultdao.io" target="_blank">cultdao.io</a> <br /><br />
-		2. install <a href="https://metamask.io">metamask.io</a> <br /><br />
-		3. Add CULT asset --> custom token in metamask via smart contract address 0xf0f9d895aca5c8678f706fb8216fa22957685a13<br
-		/><br />
-		4. buy (the dip) CULT on <a href="https://uniswap.org"> uniswap.org</a><br /><br />
-		Feel free to contribute to our ecosystem project
-		<a href="https://github.com/michael-spengler/fairness#readme"> via pull request</a> <br /><br />
-		<a href="https://youtu.be/09maaUaRT4M?t=17">background info</a>
 	</div>
 	<div class="text-center">
 		<h3>Basic Tips for Newcomers</h3>

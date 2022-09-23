@@ -3,7 +3,7 @@
 
 	import { page } from '$app/stores';
 	const linksLeft = [
-		['/cultproposals', 'CULT'],
+		['/cultproposals', 'CULTDAO'],
 		['/rvltproposals', 'Revolt 2 Earn'],
 		['/news', 'News']
 	];

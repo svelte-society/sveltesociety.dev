@@ -81,9 +81,8 @@
 	<a href="https://revolt.cultdao.io/submitProposal" target="_blank">Acts of Revolt</a>.
 	<p><br /></p>
 
-	Feel free to join us to explore how<a href="https://cultdao.io/rvlt.pdf" target="_blank">
-		Revolt 2 Earn works</a
-	>.
+	Feel free to join us to explore how
+	<a href="https://cultdao.io/rvlt.pdf" target="_blank">Revolt 2 Earn works</a>.
 	<p><br /></p>
 
 	<br />

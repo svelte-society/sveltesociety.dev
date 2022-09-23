@@ -1,6 +1,0 @@
-import { default as e } from '../components/pages/about/_layout.svelte-28cf9caa.js';
-import './index-2fad9c0c.js';
-import './Seo-3fd5630b.js';
-import './stores-c115b864.js';
-import './singletons-235174d6.js';
-export { e as component };

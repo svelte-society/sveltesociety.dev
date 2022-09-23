@@ -14,14 +14,14 @@ async function l() {
 		Object.assign({
 			'./2022-eth-barcelona/+page.svx': () =>
 				i(
-					() => import('../components/pages/events/2022-eth-barcelona/_page.svx-c7fe2c60.js'),
+					() => import('../components/pages/events/2022-eth-barcelona/_page.svx-4d5d7267.js'),
 					[
-						'../components/pages/events/2022-eth-barcelona/_page.svx-c7fe2c60.js',
+						'../components/pages/events/2022-eth-barcelona/_page.svx-4d5d7267.js',
 						'../assets/+page-76af88bd.css',
 						'index-2fad9c0c.js',
-						'Seo-3fd5630b.js',
-						'stores-c115b864.js',
-						'singletons-235174d6.js'
+						'Seo-afd568f6.js',
+						'stores-c737f437.js',
+						'singletons-87869784.js'
 					],
 					import.meta.url
 				)

@@ -60,6 +60,51 @@
 
 <Seo title="cultproposals" />
 <div class="text-center">
+	<h2>CULTDAO</h2>
+	<p><br /></p>
+	The<a href="https://cultdao.io/" target="_blank">CULTDAO </a> is a decentralized autonomous
+	organization which is already <a href="https://coinmarketcap.com/currencies/cult-dao/"> CULT</a>.
+	<br /><br />
+
+	You can regard a
+	<a href="https://en.wikipedia.org/wiki/Decentralized_autonomous_organization">
+		decentralized autonomous organization
+	</a>
+	as a better version of a shareholder company.<br /><br />
+	The reason why it is a better version of a shareholder company is that it is not ruled by
+	<a
+		href="https://github.com/michael-spengler/distributed-ledger-technology-hands-on-lecture/blob/main/fun-facts/real-life-thrillers.md"
+	>
+		corrupt politicians
+	</a>
+	but by the shareholders.<br /><br />
+
+	The goal of the CULTDAO is to support those who support decentralization.<br /><br />
+
+	Decentralization is one of the greatest ways to avoid corruption. If everyone has roughly the same
+	rights within a system, there is no ground for corruption.<br /><br />
+	With CULTDAO we collectively prepare the ground for fair, transparent, fruitful collaboration.<br
+	/><br />
+
+	To become a CULTDAO shareholder you need to acquire CULT and stake it.<br /><br />
+
+	In order to acquire CULT we recommend to:<br /><br />
+
+	1. install <a href="https://metamask.io"> metamask.io</a> or another browserwallet you fully trust<br
+	/><br />
+	2. visit <a href="https://uniswap.org"> uniswap.org</a> to buy CULT - e.g. paying with Ether<br
+	/><br />
+	Once you have CULT in your browserwallet, you can stake CULT by:<br /><br />
+
+	1. visiting https://app.cultdao.io/stake <br /><br />
+	2. following the obvious steps<br /><br />
+
+	If you face any difficulties feel free to reach out to our
+	<a href="https://discord.gg/wearecultdao" target="_blank"> discord community</a>. After following
+	the mentioned steps successfully, you are a shareholder of the CULTDAO. To understand the daily
+	business of your new decentralized company named CULTDAO we recommend to study the cult token
+	economics in detail. You will be amazed and impressed. That's at least how most of us felt after
+	understanding the beauty of the CULTDAO.<br /><br />
 	<h2>CULT Tokenomics</h2>
 	<p><br /></p>
 	<div
@@ -87,7 +132,9 @@
 	<p><br /></p>
 	A broader overview on CULT statistics can be found in<a
 		href="https://dune.com/web3_data/CULT"
-		target="_blank">this dashboard</a
+		target="_blank"
+	>
+		this dashboard</a
 	>.
 	<!-- <p><br /></p>
 	<embed
