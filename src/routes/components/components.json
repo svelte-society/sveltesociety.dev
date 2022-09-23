@@ -2745,5 +2745,17 @@
 		"addedOn": "2022-09-13",
 		"tags": ["components and libraries", "layout and structure", "ssr", "typescript"],
 		"stars": 8
+	},
+	{
+	"title": "svelte-exstore",
+	"url": "https://github.com/noney1412/svelte-exstore",
+	"description": "Connect your store to Redux Devtools to enhance your work flow.",
+	"npm": "svelte-exstore",
+	"addedOn": "2022-09-22",
+	"category": "Stores",
+	"tags": [
+		"stores and state"
+	],
+	"stars": 0
 	}
 ]
