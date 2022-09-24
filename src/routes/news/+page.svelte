@@ -8,6 +8,7 @@
 	import { compare, selectSortItems } from '$lib/utils/sort';
 	import components from '../news/news.json';
 	import Seo from '$lib/components/Seo.svelte';
+	import Link from '$layout/Link.svelte';
 
 	let searchValue;
 
@@ -68,7 +69,50 @@
 	<p><br /></p>
 	The latest CULT statistics can be found via
 	<a href="https://dune.com/web3_data/CULT" target="_blank"> this link</a>.
+	<p><br /></p>
+	Until the CULT News Feed is sufficiently automated, the best way to stay up to date is to follow some
+	of teh many and to join our community.<br /><br />
+	<p><br /></p>
+
+	<a href="https://twitter.com/MrOmodulus" target="_blank"> Mr O</a> <br /><br />
+	<a href="https://twitter.com/Artorias_eth" target="_blank"> Artorias</a> <br /><br />
+	<a href="https://twitter.com/iamcomingundone" target="_blank"> Holly</a>
+	<p><br /><br /></p>
+	<p><br /><br /></p>
+
+	<ul>
+		<Link path="https://discord.gg/wearecultdao">
+			<img src="images/discord.svg" alt="" />
+			Discord
+		</Link>
+		<Link path="https://rumble.com/c/c-1902267">
+			<img src="images/youtube.svg" alt="" />
+			YouTube
+		</Link>
+		<Link path="https://twitter.com/MrOmodulus">
+			<img src="images/twitter.svg" alt="" />
+			Twitter
+		</Link>
+	</ul>
+	<ul>
+		<Link path="https://doc.cultdao.io/">
+			<img src="images/newsletter.svg" alt="" />
+			Newsletter
+		</Link>
+		<Link path="https://www.reddit.com/r/cultdao/">
+			<img src="images/reddit.svg" alt="" />
+			Reddit
+		</Link>
+		<Link path="https://www.cultradio.com/">
+			<img src="images/radio.svg" alt="" />
+			Podcast
+		</Link>
+	</ul>
 	<!-- <a href="asdf"></a>  -->
+
+	<p><br /><br /></p>
+	<p><br /><br /></p>
+	<h3>CULT News Filter</h3>
 
 	<SearchLayout title="">
 		<section slot="controls" class="controls">
@@ -136,3 +180,21 @@
 	This decentralized markets feature will use Polygon as backend. There will be a decentralized content
 	moderation on what to show via the frontend. Images will be stored via ipfs.io.
 </div>
+
+<style>
+	section {
+		display: grid;
+		gap: var(--s-5);
+	}
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: var(--s-20);
+		row-gap: var(--s-5);
+		justify-content: space-around;
+		text-align: center;
+	}
+	img {
+		width: 128px;
+	}
+</style>

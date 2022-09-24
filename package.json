@@ -7,10 +7,7 @@
 		"start": "vite dev --open",
 		"build": "rm -rf ./docs && vite build && cp -r ./build ./docs && ./prepare-4-gh-pages.sh",
 		"preview": "vite preview",
-		"lint": "prettier --check ./**/*.{js,ts,css,md,svelte,html,json} && eslint --ignore-path .gitignore .",
-		"format": "prettier --write ./**/*.{js,ts,css,md,svelte,html,json}",
-		"test": "jest",
-		"prepare": "husky install"
+		"test": "jest"
 	},
 	"devDependencies": {
 		"@macfja/svelte-persistent-store": "1.2.0",
@@ -24,7 +21,6 @@
 		"eslint-plugin-svelte3": "^3.2.0",
 		"graphql-request": "^3.5.0",
 		"highlight.js": "^11.6.0",
-		"husky": "^7.0.2",
 		"jest": "^27.1.0",
 		"lint-staged": "^11.1.2",
 		"mdsvex": "^0.9.3",
