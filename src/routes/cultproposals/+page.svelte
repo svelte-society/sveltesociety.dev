@@ -92,7 +92,7 @@
 	and 
 	<a href="https://twitter.com/iambroots" target="_blank"> Beeeeeeeeeeeeeeeee Rooots</a>
 	decide if the CULTDAO invests into this project. <br /><br /> 
-	If you invest into CULT you implicitly invest into many more projects validated by the whole CULT community.
+	If you invest into CULT you implicitly invest into many more projects validated by the CULT shareholders.
 
 	To become a CULTDAO shareholder, we recommend to:<br /><br />
 
