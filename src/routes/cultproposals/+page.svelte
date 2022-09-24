@@ -100,14 +100,15 @@
 
 	1. visiting <a href="https://app.cultdao.io/stake" target="_blank"> app.cultdao.io/stake</a>
 	<br /><br />
-	2. following the obvious steps<br /><br />
+	2. following the obvious steps
+	<p><br /><br /></p>
 
 	If you face any difficulties feel free to reach out to our
 	<a href="https://discord.gg/wearecultdao" target="_blank"> discord community</a>. After following
 	the mentioned steps successfully, you are a shareholder of the CULTDAO. To understand the daily
 	business of your new decentralized company named CULTDAO we recommend to study the cult token
 	economics in detail.
-	<p><br /></p>
+	<p><br /><br /></p>
 	<h2>CULT Tokenomics</h2>
 	<p><br /></p>
 	<div

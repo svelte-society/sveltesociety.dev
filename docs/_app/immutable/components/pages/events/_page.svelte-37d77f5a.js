@@ -28,9 +28,9 @@ import {
 	y as j,
 	u as _1
 } from '../../../chunks/index-2fad9c0c.js';
-import { S as S1 } from '../../../chunks/Seo-17746f97.js';
-import '../../../chunks/stores-2990c9e9.js';
-import '../../../chunks/singletons-1d1822e3.js';
+import { S as S1 } from '../../../chunks/Seo-66e26ba0.js';
+import '../../../chunks/stores-06ab42d9.js';
+import '../../../chunks/singletons-caad9685.js';
 function U1(s) {
 	let e,
 		r = s[3].svg + '',

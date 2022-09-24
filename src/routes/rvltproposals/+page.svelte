@@ -75,17 +75,50 @@
 <Seo title="RVLT Proposals" />
 
 <div class="text-center">
+	<h2>Revolt 2 Earn</h2>
+	<p><br /></p>
+
+	Here you can earn money while doing valuable things.<br /><br />
+
+	Valuable things can be to provide education offerings to other people.<br /><br />
+
+	After you completed your work you can submit a link to your work as a
+	<a href="https://revolt.cultdao.io/submitProposal" target="_blank"> revolt proposal</a>.<br /><br
+	/>
+	The community votes on each proposal deciding whether or not you receive a reward. <br /><br />
+
+	The reward comes from the
+	<a href="https://cultdao.io/rvlt.pdf" target="_blank"> Revolt 2 Earn </a>
+	treasury. <br /><br />
+	The Revolt 2 Earn treasury is automatically filled by everyone who buys, sells or transfers
+	<a href="https://coinmarketcap.com/currencies/revolt-2-earn/" target="_blank"> RVLT</a>. <br /><br
+	/>
+	This is because 0.4% of each RVLT transaction goes to this treasury.
+
+	<p><br /><br /></p>
+	<p><br /><br /></p>
+
+	<h2>RVLT Tokenomics</h2>
+	<p><br /></p>
+	<div
+		class="text-center"
+		style="width: 100%; margin-left: auto; margin-right: auto; margin-bottom: 10vh"
+	>
+		<img src="/images/revolt-2-earn-tokenomics.png" alt="" style="width: 100%; text-align:center" />
+	</div>
+
 	<h2>Acts of Revolt</h2>
 	<p><br /></p>
 	Feel free to submit your own
 	<a href="https://revolt.cultdao.io/submitProposal" target="_blank">Acts of Revolt</a>.
 	<p><br /></p>
 
-	Feel free to join us to explore how
+	Reach out to us if you have any questions.
+	<!-- Feel free to join us to explore how
 	<a href="https://cultdao.io/rvlt.pdf" target="_blank">Revolt 2 Earn works</a>.
-	<p><br /></p>
+	<p><br /></p> -->
 
-	<br />
+	<br /><br />
 	<p><br /></p>
 	<article class="container">
 		<ul>
