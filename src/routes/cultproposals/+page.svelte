@@ -64,52 +64,47 @@
 	<p><br /></p>
 	The
 	<a href="https://cultdao.io/" target="_blank"> CULTDAO </a>
-	is a decentralized autonomous organization which is already
+	is a decentralized autonomous organization (DAO) which is already
 	<a href="https://coinmarketcap.com/currencies/cult-dao/"> CULT</a>.
 	<br /><br />
 
-	You can regard a
-	<a href="https://en.wikipedia.org/wiki/Decentralized_autonomous_organization">
-		decentralized autonomous organization
-	</a>
-	as a better version of a shareholder company.<br /><br />
-	The reason why it is a better version of a shareholder company is that it is not ruled by
+	<!-- A DAO is a better version of a classic shareholder company because it is not ruled by
 	<a
 		href="https://github.com/michael-spengler/distributed-ledger-technology-hands-on-lecture/blob/main/fun-facts/real-life-thrillers.md"
 	>
 		corrupt politicians
 	</a>
-	but by the shareholders.<br /><br />
+	but actually by the shareholders themselves.<br /><br /> -->
 
-	The goal of the CULTDAO is to support those who support decentralization.<br /><br />
-
-	Decentralization is one of the greatest ways to avoid corruption. If everyone has roughly the same
-	rights within a system, there is no ground for corruption.<br /><br />
-	With CULTDAO we collectively prepare the ground for fair, transparent, fruitful collaboration.<br
+	The goal of the CULTDAO is to support those who support decentralization. Decentralization reduces
+	or avoids corruption because if everyone has roughly the same rights, there is no ground for
+	corruption. The CULTDAO prepares the ground for fair, transparent, fruitful collaboration.<br
 	/><br />
 
-	To become a CULTDAO shareholder you need to acquire CULT and stake it.<br /><br />
+	Whenever anybody buys, sells or transfers our deflationary currency named
+	<a href="https://coinmarketcap.com/currencies/cult-dao/" target="_blank"> CULT</a>, 0.4% of the
+	transaction volume is automatically transferred to the CULT Treasury. Whenever anybody has a great
+	project which supports decentralization, he can
+	<a href="https://app.cultdao.io/submitProposal" target="_blank"> submit a CULT proposal</a>
+	. The CULTDAO shareholders decide if this project receives funds from the CULT Treasury. <br /><br
+	/>
 
-	In order to acquire CULT we recommend to:<br /><br />
+	To become a CULTDAO shareholder, we recommend to:<br /><br />
 
-	1. install <a href="https://metamask.io"> metamask.io</a> or another browserwallet you fully trust<br
-	/><br />
-	2. visit <a href="https://uniswap.org"> uniswap.org</a> to buy CULT - e.g. paying with Ether<br
-	/><br />
-	Once you have CULT in your browserwallet, you can stake CULT by:<br /><br />
-
-	1. visiting <a href="https://app.cultdao.io/stake" target="_blank"> app.cultdao.io/stake</a>
-	<br /><br />
-	2. following the obvious steps
+	1. install <a href="https://metamask.io" target="_blank"> metamask.io</a> or another browserwallet
+	you fully trust<br /><br />
+	2. visit <a href="https://uniswap.org" target="_blank"> uniswap.org</a> or your neighbor to buy
+	CULT<br /><br />
+	3. stake CULT on <a href="https://app.cultdao.io/stake" target="_blank"> app.cultdao.io/stake</a>
 	<p><br /><br /></p>
+
+	<!-- After following those steps, you are a shareholder of the CULTDAO. To understand the daily
+	business of your new decentralized company named CULTDAO we recommend to study the cult tokenomics in detail. -->
 
 	If you face any difficulties feel free to reach out to our
-	<a href="https://discord.gg/wearecultdao" target="_blank"> discord community</a>. After following
-	the mentioned steps successfully, you are a shareholder of the CULTDAO. To understand the daily
-	business of your new decentralized company named CULTDAO we recommend to study the cult token
-	economics in detail.
+	<a href="https://discord.gg/wearecultdao" target="_blank"> discord community</a>.
 	<p><br /><br /></p>
-	<h2>CULT Tokenomics</h2>
+	<h3>CULTDAO's Daily Business (Tokenomics)</h3>
 	<p><br /></p>
 	<div
 		class="text-center"
@@ -145,14 +140,14 @@
 
 	<p><br /></p>
 	<p><br /></p>
-	<h3>Basic Info for Newcomers</h3>
+	<h3>Join Us We Rock</h3>
 	<p><br /></p>
 
-	In order to fully understand the utilites and the tokenomics you might want to read
+	<!-- In order to fully understand the utilites and the tokenomics you might want to read
 	<a href="https://cultdao.io/manifesto.pdf" target="_blank"> the manifesto</a>.
-	<p><br /></p>
+	<p><br /></p> -->
 
-	We are an open friendly community. Feel free to join us:
+	<!-- We are an open friendly community. Feel free to join us: -->
 	<p><br /></p>
 
 	<article class="container">
