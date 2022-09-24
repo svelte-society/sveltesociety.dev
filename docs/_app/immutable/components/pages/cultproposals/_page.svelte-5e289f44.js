@@ -26,10 +26,10 @@ import {
 import { c as Ar } from '../../../chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js';
 import { c as tr } from '../../../chunks/cultproposals-be315c4c.js';
 import { e as er } from '../../../chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js';
-import { S as Br } from '../../../chunks/Seo-c4047d93.js';
+import { S as Br } from '../../../chunks/Seo-aa4aa096.js';
 import { L as rt } from '../../../chunks/Link-2f41dbb7.js';
-import '../../../chunks/stores-28cbd078.js';
-import '../../../chunks/singletons-53791fd8.js';
+import '../../../chunks/stores-59ef06c0.js';
+import '../../../chunks/singletons-1426f67c.js';
 function Dr(b) {
 	let l, p, t;
 	return {
@@ -416,28 +416,29 @@ function Mr(b) {
 
 	
 
-	The goal of the CULTDAO is to support those who support decentralization. Decentralization reduces or avoids corruption because if everyone has roughly the same
-	rights, there is no ground for corruption. The CULTDAO prepares the ground for fair, transparent, fruitful collaboration.`)),
+	The goal of the CULTDAO is to support those who support decentralization. Decentralization reduces
+	or avoids corruption because if everyone has roughly the same rights, there is no ground for
+	corruption. The CULTDAO prepares the ground for fair, transparent, fruitful collaboration.`)),
 					(Ot = a('br')),
 					(qt = a('br')),
 					(It = i(`
 
-	Whenever anybody buys, sells or transfers our deflationary currency named 
+	Whenever anybody buys, sells or transfers our deflationary currency named
 	`)),
 					(q = a('a')),
 					(zt = i('CULT')),
-					(Mt = i(`, 
-	0.4% of the  transaction volume is automatically transferred to the CULT Treasury. Whenever anybody has a great project which supports decentralization, he can 
+					(Mt = i(`, 0.4% of the
+	transaction volume is automatically transferred to the CULT Treasury. Whenever anybody has a great
+	project which supports decentralization, he can
 	`)),
 					(I = a('a')),
 					(Gt = i('submit a CULT proposal')),
-					(St = i(` 
-	. 
+					(St = i(`. 
 	The CULTDAO shareholders decide if this project receives funds from the CULT Treasury. `)),
 					(Wt = a('br')),
 					(xt = a('br')),
 					(Ht = i(`
-	
+
 	To become a CULTDAO shareholder, we recommend to:`)),
 					(jt = a('br')),
 					(Ft = a('br')),
@@ -446,14 +447,16 @@ function Mr(b) {
 	1. install `)),
 					(z = a('a')),
 					(Nt = i('metamask.io')),
-					(Vt = i(' or another browserwallet you fully trust')),
+					(Vt = i(` or another browserwallet
+	you fully trust`)),
 					(Yt = a('br')),
 					(Kt = a('br')),
 					(Qt = i(`
 	2. visit `)),
 					(M = a('a')),
 					(Xt = i('uniswap.org')),
-					(Zt = i(' or your neighbor to buy CULT')),
+					(Zt = i(` or your neighbor to buy
+	CULT`)),
 					(te = a('br')),
 					(ee = a('br')),
 					(re = i(`
@@ -472,7 +475,7 @@ function Mr(b) {
 	`)),
 					(S = a('a')),
 					(ce = i('discord community')),
-					(ie = i(`. 
+					(ie = i(`.
 	`)),
 					(X = a('p')),
 					(ue = a('br')),
@@ -598,8 +601,9 @@ function Mr(b) {
 
 	
 
-	The goal of the CULTDAO is to support those who support decentralization. Decentralization reduces or avoids corruption because if everyone has roughly the same
-	rights, there is no ground for corruption. The CULTDAO prepares the ground for fair, transparent, fruitful collaboration.`
+	The goal of the CULTDAO is to support those who support decentralization. Decentralization reduces
+	or avoids corruption because if everyone has roughly the same rights, there is no ground for
+	corruption. The CULTDAO prepares the ground for fair, transparent, fruitful collaboration.`
 					)),
 					(Ot = s(r, 'BR', {})),
 					(qt = s(r, 'BR', {})),
@@ -607,7 +611,7 @@ function Mr(b) {
 						r,
 						`
 
-	Whenever anybody buys, sells or transfers our deflationary currency named 
+	Whenever anybody buys, sells or transfers our deflationary currency named
 	`
 					)),
 					(q = s(r, 'A', { href: !0, target: !0 }));
@@ -616,8 +620,9 @@ function Mr(b) {
 					Lt.forEach(c),
 					(Mt = u(
 						r,
-						`, 
-	0.4% of the  transaction volume is automatically transferred to the CULT Treasury. Whenever anybody has a great project which supports decentralization, he can 
+						`, 0.4% of the
+	transaction volume is automatically transferred to the CULT Treasury. Whenever anybody has a great
+	project which supports decentralization, he can
 	`
 					)),
 					(I = s(r, 'A', { href: !0, target: !0 }));
@@ -626,8 +631,7 @@ function Mr(b) {
 					Ut.forEach(c),
 					(St = u(
 						r,
-						` 
-	. 
+						`. 
 	The CULTDAO shareholders decide if this project receives funds from the CULT Treasury. `
 					)),
 					(Wt = s(r, 'BR', {})),
@@ -635,7 +639,7 @@ function Mr(b) {
 					(Ht = u(
 						r,
 						`
-	
+
 	To become a CULTDAO shareholder, we recommend to:`
 					)),
 					(jt = s(r, 'BR', {})),
@@ -650,7 +654,11 @@ function Mr(b) {
 				var or = f(z);
 				(Nt = u(or, 'metamask.io')),
 					or.forEach(c),
-					(Vt = u(r, ' or another browserwallet you fully trust')),
+					(Vt = u(
+						r,
+						` or another browserwallet
+	you fully trust`
+					)),
 					(Yt = s(r, 'BR', {})),
 					(Kt = s(r, 'BR', {})),
 					(Qt = u(
@@ -662,7 +670,11 @@ function Mr(b) {
 				var nr = f(M);
 				(Xt = u(nr, 'uniswap.org')),
 					nr.forEach(c),
-					(Zt = u(r, ' or your neighbor to buy CULT')),
+					(Zt = u(
+						r,
+						` or your neighbor to buy
+	CULT`
+					)),
 					(te = s(r, 'BR', {})),
 					(ee = s(r, 'BR', {})),
 					(re = u(
@@ -692,7 +704,7 @@ function Mr(b) {
 					ir.forEach(c),
 					(ie = u(
 						r,
-						`. 
+						`.
 	`
 					)),
 					(X = s(r, 'P', {}));

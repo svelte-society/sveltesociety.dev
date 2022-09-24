@@ -85,9 +85,8 @@
 	<a href="https://coinmarketcap.com/currencies/cult-dao/" target="_blank"> CULT</a>, 0.4% of the
 	transaction volume is automatically transferred to the CULT Treasury. Whenever anybody has a great
 	project which supports decentralization, he can
-	<a href="https://app.cultdao.io/submitProposal" target="_blank"> submit a CULT proposal</a>
-	. The CULTDAO shareholders decide if this project receives funds from the CULT Treasury. <br /><br
-	/>
+	<a href="https://app.cultdao.io/submitProposal" target="_blank"> submit a CULT proposal</a>. The
+	CULTDAO shareholders decide if this project receives funds from the CULT Treasury. <br /><br />
 
 	To become a CULTDAO shareholder, we recommend to:<br /><br />
 

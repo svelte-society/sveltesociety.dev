@@ -1,6 +1,6 @@
 # CULT Magazine
 
-Welcome to our decentralized [cultmagazine.org](https://cultmagazine.org). We are a volunteer network of CULTDAO fans flying around our sun on a beautiful planet named earth within a galaxy named Milky Way. We promote freedom, fairness, education, transparency and love. Everyone is invited to contribute corresponding content via [pull request](https://www.youtube.com/watch?v=8lGpZkjnkt4). You can also feel free to raise [issues](https://github.com/michael-spengler/cultmagazine/issues) on this repository if you want to suggest improvement proposals etc.
+Welcome to our decentralized [cultmagazine.org](https://cultmagazine.org). We are a volunteer network of CULTDAO fans flying around our sun on a beautiful planet named earth within a galaxy named Milky Way. We promote freedom, fairness, education, transparency and love. Everyone is invited to contribute corresponding content via [pull request](https://www.youtube.com/watch?v=8lGpZkjnkt4). You can also feel free to raise [issues](https://github.com/michael-spengler/cultmagazine/issues) on this repository if you want to suggest improvement proposals etc. We'll probably use [this github org](https://github.com/orgs/cultfamily-on-github/repositories) soon.
 
 ## Inspiration
 
@@ -47,7 +47,7 @@ Using [eff's certbot](https://certbot.eff.org/instructions?ws=other&os=ubuntufoc
 ## Manual on How to Monetize Such Contributions
 
 I submitted act of revolt 993 [here](https://revolt.cultdao.io/submitProposal).  
-It was close and it got rejected. So I lowered the reward from 0.75 to 0.5 in act of revolt 1012. 
+It was close and it got rejected. So I lowered the reward from 0.75 to 0.5 in act of revolt 1012.
 
 ![Screenshot 2022-09-22 at 22 26 19](https://user-images.githubusercontent.com/43786652/191844555-b4b9e9b7-2ff1-473c-976d-e18022625ef9.png)
 

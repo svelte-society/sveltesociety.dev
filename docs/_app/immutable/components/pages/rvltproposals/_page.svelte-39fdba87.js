@@ -4,7 +4,7 @@ import {
 	s as kt,
 	v as F,
 	a as _,
-	k as a,
+	k as n,
 	q as g,
 	w as K,
 	c as $,
@@ -22,15 +22,15 @@ import {
 	t as Q,
 	y as X,
 	o as Tt,
-	A as ae
+	A as ne
 } from '../../../chunks/index-2fad9c0c.js';
-import { w as Lt } from '../../../chunks/singletons-53791fd8.js';
-import { c as at } from '../../../chunks/components-9abf80d5.js';
+import { w as Lt } from '../../../chunks/singletons-1426f67c.js';
+import { c as nt } from '../../../chunks/components-9abf80d5.js';
 import { c as Vt } from '../../../chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js';
 import { e as ot } from '../../../chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js';
-import { S as Bt } from '../../../chunks/Seo-c4047d93.js';
-import { L as ne } from '../../../chunks/Link-2f41dbb7.js';
-import '../../../chunks/stores-28cbd078.js';
+import { S as Bt } from '../../../chunks/Seo-aa4aa096.js';
+import { L as ae } from '../../../chunks/Link-2f41dbb7.js';
+import '../../../chunks/stores-59ef06c0.js';
 var Dt = {};
 (function (u) {
 	(u.defaults = {}),
@@ -175,7 +175,7 @@ function Mt(u) {
 	let r, s, t;
 	return {
 		c() {
-			(r = a('img')),
+			(r = n('img')),
 				(t = g(`
 				Discord`)),
 				this.h();
@@ -197,7 +197,7 @@ function Mt(u) {
 		m(e, c) {
 			R(e, r, c), R(e, t, c);
 		},
-		p: ae,
+		p: ne,
 		d(e) {
 			e && f(r), e && f(t);
 		}
@@ -207,7 +207,7 @@ function Pt(u) {
 	let r, s, t;
 	return {
 		c() {
-			(r = a('img')),
+			(r = n('img')),
 				(t = g(`
 				YouTube`)),
 				this.h();
@@ -229,7 +229,7 @@ function Pt(u) {
 		m(e, c) {
 			R(e, r, c), R(e, t, c);
 		},
-		p: ae,
+		p: ne,
 		d(e) {
 			e && f(r), e && f(t);
 		}
@@ -239,7 +239,7 @@ function Ct(u) {
 	let r, s, t;
 	return {
 		c() {
-			(r = a('img')),
+			(r = n('img')),
 				(t = g(`
 				Twitter`)),
 				this.h();
@@ -261,7 +261,7 @@ function Ct(u) {
 		m(e, c) {
 			R(e, r, c), R(e, t, c);
 		},
-		p: ae,
+		p: ne,
 		d(e) {
 			e && f(r), e && f(t);
 		}
@@ -271,7 +271,7 @@ function Ot(u) {
 	let r, s, t;
 	return {
 		c() {
-			(r = a('img')),
+			(r = n('img')),
 				(t = g(`
 				Newsletter`)),
 				this.h();
@@ -293,7 +293,7 @@ function Ot(u) {
 		m(e, c) {
 			R(e, r, c), R(e, t, c);
 		},
-		p: ae,
+		p: ne,
 		d(e) {
 			e && f(r), e && f(t);
 		}
@@ -303,7 +303,7 @@ function St(u) {
 	let r, s, t;
 	return {
 		c() {
-			(r = a('img')),
+			(r = n('img')),
 				(t = g(`
 				Reddit`)),
 				this.h();
@@ -325,7 +325,7 @@ function St(u) {
 		m(e, c) {
 			R(e, r, c), R(e, t, c);
 		},
-		p: ae,
+		p: ne,
 		d(e) {
 			e && f(r), e && f(t);
 		}
@@ -335,7 +335,7 @@ function Gt(u) {
 	let r, s, t;
 	return {
 		c() {
-			(r = a('img')),
+			(r = n('img')),
 				(t = g(`
 				Podcast`)),
 				this.h();
@@ -357,7 +357,7 @@ function Gt(u) {
 		m(e, c) {
 			R(e, r, c), R(e, t, c);
 		},
-		p: ae,
+		p: ne,
 		d(e) {
 			e && f(r), e && f(t);
 		}
@@ -449,247 +449,247 @@ function Nt(u) {
 		_e;
 	return (
 		(r = new Bt({ props: { title: 'RVLT Proposals' } })),
-		(I = new ne({
+		(I = new ae({
 			props: {
 				path: 'https://discord.gg/wearecultdao',
 				$$slots: { default: [Mt] },
 				$$scope: { ctx: u }
 			}
 		})),
-		(A = new ne({
+		(A = new ae({
 			props: {
 				path: 'https://rumble.com/c/c-1902267',
 				$$slots: { default: [Pt] },
 				$$scope: { ctx: u }
 			}
 		})),
-		(M = new ne({
+		(M = new ae({
 			props: {
 				path: 'https://twitter.com/MrOmodulus',
 				$$slots: { default: [Ct] },
 				$$scope: { ctx: u }
 			}
 		})),
-		(P = new ne({
+		(P = new ae({
 			props: { path: 'https://doc.cultdao.io/', $$slots: { default: [Ot] }, $$scope: { ctx: u } }
 		})),
-		(C = new ne({
+		(C = new ae({
 			props: {
 				path: 'https://www.reddit.com/r/cultdao/',
 				$$slots: { default: [St] },
 				$$scope: { ctx: u }
 			}
 		})),
-		(O = new ne({
+		(O = new ae({
 			props: { path: 'https://www.cultradio.com/', $$slots: { default: [Gt] }, $$scope: { ctx: u } }
 		})),
 		{
 			c() {
 				F(r.$$.fragment),
 					(s = _()),
-					(t = a('div')),
-					(e = a('h2')),
+					(t = n('div')),
+					(e = n('h2')),
 					(c = g('Revolt 2 Earn')),
 					(m = _()),
-					(h = a('p')),
-					(y = a('br')),
+					(h = n('p')),
+					(y = n('br')),
 					(b = g(`
 
-	Here you can earn money while doing valuable things like supporting the CULTDAO.
-
-	After you completed your work you can 
+	Here you can earn money while doing valuable things like supporting the CULTDAO. After you
+	completed your work you can
 	`)),
-					(k = a('a')),
+					(k = n('a')),
 					(q = g('submit a link to your work')),
-					(G = g(`.
-	The community votes on each proposal deciding whether or not you receive a reward. `)),
-					($e = a('br')),
-					(we = a('br')),
+					(G = g(
+						'. The community votes on each proposal deciding whether or not you receive a reward. '
+					)),
+					($e = n('br')),
+					(we = n('br')),
 					(be = g(`
 
 	The reward comes from the
 	`)),
-					(N = a('a')),
+					(N = n('a')),
 					(ye = g('Revolt 2 Earn')),
 					(Ee = g(`
-	Treasury. The Revolt 2 Earn Treasury is automatically filled by everyone who buys, sells or transfers our deflationary currency named
+	Treasury. The Revolt 2 Earn Treasury is automatically filled by everyone who buys, sells or transfers
+	our deflationary currency named
 	`)),
-					(H = a('a')),
+					(H = n('a')),
 					(Re = g('RVLT')),
-					(ke = g(` 
+					(ke = g(`
 	because 0.4% of each RVLT transaction automatically goes to this treasury.
 
 	`)),
-					(Z = a('p')),
-					(Te = a('br')),
-					(Le = a('br')),
+					(Z = n('p')),
+					(Te = n('br')),
+					(Le = n('br')),
 					(Ve = g(`
 	If you face any difficulties feel free to reach out to our
 	`)),
-					(J = a('a')),
+					(J = n('a')),
 					(Be = g('discord community')),
-					(De = g(`. 
+					(De = g(`.
 
 	`)),
-					(ee = a('p')),
-					(Ue = a('br')),
-					(qe = a('br')),
+					(ee = n('p')),
+					(Ue = n('br')),
+					(qe = n('br')),
 					(Ie = _()),
-					(te = a('p')),
-					(Ae = a('br')),
-					(Me = a('br')),
+					(te = n('p')),
+					(Ae = n('br')),
+					(Me = n('br')),
 					(Pe = _()),
-					(oe = a('h3')),
+					(oe = n('h3')),
 					(Ce = g('RVLT Tokenomics')),
 					(Oe = _()),
-					(ie = a('p')),
-					(Se = a('br')),
+					(ie = n('p')),
+					(Se = n('br')),
 					(Ge = _()),
-					(T = a('div')),
-					(D = a('img')),
+					(T = n('div')),
+					(D = n('img')),
 					(Ne = _()),
-					(ce = a('h3')),
+					(ce = n('h3')),
 					(He = g('Join Us We Rock')),
 					(Je = _()),
-					(ue = a('p')),
-					(je = a('br')),
+					(ue = n('p')),
+					(je = n('br')),
 					(We = _()),
-					(w = a('article')),
-					(L = a('ul')),
+					(w = n('article')),
+					(L = n('ul')),
 					F(I.$$.fragment),
 					(Ye = _()),
 					F(A.$$.fragment),
 					(Fe = _()),
 					F(M.$$.fragment),
 					(Ke = _()),
-					(V = a('ul')),
+					(V = n('ul')),
 					F(P.$$.fragment),
 					(xe = _()),
 					F(C.$$.fragment),
 					(ze = _()),
 					F(O.$$.fragment),
 					(Qe = _()),
-					(j = a('embed')),
+					(j = n('embed')),
 					(Xe = _()),
-					(fe = a('p')),
-					(Ze = a('br')),
+					(fe = n('p')),
+					(Ze = n('br')),
 					(et = _()),
-					(W = a('embed')),
+					(W = n('embed')),
 					(tt = _()),
-					(de = a('p')),
-					(rt = a('br')),
+					(de = n('p')),
+					(rt = n('br')),
 					(lt = _()),
-					(S = a('div')),
-					(Y = a('embed')),
+					(S = n('div')),
+					(Y = n('embed')),
 					this.h();
 			},
 			l(d) {
 				K(r.$$.fragment, d), (s = $(d)), (t = o(d, 'DIV', { class: !0 }));
-				var n = p(t);
-				e = o(n, 'H2', {});
+				var a = p(t);
+				e = o(a, 'H2', {});
 				var me = p(e);
-				(c = v(me, 'Revolt 2 Earn')), me.forEach(f), (m = $(n)), (h = o(n, 'P', {}));
+				(c = v(me, 'Revolt 2 Earn')), me.forEach(f), (m = $(a)), (h = o(a, 'P', {}));
 				var he = p(h);
 				(y = o(he, 'BR', {})),
 					he.forEach(f),
 					(b = v(
-						n,
+						a,
 						`
 
-	Here you can earn money while doing valuable things like supporting the CULTDAO.
-
-	After you completed your work you can 
+	Here you can earn money while doing valuable things like supporting the CULTDAO. After you
+	completed your work you can
 	`
 					)),
-					(k = o(n, 'A', { href: !0, target: !0 }));
+					(k = o(a, 'A', { href: !0, target: !0 }));
 				var pe = p(k);
 				(q = v(pe, 'submit a link to your work')),
 					pe.forEach(f),
 					(G = v(
-						n,
-						`.
-	The community votes on each proposal deciding whether or not you receive a reward. `
+						a,
+						'. The community votes on each proposal deciding whether or not you receive a reward. '
 					)),
-					($e = o(n, 'BR', {})),
-					(we = o(n, 'BR', {})),
+					($e = o(a, 'BR', {})),
+					(we = o(a, 'BR', {})),
 					(be = v(
-						n,
+						a,
 						`
 
 	The reward comes from the
 	`
 					)),
-					(N = o(n, 'A', { href: !0, target: !0 }));
+					(N = o(a, 'A', { href: !0, target: !0 }));
 				var ge = p(N);
 				(ye = v(ge, 'Revolt 2 Earn')),
 					ge.forEach(f),
 					(Ee = v(
-						n,
+						a,
 						`
-	Treasury. The Revolt 2 Earn Treasury is automatically filled by everyone who buys, sells or transfers our deflationary currency named
+	Treasury. The Revolt 2 Earn Treasury is automatically filled by everyone who buys, sells or transfers
+	our deflationary currency named
 	`
 					)),
-					(H = o(n, 'A', { href: !0, target: !0 }));
+					(H = o(a, 'A', { href: !0, target: !0 }));
 				var ve = p(H);
 				(Re = v(ve, 'RVLT')),
 					ve.forEach(f),
 					(ke = v(
-						n,
-						` 
+						a,
+						`
 	because 0.4% of each RVLT transaction automatically goes to this treasury.
 
 	`
 					)),
-					(Z = o(n, 'P', {}));
+					(Z = o(a, 'P', {}));
 				var re = p(Z);
 				(Te = o(re, 'BR', {})),
 					(Le = o(re, 'BR', {})),
 					re.forEach(f),
 					(Ve = v(
-						n,
+						a,
 						`
 	If you face any difficulties feel free to reach out to our
 	`
 					)),
-					(J = o(n, 'A', { href: !0, target: !0 }));
+					(J = o(a, 'A', { href: !0, target: !0 }));
 				var ht = p(J);
 				(Be = v(ht, 'discord community')),
 					ht.forEach(f),
 					(De = v(
-						n,
-						`. 
+						a,
+						`.
 
 	`
 					)),
-					(ee = o(n, 'P', {}));
+					(ee = o(a, 'P', {}));
 				var st = p(ee);
 				(Ue = o(st, 'BR', {})),
 					(qe = o(st, 'BR', {})),
 					st.forEach(f),
-					(Ie = $(n)),
-					(te = o(n, 'P', {}));
-				var nt = p(te);
-				(Ae = o(nt, 'BR', {})),
-					(Me = o(nt, 'BR', {})),
-					nt.forEach(f),
-					(Pe = $(n)),
-					(oe = o(n, 'H3', {}));
+					(Ie = $(a)),
+					(te = o(a, 'P', {}));
+				var at = p(te);
+				(Ae = o(at, 'BR', {})),
+					(Me = o(at, 'BR', {})),
+					at.forEach(f),
+					(Pe = $(a)),
+					(oe = o(a, 'H3', {}));
 				var pt = p(oe);
-				(Ce = v(pt, 'RVLT Tokenomics')), pt.forEach(f), (Oe = $(n)), (ie = o(n, 'P', {}));
+				(Ce = v(pt, 'RVLT Tokenomics')), pt.forEach(f), (Oe = $(a)), (ie = o(a, 'P', {}));
 				var gt = p(ie);
 				(Se = o(gt, 'BR', {})),
 					gt.forEach(f),
-					(Ge = $(n)),
-					(T = o(n, 'DIV', { class: !0, style: !0 }));
+					(Ge = $(a)),
+					(T = o(a, 'DIV', { class: !0, style: !0 }));
 				var vt = p(T);
 				(D = o(vt, 'IMG', { src: !0, alt: !0, style: !0, class: !0 })),
 					vt.forEach(f),
-					(Ne = $(n)),
-					(ce = o(n, 'H3', {}));
+					(Ne = $(a)),
+					(ce = o(a, 'H3', {}));
 				var _t = p(ce);
-				(He = v(_t, 'Join Us We Rock')), _t.forEach(f), (Je = $(n)), (ue = o(n, 'P', {}));
+				(He = v(_t, 'Join Us We Rock')), _t.forEach(f), (Je = $(a)), (ue = o(a, 'P', {}));
 				var $t = p(ue);
-				(je = o($t, 'BR', {})), $t.forEach(f), (We = $(n)), (w = o(n, 'ARTICLE', { class: !0 }));
+				(je = o($t, 'BR', {})), $t.forEach(f), (We = $(a)), (w = o(a, 'ARTICLE', { class: !0 }));
 				var E = p(w);
 				L = o(E, 'UL', { class: !0 });
 				var le = p(L);
@@ -725,7 +725,7 @@ function Nt(u) {
 				(Y = o(yt, 'EMBED', { src: !0, width: !0, height: !0 })),
 					yt.forEach(f),
 					E.forEach(f),
-					n.forEach(f),
+					a.forEach(f),
 					this.h();
 			},
 			h() {
@@ -773,10 +773,10 @@ function Nt(u) {
 					i(w, 'class', 'container svelte-cqh5c8'),
 					i(t, 'class', 'text-center');
 			},
-			m(d, n) {
-				x(r, d, n),
-					R(d, s, n),
-					R(d, t, n),
+			m(d, a) {
+				x(r, d, a),
+					R(d, s, a),
+					R(d, t, a),
 					l(t, e),
 					l(e, c),
 					l(t, m),
@@ -854,19 +854,19 @@ function Nt(u) {
 					l(S, Y),
 					(_e = !0);
 			},
-			p(d, [n]) {
+			p(d, [a]) {
 				const me = {};
-				n & 4096 && (me.$$scope = { dirty: n, ctx: d }), I.$set(me);
+				a & 4096 && (me.$$scope = { dirty: a, ctx: d }), I.$set(me);
 				const he = {};
-				n & 4096 && (he.$$scope = { dirty: n, ctx: d }), A.$set(he);
+				a & 4096 && (he.$$scope = { dirty: a, ctx: d }), A.$set(he);
 				const pe = {};
-				n & 4096 && (pe.$$scope = { dirty: n, ctx: d }), M.$set(pe);
+				a & 4096 && (pe.$$scope = { dirty: a, ctx: d }), M.$set(pe);
 				const ge = {};
-				n & 4096 && (ge.$$scope = { dirty: n, ctx: d }), P.$set(ge);
+				a & 4096 && (ge.$$scope = { dirty: a, ctx: d }), P.$set(ge);
 				const ve = {};
-				n & 4096 && (ve.$$scope = { dirty: n, ctx: d }), C.$set(ve);
+				a & 4096 && (ve.$$scope = { dirty: a, ctx: d }), C.$set(ve);
 				const re = {};
-				n & 4096 && (re.$$scope = { dirty: n, ctx: d }), O.$set(re);
+				a & 4096 && (re.$$scope = { dirty: a, ctx: d }), O.$set(re);
 			},
 			i(d) {
 				_e ||
@@ -899,9 +899,9 @@ let it = null,
 	ct = null;
 function Ht(u, r, s) {
 	let t;
-	ot(at, 'tags');
+	ot(nt, 'tags');
 	let e = [];
-	[...ot(at, 'category').filter((b) => b.value !== '')];
+	[...ot(nt, 'category').filter((b) => b.value !== '')];
 	let c = null,
 		m = 'stars_desc',
 		h = { value: 'stars_desc', label: 'Stars Desc' };
@@ -914,7 +914,7 @@ function Ht(u, r, s) {
 			u.$$.dirty & 7 &&
 				s(
 					3,
-					(t = at
+					(t = nt
 						.filter((b) =>
 							e.length === 0 && c === null
 								? !0
