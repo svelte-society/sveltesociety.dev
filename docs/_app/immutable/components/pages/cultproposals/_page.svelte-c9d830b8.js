@@ -26,10 +26,10 @@ import {
 import { c as Ar } from '../../../chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js';
 import { c as tr } from '../../../chunks/cultproposals-be315c4c.js';
 import { e as er } from '../../../chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js';
-import { S as Br } from '../../../chunks/Seo-aa4aa096.js';
+import { S as Br } from '../../../chunks/Seo-a81880ba.js';
 import { L as rt } from '../../../chunks/Link-2f41dbb7.js';
-import '../../../chunks/stores-59ef06c0.js';
-import '../../../chunks/singletons-1426f67c.js';
+import '../../../chunks/stores-d20cd678.js';
+import '../../../chunks/singletons-7010749a.js';
 function Dr(b) {
 	let l, p, t;
 	return {
@@ -433,8 +433,8 @@ function Mr(b) {
 	`)),
 					(I = a('a')),
 					(Gt = i('submit a CULT proposal')),
-					(St = i(`. 
-	The CULTDAO shareholders decide if this project receives funds from the CULT Treasury. `)),
+					(St = i(`. The
+	CULTDAO shareholders decide if this project receives funds from the CULT Treasury. `)),
 					(Wt = a('br')),
 					(xt = a('br')),
 					(Ht = i(`
@@ -631,8 +631,8 @@ function Mr(b) {
 					Ut.forEach(c),
 					(St = u(
 						r,
-						`. 
-	The CULTDAO shareholders decide if this project receives funds from the CULT Treasury. `
+						`. The
+	CULTDAO shareholders decide if this project receives funds from the CULT Treasury. `
 					)),
 					(Wt = s(r, 'BR', {})),
 					(xt = s(r, 'BR', {})),
