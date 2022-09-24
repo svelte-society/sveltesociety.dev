@@ -89,12 +89,12 @@
 		<p><br /><br /></p>
 		<p><br /></p>
 
+		
+		<h3>CULTDAO in 100 Seconds with Michael Saylor</h3>
+		<p><br /><br /></p>
 		<!-- https://rumble.com/v1ldzl9-cultdao-in-100-seconds-michael-saylor-talks-about-cult.html
 			
 		-->
-
-		<h3>CULTDAO in 100 Seconds with Michael Saylor</h3>
-		<p><br /><br /></p>
 
 		<iframe
 			class="rumble"
@@ -106,6 +106,11 @@
 			title="CULTDAO in 100 seconds with Michael Saylor"
 		/>
 
+		<p><br /><br /><br /><br /></p>
+		
+		<h3>Revolt 2 Earn in 100 Seconds with Michael Saylor</h3>
+		<p><br /><br /></p>
+		... under construction ... 
 		<p><br /><br /><br /><br /></p>
 		<h3>Join Us We Rock</h3>
 	</div>
@@ -188,6 +193,9 @@
 			<li>
 				4. buy (the dip) CULT on
 				<a href="https://uniswap.org" target="_blank"> uniswap.org </a>
+			</li>
+			<li>
+				5. bookmark the fancy page which you are currently on
 			</li>
 		</ol>
 
