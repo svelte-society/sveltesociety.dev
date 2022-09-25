@@ -2714,8 +2714,18 @@
 		"npm": "svelte-currency-input",
 		"addedOn": "2022-09-19",
 		"category": "Forms & User Input",
-		"tags": ["forms", "inputs and widgets",	"internationalization",	"typescript"],
+		"tags": ["forms", "inputs and widgets", "internationalization", "typescript"],
 		"stars": 2
+	},
+	{
+		"title": "flowbite-svelte",
+		"url": "https://github.com/themesberg/flowbite-svelte",
+		"description": "Official Svelte components built for Flowbite and Tailwind CSS",
+		"npm": "flowbite-svelte",
+		"addedOn": "2022-09-24",
+		"category": "Design System",
+		"tags": ["components and libraries", "component sets"],
+		"stars": 249
 	},
 	{
 		"title": "typesafe-i18n",
@@ -2747,15 +2757,13 @@
 		"stars": 8
 	},
 	{
-	"title": "svelte-exstore",
-	"url": "https://github.com/noney1412/svelte-exstore",
-	"description": "Connect your store to Redux Devtools to enhance your work flow.",
-	"npm": "svelte-exstore",
-	"addedOn": "2022-09-22",
-	"category": "Stores",
-	"tags": [
-		"stores and state"
-	],
-	"stars": 0
+		"title": "svelte-exstore",
+		"url": "https://github.com/noney1412/svelte-exstore",
+		"description": "Connect your store to Redux Devtools to enhance your work flow.",
+		"npm": "svelte-exstore",
+		"addedOn": "2022-09-22",
+		"category": "Stores",
+		"tags": ["stores and state"],
+		"stars": 0
 	}
 ]
