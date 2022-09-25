@@ -118,11 +118,11 @@
 		frameborder="0"
 		allowfullscreen
 		title="CULTDAO in 100 seconds with Michael Saylor"
-	/>
+		/>
 		<p><br /><br /><br /><br /></p>
 		<h3>Join Us We Rock</h3>
 	</div>
-
+	
 	<ul>
 		<Link path="https://discord.gg/wearecultdao">
 			<img src="images/discord.svg" alt="" />
@@ -151,14 +151,32 @@
 			Podcast
 		</Link>
 	</ul>
+	
+	<div class="text-center">
 
-	<p class="text-center">
+	<section id="rumble">
+
+		<h3>We Support rumble.com</h3>
+		<p><br /></p>
+		<iframe
+		class="rumble"
+		width="100%"
+		height="600"
+		src="https://rumble.com/embed/v1im0wr/?pub=1e5w3p"
+		frameborder="0"
+		allowfullscreen
+		title="CULTDAO in 100 seconds with Michael Saylor"
+		/>
+	</section>
+	</div>	
+	
+	<!-- <p class="text-center">
 		We also recommend to visit
 		<a href="https://cultoshi.com" target="_blank"> cultoshi.com</a>,
 		<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a>,
 		<a href="https://dripxkarip.com" target="_blank"> dripxkarip.com</a>,
 		<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
-	</p>
+	</p> -->
 
 	<div class="text-center">
 		<h3>State of the Game in September 2022</h3>
