@@ -108,8 +108,19 @@
 
 		<p><br /><br /><br /><br /></p>
 		
+		<!-- <h3>Free Internet & Freedom of Speech</h3>
+		<p><br /></p>
+		The cultmagazine supports free internet & freedom of speech.   <br><br>
+		Please retweet the following tweet or share this facebook post? 
+
+		#starlinkiscult 
+
+		<p><br /></p> -->
 		<h3>Revolt 2 Earn in 100 Seconds with Michael Saylor</h3>
+		<p><br /></p>
+		Please buy the dip and talk about CULT.
 		<p><br /><br /></p>
+
 		<iframe
 		class="rumble"
 		width="100%"
@@ -168,41 +179,51 @@
 		title="CULTDAO in 100 seconds with Michael Saylor"
 		/>
 	</section>
-	</div>	
+</div>	
+
+<!-- <p class="text-center">
+	We also recommend to visit
+	<a href="https://cultoshi.com" target="_blank"> cultoshi.com</a>,
+	<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a>,
+	<a href="https://dripxkarip.com" target="_blank"> dripxkarip.com</a>,
+	<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
+</p> -->
+
+<section id="stateofthegame">
 	
-	<!-- <p class="text-center">
-		We also recommend to visit
-		<a href="https://cultoshi.com" target="_blank"> cultoshi.com</a>,
-		<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a>,
-		<a href="https://dripxkarip.com" target="_blank"> dripxkarip.com</a>,
-		<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
-	</p> -->
-
-	<section id="stateofthegame">
-
-
+	
 	<div class="text-center">
 		<h3>State of the Game in September 2022</h3>
 		<p><br /></p>
-
+		
 		During the upcoming winter, politicians want you hungry, cold and full of fear so that they can
-		offer you fucked up "solutions" like Central Bank Digital Currencies (CBDCs)... with which they
+		offer you things like Central Bank Digital Currencies (CBDCs)... with which they
 		want to expand their power and take away your rights and freedom.<br /><br />
 		This is why politicians force young people (aka soldiers) to kill the victims of the other propaganda
 		mutually. <br /><br />
-		This is why politicians want to destroy farmers.<br /><br />
-		This is why politicians want to keep you stupid.<br /><br />
-		Everyone who is not doing anything against this injustice, seems to me like an opportunistic fucked
-		up b*tch - especially the ones who could easily afford to stand up for fairness, freedom and justice
-		every single day. <br /><br />
-
-		We are looking for content creators who care about fairness, freedom and justice to become
-		content creators for the
-		<a href="https://cultmagazine.org" target="_blank"> cultmagazine.org </a> <br /><br />
-
-		We are the A-Team. We support Decentralization.<br /><br />
+		This is why politicians want to destroy farmers and food facilities.<br /><br />
+		This is why politicians want to keep you stupid. <br /><br />
+		
+		Guess what. They messed around with the wrong people.<br /><br />
+		
 		CULT is the financial hub of a new, free society. <br />
 		RVLT is the council & support system.<br /><br />
+		
+		We are the A-Team. <br><br> 
+
+		<!-- <iframe
+		class="rumble"
+		width="100%"
+		height="600"
+		src="https://www.youtube.com/watch?v=FPQlXNH36mI"
+		frameborder="0"
+		allowfullscreen
+		title="I love it when a plan comes together"
+		/> -->
+
+
+		We support Decentralization.<br /><br />
+
 	</div>
 </section>
 	<div class="text-center">
