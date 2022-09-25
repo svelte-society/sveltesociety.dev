@@ -178,6 +178,9 @@
 		<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
 	</p> -->
 
+	<section id="stateofthegame">
+
+
 	<div class="text-center">
 		<h3>State of the Game in September 2022</h3>
 		<p><br /></p>
@@ -201,6 +204,7 @@
 		CULT is the financial hub of a new, free society. <br />
 		RVLT is the council & support system.<br /><br />
 	</div>
+</section>
 	<div class="text-center">
 		<h3>Basic Tips for Newcomers</h3>
 		<p><br /></p>
