@@ -1,4 +1,4 @@
-import{S as Ir,i as qr,s as zr,v as J,a as d,k as a,q as c,w as N,c as g,l as s,m as h,r as u,h as i,n as o,B as O,p as at,x as V,b as _,C as e,f as Y,t as K,y as Q,A as lt}from"../../../chunks/index-2fad9c0c.js";import{c as Gr}from"../../../chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js";import{c as nr}from"../../../chunks/cultproposals-be315c4c.js";import{e as or}from"../../../chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js";import{S as Mr}from"../../../chunks/Seo-4249305e.js";import{L as st}from"../../../chunks/Link-2f41dbb7.js";import"../../../chunks/stores-1ba7ae66.js";import"../../../chunks/singletons-9e747a23.js";function jr(b){let l,p,t;return{c(){l=a("img"),t=c(`
+import{S as Ir,i as qr,s as zr,v as J,a as d,k as a,q as c,w as N,c as g,l as s,m as h,r as u,h as i,n as o,B as O,p as at,x as V,b as _,C as e,f as Y,t as K,y as Q,A as lt}from"../../../chunks/index-2fad9c0c.js";import{c as Gr}from"../../../chunks/Select.svelte_svelte_type_style_lang-e1f3ca44.js";import{c as nr}from"../../../chunks/cultproposals-be315c4c.js";import{e as or}from"../../../chunks/Select.svelte_svelte_type_style_lang-bb1ab90c.js";import{S as Mr}from"../../../chunks/Seo-f4ef246c.js";import{L as st}from"../../../chunks/Link-2f41dbb7.js";import"../../../chunks/stores-894ef118.js";import"../../../chunks/singletons-4ce55d52.js";function jr(b){let l,p,t;return{c(){l=a("img"),t=c(`
 				Discord`),this.h()},l(n){l=s(n,"IMG",{src:!0,alt:!0,class:!0}),t=u(n,`
 				Discord`),this.h()},h(){O(l.src,p="images/discord.svg")||o(l,"src",p),o(l,"alt",""),o(l,"class","svelte-cqh5c8")},m(n,m){_(n,l,m),_(n,t,m)},p:lt,d(n){n&&i(l),n&&i(t)}}}function Sr(b){let l,p,t;return{c(){l=a("img"),t=c(`
 				YouTube`),this.h()},l(n){l=s(n,"IMG",{src:!0,alt:!0,class:!0}),t=u(n,`
@@ -34,7 +34,7 @@ import{S as Ir,i as qr,s as zr,v as J,a as d,k as a,q as c,w as N,c as g,l as s,
 	and 
 	`),G=a("a"),Ft=c("Beeeeeeeeeeeeeeeee Rooots"),Jt=c(`
 	decide if the CULTDAO invests into this project. `),Nt=a("br"),Vt=a("br"),Yt=c(` 
-	If you invest into CULT you implicitly invest into many more projects validated by the CULT shareholders.
+	If you invest into CULT you implicitly invest into many more promising projects validated by the CULT shareholders.
 
 	To become a CULTDAO shareholder, we recommend to:`),Kt=a("br"),Qt=a("br"),Xt=c(`
 
@@ -81,7 +81,7 @@ import{S as Ir,i as qr,s as zr,v as J,a as d,k as a,q as c,w as N,c as g,l as s,
 	and 
 	`),G=s(r,"A",{href:!0,target:!0});var pr=h(G);Ft=u(pr,"Beeeeeeeeeeeeeeeee Rooots"),pr.forEach(i),Jt=u(r,`
 	decide if the CULTDAO invests into this project. `),Nt=s(r,"BR",{}),Vt=s(r,"BR",{}),Yt=u(r,` 
-	If you invest into CULT you implicitly invest into many more projects validated by the CULT shareholders.
+	If you invest into CULT you implicitly invest into many more promising projects validated by the CULT shareholders.
 
 	To become a CULTDAO shareholder, we recommend to:`),Kt=s(r,"BR",{}),Qt=s(r,"BR",{}),Xt=u(r,`
 

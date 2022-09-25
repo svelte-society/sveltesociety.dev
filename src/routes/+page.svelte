@@ -100,7 +100,7 @@
 			class="rumble"
 			width="100%"
 			height="600"
-			src="https://rumble.com/embed/v1irto1/?pub=1e5w3p"
+			src="https://rumble.com/embed/v1isz4j/?pub=1e5w3p"
 			frameborder="0"
 			allowfullscreen
 			title="CULTDAO in 100 seconds with Michael Saylor"
@@ -110,7 +110,15 @@
 		
 		<h3>Revolt 2 Earn in 100 Seconds with Michael Saylor</h3>
 		<p><br /><br /></p>
-		... under construction ... 
+		<iframe
+		class="rumble"
+		width="100%"
+		height="600"
+		src="https://rumble.com/embed/v1isy13/?pub=1e5w3p"
+		frameborder="0"
+		allowfullscreen
+		title="CULTDAO in 100 seconds with Michael Saylor"
+	/>
 		<p><br /><br /><br /><br /></p>
 		<h3>Join Us We Rock</h3>
 	</div>
