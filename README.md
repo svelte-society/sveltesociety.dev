@@ -2,8 +2,14 @@
 
 Welcome to our decentralized [cultmagazine.org](https://cultmagazine.org). We are a volunteer network of CULTDAO fans flying around our sun on a beautiful planet named earth within a galaxy named Milky Way. We promote freedom, fairness, education, transparency and love. Everyone is invited to contribute corresponding content via [pull request](https://www.youtube.com/watch?v=8lGpZkjnkt4). You can also feel free to raise [issues](https://github.com/michael-spengler/cultmagazine/issues) on this repository if you want to suggest improvement proposals etc. We'll probably use [this github org](https://github.com/orgs/cultfamily-on-github/repositories) soon.
 
-## Inspiration
+## Architecture
+In order to strengthen resilience, scalability and technological freedom for contributors, we establish a microservices architecture. 
 
+With that we also ensure that the single components of the mag like news, events, ressources, markets can evolve independently. 
+
+The plan is to just embed those components to make sure the cult mag code itself does not need to be changed longterm. The benefit of that is that we can easily deploy and provide the mag itself via ipfs. The experiences made in the context of the [cultkamasutra.eth.limo](https://cultkamasutra.eth.limo/) can be helpful in this endeavor. 
+
+## Inspiration
 [Fairness](https://github.com/michael-spengler/fairness)
 
 ## Developing
