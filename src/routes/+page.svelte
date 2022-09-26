@@ -271,7 +271,7 @@
 					<li>1. Share this page with your friends</li>
 					<br />
 					<li>
-						2. Join <a href="https://cultmagazine.org#communitylinks" target="_blank"> our community</a>
+						2. Join <a href="https://discord.com/invite/wearecultdao" target="_blank"> our community</a>
 						to educate yourself and others
 					</li>
 					<br />
