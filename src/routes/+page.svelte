@@ -20,7 +20,7 @@
 			>, education, and <a href="https://cultkamasutra.eth.limo/" target="_blank"> love</a>.
 		</p><br> -->
 		<p>
-			Everyone is invited to collect and contribute to this decentralized magazine via <a
+			Everyone is invited to contribute to this decentralized magazine via <a
 				href="https://github.com/michael-spengler/cultmagazine"
 				target="_blank">pull request</a
 			>.
@@ -120,7 +120,15 @@
 		<p><br /></p> -->
 		<h3>Revolt 2 Earn in 100 Seconds with Michael Saylor</h3>
 		<p><br /></p>
-		Please buy the dip and revolt 2 earn after watching this video.
+		Please 
+		<a href="https://uniswap.org/" target="_blank">
+			buy the dip 	
+		</a>
+		and 
+		<a href="https://revolt.cultdao.io/submitProposal" target="_blank">
+			revolt 2 earn 	
+		</a>
+		after watching this video.
 		<p><br /><br /></p>
 
 		<iframe
