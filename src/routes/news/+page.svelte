@@ -74,6 +74,7 @@
 	of teh many and to join our community.<br /><br />
 	<p><br /></p>
 
+	<a href="https://twitter.com/MERP40400977" target="_blank"> MERP - #TALKABOUTCULT</a> <br /><br />
 	<a href="https://twitter.com/MrOmodulus" target="_blank"> Mr O</a> <br /><br />
 	<a href="https://twitter.com/Artorias_eth" target="_blank"> Artorias</a> <br /><br />
 	<a href="https://twitter.com/iamcomingundone" target="_blank"> Holly</a>
