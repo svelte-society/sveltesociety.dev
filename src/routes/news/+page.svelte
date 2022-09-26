@@ -5,7 +5,7 @@
 	import news from './news.json';
 	import Select from '$lib/components/Select.svelte';
 	import { extractUnique } from '$lib/utils/extractUnique';
-	import { compare, selectSortItems } from '$lib/utils/sort';
+	// import { compare, selectSortItems } from '$lib/utils/sort';
 	import components from '../news/news.json';
 	import Seo from '$lib/components/Seo.svelte';
 	import Link from '$layout/Link.svelte';

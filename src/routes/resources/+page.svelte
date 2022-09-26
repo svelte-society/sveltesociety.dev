@@ -47,69 +47,10 @@
 			height="700"
 		/>
 
-		<!-- <h2>Books</h2>
-			
-			<div>There are a few books from major publishers:</div>
-			<ul>
-				{#each booksFromPublisher as { name, link, author }}
-				<li><a href={link} target="_blank">{name}</a> by {author}</li>
-				{/each}
-			</ul>
-			
-			<div>As well as a couple self-published books:</div>
-			<ul>
-				{#each booksSelfPublished as { name, link, author }}
-				<li><a href={link} target="_blank">{name}</a> by {author}</li>
-				{/each}
-			</ul>
-			
-			<h2>Videos</h2>
-			
-			<div>Rich Harris, the creator of Svelte, taught a course:</div>
-			<ul>
-				<li>
-					<a href="https://frontendmasters.com/courses/svelte/" target="_blank">Frontend Masters</a>
-				</li>
-			</ul>
-			
-			<div>There are also a number of third-party courses:</div>
-			<ul>
-				<li><a href="https://egghead.io/browse/frameworks/svelte" target="_blank">Egghead</a></li>
-				<li>
-					<a href="https://www.udemy.com/courses/search/?q=sveltejs+svelte" target="_blank">Udemy</a> (Note:
-					Udemy frequently has discounts over 90%)
-				</li>
-				<li><a href="https://www.pluralsight.com/search?q=svelte" target="_blank">Pluralsight</a></li>
-			</ul>
-			
-			<div>Finally, there are also YouTube channels and playlists that teach Svelte:</div>
-			<ul>
-				<li>
-					<a href="https://www.youtube.com/channel/UCg6SQd5jnWo5Y70rZD9SQFA" target="_blank"
-					>Svelte Master</a
-					>
-				</li>
-				<li>
-					<a
-					href="https://www.youtube.com/watch?v=zojEMeQGGHs&list=PL4cUxeGkcC9hlbrVO_2QFVqVPhlZmz7tO"
-					target="_blank">Svelte Tutorial for Beginners</a
-					> by The Net Ninja
-				</li>
-			</ul> -->
+		
 	</div>
 </div>
 
 <style>
-	/* h2 {
-				margin-bottom: var(--s-6);
-			}
-			ul {
-				padding-left: var(--s-6);
-				margin-top: var(--s-6);
-				margin-bottom: var(--s-10);
-			}
-			li {
-				list-style: circle;
-				line-height: 150%;
-			} */
+
 </style>

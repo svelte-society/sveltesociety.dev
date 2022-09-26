@@ -185,14 +185,6 @@
 		</section>
 	</div>
 
-	<!-- <p class="text-center">
-	We also recommend to visit
-	<a href="https://cultoshi.com" target="_blank"> cultoshi.com</a>,
-	<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a>,
-	<a href="https://dripxkarip.com" target="_blank"> dripxkarip.com</a>,
-	<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
-</p> -->
-
 	<section id="stateofthegame">
 		<div class="text-center">
 			<h3>State of the Game in September 2022</h3>
@@ -291,8 +283,8 @@
 					</li>
 					<br />
 					<li>6. Bookmark the fancy page which you are currently on</li><br>
-					<li>7. Let us learn from   
-						<a href="https://www.youtube.com/watch?v=09maaUaRT4M" target="_blank"> that</a> 
+					<li>7. Let us learn 
+						<a href="https://www.youtube.com/watch?v=09maaUaRT4M" target="_blank"> from that</a> 
 						and heal
 						
 					</li>

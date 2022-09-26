@@ -17,8 +17,8 @@
 		here</a
 	>.
 	<p><br /></p>
-	<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a>, <br /><br />
-	<a href="https://dripxkarip.com" target="_blank"> dripxkarip.com</a>,<br /><br />
+	<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a> <br /><br />
+	<a href="https://dripxkarip.com" target="_blank"> dripxkarip.com</a><br /><br />
 	<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
 	<p><br /><br /></p>
 
