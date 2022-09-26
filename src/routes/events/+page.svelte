@@ -45,7 +45,10 @@
 	<a href="https://twitter.com/iamcomingundone" target="_blank"> Holly</a>
 
 	<p><br><br></p>
-	The following is to document some design ideas for the CULT Events Microservice.
+	The following is to document design ideas for the CULT Events Microservice. <br><br>
+
+
+	... Under Construction ...
 	<p><br><br></p>
 </div>
 <article class="wrapper">

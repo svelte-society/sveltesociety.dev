@@ -70,12 +70,12 @@
 	The latest CULT statistics can be found via
 	<a href="https://dune.com/web3_data/CULT" target="_blank"> this link</a>.
 	<p><br /></p>
-	Until the 
+	Until the
 	<a href="https://github.com/cultfamily-on-github/cult-news-microservice" target="_blank">
-		CULT News Microservice 
+		CULT News Microservice
 	</a>
-	is available, the best way to stay up to date might be to follow some
-	of teh many and to join our community.<br /><br />
+	is available, the best way to stay up to date might be to follow some of teh many and to join our community.<br
+	/><br />
 	<p><br /></p>
 
 	<a href="https://twitter.com/MERP40400977" target="_blank"> MERP - #TALKABOUTCULT</a> <br /><br />
@@ -119,6 +119,11 @@
 	<p><br /><br /></p>
 	<h3>CULT News Filter</h3>
 
+	<p><br /><br /></p>
+		The following is to document design ideas for the CULT News Microservice. <br><br>
+
+		... Under Construction ...
+	<p><br /><br /></p>
 	<SearchLayout title="">
 		<section slot="controls" class="controls">
 			<div class="inputs">
