@@ -70,7 +70,11 @@
 	The latest CULT statistics can be found via
 	<a href="https://dune.com/web3_data/CULT" target="_blank"> this link</a>.
 	<p><br /></p>
-	Until the CULT News Feed is sufficiently automated, the best way to stay up to date is to follow some
+	Until the 
+	<a href="https://github.com/cultfamily-on-github/cult-news-microservice" target="_blank">
+		CULT News Microservice 
+	</a>
+	is available, the best way to stay up to date might be to follow some
 	of teh many and to join our community.<br /><br />
 	<p><br /></p>
 

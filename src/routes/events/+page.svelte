@@ -31,13 +31,22 @@
 	<!-- <p><br /></p>
 	The following is just to get some design- / layout ideas -->
 
-	Maintain Events
-	<a
-		href="https://github.com/michael-spengler/cultmagazine/tree/staging/src/routes/events"
-		target="_blank"
-	>
-		here</a
-	>.
+	Until the 
+	<a href="https://github.com/cultfamily-on-github/cult-events-microservice" target="_blank">
+		CULT Events Microservice 
+	</a>
+	is available, the best way to stay up to date might be to follow some
+	of teh many and to join our community.<br /><br />
+	<p><br /></p>
+
+	<a href="https://twitter.com/MERP40400977" target="_blank"> MERP - #TALKABOUTCULT</a> <br /><br />
+	<a href="https://twitter.com/MrOmodulus" target="_blank"> Mr O</a> <br /><br />
+	<a href="https://twitter.com/Artorias_eth" target="_blank"> Artorias</a> <br /><br />
+	<a href="https://twitter.com/iamcomingundone" target="_blank"> Holly</a>
+
+	<p><br><br></p>
+	The following is to document some design ideas for the CULT Events Microservice.
+	<p><br><br></p>
 </div>
 <article class="wrapper">
 	<section class="event-wrapper">

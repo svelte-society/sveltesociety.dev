@@ -11,7 +11,7 @@
 <article class="container">
 	<h2 class="text-center">CULT Magazine</h2>
 	<section class="text-center">
-		<p>The CULT Magazine might inspire people to explore and potentially improve the architecture of freedom.</p><br>
+		<p>The CULT Magazine might inspire people to explore and potentially improve architectures of freedom.</p><br>
 		<!-- <p>
 			We are a network of <a href="https://cultdao.io" target="_blank">cultdao.io</a> fans promoting
 			freedom,
