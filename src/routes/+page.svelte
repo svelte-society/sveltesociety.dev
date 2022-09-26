@@ -11,13 +11,14 @@
 <article class="container">
 	<h2 class="text-center">CULT Magazine</h2>
 	<section class="text-center">
-		<p>
+		<p>The CULT Magazine might inspire people to explore and potentially improve the architecture of freedom.</p><br>
+		<!-- <p>
 			We are a network of <a href="https://cultdao.io" target="_blank">cultdao.io</a> fans promoting
 			freedom,
 			<a href="https://github.com/michael-spengler/fairness/blob/main/README.md" target="_blank">
 				fairness</a
 			>, education, and <a href="https://cultkamasutra.eth.limo/" target="_blank"> love</a>.
-		</p><br>
+		</p><br> -->
 		<p>
 			Everyone is invited to collect and contribute to this decentralized magazine via <a
 				href="https://github.com/michael-spengler/cultmagazine"
@@ -25,12 +26,12 @@
 			>.
 		</p><br>
 		<p>
-			Each contribution can be submitted as an <a
+			Each contribution can be rewarded as an <a
 				href="https://revolt.cultdao.io/submitProposal"
 				target="_blank">act of revolt</a
 			>.
 		</p><br>
-		<p>You might be interested in</p><br>
+		<!-- <p>You might be interested in</p><br>
 		<p>
 			<a href="/cultproposals">CULT Proposals</a><br />
 		</p><br>
@@ -48,7 +49,7 @@
 		</p><br>
 		<p>
 			<a href="/markets">CULT Markets</a><br />
-		</p>
+		</p> -->
 		<!-- <p>
 			<a href="/markets">CULT Chats (coming soon)</a><br />
 		</p> -->
@@ -244,7 +245,7 @@
 			<div class="text-center">
 				<h3>Time For Some Action</h3>
 				<p><br /></p>
-				Let us be followers, fans, friends and supporters of the CULT
+				Let's get ready for the party.
 
 				<p><br></p>
 				<iframe
