@@ -250,7 +250,7 @@
 			<div class="text-center">
 				<h3>Time For Some Action</h3>
 				<p><br /></p>
-				Please be one of our first followers.
+				Let us be followers, fans, friends and supporters of the CULT
 
 				<p><br></p>
 				<iframe
@@ -274,7 +274,7 @@
 					</li>
 					<br />
 					<li>
-						3. install <a href="https://metamask.io" target="_blank"> metamask.io </a> 
+						3. Install <a href="https://metamask.io" target="_blank"> metamask.io </a> 
 						or another browserwallet you fully trust
 					</li>
 					<br />
@@ -284,11 +284,16 @@
 					</li>
 					<br />
 					<li>
-						5. buy (the dip) CULT on
+						5. Buy (the dip) CULT on
 						<a href="https://uniswap.org" target="_blank"> uniswap.org </a>
 					</li>
 					<br />
-					<li>6. bookmark the fancy page which you are currently on</li>
+					<li>6. Bookmark the fancy page which you are currently on</li><br>
+					<li>7. Let us learn from   
+						<a href="https://www.youtube.com/watch?v=09maaUaRT4M" target="_blank"> that</a> 
+						and heal
+						
+					</li>
 					
 					
 				</ol>
@@ -304,7 +309,10 @@
 				<!-- <p><br><br></p>
 				<h3>Further Education</h3>
 				<p><br></p>
-				As soon as you followed the steps from above you might also watch the following video
+				As soon as you followed the steps from above you might also watch the following video. <br><br>
+				The cultmagazine is a decentralized magazine and you are invited 
+				<a href="https://github.com/michael-spengler/cultmagazine" target="_blank"> to contribute</a> . 
+
 				<p><br></p>
 
 				<iframe
