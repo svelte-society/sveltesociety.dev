@@ -5,7 +5,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"start": "vite dev --open",
-		"build": "rm -rf ./docs && vite build && cp -r ./build ./docs && ./prepare-4-gh-pages.sh",
+		"build": "rm -rf ./docs-backup && mv ./docs ./docs-backup && vite build && cp -r ./build ./docs && ./prepare-4-gh-pages.sh",
 		"preview": "vite preview",
 		"test": "jest"
 	},
