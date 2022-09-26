@@ -216,7 +216,7 @@
 			<h3>Our Solution Proposal</h3>
 			<p><br /></p>
 
-			CULT is the financial hub of a new, free society.<br />
+			CULT is the financial hub of a new, free society.<br /><br />
 			RVLT is the council & support system.<br /><br />
 
 			We are the A-Team. <br /><br />
