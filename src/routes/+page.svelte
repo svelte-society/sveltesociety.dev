@@ -41,7 +41,7 @@
 
 	<!-- temp here for video movement -->
 
-	<iframe
+	<!-- <iframe
 		class="rumble"
 		width="100%"
 		height="600"
@@ -49,10 +49,10 @@
 		frameborder="0"
 		allowfullscreen
 		title="Getting Ready"
-	/>
+	/> -->
 
 	<!-- long term -->
-	<!-- <iframe
+	<iframe
 		class="rumble"
 		width="100%"
 		height="600"
@@ -60,7 +60,7 @@
 		frameborder="0"
 		allowfullscreen
 		title="Getting Ready"
-	/> -->
+	/>
 
 	<div class="text-center">
 		<a href="https://cultdao.io/manifesto.pdf">CULT</a> <br /><br /> is the financial hub of a new,
