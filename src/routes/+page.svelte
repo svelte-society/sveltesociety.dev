@@ -28,30 +28,6 @@
 
 	</section>
 
-	<!-- temp here for video a-team -->
-	<!-- <iframe
-		class="rumble"
-		width="100%"
-		height="600"
-		src="https://www.youtube.com/embed/NsUFBm1uENs"
-		frameborder="0"
-		allowfullscreen
-		title="Getting Ready"
-	/> -->
-
-	<!-- temp here for video movement -->
-
-	<!-- <iframe
-		class="rumble"
-		width="100%"
-		height="600"
-		src="https://www.youtube.com/embed/fW8amMCVAJQ"
-		frameborder="0"
-		allowfullscreen
-		title="Getting Ready"
-	/> -->
-
-	<!-- long term -->
 	<iframe
 		class="rumble"
 		width="100%"

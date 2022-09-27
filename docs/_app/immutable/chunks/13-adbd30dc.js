@@ -1,0 +1,1 @@
+import{default as c}from"../components/pages/rvltproposals/_page.svelte-202a3166.js";import"./index-2fad9c0c.js";import"./singletons-4a59dcc8.js";import"./components-9abf80d5.js";/* empty css                                             */import"./extractUnique-d83c8d98.js";import"./Seo-0db8a000.js";import"./stores-bf1427fb.js";import"./Link-2f41dbb7.js";export{c as component};
