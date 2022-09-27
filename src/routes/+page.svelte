@@ -187,53 +187,20 @@
 			<p><br /></p>
 			Guess what. Those politicians messed around with the wrong guys.<br /><br /><br />
 
-			<h3>Our Solution Proposal</h3>
-			<p><br /></p>
-
-			CULT is the financial hub of a new, free society.<br /><br />
-			RVLT is the council & support system.<br /><br />
-
-			We are the A-Team. <br /><br />
-
-			<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/FPQlXNH36mI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-
-			<iframe
-				class="rumble"
-				width="100%"
-				height="600"
-				src="https://www.youtube.com/embed/FPQlXNH36mI"
-				frameborder="0"
-				allowfullscreen
-				title="The A-Team Supports"
-			/>
-			<br>
-			
-			The power they took from the people will return to the people.
-			<!-- <iframe
-				class="rumble"
-				width="100%"
-				height="600"
-				src="https://www.youtube.com/watch?v=FPQlXNH36mI"
-				frameborder="0"
-				allowfullscreen
-				title="I love it when a plan comes together"
-				/> -->
-				<!-- We support decentralization to prepare the ground for a real direct democracy. <br /><br />
-					Education is key. Please help us by talking about CULT. <br /><br /><br /> -->
 				</div>
-			</section>
 			
 			<div class="text-center">
 				<h3>Time For Some Action</h3>
 				<p><br /></p>
-				Let's get ready for the party.
+				Let's get ready for the party and make a movement.
 
 				<p><br></p>
+
 				<iframe
 					class="rumble"
 					width="100%"
 					height="600"
-					src="https://www.youtube.com/embed/fW8amMCVAJQ"
+					src="https://rumble.com/embed/v1j2t8l/?pub=1e5w3p"
 					frameborder="0"
 					allowfullscreen
 					title="The A-Team Supports Rumble"
@@ -274,7 +241,33 @@
 					
 				</ol>
 
+				<p><br /><br></p>
+
+			<h3>We are the A-Team</h3>
+			<p><br /></p>
+
+			CULT is the financial hub of a new, free society.<br /><br />
+			RVLT is the council & support system.<br /><br />
+
+			We are the A-Team. <br /><br />
+
+			<iframe
+				class="rumble"
+				width="100%"
+				height="600"
+				src="https://rumble.com/embed/v1j2s9v/?pub=1e5w3p"
+				frameborder="0"
+				allowfullscreen
+				title="The A-Team Supports"
+			/>
+			<br>
+			
+			The power they took from the people will return to the people.
+
 			</div>
+
+		</section>
+
 </article>
 
 <style>
