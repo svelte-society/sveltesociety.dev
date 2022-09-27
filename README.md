@@ -57,6 +57,11 @@ It was close and it got rejected. So I lowered the reward from 0.75 to 0.5 in ac
 
 ![Screenshot 2022-09-22 at 22 26 19](https://user-images.githubusercontent.com/43786652/191844555-b4b9e9b7-2ff1-473c-976d-e18022625ef9.png)
 
+This time (proposal 1012) the act of revolt was approved. The corresponding reward transaction is: 
+
+![Screenshot 2022-09-27 at 09 29 52](https://user-images.githubusercontent.com/43786652/192462584-498b56a5-79a1-4050-9b36-ad2f1c91111c.png)
+
+
 ## Contributions
 
 Contributions - e.g. via Pull Request - are welcome and can be submitted as acts of revolt.
