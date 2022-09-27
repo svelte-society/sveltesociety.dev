@@ -249,8 +249,6 @@
 			CULT is the financial hub of a new, free society.<br /><br />
 			RVLT is the council & support system.<br /><br />
 
-			We are the A-Team. <br /><br />
-
 			<iframe
 				class="rumble"
 				width="100%"
@@ -260,7 +258,7 @@
 				allowfullscreen
 				title="The A-Team Supports"
 			/>
-			<br>
+			<p><br><br><br><br></p>
 			
 			The power they took from the people will return to the people.
 
