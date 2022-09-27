@@ -32,7 +32,7 @@
 		class="rumble"
 		width="100%"
 		height="600"
-		src="https://rumble.com/embed/v1in4yp/?pub=1e5w3p"
+		src="https://rumble.com/embed/v1j2z77/?pub=1e5w3p"
 		frameborder="0"
 		allowfullscreen
 		title="Getting Ready"
