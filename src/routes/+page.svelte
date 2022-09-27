@@ -33,12 +33,13 @@
 		class="rumble"
 		width="100%"
 		height="600"
-		src="https://www.youtube.com/watch?v=NsUFBm1uENs"
+		src="https://www.youtube.com/embed/NsUFBm1uENs"
 		frameborder="0"
 		allowfullscreen
 		title="Getting Ready"
 	/>
 
+	<!-- <iframe width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 	<!-- temp here for video movement -->
 	<!-- <iframe
 		class="rumble"
