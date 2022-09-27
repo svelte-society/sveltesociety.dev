@@ -29,7 +29,7 @@
 	</section>
 
 	<!-- temp here for video a-team -->
-	<iframe
+	<!-- <iframe
 		class="rumble"
 		width="100%"
 		height="600"
@@ -37,19 +37,19 @@
 		frameborder="0"
 		allowfullscreen
 		title="Getting Ready"
-	/>
+	/> -->
 
-	<!-- <iframe width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 	<!-- temp here for video movement -->
-	<!-- <iframe
+
+	<iframe
 		class="rumble"
 		width="100%"
 		height="600"
-		src="https://www.youtube.com/watch?v=fW8amMCVAJQ"
+		src="https://www.youtube.com/embed/fW8amMCVAJQ"
 		frameborder="0"
 		allowfullscreen
 		title="Getting Ready"
-	/> -->
+	/>
 
 	<!-- long term -->
 	<!-- <iframe
