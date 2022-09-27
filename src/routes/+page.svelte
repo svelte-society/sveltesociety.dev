@@ -161,7 +161,7 @@
 			This is why WEF politicians want to destroy farmers and food facilities.<br /><br />
 			This is why WEF politicians want to keep you stupid.
 			<p><br /></p>
-			Guess what. Those WEF politicians messed around with the wrong guys.<br /><br /><br />
+			Guess what. Those WEF politicians tried to fuck the wrong guys.<br /><br /><br />
 
 				</div>
 			
