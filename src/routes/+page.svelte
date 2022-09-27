@@ -12,13 +12,6 @@
 	<h2 class="text-center">CULT Magazine</h2>
 	<section class="text-center">
 		<p>The CULT Magazine might inspire people to explore and potentially improve architectures of freedom.</p><br>
-		<!-- <p>
-			We are a network of <a href="https://cultdao.io" target="_blank">cultdao.io</a> fans promoting
-			freedom,
-			<a href="https://github.com/michael-spengler/fairness/blob/main/README.md" target="_blank">
-				fairness</a
-			>, education, and <a href="https://cultkamasutra.eth.limo/" target="_blank"> love</a>.
-		</p><br> -->
 		<p>
 			Everyone is invited to contribute to this decentralized magazine via <a
 				href="https://github.com/michael-spengler/cultmagazine"
@@ -26,46 +19,39 @@
 			>.
 		</p><br>
 		<p>
-			Each contribution can be rewarded as an <a
+			Each contribution can be rewarded as an 
+			<a
 				href="https://revolt.cultdao.io/submitProposal"
 				target="_blank">act of revolt</a
 			>.
 		</p><br>
-		<!-- <p>You might be interested in</p><br>
-		<p>
-			<a href="/cultproposals">CULT Proposals</a><br />
-		</p><br>
-		<p>
-			<a href="/rvltproposals">Revolt 2 Earn</a><br />
-		</p><br>
-		<p>
-			<a href="/news">CULT News</a><br />
-		</p><br>
-		<p>
-			<a href="/events">CULT Events</a><br />
-		</p><br>
-		<p>
-			<a href="/resources">CULT Resources</a><br />
-		</p><br>
-		<p>
-			<a href="/markets">CULT Markets</a><br />
-		</p> -->
-		<!-- <p>
-			<a href="/markets">CULT Chats (coming soon)</a><br />
-		</p> -->
+
 	</section>
 
-	<!-- <iframe
+	<!-- temp here for video a-team -->
+	<iframe
+		class="rumble"
 		width="100%"
 		height="600"
-		src="https://www.youtube.com/embed/J7GY1Xg6X20"
-		title="YouTube video player"
+		src="https://www.youtube.com/watch?v=NsUFBm1uENs"
 		frameborder="0"
-		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 		allowfullscreen
+		title="Getting Ready"
+	/>
+
+	<!-- temp here for video movement -->
+	<!-- <iframe
+		class="rumble"
+		width="100%"
+		height="600"
+		src="https://www.youtube.com/watch?v=fW8amMCVAJQ"
+		frameborder="0"
+		allowfullscreen
+		title="Getting Ready"
 	/> -->
 
-	<iframe
+	<!-- long term -->
+	<!-- <iframe
 		class="rumble"
 		width="100%"
 		height="600"
@@ -73,13 +59,7 @@
 		frameborder="0"
 		allowfullscreen
 		title="Getting Ready"
-	/>
-
-	<!-- <script>!function(r,u,m,b,l,e){r._Rumble=b,r[b]||(r[b]=function(){(r[b]._=r[b]._||[]).push(arguments);if(r[b]._.length==1){l=u.createElement(m),e=u.getElementsByTagName(m)[0],l.async=1,l.src="https://rumble.com/embedJS/u1e5w3p"+(arguments[1].video?'.'+arguments[1].video:'')+"/?url="+encodeURIComponent(location.href)+"&args="+encodeURIComponent(JSON.stringify([].slice.apply(arguments))),e.parentNode.insertBefore(l,e)}})}(window, document, "script", "Rumble");</script>
-	<div id="rumble_v1in4yp"></div>
-	<script>Rumble("play", {"video":"v1in4yp","div":"rumble_v1in4yp"});</script> -->
-
-	<!-- https://rumble.com/v1l9avx-cult.html -->
+	/> -->
 
 	<div class="text-center">
 		<a href="https://cultdao.io/manifesto.pdf">CULT</a> <br /><br /> is the financial hub of a new,
@@ -92,11 +72,11 @@
 
 		<h3>CULTDAO in 100 Seconds with Michael Saylor</h3>
 		<p><br /></p>
-		Please talk about CULT after watching this video.
+		Please talk about
+		<a href="https://cultdao.io"target="_blank">CULT</a>
+		after watching this video.
 		<p><br /><br /></p>
-		<!-- https://rumble.com/v1ldzl9-cultdao-in-100-seconds-michael-saylor-talks-about-cult.html
-			
-		-->
+
 
 		<iframe
 			class="rumble"
@@ -110,14 +90,6 @@
 
 		<p><br /><br /><br /><br /></p>
 
-		<!-- <h3>Free Internet & Freedom of Speech</h3>
-		<p><br /></p>
-		The cultmagazine supports free internet & freedom of speech.   <br><br>
-		Please retweet the following tweet or share this facebook post? 
-
-		#starlinkiscult 
-
-		<p><br /></p> -->
 		<h3>Revolt 2 Earn in 100 Seconds with Michael Saylor</h3>
 		<p><br /></p>
 		Please 
@@ -301,32 +273,6 @@
 					
 				</ol>
 
-				<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/fW8amMCVAJQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-
-			
-				
-				<!-- not adding the following yet because we might care about cookie stuff beforehand -->
-				<!-- <iframe width="420" height="315" src="https://www.youtube.com/watch?v=fW8amMCVAJQ&t=2s" /> -->
-
-
-				<!-- <p><br><br></p>
-				<h3>Further Education</h3>
-				<p><br></p>
-				As soon as you followed the steps from above you might also watch the following video. <br><br>
-				The cultmagazine is a decentralized magazine and you are invited 
-				<a href="https://github.com/michael-spengler/cultmagazine" target="_blank"> to contribute</a> . 
-
-				<p><br></p>
-
-				<iframe
-				class="rumble"
-				width="100%"
-				height="600"
-				src="https://www.youtube.com/embed/09maaUaRT4M"
-				frameborder="0"
-				allowfullscreen
-				title="The A-Team Supports Rumble"
-			/> -->
 			</div>
 </article>
 
