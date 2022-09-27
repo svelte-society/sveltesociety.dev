@@ -148,7 +148,7 @@
 			<h3>State of the Game in September 2022</h3>
 			<p><br /></p>
 
-			During the upcoming winter, politicians want you hungry, cold and full of fear so that they
+			During the upcoming winter, WEF politicians want you hungry, cold and full of fear so that they
 			can offer you things like Central Bank Digital Currencies (CBDCs)... with which they want to
 			expand their power and take away your rights and freedom.<br /><br />
 			<img
@@ -156,12 +156,12 @@
 				alt="truth seekers"
 				class="centeredImage"
 			/> <br />
-			This is why politicians force young people (aka soldiers) to kill the victims of the other propaganda
+			This is why WEF politicians force young people (aka soldiers) to kill the victims of the other propaganda
 			mutually. <br /><br />
-			This is why politicians want to destroy farmers and food facilities.<br /><br />
-			This is why politicians want to keep you stupid.
+			This is why WEF politicians want to destroy farmers and food facilities.<br /><br />
+			This is why WEF politicians want to keep you stupid.
 			<p><br /></p>
-			Guess what. Those politicians messed around with the wrong guys.<br /><br /><br />
+			Guess what. Those WEF politicians messed around with the wrong guys.<br /><br /><br />
 
 				</div>
 			
