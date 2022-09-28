@@ -71,8 +71,10 @@
 	<p><br /></p>
 	The following content is embedded from 
 	<a href="https://cultplayground.org" target="_blank">
-	cultplayground.org
+		cultplayground.org
 	</a>
+	<p><br /></p>
+	<p><br /></p>
 	</div>
 
 
