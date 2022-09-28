@@ -92,11 +92,13 @@
 	<p><br /></p>
 	<p><br /></p>
 	<h3>Cultoshi is Optimizing the Voting Process</h3>
-
+	
+	<p><br /></p>
 	The following content is embedded from 
 	<a href="https://revolt.cultoshi.com" target="_blank">
 		revolt.cultoshi.com
 	</a>
+	<p><br /></p>
 
 	<embed type="text/html" src="https://revolt.cultoshi.com/" width="100%" height="1100vh" />
 	<p><br /></p>
