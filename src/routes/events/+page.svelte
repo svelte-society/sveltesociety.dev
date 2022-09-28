@@ -96,9 +96,8 @@
 	<p><br /></p>
 	The following content is embedded from 
 	<a href="https://revolt.cultoshi.com" target="_blank">
-		revolt.cultoshi.com
-	</a>
-	<p><br /></p>
+		revolt.cultoshi.com</a>.
+	<p><br /><br><br></p>
 
 	<embed type="text/html" src="https://revolt.cultoshi.com/" width="100%" height="1100vh" />
 	<p><br /></p>
