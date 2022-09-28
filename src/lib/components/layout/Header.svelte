@@ -5,10 +5,10 @@
 	const linksLeft = [
 		['/cultproposals', 'CULTDAO'],
 		['/rvltproposals', 'Revolt 2 Earn'],
-		['/news', 'News']
+		['/play2earn', 'play 2 earn']
 	];
 	const linksRight = [
-		['/events', 'events'],
+		['/events', 'news & events'],
 		['/resources', 'resources'],
 		['/markets', 'markets']
 	];
