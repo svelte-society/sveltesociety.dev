@@ -1,0 +1,1 @@
+import{default as e}from"../components/pages/events/2022-eth-barcelona/_page.svx-44b2d8c3.js";import"./index-4b9970b0.js";import"./Seo-b67d1a38.js";import"./stores-5a2e3dcd.js";import"./singletons-af2f0245.js";export{e as component};
