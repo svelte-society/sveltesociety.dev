@@ -1,0 +1,1 @@
+import{default as a}from"../components/pages/cultproposals/_page.svelte-ed485a45.js";import"./index-ee4f4cf3.js";import"./Seo-8f63f8a0.js";import"./stores-25d977a1.js";import"./singletons-be96c5c1.js";import"./Link-5ca936e9.js";export{a as component};
