@@ -1,4 +1,4 @@
-import{S as Ue,i as Me,s as xe,k as a,q as s,a as i,l,m as o,r as h,h as n,c as d,n as c,B as qe,p as De,b as Ge,C as e,A as de}from"../../../chunks/index-c52a7d72.js";function He(Te){let t,E,U,M,g,x,q,p,D,G,H,j,y,I,S,u,V,z,R,F,N,C,O,W,A,Z,J,k,K,Q,v,X,Y,f,$,ee,w,te,re,B,ae,le,L,ne,oe,P,se,he,b,ce,ie,m,_,pe;return{c(){t=a("div"),E=a("h2"),U=s("CULT Resources"),M=i(),g=a("p"),x=a("br"),q=s(`
+import{S as Ue,i as Me,s as xe,k as a,q as s,a as i,l,m as o,r as h,h as n,c as d,n as c,B as qe,p as De,b as Ge,C as e,A as de}from"../../../chunks/index-ee4f4cf3.js";function He(Te){let t,E,U,M,g,x,q,p,D,G,H,j,y,I,S,u,V,z,R,F,N,C,O,W,A,Z,J,k,K,Q,v,X,Y,f,$,ee,w,te,re,B,ae,le,L,ne,oe,P,se,he,b,ce,ie,m,_,pe;return{c(){t=a("div"),E=a("h2"),U=s("CULT Resources"),M=i(),g=a("p"),x=a("br"),q=s(`
 	Everyone is invited to add CULT resources via
 	`),p=a("a"),D=s("pull request"),G=s("."),H=a("br"),j=i(),y=a("p"),I=a("br"),S=s(`
 	CULT resources shall support you while you
