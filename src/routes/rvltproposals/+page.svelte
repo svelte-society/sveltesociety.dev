@@ -16,14 +16,17 @@
 	>. The community votes on each proposal deciding whether or not you receive a reward. <br /><br />
 
 	The reward comes from the
-	<a href="https://cultdao.io/rvlt.pdf" target="_blank"> Revolt 2 Earn </a>
+	<a href="#treasury" target="_blank"> Revolt 2 Earn </a>
 	Treasury. The Revolt 2 Earn Treasury is automatically filled by everyone who buys, sells or transfers
 	our deflationary currency named
 	<a href="https://coinmarketcap.com/currencies/revolt-2-earn/" target="_blank"> RVLT</a>
 	because 0.4% of each RVLT transaction automatically goes to this treasury.
 
 	<p><br /><br /></p>
-	If you face any difficulties feel free to reach out to our
+	If you face any difficulties, please watch 
+	<a href="/#Revolt2EarnVideo">
+	this video</a> 
+	or reach out to our
 	<a href="https://discord.gg/wearecultdao" target="_blank"> discord community</a>.
 
 	<p><br /><br /></p>
@@ -85,14 +88,17 @@
 		/>
 
 		<p><br /></p>
-		<div style="margin-left: auto; margin-right:auto; width: 50vw">
-			<embed
+		<section id="treasury">
+
+			<div style="margin-left: auto; margin-right:auto; width: 50vw">
+				<embed
 				src="https://dune.com/embeds/1279379/2192339/a875789e-a062-49cb-9dfe-56ccf806d722"
 				width="100%"
 				height="200"
-			/>
-		</div>
-
+				/>
+			</div>
+			
+		</section>
 		<!-- <p><br /></p>
 <embed
 	src="https://dune.com/embeds/1280979/2194908/ec83050f-257e-45b4-a382-f791020293c0"

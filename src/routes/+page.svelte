@@ -11,21 +11,23 @@
 <article class="container">
 	<h2 class="text-center">CULT Magazine</h2>
 	<section class="text-center">
-		<p>The CULT Magazine might inspire people to explore and potentially improve architectures of freedom.</p><br>
+		<p>
+			The CULT Magazine might inspire people to explore and potentially improve architectures of
+			freedom.
+		</p>
+		<br />
 		<p>
 			Everyone is invited to contribute to this decentralized magazine via <a
 				href="https://github.com/michael-spengler/cultmagazine"
 				target="_blank">pull request</a
 			>.
-		</p><br>
+		</p>
+		<br />
 		<p>
-			Each contribution can be rewarded as an 
-			<a
-				href="https://revolt.cultdao.io/submitProposal"
-				target="_blank">act of revolt</a
-			>.
-		</p><br>
-
+			Each contribution can be rewarded via
+			<a href="/rvltproposals" target="_blank">Revolt 2 Earn</a>.
+		</p>
+		<br />
 	</section>
 
 	<iframe
@@ -50,10 +52,9 @@
 		<h3>CULTDAO in 100 Seconds with Michael Saylor</h3>
 		<p><br /></p>
 		Please talk about
-		<a href="https://cultdao.io"target="_blank">CULT</a>
+		<a href="https://cultdao.io" target="_blank">CULT</a>
 		after watching this video.
 		<p><br /><br /></p>
-
 
 		<iframe
 			class="rumble"
@@ -65,30 +66,28 @@
 			title="CULTDAO in 100 seconds with Michael Saylor"
 		/>
 
-		<p><br /><br /><br /><br /></p>
+		<section id="Revolt2EarnVideo">
+			<p><br /><br /><br /><br /></p>
 
-		<h3>Revolt 2 Earn in 100 Seconds with Michael Saylor</h3>
-		<p><br /></p>
-		Please 
-		<a href="https://uniswap.org/" target="_blank">
-			buy the dip 	
-		</a>
-		and 
-		<a href="https://revolt.cultdao.io/submitProposal" target="_blank">
-			revolt 2 earn 	
-		</a>
-		after watching this video.
-		<p><br /><br /></p>
+			<h3>Revolt 2 Earn in 100 Seconds with Michael Saylor</h3>
+			<p><br /></p>
+			Please
+			<a href="https://uniswap.org/" target="_blank"> buy the dip </a>
+			and
+			<a href="https://revolt.cultdao.io/submitProposal" target="_blank"> revolt 2 earn </a>
+			after watching this video.
+			<p><br /><br /></p>
 
-		<iframe
-			class="rumble"
-			width="100%"
-			height="600"
-			src="https://rumble.com/embed/v1isy13/?pub=1e5w3p"
-			frameborder="0"
-			allowfullscreen
-			title="CULTDAO in 100 seconds with Michael Saylor"
-		/>
+			<iframe
+				class="rumble"
+				width="100%"
+				height="600"
+				src="https://rumble.com/embed/v1isy13/?pub=1e5w3p"
+				frameborder="0"
+				allowfullscreen
+				title="CULTDAO in 100 seconds with Michael Saylor"
+			/>
+		</section>
 		<p><br /><br /><br /><br /></p>
 		<h3>Join Us We Rock</h3>
 	</div>
@@ -126,11 +125,11 @@
 
 	<div class="text-center">
 		<section id="rumble">
-			<p><br></p>
+			<p><br /></p>
 			<h3>We Support rumble.com</h3>
-			<br>
+			<br />
 			Please copy your videos from youtube to rumble. We support rumble via IPFS backups.
-			<p><br><br></p>
+			<p><br /><br /></p>
 			<iframe
 				class="rumble"
 				width="100%"
@@ -148,76 +147,76 @@
 			<h3>State of the Game in September 2022</h3>
 			<p><br /></p>
 
-			During the upcoming winter, WEF politicians want you hungry, cold and full of fear so that they
-			can offer you things like Central Bank Digital Currencies (CBDCs)... with which they want to
-			expand their power and take away your rights and freedom.<br /><br />
+			During the upcoming winter, WEF politicians want you hungry, cold and full of fear so that
+			they can offer you things like Central Bank Digital Currencies (CBDCs)... with which they want
+			to expand their power and take away your rights and freedom.<br /><br />
 			<img
 				src="https://raw.githubusercontent.com/cultfamily-on-github/cult-artefacts-collection/main/cult-memes/beat-corrupt-politicians.png"
 				alt="truth seekers"
 				class="centeredImage"
 			/> <br />
-			This is why WEF politicians force young people (aka soldiers) to kill the victims of the other propaganda
-			mutually. <br /><br />
+			This is why WEF politicians force young people (aka soldiers) to kill the victims of the other
+			propaganda mutually. <br /><br />
 			This is why WEF politicians want to destroy farmers and food facilities.<br /><br />
 			This is why WEF politicians want to keep you stupid.
 			<p><br /></p>
 			Guess what. Those WEF politicians tried to fuck the wrong guys.<br /><br /><br />
+		</div>
 
-				</div>
-			
-			<div class="text-center">
-				<h3>Time For Some Action</h3>
-				<p><br /></p>
-				Let's get ready for the party and make a movement.
+		<div class="text-center">
+			<h3>Time For Some Action</h3>
+			<p><br /></p>
+			Let's get ready for the party and make a movement.
 
-				<p><br></p>
+			<p><br /></p>
 
-				<iframe
-					class="rumble"
-					width="100%"
-					height="600"
-					src="https://rumble.com/embed/v1j2t8l/?pub=1e5w3p"
-					frameborder="0"
-					allowfullscreen
-					title="The A-Team Supports Rumble"
-				/>
+			<iframe
+				class="rumble"
+				width="100%"
+				height="600"
+				src="https://rumble.com/embed/v1j2t8l/?pub=1e5w3p"
+				frameborder="0"
+				allowfullscreen
+				title="The A-Team Supports Rumble"
+			/>
 
-				<p><br><br></p>
-				
-				<ol>
-					<li>1. Share this page with your friends</li>
-					<br />
-					<li>
-						2. Join <a href="https://discord.com/invite/wearecultdao" target="_blank"> our community</a>
-						to educate yourself and others
-					</li>
-					<br />
-					<li>
-						3. Install <a href="https://metamask.io" target="_blank"> metamask.io </a> 
-						or another browserwallet you fully trust
-					</li>
-					<br />
-					<li>
-						4. Add CULT asset --> custom token in metamask via smart contract address
-						0xf0f9d895aca5c8678f706fb8216fa22957685a13
-					</li>
-					<br />
-					<li>
-						5. Buy (the dip) CULT on
-						<a href="https://uniswap.org" target="_blank"> uniswap.org </a>
-					</li>
-					<br />
-					<li>6. Bookmark the fancy page which you are currently on</li><br>
-					<li>7. Let us learn 
-						<a href="https://www.youtube.com/watch?v=09maaUaRT4M" target="_blank"> from that</a> 
-						and heal
-						
-					</li>
-					
-					
-				</ol>
+			<p><br /><br /></p>
 
-				<p><br /><br></p>
+			<ol>
+				<li>1. Share this page with your friends</li>
+				<br />
+				<li>
+					2. Join <a href="https://discord.com/invite/wearecultdao" target="_blank">
+						our community</a
+					>
+					to educate yourself and others
+				</li>
+				<br />
+				<li>
+					3. Install <a href="https://metamask.io" target="_blank"> metamask.io </a>
+					or another browserwallet you fully trust
+				</li>
+				<br />
+				<li>
+					4. Add CULT asset --> custom token in metamask via smart contract address
+					0xf0f9d895aca5c8678f706fb8216fa22957685a13
+				</li>
+				<br />
+				<li>
+					5. Buy (the dip) CULT on
+					<a href="https://uniswap.org" target="_blank"> uniswap.org </a>
+				</li>
+				<br />
+				<li>6. Bookmark the fancy page which you are currently on</li>
+				<br />
+				<li>
+					7. Let us learn
+					<a href="https://www.youtube.com/watch?v=09maaUaRT4M" target="_blank"> from that</a>
+					and heal
+				</li>
+			</ol>
+
+			<p><br /><br /></p>
 
 			<h3>We are the A-Team</h3>
 			<p><br /></p>
@@ -234,14 +233,11 @@
 				allowfullscreen
 				title="The A-Team Supports"
 			/>
-			<p><br><br><br><br></p>
-			
+			<p><br /><br /><br /><br /></p>
+
 			The power they took from the people will return to the people.
-
-			</div>
-
-		</section>
-
+		</div>
+	</section>
 </article>
 
 <style>
