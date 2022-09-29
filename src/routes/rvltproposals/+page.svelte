@@ -24,7 +24,7 @@
 
 	<p><br /><br /></p>
 	If you face any difficulties, please watch 
-	<a href="/#Revolt2EarnVideo">
+	<a href="https://rumble.com/v1lf3yb-revolt-2-earn-in-100-seconds-michael-saylor-talks-about-revolt-2-earn.html">
 	this video</a> 
 	or reach out to our
 	<a href="https://discord.gg/wearecultdao" target="_blank"> discord community</a>.

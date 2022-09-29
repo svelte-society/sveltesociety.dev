@@ -25,7 +25,7 @@
 		<br />
 		<p>
 			Each contribution can be rewarded via
-			<a href="/rvltproposals" target="_blank">Revolt 2 Earn</a>.
+			<a href="#Revolt2EarnVideo" target="_blank">Revolt 2 Earn</a>.
 		</p>
 		<br />
 	</section>
