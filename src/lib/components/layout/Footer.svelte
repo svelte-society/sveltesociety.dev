@@ -1,23 +1,28 @@
 <script>
-	// get the year for the copyright statement
 	var date = new Date();
 	var year = date.getFullYear();
 </script>
 
 <footer>
 	<div class="container">
+		<span>
+			<a
+				class="underline"
+				href="https://cultdao.io"
+				target="_blank"
+				rel="noopener">cultdao.io</a
+			>
+		</span>
+		<span>•</span>
 		<span>&copy; {year} CULT Magazine</span>
-		<!-- <span>•</span>
-		<a class="underline" href="/about">Code of Conduct</a> -->
 		<span>•</span>
 		<span>
-			Contribute on
 			<a
 				class="underline"
 				href="https://github.com/michael-spengler/cultmagazine"
 				target="_blank"
 				rel="noopener">GitHub</a
-			>!
+			>
 		</span>
 	</div>
 </footer>

@@ -4,12 +4,11 @@
 	const brand = 'CULT Magazine';
 
 	export let title = brand;
-	export let description =
-		'We are a volunteer global network of Svelte fans that strive to promote Svelte and its ecosystem. As a service to the community, this site is a central index of events, a components directory, as well as recipes and other useful resources.';
+	export let description = 'We are a network of cultdao.io fans promoting freedom, fairness, education and love." data-svelte="svelte-1h4pbpd"><meta property="og:type" content="website" data-svelte="svelte-1h4pbpd"><meta property="og:title" content="Home - CULT Magazine" data-svelte="svelte-1h4pbpd"><meta property="og:site_name" content="CULT Magazine" data-svelte="svelte-1h4pbpd"><meta property="og:description" content="We are a network of cultdao.io fans promoting freedom, fairness, education and love." data-svelte="svelte-1h4pbpd"><meta property="og:image" name="og:image" content="https://raw.githubusercontent.com/michael-spengler/fairness/main/diagrams-documents-images/cult-money-1500x500.jpeg" data-svelte="svelte-1h4pbpd"><meta name="og:url" content="https://undefined/" data-svelte="svelte-1h4pbpd"><meta name="twitter:site" content="@sveltesociety" data-svelte="svelte-1h4pbpd"><meta name="twitter:image" content="https://raw.githubusercontent.com/michael-spengler/fairness/main/diagrams-documents-images/cult-money-1500x500.jpeg" data-svelte="svelte-1h4pbpd"><meta name="twitter:card" content="summary_large_image" data-svelte="svelte-1h4pbpd"><meta name="twitter:title" content="Home - CULT Magazine" data-svelte="svelte-1h4pbpd"><meta name="twitter:description" content="We are a network of cultdao.io fans promoting freedom, fairness, education and love.';
 	export let image =
 		'https://raw.githubusercontent.com/michael-spengler/fairness/main/diagrams-documents-images/cult-money-1500x500.jpeg';
 	export let url = `https://${$page.host}${$page.url.pathname}`;
-	export let twitterHandle = '@sveltesociety';
+	export let twitterHandle = '@Peer2PeerE';
 </script>
 
 <svelte:head>
