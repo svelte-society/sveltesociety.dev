@@ -5,9 +5,9 @@
 
 <Seo title="CULT Events" />
 
-<p><br /></p>
 <div class="text-center">
-	<h1>News & Events</h1>
+	<h2>News & Events</h2>
+	<p><br /></p>
 	<p>
 		Everyone is invited to add CULT Events via <a
 			href="https://www.youtube.com/watch?v=8lGpZkjnkt4"
