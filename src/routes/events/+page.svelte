@@ -4,8 +4,8 @@
 	import Seo from '$lib/components/Seo.svelte';
 	import Link from '$layout/Link.svelte';
 
-	import type { PageData } from './$types';
-	export let data: PageData;
+	// import type { PageData } from './$types';
+	// export let data: PageData;
 </script>
 
 <Seo title="Events" />
@@ -32,10 +32,6 @@
 	<p><br /></p>
 
 	<p><br /></p>
-	<!-- <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Manifesto Mondays. Relax with frens<a href="https://t.co/mpFzpAlRut">https://t.co/mpFzpAlRut</a></p>&mdash; Mr O (@MrOmodulus) <a href="https://twitter.com/MrOmodulus/status/1571846579262218240?ref_src=twsrc%5Etfw">September 19, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
- -->
-	<!-- <p><br /></p>
-	The following is just to get some design- / layout ideas -->
 
 	Until the
 	<a href="https://github.com/cultfamily-on-github/cult-events-microservice" target="_blank">
@@ -110,31 +106,16 @@
 	<h3>CULT Market Feature Under Construction</h3>
 	This decentralized markets feature will use Polygon as backend. There will be a decentralized content
 	moderation on what to show via the frontend. Images will be stored via ipfs.io.
-
-	<p><br><br><br></p>
-	The following is to document design ideas for the CULT Events Microservice.<br /><br />
-
-	... Under Construction ...
+	
+	<p><br /></p>
+	<p><br /></p>
+	<h3>CULT News and Events Under Construction</h3>
+	<p><br /></p>
+	This page will look much better as soon as it embeds the CULT News and Events Microservice which is in the cooking. <br><br>
 	<p><br /><br /></p>
 </div>
-<article class="wrapper">
-	<section class="event-wrapper">
-		{#each data.events as event}
-			<EventListElement
-				title={event.title}
-				url={'/events/' + event.filename.replace('.svx', '')}
-				date={event.date}
-			/>
-		{/each}
-	</section>
-	<Communities />
-</article>
 
 <style>
-	/* section {
-		display: grid;
-		gap: var(--s-5);
-	} */
 	ul {
 		display: flex;
 		flex-wrap: wrap;
@@ -146,20 +127,5 @@
 
 	img {
 		width: 128px;
-	}
-
-	.wrapper {
-		display: flex;
-	}
-	.event-wrapper {
-		flex: 1 1 auto;
-		margin: 1%;
-	}
-	/* mobile design */
-	@media only screen and (max-width: 768px) {
-		.wrapper {
-			display: flex;
-			flex-direction: column;
-		}
 	}
 </style>
