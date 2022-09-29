@@ -1,5 +1,4 @@
-<script>
-</script>
+
 
 <div class="text-center">
 	<h2>CULT Resources</h2>
@@ -50,7 +49,3 @@
 		
 	</div>
 </div>
-
-<style>
-
-</style>

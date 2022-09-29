@@ -1,5 +1,4 @@
 <script lang="ts">
-	// import '../app.css';
 	import '$styles/reset.css';
 	import '$styles/root.css';
 	import '$styles/globals.css';

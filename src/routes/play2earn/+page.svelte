@@ -39,20 +39,5 @@
 
 
 	<embed type="text/html" src="https://cultplayground.org/" width="100%" height="1700vh" />
-<style>
-	/* section {
-		display: grid;
-		gap: var(--s-5);
-	}
-	ul {
-		display: flex;
-		flex-wrap: wrap;
-		column-gap: var(--s-20);
-		row-gap: var(--s-5);
-		justify-content: space-around;
-		text-align: center;
-	}
-	img {
-		width: 128px;
-	} */
-</style>
+
+
