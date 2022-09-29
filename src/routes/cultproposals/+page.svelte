@@ -31,16 +31,15 @@
 	<a href="https://coinmarketcap.com/currencies/cult-dao/" target="_blank"> CULT</a>, 0.4% of the
 	transaction volume is automatically transferred to the CULT Treasury. Whenever anybody has a great
 	project which supports decentralization, he can
-	<a href="https://app.cultdao.io/submitProposal" target="_blank"> submit a CULTDAO investment proposal</a>. 
-	The
-	CULTDAO shareholders including many OGs like 
+	<a href="https://app.cultdao.io/submitProposal" target="_blank">
+		submit a CULTDAO investment proposal</a
+	>. The CULTDAO shareholders including many OGs like
 	<a href="https://twitter.com/Crobot01" target="_blank"> Croat</a>
-	and 
+	and
 	<a href="https://twitter.com/iambroots" target="_blank"> Beeeeeeeeeeeeeeeee Rooots</a>
-	decide if the CULTDAO invests into this project. <br /><br /> 
-	If you invest into CULT you implicitly also invest into many more promising projects validated by the CULTDAO shareholders.
-
-	To become a CULTDAO shareholder, we recommend to:<br /><br />
+	decide if the CULTDAO invests into this project. <br /><br />
+	If you invest into CULT you implicitly also invest into many more promising projects validated by the
+	CULTDAO shareholders. To become a CULTDAO shareholder, we recommend to:<br /><br />
 
 	1. install <a href="https://metamask.io" target="_blank"> metamask.io</a> or another browserwallet
 	you fully trust<br /><br />
@@ -129,7 +128,6 @@
 		</ul>
 	</article>
 </div>
-
 
 <style>
 	article {
