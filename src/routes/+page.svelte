@@ -11,24 +11,15 @@
 <article class="container">
 	<h2 class="text-center">CULT Magazine</h2>
 	<section class="text-center">
-		<p>
-			We support decentralization to ensure there is no ground for corrupt politicians. 
-		</p>
-		<br />
-		<p>
-			The CULT Magazine might inspire people to explore and potentially improve architectures of
-			freedom.
-		</p>
-		<br />
-		<p>
-			Everyone is invited to contribute to this decentralized magazine via <a
-			href="https://github.com/michael-spengler/cultmagazine"
-			target="_blank">pull request</a
-			>. Each contribution can be rewarded via
-			<a href="#Revolt2EarnVideo">Revolt 2 Earn</a>.
-		</p>
-
-		<br />
+		We support decentralization to ensure there is no ground for corrupt politicians.
+		<p><br /></p>
+		The CULT Magazine might inspire people to explore and potentially improve architectures of freedom.
+		<p><br /></p>
+		Everyone is invited to contribute via
+		<a href="https://github.com/michael-spengler/cultmagazine" target="_blank">pull request</a>
+		and to be rewarded via
+		<a href="#Revolt2EarnVideo">Revolt 2 Earn</a>.
+		<p><br /></p>
 	</section>
 
 	<iframe
