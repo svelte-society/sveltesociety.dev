@@ -1,14 +1,9 @@
 <script lang="ts">
-	import Communities from '$lib/components/Communities/index.svelte';
-	import EventListElement from '$lib/components/EventListElement/index.svelte';
 	import Seo from '$lib/components/Seo.svelte';
 	import Link from '$layout/Link.svelte';
-
-	// import type { PageData } from './$types';
-	// export let data: PageData;
 </script>
 
-<Seo title="Events" />
+<Seo title="CULT Events" />
 
 <p><br /></p>
 <div class="text-center">
@@ -76,7 +71,7 @@
 			Podcast
 		</Link>
 	</ul>
-	<p><br><br><br></p>
+	<p><br /><br /><br /></p>
 
 	<p><br /></p>
 	<h3>New CULT Shops Going Live</h3>
@@ -88,12 +83,11 @@
 	<p><br /></p>
 	<p><br /></p>
 	<h3>Cultoshi is Optimizing the Voting Process</h3>
-	
+
 	<p><br /></p>
-	The following content is embedded from 
-	<a href="https://revolt.cultoshi.com" target="_blank">
-		revolt.cultoshi.com</a>.
-	<p><br /><br><br></p>
+	The following content is embedded from
+	<a href="https://revolt.cultoshi.com" target="_blank"> revolt.cultoshi.com</a>.
+	<p><br /><br /><br /></p>
 
 	<embed type="text/html" src="https://revolt.cultoshi.com/" width="100%" height="1100vh" />
 	<p><br /></p>
@@ -106,12 +100,13 @@
 	<h3>CULT Market Feature Under Construction</h3>
 	This decentralized markets feature will use Polygon as backend. There will be a decentralized content
 	moderation on what to show via the frontend. Images will be stored via ipfs.io.
-	
+
 	<p><br /></p>
 	<p><br /></p>
 	<h3>CULT News and Events Under Construction</h3>
 	<p><br /></p>
-	This page will look much better as soon as it embeds the CULT News and Events Microservice which is in the cooking. <br><br>
+	This page will look much better as soon as it embeds the CULT News and Events Microservice which is
+	in the cooking.<br /><br />
 	<p><br /><br /></p>
 </div>
 

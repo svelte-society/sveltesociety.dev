@@ -1,5 +1,3 @@
-
-
 <div class="text-center">
 	<h2>CULT Resources</h2>
 
@@ -45,7 +43,5 @@
 			width="100%"
 			height="700"
 		/>
-
-		
 	</div>
 </div>
