@@ -13,11 +13,11 @@ const config = {
 		mdsvex({
 			// Breaks svelte-select when .svelte extension is included
 			extensions: extensions.filter((ext) => ext !== '.svelte'),
-			layout: {
-				eventPage: './src/lib/layouts/EventPage.svelte',
-				recipe: './src/lib/layouts/Recipe.svelte',
-				recipeCategory: './src/lib/layouts/RecipeCategory.svelte'
-			},
+			// layout: {
+			// 	eventPage: './src/lib/layouts/EventPage.svelte',
+			// 	recipe: './src/lib/layouts/Recipe.svelte',
+			// 	recipeCategory: './src/lib/layouts/RecipeCategory.svelte'
+			// },
 			highlight: {
 				highlighter: (code) => {
 					const highlighted = escapeSvelte(hljs.highlightAuto(code).value);
