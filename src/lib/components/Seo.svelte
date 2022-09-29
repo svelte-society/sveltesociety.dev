@@ -12,7 +12,7 @@
 </script>
 
 <svelte:head>
-	<title>{title} - {brand}</title>
+	<title>{brand}</title>
 	<meta name="description" content={description} />
 
 	<meta property="og:type" content="website" />
