@@ -7,10 +7,10 @@
 	<div class="container">
 		<span>
 			<a
-				class="underline"
-				href="https://cultdao.io"
-				target="_blank"
-				rel="noopener">cultdao.io</a
+			class="underline"
+			href="https://github.com/michael-spengler/cultmagazine"
+			target="_blank"
+			rel="noopener">GitHub</a
 			>
 		</span>
 		<span>•</span>
@@ -19,9 +19,9 @@
 		<span>
 			<a
 				class="underline"
-				href="https://github.com/michael-spengler/cultmagazine"
+				href="https://cultmagazine.org"
 				target="_blank"
-				rel="noopener">GitHub</a
+				rel="noopener">cultmagazine.org</a
 			>
 		</span>
 	</div>
