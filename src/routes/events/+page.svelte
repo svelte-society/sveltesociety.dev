@@ -6,7 +6,7 @@
 <Seo title="CULT Events" />
 
 <div class="text-center">
-	<h2>News & Events</h2>
+	<h2>News, Events & Resources</h2>
 	<p><br /></p>
 	<p>
 		Everyone is invited to add CULT Events via <a
@@ -75,14 +75,13 @@
 
 	<p><br /></p>
 	<h3>New CULT Shops Going Live</h3>
-	<br /><br />
+	<p><br /></p>
 	<a href="https://dripxkarip.com" target="_blank"> dripxkarip.com</a><br /><br />
 	<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a><br /><br />
 	<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
 
-	<p><br /></p>
-	<p><br /></p>
-	<h3>Cultoshi is Optimizing the Voting Process</h3>
+	<p><br /><br><br></p>
+	<h3>Cultoshi Optimizes the Voting Process</h3>
 
 	<p><br /></p>
 	The following content is embedded from
@@ -90,24 +89,72 @@
 	<p><br /><br /><br /></p>
 
 	<embed type="text/html" src="https://revolt.cultoshi.com/" width="100%" height="1100vh" />
-	<p><br /></p>
-	<p><br /></p>
+	<p><br /><br /><br /></p>
 	<h3>CULT Chat Feature Under Construction</h3>
+	<p><br></p>
+
 	This decentralized chat feature will store messages on Polygon. Messages are considered transactions
 	- avoiding spam.
-	<p><br /></p>
-	<p><br /></p>
-	<h3>CULT Market Feature Under Construction</h3>
+	<p><br /><br /><br /></p>
+	<h3>CULT Markets Feature Under Construction</h3>
+	<p><br></p>
 	This decentralized markets feature will use Polygon as backend. There will be a decentralized content
 	moderation on what to show via the frontend. Images will be stored via ipfs.io.
 
-	<p><br /></p>
-	<p><br /></p>
-	<h3>CULT News and Events Under Construction</h3>
-	<p><br /></p>
+	<p><br /><br /><br /></p>
+	<h3>CULT News and Events Microservice Under Construction</h3>
+	<p><br></p>
 	This page will look much better as soon as it embeds the CULT News and Events Microservice which is
 	in the cooking.<br /><br />
 	<p><br /><br /></p>
+
+	<p><br /><br /></p>
+
+	<h2>CULT Resources</h2>
+
+	<p><br /></p>
+	Everyone is invited to add CULT resources via
+	<a href="https://www.youtube.com/watch?v=8lGpZkjnkt4" target="_blank"> pull request</a>.<br />
+	<p><br /></p>
+	CULT resources shall support you while you
+	<a href="https://cultdao.io/rvlt.pdf" target="_blank"> Revolt 2 Earn</a>.
+
+	<p><br /></p>
+	<p><br /></p>
+	<h3>Meme Collection</h3>
+	<p><br /></p>
+
+	A pretty cool CULT Meme Collection can be found
+	<a
+		href="https://twitter.com/MrOmodulus/status/1557855262630768642?s=20&t=RmW7uokNAFP40Cj8GeMGzw"
+		target="_blank"
+	>
+		here</a
+	>
+
+	and
+	<a href="https://discord.com/channels/931866010447929364/984899457097269359" target="_blank">
+		here</a
+	>.
+	<p><br /></p>
+
+	<p><br /></p>
+	<h3>Evidence Links of Approved Acts</h3>
+	<p><br /></p>
+
+	Resources which are shared via evidence links or
+	<a href="https://github.com/cultfamily-on-github/cult-artefacts-collection" target="_blang">
+		here</a
+	>
+	might be automatically displayed on this page soon.
+
+	<div style="margin-top: 7vh;">
+		<embed
+			src="https://dune.com/embeds/1281907/2196555/23003dfb-6d8a-4a5a-9321-e295fe23b20b"
+			width="100%"
+			height="700"
+		/>
+	</div>
 </div>
 
 <style>

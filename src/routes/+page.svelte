@@ -11,7 +11,7 @@
 <article class="container">
 	<h2 class="text-center">CULT Magazine</h2>
 	<section class="text-center">
-		We support decentralization to ensure there is no ground for corrupt politicians.
+		We foster decentralization to ensure there is no ground for corrupt politicians.
 		<p><br /></p>
 		The CULT Magazine might inspire people to explore and potentially improve architectures of freedom.
 		<p><br /></p>

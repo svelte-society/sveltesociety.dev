@@ -8,8 +8,8 @@
 		['/play2earn', 'play 2 earn']
 	];
 	const linksRight = [
+		['/learn2earn', 'learn 2 earn'],
 		['/events', 'news & events'],
-		['/resources', 'resources'],
 		['/markets', 'markets']
 	];
 </script>
