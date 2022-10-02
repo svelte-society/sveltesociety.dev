@@ -7,7 +7,7 @@
 
 <div class="text-center">
 	<h2>News, Events & Resources</h2>
-	<p><br /></p>
+	<!-- <p><br /></p>
 	<p>
 		Everyone is invited to add CULT Events via <a
 			href="https://www.youtube.com/watch?v=8lGpZkjnkt4"
@@ -15,16 +15,15 @@
 		>
 			pull request</a
 		>.
-	</p>
+	</p> -->
+	<p><br /></p>
+	The latest CULT statistics can be found via
+	<a href="https://dune.com/web3_data/CULT" target="_blank"> this link</a>.
 
 	<p><br /></p>
 	We'll promote events where guests get free entrance when proving they have CULT or RVLT in their wallet.
 	We'll also promote CULT related Twitter Spaces and Youtube Live Streams.
 
-	<p><br /></p>
-	The latest CULT statistics can be found via
-	<a href="https://dune.com/web3_data/CULT" target="_blank"> this link</a>.
-	<p><br /></p>
 
 	<p><br /></p>
 
@@ -90,7 +89,7 @@
 
 	<embed type="text/html" src="https://revolt.cultoshi.com/" width="100%" height="1100vh" />
 	<p><br /><br /><br /></p>
-	<h3>CULT Chat Feature Under Construction</h3>
+	<!-- <h3>CULT Chat Feature Under Construction</h3>
 	<p><br></p>
 
 	This decentralized chat feature will store messages on Polygon. Messages are considered transactions
@@ -106,15 +105,24 @@
 	<p><br></p>
 	This page will look much better as soon as it embeds the CULT News and Events Microservice which is
 	in the cooking.<br /><br />
-	<p><br /><br /></p>
+	<p><br /><br /></p> -->
+
+	<h3>CULT Mag NFTs Under Construction</h3>
+	<p><br /></p>
+	The plan is to list CULT Mag NFTs here to validate their authenticity.<br /><br />
+	Feel free to
+	<a href="https://github.com/cultfamily-on-github/cult-mag-nfts" target="_blank"> contribute</a>
+	via
+	<a href="https://www.youtube.com/watch?v=8lGpZkjnkt4" target="_blank"> pull request</a> .
+	<p><br /></p>
 
 	<p><br /><br /></p>
 
 	<h2>CULT Resources</h2>
 
-	<p><br /></p>
+	<!-- <p><br /></p>
 	Everyone is invited to add CULT resources via
-	<a href="https://www.youtube.com/watch?v=8lGpZkjnkt4" target="_blank"> pull request</a>.<br />
+	<a href="https://www.youtube.com/watch?v=8lGpZkjnkt4" target="_blank"> pull request</a>.<br /> -->
 	<p><br /></p>
 	CULT resources shall support you while you
 	<a href="https://cultdao.io/rvlt.pdf" target="_blank"> Revolt 2 Earn</a>.
