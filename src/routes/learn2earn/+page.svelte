@@ -1,6 +1,5 @@
 <div class="text-center">
 	<h2>Learn 2 Earn</h2>
-	<p><br /></p>
 
 	One of the best ways to learn might be to practice providing education services for others.<br
 	/><br />
@@ -8,9 +7,7 @@
 	wallets, deflationary currencies like CULT and RVLT, tokenomics, incentive engineering, privacy engineering
 	and with that freedom engineering.
 
-	<p><br /><br /><br /></p>
 	<h4>Education Videos</h4>
-	<p><br /></p>
 
 	You might consider to create education videos, upload them on
 	<a href="https://rumble.com" target="_blank"> rumble.com</a>, add your public wallet address in
@@ -22,12 +19,7 @@
 		CULT Donation Microservice (under construction)
 	</a>
 
-	<!-- and register your public wallet
-	address for the CULT wallet reputation and donation service (under construction). -->
-
-	<p><br /><br /><br /></p>
 	<h4>24 / 7 DeFi Consultation Hour</h4>
-	<p><br /></p>
 	The goal of this 24/7 conference is to mutually provide education and coaching around decentralization,
 	self-hosted wallets etc.
 	<!-- <p><br></p>
