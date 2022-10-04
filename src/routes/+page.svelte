@@ -197,17 +197,41 @@
 
 		<section id="onlycultfans">
 			<!-- https://github.com/cultfamily-on-github/cult-video-conferencing-microservice -->
-			<h4>Only Fans</h4>
-			You can use your
-			<a href="https://ens.domains" target="_blank"> ens.domain </a>
-			as conference username to receive donations.
-			<p><br /></p>
+			<h4>Edgy Fun Projects Supporting Mainstream Adoption</h4>
+			<h6>Only Fans</h6>
+			Sophisticated<a
+				href="https://twitter.com/Peer2peerE/status/1555561893665902594?s=20&t=dz4HiwAUiOARUeQ52Q9z0Q"
+				target="_blank"
+			>
+				CULT Playmates</a
+			>
+			are getting ready to provide 24 / 7 CULT & RVLT consultation hours. <br /><br />
 			This service is brought to you by
 			<a href="https://onlycultfans.org" target="_blank"> onlycultfans.org</a>.
 
-			<div class="embedonlycultfans">
+			<!-- slows down the loading of the cult mag too much and may distract people from valuable readings when presented here 
+				therefore commenting it out for the time being
+				<div class="embedonlycultfans">
 				<embed type="text/html" src="https://onlycultfans.org/" width="100%" height="1111vh" />
-			</div>
+			</div> -->
+		</section>
+
+		<section id="cultkamasutra">
+			<!-- https://github.com/cultfamily-on-github/cult-video-conferencing-microservice -->
+			<h6>CULT Kamasutra</h6>
+			To continuously improve your emotional and physical fitness we recommend daily workouts.<br
+			/><br />
+			This service is brought to you by
+			<a href="https://cultkamasutra.eth.limo" target="_blank"> cultkamasutra.eth.limo</a>.
+		</section>
+
+		<section id="cultshops">
+			<!-- https://github.com/cultfamily-on-github/cult-video-conferencing-microservice -->
+			<h4>CULT Shops</h4>
+
+			<a href="https://dripxkarip.com" target="_blank"> dripxkarip.com</a> -
+			<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a> -
+			<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
 		</section>
 
 		<h4>We are the A-Team</h4>
@@ -232,7 +256,7 @@
 </section>
 
 <style>
-	.embedonlycultfans {
+	/* .embedonlycultfans {
 		margin-top: 4vh;
 	}
 
@@ -240,7 +264,7 @@
 		.embedonlycultfans {
 			display: none;
 		}
-	}
+	} */
 	/* .centeredImage {
 		display: block;
 		margin-left: auto;
