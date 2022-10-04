@@ -16,6 +16,14 @@ iframe {
 	width: 100%;
 }
 
+
+.centeredImage {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
+}
+
 ul {
 	display: flex;
 	flex-wrap: wrap;
@@ -238,4 +246,8 @@ ul.popin li input {
 		width: 70%;
 	}
 	
+	.centeredImage {
+		margin: auto;
+		width: 40%;
+	}
 }

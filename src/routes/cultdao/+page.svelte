@@ -105,21 +105,5 @@
 </div>
 
 <style>
-	ul {
-		display: flex;
-		flex-wrap: wrap;
-		column-gap: var(--s-20);
-		row-gap: var(--s-5);
-		justify-content: space-around;
-		text-align: center;
-	}
-	img {
-		width: 128px;
-	}
-
-	@media (min-width: 1280px) {
-		article {
-			gap: var(--s-20);
-		}
-	}
+	
 </style>
