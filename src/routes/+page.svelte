@@ -151,7 +151,7 @@
 			propaganda mutually. <br /><br />
 			This is why WEF politicians want to destroy farmers and food facilities.<br /><br />
 			This is why WEF politicians want to keep you stupid.
-			<p><br /></p>
+			<p><br /><br></p>
 			Guess what. Those bitches tried to fuck the wrong guys.<br /><br /><br />
 		</div>
 
@@ -175,34 +175,37 @@
 			<p><br /><br /></p>
 
 			<ol>
-				<li>1. Share this page with your friends</li>
+				<li>Share this page with your friends</li>
 				<br />
 				<li>
-					2. Join <a href="https://discord.com/invite/wearecultdao" target="_blank">
+					Join <a href="https://discord.com/invite/wearecultdao" target="_blank">
 						our community</a
-					>
+					> and 
+					<a href="https://t.me/cultmagazine_bot" target="_blank">
+						our telegram bot
+					</a>
 					to educate yourself and others
 				</li>
 				<br />
 				<li>
-					3. Install <a href="https://metamask.io" target="_blank"> metamask.io </a>
+					Install <a href="https://metamask.io" target="_blank"> metamask.io </a>
 					or another browserwallet you fully trust
 				</li>
 				<br />
 				<li>
-					4. Add CULT asset --> custom token in metamask via smart contract address
+					Add CULT asset --> custom token in metamask via smart contract address
 					0xf0f9d895aca5c8678f706fb8216fa22957685a13
 				</li>
 				<br />
 				<li>
-					5. Buy (the dip) CULT on
+					Buy (the dip) CULT on
 					<a href="https://uniswap.org" target="_blank"> uniswap.org </a>
 				</li>
 				<br />
-				<li>6. Bookmark the fancy page which you are currently on</li>
+				<li>Bookmark the fancy page which you are currently on</li>
 				<br />
 				<li>
-					7. Let us learn
+					Let us learn
 					<a href="https://www.youtube.com/watch?v=09maaUaRT4M" target="_blank"> from that</a>
 					and heal
 				</li>

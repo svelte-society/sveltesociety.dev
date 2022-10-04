@@ -56,6 +56,7 @@ h1 {
 
 h2 {
 	font-size: var(--font-600);
+	margin-bottom: 3.88vh;
 }
 
 h3 {
@@ -64,6 +65,8 @@ h3 {
 
 h4 {
 	font-size: var(--font-400);
+	margin-top: 8vh;
+	margin-bottom: 2vh;
 }
 
 h5 {
@@ -72,6 +75,8 @@ h5 {
 
 h6 {
 	font-size: var(--font-200);
+	margin-top: 6vh;
+	margin-bottom: 2.8vh;
 }
 
 li {

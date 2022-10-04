@@ -10,7 +10,7 @@
 	const linksRight = [
 		['/learn2earn', 'learn 2 earn'],
 		['/tools-of-freedom', 'tools of freedom'],
-		['/events', 'news & events']
+		['/news', 'news']
 	];
 </script>
 

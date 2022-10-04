@@ -10,9 +10,9 @@
 	We only give a sneak preview here on what the ecosystem is cooking.
 
 	<p><br /><br /></p>
-	<h3>Peer 2 Peer Markets</h3>
+	<h4>Peer 2 Peer Markets</h4>
 	<p><br /></p>
-	Collaborating with people without centralized corrupt middlemen is not a crime.
+	Collaborating with people - without centralized corrupt middlemen - is not a crime.
 	<p><br /></p>
 	Privacy is not a crime.
 	<p><br /></p>
@@ -23,7 +23,7 @@
 	with community based decentralized and transparent content moderation.
 	<p><br /><br /></p>
 
-	<h3>Communication Platforms</h3>
+	<h4>Communication Platforms</h4>
 	<p><br /></p>
 	Communication Platforms with decentralized content moderation.
 	<p><br /></p>
