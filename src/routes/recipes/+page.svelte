@@ -152,6 +152,21 @@
 		top: 4px;
 	}
 
+	.list-title::before {
+		content: '';
+		background: var(--black);
+		opacity: 0.8;
+		height: 0px;
+		width: 100%;
+		position: absolute;
+		bottom: 5px;
+		transition: all 0.05s ease;
+	}
+
+	.list-title:hover::before {
+		height: 5px;
+	}
+
 	.bottom-wrapper {
 		max-width: 80ch;
 		margin-inline: auto;
