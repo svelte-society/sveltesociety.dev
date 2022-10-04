@@ -7,7 +7,6 @@
 <div class="text-center">
 	<h2>Play 2 Earn</h2>
 
-	<p><br /></p>
 	Play 2 Earn is inspired by
 	<a
 		href="https://rumble.com/v1lf3yb-revolt-2-earn-in-100-seconds-michael-saylor-talks-about-revolt-2-earn.html"
@@ -24,11 +23,17 @@
 	<a href="https://cultplayground.org" target="_blank"> Game of the Day </a>
 	every day. With that we might also make sure many more good people have the chance to get on board
 	early.
-	<p><br /></p>
+	<p><br /><br /></p>
 	The following content is embedded from
 	<a href="https://cultplayground.org" target="_blank"> cultplayground.org</a>.
-	<p><br /></p>
-	<p><br /></p>
 </div>
 
-<embed type="text/html" src="https://cultplayground.org/" width="100%" height="1700vh" />
+<div class="embedcultplayground">
+	<embed type="text/html" src="https://cultplayground.org/" width="100%" height="1700vh" />
+</div>
+
+<style>
+	.embedcultplayground {
+		margin-top: 7vh;
+	}
+</style>
