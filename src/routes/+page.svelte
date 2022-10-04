@@ -198,12 +198,15 @@
 		<section id="onlycultfans">
 			<!-- https://github.com/cultfamily-on-github/cult-video-conferencing-microservice -->
 			<h4>Only Fans for CULT</h4>
-
-			The following content is embedded from
+			You can use your
+			<a href="https://ens.domains" target="_blank"> ens.domain </a>
+			as conference username to receive donations.
+			<p><br /></p>
+			This service is brought to you by
 			<a href="https://onlycultfans.org" target="_blank"> onlycultfans.org</a>.
 
 			<div class="embedonlycultfans">
-				<embed type="text/html" src="https://onlycultfans.org/" width="100%" height="1700vh" />
+				<embed type="text/html" src="https://onlycultfans.org/" width="100%" height="1000vh" />
 			</div>
 		</section>
 
@@ -231,6 +234,12 @@
 <style>
 	.embedonlycultfans {
 		margin-top: 4vh;
+	}
+
+	@media (max-width: 1000px) {
+		.embedonlycultfans {
+			display: none;
+		}
 	}
 	/* .centeredImage {
 		display: block;
