@@ -198,6 +198,12 @@
 		<section id="onlycultfans">
 			<!-- https://github.com/cultfamily-on-github/cult-video-conferencing-microservice -->
 			<h4>Edgy Fun Projects Supporting Mainstream Adoption</h4>
+			Please make sure your friends, neighbours & colleagues talk about
+			<a href="https://coinmarketcap.com/currencies/cult-dao/" target="_blank"> CULT</a>. If they
+			are in their intellectual vibes, you might share things like
+			<a href="https://rumble.com/embed/v1isz4j/?pub=1e5w3p" target="_blank"> that</a>.
+			<br /><br />
+			If they are rather horny, you might share things like the following.
 			<h6>Only Fans</h6>
 			Sophisticated
 			<a
