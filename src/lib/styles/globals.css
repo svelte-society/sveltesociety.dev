@@ -5,6 +5,17 @@ body {
 	min-height: 100vh;
 }
 
+iframe {
+	margin-top: 7vh;
+	margin-bottom: 7vh;
+	max-width: 1024px;
+}
+
+.iframediv {
+	margin: auto;
+	width: 70%;
+}
+
 #sveltekit-entry {
 	min-height: 99.7vh;
 	display: grid;
