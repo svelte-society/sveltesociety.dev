@@ -197,7 +197,7 @@
 
 		<section id="onlycultfans">
 			<!-- https://github.com/cultfamily-on-github/cult-video-conferencing-microservice -->
-			<h4>Only Fans for CULT</h4>
+			<h4>Only Fans</h4>
 			You can use your
 			<a href="https://ens.domains" target="_blank"> ens.domain </a>
 			as conference username to receive donations.
@@ -206,7 +206,7 @@
 			<a href="https://onlycultfans.org" target="_blank"> onlycultfans.org</a>.
 
 			<div class="embedonlycultfans">
-				<embed type="text/html" src="https://onlycultfans.org/" width="100%" height="1000vh" />
+				<embed type="text/html" src="https://onlycultfans.org/" width="100%" height="1111vh" />
 			</div>
 		</section>
 

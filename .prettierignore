@@ -2,3 +2,6 @@
 static/**
 build/**
 node_modules/**
+docs
+docs-backup
+material
