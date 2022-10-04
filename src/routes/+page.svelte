@@ -39,7 +39,7 @@
 	<a href="https://cultdao.io/rvlt.pdf">Revolt 2 Earn</a> <br /><br /> is the council & support
 	system.
 
-	<h3>CULTDAO in 100 Seconds with Michael Saylor</h3>
+	<h4>CULTDAO in 100 Seconds with Michael Saylor</h4>
 	Please talk about
 	<a href="https://cultdao.io" target="_blank">CULT</a>
 	after watching this video.
@@ -56,7 +56,7 @@
 		/>
 	</div>
 	<section id="Revolt2EarnVideo">
-		<h3>Revolt 2 Earn in 100 Seconds with Michael Saylor</h3>
+		<h4>Revolt 2 Earn in 100 Seconds with Michael Saylor</h4>
 		Please
 		<a href="https://uniswap.org/" target="_blank"> buy the dip </a>
 		and
@@ -74,7 +74,7 @@
 			/>
 		</div>
 	</section>
-	<h3>Join Us We Rock</h3>
+	<h4>Join Us We Rock</h4>
 </div>
 
 <section id="communitylinks">
@@ -110,7 +110,7 @@
 
 <div class="text-center">
 	<section id="rumble">
-		<h3>We Support rumble.com</h3>
+		<h4>We Support rumble.com</h4>
 		Please copy your videos from youtube to rumble. We support rumble via IPFS backups.
 		<div class="iframediv">
 			<iframe
@@ -128,7 +128,7 @@
 
 <section id="stateofthegame">
 	<div class="text-center">
-		<h3>State of the Game in September 2022</h3>
+		<h4>State of the Game in September 2022</h4>
 		During the upcoming winter, WEF politicians want you hungry, cold and full of fear so that they can
 		offer you things like Central Bank Digital Currencies (CBDCs)... with which they want to expand their
 		power and take away your rights and freedom.<br /><br />
@@ -146,7 +146,7 @@
 	</div>
 
 	<div class="text-center">
-		<h3>Time For Some Action</h3>
+		<h4>Time For Some Action</h4>
 		Let's get ready for the party and make a movement.
 
 		<div class="iframediv">
@@ -195,7 +195,7 @@
 			</li>
 		</ol>
 
-		<h3>We are the A-Team</h3>
+		<h4>We are the A-Team</h4>
 
 		CULT is the financial hub of a new, free society.<br /><br />
 		RVLT is the council & support system.<br /><br />
