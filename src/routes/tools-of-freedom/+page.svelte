@@ -2,14 +2,12 @@
 	import Seo from '$lib/components/Seo.svelte';
 </script>
 
-<Seo title="CULT Markets" description="CULT Markets" />
+<Seo title="Tools of Freedom" description="Tools of Freedom" />
 
 <div class="text-center">
 	<h2>Tools of Freedom</h2>
-	<p><br /></p>
 	We only give a sneak preview here on what the ecosystem is cooking.
 
-	<p><br /><br /></p>
 	<h4>Peer 2 Peer Markets</h4>
 	<p><br /></p>
 	Collaborating with people - without centralized corrupt middlemen - is not a crime.
@@ -21,7 +19,6 @@
 		free markets
 	</a>
 	with community based decentralized and transparent content moderation.
-	<p><br /><br /></p>
 
 	<h4>Communication Platforms</h4>
 	<p><br /></p>
@@ -35,5 +32,4 @@
 		video conferencing tools</a
 	>, chat-, archiving- and tweet platforms.
 
-	<p><br /></p>
 </div>
