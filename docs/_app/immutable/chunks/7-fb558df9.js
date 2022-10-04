@@ -1,0 +1,1 @@
+import{default as a}from"../components/pages/revolt2earn/_page.svelte-213558c8.js";import"./index-ee4f4cf3.js";import"./Seo-78c7bbdf.js";import"./stores-ff1f774d.js";import"./singletons-eb361428.js";import"./Link-5ca936e9.js";export{a as component};

@@ -199,7 +199,8 @@
 			<!-- https://github.com/cultfamily-on-github/cult-video-conferencing-microservice -->
 			<h4>Edgy Fun Projects Supporting Mainstream Adoption</h4>
 			<h6>Only Fans</h6>
-			Sophisticated<a
+			Sophisticated
+			<a
 				href="https://twitter.com/Peer2peerE/status/1555561893665902594?s=20&t=dz4HiwAUiOARUeQ52Q9z0Q"
 				target="_blank"
 			>
@@ -221,7 +222,13 @@
 			<h6>CULT Kamasutra</h6>
 			To continuously improve your emotional and physical fitness we recommend daily workouts.<br
 			/><br />
-			This service is brought to you by
+			<div class="cultandrvltpricedirectionindicatordiv">
+				<img src="images/north-pole.png" alt="" class="cultandrvltpricedirectionindicator" />
+			</div>
+			<!-- <img src="images/north-pole.jpg" alt="">
+			<img src="images/north-pole.jpeg" alt=""> -->
+			<br /><br />
+			This CULT & RVLT price tendency indicator is brought to you by
 			<a href="https://cultkamasutra.eth.limo" target="_blank"> cultkamasutra.eth.limo</a>.
 		</section>
 
@@ -256,6 +263,15 @@
 </section>
 
 <style>
+	.cultandrvltpricedirectionindicatordiv {
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+		width: 42%;
+	}
+	.cultandrvltpricedirectionindicator {
+		width: 700px;
+	}
 	/* .embedonlycultfans {
 		margin-top: 4vh;
 	}
