@@ -224,19 +224,4 @@
 		width: 50%;
 	}
 
-	section {
-		display: flow;
-		gap: var(--s-5);
-	}
-	ul {
-		display: flex;
-		flex-wrap: wrap;
-		column-gap: var(--s-20);
-		row-gap: var(--s-5);
-		justify-content: space-around;
-		text-align: center;
-	}
-	img {
-		width: 128px;
-	}
 </style>
