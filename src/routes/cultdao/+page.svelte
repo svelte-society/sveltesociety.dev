@@ -7,7 +7,6 @@
 
 <div class="text-center">
 	<h2>CULTDAO</h2>
-	<p><br /></p>
 	The
 	<a href="https://cultdao.io/" target="_blank"> CULTDAO </a>
 	is a decentralized autonomous organization (DAO) which is already
@@ -50,9 +49,7 @@
 
 	If you face any difficulties feel free to reach out to our
 	<a href="https://discord.gg/wearecultdao" target="_blank"> discord community</a>.
-	<p><br /><br /></p>
-	<h3>CULTDAO's Daily Business (Tokenomics)</h3>
-	<p><br /></p>
+	<h4>CULTDAO's Daily Business (Tokenomics)</h4>
 	<div
 		class="text-center"
 		style="width: 85%; margin-left: auto; margin-right: auto; margin-bottom: 10vh"
@@ -60,82 +57,54 @@
 		<img src="/images/cult-tokenomics.png" alt="" style="width: 100%; text-align:center" />
 	</div>
 
-	<h3>CULT Protocol Proposals</h3>
-	<p><br /></p>
+	<h4>CULT Protocol Proposals</h4>
 	Feel free to submit your own
 	<a href="https://app.cultdao.io/submitProposal" target="_blank">CULT Protocol Proposals</a>.
 
-	<p><br /></p>
 	<embed
 		src="https://dune.com/embeds/1280952/2194860/16501603-2aca-4a78-bb92-ddcd9ddedcb6"
 		width="100%"
 		height="1000"
 	/>
 
-	<p><br /></p>
-	<p><br /></p>
-	<h3>Further Statistics & Insights</h3>
-	<p><br /></p>
+	<h4>Further Statistics & Insights</h4>
 	A broader overview on CULT statistics can be found in
 	<a href="https://dune.com/web3_data/CULT" target="_blank"> this dashboard</a>.
-	<!-- <p><br /></p>
-	<embed
-		src="https://dune.com/embeds/1280936/2194836/18828c7c-899f-487e-bc10-779fee1f1026"
-		width="100%"
-		height="200"
-	/> -->
+	<!-- "https://dune.com/embeds/1280936/2194836/18828c7c-899f-487e-bc10-779fee1f1026" -->
 
-	<p><br /></p>
-	<p><br /></p>
-	<h3>Join Us We Rock</h3>
-	<p><br /></p>
+	<h4>Join Us We Rock</h4>
 
-	<!-- In order to fully understand the utilites and the tokenomics you might want to read
-	<a href="https://cultdao.io/manifesto.pdf" target="_blank"> the manifesto</a>.
-	<p><br /></p> -->
-
-	<!-- We are an open friendly community. Feel free to join us: -->
-	<p><br /></p>
-
-	<article class="container">
-		<ul>
-			<Link path="https://discord.gg/wearecultdao">
-				<img src="images/discord.svg" alt="" />
-				Discord
-			</Link>
-			<Link path="https://rumble.com/c/c-1902267">
-				<img src="images/youtube.svg" alt="" />
-				YouTube
-			</Link>
-			<Link path="https://twitter.com/MrOmodulus">
-				<img src="images/twitter.svg" alt="" />
-				Twitter
-			</Link>
-		</ul>
-		<ul>
-			<Link path="https://doc.cultdao.io/">
-				<img src="images/newsletter.svg" alt="" />
-				Newsletter
-			</Link>
-			<Link path="https://www.reddit.com/r/cultdao/">
-				<img src="images/reddit.svg" alt="" />
-				Reddit
-			</Link>
-			<Link path="https://www.cultradio.com/">
-				<img src="images/radio.svg" alt="" />
-				Podcast
-			</Link>
-		</ul>
-	</article>
+	<ul>
+		<Link path="https://discord.gg/wearecultdao">
+			<img src="images/discord.svg" alt="" />
+			Discord
+		</Link>
+		<Link path="https://rumble.com/c/c-1902267">
+			<img src="images/youtube.svg" alt="" />
+			YouTube
+		</Link>
+		<Link path="https://twitter.com/MrOmodulus">
+			<img src="images/twitter.svg" alt="" />
+			Twitter
+		</Link>
+	</ul>
+	<ul>
+		<Link path="https://doc.cultdao.io/">
+			<img src="images/newsletter.svg" alt="" />
+			Newsletter
+		</Link>
+		<Link path="https://www.reddit.com/r/cultdao/">
+			<img src="images/reddit.svg" alt="" />
+			Reddit
+		</Link>
+		<Link path="https://www.cultradio.com/">
+			<img src="images/radio.svg" alt="" />
+			Podcast
+		</Link>
+	</ul>
 </div>
 
 <style>
-	article {
-		max-width: 1024px;
-		display: grid;
-		gap: var(--s-10);
-	}
-
 	ul {
 		display: flex;
 		flex-wrap: wrap;
