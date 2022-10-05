@@ -7,7 +7,7 @@
 		"addedOn": "2022-10-05",
 		"category": "Design System",
 		"tags": ["components and libraries", "component sets"],
-		"stars": 0
+		"stars": 4
 	},
 	{
 		"title": "@sveltejs/adapter-auto",
