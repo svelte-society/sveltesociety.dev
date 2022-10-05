@@ -1,5 +1,15 @@
 [
 	{
+		"title": "STWUI",
+		"url": "https://github.com/N00nDay/stwui",
+		"description": "Opinionated yet customizable Svelte-TailwindCSS component library",
+		"npm": "https://www.npmjs.com/package/stwui",
+		"addedOn": "2022-10-05",
+		"category": "Design System",
+		"tags": ["components and libraries", "component sets"],
+		"stars": 4
+	},
+	{
 		"title": "@sveltejs/adapter-auto",
 		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-auto",
 		"description": "Automatically chooses adapter for your current environment if possible",
