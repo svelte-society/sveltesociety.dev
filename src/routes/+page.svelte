@@ -195,6 +195,22 @@
 			</li>
 		</ol>
 
+		<section id="gameofthedayreminder">
+			<h4>CULT Game of the Day Reminder</h4>
+
+			Start interacting with the
+			<a href="https://t.me/cultmagazine_bot" target="_blank"> CULT AI</a> to receive daily
+			reminders for the
+
+			<a href="https://cultplayground.org/" target="_blank"> CULT Game of the Day</a>.
+
+			<div class="cultandrvltpricedirectionindicatordiv">
+				<a href="https://t.me/cultmagazine_bot" target="_blank">
+					<img src="images/cult-mag-bot.png" alt="" class="cultandrvltpricedirectionindicator" />
+				</a>
+			</div>
+		</section>
+		
 		<section id="onlycultfans">
 			<!-- https://github.com/cultfamily-on-github/cult-video-conferencing-microservice -->
 			<h4>Edgy Fun Projects Supporting Mainstream Adoption</h4>
@@ -246,6 +262,12 @@
 			<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a> -
 			<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
 		</section>
+
+		<!-- <h4>Just Do It</h4>
+
+		<a href="https://www.youtube.com/watch?v=5-sfG8BV8wU" target="_blank">
+			Make your dreams come true</a
+		>. -->
 
 		<h4>We are the A-Team</h4>
 
