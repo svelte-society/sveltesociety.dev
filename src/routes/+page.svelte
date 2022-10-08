@@ -203,6 +203,7 @@
 			reminders for the
 
 			<a href="https://cultplayground.org/" target="_blank"> CULT Game of the Day</a>.
+			<p><br /></p>
 
 			<div class="cultandrvltpricedirectionindicatordiv">
 				<a href="https://t.me/cultmagazine_bot" target="_blank">
@@ -210,7 +211,7 @@
 				</a>
 			</div>
 		</section>
-		
+
 		<section id="onlycultfans">
 			<!-- https://github.com/cultfamily-on-github/cult-video-conferencing-microservice -->
 			<h4>Edgy Fun Projects Supporting Mainstream Adoption</h4>
@@ -268,6 +269,21 @@
 		<a href="https://www.youtube.com/watch?v=5-sfG8BV8wU" target="_blank">
 			Make your dreams come true</a
 		>. -->
+
+		<h4>Philosophical Aspects</h4>
+
+		In order to increase the intelligence of our movement we learn from systems which can be assumed
+		to be more intelligent than the sum of their parts - e.g. learning from the human brain. In
+		order to do so we build tools which help us composing the following aspects in manifold ways so
+		that those aspects play a beautiful concert which will make criminals shiver and lovers dance.
+		
+		<p><br></p>
+		1. Increase the density and size of the network (Cortex)
+		<p><br></p>
+		2. Foster regular arousals (Formatio reticularis)
+		<p><br></p>
+		3. Ensure clear, transparent, reasonable (somewhat merciful) judgement (Limbic system)
+		
 
 		<h4>We are the A-Team</h4>
 
