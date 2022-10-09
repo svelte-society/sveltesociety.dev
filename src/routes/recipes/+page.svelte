@@ -160,7 +160,7 @@
 		width: 100%;
 		position: absolute;
 		bottom: 5px;
-		transition: all 0.05s ease;
+		transition: height 0.05s ease;
 	}
 
 	.list-title:hover::before {
