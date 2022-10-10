@@ -2775,5 +2775,18 @@
 		"category": "Stores",
 		"tags": ["stores and state"],
 		"stars": 0
+	},
+	{
+		"title": "svelte-unicons",
+		"url": "https://github.com/devShamim/svelte-unicons",
+		"description": "Unicons for Svelte based on @iconscout/unicons",
+		"npm": "svelte-unicons",
+		"addedOn": "2022-10-10",
+		"category": "User Interaction",
+		"tags": [
+			"components and libraries",
+			"fonts and icons"
+		],
+		"stars": 1
 	}
 ]
