@@ -507,6 +507,7 @@ onMount(() => {
 
 <!-- Variables can be used -->
 <div style:color={myColor}>...</div>
+<div style="color: {myColor}">...</div>
 
 <!-- Shorthand, for when property and variable name match -->
 <div style:color>...</div>
