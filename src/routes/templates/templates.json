@@ -6,7 +6,7 @@
 		"npm": "sveltekit-auth-example",
 		"addedOn": "2022-10-02",
 		"category": "SvelteKit",
-		"tags": ["templates", "typescript", "authentication", "postgresql", "google"],
+		"tags": ["templates", "typescript", "authentication", "database"],
 		"stars": 62
 	},
 	{
