@@ -2775,5 +2775,15 @@
 		"category": "Stores",
 		"tags": ["stores and state"],
 		"stars": 0
+	},
+	{
+		"title": "svelte-google-auth",
+		"url": "https://github.com/halfdanj/svelte-google-auth",
+		"description": "Integration with Google Authenticartion for sveltekit",
+		"npm": "svelte-google-auth",
+		"addedOn": "2022-09-26",
+		"category": "Integration",
+		"tags": ["auth"],
+		"stars": 4
 	}
 ]
