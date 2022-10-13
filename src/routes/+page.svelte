@@ -263,7 +263,17 @@
 			<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a> -
 			<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
 		</section>
+		
+		<section id="nftart">
+		<h4>CULT NFT Art</h4>
 
+		<a href="https://www.cultdao.art" target="_blank"> cultdao.art</a>
+			<p><br></p>
+		<div class="cultandrvltpricedirectionindicatordiv">
+			<img src="images/cultdao-art-girl.png" alt="" class="cultandrvltpricedirectionindicator" />
+		</div>
+
+		</section>
 		<!-- <h4>Just Do It</h4>
 
 		<a href="https://www.youtube.com/watch?v=5-sfG8BV8wU" target="_blank">
@@ -280,7 +290,7 @@
 		<p><br></p>
 		1. Increase the density and size of the network (Cortex)
 		<p><br></p>
-		2. Foster regular arousals (Formatio reticularis)
+		2. Foster <a href="https://cultplayground.org" target="_blank"> regular arousals</a> (Formatio reticularis)
 		<p><br></p>
 		3. Ensure clear, transparent, reasonable (somewhat merciful) judgement (Limbic system)
 		

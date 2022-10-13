@@ -18,7 +18,9 @@
 	<a href="https://github.com/cultfamily-on-github/cult-exchange-microservice" target="_blank">
 		free markets
 	</a>
-	with community based decentralized and transparent content moderation.
+	with community based decentralized and transparent content moderation inspired by the
+	<a href="https://cultbeast.org" target="_blank">
+		cultbeast.org	</a>.
 
 	<h4>Communication Platforms</h4>
 	<p><br /></p>
