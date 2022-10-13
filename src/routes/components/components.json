@@ -2795,5 +2795,18 @@
 		"category": "Integration",
 		"tags": ["auth"],
 		"stars": 4
+	},
+	{
+		"title": "@bun-community/sveltekit-adapter-bun",
+		"url": "https://github.com/bun-community/sveltekit-adapter-bun",
+		"description": "SvelteKit adapter that generates a standalone Bun server.",
+		"npm": "@bun-community/sveltekit-adapter-bun",
+		"addedOn": "2022-10-13",
+		"category": "SvelteKit Adapters",
+		"tags": [
+			"ssr",
+			"integrations"
+		],
+		"stars": 0
 	}
 ]
