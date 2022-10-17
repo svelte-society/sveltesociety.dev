@@ -2787,6 +2787,16 @@
 		"stars": 0
 	},
 	{
+		"title": "Svelte Scroll Video",
+		"description": "A component to play a video by scrolling the page",
+		"url": "https://github.com/macfja/svelte-scroll-video#readme",
+		"npm": "@macfja/svelte-scroll-video",
+		"addedOn": "2022-10-17",
+		"category": "User Interaction",
+		"tags": ["video", "images", "inputs and widgets", "interactions", "viewport"],
+		"stars": 0
+	},
+	{
 		"title": "svelte-google-auth",
 		"url": "https://github.com/halfdanj/svelte-google-auth",
 		"description": "Integration with Google Authenticartion for sveltekit",
