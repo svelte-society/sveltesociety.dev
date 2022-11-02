@@ -2795,5 +2795,19 @@
 		"category": "Integration",
 		"tags": ["auth"],
 		"stars": 4
-	}
+	},
+	{
+	"title": "sveltekit-adapter-firebase",
+	"url": "https://github.com/simonnepomuk/monorepo/tree/main/libs/sveltekit-adapter-firebase",
+	"description": "SvelteKit Adapter for Firebase",
+	"npm": "sveltekit-adapter-firebase",
+	"addedOn": "2022-11-02",
+	"category": "SvelteKit Adapters",
+	"tags": [
+		"auth",
+		"integrations",
+		"ssr"
+	],
+	"stars": 0
+}
 ]
