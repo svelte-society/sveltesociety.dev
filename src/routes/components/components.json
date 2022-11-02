@@ -2689,14 +2689,14 @@
 		"stars": 22
 	},
 	{
-		"title": "skeleton",
-		"url": "https://github.com/Brain-Bones/skeleton",
-		"description": "A Svelte/Kit component library designed for use with Tailwind.",
+		"title": "Skeleton",
+		"url": "https://skeleton.dev/",
+		"description": "A fully featured web UI toolkit for Svelte and Tailwind.",
 		"npm": "@brainandbones/skeleton",
 		"addedOn": "2022-08-01",
 		"category": "Design System",
 		"tags": ["components and libraries", "component sets"],
-		"stars": 101
+		"stars": 479
 	},
 	{
 		"title": "svelte-hover-draw-svg",
