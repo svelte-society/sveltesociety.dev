@@ -2795,5 +2795,18 @@
 		"category": "Integration",
 		"tags": ["auth"],
 		"stars": 4
+	},
+	{
+		"title": "Sveltegram",
+		"url": "https://sveltegram.a3k.me/",
+		"description": "Reactive Telegram widgets built with svelte",
+		"npm": "sveltegram",
+		"addedOn": "2022-11-15",
+		"category": "Integration",
+		"tags": [
+			"third party services",
+			"auth"
+		],
+		"stars": 7
 	}
 ]
