@@ -2,12 +2,12 @@
 	{
 		"title": "SvelteKit Authentication Example Project",
 		"url": "https://github.com/nstuyvesant/sveltekit-auth-example",
-		"description": "An example of how to manage local and Sign in with Google Authentication using SvelteKit and a PostgreSQL database. This project has maintained compatibility through the breaking changes in SvelteKit.",
+		"description": "Example of how to manage local and Sign in with Google Authentication using SvelteKit and a PostgreSQL database. This project has maintained compatibility through the breaking changes in SvelteKit.",
 		"npm": "sveltekit-auth-example",
 		"addedOn": "2022-10-02",
 		"category": "SvelteKit",
 		"tags": ["templates", "typescript", "authentication", "database"],
-		"stars": 62
+		"stars": 68
 	},
 	{
 		"title": "sveltekit-windicss-flowbite-template",
