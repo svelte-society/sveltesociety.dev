@@ -83,7 +83,7 @@
 	<ul>
 		<li>
 			For a curated list of SvelteKit examples in the wild, see
-			<a href="https://awesome-sveltekit.netlify.app" target="_blank">awesome-sveltekit</a>
+			<a href="https://github.com/janosh/awesome-sveltekit" target="_blank">awesome-sveltekit</a>
 		</li>
 	</ul>
 </div>
