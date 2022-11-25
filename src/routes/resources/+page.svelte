@@ -69,15 +69,21 @@
 	<div>Finally, there are also YouTube channels and playlists that teach Svelte:</div>
 	<ul>
 		<li>
-			<a href="https://www.youtube.com/channel/UCg6SQd5jnWo5Y70rZD9SQFA" target="_blank"
+			<a href="https://youtube.com/channel/UCg6SQd5jnWo5Y70rZD9SQFA" target="_blank"
 				>Svelte Master</a
 			>
 		</li>
 		<li>
-			<a
-				href="https://www.youtube.com/watch?v=zojEMeQGGHs&list=PL4cUxeGkcC9hlbrVO_2QFVqVPhlZmz7tO"
-				target="_blank">Svelte Tutorial for Beginners</a
-			> by The Net Ninja
+			<a href="https://youtu.be/zojEMeQGGHs" target="_blank">Svelte Tutorial for Beginners</a> by The
+			Net Ninja
+		</li>
+	</ul>
+
+	<h2>Discovery</h2>
+	<ul>
+		<li>
+			For a curated list of SvelteKit examples in the wild, see
+			<a href="https://awesome-sveltekit.netlify.app" target="_blank">awesome-sveltekit</a>
 		</li>
 	</ul>
 </div>
