@@ -2813,5 +2813,17 @@
 		"category": "Integration",
 		"tags": ["auth"],
 		"stars": 4
-	}
+	},
+        {
+	        "title": "sveltekit-search-params",
+        	"url": "https://github.com/paoloricciuti/sveltekit-search-params ",
+        	"description": "The best way to read and WRITE from query params in sveltekit.",
+        	"npm": "sveltekit-search-params",
+	        "addedOn": "2022-12-05",
+	        "category": "Stores",
+	        "tags": [
+	        	"stores and state"
+	        ],
+        	"stars": 0
+        }
 ]
