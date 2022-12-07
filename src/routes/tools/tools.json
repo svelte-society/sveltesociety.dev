@@ -6,7 +6,7 @@
 		"description": "Compile Svelte components with Rollup",
 		"url": "https://github.com/sveltejs/rollup-plugin-svelte",
 		"tags": ["official"],
-		"stars": 402
+		"stars": 457
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -15,7 +15,7 @@
 		"description": "Webpack loader for svelte components",
 		"url": "https://github.com/sveltejs/svelte-loader",
 		"tags": ["official"],
-		"stars": 492
+		"stars": 564
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -24,7 +24,7 @@
 		"description": "This is the official svelte plugin for vite",
 		"url": "https://github.com/sveltejs/vite-plugin-svelte",
 		"tags": ["official"],
-		"stars": 225
+		"stars": 585
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -33,7 +33,7 @@
 		"description": "An esbuild plugin to compile Svelte components",
 		"url": "https://github.com/EMH333/esbuild-svelte",
 		"tags": [],
-		"stars": 110
+		"stars": 193
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -51,7 +51,7 @@
 		"description": "A parcel plugin that enables svelte support",
 		"url": "https://github.com/DeMoorJasper/parcel-plugin-svelte",
 		"tags": [],
-		"stars": 217
+		"stars": 235
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
