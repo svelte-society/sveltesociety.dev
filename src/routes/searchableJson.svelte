@@ -14,7 +14,9 @@
 	export let submittingType = '';
 
 	let searchValue;
-	let dataToDisplay = [];
+
+	const dataDefault = { category: '' };
+	$: dataToDisplay = data.map((line) => ({ ...dataDefault, ...line }));
 
 	$: categories = extractUnique(dataToDisplay, 'category');
 
@@ -27,8 +29,7 @@
 	<section slot="controls" class="controls">
 		<div class="inputs">
 			<Search
-				{data}
-				dataDefault={{ category: '' }}
+				data={dataToDisplay}
 				bind:query={searchValue}
 				sortableFields={[
 					{ identifier: 'addedOn', title: 'Most recent', ascending: false },

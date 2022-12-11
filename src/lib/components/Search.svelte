@@ -20,7 +20,6 @@
 
 	export let facetsConfig: Array<Facet> = [];
 	export let data;
-	export let dataDefault = {};
 	let sort = { value: 'stars_desc' };
 	export let searchableFields: Array<string> = [];
 	export let sortableFields: Array<SortField> = [];
@@ -50,10 +49,7 @@
 		),
 		searchableFields
 	};
-	const searcher = itemsjs(
-		data.map((line) => ({ ...dataDefault, ...line })),
-		configurations as Configuration<string, string, string>
-	);
+	const searcher = itemsjs(data, configurations as Configuration<string, string, string>);
 
 	export function search(): void {
 		const results = searcher.search({
