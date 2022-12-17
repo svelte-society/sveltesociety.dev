@@ -30,7 +30,7 @@
 		margin-bottom: calc(1em / 3);
 	}
 
-	/* Global select overrides */
+	/* Scoped generic svelte-select overrides */
 
 	.themed-select :global(.indicator) {
 		display: flex; /* Centers chevron */
@@ -40,6 +40,10 @@
 		min-height: var(--input-height);
 	}
 
+	.themed-select :global(.clearSelect) {
+		cursor: pointer;
+	}
+
 	.themed-select :global(.clearSelect:hover svg) {
 		color: var(--secondary);
 	}
@@ -47,20 +51,22 @@
 	.themed-select :global(.selectedItem) {
 		display: flex; /* Centers select value */
 		align-items: center;
-		font-size: 1.125rem;
+		font-size: var(--input-font-size);
 	}
 
 	.themed-select :global(.listContainer .listItem .item) {
 		cursor: pointer;
-		padding: 0 1rem; /* Equalizes padding between input/dropdown text */
+		padding: 0 var(--s-4); /* Equalizes padding between input/dropdown text */
+		font-size: var(--input-font-size);
 	}
 
 	.themed-select :global(.selectedItem .selection) {
 		line-height: 1;
-		margin-top: calc(1em / 4); /* Centers line-height */
+		overflow: hidden;
+		margin-top: var(--ff-optical-4); /* Centers line-height */
 	}
 
-	/* Multi-select overrides */
+	/* Scoped multi svelte-select overrides */
 
 	.themed-select :global(.multiSelect) {
 		--padding-y: calc(1em / 3);
@@ -71,7 +77,7 @@
 		gap: var(--gap) !important;
 		display: flex !important;
 		justify-content: flex-start !important;
-		padding: var(--padding-y) var(--right-padding) var(--padding-y) 1rem !important;
+		padding: var(--padding-y) var(--right-padding) var(--padding-y) var(--s-4) !important;
 		align-items: center !important;
 		height: 100% !important;
 	}
@@ -95,6 +101,18 @@
 
 	.themed-select :global(.multiSelectItem:hover svg) {
 		fill: var(--white) !important;
+	}
+
+	.themed-select :global(input) {
+		height: 1em !important;
+		overflow-y: hidden;
+		position: relative;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		font-weight: 700 !important;
+		font-size: var(--multiselect-placeholder-font-size) !important;
+		margin-top: var(--ff-optical-4) !important;
+		color: var(--black) !important;
 	}
 
 	/* New - End */
@@ -124,7 +142,7 @@
 	}
 
 	.themed-select :global(input) {
-		height: 1.125rem !important;
 		cursor: pointer !important;
+		font-family: Overpass;
 	}
 </style>

@@ -114,7 +114,22 @@
 	--link-transition: border-bottom 0.15s ease-out;
 	--menu-transition: scale 0.2s ease-out;
 
-	/* ELEMENTS */
+	/* *********** ELEMENTS ************* */
 	--input-height: 48px;
 	--input-label-size: 0.875rem;
+	--input-font-size: 1.125rem;
+	--multiselect-placeholder-font-size: 1rem;
+
+	/* *********** FIREFOX OPTICAL CORR. UTILS ************* */
+	--ff-optical-3: 0;
+	--ff-optical-4: 0;
+	--ff-optical-5: 0;
+}
+
+@supports (-moz-appearance: none) {
+	:root {
+		--ff-optical-3: calc(1em / 3);
+		--ff-optical-4: calc(1em / 4);
+		--ff-optical-5: calc(1em / 5);
+	}
 }

@@ -107,11 +107,6 @@ li {
 hr {
 	margin-block: 4rem;
 }
-.submit {
-	position: absolute;
-	top: calc(100% + 1rem);
-	left: 0;
-}
 
 ul.popin {
 	padding: 0.5ex;
