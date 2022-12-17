@@ -26,7 +26,7 @@
 <Seo title={displayTitle} />
 
 <SearchLayout title={displayTitle}>
-	<section slot="controls" class="controls">
+	<section slot="controls" class="controls-grid">
 		<div class="selects-grid">
 			<Search
 				data={dataToDisplay}
@@ -71,12 +71,14 @@
 			>
 		</div>
 
-		<input
-			class="searchbar"
-			type="text"
-			placeholder="Search for {displayTitle.toLowerCase()}..."
-			bind:value={searchValue}
-		/>
+		<div class="searchbar-wrapper">
+			<input
+				class="searchbar"
+				type="text"
+				placeholder="Search for {displayTitle.toLowerCase()}..."
+				bind:value={searchValue}
+			/>
+		</div>
 		<span class="searchbar-count"
 			>{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
 		>
@@ -98,6 +100,14 @@
 </SearchLayout>
 
 <style>
+	.controls-grid {
+		display: grid;
+		align-items: center;
+		gap: var(--s-8);
+		font-family: Overpass;
+		position: relative;
+	}
+
 	.selects-grid {
 		display: grid;
 		gap: calc(var(--s-2) * 2);
@@ -106,6 +116,49 @@
 	@media (min-width: 1280px) {
 		.selects-grid {
 			grid-template-columns: 1.5fr 2.25fr 1fr 0.75fr;
+		}
+	}
+
+	.searchbar-wrapper {
+		height: 100%;
+		width: 100%;
+		grid-row: 1;
+	}
+
+	.searchbar {
+		--icon-width: 18px;
+		--siblings-label-margin: calc(1em / 3);
+		--searchbar-height: calc(
+			var(--input-label-size) + var(--siblings-label-margin) + var(--input-height)
+		);
+		height: var(--searchbar-height);
+		font-size: 1rem;
+		width: 100%;
+		padding: calc(1em / 5) calc(var(--icon-width) + 1rem) 0 1rem;
+		border: 2px solid var(--dark-gray);
+		border-radius: 4px;
+		font-family: Overpass;
+		background: #f3f6f9 url(/images/search-icon.svg) 98% no-repeat;
+	}
+
+	.searchbar:focus {
+		outline: none;
+		border-color: var(--secondary);
+	}
+	.searchbar-count {
+		position: absolute;
+		top: calc(100% + 1rem);
+		right: 0;
+	}
+
+	@media (min-width: 1280px) {
+		.searchbar-wrapper {
+			grid-row: unset;
+		}
+
+		.controls-grid {
+			gap: var(--s-6);
+			grid-template-columns: 2fr 1fr;
 		}
 	}
 </style>

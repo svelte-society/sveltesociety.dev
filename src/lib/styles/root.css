@@ -113,4 +113,8 @@
 	/* ***********TRANSITIONS************* */
 	--link-transition: border-bottom 0.15s ease-out;
 	--menu-transition: scale 0.2s ease-out;
+
+	/* ELEMENTS */
+	--input-height: 48px;
+	--input-label-size: 0.875rem;
 }

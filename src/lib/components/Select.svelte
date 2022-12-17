@@ -7,7 +7,7 @@
 	const selectId = label ? `${label.replace(' ', '_').toLowerCase()}_select` : undefined;
 </script>
 
-<div class="themed themed-select">
+<div class="themed-select">
 	{#if label}
 		<label for={selectId}>{label}</label>
 	{/if}
@@ -21,20 +21,23 @@
 </div>
 
 <style>
+	/* New - Start */
+
 	label {
+		line-height: 1;
 		white-space: nowrap;
-		font-size: 0.875rem;
+		font-size: var(--input-label-size);
 		margin-bottom: calc(1em / 3);
 	}
 
-	/* New - Start */
+	/* Global select overrides */
 
-	.themed :global(.indicator) {
+	.themed-select :global(.indicator) {
 		display: flex; /* Centers chevron */
 	}
 
-	.themed-select :global(.clearSelect) {
-		display: flex; /* Centers clear button */
+	.themed-select :global(.selectContainer) {
+		min-height: var(--input-height);
 	}
 
 	.themed-select :global(.clearSelect:hover svg) {
@@ -57,45 +60,46 @@
 		margin-top: calc(1em / 4); /* Centers line-height */
 	}
 
-	.themed :global(.multiSelectItem_clear) {
-		top: unset !important;
-		cursor: pointer;
-	}
+	/* Multi-select overrides */
 
-	.themed :global(.multiSelectItem_label) {
-		user-select: none;
-	}
-
-	.themed :global(.multiSelectItem:hover svg) {
-		fill: var(--white) !important;
-	}
-
-	.themed :global(.multiSelect) {
-		--padding: calc(1em / 3);
-		--gap: var(--padding);
+	.themed-select :global(.multiSelect) {
+		--padding-y: calc(1em / 3);
+		--gap: var(--padding-y);
 		--icon-width: 20px;
-		--right-padding: calc(var(--icon-width) + var(--padding) * 2);
-
+		--right-padding: calc(var(--icon-width) + var(--padding-y) * 2);
+		min-height: var(--input-height);
 		gap: var(--gap) !important;
 		display: flex !important;
 		justify-content: flex-start !important;
-		padding: var(--padding) var(--right-padding) var(--padding) var(--padding) !important;
+		padding: var(--padding-y) var(--right-padding) var(--padding-y) 1rem !important;
 		align-items: center !important;
 		height: 100% !important;
 	}
 
-	.themed :global(.select-container) {
-		border: 2px solid var(--dark-gray);
+	.themed-select :global(.clearSelect) {
+		display: flex; /* Centers clear button */
+	}
+
+	.themed-select :global(.multiSelect:has(.multiSelectItem)) {
+		padding: var(--padding-y) !important; /* Changes container padding once there are results */
+	}
+
+	.themed-select :global(.multiSelectItem_clear) {
+		top: unset !important;
 		cursor: pointer;
-		align-items: center;
-		height: max-content;
-		gap: 10px;
+	}
+
+	.themed-select :global(.multiSelectItem_label) {
+		user-select: none;
+	}
+
+	.themed-select :global(.multiSelectItem:hover svg) {
+		fill: var(--white) !important;
 	}
 
 	/* New - End */
 
-	.themed {
-		/* --inputFontSize: 0.875rem; */
+	.themed-select {
 		--multiItemActiveBG: var(--secondary);
 		--borderHoverColor: var(--secondary);
 		--borderFocusColor: var(--secondary);
@@ -105,7 +109,7 @@
 		flex-direction: column;
 	}
 
-	.themed :global(.multiSelectItem) {
+	.themed-select :global(.multiSelectItem) {
 		font-size: 0.875rem;
 		align-items: center;
 		--multiItemBorderRadius: var(--s-1);
@@ -119,8 +123,8 @@
 		/* --multiLabelMargin: 1px 5px 0 0; */
 	}
 
-	.themed :global(input) {
-		height: 1rem !important;
+	.themed-select :global(input) {
+		height: 1.125rem !important;
 		cursor: pointer !important;
 	}
 </style>

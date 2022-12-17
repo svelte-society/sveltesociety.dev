@@ -3,6 +3,7 @@
 	"singleQuote": true,
 	"trailingComma": "none",
 	"printWidth": 100,
+	"pluginSearchDirs": ["."],
 	"overrides": [
 		{
 			"files": "*.svx",
