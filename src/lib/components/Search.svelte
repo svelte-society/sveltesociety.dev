@@ -94,7 +94,6 @@
 	}
 </script>
 
-<!-- Tags, Categories -->
 {#each facets as facet (facet.identifier)}
 	<Select
 		{...facet}
@@ -104,7 +103,6 @@
 	/>
 {/each}
 
-<!-- Sorting -->
 <Select
 	items={sortableFields.map(({ identifier, title, ascending }) => ({
 		value: identifier + '_' + (ascending ? 'asc' : 'desc'),

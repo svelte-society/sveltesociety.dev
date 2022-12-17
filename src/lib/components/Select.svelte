@@ -21,8 +21,6 @@
 </div>
 
 <style>
-	/* New - Start */
-
 	label {
 		line-height: 1;
 		white-space: nowrap;
@@ -33,15 +31,14 @@
 	/* Scoped generic svelte-select overrides */
 
 	.themed-select :global(.indicator) {
-		display: flex; /* Centers chevron */
+		/* Centers chevron */
+		display: flex;
+		height: 100% !important;
+		top: 0 !important;
 	}
 
 	.themed-select :global(.selectContainer) {
 		min-height: var(--input-height);
-	}
-
-	.themed-select :global(.clearSelect) {
-		cursor: pointer;
 	}
 
 	.themed-select :global(.clearSelect:hover svg) {
@@ -63,7 +60,7 @@
 	.themed-select :global(.selectedItem .selection) {
 		line-height: 1;
 		overflow: hidden;
-		margin-top: var(--ff-optical-4); /* Centers line-height */
+		margin-top: var(--ff-optical-4); /* Centers text-line */
 	}
 
 	/* Scoped multi svelte-select overrides */
@@ -83,24 +80,42 @@
 	}
 
 	.themed-select :global(.clearSelect) {
+		cursor: pointer;
 		display: flex; /* Centers clear button */
+		padding: 0;
 	}
 
 	.themed-select :global(.multiSelect:has(.multiSelectItem)) {
-		padding: var(--padding-y) !important; /* Changes container padding once there are results */
+		padding: var(--padding-y) var(--right-padding) var(--padding-y) var(--padding-y) !important; /* Changes container padding once there are results */
+	}
+
+	.themed-select :global(.multiSelectItem) {
+		--delete-icon-width: 25px;
+		padding: 0 0 0 var(--s-1) !important;
+		height: var(--delete-icon-width) !important;
+	}
+
+	.themed-select :global(.multiSelectItem:hover svg) {
+		fill: var(--white) !important;
 	}
 
 	.themed-select :global(.multiSelectItem_clear) {
+		/* Increase the clickable clear area */
 		top: unset !important;
+		width: var(--delete-icon-width) !important;
+		height: var(--delete-icon-width) !important;
+		max-width: unset !important;
 		cursor: pointer;
 	}
 
 	.themed-select :global(.multiSelectItem_label) {
 		user-select: none;
+		margin-right: 0 !important;
+		margin-top: var(--ff-optical-6) !important;
 	}
 
-	.themed-select :global(.multiSelectItem:hover svg) {
-		fill: var(--white) !important;
+	.themed-select :global(.multiSelectItem_clear svg) {
+		padding: calc(var(--s-1) / 2);
 	}
 
 	.themed-select :global(input) {
@@ -114,8 +129,6 @@
 		margin-top: var(--ff-optical-4) !important;
 		color: var(--black) !important;
 	}
-
-	/* New - End */
 
 	.themed-select {
 		--multiItemActiveBG: var(--secondary);

@@ -124,6 +124,7 @@
 	--ff-optical-3: 0;
 	--ff-optical-4: 0;
 	--ff-optical-5: 0;
+	--ff-optical-6: 0;
 }
 
 @supports (-moz-appearance: none) {
@@ -131,5 +132,6 @@
 		--ff-optical-3: calc(1em / 3);
 		--ff-optical-4: calc(1em / 4);
 		--ff-optical-5: calc(1em / 5);
+		--ff-optical-6: calc(1em / 5);
 	}
 }

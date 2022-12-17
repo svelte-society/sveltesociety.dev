@@ -108,18 +108,23 @@
 	.searchable-grid {
 		display: grid;
 		align-items: center;
-		gap: var(--s-8);
+		gap: var(--s-6);
 		font-family: Overpass;
 		position: relative;
 	}
 
 	.selects-grid {
 		display: grid;
-		gap: var(--s-6);
+		gap: var(--s-5);
 	}
 
 	@media (min-width: 1280px) {
+		.searchable-grid {
+			gap: var(--s-8);
+		}
+
 		.selects-grid {
+			gap: var(--s-6);
 			grid-template-columns: 1.5fr 2.25fr 1fr 0.75fr;
 		}
 	}
@@ -177,7 +182,7 @@
 
 		.searchable-grid {
 			gap: var(--s-6);
-			grid-template-columns: 2fr 1fr;
+			grid-template-columns: 2fr 0.85fr;
 		}
 	}
 </style>
