@@ -119,6 +119,7 @@
 	--input-label-size: 0.875rem;
 	--input-font-size: 1.125rem;
 	--multiselect-placeholder-font-size: 1rem;
+	--input-label-margin: calc(1em / 3);
 
 	/* *********** FIREFOX OPTICAL CORR. UTILS ************* */
 	--ff-optical-3: 0;
@@ -132,6 +133,6 @@
 		--ff-optical-3: calc(1em / 3);
 		--ff-optical-4: calc(1em / 4);
 		--ff-optical-5: calc(1em / 5);
-		--ff-optical-6: calc(1em / 5);
+		--ff-optical-6: calc(1em / 6);
 	}
 }

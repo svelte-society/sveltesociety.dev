@@ -137,9 +137,8 @@
 
 	.searchbar {
 		--icon-width: 18px;
-		--siblings-label-margin: calc(1em / 3);
 		--searchbar-height: calc(
-			var(--input-label-size) + var(--siblings-label-margin) + var(--input-height)
+			var(--input-label-size) + var(--input-label-margin) + var(--input-height)
 		);
 		height: var(--searchbar-height);
 		font-size: var(--s-4);
@@ -148,7 +147,7 @@
 		border: 2px solid var(--dark-gray);
 		border-radius: 4px;
 		font-family: Overpass;
-		background: #f3f6f9 url(/images/search-icon.svg) 98% no-repeat;
+		background: #f3f6f9 url(/images/search-icon.svg) 96% no-repeat;
 	}
 
 	.searchbar:focus {

@@ -25,7 +25,7 @@
 		line-height: 1;
 		white-space: nowrap;
 		font-size: var(--input-label-size);
-		margin-bottom: calc(1em / 3);
+		margin-bottom: var(--input-label-margin);
 	}
 
 	/* Scoped generic svelte-select overrides */
@@ -46,7 +46,8 @@
 	}
 
 	.themed-select :global(.selectedItem) {
-		display: flex; /* Centers select value */
+		/* Centers select value */
+		display: flex;
 		align-items: center;
 		font-size: var(--input-font-size);
 	}
@@ -86,7 +87,8 @@
 	}
 
 	.themed-select :global(.multiSelect:has(.multiSelectItem)) {
-		padding: var(--padding-y) var(--right-padding) var(--padding-y) var(--padding-y) !important; /* Changes container padding once there are results */
+		/* Changes container padding once there are results */
+		padding: var(--padding-y) var(--right-padding) var(--padding-y) var(--padding-y) !important;
 	}
 
 	.themed-select :global(.multiSelectItem) {
