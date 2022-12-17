@@ -27,7 +27,7 @@
 
 <SearchLayout title={displayTitle}>
 	<section slot="controls" class="controls">
-		<div class="inputs">
+		<div class="selects-grid">
 			<Search
 				data={dataToDisplay}
 				bind:query={searchValue}
@@ -96,3 +96,16 @@
 		{/each}
 	</section>
 </SearchLayout>
+
+<style>
+	.selects-grid {
+		display: grid;
+		gap: calc(var(--s-2) * 2);
+	}
+
+	@media (min-width: 1280px) {
+		.selects-grid {
+			grid-template-columns: 1.5fr 2.25fr 1fr 0.75fr;
+		}
+	}
+</style>
