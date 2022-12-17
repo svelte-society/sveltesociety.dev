@@ -135,6 +135,7 @@
 		--borderHoverColor: var(--secondary);
 		--borderFocusColor: var(--secondary);
 		--itemIsActiveBG: var(--secondary);
+		/* --indicatorTop: calc(50% - 13px); */
 		position: relative;
 		display: flex;
 		flex-direction: column;
