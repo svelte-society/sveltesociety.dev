@@ -1,5 +1,19 @@
 [
 	{
+		"title": "uBeac Svelte",
+		"url": "https://github.com/ubeac/svelte",
+		"description": "Opinionated Svelte component UI library by uBeac",
+		"npm": "@ubeac/svelte",
+		"addedOn": "2022-12-28",
+		"category": "Design System",
+		"tags": [
+			"components and libraries",
+			"component sets",
+			"inputs and widgets"
+		],
+		"stars": 0
+	},
+	{
 		"title": "STWUI",
 		"url": "https://github.com/N00nDay/stwui",
 		"description": "Opinionated yet customizable Svelte-TailwindCSS component library",
