@@ -887,5 +887,19 @@
 		"category": "Svelte",
 		"tags": ["templates", "integrations"],
 		"stars": 0
-	}
+	},
+{
+	"title": "SvelteKit with Prisma and AuthJS",
+	"url": "https://github.com/KoljaL/SK-AuthJS",
+	"description": "Just to try out the new way to authorizes with a common library ",
+	"npm": "",
+	"addedOn": "2022-12-24",
+	"category": "SvelteKit",
+	"tags": [
+		"database",
+		"typescript",
+		"integrations"
+	],
+	"stars": 0
+}
 ]
