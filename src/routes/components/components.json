@@ -2302,7 +2302,7 @@
 		"category": "Design System",
 		"description": "PaperCSS components for Svelte",
 		"npm": "spaper",
-		"stars": 4,
+		"stars": 140,
 		"tags": ["components and libraries", "component sets"],
 		"title": "Spaper",
 		"url": "https://github.com/Oli8/spaper"
