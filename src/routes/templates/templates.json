@@ -887,5 +887,21 @@
 		"category": "Svelte",
 		"tags": ["templates", "integrations"],
 		"stars": 0
+	},
+	{
+		"title": "Tablog",
+		"url": "https://github.com/lemmon/tablog-svelte",
+		"description": "A minimalistic blog theme built with SvelteKit and mdsvex.",
+		"npm": "",
+		"addedOn": "2023-01-05",
+		"category": "SvelteKit",
+		"tags": [
+			"blog",
+			"templates",
+			"markdown",
+			"mdsvex",
+			"seo"
+		],
+		"stars": 7
 	}
 ]
