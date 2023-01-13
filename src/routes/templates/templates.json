@@ -887,5 +887,18 @@
 		"category": "Svelte",
 		"tags": ["templates", "integrations"],
 		"stars": 0
+	},
+	{
+		"title": "Wails.io w/ Sveltekit",
+		"url": "https://github.com/plihelix/wails-template-sveltekit",
+		"description": "A template to generate cross-platform golang applications with a SvelteKit front-end.",
+		"npm": "",
+		"addedOn": "2023-01-13",
+		"category": "SvelteKit",
+		"tags": [
+			"templates",
+			"integrations"
+		],
+		"stars": 0
 	}
 ]
