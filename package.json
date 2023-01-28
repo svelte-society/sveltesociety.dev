@@ -32,6 +32,7 @@
 		"mdsvex": "^0.9.3",
 		"prettier": "~2.2.1",
 		"prettier-plugin-svelte": "^2.2.0",
+		"rehype-slug": "^5.1.0",
 		"svelte": "^3.54.0",
 		"svelte-highlight": "^5.2.0",
 		"svelte-preprocess": "^4.10.2",
