@@ -26,8 +26,8 @@
 <Seo title={displayTitle} />
 
 <SearchLayout title={displayTitle}>
-	<section slot="controls" class="controls">
-		<div class="inputs">
+	<section slot="controls" class="searchable-grid">
+		<div class="selects-grid">
 			<Search
 				data={dataToDisplay}
 				bind:query={searchValue}
@@ -66,21 +66,28 @@
 					{ label: 'Yarn', value: 'yarn' }
 				]}
 			/>
-			<a href="/help/submitting?type={submittingType}" class="submit"
-				>Submit a {displayTitleSingular}</a
-			>
 		</div>
 
-		<input
-			class="searchbar"
-			type="text"
-			placeholder="Search for {displayTitle.toLowerCase()}..."
-			bind:value={searchValue}
-		/>
-		<span class="searchbar-count"
-			>{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
-		>
+		<div class="searchbar-wrapper">
+			<input
+				class="searchbar"
+				type="text"
+				placeholder="Search for {displayTitle.toLowerCase()}..."
+				bind:value={searchValue}
+			/>
+		</div>
+
+		<div class="searchable-footer">
+			<a href="/help/submitting?type={submittingType}" tabindex="0">
+				Submit a {displayTitleSingular}
+			</a>
+
+			<p>
+				{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}
+			</p>
+		</div>
 	</section>
+
 	<section slot="items">
 		{#each categories as category}
 			<List
@@ -96,3 +103,85 @@
 		{/each}
 	</section>
 </SearchLayout>
+
+<style>
+	.searchable-grid {
+		display: grid;
+		align-items: center;
+		gap: var(--s-6);
+		font-family: Overpass;
+		position: relative;
+	}
+
+	.selects-grid {
+		display: grid;
+		gap: var(--s-5);
+	}
+
+	@media (min-width: 1280px) {
+		.searchable-grid {
+			gap: var(--s-8);
+		}
+
+		.selects-grid {
+			gap: var(--s-6);
+			grid-template-columns: 1.5fr 2.25fr 1fr 0.75fr;
+		}
+	}
+
+	.searchbar-wrapper {
+		height: 100%;
+		width: 100%;
+		grid-row: 1;
+	}
+
+	.searchbar {
+		--icon-width: 18px;
+		--searchbar-height: calc(
+			var(--input-label-size) + var(--input-label-margin) + var(--input-height)
+		);
+		height: var(--searchbar-height);
+		font-size: var(--s-4);
+		width: 100%;
+		padding: var(--ff-optical-5) calc(var(--icon-width) + var(--s-4)) 0 var(--s-4);
+		border: 2px solid var(--dark-gray);
+		border-radius: 4px;
+		font-family: Overpass;
+		background: #f3f6f9 url(/images/search-icon.svg) 96% no-repeat;
+	}
+
+	.searchbar:focus {
+		outline: none;
+		border-color: var(--secondary);
+	}
+
+	.searchable-footer {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	@media (max-width: 325px) {
+		.searchable-footer {
+			display: flex;
+			flex-wrap: wrap;
+			gap: var(--s-6);
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.searchbar-wrapper {
+			grid-row: unset;
+		}
+
+		.searchable-footer {
+			margin-top: var(--s-3);
+			grid-column: 1 / span 2;
+			grid-row: 2;
+		}
+
+		.searchable-grid {
+			gap: var(--s-6);
+			grid-template-columns: 2fr 0.85fr;
+		}
+	}
+</style>
