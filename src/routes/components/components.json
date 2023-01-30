@@ -210,7 +210,8 @@
 		"description": "Svelte Client Router is everything you need and think when routing SPA's. This is The Svelte Router for SPA!",
 		"tags": ["routers"],
 		"addedOn": "2021-04-27T00:00:00Z",
-		"category": "Routers"
+		"category": "Routers",
+		"stars": 13
 	},
 	{
 		"title": "felte",
