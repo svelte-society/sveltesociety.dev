@@ -2222,14 +2222,6 @@
 		"stars": 96
 	},
 	{
-		"title": "Simple Modal",
-		"url": "https://svelte.dev/repl/514f1335749a4eae9d34ad74dc277f20?version=3.37.0",
-		"description": "A simple, almost barebones modal popup component that can be easily modified to your needs.",
-		"tags": ["components and libraries"],
-		"addedOn": "2021-04-08T14:00:00.000Z",
-		"category": "User Interaction"
-	},
-	{
 		"addedOn": "2021-04-17T19:00:00Z",
 		"category": "Stores",
 		"description": "A (high order) store that keep its value through pages and reloads",
