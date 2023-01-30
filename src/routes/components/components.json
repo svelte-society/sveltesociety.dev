@@ -2218,7 +2218,8 @@
 		"description": "A simple, flexible, zero-dependency modal manager for Svelte.",
 		"tags": ["components and libraries"],
 		"addedOn": "2022-11-09T14:00:00.000Z",
-		"category": "User Interaction"
+		"category": "User Interaction",
+		"stars": 96
 	},
 	{
 		"title": "Simple Modal",
