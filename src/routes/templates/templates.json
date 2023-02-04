@@ -887,5 +887,19 @@
 		"category": "Svelte",
 		"tags": ["templates", "integrations"],
 		"stars": 0
-	}
+	},
+	{
+	"title": "SveDev",
+	"url": "https://github.com/etherCorps/SveDev",
+	"description": "A blog starter for SvelteKit + Dev.to + Tailwind with DaisyUI + Any Adapter",
+	"npm": "",
+	"addedOn": "2023-02-04",
+	"category": "SvelteKit",
+	"tags": [
+		"blog",
+		"typescript",
+		"templates"
+	],
+	"stars": 5
+}
 ]
