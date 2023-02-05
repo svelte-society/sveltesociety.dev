@@ -2817,5 +2817,15 @@
 		"category": "Integration",
 		"tags": ["auth"],
 		"stars": 4
+	},
+	{
+		"title": "sterling-svelte",
+		"url": "https://github.com/GeoffCox/sterling-svelte",
+		"description": "A modern, accessible, and lightweight component library for Svelte.",
+		"npm": "@geoffcox/sterling-svelte",
+		"addedOn": "2023-01-09",
+		"category": "Design System",
+		"tags": ["components and libraries", "component sets", "typescript"],
+		"stars": 0
 	}
 ]
