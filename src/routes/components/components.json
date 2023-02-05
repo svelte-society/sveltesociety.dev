@@ -2828,14 +2828,14 @@
 		"tags": ["components and libraries", "component sets", "typescript"],
 		"stars": 0
 	},
-  {
+	{
 		"title": "simple-ui-components-in-svelte",
 		"url": "https://perfect-things.github.io/simple-ui-components-in-svelte/",
 		"description": "A set of simple & flexible UI components",
 		"npm": "simple-ui-components-in-svelte",
 		"addedOn": "2023-01-24",
 		"category": "Forms & User Input",
-		"tags": [ "forms", "UI" ],
+		"tags": ["forms", "UI"],
 		"stars": 1
-	}	
+	}
 ]
