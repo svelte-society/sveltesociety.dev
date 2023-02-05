@@ -32,9 +32,9 @@
 	};
 </script>
 
-<div class="card" class:active id="component-{encodeURI(title)}">
+<div class="card" class:active id="component-{title}">
 	<h3>
-		<a href="#component-{encodeURI(title)}">#</a> <a href={url}>{title}</a>
+		<a href="#component-{title}">#</a> <a href={url}>{title}</a>
 		{#if npm}<Tag
 				click={() => copy()}
 				variant="copy"
