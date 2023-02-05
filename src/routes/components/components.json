@@ -210,7 +210,8 @@
 		"description": "Svelte Client Router is everything you need and think when routing SPA's. This is The Svelte Router for SPA!",
 		"tags": ["routers"],
 		"addedOn": "2021-04-27T00:00:00Z",
-		"category": "Routers"
+		"category": "Routers",
+		"stars": 13
 	},
 	{
 		"title": "felte",
@@ -2217,15 +2218,8 @@
 		"description": "A simple, flexible, zero-dependency modal manager for Svelte.",
 		"tags": ["components and libraries"],
 		"addedOn": "2022-11-09T14:00:00.000Z",
-		"category": "User Interaction"
-	},
-	{
-		"title": "Simple Modal",
-		"url": "https://svelte.dev/repl/514f1335749a4eae9d34ad74dc277f20?version=3.37.0",
-		"description": "A simple, almost barebones modal popup component that can be easily modified to your needs.",
-		"tags": ["components and libraries"],
-		"addedOn": "2021-04-08T14:00:00.000Z",
-		"category": "User Interaction"
+		"category": "User Interaction",
+		"stars": 96
 	},
 	{
 		"addedOn": "2021-04-17T19:00:00Z",
