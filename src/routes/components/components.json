@@ -2837,5 +2837,14 @@
 		"category": "Forms & User Input",
 		"tags": ["forms", "UI"],
 		"stars": 1
+	},
+	{
+		"title": "@tanstack/svelte-query",
+		"url": "https://github.com/tanstack/query",
+		"description": "Powerful asynchronous state management, server-state utilities and data fetching for the web",
+		"npm": "@tanstack/svelte-query",
+		"addedOn": "2023-01-14",
+		"tags": ["async data", "async loading", "network events", "ssr", "typescript"],
+		"stars": 32266
 	}
 ]
