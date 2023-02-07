@@ -2829,6 +2829,16 @@
 		"stars": 0
 	},
 	{
+		"title": "simple-ui-components-in-svelte",
+		"url": "https://perfect-things.github.io/simple-ui-components-in-svelte/",
+		"description": "A set of simple & flexible UI components",
+		"npm": "simple-ui-components-in-svelte",
+		"addedOn": "2023-01-24",
+		"category": "Forms & User Input",
+		"tags": ["forms"],
+		"stars": 1
+	},
+	{
 		"title": "@tanstack/svelte-query",
 		"url": "https://github.com/tanstack/query",
 		"description": "Powerful asynchronous state management, server-state utilities and data fetching for the web",
