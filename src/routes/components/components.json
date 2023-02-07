@@ -2836,5 +2836,25 @@
 		"addedOn": "2023-01-14",
 		"tags": ["async data", "async loading", "network events", "ssr", "typescript"],
 		"stars": 32266
+	},
+	{
+		"title": "SvelteKit Cordova Adapter",
+		"url": "https://github.com/ptkdev/sveltekit-cordova-adapter",
+		"description": "Adapter for build mobile apps with Svelte Kit and Electron",
+		"npm": "@ptkdev/sveltekit-cordova-adapter",
+		"addedOn": "2023-02-06T00:00:00Z",
+		"category": "SvelteKit Adapters",
+		"stars": 1,
+		"tags": ["ssg", "integrations"]
+	},
+	{
+		"title": "SvelteKit Electron Adapter",
+		"url": "https://github.com/ptkdev/sveltekit-electron-adapter",
+		"description": "Adapter for build desktop apps with Svelte Kit and Electron",
+		"npm": "@ptkdev/sveltekit-electron-adapter",
+		"addedOn": "2023-02-06T00:00:00Z",
+		"category": "SvelteKit Adapters",
+		"stars": 1,
+		"tags": ["ssg", "integrations"]
 	}
 ]
