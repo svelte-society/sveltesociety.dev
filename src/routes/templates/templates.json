@@ -2,12 +2,12 @@
 	{
 		"title": "SvelteKit Authentication Example",
 		"url": "https://github.com/nstuyvesant/sveltekit-auth-example",
-		"description": "Fully-documented SvelteKit example of how to setup local and \"Sign in with Google\" authentication, page authorization, profile management and password reset using SendGrid.",
+		"description": "Fully documented example of how to setup local and \"Sign in with Google\" authentication (including Google One-Tap) using PostgreSQL, page authorization, user profile management and password reset using SendGrid.",
 		"npm": "sveltekit-auth-example",
 		"addedOn": "2022-11-16",
 		"category": "SvelteKit",
-		"tags": ["templates", "database", "ssr", "typescript"],
-		"stars": 113
+		"tags": ["templates", "database", "integrations", "ssr", "typescript"],
+		"stars": 134
 	},
 	{
 		"title": "sveltekit-windicss-flowbite-template",
