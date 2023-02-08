@@ -2813,14 +2813,9 @@
 		"url": "https://github.com/pragmatic-engineering/svelte-form-builder-community",
 		"description": "A No-Code Form Builder Library",
 		"npm": "svelte-form-builder-community",
-		"addedOn": "2022-12-14",
+		"addedOn": "2023-02-05",
 		"category": "Forms & User Input",
-		"tags": [
-			"forms",
-			"rich text editor",
-			"audio",
-			"components and libraries"
-		],
+		"tags": ["forms", "rich text editor", "audio", "components and libraries"],
 		"stars": 0
-        }
+	}
 ]
