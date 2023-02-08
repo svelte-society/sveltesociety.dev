@@ -2799,6 +2799,16 @@
 		"stars": 0
 	},
 	{
+		"title": "@prgm/sveltekit-progress-bar",
+		"url": "https://github.com/prgm-dev/sveltekit-progress-bar",
+		"description": "A progress bar component that hooks to SvelteKit navigation",
+		"npm": "@prgm/sveltekit-progress-bar",
+		"addedOn": "2022-12-27",
+		"category": "User Interaction",
+		"tags": ["async loading", "components and libraries", "in-page navigation"],
+		"stars": 0
+	},
+	{
 		"title": "svelte-google-auth",
 		"url": "https://github.com/halfdanj/svelte-google-auth",
 		"description": "Integration with Google Authenticartion for sveltekit",
@@ -2809,6 +2819,35 @@
 		"stars": 4
 	},
 	{
+		"title": "sterling-svelte",
+		"url": "https://github.com/GeoffCox/sterling-svelte",
+		"description": "A modern, accessible, and lightweight component library for Svelte.",
+		"npm": "@geoffcox/sterling-svelte",
+		"addedOn": "2023-01-09",
+		"category": "Design System",
+		"tags": ["components and libraries", "component sets", "typescript"],
+		"stars": 0
+	},
+	{
+		"title": "simple-ui-components-in-svelte",
+		"url": "https://perfect-things.github.io/simple-ui-components-in-svelte/",
+		"description": "A set of simple & flexible UI components",
+		"npm": "simple-ui-components-in-svelte",
+		"addedOn": "2023-01-24",
+		"category": "Forms & User Input",
+		"tags": ["forms"],
+		"stars": 1
+	},
+	{
+		"title": "@tanstack/svelte-query",
+		"url": "https://github.com/tanstack/query",
+		"description": "Powerful asynchronous state management, server-state utilities and data fetching for the web",
+		"npm": "@tanstack/svelte-query",
+		"addedOn": "2023-01-14",
+		"tags": ["async data", "async loading", "network events", "ssr", "typescript"],
+		"stars": 32266
+	},
+	{
 		"title": "svelte-form-builder",
 		"url": "https://github.com/pragmatic-engineering/svelte-form-builder-community",
 		"description": "A No-Code Form Builder Library",
@@ -2816,6 +2855,6 @@
 		"addedOn": "2023-02-05",
 		"category": "Forms & User Input",
 		"tags": ["forms", "rich text editor", "audio", "components and libraries"],
-		"stars": 0
+		"stars": 9
 	}
 ]
