@@ -1416,7 +1416,7 @@
 		"category": "Stores",
 		"description": "Writable stores for Firefox/Chrome extensions using `chrome.storage",
 		"npm": "svelte-webext-storage-adapter",
-		"stars": 12,
+		"stars": 20,
 		"tags": ["components and libraries", "stores and state", "integrations"],
 		"title": "svelte-webext-storage-adapter",
 		"url": "https://github.com/PixievoltNo1/svelte-webext-storage-adapter"
@@ -1426,7 +1426,7 @@
 		"category": "Stores",
 		"description": "Two-way data-transforming stores",
 		"npm": "svelte-writable-derived",
-		"stars": 31,
+		"stars": 74,
 		"tags": ["components and libraries", "stores and state"],
 		"title": "svelte-writable-derived",
 		"url": "https://github.com/PixievoltNo1/svelte-writable-derived"
