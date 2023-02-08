@@ -2846,5 +2846,15 @@
 		"addedOn": "2023-01-14",
 		"tags": ["async data", "async loading", "network events", "ssr", "typescript"],
 		"stars": 32266
+	},
+	{
+		"title": "svelte-form-builder",
+		"url": "https://github.com/pragmatic-engineering/svelte-form-builder-community",
+		"description": "A No-Code Form Builder Library",
+		"npm": "svelte-form-builder-community",
+		"addedOn": "2023-02-05",
+		"category": "Forms & User Input",
+		"tags": ["forms", "rich text editor", "audio", "components and libraries"],
+		"stars": 9
 	}
 ]
