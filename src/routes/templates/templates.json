@@ -887,5 +887,15 @@
 		"category": "Svelte",
 		"tags": ["templates", "integrations"],
 		"stars": 0
+	},
+	{
+		"title": "Web3 Hardhat & Svelte Boilerplate",
+		"url": "https://github.com/fede-rodes/hardhat-svelte-boilerplate",
+		"description": "This boilerplate includes Hardhat, Svelte, Tailwind, TS and cva libs. Example integration using MetaMask",
+		"npm": "",
+		"addedOn": "2023-02-09",
+		"category": "Svelte",
+		"tags": ["storybook", "typescript"],
+		"stars": 0
 	}
 ]
