@@ -2860,12 +2860,12 @@
 	{
 		"title": "SvelteKit Cordova/Capacitor Adapter",
 		"url": "https://github.com/ptkdev/sveltekit-cordova-adapter",
-		"description": "Adapter for build mobile apps with Svelte Kit and Apache Cordova or Ionic Capacitor",
+		"description": "Adapter for build mobile apps (android/ios) with Svelte Kit and Apache Cordova or Ionic Capacitor",
 		"npm": "@ptkdev/sveltekit-cordova-adapter",
 		"addedOn": "2023-02-11T00:00:00Z",
 		"category": "SvelteKit Adapters",
-		"stars": 3,
-		"tags": ["ssg", "integrations"]
+		"stars": 4,
+		"tags": ["integrations"]
 	},
 	{
 		"title": "SvelteKit Electron Adapter",
@@ -2875,6 +2875,6 @@
 		"addedOn": "2023-02-11T00:00:00Z",
 		"category": "SvelteKit Adapters",
 		"stars": 3,
-		"tags": ["ssg", "integrations"]
+		"tags": ["integrations"]
 	}
 ]
