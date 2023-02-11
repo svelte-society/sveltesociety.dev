@@ -2858,7 +2858,7 @@
 		"stars": 9
 	},
 	{
-  	"title": "SvelteKit Cordova/Capacitor Adapter",
+		"title": "SvelteKit Cordova/Capacitor Adapter",
 		"url": "https://github.com/ptkdev/sveltekit-cordova-adapter",
 		"description": "Adapter for build mobile apps with Svelte Kit and Apache Cordova or Ionic Capacitor",
 		"npm": "@ptkdev/sveltekit-cordova-adapter",
@@ -2876,5 +2876,5 @@
 		"category": "SvelteKit Adapters",
 		"stars": 3,
 		"tags": ["ssg", "desktop apps", "electron", "electron forge", "integrations"]
-   }
+	}
 ]
