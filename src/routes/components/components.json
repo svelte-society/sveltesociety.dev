@@ -1416,7 +1416,7 @@
 		"category": "Stores",
 		"description": "Writable stores for Firefox/Chrome extensions using `chrome.storage",
 		"npm": "svelte-webext-storage-adapter",
-		"stars": 12,
+		"stars": 20,
 		"tags": ["components and libraries", "stores and state", "integrations"],
 		"title": "svelte-webext-storage-adapter",
 		"url": "https://github.com/PixievoltNo1/svelte-webext-storage-adapter"
@@ -1426,7 +1426,7 @@
 		"category": "Stores",
 		"description": "Two-way data-transforming stores",
 		"npm": "svelte-writable-derived",
-		"stars": 31,
+		"stars": 74,
 		"tags": ["components and libraries", "stores and state"],
 		"title": "svelte-writable-derived",
 		"url": "https://github.com/PixievoltNo1/svelte-writable-derived"
@@ -2296,7 +2296,7 @@
 		"category": "Design System",
 		"description": "PaperCSS components for Svelte",
 		"npm": "spaper",
-		"stars": 4,
+		"stars": 147,
 		"tags": ["components and libraries", "component sets"],
 		"title": "Spaper",
 		"url": "https://github.com/Oli8/spaper"
@@ -2829,6 +2829,16 @@
 		"stars": 0
 	},
 	{
+		"title": "simple-ui-components-in-svelte",
+		"url": "https://perfect-things.github.io/simple-ui-components-in-svelte/",
+		"description": "A set of simple & flexible UI components",
+		"npm": "simple-ui-components-in-svelte",
+		"addedOn": "2023-01-24",
+		"category": "Forms & User Input",
+		"tags": ["forms"],
+		"stars": 1
+	},
+	{
 		"title": "@tanstack/svelte-query",
 		"url": "https://github.com/tanstack/query",
 		"description": "Powerful asynchronous state management, server-state utilities and data fetching for the web",
@@ -2838,7 +2848,17 @@
 		"stars": 32266
 	},
 	{
-		"title": "SvelteKit Cordova/Capacitor Adapter",
+		"title": "svelte-form-builder",
+		"url": "https://github.com/pragmatic-engineering/svelte-form-builder-community",
+		"description": "A No-Code Form Builder Library",
+		"npm": "svelte-form-builder-community",
+		"addedOn": "2023-02-05",
+		"category": "Forms & User Input",
+		"tags": ["forms", "rich text editor", "audio", "components and libraries"],
+		"stars": 9
+	},
+	{
+  	"title": "SvelteKit Cordova/Capacitor Adapter",
 		"url": "https://github.com/ptkdev/sveltekit-cordova-adapter",
 		"description": "Adapter for build mobile apps with Svelte Kit and Apache Cordova or Ionic Capacitor",
 		"npm": "@ptkdev/sveltekit-cordova-adapter",
@@ -2856,5 +2876,5 @@
 		"category": "SvelteKit Adapters",
 		"stars": 3,
 		"tags": ["ssg", "desktop apps", "electron", "electron forge", "integrations"]
-	}
+   }
 ]
