@@ -2856,5 +2856,25 @@
 		"category": "Forms & User Input",
 		"tags": ["forms", "rich text editor", "audio", "components and libraries"],
 		"stars": 9
+	},
+	{
+		"title": "SvelteKit Cordova/Capacitor Adapter",
+		"url": "https://github.com/ptkdev/sveltekit-cordova-adapter",
+		"description": "Adapter for build mobile apps (android/ios) with Svelte Kit and Apache Cordova or Ionic Capacitor",
+		"npm": "@ptkdev/sveltekit-cordova-adapter",
+		"addedOn": "2023-02-11T00:00:00Z",
+		"category": "SvelteKit Adapters",
+		"stars": 4,
+		"tags": ["integrations"]
+	},
+	{
+		"title": "SvelteKit Electron Adapter",
+		"url": "https://github.com/ptkdev/sveltekit-electron-adapter",
+		"description": "Adapter for build desktop apps with Svelte Kit and Electron",
+		"npm": "@ptkdev/sveltekit-electron-adapter",
+		"addedOn": "2023-02-11T00:00:00Z",
+		"category": "SvelteKit Adapters",
+		"stars": 3,
+		"tags": ["integrations"]
 	}
 ]
