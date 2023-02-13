@@ -2,13 +2,12 @@
 	import Tag from '../Tag.svelte';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 	import { packageManager as manager } from '$stores/packageManager';
-	import { getStarsCount } from '$lib/utils/stars';
 
 	export let active = false;
 	export let title = '';
 	export let description = '';
 	export let tags = [];
-	let stars = getStarsCount(url);
+	export let stars;
 	export let url = '';
 	export let npm = '';
 	export let repo = '';

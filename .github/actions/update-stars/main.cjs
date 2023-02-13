@@ -21,7 +21,7 @@ async function doGraphQlQuery(url, query, headers = {}) {
         let data = fetchResponse.data
         return Object.values(data.data || {})
     } catch (e) {
-        console.error(e)
+        console.error(e.message)
     }
     return []
 }
@@ -86,7 +86,6 @@ function gitlabRepoGraphQl(name) {
 
 async function getGitlabStars() {
     const repoData = getAllGitlabRepos();
-    console.log(repoData)
     let body = 'query{' + "\n" + repoData.map(repoInfo => gitlabRepoGraphQl(repoInfo)).join("\n") + "\n" + '}'
     let lines = await doGraphQlQuery(gitlabGraphQlUrl, body)
     let result = {}
