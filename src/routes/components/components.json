@@ -2145,9 +2145,9 @@
 	{
 		"addedOn": "2021-01-28T00:20:00Z",
 		"category": "Routers",
-		"description": "Light & reactive one-component router for Svelte",
+		"description": "Light & reactive client-side router for Svelte",
 		"npm": "svelte-micro",
-		"stars": 62,
+		"stars": 88,
 		"tags": ["routers"],
 		"title": "svelte-micro",
 		"url": "https://github.com/ayndqy/svelte-micro"
