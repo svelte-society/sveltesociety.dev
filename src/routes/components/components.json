@@ -2884,7 +2884,7 @@
 		"npm": "@carlosv2/adapter-node-ws",
 		"addedOn": "2023-02-21",
 		"category": "SvelteKit Adapters",
-		"tags": ["async loading", "async data"],
+		"tags": ["integrations"],
 		"stars": 0
 	}
 ]
