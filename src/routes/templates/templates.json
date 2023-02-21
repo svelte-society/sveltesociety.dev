@@ -1,5 +1,17 @@
 [
 	{
+	"title": "openai-quickstart-sveltekit",
+	"url": "https://github.com/nguyentuansi/openai-quickstart-sveltekit",
+	"description": "This is an example pet name generator app used in the OpenAI API. It uses the SvelteKit framework with Pico. Check out the tutorial or follow the instructions below to get set up.",
+	"npm": "",
+	"addedOn": "2023-02-22",
+	"tags": [
+		"templates",
+		"typescript"
+	],
+	"stars": 4
+},
+	{
 		"title": "SvelteKit Authentication Example",
 		"url": "https://github.com/nstuyvesant/sveltekit-auth-example",
 		"description": "Fully documented example of how to setup local and \"Sign in with Google\" authentication (including Google One-Tap) using PostgreSQL, signup, page authorization, user profile management and password reset using SendGrid.",
