@@ -2876,5 +2876,15 @@
 		"category": "SvelteKit Adapters",
 		"stars": 3,
 		"tags": ["integrations"]
+	},
+	{
+		"title": "@carlosv2/adapter-node-ws",
+		"url": "https://github.com/carlosV2/adapter-node-ws",
+		"description": "Adapter for SvelteKit apps that generates a standalone Node server with support for WebSockets.",
+		"npm": "@carlosv2/adapter-node-ws",
+		"addedOn": "2023-02-21",
+		"category": "SvelteKit Adapters",
+		"tags": ["async loading", "async data"],
+		"stars": 0
 	}
 ]
