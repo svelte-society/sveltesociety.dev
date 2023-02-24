@@ -1,5 +1,15 @@
 [
 	{
+		"title": "svelte-datatables-net",
+		"url": "https://github.com/joaquimnetocel/svelte-datatables-net",
+		"description": "svelte-datatables-net is a svelte/sveltekit component that turns data into an interactive HTML table. Inspired by datatables.net.",
+		"npm": "svelte-datatables-net",
+		"addedOn": "2023-02-23",
+		"category": "Data Visualisation",
+		"tags": ["components and libraries", "typescript"],
+		"stars": 0
+	},
+	{
 		"title": "STWUI",
 		"url": "https://github.com/N00nDay/stwui",
 		"description": "Opinionated yet customizable Svelte-TailwindCSS component library",
