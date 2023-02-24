@@ -905,10 +905,7 @@
 		"npm": "@sveltepress",
 		"addedOn": "2023-02-24",
 		"category": "SvelteKit",
-		"tags": [
-			"markdown",
-			"integrations"
-		],
+		"tags": ["markdown", "integrations"],
 		"stars": 32
 	}
 ]
