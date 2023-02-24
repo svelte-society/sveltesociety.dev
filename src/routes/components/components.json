@@ -2909,9 +2909,9 @@
 	{
 		"title": "html-svelte-parser",
 		"url": "https://github.com/PatrickG/html-svelte-parser",
-		"description": "HTML to Svelte parser.",
+		"description": "HTML to Svelte parser that works on both the server and the client.",
 		"npm": "html-svelte-parser",
-		"addedOn": "2022-12-01",
+		"addedOn": "2023-02-26",
 		"tags": ["components and libraries", "layout and structure", "rich text editor", "ssr", "templates", "tree", "typescript"],
 		"stars": 6
 	}
