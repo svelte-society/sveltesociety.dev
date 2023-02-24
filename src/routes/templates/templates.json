@@ -897,5 +897,18 @@
 		"category": "Svelte",
 		"tags": ["storybook", "typescript"],
 		"stars": 0
+	},
+	{
+		"title": "Sveltepress",
+		"url": "https://github.com/SveltePress/sveltepress",
+		"description": "A markdown centered site build tool with full power of sveltekit.",
+		"npm": "@sveltepress",
+		"addedOn": "2023-02-24",
+		"category": "SvelteKit",
+		"tags": [
+			"markdown",
+			"integrations"
+		],
+		"stars": 32
 	}
 ]
