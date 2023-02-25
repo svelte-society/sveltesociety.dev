@@ -2896,5 +2896,14 @@
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"],
 		"stars": 0
+	},
+	{
+		"title": "leblog",
+		"url": "https://leblog.dev",
+		"description": "Add a blog (or changelog) to any SvelteKit site.",
+		"npm": "leblog",
+		"addedOn": "2023-02-24",
+		"category": "Integration",
+		"stars": 0
 	}
 ]
