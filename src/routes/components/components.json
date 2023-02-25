@@ -2886,5 +2886,14 @@
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"],
 		"stars": 0
+	},
+	{
+		"title": "html-svelte-parser",
+		"url": "https://github.com/PatrickG/html-svelte-parser",
+		"description": "HTML to Svelte parser.",
+		"npm": "html-svelte-parser",
+		"addedOn": "2022-12-01",
+		"tags": ["components and libraries", "layout and structure", "rich text editor", "ssr", "templates", "tree", "typescript"],
+		"stars": 6
 	}
 ]
