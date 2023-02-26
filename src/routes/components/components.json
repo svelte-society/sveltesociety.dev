@@ -1,5 +1,15 @@
 [
 	{
+		"title": "svelte-datatables-net",
+		"url": "https://github.com/joaquimnetocel/svelte-datatables-net",
+		"description": "svelte-datatables-net is a svelte/sveltekit component that turns data into an interactive HTML table. Inspired by datatables.net.",
+		"npm": "svelte-datatables-net",
+		"addedOn": "2023-02-23",
+		"category": "Data Visualisation",
+		"tags": ["components and libraries", "typescript"],
+		"stars": 0
+	},
+	{
 		"title": "STWUI",
 		"url": "https://github.com/N00nDay/stwui",
 		"description": "Opinionated yet customizable Svelte-TailwindCSS component library",
@@ -210,7 +220,8 @@
 		"description": "Svelte Client Router is everything you need and think when routing SPA's. This is The Svelte Router for SPA!",
 		"tags": ["routers"],
 		"addedOn": "2021-04-27T00:00:00Z",
-		"category": "Routers"
+		"category": "Routers",
+		"stars": 13
 	},
 	{
 		"title": "felte",
@@ -1415,7 +1426,7 @@
 		"category": "Stores",
 		"description": "Writable stores for Firefox/Chrome extensions using `chrome.storage",
 		"npm": "svelte-webext-storage-adapter",
-		"stars": 12,
+		"stars": 20,
 		"tags": ["components and libraries", "stores and state", "integrations"],
 		"title": "svelte-webext-storage-adapter",
 		"url": "https://github.com/PixievoltNo1/svelte-webext-storage-adapter"
@@ -1425,7 +1436,7 @@
 		"category": "Stores",
 		"description": "Two-way data-transforming stores",
 		"npm": "svelte-writable-derived",
-		"stars": 31,
+		"stars": 74,
 		"tags": ["components and libraries", "stores and state"],
 		"title": "svelte-writable-derived",
 		"url": "https://github.com/PixievoltNo1/svelte-writable-derived"
@@ -2144,9 +2155,9 @@
 	{
 		"addedOn": "2021-01-28T00:20:00Z",
 		"category": "Routers",
-		"description": "Light & reactive one-component router for Svelte",
+		"description": "Light & reactive client-side router for Svelte",
 		"npm": "svelte-micro",
-		"stars": 62,
+		"stars": 88,
 		"tags": ["routers"],
 		"title": "svelte-micro",
 		"url": "https://github.com/ayndqy/svelte-micro"
@@ -2217,15 +2228,8 @@
 		"description": "A simple, flexible, zero-dependency modal manager for Svelte.",
 		"tags": ["components and libraries"],
 		"addedOn": "2022-11-09T14:00:00.000Z",
-		"category": "User Interaction"
-	},
-	{
-		"title": "Simple Modal",
-		"url": "https://svelte.dev/repl/514f1335749a4eae9d34ad74dc277f20?version=3.37.0",
-		"description": "A simple, almost barebones modal popup component that can be easily modified to your needs.",
-		"tags": ["components and libraries"],
-		"addedOn": "2021-04-08T14:00:00.000Z",
-		"category": "User Interaction"
+		"category": "User Interaction",
+		"stars": 96
 	},
 	{
 		"addedOn": "2021-04-17T19:00:00Z",
@@ -2302,7 +2306,7 @@
 		"category": "Design System",
 		"description": "PaperCSS components for Svelte",
 		"npm": "spaper",
-		"stars": 4,
+		"stars": 147,
 		"tags": ["components and libraries", "component sets"],
 		"title": "Spaper",
 		"url": "https://github.com/Oli8/spaper"
@@ -2805,6 +2809,16 @@
 		"stars": 0
 	},
 	{
+		"title": "@prgm/sveltekit-progress-bar",
+		"url": "https://github.com/prgm-dev/sveltekit-progress-bar",
+		"description": "A progress bar component that hooks to SvelteKit navigation",
+		"npm": "@prgm/sveltekit-progress-bar",
+		"addedOn": "2022-12-27",
+		"category": "User Interaction",
+		"tags": ["async loading", "components and libraries", "in-page navigation"],
+		"stars": 0
+	},
+	{
 		"title": "svelte-google-auth",
 		"url": "https://github.com/halfdanj/svelte-google-auth",
 		"description": "Integration with Google Authenticartion for sveltekit",
@@ -2813,5 +2827,83 @@
 		"category": "Integration",
 		"tags": ["auth"],
 		"stars": 4
+	},
+	{
+		"title": "sterling-svelte",
+		"url": "https://github.com/GeoffCox/sterling-svelte",
+		"description": "A modern, accessible, and lightweight component library for Svelte.",
+		"npm": "@geoffcox/sterling-svelte",
+		"addedOn": "2023-01-09",
+		"category": "Design System",
+		"tags": ["components and libraries", "component sets", "typescript"],
+		"stars": 0
+	},
+	{
+		"title": "simple-ui-components-in-svelte",
+		"url": "https://perfect-things.github.io/simple-ui-components-in-svelte/",
+		"description": "A set of simple & flexible UI components",
+		"npm": "simple-ui-components-in-svelte",
+		"addedOn": "2023-01-24",
+		"category": "Forms & User Input",
+		"tags": ["forms"],
+		"stars": 1
+	},
+	{
+		"title": "@tanstack/svelte-query",
+		"url": "https://github.com/tanstack/query",
+		"description": "Powerful asynchronous state management, server-state utilities and data fetching for the web",
+		"npm": "@tanstack/svelte-query",
+		"addedOn": "2023-01-14",
+		"tags": ["async data", "async loading", "network events", "ssr", "typescript"],
+		"stars": 32266
+	},
+	{
+		"title": "svelte-form-builder",
+		"url": "https://github.com/pragmatic-engineering/svelte-form-builder-community",
+		"description": "A No-Code Form Builder Library",
+		"npm": "svelte-form-builder-community",
+		"addedOn": "2023-02-05",
+		"category": "Forms & User Input",
+		"tags": ["forms", "rich text editor", "audio", "components and libraries"],
+		"stars": 9
+	},
+	{
+		"title": "SvelteKit Cordova/Capacitor Adapter",
+		"url": "https://github.com/ptkdev/sveltekit-cordova-adapter",
+		"description": "Adapter for build mobile apps (android/ios) with Svelte Kit and Apache Cordova or Ionic Capacitor",
+		"npm": "@ptkdev/sveltekit-cordova-adapter",
+		"addedOn": "2023-02-11T00:00:00Z",
+		"category": "SvelteKit Adapters",
+		"stars": 4,
+		"tags": ["integrations"]
+	},
+	{
+		"title": "SvelteKit Electron Adapter",
+		"url": "https://github.com/ptkdev/sveltekit-electron-adapter",
+		"description": "Adapter for build desktop apps with Svelte Kit and Electron",
+		"npm": "@ptkdev/sveltekit-electron-adapter",
+		"addedOn": "2023-02-11T00:00:00Z",
+		"category": "SvelteKit Adapters",
+		"stars": 3,
+		"tags": ["integrations"]
+	},
+	{
+		"title": "@carlosv2/adapter-node-ws",
+		"url": "https://github.com/carlosV2/adapter-node-ws",
+		"description": "Adapter for SvelteKit apps that generates a standalone Node server with support for WebSockets.",
+		"npm": "@carlosv2/adapter-node-ws",
+		"addedOn": "2023-02-21",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 0
+	},
+	{
+		"title": "leblog",
+		"url": "https://leblog.dev",
+		"description": "Add a blog (or changelog) to any SvelteKit site.",
+		"npm": "leblog",
+		"addedOn": "2023-02-24",
+		"category": "Integration",
+		"stars": 0
 	}
 ]
