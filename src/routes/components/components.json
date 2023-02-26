@@ -2912,7 +2912,15 @@
 		"description": "HTML to Svelte parser that works on both the server and the client.",
 		"npm": "html-svelte-parser",
 		"addedOn": "2023-02-26",
-		"tags": ["components and libraries", "layout and structure", "rich text editor", "ssr", "templates", "tree", "typescript"],
+		"tags": [
+			"components and libraries",
+			"layout and structure",
+			"rich text editor",
+			"ssr",
+			"templates",
+			"tree",
+			"typescript"
+		],
 		"stars": 6
 	}
 ]
