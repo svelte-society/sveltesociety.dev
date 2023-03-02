@@ -2923,7 +2923,7 @@
 		],
 		"stars": 6
 	},
-		{
+	{
 		"title": "YeSvelte",
 		"url": "https://github.com/yesvelte/yesvelte",
 		"description": "Flexible Svelte UI component library, designed to help developers build enterprise-grade web applications quickly and easily",
