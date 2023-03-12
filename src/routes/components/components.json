@@ -2922,5 +2922,15 @@
 			"typescript"
 		],
 		"stars": 6
+	},
+	{
+		"title": "Svelte Droplet",
+		"url": "https://github.com/probablykasper/svelte-droplet",
+		"description": "File dropzone utility with styling up to you",
+		"npm": "svelte-droplet",
+		"addedOn": "2023-03-03",
+		"category": "Forms & User Input",
+		"tags": ["inputs and widgets", "forms", "interactions"],
+		"stars": 0
 	}
 ]
