@@ -2704,11 +2704,11 @@
 		"title": "Skeleton",
 		"url": "https://skeleton.dev/",
 		"description": "A fully featured web UI toolkit for Svelte and Tailwind.",
-		"npm": "@brainandbones/skeleton",
+		"npm": "@skeletonlabs/skeleton",
 		"addedOn": "2022-08-01",
 		"category": "Design System",
 		"tags": ["components and libraries", "component sets"],
-		"stars": 479
+		"stars": 1459
 	},
 	{
 		"title": "svelte-hover-draw-svg",
