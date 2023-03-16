@@ -1378,12 +1378,9 @@
 		"npm": "svelte-pathfinder",
 		"addedOn": "2023-03-13",
 		"category": "Routers",
-		"tags": [
-			"routers",
-			"stores and state"
-		],
+		"tags": ["routers", "stores and state"],
 		"stars": 103
-	}
+	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "",
