@@ -1372,14 +1372,14 @@
 		"url": "https://github.com/PaulMaly/svelte-page-router"
 	},
 	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Routers",
-		"description": "State-based router for Svelte 3.",
-		"npm": "svelte-pathfinder",
-		"stars": 30,
-		"tags": ["routers", "stores and state"],
 		"title": "svelte-pathfinder",
-		"url": "https://github.com/PaulMaly/svelte-pathfinder"
+		"url": "https://github.com/sveltetools/svelte-pathfinder",
+		"description": "Tiny, state-based, advanced router for SvelteJS.",
+		"npm": "svelte-pathfinder",
+		"addedOn": "2023-03-13",
+		"category": "Routers",
+		"tags": ["routers", "stores and state"],
+		"stars": 103
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -2704,11 +2704,11 @@
 		"title": "Skeleton",
 		"url": "https://skeleton.dev/",
 		"description": "A fully featured web UI toolkit for Svelte and Tailwind.",
-		"npm": "@brainandbones/skeleton",
+		"npm": "@skeletonlabs/skeleton",
 		"addedOn": "2022-08-01",
 		"category": "Design System",
 		"tags": ["components and libraries", "component sets"],
-		"stars": 479
+		"stars": 1459
 	},
 	{
 		"title": "svelte-hover-draw-svg",
@@ -2924,7 +2924,17 @@
 		"stars": 6
 	},
 	{
-		"title": "Lucide icons",
+		"title": "Svelte Droplet",
+		"url": "https://github.com/probablykasper/svelte-droplet",
+		"description": "File dropzone utility with styling up to you",
+		"npm": "svelte-droplet",
+		"addedOn": "2023-03-03",
+		"category": "Forms & User Input",
+		"tags": ["inputs and widgets", "forms", "interactions"],
+		"stars": 0
+	},
+  {
+    "title": "Lucide icons",
 		"url": "https://github.com/lucide-icons/lucide",
 		"description": "Beautiful & consistent icon toolkit made by the community. Open-source project and a fork of Feather Icons.",
 		"npm": "lucide-svelte",
@@ -2935,5 +2945,5 @@
 			"components and libraries"
 		],
 		"stars": 3700
-	}
+  }
 ]
