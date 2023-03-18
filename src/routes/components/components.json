@@ -2933,8 +2933,8 @@
 		"tags": ["inputs and widgets", "forms", "interactions"],
 		"stars": 0
 	},
-  {
-    "title": "Lucide icons",
+        {
+                "title": "Lucide icons",
 		"url": "https://github.com/lucide-icons/lucide",
 		"description": "Beautiful & consistent icon toolkit made by the community. Open-source project and a fork of Feather Icons.",
 		"npm": "lucide-svelte",
@@ -2945,5 +2945,5 @@
 			"components and libraries"
 		],
 		"stars": 3700
-  }
+        }
 ]
