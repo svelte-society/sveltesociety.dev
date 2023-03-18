@@ -2932,5 +2932,19 @@
 		"category": "Forms & User Input",
 		"tags": ["inputs and widgets", "forms", "interactions"],
 		"stars": 0
+	},
+	{
+		"title": "chat-embed",
+		"url": "https://github.com/mawa-ai/chat-embed",
+		"description": "A chat component made with svelte",
+		"npm": "chat-embed",
+		"addedOn": "2023-03-18",
+		"category": "Forms & User Input",
+		"tags": [
+			"components and libraries",
+			"forms",
+			"inputs and widgets"
+		],
+		"stars": 0
 	}
 ]
