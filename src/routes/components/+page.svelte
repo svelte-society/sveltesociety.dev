@@ -1,6 +1,8 @@
-<script>
+<script lang="ts">
 	import components from './components.json';
 	import SearchableJson from '../searchableJson.svelte';
+	import type { PageData } from './$types';
+	export let data: PageData;
 
 	const categoryId = {
 		Animations: 'animations',
@@ -21,7 +23,7 @@
 
 <SearchableJson
 	{categoryId}
-	data={components}
+	data={[...components, ...data.components]}
 	displayTitle="Components"
 	displayTitleSingular="component"
 	submittingType="component"

@@ -1,6 +1,8 @@
-<script>
+<script lang="ts">
 	import templates from './templates.json';
 	import SearchableJson from '../searchableJson.svelte';
+	import type { PageData } from './$types';
+	export let data: PageData;
 
 	const categoryId = {
 		Sapper: 'sapper',
@@ -12,7 +14,7 @@
 
 <SearchableJson
 	{categoryId}
-	data={templates}
+	data={[...templates, ...data.templates]}
 	displayTitle="Template"
 	displayTitleSingular="template"
 	submittingType="template"
