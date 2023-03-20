@@ -2934,17 +2934,16 @@
 		"stars": 0
 	},
 	{
-	"title": "Sveltyped",
-	"url": "https://github.com/MrsHorrid/Sveltyped",
-	"description": "A component for an easy typewriter effect!",
-	"npm": "sveltyped",
-	"addedOn": "2023-03-19",
-	"category": "Developer Experience",
-	"tags": [
-		"animations",
-		"templates"
-	],
-	"stars": 0
-}
+		"title": "Sveltyped Typewriter for svelte",
+		"url": "https://github.com/MrsHorrid/Sveltyped",
+		"description": "a simple to use typewriter component",
+		"npm": "sveltyped",
+		"addedOn": "2023-03-20",
+		"category": "Developer Experience",
+		"tags": [
+			"components and libraries"
+		],
+		"stars": 0
+	}
 
 ]
