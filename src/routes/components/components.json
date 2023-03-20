@@ -2932,5 +2932,19 @@
 		"category": "Forms & User Input",
 		"tags": ["inputs and widgets", "forms", "interactions"],
 		"stars": 0
-	}
+	},
+	{
+	"title": "Sveltyped",
+	"url": "https://github.com/MrsHorrid/Sveltyped",
+	"description": "A component for an easy typewriter effect!",
+	"npm": "sveltyped",
+	"addedOn": "2023-03-19",
+	"category": "Developer Experience",
+	"tags": [
+		"animations",
+		"templates"
+	],
+	"stars": 0
+}
+
 ]
