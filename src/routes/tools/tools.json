@@ -315,5 +315,19 @@
 		"category": "Linting and Formatting",
 		"tags": [],
 		"stars": 0
+	},
+	{
+		"title": "svelte-i18next",
+		"url": "https://github.com/maximux13/svelte-i18next ",
+		"description": "Add support to your svelte kit project to use i18next",
+		"npm": "@maximux13/svelte-i18next",
+		"addedOn": "2023-03-10",
+		"category": "Integration",
+		"tags": [
+			"integrations",
+			"internationalization",
+			"ssr"
+		],
+		"stars": 0
 	}
 ]
