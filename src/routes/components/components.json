@@ -2950,5 +2950,17 @@
 			"typescript"
 		],
 		"stars": 0
+	},
+	{
+		"title": "svelte-pilot",
+		"url": "https://github.com/jiangfengming/svelte-pilot",
+		"description": "A Svelte router that supports Server-Side Rendering (SSR).",
+		"npm": "https://www.npmjs.com/package/svelte-pilot",
+		"addedOn": "2023-03-31",
+		"category": "Routers",
+		"tags": [
+			"routers"
+		],
+		"stars": 15
 	}
 ]
