@@ -897,5 +897,17 @@
 		"category": "Svelte",
 		"tags": ["storybook", "typescript"],
 		"stars": 0
+	},
+	{
+		"title": "svelte-vite-ssr",
+		"url": "https://github.com/jiangfengming/svelte-vite-ssr",
+		"description": "svelte-vite-ssr is a project template for building Svelte applications with a powerful router, SSR (Server-Side Rendering), CSR (Client-Side Rendering), HMR (Hot Module Replacement), <link rel=\"preload\"> directives, and other useful features.",
+		"npm": "",
+		"addedOn": "2023-03-31",
+		"category": "Svelte",
+		"tags": [
+			"ssr"
+		],
+		"stars": 44
 	}
 ]
