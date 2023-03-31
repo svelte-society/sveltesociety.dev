@@ -2950,5 +2950,74 @@
 			"typescript"
 		],
 		"stars": 0
+	},
+	{
+		"title": "QR Code generator for SvelteKit",
+		"url": "https://github.com/bonosoft/sveltekit-qrcode",
+		"description": "Use QR codes to initialise your onetime password generator or transfer other information",
+		"npm": "@bonosoft/sveltekit-qrcode",
+		"addedOn": "2023-03-31",
+		"category": "User Interaction",
+		"tags": [
+			"auth",
+			"forms and validation",
+			"authentication",
+			"2fa",
+			"multifactor",
+			"totp",
+			"qr",
+			"qrcode",
+			"qrimage",
+			"svg",
+			"qrsvg"
+		],
+		"stars": 0
+	},
+	{
+		"title": "Progress component for SvelteKit",
+		"url": "https://github.com/bonosoft/sveltekit-progress",
+		"description": "Add circular or square status and progress indicators to your pages", 
+		"npm": "@bonosoft/sveltekit-progress",
+		"addedOn": "2023-03-31",
+		"category": "User Interaction",
+		"tags": [
+			"progress",
+			"percent",
+			"dashboard",
+			"status",
+			"gauge",
+			"pressure",
+			"circle",
+			"circular",
+			"rounded",
+			"square",
+			"donut",
+			"risk"
+		],
+		"stars": 0
+	},
+	{
+		"title": "Code Entry component for SvelteKit",
+		"url": "https://github.com/bonosoft/sveltekit-codeentry",
+		"description": "Allows user to enter pin or numeric codes for example onetime passwords",
+		"npm": "@bonosoft/sveltekit-qrcode",
+		"addedOn": "2023-03-31",
+		"category": "Forms & User Input",
+		"tags": [
+			"pin",
+			"pincode",
+			"login",
+			"totp",
+			"time",
+			"password",
+			"code",
+			"entry",
+			"onetime",
+			"security",
+			"auth",
+			"authentification",
+			"user"
+		],
+		"stars": 0
 	}
 ]
