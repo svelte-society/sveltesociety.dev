@@ -1,5 +1,15 @@
 [
 	{
+		"continent": "🌐 World",
+		"type": "contintent"
+	},
+	{
+		"name": "Svelte Society francophone",
+		"country": "French - Francophonie",
+		"discord": "https://discord.gg/cJZUCUxMYZ",
+		"twitter": "@SvelteSocietyFr"
+	},
+	{
 		"continent": "🇪🇺 Europe",
 		"type": "contintent"
 	},
