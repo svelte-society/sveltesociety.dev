@@ -2945,5 +2945,23 @@
 			"components and libraries"
 		],
 		"stars": 3700
-        }
+  },
+  {
+		"title": "YeSvelte",
+		"url": "https://github.com/yesvelte/yesvelte",
+		"description": "Flexible Svelte UI component library, designed to help developers build enterprise-grade web applications quickly and easily",
+		"npm": "yesvelte",
+		"addedOn": "2023-02-26",
+		"category": "Forms & User Input",
+		"tags": [
+			"component sets",
+			"components and libraries",
+			"form validation",
+			"forms",
+			"inputs and widgets",
+			"time and date",
+			"typescript"
+		],
+		"stars": 0
+	}
 ]
