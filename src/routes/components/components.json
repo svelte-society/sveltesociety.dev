@@ -2950,5 +2950,19 @@
 			"typescript"
 		],
 		"stars": 0
+	},
+	{
+		"title": "Apity",
+		"url": "https://github.com/cocreators-ee/apity",
+		"description": "Typed API client for Svelte and SvelteKit",
+		"npm": "@cocreators-ee/apity",
+		"addedOn": "2023-04-12",
+		"category": "Integration",
+		"tags": [
+			"async data",
+			"integrations",
+			"typescript"
+		],
+		"stars": 0
 	}
 ]
