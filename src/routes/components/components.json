@@ -1,9 +1,9 @@
 [	
 	{
 		"title": "svelte-tel-input",
-		"url": "https://github.com/sveltejs/svelte-lorem-ipsum",
+		"url": "https://github.com/gyurielf/svelte-tel-input",
 		"description": "Lightweight phone input standardizer.",
-		"npm": "svelte-lorem-ipsum",
+		"npm": "svelte-tel-input",
 		"addedOn": "2023-04-23",
 		"category": "Forms & User Input",
 		"tags": [
