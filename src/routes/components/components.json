@@ -1,5 +1,18 @@
 [
 	{
+	"title": "Curseur",
+	"url": "https://github.com/n3-rd/curseur",
+	"description": "Svelte component for creating customizable cursors.",
+	"npm": "curseur",
+	"addedOn": "2023-04-25",
+	"category": "User Interaction",
+	"tags": [
+		"interactions",
+		"typescript"
+	],
+	"stars": 0
+	},
+	{
 		"title": "svelte-datatables-net",
 		"url": "https://github.com/joaquimnetocel/svelte-datatables-net",
 		"description": "svelte-datatables-net is a svelte/sveltekit component that turns data into an interactive HTML table. Inspired by datatables.net.",
