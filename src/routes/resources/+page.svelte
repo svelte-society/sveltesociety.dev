@@ -86,6 +86,23 @@
 			<a href="https://github.com/janosh/awesome-sveltekit" target="_blank">awesome-sveltekit</a>
 		</li>
 	</ul>
+
+	<h2>UI frameworks</h2>
+	<div>Check out the following list of Svelte UI component libraries:</div>
+	<ul>
+		<li>
+			<a href="https://flowbite-svelte.com">Flowbite Svelte</a>
+		</li>
+		<li>
+			<a href="https://www.skeleton.dev/">Skeleton UI</a>
+		</li>
+		<li>
+			<a href="https://www.radix-svelte.com/">Radix Svelte</a>
+		</li>
+		<li>
+			<a href="https://sveltematerialui.com/">Svelte Material UI</a>
+		</li>
+	</ul>
 </div>
 
 <style>
