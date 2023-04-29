@@ -2950,5 +2950,17 @@
 			"typescript"
 		],
 		"stars": 0
+	},
+	{
+		"title": "STDF",
+		"url": "https://github.com/dufu1991/stdf",
+		"description": "Mobile Web component library based on Svelte and Tailwind.",
+		"npm": "stdf",
+		"addedOn": "2023-04-30",
+		"category": "User Interaction",
+		"tags": [
+			"components and libraries"
+		],
+		"stars": 0
 	}
 ]
