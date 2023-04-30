@@ -1,5 +1,21 @@
 [
 	{
+		"title": "svelte-tel-input",
+		"url": "https://github.com/gyurielf/svelte-tel-input",
+		"description": "Lightweight phone input standardizer.",
+		"npm": "svelte-tel-input",
+		"addedOn": "2023-04-23",
+		"category": "Forms & User Input",
+		"tags": [
+			"inputs and widgets",
+			"forms and validation",
+			"validation",
+			"typescript",
+			"components and libraries"
+		],
+		"stars": 25
+	},
+	{
 		"title": "svelte-datatables-net",
 		"url": "https://github.com/joaquimnetocel/svelte-datatables-net",
 		"description": "svelte-datatables-net is a svelte/sveltekit component that turns data into an interactive HTML table. Inspired by datatables.net.",
