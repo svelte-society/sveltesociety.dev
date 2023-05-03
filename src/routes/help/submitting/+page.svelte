@@ -59,6 +59,8 @@
 	$: currentTags = data[type.value].tags;
 	$: currentCategories = data[type.value].categories;
 
+	$: jsonFileName = title.toLocaleLowerCase().replace(/\\|\//g, '-');
+
 	onMount(() => {
 		const typeQuery = new URLSearchParams(location.search).get('type');
 		type = types.find((t) => t.value == typeQuery) || types[0];
@@ -179,10 +181,26 @@
 	>
 </pre>
 <br />
-Copy this snippet and add it to
-<a href="{repoURL}/blob/staging/src/routes/{pathName}/{pathName}.json">{pathName}.json</a>. You can
-propose your changes
-<a href="{repoURL}/edit/staging/src/routes/{pathName}/{pathName}.json">directly in GitHub</a>.
+
+<div>
+	<a
+		class="button"
+		href="{repoURL}/new/staging/src/data/{pathName}?filename={encodeURIComponent(
+			jsonFileName
+		)}.json&value={encodeURIComponent(JSON.stringify(jsonSnippet, null, '\t'))}"
+	>
+		Submit
+	</a>
+</div>
+
+Or copy this snippet and add it to
+<a href="{repoURL}/blob/staging/src/data/{pathName}/{jsonFileName}.json">[your-repo-name].json</a>.
+You can propose your changes
+<a
+	href="{repoURL}/new/staging/src/data/{pathName}?filename={encodeURIComponent(
+		jsonFileName
+	)}.json&value={encodeURIComponent(JSON.stringify(jsonSnippet, null, '\t'))}">directly in GitHub</a
+>.
 
 <style>
 	.json-generator,
@@ -276,5 +294,18 @@ propose your changes
 			flex-direction: column;
 			gap: var(--s-1);
 		}
+	}
+
+	.button {
+		display: inline-block;
+		background: var(--link-color);
+		color: #fff;
+		padding: 8px 16px;
+		margin-bottom: 16px;
+		border-radius: 4px;
+	}
+
+	.button:hover {
+		background: var(--primary);
 	}
 </style>

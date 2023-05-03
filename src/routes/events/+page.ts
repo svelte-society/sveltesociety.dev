@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 import { getPages } from '../pageList';
 
-export async function load(): Promise<PageLoad> {
+export const load: PageLoad = async () => {
 	const events = await getPages(import.meta.glob('./**/*.svx'));
 
 	if (events) {
@@ -13,4 +13,4 @@ export async function load(): Promise<PageLoad> {
 		};
 	}
 	throw error(500);
-}
+};
