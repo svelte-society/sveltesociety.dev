@@ -1,5 +1,19 @@
 [
 	{
+		"title": "svelte-selecto",
+		"url": "https://github.com/daybrush/selecto",
+		"description": "Selecto.js is a component that allows you to select elements in the drag area using the mouse or touch.",
+		"npm": "svelte-selecto",
+		"addedOn": "2023-05-13",
+		"category": "User Interaction",
+		"tags": [
+			"components and libraries",
+			"typescript",
+			"interactions"
+		],
+		"stars": 1300
+	},
+	{
 		"title": "svelte-tel-input",
 		"url": "https://github.com/gyurielf/svelte-tel-input",
 		"description": "Lightweight phone input standardizer.",
