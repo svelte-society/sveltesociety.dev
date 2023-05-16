@@ -2966,5 +2966,22 @@
 			"typescript"
 		],
 		"stars": 0
+	},
+	{
+		"title": "svelte-svg-transform",
+		"url": "https://github.com/bartektelec/svelte-svg-transform",
+		"description": "A tiny component to override SVG file properties",
+		"npm": "svelte-svg-transform",
+		"addedOn": "2023-05-16",
+		"category": "Developer Experience",
+		"tags": [
+			"components and libraries",
+			"fonts and icons",
+			"images",
+			"layout and structure",
+			"typescript"
+		],
+		"stars": 0
 	}
+
 ]
