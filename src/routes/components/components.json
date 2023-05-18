@@ -1,5 +1,19 @@
 [
 	{
+		"title": "svelte-zod-form",
+		"url": "https://www.npmjs.com/package/svelte-zod-form",
+		"description": "A dummy text generator that does not exist",
+		"npm": "svelte-zod-form",
+		"addedOn": "2023-05-18",
+		"category": "Forms & User Input",
+		"tags": [
+			"form validation",
+			"reactive forms",
+			"forms"
+		],
+		"stars": 0
+	},
+	{
 		"title": "svelte-tel-input",
 		"url": "https://github.com/gyurielf/svelte-tel-input",
 		"description": "Lightweight phone input standardizer.",
