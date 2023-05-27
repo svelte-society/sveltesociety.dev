@@ -306,7 +306,7 @@
 		"category": "Linting and Formatting",
 		"tags": ["official"],
 		"stars": 135
-	}
+	},
 	{
 		"title": "full-client-server-sveltekit",
 		"url": "https://www.npmjs.com/package/full-client-server-sveltekit",
