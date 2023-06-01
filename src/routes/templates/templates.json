@@ -629,7 +629,7 @@
 		"addedOn": "2021-06-24T14:39:21Z",
 		"category": "Svelte Add",
 		"description": "Add PostCSS to your Svelte project",
-		"stars": 19,
+		"stars": 42,
 		"tags": [],
 		"title": "svelte-add/postcss",
 		"url": "https://github.com/svelte-add/postcss"
@@ -638,16 +638,25 @@
 		"addedOn": "2021-06-24T14:39:22Z",
 		"category": "Svelte Add",
 		"description": "Add Tailwind CSS to your Svelte project",
-		"stars": 289,
+		"stars": 631,
 		"tags": [],
 		"title": "svelte-add/tailwindcss",
 		"url": "https://github.com/svelte-add/tailwindcss"
 	},
 	{
+		"addedOn": "2023-06-01",
+		"category": "Svelte Add",
+		"description": "Add Tauri to your Svelte project",
+		"stars": 14,
+		"tags": [],
+		"title": "svelte-add/tailwindcss",
+		"url": "https://github.com/svelte-add/tauri"
+	},
+	{
 		"addedOn": "2021-06-24T14:39:23Z",
 		"category": "Svelte Add",
 		"description": "Add Bulma to your Svelte project",
-		"stars": 5,
+		"stars": 35,
 		"tags": [],
 		"title": "svelte-add/bulma",
 		"url": "https://github.com/svelte-add/bulma"
@@ -655,17 +664,17 @@
 	{
 		"addedOn": "2021-06-24T14:39:24Z",
 		"category": "Svelte Add",
-		"description": "SvelteKit adder for CoffeeScript",
-		"stars": 2,
+		"description": "Add CoffeeScript to your Svelte project",
+		"stars": 11,
 		"tags": [],
-		"title": "Leftium/coffeescript-adder",
-		"url": "https://github.com/Leftium/coffeescript-adder"
+		"title": "svelte-add/coffeescript",
+		"url": "https://github.com/svelte-add/coffeescript"
 	},
 	{
 		"addedOn": "2021-06-24T14:39:26Z",
 		"category": "Svelte Add",
 		"description": "A command to add a GraphQL server to your Svelte project",
-		"stars": 21,
+		"stars": 31,
 		"tags": [],
 		"title": "svelte-add/graphql-server",
 		"url": "https://github.com/svelte-add/graphql-server"
@@ -674,10 +683,28 @@
 		"addedOn": "2021-06-24T14:39:27Z",
 		"category": "Svelte Add",
 		"description": "A command to add hosting on Firebase to your Svelte project",
-		"stars": 3,
+		"stars": 7,
 		"tags": [],
 		"title": "svelte-add/firebase-hosting",
 		"url": "https://github.com/svelte-add/firebase-hosting"
+	},
+	{
+		"title": "svelte-add/scss",
+		"url": "https://github.com/svelte-add/scss",
+		"description": "Add SCSS to your Svelte project",
+		"stars": 55,
+		"tags": [],
+		"addedOn": "2023-06-01",
+		"category": "Svelte Add"
+	},
+	{
+		"title": "svelte-add/3d",
+		"url": "https://github.com/svelte-add/3d",
+		"description": "Add 3D scenes to your Svelte project",
+		"stars": 5,
+		"tags": [],
+		"addedOn": "2023-06-01",
+		"category": "Svelte Add"
 	},
 	{
 		"title": "vhscom/svelte-headlessui-starter",
@@ -692,25 +719,16 @@
 		"addedOn": "2021-06-24T14:39:28Z",
 		"category": "Svelte Add",
 		"description": "Add mdsvex to your Svelte project",
-		"stars": 36,
+		"stars": 82,
 		"tags": [],
 		"title": "svelte-add/mdsvex",
 		"url": "https://github.com/svelte-add/mdsvex"
 	},
 	{
-		"addedOn": "2021-06-24T14:39:25Z",
-		"category": "Svelte Add",
-		"description": "Add Pug to SvelteKit.",
-		"stars": 1,
-		"tags": [],
-		"title": "Leftium/pug-adder",
-		"url": "https://github.com/Leftium/pug-adder"
-	},
-	{
 		"addedOn": "2021-06-24T14:39:29Z",
 		"category": "Svelte Add",
 		"description": "Add Supabase to your Svelte project",
-		"stars": 36,
+		"stars": 63,
 		"tags": [],
 		"title": "joshnuss/svelte-supabase",
 		"url": "https://github.com/joshnuss/svelte-supabase"
@@ -719,7 +737,7 @@
 		"addedOn": "2021-07-21T11:39:29Z",
 		"category": "Svelte Add",
 		"description": "Add Jest to your SvelteKit project",
-		"stars": 15,
+		"stars": 32,
 		"tags": [],
 		"title": "rossyman/svelte-add-jest",
 		"url": "https://github.com/rossyman/svelte-add-jest"
