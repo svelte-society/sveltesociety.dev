@@ -324,5 +324,14 @@
 		"addedOn": "2023-05-18",
 		"category": "Bundler Plugins",
 		"stars": 0
+	},
+	{
+		"title": "svelte-preprocess-delegate-events",
+		"url": "https://github.com/baseballyama/svelte-preprocess-delegate-events",
+		"description": "Delegate events with on:* 🎉",
+		"npm": "svelte-preprocess-delegate-events",
+		"addedOn": "2023-05-27",
+		"category": "Preprocessors",
+		"stars": 19
 	}
 ]
