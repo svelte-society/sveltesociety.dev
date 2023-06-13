@@ -2219,16 +2219,6 @@
 		"url": "https://github.com/AlexxNB/svate"
 	},
 	{
-		"addedOn": "2021-04-05T11:52:00Z",
-		"category": "",
-		"description": "Performant and powerful remote data synchronization for Svelte",
-		"npm": "@sveltestack/svelte-query",
-		"tags": ["components and libraries", "stores and state"],
-		"title": "@sveltestack/svelte-query",
-		"url": "https://github.com/SvelteStack/svelte-query",
-		"stars": 350
-	},
-	{
 		"title": "svelte-parallax",
 		"url": "https://github.com/kindoflew/svelte-parallax",
 		"npm": "svelte-parallax",
@@ -2871,7 +2861,7 @@
 		"npm": "@tanstack/svelte-query",
 		"addedOn": "2023-01-14",
 		"tags": ["async data", "async loading", "network events", "ssr", "typescript"],
-		"stars": 32266
+		"stars": 35000
 	},
 	{
 		"title": "svelte-form-builder",
