@@ -2972,5 +2972,20 @@
 			"typescript"
 		],
 		"stars": 0
+	},
+	{
+		"title": "🌵 Svelte Zod Form",
+		"url": "https://github.com/nerd-coder/svelte-zod-form",
+		"description": "Building forms in Svelte with breeze, using Zod",
+		"npm": "@nerd-coder/svelte-zod-form",
+		"addedOn": "2023-06-22",
+		"category": "Forms & User Input",
+		"tags": [
+			"forms",
+			"validation",
+			"form validation",
+			"forms and validation"
+		],
+		"stars": 0
 	}
 ]
