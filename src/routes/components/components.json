@@ -2972,5 +2972,15 @@
 			"typescript"
 		],
 		"stars": 0
+	},
+	{
+		"title": "sveltekit-adapter-iis",
+		"category": "SvelteKit Adapters",
+		"description": "An adapter to deploy to IIS Server with iisnode installed",
+		"npm": "sveltekit-adapter-iis",
+		"stars": 0,
+		"tags": ["integrations"],
+		"url": "https://github.com/abaga129/sveltekit-adapter-iis",
+		"addedOn": "2023-06-23T08:33:00.000Z"
 	}
 ]
