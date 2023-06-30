@@ -2980,12 +2980,7 @@
 		"npm": "@nerd-coder/svelte-zod-form",
 		"addedOn": "2023-06-22",
 		"category": "Forms & User Input",
-		"tags": [
-			"forms",
-			"validation",
-			"form validation",
-			"forms and validation"
-		],
+		"tags": ["forms", "validation", "form validation", "forms and validation"],
 		"stars": 0
 	}
 ]
