@@ -2982,5 +2982,19 @@
 		"tags": ["integrations"],
 		"url": "https://github.com/abaga129/sveltekit-adapter-iis",
 		"addedOn": "2023-06-23T08:33:00.000Z"
+	},
+	{
+		"title": "STDF",
+		"url": "https://stdf.design",
+		"description": "Mobile web component library based on Svelte and Tailwind.",
+		"npm": "stdf",
+		"addedOn": "2023-06-30",
+		"category": "Design System",
+		"tags": [
+			"component sets",
+			"internationalization",
+			"components and libraries"
+		],
+		"stars": 296
 	}
 ]
