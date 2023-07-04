@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { extractUnique } from './extractUnique';
 
 describe('extractUnique', () => {
