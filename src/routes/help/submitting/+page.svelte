@@ -180,9 +180,9 @@
 </pre>
 <br />
 Copy this snippet and add it to
-<a href="{repoURL}/blob/staging/src/routes/{pathName}/{pathName}.json">{pathName}.json</a>. You can
+<a href="{repoURL}/blob/main/src/routes/{pathName}/{pathName}.json">{pathName}.json</a>. You can
 propose your changes
-<a href="{repoURL}/edit/staging/src/routes/{pathName}/{pathName}.json">directly in GitHub</a>.
+<a href="{repoURL}/edit/main/src/routes/{pathName}/{pathName}.json">directly in GitHub</a>.
 
 <style>
 	.json-generator,
