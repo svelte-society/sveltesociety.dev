@@ -649,7 +649,7 @@
 		"description": "Add Tauri to your Svelte project",
 		"stars": 14,
 		"tags": [],
-		"title": "svelte-add/tailwindcss",
+		"title": "svelte-add/tauri",
 		"url": "https://github.com/svelte-add/tauri"
 	},
 	{
@@ -824,7 +824,7 @@
 		"addedOn": "2022-03-09",
 		"category": "SvelteKit",
 		"tags": ["blog", "mdsvex", "typescript", "templates"],
-		"stars": 307
+		"stars": 404
 	},
 	{
 		"title": "Svelte-Typescript-Electron-Webpack",

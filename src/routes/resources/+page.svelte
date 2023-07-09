@@ -1,11 +1,6 @@
 <script>
 	const booksFromPublisher = [
 		{
-			name: 'Svelte Handbook',
-			link: 'https://flaviocopes.com/page/svelte-handbook/',
-			author: 'Flavio Copes'
-		},
-		{
 			name: 'Svelte 3 Up and Running',
 			link: 'https://www.amazon.com/dp/B08D6T6BKS/',
 			author: 'Alessandro Segala'

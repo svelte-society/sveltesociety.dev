@@ -2219,16 +2219,6 @@
 		"url": "https://github.com/AlexxNB/svate"
 	},
 	{
-		"addedOn": "2021-04-05T11:52:00Z",
-		"category": "",
-		"description": "Performant and powerful remote data synchronization for Svelte",
-		"npm": "@sveltestack/svelte-query",
-		"tags": ["components and libraries", "stores and state"],
-		"title": "@sveltestack/svelte-query",
-		"url": "https://github.com/SvelteStack/svelte-query",
-		"stars": 350
-	},
-	{
 		"title": "svelte-parallax",
 		"url": "https://github.com/kindoflew/svelte-parallax",
 		"npm": "svelte-parallax",
@@ -2871,7 +2861,7 @@
 		"npm": "@tanstack/svelte-query",
 		"addedOn": "2023-01-14",
 		"tags": ["async data", "async loading", "network events", "ssr", "typescript"],
-		"stars": 32266
+		"stars": 35000
 	},
 	{
 		"title": "svelte-form-builder",
@@ -2966,5 +2956,31 @@
 			"typescript"
 		],
 		"stars": 0
+	},
+	{
+		"title": "svelte-svg-transform",
+		"url": "https://github.com/bartektelec/svelte-svg-transform",
+		"description": "A tiny component to override SVG file properties",
+		"npm": "svelte-svg-transform",
+		"addedOn": "2023-05-16",
+		"category": "Developer Experience",
+		"tags": [
+			"components and libraries",
+			"fonts and icons",
+			"images",
+			"layout and structure",
+			"typescript"
+		],
+		"stars": 0
+	},
+	{
+		"title": "sveltekit-adapter-iis",
+		"category": "SvelteKit Adapters",
+		"description": "An adapter to deploy to IIS Server with iisnode installed",
+		"npm": "sveltekit-adapter-iis",
+		"stars": 0,
+		"tags": ["integrations"],
+		"url": "https://github.com/abaga129/sveltekit-adapter-iis",
+		"addedOn": "2023-06-23T08:33:00.000Z"
 	}
 ]
