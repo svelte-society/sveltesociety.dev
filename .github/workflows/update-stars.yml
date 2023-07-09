@@ -2,7 +2,7 @@ name: Update stars count
 
 on:
   schedule:
-    - cron: '0 0 * * 0' # Every Sunday at 00:00
+    - cron: '0 0 1 * *' # Every 1st of every month at 00:00
 
 jobs:
   update:

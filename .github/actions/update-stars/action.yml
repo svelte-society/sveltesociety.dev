@@ -6,4 +6,4 @@ inputs:
     required: false
 runs:
   using: node16
-  main: 'main.cjs'
+  main: 'main.js'

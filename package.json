@@ -22,7 +22,6 @@
 		"@types/itemsjs": "^2.1.0",
 		"@typescript-eslint/eslint-plugin": "^5.61.0",
 		"@typescript-eslint/parser": "^5.61.0",
-		"axios": "^0.25.0",
 		"eslint": "^8.44.0",
 		"eslint-config-prettier": "^8.1.0",
 		"eslint-plugin-svelte": "^2.32.2",
@@ -41,6 +40,7 @@
 		"svelte-select": "^4.4.0",
 		"tslib": "^2.6.0",
 		"typescript": "^5.1.6",
+		"undici": "^5.22.1",
 		"vite": "^4.4.2",
 		"vitest": "^0.33.0"
 	},
