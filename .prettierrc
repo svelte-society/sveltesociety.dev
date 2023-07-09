@@ -7,6 +7,6 @@
 	"plugins": ["prettier-plugin-svelte"],
 	"overrides": [
 		{ "files": "*.svelte", "options": { "parser": "svelte" } },
-		{ "files": "*.svx",	"options": { "parser": "mdx" } }
+		{ "files": "*.svx", "options": { "parser": "mdx" } }
 	]
 }
