@@ -1,4 +1,5 @@
 <script>
+	import slugify from '@sindresorhus/slugify';
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
 	import List from '$lib/components/ComponentIndex/CardList.svelte';
 	import SearchLayout from '$layouts/SearchLayout.svelte';
@@ -19,8 +20,6 @@
 	$: dataToDisplay = data.map((line) => ({ ...dataDefault, ...line }));
 
 	$: categories = extractUnique(dataToDisplay, 'category');
-
-	export let categoryId = {};
 </script>
 
 <Seo title={displayTitle} />
@@ -83,10 +82,7 @@
 	</section>
 	<section slot="items">
 		{#each categories as category}
-			<List
-				title={category.label || 'Unclassified'}
-				id={categoryId[category.label] || category.label || 'unclassified'}
-			>
+			<List title={category.label || 'Unclassified'} id={slugify(category.label) || 'unclassified'}>
 				{#each dataToDisplay.filter((d) => d.category === category.value || (!categories
 							.map((v) => v.value)
 							.includes(d.category) && category.value === '')) as cardData}
