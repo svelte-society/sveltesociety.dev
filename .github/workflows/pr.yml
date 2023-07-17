@@ -1,8 +1,12 @@
-name: Source code lint
+name: PR
 
 on:
   pull_request:
     branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   pr:
