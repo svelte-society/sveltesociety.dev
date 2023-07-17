@@ -1,11 +1,13 @@
 <script>
 	import SearchableJson from '$lib/SearchableJson.svelte';
+	import components from './components.json';
+	import { entrySchema } from '$lib/schema';
 
-	export let data;
+	const data = entrySchema.parse(components);
 </script>
 
 <SearchableJson
-	data={data.components}
+	{data}
 	displayTitle="Components"
 	displayTitleSingular="component"
 	submittingType="component"
