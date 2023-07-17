@@ -6,7 +6,7 @@
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import Seo from '$lib/components/Seo.svelte';
 	import Search from '$lib/components/Search.svelte';
-	import Select from './components/Select.svelte';
+	import Select from '$lib/components/Select.svelte';
 	import { packageManager } from '$stores/packageManager';
 
 	/** @type {import('$lib/schema').Entry[]} */
