@@ -5,14 +5,18 @@ on:
     branches: [main]
 
 jobs:
-  lint:
+  pr:
+    name: PR
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2.2.4
+      - name: Git Checkout
+        uses: actions/checkout@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
         with:
           version: 8
-      - uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: '18.x'
           registry-url: https://registry.npmjs.org/
@@ -21,3 +25,5 @@ jobs:
         run: pnpm install
       - name: Run lint
         run: pnpm run lint
+      - name: Run build
+        run: pnpm run build
