@@ -9,6 +9,7 @@
 	import Select from '../lib/components/Select.svelte';
 	import { packageManager } from '$stores/packageManager';
 
+	/** @type {import('./types').Entry[]} */
 	export let data;
 	export let displayTitle = '';
 	export let displayTitleSingular = '';
@@ -40,9 +41,7 @@
 				facetsConfig={[
 					{
 						title: 'Category',
-						identifier: 'category',
-						isClearable: true,
-						showIndicator: true
+						identifier: 'category'
 					},
 					{
 						title: 'Tags',

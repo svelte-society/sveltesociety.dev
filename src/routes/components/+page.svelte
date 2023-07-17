@@ -1,10 +1,9 @@
 <script>
-	import components from './components.json';
+	import { components } from './components.js';
 	import SearchableJson from '../searchableJson.svelte';
 </script>
 
 <SearchableJson
-	{categoryId}
 	data={components}
 	displayTitle="Components"
 	displayTitleSingular="component"
