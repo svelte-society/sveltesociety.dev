@@ -789,21 +789,22 @@ export const components = [
 		url: 'https://github.com/exybore/svelteify'
 	},
 	{
+		title: 'svelte-simple-modal',
 		addedOn: '2020-09-29T14:39:13Z',
 		category: 'User Interaction',
 		description: 'A simple, small, and content-agnostic modal for Svelte',
 		npm: 'svelte-simple-modal',
 		stars: 190,
 		tags: ['components and libraries', 'layout and structure'],
-		title: 'svelte-simple-modal',
 		url: 'https://github.com/flekschas/svelte-simple-modal'
 	},
 	{
+		title: '@urql/svelte',
+		npm: '@urql/svelte',
 		addedOn: '2020-09-29T14:39:13Z',
 		category: 'Integration',
 		description: 'Svelte integration for FormidableLabs URQL',
 		tags: ['components and libraries', 'stores and state', 'graphql'],
-		title: '@urql/svelte',
 		url: 'https://github.com/FormidableLabs/urql/tree/master/packages/svelte-urql',
 		stars: 6318
 	},
@@ -1266,7 +1267,8 @@ export const components = [
 		stars: 10,
 		tags: ['components and libraries', 'layout and structure'],
 		title: 'svelte-layout-resizable',
-		url: 'https://github.com/milahu/svelte-layout-resizable'
+		url: 'https://github.com/milahu/svelte-layout-resizable',
+		npm: 'svelte-layout-resizable'
 	},
 	{
 		addedOn: '2020-09-29T14:39:13Z',
@@ -1543,7 +1545,8 @@ export const components = [
 		stars: 165,
 		tags: ['components and libraries', 'inputs and widgets'],
 		title: 'Simple Svelte Autocomplete',
-		url: 'https://github.com/pstanoev/simple-svelte-autocomplete'
+		url: 'https://github.com/pstanoev/simple-svelte-autocomplete',
+		npm: 'simple-svelte-autocomplete'
 	},
 	{
 		addedOn: '2020-09-29T14:39:13Z',
