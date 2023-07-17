@@ -1,6 +1,6 @@
 <script>
 	import tools from '../tools/tools.json';
-	import SearchableJson from '$lib/searchableJson.svelte';
+	import SearchableJson from '$lib/SearchableJson.svelte';
 </script>
 
 <SearchableJson

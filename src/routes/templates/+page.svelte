@@ -1,6 +1,6 @@
 <script>
 	import templates from './templates.json';
-	import SearchableJson from '$lib/searchableJson.svelte';
+	import SearchableJson from '$lib/SearchableJson.svelte';
 </script>
 
 <SearchableJson

@@ -1,10 +1,11 @@
 <script>
-	import { components } from './data.js';
-	import SearchableJson from '$lib/searchableJson.svelte';
+	import SearchableJson from '$lib/SearchableJson.svelte';
+
+	export let data;
 </script>
 
 <SearchableJson
-	data={components}
+	data={data.components}
 	displayTitle="Components"
 	displayTitleSingular="component"
 	submittingType="component"
