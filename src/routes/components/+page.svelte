@@ -1,5 +1,5 @@
 <script>
-	import { components } from './components.js';
+	import { components } from './data.js';
 	import SearchableJson from '$lib/searchableJson.svelte';
 </script>
 

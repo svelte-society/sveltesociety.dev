@@ -1,6 +1,6 @@
 <script lang="ts">
 	import SvelteSelect from 'svelte-select';
-	import { components } from '../../components/components.js';
+	import { components } from '../../components/data.js';
 	import templates from '../../templates/templates.json';
 	import tools from '../../tools/tools.json';
 	import { onMount, tick } from 'svelte';
