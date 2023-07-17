@@ -9,6 +9,11 @@
 			name: 'Svelte and Sapper in Action',
 			link: 'https://www.manning.com/books/svelte-and-sapper-in-action',
 			author: 'R. Mark Volkmann'
+		},
+		{
+			name: 'SvelteKit Up and Running',
+			link: 'https://sveltekitbook.dev',
+			author: 'Dylan Hildenbrand'
 		}
 	];
 	const booksSelfPublished = [
