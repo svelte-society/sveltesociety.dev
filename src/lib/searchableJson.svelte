@@ -9,7 +9,7 @@
 	import Select from '../lib/components/Select.svelte';
 	import { packageManager } from '$stores/packageManager';
 
-	/** @type {import('./types').Entry[]} */
+	/** @type {import('$lib/types').Entry[]} */
 	export let data;
 	export let displayTitle = '';
 	export let displayTitleSingular = '';

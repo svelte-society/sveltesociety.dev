@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import '$styles/highlight.css';
+import { getPages } from '$lib/pageList';
 import type { PageLoad } from './$types';
-import { getPages } from '../pageList';
 
 export async function load(): Promise<PageLoad> {
 	const pages = (await getPages(import.meta.glob('./**/*.svx'))).map((element) => ({

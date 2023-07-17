@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
+import { getPages } from '$lib/pageList';
 import type { PageLoad } from './$types';
-import { getPages } from '../pageList';
 
 export async function load(): Promise<PageLoad> {
 	const events = await getPages(import.meta.glob('./**/*.svx'));

@@ -1,4 +1,4 @@
-/** @type {import('../types').Entry[]} */
+/** @type {import('$lib/types').Entry[]} */
 export const components = [
 	{
 		title: 'svelte-tel-input',
@@ -119,7 +119,6 @@ export const components = [
 		npm: 'svelte-lazy-loader',
 		addedOn: '2022-02-27',
 		tags: ['images', 'components and libraries'],
-		category: 'Unclassified',
 		stars: 0
 	},
 	{

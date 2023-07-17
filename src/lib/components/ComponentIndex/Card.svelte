@@ -7,7 +7,7 @@
 	export let title = '';
 	export let description = '';
 	export let tags = [];
-	export let stars;
+	export let stars = 0;
 	export let url = '';
 	export let npm = '';
 	export let repo = '';

@@ -1,6 +1,6 @@
 <script>
 	import { components } from './components.js';
-	import SearchableJson from '../searchableJson.svelte';
+	import SearchableJson from '$lib/searchableJson.svelte';
 </script>
 
 <SearchableJson
