@@ -10,20 +10,19 @@ export const load = async () => {
 	}));
 	const categories = pages.filter((page) => page.layout === 'recipeCategory');
 
-	categories.forEach((category) => {
-		// @ts-ignore
-		category.children = [];
+	const categoriesWithChildren = categories.map((category) => {
+		const children = [];
 		pages.forEach((p) => {
 			if (category !== p && p.path.startsWith(category.path)) {
-				// @ts-ignore
-				category.children.push(p);
+				children.push(p);
 			}
 		});
+		return { ...category, children };
 	});
 
-	if (categories) {
+	if (categoriesWithChildren) {
 		return {
-			categories
+			categories: categoriesWithChildren
 		};
 	}
 	throw error(500);

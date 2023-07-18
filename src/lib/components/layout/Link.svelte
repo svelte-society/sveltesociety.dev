@@ -1,5 +1,7 @@
 <script>
-	export let path, active;
+	/** @type {string} */
+	export let path;
+	export let active = false;
 </script>
 
 <li>

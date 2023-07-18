@@ -4,7 +4,7 @@
 	export let click = undefined;
 </script>
 
-<div on:click={click} class={variant}>{title}</div>
+<div on:click={click} on:keypress={click} class={variant} role="button" tabindex="0">{title}</div>
 
 <style>
 	div {
