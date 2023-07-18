@@ -23,7 +23,6 @@ Example usage:
 <main>
 	<h1>Hello {sub}!</h1>
 </main>
-
 ```
 
 When we try to run this, Acorn throws a `ParseError: Unexpected token` error.

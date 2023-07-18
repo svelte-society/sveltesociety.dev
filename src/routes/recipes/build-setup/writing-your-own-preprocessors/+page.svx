@@ -44,7 +44,6 @@ p Hello World!
 		color: red;
 	}
 </style>
-
 ```
 
 We need to run it through Svelte to generate JavaScript, not HTML:
@@ -231,7 +230,6 @@ p Hello World!
 		color: red;
 	}
 </style>
-
 ```
 
 This guarantees no ambiguity when you have a Svelte codebase that is a mix of Pug and HTML templates. In order to process this you will have to add some checking and preprocessing:

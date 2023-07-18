@@ -51,5 +51,4 @@ We can use `bind:value` to bind input value, and validate the form using `schema
 		<button type="submit">Register</button>
 	</div>
 </form>
-
 ```

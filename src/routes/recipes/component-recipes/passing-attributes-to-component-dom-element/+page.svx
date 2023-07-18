@@ -11,7 +11,6 @@ When you want to "forward" any attributes that you can't control before compile 
 
 <!-- App.svelte -->
 <Component class="li-item-class">{name}</Component>
-
 ```
 
 [Svelte Playground here](https://svelte.dev/repl/24139d8599d348b9bcad5c0a1f471230?version=3.23.0). See [relevant part of docs](https://svelte.dev/docs#Attributes_and_props) for more.

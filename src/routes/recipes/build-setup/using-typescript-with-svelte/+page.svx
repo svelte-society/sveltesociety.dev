@@ -44,7 +44,6 @@ Then you can write your Svelte components with TypeScript:
 <template>
 	<div>Hello {hello}</div>
 </template>
-
 ```
 
 More information from community blogposts:

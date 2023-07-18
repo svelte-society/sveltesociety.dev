@@ -40,7 +40,6 @@ To set CSS Variables on an element, you can use the `style` attribute.
 		width: var(--width);
 	}
 </style>
-
 ```
 
 Alternatively, you can have a custom action to do this. This is already available with [svelte-css-vars](https://github.com/kaisermann/svelte-css-vars).

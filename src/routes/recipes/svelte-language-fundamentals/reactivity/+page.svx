@@ -24,7 +24,6 @@ The following works as expected and update the dom:
 
 <button on:click={updateNum}>Update</button>
 <p>{num}</p>
-
 ```
 
 Svelte can see that there is an assignment to a top-level variable and knows to re-render after the `num` variable is modified.
@@ -45,7 +44,6 @@ The following example causes the array and, subsequently, the DOM to be updated:
 {#each list as item}
 	<button on:click={() => (item.n *= 2)}>{item.n}</button>
 {/each}
-
 ```
 
 This, however, will not:
@@ -58,7 +56,6 @@ This, however, will not:
 {#each list as item}
 	<button on:click={() => (item *= 2)}>{item}</button>
 {/each}
-
 ```
 
 The easiest workaround is to just reference the array item by index from inside the each block:
@@ -71,7 +68,6 @@ The easiest workaround is to just reference the array item by index from inside 
 {#each list as item, index}
 	<button on:click={() => (list[index] *= 2)}>{item}</button>
 {/each}
-
 ```
 
 #### Variables not values
@@ -94,7 +90,6 @@ This is the sort of problem you may run into when dealing with objects. Since ob
 
 <button on:click={updateNum}>Update</button>
 <p>{obj.num}</p>
-
 ```
 
 In this example, when we reassign `o.num` we are updating the value assigned to `obj` but since we are not updating the actual `obj` variable Svelte does not trigger an update. Svelte does not trace these kinds of values back to a variable defined at the top level and has no way of knowing if it has updated or not. Whenever you want to update the local component state, any reassignments must be performed on the _actual_ variable, not just the value itself.
@@ -116,7 +111,6 @@ Another situation that can sometimes cause unexpected results is when you reassi
 
 <button on:click={() => updateNum(obj)}>Update</button>
 <p>{num}</p>
-
 ```
 
 This example behaves the same as the previous example, except it is perhaps even more confusing. In this case, the `obj` variable is being _shadowed_ while inside the function, so any assignments to `obj` inside this function are assignments to the function parameter rather than the top-level `obj` variable. It refers to the same value, and it has the same name, but it is a _different_ variable inside the function scope.
@@ -135,7 +129,6 @@ In addition to the assignment-based reactivity system, Svelte also has special s
 </script>
 
 <button on:click={() => (n += 1)}>{n_squared}</button>
-
 ```
 
 Whenever Svelte sees a reactive declaration, it makes sure to execute any reactive statements that depend on one another in the correct order and only when their direct dependencies have changed. A 'direct dependency' is a variable that is referenced inside the reactive declaration itself. References to variables inside functions that a reactive declaration _calls_ are not considered dependencies.
@@ -150,7 +143,6 @@ Whenever Svelte sees a reactive declaration, it makes sure to execute any reacti
 </script>
 
 <button on:click={() => (n += 1)}>{n_squared}</button>
-
 ```
 
 In the above example, `n_squared` will _not_ be recalculated when `n` changes because Svelte is not looking inside the `squareIt` function to define the reactive declaration's dependencies.

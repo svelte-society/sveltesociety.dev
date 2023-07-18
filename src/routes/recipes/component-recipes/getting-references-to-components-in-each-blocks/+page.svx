@@ -22,7 +22,6 @@ This method simply binds the generated component to an array element based on it
 {#each array as item, i}
 	<Child title={item.title} bind:this={children[i]} />
 {/each}
-
 ```
 
 **Method 2: Using an object as a hashtable**
@@ -42,5 +41,4 @@ An alternative is to use an _unique_ key and bind the component to an object, ef
 {#each array as item, i (item.id)}
 	<Child title={item.title} bind:this={children[item.id]} />
 {/each}
-
 ```

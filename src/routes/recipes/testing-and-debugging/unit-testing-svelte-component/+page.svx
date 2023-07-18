@@ -79,7 +79,6 @@ Slots are more difficult to test as there is no programmatic interface for worki
 <svelte:component this={Component}>
 	<h1 data-testid="slot">Test Data</h1>
 </svelte:component>
-
 ```
 
 Then the component you wish to test can be passed to the constructor as a prop in order to mount the component correctly:
@@ -115,7 +114,6 @@ As with slots, there is no programmatic interface for the Context API (setContex
 </script>
 
 <svelte:component this={Component} />
-
 ```
 
 The component we wish to test looks something like this:
@@ -128,7 +126,6 @@ The component we wish to test looks something like this:
 </script>
 
 <button>{ctx.title}</button>
-
 ```
 
 We can test this like so:

@@ -96,5 +96,4 @@ It is important to note that this example includes `preventDefault` to prevent t
 		{/await}
 	{/if}
 </div>
-
 ```
