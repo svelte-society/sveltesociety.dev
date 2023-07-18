@@ -10,8 +10,8 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"test": "vitest",
-		"lint": "prettier --check ./**/*.{js,ts,css,md,svelte,html,json} && eslint --ignore-path .gitignore .",
-		"format": "prettier --write ./**/*.{js,ts,css,md,svelte,html,json}",
+		"lint": "prettier --check ./**/*.{js,ts,css,md,svx,svelte,html,json} && eslint --ignore-path .gitignore .",
+		"format": "prettier --write ./**/*.{js,ts,css,md,svx,svelte,html,json}",
 		"prepare": "husky install"
 	},
 	"devDependencies": {
@@ -26,9 +26,7 @@
 		"eslint-plugin-svelte": "^2.32.2",
 		"graphql-request": "^3.5.0",
 		"highlight.js": "^11.6.0",
-		"husky": "^7.0.2",
 		"itemsjs": "^2.1.20",
-		"lint-staged": "^13.2.3",
 		"mdsvex": "^0.11.0",
 		"prettier": "^2.8.8",
 		"prettier-plugin-svelte": "^2.10.1",
@@ -41,8 +39,5 @@
 		"typescript": "^5.1.6",
 		"vite": "^4.4.2",
 		"vitest": "^0.33.0"
-	},
-	"lint-staged": {
-		"*.{js,ts,css,md,svx,svelte,html,json}": "prettier --write"
 	}
 }
