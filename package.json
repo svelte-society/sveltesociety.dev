@@ -9,7 +9,7 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"test": "vitest",
+		"test": "vitest run && node scripts/validateData.js",
 		"lint": "prettier --check ./**/*.{js,ts,css,md,svelte,html,json} && eslint --ignore-path .gitignore .",
 		"format": "prettier --write ./**/*.{js,ts,css,md,svelte,html,json}",
 		"prepare": "husky install"

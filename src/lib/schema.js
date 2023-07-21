@@ -12,5 +12,3 @@ export const entrySchema = z.array(
 		stars: z.number().optional()
 	})
 );
-
-export type Entry = z.infer<typeof entrySchema>[0];
