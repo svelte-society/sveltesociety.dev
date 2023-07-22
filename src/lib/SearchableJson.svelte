@@ -9,7 +9,7 @@
 	import Select from '$lib/components/Select.svelte';
 	import { packageManager } from '$stores/packageManager';
 
-	/** @type {import('$lib/schema').Entry[]} */
+	/** @type {import('zod').infer<typeof import('$lib/schema.js').entrySchema>} */
 	export let data;
 	export let displayTitle = '';
 	export let displayTitleSingular = '';
