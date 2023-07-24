@@ -1,4 +1,4 @@
-name: PR
+name: Source code lint
 
 on:
   pull_request:
@@ -9,8 +9,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  pr:
-    name: PR
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
