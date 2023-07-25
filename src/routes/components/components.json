@@ -2992,5 +2992,14 @@
 		"category": "Design System",
 		"tags": ["component sets", "components and libraries"],
 		"stars": 332
+	},
+	{
+		"title": "TwicPics Components",
+		"url": "https://github.com/TwicPics/components",
+		"description": "Images and videos components - Context aware resizing and cropping, lazy-loading, LQIP, Next-Gen format, compression, CDN.",
+		"npm": "@twicpics/components",
+		"addedOn": "2023-07-25",
+		"tags": ["components and libraries", "images", "video"],
+		"stars": 44
 	}
 ]
