@@ -32,11 +32,7 @@
 	project which supports decentralization, he can
 	<a href="https://app.cultdao.io/submitProposal" target="_blank">
 		submit a CULTDAO investment proposal</a
-	>. The CULTDAO shareholders including many OGs like
-	<a href="https://twitter.com/Crobot01" target="_blank"> Croat</a>
-	and
-	<a href="https://twitter.com/iambroots" target="_blank"> Beeeeeeeeeeeeeeeee Rooots</a>
-	decide if the CULTDAO invests into this project. <br /><br />
+	>. The CULTDAO shareholders decide if the CULTDAO invests into this project. <br /><br />
 	If you invest into CULT you implicitly also invest into many more promising projects validated by the
 	CULTDAO shareholders. To become a CULTDAO shareholder, we recommend to:<br /><br />
 

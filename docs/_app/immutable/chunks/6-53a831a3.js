@@ -1,0 +1,1 @@
+import{default as e}from"../components/pages/play2earn/_page.svelte-8b1d7a37.js";import"./index-ee4f4cf3.js";import"./Seo-6178a52c.js";import"./stores-56dbd5ba.js";import"./singletons-e62d0494.js";export{e as component};
