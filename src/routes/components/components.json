@@ -9,12 +9,25 @@
 		"tags": [
 			"inputs and widgets",
 			"forms and validation",
-			"validation",
+			"validation",https://github.com/svelte-society/sveltesociety.dev/edit/main/src/routes/components/components.json
 			"typescript",
 			"components and libraries"
 		],
 		"stars": 25
 	},
+
+	{
+	"title": "Svault",
+	"url": "https://github.com/oslabs-beta/Svault",
+	"description": "Svault is an authentication, authorization, and user management library for Svelte/SvelteKit applications.",
+	"npm": "https://www.npmjs.com/package/svault",
+	"addedOn": "2023-08-09",
+	"category": "Integration",
+	"tags": [
+		"auth"
+	],
+	"stars": 0
+},
 	{
 		"title": "svelte-datatables-net",
 		"url": "https://github.com/joaquimnetocel/svelte-datatables-net",
@@ -2552,8 +2565,7 @@
 		"description": "A Svelte store with items that expire",
 		"npm": "@macfja/svelte-expirable",
 		"addedOn": "2021-12-12",
-		"category": "Stores",
-		"tags": ["interactions", "notifications", "stores and state"],
+		"category": "Stores",		"tags": ["interactions", "notifications", "stores and state"],
 		"stars": 0
 	},
 	{
