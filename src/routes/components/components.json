@@ -3021,5 +3021,19 @@
 		"addedOn": "2023-07-25",
 		"tags": ["components and libraries", "images", "video"],
 		"stars": 44
+	},
+	{
+		"title": "Svane",
+		"url": "https://github.com/ShipBit/svane",
+		"description": "A single-component dev helper to see your current Tailwind breakpoint",
+		"npm": "@shipbit/svane",
+		"addedOn": "2023-08-09",
+		"category": "Developer Experience",
+		"tags": [
+			"components and libraries",
+			"viewport",
+			"layout and structure"
+		],
+		"stars": 0
 	}
 ]
