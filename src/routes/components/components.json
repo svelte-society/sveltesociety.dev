@@ -1184,6 +1184,16 @@
 		"url": "https://github.com/matyunya/smelte"
 	},
 	{
+		"addedOn": "2023-08-09T04:17:13Z",
+		"category": "Design System",
+		"description": "A set of headless, accessible component builders for Svelte.",
+		"npm": "@melt-ui/svelte",
+		"stars": 1046,
+		"tags": ["components and libraries", "component sets"],
+		"title": "melt-ui",
+		"url": "https://github.com/melt-ui/melt-ui"
+	},
+	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "",
 		"description": "Image processing with Sharp for Svelte",
