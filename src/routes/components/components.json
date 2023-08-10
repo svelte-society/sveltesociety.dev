@@ -1194,6 +1194,16 @@
 		"url": "https://github.com/melt-ui/melt-ui"
 	},
 	{
+		"addedOn": "2023-08-09T04:29:13Z",
+		"category": "Design System",
+		"description": "A port of Radix UI for Svelte.",
+		"npm": "radix-svelte",
+		"stars": 463,
+		"tags": ["components and libraries", "component sets"],
+		"title": "radix-svelte",
+		"url": "https://github.com/radix-svelte/radix-svelte"
+	},
+	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "",
 		"description": "Image processing with Sharp for Svelte",
