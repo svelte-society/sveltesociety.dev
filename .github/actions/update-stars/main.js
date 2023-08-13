@@ -146,7 +146,7 @@ async function getGitlabStars() {
 	for (let index = 0; index < pageCount; index++) {
 		const page = pagedRepoData[index];
 		core.debug('Running GraphQL for page ' + (index + 1) + '/' + pageCount);
-		let body =
+		const body =
 			'query{' + '\n' + page.map((repoInfo) => gitlabRepoGraphQl(repoInfo)).join('\n') + '\n' + '}';
 		lines = [...lines, ...(await doGraphQlQuery(gitlabGraphQlUrl, body))];
 	}
