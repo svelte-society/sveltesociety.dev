@@ -62,10 +62,8 @@ function ghRepoGraphQl({ owner, repo }) {
 
 /**
  * Divide an array into multiple smaller array
- *
  * @param {Array} input
  * @param {number} size
- *
  * @return {Array<Array>}
  */
 function chunk(input, size) {
