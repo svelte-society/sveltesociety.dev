@@ -3021,5 +3021,15 @@
 		"addedOn": "2023-07-25",
 		"tags": ["components and libraries", "images", "video"],
 		"stars": 44
+	},
+	{
+		"title": "sveltekit-html-minifier",
+		"url": "https://github.com/ntsd/sveltekit-html-minifier",
+		"description": "Sveltekit Adapter to Minify the preload HTML page",
+		"npm": "sveltekit-html-minifier",
+		"addedOn": "2023-08-03",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"],
+		"stars": 0
 	}
 ]
