@@ -80,9 +80,7 @@ function chunk(input, size) {
 
 /**
  * Get the number of stars for all GitHub repositories.
- *
- * The result is a Map, where the key the repo name; and the value the number of stars.
- *
+ * The result is a Map where the key the repo name and the value is the number of stars.
  * @returns {Promise<Record<string, number>>}
  */
 async function getGHStars() {
