@@ -116,7 +116,6 @@ async function getGHStars() {
 
 /**
  * Get all GitLab repositories path (relative to GitLab root)
- *
  * @returns {Array<string>}
  */
 function getAllGitlabRepos() {
