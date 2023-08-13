@@ -43,7 +43,6 @@ function gatherUrls() {
 
 /**
  * Get all GitHub repositories
- *
  * @returns {Array<{owner: string, repo: string}>}
  */
 function getAllGHRepos() {
