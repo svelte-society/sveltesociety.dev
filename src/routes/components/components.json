@@ -172,12 +172,12 @@
 	{
 		"title": "svelte-remixicon",
 		"description": "An icon library for svelte based on Remix Icon. Consists of more than 2000 icons.",
-		"url": "https://github.com/ABarnob/svelte-remixicon",
+		"url": "https://github.com/aantusahaa/svelte-remixicon",
 		"npm": "https://www.npmjs.com/package/svelte-remixicon",
 		"tags": ["components and libraries"],
 		"addedOn": "2021-08-25T00:00:00Z",
 		"category": "",
-		"stars": 14
+		"stars": 35
 	},
 	{
 		"title": "svelte-fast-marquee",
@@ -370,16 +370,6 @@
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Routers",
-		"description": "Framework agnostic UI router for SPAs with specific support for Svelte",
-		"npm": "crayon-svelte",
-		"stars": 317,
-		"tags": ["routers"],
-		"title": "crayon-svelte",
-		"url": "https://github.com/alshdavid/crayon"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "",
 		"description": "Component that performs fullscreen in DOM Elements",
 		"npm": "svelte-fullscreen",
@@ -413,7 +403,7 @@
 		"category": "Forms & User Input",
 		"description": "Generate dynamic forms for sveltejs, Sveltekit, Routify and Sapper",
 		"npm": "svelte-formly",
-		"stars": 135,
+		"stars": 231,
 		"tags": [
 			"components and libraries",
 			"forms",
@@ -422,7 +412,7 @@
 			"validation"
 		],
 		"title": "svelte-formly",
-		"url": "https://github.com/arabdevelop/svelte-formly"
+		"url": "https://github.com/dyaliCode/svelte-formly"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -452,7 +442,7 @@
 		"stars": 81,
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "@beyonk/gdpr-cookie-consent-banner",
-		"url": "https://github.com/beyonk-adventures/gdpr-cookie-consent-banner"
+		"url": "https://github.com/beyonk-group/gdpr-cookie-consent-banner"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -462,17 +452,17 @@
 		"stars": 168,
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "@beyonk/svelte-carousel",
-		"url": "https://github.com/beyonk-adventures/svelte-carousel"
+		"url": "https://github.com/beyonk-group/svelte-carousel"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Integration",
 		"description": "A Facebook customer chat integration for Svelte / Sapper",
 		"npm": "@beyonk/svelte-facebook-customer-chat",
-		"stars": 2,
+		"stars": 6,
 		"tags": ["components and libraries", "third party services"],
 		"title": "@beyonk/svelte-facebook-customer-chat",
-		"url": "https://github.com/beyonk-adventures/svelte-facebook-customer-chat"
+		"url": "https://github.com/beyonk-group/svelte-facebook-customer-chat"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -482,7 +472,7 @@
 		"stars": 10,
 		"tags": ["components and libraries", "third party services"],
 		"title": "@beyonk/svelte-facebook-pixel",
-		"url": "https://github.com/beyonk-adventures/svelte-facebook-pixel"
+		"url": "https://github.com/beyonk-group/svelte-facebook-pixel"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -492,7 +482,7 @@
 		"stars": 28,
 		"tags": ["components and libraries", "third party services"],
 		"title": "@beyonk/svelte-google-analytics",
-		"url": "https://github.com/beyonk-adventures/svelte-google-analytics"
+		"url": "https://github.com/beyonk-group/svelte-google-analytics"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -502,7 +492,7 @@
 		"stars": 43,
 		"tags": ["components and libraries", "maps"],
 		"title": "@beyonk/svelte-googlemaps",
-		"url": "https://github.com/beyonk-adventures/svelte-googlemaps"
+		"url": "https://github.com/beyonk-group/svelte-googlemaps"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -512,7 +502,7 @@
 		"stars": 150,
 		"tags": ["components and libraries", "maps"],
 		"title": "@beyonk/svelte-mapbox",
-		"url": "https://github.com/beyonk-adventures/svelte-mapbox"
+		"url": "https://github.com/beyonk-group/svelte-mapbox"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -522,27 +512,27 @@
 		"stars": 194,
 		"tags": ["components and libraries", "notifications"],
 		"title": "@beyonk/svelte-notifications",
-		"url": "https://github.com/beyonk-adventures/svelte-notifications"
+		"url": "https://github.com/beyonk-group/svelte-notifications"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "",
 		"description": "Scroll Spy component for Svelte",
 		"npm": "@beyonk/svelte-scrollspy",
-		"stars": 30,
+		"stars": 37,
 		"tags": ["components and libraries", "interactions"],
 		"title": "@beyonk/svelte-scrollspy",
-		"url": "https://github.com/beyonk-adventures/svelte-scrollspy"
+		"url": "https://github.com/beyonk-group/svelte-scrollspy"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "",
 		"description": "SVG icons for popular brands",
 		"npm": "svelte-simple-icons",
-		"stars": 10,
+		"stars": 13,
 		"tags": ["components and libraries", "fonts and icons"],
 		"title": "svelte-simple-icons",
-		"url": "https://github.com/beyonk-adventures/svelte-simple-icons"
+		"url": "https://github.com/beyonk-group/svelte-simple-icons"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -552,7 +542,7 @@
 		"stars": 2,
 		"tags": ["components and libraries", "third party services"],
 		"title": "@beyonk/svelte-trustpilot",
-		"url": "https://github.com/beyonk-adventures/svelte-trustpilot"
+		"url": "https://github.com/beyonk-group/svelte-trustpilot"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -769,10 +759,10 @@
 		"category": "Design System",
 		"description": "Material components library for Svelte using the stylesheet of Vuetify",
 		"npm": "svelteify",
-		"stars": 40,
+		"stars": 48,
 		"tags": ["components and libraries", "component sets"],
 		"title": "svelteify",
-		"url": "https://github.com/exybore/svelteify"
+		"url": "https://github.com/theovidal/svelteify"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -790,18 +780,18 @@
 		"description": "Svelte integration for FormidableLabs URQL",
 		"tags": ["components and libraries", "stores and state", "graphql"],
 		"title": "@urql/svelte",
-		"url": "https://github.com/FormidableLabs/urql/tree/master/packages/svelte-urql",
-		"stars": 6318
+		"url": "https://github.com/urql-graphql/urql/tree/main/packages/svelte-urql",
+		"stars": 8110
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "",
 		"description": "Icon components for Svelte, featuring many icon sets",
 		"npm": "svelte-icons",
-		"stars": 54,
+		"stars": 265,
 		"tags": ["components and libraries", "fonts and icons"],
 		"title": "svelte-icons",
-		"url": "https://github.com/gibdig/svelte-icons"
+		"url": "https://github.com/Introvertuous/svelte-icons"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -856,16 +846,6 @@
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Design System",
-		"description": "Easy-to-use, Customizable Material Design components for Svelte",
-		"npm": "svmd",
-		"stars": 7,
-		"tags": ["components and libraries", "component sets"],
-		"title": "svmd",
-		"url": "https://github.com/hkh12/svmd"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Design System",
 		"description": "Svelte Material UI Components",
 		"npm": "svelte-material-ui",
 		"stars": 1857,
@@ -878,10 +858,10 @@
 		"category": "Design System",
 		"description": "Svelte implementation of the Carbon Design System",
 		"npm": "carbon-components-svelte",
-		"stars": 314,
+		"stars": 2387,
 		"tags": ["components and libraries", "component sets"],
 		"title": "carbon-components-svelte",
-		"url": "https://github.com/IBM/carbon-components-svelte"
+		"url": "https://github.com/carbon-design-system/carbon-components-svelte"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -961,7 +941,7 @@
 		"stars": 73,
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-tabs",
-		"url": "https://github.com/joeattardi/svelte-tabs"
+		"url": "https://github.com/nickyhajal/svelte-tabs"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1111,7 +1091,7 @@
 		"stars": 88,
 		"tags": ["testing"],
 		"title": "svelte-jester",
-		"url": "https://github.com/mihar-22/svelte-jester"
+		"url": "https://github.com/svelteness/svelte-jester"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1152,16 +1132,6 @@
 		"tags": ["integrations", "cli tools"],
 		"title": "@pwa/cli",
 		"url": "https://github.com/lukeed/pwa"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Routers",
-		"description": "Easy router for Svelte framework",
-		"npm": "svelte-easyroute",
-		"stars": 62,
-		"tags": ["routers"],
-		"title": "svelte-easyroute",
-		"url": "https://github.com/lyohaplotinka/svelte-easyroute"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1365,7 +1335,7 @@
 		"stars": 26,
 		"tags": ["stores and state", "async data"],
 		"title": "svelte-asyncable",
-		"url": "https://github.com/PaulMaly/svelte-asyncable"
+		"url": "https://github.com/sveltetools/svelte-asyncable"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1432,10 +1402,10 @@
 		"category": "",
 		"description": "Dynamically load a Svelte component with placeholders and preloading",
 		"npm": "svelte-viewpoint",
-		"stars": 14,
+		"stars": 36,
 		"tags": ["components and libraries", "async loading"],
 		"title": "svelte-viewpoint",
-		"url": "https://github.com/PaulMaly/svelte-viewpoint"
+		"url": "https://github.com/sveltetools/svelte-viewpoint"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1531,10 +1501,10 @@
 		"category": "Data Visualisation",
 		"description": "Svelte component for FusionCharts JavaScript charting library",
 		"npm": "svelte-fusioncharts",
-		"stars": 69,
+		"stars": 123,
 		"tags": ["components and libraries", "charts"],
 		"title": "svelte-fusioncharts",
-		"url": "https://github.com/priyanjitdey94/svelte-fusioncharts"
+		"url": "https://github.com/fusioncharts/svelte-fusioncharts"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1550,20 +1520,20 @@
 		"category": "Routers",
 		"description": "Simple Svelte 3 hash based router with global routes",
 		"npm": "svelte-hash-router",
-		"stars": 35,
+		"stars": 41,
 		"tags": ["routers"],
 		"title": "svelte-hash-router",
-		"url": "https://github.com/pynnl/svelte-hash-router"
+		"url": "https://github.com/tienpv222/svelte-hash-router"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Forms & User Input",
 		"description": "A color picker component for Svelte",
 		"npm": "svelte-color-picker",
-		"stars": 50,
+		"stars": 98,
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "svelte-color-picker",
-		"url": "https://github.com/qintarp/svelte-color-picker"
+		"url": "https://github.com/efeskucuk/svelte-color-picker"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1722,16 +1692,6 @@
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Integration",
-		"description": "A minimal and lightweight wrapper for the Web Monetization API",
-		"npm": "svelte-monetization",
-		"stars": 12,
-		"tags": ["components and libraries"],
-		"title": "svelte-monetization",
-		"url": "https://github.com/sorxrob/svelte-monetization"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Forms & User Input",
 		"description": "Simple Svelte form model handler and input validations",
 		"npm": "@spaceavocado/svelte-form",
@@ -1794,10 +1754,10 @@
 		"category": "Routers",
 		"description": "Automated Svelte routes",
 		"npm": "routify",
-		"stars": 823,
+		"stars": 1755,
 		"tags": ["routers", "ssr"],
 		"title": "routify",
-		"url": "https://github.com/sveltech/routify"
+		"url": "https://github.com/roxiness/routify"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -2073,10 +2033,10 @@
 		"category": "",
 		"description": "Svelte item list with pagination",
 		"npm": "svelte-item-list",
-		"stars": 1,
+		"stars": 5,
 		"tags": ["components and libraries", "component sets"],
 		"title": "svelte-item-list",
-		"url": "https://github.com/Zimtir/svelte-item-list"
+		"url": "https://github.com/the-homeless-god/svelte-item-list"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -2103,7 +2063,7 @@
 		"category": "",
 		"description": "frictionless state management",
 		"npm": "overmind-svelte",
-		"stars": 1000,
+		"stars": 1559,
 		"tags": ["stores and state"],
 		"title": "overmind-svelte",
 		"url": "https://overmindjs.org"
@@ -2123,7 +2083,7 @@
 		"category": "Forms & User Input",
 		"description": "Drop files(s) or click to browse file system",
 		"npm": "@svelte-parts/drop-file",
-		"stars": 1,
+		"stars": 46,
 		"tags": ["components and libraries", "inputs and widgets", "component sets", "typescript"],
 		"title": "@svelte-parts/drop-file",
 		"url": "https://svelte-parts.surge.sh/drop-file"
@@ -2131,19 +2091,9 @@
 	{
 		"addedOn": "2021-01-08T20:11:39.581Z",
 		"category": "Forms & User Input",
-		"description": "A markdown editor and codemirror wrapper",
-		"npm": "@svelte-parts/editor",
-		"stars": 1,
-		"tags": ["components and libraries", "inputs and widgets", "component sets", "typescript"],
-		"title": "@svelte-parts/editor",
-		"url": "https://svelte-parts.surge.sh/editor"
-	},
-	{
-		"addedOn": "2021-01-08T20:11:39.581Z",
-		"category": "Forms & User Input",
 		"description": "Yet another form component",
 		"npm": "@svelte-parts/form",
-		"stars": 1,
+		"stars": 46,
 		"tags": ["components and libraries", "forms and validation", "component sets", "typescript"],
 		"title": "@svelte-parts/form",
 		"url": "https://svelte-parts.surge.sh/form"
@@ -2153,7 +2103,7 @@
 		"category": "",
 		"description": "SVG icons from feather icons, maki icons and octicons",
 		"npm": "@svelte-parts/icons",
-		"stars": 1,
+		"stars": 46,
 		"tags": ["components and libraries", "fonts and icons", "component sets"],
 		"title": "@svelte-parts/icons",
 		"url": "https://svelte-parts.surge.sh/icons"
@@ -2524,7 +2474,7 @@
 		"addedOn": "2022-01-09",
 		"category": "",
 		"tags": ["internationalization"],
-		"stars": 176
+		"stars": 261
 	},
 	{
 		"title": "svelte-cleavejs",
@@ -2647,16 +2597,6 @@
 		"stars": 88
 	},
 	{
-		"title": "svelte-action-shiftclick",
-		"url": "https://github.com/xsthetic/svelte-action-shiftclick",
-		"description": "A Svelte action to mutli-select checkboxes with shift-click",
-		"npm": "svelte-action-shiftclick",
-		"addedOn": "2022-03-12",
-		"category": "Forms & User Input",
-		"tags": ["components and libraries", "forms", "inputs and widgets"],
-		"stars": 0
-	},
-	{
 		"title": "svelte-adapter-static-digitalocean",
 		"url": "https://github.com/torstendittmann/svelte-adapter-static-digitalocean",
 		"description": "SvelteKit adapter for DigitalOcean App Platform static sites.",
@@ -2757,7 +2697,7 @@
 	},
 	{
 		"title": "casual-ui-svelte",
-		"url": "https://github.com/Blackman99/casual-ui",
+		"url": "https://github.com/Casual-UI/casual-ui",
 		"description": "A ui components lib that supports for Svelte3",
 		"npm": "casual-ui-svelte",
 		"addedOn": "2022-08-17",
@@ -2767,13 +2707,13 @@
 	},
 	{
 		"title": "svelte-currency-input",
-		"url": "https://github.com/canutin/svelte-currency-input",
+		"url": "https://github.com/fmaclen/svelte-currency-input",
 		"description": "A form input that converts numbers to localized currency formats as you type",
 		"npm": "svelte-currency-input",
 		"addedOn": "2022-09-19",
 		"category": "Forms & User Input",
 		"tags": ["forms", "inputs and widgets", "internationalization", "typescript"],
-		"stars": 2
+		"stars": 19
 	},
 	{
 		"title": "flowbite-svelte",
@@ -2866,13 +2806,13 @@
 	},
 	{
 		"title": "simple-ui-components-in-svelte",
-		"url": "https://perfect-things.github.io/simple-ui-components-in-svelte/",
+		"url": "https://ui.perfectthings.dev/",
 		"description": "A set of simple & flexible UI components",
 		"npm": "simple-ui-components-in-svelte",
 		"addedOn": "2023-01-24",
 		"category": "Forms & User Input",
 		"tags": ["forms"],
-		"stars": 1
+		"stars": 9
 	},
 	{
 		"title": "@tanstack/svelte-query",
