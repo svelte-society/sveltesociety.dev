@@ -41,6 +41,11 @@ function gatherUrls() {
 
 // Github
 
+/**
+ * Get all GitHub repositories
+ *
+ * @returns {Array<{owner: string, repo: string}>}
+ */
 function getAllGHRepos() {
 	return gatherUrls()
 		.filter((url) => url !== false && githubNameRegexp.test(url))
@@ -55,27 +60,70 @@ function ghRepoGraphQl({ owner, repo }) {
 	return `${identifier}: repository(name: "${repo}", owner: "${owner}"){nameWithOwner stargazerCount}`;
 }
 
+/**
+ * Divide an array into multiple smaller array
+ *
+ * @param {Array} input
+ * @param {number} size
+ *
+ * @return {Array<Array>}
+ */
+function chunk(input, size) {
+	size = size < 1 ? 10 : size;
+	const pages = Math.ceil(input.length / size);
+	const final = [];
+	for (let index = 0; index < pages; index++) {
+		final.push(input.slice(index * size, (index + 1) * size));
+	}
+	return final;
+}
+
+/**
+ * Get the number of stars for all GitHub repositories.
+ *
+ * The result is a Map, where the key the repo name; and the value the number of stars.
+ *
+ * @returns {Promise<Record<string, number>>}
+ */
 async function getGHStars() {
 	const repoData = getAllGHRepos();
-	let body =
-		'query{' + '\n' + repoData.map((repoInfo) => ghRepoGraphQl(repoInfo)).join('\n') + '\n' + '}';
-	let lines = await doGraphQlQuery(ghGraphQlUrl, body, {
-		authorization:
-			'Bearer ' +
-			core.getInput('token', {
-				// required: true,
-				trimWhitespace: true
-			})
-	});
+	core.info('Found ' + repoData.length + ' repositories');
+	const pagedRepoData = chunk(repoData, 100);
+	const pageCount = pagedRepoData.length;
+	core.debug('Divide the repositories into ' + pageCount + ' pages (of 100 repositories)');
+	let lines = [];
+	for (let index = 0; index < pageCount; index++) {
+		const page = pagedRepoData[index];
+		core.debug('Running GraphQL for page ' + (index + 1) + '/' + pageCount);
+		let body =
+			'query{' + '\n' + page.map((repoInfo) => ghRepoGraphQl(repoInfo)).join('\n') + '\n' + '}';
+		lines = [
+			...lines,
+			...(await doGraphQlQuery(ghGraphQlUrl, body, {
+				authorization:
+					'Bearer ' +
+					core.getInput('token', {
+						// required: true,
+						trimWhitespace: true
+					})
+			}))
+		];
+	}
 	return Object.fromEntries(
 		lines
 			.filter((line) => line?.nameWithOwner)
 			.map((line) => [line.nameWithOwner.toLowerCase(), line.stargazerCount])
+			.sort()
 	);
 }
 
 // Gitlab
 
+/**
+ * Get all GitLab repositories path (relative to GitLab root)
+ *
+ * @returns {Array<string>}
+ */
 function getAllGitlabRepos() {
 	return gatherUrls()
 		.filter((url) => url !== false && gitlabNameRegExp.test(url))
@@ -89,25 +137,44 @@ function gitlabRepoGraphQl(name) {
 	return `${identifier}: project(fullPath: "${name}"){starCount fullPath}`;
 }
 
+/**
+ * Get the number of stars for all Gitlab repositories.
+ *
+ * The result is a Map, where the key the repo name; and the value the number of stars.
+ *
+ * @returns {Promise<Record<string, number>>}
+ */
 async function getGitlabStars() {
 	const repoData = getAllGitlabRepos();
-	let body =
-		'query{' +
-		'\n' +
-		repoData.map((repoInfo) => gitlabRepoGraphQl(repoInfo)).join('\n') +
-		'\n' +
-		'}';
-	let lines = await doGraphQlQuery(gitlabGraphQlUrl, body);
+	core.info('Found ' + repoData.length + ' repositories');
+	const pagedRepoData = chunk(repoData, 100);
+	const pageCount = pagedRepoData.length;
+	core.debug('Divide the repositories into ' + pageCount + ' pages (of 100 repositories)');
+	let lines = [];
+	for (let index = 0; index < pageCount; index++) {
+		const page = pagedRepoData[index];
+		core.debug('Running GraphQL for page ' + (index + 1) + '/' + pageCount);
+		let body =
+			'query{' + '\n' + page.map((repoInfo) => gitlabRepoGraphQl(repoInfo)).join('\n') + '\n' + '}';
+		lines = [...lines, ...(await doGraphQlQuery(gitlabGraphQlUrl, body))];
+	}
 	return Object.fromEntries(
 		lines
 			.filter((line) => line?.fullPath)
 			.map((line) => [line.fullPath.toLowerCase(), line.starCount])
+			.sort()
 	);
 }
 
 async function main() {
+	core.startGroup('GitHub');
 	const github = await getGHStars();
+	core.endGroup();
+
+	core.startGroup('GitLab');
 	const gitlab = await getGitlabStars();
+	core.endGroup();
+
 	core.info(
 		`\tGithub: ${Object.keys(github).length} repositories (${Object.values(github).reduce(
 			(count, item) => count + item,
