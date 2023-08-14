@@ -44,8 +44,8 @@
 		"description": "An example repo of a Svelte app that is IE11 compatible",
 		"stars": 29,
 		"tags": [],
-		"title": "angelozehr/svelte-example-museums",
-		"url": "https://github.com/angelozehr/svelte-example-museums"
+		"title": "benjazehr/svelte-example-museums",
+		"url": "https://github.com/benjazehr/svelte-example-museums"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -68,20 +68,11 @@
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
-		"description": "Component template with LiveReload and Jest unit testing",
-		"stars": 16,
-		"tags": [],
-		"title": "beyonk-adventures/svelte-component-livereload-template",
-		"url": "https://github.com/beyonk-adventures/svelte-component-livereload-template"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Svelte",
 		"description": "A complete implementation with components, store, unit e2e tests and linting.",
 		"stars": 22,
 		"tags": [],
 		"title": "TodoMVC Svelte",
-		"url": "https://github.com/blacksonic/todomvc-svelte"
+		"url": "https://github.com/vuesomedev/todomvc-svelte"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -177,10 +168,10 @@
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "A small starter template to get up and running with Svelte v3",
-		"stars": 41,
+		"stars": 43,
 		"tags": [],
-		"title": "Holben888/svelte-starter-template",
-		"url": "https://github.com/Holben888/svelte-starter-template"
+		"title": "bholmesdev/svelte-starter-template",
+		"url": "https://github.com/bholmesdev/svelte-starter-template"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -287,8 +278,8 @@
 		"description": "Modern build process with Svelte, WebPack, PurgeCSS, code splitting, lazy loading...etc",
 		"stars": 2,
 		"tags": ["testing", "typescript", "code splitting", "lazy loading", "webpack", "preprocessors"],
-		"title": "NazimAli2017/svelte-template",
-		"url": "https://github.com/NazimAli2017/svelte-template"
+		"title": "NazimHAli/svelte-template",
+		"url": "https://github.com/NazimHAli/svelte-template"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -303,10 +294,10 @@
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "Template with Typescript, Sass, Storybook, Webpack",
-		"stars": 13,
+		"stars": 16,
 		"tags": [],
-		"title": "nitro52/svelte-typescript-sass-template",
-		"url": "https://github.com/nitro52/svelte-typescript-sass-template"
+		"title": "ryburn52/svelte-typescript-sass-template",
+		"url": "https://github.com/ryburn52/svelte-typescript-sass-template"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -422,10 +413,10 @@
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Svelte",
 		"description": "A boilerplate with Material, Babel, PostCSS, and Webpack",
-		"stars": 96,
+		"stars": 111,
 		"tags": [],
-		"title": "Shyam-Chen/svelte-play",
-		"url": "https://github.com/Shyam-Chen/Svelte-Play"
+		"title": "Shyam-Chen/Svelte-Starter",
+		"url": "https://github.com/Shyam-Chen/Svelte-Starter"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -617,15 +608,6 @@
 		"url": "https://github.com/babichjacob/university-website"
 	},
 	{
-		"addedOn": "2021-06-24T14:39:20Z",
-		"category": "SvelteKit",
-		"description": "A simplistic SvelteKit template for blogs",
-		"stars": 4,
-		"tags": [],
-		"title": "stephane-vanraes/blog-template",
-		"url": "https://github.com/stephane-vanraes/blog-template"
-	},
-	{
 		"addedOn": "2021-06-24T14:39:21Z",
 		"category": "Svelte Add",
 		"description": "Add PostCSS to your Svelte project",
@@ -728,10 +710,10 @@
 		"addedOn": "2021-06-24T14:39:29Z",
 		"category": "Svelte Add",
 		"description": "Add Supabase to your Svelte project",
-		"stars": 63,
+		"stars": 70,
 		"tags": [],
-		"title": "joshnuss/svelte-supabase",
-		"url": "https://github.com/joshnuss/svelte-supabase"
+		"title": "supabase-community/svelte-supabase",
+		"url": "https://github.com/supabase-community/svelte-supabase"
 	},
 	{
 		"addedOn": "2021-07-21T11:39:29Z",
@@ -773,7 +755,7 @@
 	},
 	{
 		"title": "SENT-template",
-		"url": "https://github.com/Zimtir/SENT-template",
+		"url": "https://github.com/the-homeless-god/SENT-template",
 		"description": "Skip setup and start code with SENT (Sapper Express Node Template) and other tools like TypeScript, Linters, Tests, Docker and so on",
 		"npm": "",
 		"addedOn": "2020-08-01",
@@ -794,7 +776,7 @@
 			"templates",
 			"component sets"
 		],
-		"stars": 69
+		"stars": 68
 	},
 	{
 		"title": "Yuyutsu",
@@ -868,13 +850,13 @@
 	},
 	{
 		"title": "Swyxkit",
-		"url": "https://github.com/sw-yx/swyxkit/",
+		"url": "https://github.com/swyxio/swyxkit/",
 		"description": "An opinionated blog starter for SvelteKit + Tailwind + Netlify. Refreshed for the great SvelteKit refactor of 2022!",
 		"npm": "",
 		"addedOn": "2022-09-09",
 		"category": "SvelteKit",
 		"tags": ["blog", "templates", "mdsvex", "markdown"],
-		"stars": 372
+		"stars": 598
 	},
 	{
 		"title": "QWER Blog Starter",

@@ -103,9 +103,9 @@
 		"title": "svelte-devtools",
 		"category": "Debugging",
 		"description": "An extension that allows inspection of Svelte component hierarchy and state in the Firefox and Chrome developer tools",
-		"url": "https://github.com/RedHatter/svelte-devtools",
-		"tags": [],
-		"stars": 552
+		"url": "https://github.com/sveltejs/svelte-devtools",
+		"tags": ["official"],
+		"stars": 994
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -184,9 +184,9 @@
 		"title": "svelte-check",
 		"category": "Linting and Formatting",
 		"description": "Detects unused css. Adds Svelte A11y hints. Provides JavaScript/TypeScript diagnostics.",
-		"url": "https://www.npmjs.com/package/svelte-check",
+		"url": "https://github.com/sveltejs/language-tools/tree/master/packages/svelte-check",
 		"tags": ["official"],
-		"stars": 608
+		"stars": 1064
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
@@ -309,7 +309,7 @@
 	},
 	{
 		"title": "full-client-server-sveltekit",
-		"url": "https://www.npmjs.com/package/full-client-server-sveltekit",
+		"url": "https://github.com/SBHattarj/full-client-server-sveltekit",
 		"description": "A plugin allowing usage of server directly on browser using web socket",
 		"npm": "full-client-server-sveltekit",
 		"addedOn": "2023-05-18",
