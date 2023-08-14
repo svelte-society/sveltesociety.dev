@@ -2971,5 +2971,15 @@
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"],
 		"stars": 0
+	},
+	{
+		"title": "svelte-tex",
+		"url": "https://github.com/ntsd/svelte-tex",
+		"description": "Svelte component to convert TeX/LaTeX to MathML or SVG",
+		"npm": "svelte-tex",
+		"addedOn": "2023-08-14",
+		"category": "Data Visualisation",
+		"tags": ["components and libraries", "images"],
+		"stars": 0
 	}
 ]
