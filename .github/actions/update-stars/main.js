@@ -33,9 +33,9 @@ function gatherUrls() {
 	let templates = JSON.parse(readFileSync('src/routes/templates/templates.json'));
 
 	return [
-		...components.map((component) => component.url),
-		...tools.map((tool) => tool.url),
-		...templates.map((template) => template.url)
+		...components.map((component) => component.repository ?? component.url),
+		...tools.map((tool) => tool.repository ?? tool.url),
+		...templates.map((template) => template.repository ?? template.url)
 	];
 }
 

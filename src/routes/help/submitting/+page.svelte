@@ -43,17 +43,18 @@
 	let addedOn = todaysDate();
 	let category;
 	let tags;
+	let repository;
 
 	$: pathName = `${type.value}s`;
 	$: jsonSnippet = {
 		title,
-		url,
+		url: url ? url : undefined,
+		repository: repository ? repository : undefined,
 		description,
-		npm,
+		npm: npm ? npm : undefined,
 		addedOn,
 		category: category?.value,
-		tags: tags?.map((tag) => tag.value),
-		stars: 0
+		tags: tags?.map((tag) => tag.value)
 	};
 
 	$: currentTags = data[type.value].tags;
@@ -125,6 +126,15 @@
 		<div>
 			<input id="url" type="url" bind:value={url} />
 			<span class="input-helper">The URL where to find it</span>
+		</div>
+	</div>
+	<div class="input-wrapper">
+		<label for="repository">Repository:</label>
+		<div>
+			<input id="repository" type="url" bind:value={repository} />
+			<span class="input-helper"
+				>URL where code live. Used for star count update. If same as the URL, can be omitted</span
+			>
 		</div>
 	</div>
 	<div class="input-wrapper">
