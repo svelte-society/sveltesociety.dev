@@ -2714,11 +2714,7 @@
 		"npm": "svelte-transition",
 		"addedOn": "2023-08-16",
 		"category": "User Interaction",
-		"tags": [
-			"components and libraries",
-			"animations",
-			"typescript"
-		]
+		"tags": ["components and libraries", "animations", "typescript"]
 	},
 	{
 		"title": "svelte-headlessui",
@@ -2728,11 +2724,7 @@
 		"npm": "svelte-headlessui",
 		"addedOn": "2023-08-16",
 		"category": "Design System",
-		"tags": [
-			"components and libraries",
-			"component sets",
-			"typescript"
-		]
+		"tags": ["components and libraries", "component sets", "typescript"]
 	},
 	{
 		"title": "svelte-color-select",
@@ -2742,10 +2734,7 @@
 		"npm": "svelte-color-select",
 		"addedOn": "2023-08-16",
 		"category": "",
-		"tags": [
-			"components and libraries",
-			"typescript"
-		]
+		"tags": ["components and libraries", "typescript"]
 	},
 	{
 		"title": "svelte-form-helper",
@@ -2771,10 +2760,7 @@
 		"npm": "svelte-theme-select",
 		"addedOn": "2023-08-16",
 		"category": "",
-		"tags": [
-			"components and libraries",
-			"typescript"
-		]
+		"tags": ["components and libraries", "typescript"]
 	},
 	{
 		"title": "svelte-pan-zoom",
@@ -2784,11 +2770,7 @@
 		"npm": "svelte-pan-zoom",
 		"addedOn": "2023-08-16",
 		"category": "User Interaction",
-		"tags": [
-			"components and libraries",
-			"images",
-			"typescript"
-		]
+		"tags": ["components and libraries", "images", "typescript"]
 	},
 	{
 		"title": "svelte-deep-zoom",
@@ -2798,11 +2780,7 @@
 		"npm": "svelte-deep-zoom",
 		"addedOn": "2023-08-16",
 		"category": "User Interaction",
-		"tags": [
-			"components and libraries",
-			"images",
-			"typescript"
-		]
+		"tags": ["components and libraries", "images", "typescript"]
 	},
 	{
 		"title": "svelte-resize-observer-action",
@@ -2812,10 +2790,7 @@
 		"npm": "svelte-resize-observer-action",
 		"addedOn": "2023-08-16",
 		"category": "User Interaction",
-		"tags": [
-			"components and libraries",
-			"typescript"
-		]
+		"tags": ["components and libraries", "typescript"]
 	},
 	{
 		"title": "svelte-image-comparison",
@@ -2825,11 +2800,7 @@
 		"npm": "svelte-image-comparison",
 		"addedOn": "2023-08-16",
 		"category": "User Interaction",
-		"tags": [
-			"components and libraries",
-			"images",
-			"typescript"
-		]
+		"tags": ["components and libraries", "images", "typescript"]
 	},
 	{
 		"title": "svelte-relative-time",
@@ -2839,11 +2810,7 @@
 		"npm": "svelte-relative-time",
 		"addedOn": "2023-08-16",
 		"category": "User Interaction",
-		"tags": [
-			"components and libraries",
-			"animations",
-			"typescript"
-		]
+		"tags": ["components and libraries", "animations", "typescript"]
 	},
 	{
 		"title": "svelte-signature-pad",
@@ -2853,11 +2820,7 @@
 		"npm": "svelte-signature-pad",
 		"addedOn": "2023-08-16",
 		"category": "User Interaction",
-		"tags": [
-			"components and libraries",
-			"images",
-			"typescript"
-		]
+		"tags": ["components and libraries", "images", "typescript"]
 	},
 	{
 		"title": "svelte-disable-preload",
@@ -2867,10 +2830,7 @@
 		"npm": "svelte-disable-preload",
 		"addedOn": "2023-08-16",
 		"category": "User Interaction",
-		"tags": [
-			"components and libraries",
-			"typescript"
-		]
+		"tags": ["components and libraries", "typescript"]
 	},
 	{
 		"title": "svelte-kit-bot-block",
@@ -2880,10 +2840,7 @@
 		"npm": "svelte-kit-bot-block",
 		"addedOn": "2023-08-16",
 		"category": "",
-		"tags": [
-			"integrations",
-			"typescript"
-		]
+		"tags": ["integrations", "typescript"]
 	},
 	{
 		"title": "svelte-intersection-observer-action",
@@ -2893,9 +2850,6 @@
 		"npm": "svelte-intersection-observer-action",
 		"addedOn": "2023-08-16",
 		"category": "User Interaction",
-		"tags": [
-			"components and libraries",
-			"typescript"
-		]
+		"tags": ["components and libraries", "typescript"]
 	}
 ]
