@@ -104,23 +104,6 @@
 		"tags": ["images", "components and libraries"]
 	},
 	{
-		"title": "svelte-carbonbadge",
-		"repository": "https://gitlab.com/davidhund/svelte-carbonbadge",
-		"description": "Svelte badge component for https://www.websitecarbon.com/",
-		"npm": "svelte-carbonbadge",
-		"addedOn": "2022-02-08",
-		"category": "Testing"
-	},
-	{
-		"title": "svelte-form-validation",
-		"repository": "https://github.com/DhyeyMoliya/svelte-form-validation",
-		"npm": "svelte-form-validation",
-		"description": "Svelte Form Validation Library",
-		"tags": ["forms", "form validation", "components and libraries"],
-		"addedOn": "2021-11-14T17:10:00.000Z",
-		"category": "Forms & User Input"
-	},
-	{
 		"title": "Date Picker Svelte",
 		"repository": "https://github.com/probablykasper/date-picker-svelte",
 		"description": "Date and time picker for Svelte",
@@ -237,15 +220,6 @@
 		"category": "Integration"
 	},
 	{
-		"title": "svelte-time-picker",
-		"repository": "https://gitlab.com/public-e-soa-com/svelte-time-picker",
-		"npm": "svelte-time-picker",
-		"description": "Time Picker UI for Svelte, inspired by the MaterialUI React Time Picker",
-		"tags": ["components and libraries", "time and date"],
-		"addedOn": "2021-03-04T07:27:00Z",
-		"category": "Forms & User Input"
-	},
-	{
 		"title": "svelte-formula",
 		"repository": "https://github.com/tanepiper/svelte-formula",
 		"npm": "svelte-formula",
@@ -280,15 +254,6 @@
 		"tags": ["components and libraries", "development and documentation"],
 		"title": "sveltedoc-parser",
 		"repository": "https://github.com/alexprey/sveltedoc-parser"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Forms & User Input",
-		"description": "Easy use Aovi to validate forms or values in your components",
-		"npm": "aovi-svelte",
-		"tags": ["forms and validation", "components and libraries"],
-		"title": "aovi-svelte",
-		"repository": "https://github.com/AlexxNB/aovi-svelte"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -416,24 +381,6 @@
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Integration",
-		"description": "A Facebook customer chat integration for Svelte / Sapper",
-		"npm": "@beyonk/svelte-facebook-customer-chat",
-		"tags": ["components and libraries", "third party services"],
-		"title": "@beyonk/svelte-facebook-customer-chat",
-		"repository": "https://github.com/beyonk-group/svelte-facebook-customer-chat"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Integration",
-		"description": "A Facebook pixel module for Svelte / Sapper",
-		"npm": "@beyonk/svelte-facebook-pixel",
-		"tags": ["components and libraries", "third party services"],
-		"title": "@beyonk/svelte-facebook-pixel",
-		"repository": "https://github.com/beyonk-group/svelte-facebook-pixel"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Integration",
 		"description": "Google Analytics tracking module for Svelte / Sapper",
 		"npm": "@beyonk/svelte-google-analytics",
 		"tags": ["components and libraries", "third party services"],
@@ -475,24 +422,6 @@
 		"tags": ["components and libraries", "interactions"],
 		"title": "@beyonk/svelte-scrollspy",
 		"repository": "https://github.com/beyonk-group/svelte-scrollspy"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "",
-		"description": "SVG icons for popular brands",
-		"npm": "svelte-simple-icons",
-		"tags": ["components and libraries", "fonts and icons"],
-		"title": "svelte-simple-icons",
-		"repository": "https://github.com/beyonk-group/svelte-simple-icons"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Integration",
-		"description": "Trustpilot Trustboxes for Svelte / Sapper",
-		"npm": "@beyonk/svelte-trustpilot",
-		"tags": ["components and libraries", "third party services"],
-		"title": "@beyonk/svelte-trustpilot",
-		"repository": "https://github.com/beyonk-group/svelte-trustpilot"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -604,15 +533,6 @@
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Forms & User Input",
-		"description": "rating widget for the web",
-		"npm": "waxwing-rating",
-		"tags": ["components and libraries", "inputs and widgets"],
-		"title": "waxwing-rating",
-		"repository": "https://github.com/dmitrykurmanov/waxwing-rating"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "",
 		"description": "Auth0 component library",
 		"npm": "@dopry/svelte-auth0",
@@ -628,24 +548,6 @@
 		"tags": ["components and libraries", "fonts and icons"],
 		"title": "svelte-feather-icons",
 		"repository": "https://github.com/dylanblokhuis/svelte-feather-icons"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Forms & User Input",
-		"description": "summernote extension for Svelte, a wysiwyg editor",
-		"npm": "@easylogic/svelte-summernote",
-		"tags": ["components and libraries", "inputs and widgets"],
-		"title": "@easylogic/svelte-summernote",
-		"repository": "https://github.com/easylogic/svelte-summernote"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Developer Experience",
-		"description": "Helper for Svelte components to ease development. Used by `svelte-loader`",
-		"npm": "svelte-dev-helper",
-		"tags": ["components and libraries", "development and documentation"],
-		"title": "svelte-dev-helper",
-		"repository": "https://github.com/ekhaled/svelte-dev-helper"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -739,15 +641,6 @@
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "",
-		"description": "A Svelte component to format and display a copyright notice.",
-		"npm": "svelte-copyright",
-		"tags": ["components and libraries"],
-		"title": "svelte-copyright",
-		"repository": "https://github.com/himynameisdave/svelte-copyright"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "",
 		"description": "A simple and reusable flexbox component for Svelte",
 		"npm": "svelte-flex",
 		"tags": ["components and libraries", "layout and structure"],
@@ -816,15 +709,6 @@
 		"tags": ["routers"],
 		"title": "svelte-navaid",
 		"repository": "https://github.com/jacwright/svelte-navaid"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Routers",
-		"description": "Svelte router using a store and components",
-		"npm": "@jamen/svelte-router",
-		"tags": ["routers"],
-		"title": "@jamen/svelte-router",
-		"repository": "https://github.com/jamen/svelte-router"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -933,15 +817,6 @@
 		"tags": ["components and libraries", "notifications"],
 		"title": "svelte-notifications",
 		"repository": "https://github.com/keenethics/svelte-notifications"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Testing",
-		"description": "Component that renders its children with lifecycle hooks to simplify testing",
-		"npm": "svelte-fragment-component",
-		"tags": ["components and libraries", "testing", "jsx"],
-		"title": "svelte-fragment-component",
-		"repository": "https://github.com/kenoxa/svelte-fragment-component"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1107,27 +982,11 @@
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "Forms & User Input",
-		"description": "A Javascript REPL (code editor and code results) component",
-		"tags": ["components and libraries", "inputs and widgets"],
-		"title": "Browser REPL JS",
-		"repository": "https://github.com/milafrerichs/browser-repl-js"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "",
 		"description": "resizable layout component for svelte",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-layout-resizable",
 		"repository": "https://github.com/milahu/svelte-layout-resizable"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "",
-		"description": "compile time eval for svelte components",
-		"tags": ["preprocessors", "ssr"],
-		"title": "svelte-preval",
-		"repository": "https://github.com/milahu/svelte-preval"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1317,14 +1176,6 @@
 		"repository": "https://github.com/plrenaudin/svelte-storez"
 	},
 	{
-		"addedOn": "2021-01-15T22:22:22Z",
-		"category": "Stores",
-		"description": "Template for client side svelte store",
-		"tags": ["components and libraries", "stores and state"],
-		"title": "SvelteStore",
-		"repository": "https://github.com/gitbreaker222/SvelteStore"
-	},
-	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "",
 		"description": "A markdown preprocessor for Svelte",
@@ -1496,15 +1347,6 @@
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "",
-		"description": "Marquee fully responsive and adaptive for Svelte",
-		"npm": "svelte-marquee",
-		"tags": ["components and libraries"],
-		"title": "svelte-marquee",
-		"repository": "https://github.com/silvestrevivo/svelte-marquee"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Forms & User Input",
 		"description": "Range Slider Input, with Multi-handle and Pips features",
 		"npm": "svelte-range-slider-pips",
@@ -1543,15 +1385,6 @@
 		"tags": ["routers"],
 		"title": "@spaceavocado/svelte-router",
 		"repository": "https://github.com/spaceavocado/svelte-router"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "",
-		"description": "Component to easily generate multitone images",
-		"npm": "svelte-multitoneimage",
-		"tags": ["components and libraries", "images"],
-		"title": "svelte-multitoneimage",
-		"repository": "https://github.com/stephane-vanraes/svelte-multitoneimage"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1832,15 +1665,6 @@
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
-		"category": "",
-		"description": "Svelte item list with pagination",
-		"npm": "svelte-item-list",
-		"tags": ["components and libraries", "component sets"],
-		"title": "svelte-item-list",
-		"repository": "https://github.com/the-homeless-god/svelte-item-list"
-	},
-	{
-		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Design System",
 		"description": "Web-components library built with Svelte",
 		"npm": "@zooplus/zoo-web-components",
@@ -1971,15 +1795,6 @@
 		"repository": "https://github.com/stephane-vanraes/renderless-svelte"
 	},
 	{
-		"addedOn": "2021-03-19T20:44:00Z",
-		"category": "Stores",
-		"description": "Set of simple state machines for Svelte applications",
-		"npm": "svate",
-		"tags": ["components and libraries", "stores and state"],
-		"title": "svate",
-		"repository": "https://github.com/AlexxNB/svate"
-	},
-	{
 		"title": "svelte-parallax",
 		"repository": "https://github.com/kindoflew/svelte-parallax",
 		"npm": "svelte-parallax",
@@ -2005,15 +1820,6 @@
 		"tags": ["stores and state"],
 		"title": "Persistent Store",
 		"repository": "https://github.com/MacFJA/svelte-persistent-store"
-	},
-	{
-		"addedOn": "2021-04-17T19:00:00Z",
-		"category": "Stores",
-		"description": "A (high order) store that can be requested to update itself",
-		"npm": "@macfja/svelte-invalidable",
-		"tags": ["stores and state"],
-		"title": "Invalidable Store",
-		"repository": "https://github.com/MacFJA/svelte-invalidable"
 	},
 	{
 		"addedOn": "2021-04-21T18:12:25.602Z",
@@ -2173,15 +1979,6 @@
 		"tags": ["interactions", "forms"]
 	},
 	{
-		"title": "svelte-translate",
-		"repository": "https://github.com/noelmugnier/svelte-translate",
-		"description": "Use a dynamic translation service (loaded from xx-XX.json files) and fallback to the text in html tags if no translations are provided.",
-		"npm": "svelte-translate",
-		"addedOn": "2021-09-29",
-		"category": "Developer Experience",
-		"tags": ["components and libraries", "internationalization"]
-	},
-	{
 		"title": "svelecte",
 		"repository": "https://github.com/mskocik/svelecte",
 		"description": "Selectize-like autocomplete select/multiselect/tagging component",
@@ -2246,15 +2043,6 @@
 		"repository": "https://github.com/cibernox/svelte-intl-precompile"
 	},
 	{
-		"title": "svelte-cleavejs",
-		"repository": "https://github.com/GCBenlloch/svelte-cleavejs",
-		"description": "Svelte action for Cleave.js input masking",
-		"npm": "svelte-cleavejs",
-		"addedOn": "2021-11-14",
-		"category": "User Interaction",
-		"tags": ["inputs and widgets"]
-	},
-	{
 		"title": "svelty-picker",
 		"repository": "https://github.com/mskocik/svelty-picker",
 		"description": "Simple date & time picker you will love",
@@ -2264,15 +2052,6 @@
 		"tags": ["forms", "inputs and widgets", "interactions", "time and date"]
 	},
 	{
-		"title": "svelte-slider",
-		"repository": "https://github.com/korywka/svelte-slider",
-		"description": "Single and Range sliders",
-		"npm": "svelte-slider",
-		"addedOn": "2021-11-23",
-		"category": "Forms & User Input",
-		"tags": ["components and libraries", "forms", "inputs and widgets"]
-	},
-	{
 		"title": "sveltekit-adapter-wordpress-shortcode",
 		"repository": "https://github.com/tomatrow/sveltekit-adapter-wordpress-shortcode",
 		"description": "Build wordpress shortcode plugins with SvelteKit",
@@ -2280,24 +2059,6 @@
 		"addedOn": "2021-01-18",
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"]
-	},
-	{
-		"title": "Svelte Expirable store",
-		"repository": "https://github.com/MacFJA/svelte-expirable",
-		"description": "A Svelte store with items that expire",
-		"npm": "@macfja/svelte-expirable",
-		"addedOn": "2021-12-12",
-		"category": "Stores",
-		"tags": ["interactions", "notifications", "stores and state"]
-	},
-	{
-		"title": "Store2",
-		"repository": "https://github.com/vkurko/svelte-store2",
-		"description": "Extended Svelte stores with additional methods",
-		"npm": "svelte-store2",
-		"addedOn": "2022-01-19",
-		"category": "Stores",
-		"tags": ["stores and state"]
 	},
 	{
 		"title": "Svelte(kit) adapter for Neutralino",
@@ -2497,33 +2258,6 @@
 		"tags": ["components and libraries", "layout and structure", "ssr", "typescript"]
 	},
 	{
-		"title": "svelte-exstore",
-		"repository": "https://github.com/noney1412/svelte-exstore",
-		"description": "Connect your store to Redux Devtools to enhance your work flow.",
-		"npm": "svelte-exstore",
-		"addedOn": "2022-09-22",
-		"category": "Stores",
-		"tags": ["stores and state"]
-	},
-	{
-		"title": "Svelte Scroll Video",
-		"description": "A component to play a video by scrolling the page",
-		"repository": "https://github.com/macfja/svelte-scroll-video#readme",
-		"npm": "@macfja/svelte-scroll-video",
-		"addedOn": "2022-10-17",
-		"category": "User Interaction",
-		"tags": ["video", "images", "inputs and widgets", "interactions", "viewport"]
-	},
-	{
-		"title": "@prgm/sveltekit-progress-bar",
-		"repository": "https://github.com/prgm-dev/sveltekit-progress-bar",
-		"description": "A progress bar component that hooks to SvelteKit navigation",
-		"npm": "@prgm/sveltekit-progress-bar",
-		"addedOn": "2022-12-27",
-		"category": "User Interaction",
-		"tags": ["async loading", "components and libraries", "in-page navigation"]
-	},
-	{
 		"title": "svelte-google-auth",
 		"repository": "https://github.com/halfdanj/svelte-google-auth",
 		"description": "Integration with Google Authenticartion for sveltekit",
@@ -2531,25 +2265,6 @@
 		"addedOn": "2022-09-26",
 		"category": "Integration",
 		"tags": ["auth"]
-	},
-	{
-		"title": "sterling-svelte",
-		"repository": "https://github.com/GeoffCox/sterling-svelte",
-		"description": "A modern, accessible, and lightweight component library for Svelte.",
-		"npm": "@geoffcox/sterling-svelte",
-		"addedOn": "2023-01-09",
-		"category": "Design System",
-		"tags": ["components and libraries", "component sets", "typescript"]
-	},
-	{
-		"title": "simple-ui-components-in-svelte",
-		"url": "https://ui.perfectthings.dev/",
-		"description": "A set of simple & flexible UI components",
-		"npm": "simple-ui-components-in-svelte",
-		"addedOn": "2023-01-24",
-		"category": "Forms & User Input",
-		"tags": ["forms"],
-		"repository": "https://github.com/perfect-things/ui/"
 	},
 	{
 		"title": "@tanstack/svelte-query",
@@ -2594,31 +2309,6 @@
 		"addedOn": "2023-02-21",
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"]
-	},
-	{
-		"title": "leblog",
-		"url": "https://leblog.dev",
-		"description": "Add a blog (or changelog) to any SvelteKit site.",
-		"npm": "leblog",
-		"addedOn": "2023-02-24",
-		"category": "Integration",
-		"repository": "https://github.com/nbgoodall/leblog"
-	},
-	{
-		"title": "html-svelte-parser",
-		"repository": "https://github.com/PatrickG/html-svelte-parser",
-		"description": "HTML to Svelte parser that works on both the server and the client.",
-		"npm": "html-svelte-parser",
-		"addedOn": "2023-02-26",
-		"tags": [
-			"components and libraries",
-			"layout and structure",
-			"rich text editor",
-			"ssr",
-			"templates",
-			"tree",
-			"typescript"
-		]
 	},
 	{
 		"title": "Svelte Droplet",
@@ -2696,14 +2386,5 @@
 		"addedOn": "2023-08-03",
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"]
-	},
-	{
-		"title": "svelte-tex",
-		"repository": "https://github.com/ntsd/svelte-tex",
-		"description": "Svelte component to convert TeX/LaTeX to MathML or SVG",
-		"npm": "svelte-tex",
-		"addedOn": "2023-08-14",
-		"category": "Data Visualisation",
-		"tags": ["components and libraries", "images"]
 	}
 ]

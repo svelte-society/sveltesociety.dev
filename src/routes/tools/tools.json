@@ -73,14 +73,6 @@
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
-		"title": "sveltejs-brunch",
-		"category": "Bundler Plugins",
-		"description": "Compile Svelte components inside Brunch projects",
-		"repository": "https://github.com/StarpTech/sveltejs-brunch",
-		"tags": []
-	},
-	{
-		"addedOn": "2021-08-09T10:14:05.723Z",
 		"title": "rules_svelte",
 		"category": "Bundler Plugins",
 		"description": "Experimental rules for building Svelte components with Bazel",
@@ -105,14 +97,6 @@
 	},
 	{
 		"addedOn": "2021-08-09T10:14:05.723Z",
-		"title": "svelte-preprocess-less",
-		"category": "Preprocessors",
-		"description": "Svelte preprocessor for less",
-		"repository": "https://github.com/ls-age/svelte-preprocess-less",
-		"tags": []
-	},
-	{
-		"addedOn": "2021-08-09T10:14:05.723Z",
 		"title": "modular-css",
 		"category": "Preprocessors",
 		"description": "Svelte preprocessor support for modular-css",
@@ -125,22 +109,6 @@
 		"category": "Preprocessors",
 		"description": "Svelte preprocessor for sass",
 		"repository": "https://github.com/ls-age/svelte-preprocess-sass",
-		"tags": []
-	},
-	{
-		"addedOn": "2021-08-09T10:14:05.723Z",
-		"title": "svelte-preprocess-css-hash",
-		"category": "Preprocessors",
-		"description": "Passing hashed css class name to child component. It is used to avoid class name conflicts.",
-		"repository": "https://github.com/jiangfengming/svelte-preprocess-css-hash",
-		"tags": []
-	},
-	{
-		"addedOn": "2021-08-09T10:14:05.723Z",
-		"title": "svelte-preprocess-html-asset",
-		"category": "Preprocessors",
-		"description": "Transform html asset relative path. Works with snowpack & webpack 5.",
-		"repository": "https://github.com/jiangfengming/svelte-preprocess-html-asset",
 		"tags": []
 	},
 	{
@@ -275,14 +243,6 @@
 		"addedOn": "2022-04-16",
 		"category": "Linting and Formatting",
 		"tags": ["official"]
-	},
-	{
-		"title": "full-client-server-sveltekit",
-		"repository": "https://github.com/SBHattarj/full-client-server-sveltekit",
-		"description": "A plugin allowing usage of server directly on browser using web socket",
-		"npm": "full-client-server-sveltekit",
-		"addedOn": "2023-05-18",
-		"category": "Bundler Plugins"
 	},
 	{
 		"title": "svelte-preprocess-delegate-events",
