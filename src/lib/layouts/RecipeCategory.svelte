@@ -3,10 +3,13 @@
 	import { categories } from '$lib/stores/recipes';
 	import { page } from '$app/stores';
 	import Seo from '$lib/components/Seo.svelte';
+	import { format, formatDistanceToNow } from 'date-fns';
 
 	const childrenNodes = $categories.find((c) => c.path === $page.url.pathname).children || [];
 
 	export let title;
+	export let published;
+	export let updated;
 </script>
 
 <Seo {title} />
@@ -34,6 +37,22 @@
 				</li>
 			{/each}
 		</ul>
+		{#if published}<footer>
+				<div>
+					Published: <time
+						datetime={published}
+						title={formatDistanceToNow(new Date(published), { addSuffix: true })}
+						>{format(new Date(published), 'PPPP')}</time
+					>
+				</div>
+				{#if updated}<div>
+						Last update: <time
+							datetime={updated}
+							title={formatDistanceToNow(new Date(updated), { addSuffix: true })}
+							>{format(new Date(updated), 'PPPP')}</time
+						>
+					</div>{/if}
+			</footer>{/if}
 	</article>
 </main>
 
@@ -43,7 +62,15 @@
 		grid-template-columns: minmax(0, 1fr);
 		align-content: flex-start;
 	}
+	article > footer {
+		margin-top: 1em;
+		border-top: 1px solid var(--gray);
+		padding-top: 1em;
+	}
 
+	time {
+		color: var(--dark-gray);
+	}
 	strong {
 		font-size: var(--font-500);
 	}

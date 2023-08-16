@@ -22,6 +22,7 @@
 		"@types/itemsjs": "^2.1.0",
 		"@typescript-eslint/eslint-plugin": "^5.61.0",
 		"@typescript-eslint/parser": "^5.61.0",
+		"date-fns": "^2.30.0",
 		"eslint": "^8.44.0",
 		"eslint-config-prettier": "^8.1.0",
 		"eslint-plugin-svelte": "^2.32.2",
