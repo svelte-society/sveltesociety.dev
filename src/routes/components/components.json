@@ -856,6 +856,16 @@
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
 		"category": "Design System",
+		"description": "A Svelte.js based UnoCSS UI library that allows you to make websites",
+		"npm": "@ikun-ui/core",
+		"stars": 650,
+		"tags": ["components and libraries", "component sets"],
+		"title": "ikun-ui",
+		"url": "https://github.com/ikun-svelte/ikun-ui"
+	},
+	{
+		"addedOn": "2020-09-29T14:39:13Z",
+		"category": "Design System",
 		"description": "Svelte implementation of the Carbon Design System",
 		"npm": "carbon-components-svelte",
 		"stars": 2387,
