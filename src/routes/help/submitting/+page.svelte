@@ -37,23 +37,24 @@
 
 	let type = types[0];
 	let title = 'svelte-lorem-ipsum';
-	let url = 'https://github.com/sveltejs/svelte-lorem-ipsum';
+	let url = 'https://svelte-lorem-ipsum.dev';
 	let description = 'A dummy text generator that does not exist';
 	let npm = 'svelte-lorem-ipsum';
 	let addedOn = todaysDate();
 	let category;
 	let tags;
+	let repository = 'https://github.com/sveltejs/svelte-lorem-ipsum';
 
 	$: pathName = `${type.value}s`;
 	$: jsonSnippet = {
 		title,
-		url,
+		url: url ? url : undefined,
+		repository: repository ? repository : undefined,
 		description,
-		npm,
+		npm: npm ? npm : undefined,
 		addedOn,
 		category: category?.value,
-		tags: tags?.map((tag) => tag.value),
-		stars: 0
+		tags: tags?.map((tag) => tag.value)
 	};
 
 	$: currentTags = data[type.value].tags;
@@ -121,10 +122,19 @@
 		</div>
 	</div>
 	<div class="input-wrapper">
+		<label for="repository">Repository:</label>
+		<div>
+			<input id="repository" type="url" bind:value={repository} />
+			<span class="input-helper">URL where code live.<br />Also used for star count update</span>
+		</div>
+	</div>
+	<div class="input-wrapper">
 		<label for="url">URL:</label>
 		<div>
 			<input id="url" type="url" bind:value={url} />
-			<span class="input-helper">The URL where to find it</span>
+			<span class="input-helper"
+				>The URL where to find it.<br />If it's the same as Repository, it can be omitted</span
+			>
 		</div>
 	</div>
 	<div class="input-wrapper">
