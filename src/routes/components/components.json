@@ -2705,5 +2705,194 @@
 		"addedOn": "2023-08-14",
 		"category": "Data Visualisation",
 		"tags": ["components and libraries", "images"]
+	},
+	{
+		"title": "svelte-transition",
+		"url": "https://github.com/captaincodeman/svelte-transition",
+		"description": "Svelte component to apply CSS classes matching the syntax in TailwindUI components",
+		"npm": "svelte-transition",
+		"addedOn": "2023-08-16",
+		"category": "User Interaction",
+		"tags": [
+			"components and libraries",
+			"animations",
+			"typescript"
+		],
+		"stars": 35
+	},
+	{
+		"title": "svelte-headlessui",
+		"url": "https://github.com/captaincodeman/svelte-headlessui",
+		"description": "A very lightweight unofficial implementation of Tailwind HeadlessUI",
+		"npm": "svelte-headlessui",
+		"addedOn": "2023-08-16",
+		"category": "Design System",
+		"tags": [
+			"components and libraries",
+			"component sets",
+			"typescript"
+		],
+		"stars": 374
+	},
+	{
+		"title": "svelte-color-select",
+		"url": "https://github.com/captaincodeman/svelte-color-select",
+		"description": "OKHSV Color Selection component for Svelte using OKLab perceptual colorspace",
+		"npm": "svelte-color-select",
+		"addedOn": "2023-08-16",
+		"category": "",
+		"tags": [
+			"components and libraries",
+			"typescript"
+		],
+		"stars": 26
+	},
+	{
+		"title": "svelte-theme-select",
+		"url": "https://github.com/captaincodeman/svelte-theme-select",
+		"description": "Customizable Svelte components for theme selection (light mode / dark mode) inspired by TailwindCSS",
+		"npm": "svelte-theme-select",
+		"addedOn": "2023-08-16",
+		"category": "",
+		"tags": [
+			"components and libraries",
+			"typescript"
+		],
+		"stars": 12
+	},
+	{
+		"title": "svelte-pan-zoom",
+		"url": "https://github.com/captaincodeman/svelte-pan-zoom",
+		"description": "HTML Canvas Element Pan and Zoom action for Svelte",
+		"npm": "svelte-pan-zoom",
+		"addedOn": "2023-08-16",
+		"category": "User Interaction",
+		"tags": [
+			"components and libraries",
+			"images",
+			"typescript"
+		],
+		"stars": 5
+	},
+	{
+		"title": "svelte-deep-zoom",
+		"url": "https://github.com/captaincodeman/svelte-deep-zoom",
+		"description": "Svelte component to render interactive Deep Zoom images (tiled image pyramids). Similar to Open SeaDragon but smaller",
+		"npm": "svelte-deep-zoom",
+		"addedOn": "2023-08-16",
+		"category": "User Interaction",
+		"tags": [
+			"components and libraries",
+			"images",
+			"typescript"
+		],
+		"stars": 1
+	},
+	{
+		"title": "svelte-resize-observer-action",
+		"url": "https://github.com/captaincodeman/svelte-resize-observer-action",
+		"description": "Svelte use:action for element resize notifications using ResizeObserver",
+		"npm": "svelte-resize-observer-action",
+		"addedOn": "2023-08-16",
+		"category": "User Interaction",
+		"tags": [
+			"components and libraries",
+			"typescript"
+		],
+		"stars": 8
+	},
+	{
+		"title": "svelte-resize-observer-action",
+		"url": "https://github.com/captaincodeman/svelte-resize-observer-action",
+		"description": "Svelte use:action for element resize notifications using ResizeObserver",
+		"npm": "svelte-resize-observer-action",
+		"addedOn": "2023-08-16",
+		"category": "User Interaction",
+		"tags": [
+			"components and libraries",
+			"typescript"
+		],
+		"stars": 8
+	},
+	{
+		"title": "svelte-image-comparison",
+		"url": "https://github.com/captaincodeman/svelte-image-comparison",
+		"description": "Svelte component onion-skin comparison of image or canvas elements",
+		"npm": "svelte-image-comparison",
+		"addedOn": "2023-08-16",
+		"category": "User Interaction",
+		"tags": [
+			"components and libraries",
+			"images",
+			"typescript"
+		],
+		"stars": 16
+	},
+	{
+		"title": "svelte-relative-time",
+		"url": "https://github.com/captaincodeman/svelte-relative-time",
+		"description": "Tiny Svelte action and Component to render live-updating relative times",
+		"npm": "svelte-relative-time",
+		"addedOn": "2023-08-16",
+		"category": "User Interaction",
+		"tags": [
+			"components and libraries",
+			"animations",
+			"typescript"
+		],
+		"stars": 26
+	},
+	{
+		"title": "svelte-signature-pad",
+		"url": "https://github.com/captaincodeman/svelte-signature-pad",
+		"description": "Svelte Action to capture smoothed signatures as SVG paths using the perfect-freehand library.",
+		"npm": "svelte-signature-pad",
+		"addedOn": "2023-08-16",
+		"category": "User Interaction",
+		"tags": [
+			"components and libraries",
+			"images",
+			"typescript"
+		],
+		"stars": 17
+	},
+	{
+		"title": "svelte-disable-preload",
+		"url": "https://github.com/captaincodeman/svelte-disable-preload",
+		"description": "Action to block preload event listeners for smoother canvas animations",
+		"npm": "svelte-disable-preload",
+		"addedOn": "2023-08-16",
+		"category": "User Interaction",
+		"tags": [
+			"components and libraries",
+			"typescript"
+		],
+		"stars": 2
+	},
+	{
+		"title": "svelte-kit-bot-block",
+		"url": "https://github.com/captaincodeman/svelte-kit-bot-block",
+		"description": "SvelteKit middleware hook to block bots and scripts early",
+		"npm": "svelte-kit-bot-block",
+		"addedOn": "2023-08-16",
+		"category": "",
+		"tags": [
+			"integrations",
+			"typescript"
+		],
+		"stars": 14
+	},
+	{
+		"title": "svelte-intersection-observer-action",
+		"url": "https://github.com/captaincodeman/svelte-intersection-observer-action",
+		"description": "Svelte use:action for element position notifications using IntersectionObserver",
+		"npm": "svelte-intersection-observer-action",
+		"addedOn": "2023-08-16",
+		"category": "User Interaction",
+		"tags": [
+			"components and libraries",
+			"typescript"
+		],
+		"stars": 13
 	}
 ]
