@@ -1,7 +1,7 @@
 [
 	{
 		"title": "svelte-tel-input",
-		"url": "https://github.com/gyurielf/svelte-tel-input",
+		"repository": "https://github.com/gyurielf/svelte-tel-input",
 		"description": "Lightweight phone input standardizer.",
 		"npm": "svelte-tel-input",
 		"addedOn": "2023-04-23",
@@ -16,7 +16,7 @@
 	},
 	{
 		"title": "svelte-datatables-net",
-		"url": "https://github.com/joaquimnetocel/svelte-datatables-net",
+		"repository": "https://github.com/joaquimnetocel/svelte-datatables-net",
 		"description": "svelte-datatables-net is a svelte/sveltekit component that turns data into an interactive HTML table. Inspired by datatables.net.",
 		"npm": "svelte-datatables-net",
 		"addedOn": "2023-02-23",
@@ -25,7 +25,7 @@
 	},
 	{
 		"title": "STWUI",
-		"url": "https://github.com/N00nDay/stwui",
+		"repository": "https://github.com/N00nDay/stwui",
 		"description": "Opinionated yet customizable Svelte-TailwindCSS component library",
 		"npm": "stwui",
 		"addedOn": "2022-10-05",
@@ -34,7 +34,7 @@
 	},
 	{
 		"title": "@sveltejs/adapter-auto",
-		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-auto",
+		"repository": "https://github.com/sveltejs/kit/tree/master/packages/adapter-auto",
 		"description": "Automatically chooses adapter for your current environment if possible",
 		"npm": "@sveltejs/adapter-auto",
 		"addedOn": "2022-06-09",
@@ -43,7 +43,7 @@
 	},
 	{
 		"title": "@sveltejs/adapter-netlify",
-		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-netlify",
+		"repository": "https://github.com/sveltejs/kit/tree/master/packages/adapter-netlify",
 		"description": "A SvelteKit adapter that creates a Netlify app. If you're using adapter-auto, you don't need to install this unless you need to specify Netlify-specific options, since it's already included.",
 		"npm": "@sveltejs/adapter-netlify",
 		"addedOn": "2022-06-09",
@@ -52,7 +52,7 @@
 	},
 	{
 		"title": "@sveltejs/adapter-cloudflare-workers",
-		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare-workers",
+		"repository": "https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare-workers",
 		"description": "SvelteKit adapter that creates a Cloudflare Workers site using a function for dynamic server rendering.",
 		"npm": "@sveltejs/adapter-cloudflare-workers",
 		"addedOn": "2022-06-09",
@@ -61,7 +61,7 @@
 	},
 	{
 		"title": "@sveltejs/adapter-cloudflare",
-		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare",
+		"repository": "https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare",
 		"description": "Adapter for building SvelteKit applications on Cloudflare Pages with Workers integration. If you're using adapter-auto, you don't need to install this — it's already included.",
 		"npm": "@sveltejs/adapter-cloudflare",
 		"addedOn": "2022-06-09",
@@ -70,7 +70,7 @@
 	},
 	{
 		"title": "@sveltejs/adapter-node",
-		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-node",
+		"repository": "https://github.com/sveltejs/kit/tree/master/packages/adapter-node",
 		"description": "Adapter for SvelteKit apps that generates a standalone Node server.",
 		"npm": "@sveltejs/adapter-node",
 		"addedOn": "2022-06-09",
@@ -79,7 +79,7 @@
 	},
 	{
 		"title": "@sveltejs/adapter-static",
-		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-static",
+		"repository": "https://github.com/sveltejs/kit/tree/master/packages/adapter-static",
 		"description": "Adapter for SvelteKit apps that prerenders your entire site as a collection of static files. If you'd like to prerender only some pages, you will need to use a different adapter together with the prerender option.",
 		"npm": "@sveltejs/adapter-static",
 		"addedOn": "2022-06-09",
@@ -88,7 +88,7 @@
 	},
 	{
 		"title": "@sveltejs/adapter-vercel",
-		"url": "https://github.com/sveltejs/kit/tree/master/packages/adapter-vercel",
+		"repository": "https://github.com/sveltejs/kit/tree/master/packages/adapter-vercel",
 		"description": "A SvelteKit adapter that creates a Vercel app.If you're using adapter-auto, you don't need to install this unless you need to specify Vercel-specific options, since it's already included.",
 		"npm": "@sveltejs/adapter-vercel",
 		"addedOn": "2022-06-09",
@@ -97,7 +97,7 @@
 	},
 	{
 		"title": "svelte-lazy-loader",
-		"url": "https://github.com/sawyerclick/svelte-lazy-loader",
+		"repository": "https://github.com/sawyerclick/svelte-lazy-loader",
 		"description": "A lazy-loader component library for Svelte",
 		"npm": "svelte-lazy-loader",
 		"addedOn": "2022-02-27",
@@ -105,7 +105,7 @@
 	},
 	{
 		"title": "svelte-carbonbadge",
-		"url": "https://gitlab.com/davidhund/svelte-carbonbadge",
+		"repository": "https://gitlab.com/davidhund/svelte-carbonbadge",
 		"description": "Svelte badge component for https://www.websitecarbon.com/",
 		"npm": "svelte-carbonbadge",
 		"addedOn": "2022-02-08",
@@ -113,7 +113,7 @@
 	},
 	{
 		"title": "svelte-form-validation",
-		"url": "https://github.com/DhyeyMoliya/svelte-form-validation",
+		"repository": "https://github.com/DhyeyMoliya/svelte-form-validation",
 		"npm": "svelte-form-validation",
 		"description": "Svelte Form Validation Library",
 		"tags": ["forms", "form validation", "components and libraries"],
@@ -122,7 +122,7 @@
 	},
 	{
 		"title": "Date Picker Svelte",
-		"url": "https://github.com/probablykasper/date-picker-svelte",
+		"repository": "https://github.com/probablykasper/date-picker-svelte",
 		"description": "Date and time picker for Svelte",
 		"npm": "date-picker-svelte",
 		"addedOn": "2021-10-23",
@@ -139,7 +139,7 @@
 	{
 		"title": "svelte-virtual-table",
 		"description": "A virtual, sortable table for Svelte ",
-		"url": "https://github.com/BernhardWebstudio/svelte-virtual-table",
+		"repository": "https://github.com/BernhardWebstudio/svelte-virtual-table",
 		"npm": "svelte-virtual-table",
 		"tags": ["components and libraries"],
 		"addedOn": "2021-10-04",
@@ -148,7 +148,7 @@
 	{
 		"title": "svelte-number-spinner",
 		"description": "A number input field that can be controlled by mouse/touch drag, arrow keys or usual editing.",
-		"url": "https://github.com/bohnacker/svelte-number-spinner",
+		"repository": "https://github.com/bohnacker/svelte-number-spinner",
 		"npm": "svelte-number-spinner",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"addedOn": "2021-08-29T00:00:00Z",
@@ -157,7 +157,7 @@
 	{
 		"title": "svelte-remixicon",
 		"description": "An icon library for svelte based on Remix Icon. Consists of more than 2000 icons.",
-		"url": "https://github.com/aantusahaa/svelte-remixicon",
+		"repository": "https://github.com/aantusahaa/svelte-remixicon",
 		"npm": "svelte-remixicon",
 		"tags": ["components and libraries"],
 		"addedOn": "2021-08-25T00:00:00Z",
@@ -166,7 +166,7 @@
 	{
 		"title": "svelte-fast-marquee",
 		"description": "A Marquee component for Svelte inspired by react-fast-marquee.",
-		"url": "https://github.com/abosch19/svelte-fast-marquee",
+		"repository": "https://github.com/abosch19/svelte-fast-marquee",
 		"npm": "svelte-fast-marquee",
 		"tags": ["components and libraries"],
 		"addedOn": "2021-08-25T00:00:00Z",
@@ -176,7 +176,7 @@
 		"title": "sswr",
 		"category": "User Interaction",
 		"description": "Svelte stale while revalidate (SWR) data fetching strategy",
-		"url": "https://github.com/ConsoleTVs/sswr",
+		"repository": "https://github.com/ConsoleTVs/sswr",
 		"npm": "sswr",
 		"tags": ["components and libraries", "fonts and icons"],
 		"addedOn": "2021-07-29T00:00:00Z"
@@ -184,7 +184,7 @@
 	{
 		"title": "svelte-adapter-firebase",
 		"description": "SvelteKit adapter for Firebase Hosting rewrites to either Cloud Functions or Cloud Run for a Svelte SSR experience",
-		"url": "https://github.com/jthegedus/svelte-adapter-firebase",
+		"repository": "https://github.com/jthegedus/svelte-adapter-firebase",
 		"npm": "svelte-adapter-firebase",
 		"tags": ["integrations"],
 		"addedOn": "2021-03-31T00:00:00Z",
@@ -193,7 +193,7 @@
 	{
 		"title": "architect/sveltekit-adapter",
 		"description": "Adapter for Svelte apps that creates a Begin or Architect app, using a function for dynamic server rendering.",
-		"url": "https://github.com/architect/sveltekit-adapter",
+		"repository": "https://github.com/architect/sveltekit-adapter",
 		"npm": "@architect/sveltekit-adapter",
 		"tags": ["integrations"],
 		"addedOn": "2021-08-09T00:00:00Z",
@@ -202,7 +202,7 @@
 	{
 		"title": "svelte-adapter-deno",
 		"description": "SvelteKit adapter that generates a standalone Deno server.",
-		"url": "https://github.com/pluvial/svelte-adapter-deno",
+		"repository": "https://github.com/pluvial/svelte-adapter-deno",
 		"npm": "svelte-adapter-deno",
 		"tags": ["integrations"],
 		"addedOn": "2021-07-12T00:00:00Z",
@@ -210,7 +210,7 @@
 	},
 	{
 		"title": "SCR Svelte Client Router",
-		"url": "https://arthurgermano.github.io/svelte-client-router/#/svelte-client-router",
+		"repository": "https://arthurgermano.github.io/svelte-client-router/#/svelte-client-router",
 		"npm": "svelte-client-router",
 		"description": "Svelte Client Router is everything you need and think when routing SPA's. This is The Svelte Router for SPA!",
 		"tags": ["routers"],
@@ -229,7 +229,7 @@
 	},
 	{
 		"title": "sveltefire",
-		"url": "https://github.com/codediodeio/sveltefire",
+		"repository": "https://github.com/codediodeio/sveltefire",
 		"npm": "sveltefire",
 		"description": "Cybernetically enhanced Firebase apps 💪🔥",
 		"tags": ["components and libraries"],
@@ -238,7 +238,7 @@
 	},
 	{
 		"title": "svelte-time-picker",
-		"url": "https://gitlab.com/public-e-soa-com/svelte-time-picker",
+		"repository": "https://gitlab.com/public-e-soa-com/svelte-time-picker",
 		"npm": "svelte-time-picker",
 		"description": "Time Picker UI for Svelte, inspired by the MaterialUI React Time Picker",
 		"tags": ["components and libraries", "time and date"],
@@ -247,7 +247,7 @@
 	},
 	{
 		"title": "svelte-formula",
-		"url": "https://github.com/tanepiper/svelte-formula",
+		"repository": "https://github.com/tanepiper/svelte-formula",
 		"npm": "svelte-formula",
 		"description": "Zero Configuration Reactive Forms for Svelte",
 		"tags": ["components and libraries", "forms", "validation"],
@@ -261,7 +261,7 @@
 		"npm": "svelte-calendar",
 		"tags": ["components and libraries", "time and date"],
 		"title": "svelte-calendar",
-		"url": "https://github.com/6eDesign/svelte-calendar"
+		"repository": "https://github.com/6eDesign/svelte-calendar"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -270,7 +270,7 @@
 		"npm": "svelte-tags-input",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "svelte-tags-input",
-		"url": "https://github.com/agustinl/svelte-tags-input"
+		"repository": "https://github.com/agustinl/svelte-tags-input"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -279,7 +279,7 @@
 		"npm": "sveltedoc-parser",
 		"tags": ["components and libraries", "development and documentation"],
 		"title": "sveltedoc-parser",
-		"url": "https://github.com/alexprey/sveltedoc-parser"
+		"repository": "https://github.com/alexprey/sveltedoc-parser"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -288,7 +288,7 @@
 		"npm": "aovi-svelte",
 		"tags": ["forms and validation", "components and libraries"],
 		"title": "aovi-svelte",
-		"url": "https://github.com/AlexxNB/aovi-svelte"
+		"repository": "https://github.com/AlexxNB/aovi-svelte"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -297,7 +297,7 @@
 		"npm": "svelte-chota",
 		"tags": ["components and libraries", "component sets"],
 		"title": "svelte-chota",
-		"url": "https://github.com/alexxnb/svelte-chota"
+		"repository": "https://github.com/alexxnb/svelte-chota"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -306,7 +306,7 @@
 		"npm": "svelte-eventbus",
 		"tags": ["components and libraries"],
 		"title": "svelte-eventbus",
-		"url": "https://github.com/AlexxNB/svelte-eventbus"
+		"repository": "https://github.com/AlexxNB/svelte-eventbus"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -315,7 +315,7 @@
 		"npm": "svelte-preprocess-markdown",
 		"tags": ["integrations", "preprocessors"],
 		"title": "svelte-preprocess-markdown",
-		"url": "https://github.com/AlexxNB/svelte-preprocess-markdown"
+		"repository": "https://github.com/AlexxNB/svelte-preprocess-markdown"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -324,7 +324,7 @@
 		"npm": "tinro",
 		"tags": ["routers"],
 		"title": "tinro",
-		"url": "https://github.com/AlexxNB/tinro"
+		"repository": "https://github.com/AlexxNB/tinro"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -333,7 +333,7 @@
 		"npm": "fa-svelte",
 		"tags": ["components and libraries", "fonts and icons"],
 		"title": "fa-svelte",
-		"url": "https://github.com/alphapeter/fa-svelte"
+		"repository": "https://github.com/alphapeter/fa-svelte"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -342,7 +342,7 @@
 		"npm": "svelte-fullscreen",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-fullscreen",
-		"url": "https://github.com/andrelmlins/svelte-fullscreen"
+		"repository": "https://github.com/andrelmlins/svelte-fullscreen"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -351,7 +351,7 @@
 		"npm": "svelte-grid-responsive",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-grid-responsive",
-		"url": "https://github.com/andrelmlins/svelte-grid-responsive"
+		"repository": "https://github.com/andrelmlins/svelte-grid-responsive"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -360,7 +360,7 @@
 		"npm": "svelte-infinite-scroll",
 		"tags": ["components and libraries"],
 		"title": "svelte-infinite-scroll",
-		"url": "https://github.com/andrelmlins/svelte-infinite-scroll"
+		"repository": "https://github.com/andrelmlins/svelte-infinite-scroll"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -375,7 +375,7 @@
 			"validation"
 		],
 		"title": "svelte-formly",
-		"url": "https://github.com/dyaliCode/svelte-formly"
+		"repository": "https://github.com/dyaliCode/svelte-formly"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -384,7 +384,7 @@
 		"npm": "svelte-websocket-store",
 		"tags": ["components and libraries", "stores and state"],
 		"title": "svelte-websocket-store",
-		"url": "https://github.com/arlac77/svelte-websocket-store"
+		"repository": "https://github.com/arlac77/svelte-websocket-store"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -393,7 +393,7 @@
 		"npm": "sveltestrap",
 		"tags": ["components and libraries", "component sets"],
 		"title": "sveltestrap",
-		"url": "https://github.com/bestguy/sveltestrap"
+		"repository": "https://github.com/bestguy/sveltestrap"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -402,7 +402,7 @@
 		"npm": "@beyonk/gdpr-cookie-consent-banner",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "@beyonk/gdpr-cookie-consent-banner",
-		"url": "https://github.com/beyonk-group/gdpr-cookie-consent-banner"
+		"repository": "https://github.com/beyonk-group/gdpr-cookie-consent-banner"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -411,7 +411,7 @@
 		"npm": "@beyonk/svelte-carousel",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "@beyonk/svelte-carousel",
-		"url": "https://github.com/beyonk-group/svelte-carousel"
+		"repository": "https://github.com/beyonk-group/svelte-carousel"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -420,7 +420,7 @@
 		"npm": "@beyonk/svelte-facebook-customer-chat",
 		"tags": ["components and libraries", "third party services"],
 		"title": "@beyonk/svelte-facebook-customer-chat",
-		"url": "https://github.com/beyonk-group/svelte-facebook-customer-chat"
+		"repository": "https://github.com/beyonk-group/svelte-facebook-customer-chat"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -429,7 +429,7 @@
 		"npm": "@beyonk/svelte-facebook-pixel",
 		"tags": ["components and libraries", "third party services"],
 		"title": "@beyonk/svelte-facebook-pixel",
-		"url": "https://github.com/beyonk-group/svelte-facebook-pixel"
+		"repository": "https://github.com/beyonk-group/svelte-facebook-pixel"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -438,7 +438,7 @@
 		"npm": "@beyonk/svelte-google-analytics",
 		"tags": ["components and libraries", "third party services"],
 		"title": "@beyonk/svelte-google-analytics",
-		"url": "https://github.com/beyonk-group/svelte-google-analytics"
+		"repository": "https://github.com/beyonk-group/svelte-google-analytics"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -447,7 +447,7 @@
 		"npm": "@beyonk/svelte-googlemaps",
 		"tags": ["components and libraries", "maps"],
 		"title": "@beyonk/svelte-googlemaps",
-		"url": "https://github.com/beyonk-group/svelte-googlemaps"
+		"repository": "https://github.com/beyonk-group/svelte-googlemaps"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -456,7 +456,7 @@
 		"npm": "@beyonk/svelte-mapbox",
 		"tags": ["components and libraries", "maps"],
 		"title": "@beyonk/svelte-mapbox",
-		"url": "https://github.com/beyonk-group/svelte-mapbox"
+		"repository": "https://github.com/beyonk-group/svelte-mapbox"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -465,7 +465,7 @@
 		"npm": "@beyonk/svelte-notifications",
 		"tags": ["components and libraries", "notifications"],
 		"title": "@beyonk/svelte-notifications",
-		"url": "https://github.com/beyonk-group/svelte-notifications"
+		"repository": "https://github.com/beyonk-group/svelte-notifications"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -474,7 +474,7 @@
 		"npm": "@beyonk/svelte-scrollspy",
 		"tags": ["components and libraries", "interactions"],
 		"title": "@beyonk/svelte-scrollspy",
-		"url": "https://github.com/beyonk-group/svelte-scrollspy"
+		"repository": "https://github.com/beyonk-group/svelte-scrollspy"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -483,7 +483,7 @@
 		"npm": "svelte-simple-icons",
 		"tags": ["components and libraries", "fonts and icons"],
 		"title": "svelte-simple-icons",
-		"url": "https://github.com/beyonk-group/svelte-simple-icons"
+		"repository": "https://github.com/beyonk-group/svelte-simple-icons"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -492,7 +492,7 @@
 		"npm": "@beyonk/svelte-trustpilot",
 		"tags": ["components and libraries", "third party services"],
 		"title": "@beyonk/svelte-trustpilot",
-		"url": "https://github.com/beyonk-group/svelte-trustpilot"
+		"repository": "https://github.com/beyonk-group/svelte-trustpilot"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -501,7 +501,7 @@
 		"npm": "@bjornlu/svelte-router",
 		"tags": ["routers"],
 		"title": "@bjornlu/svelte-router",
-		"url": "https://github.com/bluwy/svelte-router"
+		"repository": "https://github.com/bluwy/svelte-router"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -510,7 +510,7 @@
 		"npm": "svelte-sortable-list",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-sortable-list",
-		"url": "https://github.com/brunomolteni/svelte-sortable-list"
+		"repository": "https://github.com/brunomolteni/svelte-sortable-list"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -519,7 +519,7 @@
 		"npm": "svelte-data-grid",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-data-grid",
-		"url": "https://github.com/bsssshhhhhhh/svelte-data-grid"
+		"repository": "https://github.com/bsssshhhhhhh/svelte-data-grid"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -528,7 +528,7 @@
 		"npm": "query-store",
 		"tags": ["components and libraries", "stores and state"],
 		"title": "query-store",
-		"url": "https://github.com/buhrmi/query-store"
+		"repository": "https://github.com/buhrmi/query-store"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -537,7 +537,7 @@
 		"npm": "svelma",
 		"tags": ["components and libraries", "component sets"],
 		"title": "svelma",
-		"url": "https://github.com/c0bra/svelma"
+		"repository": "https://github.com/c0bra/svelma"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -546,7 +546,7 @@
 		"npm": "svelte-forms",
 		"tags": ["components and libraries", "forms and validation"],
 		"title": "svelte-forms",
-		"url": "https://github.com/chainlist/svelte-forms"
+		"repository": "https://github.com/chainlist/svelte-forms"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -555,7 +555,7 @@
 		"npm": "svelte-credit-cards",
 		"tags": ["components and libraries"],
 		"title": "svelte-credit-cards",
-		"url": "https://github.com/CharlyJazz/svelte-credit-card"
+		"repository": "https://github.com/CharlyJazz/svelte-credit-card"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -564,7 +564,7 @@
 		"npm": "svelte-headroom",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-headroom",
-		"url": "https://github.com/collardeau/svelte-headroom"
+		"repository": "https://github.com/collardeau/svelte-headroom"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -573,7 +573,7 @@
 		"npm": "svelte-fa",
 		"tags": ["components and libraries", "fonts and icons"],
 		"title": "svelte-fa",
-		"url": "https://github.com/Cweili/svelte-fa"
+		"repository": "https://github.com/Cweili/svelte-fa"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -582,7 +582,7 @@
 		"npm": "svelte-table",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-table",
-		"url": "https://github.com/dasDaniel/svelte-table"
+		"repository": "https://github.com/dasDaniel/svelte-table"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -591,7 +591,7 @@
 		"npm": "svelte-moveable",
 		"tags": ["components and libraries", "interactions"],
 		"title": "svelte-moveable",
-		"url": "https://github.com/daybrush/moveable/tree/master/packages/svelte-moveable"
+		"repository": "https://github.com/daybrush/moveable/tree/master/packages/svelte-moveable"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -600,7 +600,7 @@
 		"npm": "svelte-ruler",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "svelte-ruler",
-		"url": "https://github.com/daybrush/ruler/tree/master/packages/svelte-ruler"
+		"repository": "https://github.com/daybrush/ruler/tree/master/packages/svelte-ruler"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -609,7 +609,7 @@
 		"npm": "waxwing-rating",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "waxwing-rating",
-		"url": "https://github.com/dmitrykurmanov/waxwing-rating"
+		"repository": "https://github.com/dmitrykurmanov/waxwing-rating"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -618,7 +618,7 @@
 		"npm": "@dopry/svelte-auth0",
 		"tags": ["components and libraries", "integrations", "auth"],
 		"title": "@dopry/svelte-auth0",
-		"url": "https://github.com/dopry/svelte-auth0"
+		"repository": "https://github.com/dopry/svelte-auth0"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -627,7 +627,7 @@
 		"npm": "svelte-feather-icons",
 		"tags": ["components and libraries", "fonts and icons"],
 		"title": "svelte-feather-icons",
-		"url": "https://github.com/dylanblokhuis/svelte-feather-icons"
+		"repository": "https://github.com/dylanblokhuis/svelte-feather-icons"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -636,7 +636,7 @@
 		"npm": "@easylogic/svelte-summernote",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "@easylogic/svelte-summernote",
-		"url": "https://github.com/easylogic/svelte-summernote"
+		"repository": "https://github.com/easylogic/svelte-summernote"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -645,7 +645,7 @@
 		"npm": "svelte-dev-helper",
 		"tags": ["components and libraries", "development and documentation"],
 		"title": "svelte-dev-helper",
-		"url": "https://github.com/ekhaled/svelte-dev-helper"
+		"repository": "https://github.com/ekhaled/svelte-dev-helper"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -654,7 +654,7 @@
 		"npm": "svelte-routing",
 		"tags": ["routers"],
 		"title": "svelte-routing",
-		"url": "https://github.com/EmilTholin/svelte-routing"
+		"repository": "https://github.com/EmilTholin/svelte-routing"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -663,7 +663,7 @@
 		"npm": "svelte-rate-it",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "svelte-rate-it",
-		"url": "https://github.com/emrekara37/svelte-rate-it"
+		"repository": "https://github.com/emrekara37/svelte-rate-it"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -672,7 +672,7 @@
 		"npm": "@equipmentshare/date-range-input",
 		"tags": ["components and libraries", "time and date"],
 		"title": "@equipmentshare/date-range-input",
-		"url": "https://github.com/EquipmentShare/date-range-input"
+		"repository": "https://github.com/EquipmentShare/date-range-input"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -681,7 +681,7 @@
 		"npm": "svelte-tree",
 		"tags": ["components and libraries", "tree"],
 		"title": "svelte-tree",
-		"url": "https://github.com/esinx/svelte-tree"
+		"repository": "https://github.com/esinx/svelte-tree"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -690,7 +690,7 @@
 		"npm": "svelteify",
 		"tags": ["components and libraries", "component sets"],
 		"title": "svelteify",
-		"url": "https://github.com/theovidal/svelteify"
+		"repository": "https://github.com/theovidal/svelteify"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -699,7 +699,7 @@
 		"npm": "svelte-simple-modal",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-simple-modal",
-		"url": "https://github.com/flekschas/svelte-simple-modal"
+		"repository": "https://github.com/flekschas/svelte-simple-modal"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -707,7 +707,7 @@
 		"description": "Svelte integration for FormidableLabs URQL",
 		"tags": ["components and libraries", "stores and state", "graphql"],
 		"title": "@urql/svelte",
-		"url": "https://github.com/urql-graphql/urql/tree/main/packages/svelte-urql"
+		"repository": "https://github.com/urql-graphql/urql/tree/main/packages/svelte-urql"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -716,7 +716,7 @@
 		"npm": "svelte-icons",
 		"tags": ["components and libraries", "fonts and icons"],
 		"title": "svelte-icons",
-		"url": "https://github.com/Introvertuous/svelte-icons"
+		"repository": "https://github.com/Introvertuous/svelte-icons"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -725,7 +725,7 @@
 		"npm": "svelte-native",
 		"tags": ["native"],
 		"title": "svelte-native",
-		"url": "https://github.com/halfnelson/svelte-native"
+		"repository": "https://github.com/halfnelson/svelte-native"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -734,7 +734,7 @@
 		"npm": "svelte-typewriter",
 		"tags": ["components and libraries"],
 		"title": "svelte-typewriter",
-		"url": "https://github.com/henriquehbr/svelte-typewriter"
+		"repository": "https://github.com/henriquehbr/svelte-typewriter"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -743,7 +743,7 @@
 		"npm": "svelte-copyright",
 		"tags": ["components and libraries"],
 		"title": "svelte-copyright",
-		"url": "https://github.com/himynameisdave/svelte-copyright"
+		"repository": "https://github.com/himynameisdave/svelte-copyright"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -752,7 +752,7 @@
 		"npm": "svelte-flex",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-flex",
-		"url": "https://github.com/himynameisdave/svelte-flex"
+		"repository": "https://github.com/himynameisdave/svelte-flex"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -761,7 +761,7 @@
 		"npm": "svelte-frappe-charts",
 		"tags": ["charts", "components and libraries"],
 		"title": "svelte-frappe-charts",
-		"url": "https://github.com/himynameisdave/svelte-frappe-charts"
+		"repository": "https://github.com/himynameisdave/svelte-frappe-charts"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -770,7 +770,7 @@
 		"npm": "svelte-material-ui",
 		"tags": ["components and libraries", "component sets"],
 		"title": "svelte-material-ui",
-		"url": "https://github.com/hperrin/svelte-material-ui"
+		"repository": "https://github.com/hperrin/svelte-material-ui"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -779,7 +779,7 @@
 		"npm": "carbon-components-svelte",
 		"tags": ["components and libraries", "component sets"],
 		"title": "carbon-components-svelte",
-		"url": "https://github.com/carbon-design-system/carbon-components-svelte"
+		"repository": "https://github.com/carbon-design-system/carbon-components-svelte"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -788,7 +788,7 @@
 		"npm": "attractions",
 		"tags": ["components and libraries"],
 		"title": "attractions",
-		"url": "https://github.com/illright/attractions"
+		"repository": "https://github.com/illright/attractions"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -797,7 +797,7 @@
 		"npm": "svelte-spa-router",
 		"tags": ["routers"],
 		"title": "svelte-spa-router",
-		"url": "https://github.com/ItalyPaleAle/svelte-spa-router"
+		"repository": "https://github.com/ItalyPaleAle/svelte-spa-router"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -806,7 +806,7 @@
 		"npm": "svelte-flatpickr",
 		"tags": ["components and libraries", "time and date"],
 		"title": "svelte-flatpickr",
-		"url": "https://github.com/jacobmischka/svelte-flatpickr"
+		"repository": "https://github.com/jacobmischka/svelte-flatpickr"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -815,7 +815,7 @@
 		"npm": "svelte-navaid",
 		"tags": ["routers"],
 		"title": "svelte-navaid",
-		"url": "https://github.com/jacwright/svelte-navaid"
+		"repository": "https://github.com/jacwright/svelte-navaid"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -824,7 +824,7 @@
 		"npm": "@jamen/svelte-router",
 		"tags": ["routers"],
 		"title": "@jamen/svelte-router",
-		"url": "https://github.com/jamen/svelte-router"
+		"repository": "https://github.com/jamen/svelte-router"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -833,7 +833,7 @@
 		"npm": "svelte-router",
 		"tags": ["routers"],
 		"title": "svelte-router",
-		"url": "https://github.com/jikkai/svelte-router"
+		"repository": "https://github.com/jikkai/svelte-router"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -842,7 +842,7 @@
 		"npm": "svelte-pick-a-place",
 		"tags": ["components and libraries", "maps"],
 		"title": "svelte-pick-a-place",
-		"url": "https://github.com/jimutt/svelte-pick-a-place"
+		"repository": "https://github.com/jimutt/svelte-pick-a-place"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -851,7 +851,7 @@
 		"npm": "svelte-tabs",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-tabs",
-		"url": "https://github.com/nickyhajal/svelte-tabs"
+		"repository": "https://github.com/nickyhajal/svelte-tabs"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -860,7 +860,7 @@
 		"npm": "svelteml",
 		"tags": ["components and libraries"],
 		"title": "svelteml",
-		"url": "https://github.com/john--kane/svelteml"
+		"repository": "https://github.com/john--kane/svelteml"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -869,7 +869,7 @@
 		"npm": "svelte-compare-image-slider",
 		"tags": ["components and libraries", "images"],
 		"title": "svelte-compare-image-slider",
-		"url": "https://github.com/johnwalley/compare-image-slider"
+		"repository": "https://github.com/johnwalley/compare-image-slider"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -878,7 +878,7 @@
 		"npm": "svelte-router-spa",
 		"tags": ["routers"],
 		"title": "svelte-router-spa",
-		"url": "https://github.com/jorgegorka/svelte-router"
+		"repository": "https://github.com/jorgegorka/svelte-router"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -887,7 +887,7 @@
 		"npm": "svelte-css-vars",
 		"tags": ["components and libraries"],
 		"title": "svelte-css-vars",
-		"url": "https://github.com/kaisermann/svelte-css-vars"
+		"repository": "https://github.com/kaisermann/svelte-css-vars"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -896,7 +896,7 @@
 		"npm": "svelte-i18n",
 		"tags": ["components and libraries", "internationalization"],
 		"title": "svelte-i18n",
-		"url": "https://github.com/kaisermann/svelte-i18n"
+		"repository": "https://github.com/kaisermann/svelte-i18n"
 	},
 	{
 		"addedOn": "2021-08-06T16:08:13Z",
@@ -905,7 +905,7 @@
 		"npm": "@nubolab-ffwd/svelte-fluent",
 		"tags": ["components and libraries", "internationalization"],
 		"title": "svelte-fluent",
-		"url": "https://github.com/nubolab-ffwd/svelte-fluent"
+		"repository": "https://github.com/nubolab-ffwd/svelte-fluent"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -914,7 +914,7 @@
 		"npm": "svelte-loadable",
 		"tags": ["components and libraries", "async loading"],
 		"title": "svelte-loadable",
-		"url": "https://github.com/kaisermann/svelte-loadable"
+		"repository": "https://github.com/kaisermann/svelte-loadable"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -923,7 +923,7 @@
 		"npm": "svero",
 		"tags": ["routers"],
 		"title": "svero",
-		"url": "https://github.com/kazzkiq/svero"
+		"repository": "https://github.com/kazzkiq/svero"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -932,7 +932,7 @@
 		"npm": "svelte-notifications",
 		"tags": ["components and libraries", "notifications"],
 		"title": "svelte-notifications",
-		"url": "https://github.com/keenethics/svelte-notifications"
+		"repository": "https://github.com/keenethics/svelte-notifications"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -941,7 +941,7 @@
 		"npm": "svelte-fragment-component",
 		"tags": ["components and libraries", "testing", "jsx"],
 		"title": "svelte-fragment-component",
-		"url": "https://github.com/kenoxa/svelte-fragment-component"
+		"repository": "https://github.com/kenoxa/svelte-fragment-component"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -950,7 +950,7 @@
 		"npm": "svelte-htm",
 		"tags": ["components and libraries", "testing", "jsx"],
 		"title": "svelte-htm",
-		"url": "https://github.com/kenoxa/svelte-htm"
+		"repository": "https://github.com/kenoxa/svelte-htm"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -959,7 +959,7 @@
 		"npm": "svelte-jsx",
 		"tags": ["components and libraries", "testing", "jsx"],
 		"title": "svelte-jsx",
-		"url": "https://github.com/kenoxa/svelte-jsx"
+		"repository": "https://github.com/kenoxa/svelte-jsx"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -968,7 +968,7 @@
 		"npm": "svelte-favicon-badge",
 		"tags": ["components and libraries"],
 		"title": "svelte-favicon-badge",
-		"url": "https://github.com/kevmodrome/svelte-favicon-badge"
+		"repository": "https://github.com/kevmodrome/svelte-favicon-badge"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -977,7 +977,7 @@
 		"npm": "svelte-redux-connect",
 		"tags": ["components and libraries", "stores and state"],
 		"title": "svelte-redux-connect",
-		"url": "https://github.com/kolodziejczak-sz/svelte-redux-connect"
+		"repository": "https://github.com/kolodziejczak-sz/svelte-redux-connect"
 	},
 	{
 		"addedOn": "2021-08-13T14:39:13Z",
@@ -986,7 +986,7 @@
 		"npm": "svelte-jester",
 		"tags": ["testing"],
 		"title": "svelte-jester",
-		"url": "https://github.com/svelteness/svelte-jester"
+		"repository": "https://github.com/svelteness/svelte-jester"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -995,7 +995,7 @@
 		"npm": "svelte-jest",
 		"tags": ["testing"],
 		"title": "svelte-jest",
-		"url": "https://github.com/ktsn/svelte-jest"
+		"repository": "https://github.com/ktsn/svelte-jest"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1004,7 +1004,7 @@
 		"npm": "echarts-for-svelte",
 		"tags": ["components and libraries", "charts"],
 		"title": "echarts-for-svelte",
-		"url": "https://github.com/liyuanqiu/echarts-for-svelte"
+		"repository": "https://github.com/liyuanqiu/echarts-for-svelte"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1013,7 +1013,7 @@
 		"npm": "@lottiefiles/svelte-lottie-player",
 		"tags": ["components and libraries"],
 		"title": "@lottiefiles/svelte-lottie-player",
-		"url": "https://github.com/LottieFiles/svelte-lottie-player"
+		"repository": "https://github.com/LottieFiles/svelte-lottie-player"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1022,7 +1022,7 @@
 		"npm": "@pwa/cli",
 		"tags": ["integrations", "cli tools"],
 		"title": "@pwa/cli",
-		"url": "https://github.com/lukeed/pwa"
+		"repository": "https://github.com/lukeed/pwa"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1031,7 +1031,7 @@
 		"npm": "svelte-inview",
 		"tags": ["components and libraries", "async loading", "intersection observer", "viewport"],
 		"title": "svelte-inview",
-		"url": "https://github.com/maciekgrzybek/svelte-inview"
+		"repository": "https://github.com/maciekgrzybek/svelte-inview"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1040,7 +1040,7 @@
 		"npm": "smelte",
 		"tags": ["components and libraries", "component sets"],
 		"title": "smelte",
-		"url": "https://github.com/matyunya/smelte"
+		"repository": "https://github.com/matyunya/smelte"
 	},
 	{
 		"addedOn": "2023-08-09T04:17:13Z",
@@ -1049,7 +1049,7 @@
 		"npm": "@melt-ui/svelte",
 		"tags": ["components and libraries", "component sets"],
 		"title": "melt-ui",
-		"url": "https://github.com/melt-ui/melt-ui"
+		"repository": "https://github.com/melt-ui/melt-ui"
 	},
 	{
 		"addedOn": "2023-08-09T04:29:13Z",
@@ -1058,7 +1058,7 @@
 		"npm": "radix-svelte",
 		"tags": ["components and libraries", "component sets"],
 		"title": "radix-svelte",
-		"url": "https://github.com/radix-svelte/radix-svelte"
+		"repository": "https://github.com/radix-svelte/radix-svelte"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1067,7 +1067,7 @@
 		"npm": "svelte-image",
 		"tags": ["components and libraries", "images"],
 		"title": "svelte-image",
-		"url": "https://github.com/matyunya/svelte-image"
+		"repository": "https://github.com/matyunya/svelte-image"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1076,7 +1076,7 @@
 		"npm": "svelte-waypoint",
 		"tags": ["components and libraries", "images"],
 		"title": "svelte-waypoint",
-		"url": "https://github.com/matyunya/svelte-waypoint"
+		"repository": "https://github.com/matyunya/svelte-waypoint"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1085,7 +1085,7 @@
 		"npm": "sveltejs-forms",
 		"tags": ["components and libraries", "forms and validation"],
 		"title": "sveltejs-forms",
-		"url": "https://github.com/mdauner/sveltejs-forms"
+		"repository": "https://github.com/mdauner/sveltejs-forms"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1094,7 +1094,7 @@
 		"npm": "svelte-navigator",
 		"tags": ["routers"],
 		"title": "svelte-navigator",
-		"url": "https://github.com/mefechoel/svelte-navigator"
+		"repository": "https://github.com/mefechoel/svelte-navigator"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1103,7 +1103,7 @@
 		"npm": "layercake",
 		"tags": ["components and libraries", "charts"],
 		"title": "layercake",
-		"url": "https://github.com/mhkeller/layercake"
+		"repository": "https://github.com/mhkeller/layercake"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1111,7 +1111,7 @@
 		"description": "A Javascript REPL (code editor and code results) component",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "Browser REPL JS",
-		"url": "https://github.com/milafrerichs/browser-repl-js"
+		"repository": "https://github.com/milafrerichs/browser-repl-js"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1119,7 +1119,7 @@
 		"description": "resizable layout component for svelte",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-layout-resizable",
-		"url": "https://github.com/milahu/svelte-layout-resizable"
+		"repository": "https://github.com/milahu/svelte-layout-resizable"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1127,7 +1127,7 @@
 		"description": "compile time eval for svelte components",
 		"tags": ["preprocessors", "ssr"],
 		"title": "svelte-preval",
-		"url": "https://github.com/milahu/svelte-preval"
+		"repository": "https://github.com/milahu/svelte-preval"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1136,7 +1136,7 @@
 		"npm": "@egjs/svelte-infinitegrid",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "@egjs/svelte-infinitegrid",
-		"url": "https://github.com/naver/egjs-infinitegrid/blob/master/packages/svelte-infinitegrid"
+		"repository": "https://github.com/naver/egjs-infinitegrid/blob/master/packages/svelte-infinitegrid"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1145,7 +1145,7 @@
 		"npm": "svelte-page-progress",
 		"tags": ["intersection observer", "viewport", "components and libraries"],
 		"title": "svelte-page-progress",
-		"url": "https://github.com/NomanGul/svelte-page-progress"
+		"repository": "https://github.com/NomanGul/svelte-page-progress"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1154,7 +1154,7 @@
 		"npm": "@okrad/svelte-progressbar",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "@okrad/svelte-progressbar",
-		"url": "https://github.com/okrad/svelte-progressbar"
+		"repository": "https://github.com/okrad/svelte-progressbar"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1163,7 +1163,7 @@
 		"npm": "svelte-intl",
 		"tags": ["components and libraries", "internationalization"],
 		"title": "svelte-intl",
-		"url": "https://github.com/Panya/svelte-intl"
+		"repository": "https://github.com/Panya/svelte-intl"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1179,7 +1179,7 @@
 			"templates"
 		],
 		"title": "svelta",
-		"url": "https://github.com/Parables/svelta"
+		"repository": "https://github.com/Parables/svelta"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1188,7 +1188,7 @@
 		"npm": "svql",
 		"tags": ["components and libraries", "stores and state"],
 		"title": "svql",
-		"url": "https://github.com/pateketrueke/svql"
+		"repository": "https://github.com/pateketrueke/svql"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1197,7 +1197,7 @@
 		"npm": "yrv",
 		"tags": ["routers"],
 		"title": "yrv",
-		"url": "https://github.com/pateketrueke/yrv"
+		"repository": "https://github.com/pateketrueke/yrv"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1206,7 +1206,7 @@
 		"npm": "svelte-asyncable",
 		"tags": ["stores and state", "async data"],
 		"title": "svelte-asyncable",
-		"url": "https://github.com/sveltetools/svelte-asyncable"
+		"repository": "https://github.com/sveltetools/svelte-asyncable"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1215,7 +1215,7 @@
 		"npm": "svelte-content-loader",
 		"tags": ["components and libraries", "async loading"],
 		"title": "svelte-content-loader",
-		"url": "https://github.com/PaulMaly/svelte-content-loader"
+		"repository": "https://github.com/PaulMaly/svelte-content-loader"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1224,7 +1224,7 @@
 		"npm": "svelte-image-compare",
 		"tags": ["components and libraries"],
 		"title": "svelte-image-compare",
-		"url": "https://github.com/PaulMaly/svelte-image-compare"
+		"repository": "https://github.com/PaulMaly/svelte-image-compare"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1233,7 +1233,7 @@
 		"npm": "svelte-imask",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "svelte-imask",
-		"url": "https://github.com/PaulMaly/svelte-imask"
+		"repository": "https://github.com/PaulMaly/svelte-imask"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1242,11 +1242,11 @@
 		"npm": "svelte-page-router",
 		"tags": ["routers"],
 		"title": "svelte-page-router",
-		"url": "https://github.com/PaulMaly/svelte-page-router"
+		"repository": "https://github.com/PaulMaly/svelte-page-router"
 	},
 	{
 		"title": "svelte-pathfinder",
-		"url": "https://github.com/sveltetools/svelte-pathfinder",
+		"repository": "https://github.com/sveltetools/svelte-pathfinder",
 		"description": "Tiny, state-based, advanced router for SvelteJS.",
 		"npm": "svelte-pathfinder",
 		"addedOn": "2023-03-13",
@@ -1260,7 +1260,7 @@
 		"npm": "svelte-ticker",
 		"tags": ["components and libraries"],
 		"title": "svelte-ticker",
-		"url": "https://github.com/PaulMaly/svelte-ticker"
+		"repository": "https://github.com/PaulMaly/svelte-ticker"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1269,7 +1269,7 @@
 		"npm": "svelte-viewpoint",
 		"tags": ["components and libraries", "async loading"],
 		"title": "svelte-viewpoint",
-		"url": "https://github.com/sveltetools/svelte-viewpoint"
+		"repository": "https://github.com/sveltetools/svelte-viewpoint"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1278,7 +1278,7 @@
 		"npm": "select-madu",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "select-madu",
-		"url": "https://github.com/pavish/select-madu"
+		"repository": "https://github.com/pavish/select-madu"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1287,7 +1287,7 @@
 		"npm": "svelte-match-media",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-match-media",
-		"url": "https://github.com/pearofducks/svelte-match-media"
+		"repository": "https://github.com/pearofducks/svelte-match-media"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1296,7 +1296,7 @@
 		"npm": "svelte-webext-storage-adapter",
 		"tags": ["components and libraries", "stores and state", "integrations"],
 		"title": "svelte-webext-storage-adapter",
-		"url": "https://github.com/PixievoltNo1/svelte-webext-storage-adapter"
+		"repository": "https://github.com/PixievoltNo1/svelte-webext-storage-adapter"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1305,7 +1305,7 @@
 		"npm": "svelte-writable-derived",
 		"tags": ["components and libraries", "stores and state"],
 		"title": "svelte-writable-derived",
-		"url": "https://github.com/PixievoltNo1/svelte-writable-derived"
+		"repository": "https://github.com/PixievoltNo1/svelte-writable-derived"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1314,7 +1314,7 @@
 		"npm": "storez",
 		"tags": ["components and libraries", "stores and state"],
 		"title": "storez",
-		"url": "https://github.com/plrenaudin/svelte-storez"
+		"repository": "https://github.com/plrenaudin/svelte-storez"
 	},
 	{
 		"addedOn": "2021-01-15T22:22:22Z",
@@ -1322,7 +1322,7 @@
 		"description": "Template for client side svelte store",
 		"tags": ["components and libraries", "stores and state"],
 		"title": "SvelteStore",
-		"url": "https://github.com/gitbreaker222/SvelteStore"
+		"repository": "https://github.com/gitbreaker222/SvelteStore"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1331,7 +1331,7 @@
 		"npm": "mdsvex",
 		"tags": ["integrations", "preprocessors"],
 		"title": "mdsvex",
-		"url": "https://github.com/pngwn/MDsveX"
+		"repository": "https://github.com/pngwn/MDsveX"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1340,7 +1340,7 @@
 		"npm": "svelte-adapter",
 		"tags": ["components and libraries"],
 		"title": "svelte-adapter",
-		"url": "https://github.com/pngwn/svelte-adapter"
+		"repository": "https://github.com/pngwn/svelte-adapter"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1349,7 +1349,7 @@
 		"npm": "svelte-test",
 		"tags": ["testing"],
 		"title": "svelte-test",
-		"url": "https://github.com/pngwn/svelte-test"
+		"repository": "https://github.com/pngwn/svelte-test"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1358,7 +1358,7 @@
 		"npm": "svelte-fusioncharts",
 		"tags": ["components and libraries", "charts"],
 		"title": "svelte-fusioncharts",
-		"url": "https://github.com/fusioncharts/svelte-fusioncharts"
+		"repository": "https://github.com/fusioncharts/svelte-fusioncharts"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1366,7 +1366,7 @@
 		"description": "Simple autocomplete / typeahead component for Svelte",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "Simple Svelte Autocomplete",
-		"url": "https://github.com/pstanoev/simple-svelte-autocomplete"
+		"repository": "https://github.com/pstanoev/simple-svelte-autocomplete"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1375,7 +1375,7 @@
 		"npm": "svelte-hash-router",
 		"tags": ["routers"],
 		"title": "svelte-hash-router",
-		"url": "https://github.com/tienpv222/svelte-hash-router"
+		"repository": "https://github.com/tienpv222/svelte-hash-router"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1384,7 +1384,7 @@
 		"npm": "svelte-color-picker",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "svelte-color-picker",
-		"url": "https://github.com/efeskucuk/svelte-color-picker"
+		"repository": "https://github.com/efeskucuk/svelte-color-picker"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1393,7 +1393,7 @@
 		"npm": "svelte-inspector",
 		"tags": ["components and libraries", "development and documentation"],
 		"title": "svelte-inspector",
-		"url": "https://github.com/qutran/svelte-inspector"
+		"repository": "https://github.com/qutran/svelte-inspector"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1402,7 +1402,7 @@
 		"npm": "swheel",
 		"tags": ["routers"],
 		"title": "swheel",
-		"url": "https://github.com/qutran/swheel"
+		"repository": "https://github.com/qutran/swheel"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1411,7 +1411,7 @@
 		"npm": "svelte-accessible-dialog",
 		"tags": ["components and libraries"],
 		"title": "svelte-accessible-dialog",
-		"url": "https://github.com/reecelucas/svelte-accessible-dialog"
+		"repository": "https://github.com/reecelucas/svelte-accessible-dialog"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1420,7 +1420,7 @@
 		"npm": "@sveltejs/pancake",
 		"tags": ["components and libraries", "charts"],
 		"title": "@sveltejs/pancake",
-		"url": "https://github.com/Rich-Harris/pancake"
+		"repository": "https://github.com/Rich-Harris/pancake"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1429,7 +1429,7 @@
 		"npm": "svelte-select",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "svelte-select",
-		"url": "https://github.com/rob-balfre/svelte-select"
+		"repository": "https://github.com/rob-balfre/svelte-select"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1438,7 +1438,7 @@
 		"npm": "svelte-awesome",
 		"tags": ["components and libraries", "fonts and icons"],
 		"title": "svelte-awesome",
-		"url": "https://github.com/RobBrazier/svelte-awesome"
+		"repository": "https://github.com/RobBrazier/svelte-awesome"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1447,7 +1447,7 @@
 		"npm": "jest-transform-svelte",
 		"tags": ["testing"],
 		"title": "jest-transform-svelte",
-		"url": "https://github.com/rspieker/jest-transform-svelte"
+		"repository": "https://github.com/rspieker/jest-transform-svelte"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1456,7 +1456,7 @@
 		"npm": "svelte-image-encoder",
 		"tags": ["components and libraries", "images"],
 		"title": "svelte-image-encoder",
-		"url": "https://github.com/saabi/svelte-image-encoder"
+		"repository": "https://github.com/saabi/svelte-image-encoder"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1465,7 +1465,7 @@
 		"npm": "multicarousel",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "multicarousel",
-		"url": "https://github.com/sciactive/multicarousel"
+		"repository": "https://github.com/sciactive/multicarousel"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1474,7 +1474,7 @@
 		"npm": "svelte-heatmap",
 		"tags": ["components and libraries", "time and date"],
 		"title": "svelte-heatmap",
-		"url": "https://github.com/scottbedard/svelte-heatmap"
+		"repository": "https://github.com/scottbedard/svelte-heatmap"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1483,7 +1483,7 @@
 		"npm": "svelte-swipe",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-swipe",
-		"url": "https://github.com/SharifClick/svelte-swipe"
+		"repository": "https://github.com/SharifClick/svelte-swipe"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1492,7 +1492,7 @@
 		"npm": "@slick-for/svelte",
 		"tags": ["routers"],
 		"title": "@slick-for/svelte",
-		"url": "https://github.com/shavyg2/slick-for-svelte"
+		"repository": "https://github.com/shavyg2/slick-for-svelte"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1501,7 +1501,7 @@
 		"npm": "svelte-marquee",
 		"tags": ["components and libraries"],
 		"title": "svelte-marquee",
-		"url": "https://github.com/silvestrevivo/svelte-marquee"
+		"repository": "https://github.com/silvestrevivo/svelte-marquee"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1515,7 +1515,7 @@
 			"interactions"
 		],
 		"title": "svelte-range-slider-pips",
-		"url": "https://github.com/simeydotme/svelte-range-slider-pips"
+		"repository": "https://github.com/simeydotme/svelte-range-slider-pips"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1524,7 +1524,7 @@
 		"npm": "svelte-infinite-loading",
 		"tags": ["components and libraries"],
 		"title": "svelte-infinite-loading",
-		"url": "https://github.com/Skayo/svelte-infinite-loading"
+		"repository": "https://github.com/Skayo/svelte-infinite-loading"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1533,7 +1533,7 @@
 		"npm": "@spaceavocado/svelte-form",
 		"tags": ["components and libraries", "forms and validation"],
 		"title": "@spaceavocado/svelte-form",
-		"url": "https://github.com/spaceavocado/svelte-form"
+		"repository": "https://github.com/spaceavocado/svelte-form"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1542,7 +1542,7 @@
 		"npm": "@spaceavocado/svelte-router",
 		"tags": ["routers"],
 		"title": "@spaceavocado/svelte-router",
-		"url": "https://github.com/spaceavocado/svelte-router"
+		"repository": "https://github.com/spaceavocado/svelte-router"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1551,7 +1551,7 @@
 		"npm": "svelte-multitoneimage",
 		"tags": ["components and libraries", "images"],
 		"title": "svelte-multitoneimage",
-		"url": "https://github.com/stephane-vanraes/svelte-multitoneimage"
+		"repository": "https://github.com/stephane-vanraes/svelte-multitoneimage"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1560,7 +1560,7 @@
 		"npm": "svelte-progresscircle",
 		"tags": ["components and libraries"],
 		"title": "svelte-progresscircle",
-		"url": "https://github.com/stephane-vanraes/svelte-progresscircle"
+		"repository": "https://github.com/stephane-vanraes/svelte-progresscircle"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1568,7 +1568,7 @@
 		"description": "UI component dev & test",
 		"tags": ["testing"],
 		"title": "storybookjs",
-		"url": "https://github.com/storybookjs/storybook"
+		"repository": "https://github.com/storybookjs/storybook"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1577,7 +1577,7 @@
 		"npm": "svelte-toolbox",
 		"tags": ["components and libraries", "component sets"],
 		"title": "svelte-toolbox",
-		"url": "https://github.com/svelte-toolbox/svelte-toolbox"
+		"repository": "https://github.com/svelte-toolbox/svelte-toolbox"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1586,7 +1586,7 @@
 		"npm": "routify",
 		"tags": ["routers", "ssr"],
 		"title": "routify",
-		"url": "https://github.com/roxiness/routify"
+		"repository": "https://github.com/roxiness/routify"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1595,7 +1595,7 @@
 		"npm": "@sveltejs/gestures",
 		"tags": ["components and libraries", "interactions"],
 		"title": "@sveltejs/gestures",
-		"url": "https://github.com/sveltejs/gestures"
+		"repository": "https://github.com/sveltejs/gestures"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1604,7 +1604,7 @@
 		"npm": "@sveltejs/gl",
 		"tags": ["webgl"],
 		"title": "@sveltejs/gl",
-		"url": "https://github.com/sveltejs/gl"
+		"repository": "https://github.com/sveltejs/gl"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1613,7 +1613,7 @@
 		"npm": "@sveltejs/svelte-repl",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "@sveltejs/svelte-repl",
-		"url": "https://github.com/sveltejs/svelte-repl"
+		"repository": "https://github.com/sveltejs/svelte-repl"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1622,7 +1622,7 @@
 		"npm": "@sveltejs/svelte-scroller",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "@sveltejs/svelte-scroller",
-		"url": "https://github.com/sveltejs/svelte-scroller"
+		"repository": "https://github.com/sveltejs/svelte-scroller"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1631,7 +1631,7 @@
 		"npm": "@sveltejs/svelte-subdivide",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "@sveltejs/svelte-subdivide",
-		"url": "https://github.com/sveltejs/svelte-subdivide"
+		"repository": "https://github.com/sveltejs/svelte-subdivide"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1640,11 +1640,11 @@
 		"npm": "@sveltejs/svelte-virtual-list",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "@sveltejs/svelte-virtual-list",
-		"url": "https://github.com/sveltejs/svelte-virtual-list"
+		"repository": "https://github.com/sveltejs/svelte-virtual-list"
 	},
 	{
 		"title": "Svelte Virtual List CE",
-		"url": "https://github.com/gitbreaker222/svelte-virtual-list",
+		"repository": "https://github.com/gitbreaker222/svelte-virtual-list",
 		"description": "A virtual list component for Svelte apps - Community Edition",
 		"npm": "svelte-virtual-list-ce",
 		"addedOn": "2022-01-23",
@@ -1658,7 +1658,7 @@
 		"npm": "svelte-state-renderer",
 		"tags": ["routers"],
 		"title": "svelte-state-renderer",
-		"url": "https://github.com/TehShrike/svelte-state-renderer"
+		"repository": "https://github.com/TehShrike/svelte-state-renderer"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1667,7 +1667,7 @@
 		"npm": "@testing-library/svelte",
 		"tags": ["testing"],
 		"title": "@testing-library/svelte",
-		"url": "https://github.com/testing-library/svelte-testing-library"
+		"repository": "https://github.com/testing-library/svelte-testing-library"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1676,7 +1676,7 @@
 		"npm": "svelte-file-dropzone",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "svelte-file-dropzone",
-		"url": "https://github.com/thecodejack/svelte-file-dropzone"
+		"repository": "https://github.com/thecodejack/svelte-file-dropzone"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1685,7 +1685,7 @@
 		"npm": "svelte-apollo",
 		"tags": ["components and libraries", "stores and state"],
 		"title": "svelte-apollo",
-		"url": "https://github.com/timhall/svelte-apollo"
+		"repository": "https://github.com/timhall/svelte-apollo"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1694,7 +1694,7 @@
 		"npm": "svelte-observable",
 		"tags": ["components and libraries", "stores and state"],
 		"title": "svelte-observable",
-		"url": "https://github.com/timhall/svelte-observable"
+		"repository": "https://github.com/timhall/svelte-observable"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1703,7 +1703,7 @@
 		"npm": "sveltemantic",
 		"tags": ["components and libraries", "component sets"],
 		"title": "sveltemantic",
-		"url": "https://github.com/titans-inc/sveltemantic"
+		"repository": "https://github.com/titans-inc/sveltemantic"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1712,7 +1712,7 @@
 		"npm": "svelte-forms-lib",
 		"tags": ["components and libraries", "forms and validation"],
 		"title": "svelte-forms-lib",
-		"url": "https://github.com/tjinauyeung/svelte-forms-lib"
+		"repository": "https://github.com/tjinauyeung/svelte-forms-lib"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1721,7 +1721,7 @@
 		"npm": "svelte-grid",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-grid",
-		"url": "https://github.com/vaheqelyan/svelte-grid"
+		"repository": "https://github.com/vaheqelyan/svelte-grid"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1730,7 +1730,7 @@
 		"npm": "svelte-popover",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-popover",
-		"url": "https://github.com/vaheqelyan/svelte-popover"
+		"repository": "https://github.com/vaheqelyan/svelte-popover"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1739,7 +1739,7 @@
 		"npm": "svelte-easy-crop",
 		"tags": ["components and libraries", "images"],
 		"title": "svelte-easy-crop",
-		"url": "https://github.com/ValentinH/svelte-easy-crop"
+		"repository": "https://github.com/ValentinH/svelte-easy-crop"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1748,7 +1748,7 @@
 		"npm": "svelte-mui",
 		"tags": ["components and libraries", "component sets"],
 		"title": "svelte-mui",
-		"url": "https://github.com/vikignt/svelte-mui"
+		"repository": "https://github.com/vikignt/svelte-mui"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1756,7 +1756,7 @@
 		"description": "Focused on making embedding and using media elements for the web simple.",
 		"tags": ["video", "audio", "components and libraries", "inputs and widgets"],
 		"title": "Vime",
-		"url": "https://github.com/vime-js/vime"
+		"repository": "https://github.com/vime-js/vime"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1765,7 +1765,7 @@
 		"npm": "s-offline",
 		"tags": ["offline and online detection", "network events"],
 		"title": "s-offline",
-		"url": "https://github.com/vinayakkulkarni/s-offline"
+		"repository": "https://github.com/vinayakkulkarni/s-offline"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1774,7 +1774,7 @@
 		"npm": "minna-ui",
 		"tags": ["components and libraries", "component sets"],
 		"title": "minna-ui",
-		"url": "https://github.com/WeAreGenki/minna-ui"
+		"repository": "https://github.com/WeAreGenki/minna-ui"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1783,7 +1783,7 @@
 		"npm": "svelte-media-query",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-media-query",
-		"url": "https://github.com/xelaok/svelte-media-query"
+		"repository": "https://github.com/xelaok/svelte-media-query"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1792,7 +1792,7 @@
 		"npm": "svelte-mobx",
 		"tags": ["components and libraries", "stores and state"],
 		"title": "svelte-mobx",
-		"url": "https://github.com/xelaok/svelte-mobx"
+		"repository": "https://github.com/xelaok/svelte-mobx"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1801,7 +1801,7 @@
 		"npm": "svelte-watch-resize",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-watch-resize",
-		"url": "https://github.com/xelaok/svelte-watch-resize"
+		"repository": "https://github.com/xelaok/svelte-watch-resize"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1810,7 +1810,7 @@
 		"npm": "svelte-input-mask",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "svelte-input-mask",
-		"url": "https://github.com/xnimorz/svelte-input-mask"
+		"repository": "https://github.com/xnimorz/svelte-input-mask"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1819,7 +1819,7 @@
 		"npm": "svelidation",
 		"tags": ["components and libraries", "forms and validation"],
 		"title": "svelidation",
-		"url": "https://github.com/yazonnile/svelidation"
+		"repository": "https://github.com/yazonnile/svelidation"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1828,7 +1828,7 @@
 		"npm": "svelte-fullcalendar",
 		"tags": ["components and libraries", "time and date"],
 		"title": "svelte-fullcalendar",
-		"url": "https://github.com/YogliB/svelte-fullcalendar"
+		"repository": "https://github.com/YogliB/svelte-fullcalendar"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1837,7 +1837,7 @@
 		"npm": "svelte-item-list",
 		"tags": ["components and libraries", "component sets"],
 		"title": "svelte-item-list",
-		"url": "https://github.com/the-homeless-god/svelte-item-list"
+		"repository": "https://github.com/the-homeless-god/svelte-item-list"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1846,7 +1846,7 @@
 		"npm": "@zooplus/zoo-web-components",
 		"tags": ["components and libraries", "component sets"],
 		"title": "@zooplus/zoo-web-components",
-		"url": "https://github.com/zooplus/zoo-web-components"
+		"repository": "https://github.com/zooplus/zoo-web-components"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1855,7 +1855,7 @@
 		"npm": "svelte-atoms",
 		"tags": ["components and libraries", "component sets"],
 		"title": "svelte-atoms",
-		"url": "https://gitlab.com/az67128/svelte-atoms"
+		"repository": "https://gitlab.com/az67128/svelte-atoms"
 	},
 	{
 		"addedOn": "2020-09-29T14:39:13Z",
@@ -1874,7 +1874,7 @@
 		"npm": "svelte-tiny-virtual-list",
 		"tags": ["components and libraries"],
 		"title": "svelte-tiny-virtual-list",
-		"url": "https://github.com/Skayo/svelte-tiny-virtual-list"
+		"repository": "https://github.com/Skayo/svelte-tiny-virtual-list"
 	},
 	{
 		"addedOn": "2021-01-08T20:11:39.581Z",
@@ -1923,7 +1923,7 @@
 		"npm": "svelte-appwrite",
 		"tags": ["components and libraries", "component sets"],
 		"title": "svelte-appwrite",
-		"url": "https://github.com/appwrite/sdk-for-svelte"
+		"repository": "https://github.com/appwrite/sdk-for-svelte"
 	},
 	{
 		"addedOn": "2021-02-06T14:00:39.581Z",
@@ -1932,7 +1932,7 @@
 		"npm": "svelte-pdf",
 		"tags": ["components and libraries", "pdf"],
 		"title": "svelte-pdf",
-		"url": "https://github.com/vinodnimbalkar/svelte-pdf"
+		"repository": "https://github.com/vinodnimbalkar/svelte-pdf"
 	},
 	{
 		"addedOn": "2021-01-28T00:20:00Z",
@@ -1941,7 +1941,7 @@
 		"npm": "svelte-micro",
 		"tags": ["routers"],
 		"title": "svelte-micro",
-		"url": "https://github.com/ayndqy/svelte-micro"
+		"repository": "https://github.com/ayndqy/svelte-micro"
 	},
 	{
 		"addedOn": "2021-02-26T23:46:44Z",
@@ -1950,7 +1950,7 @@
 		"npm": "svantic",
 		"tags": ["component sets", "components and libraries"],
 		"title": "svantic",
-		"url": "https://github.com/ryu-man/svantic"
+		"repository": "https://github.com/ryu-man/svantic"
 	},
 	{
 		"addedOn": "2021-02-20T19:00:00Z",
@@ -1959,7 +1959,7 @@
 		"npm": "@macfja/svelte-undoable",
 		"tags": ["stores and state"],
 		"title": "Undoable store",
-		"url": "https://github.com/macfja/svelte-undoable"
+		"repository": "https://github.com/macfja/svelte-undoable"
 	},
 	{
 		"addedOn": "2021-03-02T19:00:00Z",
@@ -1968,7 +1968,7 @@
 		"npm": "renderless-svelte",
 		"tags": ["components and libraries", "component sets"],
 		"title": "Renderless Svelte",
-		"url": "https://github.com/stephane-vanraes/renderless-svelte"
+		"repository": "https://github.com/stephane-vanraes/renderless-svelte"
 	},
 	{
 		"addedOn": "2021-03-19T20:44:00Z",
@@ -1977,11 +1977,11 @@
 		"npm": "svate",
 		"tags": ["components and libraries", "stores and state"],
 		"title": "svate",
-		"url": "https://github.com/AlexxNB/svate"
+		"repository": "https://github.com/AlexxNB/svate"
 	},
 	{
 		"title": "svelte-parallax",
-		"url": "https://github.com/kindoflew/svelte-parallax",
+		"repository": "https://github.com/kindoflew/svelte-parallax",
 		"npm": "svelte-parallax",
 		"description": "A spring-based parallax component for Svelte, based on react-spring/parallax.",
 		"tags": ["components and libraries"],
@@ -2004,7 +2004,7 @@
 		"npm": "@macfja/svelte-persistent-store",
 		"tags": ["stores and state"],
 		"title": "Persistent Store",
-		"url": "https://github.com/MacFJA/svelte-persistent-store"
+		"repository": "https://github.com/MacFJA/svelte-persistent-store"
 	},
 	{
 		"addedOn": "2021-04-17T19:00:00Z",
@@ -2013,7 +2013,7 @@
 		"npm": "@macfja/svelte-invalidable",
 		"tags": ["stores and state"],
 		"title": "Invalidable Store",
-		"url": "https://github.com/MacFJA/svelte-invalidable"
+		"repository": "https://github.com/MacFJA/svelte-invalidable"
 	},
 	{
 		"addedOn": "2021-04-21T18:12:25.602Z",
@@ -2022,7 +2022,7 @@
 		"npm": "svelte-carousel",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-carousel",
-		"url": "https://github.com/vadimkorr/svelte-carousel"
+		"repository": "https://github.com/vadimkorr/svelte-carousel"
 	},
 	{
 		"addedOn": "2021-05-02T15:53:00.632Z",
@@ -2031,7 +2031,7 @@
 		"npm": "svelte-restate",
 		"tags": ["stores and state"],
 		"title": "Svelte Restate",
-		"url": "https://github.com/endenwer/svelte-restate"
+		"repository": "https://github.com/endenwer/svelte-restate"
 	},
 	{
 		"addedOn": "2021-05-13T20:03:07.660Z",
@@ -2040,7 +2040,7 @@
 		"npm": "svelte-pincode",
 		"tags": ["component sets", "components and libraries"],
 		"title": "svelte-pincode",
-		"url": "https://github.com/metonym/svelte-pincode"
+		"repository": "https://github.com/metonym/svelte-pincode"
 	},
 	{
 		"addedOn": "2021-05-13T07:32:00Z",
@@ -2049,7 +2049,7 @@
 		"npm": "svelte-particles",
 		"tags": ["components and libraries", "component sets", "typescript", "animations"],
 		"title": "svelte-particles",
-		"url": "https://github.com/matteobruni/tsparticles"
+		"repository": "https://github.com/matteobruni/tsparticles"
 	},
 	{
 		"addedOn": "2021-07-14T13:23:59.236Z",
@@ -2058,7 +2058,7 @@
 		"npm": "svelte-tiptap",
 		"tags": ["components and libraries", "rich text editor"],
 		"title": "svelte-tiptap",
-		"url": "https://github.com/sibiraj-s/svelte-tiptap"
+		"repository": "https://github.com/sibiraj-s/svelte-tiptap"
 	},
 	{
 		"addedOn": "2021-08-12T17:30:00Z",
@@ -2067,7 +2067,7 @@
 		"npm": "spaper",
 		"tags": ["components and libraries", "component sets"],
 		"title": "Spaper",
-		"url": "https://github.com/Oli8/spaper"
+		"repository": "https://github.com/Oli8/spaper"
 	},
 	{
 		"addedOn": "2021-07-25T20:00:00Z",
@@ -2076,7 +2076,7 @@
 		"npm": "@event-calendar/core",
 		"tags": ["components and libraries", "time and date"],
 		"title": "Event Calendar",
-		"url": "https://github.com/vkurko/calendar"
+		"repository": "https://github.com/vkurko/calendar"
 	},
 	{
 		"addedOn": "2021-08-13T05:51:23.981Z",
@@ -2085,7 +2085,7 @@
 		"npm": "@kahi-ui/framework",
 		"tags": ["components and libraries"],
 		"title": "Kahi UI",
-		"url": "https://github.com/novacbn/kahi-ui"
+		"repository": "https://github.com/novacbn/kahi-ui"
 	},
 	{
 		"title": "Svelte Multi Adapter",
@@ -2093,12 +2093,12 @@
 		"description": "An adapter to launch multiple adapter",
 		"npm": "@macfja/svelte-multi-adapter",
 		"tags": [],
-		"url": "https://github.com/macfja/svelte-adapter-multi#readme",
+		"repository": "https://github.com/macfja/svelte-adapter-multi#readme",
 		"addedOn": "2021-08-23T15:40:00.000Z"
 	},
 	{
 		"title": "svelte-multiselect",
-		"url": "https://github.com/janosh/svelte-multiselect",
+		"repository": "https://github.com/janosh/svelte-multiselect",
 		"description": "Keyboard-friendly, accessible and highly customizable multi-select component",
 		"tags": [
 			"components and libraries",
@@ -2113,7 +2113,7 @@
 	},
 	{
 		"title": "svelte-toc",
-		"url": "https://github.com/janosh/svelte-toc",
+		"repository": "https://github.com/janosh/svelte-toc",
 		"description": "Sticky responsive table of contents component",
 		"tags": [
 			"components and libraries",
@@ -2129,7 +2129,7 @@
 	},
 	{
 		"title": "svelte-bricks",
-		"url": "https://github.com/janosh/svelte-bricks",
+		"repository": "https://github.com/janosh/svelte-bricks",
 		"description": "Naive Svelte masonry component without column balancing (ragged columns at the bottom)",
 		"tags": ["components and libraries", "layout and structure"],
 		"npm": "svelte-bricks",
@@ -2142,12 +2142,12 @@
 		"description": "Add OAuth2 authorization in Svelte (and SvelteKit, works with SSR)",
 		"npm": "@macfja/svelte-oauth2",
 		"tags": ["auth", "integrations", "ssr", "third party services"],
-		"url": "https://github.com/macfja/svelte-oauth2#readme",
+		"repository": "https://github.com/macfja/svelte-oauth2#readme",
 		"addedOn": "2021-09-10T20:00:00.000Z"
 	},
 	{
 		"title": "svelte-boring-avatars",
-		"url": "https://github.com/paolotiu/svelte-boring-avatars",
+		"repository": "https://github.com/paolotiu/svelte-boring-avatars",
 		"description": "Svelte port of Boring Avatars",
 		"npm": "svelte-boring-avatars",
 		"addedOn": "2021-09-28",
@@ -2156,7 +2156,7 @@
 	},
 	{
 		"title": "filedrop-svelte",
-		"url": "https://github.com/chanced/filedrop-svelte",
+		"repository": "https://github.com/chanced/filedrop-svelte",
 		"description": "file dropzone action & component",
 		"npm": "filedrop-svelte",
 		"addedOn": "2021-09-20",
@@ -2165,7 +2165,7 @@
 	},
 	{
 		"title": "focus-svelte",
-		"url": "https://github.com/chanced/focus-svelte",
+		"repository": "https://github.com/chanced/focus-svelte",
 		"description": "focus lock for accessibility",
 		"npm": "focus-svelte",
 		"addedOn": "2021-09-20",
@@ -2174,7 +2174,7 @@
 	},
 	{
 		"title": "svelte-translate",
-		"url": "https://github.com/noelmugnier/svelte-translate",
+		"repository": "https://github.com/noelmugnier/svelte-translate",
 		"description": "Use a dynamic translation service (loaded from xx-XX.json files) and fallback to the text in html tags if no translations are provided.",
 		"npm": "svelte-translate",
 		"addedOn": "2021-09-29",
@@ -2183,7 +2183,7 @@
 	},
 	{
 		"title": "svelecte",
-		"url": "https://github.com/mskocik/svelecte",
+		"repository": "https://github.com/mskocik/svelecte",
 		"description": "Selectize-like autocomplete select/multiselect/tagging component",
 		"npm": "svelecte",
 		"addedOn": "2021-10-10",
@@ -2192,7 +2192,7 @@
 	},
 	{
 		"title": "svelte-adapter-azure-swa",
-		"url": "https://github.com/geoffrich/svelte-adapter-azure-swa",
+		"repository": "https://github.com/geoffrich/svelte-adapter-azure-swa",
 		"description": "SvelteKit adapter for Azure Static Web Apps.",
 		"npm": "svelte-adapter-azure-swa",
 		"addedOn": "2021-10-12",
@@ -2201,7 +2201,7 @@
 	},
 	{
 		"title": "svelte-adapter-appengine",
-		"url": "https://github.com/halfdanj/svelte-adapter-appengine",
+		"repository": "https://github.com/halfdanj/svelte-adapter-appengine",
 		"description": "SvelteKit adapter for Google Cloud App Engine",
 		"npm": "svelte-adapter-appengine",
 		"addedOn": "2021-10-20",
@@ -2210,7 +2210,7 @@
 	},
 	{
 		"title": "sveltekit-adapter-browser-extension",
-		"url": "https://github.com/antony/sveltekit-adapter-browser-extension",
+		"repository": "https://github.com/antony/sveltekit-adapter-browser-extension",
 		"description": "Build browser extensions with Svelte",
 		"npm": "",
 		"addedOn": "2021-10-29",
@@ -2219,7 +2219,7 @@
 	},
 	{
 		"title": "svelte-fsm",
-		"url": "https://github.com/kenkunz/svelte-fsm",
+		"repository": "https://github.com/kenkunz/svelte-fsm",
 		"description": "Tiny, expressive, Svelte-optimized Finite State Machine library",
 		"npm": "svelte-fsm",
 		"addedOn": "2021-11-01",
@@ -2228,7 +2228,7 @@
 	},
 	{
 		"title": "@budgetdraw/sveltekit-cloudflare-adapter",
-		"url": "https://github.com/budgetdraw/sveltekit-cloudflare-adapter",
+		"repository": "https://github.com/budgetdraw/sveltekit-cloudflare-adapter",
 		"description": "Alternative SvelteKit adapter for Cloudflare workers. Designed to be standalone and not use wrangler.",
 		"npm": "@budgetdraw/sveltekit-cloudflare-adapter",
 		"addedOn": "2021-11-15",
@@ -2247,7 +2247,7 @@
 	},
 	{
 		"title": "svelte-cleavejs",
-		"url": "https://github.com/GCBenlloch/svelte-cleavejs",
+		"repository": "https://github.com/GCBenlloch/svelte-cleavejs",
 		"description": "Svelte action for Cleave.js input masking",
 		"npm": "svelte-cleavejs",
 		"addedOn": "2021-11-14",
@@ -2256,7 +2256,7 @@
 	},
 	{
 		"title": "svelty-picker",
-		"url": "https://github.com/mskocik/svelty-picker",
+		"repository": "https://github.com/mskocik/svelty-picker",
 		"description": "Simple date & time picker you will love",
 		"npm": "svelty-picker",
 		"addedOn": "2021-11-12",
@@ -2265,7 +2265,7 @@
 	},
 	{
 		"title": "svelte-slider",
-		"url": "https://github.com/korywka/svelte-slider",
+		"repository": "https://github.com/korywka/svelte-slider",
 		"description": "Single and Range sliders",
 		"npm": "svelte-slider",
 		"addedOn": "2021-11-23",
@@ -2274,7 +2274,7 @@
 	},
 	{
 		"title": "sveltekit-adapter-wordpress-shortcode",
-		"url": "https://github.com/tomatrow/sveltekit-adapter-wordpress-shortcode",
+		"repository": "https://github.com/tomatrow/sveltekit-adapter-wordpress-shortcode",
 		"description": "Build wordpress shortcode plugins with SvelteKit",
 		"npm": "sveltekit-adapter-wordpress-shortcode",
 		"addedOn": "2021-01-18",
@@ -2283,7 +2283,7 @@
 	},
 	{
 		"title": "Svelte Expirable store",
-		"url": "https://github.com/MacFJA/svelte-expirable",
+		"repository": "https://github.com/MacFJA/svelte-expirable",
 		"description": "A Svelte store with items that expire",
 		"npm": "@macfja/svelte-expirable",
 		"addedOn": "2021-12-12",
@@ -2292,7 +2292,7 @@
 	},
 	{
 		"title": "Store2",
-		"url": "https://github.com/vkurko/svelte-store2",
+		"repository": "https://github.com/vkurko/svelte-store2",
 		"description": "Extended Svelte stores with additional methods",
 		"npm": "svelte-store2",
 		"addedOn": "2022-01-19",
@@ -2301,7 +2301,7 @@
 	},
 	{
 		"title": "Svelte(kit) adapter for Neutralino",
-		"url": "https://github.com/MacFJA/svelte-adapter-neutralino",
+		"repository": "https://github.com/MacFJA/svelte-adapter-neutralino",
 		"description": "A SvelteKit adapter to generate a Neutralinojs application from a SvelteKit project",
 		"npm": "@macfja/svelte-adapter-neutralino",
 		"addedOn": "2021-12-12",
@@ -2310,7 +2310,7 @@
 	},
 	{
 		"title": "sveltekit-adapter-html-like",
-		"url": "https://github.com/idleberg/sveltekit-adapter-html-like",
+		"repository": "https://github.com/idleberg/sveltekit-adapter-html-like",
 		"description": "Adapter for SvelteKit apps that prerenders your site as static files for template engines such as PHP, Blade, Handlebars, EJS etc.",
 		"npm": "sveltekit-adapter-html-like",
 		"addedOn": "2022-01-21",
@@ -2319,7 +2319,7 @@
 	},
 	{
 		"title": "svelte-gestures",
-		"url": "https://github.com/Rezi/svelte-gestures",
+		"repository": "https://github.com/Rezi/svelte-gestures",
 		"description": "collection of gesture recognisers for Svelte.",
 		"npm": "svelte-gestures",
 		"addedOn": "2022-01-24",
@@ -2328,7 +2328,7 @@
 	},
 	{
 		"title": "svelte-adapter-github",
-		"url": "https://github.com/malynium/svelte-adapter-github",
+		"repository": "https://github.com/malynium/svelte-adapter-github",
 		"description": "Easily deploy your static site to GitHub Pages",
 		"npm": "svelte-adapter-github",
 		"addedOn": "2022-02-01",
@@ -2337,7 +2337,7 @@
 	},
 	{
 		"title": "svelte-steps",
-		"url": "https://github.com/shaozi/svelte-steps",
+		"repository": "https://github.com/shaozi/svelte-steps",
 		"description": "A wizard steps component",
 		"npm": "svelte-steps",
 		"addedOn": "2022-02-10",
@@ -2347,7 +2347,7 @@
 	{
 		"title": "agnostic-svelte",
 		"description": "Svelte UI component library",
-		"url": "https://github.com/AgnosticUI/agnosticui/tree/master/agnostic-svelte",
+		"repository": "https://github.com/AgnosticUI/agnosticui/tree/master/agnostic-svelte",
 		"npm": "agnostic-svelte",
 		"addedOn": "2022-02-26",
 		"category": "Design System",
@@ -2355,7 +2355,7 @@
 	},
 	{
 		"title": "svelte-adapter-static-digitalocean",
-		"url": "https://github.com/torstendittmann/svelte-adapter-static-digitalocean",
+		"repository": "https://github.com/torstendittmann/svelte-adapter-static-digitalocean",
 		"description": "SvelteKit adapter for DigitalOcean App Platform static sites.",
 		"npm": "svelte-adapter-static-digitalocean",
 		"addedOn": "2022-03-26",
@@ -2364,7 +2364,7 @@
 	},
 	{
 		"title": "Svend3r Charts",
-		"url": "https://github.com/oslabs-beta/svend3r",
+		"repository": "https://github.com/oslabs-beta/svend3r",
 		"description": "Interactive plug and play charting library for Svelte",
 		"npm": "",
 		"addedOn": "2022-04-01",
@@ -2373,7 +2373,7 @@
 	},
 	{
 		"title": "KitQL",
-		"url": "https://github.com/jycouet/kitql",
+		"repository": "https://github.com/jycouet/kitql",
 		"description": "A set of tools, helping you building efficient apps in a fast way.",
 		"npm": "@kitql/all-in",
 		"addedOn": "2022-05-17",
@@ -2382,7 +2382,7 @@
 	},
 	{
 		"title": "svelte-brick-gallery",
-		"url": "https://github.com/anotherempty/svelte-brick-gallery",
+		"repository": "https://github.com/anotherempty/svelte-brick-gallery",
 		"description": "A masonry-like image gallery component for svelte",
 		"npm": "svelte-brick-gallery",
 		"addedOn": "2022-05-19",
@@ -2391,7 +2391,7 @@
 	},
 	{
 		"title": "SvelteKit Adapter Bun.js",
-		"url": "https://github.com/gornostay25/svelte-adapter-bun",
+		"repository": "https://github.com/gornostay25/svelte-adapter-bun",
 		"description": "SvelteKit adapter that generates a standalone Bun server.",
 		"npm": "svelte-adapter-bun",
 		"addedOn": "2022-07-10T00:00:00Z",
@@ -2400,7 +2400,7 @@
 	},
 	{
 		"title": "svelte-headlessui",
-		"url": "https://github.com/rgossiaux/svelte-headlessui",
+		"repository": "https://github.com/rgossiaux/svelte-headlessui",
 		"description": "Unofficial Svelte port of the Headless UI component library",
 		"npm": "@rgossiaux/svelte-headlessui",
 		"addedOn": "2022-07-17",
@@ -2409,7 +2409,7 @@
 	},
 	{
 		"title": "BeerUi",
-		"url": "https://github.com/beerui/BeerUi",
+		"repository": "https://github.com/beerui/BeerUi",
 		"description": "A Svelte Ui Components",
 		"npm": "@brewer/beerui",
 		"addedOn": "2022-03-24",
@@ -2428,7 +2428,7 @@
 	},
 	{
 		"title": "svelte-hover-draw-svg",
-		"url": "https://github.com/davipon/svelte-hover-draw-svg",
+		"repository": "https://github.com/davipon/svelte-hover-draw-svg",
 		"description": "A lightweight Svelte component to draw SVG on hover.",
 		"npm": "svelte-hover-draw-svg",
 		"addedOn": "2022-08-03",
@@ -2437,7 +2437,7 @@
 	},
 	{
 		"title": "svelte-switch-case",
-		"url": "https://github.com/l-portet/svelte-switch-case",
+		"repository": "https://github.com/l-portet/svelte-switch-case",
 		"description": "Switch case syntax for Svelte",
 		"npm": "svelte-switch-case",
 		"addedOn": "2022-07-25",
@@ -2445,7 +2445,7 @@
 	},
 	{
 		"title": "casual-ui-svelte",
-		"url": "https://github.com/Casual-UI/casual-ui",
+		"repository": "https://github.com/Casual-UI/casual-ui",
 		"description": "A ui components lib that supports for Svelte3",
 		"npm": "casual-ui-svelte",
 		"addedOn": "2022-08-17",
@@ -2454,7 +2454,7 @@
 	},
 	{
 		"title": "svelte-currency-input",
-		"url": "https://github.com/fmaclen/svelte-currency-input",
+		"repository": "https://github.com/fmaclen/svelte-currency-input",
 		"description": "A form input that converts numbers to localized currency formats as you type",
 		"npm": "svelte-currency-input",
 		"addedOn": "2022-09-19",
@@ -2463,7 +2463,7 @@
 	},
 	{
 		"title": "flowbite-svelte",
-		"url": "https://github.com/themesberg/flowbite-svelte",
+		"repository": "https://github.com/themesberg/flowbite-svelte",
 		"description": "Official Svelte components built for Flowbite and Tailwind CSS",
 		"npm": "flowbite-svelte",
 		"addedOn": "2022-09-24",
@@ -2472,7 +2472,7 @@
 	},
 	{
 		"title": "typesafe-i18n",
-		"url": "https://github.com/ivanhofer/typesafe-i18n",
+		"repository": "https://github.com/ivanhofer/typesafe-i18n",
 		"category": "Developer Experience",
 		"description": "A fully type-safe and lightweight internationalization library for all your TypeScript and JavaScript projects.",
 		"npm": "typesafe-i18n",
@@ -2481,7 +2481,7 @@
 	},
 	{
 		"title": "tolgee/svelte",
-		"url": "https://github.com/tolgee/tolgee-js/tree/main/packages/svelte",
+		"repository": "https://github.com/tolgee/tolgee-js/tree/main/packages/svelte",
 		"description": "Web-based localization tool enabling users to translate directly in the Svelte app they develop",
 		"npm": "@tolgee/svelte",
 		"addedOn": "2022-03-03",
@@ -2489,7 +2489,7 @@
 	},
 	{
 		"title": "sthemer",
-		"url": "https://github.com/ivanhofer/sthemer",
+		"repository": "https://github.com/ivanhofer/sthemer",
 		"category": "Design System",
 		"description": "A lightweight yet powerful solution to support multiple color schemes in your Svelte/SvelteKit application.",
 		"npm": "sthemer",
@@ -2498,7 +2498,7 @@
 	},
 	{
 		"title": "svelte-exstore",
-		"url": "https://github.com/noney1412/svelte-exstore",
+		"repository": "https://github.com/noney1412/svelte-exstore",
 		"description": "Connect your store to Redux Devtools to enhance your work flow.",
 		"npm": "svelte-exstore",
 		"addedOn": "2022-09-22",
@@ -2508,7 +2508,7 @@
 	{
 		"title": "Svelte Scroll Video",
 		"description": "A component to play a video by scrolling the page",
-		"url": "https://github.com/macfja/svelte-scroll-video#readme",
+		"repository": "https://github.com/macfja/svelte-scroll-video#readme",
 		"npm": "@macfja/svelte-scroll-video",
 		"addedOn": "2022-10-17",
 		"category": "User Interaction",
@@ -2516,7 +2516,7 @@
 	},
 	{
 		"title": "@prgm/sveltekit-progress-bar",
-		"url": "https://github.com/prgm-dev/sveltekit-progress-bar",
+		"repository": "https://github.com/prgm-dev/sveltekit-progress-bar",
 		"description": "A progress bar component that hooks to SvelteKit navigation",
 		"npm": "@prgm/sveltekit-progress-bar",
 		"addedOn": "2022-12-27",
@@ -2525,7 +2525,7 @@
 	},
 	{
 		"title": "svelte-google-auth",
-		"url": "https://github.com/halfdanj/svelte-google-auth",
+		"repository": "https://github.com/halfdanj/svelte-google-auth",
 		"description": "Integration with Google Authenticartion for sveltekit",
 		"npm": "svelte-google-auth",
 		"addedOn": "2022-09-26",
@@ -2534,7 +2534,7 @@
 	},
 	{
 		"title": "sterling-svelte",
-		"url": "https://github.com/GeoffCox/sterling-svelte",
+		"repository": "https://github.com/GeoffCox/sterling-svelte",
 		"description": "A modern, accessible, and lightweight component library for Svelte.",
 		"npm": "@geoffcox/sterling-svelte",
 		"addedOn": "2023-01-09",
@@ -2553,7 +2553,7 @@
 	},
 	{
 		"title": "@tanstack/svelte-query",
-		"url": "https://github.com/tanstack/query",
+		"repository": "https://github.com/tanstack/query",
 		"description": "Powerful asynchronous state management, server-state utilities and data fetching for the web",
 		"npm": "@tanstack/svelte-query",
 		"addedOn": "2023-01-14",
@@ -2561,7 +2561,7 @@
 	},
 	{
 		"title": "svelte-form-builder",
-		"url": "https://github.com/pragmatic-engineering/svelte-form-builder-community",
+		"repository": "https://github.com/pragmatic-engineering/svelte-form-builder-community",
 		"description": "A No-Code Form Builder Library",
 		"npm": "svelte-form-builder-community",
 		"addedOn": "2023-02-05",
@@ -2570,7 +2570,7 @@
 	},
 	{
 		"title": "SvelteKit Cordova/Capacitor Adapter",
-		"url": "https://github.com/ptkdev/sveltekit-cordova-adapter",
+		"repository": "https://github.com/ptkdev/sveltekit-cordova-adapter",
 		"description": "Adapter for build mobile apps (android/ios) with Svelte Kit and Apache Cordova or Ionic Capacitor",
 		"npm": "@ptkdev/sveltekit-cordova-adapter",
 		"addedOn": "2023-02-11T00:00:00Z",
@@ -2579,7 +2579,7 @@
 	},
 	{
 		"title": "SvelteKit Electron Adapter",
-		"url": "https://github.com/ptkdev/sveltekit-electron-adapter",
+		"repository": "https://github.com/ptkdev/sveltekit-electron-adapter",
 		"description": "Adapter for build desktop apps with Svelte Kit and Electron",
 		"npm": "@ptkdev/sveltekit-electron-adapter",
 		"addedOn": "2023-02-11T00:00:00Z",
@@ -2588,7 +2588,7 @@
 	},
 	{
 		"title": "@carlosv2/adapter-node-ws",
-		"url": "https://github.com/carlosV2/adapter-node-ws",
+		"repository": "https://github.com/carlosV2/adapter-node-ws",
 		"description": "Adapter for SvelteKit apps that generates a standalone Node server with support for WebSockets.",
 		"npm": "@carlosv2/adapter-node-ws",
 		"addedOn": "2023-02-21",
@@ -2606,7 +2606,7 @@
 	},
 	{
 		"title": "html-svelte-parser",
-		"url": "https://github.com/PatrickG/html-svelte-parser",
+		"repository": "https://github.com/PatrickG/html-svelte-parser",
 		"description": "HTML to Svelte parser that works on both the server and the client.",
 		"npm": "html-svelte-parser",
 		"addedOn": "2023-02-26",
@@ -2622,7 +2622,7 @@
 	},
 	{
 		"title": "Svelte Droplet",
-		"url": "https://github.com/probablykasper/svelte-droplet",
+		"repository": "https://github.com/probablykasper/svelte-droplet",
 		"description": "File dropzone utility with styling up to you",
 		"npm": "svelte-droplet",
 		"addedOn": "2023-03-03",
@@ -2631,7 +2631,7 @@
 	},
 	{
 		"title": "YeSvelte",
-		"url": "https://github.com/yesvelte/yesvelte",
+		"repository": "https://github.com/yesvelte/yesvelte",
 		"description": "Flexible Svelte UI component library, designed to help developers build enterprise-grade web applications quickly and easily",
 		"npm": "yesvelte",
 		"addedOn": "2023-02-26",
@@ -2648,7 +2648,7 @@
 	},
 	{
 		"title": "svelte-svg-transform",
-		"url": "https://github.com/bartektelec/svelte-svg-transform",
+		"repository": "https://github.com/bartektelec/svelte-svg-transform",
 		"description": "A tiny component to override SVG file properties",
 		"npm": "svelte-svg-transform",
 		"addedOn": "2023-05-16",
@@ -2667,7 +2667,7 @@
 		"description": "An adapter to deploy to IIS Server with iisnode installed",
 		"npm": "sveltekit-adapter-iis",
 		"tags": ["integrations"],
-		"url": "https://github.com/abaga129/sveltekit-adapter-iis",
+		"repository": "https://github.com/abaga129/sveltekit-adapter-iis",
 		"addedOn": "2023-06-23T08:33:00.000Z"
 	},
 	{
@@ -2682,7 +2682,7 @@
 	},
 	{
 		"title": "TwicPics Components",
-		"url": "https://github.com/TwicPics/components",
+		"repository": "https://github.com/TwicPics/components",
 		"description": "Images and videos components - Context aware resizing and cropping, lazy-loading, LQIP, Next-Gen format, compression, CDN.",
 		"npm": "@twicpics/components",
 		"addedOn": "2023-07-25",
@@ -2690,7 +2690,7 @@
 	},
 	{
 		"title": "sveltekit-html-minifier",
-		"url": "https://github.com/ntsd/sveltekit-html-minifier",
+		"repository": "https://github.com/ntsd/sveltekit-html-minifier",
 		"description": "Sveltekit Adapter to Minify the preload HTML page",
 		"npm": "sveltekit-html-minifier",
 		"addedOn": "2023-08-03",
@@ -2699,7 +2699,7 @@
 	},
 	{
 		"title": "svelte-tex",
-		"url": "https://github.com/ntsd/svelte-tex",
+		"repository": "https://github.com/ntsd/svelte-tex",
 		"description": "Svelte component to convert TeX/LaTeX to MathML or SVG",
 		"npm": "svelte-tex",
 		"addedOn": "2023-08-14",

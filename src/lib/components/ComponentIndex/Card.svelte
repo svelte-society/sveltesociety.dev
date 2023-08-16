@@ -34,7 +34,8 @@
 
 <div class="card" class:active id="component-{title}">
 	<h3>
-		<a href="#component-{title}">#</a> <a href={url}>{title}</a>
+		<a href="#component-{title}">#</a>
+		{#if url || repository}<a href={url || repository}>{title}</a>{:else}<span>{title}</span>{/if}
 		{#if npm}<Tag
 				click={() => copy()}
 				variant="copy"
@@ -51,11 +52,11 @@
 	{/if}
 	<div class="card__bottom">
 		<div>
-			{#if (repository || url).includes('github')}
+			{#if (repository || url || '').includes('github')}
 				<a title="Go to the source code" href={repository || url}
 					><img style="display:inline" src="/images/github_logo.svg" alt="github logo" /></a
 				>
-			{:else if (repository || url).includes('gitlab')}
+			{:else if (repository || url || '').includes('gitlab')}
 				<a title="Go to the source code" href={repository || url}
 					><img style="display:inline" src="/images/gitlab_logo.svg" alt="gitlab logo" /></a
 				>

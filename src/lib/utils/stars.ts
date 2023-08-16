@@ -36,9 +36,9 @@ function getType(repositoryUrl: string): RepoInfo | null {
 	return null;
 }
 
-export function injectStars<T extends { repository?: string; url: string; stars?: number }>(
+export function injectStars<T extends { repository?: string; url?: string; stars?: number }>(
 	data: Array<T>
 ): Array<T> {
-	data.forEach((item) => (item.stars = getStarsCount(item.repository ?? item.url)));
+	data.forEach((item) => (item.stars = getStarsCount(item.repository ?? item.url ?? '')));
 	return data;
 }

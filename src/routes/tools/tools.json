@@ -4,7 +4,7 @@
 		"title": "rollup-plugin-svelte",
 		"category": "Bundler Plugins",
 		"description": "Compile Svelte components with Rollup",
-		"url": "https://github.com/sveltejs/rollup-plugin-svelte",
+		"repository": "https://github.com/sveltejs/rollup-plugin-svelte",
 		"tags": ["official"]
 	},
 	{
@@ -12,7 +12,7 @@
 		"title": "svelte-loader",
 		"category": "Bundler Plugins",
 		"description": "Webpack loader for svelte components",
-		"url": "https://github.com/sveltejs/svelte-loader",
+		"repository": "https://github.com/sveltejs/svelte-loader",
 		"tags": ["official"]
 	},
 	{
@@ -20,7 +20,7 @@
 		"title": "vite-plugin-svelte",
 		"category": "Bundler Plugins",
 		"description": "This is the official svelte plugin for vite",
-		"url": "https://github.com/sveltejs/vite-plugin-svelte",
+		"repository": "https://github.com/sveltejs/vite-plugin-svelte",
 		"tags": ["official"]
 	},
 	{
@@ -28,7 +28,7 @@
 		"title": "esbuild-svelte",
 		"category": "Bundler Plugins",
 		"description": "An esbuild plugin to compile Svelte components",
-		"url": "https://github.com/EMH333/esbuild-svelte",
+		"repository": "https://github.com/EMH333/esbuild-svelte",
 		"tags": []
 	},
 	{
@@ -36,7 +36,7 @@
 		"title": "rollup-plugin-svelte-hot",
 		"category": "Bundler Plugins",
 		"description": "Fork of official rollup-plugin-svelte with added HMR support (for both Nollup or Rollup)",
-		"url": "https://github.com/rixo/rollup-plugin-svelte-hot",
+		"repository": "https://github.com/rixo/rollup-plugin-svelte-hot",
 		"tags": []
 	},
 	{
@@ -44,7 +44,7 @@
 		"title": "parcel-plugin-svelte",
 		"category": "Bundler Plugins",
 		"description": "A parcel plugin that enables svelte support",
-		"url": "https://github.com/DeMoorJasper/parcel-plugin-svelte",
+		"repository": "https://github.com/DeMoorJasper/parcel-plugin-svelte",
 		"tags": []
 	},
 	{
@@ -52,7 +52,7 @@
 		"title": "sveltify",
 		"category": "Bundler Plugins",
 		"description": "Browserify transform for Svelte",
-		"url": "https://github.com/tehshrike/sveltify",
+		"repository": "https://github.com/tehshrike/sveltify",
 		"tags": []
 	},
 	{
@@ -60,7 +60,7 @@
 		"title": "gulp-svelte",
 		"category": "Bundler Plugins",
 		"description": "A gulp 4 plugin to compile Svelte template to vanilla JavaScript",
-		"url": "https://github.com/shinnn/gulp-svelte",
+		"repository": "https://github.com/shinnn/gulp-svelte",
 		"tags": []
 	},
 	{
@@ -68,7 +68,7 @@
 		"title": "meteor-svelte",
 		"category": "Bundler Plugins",
 		"description": "Build cybernetically enhanced web apps with Meteor and Svelte",
-		"url": "https://github.com/meteor-svelte/meteor-svelte",
+		"repository": "https://github.com/meteor-svelte/meteor-svelte",
 		"tags": []
 	},
 	{
@@ -76,7 +76,7 @@
 		"title": "sveltejs-brunch",
 		"category": "Bundler Plugins",
 		"description": "Compile Svelte components inside Brunch projects",
-		"url": "https://github.com/StarpTech/sveltejs-brunch",
+		"repository": "https://github.com/StarpTech/sveltejs-brunch",
 		"tags": []
 	},
 	{
@@ -84,7 +84,7 @@
 		"title": "rules_svelte",
 		"category": "Bundler Plugins",
 		"description": "Experimental rules for building Svelte components with Bazel",
-		"url": "https://github.com/thelgevold/rules_svelte",
+		"repository": "https://github.com/thelgevold/rules_svelte",
 		"tags": []
 	},
 	{
@@ -92,7 +92,7 @@
 		"title": "svelte-devtools",
 		"category": "Debugging",
 		"description": "An extension that allows inspection of Svelte component hierarchy and state in the Firefox and Chrome developer tools",
-		"url": "https://github.com/sveltejs/svelte-devtools",
+		"repository": "https://github.com/sveltejs/svelte-devtools",
 		"tags": ["official"]
 	},
 	{
@@ -100,7 +100,7 @@
 		"title": "svelte-preprocess",
 		"category": "Preprocessors",
 		"description": "A ✨ magical ✨ Svelte preprocessor with sensible defaults and support for: PostCSS, SCSS, Less, Stylus, Coffeescript, TypeScript, Pug and much more",
-		"url": "https://github.com/sveltejs/svelte-preprocess",
+		"repository": "https://github.com/sveltejs/svelte-preprocess",
 		"tags": ["official"]
 	},
 	{
@@ -108,7 +108,7 @@
 		"title": "svelte-preprocess-less",
 		"category": "Preprocessors",
 		"description": "Svelte preprocessor for less",
-		"url": "https://github.com/ls-age/svelte-preprocess-less",
+		"repository": "https://github.com/ls-age/svelte-preprocess-less",
 		"tags": []
 	},
 	{
@@ -116,7 +116,7 @@
 		"title": "modular-css",
 		"category": "Preprocessors",
 		"description": "Svelte preprocessor support for modular-css",
-		"url": "https://github.com/tivac/modular-css/tree/main/packages/svelte",
+		"repository": "https://github.com/tivac/modular-css/tree/main/packages/svelte",
 		"tags": []
 	},
 	{
@@ -124,7 +124,7 @@
 		"title": "svelte-preprocess-sass",
 		"category": "Preprocessors",
 		"description": "Svelte preprocessor for sass",
-		"url": "https://github.com/ls-age/svelte-preprocess-sass",
+		"repository": "https://github.com/ls-age/svelte-preprocess-sass",
 		"tags": []
 	},
 	{
@@ -132,7 +132,7 @@
 		"title": "svelte-preprocess-css-hash",
 		"category": "Preprocessors",
 		"description": "Passing hashed css class name to child component. It is used to avoid class name conflicts.",
-		"url": "https://github.com/jiangfengming/svelte-preprocess-css-hash",
+		"repository": "https://github.com/jiangfengming/svelte-preprocess-css-hash",
 		"tags": []
 	},
 	{
@@ -140,7 +140,7 @@
 		"title": "svelte-preprocess-html-asset",
 		"category": "Preprocessors",
 		"description": "Transform html asset relative path. Works with snowpack & webpack 5.",
-		"url": "https://github.com/jiangfengming/svelte-preprocess-html-asset",
+		"repository": "https://github.com/jiangfengming/svelte-preprocess-html-asset",
 		"tags": []
 	},
 	{
@@ -148,7 +148,7 @@
 		"title": "svelte-preprocessor-fetch",
 		"category": "Preprocessors",
 		"description": "A preprocessor for Svelte can be used to fetch data before the component is compiled.",
-		"url": "https://github.com/kevmodrome/svelte-preprocessor-fetch",
+		"repository": "https://github.com/kevmodrome/svelte-preprocessor-fetch",
 		"tags": []
 	},
 	{
@@ -156,7 +156,7 @@
 		"title": "prettier-plugin-svelte",
 		"category": "Linting and Formatting",
 		"description": "Format your svelte components using prettier.",
-		"url": "https://github.com/sveltejs/prettier-plugin-svelte",
+		"repository": "https://github.com/sveltejs/prettier-plugin-svelte",
 		"tags": ["official"]
 	},
 	{
@@ -164,7 +164,7 @@
 		"title": "svelte-check",
 		"category": "Linting and Formatting",
 		"description": "Detects unused css. Adds Svelte A11y hints. Provides JavaScript/TypeScript diagnostics.",
-		"url": "https://github.com/sveltejs/language-tools/tree/master/packages/svelte-check",
+		"repository": "https://github.com/sveltejs/language-tools/tree/master/packages/svelte-check",
 		"tags": ["official"]
 	},
 	{
@@ -181,7 +181,7 @@
 		"title": "vim-svelte",
 		"category": "Editor Extensions",
 		"description": "Vim syntax highlighting and indentation for Svelte 3 components.",
-		"url": "https://github.com/evanleck/vim-svelte",
+		"repository": "https://github.com/evanleck/vim-svelte",
 		"tags": []
 	},
 	{
@@ -189,7 +189,7 @@
 		"title": "vim-svelte-plugin",
 		"category": "Editor Extensions",
 		"description": "Vim syntax and indent plugin for .svelte files",
-		"url": "https://github.com/leafOfTree/vim-svelte-plugin",
+		"repository": "https://github.com/leafOfTree/vim-svelte-plugin",
 		"tags": []
 	},
 	{
@@ -197,7 +197,7 @@
 		"title": "coc-svelte",
 		"category": "Editor Extensions",
 		"description": "Svelte support for (Neo)Vim",
-		"url": "https://github.com/coc-extensions/coc-svelte",
+		"repository": "https://github.com/coc-extensions/coc-svelte",
 		"tags": []
 	},
 	{
@@ -205,7 +205,7 @@
 		"title": "web-mode.el",
 		"category": "Editor Extensions",
 		"description": "Emacs major mode including support for Svelte",
-		"url": "https://github.com/fxbois/web-mode",
+		"repository": "https://github.com/fxbois/web-mode",
 		"tags": []
 	},
 	{
@@ -231,7 +231,7 @@
 		"title": "SvelteNova",
 		"category": "Editor Extensions",
 		"description": "Svelte language support for Nova Editor by Panic",
-		"url": "https://github.com/laosb/SvelteNova",
+		"repository": "https://github.com/laosb/SvelteNova",
 		"tags": []
 	},
 	{
@@ -239,7 +239,7 @@
 		"title": "Svelte Component Extractor",
 		"category": "Editor Extensions",
 		"description": "Highlight text in VS Code and extract it to a new component",
-		"url": "https://github.com/proverbial-ninja/vscode-svelte-component-extractor",
+		"repository": "https://github.com/proverbial-ninja/vscode-svelte-component-extractor",
 		"tags": []
 	},
 	{
@@ -247,12 +247,12 @@
 		"title": "SvelteKit Snippets",
 		"category": "Editor Extensions",
 		"description": "Svelte & SvelteKit Snippets for VS Code",
-		"url": "https://github.com/stordahl/sveltekit-snippets",
+		"repository": "https://github.com/stordahl/sveltekit-snippets",
 		"tags": []
 	},
 	{
 		"title": "svelte-reactive-css-preprocess",
-		"url": "https://github.com/srmullen/svelte-reactive-css-preprocess",
+		"repository": "https://github.com/srmullen/svelte-reactive-css-preprocess",
 		"description": "Automatically update css on component state changes.",
 		"npm": "svelte-reactive-css-preprocess",
 		"addedOn": "2021-10-24",
@@ -261,7 +261,7 @@
 	},
 	{
 		"title": "svelte-subcomponent-preprocessor",
-		"url": "https://github.com/srmullen/svelte-subcomponent-preprocessor",
+		"repository": "https://github.com/srmullen/svelte-subcomponent-preprocessor",
 		"description": "Write more than one component per svelte file",
 		"npm": "svelte-subcomponent-preprocessor",
 		"addedOn": "2021-11-08",
@@ -269,7 +269,7 @@
 	},
 	{
 		"title": "eslint-plugin-svelte",
-		"url": "https://github.com/sveltejs/eslint-plugin-svelte",
+		"repository": "https://github.com/sveltejs/eslint-plugin-svelte",
 		"description": "ESLint plugin that applies own rules to Svelte",
 		"npm": "eslint-plugin-svelte",
 		"addedOn": "2022-04-16",
@@ -278,7 +278,7 @@
 	},
 	{
 		"title": "full-client-server-sveltekit",
-		"url": "https://github.com/SBHattarj/full-client-server-sveltekit",
+		"repository": "https://github.com/SBHattarj/full-client-server-sveltekit",
 		"description": "A plugin allowing usage of server directly on browser using web socket",
 		"npm": "full-client-server-sveltekit",
 		"addedOn": "2023-05-18",
@@ -286,7 +286,7 @@
 	},
 	{
 		"title": "svelte-preprocess-delegate-events",
-		"url": "https://github.com/baseballyama/svelte-preprocess-delegate-events",
+		"repository": "https://github.com/baseballyama/svelte-preprocess-delegate-events",
 		"description": "Delegate events with on:* 🎉",
 		"npm": "svelte-preprocess-delegate-events",
 		"addedOn": "2023-05-27",
