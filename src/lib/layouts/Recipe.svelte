@@ -4,7 +4,6 @@
 	import { categories } from '$lib/stores/recipes';
 	import { page } from '$app/stores';
 	import Seo from '$lib/components/Seo.svelte';
-	import { format, formatDistanceToNow } from 'date-fns';
 
 	export let title;
 	export let published;
@@ -35,17 +34,13 @@
 		<slot />
 		{#if published}<footer>
 				<div>
-					Published: <time
-						datetime={published}
-						title={formatDistanceToNow(new Date(published), { addSuffix: true })}
-						>{format(new Date(published), 'PPPP')}</time
+					Published: <time datetime={published}
+						>{new Intl.DateTimeFormat([], { dateStyle: 'full' }).format(new Date(published))}</time
 					>
 				</div>
 				{#if updated}<div>
-						Last update: <time
-							datetime={updated}
-							title={formatDistanceToNow(new Date(updated), { addSuffix: true })}
-							>{format(new Date(updated), 'PPPP')}</time
+						Last update: <time datetime={updated}
+							>{new Intl.DateTimeFormat([], { dateStyle: 'full' }).format(new Date(updated))}</time
 						>
 					</div>{/if}
 			</footer>{/if}
