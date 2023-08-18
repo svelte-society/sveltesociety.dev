@@ -628,6 +628,7 @@
 	{
 		"category": "Integration",
 		"description": "Svelte integration for FormidableLabs URQL",
+		"npm": "@urql/svelte",
 		"tags": ["components and libraries", "stores and state", "graphql"],
 		"title": "@urql/svelte",
 		"repository": "https://github.com/urql-graphql/urql/tree/main/packages/svelte-urql"
@@ -993,13 +994,6 @@
 		"repository": "https://github.com/mhkeller/layercake"
 	},
 	{
-		"category": "Forms & User Input",
-		"description": "A Javascript REPL (code editor and code results) component",
-		"tags": ["components and libraries", "inputs and widgets"],
-		"title": "Browser REPL JS",
-		"repository": "https://github.com/milafrerichs/browser-repl-js"
-	},
-	{
 		"category": "",
 		"description": "resizable layout component for svelte",
 		"tags": ["components and libraries", "layout and structure"],
@@ -1044,21 +1038,6 @@
 		"tags": ["components and libraries", "internationalization"],
 		"title": "svelte-intl",
 		"repository": "https://github.com/Panya/svelte-intl"
-	},
-	{
-		"category": "Forms & User Input",
-		"description": "Style it your way UI components with dynamic Form Builder.",
-		"tags": [
-			"components and libraries",
-			"templates",
-			"inputs and widgets",
-			"forms and validation",
-			"component sets",
-			"layout and structure",
-			"templates"
-		],
-		"title": "svelta",
-		"repository": "https://github.com/Parables/svelta"
 	},
 	{
 		"category": "",
@@ -1222,6 +1201,7 @@
 	{
 		"category": "Forms & User Input",
 		"description": "Simple autocomplete / typeahead component for Svelte",
+		"npm": "simple-svelte-autocomplete",
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "Simple Svelte Autocomplete",
 		"repository": "https://github.com/pstanoev/simple-svelte-autocomplete"
@@ -1402,8 +1382,17 @@
 	{
 		"category": "Testing",
 		"description": "UI component dev & test",
+		"npm": "@storybook/sveltekit",
 		"tags": ["testing"],
-		"title": "storybookjs",
+		"title": "Storybook for SvelteKit",
+		"repository": "https://github.com/storybookjs/storybook"
+	},
+	{
+		"category": "Testing",
+		"description": "UI component dev & test",
+		"npm": "@storybook/svelte",
+		"tags": ["testing"],
+		"title": "Storybook for Svelte",
 		"repository": "https://github.com/storybookjs/storybook"
 	},
 	{
@@ -1569,6 +1558,7 @@
 	{
 		"category": "",
 		"description": "Focused on making embedding and using media elements for the web simple.",
+		"npm": "@vime/svelte",
 		"tags": ["video", "audio", "components and libraries", "inputs and widgets"],
 		"title": "Vime",
 		"repository": "https://github.com/vime-js/vime"
@@ -1781,6 +1771,7 @@
 	{
 		"title": "Svelte Modals",
 		"url": "https://svelte-modals.mattjennings.io",
+		"npm": "svelte-modals",
 		"description": "A simple, flexible, zero-dependency modal manager for Svelte.",
 		"tags": ["components and libraries"],
 		"category": "User Interaction",
@@ -1979,7 +1970,7 @@
 		"title": "sveltekit-adapter-browser-extension",
 		"repository": "https://github.com/antony/sveltekit-adapter-browser-extension",
 		"description": "Build browser extensions with Svelte",
-		"npm": "",
+		"npm": "sveltekit-adapter-browser-extension",
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"]
 	},
@@ -2111,14 +2102,6 @@
 		"npm": "svelte-adapter-static-digitalocean",
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"]
-	},
-	{
-		"title": "Svend3r Charts",
-		"repository": "https://github.com/oslabs-beta/svend3r",
-		"description": "Interactive plug and play charting library for Svelte",
-		"npm": "",
-		"category": "Data Visualisation",
-		"tags": ["charts", "components and libraries"]
 	},
 	{
 		"title": "KitQL",
