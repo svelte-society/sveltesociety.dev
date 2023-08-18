@@ -40,7 +40,6 @@
 	let url = 'https://svelte-lorem-ipsum.dev';
 	let description = 'A dummy text generator that does not exist';
 	let npm = 'svelte-lorem-ipsum';
-	let addedOn = todaysDate();
 	let category;
 	let tags;
 	let repository = 'https://github.com/sveltejs/svelte-lorem-ipsum';
@@ -52,7 +51,6 @@
 		repository: repository ? repository : undefined,
 		description,
 		npm: npm ? npm : undefined,
-		addedOn,
 		category: category?.value,
 		tags: tags?.map((tag) => tag.value)
 	};
@@ -152,15 +150,6 @@
 		</div>
 	</div>
 	<div class="input-wrapper">
-		<label for="adden-on" class="required">Added On:</label>
-		<div>
-			<input id="adden-on" type="date" required bind:value={addedOn} />
-			<span class="input-helper">
-				The date when the component have been added on the website (generally it’s today)
-			</span>
-		</div>
-	</div>
-	<div class="input-wrapper">
 		<label for="category">Category:</label>
 		<div>
 			<SvelteSelect
@@ -197,7 +186,6 @@ propose your changes
 <style>
 	.json-generator,
 	pre {
-		max-width: var(--s-max);
 		padding: var(--s-4);
 		border-radius: 14px;
 		background-color: #f3f6f9;
