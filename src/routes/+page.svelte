@@ -10,14 +10,12 @@
 
 <h2 class="text-center">CULT Magazine</h2>
 <section class="text-center">
-	We foster decentralization to ensure there is no ground for corrupt politicians.
+	We hike for freedom, peace and fairness.   <p><br></p>
+	We foster our own decentralized cryptocurrencies to ensure there is no ground for corrupt politicians.
 	<p><br /></p>
-	The CULT Magazine might inspire people to explore and potentially improve architectures of freedom.
-	<p><br /></p>
-	Everyone is invited to contribute via
-	<a href="https://github.com/michael-spengler/cultmagazine" target="_blank">pull request</a>
-	and to be rewarded via
-	<a href="#Revolt2EarnVideo">Revolt 2 Earn</a>.
+	This magazine supports decentralized cryptocurrencies like: 
+	CULT, Hike, Freedom, Fairness, Peace. 
+
 </section>
 
 <div class="iframediv">
@@ -72,6 +70,24 @@
 				allowfullscreen
 				title="CULTDAO in 100 seconds with Michael Saylor"
 			/>
+		</div>
+	</section>
+
+	<section id="ModulusZK">
+		<div>
+			<h4>Modulus Zero Knowledge EVM</h4>
+			<a href="https://moduluszk.io" target="_blank"> Modulus </a> <br>
+			<a href="https://bridge.moduluszk.io/login" target="_blank"> ModulusZK </a><br>
+			<a href="https://bridge.moduluszk.io" target="_blank"> Modulus Bridge </a><br>
+			<a href="https://eye.moduluszk.io" target="_blank"> Modulus Eye Explorer </a><br>
+			<a href="https://docs.moduluszk.io/contracts" target="_blank"> Key Contract Addresses on Modulus </a>
+			<br>
+			<a href="https://faucet.moduluszk.io" target="_blank"> Modulus Faucet </a>
+			
+
+			
+
+			
 		</div>
 	</section>
 	<h4>Join Us We Rock</h4>
