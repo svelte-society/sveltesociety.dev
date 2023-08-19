@@ -1,0 +1,1 @@
+import{default as a}from"../components/pages/cultdao/_page.svelte-02861094.js";import"./singletons-ced5e616.js";import"./Seo-3fcb527a.js";import"./stores-18d6c20c.js";import"./Link-f72ae92f.js";/* empty css                                           */export{a as component};
