@@ -90,6 +90,7 @@
 		"repository": "https://github.com/sawyerclick/svelte-lazy-loader",
 		"description": "A lazy-loader component library for Svelte",
 		"npm": "svelte-lazy-loader",
+		"category": "Design Pattern",
 		"tags": ["images", "components and libraries"]
 	},
 	{
@@ -144,23 +145,23 @@
 		"repository": "https://github.com/aantusahaa/svelte-remixicon",
 		"npm": "svelte-remixicon",
 		"tags": ["components and libraries"],
-		"category": ""
+		"category": "Icons"
 	},
 	{
 		"title": "svelte-fast-marquee",
 		"description": "A Marquee component for Svelte inspired by react-fast-marquee.",
 		"repository": "https://github.com/abosch19/svelte-fast-marquee",
 		"npm": "svelte-fast-marquee",
-		"tags": ["components and libraries"],
-		"category": ""
+		"category": "Display Components",
+		"tags": ["components and libraries"]
 	},
 	{
 		"title": "sswr",
-		"category": "User Interaction",
+		"category": "Design Pattern",
 		"description": "Svelte stale while revalidate (SWR) data fetching strategy",
 		"repository": "https://github.com/ConsoleTVs/sswr",
 		"npm": "sswr",
-		"tags": ["components and libraries", "fonts and icons"]
+		"tags": ["components and libraries"]
 	},
 	{
 		"title": "svelte-adapter-firebase",
@@ -276,14 +277,6 @@
 		"repository": "https://github.com/AlexxNB/svelte-eventbus"
 	},
 	{
-		"category": "",
-		"description": "Write Svelte components in markdown syntax",
-		"npm": "svelte-preprocess-markdown",
-		"tags": ["integrations", "preprocessors"],
-		"title": "svelte-preprocess-markdown",
-		"repository": "https://github.com/AlexxNB/svelte-preprocess-markdown"
-	},
-	{
 		"category": "Routers",
 		"description": "Highly declarative, very tiny (~3.8 Kb), dependency free router",
 		"npm": "tinro",
@@ -292,7 +285,7 @@
 		"repository": "https://github.com/AlexxNB/tinro"
 	},
 	{
-		"category": "",
+		"category": "Icons",
 		"description": "Font Awesome 5 for Svelte",
 		"npm": "fa-svelte",
 		"tags": ["components and libraries", "fonts and icons"],
@@ -300,7 +293,7 @@
 		"repository": "https://github.com/alphapeter/fa-svelte"
 	},
 	{
-		"category": "",
+		"category": "User Interaction",
 		"description": "Component that performs fullscreen in DOM Elements",
 		"npm": "svelte-fullscreen",
 		"tags": ["components and libraries", "layout and structure"],
@@ -308,7 +301,7 @@
 		"repository": "https://github.com/andrelmlins/svelte-fullscreen"
 	},
 	{
-		"category": "",
+		"category": "CSS and Layout",
 		"description": "Responsive grid system based on Bootstrap for Svelte",
 		"npm": "svelte-grid-responsive",
 		"tags": ["components and libraries", "layout and structure"],
@@ -316,7 +309,7 @@
 		"repository": "https://github.com/andrelmlins/svelte-grid-responsive"
 	},
 	{
-		"category": "",
+		"category": "User Interaction",
 		"description": "Infinite Scroll Component to Svelte",
 		"npm": "svelte-infinite-scroll",
 		"tags": ["components and libraries"],
@@ -418,7 +411,7 @@
 		"repository": "https://github.com/beyonk-group/svelte-notifications"
 	},
 	{
-		"category": "",
+		"category": "Design Pattern",
 		"description": "Scroll Spy component for Svelte",
 		"npm": "@beyonk/svelte-scrollspy",
 		"tags": ["components and libraries", "interactions"],
@@ -426,7 +419,7 @@
 		"repository": "https://github.com/beyonk-group/svelte-scrollspy"
 	},
 	{
-		"category": "",
+		"category": "Icons",
 		"description": "SVG icons for popular brands",
 		"npm": "svelte-simple-icons",
 		"tags": ["components and libraries", "fonts and icons"],
@@ -506,7 +499,7 @@
 		"repository": "https://github.com/collardeau/svelte-headroom"
 	},
 	{
-		"category": "",
+		"category": "Icons",
 		"description": "Tiny FontAwesome 5 component for Svelte",
 		"npm": "svelte-fa",
 		"tags": ["components and libraries", "fonts and icons"],
@@ -530,7 +523,7 @@
 		"repository": "https://github.com/daybrush/moveable/tree/master/packages/svelte-moveable"
 	},
 	{
-		"category": "",
+		"category": "User Interaction",
 		"description": "A Ruler component that can draw grids and scroll infinitely",
 		"npm": "svelte-ruler",
 		"tags": ["components and libraries", "inputs and widgets"],
@@ -546,7 +539,7 @@
 		"repository": "https://github.com/dmitrykurmanov/waxwing-rating"
 	},
 	{
-		"category": "",
+		"category": "Integration",
 		"description": "Auth0 component library",
 		"npm": "@dopry/svelte-auth0",
 		"tags": ["components and libraries", "integrations", "auth"],
@@ -554,7 +547,7 @@
 		"repository": "https://github.com/dopry/svelte-auth0"
 	},
 	{
-		"category": "",
+		"category": "Icons",
 		"description": "Feather icons for Svelte",
 		"npm": "svelte-feather-icons",
 		"tags": ["components and libraries", "fonts and icons"],
@@ -571,7 +564,7 @@
 	},
 	{
 		"category": "Developer Experience",
-		"description": "Helper for Svelte components to ease development. Used by `svelte-loader`",
+		"description": "Helper for svelte components to ease development",
 		"npm": "svelte-dev-helper",
 		"tags": ["components and libraries", "development and documentation"],
 		"title": "svelte-dev-helper",
@@ -634,7 +627,7 @@
 		"repository": "https://github.com/urql-graphql/urql/tree/main/packages/svelte-urql"
 	},
 	{
-		"category": "",
+		"category": "Icons",
 		"description": "Icon components for Svelte, featuring many icon sets",
 		"npm": "svelte-icons",
 		"tags": ["components and libraries", "fonts and icons"],
@@ -650,15 +643,7 @@
 		"repository": "https://github.com/halfnelson/svelte-native"
 	},
 	{
-		"category": "",
-		"description": "A simple and reusable typewriter effect for your Svelte applications",
-		"npm": "svelte-typewriter",
-		"tags": ["components and libraries"],
-		"title": "svelte-typewriter",
-		"repository": "https://github.com/henriquehbr/svelte-typewriter"
-	},
-	{
-		"category": "",
+		"category": "Display Components",
 		"description": "A Svelte component to format and display a copyright notice.",
 		"npm": "svelte-copyright",
 		"tags": ["components and libraries"],
@@ -666,7 +651,7 @@
 		"repository": "https://github.com/himynameisdave/svelte-copyright"
 	},
 	{
-		"category": "",
+		"category": "CSS and Layout",
 		"description": "A simple and reusable flexbox component for Svelte",
 		"npm": "svelte-flex",
 		"tags": ["components and libraries", "layout and structure"],
@@ -778,7 +763,7 @@
 		"repository": "https://github.com/john--kane/svelteml"
 	},
 	{
-		"category": "Data Visualisation",
+		"category": "User Interaction",
 		"description": "A simple tool for comparing two images.",
 		"npm": "svelte-compare-image-slider",
 		"tags": ["components and libraries", "images"],
@@ -794,7 +779,7 @@
 		"repository": "https://github.com/jorgegorka/svelte-router"
 	},
 	{
-		"category": "",
+		"category": "CSS and Layout",
 		"description": "Ever wanted to have reactive css variables in Svelte? What if I tell you there's a way?",
 		"npm": "svelte-css-vars",
 		"tags": ["components and libraries"],
@@ -802,7 +787,7 @@
 		"repository": "https://github.com/kaisermann/svelte-css-vars"
 	},
 	{
-		"category": "",
+		"category": "Internationalization",
 		"description": "Internationalization library for Svelte",
 		"npm": "svelte-i18n",
 		"tags": ["components and libraries", "internationalization"],
@@ -810,7 +795,7 @@
 		"repository": "https://github.com/kaisermann/svelte-i18n"
 	},
 	{
-		"category": "",
+		"category": "Internationalization",
 		"description": "Integration of Fluent localization system for Svelte",
 		"npm": "@nubolab-ffwd/svelte-fluent",
 		"tags": ["components and libraries", "internationalization"],
@@ -818,7 +803,7 @@
 		"repository": "https://github.com/nubolab-ffwd/svelte-fluent"
 	},
 	{
-		"category": "",
+		"category": "Design Pattern",
 		"description": "Dynamically load a Svelte component",
 		"npm": "svelte-loadable",
 		"tags": ["components and libraries", "async loading"],
@@ -866,7 +851,7 @@
 		"repository": "https://github.com/kenoxa/svelte-jsx"
 	},
 	{
-		"category": "",
+		"category": "Icons",
 		"description": "A custom component that adds a favicon and a badge that you can use to show for example number of unread messages.",
 		"npm": "svelte-favicon-badge",
 		"tags": ["components and libraries"],
@@ -874,7 +859,7 @@
 		"repository": "https://github.com/kevmodrome/svelte-favicon-badge"
 	},
 	{
-		"category": "",
+		"category": "Design Pattern",
 		"description": "Redux binding to Svelte based on react-redux",
 		"npm": "svelte-redux-connect",
 		"tags": ["components and libraries", "stores and state"],
@@ -922,7 +907,7 @@
 		"repository": "https://github.com/lukeed/pwa"
 	},
 	{
-		"category": "",
+		"category": "Design Pattern",
 		"description": "A Svelte component that monitors an element enters or leaves the viewport.🔥",
 		"npm": "svelte-inview",
 		"tags": ["components and libraries", "async loading", "intersection observer", "viewport"],
@@ -954,7 +939,7 @@
 		"repository": "https://github.com/radix-svelte/radix-svelte"
 	},
 	{
-		"category": "",
+		"category": "Multimedia",
 		"description": "Image processing with Sharp for Svelte",
 		"npm": "svelte-image",
 		"tags": ["components and libraries", "images"],
@@ -962,7 +947,7 @@
 		"repository": "https://github.com/matyunya/svelte-image"
 	},
 	{
-		"category": "",
+		"category": "Multimedia",
 		"description": "Lazyload images or anything component for Svelte",
 		"npm": "svelte-waypoint",
 		"tags": ["components and libraries", "images"],
@@ -994,21 +979,14 @@
 		"repository": "https://github.com/mhkeller/layercake"
 	},
 	{
-		"category": "",
+		"category": "CSS and Layout",
 		"description": "resizable layout component for svelte",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "svelte-layout-resizable",
 		"repository": "https://github.com/milahu/svelte-layout-resizable"
 	},
 	{
-		"category": "",
-		"description": "compile time eval for svelte components",
-		"tags": ["preprocessors", "ssr"],
-		"title": "svelte-preval",
-		"repository": "https://github.com/milahu/svelte-preval"
-	},
-	{
-		"category": "",
+		"category": "CSS and Layout",
 		"description": "Arrange infinite card elements according to various layout types like masonry",
 		"npm": "@egjs/svelte-infinitegrid",
 		"tags": ["components and libraries", "layout and structure"],
@@ -1024,7 +1002,7 @@
 		"repository": "https://github.com/NomanGul/svelte-page-progress"
 	},
 	{
-		"category": "",
+		"category": "Data Visualisation",
 		"description": "A multiseries, SVG progressbar component made with Svelte",
 		"npm": "@okrad/svelte-progressbar",
 		"tags": ["components and libraries", "inputs and widgets"],
@@ -1032,7 +1010,7 @@
 		"repository": "https://github.com/okrad/svelte-progressbar"
 	},
 	{
-		"category": "",
+		"category": "Internationalization",
 		"description": "Internationalize your Svelte apps using format-message and Intl object",
 		"npm": "svelte-intl",
 		"tags": ["components and libraries", "internationalization"],
@@ -1040,7 +1018,7 @@
 		"repository": "https://github.com/Panya/svelte-intl"
 	},
 	{
-		"category": "",
+		"category": "Design Pattern",
 		"description": "Wrapper for FetchQL, a GraphQL query client",
 		"npm": "svql",
 		"tags": ["components and libraries", "stores and state"],
@@ -1064,7 +1042,7 @@
 		"repository": "https://github.com/sveltetools/svelte-asyncable"
 	},
 	{
-		"category": "",
+		"category": "Multimedia",
 		"description": "SVG placeholder components for loading content",
 		"npm": "svelte-content-loader",
 		"tags": ["components and libraries", "async loading"],
@@ -1072,7 +1050,7 @@
 		"repository": "https://github.com/PaulMaly/svelte-content-loader"
 	},
 	{
-		"category": "",
+		"category": "User Interaction",
 		"description": "Simple Svelte component to compare two images using slider.",
 		"npm": "svelte-image-compare",
 		"tags": ["components and libraries"],
@@ -1104,7 +1082,7 @@
 		"tags": ["routers", "stores and state"]
 	},
 	{
-		"category": "",
+		"category": "Display Components",
 		"description": "Simple Svelte component which automatically makes its contents scrollable ticker-style if it's necessary.",
 		"npm": "svelte-ticker",
 		"tags": ["components and libraries"],
@@ -1112,7 +1090,7 @@
 		"repository": "https://github.com/PaulMaly/svelte-ticker"
 	},
 	{
-		"category": "",
+		"category": "Design Pattern",
 		"description": "Dynamically load a Svelte component with placeholders and preloading",
 		"npm": "svelte-viewpoint",
 		"tags": ["components and libraries", "async loading"],
@@ -1128,7 +1106,7 @@
 		"repository": "https://github.com/pavish/select-madu"
 	},
 	{
-		"category": "",
+		"category": "CSS and Layout",
 		"description": "a matchMedia plugin for Svelte 3",
 		"npm": "svelte-match-media",
 		"tags": ["components and libraries", "layout and structure"],
@@ -1165,14 +1143,6 @@
 		"tags": ["components and libraries", "stores and state"],
 		"title": "SvelteStore",
 		"repository": "https://github.com/gitbreaker222/SvelteStore"
-	},
-	{
-		"category": "",
-		"description": "A markdown preprocessor for Svelte",
-		"npm": "mdsvex",
-		"tags": ["integrations", "preprocessors"],
-		"title": "mdsvex",
-		"repository": "https://github.com/pngwn/MDsveX"
 	},
 	{
 		"category": "Integration",
@@ -1263,7 +1233,7 @@
 		"repository": "https://github.com/rob-balfre/svelte-select"
 	},
 	{
-		"category": "",
+		"category": "Icons",
 		"description": "Awesome SVG icon component for Svelte JS, built with Font Awesome icons",
 		"npm": "svelte-awesome",
 		"tags": ["components and libraries", "fonts and icons"],
@@ -1279,7 +1249,7 @@
 		"repository": "https://github.com/rspieker/jest-transform-svelte"
 	},
 	{
-		"category": "",
+		"category": "Multimedia",
 		"description": "An `<ImgEncoder>` component for editing and compressing profile pictures",
 		"npm": "svelte-image-encoder",
 		"tags": ["components and libraries", "images"],
@@ -1319,7 +1289,7 @@
 		"repository": "https://github.com/shavyg2/slick-for-svelte"
 	},
 	{
-		"category": "",
+		"category": "Display Components",
 		"description": "Marquee fully responsive and adaptive for Svelte",
 		"npm": "svelte-marquee",
 		"tags": ["components and libraries"],
@@ -1340,7 +1310,7 @@
 		"repository": "https://github.com/simeydotme/svelte-range-slider-pips"
 	},
 	{
-		"category": "",
+		"category": "User Interaction",
 		"description": "An infinite scroll component for Svelte apps",
 		"npm": "svelte-infinite-loading",
 		"tags": ["components and libraries"],
@@ -1364,20 +1334,12 @@
 		"repository": "https://github.com/spaceavocado/svelte-router"
 	},
 	{
-		"category": "",
+		"category": "Multimedia",
 		"description": "Component to easily generate multitone images",
 		"npm": "svelte-multitoneimage",
 		"tags": ["components and libraries", "images"],
 		"title": "svelte-multitoneimage",
 		"repository": "https://github.com/stephane-vanraes/svelte-multitoneimage"
-	},
-	{
-		"category": "",
-		"description": "Flexible circular progress bar component",
-		"npm": "svelte-progresscircle",
-		"tags": ["components and libraries"],
-		"title": "svelte-progresscircle",
-		"repository": "https://github.com/stephane-vanraes/svelte-progresscircle"
 	},
 	{
 		"category": "Testing",
@@ -1420,7 +1382,7 @@
 		"repository": "https://github.com/sveltejs/gestures"
 	},
 	{
-		"category": "",
+		"category": "User Interaction",
 		"description": "A (very experimental) project to bring WebGL to Svelte",
 		"npm": "@sveltejs/gl",
 		"tags": ["webgl"],
@@ -1436,7 +1398,7 @@
 		"repository": "https://github.com/sveltejs/svelte-repl"
 	},
 	{
-		"category": "",
+		"category": "User Interaction",
 		"description": "A `<Scroller>` component for Svelte apps",
 		"npm": "@sveltejs/svelte-scroller",
 		"tags": ["components and libraries", "layout and structure"],
@@ -1444,8 +1406,8 @@
 		"repository": "https://github.com/sveltejs/svelte-scroller"
 	},
 	{
-		"category": "",
-		"description": "A component for building Blender-style layouts in Svelte apps (**VERSION 2**)",
+		"category": "User Interaction",
+		"description": "A component for building Blender-style layouts in Svelte apps",
 		"npm": "@sveltejs/svelte-subdivide",
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "@sveltejs/svelte-subdivide",
@@ -1556,7 +1518,7 @@
 		"repository": "https://github.com/vikignt/svelte-mui"
 	},
 	{
-		"category": "",
+		"category": "Multimedia",
 		"description": "Focused on making embedding and using media elements for the web simple.",
 		"npm": "@vime/svelte",
 		"tags": ["video", "audio", "components and libraries", "inputs and widgets"],
@@ -1564,7 +1526,7 @@
 		"repository": "https://github.com/vime-js/vime"
 	},
 	{
-		"category": "",
+		"category": "Design Pattern",
 		"description": "🔌 Simple Svelte component to detect offline & online changes.",
 		"npm": "s-offline",
 		"tags": ["offline and online detection", "network events"],
@@ -1598,7 +1560,7 @@
 		"tags": ["components and libraries", "component sets"]
 	},
 	{
-		"category": "",
+		"category": "CSS and Layout",
 		"description": "CSS media queries in Svelte",
 		"npm": "svelte-media-query",
 		"tags": ["components and libraries", "layout and structure"],
@@ -1612,14 +1574,6 @@
 		"tags": ["components and libraries", "stores and state"],
 		"title": "svelte-mobx",
 		"repository": "https://github.com/xelaok/svelte-mobx"
-	},
-	{
-		"category": "",
-		"description": "Watch element resize in Svelte",
-		"npm": "svelte-watch-resize",
-		"tags": ["components and libraries", "layout and structure"],
-		"title": "svelte-watch-resize",
-		"repository": "https://github.com/xelaok/svelte-watch-resize"
 	},
 	{
 		"category": "Forms & User Input",
@@ -1646,7 +1600,7 @@
 		"repository": "https://github.com/YogliB/svelte-fullcalendar"
 	},
 	{
-		"category": "",
+		"category": "User Interaction",
 		"description": "Svelte item list with pagination",
 		"npm": "svelte-item-list",
 		"tags": ["components and libraries", "component sets"],
@@ -1670,7 +1624,7 @@
 		"repository": "https://gitlab.com/az67128/svelte-atoms"
 	},
 	{
-		"category": "",
+		"category": "Design Pattern",
 		"description": "frictionless state management",
 		"npm": "overmind-svelte",
 		"tags": ["stores and state"],
@@ -1679,7 +1633,7 @@
 		"repository": "https://github.com/cerebral/overmind"
 	},
 	{
-		"category": "",
+		"category": "Design Pattern",
 		"description": "A tiny but mighty list virtualization library for Svelte, with zero dependencies - Supports variable heights/widths, sticky items, scrolling to index, and more!",
 		"npm": "svelte-tiny-virtual-list",
 		"tags": ["components and libraries"],
@@ -1705,7 +1659,7 @@
 		"repository": "https://github.com/idris-maps/svelte-parts"
 	},
 	{
-		"category": "",
+		"category": "Icons",
 		"description": "SVG icons from feather icons, maki icons and octicons",
 		"npm": "@svelte-parts/icons",
 		"tags": ["components and libraries", "fonts and icons", "component sets"],
@@ -1714,7 +1668,7 @@
 		"repository": "https://github.com/idris-maps/svelte-parts"
 	},
 	{
-		"category": "",
+		"category": "Multimedia",
 		"description": "Allow pan and zoom on images",
 		"npm": "@svelte-parts/zoom",
 		"tags": ["components and libraries", "component sets", "typescript"],
@@ -1731,7 +1685,7 @@
 		"repository": "https://github.com/appwrite/sdk-for-svelte"
 	},
 	{
-		"category": "",
+		"category": "Display Components",
 		"description": "svelte-pdf provides a component for rendering PDF documents using PDF.js",
 		"npm": "svelte-pdf",
 		"tags": ["components and libraries", "pdf"],
@@ -1836,15 +1790,15 @@
 		"repository": "https://github.com/metonym/svelte-pincode"
 	},
 	{
-		"category": "Animations",
+		"category": "Display Components",
 		"description": "Official tsParticles Svelte Component - Easily create highly customizable particle animations and use them as animated backgrounds for your website.",
 		"npm": "svelte-particles",
 		"tags": ["components and libraries", "component sets", "typescript", "animations"],
 		"title": "svelte-particles",
-		"repository": "https://github.com/matteobruni/tsparticles"
+		"repository": "https://github.com/tsparticles/svelte/"
 	},
 	{
-		"category": "Rich Text Editor",
+		"category": "Forms & User Input",
 		"description": "Svelte components for tiptap v2",
 		"npm": "svelte-tiptap",
 		"tags": ["components and libraries", "rich text editor"],
@@ -1860,7 +1814,7 @@
 		"repository": "https://github.com/Oli8/spaper"
 	},
 	{
-		"category": "Data Visualisation",
+		"category": "Forms & User Input",
 		"description": "Full-sized drag & drop event calendar with resource view",
 		"npm": "@event-calendar/core",
 		"tags": ["components and libraries", "time and date"],
@@ -1918,7 +1872,7 @@
 		"description": "Naive Svelte masonry component without column balancing (ragged columns at the bottom)",
 		"tags": ["components and libraries", "layout and structure"],
 		"npm": "svelte-bricks",
-		"category": "Data Visualisation"
+		"category": "CSS and Layout"
 	},
 	{
 		"title": "Svelte (and SvelteKit) OAuth2",
@@ -1933,7 +1887,7 @@
 		"repository": "https://github.com/paolotiu/svelte-boring-avatars",
 		"description": "Svelte port of Boring Avatars",
 		"npm": "svelte-boring-avatars",
-		"category": "Design Pattern",
+		"category": "Icons",
 		"tags": ["components and libraries", "images", "typescript", "ssr", "fonts and icons"]
 	},
 	{
@@ -1957,7 +1911,7 @@
 		"repository": "https://github.com/noelmugnier/svelte-translate",
 		"description": "Use a dynamic translation service (loaded from xx-XX.json files) and fallback to the text in html tags if no translations are provided.",
 		"npm": "svelte-translate",
-		"category": "Developer Experience",
+		"category": "Internationalization",
 		"tags": ["components and libraries", "internationalization"]
 	},
 	{
@@ -2013,7 +1967,7 @@
 		"url": "https://svelte-intl-precompile.com/",
 		"description": "I18n library for Svelte.js that analyzes your keys at build time for max performance and minimal footprint",
 		"npm": "svelte-intl-precompile",
-		"category": "",
+		"category": "Internationalization",
 		"tags": ["internationalization"],
 		"repository": "https://github.com/cibernox/svelte-intl-precompile"
 	},
@@ -2134,7 +2088,7 @@
 		"repository": "https://github.com/anotherempty/svelte-brick-gallery",
 		"description": "A masonry-like image gallery component for svelte",
 		"npm": "svelte-brick-gallery",
-		"category": "User Interaction",
+		"category": "Multimedia",
 		"tags": ["images", "layout and structure"]
 	},
 	{
@@ -2158,7 +2112,7 @@
 		"repository": "https://github.com/beerui/BeerUi",
 		"description": "A Svelte Ui Components",
 		"npm": "@brewer/beerui",
-		"category": "Forms & User Input",
+		"category": "Design System",
 		"tags": ["components and libraries", "time and date"]
 	},
 	{
@@ -2177,13 +2131,6 @@
 		"npm": "svelte-hover-draw-svg",
 		"category": "User Interaction",
 		"tags": ["animations", "components and libraries", "interactions"]
-	},
-	{
-		"title": "svelte-switch-case",
-		"repository": "https://github.com/l-portet/svelte-switch-case",
-		"description": "Switch case syntax for Svelte",
-		"npm": "svelte-switch-case",
-		"tags": ["preprocessors"]
 	},
 	{
 		"title": "casual-ui-svelte",
@@ -2212,7 +2159,7 @@
 	{
 		"title": "typesafe-i18n",
 		"repository": "https://github.com/ivanhofer/typesafe-i18n",
-		"category": "Developer Experience",
+		"category": "Internationalization",
 		"description": "A fully type-safe and lightweight internationalization library for all your TypeScript and JavaScript projects.",
 		"npm": "typesafe-i18n",
 		"tags": ["components and libraries", "internationalization", "typescript"]
@@ -2222,6 +2169,7 @@
 		"repository": "https://github.com/tolgee/tolgee-js/tree/main/packages/svelte",
 		"description": "Web-based localization tool enabling users to translate directly in the Svelte app they develop",
 		"npm": "@tolgee/svelte",
+		"category": "Internationalization",
 		"tags": ["components and libraries", "internationalization"]
 	},
 	{
@@ -2286,6 +2234,7 @@
 		"repository": "https://github.com/tanstack/query",
 		"description": "Powerful asynchronous state management, server-state utilities and data fetching for the web",
 		"npm": "@tanstack/svelte-query",
+		"category": "Design Pattern",
 		"tags": ["async data", "async loading", "network events", "ssr", "typescript"]
 	},
 	{
@@ -2294,7 +2243,7 @@
 		"description": "A No-Code Form Builder Library",
 		"npm": "svelte-form-builder-community",
 		"category": "Forms & User Input",
-		"tags": ["forms", "rich text editor", "audio", "components and libraries"]
+		"tags": ["forms", "components and libraries"]
 	},
 	{
 		"title": "SvelteKit Cordova/Capacitor Adapter",
@@ -2333,10 +2282,10 @@
 		"repository": "https://github.com/PatrickG/html-svelte-parser",
 		"description": "HTML to Svelte parser that works on both the server and the client.",
 		"npm": "html-svelte-parser",
+		"category": "Developer Experience",
 		"tags": [
 			"components and libraries",
 			"layout and structure",
-			"rich text editor",
 			"ssr",
 			"templates",
 			"tree",
@@ -2403,6 +2352,7 @@
 		"repository": "https://github.com/TwicPics/components",
 		"description": "Images and videos components - Context aware resizing and cropping, lazy-loading, LQIP, Next-Gen format, compression, CDN.",
 		"npm": "@twicpics/components",
+		"category": "Multimedia",
 		"tags": ["components and libraries", "images", "video"]
 	},
 	{
@@ -2418,7 +2368,7 @@
 		"repository": "https://github.com/ntsd/svelte-tex",
 		"description": "Svelte component to convert TeX/LaTeX to MathML or SVG",
 		"npm": "svelte-tex",
-		"category": "Data Visualisation",
+		"category": "Developer Experience",
 		"tags": ["components and libraries", "images"]
 	}
 ]

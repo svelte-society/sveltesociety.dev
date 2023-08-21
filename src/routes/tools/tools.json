@@ -91,11 +91,38 @@
 		"tags": ["official"]
 	},
 	{
+		"description": "compile time eval for svelte components",
+		"category": "Preprocessors",
+		"title": "svelte-preval",
+		"repository": "https://github.com/milahu/svelte-preval"
+	},
+	{
+		"category": "Preprocessors",
+		"description": "Write Svelte components in markdown syntax",
+		"npm": "svelte-preprocess-markdown",
+		"title": "svelte-preprocess-markdown",
+		"repository": "https://github.com/AlexxNB/svelte-preprocess-markdown"
+	},
+	{
+		"category": "Preprocessors",
+		"description": "A markdown preprocessor for Svelte",
+		"npm": "mdsvex",
+		"title": "mdsvex",
+		"repository": "https://github.com/pngwn/MDsveX"
+	},
+	{
 		"title": "svelte-preprocess-less",
 		"category": "Preprocessors",
 		"description": "Svelte preprocessor for less",
 		"repository": "https://github.com/ls-age/svelte-preprocess-less",
 		"tags": []
+	},
+	{
+		"title": "svelte-switch-case",
+		"repository": "https://github.com/l-portet/svelte-switch-case",
+		"description": "Switch case syntax for Svelte",
+		"npm": "svelte-switch-case",
+		"category": "Preprocessors"
 	},
 	{
 		"title": "modular-css",
