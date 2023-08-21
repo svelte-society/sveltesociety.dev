@@ -3,7 +3,6 @@
 		"title": "SvelteKit Authentication Example",
 		"url": "https://github.com/nstuyvesant/sveltekit-auth-example",
 		"description": "Fully documented example of how to setup local and \"Sign in with Google\" authentication (including Google One-Tap) using PostgreSQL, signup, page authorization, user profile management and password reset using SendGrid.",
-		"npm": "sveltekit-auth-example",
 		"category": "SvelteKit",
 		"tags": ["templates", "database", "integrations", "ssr", "typescript"]
 	},
@@ -11,7 +10,6 @@
 		"title": "sveltekit-windicss-flowbite-template",
 		"url": "https://github.com/AlessioGr/sveltekit-windicss-flowbite-template",
 		"description": "Minimal SvelteKit template with a perfect set-up for WindiCSS and Flowbite",
-		"npm": "",
 		"category": "SvelteKit",
 		"tags": ["templates", "typescript", "integrations"]
 	},
@@ -19,7 +17,6 @@
 		"title": "CMSvelte",
 		"url": "https://github.com/sawyerclick/CMSvelte",
 		"description": "A Svelte template built with newsroom CMS's in mind",
-		"npm": "",
 		"category": "Svelte",
 		"tags": ["templates", "blog"]
 	},
@@ -285,7 +282,6 @@
 	{
 		"category": "Svelte",
 		"description": "Typescript monorepo for Svelte v3 (preprocess, template, types)",
-		"npm": "@pyoner/svelte-ts-preprocess",
 		"tags": ["integrations", "preprocessors"],
 		"title": "@pyoner/svelte-ts-preprocess",
 		"url": "https://github.com/pyoner/svelte-typescript"
@@ -314,7 +310,6 @@
 	{
 		"category": "Svelte",
 		"description": "Yeoman generator generating a boilerplate Svelte.js app with all of svelte-preprocess' options",
-		"npm": "generator-svelte",
 		"tags": ["preprocessors"],
 		"title": "generator-svelte",
 		"url": "https://github.com/Samuel-Martineau/generator-svelte"
@@ -575,7 +570,6 @@
 		"title": "SvelteKit i18n Template",
 		"url": "https://github.com/ivanhofer/typesafe-i18n-demo-sveltekit",
 		"description": "A fully working SEO optimized i18n template",
-		"npm": "",
 		"category": "SvelteKit",
 		"tags": ["blog", "code splitting", "lazy loading", "seo", "ssr", "templates", "typescript"]
 	},
@@ -583,7 +577,6 @@
 		"title": "svelte-ts-tailwind-template",
 		"url": "https://github.com/colinbate/svelte-ts-tailwind-template",
 		"description": "Svelte app template with TypeScript and TailwindCSS.",
-		"npm": "",
 		"category": "Svelte",
 		"tags": ["templates", "typescript"]
 	},
@@ -591,7 +584,6 @@
 		"title": "SENT-template",
 		"url": "https://github.com/the-homeless-god/SENT-template",
 		"description": "Skip setup and start code with SENT (Sapper Express Node Template) and other tools like TypeScript, Linters, Tests, Docker and so on",
-		"npm": "",
 		"category": "Svelte",
 		"tags": [
 			"blog",
@@ -614,7 +606,6 @@
 		"title": "Yuyutsu",
 		"url": "https://github.com/sharu725/yuyutsu",
 		"description": "A minimal Sveltekit theme with a sidebar.",
-		"npm": "",
 		"category": "SvelteKit",
 		"tags": ["blog", "markdown", "templates"]
 	},
@@ -622,7 +613,6 @@
 		"title": "sveltekit-blog-template",
 		"url": "https://github.com/K-Sato1995/sveltekit-blog-template",
 		"description": "A minimalistic markdown based blog template built with Sveltekit",
-		"npm": "",
 		"category": "SvelteKit",
 		"tags": ["blog", "templates"]
 	},
@@ -630,7 +620,6 @@
 		"title": "Urara",
 		"url": "https://github.com/importantimport/urara",
 		"description": "Sweet, Powerful, IndieWeb-Compatible SvelteKit Blog Starter.",
-		"npm": "",
 		"category": "SvelteKit",
 		"tags": ["blog", "mdsvex", "typescript", "templates"]
 	},
@@ -638,7 +627,6 @@
 		"title": "Svelte-Typescript-Electron-Webpack",
 		"url": "https://github.com/ryan-way-boilerplate/stew",
 		"description": "Template with Svelte Typescript Electron and webpack",
-		"npm": "",
 		"category": "Svelte",
 		"tags": ["typescript", "webpack", "electron"]
 	},
@@ -646,7 +634,6 @@
 		"title": "Svelte SCSS/TailwindCSS/Typescript Template",
 		"url": "https://github.com/timoyo93/svelte-template",
 		"description": "A template that uses TailwindCSS v3, Typescript and SCSS",
-		"npm": "",
 		"category": "Svelte",
 		"tags": ["templates", "typescript", "preprocessors"]
 	},
@@ -654,7 +641,6 @@
 		"title": "A Svelte + FAST + Vite starter project",
 		"url": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-starter",
 		"description": "A Svelte + FAST + Vite starter project",
-		"npm": "svelte-fast-vite-starter-project",
 		"category": "Svelte",
 		"tags": ["templates"]
 	},
@@ -662,7 +648,6 @@
 		"title": "A Svelte + FAST + Vite + TypeScript starter project",
 		"url": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-typescript-starter",
 		"description": "A Svelte + FAST + Vite + TypeScript starter project",
-		"npm": "svelte-fast-vite-typescript-starter-project",
 		"category": "Svelte",
 		"tags": ["templates"]
 	},
@@ -670,7 +655,6 @@
 		"title": "Swyxkit",
 		"url": "https://github.com/swyxio/swyxkit/",
 		"description": "An opinionated blog starter for SvelteKit + Tailwind + Netlify. Refreshed for the great SvelteKit refactor of 2022!",
-		"npm": "",
 		"category": "SvelteKit",
 		"tags": ["blog", "templates", "mdsvex", "markdown"]
 	},
@@ -678,7 +662,6 @@
 		"title": "QWER Blog Starter",
 		"url": "https://github.com/kwchang0831/svelte-QWER",
 		"description": "Blog Starter built with SvelteKit and Love. 100 Lighthouse, SEO, Post tags and TOC, Atom feed, Sitemap, PWA, image optimisation, Giscus, UnoCSS, typesafe-i18n",
-		"npm": "",
 		"category": "SvelteKit",
 		"tags": ["blog", "markdown", "templates", "seo", "typescript"]
 	},
@@ -686,7 +669,6 @@
 		"title": "svelte-mpa",
 		"url": "https://github.com/kokizzu/svelte-mpa",
 		"description": "Multipage Svelte for any backend",
-		"npm": "",
 		"category": "Svelte",
 		"tags": ["templates", "integrations"]
 	},
@@ -694,7 +676,6 @@
 		"title": "Web3 Hardhat & Svelte Boilerplate",
 		"url": "https://github.com/fede-rodes/hardhat-svelte-boilerplate",
 		"description": "This boilerplate includes Hardhat, Svelte, Tailwind, TS and cva libs. Example integration using MetaMask",
-		"npm": "",
 		"category": "Svelte",
 		"tags": ["storybook", "typescript"]
 	}
