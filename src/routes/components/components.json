@@ -1580,6 +1580,24 @@
 		"repository": "https://github.com/WeAreGenki/minna-ui"
 	},
 	{
+		"title": "shadcn-svelte",
+		"url": "https://www.shadcn-svelte.com/",
+		"repository": "https://github.com/huntabyte/shadcn-svelte",
+		"description": "shadcn/ui, but for Svelte",
+		"npm": "shadcn-svelte",
+		"category": "Design System",
+		"tags": ["components and libraries", "component sets"]
+	},
+	{
+		"title": "svelte-headlessui",
+		"url": "https://captaincodeman.github.io/svelte-headlessui/",
+		"repository": "https://github.com/CaptainCodeman/svelte-headlessui",
+		"description": "HeadlessUI components for Svelte",
+		"npm": "svelte-headlessui",
+		"category": "Design System",
+		"tags": ["components and libraries", "component sets"]
+	},
+	{
 		"category": "",
 		"description": "CSS media queries in Svelte",
 		"npm": "svelte-media-query",
@@ -2128,7 +2146,7 @@
 		"tags": ["ssr", "integrations"]
 	},
 	{
-		"title": "svelte-headlessui",
+		"title": "@rgossiaux/svelte-headlessui",
 		"repository": "https://github.com/rgossiaux/svelte-headlessui",
 		"description": "Unofficial Svelte port of the Headless UI component library",
 		"npm": "@rgossiaux/svelte-headlessui",
