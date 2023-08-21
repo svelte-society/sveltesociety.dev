@@ -90,7 +90,7 @@
 		"repository": "https://github.com/sawyerclick/svelte-lazy-loader",
 		"description": "A lazy-loader component library for Svelte",
 		"npm": "svelte-lazy-loader",
-		"category": "Design Pattern",
+		"category": "Multimedia",
 		"tags": ["images", "components and libraries"]
 	},
 	{
@@ -144,7 +144,7 @@
 		"description": "An icon library for svelte based on Remix Icon. Consists of more than 2000 icons.",
 		"repository": "https://github.com/aantusahaa/svelte-remixicon",
 		"npm": "svelte-remixicon",
-		"tags": ["components and libraries"],
+		"tags": ["components and libraries", "fonts and icons"],
 		"category": "Icons"
 	},
 	{
@@ -318,7 +318,7 @@
 	},
 	{
 		"category": "Forms & User Input",
-		"description": "Generate dynamic forms for sveltejs, Sveltekit, Routify and Sapper",
+		"description": "Generate dynamic forms for Svelte JS",
 		"npm": "svelte-formly",
 		"tags": [
 			"components and libraries",
@@ -364,7 +364,7 @@
 	},
 	{
 		"category": "Integration",
-		"description": "A Facebook customer chat integration for Svelte / Sapper",
+		"description": "Facebook Messaging Platform - Customer Chat Integration",
 		"npm": "@beyonk/svelte-facebook-customer-chat",
 		"tags": ["components and libraries", "third party services"],
 		"title": "@beyonk/svelte-facebook-customer-chat",
@@ -428,7 +428,7 @@
 	},
 	{
 		"category": "Integration",
-		"description": "Trustpilot Trustboxes for Svelte / Sapper",
+		"description": "Svelte / Vanilla JS Trustpilot Widget with proper SPA support",
 		"npm": "@beyonk/svelte-trustpilot",
 		"tags": ["components and libraries", "third party services"],
 		"title": "@beyonk/svelte-trustpilot",
@@ -619,7 +619,7 @@
 		"repository": "https://github.com/flekschas/svelte-simple-modal"
 	},
 	{
-		"category": "Integration",
+		"category": "Design Pattern",
 		"description": "Svelte integration for FormidableLabs URQL",
 		"npm": "@urql/svelte",
 		"tags": ["components and libraries", "stores and state", "graphql"],
@@ -694,7 +694,7 @@
 		"category": "Design System",
 		"description": "A pretty cool UI kit for Svelte",
 		"npm": "attractions",
-		"tags": ["components and libraries"],
+		"tags": ["components and libraries", "component sets"],
 		"title": "attractions",
 		"repository": "https://github.com/illright/attractions"
 	},
@@ -1454,7 +1454,7 @@
 		"repository": "https://github.com/thecodejack/svelte-file-dropzone"
 	},
 	{
-		"category": "Integration",
+		"category": "Design Pattern",
 		"description": "Svelte integration for Apollo GraphQL",
 		"npm": "svelte-apollo",
 		"tags": ["components and libraries", "stores and state"],
@@ -1825,7 +1825,7 @@
 		"category": "Design System",
 		"description": "Straight-forward Svelte UI, made with Windi CSS",
 		"npm": "@kahi-ui/framework",
-		"tags": ["components and libraries"],
+		"tags": ["components and libraries", "component sets"],
 		"title": "Kahi UI",
 		"repository": "https://github.com/novacbn/kahi-ui"
 	},
