@@ -678,5 +678,12 @@
 		"description": "This boilerplate includes Hardhat, Svelte, Tailwind, TS and cva libs. Example integration using MetaMask",
 		"category": "Svelte",
 		"tags": ["storybook", "typescript"]
-	}
+	},
+	{
+	"title": "svelte-lorem-ipsum",
+	"url": "https://svelte-lorem-ipsum.dev",
+	"repository": "https://github.com/sveltejs/svelte-lorem-ipsum",
+	"description": "A dummy text generator that does not exist",
+	"npm": "svelte-lorem-ipsum"
+	},
 ]
