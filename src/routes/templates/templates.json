@@ -678,5 +678,14 @@
 		"description": "This boilerplate includes Hardhat, Svelte, Tailwind, TS and cva libs. Example integration using MetaMask",
 		"category": "Svelte",
 		"tags": ["storybook", "typescript"]
+	},
+	{
+		"title": "SvelteKit PWA Template",
+		"repository": "https://github.com/joemmalatesta/SvelteKit-PWA-Guide",
+		"description": "A PWA Starter Template for SvelteKit",
+		"category": "SvelteKit",
+		"tags": [
+			"templates"
+		]
 	}
 ]
