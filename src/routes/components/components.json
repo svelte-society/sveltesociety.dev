@@ -2386,5 +2386,13 @@
 		"npm": "svelte-tex",
 		"category": "Developer Experience",
 		"tags": ["components and libraries", "images"]
+	},
+	{
+		"title": "@prismicio/svelte",
+		"repository": "https://github.com/prismicio/prismic-svelte",
+		"description": "Svelte components to render content from the Prismic API",
+		"npm": "https://npmjs.com/package/@prismicio/svelte",
+		"category": "Integration",
+		"tags": ["integrations", "images", "layout and structure"]
 	}
 ]
