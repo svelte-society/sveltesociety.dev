@@ -282,5 +282,13 @@
 		"description": "Delegate events with on:* 🎉",
 		"npm": "svelte-preprocess-delegate-events",
 		"category": "Preprocessors"
+	},
+	{
+		"title": "@slicemachine/adapter-sveltekit",
+		"url": "https://prismic.io/docs/svelte",
+		"repository": "https://github.com/prismicio/slice-machine/tree/master/packages/adapter-sveltekit",
+		"description": "Turn your SvelteKit project into a website builder with Prismic's Slice Machine",
+		"npm": "@slicemachine/adapter-sveltekit",
+		"category": "Content Management"
 	}
 ]
