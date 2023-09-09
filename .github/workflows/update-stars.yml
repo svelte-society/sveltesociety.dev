@@ -2,32 +2,35 @@ name: Update stars count
 
 on:
   schedule:
-    - cron: '0 0 1 * *' # Every 1st of every month at 00:00
+    - cron: '0 0 * * 0' # At 00:00 on Sunday.
 
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Setup node with version 16
-        uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2.2.4
         with:
-          node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
+          version: 8
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: https://registry.npmjs.org/
+          cache: 'pnpm'
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
       - name: Run script
         uses: ./.github/actions/update-stars
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run format
-        run: npm run format
+        run: pnpm run format
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
           author: github_actions
           commit-message: "(AUTO) Update stars"
-          title: "BOT: Update stars"
+          title: "🤖 Update stars"
           body: Update all stars count from Github and Gitlab
           branch: ci-update-stars
           add-paths: src/lib/stars.json
