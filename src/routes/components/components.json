@@ -1,5 +1,20 @@
 [
 	{
+		"title": "sk-sitemap",
+		"repository": "https://github.com/jasongitmail/sk-sitemap",
+		"description": "Automatic SvelteKit sitemap that makes it impossible to forget to add your paths.",
+		"npm": "sk-sitemap",
+		"category": "Developer Experience",
+		"tags": [
+			"components and libraries",
+			"integrations",
+			"layout and structure",
+			"typescript",
+			"sitemap",
+			"xml"
+		]
+	},
+	{
 		"title": "svelte-scrollactive",
 		"url": "https://svelte.dev/repl/d9616fce34c444d4bcac551cb5bdc0ee?version=3.55.1",
 		"repository": "https://github.com/dmvvilela/svelte-scrollactive",
