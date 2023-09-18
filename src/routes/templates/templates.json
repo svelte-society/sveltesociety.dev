@@ -267,13 +267,6 @@
 	},
 	{
 		"category": "Svelte",
-		"description": "Svelte + Snowpack, TypeScript, SCSS, Jest with tight VSCode debugging",
-		"tags": ["editor tools", "snowpack"],
-		"title": "svelte-ts-snowpack-vscode",
-		"repository": "https://github.com/processtract/svelte-ts-snowpack-vscode"
-	},
-	{
-		"category": "Svelte",
 		"description": "Typescript monorepo for Svelte v3 (preprocess, template, types)",
 		"tags": [],
 		"title": "pyoner/svelte-typescript",
