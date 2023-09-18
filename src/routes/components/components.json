@@ -1,16 +1,15 @@
 [
 	{
-		"title": "sk-sitemap",
-		"repository": "https://github.com/jasongitmail/sk-sitemap",
-		"description": "Automatic SvelteKit sitemap that makes it impossible to forget to add your paths.",
-		"npm": "sk-sitemap",
+		"title": "super-sitemap",
+		"repository": "https://github.com/jasongitmail/super-sitemap",
+		"description": "SvelteKit sitemap focused on ease of use and making it impossible to forget to add your paths.",
+		"npm": "super-sitemap",
 		"category": "Developer Experience",
 		"tags": [
 			"components and libraries",
 			"integrations",
 			"layout and structure",
-			"typescript",
-			"sitemap"
+			"typescript"
 		]
 	},
 	{
