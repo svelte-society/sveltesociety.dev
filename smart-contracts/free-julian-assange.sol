@@ -17,7 +17,7 @@ contract FreeJulianAssange is ERC20 {
     uint256 public fixedSupply = 24000000; // There is a fixed supply of 24.000.000 Coins
     uint256 public numberOfFreedomFans = 0; // initializing the numberOfFreedomFans at the beginning of the project
     uint256 public numberOfApprovedFreedomFans = 0; // initializing the numberOfApprovedFreedomFans at the beginning of the project
-    uint256 public currentThresholdForBecomingFullyApproved = 1; // this threshold increases proportionally to the number of approved FreedomFans - modulus is also here :)
+    uint256 public currentThresholdForBecomingFullyApproved = 0; // this threshold increases proportionally to the number of approved FreedomFans - modulus is also here :)
 
     struct FreedomFan { // this structure represents the core data which is stored for each Freedom Fan
         address walletAddress;
@@ -33,12 +33,11 @@ contract FreeJulianAssange is ERC20 {
     mapping(address => uint256) public ethLiquidityProviders;  // in this mapping we store how much ETH liquidity each Freedom Fan provided
     mapping(address => uint256) public maxRewardPerFreedomFan;  // in this mapping we store how much reward each freedom fan can claim if the liquidity is sufficient 
     
-    address projectStarter = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4; // 0xb18871eFb8a6C3c6b628160efbBa5c1eB35B7c49; //  this is needed for the startProject function - see below
+    address projectStarter = 0xb18871eFb8a6C3c6b628160efbBa5c1eB35B7c49; //  this is needed for the startProject function - see below
 
     bool projectAlreadyStarted = false;
     
     event LOGMessage(string); // whenever we want to log any text, we can emit this event
-    event LOGNumber(uint256); // whenever we want to log any text, we can emit this event
     
     constructor() ERC20("FreeJulianAssange", "JULIAN") {
         // with the following all 24.000.000 coins are transferred to this contract itself.
@@ -97,7 +96,7 @@ contract FreeJulianAssange is ERC20 {
                     emit LOGMessage("the fixed supply of overall 24.000.000 Coins / the balanceOf FREE does not allow direct rewards for approvers atm. the incentives should anyways be high enough to continue approving wisely.");
                 }
             }
-            if ((currentThresholdForBecomingFullyApproved % 2) == 0){ 
+            if ((numberOfApprovedFreedomFans % 2) == 1){ 
                 currentThresholdForBecomingFullyApproved++; 
             }
         }
@@ -149,15 +148,14 @@ contract FreeJulianAssange is ERC20 {
         require(balanceOf(msg.sender) >= amountInWEI, "this smart contract does not support selling more than you have.");    
         require(allowance(msg.sender, address(this)) >= amountInWEI, "please set an appropriate allowance first.");    
         IERC20(address(this)).transferFrom(msg.sender, address(this), amountInWEI); 
-        uint256 amountInWEIToBeSent = amountInWEI / numberOfApprovedFreedomFans;
+        uint256 amountInWEIToBeSent = (amountInWEI / numberOfApprovedFreedomFans) / 100000;
         require(address(this).balance >= amountInWEIToBeSent, "this smart contract does not have enough ETH liquidity available for this deal atm.");
         payable(msg.sender).transfer(amountInWEIToBeSent);
-        emit LOGNumber(amountInWEIToBeSent);
-
         ethLiquidityProviders[msg.sender] = ethLiquidityProviders[msg.sender] - amountInWEIToBeSent;
     }
 
 }
 
+// 100000000000000000000
 // The blockchain technology as distributed ledger technology will gain appreciation even further once people appreciate their neighbours and everyone who loves freedom, fairness and peace even more imo.  
 // fun facts: https://github.com/michael-spengler/distributed-ledger-technology-hands-on-lecture/blob/main/fun-facts/bitcoin-related-fun-facts.md  
