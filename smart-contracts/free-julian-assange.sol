@@ -33,7 +33,7 @@ contract FreeJulianAssange is ERC20 {
     mapping(address => uint256) public ethLiquidityProviders;  // in this mapping we store how much ETH liquidity each Freedom Fan provided
     mapping(address => uint256) public maxRewardPerFreedomFan;  // in this mapping we store how much reward each freedom fan can claim if the liquidity is sufficient 
     
-    address projectStarter = 0xb18871eFb8a6C3c6b628160efbBa5c1eB35B7c49; //  this is needed for the startProject function - see below
+    address projectStarter = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4; // 0xb18871eFb8a6C3c6b628160efbBa5c1eB35B7c49; //  this is needed for the startProject function - see below
 
     bool projectAlreadyStarted = false;
     
@@ -134,9 +134,10 @@ contract FreeJulianAssange is ERC20 {
     // 3. ensure the price is defined by the network size and by the value of the network   
     function buy() public payable  { 
         require(freedomFans[ids[msg.sender]].approvedOn > 0, "only approved freedom fans can do that.");
-        require(msg.value <= 1 * 10 ** 15, "you can buy for a maximum of one finney which is 0.001 ETH. chancellor on brink of second bailout for banks :)"); // this is meant to foster decentralization 
+        require(msg.value > 0 && msg.value <= 1 * 10 ** 15, "you can buy for a maximum of one finney which is 0.001 ETH. chancellor on brink of second bailout for banks :)"); // this is meant to foster decentralization 
         require(msg.value + ethLiquidityProviders[msg.sender] <=  1 * 10 ** 15, "you can overall buy for a maximum of one finney which is 0.001 ETH. it seems you invested already earlier.");
-        uint256 priceOfOneFREEInWEI = numberOfApprovedFreedomFans * (10**18) / 1000000000; // the more approved freedom fans there are, the higher the value of FREE
+        ethLiquidityProviders[msg.sender] = ethLiquidityProviders[msg.sender] + msg.value;
+        uint256 priceOfOneFREEInWEI = numberOfApprovedFreedomFans * (10**18) / 100000; // the more approved freedom fans there are, the higher the value of FREE
         uint256 amountToBeTransferred = (msg.value / priceOfOneFREEInWEI) * (10**18);
         require(balanceOf(address(this)) >= amountToBeTransferred, "you cannot buy that many at the moment via this function. buy from your neighbor if possible.");
         this.transfer(msg.sender, amountToBeTransferred); 
@@ -147,7 +148,7 @@ contract FreeJulianAssange is ERC20 {
         require(balanceOf(msg.sender) >= amountInWEI, "this smart contract does not support selling more than you have.");    
         require(allowance(msg.sender, address(this)) >= amountInWEI, "please set an appropriate allowance first.");    
         IERC20(address(this)).transferFrom(msg.sender, address(this), amountInWEI); 
-        uint256 amountInWEIToBeSent = 1000000000 / numberOfApprovedFreedomFans;
+        uint256 amountInWEIToBeSent = 100000 / numberOfApprovedFreedomFans;
         require(address(this).balance >= amountInWEIToBeSent, "this smart contract does not have enough ETH liquidity available for this deal atm.");
         payable(msg.sender).transfer(amountInWEIToBeSent);
     }
