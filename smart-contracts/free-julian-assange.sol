@@ -38,6 +38,7 @@ contract FreeJulianAssange is ERC20 {
     bool projectAlreadyStarted = false;
     
     event LOGMessage(string); // whenever we want to log any text, we can emit this event
+    event LOGNumber(uint256); // whenever we want to log any text, we can emit this event
     
     constructor() ERC20("FreeJulianAssange", "JULIAN") {
         // with the following all 24.000.000 coins are transferred to this contract itself.
@@ -87,11 +88,7 @@ contract FreeJulianAssange is ERC20 {
 
         if (freedomFans[ids[freedomFan]].amountOfReceivedApprovals >= currentThresholdForBecomingFullyApproved) {
             freedomFans[ids[freedomFan]].approvedOn = block.timestamp;
-            if (balanceOf(address(this)) >= (24 * (10 ** 18))) {
-                maxRewardPerFreedomFan[freedomFan] = 24 * (10 ** decimals()); // welcome gift to new freedom fan
-            } else {
-                emit LOGMessage("the fixed supply of overall 24.000.000 Coins / the balanceOf FREE of this contract does not allow welcome gifts atm. new approved freedom fans might invest in FREE via the buy function.");
-            }
+            maxRewardPerFreedomFan[freedomFan] = 24 * (10 ** decimals()); // welcome gift to new freedom fan
 
             for (uint i = 0; i < approversForFreedomFan[freedomFan].length; i++) {
                 if (balanceOf(address(this)) >= (1 * (10 ** 18))){
@@ -113,9 +110,13 @@ contract FreeJulianAssange is ERC20 {
             amountToBeTransferred = maxRewardPerFreedomFan[msg.sender];
         } else {
             amountToBeTransferred = balanceOf(address(this));
+            emit LOGMessage("the fixed supply of overall 24.000.000 Coins resp. the balanceOf FREE currently in this contract does not allow higher transfers atm.");
         }
-        this.transfer(msg.sender, amountToBeTransferred);
-        maxRewardPerFreedomFan[msg.sender] = maxRewardPerFreedomFan[msg.sender] - amountToBeTransferred;
+
+        if (amountToBeTransferred > 0) {
+            this.transfer(msg.sender, amountToBeTransferred);
+            maxRewardPerFreedomFan[msg.sender] = maxRewardPerFreedomFan[msg.sender] - amountToBeTransferred;
+        }
     }
 
     // the following funciton can only be executed once by the projectStarter. 
@@ -148,9 +149,12 @@ contract FreeJulianAssange is ERC20 {
         require(balanceOf(msg.sender) >= amountInWEI, "this smart contract does not support selling more than you have.");    
         require(allowance(msg.sender, address(this)) >= amountInWEI, "please set an appropriate allowance first.");    
         IERC20(address(this)).transferFrom(msg.sender, address(this), amountInWEI); 
-        uint256 amountInWEIToBeSent = 100000 / numberOfApprovedFreedomFans;
+        uint256 amountInWEIToBeSent = amountInWEI / numberOfApprovedFreedomFans;
         require(address(this).balance >= amountInWEIToBeSent, "this smart contract does not have enough ETH liquidity available for this deal atm.");
         payable(msg.sender).transfer(amountInWEIToBeSent);
+        emit LOGNumber(amountInWEIToBeSent);
+
+        ethLiquidityProviders[msg.sender] = ethLiquidityProviders[msg.sender] - amountInWEIToBeSent;
     }
 
 }
