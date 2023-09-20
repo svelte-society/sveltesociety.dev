@@ -156,6 +156,5 @@ contract FreeJulianAssange is ERC20 {
 
 }
 
-// 100000000000000000000
 // The blockchain technology as distributed ledger technology will gain appreciation even further once people appreciate their neighbours and everyone who loves freedom, fairness and peace even more imo.  
 // fun facts: https://github.com/michael-spengler/distributed-ledger-technology-hands-on-lecture/blob/main/fun-facts/bitcoin-related-fun-facts.md  
