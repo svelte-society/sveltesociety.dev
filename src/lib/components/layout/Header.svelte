@@ -3,13 +3,13 @@
 
 	import { page } from '$app/stores';
 	const linksLeft = [
-		['/cultdao', 'CULT'],
-		['/play2earn', 'Fairness'],
-		['/tools-of-freedom', 'Peace'],
+		['/cultdao', 'CULTDAO'],
+		['/learn2earn', 'Freedom'],
+		// ['/tools-of-freedom', 'Peace'],
 	];
 	const linksRight = [
-		['/learn2earn', 'Freedom'],
-		['/revolt2earn', 'Hike'],
+		['/play2earn', 'Fairness'],
+		// ['/revolt2earn', 'Hike'],
 		['/news', 'Wallets']
 	];
 </script>
