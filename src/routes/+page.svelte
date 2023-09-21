@@ -1,7 +1,11 @@
 <script lang="ts">
 	import EvidenceLinkProvider from '$components/EvidenceLinkProvider.svelte';
-	import Link from '$layout/Link.svelte';
 	import Seo from '$lib/components/Seo.svelte';
+
+	let smartContractAddressOnChain = "0x0c11a215b82d3143b1913ab9ff37d2caa0d423bf"
+	let targetChainName = "Polygon zkEVM";
+	let targetChainId = 1101; // 0x44d // Polygon zk EVM --> long term there might be additional contracts for modulus
+
 </script>
 
 <Seo
@@ -17,13 +21,7 @@
 	<p><br></p>
 	We have launched a decentralized crypto currency to free Julian Assange. 
 	<p><br></p>
-	The 
-	<a href="https://github.com/monique-baumann/cultmagazine/blob/staging/smart-contracts/free-julian-assange.sol" target="_blank">smart contract</a> is deployed on 
-	<!-- <a href="https://polygon.technology/polygon-zkevm" target="_blank">Polygon zkEVM</a>  -->
-	<a href="https://chainlist.org/chain/1101" target="_blank">Polygon zkEVM</a> 
-	with the address 
-	<a href="https://zkevm.polygonscan.com/token/0x0c11a215b82d3143b1913ab9ff37d2caa0d423bf" 
-	target="_blank">0x0c11a215b82d3143b1913ab9ff37d2caa0d423bf</a>.
+	
 	<div class="iframediv">
 		<iframe
 		class="rumble"
@@ -35,8 +33,12 @@
 		title="The A-Team Supports Rumble"
 		/>
 	</div>
-	<p><br></p>
-	<EvidenceLinkProvider></EvidenceLinkProvider>
+	
+	<EvidenceLinkProvider
+	 smartContractAddressOnChain={smartContractAddressOnChain}
+	 targetChainName={targetChainName}
+	 targetChainId={targetChainId}
+	 ></EvidenceLinkProvider>
 
 </section>
 

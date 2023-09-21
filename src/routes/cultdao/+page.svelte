@@ -132,7 +132,8 @@
 	<!-- "https://dune.com/embeds/1280936/2194836/18828c7c-899f-487e-bc10-779fee1f1026" -->
 
 	<h4>Join Us We Rock</h4>
-
+	Please follow each other on
+	<a href="https://twitter.com/MrOmodulus" target="_blank"> Twitter</a>.
 	<ul>
 		<Link path="https://discord.gg/wearecultdao">
 			<img src="images/discord.svg" alt="" />
@@ -232,22 +233,6 @@
 
 
 
-<div class="text-center">
-		<h4>We Support rumble.com</h4>
-		Please copy your videos from youtube to rumble to support freedom of speach
-		<div class="iframediv">
-			<iframe
-				class="rumble"
-				width="100%"
-				height="600"
-				src="https://rumble.com/embed/v1im0wr/?pub=1e5w3p"
-				frameborder="0"
-				allowfullscreen
-				title="CULTDAO in 100 seconds with Michael Saylor"
-			/>
-		</div>
-</div>
-
 
 <p><br /></p>
 
@@ -263,7 +248,7 @@
 			alt="truth seekers"
 			class="centeredImage"
 		/> <br />
-		This is why corrupt politicians force young people (aka soldiers) to kill the victims of the other propaganda
+		This is why corrupt politicians want to force young people (aka soldiers) to kill the victims of the other propaganda
 		mutually. <br /><br />
 		This is why corrupt politicians want to destroy farmers and food facilities.<br /><br />
 		This is why corrupt politicians want to keep you stupid.
@@ -294,7 +279,7 @@
 			
 		</ol>
 
-		<section id="gameofthedayreminder">
+		<!-- <section id="gameofthedayreminder">
 			<h4>CULT Game of the Day Reminder</h4>
 
 			Start interacting with the
@@ -309,6 +294,24 @@
 					<img src="images/cult-mag-bot.png" alt="" class="cultandrvltpricedirectionindicator" />
 				</a>
 			</div>
+		</section> -->
+
+		<section id="cultshops">
+			<!-- https://github.com/cultfamily-on-github/cult-video-conferencing-microservice -->
+			<h4>CULT Shop</h4>
+
+			<a href="https://dripxkarip.com" target="_blank"> dripxkarip.com</a>
+		</section>
+		
+		<section id="nftart">
+		<h4>CULT NFT Art</h4>
+
+		<a href="https://www.cultdao.art" target="_blank"> cultdao.art</a>
+			<p><br></p>
+		<div class="cultandrvltpricedirectionindicatordiv">
+			<img src="images/cultdao-art-girl.png" alt="" class="cultandrvltpricedirectionindicator" />
+		</div>
+
 		</section>
 
 		<section id="onlycultfans">
@@ -354,23 +357,7 @@
 			<a href="https://cultkamasutra.eth.limo" target="_blank"> cultkamasutra.eth.limo</a>.
 		</section>
 
-		<section id="cultshops">
-			<!-- https://github.com/cultfamily-on-github/cult-video-conferencing-microservice -->
-			<h4>CULT Shop</h4>
-
-			<a href="https://dripxkarip.com" target="_blank"> dripxkarip.com</a> -
-		</section>
 		
-		<section id="nftart">
-		<h4>CULT NFT Art</h4>
-
-		<a href="https://www.cultdao.art" target="_blank"> cultdao.art</a>
-			<p><br></p>
-		<div class="cultandrvltpricedirectionindicatordiv">
-			<img src="images/cultdao-art-girl.png" alt="" class="cultandrvltpricedirectionindicator" />
-		</div>
-
-		</section>
 		<!-- <h4>Just Do It</h4>
 
 		<a href="https://www.youtube.com/watch?v=5-sfG8BV8wU" target="_blank">
@@ -383,7 +370,7 @@
 <p><br></p>
 <p><br></p>
 <p><br></p>
-<div class="text-center">
+<!-- <div class="text-center">
 	<h2>Play 2 Earn</h2>
 
 	Play 2 Earn is inspired by
@@ -413,10 +400,10 @@
 
 <p><br></p>
 <p><br></p>
-<p><br></p>
+<p><br></p> -->
 
 
-<div class="text-center">
+<!-- <div class="text-center">
 	<h2>Learn 2 Earn</h2>
 
 	One of the best ways to learn might be to practice providing education services for others.<br
@@ -440,10 +427,6 @@
 	<h4>24 / 7 DeFi Consultation Hour</h4>
 	The goal of this 24/7 conference is to mutually provide education and coaching around decentralization,
 	self-hosted wallets etc.
-	<!-- <p><br></p>
-	There will be a permanent disclaimer saying that the volunteers are not financial advisors. Encouraging all visitors to also do their own research on what they learned in the 24 / 7 DeFi Consultation Hour. -->
-
-	<!-- You can volunteer for the 24 / 7 "DeFi Consultation Hour". <br> -->
 	<br>
 	Details on how this could look like are
 	<a
@@ -453,33 +436,14 @@
 		in the cooking</a
 	>. Proposals are of course always welcome.
 
-	<!-- <p><br></p>
-	To ensure the probability is high that well experienced people with best of intentions are accepted as consultants, there are two ways of becoming a consultant: <br><br>
-	1. Apply with a video which was created by you
-	2. You wait for an invitation (similar to ClubHouse's invitation model - tbd: add link to example invitation tree)  
-	 -->
-
-	<!-- <p><br /><br /><br /></p>
-	<h4>Education Diagrams</h4>
-	<p><br /></p>
-
-	You might consider creating education videos, upload them on
-	<a href="https://rumble.com" target="_blank"> rumble.com</a> and register your public wallet
-	address for the CULT wallet reputation and donation service (under construction). -->
-
-	<!-- <a href="tbd" target="_blank">
-		submit a link to your work</a
-	>. 
-    <br /><br />
- -->
 </div>
 
 <p><br></p>
 <p><br></p>
-<p><br></p>
+<p><br></p> -->
 
 
-<div class="text-center">
+<!-- <div class="text-center">
 	<h2>Tools of Freedom</h2>
 	We give a sneak preview here on what the ecosystem is cooking.
 
@@ -513,51 +477,20 @@
 
 <p><br></p>
 <p><br></p>
-<p><br></p>
+<p><br></p> -->
 
 
 <div class="text-center">
-	<h2>News</h2>
+	<!-- <h2>News</h2>
 	The latest CULT statistics can be found via
 	<a href="https://dune.com/web3_data/CULT" target="_blank"> this link</a>. 
 	<p><br></p> 
 	The latest CULT Magazine news can be received with our
-	<a href="https://t.me/cultmagazine_bot" target="_blank"> telegram news bot</a>.
+	<a href="https://t.me/cultmagazine_bot" target="_blank"> telegram news bot</a>. -->
 
-	<h4>Communities</h4>
-	Please follow each other on
-	<a href="https://twitter.com/MrOmodulus" target="_blank"> Twitter</a>.
 
-	<ul>
-		<Link path="https://discord.gg/wearecultdao">
-			<img src="images/discord.svg" alt="" />
-			Discord
-		</Link>
-		<Link path="https://rumble.com/c/c-1902267">
-			<img src="images/youtube.svg" alt="" />
-			YouTube
-		</Link>
-		<Link path="https://twitter.com/MrOmodulus">
-			<img src="images/twitter.svg" alt="" />
-			Twitter
-		</Link>
-	</ul>
-	<ul>
-		<Link path="https://doc.cultdao.io/">
-			<img src="images/newsletter.svg" alt="" />
-			Newsletter
-		</Link>
-		<Link path="https://www.reddit.com/r/cultdao/">
-			<img src="images/reddit.svg" alt="" />
-			Reddit
-		</Link>
-		<Link path="https://www.cultradio.com/">
-			<img src="images/radio.svg" alt="" />
-			Podcast
-		</Link>
-	</ul>
 
-	<h4>Events</h4>
+	<!-- <h4>Events</h4>
 
 	We'll promote CULT related live streams taking place on
 	<a href="https://rumble.com/c/c-1902267" target="_blank"> rumble.com </a>
@@ -568,26 +501,15 @@
 	or
 	<a href="https://coinmarketcap.com/currencies/revolt-2-earn" target="_blank"> RVLT </a>
 
-	in their wallet.
+	in their wallet. -->
 
 	<h4>Miscellaneous</h4>
 
-	<h6>CULT Shops Going Live</h6>
-
-	<a href="https://dripxkarip.com" target="_blank"> dripxkarip.com</a> -
-	<a href="https://www.shop2revolt.com" target="_blank"> shop2revolt.com</a> -
-	<a href="https://www.cultdaodizayn.com" target="_blank"> cultdaodizayn.com</a>
-
-	<h6>Cultoshi Optimizes the Voting Process</h6>
-
-	<!-- The following content is embedded from -->
-	<a href="https://revolt.cultoshi.com" target="_blank"> revolt.cultoshi.com</a>.
-
-	<h6>CULT Mag NFTs</h6>
+	<!-- <h6>CULT Mag NFTs</h6>
 
 	The plan is to list
 	<a href="https://github.com/cultfamily-on-github/cult-mag-nfts" target="_blank"> CULT Mag NFTs</a>
-	here to validate their authenticity.<br /><br />
+	here to validate their authenticity.<br /><br /> -->
 
 	<h6>CULT Resources</h6>
 
@@ -616,20 +538,7 @@
 		here</a
 	>.
 
-	<p><br></p>
-	<div class="iframediv">
-		<iframe
-			class="rumble"
-			width="100%"
-			height="600"
-			src="https://rumble.com/embed/v1j2s9v/?pub=1e5w3p"
-			frameborder="0"
-			allowfullscreen
-			title="The A-Team Supports"
-		/>
-	</div>
-	<p><br></p>
-	The power they took from the people will return to the people.
+	
 	<!-- <h6>Evidence Links of Approved Acts</h6>
 	<div style="margin-top: 7vh;">
 		<embed
@@ -655,11 +564,11 @@
 		margin-top: 4vh;
 	}
 
-	@media (max-width: 1000px) {
+	/* @media (max-width: 1000px) {
 		.embedonlycultfans {
 			display: none;
 		}
-	}
+	} */
 	.centeredImage {
 		display: block;
 		margin-left: auto;

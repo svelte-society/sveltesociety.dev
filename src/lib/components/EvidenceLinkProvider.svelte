@@ -1,47 +1,63 @@
 <script>
-	import Metamask from "./Metamask.svelte";
-	import { ethers } from "ethers";
-	import { smartContractABI } from '../constants'
+	import Metamask from './Metamask.svelte';
+	import { ethers } from 'ethers';
+	import { freeJulianAssangeABI } from '../constants';
 
-	let targetChainId = 1101; // 0x44d // Polygon zk EVM --> long term there might be additional contracts for modulus
-	let targetChainName = "Polygon zkEVM";
-	let smartContractAddressOnChain; 
-	
+	export let targetChainId;
+	export let targetChainName;
+	export let smartContractAddressOnChain;
+
 	let publicWalletAddressOfVisitor;
 	let connectedToChainId;
 	let amountOfCoinsInSmartContractItself;
 	let amountOfCoinsInVisitorsWallet;
 	let contract;
-	
+	let visitorWantsToJoin;
+
 	async function handleWalletConnected(event) {
 		publicWalletAddressOfVisitor = event.detail.publicWalletAddress;
 		connectedToChainId = event.detail.chainId;
-		const provider = new ethers.BrowserProvider(window.ethereum)
-		const signer = await provider.getSigner()
-		contract = new ethers.Contract(smartContractAddressOnChain, smartContractABI, signer)
-		amountOfCoinsInSmartContractItself = 
-		ethers.formatEther((await contract.balanceOf(smartContractAddressOnChain)));
-		amountOfCoinsInVisitorsWallet = 
-		ethers.formatEther((await contract.balanceOf(publicWalletAddressOfVisitor)));
+		const provider = new ethers.BrowserProvider(window.ethereum);
+		const signer = await provider.getSigner();
+		contract = new ethers.Contract(smartContractAddressOnChain, freeJulianAssangeABI, signer);
+		amountOfCoinsInSmartContractItself = ethers.formatEther(
+			await contract.balanceOf(smartContractAddressOnChain)
+		);
+		amountOfCoinsInVisitorsWallet = ethers.formatEther(
+			await contract.balanceOf(publicWalletAddressOfVisitor)
+		);
 	}
 
-	async function startProject() {
-		await contract.startProject()
-		window.location.reload();
+	async function join() {
+		visitorWantsToJoin = true;
+	}
+	async function buyCoins() {
+		await contract.buy();
+	}
+	async function sellCoins() {
+		await contract.sell();
 	}
 	async function claimCurrentlyAvailableLiquidityBackedMaxRewards() {
-		await contract.claimCurrentlyAvailableLiquidityBackedMaxRewards()
-		confirm("please reload this page after some seconds to see how much coins you have")
+		await contract.claimCurrentlyAvailableLiquidityBackedMaxRewards();
+		confirm('please reload this page after some seconds to see how much coins you have');
 	}
-
 </script>
 
 <main>
 
-	<Metamask 
-	targetChainId={targetChainId} 
-	targetChainName={targetChainName} 
-	on:walletConnected={handleWalletConnected} />
+	The 
+	<a href="https://github.com/monique-baumann/cultmagazine/blob/staging/smart-contracts/free-julian-assange.sol" target="_blank">smart contract</a> is deployed on 
+	<!-- <a href="https://polygon.technology/polygon-zkevm" target="_blank">Polygon zkEVM</a>  -->
+	<a href="https://chainlist.org/chain/1101" target="_blank">{targetChainName}</a> 
+	with the address 
+	<a href="https://zkevm.polygonscan.com/token/{smartContractAddressOnChain}" 
+	target="_blank">{smartContractAddressOnChain}</a>.
+
+
+
+	{#if visitorWantsToJoin}
+		<Metamask {targetChainId} {targetChainName} on:walletConnected={handleWalletConnected} />
+	{/if}
 
 	{#if publicWalletAddressOfVisitor != undefined}
 		<p><br /></p>
@@ -49,42 +65,30 @@
 		<p />
 		{publicWalletAddressOfVisitor}
 		<p />
-		on chain Id:
+		
+		<p><br /></p>
+		Within the smart contract itself there are currently
 		<p />
-		{connectedToChainId}
-		<p />
-
-		You might be interested in
-		<p />
-		<a href="https://chainid.network/" target="_blank">chainid.network</a>
-		and in
-		<p />
-		<a href="https://chainlist.org/" target="_blank">chainlist.org</a>
-
-		<p><br></p>
-
-		This dApp allows you to interact with the following smart contract: <p></p>
-	 	<a target="_blank" href="https://zkevm.polygonscan.com/address/{smartContractAddressOnChain}">
-			{smartContractAddressOnChain}
-		</a>	
-		 on {targetChainName}.
-
-		<p><br></p>
-		Within the smart contract itself there are currently <p></p>
 		{amountOfCoinsInSmartContractItself} Coins.
-		<p><br></p>
-		You currently have <p></p>
+		<p><br /></p>
+		Your currently connected wallet has
+		<p />
 		{amountOfCoinsInVisitorsWallet} Coins.
-		<p><br></p>
-		<button on:click={startProject}>
-			Start Project
-		</button>
-		<p><br></p>
+		<p><br /></p>
+		<p><br /></p>
 		<button on:click={claimCurrentlyAvailableLiquidityBackedMaxRewards}>
 			Claim Currently Available Rewards
 		</button>
+		<p><br /></p>
+		<p><br /></p>
+		<button on:click={buyCoins}> Buy Coins </button>
+		<p><br /></p>
+		<p><br /></p>
+		<button on:click={sellCoins}> Sell Coins </button>
 	{:else}
-		Please check Metamask Browserextension and reload.
+		<p><br /></p>
+		<button on:click={join}> Connect Metamask </button>
+		<p><br /></p>
 	{/if}
 </main>
 

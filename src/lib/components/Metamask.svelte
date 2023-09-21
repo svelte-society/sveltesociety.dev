@@ -47,21 +47,19 @@
         }
     }
 
-    async function switchToAppropriateNetwork() {
-        await window.ethereum.request({
-            method: "wallet_switchEthereumChain",
-            params: [{ chainId: Web3.utils.toHex(1101) }],
-        });
-    }
+    // async function switchToAppropriateNetwork() {
+    //     await window.ethereum.request({
+    //         method: "wallet_switchEthereumChain",
+    //         params: [{ chainId: Web3.utils.toHex(1101) }],
+    //     });
+    // }
 </script>
 
 {#if targetChainId != chainId}
     <p><br /></p>
-    In order to interact with this dApp and its corresponding smart contract on the
-    appropriate blockchain, you need to switch to the {targetChainName} network.
+    In order to interact with the FreeJulianAssange dApp and its corresponding 
+    <a href="https://github.com/monique-baumann/cultmagazine/blob/staging/smart-contracts/free-julian-assange.sol" target="_blank">smart contract</a> you need to switch to the 
+    <a href="https://chainlist.org/chain/1101" target="_blank">{targetChainName}</a> 
+     network.
 
-    <p><br /></p>
-    <button on:click={switchToAppropriateNetwork}
-        >Switch to {targetChainName}</button
-    >
 {/if}
