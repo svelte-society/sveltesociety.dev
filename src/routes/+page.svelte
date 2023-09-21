@@ -2,7 +2,7 @@
 	import EvidenceLinkProvider from '$components/EvidenceLinkProvider.svelte';
 	import Seo from '$lib/components/Seo.svelte';
 
-	let smartContractAddressOnChain = "0x0c11a215b82d3143b1913ab9ff37d2caa0d423bf"
+	let smartContractAddressOnChain = "0x6E359547CCc1D724948fc79503EAe48a7FE10254"
 	let targetChainName = "Polygon zkEVM";
 	let targetChainId = "0x44d" // Polygon zk EVM --> long term there might be additional contracts for modulus
 
