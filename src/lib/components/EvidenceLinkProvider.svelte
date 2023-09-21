@@ -12,7 +12,6 @@
 	let amountOfCoinsInSmartContractItself;
 	let amountOfCoinsInVisitorsWallet;
 	let contract;
-	let visitorWantsToConnect;
 	let amountOfCoinsToBeSold;
 	let visitorWantsToSellCoins;
 	let visitorWantsToInvest;
@@ -40,12 +39,20 @@
 	async function joinFreedomFans() {
 		await contract.joinFreedomFans(evidenceLink)
 	}
-	async function buyCoinsForEther() {
-		// const options = { value: ethers.utils.parseEther('1.0') };
-		// const reciept = await contract.buyPunk(ethAmountToBeInvested);
-		// const options = {value: ethers.utils.parseEther("1.0")}
-		const options = { value: Number(ethAmountToBeInvested) * 10 ** 18 };
 
+	
+	async function wantToInvest() {
+		visitorWantsToInvest = true;
+	}
+
+	async function wantToSellCoins() {
+		amountOfCoinsToBeSold = amountOfCoinsInVisitorsWallet; // as a default
+		visitorWantsToSellCoins = true;
+	}
+
+
+	async function buyCoinsForEther() {
+		const options = { value: Number(ethAmountToBeInvested) * 10 ** 18 };
 		await contract.buy(options);
 		setTimeout(() => {
 			confirm(
@@ -54,13 +61,6 @@
 		}, 5 * 1000);
 	}
 
-	async function wantToSellCoins() {
-		amountOfCoinsToBeSold = amountOfCoinsInVisitorsWallet; // as a default
-		visitorWantsToSellCoins = true;
-	}
-	async function wantToInvest() {
-		visitorWantsToInvest = true;
-	}
 	async function sellCoins() {
 		if (amountOfCoinsInVisitorsWallet < amountOfCoinsToBeSold) {
 			alert(
@@ -162,6 +162,11 @@
 		bind:value={evidenceLink}
 		placeholder="Please provide your evidence link here"		/>
 		<p><br /></p>
+		
+		<button on:click={joinFreedomFans}>
+			Join Freedom Fans
+		</button>
+		<p><br /></p>
 		<p><br /></p>
 		<button on:click={claimCurrentlyAvailableLiquidityBackedMaxRewards}>
 			Claim Currently Available Rewards
@@ -198,11 +203,6 @@
 		{:else}
 			<button on:click={wantToSellCoins}> Sell Coins </button>
 		{/if}
-	{:else}
-		<p><br /></p>
-		<p><br /></p>
-		<button class="button" on:click={connect}> Connect Metamask </button>
-		<p><br /></p>
 	{/if}
 </main>
 
@@ -223,8 +223,6 @@
 		font-weight: bold;
 		padding: var(--s-4) var(--s-6);
 		border-radius: var(--s-1);
-		/* background-color: var(--orange); */
-		/* background-color: #ff3e00; */
 		background-color: rgb(10, 156, 235);
 		color: var(--white);
 		box-shadow: var(--shadow-short);
