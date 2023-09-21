@@ -139,7 +139,7 @@
 		{/if} -->
 
 	<Metamask {targetChainId} {targetChainName} on:walletConnected={handleWalletConnected} />
-	{#if publicWalletAddressOfVisitor != undefined}
+	{#if publicWalletAddressOfVisitor != undefined && targetChainId == connectedToChainId}
 		<p><br /> <br></p>
 		You are connected with wallet:
 		<p><br></p>

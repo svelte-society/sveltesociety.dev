@@ -72,17 +72,16 @@
 	// }
 </script>
 
-{#if componentReady}
 	{#if visitorHasBrowserWallet}
 		{#if visitorIsConnectedViaBrowserWallet}
 			{#if targetChainId != chainId}
 				<p><br /></p>
-				In order to interact with the FreeJulianAssange dApp and its corresponding
+				In order to interact with the correct 
 				<a
 					href="https://github.com/monique-baumann/cultmagazine/blob/staging/smart-contracts/free-julian-assange.sol"
 					target="_blank">smart contract</a
 				>
-				you need to switch to the
+				you need to switch in your browserwallet to the
 				<a href="https://chainlist.org/chain/1101" target="_blank">{targetChainName}</a>
 				network.
 			{/if}
@@ -100,7 +99,6 @@
 
 		<p><br /></p>
 	{/if}
-{/if}
 
 <style>
 	button {

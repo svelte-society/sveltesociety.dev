@@ -4,7 +4,7 @@
 
 	let smartContractAddressOnChain = "0x0c11a215b82d3143b1913ab9ff37d2caa0d423bf"
 	let targetChainName = "Polygon zkEVM";
-	let targetChainId = 1101; // 0x44d // Polygon zk EVM --> long term there might be additional contracts for modulus
+	let targetChainId = "0x44d" // Polygon zk EVM --> long term there might be additional contracts for modulus
 
 </script>
 
