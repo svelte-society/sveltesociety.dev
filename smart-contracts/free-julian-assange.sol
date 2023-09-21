@@ -141,12 +141,21 @@ contract FreeJulianAssange is ERC20 {
     }
 
     // the following funciton can only be executed once by the projectStarter. 
-    function startProject() public { 
+    function startProject(string calldata evidenceLinkOfProjectStarter) public { 
         require(projectAlreadyStarted == false && projectStarter == msg.sender, "why would you call this function now?");
         updateNumberOfFreedomFansAndIDs(msg.sender);
-        updateCoreDataForFreedomFan(msg.sender, "https://twitter.com/Peer2peerE/status/1695323724646322412");
+        updateCoreDataForFreedomFan(msg.sender, evidenceLinkOfProjectStarter); // e.g. "https://twitter.com/Peer2peerE/status/1695323724646322412"
         approveFreedomFan(msg.sender);
         projectAlreadyStarted = true;
+    }
+
+
+    function getIDOfFreedomFan(address freedomFan) public  view returns (uint256 id) {
+        return ids[freedomFan];
+    }
+
+    function getFreedomFanInfos(uint256 id) public  view returns (FreedomFan memory freedomFanInfos) {
+        return freedomFans[id];
     }
 
 
