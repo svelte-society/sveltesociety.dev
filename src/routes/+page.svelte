@@ -14,8 +14,16 @@
 	<!-- We foster decentralized cryptocurrencies to ensure there is no ground for corrupt politicians.
 	<p><br /></p> -->
 	We give freedom to those who support freedom, fairness and peace.
-
-	<EvidenceLinkProvider></EvidenceLinkProvider>
+	<p><br></p>
+	We have launched a decentralized crypto currency to free Julian Assange. 
+	<p><br></p>
+	The 
+	<a href="https://github.com/monique-baumann/cultmagazine/blob/staging/smart-contracts/free-julian-assange.sol" target="_blank">smart contract</a> is deployed on 
+	<!-- <a href="https://polygon.technology/polygon-zkevm" target="_blank">Polygon zkEVM</a>  -->
+	<a href="https://chainlist.org/chain/1101" target="_blank">Polygon zkEVM</a> 
+	with the address 
+	<a href="https://zkevm.polygonscan.com/token/0x0c11a215b82d3143b1913ab9ff37d2caa0d423bf" 
+	target="_blank">0x0c11a215b82d3143b1913ab9ff37d2caa0d423bf</a>.
 	<div class="iframediv">
 		<iframe
 		class="rumble"
@@ -28,7 +36,8 @@
 		/>
 	</div>
 	<p><br></p>
-	
+	<EvidenceLinkProvider></EvidenceLinkProvider>
+
 </section>
 
 
