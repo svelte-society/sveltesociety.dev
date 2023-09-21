@@ -18,8 +18,8 @@
 
 :root {
 	/************COLORS***************/
-	--primary: #ff3e00;
-	--secondary: #d13400;
+	--primary: rgb(10, 156, 235);
+	--secondary: rgb(10, 156, 235);
 	--accent: #011627;
 	--orange: #f97316;
 	--gray: #c1cfda;
@@ -28,7 +28,7 @@
 	--white: #f3f6f9;
 	--success: #29bf12;
 	--caution: #fcdc4d;
-	--error: #ff3e00;
+	--error: rgb(10, 156, 235);
 
 	/************UI COLORS***************/
 	--bg-color: var(--white);

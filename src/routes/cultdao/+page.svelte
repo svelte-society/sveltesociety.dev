@@ -560,9 +560,9 @@
 	.cultandrvltpricedirectionindicator {
 		width: 700px;
 	}
-	.embedonlycultfans {
+	/* .embedonlycultfans {
 		margin-top: 4vh;
-	}
+	} */
 
 	/* @media (max-width: 1000px) {
 		.embedonlycultfans {

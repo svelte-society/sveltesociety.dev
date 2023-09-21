@@ -118,6 +118,28 @@ contract FreeJulianAssange is ERC20 {
         }
     }
 
+
+    function getCurrentlyAvailableLiquidityBackedMaxRewards() public view returns (uint256 amount) {
+        uint256 currentlyAvailableLiquidityBackedMaxRewards;
+        if (balanceOf(address(this)) >= maxRewardPerFreedomFan[msg.sender]) {
+            currentlyAvailableLiquidityBackedMaxRewards = maxRewardPerFreedomFan[msg.sender];
+        } else if (maxRewardPerFreedomFan[msg.sender] > 0) {
+            currentlyAvailableLiquidityBackedMaxRewards = balanceOf(address(this));
+        } else {
+            currentlyAvailableLiquidityBackedMaxRewards = 0;
+        }
+
+        return currentlyAvailableLiquidityBackedMaxRewards;
+    }
+
+    function getCurrentlyAvailableAmountOfEtherWithinThisSmartContract() public  view returns (uint256 amount) {
+        return address(this).balance; 
+    }
+
+    function getMaxInvestmentSumInETH() public view returns (uint256 amount) {
+        return (0.001 * 10**18) - ethLiquidityProviders[msg.sender]; // each investor can invest a maximum of 1 Hal Finney in Ether fostering decentralization
+    }
+
     // the following funciton can only be executed once by the projectStarter. 
     function startProject() public { 
         require(projectAlreadyStarted == false && projectStarter == msg.sender, "why would you call this function now?");
