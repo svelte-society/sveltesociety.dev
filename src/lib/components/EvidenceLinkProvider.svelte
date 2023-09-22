@@ -17,7 +17,7 @@
 	let visitorWantsToInvest;
 	let oneHalFinneyInEther = 0.001;
 	let ethAmountToBeInvested;
-	let supportLink = "";
+	let supportLink = '';
 	let freedomFanIDOfVisitor;
 	let freedomFanInfoOfVisitor = {};
 	let notYetApprovedFreedomFans = [];
@@ -198,27 +198,33 @@
 </script>
 
 <h3>General Info</h3>
-<p><br /></p>
+<p><br /><br /></p>
 The
 <a
 	class="break"
 	href="https://github.com/monique-baumann/cultmagazine/blob/staging/smart-contracts/free-julian-assange.sol"
 	target="_blank">smart contract</a
 >
-is deployed on <br />
+is deployed on
+<p><br /></p>
 <!-- <a href="https://polygon.technology/polygon-zkevm" target="_blank">Polygon zkEVM</a>  -->
 <a href="https://chainlist.org/chain/1101" target="_blank">{targetChainName}</a>.
+<p><br /><br /></p>
+It has a fixed supply of
 <p><br /></p>
-It has a fixed supply of<br /> 24.000.000 Julians.
+<a href="https://zkevm.polygonscan.com/token/{smartContractAddressOnChain}" target="_blank"
+	>24.000.000 Julians</a
+>.
+<p><br /> <br /></p>
+It can be found via the address
 <p><br /></p>
-It can be found via the address<br />
 <a
 	class="break"
 	href="https://zkevm.polygonscan.com/token/{smartContractAddressOnChain}"
 	target="_blank">{smartContractAddressOnChain}</a
 >.
 
-<p><br /></p>
+<p><br /><br /></p>
 You get a free drink at some Freedom of Speech Parties if you prove you have at least 24
 <a href="https://zkevm.polygonscan.com/token/{smartContractAddressOnChain}" target="_blank"
 	>Julians</a
@@ -248,6 +254,20 @@ You get a free drink at some Freedom of Speech Parties if you prove you have at 
 		<p />
 		{amountOfCoinsInVisitorsWallet} Julians.
 		<p><br /></p>
+		You can find a list of all holders
+		<a
+			href="https://zkevm.polygonscan.com/token/{smartContractAddressOnChain}#balances"
+			target="_blank">here</a
+		>.
+		<p><br /></p>
+		Please read
+		<a
+			class="break"
+			href="https://github.com/monique-baumann/cultmagazine/blob/staging/smart-contracts/free-julian-assange.sol"
+			target="_blank"
+		>
+			the code</a
+		>. I wrote it in a way that everyone can understand it.
 		<p><br /></p>
 		{#if freedomFanIDOfVisitor < 1}
 			<input
@@ -330,12 +350,12 @@ You get a free drink at some Freedom of Speech Parties if you prove you have at 
 
 		<p><br /><br /></p>
 		<button on:click={showApprovedFreedomFans}> Show Approved Freedom Fans </button>
-		<p><br /></p>
+		<p><br /><br /></p>
 
 		{#if showApprovedFreedomFansMode}
-			<p><br /></p>
+			<p><br /><br /></p>
 			<h3>Approved Freedom Fans</h3>
-			<p><br /></p>
+			<p><br /><br /></p>
 			{#each approvedFreedomFans as freedomFan}
 				<a class="break" href={freedomFan.supportLink} target="_blank">{freedomFan.supportLink}</a>
 				<p><br /></p>
