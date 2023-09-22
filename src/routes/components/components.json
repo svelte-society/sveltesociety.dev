@@ -2386,5 +2386,14 @@
 		"npm": "svelte-tex",
 		"category": "Developer Experience",
 		"tags": ["components and libraries", "images"]
+	},
+	{
+		"title": "sveltekit-proxy",
+		"url": "https://github.com/born05/sveltekit-proxy",
+		"repository": "https://github.com/born05/sveltekit-proxy",
+		"description": "A simple way to proxy paths from SvelteKit to a different server.",
+		"npm": "@born05/sveltekit-proxy",
+		"category": "Integration",
+		"tags": ["ssr", "integrations"]
 	}
 ]
