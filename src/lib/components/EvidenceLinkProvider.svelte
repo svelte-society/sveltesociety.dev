@@ -20,9 +20,13 @@
 	let evidenceLink;
 	let freedomFanIDOfVisitor;
 	let freedomFanInfoOfVisitor = {};
+	let notYetApprovedFreedomFans = [];
+	let approvedFreedomFans = [];
 	let rawInfo;
-	let freedomFanInfoOfArray;
 	let readyForFreedom;
+	let numberOfFreedomFans;
+	let votingMode = false;
+	let showApprovedFreedomFansMode = false;
 
 	async function handleWalletConnected(event) {
 		publicWalletAddressOfVisitor = event.detail.publicWalletAddress;
@@ -37,17 +41,37 @@
 			await contract.balanceOf(publicWalletAddressOfVisitor)
 		);
 
+		numberOfFreedomFans = await contract.numberOfFreedomFans();
 		freedomFanIDOfVisitor = await contract.getIDOfFreedomFan(publicWalletAddressOfVisitor);
-		rawInfo = await contract.getFreedomFanInfos(freedomFanIDOfVisitor);
 
-		freedomFanInfoOfArray = rawInfo.toString().split(',');
-		freedomFanInfoOfVisitor.address = freedomFanInfoOfArray[0];
-		freedomFanInfoOfVisitor.evidenceLink = freedomFanInfoOfArray[1];
-		freedomFanInfoOfVisitor.appliedOn = freedomFanInfoOfArray[2];
-		freedomFanInfoOfVisitor.approvedOn = freedomFanInfoOfArray[3];
-		freedomFanInfoOfVisitor.amountOfReceivedApprovals = freedomFanInfoOfArray[4];
-
+		freedomFanInfoOfVisitor = await getFreedomFanInfoFromID(freedomFanIDOfVisitor);
+		await collectFreedomFans();
 		readyForFreedom = true;
+	}
+
+	async function getFreedomFanInfoFromID(id) {
+		let freedomFanInfo = {};
+		rawInfo = await contract.getFreedomFanInfos(id);
+		let array = [];
+		array = rawInfo.toString().split(',');
+		freedomFanInfo.address = array[0];
+		freedomFanInfo.evidenceLink = array[1];
+		freedomFanInfo.appliedOn = array[2];
+		freedomFanInfo.approvedOn = array[3];
+		freedomFanInfo.amountOfReceivedApprovals = array[4];
+
+		return freedomFanInfo;
+	}
+
+	async function collectFreedomFans() {
+		for (let i = 1; i <= numberOfFreedomFans; i++) {
+			const freedomFan = await getFreedomFanInfoFromID(i);
+			if ((freedomFan.approvedOn = 0)) {
+				notYetApprovedFreedomFans.push(freedomFan);
+			} else {
+				approvedFreedomFans.push(freedomFan);
+			}
+		}
 	}
 
 	async function joinFreedomFans() {
@@ -125,6 +149,18 @@
 		}
 	}
 
+	async function approve(addressOfFreedomFanToBeApproved) {
+		await contract.approveFreedomFan(addressOfFreedomFanToBeApproved);
+	}
+
+	function earnRewardsByVoting() {
+		votingMode = !votingMode;
+	}
+
+	function showApprovedFreedomFans() {
+		showApprovedFreedomFansMode = !showApprovedFreedomFansMode;
+	}
+
 	async function claimCurrentlyAvailableLiquidityBackedMaxRewards() {
 		const currentPotentialMaxRewards = await contract.maxRewardPerFreedomFan(
 			publicWalletAddressOfVisitor
@@ -153,16 +189,16 @@
 	}
 </script>
 
-<main>
+<div class="break">
 	The
 	<a
 		href="https://github.com/monique-baumann/cultmagazine/blob/staging/smart-contracts/free-julian-assange.sol"
 		target="_blank">smart contract</a
 	>
-	is deployed on
+	is deployed on <br />
 	<!-- <a href="https://polygon.technology/polygon-zkevm" target="_blank">Polygon zkEVM</a>  -->
 	<a href="https://chainlist.org/chain/1101" target="_blank">{targetChainName}</a>
-	with the address
+	with the address <br />
 	<a href="https://zkevm.polygonscan.com/token/{smartContractAddressOnChain}" target="_blank"
 		>{smartContractAddressOnChain}</a
 	>.
@@ -202,16 +238,30 @@
 					<button on:click={joinFreedomFans}> Join Freedom Fans </button>
 				{/if}
 			{:else}
-
-				The evidence link you have provided is: <p><br></p>
-				<a href="{freedomFanInfoOfVisitor.evidenceLink}" target="_blank">{freedomFanInfoOfVisitor.evidenceLink}</a>
-				<p><br></p>
-				You have applied on (timestamp) ({freedomFanInfoOfVisitor.appliedOn})
-				<p><br></p>
-				You have been fully approved on (timestamp) ({freedomFanInfoOfVisitor.approvedOn})
-				<p><br></p>
-				You have received ({freedomFanInfoOfVisitor.amountOfReceivedApprovals}) approvals.
+				<p><br /><br /></p>
+				<button on:click={earnRewardsByVoting}> Earn Rewards By Voting </button>
 				<p><br /></p>
+
+				{#if votingMode}
+					{#if notYetApprovedFreedomFans.length == 0}
+						There are currently no new prospects. Please talk about CULT.
+					{:else}
+						<h2>Prospects To Be Approved</h2>
+						{#each notYetApprovedFreedomFans as freedomFan}
+							<a href="https://zkevm.polygonscan.com/address/{freedomFan.address}" target="_blank"
+								>{freedomFan.address}</a
+							>
+							<p><br></p>
+
+							<a href={freedomFan.evidenceLink} target="_blank">{freedomFan.evidenceLink}</a>
+							<p><br></p>
+							<hr>
+							<p><br /></p>
+							<button on:click={approve(freedomFan.address)}> Approve </button>
+							<p><br /></p>
+						{/each}
+					{/if}
+				{/if}
 				<p><br /></p>
 				<button on:click={claimCurrentlyAvailableLiquidityBackedMaxRewards}>
 					Claim Currently Available Rewards
@@ -232,7 +282,7 @@
 					<button on:click={buyCoinsForEther}> Invest Now </button>
 					<p><br /></p>
 				{:else}
-					<button on:click={wantToInvest}> Invest Coins </button>
+					<button on:click={wantToInvest}> Invest up to 1 Finney </button>
 				{/if}
 				<p><br /></p>
 				<p><br /></p>
@@ -251,9 +301,46 @@
 					<button on:click={wantToSellCoins}> Sell Coins </button>
 				{/if}
 			{/if}
+
+			<p><br /><br /></p>
+			<button on:click={showApprovedFreedomFans}> Show Approved Freedom Fans </button>
+			<p><br /></p>
+
+			{#if showApprovedFreedomFansMode}
+			<p><br></p>
+				<h2>Approved Freedom Fans</h2>
+				{#each approvedFreedomFans as freedomFan}
+					<a href="https://zkevm.polygonscan.com/address/{freedomFan.address}" target="_blank"
+						>{freedomFan.address}</a
+					>
+					<p><br></p>
+					<a href={freedomFan.evidenceLink} target="_blank">{freedomFan.evidenceLink}</a>
+
+					<p><br></p>
+					<hr>
+					<p><br /></p>
+
+				{/each}
+			{/if}
+
+			<p><br /><br /></p>
+			The evidence link you have provided is:
+			<p><br /></p>
+			<a href={freedomFanInfoOfVisitor.evidenceLink} target="_blank"
+				>{freedomFanInfoOfVisitor.evidenceLink}</a
+			>
+			<p><br /></p>
+			You have applied on<br />
+			{freedomFanInfoOfVisitor.appliedOn} (timestamp)
+			<p><br /></p>
+			You have been fully approved on<br />
+			{freedomFanInfoOfVisitor.approvedOn} (timestamp)
+			<p><br /></p>
+			You have received {freedomFanInfoOfVisitor.amountOfReceivedApprovals} approvals.
+			<p><br /></p>
 		{/if}
 	{/if}
-</main>
+</div>
 
 <style>
 	.myInputField {
@@ -287,7 +374,11 @@
 		filter: brightness(1.1);
 		box-shadow: var(--shadow-diffuse);
 	}
-	main {
+
+	.break {
+		word-break: break-all;
+	}
+	/* main {
 		text-align: center;
 		padding: 1em;
 		max-width: 240px;
@@ -298,5 +389,5 @@
 		main {
 			max-width: none;
 		}
-	}
+	} */
 </style>
