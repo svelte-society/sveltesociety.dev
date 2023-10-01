@@ -4,13 +4,22 @@ import templates from '../routes/templates/templates.json';
 import { cheatSheet } from '../routes/cheatsheet/cheat-sheet';
 
 export type SearchItem = {
-	type: 'Component' | 'Tool' | 'Template' | 'Recipe Category' | 'Recipe' | 'CheatSheet' | 'Event';
+	type:
+		| 'Component'
+		| 'Tool'
+		| 'Template'
+		| 'Recipe Category'
+		| 'Recipe'
+		| 'CheatSheet'
+		| 'Event'
+		| 'Link';
 	url: string;
 	tags: Array<string>;
 	title: string;
 	description: string;
 	search: string;
 };
+export const MIN_SEARCH_CHARS = 3;
 type JsonItem = {
 	title: string;
 	repository: string;
@@ -198,14 +207,118 @@ function searchKeywords(...args: Array<string>): string {
 		}, [])
 		.filter(
 			(item) =>
-				item.length >= 3 &&
+				item.length >= MIN_SEARCH_CHARS &&
 				!stopWords.includes(item) &&
 				!otherStopwords.includes(item) &&
 				!/^\d+$/.test(item)
 		)
 		.join(' ');
 }
-const allItems = [
+const allItems: Array<SearchItem> = [
+	{
+		title: 'Discord',
+		url: 'https://discord.gg/svelte',
+		search: 'discord svelte official',
+		description: 'Svelte official Discord server',
+		type: 'Link',
+		tags: ['svelte', 'official']
+	},
+	{
+		title: 'Youtube',
+		url: 'https://youtube.com/SvelteSociety',
+		search: 'youtube',
+		description: 'SvelteSociety Youtube channel',
+		type: 'Link',
+		tags: ['youtube']
+	},
+	{
+		title: 'Twitter / X',
+		tags: ['twitter'],
+		type: 'Link',
+		description: 'SvelteSociety Twitter page',
+		search: 'twitter',
+		url: 'https://twitter.com/sveltesociety'
+	},
+	{
+		title: 'Newsletter',
+		tags: ['newsletter'],
+		type: 'Link',
+		description: 'SvelteSociety Newsletter',
+		search: 'newsletter',
+		url: 'https://svelte.substack.com'
+	},
+	{
+		title: 'Reddit',
+		tags: ['reddit'],
+		type: 'Link',
+		description: 'SvelteSociety Reddit',
+		search: 'reddit',
+		url: 'https://www.reddit.com/r/sveltejs'
+	},
+	{
+		title: 'Podcast',
+		tags: ['radio', 'podcast'],
+		type: 'Link',
+		description: 'SvelteSociety Podcast',
+		search: 'radio podcast',
+		url: 'https://www.svelteradio.com/'
+	},
+	{
+		title: 'Tools',
+		tags: ['tools'],
+		type: 'Link',
+		description: 'SvelteSociety Tools page',
+		search: 'tools',
+		url: '/tools'
+	},
+	{
+		title: 'Components',
+		tags: ['components'],
+		type: 'Link',
+		description: 'SvelteSociety Components page',
+		search: 'components',
+		url: '/components'
+	},
+	{
+		title: 'Templates',
+		tags: ['templates'],
+		type: 'Link',
+		description: 'SvelteSociety Templates page',
+		search: 'templates',
+		url: '/templates'
+	},
+	{
+		title: 'Recipes',
+		tags: ['recipes'],
+		type: 'Link',
+		description: 'SvelteSociety Recipes page',
+		search: 'recipes',
+		url: '/recipes'
+	},
+	{
+		title: 'Events',
+		tags: ['events'],
+		type: 'Link',
+		description: 'SvelteSociety Events page',
+		search: 'events',
+		url: '/events'
+	},
+	{
+		title: 'Resources',
+		tags: ['resources', 'books', 'videos', 'course', 'teach', 'discovery'],
+		type: 'Link',
+		description: 'SvelteSociety Resources page (Books, Videos, Discovery)',
+		search: 'resources books videos course awesome teach discovery',
+		url: '/resources'
+	},
+	{
+		title: 'Cheat Sheet',
+		tags: ['cheat sheet', 'cheatsheet'],
+		type: 'Link',
+		description: 'SvelteSociety Cheat Sheet page',
+		search: 'cheat sheet cheatsheet',
+		url: '/cheatsheet'
+	},
 	...(components as Array<JsonItem>).map<SearchItem>((item) => ({
 		title: item.title,
 		description: item.description,
@@ -240,7 +353,7 @@ const allItems = [
 		description: '',
 		tags: [],
 		type: metadata.layout === 'recipe' ? 'Recipe' : 'Recipe Category',
-		search: searchKeywords(metadata.title),
+		search: searchKeywords(metadata.title, 'recipe'),
 		url: path.replace(/^\.\.\/routes/, '').replace('/+page.svx', '')
 	})),
 	...cheatSheet.map<SearchItem>((item) => ({
@@ -248,7 +361,7 @@ const allItems = [
 		description: '',
 		tags: [],
 		type: 'CheatSheet',
-		search: searchKeywords(item.title),
+		search: searchKeywords(item.title, 'CheatSheet Cheat Sheet'),
 		url: '/cheatsheet'
 	})),
 	...Object.entries(

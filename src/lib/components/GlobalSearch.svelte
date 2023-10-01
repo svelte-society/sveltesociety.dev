@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { SearchItem } from '$lib/items';
-	import { search } from '$lib/items';
+	import { MIN_SEARCH_CHARS, search } from '$lib/items';
 	import { afterNavigate } from '$app/navigation';
 
 	let value = '';
 	let result: Array<SearchItem> = [];
 	let input;
-	$: if (value.length >= 3) {
+	$: if (value.length >= MIN_SEARCH_CHARS) {
 		result = search(value);
 	} else {
 		result = [];
@@ -21,12 +21,15 @@
 
 	function start(event: KeyboardEvent) {
 		if (event.ctrlKey && event.code === 'KeyK') {
-			input.focus();
+			open();
 		}
 
 		if (event.code === 'Escape') {
 			close();
 		}
+	}
+	export function open() {
+		input.focus();
 	}
 </script>
 
@@ -35,7 +38,7 @@
 <div on:click|self={close}>
 	<input bind:this={input} type="search" bind:value />
 
-	{#if value.length >= 3}
+	{#if value.length >= MIN_SEARCH_CHARS}
 		<ul>
 			{#each result as item}
 				<li data-type={item.type}>
@@ -80,6 +83,20 @@
 	ul {
 		overflow-y: auto;
 		padding: var(--s-4);
+		mask-image: linear-gradient(
+			to bottom,
+			transparent 0,
+			black var(--s-4),
+			black calc(100% - var(--s-4)),
+			transparent
+		);
+		-webkit-mask-image: linear-gradient(
+			to bottom,
+			transparent 0,
+			black var(--s-4),
+			black calc(100% - var(--s-4)),
+			transparent
+		);
 	}
 	li {
 		padding: var(--s-2);
@@ -100,6 +117,10 @@
 	span {
 		color: var(--dark-gray);
 		font-size: 0.6em;
+	}
+	li a[href^='http']::after {
+		content: '↗';
+		color: var(--dark-gray);
 	}
 
 	@media (min-width: 1280px) {
