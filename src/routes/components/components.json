@@ -2394,5 +2394,13 @@
 		"npm": "supasveltekit",
 		"category": "Developer Experience",
 		"tags": ["components and libraries"]
+  },
+  {
+		"title": "@jill64/sveltekit-adapter-aws",
+		"repository": "https://github.com/jill64/sveltekit-adapter-aws",
+		"description": "AWS adapter for SvelteKit with multiple architecture",
+		"npm": "@jill64/sveltekit-adapter-aws",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"]
 	}
 ]
