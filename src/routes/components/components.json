@@ -2388,6 +2388,14 @@
 		"tags": ["components and libraries", "images"]
 	},
 	{
+		"title": "supasveltekit",
+		"repository": "https://github.com/OpenFrenchFries/supasveltekit",
+		"description": "🌟 Where Svelte's elegance meets Supabase's might! 🌟",
+		"npm": "supasveltekit",
+		"category": "Developer Experience",
+		"tags": ["components and libraries"]
+	},
+	{
 		"title": "@jill64/sveltekit-adapter-aws",
 		"repository": "https://github.com/jill64/sveltekit-adapter-aws",
 		"description": "AWS adapter for SvelteKit with multiple architecture",
