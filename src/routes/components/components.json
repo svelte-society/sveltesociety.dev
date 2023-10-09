@@ -2402,5 +2402,23 @@
 		"npm": "@jill64/sveltekit-adapter-aws",
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"]
+	},
+	{
+		"title": "LayerChart",
+		"url": "https://www.layerchart.com",
+		"repository": "https://github.com/techniq/layerchart",
+		"description": "Composable Svelte chart components to build a wide range of visualizations",
+		"npm": "layerchart",
+		"category": "Data Visualisation",
+		"tags": ["charts", "components and libraries"]
+	},
+	{
+		"title": "Svelte UX",
+		"url": "https://svelte-ux.techniq.dev",
+		"repository": "https://github.com/techniq/svelte-ux",
+		"description": "Collection of Svelte components, actions, stores, and utilities to build highly interactive applications",
+		"npm": "svelte-ux",
+		"category": "Design System",
+		"tags": ["component sets", "components and libraries"]
 	}
 ]
