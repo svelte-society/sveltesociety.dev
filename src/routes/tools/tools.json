@@ -289,5 +289,12 @@
 		"description": "Delegate events with on:* 🎉",
 		"npm": "svelte-preprocess-delegate-events",
 		"category": "Preprocessors"
+	},
+	{
+		"title": "easystatemanagersvelte",
+		"url": "https://www.npmjs.com/package/easystatemanagersvelte",
+		"repository": "https://github.com/RodneyEcheru/persistentVariable",
+		"description": "A simple and efficient way to manage state  The persistentVariable Library is lightweight and provides a simple and efficient way to create and persist data across page refreshes as well as being reactive for use cases such as a shopping cart and user states in svelte",
+		"npm": "easystatemanagersvelte",
 	}
 ]
