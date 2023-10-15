@@ -2402,5 +2402,12 @@
 		"npm": "@jill64/sveltekit-adapter-aws",
 		"category": "SvelteKit Adapters",
 		"tags": ["integrations"]
+	},
+	{
+		"title": "SvelteKit-Adapter-Versioned-Worker",
+		"repository": "https://github.com/hedgehog125/SvelteKit-Adapter-Versioned-Worker",
+		"description": "A SvelteKit adapter for generating service workers to make PWAs work offline",
+		"npm": "svelteKit-adapter-versioned-worker",
+		"category": "SvelteKit Adapters"
 	}
 ]
