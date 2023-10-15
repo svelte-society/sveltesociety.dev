@@ -2388,6 +2388,47 @@
 		"tags": ["components and libraries", "images"]
 	},
 	{
+		"title": "supasveltekit",
+		"repository": "https://github.com/OpenFrenchFries/supasveltekit",
+		"description": "🌟 Where Svelte's elegance meets Supabase's might! 🌟",
+		"npm": "supasveltekit",
+		"category": "Developer Experience",
+		"tags": ["components and libraries"]
+	},
+	{
+		"title": "@jill64/sveltekit-adapter-aws",
+		"repository": "https://github.com/jill64/sveltekit-adapter-aws",
+		"description": "AWS adapter for SvelteKit with multiple architecture",
+		"npm": "@jill64/sveltekit-adapter-aws",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"]
+	},
+	{
+		"title": "SvelteKit-Adapter-Versioned-Worker",
+		"repository": "https://github.com/hedgehog125/SvelteKit-Adapter-Versioned-Worker",
+		"description": "A SvelteKit adapter for generating service workers to make PWAs work offline",
+		"npm": "svelteKit-adapter-versioned-worker",
+		"category": "SvelteKit Adapters"
+	},
+	{
+		"title": "LayerChart",
+		"url": "https://www.layerchart.com",
+		"repository": "https://github.com/techniq/layerchart",
+		"description": "Composable Svelte chart components to build a wide range of visualizations",
+		"npm": "layerchart",
+		"category": "Data Visualisation",
+		"tags": ["charts", "components and libraries"]
+	},
+	{
+		"title": "Svelte UX",
+		"url": "https://svelte-ux.techniq.dev",
+		"repository": "https://github.com/techniq/svelte-ux",
+		"description": "Collection of Svelte components, actions, stores, and utilities to build highly interactive applications",
+		"npm": "svelte-ux",
+		"category": "Design System",
+		"tags": ["component sets", "components and libraries"]
+	},
+	{
 		"title": "sveltekit-proxy",
 		"url": "https://github.com/born05/sveltekit-proxy",
 		"repository": "https://github.com/born05/sveltekit-proxy",
