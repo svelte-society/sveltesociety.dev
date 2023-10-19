@@ -2443,10 +2443,15 @@
 		"description": "A modern merge editor for the Web",
 		"npm": "@mismerge/core",
 		"category": "Forms & User Input",
-		"tags": [
-			"components and libraries",
-			"typescript",
-			"inputs and widgets"
-		]
+		"tags": ["components and libraries", "typescript", "inputs and widgets"]
+	},
+	{
+		"title": "svelte-ripple-action",
+		"url": "https://ripple.posandu.com/",
+		"repository": "https://github.com/Posandu/svelte-ripple-action",
+		"description": "Svelte action to add ripple effects to Svelte components",
+		"npm": "svelte-ripple-action",
+		"category": "User Interaction",
+		"tags": ["animations", "interactions"]
 	}
 ]
