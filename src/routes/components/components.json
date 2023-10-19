@@ -2436,5 +2436,17 @@
 		"npm": "@born05/sveltekit-proxy",
 		"category": "Integration",
 		"tags": ["ssr", "integrations"]
+	},
+	{
+		"title": "MisMerge",
+		"repository": "https://github.com/BearToCode/mismerge",
+		"description": "A modern merge editor for the Web",
+		"npm": "@mismerge/core",
+		"category": "Forms & User Input",
+		"tags": [
+			"components and libraries",
+			"typescript",
+			"inputs and widgets"
+		]
 	}
 ]
