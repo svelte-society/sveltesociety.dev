@@ -111,7 +111,7 @@ As with slots, there is no programmatic interface for the Context API (setContex
 	export let context_key;
 	export let context_value;
 
-	setContext(key, value);
+	setContext(context_key, context_value);
 </script>
 
 <svelte:component this={Component} />
