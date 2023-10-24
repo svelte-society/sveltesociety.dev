@@ -2330,8 +2330,7 @@
 			"inputs and widgets",
 			"time and date",
 			"typescript"
-		],
-		"stars": 0
+		]
 	},
 	{
 		"title": "svelte-svg-transform",
@@ -2466,8 +2465,6 @@
 			"async data",
 			"integrations",
 			"typescript"
-		],
-		"stars": 0
 		]
 	}
 ]
