@@ -5,12 +5,7 @@
 		"description": "SvelteKit sitemap focused on ease of use and making it impossible to forget to add your paths.",
 		"npm": "super-sitemap",
 		"category": "Developer Experience",
-		"tags": [
-			"components and libraries",
-			"integrations",
-			"layout and structure",
-			"typescript"
-		]
+		"tags": ["components and libraries", "integrations", "layout and structure", "typescript"]
 	},
 	{
 		"title": "svelte-scrollactive",
