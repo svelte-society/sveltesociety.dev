@@ -2461,5 +2461,17 @@
 		"npm": "svelte-ripple-action",
 		"category": "User Interaction",
 		"tags": ["animations", "interactions"]
+	},
+	{
+		"title": "Apity",
+		"url": "https://github.com/cocreators-ee/apity",
+		"description": "Typed API client for Svelte and SvelteKit",
+		"npm": "@cocreators-ee/apity",
+		"category": "Integration",
+		"tags": [
+			"async data",
+			"integrations",
+			"typescript"
+		]
 	}
 ]
