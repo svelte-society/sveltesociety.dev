@@ -671,5 +671,18 @@
 		"description": "This boilerplate includes Hardhat, Svelte, Tailwind, TS and cva libs. Example integration using MetaMask",
 		"category": "Svelte",
 		"tags": ["storybook", "typescript"]
-	}
+	},
+	{
+	"title": "surreal-sveltekit",
+	"repository": "https://github.com/oskar-gmerek/surreal-sveltekit",
+	"description": "A Starter Kit with SurrealDB and SvelteKit, featuring Authentication and CRUD Operations + Realtime",
+	"category": "SvelteKit",
+	"tags": [
+		"templates",
+		"database",
+		"integrations",
+		"typescript",
+		"ssr"
+	]
+}
 ]
