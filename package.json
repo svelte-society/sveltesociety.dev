@@ -10,7 +10,7 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"test": "vitest",
-		"lint": "prettier --check ./**/*.{js,ts,css,md,svelte,html,json} && eslint --ignore-path .gitignore .",
+		"lint": "prettier --check ./**/*.{js,ts,css,md,svelte,html,json} && eslint --ignore-path .gitignore . && node scripts/validateData.js",
 		"format": "prettier --write ./**/*.{js,ts,css,md,svelte,html,json}",
 		"prepare": "husky install"
 	},
@@ -42,7 +42,8 @@
 		"typescript": "^5.1.6",
 		"undici": "^5.22.1",
 		"vite": "^4.4.2",
-		"vitest": "^0.33.0"
+		"vitest": "^0.33.0",
+		"zod": "^3.21.4"
 	},
 	"lint-staged": {
 		"*.{js,ts,css,md,svx,svelte,html,json}": "prettier --write"
