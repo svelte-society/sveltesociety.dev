@@ -2461,5 +2461,13 @@
 		"npm": "svelte-ripple-action",
 		"category": "User Interaction",
 		"tags": ["animations", "interactions"]
+	},
+	{
+		"title": "sveltekit-superforms",
+		"repository": "https://github.com/ciscoheat/sveltekit-superforms",
+		"description": "Making SvelteKit validation and displaying of forms a pleasure!",
+		"npm": "sveltekit-superforms",
+		"category": "Forms & User Input",
+		"tags": ["components and libraries", "forms", "typescript", "ssr"]
 	}
 ]
