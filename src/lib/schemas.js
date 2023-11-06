@@ -6,7 +6,7 @@ export const componentsSchema = z.array(
 		url: z.string().optional(),
 		repository: z.string(),
 		description: z.string(),
-		npm: z.string().optional(),
+		npm: z.string(),
 		category: z.string(),
 		tags: z.array(z.string()).optional()
 	})
