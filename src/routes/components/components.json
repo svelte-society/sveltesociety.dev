@@ -1004,14 +1004,6 @@
 	},
 	{
 		"category": "CSS and Layout",
-		"description": "resizable layout component for svelte",
-		"tags": ["components and libraries", "layout and structure"],
-		"title": "svelte-layout-resizable",
-		"repository": "https://github.com/milahu/svelte-layout-resizable",
-		"npm": "svelte-layout-resizable"
-	},
-	{
-		"category": "CSS and Layout",
 		"description": "Arrange infinite card elements according to various layout types like masonry",
 		"npm": "@egjs/svelte-infinitegrid",
 		"tags": ["components and libraries", "layout and structure"],
