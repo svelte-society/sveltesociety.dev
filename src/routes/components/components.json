@@ -213,7 +213,8 @@
 	},
 	{
 		"title": "SCR Svelte Client Router",
-		"repository": "https://arthurgermano.github.io/svelte-client-router/#/svelte-client-router",
+		"url": "https://arthurgermano.github.io/svelte-client-router/#/svelte-client-router",
+		"repository": "https://github.com/arthurgermano/svelte-client-router",
 		"npm": "svelte-client-router",
 		"description": "Svelte Client Router is everything you need and think when routing SPA's. This is The Svelte Router for SPA!",
 		"tags": ["routers"],

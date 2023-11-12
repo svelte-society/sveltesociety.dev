@@ -5,7 +5,10 @@ export const componentsSchema = z.array(
 		title: z.string(),
 		npm: z.string().regex(/^(@[a-z0-9-]*\/)?[a-z0-9-]*$/),
 		url: z.string().url().optional(),
-		repository: z.string().url(),
+		repository: z
+			.string()
+			.url()
+			.refine((val) => val.includes('github.com') || val.includes('gitlab.com')),
 		description: z.string(),
 		category: z.enum([
 			'Display Components',
@@ -33,7 +36,10 @@ export const templatesSchema = z.array(
 	z.object({
 		title: z.string(),
 		url: z.string().url().optional(),
-		repository: z.string().url(),
+		repository: z
+			.string()
+			.url()
+			.refine((val) => val.includes('github.com') || val.includes('gitlab.com')),
 		description: z.string(),
 		category: z.enum(['Svelte Add', 'SvelteKit', 'Svelte']),
 		tags: z.array(z.string()).optional()
@@ -48,7 +54,10 @@ export const toolsSchema = z.array(
 			.regex(/^(@[a-z0-9-]*\/)?[a-z0-9-]*$/)
 			.optional(),
 		url: z.string().url().optional(),
-		repository: z.string().url(),
+		repository: z
+			.string()
+			.url()
+			.refine((val) => val.includes('github.com') || val.includes('gitlab.com')),
 		description: z.string(),
 		category: z.enum([
 			'Debugging',
