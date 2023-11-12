@@ -24,13 +24,13 @@ jobs:
         run: pnpm run lint
         continue-on-error: true
       - name: Run format
-        if: job.steps.lint.status == failure()
+        if: steps.lint.outcome != 'success'
         run: pnpm run format
       - name: Re-run lint
-        if: job.steps.lint.status == failure()
+        if: steps.lint.outcome != 'success'
         run: pnpm run lint
       - name: Commit prettier fixes
-        if: job.steps.lint.status == failure()
+        if: steps.lint.outcome != 'success'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'Automated prettier fix'
