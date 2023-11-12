@@ -20,4 +20,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Run lint
+        id: lint
         run: pnpm run lint
+        continue-on-error: true
+      - name: Run format
+        if: job.steps.lint.status == failure()
+        run: pnpm run format
+      - name: Re-run lint
+        if: job.steps.lint.status == failure()
+        run: pnpm run lint
+      - name: Commit prettier fixes
+        if: job.steps.lint.status == failure()
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'Automated prettier fix'
