@@ -683,7 +683,7 @@
 		"title": "SvelteStore",
 		"repository": "https://github.com/gitbreaker222/SvelteStore",
 		"description": "Template for client side svelte store",
-		"category": "Stores",
-		"tags": ["components and libraries", "stores and state"]
+		"category": "Svelte",
+		"tags": ["templates", "stores and state"]
 	}
 ]
