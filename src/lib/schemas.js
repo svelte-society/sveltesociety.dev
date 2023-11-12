@@ -47,6 +47,7 @@ export const toolsSchema = z.array(
 		npm: z.string().regex(packageNameRegex).optional(),
 		url: z.string().url().optional(),
 		repository: z.string().url(),
+		description: z.string(),
 		category: z.enum([
 			'Debugging',
 			'Linting and Formatting',
