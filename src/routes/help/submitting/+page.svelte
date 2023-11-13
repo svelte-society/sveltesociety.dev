@@ -63,19 +63,6 @@
 		type = types.find((t) => t.value == typeQuery) || types[0];
 	});
 
-	function padWithZero(date) {
-		return date.toString().padStart(2, '0');
-	}
-
-	function todaysDate() {
-		const date = new Date();
-		const day = padWithZero(date.getDate());
-		const month = padWithZero(date.getMonth() + 1);
-		const year = date.getFullYear();
-		const sep = '-';
-		return [year, month, day].join(sep);
-	}
-
 	async function clearCategoryAndTags() {
 		await tick();
 		category = null;
