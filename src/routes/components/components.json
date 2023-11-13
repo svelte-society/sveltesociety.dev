@@ -2548,7 +2548,7 @@
 		"repository": "https://github.com/getsentry/sentry-javascript",
 		"description": "Official Sentry SDKs for JavaScript",
 		"category": "Integration",
-		"tags": ["integrations", "error monitoring"]
+		"tags": ["integrations"]
 	},
 	{
 		"title": "svelte-french-toast",
