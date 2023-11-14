@@ -1,6 +1,9 @@
 export async function getPages(
-	metaGlob: Array<string>
-): Promise<Array<{ [key: string]: string; filename: string; path: string; title?: string }>> {
+	metaGlob: Record<
+		string,
+		() => Promise<{ metadata: { title: string; layout: string; date: string } }>
+	>
+) {
 	const pages = await Promise.all(
 		Object.entries(metaGlob).map(async ([fullPath, page]) => {
 			const { metadata } = await page();
