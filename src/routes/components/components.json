@@ -2469,5 +2469,48 @@
 		"npm": "sveltekit-superforms",
 		"category": "Forms & User Input",
 		"tags": ["components and libraries", "forms", "typescript", "ssr"]
+	},
+	{
+		"title": "Percent Gauge",
+		"repository": "https://github.com/wstaeblein/percentgauge",
+		"description": "A Svelte component that creates a semi circular percent based gauge",
+		"category": "Display Components",
+		"tags": [
+			"animations",
+			"charts",
+			"components and libraries"
+		]
+	},
+	{
+		"title": "Svelte MaxChars",
+		"repository": "https://github.com/wstaeblein/svelte-maxchars",
+		"description": "Svelte action to indicate the remaining space in textboxes or textareas",
+		"category": "Forms & User Input",
+		"tags": [
+			"animations",
+			"inputs and widgets",
+			"components and libraries"
+		]
+	},
+	{
+		"title": "Svelte Key Actions",
+		"repository": "https://github.com/wstaeblein/svelte-keyactions",
+		"description": "Simple Svelte action to enabled individual key events on any element.",
+		"category": "User Interaction",
+		"tags": [
+			"inputs and widgets",
+			"forms and validation"
+		]
+	},
+	{
+		"title": "Circle Bar",
+		"repository": "https://github.com/wstaeblein/circlebar",
+		"description": "Svelte component that emulates a circular percent based progress bar",
+		"category": "Display Components",
+		"tags": [
+			"animations",
+			"charts",
+			"components and libraries"
+		]
 	}
 ]
