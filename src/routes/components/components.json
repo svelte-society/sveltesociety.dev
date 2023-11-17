@@ -2469,5 +2469,17 @@
 		"npm": "sveltekit-superforms",
 		"category": "Forms & User Input",
 		"tags": ["components and libraries", "forms", "typescript", "ssr"]
+	},
+	{
+		"title": "svelte-reparent",
+		"url": "https://leodog896.github.io/svelte-reparent/",
+		"repository": "https://github.com/LeoDog896/svelte-reparent",
+		"description": "Utility for reparenting elements",
+		"npm": "svelte-reparent",
+		"category": "Developer Experience",
+		"tags": [
+			"stores and state",
+			"components and libraries"
+		]
 	}
 ]
