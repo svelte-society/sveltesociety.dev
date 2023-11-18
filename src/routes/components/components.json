@@ -2476,6 +2476,6 @@
 		"description": "Simple Modal on the Fly",
 		"npm": "svelte-inline-modal",
 		"category": "User Interaction",
-		"tags": ["interactions","layout and structure"]
+		"tags": ["interactions", "layout and structure"]
 	}
 ]
