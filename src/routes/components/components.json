@@ -2469,5 +2469,13 @@
 		"npm": "sveltekit-superforms",
 		"category": "Forms & User Input",
 		"tags": ["components and libraries", "forms", "typescript", "ssr"]
+	},
+	{
+		"title": "svelte-inline-modal",
+		"repository": "https://github.com/jill64/svelte-inline-modal",
+		"description": "Simple Modal on the Fly",
+		"npm": "svelte-inline-modal",
+		"category": "User Interaction",
+		"tags": ["interactions","layout and structure"]
 	}
 ]
