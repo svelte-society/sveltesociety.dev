@@ -1,9 +1,8 @@
 import { error } from '@sveltejs/kit';
 import '$styles/highlight.css';
-import type { PageLoad } from './$types';
 import { getPages } from '../pageList';
 
-export async function load(): Promise<PageLoad> {
+export async function load() {
 	const pages = (await getPages(import.meta.glob('./**/*.svx'))).map((element) => ({
 		...element,
 		path: '/recipes' + element.path.substring(1)
