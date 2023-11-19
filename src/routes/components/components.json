@@ -12,7 +12,7 @@
 		"url": "https://svelte.dev/repl/d9616fce34c444d4bcac551cb5bdc0ee?version=3.55.1",
 		"repository": "https://github.com/dmvvilela/svelte-scrollactive",
 		"description": "This is a port of vue-scrollactive to Svelte, a lightweight and simple to use component that highlights menu items as you scroll the page, also scrolling to target section when clicked.",
-		"npm": "https://www.npmjs.com/package/svelte-scrollactive",
+		"npm": "svelte-scrollactive",
 		"category": "User Interaction",
 		"tags": [
 			"components and libraries",
@@ -213,7 +213,8 @@
 	},
 	{
 		"title": "SCR Svelte Client Router",
-		"repository": "https://arthurgermano.github.io/svelte-client-router/#/svelte-client-router",
+		"url": "https://arthurgermano.github.io/svelte-client-router/#/svelte-client-router",
+		"repository": "https://github.com/arthurgermano/svelte-client-router",
 		"npm": "svelte-client-router",
 		"description": "Svelte Client Router is everything you need and think when routing SPA's. This is The Svelte Router for SPA!",
 		"tags": ["routers"],
@@ -1004,13 +1005,6 @@
 	},
 	{
 		"category": "CSS and Layout",
-		"description": "resizable layout component for svelte",
-		"tags": ["components and libraries", "layout and structure"],
-		"title": "svelte-layout-resizable",
-		"repository": "https://github.com/milahu/svelte-layout-resizable"
-	},
-	{
-		"category": "CSS and Layout",
 		"description": "Arrange infinite card elements according to various layout types like masonry",
 		"npm": "@egjs/svelte-infinitegrid",
 		"tags": ["components and libraries", "layout and structure"],
@@ -1160,13 +1154,6 @@
 		"tags": ["components and libraries", "stores and state"],
 		"title": "storez",
 		"repository": "https://github.com/plrenaudin/svelte-storez"
-	},
-	{
-		"category": "Stores",
-		"description": "Template for client side svelte store",
-		"tags": ["components and libraries", "stores and state"],
-		"title": "SvelteStore",
-		"repository": "https://github.com/gitbreaker222/SvelteStore"
 	},
 	{
 		"category": "Integration",
@@ -2168,7 +2155,7 @@
 		"title": "svelte-currency-input",
 		"repository": "https://github.com/fmaclen/svelte-currency-input",
 		"description": "A form input that converts numbers to localized currency formats as you type",
-		"npm": "svelte-currency-input",
+		"npm": "@canutin/svelte-currency-input",
 		"category": "Forms & User Input",
 		"tags": ["forms", "inputs and widgets", "internationalization", "typescript"]
 	},
@@ -2265,7 +2252,7 @@
 		"title": "svelte-form-builder",
 		"repository": "https://github.com/pragmatic-engineering/svelte-form-builder-community",
 		"description": "A No-Code Form Builder Library",
-		"npm": "svelte-form-builder-community",
+		"npm": "@pragmatic-engineering/svelte-form-builder-community",
 		"category": "Forms & User Input",
 		"tags": ["forms", "components and libraries"]
 	},
@@ -2415,7 +2402,7 @@
 		"title": "SvelteKit-Adapter-Versioned-Worker",
 		"repository": "https://github.com/hedgehog125/SvelteKit-Adapter-Versioned-Worker",
 		"description": "A SvelteKit adapter for generating service workers to make PWAs work offline",
-		"npm": "svelteKit-adapter-versioned-worker",
+		"npm": "sveltekit-adapter-versioned-worker",
 		"category": "SvelteKit Adapters"
 	},
 	{

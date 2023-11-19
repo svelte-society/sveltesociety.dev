@@ -1,12 +1,10 @@
 import { z } from 'zod';
+import packageNameRegex from 'package-name-regex';
 
 export const componentsSchema = z.array(
 	z.object({
 		title: z.string(),
-		npm: z
-			.string()
-			.regex(/(@[\w-]+\/)?[\w-]+/)
-			.optional(),
+		npm: z.string().regex(packageNameRegex),
 		url: z.string().url().optional(),
 		repository: z.string().url(),
 		description: z.string(),
@@ -46,10 +44,7 @@ export const templatesSchema = z.array(
 export const toolsSchema = z.array(
 	z.object({
 		title: z.string(),
-		npm: z
-			.string()
-			.regex(/(@[\w-]+\/)?[\w-]+/)
-			.optional(),
+		npm: z.string().regex(packageNameRegex).optional(),
 		url: z.string().url().optional(),
 		repository: z.string().url(),
 		description: z.string(),
