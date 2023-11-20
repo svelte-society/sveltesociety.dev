@@ -1,5 +1,18 @@
 [
 	{
+		"title": "svelte-pilot",
+		"url": "https://svelte-pilot.github.io/",
+		"repository": "https://github.com/svelte-pilot/svelte-pilot",
+		"description": "A config-based Svelte router with support for Server-Side Rendering (SSR).",
+		"npm": "svelte-pilot",
+		"category": "Routers",
+		"tags": [
+			"routers",
+			"ssr",
+			"templates"
+		]
+	},
+	{
 		"title": "super-sitemap",
 		"repository": "https://github.com/jasongitmail/super-sitemap",
 		"description": "SvelteKit sitemap focused on ease of use and making it impossible to forget to add your paths.",
