@@ -295,5 +295,18 @@
 	"@born05/sveltekit-proxy": true,
 	"@mismerge/core": true,
 	"svelte-ripple-action": true,
-	"sveltekit-superforms": true
+	"sveltekit-superforms": true,
+	"svelte-inline-modal": true,
+	"@tanstack/svelte-table": false,
+	"@histoire/plugin-svelte": true,
+	"lucia": true,
+	"@monaco-auth/sveltekit": true,
+	"trpc-svelte-query": true,
+	"svelte-legos": false,
+	"@supabase/auth-helpers-sveltekit": true,
+	"svelte-markdown": false,
+	"svelte-exmarkdown": true,
+	"@sentry/svelte": false,
+	"svelte-french-toast": true,
+	"@zerodevx/svelte-toast": true
 }
