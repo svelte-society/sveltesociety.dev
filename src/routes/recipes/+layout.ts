@@ -2,9 +2,13 @@ import { error } from '@sveltejs/kit';
 import '$styles/highlight.css';
 import type { PageLoad } from './$types';
 import { getPages } from '../pageList';
+import type { SvxMetadata } from '../pageList';
+import type { RecipeMetadata } from '$lib/Mdsvx';
 
 export async function load(): Promise<PageLoad> {
-	const pages = (await getPages(import.meta.glob('./**/*.svx'))).map((element) => ({
+	const pages = (
+		await getPages<RecipeMetadata>(import.meta.glob<SvxMetadata<RecipeMetadata>>('./**/*.svx'))
+	).map((element) => ({
 		...element,
 		path: '/recipes' + element.path.substring(1)
 	}));

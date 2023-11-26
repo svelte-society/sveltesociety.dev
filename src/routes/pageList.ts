@@ -1,9 +1,8 @@
-export async function getPages(
-	metaGlob: Record<
-		string,
-		() => Promise<{ metadata: { title: string; layout: string; date: string } }>
-	>
-) {
+export type SvxMetadata<T extends object> = { metadata: T };
+
+export async function getPages<T extends object>(
+	metaGlob: Record<string, () => Promise<SvxMetadata<T>>> // Should be `ReturnType<vite.ImportGlobFunction>` but the ast function overload is pick, which is the wrong one
+): Promise<Array<T & { filename: string; path: string }>> {
 	const pages = await Promise.all(
 		Object.entries(metaGlob).map(async ([fullPath, page]) => {
 			const { metadata } = await page();
