@@ -678,5 +678,12 @@
 		"description": "A Starter Kit with SurrealDB and SvelteKit, featuring Authentication and CRUD Operations + Realtime",
 		"category": "SvelteKit",
 		"tags": ["templates", "database", "integrations", "typescript", "ssr"]
+	},
+	{
+		"title": "SvelteStore",
+		"repository": "https://github.com/gitbreaker222/SvelteStore",
+		"description": "Template for client side svelte store",
+		"category": "Svelte",
+		"tags": ["templates", "stores and state"]
 	}
 ]

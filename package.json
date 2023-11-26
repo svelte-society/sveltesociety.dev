@@ -31,6 +31,7 @@
 		"itemsjs": "^2.1.20",
 		"lint-staged": "^13.2.3",
 		"mdsvex": "^0.11.0",
+		"package-name-regex": "^3.0.0",
 		"prettier": "^2.8.8",
 		"prettier-plugin-svelte": "^2.10.1",
 		"rehype-slug": "^5.1.0",

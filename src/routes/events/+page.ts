@@ -1,10 +1,9 @@
 import { error } from '@sveltejs/kit';
-import type { PageLoad } from './$types';
 import { getPages } from '../pageList';
 import type { SvxMetadata } from '../pageList';
 import type { EventMetadata } from '$lib/Mdsvx';
 
-export async function load(): Promise<PageLoad> {
+export async function load() {
 	const events = await getPages<EventMetadata>(
 		import.meta.glob<SvxMetadata<EventMetadata>>('./**/*.svx')
 	);
