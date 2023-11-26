@@ -2464,5 +2464,101 @@
 		"npm": "svelte-inline-modal",
 		"category": "User Interaction",
 		"tags": ["interactions", "layout and structure"]
+	},
+	{
+		"title": "@tanstack/svelte-table",
+		"npm": "@tanstack/svelte-table",
+		"repository": "https://github.com/tanstack/table",
+		"description": "Headless UI for building powerful tables & datagrids for TS/JS",
+		"category": "Data Visualisation",
+		"tags": ["components and libraries", "layout and structure", "typescript"]
+	},
+	{
+		"title": "Histoire",
+		"npm": "@histoire/plugin-svelte",
+		"repository": "https://github.com/histoire-dev/histoire",
+		"description": "Fast and beautiful interactive component playgrounds, powered by Vite",
+		"category": "Testing",
+		"tags": ["testing"]
+	},
+	{
+		"title": "Lucia",
+		"npm": "lucia",
+		"repository": "https://github.com/lucia-auth/lucia",
+		"description": "An auth library that abstracts away the complexity of handling users and sessions",
+		"category": "Integration",
+		"tags": ["components and libraries", "integrations", "auth"]
+	},
+	{
+		"title": "Monaco",
+		"npm": "@monaco-auth/sveltekit",
+		"repository": "https://github.com/pilcrowOnPaper/monaco",
+		"description": "A simple, lightweight alternative to Auth.js",
+		"category": "Integration",
+		"tags": ["components and libraries", "integrations", "auth"]
+	},
+	{
+		"title": "trpc-svelte-query",
+		"npm": "trpc-svelte-query",
+		"repository": "https://github.com/ottomated/trpc-svelte-query",
+		"description": "A tRPC wrapper around @tanstack/svelte-query",
+		"category": "Design Pattern",
+		"tags": ["async data", "async loading", "network events", "ssr", "typescript"]
+	},
+	{
+		"title": "Svelte Legos",
+		"npm": "svelte-legos",
+		"repository": "https://github.com/ankurrsinghal/svelte-legos",
+		"description": "Collection of essential Svelte Composition Utilities",
+		"category": "Design System",
+		"tags": ["components and libraries"]
+	},
+	{
+		"title": "Supabase Auth",
+		"npm": "@supabase/auth-helpers-sveltekit",
+		"repository": "https://github.com/supabase/auth-helpers",
+		"description": "A collection of framework specific Auth utilities for working with Supabase",
+		"category": "Integration",
+		"tags": ["components and libraries", "integrations", "auth"]
+	},
+	{
+		"title": "svelte-markdown",
+		"npm": "svelte-markdown",
+		"repository": "https://github.com/pablo-abc/svelte-markdown",
+		"description": "Markdown parser to svelte components",
+		"category": "Display Components",
+		"tags": ["components and libraries", "markdown"]
+	},
+	{
+		"title": "svelte-exmarkdown",
+		"npm": "svelte-exmarkdown",
+		"repository": "https://github.com/ssssota/svelte-exmarkdown",
+		"description": "Svelte component to render markdown. Dynamic and Extensible.",
+		"category": "Display Components",
+		"tags": ["components and libraries", "markdown"]
+	},
+	{
+		"title": "Sentry for Svelte",
+		"npm": "@sentry/svelte",
+		"repository": "https://github.com/getsentry/sentry-javascript",
+		"description": "Official Sentry SDKs for JavaScript",
+		"category": "Integration",
+		"tags": ["integrations"]
+	},
+	{
+		"title": "svelte-french-toast",
+		"npm": "svelte-french-toast",
+		"repository": "https://github.com/kbrgl/svelte-french-toast",
+		"description": "Buttery smooth toast notifications for Svelte",
+		"category": "User Interaction",
+		"tags": ["components and libraries", "notifications"]
+	},
+	{
+		"title": "@zerodevx/svelte-toast",
+		"npm": "@zerodevx/svelte-toast",
+		"repository": "https://github.com/zerodevx/svelte-toast",
+		"description": "Simple elegant toast notifications",
+		"category": "User Interaction",
+		"tags": ["components and libraries", "notifications"]
 	}
 ]

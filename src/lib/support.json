@@ -78,7 +78,7 @@
 	"svelte-simple-modal": "^3.30.0 || ^4.0.0",
 	"@urql/svelte": "^3.0.0 || ^4.0.0",
 	"svelte-icons": "Unknown",
-	"svelte-native": "~3.58.0",
+	"svelte-native": "~4.2.2",
 	"svelte-copyright": "^4.0.0",
 	"svelte-flex": "^4.0.0",
 	"svelte-frappe-charts": "^3.0.0",
@@ -295,5 +295,18 @@
 	"@born05/sveltekit-proxy": "Unknown",
 	"@mismerge/core": "^4.0.0",
 	"svelte-ripple-action": "^4.0.0",
-	"sveltekit-superforms": "3.x || 4.x"
+	"sveltekit-superforms": "3.x || 4.x",
+	"svelte-inline-modal": "^4.0.0",
+	"@tanstack/svelte-table": "^4.0.0 || ^3.49.0",
+	"@histoire/plugin-svelte": "^3.0.0 || ^4.0.0",
+	"lucia": "Unknown",
+	"@monaco-auth/sveltekit": "Unknown",
+	"trpc-svelte-query": ">=3 <5",
+	"svelte-legos": "^4.0.0",
+	"@supabase/auth-helpers-sveltekit": "Unknown",
+	"svelte-markdown": "^4.0.0",
+	"svelte-exmarkdown": "^3.47.0 || ^4.0.0",
+	"@sentry/svelte": "3.x || 4.x",
+	"svelte-french-toast": "^3.57.0 || ^4.0.0",
+	"@zerodevx/svelte-toast": "^3.57.0 || ^4.0.0"
 }
