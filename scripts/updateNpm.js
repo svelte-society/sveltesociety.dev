@@ -10,7 +10,7 @@ const execAsync = promisify(exec);
 
 const data = componentsSchema.parse(components);
 
-const { versions, dates, support } = await Promise.all(
+const npm = await Promise.all(
 	data.map(async (pkg) => {
 		try {
 			return await processPackage(pkg);
@@ -19,24 +19,20 @@ const { versions, dates, support } = await Promise.all(
 		}
 	})
 ).then((values) => {
-	let versions = {};
-	let dates = {};
-	let support = {};
-	for (const value of values) {
-		if (value) {
-			versions[value.name] = value.version;
-			dates[value.name] = value.date;
-			support[value.name] = value.support;
-		}
-	}
-	return { versions, dates, support };
+	return values.filter(Boolean).reduce(
+		(result, value) => {
+			result.versions[value.name] = value.version;
+			result.dates[value.name] = value.date;
+			result.support[value.name] = value.support;
+			return result;
+		},
+		{ versions: {}, dates: {}, support: {} }
+	);
 });
 
-writeFileSync('src/lib/versions.json', JSON.stringify(versions));
-writeFileSync('src/lib/dates.json', JSON.stringify(dates));
-writeFileSync('src/lib/support.json', JSON.stringify(support));
+writeFileSync('src/lib/npm.json', JSON.stringify(npm));
 
-/** @param pkg {ReturnType<typeof data>[0]} */
+/** @param {ReturnType<typeof data>[0]} pkg */
 async function processPackage(pkg) {
 	const { stdout } = await execAsync(`npm view ${pkg.npm} --json`);
 	const data = JSON.parse(stdout.toString());
