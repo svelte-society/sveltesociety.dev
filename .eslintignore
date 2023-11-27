@@ -1,6 +1,3 @@
 /.svelte-kit
 /build
 /node_modules
-/scripts
-svelte.config.js
-vite.config.js
