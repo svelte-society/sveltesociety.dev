@@ -6,7 +6,7 @@ import { inflate } from 'pako';
 import getNpmTarballUrl from 'get-npm-tarball-url';
 import { componentsSchema } from '../src/lib/schemas.js';
 import components from '../src/routes/components/components.json' assert { type: 'json' };
-import versions from '../src/lib/versions.json' assert { type: 'json' };
+import npm from '../src/lib/npm.json' assert { type: 'json' };
 import { publint } from 'publint';
 import { untar } from './untar.js';
 import { createTarballVfs } from './tarball.js';
@@ -18,7 +18,7 @@ const injectVersions = (input) => {
 	const output = [];
 	for (const item of input) {
 		/** @type {string} */
-		const version = versions[item.npm];
+		const version = npm['versions'][item.npm];
 		if (version) {
 			output.push({ ...item, version });
 		}
