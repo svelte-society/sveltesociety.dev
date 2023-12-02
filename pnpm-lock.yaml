@@ -54,8 +54,8 @@ devDependencies:
     specifier: ^0.11.0
     version: 0.11.0(svelte@4.0.5)
   package-name-regex:
-    specifier: ^3.0.0
-    version: 3.0.0
+    specifier: ^3.1.1
+    version: 3.1.1
   prettier:
     specifier: ^3.1.0
     version: 3.1.0
@@ -2068,8 +2068,8 @@ packages:
       aggregate-error: 3.1.0
     dev: true
 
-  /package-name-regex@3.0.0:
-    resolution: {integrity: sha512-n4LexlsIvKpV8zfGWDxJIZDqDiZ9kN5JiXgx3K7oy8JbqRdrQvPG8BdJesqvGQMt/bPBG4U0gTf2w+pcNk6VWw==}
+  /package-name-regex@3.1.1:
+    resolution: {integrity: sha512-HvxwxV/5b7gEudANYHctm1mN1fjnUzh5o+VN6Qqf0ynJP89JiR+mf0oYvZ+qvG7dMYar8hTrc1edHfzFMZgf6Q==}
     engines: {node: '>=14'}
     dev: true
 
