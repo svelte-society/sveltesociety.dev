@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import packageNameRegex from 'package-name-regex';
+import { packageNameRegex } from 'package-name-regex';
 
 export const componentsSchema = z.array(
 	z.object({
