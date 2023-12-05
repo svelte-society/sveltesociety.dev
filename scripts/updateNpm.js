@@ -11,9 +11,7 @@ const execAsync = promisify(exec);
 const data = componentsSchema.parse(components);
 
 const npm = await Promise.all(
-	data.map((pkg) => processPackage(pkg)
-		.catch (error => console.log(error.message))
-	})
+	data.map((pkg) => processPackage(pkg).catch((error) => console.log(error.message)))
 ).then((values) => {
 	return values.filter(Boolean).reduce(
 		(result, value) => {
