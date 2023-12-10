@@ -685,5 +685,20 @@
 		"description": "Template for client side svelte store",
 		"category": "Svelte",
 		"tags": ["templates", "stores and state"]
-	}
+	},
+	{
+	"title": "sveltekit-shadcn-ai",
+	"url": "https://github.com/juliuslipp/sveltekit-shadcn-ai",
+	"repository": "https://github.com/juliuslipp/sveltekit-shadcn-ai",
+	"description": " The SvelteKit-Shadcn-UI-AI starter template is an innovative project combining Svelte, AI, and a range of web technologies, powered by Bun as its efficient package manager. It's an evolving toolkit ideal for developers looking to explore AI integrations and the streamlined capabilities of Svelte.",
+	"category": "SvelteKit",
+	"tags": [
+		"templates",
+		"blog",
+		"database",
+		"mdsvex",
+		"markdown",
+		"typescript"
+	]
+}
 ]
