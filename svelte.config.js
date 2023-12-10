@@ -38,6 +38,18 @@ const config = {
 			$utils: path.resolve('./src/lib/utils'),
 			$styles: path.resolve('./src/lib/styles'),
 			$stores: path.resolve('./src/lib/stores')
+		},
+		typescript: {
+			config: (config) => {
+				config.include = [
+					...config.include,
+					'../scripts/**/*.js',
+					'../prettier.config.js',
+					'../svelte.config.js',
+					'../vite.config.js'
+				];
+				return config;
+			}
 		}
 	}
 };
