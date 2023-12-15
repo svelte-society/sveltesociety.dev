@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { vitePreprocess } from '@sveltejs/kit/vite';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import adapter from '@sveltejs/adapter-static';
 import hljs from 'highlight.js';
 import { mdsvex, escapeSvelte } from 'mdsvex';
