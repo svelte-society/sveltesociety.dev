@@ -15,5 +15,5 @@ export async function load() {
 			events
 		};
 	}
-	throw error(500);
+	error(500);
 }
