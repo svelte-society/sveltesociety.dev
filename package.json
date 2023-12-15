@@ -43,7 +43,7 @@
 		"undici": "^5.22.1",
 		"vite": "^4.4.2",
 		"vitest": "^0.33.0",
-		"zod": "^3.21.4"
+		"zod": "^3.22.4"
 	},
 	"lint-staged": {
 		"*.{js,ts,css,md,svx,svelte,html,json}": "prettier --write"
