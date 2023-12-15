@@ -2477,9 +2477,6 @@
 		"description": "Utility for reparenting elements",
 		"npm": "svelte-reparent",
 		"category": "Developer Experience",
-		"tags": [
-			"stores and state",
-			"components and libraries"
-		]
+		"tags": ["stores and state", "components and libraries"]
 	}
 ]
