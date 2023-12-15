@@ -8,6 +8,7 @@
 		"start": "vite dev --open",
 		"build": "vite build",
 		"preview": "vite preview",
+		"sync": "svelte-kit sync",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"test": "vitest",
 		"lint": "prettier --check ./**/*.{js,ts,css,md,svelte,html,json} && eslint . && node scripts/validateData.js",
