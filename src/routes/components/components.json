@@ -1999,6 +1999,14 @@
 		"tags": ["in-page navigation", "stores and state"]
 	},
 	{
+		"title": "svelte-codesandbox",
+		"repository": "https://github.com/tropix126/svelte-codesandbox",
+		"description": "A powerful Svelte wrapper component around the CodeSandbox editor embed.",
+		"npm": "svelte-codesandbox",
+		"category": "Integration",
+		"tags": ["integrations", "inputs and widgets", "typescript"]
+	},
+	{
 		"title": "svelte-icons-pack",
 		"repository": "https://github.com/leshak/svelte-icons-pack",
 		"description": "Icons pack",
