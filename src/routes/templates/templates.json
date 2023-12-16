@@ -666,11 +666,32 @@
 		"tags": ["templates", "integrations"]
 	},
 	{
+		"title": "Wails.io w/ Sveltekit",
+		"repository": "https://github.com/plihelix/wails-template-sveltekit",
+		"description": "A template to generate cross-platform golang applications with a SvelteKit front-end.",
+		"category": "SvelteKit",
+		"tags": ["templates", "integrations"]
+	},
+	{
+		"title": "Tablog",
+		"repository": "https://github.com/lemmon/tablog-svelte",
+		"description": "A minimalistic blog theme built with SvelteKit and mdsvex.",
+		"category": "SvelteKit",
+		"tags": ["blog", "templates", "markdown", "mdsvex", "seo"]
+	},
+	{
 		"title": "Web3 Hardhat & Svelte Boilerplate",
 		"repository": "https://github.com/fede-rodes/hardhat-svelte-boilerplate",
 		"description": "This boilerplate includes Hardhat, Svelte, Tailwind, TS and cva libs. Example integration using MetaMask",
 		"category": "Svelte",
 		"tags": ["storybook", "typescript"]
+	},
+	{
+		"title": "SvelteKit PWA Template",
+		"repository": "https://github.com/joemmalatesta/SvelteKit-PWA-Guide",
+		"description": "A PWA Starter Template for SvelteKit",
+		"category": "SvelteKit",
+		"tags": ["templates"]
 	},
 	{
 		"title": "Vontigo",

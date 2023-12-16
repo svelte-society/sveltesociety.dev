@@ -1,5 +1,13 @@
 [
 	{
+		"title": "Curseur",
+		"repository": "https://github.com/n3-rd/curseur",
+		"description": "Svelte component for creating customizable cursors.",
+		"npm": "curseur",
+		"category": "User Interaction",
+		"tags": ["interactions", "typescript"]
+	},
+	{
 		"title": "svelte-zod-form",
 		"repository": "https://github.com/SBHattarj/svelte-zod-form",
 		"description": "A dummy text generator that does not exist",
@@ -2007,6 +2015,30 @@
 		"tags": ["inputs and widgets", "components and libraries"]
 	},
 	{
+		"title": "svelte-codesandbox",
+		"repository": "https://github.com/tropix126/svelte-codesandbox",
+		"description": "A powerful Svelte wrapper component around the CodeSandbox editor embed.",
+		"npm": "svelte-codesandbox",
+		"category": "Integration",
+		"tags": ["integrations", "inputs and widgets", "typescript"]
+	},
+	{
+		"title": "svelte-icons-pack",
+		"repository": "https://github.com/leshak/svelte-icons-pack",
+		"description": "Icons pack",
+		"npm": "svelte-icons-pack",
+		"category": "Design System",
+		"tags": ["fonts and icons"]
+	},
+	{
+		"title": "@joeinnes/svelte-image",
+		"repository": "https://github.com/joeinnes/svelte-image",
+		"description": "Svelte Component for using image CDNs to dynamically serve responsive images.",
+		"npm": "@joeinnes/svelte-image",
+		"category": "Multimedia",
+		"tags": ["images"]
+	},
+	{
 		"title": "@budgetdraw/sveltekit-cloudflare-adapter",
 		"repository": "https://github.com/budgetdraw/sveltekit-cloudflare-adapter",
 		"description": "Alternative SvelteKit adapter for Cloudflare workers. Designed to be standalone and not use wrangler.",
@@ -2353,6 +2385,14 @@
 		"tags": ["inputs and widgets", "forms", "interactions"]
 	},
 	{
+		"title": "chat-embed",
+		"repository": "https://github.com/mawa-ai/chat-embed",
+		"description": "A chat component made with svelte",
+		"npm": "chat-embed",
+		"category": "Forms & User Input",
+		"tags": ["components and libraries", "forms", "inputs and widgets"]
+	},
+	{
 		"title": "YeSvelte",
 		"repository": "https://github.com/yesvelte/yesvelte",
 		"description": "Flexible Svelte UI component library, designed to help developers build enterprise-grade web applications quickly and easily",
@@ -2367,6 +2407,38 @@
 			"time and date",
 			"typescript"
 		]
+	},
+	{
+		"title": "QR Code generator for SvelteKit",
+		"repository": "https://github.com/bonosoft/sveltekit-qrcode",
+		"description": "Use QR codes to initialise your onetime password generator or transfer other information",
+		"npm": "@bonosoft/sveltekit-qrcode",
+		"category": "User Interaction",
+		"tags": ["auth", "interactions"]
+	},
+	{
+		"title": "Progress component for SvelteKit",
+		"repository": "https://github.com/bonosoft/sveltekit-progress",
+		"description": "Add circular or square status and progress indicators to your pages",
+		"npm": "@bonosoft/sveltekit-progress",
+		"category": "User Interaction",
+		"tags": ["components and libraries"]
+	},
+	{
+		"title": "Code Entry component for SvelteKit",
+		"repository": "https://github.com/bonosoft/sveltekit-codeentry",
+		"description": "Allows user to enter pin or numeric codes for example onetime passwords",
+		"npm": "@bonosoft/sveltekit-qrcode",
+		"category": "Forms & User Input",
+		"tags": ["auth"]
+	},
+	{
+		"title": "@radar-azdelta/svelte-datatable",
+		"repository": "https://github.com/RADar-AZDelta/svelte-datatable",
+		"description": "A datatable in Svelte that can handle very lage CSV's with ease.",
+		"npm": "@radar-azdelta/svelte-datatable",
+		"category": "Data Visualisation",
+		"tags": ["components and libraries", "typescript"]
 	},
 	{
 		"title": "svelte-svg-transform",
