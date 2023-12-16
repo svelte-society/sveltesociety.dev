@@ -670,7 +670,7 @@
 		"repository": "https://github.com/fede-rodes/hardhat-svelte-boilerplate",
 		"description": "This boilerplate includes Hardhat, Svelte, Tailwind, TS and cva libs. Example integration using MetaMask",
 		"category": "Svelte",
-		"tags": ["storybook", "typescript"],
+		"tags": ["storybook", "typescript"]
 	},
 	{
 		"title": "svelte-pilot-template",
