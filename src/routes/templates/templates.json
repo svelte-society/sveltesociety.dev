@@ -673,6 +673,13 @@
 		"tags": ["blog", "typescript", "templates"]
 	},
 	{
+		"title": "Wails.io w/ Sveltekit",
+		"repository": "https://github.com/plihelix/wails-template-sveltekit",
+		"description": "A template to generate cross-platform golang applications with a SvelteKit front-end.",
+		"category": "SvelteKit",
+		"tags": ["templates", "integrations"]
+	},
+	{
 		"title": "Tablog",
 		"repository": "https://github.com/lemmon/tablog-svelte",
 		"description": "A minimalistic blog theme built with SvelteKit and mdsvex.",
