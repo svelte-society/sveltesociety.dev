@@ -2225,6 +2225,14 @@
 		"tags": ["animations", "component sets", "form validation", "notifications"]
 	},
 	{
+		"title": "@specialdoom/proi-ui",
+		"repository": "https://github.com/specialdoom/proi-ui",
+		"description": "Yet another Svelte UI lib",
+		"npm": "@specialdoom/proi-ui",
+		"category": "User Interaction",
+		"tags": ["component sets"]
+	},
+	{
 		"title": "svelte-currency-input",
 		"repository": "https://github.com/fmaclen/svelte-currency-input",
 		"description": "A form input that converts numbers to localized currency formats as you type",
