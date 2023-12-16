@@ -1,6 +1,7 @@
 <script>
 	import components from './components.json';
 	import SearchableJson from '../searchableJson.svelte';
+	import { injectStars } from '$utils/stars';
 
 	const categoryId = {
 		Animations: 'animations',
@@ -21,7 +22,7 @@
 
 <SearchableJson
 	{categoryId}
-	data={components}
+	data={injectStars(components)}
 	displayTitle="Components"
 	displayTitleSingular="component"
 	submittingType="component"
