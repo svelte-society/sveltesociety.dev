@@ -1,5 +1,13 @@
 [
 	{
+		"title": "svelte-stopwatch",
+		"repository": "https://github.com/erokar/svelte-stopwatch",
+		"description": "A Svelte timer component with a countdown option and events for start, stop and reset of the timer.",
+		"npm": "svelte-stopwatch",
+		"category": "User Interaction",
+		"tags": ["time and date", "components and libraries"]
+	},
+	{
 		"title": "Curseur",
 		"repository": "https://github.com/n3-rd/curseur",
 		"description": "Svelte component for creating customizable cursors.",
