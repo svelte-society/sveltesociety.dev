@@ -681,7 +681,7 @@
 	},
 	{
 		"title": "Sveltepress",
-    "url": "https://sveltepress.site/",
+		"url": "https://sveltepress.site/",
 		"repository": "https://github.com/SveltePress/sveltepress",
 		"description": "A markdown centered site build tool with full power of sveltekit.",
 		"npm": "@sveltepress/create",
