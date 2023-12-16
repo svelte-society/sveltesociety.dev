@@ -1995,7 +1995,7 @@
 		"repository": "https://github.com/joeinnes/svelte-image",
 		"description": "Svelte Component for using image CDNs to dynamically serve responsive images.",
 		"npm": "@joeinnes/svelte-image",
-    "category": "Multimedia",
+		"category": "Multimedia",
 		"tags": ["images"]
 	},
 	{
