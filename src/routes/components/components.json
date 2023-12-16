@@ -2699,5 +2699,13 @@
 		"description": "Simple elegant toast notifications",
 		"category": "User Interaction",
 		"tags": ["components and libraries", "notifications"]
+	},
+	{
+		"title": "svodals",
+		"repository": "https://github.com/mavthedev/svodals",
+		"description": "Cybernatically enhanced modals",
+		"npm": "@mavthedev/svodals",
+		"category": "User Interaction",
+		"tags": ["modals"]
 	}
 ]
