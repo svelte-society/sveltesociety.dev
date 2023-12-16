@@ -2007,6 +2007,14 @@
 		"tags": ["in-page navigation", "stores and state"]
 	},
 	{
+		"title": "svelte-pin-input",
+		"repository": "https://github.com/Yellowinq/svelte-pin-input",
+		"description": "Pin Input component for Svelte",
+		"npm": "@yellowinq/svelte-pin-input",
+		"category": "Forms & User Input",
+		"tags": ["inputs and widgets", "components and libraries"]
+	},
+	{
 		"title": "svelte-codesandbox",
 		"repository": "https://github.com/tropix126/svelte-codesandbox",
 		"description": "A powerful Svelte wrapper component around the CodeSandbox editor embed.",
