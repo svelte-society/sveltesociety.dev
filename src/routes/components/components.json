@@ -2393,6 +2393,30 @@
 		]
 	},
 	{
+		"title": "QR Code generator for SvelteKit",
+		"repository": "https://github.com/bonosoft/sveltekit-qrcode",
+		"description": "Use QR codes to initialise your onetime password generator or transfer other information",
+		"npm": "@bonosoft/sveltekit-qrcode",
+		"category": "User Interaction",
+		"tags": ["auth", "interactions"]
+	},
+	{
+		"title": "Progress component for SvelteKit",
+		"repository": "https://github.com/bonosoft/sveltekit-progress",
+		"description": "Add circular or square status and progress indicators to your pages",
+		"npm": "@bonosoft/sveltekit-progress",
+		"category": "User Interaction",
+		"tags": ["components and libraries"]
+	},
+	{
+		"title": "Code Entry component for SvelteKit",
+		"repository": "https://github.com/bonosoft/sveltekit-codeentry",
+		"description": "Allows user to enter pin or numeric codes for example onetime passwords",
+		"npm": "@bonosoft/sveltekit-qrcode",
+		"category": "Forms & User Input",
+		"tags": ["auth"]
+	},
+	{
 		"title": "@radar-azdelta/svelte-datatable",
 		"repository": "https://github.com/RADar-AZDelta/svelte-datatable",
 		"description": "A datatable in Svelte that can handle very lage CSV's with ease.",
