@@ -25,9 +25,9 @@
 	export let sortableFields: Array<SortField> = [];
 	export let query = '';
 
-	let facets: Array<
-		Facet & { value: FacetValue; values: Array<string> }
-	> = facetsConfig.map((facet) => ({ ...facet, values: [], value: undefined }));
+	let facets: Array<Facet & { value: FacetValue; values: Array<string> }> = facetsConfig.map(
+		(facet) => ({ ...facet, values: [], value: undefined })
+	);
 
 	const configurations = {
 		aggregations: facetsConfig.reduce(

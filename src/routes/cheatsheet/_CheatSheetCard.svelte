@@ -66,7 +66,9 @@
 		height: var(--s-5);
 		border-radius: 50%;
 		background-color: var(--primary);
-		box-shadow: 25px 0 0 0 var(--caution), 50px 0 0 0 var(--success);
+		box-shadow:
+			25px 0 0 0 var(--caution),
+			50px 0 0 0 var(--success);
 		margin-right: 50px;
 		margin-left: 20px;
 	}
