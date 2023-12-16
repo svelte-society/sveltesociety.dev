@@ -9,7 +9,7 @@
 	{#if label}
 		<span>{label}</span>
 	{/if}
-	<SvelteSelect containerClasses="select-container" bind:value {...$$restProps} />
+	<SvelteSelect containerClasses="select-container" bind:value {...$$restProps} on:select />
 </div>
 
 <style>
@@ -33,7 +33,6 @@
 		cursor: pointer;
 		flex: 1;
 		align-items: center;
-		padding: var(--s-2);
 		gap: 10px;
 		min-width: 150px;
 		min-height: 3rem;

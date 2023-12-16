@@ -2,20 +2,25 @@
 	import Icon from '$lib/components/Icon/index.svelte';
 	import { categories } from '$lib/stores/recipes';
 	import { page } from '$app/stores';
+	import Seo from '$lib/components/Seo.svelte';
 
-	const childrenNodes = $categories.find((c) => c.path === $page.path).children || [];
+	const childrenNodes = $categories.find((c) => c.path === $page.url.pathname).children || [];
 
 	export let title;
+	export let published;
+	export let updated;
 </script>
+
+<Seo {title} />
 
 <main>
 	<div class="TOC">
 		<strong>Table of Contents</strong>
 		<div class="TOCList">
 			{#each $categories as node}
-				<div class="TOCLink" class:active={$page.path.includes(node.path)}>
-					<Icon name={node.meta.icon} />
-					<a href={node.path}>{node.meta.title}</a>
+				<div class="TOCLink" class:active={$page.url.pathname.includes(node.path)}>
+					<Icon name={node.icon} />
+					<a href={node.path}>{node.title}</a>
 				</div>
 			{/each}
 		</div>
@@ -27,10 +32,22 @@
 		<ul>
 			{#each childrenNodes as node}
 				<li>
-					<a href={node.path}>{node.meta.title}</a>
+					<a href={node.path}>{node.title}</a>
 				</li>
 			{/each}
 		</ul>
+		{#if published}<footer>
+				<div>
+					Published: <time datetime={published}
+						>{new Intl.DateTimeFormat([], { dateStyle: 'full' }).format(new Date(published))}</time
+					>
+				</div>
+				{#if updated}<div>
+						Last update: <time datetime={updated}
+							>{new Intl.DateTimeFormat([], { dateStyle: 'full' }).format(new Date(updated))}</time
+						>
+					</div>{/if}
+			</footer>{/if}
 	</article>
 </main>
 
@@ -40,7 +57,15 @@
 		grid-template-columns: minmax(0, 1fr);
 		align-content: flex-start;
 	}
+	article > footer {
+		margin-top: 1em;
+		border-top: 1px solid var(--gray);
+		padding-top: 1em;
+	}
 
+	time {
+		color: var(--dark-gray);
+	}
 	strong {
 		font-size: var(--font-500);
 	}
