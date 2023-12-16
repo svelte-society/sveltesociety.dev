@@ -5,7 +5,7 @@
 		"description": "A dummy text generator that does not exist",
 		"npm": "svelte-zod-form",
 		"category": "Forms & User Input",
-		"tags": ["form validation", "reactive forms", "forms"],
+		"tags": ["form validation", "reactive forms", "forms"]
 	},
 	{
 		"title": "svelte-selecto",
