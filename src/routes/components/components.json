@@ -2471,28 +2471,28 @@
 		"repository": "https://github.com/abaga129/sveltekit-adapter-iis"
 	},
 	{
-	    	"title": "svelte-dx-table",
-	    	"repository": "https://github.com/thecodejack/svelte-dx-table",
-	    	"description": "Simple dev friendly Svelte component for building a HTML Table with basic features like sorting by default.",
-	    	"npm": "svelte-dx-table",
-	    	"category": "User Interaction",
-	    	"tags": ["components and libraries","layout and structure"]
+		"title": "svelte-dx-table",
+		"repository": "https://github.com/thecodejack/svelte-dx-table",
+		"description": "Simple dev friendly Svelte component for building a HTML Table with basic features like sorting by default.",
+		"npm": "svelte-dx-table",
+		"category": "User Interaction",
+		"tags": ["components and libraries","layout and structure"]
 	},
 	{
-	    	"title": "svelte-switch",
-	    	"repository": "https://github.com/thecodejack/svelte-switch",
-	    	"description": "SvelteJS component for switch or toggle a boolean. User would be able to drag or click for toggling.",
-	    	"npm": "svelte-switch",
-	    	"category": "Forms & User Input",
-	    	"tags": [ "components and libraries", "inputs and widgets"]
+		"title": "svelte-switch",
+		"repository": "https://github.com/thecodejack/svelte-switch",
+		"description": "SvelteJS component for switch or toggle a boolean. User would be able to drag or click for toggling.",
+		"npm": "svelte-switch",
+		"category": "Forms & User Input",
+		"tags": [ "components and libraries", "inputs and widgets"]
 	},
 	{
-	    	"title": "svelte-pagination",
-	    	"repository": "https://github.com/thecodejack/svelte-pagination",
-	    	"description": "Raw SvelteJS component for dynamic pagination. By applying styles, developer can acheive component in multiple forms.",
-	    	"npm": "svelte-pagination",
-	    	"category": "Forms & User Input",
-	    	"tags": [ "components and libraries", "inputs and widgets"]
+	 	"title": "svelte-pagination",
+		"repository": "https://github.com/thecodejack/svelte-pagination",
+		"description": "Raw SvelteJS component for dynamic pagination. By applying styles, developer can acheive component in multiple forms.",
+		"npm": "svelte-pagination",
+		"category": "Forms & User Input",
+		"tags": [ "components and libraries", "inputs and widgets"]
 	},
 	{
 		"title": "STDF",
