@@ -68,7 +68,7 @@
 		"description": "Svault is an authentication, authorization, and user management library for Svelte/SvelteKit applications.",
 		"npm": "svault",
 		"category": "Integration",
-		"tags": ["auth"],
+		"tags": ["auth"]
 	},
 	{
 		"title": "svelte-datatables-net",
