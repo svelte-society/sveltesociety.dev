@@ -1,6 +1,7 @@
 ---
 title: Dockerize a Svelte App
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
 ---
 
 Let's pull down the [basic svelte template](https://github.com/sveltejs/template) using [degit](https://github.com/Rich-Harris/degit).

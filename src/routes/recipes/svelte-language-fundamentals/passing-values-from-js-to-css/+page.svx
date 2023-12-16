@@ -1,6 +1,7 @@
 ---
 title: Passing values from JS to CSS
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
 ---
 
 You can easily read in CSS media query values into JS with [`window.matchMedia`](https://developer.mozilla.org/en/docs/Web/API/Window/matchMedia). However, sometimes you want to pass information from JS to CSS variables, or have CSS Variables read into JS.
@@ -40,7 +41,6 @@ To set CSS Variables on an element, you can use the `style` attribute.
 		width: var(--width);
 	}
 </style>
-
 ```
 
 Alternatively, you can have a custom action to do this. This is already available with [svelte-css-vars](https://github.com/kaisermann/svelte-css-vars).
