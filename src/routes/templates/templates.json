@@ -694,6 +694,15 @@
 		"tags": ["storybook", "typescript"]
 	},
 	{
+		"title": "Sveltepress",
+		"url": "https://sveltepress.site/",
+		"repository": "https://github.com/SveltePress/sveltepress",
+		"description": "A markdown centered site build tool with full power of sveltekit.",
+		"npm": "@sveltepress/create",
+		"category": "SvelteKit",
+		"tags": ["markdown", "integrations"]
+	},
+	{
 		"title": "SvelteKit PWA Template",
 		"repository": "https://github.com/joemmalatesta/SvelteKit-PWA-Guide",
 		"description": "A PWA Starter Template for SvelteKit",
