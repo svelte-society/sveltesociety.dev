@@ -1,5 +1,12 @@
 [
 	{
+		"title": "Skinny Pug Starter Template",
+		"repository": "https://github.com/lightning-jar/svelte-typescript-tailwind-pug-starter",
+		"description": "Sveltekit template with Typescript, Tailwind, Pug, Playwright, EsLint, Prettier",
+		"category": "SvelteKit",
+		"tags": ["templates", "typescript"]
+	},
+	{
 		"title": "SvelteKit Authentication Example",
 		"repository": "https://github.com/nstuyvesant/sveltekit-auth-example",
 		"description": "Fully documented example of how to setup local and \"Sign in with Google\" authentication (including Google One-Tap) using PostgreSQL, signup, page authorization, user profile management and password reset using SendGrid.",
