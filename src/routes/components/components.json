@@ -63,6 +63,14 @@
 		]
 	},
 	{
+		"title": "Svault",
+		"repository": "https://github.com/oslabs-beta/Svault",
+		"description": "Svault is an authentication, authorization, and user management library for Svelte/SvelteKit applications.",
+		"npm": "svault",
+		"category": "Integration",
+		"tags": ["auth"]
+	},
+	{
 		"title": "svelte-datatables-net",
 		"repository": "https://github.com/joaquimnetocel/svelte-datatables-net",
 		"description": "svelte-datatables-net is a svelte/sveltekit component that turns data into an interactive HTML table. Inspired by datatables.net.",
