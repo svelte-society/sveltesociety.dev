@@ -673,6 +673,13 @@
 		"tags": ["storybook", "typescript"]
 	},
 	{
+		"title": "SvelteKit PWA Template",
+		"repository": "https://github.com/joemmalatesta/SvelteKit-PWA-Guide",
+		"description": "A PWA Starter Template for SvelteKit",
+		"category": "SvelteKit",
+		"tags": ["templates"]
+	},
+	{
 		"title": "Vontigo",
 		"repository": "https://github.com/Vontigo/Vontigo",
 		"description": "🛸 Vontigo is an open-source CMS built with SvelteKit, featuring 🤖 AI-powered (ChatGPT) content generation. With fast page loads and seamless routing, Vontigo offers a user-friendly interface with customizable themes and templates.",
