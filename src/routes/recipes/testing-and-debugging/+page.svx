@@ -4,6 +4,4 @@ layout: recipeCategory
 icon: 'bug'
 ---
 
-<!-- routify:options index=1 -->
-
 ## Recipes

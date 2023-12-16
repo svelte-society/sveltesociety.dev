@@ -4,6 +4,4 @@ layout: recipeCategory
 icon: 'palette'
 ---
 
-<!-- routify:options index=1 -->
-
 ## Recipes

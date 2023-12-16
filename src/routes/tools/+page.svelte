@@ -1,53 +1,7 @@
 <script>
-	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
-	import List from '$lib/components/ComponentIndex/CardList.svelte';
-	import SearchLayout from '$layouts/SearchLayout.svelte';
-	import tools from './tools.json';
-	import Select from '$lib/components/Select.svelte';
-	import { extractUnique } from '$lib/utils/extractUnique';
-	import { compare, selectSortItems } from '$lib/utils/sort';
-	import components from '../templates/templates.json';
-	import Seo from '$lib/components/Seo.svelte';
-
-	let searchValue;
-
-	const tagItems = extractUnique(tools, 'tags');
-	let filterTag = [];
-	let selectedTags = null;
-
-	const categoryItems = [{ label: 'All', value: null }, ...extractUnique(components, 'category')];
-	let selectedCategory = null;
-	let filterCategory = null;
-
-	let selectedSorting = { value: 'stars_desc', label: 'Stars Desc' };
-	$: sorting = selectedSorting?.value || 'stars_desc';
-
-	const intersection = (array1, array2) => {
-		return array1.filter((item) => array2.includes(item));
-	};
-
-	$: dataToDisplay = tools
-		.filter((component) => {
-			if (!searchValue && filterTag.length === 0 && filterCategory === null) return true;
-
-			if (
-				(searchValue &&
-					!(
-						component.title.toLowerCase().includes(searchValue.toLowerCase()) ||
-						component.description.toLowerCase().includes(searchValue.toLowerCase())
-					)) ||
-				(filterTag.length > 0 && intersection(filterTag, component.tags).length === 0) ||
-				(filterCategory !== null && component.category !== filterCategory)
-			) {
-				return false;
-			}
-
-			return true;
-		})
-		.sort(compare(sorting));
-
-	$: categories = extractUnique(dataToDisplay, 'category');
-	$: filterTag = selectedTags?.map((obj) => obj.value) || [];
+	import tools from '../tools/tools.json';
+	import SearchableJson from '../searchableJson.svelte';
+	import { injectStars } from '$utils/stars';
 
 	const categoryId = {
 		'Bundler Plugins': 'bundling',
@@ -58,50 +12,10 @@
 	};
 </script>
 
-<Seo title="Tools" />
-
-<SearchLayout title="Tools">
-	<section slot="controls" class="controls">
-		<div class="inputs">
-			<Select bind:value={selectedTags} items={tagItems} isMulti label="Tags" />
-			<Select
-				label="Category"
-				bind:value={selectedCategory}
-				items={categoryItems}
-				placeholder="Category"
-				isClearable={false}
-				showIndicator
-			/>
-			<Select
-				items={selectSortItems}
-				bind:value={selectedSorting}
-				label="Sorting"
-				showIndicator
-				isClearable={false}
-			/>
-			<a href="/help/submitting?type=tool" class="submit">Submit a tool</a>
-		</div>
-
-		<input
-			class="searchbar"
-			type="text"
-			placeholder="Search for templates..."
-			bind:value={searchValue}
-		/>
-		<span class="searchbar-count"
-			>{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
-		>
-	</section>
-	<section slot="items">
-		{#each categories as category}
-			<List
-				title={category.label || 'Unclassified'}
-				id={categoryId[category.label] || category.label || 'unclassified'}
-			>
-				{#each dataToDisplay.filter((d) => d.category === category.value) as data}
-					<ComponentCard {...data} />
-				{/each}
-			</List>
-		{/each}
-	</section>
-</SearchLayout>
+<SearchableJson
+	{categoryId}
+	data={injectStars(tools)}
+	displayTitle="Tools"
+	displayTitleSingular="tool"
+	submittingType="tool"
+/>

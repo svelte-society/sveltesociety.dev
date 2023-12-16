@@ -1,11 +1,6 @@
 <script>
 	const booksFromPublisher = [
 		{
-			name: 'Svelte Handbook',
-			link: 'https://flaviocopes.com/page/svelte-handbook/',
-			author: 'Flavio Copes'
-		},
-		{
 			name: 'Svelte 3 Up and Running',
 			link: 'https://www.amazon.com/dp/B08D6T6BKS/',
 			author: 'Alessandro Segala'
@@ -14,6 +9,16 @@
 			name: 'Svelte and Sapper in Action',
 			link: 'https://www.manning.com/books/svelte-and-sapper-in-action',
 			author: 'R. Mark Volkmann'
+		},
+		{
+			name: 'SvelteKit Up and Running',
+			link: 'https://sveltekitbook.dev',
+			author: 'Dylan Hildenbrand'
+		},
+		{
+			name: 'Svelte with Test-Driven Development',
+			link: 'https://www.amazon.com/dp/1837638330',
+			author: 'Daniel Irvine'
 		}
 	];
 	const booksSelfPublished = [
@@ -69,15 +74,21 @@
 	<div>Finally, there are also YouTube channels and playlists that teach Svelte:</div>
 	<ul>
 		<li>
-			<a href="https://www.youtube.com/channel/UCg6SQd5jnWo5Y70rZD9SQFA" target="_blank"
+			<a href="https://youtube.com/channel/UCg6SQd5jnWo5Y70rZD9SQFA" target="_blank"
 				>Svelte Master</a
 			>
 		</li>
 		<li>
-			<a
-				href="https://www.youtube.com/watch?v=zojEMeQGGHs&list=PL4cUxeGkcC9hlbrVO_2QFVqVPhlZmz7tO"
-				target="_blank">Svelte Tutorial for Beginners</a
-			> by The Net Ninja
+			<a href="https://youtu.be/zojEMeQGGHs" target="_blank">Svelte Tutorial for Beginners</a> by The
+			Net Ninja
+		</li>
+	</ul>
+
+	<h2>Discovery</h2>
+	<ul>
+		<li>
+			For a curated list of SvelteKit examples in the wild, see
+			<a href="https://github.com/janosh/awesome-sveltekit" target="_blank">awesome-sveltekit</a>
 		</li>
 	</ul>
 </div>
