@@ -2,6 +2,8 @@
 title: Stores
 layout: recipeCategory
 icon: database
+published: 2021-06-14T11:30:41-07:00
+updated: 2023-01-27T20:05:46-08:00
 ---
 
 <script>import Warning from '../../../lib/components/recipes/Warning.svelte'</script>
@@ -21,7 +23,7 @@ icon: database
 	are highly recommended.
 </Warning>
 
-Svelte stores offer a simple mechanism to handle shared state in your Svelte application but looking beyond the built-in store implementations will unlock a whole world of power that you could never have dreamed of. In this episode of _The Tinest Kitchen_ we'll take a close look at [The Store Contract](#The_Store_Contract), learn how to implement [Custom Stores](#Custom_Stores), by making use of the built-in store API, and explore how we can implement [a completely custom store]() without using the built-in stores at all.
+Svelte stores offer a simple mechanism to handle shared state in your Svelte application but looking beyond the built-in store implementations will unlock a whole world of power that you could never have dreamed of. In this episode of _The Tinest Kitchen_ we'll take a close look at [The Store Contract](#the-store-contract), learn how to implement [Custom Stores](#custom-stores), by making use of the built-in store API, and explore how we can implement [a completely custom store]() without using the built-in stores at all.
 
 ### The store contract
 
