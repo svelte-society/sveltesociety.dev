@@ -2377,6 +2377,14 @@
 		"tags": ["inputs and widgets", "forms", "interactions"]
 	},
 	{
+		"title": "chat-embed",
+		"repository": "https://github.com/mawa-ai/chat-embed",
+		"description": "A chat component made with svelte",
+		"npm": "chat-embed",
+		"category": "Forms & User Input",
+		"tags": ["components and libraries", "forms", "inputs and widgets"]
+	},
+	{
 		"title": "YeSvelte",
 		"repository": "https://github.com/yesvelte/yesvelte",
 		"description": "Flexible Svelte UI component library, designed to help developers build enterprise-grade web applications quickly and easily",
