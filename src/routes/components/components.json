@@ -2393,6 +2393,14 @@
 		]
 	},
 	{
+		"title": "@radar-azdelta/svelte-datatable",
+		"repository": "https://github.com/RADar-AZDelta/svelte-datatable",
+		"description": "A datatable in Svelte that can handle very lage CSV's with ease.",
+		"npm": "@radar-azdelta/svelte-datatable",
+		"category": "Data Visualisation",
+		"tags": ["components and libraries", "typescript"]
+	},
+	{
 		"title": "svelte-svg-transform",
 		"repository": "https://github.com/bartektelec/svelte-svg-transform",
 		"description": "A tiny component to override SVG file properties",
