@@ -1,10 +1,43 @@
 [
 	{
+		"title": "svelte-zod-form",
+		"repository": "https://github.com/SBHattarj/svelte-zod-form",
+		"description": "A dummy text generator that does not exist",
+		"npm": "svelte-zod-form",
+		"category": "Forms & User Input",
+		"tags": ["form validation", "reactive forms", "forms"]
+	},
+	{
+		"title": "svelte-selecto",
+		"repository": "https://github.com/daybrush/selecto",
+		"description": "Selecto.js is a component that allows you to select elements in the drag area using the mouse or touch.",
+		"npm": "svelte-selecto",
+		"category": "User Interaction",
+		"tags": ["components and libraries", "typescript", "interactions"]
+	},
+	{
+		"title": "svelte-pilot",
+		"url": "https://svelte-pilot.github.io/",
+		"repository": "https://github.com/svelte-pilot/svelte-pilot",
+		"description": "A config-based Svelte router with support for Server-Side Rendering (SSR).",
+		"npm": "svelte-pilot",
+		"category": "Routers",
+		"tags": ["routers", "ssr", "templates"]
+	},
+	{
+		"title": "super-sitemap",
+		"repository": "https://github.com/jasongitmail/super-sitemap",
+		"description": "SvelteKit sitemap focused on ease of use and making it impossible to forget to add your paths.",
+		"npm": "super-sitemap",
+		"category": "Developer Experience",
+		"tags": ["components and libraries", "integrations", "layout and structure", "typescript"]
+	},
+	{
 		"title": "svelte-scrollactive",
 		"url": "https://svelte.dev/repl/d9616fce34c444d4bcac551cb5bdc0ee?version=3.55.1",
 		"repository": "https://github.com/dmvvilela/svelte-scrollactive",
 		"description": "This is a port of vue-scrollactive to Svelte, a lightweight and simple to use component that highlights menu items as you scroll the page, also scrolling to target section when clicked.",
-		"npm": "https://www.npmjs.com/package/svelte-scrollactive",
+		"npm": "svelte-scrollactive",
 		"category": "User Interaction",
 		"tags": [
 			"components and libraries",
@@ -28,6 +61,14 @@
 			"typescript",
 			"components and libraries"
 		]
+	},
+	{
+		"title": "Svault",
+		"repository": "https://github.com/oslabs-beta/Svault",
+		"description": "Svault is an authentication, authorization, and user management library for Svelte/SvelteKit applications.",
+		"npm": "svault",
+		"category": "Integration",
+		"tags": ["auth"]
 	},
 	{
 		"title": "svelte-datatables-net",
@@ -205,7 +246,8 @@
 	},
 	{
 		"title": "SCR Svelte Client Router",
-		"repository": "https://arthurgermano.github.io/svelte-client-router/#/svelte-client-router",
+		"url": "https://arthurgermano.github.io/svelte-client-router/#/svelte-client-router",
+		"repository": "https://github.com/arthurgermano/svelte-client-router",
 		"npm": "svelte-client-router",
 		"description": "Svelte Client Router is everything you need and think when routing SPA's. This is The Svelte Router for SPA!",
 		"tags": ["routers"],
@@ -996,13 +1038,6 @@
 	},
 	{
 		"category": "CSS and Layout",
-		"description": "resizable layout component for svelte",
-		"tags": ["components and libraries", "layout and structure"],
-		"title": "svelte-layout-resizable",
-		"repository": "https://github.com/milahu/svelte-layout-resizable"
-	},
-	{
-		"category": "CSS and Layout",
 		"description": "Arrange infinite card elements according to various layout types like masonry",
 		"npm": "@egjs/svelte-infinitegrid",
 		"tags": ["components and libraries", "layout and structure"],
@@ -1152,13 +1187,6 @@
 		"tags": ["components and libraries", "stores and state"],
 		"title": "storez",
 		"repository": "https://github.com/plrenaudin/svelte-storez"
-	},
-	{
-		"category": "Stores",
-		"description": "Template for client side svelte store",
-		"tags": ["components and libraries", "stores and state"],
-		"title": "SvelteStore",
-		"repository": "https://github.com/gitbreaker222/SvelteStore"
 	},
 	{
 		"category": "Integration",
@@ -1971,6 +1999,14 @@
 		"tags": ["in-page navigation", "stores and state"]
 	},
 	{
+		"title": "@joeinnes/svelte-image",
+		"repository": "https://github.com/joeinnes/svelte-image",
+		"description": "Svelte Component for using image CDNs to dynamically serve responsive images.",
+		"npm": "@joeinnes/svelte-image",
+		"category": "Multimedia",
+		"tags": ["images"]
+	},
+	{
 		"title": "@budgetdraw/sveltekit-cloudflare-adapter",
 		"repository": "https://github.com/budgetdraw/sveltekit-cloudflare-adapter",
 		"description": "Alternative SvelteKit adapter for Cloudflare workers. Designed to be standalone and not use wrangler.",
@@ -2160,7 +2196,7 @@
 		"title": "svelte-currency-input",
 		"repository": "https://github.com/fmaclen/svelte-currency-input",
 		"description": "A form input that converts numbers to localized currency formats as you type",
-		"npm": "svelte-currency-input",
+		"npm": "@canutin/svelte-currency-input",
 		"category": "Forms & User Input",
 		"tags": ["forms", "inputs and widgets", "internationalization", "typescript"]
 	},
@@ -2257,7 +2293,7 @@
 		"title": "svelte-form-builder",
 		"repository": "https://github.com/pragmatic-engineering/svelte-form-builder-community",
 		"description": "A No-Code Form Builder Library",
-		"npm": "svelte-form-builder-community",
+		"npm": "@pragmatic-engineering/svelte-form-builder-community",
 		"category": "Forms & User Input",
 		"tags": ["forms", "components and libraries"]
 	},
@@ -2347,6 +2383,14 @@
 		]
 	},
 	{
+		"title": "@nerd-coder/svelte-zod-form",
+		"repository": "https://github.com/nerd-coder/svelte-zod-form",
+		"description": "Building forms in Svelte with breeze, using Zod",
+		"npm": "@nerd-coder/svelte-zod-form",
+		"category": "Forms & User Input",
+		"tags": ["forms", "validation", "form validation", "forms and validation"]
+	},
+	{
 		"title": "sveltekit-adapter-iis",
 		"category": "SvelteKit Adapters",
 		"description": "An adapter to deploy to IIS Server with iisnode installed",
@@ -2361,7 +2405,7 @@
 		"npm": "stdf",
 		"category": "Design System",
 		"tags": ["component sets", "components and libraries"],
-		"repository": "https://github.com/dufu1991/stdf"
+		"repository": "https://github.com/any-tdf/stdf"
 	},
 	{
 		"title": "TwicPics Components",
@@ -2370,6 +2414,14 @@
 		"npm": "@twicpics/components",
 		"category": "Multimedia",
 		"tags": ["components and libraries", "images", "video"]
+	},
+	{
+		"title": "Svane",
+		"repository": "https://github.com/ShipBit/svane",
+		"description": "A single-component dev helper to see your current Tailwind breakpoint",
+		"npm": "@shipbit/svane",
+		"category": "Developer Experience",
+		"tags": ["components and libraries", "viewport", "layout and structure"]
 	},
 	{
 		"title": "sveltekit-html-minifier",
@@ -2386,5 +2438,202 @@
 		"npm": "svelte-tex",
 		"category": "Developer Experience",
 		"tags": ["components and libraries", "images"]
+	},
+	{
+		"title": "drab",
+		"url": "https://drab.robino.dev",
+		"repository": "https://github.com/rossrobino/drab",
+		"description": "Unstyled Svelte component library",
+		"npm": "drab",
+		"category": "Display Components",
+		"tags": ["component sets", "components and libraries", "interactions", "typescript"]
+	},
+	{
+		"title": "supasveltekit",
+		"repository": "https://github.com/OpenFrenchFries/supasveltekit",
+		"description": "🌟 Where Svelte's elegance meets Supabase's might! 🌟",
+		"npm": "supasveltekit",
+		"category": "Developer Experience",
+		"tags": ["components and libraries"]
+	},
+	{
+		"title": "@jill64/sveltekit-adapter-aws",
+		"repository": "https://github.com/jill64/sveltekit-adapter-aws",
+		"description": "AWS adapter for SvelteKit with multiple architecture",
+		"npm": "@jill64/sveltekit-adapter-aws",
+		"category": "SvelteKit Adapters",
+		"tags": ["integrations"]
+	},
+	{
+		"title": "SvelteKit-Adapter-Versioned-Worker",
+		"repository": "https://github.com/hedgehog125/SvelteKit-Adapter-Versioned-Worker",
+		"description": "A SvelteKit adapter for generating service workers to make PWAs work offline",
+		"npm": "sveltekit-adapter-versioned-worker",
+		"category": "SvelteKit Adapters"
+	},
+	{
+		"title": "LayerChart",
+		"url": "https://www.layerchart.com",
+		"repository": "https://github.com/techniq/layerchart",
+		"description": "Composable Svelte chart components to build a wide range of visualizations",
+		"npm": "layerchart",
+		"category": "Data Visualisation",
+		"tags": ["charts", "components and libraries"]
+	},
+	{
+		"title": "Svelte UX",
+		"url": "https://svelte-ux.techniq.dev",
+		"repository": "https://github.com/techniq/svelte-ux",
+		"description": "Collection of Svelte components, actions, stores, and utilities to build highly interactive applications",
+		"npm": "svelte-ux",
+		"category": "Design System",
+		"tags": ["component sets", "components and libraries"]
+	},
+	{
+		"title": "sveltekit-proxy",
+		"url": "https://github.com/born05/sveltekit-proxy",
+		"repository": "https://github.com/born05/sveltekit-proxy",
+		"description": "A simple way to proxy paths from SvelteKit to a different server.",
+		"npm": "@born05/sveltekit-proxy",
+		"category": "Integration",
+		"tags": ["ssr", "integrations"]
+	},
+	{
+		"title": "MisMerge",
+		"repository": "https://github.com/BearToCode/mismerge",
+		"description": "A modern merge editor for the Web",
+		"npm": "@mismerge/core",
+		"category": "Forms & User Input",
+		"tags": ["components and libraries", "typescript", "inputs and widgets"]
+	},
+	{
+		"title": "svelte-ripple-action",
+		"url": "https://ripple.posandu.com/",
+		"repository": "https://github.com/Posandu/svelte-ripple-action",
+		"description": "Svelte action to add ripple effects to Svelte components",
+		"npm": "svelte-ripple-action",
+		"category": "User Interaction",
+		"tags": ["animations", "interactions"]
+	},
+	{
+		"title": "sveltekit-superforms",
+		"repository": "https://github.com/ciscoheat/sveltekit-superforms",
+		"description": "Making SvelteKit validation and displaying of forms a pleasure!",
+		"npm": "sveltekit-superforms",
+		"category": "Forms & User Input",
+		"tags": ["components and libraries", "forms", "typescript", "ssr"]
+	},
+	{
+		"title": "svelte-reparent",
+		"url": "https://leodog896.github.io/svelte-reparent/",
+		"repository": "https://github.com/LeoDog896/svelte-reparent",
+		"description": "Utility for reparenting elements",
+		"npm": "svelte-reparent",
+		"category": "Developer Experience",
+		"tags": ["stores and state", "components and libraries"]
+	},
+	{
+		"title": "svelte-inline-modal",
+		"repository": "https://github.com/jill64/svelte-inline-modal",
+		"description": "Simple Modal on the Fly",
+		"npm": "svelte-inline-modal",
+		"category": "User Interaction",
+		"tags": ["interactions", "layout and structure"]
+	},
+	{
+		"title": "@tanstack/svelte-table",
+		"npm": "@tanstack/svelte-table",
+		"repository": "https://github.com/tanstack/table",
+		"description": "Headless UI for building powerful tables & datagrids for TS/JS",
+		"category": "Data Visualisation",
+		"tags": ["components and libraries", "layout and structure", "typescript"]
+	},
+	{
+		"title": "Histoire",
+		"npm": "@histoire/plugin-svelte",
+		"repository": "https://github.com/histoire-dev/histoire",
+		"description": "Fast and beautiful interactive component playgrounds, powered by Vite",
+		"category": "Testing",
+		"tags": ["testing"]
+	},
+	{
+		"title": "Lucia",
+		"npm": "lucia",
+		"repository": "https://github.com/lucia-auth/lucia",
+		"description": "An auth library that abstracts away the complexity of handling users and sessions",
+		"category": "Integration",
+		"tags": ["components and libraries", "integrations", "auth"]
+	},
+	{
+		"title": "Monaco",
+		"npm": "@monaco-auth/sveltekit",
+		"repository": "https://github.com/pilcrowOnPaper/monaco",
+		"description": "A simple, lightweight alternative to Auth.js",
+		"category": "Integration",
+		"tags": ["components and libraries", "integrations", "auth"]
+	},
+	{
+		"title": "trpc-svelte-query",
+		"npm": "trpc-svelte-query",
+		"repository": "https://github.com/ottomated/trpc-svelte-query",
+		"description": "A tRPC wrapper around @tanstack/svelte-query",
+		"category": "Design Pattern",
+		"tags": ["async data", "async loading", "network events", "ssr", "typescript"]
+	},
+	{
+		"title": "Svelte Legos",
+		"npm": "svelte-legos",
+		"repository": "https://github.com/ankurrsinghal/svelte-legos",
+		"description": "Collection of essential Svelte Composition Utilities",
+		"category": "Design System",
+		"tags": ["components and libraries"]
+	},
+	{
+		"title": "Supabase Auth",
+		"npm": "@supabase/auth-helpers-sveltekit",
+		"repository": "https://github.com/supabase/auth-helpers",
+		"description": "A collection of framework specific Auth utilities for working with Supabase",
+		"category": "Integration",
+		"tags": ["components and libraries", "integrations", "auth"]
+	},
+	{
+		"title": "svelte-markdown",
+		"npm": "svelte-markdown",
+		"repository": "https://github.com/pablo-abc/svelte-markdown",
+		"description": "Markdown parser to svelte components",
+		"category": "Display Components",
+		"tags": ["components and libraries", "markdown"]
+	},
+	{
+		"title": "svelte-exmarkdown",
+		"npm": "svelte-exmarkdown",
+		"repository": "https://github.com/ssssota/svelte-exmarkdown",
+		"description": "Svelte component to render markdown. Dynamic and Extensible.",
+		"category": "Display Components",
+		"tags": ["components and libraries", "markdown"]
+	},
+	{
+		"title": "Sentry for Svelte",
+		"npm": "@sentry/svelte",
+		"repository": "https://github.com/getsentry/sentry-javascript",
+		"description": "Official Sentry SDKs for JavaScript",
+		"category": "Integration",
+		"tags": ["integrations"]
+	},
+	{
+		"title": "svelte-french-toast",
+		"npm": "svelte-french-toast",
+		"repository": "https://github.com/kbrgl/svelte-french-toast",
+		"description": "Buttery smooth toast notifications for Svelte",
+		"category": "User Interaction",
+		"tags": ["components and libraries", "notifications"]
+	},
+	{
+		"title": "@zerodevx/svelte-toast",
+		"npm": "@zerodevx/svelte-toast",
+		"repository": "https://github.com/zerodevx/svelte-toast",
+		"description": "Simple elegant toast notifications",
+		"category": "User Interaction",
+		"tags": ["components and libraries", "notifications"]
 	}
 ]
