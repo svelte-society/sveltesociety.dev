@@ -2,8 +2,7 @@
 	import Societies from '$lib/components/Societies/index.svelte';
 	import EventListElement from '$lib/components/EventListElement/index.svelte';
 	import Seo from '$lib/components/Seo.svelte';
-	import type { PageData } from './$types';
-	export let data: PageData;
+	export let data;
 </script>
 
 <Seo title="Events" />

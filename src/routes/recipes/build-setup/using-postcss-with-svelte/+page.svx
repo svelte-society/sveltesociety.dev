@@ -1,6 +1,7 @@
 ---
 title: Using PostCSS with Svelte
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
 ---
 
 **Option 1 - Write your own**
@@ -76,7 +77,6 @@ and you can write SCSS/SASS in your Svelte template:
 		color: $color;
 	}
 </style>
-
 ```
 
 The same is true for PostCSS as well, which also applies to any PostCSS plugins, like TailwindCSS (see [Tailwind demo here](https://github.com/tailwindcss/setup-examples/tree/master/examples/sapper)).
