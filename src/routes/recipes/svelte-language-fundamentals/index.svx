@@ -1,9 +1,0 @@
----
-title: Svelte Language Fundamentals
-layout: recipeCategory
-icon: 'double-checkmark'
----
-
-<!-- routify:options index=1 -->
-
-## Recipes

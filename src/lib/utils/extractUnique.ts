@@ -2,8 +2,9 @@ export const extractUnique = (
 	source: Array<Record<string, unknown>>,
 	field: string
 ): Array<Record<'label' | 'value', unknown>> => {
-	const extracted = Array.from(new Set(source.map((item) => item[field]).flat()));
-	return extracted
+	const extracted = source.map((item) => item[field] ?? '');
+	const uniqued = Array.from(new Set(extracted.flat()));
+	return uniqued
 		.map((value) => ({ label: value, value }))
 		.sort((a, b) => {
 			if (typeof a.value === 'string' && typeof b.value === 'string') {
