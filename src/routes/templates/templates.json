@@ -670,7 +670,7 @@
 		"url": "https://github.com/lemmon/tablog-svelte",
 		"description": "A minimalistic blog theme built with SvelteKit and mdsvex.",
 		"category": "SvelteKit",
-		"tags": ["blog", "templates", "markdown", "mdsvex" "seo"]
+		"tags": ["blog", "templates", "markdown", "mdsvex", "seo"]
 	},
 	{
 		"title": "Web3 Hardhat & Svelte Boilerplate",
