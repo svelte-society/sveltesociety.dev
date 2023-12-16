@@ -1,5 +1,13 @@
 [
 	{
+		"title": "svelte-zod-form",
+		"repository": "https://www.npmjs.com/package/svelte-zod-form",
+		"description": "A dummy text generator that does not exist",
+		"npm": "svelte-zod-form",
+		"category": "Forms & User Input",
+		"tags": ["form validation", "reactive forms", "forms"]
+	},
+	{
 		"title": "svelte-selecto",
 		"repository": "https://github.com/daybrush/selecto",
 		"description": "Selecto.js is a component that allows you to select elements in the drag area using the mouse or touch.",
