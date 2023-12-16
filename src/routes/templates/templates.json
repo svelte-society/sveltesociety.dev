@@ -666,6 +666,13 @@
 		"tags": ["templates", "integrations"]
 	},
 	{
+		"title": "SveDev",
+		"repository": "https://github.com/etherCorps/SveDev",
+		"description": "A blog starter for SvelteKit + Dev.to + Tailwind with DaisyUI + Any Adapter",
+		"category": "SvelteKit",
+		"tags": ["blog", "typescript", "templates"]
+	},
+	{
 		"title": "Wails.io w/ Sveltekit",
 		"repository": "https://github.com/plihelix/wails-template-sveltekit",
 		"description": "A template to generate cross-platform golang applications with a SvelteKit front-end.",
