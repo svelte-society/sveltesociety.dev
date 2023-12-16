@@ -1,11 +1,6 @@
 <script>
 	const booksFromPublisher = [
 		{
-			name: 'Svelte Handbook',
-			link: 'https://flaviocopes.com/page/svelte-handbook/',
-			author: 'Flavio Copes'
-		},
-		{
 			name: 'Svelte 3 Up and Running',
 			link: 'https://www.amazon.com/dp/B08D6T6BKS/',
 			author: 'Alessandro Segala'
@@ -14,6 +9,16 @@
 			name: 'Svelte and Sapper in Action',
 			link: 'https://www.manning.com/books/svelte-and-sapper-in-action',
 			author: 'R. Mark Volkmann'
+		},
+		{
+			name: 'SvelteKit Up and Running',
+			link: 'https://sveltekitbook.dev',
+			author: 'Dylan Hildenbrand'
+		},
+		{
+			name: 'Svelte with Test-Driven Development',
+			link: 'https://www.amazon.com/dp/1837638330',
+			author: 'Daniel Irvine'
 		}
 	];
 	const booksSelfPublished = [

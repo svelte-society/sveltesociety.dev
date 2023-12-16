@@ -1,6 +1,7 @@
 ---
 title: Writing Your Own Preprocessors
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
 ---
 
 > This article references `svelte.preprocess` throughout but you may be more familiar with the `preprocess` option of `svelte-loader` or `rollup-plugin-svelte`. This `preprocess` option calls `svelte.preprocess` internally. The bundler plugin gives you easy access to it, so you don't need to transform your components before compilation manually.
@@ -44,7 +45,6 @@ p Hello World!
 		color: red;
 	}
 </style>
-
 ```
 
 We need to run it through Svelte to generate JavaScript, not HTML:
@@ -231,7 +231,6 @@ p Hello World!
 		color: red;
 	}
 </style>
-
 ```
 
 This guarantees no ambiguity when you have a Svelte codebase that is a mix of Pug and HTML templates. In order to process this you will have to add some checking and preprocessing:

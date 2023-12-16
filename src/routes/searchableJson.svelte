@@ -32,10 +32,8 @@
 				data={dataToDisplay}
 				bind:query={searchValue}
 				sortableFields={[
-					{ identifier: 'addedOn', title: 'Most recent', ascending: false },
-					{ identifier: 'addedOn', title: 'Oldest', ascending: true },
-					{ identifier: 'title', title: 'Name', ascending: true },
-					{ identifier: 'stars', title: 'Stars', ascending: false }
+					{ identifier: 'stars', title: 'Stars', ascending: false },
+					{ identifier: 'title', title: 'Name', ascending: true }
 				]}
 				searchableFields={['title', 'description']}
 				facetsConfig={[
