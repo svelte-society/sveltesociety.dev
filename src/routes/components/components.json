@@ -2007,6 +2007,14 @@
 		"tags": ["integrations", "inputs and widgets", "typescript"]
 	},
 	{
+		"title": "svelte-icons-pack",
+		"repository": "https://github.com/leshak/svelte-icons-pack",
+		"description": "Icons pack",
+		"npm": "svelte-icons-pack",
+		"category": "Design System",
+		"tags": ["fonts and icons"]
+	},
+	{
 		"title": "@joeinnes/svelte-image",
 		"repository": "https://github.com/joeinnes/svelte-image",
 		"description": "Svelte Component for using image CDNs to dynamically serve responsive images.",
