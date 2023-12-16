@@ -673,6 +673,13 @@
 		"tags": ["storybook", "typescript"]
 	},
 	{
+		"title": "svelte-pilot-template",
+		"repository": "https://github.com/svelte-pilot/svelte-pilot-template",
+		"description": "A template based on the Svelte Pilot routing library, offering server-side rendering (SSR) and other rich features.",
+		"category": "Svelte",
+		"tags": ["ssr"]
+	},
+	{
 		"title": "surreal-sveltekit",
 		"repository": "https://github.com/oskar-gmerek/surreal-sveltekit",
 		"description": "A Starter Kit with SurrealDB and SvelteKit, featuring Authentication and CRUD Operations + Realtime",
