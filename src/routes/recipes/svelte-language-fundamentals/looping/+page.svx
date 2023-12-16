@@ -1,6 +1,7 @@
 ---
 title: Looping
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
 ---
 
 `{#each}` block allows you to loop only **array** or **array-like object** (i.e. it has a `.length` property).
@@ -24,7 +25,6 @@ You can use spread operator `[...value]` for [Map](https://developer.mozilla.org
 		{key}: {value}
 	</div>
 {/each}
-
 ```
 
 Both [`Map.keys()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/keys) and [`Map.values()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/values) method return an iterable. To use `{#each}` with iterable, you can use spread operator `[...value]` on the iterable.
@@ -48,7 +48,6 @@ Both [`Map.keys()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 		{value}
 	</div>
 {/each}
-
 ```
 
 ### Looping a set
@@ -65,7 +64,6 @@ You can use spread operator `[...value]` for [Set](https://developer.mozilla.org
 		{item}
 	</div>
 {/each}
-
 ```
 
 ### Looping a string
@@ -82,7 +80,6 @@ You can use spread operator `[...value]` for [Set](https://developer.mozilla.org
 		{character}
 	</div>
 {/each}
-
 ```
 
 ### Looping a generator function
@@ -104,7 +101,6 @@ To use `{#each}` with generator function, you can use spread operator `[...value
 		{item}
 	</div>
 {/each}
-
 ```
 
 ### Binding to a spread item
@@ -123,7 +119,6 @@ Once you spread a Map, Set, Generator, or any Iterable, you are creating a new a
 	<!-- You can't change the value of the input, nor the value in the map -->
 	<input bind:value />
 {/each}
-
 ```
 
 To workaround this, you can use `on:input` listener
@@ -145,5 +140,4 @@ To workaround this, you can use `on:input` listener
 		}}
 	/>
 {/each}
-
 ```
