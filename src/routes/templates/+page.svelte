@@ -1,6 +1,7 @@
 <script>
 	import templates from './templates.json';
 	import SearchableJson from '../searchableJson.svelte';
+	import { injectStars } from '$utils/stars';
 
 	const categoryId = {
 		Sapper: 'sapper',
@@ -12,7 +13,7 @@
 
 <SearchableJson
 	{categoryId}
-	data={templates}
+	data={injectStars(templates)}
 	displayTitle="Template"
 	displayTitleSingular="template"
 	submittingType="template"

@@ -1,6 +1,8 @@
 ---
 title: Using Fetch to Consume APIs with Svelte
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
+updated: 2022-03-22T23:11:24+01:00
 ---
 
 Working with external data in Svelte is important. Here's a guide.
@@ -26,7 +28,6 @@ We can declare a `data` variable and use the `onMount` lifecycle to fetch on mou
 <pre>
   {JSON.stringify(data, null, 2)}
 </pre>
-
 ```
 
 You can further improve this implementation by showing a placeholder while `data` is undefined and also showing an error notification if an error occurs.
@@ -53,7 +54,6 @@ This example is exactly equal to Method 1 above:
 {:catch error}
 	<!-- optionally show something while promise was rejected -->
 {/await}
-
 ```
 
 Here you can see that it is very intuitive where to place your loading placeholder and error display.
@@ -86,7 +86,6 @@ If we don't want to immediately load data on component mount, we can wait for us
 <pre>
   {JSON.stringify(data, null, 2)}
 </pre>
-
 ```
 
 The user now has an intuitive way to refresh their data.
@@ -118,7 +117,6 @@ It would be better to make all these commonplace UI idioms declarative. Await bl
 {:catch error}
 	<!-- optionally show something while promise was rejected -->
 {/await}
-
 ```
 
 The trick here is we can simply reassign the `promise` to trigger a refetch, which then also clears the UI of stale data while fetching.
@@ -153,7 +151,6 @@ Of course, it is up to you what UX you want - you may wish to keep displaying st
 {:catch error}
 	<!-- optionally show something while promise was rejected -->
 {/await}
-
 ```
 
 **Method 4: Data Stores**
@@ -197,7 +194,6 @@ export function getNewCount() {
 <pre>
 {$count}
 </pre>
-
 ```
 
 This has the added benefit of keeping state around if the component gets remounted again with no need for a new data fetch.
