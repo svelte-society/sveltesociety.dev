@@ -2788,18 +2788,13 @@
 	},
 	{
 		"title": "svelte-unicons",
-		"url": "https://github.com/devShamim/svelte-unicons",
+		"repository": "https://github.com/devShamim/svelte-unicons",
 		"description": "Unicons for Svelte based on @iconscout/unicons",
 		"npm": "svelte-unicons",
-		"addedOn": "2022-10-10",
 		"category": "User Interaction",
-		"tags": [
-			"components and libraries",
-			"fonts and icons"
-		],
-    "stars": 1
-   },
-   {
+		"tags": ["components and libraries", "fonts and icons"]
+	},
+	{
 		"title": "svelte-google-auth",
 		"url": "https://github.com/halfdanj/svelte-google-auth",
 		"description": "Integration with Google Authenticartion for sveltekit",
