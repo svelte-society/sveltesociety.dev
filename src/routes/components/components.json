@@ -2289,6 +2289,14 @@
 		"tags": ["async loading", "components and libraries", "in-page navigation"]
 	},
 	{
+		"title": "svelte-unicons",
+		"repository": "https://github.com/devShamim/svelte-unicons",
+		"description": "Unicons for Svelte based on @iconscout/unicons",
+		"npm": "svelte-unicons",
+		"category": "User Interaction",
+		"tags": ["components and libraries", "fonts and icons"]
+	},
+	{
 		"title": "svelte-google-auth",
 		"repository": "https://github.com/halfdanj/svelte-google-auth",
 		"description": "Integration with Google Authenticartion for sveltekit",
