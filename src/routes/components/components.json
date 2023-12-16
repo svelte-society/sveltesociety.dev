@@ -2553,6 +2553,14 @@
 		"tags": ["charts", "components and libraries"]
 	},
 	{
+		"title": "@egjs/svelte-flicking",
+		"repository": "https://github.com/naver/egjs-flicking",
+		"description": "🎠 ♻️ Everyday 30 million people experience. It's reliable, flexible and extendable carousel.",
+		"npm": "@egjs/svelte-flicking",
+		"category": "User Interaction",
+		"tags": ["interactions", "images", "typescript", "ssr", "layout and structure"]
+	},
+	{
 		"title": "Svelte UX",
 		"url": "https://svelte-ux.techniq.dev",
 		"repository": "https://github.com/techniq/svelte-ux",
