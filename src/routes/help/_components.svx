@@ -46,7 +46,6 @@ The object contains:
 | `description` (optional) | A short description of the component                                                                                                                                                                                           |
 | `tags`                   | A list of tags (avoid creating new tags)                                                                                                                                                                                       |
 | `image` (optional)       | An image to quickly view what your component is all about                                                                                                                                                                      |
-| `addedOn`                | The date when the component have been added on the website (generally it's today)                                                                                                                                              |
 | `category` (optional)    | The category of the component (one of `Boilerplate`, `Data Visualisation`, `Design Pattern`, `Design System`, `Developer Experience`, `Forms & User Input`, `Integration`, `Routers`, `Stores`, `Testing`, `User Interaction`) |
 | `npm` (optional)         | The npm name of the component                                                                                                                                                                                                  |
 
@@ -59,7 +58,6 @@ The object contains:
 	"description": "A lightweight date picker with neat animations and a unique UX",
 	"tags": ["components and libraries", "time and date"],
 	"image": "",
-	"addedOn": "2020-09-29T14:39:13Z",
 	"category": "Forms & User Input"
 }
 ```
