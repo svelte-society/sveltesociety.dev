@@ -1,6 +1,7 @@
 ---
 title: Using Future JS Syntax in Svelte with Babel
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
 ---
 
 The other, less common but still handy usecase for Babel with Svelte is transpiling _future_ syntax inside `<script>` tags. For example, the [Stage 3 Optional Chaining proposal](https://babeljs.io/docs/en/babel-plugin-proposal-optional-chaining) is popular, but not yet in browsers, and more relevantly, is not yet understood by [Acorn](https://github.com/acornjs/acorn), which is what Svelte uses to parse `<script>` tags.
@@ -23,7 +24,6 @@ Example usage:
 <main>
 	<h1>Hello {sub}!</h1>
 </main>
-
 ```
 
 When we try to run this, Acorn throws a `ParseError: Unexpected token` error.

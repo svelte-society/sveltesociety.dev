@@ -2,6 +2,8 @@
 title: Stores
 layout: recipeCategory
 icon: database
+published: 2021-06-14T11:30:41-07:00
+updated: 2023-01-27T20:05:46-08:00
 ---
 
 <script>import Warning from '../../../lib/components/recipes/Warning.svelte'</script>

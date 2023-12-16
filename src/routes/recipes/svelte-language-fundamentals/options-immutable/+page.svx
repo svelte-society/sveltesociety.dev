@@ -1,6 +1,8 @@
 ---
 title: Using the `immutable` Compiler Option
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
+updated: 2022-08-31T22:24:38+01:00
 ---
 
 `<svelte:options immutable>` is a performance optimization you can add to your Svelte components.
