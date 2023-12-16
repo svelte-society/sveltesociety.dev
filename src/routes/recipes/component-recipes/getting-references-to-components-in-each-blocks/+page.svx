@@ -1,6 +1,7 @@
 ---
 title: Getting references to Components generated in an each block
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
 ---
 
 Using `bind:this` allows a component to store a reference to it's children, this can also be used when generating a series of components in an `{#each}` block.
@@ -22,7 +23,6 @@ This method simply binds the generated component to an array element based on it
 {#each array as item, i}
 	<Child title={item.title} bind:this={children[i]} />
 {/each}
-
 ```
 
 **Method 2: Using an object as a hashtable**
@@ -42,5 +42,4 @@ An alternative is to use an _unique_ key and bind the component to an object, ef
 {#each array as item, i (item.id)}
 	<Child title={item.title} bind:this={children[item.id]} />
 {/each}
-
 ```
