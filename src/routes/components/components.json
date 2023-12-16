@@ -2484,15 +2484,15 @@
 		"description": "SvelteJS component for switch or toggle a boolean. User would be able to drag or click for toggling.",
 		"npm": "svelte-switch",
 		"category": "Forms & User Input",
-		"tags": [ "components and libraries", "inputs and widgets"]
+		"tags": ["components and libraries", "inputs and widgets"]
 	},
 	{
-	 	"title": "svelte-pagination",
+		"title": "svelte-pagination",
 		"repository": "https://github.com/thecodejack/svelte-pagination",
 		"description": "Raw SvelteJS component for dynamic pagination. By applying styles, developer can acheive component in multiple forms.",
 		"npm": "svelte-pagination",
 		"category": "Forms & User Input",
-		"tags": [ "components and libraries", "inputs and widgets"]
+		"tags": ["components and libraries", "inputs and widgets"]
 	},
 	{
 		"title": "STDF",
