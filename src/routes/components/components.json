@@ -2403,7 +2403,7 @@
 	{
 		"title": "Progress component for SvelteKit",
 		"repository": "https://github.com/bonosoft/sveltekit-progress",
-		"description": "Add circular or square status and progress indicators to your pages", 
+		"description": "Add circular or square status and progress indicators to your pages",
 		"npm": "@bonosoft/sveltekit-progress",
 		"category": "User Interaction",
 		"tags": ["components and libraries"]
