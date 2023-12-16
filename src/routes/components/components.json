@@ -2368,7 +2368,7 @@
 	},
 	{
 		"title": "@nerd-coder/svelte-zod-form",
-		"url": "https://github.com/nerd-coder/svelte-zod-form",
+		"repository": "https://github.com/nerd-coder/svelte-zod-form",
 		"description": "Building forms in Svelte with breeze, using Zod",
 		"npm": "@nerd-coder/svelte-zod-form",
 		"category": "Forms & User Input",
