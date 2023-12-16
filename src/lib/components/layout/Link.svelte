@@ -1,5 +1,6 @@
-<script>
-	export let path, active;
+<script lang="ts">
+	export let path: string;
+	export let active = false;
 </script>
 
 <li>

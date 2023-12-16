@@ -1,0 +1,7 @@
+---
+title: Svelte Language Fundamentals
+layout: recipeCategory
+icon: 'double-checkmark'
+---
+
+## Recipes
