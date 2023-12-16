@@ -2935,18 +2935,13 @@
 	},
 	{
 		"title": "Lucide icons",
-		"url": "https://github.com/lucide-icons/lucide",
+		"repository": "https://github.com/lucide-icons/lucide",
 		"description": "Beautiful & consistent icon toolkit made by the community. Open-source project and a fork of Feather Icons.",
 		"npm": "lucide-svelte",
-		"addedOn": "2023-03-06",
 		"category": "User Interaction",
-		"tags": [
-			"fonts and icons",
-			"components and libraries"
-		],
-		"stars": 3700
-  },
-  {
+		"tags": ["fonts and icons", "components and libraries"]
+	},
+	{
 		"title": "YeSvelte",
 		"url": "https://github.com/yesvelte/yesvelte",
 		"description": "Flexible Svelte UI component library, designed to help developers build enterprise-grade web applications quickly and easily",
