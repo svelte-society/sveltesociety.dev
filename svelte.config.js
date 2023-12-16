@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { vitePreprocess } from '@sveltejs/kit/vite';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import adapter from '@sveltejs/adapter-static';
 import hljs from 'highlight.js';
 import { mdsvex, escapeSvelte } from 'mdsvex';
@@ -38,6 +38,17 @@ const config = {
 			$utils: path.resolve('./src/lib/utils'),
 			$styles: path.resolve('./src/lib/styles'),
 			$stores: path.resolve('./src/lib/stores')
+		},
+		typescript: {
+			config: (config) => {
+				config.include = [
+					...config.include,
+					'../scripts/**/*.js',
+					'../prettier.config.js',
+					'../svelte.config.js'
+				];
+				return config;
+			}
 		}
 	}
 };
