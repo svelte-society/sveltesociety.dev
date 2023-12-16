@@ -2416,6 +2416,15 @@
 		"tags": ["components and libraries", "images"]
 	},
 	{
+		"title": "drab",
+		"url": "https://drab.robino.dev",
+		"repository": "https://github.com/rossrobino/drab",
+		"description": "Unstyled Svelte component library",
+		"npm": "drab",
+		"category": "Display Components",
+		"tags": ["component sets", "components and libraries", "interactions", "typescript"]
+	},
+	{
 		"title": "supasveltekit",
 		"repository": "https://github.com/OpenFrenchFries/supasveltekit",
 		"description": "🌟 Where Svelte's elegance meets Supabase's might! 🌟",
