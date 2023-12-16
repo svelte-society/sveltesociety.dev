@@ -1,9 +1,0 @@
----
-title: Other
-layout: recipeCategory
-icon: 'archive'
----
-
-<!-- routify:options index=1 -->
-
-## Recipes
