@@ -674,7 +674,7 @@
 	},
 	{
 		"title": "svelte-pilot-template",
-		"url": "https://github.com/svelte-pilot/svelte-pilot-template",
+		"repository": "https://github.com/svelte-pilot/svelte-pilot-template",
 		"description": "A template based on the Svelte Pilot routing library, offering server-side rendering (SSR) and other rich features.",
 		"category": "Svelte",
 		"tags": ["ssr"]
