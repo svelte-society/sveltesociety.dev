@@ -1,5 +1,13 @@
 [
 	{
+		"title": "Curseur",
+		"repository": "https://github.com/n3-rd/curseur",
+		"description": "Svelte component for creating customizable cursors.",
+		"npm": "curseur",
+		"category": "User Interaction",
+		"tags": ["interactions", "typescript"]
+	},
+	{
 		"title": "svelte-zod-form",
 		"repository": "https://github.com/SBHattarj/svelte-zod-form",
 		"description": "A dummy text generator that does not exist",
