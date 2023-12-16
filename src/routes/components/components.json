@@ -2400,6 +2400,14 @@
 		"tags": ["components and libraries", "images", "video"]
 	},
 	{
+		"title": "Svane",
+		"repository": "https://github.com/ShipBit/svane",
+		"description": "A single-component dev helper to see your current Tailwind breakpoint",
+		"npm": "@shipbit/svane",
+		"category": "Developer Experience",
+		"tags": ["components and libraries", "viewport", "layout and structure"]
+	},
+	{
 		"title": "sveltekit-html-minifier",
 		"repository": "https://github.com/ntsd/sveltekit-html-minifier",
 		"description": "Sveltekit Adapter to Minify the preload HTML page",
