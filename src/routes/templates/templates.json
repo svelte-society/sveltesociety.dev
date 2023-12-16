@@ -1,15 +1,10 @@
-[	{
-	"title": "Skinny Pug Starter Template",
-	"url": "https://github.com/lightning-jar/svelte-typescript-tailwind-pug-starter",
-	"description": "Sveltekit template with Typescript, Tailwind, Pug, Playwright, EsLint, Prettier",
-	"npm": "",
-	"addedOn": "2022-11-09",
-	"category": "SvelteKit",
-	"tags": [
-		"templates",
-		"typescript"
-	],
-	"stars": 0
+[
+	{
+		"title": "Skinny Pug Starter Template",
+		"repository": "https://github.com/lightning-jar/svelte-typescript-tailwind-pug-starter",
+		"description": "Sveltekit template with Typescript, Tailwind, Pug, Playwright, EsLint, Prettier",
+		"category": "SvelteKit",
+		"tags": ["templates", "typescript"]
 	},
 	{
 		"title": "SvelteKit Authentication Example Project",
