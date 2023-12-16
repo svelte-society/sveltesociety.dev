@@ -645,11 +645,11 @@
 		"tags": ["templates"]
 	},
 	{
-    "title": "svelte-vite-typescript-tailwindcss-template",
-    "repository": "https://github.com/skshahriarahmedraka/vite-svelte-tailwind-template",
-    "description": "svelte & vite & typescript & tailwindcss",
-    "category": "Svelte",
-   	"tags": ["templates", "typescript"]
+		"title": "svelte-vite-typescript-tailwindcss-template",
+		"repository": "https://github.com/skshahriarahmedraka/vite-svelte-tailwind-template",
+		"description": "svelte & vite & typescript & tailwindcss",
+		"category": "Svelte",
+		"tags": ["templates", "typescript"]
 	},
 	{
 		"title": "Swyxkit",
