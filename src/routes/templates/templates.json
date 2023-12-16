@@ -674,7 +674,7 @@
 	},
 	{
 		"title": "Vontigo",
-		"url": "https://github.com/Vontigo/Vontigo",
+		"repository": "https://github.com/Vontigo/Vontigo",
 		"description": "🛸 Vontigo is an open-source CMS built with SvelteKit, featuring 🤖 AI-powered (ChatGPT) content generation. With fast page loads and seamless routing, Vontigo offers a user-friendly interface with customizable themes and templates.",
 		"category": "SvelteKit",
 		"tags": ["blog", "templates", "typescript", "components and libraries", "component sets"]
