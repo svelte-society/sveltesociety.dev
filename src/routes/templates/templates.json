@@ -663,8 +663,7 @@
 		"repository": "https://github.com/kokizzu/svelte-mpa",
 		"description": "Multipage Svelte for any backend",
 		"category": "Svelte",
-		"tags": ["templates", "integrations"],
-		"stars": 0
+		"tags": ["templates", "integrations"]
 	},
 	{
 		"title": "SveDev",
