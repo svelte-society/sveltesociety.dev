@@ -4,7 +4,6 @@
 		"url": "https://github.com/daybrush/selecto",
 		"description": "Selecto.js is a component that allows you to select elements in the drag area using the mouse or touch.",
 		"npm": "svelte-selecto",
-		"addedOn": "2023-05-13",
 		"category": "User Interaction",
 		"tags": ["components and libraries", "typescript", "interactions"]
 	},
