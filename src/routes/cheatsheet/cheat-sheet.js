@@ -496,5 +496,23 @@ onMount(() => {
 </select>
 
 <svelte:component this={component} />`
+	},
+	{
+		title: 'Changing style properties',
+		repl: `${replPath}/cb8adc064eb246de9030b3b1cbc357cb?`,
+		doc: `${docPath}#template-syntax-element-directives-style-property`,
+		content: `<!-- These are equivalent -->
+<div style:color="red">...</div>
+<div style="color: red;">...</div>
+
+<!-- Variables can be used -->
+<div style:color={myColor}>...</div>
+<div style="color: {myColor}">...</div>
+
+<!-- Shorthand, for when property and variable name match -->
+<div style:color>...</div>
+
+<!-- Multiple styles can be included -->
+<div style:color style:width="12rem" style:background-color={darkMode ? "black" : "white"}>...</div>`
 	}
 ];

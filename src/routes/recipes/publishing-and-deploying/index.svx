@@ -1,9 +1,0 @@
----
-title: Publishing and Deploying
-layout: recipeCategory
-icon: 'docker'
----
-
-<!-- routify:options index=1 -->
-
-## Recipes

@@ -1,0 +1,9 @@
+name: Update stars
+description: Update Github stars count
+inputs:
+  token:
+    description: GitHub token for GraphQL calls
+    required: false
+runs:
+  using: node20
+  main: 'main.js'
