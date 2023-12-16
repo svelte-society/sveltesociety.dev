@@ -687,6 +687,13 @@
 		"tags": ["templates", "integrations"]
 	},
 	{
+		"title": "SvelteKit with Prisma and AuthJS",
+		"repository": "https://github.com/KoljaL/SK-AuthJS",
+		"description": "Just to try out the new way to authorizes with a common library ",
+		"category": "SvelteKit",
+		"tags": ["database", "typescript", "integrations"]
+	},
+	{
 		"title": "SveDev",
 		"repository": "https://github.com/etherCorps/SveDev",
 		"description": "A blog starter for SvelteKit + Dev.to + Tailwind with DaisyUI + Any Adapter",
