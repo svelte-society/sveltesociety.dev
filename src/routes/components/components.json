@@ -2305,6 +2305,14 @@
 		"tags": ["auth", "integrations", "ssr"]
 	},
 	{
+		"title": "sveltekit-search-params",
+		"repository": "https://github.com/paoloricciuti/sveltekit-search-params ",
+		"description": "The best way to read and WRITE from query params in sveltekit.",
+		"npm": "sveltekit-search-params",
+		"category": "Stores",
+		"tags": ["stores and state"]
+	},
+	{
 		"title": "sterling-svelte",
 		"repository": "https://github.com/GeoffCox/sterling-svelte",
 		"description": "A modern, accessible, and lightweight component library for Svelte.",
