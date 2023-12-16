@@ -1999,6 +1999,14 @@
 		"tags": ["in-page navigation", "stores and state"]
 	},
 	{
+		"title": "@joeinnes/svelte-image",
+		"repository": "https://github.com/joeinnes/svelte-image",
+		"description": "Svelte Component for using image CDNs to dynamically serve responsive images.",
+		"npm": "@joeinnes/svelte-image",
+		"category": "Multimedia",
+		"tags": ["images"]
+	},
+	{
 		"title": "@budgetdraw/sveltekit-cloudflare-adapter",
 		"repository": "https://github.com/budgetdraw/sveltekit-cloudflare-adapter",
 		"description": "Alternative SvelteKit adapter for Cloudflare workers. Designed to be standalone and not use wrangler.",
