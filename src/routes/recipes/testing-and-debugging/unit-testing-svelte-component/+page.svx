@@ -1,6 +1,8 @@
 ---
 title: Unit Testing Svelte Components
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
+updated: 2023-07-16T10:12:46-05:00
 ---
 
 _Some assumptions here, this was pulled from something I wrote and the context was different. Edits will be required._
@@ -79,7 +81,6 @@ Slots are more difficult to test as there is no programmatic interface for worki
 <svelte:component this={Component}>
 	<h1 data-testid="slot">Test Data</h1>
 </svelte:component>
-
 ```
 
 Then the component you wish to test can be passed to the constructor as a prop in order to mount the component correctly:
@@ -111,11 +112,10 @@ As with slots, there is no programmatic interface for the Context API (setContex
 	export let context_key;
 	export let context_value;
 
-	setContext(key, value);
+	setContext(context_key, context_value);
 </script>
 
 <svelte:component this={Component} />
-
 ```
 
 The component we wish to test looks something like this:
@@ -128,7 +128,6 @@ The component we wish to test looks something like this:
 </script>
 
 <button>{ctx.title}</button>
-
 ```
 
 We can test this like so:

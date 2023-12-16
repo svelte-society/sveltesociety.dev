@@ -20,15 +20,14 @@
 
 	export let facetsConfig: Array<Facet> = [];
 	export let data;
-	export let dataDefault = {};
 	let sort = { value: 'stars_desc' };
 	export let searchableFields: Array<string> = [];
 	export let sortableFields: Array<SortField> = [];
 	export let query = '';
 
-	let facets: Array<
-		Facet & { value: FacetValue; values: Array<string> }
-	> = facetsConfig.map((facet) => ({ ...facet, values: [], value: undefined }));
+	let facets: Array<Facet & { value: FacetValue; values: Array<string> }> = facetsConfig.map(
+		(facet) => ({ ...facet, values: [], value: undefined })
+	);
 
 	const configurations = {
 		aggregations: facetsConfig.reduce(
@@ -50,10 +49,7 @@
 		),
 		searchableFields
 	};
-	const searcher = itemsjs(
-		data.map((line) => ({ ...dataDefault, ...line })),
-		configurations as Configuration<string, string, string>
-	);
+	const searcher = itemsjs(data, configurations as Configuration<string, string, string>);
 
 	export function search(): void {
 		const results = searcher.search({
