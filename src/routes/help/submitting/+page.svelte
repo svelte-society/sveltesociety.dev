@@ -37,23 +37,22 @@
 
 	let type = types[0];
 	let title = 'svelte-lorem-ipsum';
-	let url = 'https://github.com/sveltejs/svelte-lorem-ipsum';
+	let url = 'https://svelte-lorem-ipsum.dev';
 	let description = 'A dummy text generator that does not exist';
 	let npm = 'svelte-lorem-ipsum';
-	let addedOn = todaysDate();
 	let category;
 	let tags;
+	let repository = 'https://github.com/sveltejs/svelte-lorem-ipsum';
 
 	$: pathName = `${type.value}s`;
 	$: jsonSnippet = {
 		title,
-		url,
+		url: url ? url : undefined,
+		repository: repository ? repository : undefined,
 		description,
-		npm,
-		addedOn,
+		npm: npm ? npm : undefined,
 		category: category?.value,
-		tags: tags?.map((tag) => tag.value),
-		stars: 0
+		tags: tags?.map((tag) => tag.value)
 	};
 
 	$: currentTags = data[type.value].tags;
@@ -63,19 +62,6 @@
 		const typeQuery = new URLSearchParams(location.search).get('type');
 		type = types.find((t) => t.value == typeQuery) || types[0];
 	});
-
-	function padWithZero(date) {
-		return date.toString().padStart(2, '0');
-	}
-
-	function todaysDate() {
-		const date = new Date();
-		const day = padWithZero(date.getDate());
-		const month = padWithZero(date.getMonth() + 1);
-		const year = date.getFullYear();
-		const sep = '-';
-		return [year, month, day].join(sep);
-	}
 
 	async function clearCategoryAndTags() {
 		await tick();
@@ -121,10 +107,19 @@
 		</div>
 	</div>
 	<div class="input-wrapper">
+		<label for="repository">Repository:</label>
+		<div>
+			<input id="repository" type="url" bind:value={repository} />
+			<span class="input-helper">URL where code live.<br />Also used for star count update</span>
+		</div>
+	</div>
+	<div class="input-wrapper">
 		<label for="url">URL:</label>
 		<div>
 			<input id="url" type="url" bind:value={url} />
-			<span class="input-helper">The URL where to find it</span>
+			<span class="input-helper"
+				>The URL where to find it.<br />If it's the same as Repository, it can be omitted</span
+			>
 		</div>
 	</div>
 	<div class="input-wrapper">
@@ -139,15 +134,6 @@
 		<div>
 			<input id="npm" type="text" bind:value={npm} />
 			<span class="input-helper">The npm name of the component</span>
-		</div>
-	</div>
-	<div class="input-wrapper">
-		<label for="adden-on" class="required">Added On:</label>
-		<div>
-			<input id="adden-on" type="date" required bind:value={addedOn} />
-			<span class="input-helper">
-				The date when the component have been added on the website (generally it’s today)
-			</span>
 		</div>
 	</div>
 	<div class="input-wrapper">
@@ -180,14 +166,13 @@
 </pre>
 <br />
 Copy this snippet and add it to
-<a href="{repoURL}/blob/staging/src/routes/{pathName}/{pathName}.json">{pathName}.json</a>. You can
+<a href="{repoURL}/blob/main/src/routes/{pathName}/{pathName}.json">{pathName}.json</a>. You can
 propose your changes
-<a href="{repoURL}/edit/staging/src/routes/{pathName}/{pathName}.json">directly in GitHub</a>.
+<a href="{repoURL}/edit/main/src/routes/{pathName}/{pathName}.json">directly in GitHub</a>.
 
 <style>
 	.json-generator,
 	pre {
-		max-width: var(--s-max);
 		padding: var(--s-4);
 		border-radius: 14px;
 		background-color: #f3f6f9;

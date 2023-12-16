@@ -1,6 +1,7 @@
 ---
 title: Transpiling ES6 to ES5 for Legacy Browser (IE11) Support with Babel
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
 ---
 
 Svelte outputs modern JavaScript, therefore for legacy browser support, you need to transpile this output back to ES5 (or older). The main strategy people adopt is having 2 builds:

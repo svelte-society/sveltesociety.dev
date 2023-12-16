@@ -1,15 +1,15 @@
+import path from 'node:path';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import adapter from '@sveltejs/adapter-static';
-import preprocess from 'svelte-preprocess';
-import { mdsvex, escapeSvelte } from 'mdsvex';
 import hljs from 'highlight.js';
-import path from 'path';
+import { mdsvex, escapeSvelte } from 'mdsvex';
+import rehypeSlug from 'rehype-slug';
 
 const extensions = [`.svelte`, '.md', `.mdx`, '.svx'];
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	preprocess: [
-		preprocess(),
 		mdsvex({
 			// Breaks svelte-select when .svelte extension is included
 			extensions: extensions.filter((ext) => ext !== '.svelte'),
@@ -23,8 +23,10 @@ const config = {
 					const highlighted = escapeSvelte(hljs.highlightAuto(code).value);
 					return `{@html \`<pre class="hljs"><code>${highlighted}</code></pre>\`}`;
 				}
-			}
-		})
+			},
+			rehypePlugins: [rehypeSlug]
+		}),
+		vitePreprocess()
 	],
 	extensions: extensions,
 	kit: {
@@ -36,6 +38,17 @@ const config = {
 			$utils: path.resolve('./src/lib/utils'),
 			$styles: path.resolve('./src/lib/styles'),
 			$stores: path.resolve('./src/lib/stores')
+		},
+		typescript: {
+			config: (config) => {
+				config.include = [
+					...config.include,
+					'../scripts/**/*.js',
+					'../prettier.config.js',
+					'../svelte.config.js'
+				];
+				return config;
+			}
 		}
 	}
 };
