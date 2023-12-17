@@ -18,7 +18,7 @@
 	"devDependencies": {
 		"@actions/core": "^1.10.1",
 		"@macfja/svelte-persistent-store": "2.4.1",
-		"@sveltejs/adapter-static": "^3.0.0",
+		"@sveltejs/adapter-netlify": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.1",
 		"@types/itemsjs": "^2.1.6",
