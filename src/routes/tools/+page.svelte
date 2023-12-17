@@ -1,6 +1,7 @@
 <script>
 	import tools from '../tools/tools.json';
 	import SearchableJson from '../searchableJson.svelte';
+	import { injectNpmData } from '$utils/injectNpmData';
 	import { injectStars } from '$utils/stars';
 
 	const categoryId = {
@@ -14,7 +15,7 @@
 
 <SearchableJson
 	{categoryId}
-	data={injectStars(tools)}
+	data={injectNpmData(injectStars(tools))}
 	displayTitle="Tools"
 	displayTitleSingular="tool"
 	submittingType="tool"

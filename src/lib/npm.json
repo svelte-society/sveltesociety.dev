@@ -1362,7 +1362,6 @@
 	},
 	"sveltify": { "version": "3.0.0", "date": "2019-05-01T22:44:39.919Z", "support": "Unknown" },
 	"gulp-svelte": { "version": "0.8.0", "date": "2018-12-17T09:01:59.954Z", "support": "Unknown" },
-	"undefined": { "version": "0.1.0", "date": "2013-06-27T17:54:27.534Z", "support": "Unknown" },
 	"sveltejs-brunch": {
 		"version": "1.0.1",
 		"date": "2021-07-27T22:26:01.518Z",
