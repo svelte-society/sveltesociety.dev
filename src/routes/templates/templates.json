@@ -574,6 +574,13 @@
 		"repository": "https://github.com/MailCheck-co/mailcheck.site"
 	},
 	{
+		"title": "svelte-postgrest-template",
+		"repository": "https://github.com/guyromm/svelte-postgrest-template",
+		"description": "SvelteKit & auth with a PostgreSQL + postgREST backend",
+		"category": "SvelteKit",
+		"tags": ["database", "integrations", "templates", "ssr"]
+	},
+	{
 		"title": "SvelteKit i18n Template",
 		"repository": "https://github.com/ivanhofer/typesafe-i18n-demo-sveltekit",
 		"description": "A fully working SEO optimized i18n template",
