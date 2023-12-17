@@ -1,11 +1,13 @@
 <script>
+	import { page } from '$app/stores';
+
 	export let nodes;
 </script>
 
 <ul>
-	{#each nodes.filter((r) => r.meta.layout !== 'recipeCategory') as node}
-		<li class:active={node.path.includes(node.path)}>
-			<a href={node.path}>{node.meta.title}</a>
+	{#each nodes.filter((r) => r.layout !== 'recipeCategory') as node}
+		<li class:active={$page.url.pathname.includes(node.path)}>
+			<a href={node.path}>{node.title}</a>
 		</li>
 	{/each}
 </ul>
