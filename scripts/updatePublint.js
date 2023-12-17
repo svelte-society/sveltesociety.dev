@@ -18,7 +18,7 @@ const injectVersions = (input) => {
 	const output = [];
 	for (const item of input) {
 		/** @type {string} */
-		const version = npm['versions'][item.npm];
+		const version = npm[item.npm].version;
 		if (version) {
 			output.push({ ...item, version });
 		}
