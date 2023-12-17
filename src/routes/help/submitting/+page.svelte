@@ -166,9 +166,9 @@
 </pre>
 <br />
 Copy this snippet and add it to
-<a href="{repoURL}/blob/main/src/routes/{pathName}/{pathName}.json">{pathName}.json</a>. You can
-propose your changes
-<a href="{repoURL}/edit/main/src/routes/{pathName}/{pathName}.json">directly in GitHub</a>.
+<a href="{repoURL}/blob/main/src/routes/{pathName}/{pathName}.json">{pathName}.json</a>. Before
+submitting a PR, please clone your changes locally and run:
+<pre>pnpm run lint</pre>
 
 <style>
 	.json-generator,
