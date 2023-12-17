@@ -108,21 +108,6 @@
 		"stars": 0
 	},
 	{
-		"title": "use-vest",
-		"repository": "https://github.com/enyo/use-vest",
-		"npm": "use-vest",
-		"description": "Vest can be used both on the front and backend. This library provides a Svelte action for Vest, that makes it easy to validate forms and show errors when necessary — built with TypeScript.",
-		"category": "Forms & User Input",
-		"tags": [
-			"forms",
-			"form validation",
-			"components and libraries",
-			"inputs and widgets",
-			"component sets",
-			"forms and validation"
-		]
-	},
-	{
 		"title": "Date Picker Svelte",
 		"url": "https://github.com/probablykasper/date-picker-svelte",
 		"description": "Date and time picker for Svelte",
@@ -136,6 +121,21 @@
 			"form validation",
 			"inputs and widgets",
 			"component sets"
+		]
+	},
+	{
+		"title": "use-vest",
+		"repository": "https://github.com/enyo/use-vest",
+		"npm": "use-vest",
+		"description": "Vest can be used both on the front and backend. This library provides a Svelte action for Vest, that makes it easy to validate forms and show errors when necessary — built with TypeScript.",
+		"category": "Forms & User Input",
+		"tags": [
+			"forms",
+			"form validation",
+			"components and libraries",
+			"inputs and widgets",
+			"component sets",
+			"forms and validation"
 		]
 	},
 	{
