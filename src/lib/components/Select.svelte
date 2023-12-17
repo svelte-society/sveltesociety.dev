@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import SvelteSelect from 'svelte-select';
 
 	export let value;

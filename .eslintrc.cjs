@@ -35,6 +35,7 @@ const config = {
 	rules: {
 		'@typescript-eslint/array-type': 'off',
 		'@typescript-eslint/consistent-type-definitions': 'off',
+		'svelte/block-lang': ['error', { script: ['ts'] }],
 		'svelte/no-at-html-tags': 'off',
 		'svelte/valid-compile': 'off'
 	}

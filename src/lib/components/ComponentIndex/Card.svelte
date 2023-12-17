@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Tag from '../Tag.svelte';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 	import { packageManager as manager } from '$stores/packageManager';

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
 	import List from '$lib/components/ComponentIndex/CardList.svelte';
 	import SearchLayout from '$layouts/SearchLayout.svelte';

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	const booksFromPublisher = [
 		{
 			name: 'Svelte 3 Up and Running',
