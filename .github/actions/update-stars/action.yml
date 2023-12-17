@@ -5,5 +5,5 @@ inputs:
     description: GitHub token for GraphQL calls
     required: false
 runs:
-  using: node16
+  using: node20
   main: 'main.js'

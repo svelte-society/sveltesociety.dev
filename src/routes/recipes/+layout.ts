@@ -27,5 +27,5 @@ export async function load() {
 			categories
 		};
 	}
-	throw error(500);
+	error(500);
 }

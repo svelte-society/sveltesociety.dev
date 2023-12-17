@@ -288,6 +288,13 @@
 		"category": "Preprocessors"
 	},
 	{
+		"title": "walk-and-graph-svelte-components",
+		"repository": "https://github.com/j2l/walk-and-graph-svelte-components",
+		"description": "CLI node script to walk svelte and js files, to draw a beautiful JPG of your dependencies aka \"imports\". No external dependency, only FS (Node). ",
+		"category": "Debugging",
+		"tags": []
+	},
+	{
 		"title": "eslint-plugin-svelte",
 		"repository": "https://github.com/sveltejs/eslint-plugin-svelte",
 		"description": "ESLint plugin that applies own rules to Svelte",
