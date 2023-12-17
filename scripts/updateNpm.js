@@ -17,7 +17,7 @@ const npm = await Promise.all(
 	return values.reduce((result, value) => Object.assign(result, value), {});
 });
 
-writeFileSync('src/lib/npm.json', JSON.stringify(npm));
+writeFileSync('src/lib/data/npm.json', JSON.stringify(npm));
 
 /** @param {ReturnType<typeof data>[0]} pkg */
 async function processPackage(pkg) {
