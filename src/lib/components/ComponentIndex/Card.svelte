@@ -13,6 +13,7 @@
 	export let npm = '';
 	export let repository = undefined;
 	export let date = undefined;
+	export let version = undefined;
 
 	let clipboardCopy = false;
 
@@ -79,7 +80,7 @@
 				<code>{stars}</code>
 			{/if}
 		</div>
-		{#if date}<code>Updated {relativeDate(date)}</code>{/if}
+		{#if date && version}<span class="date">Updated {relativeDate(date)} ({version})</span>{/if}
 	</div>
 </div>
 
@@ -134,7 +135,9 @@
 	.repo:hover {
 		background-color: rgba(0, 0, 0, 0.25);
 	}
-
+	.date {
+		font-size: 14px;
+	}
 	.flex-grow {
 		flex-grow: 1;
 	}

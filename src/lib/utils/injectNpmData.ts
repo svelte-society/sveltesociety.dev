@@ -5,12 +5,8 @@ import type { componentsSchema } from '$lib/schemas';
 export const injectNpmData = (input: z.infer<typeof componentsSchema>) => {
 	const output = [];
 	for (const item of input) {
-		const extra = npm[item.npm];
-		if (extra) {
-			output.push({ ...item, ...extra });
-		} else {
-			output.push(item);
-		}
+		const extra = npm[item.npm] ?? {};
+		output.push({ ...item, ...extra });
 	}
 	return output;
 };
