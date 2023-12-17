@@ -24,7 +24,8 @@ The following works as expected and update the dom:
 	}
 </script>
 
-<button on:click={updateNum}>Update</button><p>{num}</p>
+<button on:click={updateNum}>Update</button>
+<p>{num}</p>
 ```
 
 Svelte can see that there is an assignment to a top-level variable and knows to re-render after the `num` variable is modified.
@@ -89,7 +90,8 @@ This is the sort of problem you may run into when dealing with objects. Since ob
 	}
 </script>
 
-<button on:click={updateNum}>Update</button><p>{obj.num}</p>
+<button on:click={updateNum}>Update</button>
+<p>{obj.num}</p>
 ```
 
 In this example, when we reassign `o.num` we are updating the value assigned to `obj` but since we are not updating the actual `obj` variable Svelte does not trigger an update. Svelte does not trace these kinds of values back to a variable defined at the top level and has no way of knowing if it has updated or not. Whenever you want to update the local component state, any reassignments must be performed on the _actual_ variable, not just the value itself.
@@ -109,7 +111,8 @@ Another situation that can sometimes cause unexpected results is when you reassi
 	}
 </script>
 
-<button on:click={() => updateNum(obj)}>Update</button><p>{num}</p>
+<button on:click={() => updateNum(obj)}>Update</button>
+<p>{num}</p>
 ```
 
 This example behaves the same as the previous example, except it is perhaps even more confusing. In this case, the `obj` variable is being _shadowed_ while inside the function, so any assignments to `obj` inside this function are assignments to the function parameter rather than the top-level `obj` variable. It refers to the same value, and it has the same name, but it is a _different_ variable inside the function scope.
