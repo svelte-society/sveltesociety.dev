@@ -577,7 +577,7 @@
 		"title": "svelte-postgrest-template",
 		"repository": "https://github.com/guyromm/svelte-postgrest-template",
 		"description": "SvelteKit & auth with a PostgreSQL + postgREST backend",
-    "category": "SvelteKit",
+		"category": "SvelteKit",
 		"tags": ["database", "integrations", "templates", "ssr"]
 	},
 	{
