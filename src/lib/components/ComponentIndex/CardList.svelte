@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let title;
 	export let id = `category-${encodeURI(title)}`;
 </script>
