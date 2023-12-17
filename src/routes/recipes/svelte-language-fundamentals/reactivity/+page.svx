@@ -1,6 +1,8 @@
 ---
 title: Reactivity
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
+updated: 2022-02-05T22:15:51-08:00
 ---
 
 ### Reactive assignments

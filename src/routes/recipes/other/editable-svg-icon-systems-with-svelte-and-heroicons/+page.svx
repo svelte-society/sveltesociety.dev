@@ -1,6 +1,7 @@
 ---
 title: Editable SVG Icon Systems with Svelte and Heroicons
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
 ---
 
 There are many ways to create an SVG Icon System, but one method that takes advantage of Svelte's capabilities is to create editable inline icons as components. Some of the advantages of this way of working is:

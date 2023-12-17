@@ -63,19 +63,6 @@
 		type = types.find((t) => t.value == typeQuery) || types[0];
 	});
 
-	function padWithZero(date) {
-		return date.toString().padStart(2, '0');
-	}
-
-	function todaysDate() {
-		const date = new Date();
-		const day = padWithZero(date.getDate());
-		const month = padWithZero(date.getMonth() + 1);
-		const year = date.getFullYear();
-		const sep = '-';
-		return [year, month, day].join(sep);
-	}
-
 	async function clearCategoryAndTags() {
 		await tick();
 		category = null;
@@ -179,9 +166,9 @@
 </pre>
 <br />
 Copy this snippet and add it to
-<a href="{repoURL}/blob/main/src/routes/{pathName}/{pathName}.json">{pathName}.json</a>. You can
-propose your changes
-<a href="{repoURL}/edit/main/src/routes/{pathName}/{pathName}.json">directly in GitHub</a>.
+<a href="{repoURL}/blob/main/src/routes/{pathName}/{pathName}.json">{pathName}.json</a>. Before
+submitting a PR, please clone your changes locally and run:
+<pre>pnpm run lint</pre>
 
 <style>
 	.json-generator,

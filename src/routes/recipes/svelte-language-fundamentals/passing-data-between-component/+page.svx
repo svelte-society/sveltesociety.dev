@@ -1,6 +1,8 @@
 ---
 title: Passing data between components
 layout: recipe
+published: 2022-08-30T00:07:30+02:00
+updated: 2022-10-12T23:14:11+02:00
 ---
 
 <script>

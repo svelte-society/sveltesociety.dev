@@ -1,6 +1,8 @@
 ---
 title: Using Fetch to Consume APIs with Svelte
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
+updated: 2022-03-22T23:11:24+01:00
 ---
 
 Working with external data in Svelte is important. Here's a guide.

@@ -1,6 +1,7 @@
 ---
 title: Looping
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
 ---
 
 `{#each}` block allows you to loop only **array** or **array-like object** (i.e. it has a `.length` property).

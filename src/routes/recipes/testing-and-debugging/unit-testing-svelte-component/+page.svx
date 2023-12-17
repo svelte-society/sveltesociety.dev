@@ -1,6 +1,8 @@
 ---
 title: Unit Testing Svelte Components
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
+updated: 2023-07-16T10:12:46-05:00
 ---
 
 _Some assumptions here, this was pulled from something I wrote and the context was different. Edits will be required._

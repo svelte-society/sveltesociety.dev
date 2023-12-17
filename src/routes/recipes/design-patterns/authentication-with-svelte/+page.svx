@@ -1,6 +1,7 @@
 ---
 title: Authentication with Svelte
 layout: recipe
+published: 2021-06-14T11:30:41-07:00
 ---
 
 Figuring out how to authenticate with Svelte can be tricky business. The official docs for Sapper, the Server-Side Rendering platform designed for Svelte, recognize that session management should be handled by some other service such as [express-session](https://github.com/expressjs/session), but you are not limited to using any backend with Svelte. Moreover, Sapper does not have native support for persistent sessions (as of April 2020).

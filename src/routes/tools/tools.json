@@ -1,6 +1,7 @@
 [
 	{
 		"title": "rollup-plugin-svelte",
+		"npm": "rollup-plugin-svelte",
 		"category": "Bundler Plugins",
 		"description": "Compile Svelte components with Rollup",
 		"repository": "https://github.com/sveltejs/rollup-plugin-svelte",
@@ -8,6 +9,7 @@
 	},
 	{
 		"title": "svelte-loader",
+		"npm": "svelte-loader",
 		"category": "Bundler Plugins",
 		"description": "Webpack loader for svelte components",
 		"repository": "https://github.com/sveltejs/svelte-loader",
@@ -15,6 +17,7 @@
 	},
 	{
 		"title": "vite-plugin-svelte",
+		"npm": "@sveltejs/vite-plugin-svelte",
 		"category": "Bundler Plugins",
 		"description": "This is the official svelte plugin for vite",
 		"repository": "https://github.com/sveltejs/vite-plugin-svelte",
@@ -22,6 +25,7 @@
 	},
 	{
 		"title": "esbuild-svelte",
+		"npm": "esbuild-svelte",
 		"category": "Bundler Plugins",
 		"description": "An esbuild plugin to compile Svelte components",
 		"repository": "https://github.com/EMH333/esbuild-svelte",
@@ -29,6 +33,7 @@
 	},
 	{
 		"title": "rollup-plugin-svelte-hot",
+		"npm": "rollup-plugin-svelte-hot",
 		"category": "Bundler Plugins",
 		"description": "Fork of official rollup-plugin-svelte with added HMR support (for both Nollup or Rollup)",
 		"repository": "https://github.com/rixo/rollup-plugin-svelte-hot",
@@ -36,6 +41,7 @@
 	},
 	{
 		"title": "parcel-transformer-svelte3-plus",
+		"npm": "parcel-transformer-svelte3-plus",
 		"category": "Bundler Plugins",
 		"description": "Transformer plugin for Parcel v2; works with Svelte 3 & Svelte 4",
 		"repository": "https://github.com/HellButcher/parcel-transformer-svelte3-plus",
@@ -43,6 +49,7 @@
 	},
 	{
 		"title": "parcel-plugin-svelte",
+		"npm": "parcel-plugin-svelte",
 		"category": "Bundler Plugins",
 		"description": "A Parcel v1 plugin that enables Svelte support",
 		"repository": "https://github.com/DeMoorJasper/parcel-plugin-svelte",
@@ -50,6 +57,7 @@
 	},
 	{
 		"title": "sveltify",
+		"npm": "sveltify",
 		"category": "Bundler Plugins",
 		"description": "Browserify transform for Svelte",
 		"repository": "https://github.com/tehshrike/sveltify",
@@ -57,6 +65,7 @@
 	},
 	{
 		"title": "gulp-svelte",
+		"npm": "gulp-svelte",
 		"category": "Bundler Plugins",
 		"description": "A gulp 4 plugin to compile Svelte template to vanilla JavaScript",
 		"repository": "https://github.com/shinnn/gulp-svelte",
@@ -71,6 +80,7 @@
 	},
 	{
 		"title": "sveltejs-brunch",
+		"npm": "sveltejs-brunch",
 		"category": "Bundler Plugins",
 		"description": "Compile Svelte components inside Brunch projects",
 		"repository": "https://github.com/StarpTech/sveltejs-brunch",
@@ -92,6 +102,7 @@
 	},
 	{
 		"title": "svelte-preprocess",
+		"npm": "svelte-preprocess",
 		"category": "Preprocessors",
 		"description": "A ✨ magical ✨ Svelte preprocessor with sensible defaults and support for: PostCSS, SCSS, Less, Stylus, Coffeescript, TypeScript, Pug and much more",
 		"repository": "https://github.com/sveltejs/svelte-preprocess",
@@ -119,6 +130,7 @@
 	},
 	{
 		"title": "svelte-preprocess-less",
+		"npm": "svelte-preprocess-less",
 		"category": "Preprocessors",
 		"description": "Svelte preprocessor for less",
 		"repository": "https://github.com/ls-age/svelte-preprocess-less",
@@ -133,6 +145,7 @@
 	},
 	{
 		"title": "modular-css",
+		"npm": "@modular-css/svelte",
 		"category": "Preprocessors",
 		"description": "Svelte preprocessor support for modular-css",
 		"repository": "https://github.com/tivac/modular-css/tree/main/packages/svelte",
@@ -140,6 +153,7 @@
 	},
 	{
 		"title": "svelte-preprocess-sass",
+		"npm": "svelte-preprocess-sass",
 		"category": "Preprocessors",
 		"description": "Svelte preprocessor for sass",
 		"repository": "https://github.com/ls-age/svelte-preprocess-sass",
@@ -147,6 +161,7 @@
 	},
 	{
 		"title": "svelte-preprocess-css-hash",
+		"npm": "svelte-preprocess-css-hash",
 		"category": "Preprocessors",
 		"description": "Passing hashed css class name to child component. It is used to avoid class name conflicts.",
 		"repository": "https://github.com/jiangfengming/svelte-preprocess-css-hash",
@@ -154,6 +169,7 @@
 	},
 	{
 		"title": "svelte-preprocess-html-asset",
+		"npm": "svelte-preprocess-html-asset",
 		"category": "Preprocessors",
 		"description": "Transform html asset relative path. Works with snowpack & webpack 5.",
 		"repository": "https://github.com/jiangfengming/svelte-preprocess-html-asset",
@@ -161,6 +177,7 @@
 	},
 	{
 		"title": "svelte-preprocessor-fetch",
+		"npm": "svelte-preprocessor-fetch",
 		"category": "Preprocessors",
 		"description": "A preprocessor for Svelte can be used to fetch data before the component is compiled.",
 		"repository": "https://github.com/kevmodrome/svelte-preprocessor-fetch",
@@ -168,6 +185,7 @@
 	},
 	{
 		"title": "prettier-plugin-svelte",
+		"npm": "prettier-plugin-svelte",
 		"category": "Linting and Formatting",
 		"description": "Format your svelte components using prettier.",
 		"repository": "https://github.com/sveltejs/prettier-plugin-svelte",
@@ -175,6 +193,7 @@
 	},
 	{
 		"title": "svelte-check",
+		"npm": "svelte-check",
 		"category": "Linting and Formatting",
 		"description": "Detects unused css. Adds Svelte A11y hints. Provides JavaScript/TypeScript diagnostics.",
 		"repository": "https://github.com/sveltejs/language-tools/tree/master/packages/svelte-check",
@@ -267,6 +286,13 @@
 		"description": "Write more than one component per svelte file",
 		"npm": "svelte-subcomponent-preprocessor",
 		"category": "Preprocessors"
+	},
+	{
+		"title": "walk-and-graph-svelte-components",
+		"repository": "https://github.com/j2l/walk-and-graph-svelte-components",
+		"description": "CLI node script to walk svelte and js files, to draw a beautiful JPG of your dependencies aka \"imports\". No external dependency, only FS (Node). ",
+		"category": "Debugging",
+		"tags": []
 	},
 	{
 		"title": "eslint-plugin-svelte",
