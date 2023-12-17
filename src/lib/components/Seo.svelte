@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 	import { page } from '$app/stores';
 
 	const brand = 'Svelte Society';

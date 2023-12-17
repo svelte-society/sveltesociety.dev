@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let title = '';
 	export let variant;
 	export let click = undefined;

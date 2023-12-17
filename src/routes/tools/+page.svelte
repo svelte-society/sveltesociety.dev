@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import tools from '../tools/tools.json';
 	import SearchableJson from '../searchableJson.svelte';
 	import { injectNpmData } from '$utils/injectNpmData';
