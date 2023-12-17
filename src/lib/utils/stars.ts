@@ -1,4 +1,4 @@
-import stars from '$lib/stars.json';
+import stars from '$lib/data/stars.json';
 
 type RepoInfo = {
 	type: 'Github' | 'Gitlab';

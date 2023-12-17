@@ -179,7 +179,7 @@ async function main() {
 			0
 		)} stars)`
 	);
-	writeFileSync('src/lib/stars.json', JSON.stringify({ github, gitlab }));
+	writeFileSync('src/lib/data/stars.json', JSON.stringify({ github, gitlab }));
 }
 
 try {
