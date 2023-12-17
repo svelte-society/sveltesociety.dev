@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 	import Tag from '../Tag.svelte';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 	import { packageManager as manager } from '$stores/packageManager';
+	import { relativeDate } from '$utils/relativeDate';
 
 	export let active = false;
 	export let title = '';
@@ -11,6 +12,7 @@
 	export let url = '';
 	export let npm = '';
 	export let repository = undefined;
+	export let date = undefined;
 
 	let clipboardCopy = false;
 
@@ -33,15 +35,35 @@
 </script>
 
 <div class="card" class:active id="component-{title}">
-	<h3>
-		<a href="#component-{title}">#</a>
-		{#if url || repository}<a href={url || repository}>{title}</a>{:else}<span>{title}</span>{/if}
-		{#if npm}<Tag
-				click={() => copy()}
-				variant="copy"
-				title={clipboardCopy ? 'copied!' : `${packageManagers[$manager]} ${cleanupNpm(npm)}`}
-			/>{/if}
-	</h3>
+	<div class="card__top">
+		<div>
+			<h3>
+				<a href="#component-{title}">#</a>
+				{#if url || repository}<a href={url || repository}>{title}</a>{:else}<span>{title}</span
+					>{/if}
+			</h3>
+		</div>
+		<div>
+			{#if (repository || url || '').includes('github')}
+				<a class="repo" title="Go to the source code" href={repository || url}
+					><img style="display:inline" src="/images/github_logo.svg" alt="github logo" /></a
+				>
+			{:else if (repository || url || '').includes('gitlab')}
+				<a class="repo" title="Go to the source code" href={repository || url}
+					><img style="display:inline" src="/images/gitlab_logo.svg" alt="gitlab logo" /></a
+				>
+				<!-- {:else} -->
+			{/if}
+		</div>
+	</div>
+
+	{#if npm}
+		<Tag
+			click={() => copy()}
+			variant="copy"
+			title={clipboardCopy ? 'copied!' : `${packageManagers[$manager]} ${cleanupNpm(npm)}`}
+		/>
+	{/if}
 	<p class="flex-grow">{description}</p>
 	{#if tags}
 		<div class="card__tags">
@@ -52,25 +74,12 @@
 	{/if}
 	<div class="card__bottom">
 		<div>
-			{#if (repository || url || '').includes('github')}
-				<a title="Go to the source code" href={repository || url}
-					><img style="display:inline" src="/images/github_logo.svg" alt="github logo" /></a
-				>
-			{:else if (repository || url || '').includes('gitlab')}
-				<a title="Go to the source code" href={repository || url}
-					><img style="display:inline" src="/images/gitlab_logo.svg" alt="gitlab logo" /></a
-				>
-				<!-- {:else} -->
-			{/if}
-		</div>
-		<div>
 			{#if typeof stars !== 'undefined'}
 				&#9733;
 				<code>{stars}</code>
 			{/if}
 		</div>
-		<!-- commenting out dates just cause it is not very updated yet - all the cards show same date. put back in when we have better scraping -->
-		<!-- <datetime value={addedOn}>{new Intl.DateTimeFormat('en-Us').format(Date.parse(addedOn))}</datetime> -->
+		{#if date}<code>Updated {relativeDate(date)}</code>{/if}
 	</div>
 </div>
 
@@ -97,6 +106,11 @@
 		flex-wrap: wrap;
 		margin-bottom: 1rem;
 	}
+	.card__top {
+		display: flex;
+		justify-content: space-between;
+		align-items: top;
+	}
 	.card__bottom {
 		display: flex;
 		justify-content: space-between;
@@ -105,7 +119,7 @@
 	.card__bottom > * {
 		white-space: nowrap;
 	}
-	.card__bottom a {
+	.repo {
 		border-bottom: none;
 		aspect-ratio: 1/1;
 		display: flex;
@@ -117,7 +131,7 @@
 		background-color: rgba(0, 0, 0, 0);
 		transition: background-color 200ms ease-out;
 	}
-	.card__bottom a:hover {
+	.repo:hover {
 		background-color: rgba(0, 0, 0, 0.25);
 	}
 

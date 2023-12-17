@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import templates from './templates.json';
 	import SearchableJson from '../searchableJson.svelte';
 	import { injectStars } from '$utils/stars';

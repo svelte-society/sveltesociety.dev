@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	// get the year for the copyright statement
 	var date = new Date();
 	var year = date.getFullYear();

@@ -21,6 +21,9 @@ writeFileSync('src/lib/npm.json', JSON.stringify(npm));
 
 /** @param {ReturnType<typeof data>[0]} pkg */
 async function processPackage(pkg) {
+	if (!pkg.npm) {
+		throw new Error('npm field missing - skipping');
+	}
 	const { stdout } = await execAsync(`npm view ${pkg.npm} --json`);
 	const data = JSON.parse(stdout.toString());
 	const version = data.version;
