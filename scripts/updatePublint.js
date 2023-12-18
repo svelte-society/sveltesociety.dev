@@ -46,7 +46,7 @@ const output = await Promise.all(
 	return versions;
 });
 
-writeFileSync('src/lib/publint.json', JSON.stringify(output));
+writeFileSync('src/lib/data/publint.json', JSON.stringify(output));
 
 /** @param pkg {ReturnType<typeof injectVersions>[0]} */
 async function processPackage(pkg) {
