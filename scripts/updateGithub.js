@@ -32,26 +32,21 @@ async function doGraphQlQuery(url, query) {
 	return [];
 }
 
-function gatherUrls() {
-	return [
+function getAllGHRepos() {
+	const repos = [
 		...componentsSchema.parse(components).map((component) => component.repository),
 		...templatesSchema.parse(templates).map((template) => template.repository),
 		...toolsSchema.parse(tools).map((tool) => tool.repository)
-	];
+	]
+	return repos.filter((url) => url && githubNameRegexp.test(url));
 }
 
 /**
- * Get all GitHub repositories
- * @returns {Array<{owner: string, repo: string}>}
+ * @param {string} url
  */
-function getAllGHRepos() {
-	return gatherUrls()
-		.filter((url) => url && githubNameRegexp.test(url))
-		.map((gitHubUrl) => gitHubUrl.match(githubNameRegexp)[1].toLowerCase())
-		.map((validName) => ({ owner: validName.split('/')[0], repo: validName.split('/')[1] }));
-}
-
-function ghRepoGraphQl({ owner, repo }) {
+function ghRepoGraphQl(url) {
+	const name = url.match(githubNameRegexp)[1]
+	const [owner, repo] = name.toLowerCase().split('/')
 	let identifier = owner + '_' + repo + '_' + Math.random() + '';
 	identifier = identifier.replace(/[^a-zA-Z0-9_]/g, '_');
 	identifier = identifier.replace(/^[0-9]/g, '_');

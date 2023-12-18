@@ -29,12 +29,13 @@ async function doGraphQlQuery(url, query) {
 	return [];
 }
 
-function gatherUrls() {
-	return [
+function getAllGitlabRepos() {
+	const repos = [
 		...componentsSchema.parse(components).map((component) => component.repository),
 		...templatesSchema.parse(templates).map((template) => template.repository),
 		...toolsSchema.parse(tools).map((tool) => tool.repository)
 	];
+	return repos.filter((url) => url && gitlabNameRegExp.test(url));
 }
 
 /**
@@ -54,15 +55,6 @@ function chunk(input, size) {
 }
 
 /**
- * Get all GitLab repositories path (relative to GitLab root)
- * @returns {string[]}
- */
-function getAllGitlabRepos() {
-	return gatherUrls().filter((url) => url && gitlabNameRegExp.test(url));
-}
-
-/**
- * Get all GitLab repositories path (relative to GitLab root)
  * @param {string} url
  */
 function gitlabRepoGraphQl(url) {
