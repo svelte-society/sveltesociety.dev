@@ -1,4 +1,4 @@
-name: Update stars count
+name: Update data
 
 on:
   schedule:
@@ -19,19 +19,21 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
-      - name: Run script
+      - name: Update stars
         uses: ./.github/actions/update-stars
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update npm data
+        run: node scripts/updateNpm.js
       - name: Run format
         run: pnpm run format
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          commit-message: "(AUTO) Update stars"
-          title: "🤖 Update stars"
-          body: Update all stars count from Github and Gitlab
-          branch: ci-update-stars
-          add-paths: src/lib/stars.json
+          commit-message: "(AUTO) Update data"
+          title: "🤖 Update data"
+          body: Automatically fetch latest data from NPM, GitHub and GitLab
+          branch: ci-update-data
+          add-paths: src/lib/data/npm.json,src/lib/data/stars.json
           delete-branch: true
           token: ${{ secrets.GITHUB_TOKEN }}
