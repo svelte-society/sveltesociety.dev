@@ -8,7 +8,7 @@ import type { componentsSchema } from '$lib/schemas';
 export const injectGithubData = (input: z.infer<typeof componentsSchema>) => {
 	const output = [];
 	for (const item of input) {
-		const index = Object.keys(github).find(key => item.repository.toLowerCase().includes(key));
+		const index = Object.keys(github).find((key) => item.repository.toLowerCase().includes(key));
 		const extra = github[index] ?? {};
 		output.push({ ...item, ...extra });
 	}
@@ -18,7 +18,7 @@ export const injectGithubData = (input: z.infer<typeof componentsSchema>) => {
 export const injectGitlabData = (input: z.infer<typeof componentsSchema>) => {
 	const output = [];
 	for (const item of input) {
-		const index = Object.keys(gitlab).find(key => item.repository.toLowerCase().includes(key));
+		const index = Object.keys(gitlab).find((key) => item.repository.toLowerCase().includes(key));
 		const extra = gitlab[index] ?? {};
 		output.push({ ...item, ...extra });
 	}

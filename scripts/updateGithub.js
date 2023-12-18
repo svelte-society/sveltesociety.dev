@@ -37,7 +37,7 @@ function getAllGHRepos() {
 		...componentsSchema.parse(components).map((component) => component.repository),
 		...templatesSchema.parse(templates).map((template) => template.repository),
 		...toolsSchema.parse(tools).map((tool) => tool.repository)
-	]
+	];
 	return repos.filter((url) => url && githubNameRegexp.test(url));
 }
 
@@ -45,8 +45,8 @@ function getAllGHRepos() {
  * @param {string} url
  */
 function ghRepoGraphQl(url) {
-	const name = url.match(githubNameRegexp)[1]
-	const [owner, repo] = name.toLowerCase().split('/')
+	const name = url.match(githubNameRegexp)[1];
+	const [owner, repo] = name.toLowerCase().split('/');
 	let identifier = owner + '_' + repo + '_' + Math.random() + '';
 	identifier = identifier.replace(/[^a-zA-Z0-9_]/g, '_');
 	identifier = identifier.replace(/^[0-9]/g, '_');
