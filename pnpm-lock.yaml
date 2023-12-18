@@ -75,8 +75,8 @@ devDependencies:
     specifier: ^3.1.2
     version: 3.1.2(prettier@3.1.1)(svelte@4.2.8)
   publint:
-    specifier: ^0.2.5
-    version: 0.2.5
+    specifier: ^0.2.6
+    version: 0.2.6
   rehype-slug:
     specifier: ^6.0.0
     version: 6.0.0
@@ -2166,8 +2166,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /publint@0.2.5:
-    resolution: {integrity: sha512-eoQiP0WXkxkpth1fMLoS1I/6BQoxKNZxTAAnFjPgURFrJulC5D5Uifk49a9kfNCYmcza9E/ZkbFhQQdjkmKAbg==}
+  /publint@0.2.6:
+    resolution: {integrity: sha512-zMwDVwrlLnCsviDXlczhuc5nIljsjZUgbLeKNyMYqbIJLRhcW81xrKsHlEu21YUaIxpa8T66tdIqP0mZm9ym3A==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
