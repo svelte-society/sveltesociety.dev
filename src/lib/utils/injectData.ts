@@ -24,7 +24,7 @@ export const injectData = (input: z.infer<typeof componentsSchema>) => {
 		const npmExtra = npm[item.npm] ?? {};
 
 		// Publint
-		const publintExtra = publint[item.npm] ? { publint: true } : { publint: false };
+		const publintExtra = publint[item.npm] ?? {};
 
 		output.push({ ...item, ...githubExtra, ...gitlabExtra, ...npmExtra, ...publintExtra });
 	}
