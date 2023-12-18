@@ -30,21 +30,9 @@ const injectVersions = (input) => {
 const dataWithVersions = injectVersions(dataWithoutVersions);
 
 const output = await Promise.all(
-	dataWithVersions.map(async (pkg) => {
-		try {
-			return await processPackage(pkg);
-		} catch (error) {
-			console.log(error.message);
-		}
-	})
+	dataWithVersions.map((pkg) => processPackage(pkg).catch((error) => console.log(error.message)))
 ).then((values) => {
-	let versions = {};
-	for (const value of values) {
-		if (value) {
-			versions[value.name] = value.valid;
-		}
-	}
-	return versions;
+	return values.reduce((result, value) => Object.assign(result, value), {});
 });
 
 writeFileSync('src/lib/data/publint.json', JSON.stringify(output));
@@ -73,5 +61,5 @@ async function processPackage(pkg) {
 
 	const pkgDir = files.length ? files[0].name.split('/')[0] : 'package';
 	const { messages } = await publint({ pkgDir, vfs, level: 'warning' });
-	return { name: pkg.npm, valid: messages.length === 0 };
+	return { [pkg.npm]: { valid: messages.length === 0 } };
 }
