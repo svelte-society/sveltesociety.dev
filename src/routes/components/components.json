@@ -2887,7 +2887,7 @@
 		"title": "SvelteUI",
 		"repository": "https://github.com/svelteuidev/svelteui",
 		"description": "SvelteUI is a Svelte library with a variety of packages to help make development easier!",
-		"npm": "@svelteui/core",
+		"npm": "@svelteuidev/core",
 		"category": "Design System",
 		"tags": ["components and libraries", "component sets"]
 	},
