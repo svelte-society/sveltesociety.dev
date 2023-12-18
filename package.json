@@ -11,8 +11,8 @@
 		"sync": "svelte-kit sync",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"test": "vitest",
-		"lint": "prettier --check ./**/*.{js,ts,css,md,svelte,html,json} && eslint . && node scripts/validateData.js",
-		"format": "prettier --write ./**/*.{js,ts,css,md,svelte,html,json}",
+		"lint": "prettier --check ./**/*.{js,cjs,ts,css,md,svx,svelte,html,json} && eslint . && node scripts/validateData.js",
+		"format": "prettier --write ./**/*.{js,cjs,ts,css,md,svx,svelte,html,json}",
 		"prepare": "husky install"
 	},
 	"devDependencies": {
@@ -23,6 +23,7 @@
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.1",
 		"@types/itemsjs": "^2.1.6",
+		"@types/eslint": "^8.44.9",
 		"@types/node": "^20.10.4",
 		"@typescript-eslint/eslint-plugin": "^6.14.0",
 		"@typescript-eslint/parser": "^6.14.0",
@@ -51,6 +52,6 @@
 		"zod": "^3.22.4"
 	},
 	"lint-staged": {
-		"*.{js,ts,css,md,svx,svelte,html,json}": "prettier --write"
+		"*.{js,cjs,ts,css,md,svx,svelte,html,json}": "prettier --write"
 	}
 }
