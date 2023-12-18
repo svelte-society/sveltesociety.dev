@@ -2834,5 +2834,101 @@
 		"npm": "vite-plugin-kit-routes",
 		"category": "Developer Experience",
 		"tags": ["validation"]
+	},
+	{
+		"title": "svelte-action-balancer",
+		"repository": "https://github.com/paoloricciuti/svelte-action-balancer",
+		"description": "A svelte action to balance the text inside the an html node. Heavily inspired by react-wrap-balancer",
+		"npm": "svelte-action-balancer",
+		"category": "CSS and Layout",
+		"tags": ["layout and structure"]
+	},
+	{
+		"title": "svelte-sonner",
+		"repository": "https://github.com/wobsoriano/svelte-sonner",
+		"description": "An opinionated toast component for Svelte.",
+		"npm": "svelte-sonner",
+		"category": "User Interaction",
+		"tags": ["components and libraries", "notifications"]
+	},
+	{
+		"title": "Square Svelte Store",
+		"repository": "https://github.com/square/svelte-store",
+		"description": "Extension of svelte default stores for dead-simple handling of complex asynchronous behavior.",
+		"npm": "@square/svelte-store",
+		"category": "Stores",
+		"tags": ["stores and state"]
+	},
+	{
+		"title": "@neoconfetti/svelte",
+		"repository": "https://github.com/PuruVJ/neoconfetti/tree/main/packages/svelte",
+		"description": "@neoconfetti/svelte allows you to show an awesome confetti explosion on your page, with Svelte!",
+		"npm": "@neoconfetti/svelte",
+		"category": "Display Components",
+		"tags": ["typescript"]
+	},
+	{
+		"title": "Svelte Headless Table",
+		"repository": "https://github.com/bryanmylee/svelte-headless-table",
+		"description": "Unopinionated and extensible data tables for Svelte",
+		"npm": "svelte-headless-table",
+		"category": "Data Visualisation",
+		"tags": ["components and libraries", "layout and structure", "typescript"]
+	},
+	{
+		"title": "AutoAnimate",
+		"repository": "https://github.com/formkit/auto-animate",
+		"description": "Add motion to your apps with a single line of code.",
+		"npm": "@formkit/auto-animate",
+		"category": "Display Components",
+		"tags": ["animations"]
+	},
+	{
+		"title": "SvelteUI",
+		"repository": "https://github.com/svelteuidev/svelteui",
+		"description": "SvelteUI is a Svelte library with a variety of packages to help make development easier!",
+		"npm": "@svelteui/core",
+		"category": "Design System",
+		"tags": ["components and libraries", "component sets"]
+	},
+	{
+		"title": "Houdini",
+		"repository": "https://github.com/HoudiniGraphql/houdini",
+		"description": "The disappearing GraphQL client.",
+		"npm": "houdini",
+		"category": "Integration",
+		"tags": ["graphql"]
+	},
+	{
+		"title": "@svelte-put/clickoutside",
+		"repository": "https://github.com/vnphanquang/svelte-put/tree/main/packages/actions/clickoutside",
+		"description": "Svelte action use:clickoutside - event for clicking outside a node",
+		"npm": "@svelte-put/clickoutside",
+		"category": "User Interaction",
+		"tags": []
+	},
+	{
+		"title": "Grail UI",
+		"repository": "https://github.com/grail-ui/grail-ui",
+		"description": "Grail UI offers a set of component primitives, actions and utilities that help you build accessible and high quality Svelte applications faster",
+		"npm": "@grail-ui/svelte",
+		"category": "Design System",
+		"tags": ["components and libraries", "component sets"]
+	},
+	{
+		"title": "svelte-maplibre",
+		"repository": "https://github.com/dimfeld/svelte-maplibre",
+		"description": "Svelte wrapper for the maplibre mapping library.",
+		"npm": "svelte-maplibre",
+		"category": "Integration",
+		"tags": ["components and libraries", "maps"]
+	},
+	{
+		"title": "SvelteKit Open Graph Image Generation",
+		"repository": "https://github.com/etherCorps/sveltekit-og",
+		"description": "Dynamically generate Open Graph images from an HTML+CSS template or Svelte component. Based on Satori.",
+		"npm": "@ethercorps/sveltekit-og",
+		"category": "Integration",
+		"tags": []
 	}
 ]

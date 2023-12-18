@@ -793,5 +793,12 @@
 		"description": "A starter kit for building and shipping fast, secure, and scalable full stack SaaS applications with SvelteKit and TypeScript.",
 		"category": "SvelteKit",
 		"tags": ["templates", "typescript"]
+	},
+	{
+		"title": "Animotion",
+		"repository": "https://github.com/animotionjs/animotion",
+		"description": "Animotion is a presentational framework for creating beautiful slides and visualizing ideas with code using Svelte, Reveal.js and Tailwind CSS.",
+		"category": "Svelte",
+		"tags": []
 	}
 ]
