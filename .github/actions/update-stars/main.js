@@ -1,5 +1,8 @@
 import core from '@actions/core';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
+import components from '../../../src/routes/components/components.json' assert { type: 'json' };
+import templates from '../../../src/routes/templates/templates.json' assert { type: 'json' };
+import tools from '../../../src/routes/tools/tools.json' assert { type: 'json' };
 import { fetch } from 'undici';
 
 const ghGraphQlUrl = 'https://api.github.com/graphql';
@@ -28,10 +31,6 @@ async function doGraphQlQuery(url, query, headers = {}) {
 }
 
 function gatherUrls() {
-	let components = JSON.parse(readFileSync('src/routes/components/components.json'));
-	let tools = JSON.parse(readFileSync('src/routes/tools/tools.json'));
-	let templates = JSON.parse(readFileSync('src/routes/templates/templates.json'));
-
 	return [
 		...components.map((component) => component.repository),
 		...tools.map((tool) => tool.repository),
@@ -179,7 +178,7 @@ async function main() {
 			0
 		)} stars)`
 	);
-	writeFileSync('src/lib/stars.json', JSON.stringify({ github, gitlab }));
+	writeFileSync('src/lib/data/stars.json', JSON.stringify({ github, gitlab }));
 }
 
 try {

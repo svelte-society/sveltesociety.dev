@@ -1,4 +1,4 @@
-import npm from '$lib/npm.json';
+import npm from '$lib/data/npm.json';
 import type { z } from 'zod';
 import type { componentsSchema } from '$lib/schemas';
 
