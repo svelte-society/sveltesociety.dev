@@ -95,7 +95,7 @@ async function getGitlabStars() {
 	return Object.fromEntries(
 		lines
 			.filter((line) => line?.webUrl)
-			.map((line) => [line.webUrl, { stars: line.starCount }])
+			.map((line) => [line.webUrl.toLowerCase(), { stars: line.starCount }])
 			.sort()
 	);
 }

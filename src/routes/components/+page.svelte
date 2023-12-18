@@ -1,12 +1,11 @@
 <script lang="ts">
 	import components from './components.json';
 	import SearchableJson from '$lib/SearchableJson.svelte';
-	import { injectNpmData } from '$utils/injectData';
-	import { injectStars } from '$utils/stars';
+	import { injectData } from '$utils/injectData';
 </script>
 
 <SearchableJson
-	data={injectNpmData(injectStars(components))}
+	data={injectData(components)}
 	displayTitle="Components"
 	displayTitleSingular="component"
 	submittingType="component"

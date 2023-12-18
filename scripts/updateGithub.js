@@ -95,7 +95,7 @@ async function getGHStars() {
 	return Object.fromEntries(
 		lines
 			.filter((line) => line?.url)
-			.map((line) => [line.url, { stars: line.stargazerCount }])
+			.map((line) => [line.url.toLowerCase(), { stars: line.stargazerCount }])
 			.sort()
 	);
 }
