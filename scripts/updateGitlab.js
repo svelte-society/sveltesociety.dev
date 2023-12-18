@@ -3,6 +3,7 @@ import { componentsSchema, templatesSchema, toolsSchema } from '../src/lib/schem
 import components from '../src/routes/components/components.json' assert { type: 'json' };
 import templates from '../src/routes/templates/templates.json' assert { type: 'json' };
 import tools from '../src/routes/tools/tools.json' assert { type: 'json' };
+import { chunk } from './chunk.js';
 
 const gitlabGraphQlUrl = 'https://gitlab.com/api/graphql';
 const gitlabNameRegExp = new RegExp('https://gitlab.com/([\\w-]+/[\\w-]+)');
@@ -36,22 +37,6 @@ function getAllGitlabRepos() {
 		...toolsSchema.parse(tools).map((tool) => tool.repository)
 	];
 	return repos.filter((url) => url && gitlabNameRegExp.test(url));
-}
-
-/**
- * Divide an array into multiple smaller array
- * @param {string[]} input
- * @param {number} size
- * @return {string[][]}
- */
-function chunk(input, size) {
-	size = size < 1 ? 10 : size;
-	const pages = Math.ceil(input.length / size);
-	const final = [];
-	for (let index = 0; index < pages; index++) {
-		final.push(input.slice(index * size, (index + 1) * size));
-	}
-	return final;
 }
 
 /**

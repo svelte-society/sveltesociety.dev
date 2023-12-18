@@ -3,6 +3,7 @@ import { componentsSchema, templatesSchema, toolsSchema } from '../src/lib/schem
 import components from '../src/routes/components/components.json' assert { type: 'json' };
 import templates from '../src/routes/templates/templates.json' assert { type: 'json' };
 import tools from '../src/routes/tools/tools.json' assert { type: 'json' };
+import { chunk } from './chunk.js';
 
 const ghGraphQlUrl = 'https://api.github.com/graphql';
 const githubNameRegexp = new RegExp(
@@ -51,22 +52,6 @@ function ghRepoGraphQl(url) {
 	identifier = identifier.replace(/[^a-zA-Z0-9_]/g, '_');
 	identifier = identifier.replace(/^[0-9]/g, '_');
 	return `${identifier}: repository(name: "${repo}", owner: "${owner}"){url stargazerCount}`;
-}
-
-/**
- * Divide an array into multiple smaller array
- * @param {Array} input
- * @param {number} size
- * @return {Array<Array>}
- */
-function chunk(input, size) {
-	size = size < 1 ? 10 : size;
-	const pages = Math.ceil(input.length / size);
-	const final = [];
-	for (let index = 0; index < pages; index++) {
-		final.push(input.slice(index * size, (index + 1) * size));
-	}
-	return final;
 }
 
 /**
