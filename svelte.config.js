@@ -44,6 +44,7 @@ const config = {
 				config.include = [
 					...config.include,
 					'../scripts/**/*.js',
+					'../.eslintrc.cjs',
 					'../prettier.config.js',
 					'../svelte.config.js'
 				];
