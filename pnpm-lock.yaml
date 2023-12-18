@@ -14,7 +14,7 @@ devDependencies:
   '@sindresorhus/slugify':
     specifier: ^2.2.1
     version: 2.2.1
-  '@sveltejs/adapter-static':
+  '@sveltejs/adapter-netlify':
     specifier: ^3.0.0
     version: 3.0.0(@sveltejs/kit@2.0.1)
   '@sveltejs/kit':
@@ -394,6 +394,10 @@ packages:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
     dev: true
 
+  /@iarna/toml@2.2.5:
+    resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
+    dev: true
+
   /@jest/schemas@29.6.3:
     resolution: {integrity: sha512-mo5j5X+jIZmJQveBKeS/clAueipV7KgiX1vMgCxam1RNYiqE1w62n0/tJJnHtjW8ZHcQco5gY85jA3mi0L+nSA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -600,12 +604,15 @@ packages:
       escape-string-regexp: 5.0.0
     dev: true
 
-  /@sveltejs/adapter-static@3.0.0(@sveltejs/kit@2.0.1):
-    resolution: {integrity: sha512-nNsm8XChhJgQdeVegdXU+EnpznSUlsIjlLJa9SNmvSVN3rcPtB2BAnGuS/EWCtgPLkVcy9V2kW5knronqmF+KQ==}
+  /@sveltejs/adapter-netlify@3.0.0(@sveltejs/kit@2.0.1):
+    resolution: {integrity: sha512-b58DAKM+9nnp1WqO+zhXXA62euns8pS8K70N5u0Ld/tUuD15wEZ+oAQ7CBzJqTLsYsHIKgpXto4xwngnF4ZK4A==}
     peerDependencies:
       '@sveltejs/kit': ^2.0.0
     dependencies:
+      '@iarna/toml': 2.2.5
       '@sveltejs/kit': 2.0.1(@sveltejs/vite-plugin-svelte@3.0.1)(svelte@4.2.8)(vite@5.0.10)
+      esbuild: 0.19.9
+      set-cookie-parser: 2.6.0
     dev: true
 
   /@sveltejs/kit@2.0.1(@sveltejs/vite-plugin-svelte@3.0.1)(svelte@4.2.8)(vite@5.0.10):
