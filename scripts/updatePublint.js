@@ -4,21 +4,22 @@
 import { writeFileSync } from 'node:fs';
 import { inflate } from 'pako';
 import getNpmTarballUrl from 'get-npm-tarball-url';
-import { componentsSchema } from '../src/lib/schemas.js';
+import { componentsSchema, toolsSchema } from '../src/lib/schemas.js';
 import components from '../src/routes/components/components.json' assert { type: 'json' };
+import tools from '../src/routes/tools/tools.json' assert { type: 'json' };
 import npm from '../src/lib/data/npm.json' assert { type: 'json' };
 import { publint } from 'publint';
 import { untar } from './untar.js';
 import { createTarballVfs } from './tarball.js';
 
-const dataWithoutVersions = componentsSchema.parse(components);
+const dataWithoutVersions = [...componentsSchema.parse(components), ...toolsSchema.parse(tools)];
 
-/** @param input {import('zod').infer<typeof componentsSchema>} */
+/** @param input {import('zod').infer<typeof toolsSchema>} */
 const injectVersions = (input) => {
 	const output = [];
 	for (const item of input) {
 		/** @type {string} */
-		const version = npm[item.npm].version;
+		const version = npm[item.npm]?.version;
 		if (version) {
 			output.push({ ...item, version });
 		}
