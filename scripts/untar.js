@@ -126,8 +126,6 @@ PaxHeader.prototype = {
 	}
 };
 
-function TarFile() {}
-
 function UntarStream(arrayBuffer) {
 	this._bufferView = new DataView(arrayBuffer);
 	this._position = 0;
@@ -209,7 +207,7 @@ UntarFileStream.prototype = {
 
 	_readNextFile: function () {
 		var stream = this._stream;
-		var file = new TarFile();
+		var file = {};
 		var isHeaderFile = false;
 		var paxHeader = null;
 
