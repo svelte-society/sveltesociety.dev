@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import '$styles/highlight.css';
-import { getPages } from '../pageList';
-import type { SvxMetadata } from '../pageList';
+import { getPages } from '$lib/pageList';
+import type { SvxMetadata } from '$lib/pageList';
 import type { RecipeMetadata } from '$lib/Mdsvx';
 
 export async function load() {
