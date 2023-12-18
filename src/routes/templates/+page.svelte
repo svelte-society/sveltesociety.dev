@@ -1,11 +1,11 @@
 <script lang="ts">
 	import templates from './templates.json';
 	import SearchableJson from '$lib/SearchableJson.svelte';
-	import { injectStars } from '$utils/stars';
+	import { injectData } from '$utils/injectData';
 </script>
 
 <SearchableJson
-	data={injectStars(templates)}
+	data={injectData(templates)}
 	displayTitle="Template"
 	displayTitleSingular="template"
 	submittingType="template"
