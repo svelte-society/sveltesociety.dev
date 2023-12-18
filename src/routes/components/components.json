@@ -198,7 +198,7 @@
 	},
 	{
 		"title": "svelte-virtual-table",
-		"description": "A virtual, sortable table for Svelte ",
+		"description": "A virtual, sortable table for Svelte",
 		"repository": "https://github.com/BernhardWebstudio/svelte-virtual-table",
 		"npm": "svelte-virtual-table",
 		"tags": ["components and libraries"],
@@ -2330,7 +2330,7 @@
 	},
 	{
 		"title": "sveltekit-search-params",
-		"repository": "https://github.com/paoloricciuti/sveltekit-search-params ",
+		"repository": "https://github.com/paoloricciuti/sveltekit-search-params",
 		"description": "The best way to read and WRITE from query params in sveltekit.",
 		"npm": "sveltekit-search-params",
 		"category": "Stores",
