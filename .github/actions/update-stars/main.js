@@ -3,7 +3,6 @@ import { writeFileSync } from 'node:fs';
 import components from '../../../src/routes/components/components.json' assert { type: 'json' };
 import templates from '../../../src/routes/templates/templates.json' assert { type: 'json' };
 import tools from '../../../src/routes/tools/tools.json' assert { type: 'json' };
-import { fetch } from 'undici';
 
 const ghGraphQlUrl = 'https://api.github.com/graphql';
 const gitlabGraphQlUrl = 'https://gitlab.com/api/graphql';
