@@ -197,6 +197,21 @@
 		]
 	},
 	{
+		"title": "use-vest",
+		"repository": "https://github.com/enyo/use-vest",
+		"npm": "use-vest",
+		"description": "Vest can be used both on the front and backend. This library provides a Svelte action for Vest, that makes it easy to validate forms and show errors when necessary — built with TypeScript.",
+		"category": "Forms & User Input",
+		"tags": [
+			"forms",
+			"form validation",
+			"components and libraries",
+			"inputs and widgets",
+			"component sets",
+			"forms and validation"
+		]
+	},
+	{
 		"title": "svelte-virtual-table",
 		"description": "A virtual, sortable table for Svelte",
 		"repository": "https://github.com/BernhardWebstudio/svelte-virtual-table",
