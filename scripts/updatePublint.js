@@ -6,7 +6,7 @@ import { inflate } from 'pako';
 import getNpmTarballUrl from 'get-npm-tarball-url';
 import { componentsSchema } from '../src/lib/schemas.js';
 import components from '../src/routes/components/components.json' assert { type: 'json' };
-import npm from '../src/lib/npm.json' assert { type: 'json' };
+import npm from '../src/lib/data/npm.json' assert { type: 'json' };
 import { publint } from 'publint';
 import { untar } from './untar.js';
 import { createTarballVfs } from './tarball.js';
