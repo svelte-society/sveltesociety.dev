@@ -696,7 +696,7 @@
 	{
 		"title": "SvelteKit with Prisma and AuthJS",
 		"repository": "https://github.com/KoljaL/SK-AuthJS",
-		"description": "Just to try out the new way to authorizes with a common library ",
+		"description": "Just to try out the new way to authorizes with a common library",
 		"category": "SvelteKit",
 		"tags": ["database", "typescript", "integrations"]
 	},
@@ -779,5 +779,19 @@
 		"description": " The SvelteKit-Shadcn-UI-AI starter template is an innovative project combining Svelte, AI, and a range of web technologies, powered by Bun as its efficient package manager. It's an evolving toolkit ideal for developers looking to explore AI integrations and the streamlined capabilities of Svelte.",
 		"category": "SvelteKit",
 		"tags": ["templates", "blog", "database", "mdsvex", "markdown", "typescript"]
+	},
+	{
+		"title": "svelte-library-template",
+		"repository": "https://github.com/lachlancollins/svelte-library-template",
+		"description": "Template to use svelte-package for library development.",
+		"category": "Svelte",
+		"tags": ["templates", "typescript", "testing"]
+	},
+	{
+		"title": "KitForStartups",
+		"repository": "https://github.com/okupter/kitforstartups",
+		"description": "A starter kit for building and shipping fast, secure, and scalable full stack SaaS applications with SvelteKit and TypeScript.",
+		"category": "SvelteKit",
+		"tags": ["templates", "typescript"]
 	}
 ]

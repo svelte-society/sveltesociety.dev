@@ -2795,5 +2795,29 @@
 		"npm": "@mavthedev/svodals",
 		"category": "User Interaction",
 		"tags": ["modals"]
+	},
+	{
+		"title": "svelte-persisted-store",
+		"repository": "https://github.com/joshnuss/svelte-persisted-store",
+		"description": "A Svelte store that persists to localStorage",
+		"npm": "svelte-persisted-store",
+		"category": "Stores",
+		"tags": ["stores and state"]
+	},
+	{
+		"title": "svelte-stripe",
+		"repository": "https://github.com/joshnuss/svelte-stripe",
+		"description": "Everything you need to add Stripe Elements to your Svelte project.",
+		"npm": "svelte-stripe",
+		"category": "Integration",
+		"tags": ["integrations"]
+	},
+	{
+		"title": "vite-plugin-kit-routes",
+		"repository": "https://github.com/jycouet/kitql/tree/main/packages/vite-plugin-kit-routes",
+		"description": "Automatically updates route references in SvelteKit projects",
+		"npm": "vite-plugin-kit-routes",
+		"category": "Developer Experience",
+		"tags": ["validation"]
 	}
 ]
