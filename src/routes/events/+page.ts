@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
-import { getPages } from '../pageList';
-import type { SvxMetadata } from '../pageList';
+import { getPages } from '$lib/pageList';
+import type { SvxMetadata } from '$lib/pageList';
 import type { EventMetadata } from '$lib/Mdsvx';
 
 export async function load() {
