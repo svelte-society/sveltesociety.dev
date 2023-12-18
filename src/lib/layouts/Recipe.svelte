@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import CategoryTree from '$lib/components/recipes/CategoryTree.svelte';
 	import Icon from '$lib/components/Icon/index.svelte';
 	import { categories } from '$lib/stores/recipes';
@@ -6,6 +6,8 @@
 	import Seo from '$lib/components/Seo.svelte';
 
 	export let title;
+	export let published;
+	export let updated;
 </script>
 
 <Seo {title} />
@@ -30,6 +32,18 @@
 	<article>
 		<h1>{title}</h1>
 		<slot />
+		{#if published}<footer>
+				<div>
+					Published: <time datetime={published}
+						>{new Intl.DateTimeFormat([], { dateStyle: 'full' }).format(new Date(published))}</time
+					>
+				</div>
+				{#if updated}<div>
+						Last update: <time datetime={updated}
+							>{new Intl.DateTimeFormat([], { dateStyle: 'full' }).format(new Date(updated))}</time
+						>
+					</div>{/if}
+			</footer>{/if}
 	</article>
 </main>
 
@@ -38,6 +52,16 @@
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		align-content: flex-start;
+	}
+
+	article > footer {
+		margin-top: 1em;
+		border-top: 1px solid var(--gray);
+		padding-top: 1em;
+	}
+
+	time {
+		color: var(--dark-gray);
 	}
 
 	strong {

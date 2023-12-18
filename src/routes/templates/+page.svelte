@@ -1,18 +1,11 @@
-<script>
+<script lang="ts">
 	import templates from './templates.json';
-	import SearchableJson from '../searchableJson.svelte';
-
-	const categoryId = {
-		Sapper: 'sapper',
-		Svelte: 'svelte',
-		'Svelte Add': 'adders',
-		SvelteKit: 'svelte-kit'
-	};
+	import SearchableJson from '$lib/SearchableJson.svelte';
+	import { injectData } from '$utils/injectData';
 </script>
 
 <SearchableJson
-	{categoryId}
-	data={templates}
+	data={injectData(templates)}
 	displayTitle="Template"
 	displayTitleSingular="template"
 	submittingType="template"

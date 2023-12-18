@@ -1,20 +1,44 @@
-module.exports = {
+// @ts-check
+
+/** @type {import('eslint').Linter.Config} */
+const config = {
 	root: true,
+	extends: [
+		'eslint:recommended',
+		'plugin:@typescript-eslint/recommended',
+		'plugin:@typescript-eslint/stylistic',
+		'plugin:svelte/recommended',
+		'prettier'
+	],
+	plugins: ['@typescript-eslint', 'svelte'],
 	parser: '@typescript-eslint/parser',
-	extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
-	plugins: ['svelte3', '@typescript-eslint'],
-	ignorePatterns: ['*.cjs'],
-	overrides: [{ files: ['*.svelte'], processor: 'svelte3/svelte3' }],
-	settings: {
-		'svelte3/typescript': () => require('typescript')
-	},
 	parserOptions: {
+		project: true,
 		sourceType: 'module',
-		ecmaVersion: 2019
+		ecmaVersion: 2022,
+		extraFileExtensions: ['.svelte']
 	},
 	env: {
 		browser: true,
-		es2017: true,
+		es2022: true,
 		node: true
+	},
+	overrides: [
+		{
+			files: ['*.svelte'],
+			parser: 'svelte-eslint-parser',
+			parserOptions: {
+				parser: '@typescript-eslint/parser'
+			}
+		}
+	],
+	rules: {
+		'@typescript-eslint/array-type': 'off',
+		'@typescript-eslint/consistent-type-definitions': 'off',
+		'svelte/block-lang': ['error', { script: ['ts'] }],
+		'svelte/no-at-html-tags': 'off',
+		'svelte/valid-compile': 'off'
 	}
 };
+
+module.exports = config;
