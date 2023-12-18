@@ -139,7 +139,7 @@
 		"date": "2023-08-29T22:37:28.952Z",
 		"support": "^3.31.0 || ^4.0.0"
 	},
-	"sveltefire": { "version": "0.4.2", "date": "2023-08-15T23:47:40.880Z", "support": "^4.0.0" },
+	"sveltefire": { "version": "0.4.3", "date": "2023-12-17T22:48:55.630Z", "support": "^4.0.0" },
 	"svelte-time-picker": {
 		"version": "2.0.0",
 		"date": "2022-02-01T16:27:32.904Z",
