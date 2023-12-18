@@ -11,8 +11,8 @@
 		"sync": "svelte-kit sync",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"test": "vitest",
-		"lint": "prettier --check **/*.{js,cjs,ts,css,md,svx,svelte,html,json} && eslint . && node scripts/validateData.js",
-		"format": "prettier --write **/*.{js,cjs,ts,css,md,svx,svelte,html,json}"
+		"lint": "prettier --check ./**/*.{js,cjs,ts,css,md,svx,svelte,html,json} && eslint . && node scripts/validateData.js",
+		"format": "prettier --write ./**/*.{js,cjs,ts,css,md,svx,svelte,html,json}"
 	},
 	"devDependencies": {
 		"@actions/core": "^1.10.1",
