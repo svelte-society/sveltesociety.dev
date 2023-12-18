@@ -19,10 +19,12 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
-      - name: Update stars
-        uses: ./.github/actions/update-stars
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update github data
+        run: node scripts/updateGithub.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update gitlab data
+        run: node scripts/updateGitlab.js
       - name: Update npm data
         run: node scripts/updateNpm.js
       - name: Run format
@@ -34,6 +36,6 @@ jobs:
           title: "🤖 Update data"
           body: Automatically fetch latest data from NPM, GitHub and GitLab
           branch: ci-update-data
-          add-paths: src/lib/data/npm.json,src/lib/data/stars.json
+          add-paths: src/lib/data/github.json,src/lib/data/gitlab.json,src/lib/data/npm.json,src/lib/data/stars.json
           delete-branch: true
           token: ${{ secrets.GITHUB_TOKEN }}
