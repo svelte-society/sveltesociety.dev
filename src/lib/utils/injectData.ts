@@ -15,8 +15,8 @@ export const injectNpmData = (input: z.infer<typeof componentsSchema>) => {
 export const injectPublintData = (input: z.infer<typeof componentsSchema>) => {
 	const output = [];
 	for (const item of input) {
-		const extra = publint[item.npm] ?? false;
-		output.push({ ...item, publint: extra });
+		const extra = publint[item.npm] ?? {};
+		output.push({ ...item, ...extra });
 	}
 	return output;
 };
