@@ -25,6 +25,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Update npm data
         run: node scripts/updateNpm.js
+      - name: Update publint data
+        run: node scripts/updatePublint.js
       - name: Run format
         run: pnpm run format
       - name: Create Pull Request
@@ -32,8 +34,8 @@ jobs:
         with:
           commit-message: "(AUTO) Update data"
           title: "🤖 Update data"
-          body: Automatically fetch latest data from NPM, GitHub and GitLab
+          body: Automatically fetch latest data from GitHub, GitLab, NPM and Publint.
           branch: ci-update-data
-          add-paths: src/lib/data/npm.json,src/lib/data/stars.json
+          add-paths: src/lib/data/npm.json,src/lib/data/publint.json,src/lib/data/stars.json
           delete-branch: true
           token: ${{ secrets.GITHUB_TOKEN }}
