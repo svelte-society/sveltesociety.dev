@@ -72,9 +72,9 @@
 	To add a new package on the website, the process is rather simple. You have to add a snippet in
 	the appropriate file.
 </p>
-<br/>
+<br />
 <p>Each package is represented by a JSON Object. Use the generator below to generate the Object.</p>
-<br/>
+<br />
 <p><code>*</code> marked fields are required</p>
 <div class="json-generator">
 	<div class="input-wrapper">
