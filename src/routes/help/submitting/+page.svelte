@@ -2,7 +2,6 @@
 	import SvelteSelect from 'svelte-select';
 	import components from '../../components/components.json';
 	import templates from '../../templates/templates.json';
-	import tools from '../../tools/tools.json';
 	import { onMount, tick } from 'svelte';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 	import { extractUnique } from '$lib/utils/extractUnique';
@@ -22,10 +21,6 @@
 		template: {
 			tags: extractUnique(templates, 'tags'),
 			categories: extractUnique(templates, 'category')
-		},
-		tool: {
-			tags: extractUnique(tools, 'tags'),
-			categories: extractUnique(tools, 'category')
 		}
 	};
 

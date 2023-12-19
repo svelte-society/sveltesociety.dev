@@ -4,8 +4,7 @@
 	import { page } from '$app/stores';
 	const linksLeft = [
 		['/templates', 'templates'],
-		['/components', 'components'],
-		['/tools', 'tools']
+		['/components', 'components']
 	];
 	const linksRight = [
 		['/recipes', 'recipes'],
