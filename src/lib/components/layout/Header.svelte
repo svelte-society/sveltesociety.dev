@@ -3,13 +3,13 @@
 
 	import { page } from '$app/stores';
 	const linksLeft = [
-		['/templates', 'templates'],
-		['/components', 'components']
+		['/packages', 'packages'],
+		['/templates', 'templates']
 	];
 	const linksRight = [
+		['/resources', 'resources'],
 		['/recipes', 'recipes'],
-		['/events', 'events'],
-		['/resources', 'resources']
+		['/events', 'events']
 	];
 </script>
 

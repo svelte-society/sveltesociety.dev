@@ -1,6 +1,6 @@
 import { writeFileSync } from 'node:fs';
-import { componentsSchema, templatesSchema } from '../src/lib/schemas.js';
-import components from '../src/routes/components/components.json' assert { type: 'json' };
+import { packagesSchema, templatesSchema } from '../src/lib/schemas.js';
+import packages from '../src/routes/packages/packages.json' assert { type: 'json' };
 import templates from '../src/routes/templates/templates.json' assert { type: 'json' };
 import { chunk } from './chunk.js';
 
@@ -31,8 +31,8 @@ async function doGraphQlQuery(url, query) {
 
 function getAllGitlabRepos() {
 	const repos = [
-		...componentsSchema.parse(components).map((component) => component.repository),
-		...templatesSchema.parse(templates).map((template) => template.repository)
+		...packagesSchema.parse(packages).map((i) => i.repository),
+		...templatesSchema.parse(templates).map((i) => i.repository)
 	];
 	return repos.filter((url) => url && gitlabNameRegExp.test(url));
 }

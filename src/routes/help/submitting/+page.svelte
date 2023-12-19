@@ -1,6 +1,6 @@
 <script lang="ts">
 	import SvelteSelect from 'svelte-select';
-	import components from '../../components/components.json';
+	import packages from '../../packages/packages.json';
 	import templates from '../../templates/templates.json';
 	import { onMount, tick } from 'svelte';
 	import { copyToClipboard } from '$lib/utils/clipboard';
@@ -15,8 +15,8 @@
 
 	const data = {
 		component: {
-			tags: extractUnique(components, 'tags'),
-			categories: [...extractUnique(components, 'category').filter((cat) => cat.label !== '')]
+			tags: extractUnique(packages, 'tags'),
+			categories: [...extractUnique(packages, 'category').filter((cat) => cat.label !== '')]
 		},
 		template: {
 			tags: extractUnique(templates, 'tags'),
@@ -65,17 +65,17 @@
 	}
 </script>
 
-<Seo title="Submit component" />
+<Seo title="Submit package" />
 
-<h1>Submitting a new component</h1>
+<h1>Submitting a new package</h1>
 <p>
-	To add a new component on the website, the process is rather simple. You have to add a snippet in
+	To add a new package on the website, the process is rather simple. You have to add a snippet in
 	the appropriate file.
 </p>
 
 <h2>Generating file contents snippet</h2>
 <p>
-	Each component is represented by a JSON Object. Use the generator below to generate the Object.
+	Each package is represented by a JSON Object. Use the generator below to generate the Object.
 </p>
 
 <p><code>*</code> marked fields are required</p>
@@ -98,7 +98,7 @@
 		<label for="title" class="required">Title:</label>
 		<div>
 			<input id="title" type="text" required bind:value={title} />
-			<span class="input-helper">Name of the component</span>
+			<span class="input-helper">Name of the package</span>
 		</div>
 	</div>
 	<div class="input-wrapper">
@@ -121,14 +121,14 @@
 		<label for="desc">Description:</label>
 		<div>
 			<input id="desc" type="text" bind:value={description} />
-			<span class="input-helper">A short description of the component</span>
+			<span class="input-helper">A short description of the package</span>
 		</div>
 	</div>
 	<div class="input-wrapper">
 		<label for="npm">NPM:</label>
 		<div>
 			<input id="npm" type="text" bind:value={npm} />
-			<span class="input-helper">The npm name of the component</span>
+			<span class="input-helper">The npm name of the package</span>
 		</div>
 	</div>
 	<div class="input-wrapper">
@@ -141,7 +141,7 @@
 				showIndicator
 				bind:value={category}
 			/>
-			<span class="input-helper">The category of the component</span>
+			<span class="input-helper">The category of the package</span>
 		</div>
 	</div>
 	<div class="input-wrapper">

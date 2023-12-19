@@ -3,12 +3,12 @@
 import { writeFileSync } from 'node:fs';
 import { promisify } from 'node:util';
 import { exec } from 'node:child_process';
-import { componentsSchema } from '../src/lib/schemas.js';
-import components from '../src/routes/components/components.json' assert { type: 'json' };
+import { packagesSchema } from '../src/lib/schemas.js';
+import packages from '../src/routes/packages/packages.json' assert { type: 'json' };
 
 const execAsync = promisify(exec);
 
-const data = componentsSchema.parse(components);
+const data = packagesSchema.parse(packages);
 
 const npm = await Promise.all(
 	data.map((pkg) => processPackage(pkg).catch((error) => console.log(error.message)))

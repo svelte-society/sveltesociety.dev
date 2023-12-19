@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { packageNameRegex } from 'package-name-regex';
 
-export const componentsSchema = z.array(
+export const packagesSchema = z.array(
 	z.object({
 		title: z.string(),
 		npm: z.string().regex(packageNameRegex),
@@ -42,5 +42,13 @@ export const templatesSchema = z.array(
 		description: z.string(),
 		category: z.enum(['Svelte Add', 'SvelteKit', 'Svelte']),
 		tags: z.array(z.string()).optional()
+	})
+);
+
+export const resourcesSchema = z.array(
+	z.object({
+		title: z.string(),
+		url: z.string().url(),
+		description: z.string()
 	})
 );

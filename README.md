@@ -1,6 +1,6 @@
 # Svelte Society Website
 
-Welcome to Svelte Society! This repository hosts the main website, which serves as a central index of events, a components directory, as well as recipes and other useful resources.
+Welcome to Svelte Society! This repository hosts the main website, which serves as a central index of events, a packages directory, as well as recipes and other useful resources.
 
 ## Developing
 

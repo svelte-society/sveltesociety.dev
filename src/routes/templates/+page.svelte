@@ -6,7 +6,7 @@
 
 <SearchableJson
 	data={injectData(templates)}
-	displayTitle="Template"
+	displayTitle="Templates"
 	displayTitleSingular="template"
 	submittingType="template"
 />
