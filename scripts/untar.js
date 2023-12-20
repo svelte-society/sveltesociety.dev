@@ -140,7 +140,7 @@ UntarStream.prototype = {
 		var charCodes = [];
 
 		for (var i = 0; i < charCount; ++i) {
-			var charCode = this._bufferView.getUint8(this.position() + i * charSize, true);
+			var charCode = this._bufferView.getUint8(this.position() + i * charSize);
 			if (charCode !== 0) {
 				charCodes.push(charCode);
 			} else {

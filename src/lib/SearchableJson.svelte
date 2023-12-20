@@ -1,7 +1,7 @@
 <script lang="ts">
 	import slugify from '@sindresorhus/slugify';
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
-	import List from '$lib/components/ComponentIndex/CardList.svelte';
+	import CardList from '$lib/components/ComponentIndex/CardList.svelte';
 	import SearchLayout from '$layouts/SearchLayout.svelte';
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import Seo from '$lib/components/Seo.svelte';
@@ -78,13 +78,16 @@
 	</section>
 	<section slot="items">
 		{#each categories as category}
-			<List title={category.label || 'Unclassified'} id={slugify(category.label) || 'unclassified'}>
+			<CardList
+				title={category.label || 'Unclassified'}
+				id={slugify(category.label) || 'unclassified'}
+			>
 				{#each dataToDisplay.filter((d) => d.category === category.value || (!categories
 							.map((v) => v.value)
 							.includes(d.category) && category.value === '')) as cardData}
 					<ComponentCard {...cardData} />
 				{/each}
-			</List>
+			</CardList>
 		{/each}
 	</section>
 </SearchLayout>
