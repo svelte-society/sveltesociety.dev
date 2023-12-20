@@ -21,7 +21,7 @@
 		"description": "A dummy text generator that does not exist",
 		"npm": "svelte-zod-form",
 		"category": "Forms & User Input",
-		"tags": ["form validation", "reactive forms", "forms"]
+		"tags": ["forms and validation"]
 	},
 	{
 		"title": "svelte-selecto",
@@ -38,7 +38,7 @@
 		"description": "A config-based Svelte router with support for Server-Side Rendering (SSR).",
 		"npm": "svelte-pilot",
 		"category": "Routers",
-		"tags": ["routers", "ssr", "templates"]
+		"tags": ["routers", "ssr"]
 	},
 	{
 		"title": "super-sitemap",
@@ -73,7 +73,6 @@
 		"tags": [
 			"inputs and widgets",
 			"forms and validation",
-			"validation",
 			"typescript",
 			"components and libraries"
 		]
@@ -178,7 +177,7 @@
 		"repository": "https://github.com/DhyeyMoliya/svelte-form-validation",
 		"npm": "svelte-form-validation",
 		"description": "Svelte Form Validation Library",
-		"tags": ["forms", "form validation", "components and libraries"],
+		"tags": ["forms and validation", "components and libraries"],
 		"category": "Forms & User Input"
 	},
 	{
@@ -189,9 +188,8 @@
 		"category": "Forms & User Input",
 		"tags": [
 			"time and date",
-			"forms",
 			"components and libraries",
-			"form validation",
+			"forms and validation",
 			"inputs and widgets",
 			"component sets"
 		]
@@ -203,12 +201,10 @@
 		"description": "Vest can be used both on the front and backend. This library provides a Svelte action for Vest, that makes it easy to validate forms and show errors when necessary — built with TypeScript.",
 		"category": "Forms & User Input",
 		"tags": [
-			"forms",
-			"form validation",
+			"forms and validation",
 			"components and libraries",
 			"inputs and widgets",
-			"component sets",
-			"forms and validation"
+			"component sets"
 		]
 	},
 	{
@@ -289,7 +285,7 @@
 		"url": "https://felte.dev",
 		"npm": "felte",
 		"description": "An extensible form library for Svelte",
-		"tags": ["forms", "validation", "components and libraries"],
+		"tags": ["forms and validation", "components and libraries"],
 		"category": "Forms & User Input",
 		"repository": "https://github.com/pablo-abc/felte"
 	},
@@ -314,7 +310,7 @@
 		"repository": "https://github.com/tanepiper/svelte-formula",
 		"npm": "svelte-formula",
 		"description": "Zero Configuration Reactive Forms for Svelte",
-		"tags": ["components and libraries", "forms", "validation"],
+		"tags": ["components and libraries", "forms and validation"],
 		"category": "Forms & User Input"
 	},
 	{
@@ -411,10 +407,7 @@
 		"npm": "svelte-formly",
 		"tags": [
 			"components and libraries",
-			"forms",
-			"forms and validation",
-			"reactive forms",
-			"validation"
+			"forms and validation"
 		],
 		"title": "svelte-formly",
 		"repository": "https://github.com/dyaliCode/svelte-formly"
@@ -687,7 +680,7 @@
 		"category": "Data Visualisation",
 		"description": "Tree view component for svelte",
 		"npm": "svelte-tree",
-		"tags": ["components and libraries", "tree"],
+		"tags": ["components and libraries"],
 		"title": "svelte-tree",
 		"repository": "https://github.com/esinx/svelte-tree"
 	},
@@ -1971,7 +1964,7 @@
 		"description": "file dropzone action & component",
 		"npm": "filedrop-svelte",
 		"category": "Forms & User Input",
-		"tags": ["interactions", "forms", "inputs and widgets"]
+		"tags": ["interactions", "forms and validation", "inputs and widgets"]
 	},
 	{
 		"title": "focus-svelte",
@@ -1979,7 +1972,7 @@
 		"description": "focus lock for accessibility",
 		"npm": "focus-svelte",
 		"category": "Forms & User Input",
-		"tags": ["interactions", "forms"]
+		"tags": ["interactions", "forms and validation"]
 	},
 	{
 		"title": "svelte-translate",
@@ -1995,7 +1988,7 @@
 		"description": "Selectize-like autocomplete select/multiselect/tagging component",
 		"npm": "svelecte",
 		"category": "Forms & User Input",
-		"tags": ["components and libraries", "forms", "interactions", "inputs and widgets"]
+		"tags": ["components and libraries", "forms and validation", "interactions", "inputs and widgets"]
 	},
 	{
 		"title": "svelte-adapter-azure-swa",
@@ -2092,7 +2085,7 @@
 		"description": "Simple date & time picker you will love",
 		"npm": "svelty-picker",
 		"category": "Forms & User Input",
-		"tags": ["forms", "inputs and widgets", "interactions", "time and date"]
+		"tags": ["forms and validation", "inputs and widgets", "interactions", "time and date"]
 	},
 	{
 		"title": "svelte-slider",
@@ -2100,7 +2093,7 @@
 		"description": "Single and Range sliders",
 		"npm": "svelte-slider",
 		"category": "Forms & User Input",
-		"tags": ["components and libraries", "forms", "inputs and widgets"]
+		"tags": ["components and libraries", "forms and validation", "inputs and widgets"]
 	},
 	{
 		"title": "sveltekit-adapter-wordpress-shortcode",
@@ -2245,7 +2238,7 @@
 		"description": "A simple, easy to use UI components lib for Svelte developers.",
 		"npm": "@casual-ui/svelte",
 		"category": "User Interaction",
-		"tags": ["animations", "component sets", "form validation", "notifications"]
+		"tags": ["animations", "component sets", "forms and validation", "notifications"]
 	},
 	{
 		"title": "@specialdoom/proi-ui",
@@ -2261,7 +2254,7 @@
 		"description": "A form input that converts numbers to localized currency formats as you type",
 		"npm": "@canutin/svelte-currency-input",
 		"category": "Forms & User Input",
-		"tags": ["forms", "inputs and widgets", "internationalization", "typescript"]
+		"tags": ["forms and validation", "inputs and widgets", "internationalization", "typescript"]
 	},
 	{
 		"title": "flowbite-svelte",
@@ -2382,7 +2375,7 @@
 		"description": "A No-Code Form Builder Library",
 		"npm": "@pragmatic-engineering/svelte-form-builder-community",
 		"category": "Forms & User Input",
-		"tags": ["forms", "components and libraries"]
+		"tags": ["forms and validation", "components and libraries"]
 	},
 	{
 		"title": "SvelteKit Cordova/Capacitor Adapter",
@@ -2426,8 +2419,6 @@
 			"components and libraries",
 			"layout and structure",
 			"ssr",
-			"templates",
-			"tree",
 			"typescript"
 		]
 	},
@@ -2437,7 +2428,7 @@
 		"description": "File dropzone utility with styling up to you",
 		"npm": "svelte-droplet",
 		"category": "Forms & User Input",
-		"tags": ["inputs and widgets", "forms", "interactions"]
+		"tags": ["inputs and widgets", "forms and validation", "interactions"]
 	},
 	{
 		"title": "chat-embed",
@@ -2445,7 +2436,7 @@
 		"description": "A chat component made with svelte",
 		"npm": "chat-embed",
 		"category": "Forms & User Input",
-		"tags": ["components and libraries", "forms", "inputs and widgets"]
+		"tags": ["components and libraries", "forms and validation", "inputs and widgets"]
 	},
 	{
 		"title": "Lucide icons",
@@ -2464,8 +2455,7 @@
 		"tags": [
 			"component sets",
 			"components and libraries",
-			"form validation",
-			"forms",
+			"forms and validation",
 			"inputs and widgets",
 			"time and date",
 			"typescript"
@@ -2523,7 +2513,7 @@
 		"description": "Building forms in Svelte with breeze, using Zod",
 		"npm": "@nerd-coder/svelte-zod-form",
 		"category": "Forms & User Input",
-		"tags": ["forms", "validation", "form validation", "forms and validation"]
+		"tags": ["forms and validation"]
 	},
 	{
 		"title": "sveltekit-adapter-iis",
@@ -2688,7 +2678,7 @@
 		"description": "Making SvelteKit validation and displaying of forms a pleasure!",
 		"npm": "sveltekit-superforms",
 		"category": "Forms & User Input",
-		"tags": ["components and libraries", "forms", "typescript", "ssr"]
+		"tags": ["forms and validation", "typescript", "ssr"]
 	},
 	{
 		"title": "svelte-reparent",
