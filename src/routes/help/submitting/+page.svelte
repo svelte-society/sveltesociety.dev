@@ -158,7 +158,7 @@
 </pre>
 <br />
 Copy this snippet and add it to
-<a href="{repoURL}/blob/main/src/routes/{pathName}/{pathName}.json">{pathName}.json</a>. Before
+<a href="{repoURL}/edit/main/src/routes/{pathName}/{pathName}.json">{pathName}.json</a>. Before
 submitting a PR, please clone your changes locally and run:
 <pre>pnpm run lint</pre>
 
