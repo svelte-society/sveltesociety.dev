@@ -78,7 +78,10 @@
 	</section>
 	<section slot="items">
 		{#each categories as category}
-			<CardList title={category.label || 'Unclassified'} id={slugify(category.label) || 'unclassified'}>
+			<CardList
+				title={category.label || 'Unclassified'}
+				id={slugify(category.label) || 'unclassified'}
+			>
 				{#each dataToDisplay.filter((d) => d.category === category.value || (!categories
 							.map((v) => v.value)
 							.includes(d.category) && category.value === '')) as cardData}
