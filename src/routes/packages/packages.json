@@ -2240,10 +2240,10 @@
 		"tags": ["animations", "components and libraries", "interactions"]
 	},
 	{
-		"title": "casual-ui-svelte",
+		"title": "Casual UI Svelte",
 		"repository": "https://github.com/Casual-UI/casual-ui",
-		"description": "A ui components lib that supports for Svelte3",
-		"npm": "casual-ui-svelte",
+		"description": "A simple, easy to use UI components lib for Svelte developers.",
+		"npm": "@casual-ui/svelte",
 		"category": "User Interaction",
 		"tags": ["animations", "component sets", "form validation", "notifications"]
 	},
