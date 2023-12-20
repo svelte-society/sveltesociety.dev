@@ -3,11 +3,11 @@ import { packageNameRegex } from 'package-name-regex';
 
 export const packagesSchema = z.array(
 	z.object({
-		title: z.string(),
+		title: z.string().max(50),
 		npm: z.string().regex(packageNameRegex),
 		url: z.string().url().optional(),
 		repository: z.string().url(),
-		description: z.string(),
+		description: z.string().max(250),
 		category: z.enum([
 			'Bundler Plugins',
 			'CSS and Layout',
@@ -36,10 +36,10 @@ export const packagesSchema = z.array(
 
 export const templatesSchema = z.array(
 	z.object({
-		title: z.string(),
+		title: z.string().max(50),
 		url: z.string().url().optional(),
 		repository: z.string().url(),
-		description: z.string(),
+		description: z.string().max(250),
 		category: z.enum(['Svelte Add', 'SvelteKit', 'Svelte']),
 		tags: z.array(z.string()).optional()
 	})

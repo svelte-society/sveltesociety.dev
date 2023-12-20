@@ -148,7 +148,7 @@
 	},
 	{
 		"category": "Svelte",
-		"description": "The open-source storefront for any eCommerce. Built with a PWA and headless approach, using a modern JS stack. The API approach also allows you to merge Svelte Commerce with any third-party tool like payment gateways, POS or AI. WIP for MedusaJS, Woocommerce, Bigcommerce and Shopify.",
+		"description": "The open-source storefront for any eCommerce. Built with a PWA and headless approach, using a modern JS stack.",
 		"tags": [],
 		"title": "svelte-commerce",
 		"repository": "https://github.com/itswadesh/svelte-commerce"
@@ -652,14 +652,14 @@
 		"tags": ["templates", "typescript", "preprocessors"]
 	},
 	{
-		"title": "A Svelte + FAST + Vite starter project",
+		"title": "Svelte + FAST + Vite template",
 		"repository": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-starter",
 		"description": "A Svelte + FAST + Vite starter project",
 		"category": "Svelte",
 		"tags": ["templates"]
 	},
 	{
-		"title": "A Svelte + FAST + Vite + TypeScript starter project",
+		"title": "Svelte + FAST + Vite + TypeScript template",
 		"repository": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-typescript-starter",
 		"description": "A Svelte + FAST + Vite + TypeScript starter project",
 		"category": "Svelte",
@@ -746,7 +746,7 @@
 	{
 		"title": "Vontigo",
 		"repository": "https://github.com/Vontigo/Vontigo",
-		"description": "🛸 Vontigo is an open-source CMS built with SvelteKit, featuring 🤖 AI-powered (ChatGPT) content generation. With fast page loads and seamless routing, Vontigo offers a user-friendly interface with customizable themes and templates.",
+		"description": "An open-source CMS built with SvelteKit, featuring 🤖 AI-powered (ChatGPT) content generation. With fast page loads and seamless routing, Vontigo offers a user-friendly interface with customizable themes and templates.",
 		"category": "SvelteKit",
 		"tags": ["blog", "templates", "typescript", "components and libraries", "component sets"]
 	},
@@ -775,7 +775,7 @@
 		"title": "sveltekit-shadcn-ai",
 		"url": "https://github.com/juliuslipp/sveltekit-shadcn-ai",
 		"repository": "https://github.com/juliuslipp/sveltekit-shadcn-ai",
-		"description": "The SvelteKit-Shadcn-UI-AI starter template is an innovative project combining Svelte, AI, and a range of web technologies, powered by Bun as its efficient package manager. It's an evolving toolkit ideal for developers looking to explore AI integrations and the streamlined capabilities of Svelte.",
+		"description": "An innovative project combining Svelte, AI, and a range of web technologies, powered by Bun as its efficient package manager.",
 		"category": "SvelteKit",
 		"tags": ["templates", "blog", "database", "mdsvex", "markdown", "typescript"]
 	},
