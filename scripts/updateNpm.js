@@ -18,11 +18,8 @@ const npm = await Promise.all(
 
 writeFileSync('src/lib/data/npm.json', JSON.stringify(npm));
 
-/** @param {ReturnType<typeof data>[0]} pkg */
+/** @param {import('zod').infer<typeof packagesSchema>[0]} pkg */
 async function processPackage(pkg) {
-	if (!pkg.npm) {
-		throw new Error(`npm field missing from ${pkg.title} (skipping)`);
-	}
 	const { stdout } = await execAsync(`npm view ${pkg.npm} --json`);
 	const data = JSON.parse(stdout.toString());
 	const version = data.version;

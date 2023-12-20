@@ -13,7 +13,7 @@ import { createTarballVfs } from './tarball.js';
 
 const dataWithoutVersions = packagesSchema.parse(packages);
 
-/** @param input {import('zod').infer<typeof packagesSchema>} */
+/** @param {import('zod').infer<typeof packagesSchema>} input */
 const injectVersions = (input) => {
 	const output = [];
 	for (const item of input) {
@@ -36,7 +36,7 @@ const output = await Promise.all(
 
 writeFileSync('src/lib/data/publint.json', JSON.stringify(output));
 
-/** @param pkg {ReturnType<typeof injectVersions>[0]} */
+/** @param {ReturnType<typeof injectVersions>[0]} pkg */
 async function processPackage(pkg) {
 	const tarballUrl = getNpmTarballUrl(pkg.npm, pkg.version);
 	let resultBuffer;
