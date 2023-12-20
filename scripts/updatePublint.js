@@ -10,8 +10,7 @@ import npm from '../src/lib/data/npm.json' assert { type: 'json' };
 import { publint } from 'publint';
 import { untar } from './untar.js';
 import { createTarballVfs } from './tarball.js';
-
-const dataWithoutVersions = packagesSchema.parse(packages);
+import { chunk } from './chunk.js';
 
 /** @param {import('zod').infer<typeof packagesSchema>} input */
 const injectVersions = (input) => {
@@ -26,16 +25,27 @@ const injectVersions = (input) => {
 	return output;
 };
 
-const dataWithVersions = injectVersions(dataWithoutVersions);
+const data = injectVersions(packagesSchema.parse(packages));
 
-const output = await Promise.all(
-	dataWithVersions.map((pkg) => processPackage(pkg).catch((error) => console.log(error.message)))
-).then((values) => {
-	return values.reduce(
-		(result, value) => Object.assign(result, value),
-		/** @type {Record<string, any>} */ ({})
-	);
-});
+console.log('Found ' + data.length + ' packages');
+
+const pagedData = chunk(data, 100);
+const lines = [];
+
+for (let index = 0; index < pagedData.length; index++) {
+	const page = pagedData[index];
+	console.log('Running for page ' + (index + 1) + '/' + pagedData.length);
+	await Promise.all(
+		page.map((pkg) => processPackage(pkg).catch((error) => console.log(error.message)))
+	).then((values) => {
+		lines.push(...values);
+	});
+}
+
+const output = lines.reduce(
+	(result, value) => Object.assign(result, value),
+	/** @type {Record<string, any>} */ ({})
+);
 
 writeFileSync('src/lib/data/publint.json', JSON.stringify(output));
 
