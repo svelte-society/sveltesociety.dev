@@ -1,8 +1,9 @@
 /**
  * Divide an array into multiple smaller array
- * @param {Array} input
+ * @template T
+ * @param {Array<T>} input
  * @param {number} size
- * @return {Array<Array>}
+ * @return {Array<Array<T>>}
  */
 export function chunk(input, size) {
 	size = size < 1 ? 10 : size;
