@@ -13,7 +13,10 @@ const data = packagesSchema.parse(packages);
 const npm = await Promise.all(
 	data.map((pkg) => processPackage(pkg).catch((error) => console.log(error.message)))
 ).then((values) => {
-	return values.reduce((result, value) => Object.assign(result, value), {});
+	return values.reduce(
+		(result, value) => Object.assign(result, value),
+		/** @type {Record<string, any>} */ ({})
+	);
 });
 
 writeFileSync('src/lib/data/npm.json', JSON.stringify(npm));

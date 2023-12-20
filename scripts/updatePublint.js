@@ -31,7 +31,10 @@ const dataWithVersions = injectVersions(dataWithoutVersions);
 const output = await Promise.all(
 	dataWithVersions.map((pkg) => processPackage(pkg).catch((error) => console.log(error.message)))
 ).then((values) => {
-	return values.reduce((result, value) => Object.assign(result, value), {});
+	return values.reduce(
+		(result, value) => Object.assign(result, value),
+		/** @type {Record<string, any>} */ ({})
+	);
 });
 
 writeFileSync('src/lib/data/publint.json', JSON.stringify(output));
