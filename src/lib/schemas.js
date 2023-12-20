@@ -30,7 +30,7 @@ export const packagesSchema = z.array(
 			'Testing',
 			'User Interaction'
 		]),
-		tags: z.array(z.string()).optional()
+		tags: z.array(z.string()).max(5).optional()
 	})
 );
 
@@ -41,6 +41,6 @@ export const templatesSchema = z.array(
 		repository: z.string().url(),
 		description: z.string().max(250),
 		category: z.enum(['Svelte Add', 'SvelteKit', 'Svelte']),
-		tags: z.array(z.string()).optional()
+		tags: z.array(z.string()).max(5).optional()
 	})
 );

@@ -4,35 +4,35 @@
 		"repository": "https://github.com/nguyentuansi/openai-quickstart-sveltekit",
 		"description": "This is an example pet name generator app used in the OpenAI API. It uses the SvelteKit framework with Pico. Check out the tutorial or follow the instructions below to get set up.",
 		"category": "SvelteKit",
-		"tags": ["templates", "typescript"]
+		"tags": ["typescript"]
 	},
 	{
 		"title": "Skinny Pug Starter Template",
 		"repository": "https://github.com/lightning-jar/svelte-typescript-tailwind-pug-starter",
 		"description": "Sveltekit template with Typescript, Tailwind, Pug, Playwright, EsLint, Prettier",
 		"category": "SvelteKit",
-		"tags": ["templates", "typescript"]
+		"tags": ["typescript"]
 	},
 	{
 		"title": "SvelteKit Authentication Example",
 		"repository": "https://github.com/nstuyvesant/sveltekit-auth-example",
 		"description": "Fully documented example of how to setup local and \"Sign in with Google\" authentication (including Google One-Tap) using PostgreSQL, signup, page authorization, user profile management and password reset using SendGrid.",
 		"category": "SvelteKit",
-		"tags": ["templates", "database", "integrations", "ssr", "typescript"]
+		"tags": ["database", "integrations", "ssr", "typescript"]
 	},
 	{
 		"title": "sveltekit-windicss-flowbite-template",
 		"repository": "https://github.com/AlessioGr/sveltekit-windicss-flowbite-template",
 		"description": "Minimal SvelteKit template with a perfect set-up for WindiCSS and Flowbite",
 		"category": "SvelteKit",
-		"tags": ["templates", "typescript", "integrations"]
+		"tags": ["typescript", "integrations"]
 	},
 	{
 		"title": "CMSvelte",
 		"repository": "https://github.com/sawyerclick/CMSvelte",
 		"description": "A Svelte template built with newsroom CMS's in mind",
 		"category": "Svelte",
-		"tags": ["templates", "blog"]
+		"tags": ["blog"]
 	},
 	{
 		"category": "Svelte",
@@ -204,13 +204,6 @@
 	},
 	{
 		"category": "Svelte",
-		"description": "Build cybernetically enhanced web apps with Meteor and Svelte",
-		"tags": ["components and libraries", "stores and state"],
-		"title": "Svelte for Meteor",
-		"repository": "https://github.com/meteor-svelte/meteor-svelte"
-	},
-	{
-		"category": "Svelte",
 		"description": "Svelte + Tailwind = ❤",
 		"tags": [],
 		"title": "muhajirdev/svelte-tailwind-template",
@@ -226,7 +219,7 @@
 	{
 		"category": "Svelte",
 		"description": "Modern build process with Svelte, WebPack, PurgeCSS, code splitting, lazy loading...etc",
-		"tags": ["testing", "typescript", "code splitting", "lazy loading", "webpack", "preprocessors"],
+		"tags": ["testing", "typescript", "code splitting", "lazy loading", "preprocessors"],
 		"title": "NazimHAli/svelte-template",
 		"repository": "https://github.com/NazimHAli/svelte-template"
 	},
@@ -436,14 +429,14 @@
 	{
 		"category": "SvelteKit",
 		"description": "SvelteKit Starter template with Typescript, Postcss, scss, TailwindCSS, Storybook, husky, and eslint.",
-		"tags": ["blog", "seo", "ssr", "storybook", "templates"],
+		"tags": ["blog", "seo", "ssr", "storybook"],
 		"title": "navneetsharmaui/sveltekit-starter",
 		"repository": "https://github.com/navneetsharmaui/sveltekit-starter"
 	},
 	{
 		"category": "SvelteKit",
 		"description": "SvelteKit Blog Starter template with Typescript, Postcss, scss, TailwindCSS, Storybook, husky, and eslint. The template is free to use and developers are welcome to contribute to it.",
-		"tags": ["blog", "mdsvex", "seo", "ssr", "storybook", "templates"],
+		"tags": ["blog", "mdsvex", "seo", "ssr", "storybook"],
 		"title": "navneetsharmaui/sveltekit-blog",
 		"repository": "https://github.com/navneetsharmaui/sveltekit-blog"
 	},
@@ -543,7 +536,7 @@
 		"repository": "https://github.com/vhscom/svelte-headlessui-starter",
 		"description": "Template designed to make it faster and easier to build libre Svelte apps using Headless UI.",
 		"category": "SvelteKit",
-		"tags": ["templates", "ssr", "typescript"]
+		"tags": ["ssr", "typescript"]
 	},
 	{
 		"category": "Svelte Add",
@@ -569,7 +562,7 @@
 	{
 		"category": "SvelteKit",
 		"description": "SvelteKit blog powered with mdsvex, json schema support, sitemap.xml, RSS-feed and other tools required for good SEO.",
-		"tags": ["ssr", "templates", "mdsvex", "seo"],
+		"tags": ["ssr", "mdsvex", "seo"],
 		"title": "MailCheck-co/mailcheck.site",
 		"repository": "https://github.com/MailCheck-co/mailcheck.site"
 	},
@@ -578,64 +571,49 @@
 		"repository": "https://github.com/guyromm/svelte-postgrest-template",
 		"description": "SvelteKit & auth with a PostgreSQL + postgREST backend",
 		"category": "SvelteKit",
-		"tags": ["database", "integrations", "templates", "ssr"]
+		"tags": ["database", "integrations", "ssr"]
 	},
 	{
 		"title": "SvelteKit i18n Template",
 		"repository": "https://github.com/ivanhofer/typesafe-i18n-demo-sveltekit",
 		"description": "A fully working SEO optimized i18n template",
 		"category": "SvelteKit",
-		"tags": ["blog", "code splitting", "lazy loading", "seo", "ssr", "templates", "typescript"]
+		"tags": ["code splitting", "lazy loading", "seo", "ssr", "typescript"]
 	},
 	{
 		"title": "svelte-ts-tailwind-template",
 		"repository": "https://github.com/colinbate/svelte-ts-tailwind-template",
 		"description": "Svelte app template with TypeScript and TailwindCSS.",
 		"category": "Svelte",
-		"tags": ["templates", "typescript"]
+		"tags": ["typescript"]
 	},
 	{
 		"title": "SENT-template",
 		"repository": "https://github.com/the-homeless-god/SENT-template",
 		"description": "Skip setup and start code with SENT (Sapper Express Node Template) and other tools like TypeScript, Linters, Tests, Docker and so on",
 		"category": "Svelte",
-		"tags": [
-			"blog",
-			"code splitting",
-			"components and libraries",
-			"editor tools",
-			"integrations",
-			"preprocessors",
-			"stores and state",
-			"webpack",
-			"typescript",
-			"testing",
-			"ssr",
-			"storybook",
-			"templates",
-			"component sets"
-		]
+		"tags": ["code splitting", "webpack", "typescript", "storybook", "ssr"]
 	},
 	{
 		"title": "Yuyutsu",
 		"repository": "https://github.com/sharu725/yuyutsu",
 		"description": "A minimal Sveltekit theme with a sidebar.",
 		"category": "SvelteKit",
-		"tags": ["blog", "markdown", "templates"]
+		"tags": ["blog", "markdown"]
 	},
 	{
 		"title": "sveltekit-blog-template",
 		"repository": "https://github.com/K-Sato1995/sveltekit-blog-template",
 		"description": "A minimalistic markdown based blog template built with Sveltekit",
 		"category": "SvelteKit",
-		"tags": ["blog", "templates"]
+		"tags": ["blog"]
 	},
 	{
 		"title": "Urara",
 		"repository": "https://github.com/importantimport/urara",
 		"description": "Sweet, Powerful, IndieWeb-Compatible SvelteKit Blog Starter.",
 		"category": "SvelteKit",
-		"tags": ["blog", "mdsvex", "typescript", "templates"]
+		"tags": ["blog", "mdsvex", "typescript"]
 	},
 	{
 		"title": "Svelte-Typescript-Electron-Webpack",
@@ -649,49 +627,49 @@
 		"repository": "https://github.com/timoyo93/svelte-template",
 		"description": "A template that uses TailwindCSS v3, Typescript and SCSS",
 		"category": "Svelte",
-		"tags": ["templates", "typescript", "preprocessors"]
+		"tags": ["typescript", "preprocessors"]
 	},
 	{
 		"title": "Svelte + FAST + Vite template",
 		"repository": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-starter",
 		"description": "A Svelte + FAST + Vite starter project",
 		"category": "Svelte",
-		"tags": ["templates"]
+		"tags": []
 	},
 	{
 		"title": "Svelte + FAST + Vite + TypeScript template",
 		"repository": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-typescript-starter",
 		"description": "A Svelte + FAST + Vite + TypeScript starter project",
 		"category": "Svelte",
-		"tags": ["templates"]
+		"tags": []
 	},
 	{
 		"title": "svelte-vite-typescript-tailwindcss-template",
 		"repository": "https://github.com/skshahriarahmedraka/vite-svelte-tailwind-template",
 		"description": "svelte & vite & typescript & tailwindcss",
 		"category": "Svelte",
-		"tags": ["templates", "typescript"]
+		"tags": ["typescript"]
 	},
 	{
 		"title": "Swyxkit",
 		"repository": "https://github.com/swyxio/swyxkit/",
 		"description": "An opinionated blog starter for SvelteKit + Tailwind + Netlify. Refreshed for the great SvelteKit refactor of 2022!",
 		"category": "SvelteKit",
-		"tags": ["blog", "templates", "mdsvex", "markdown"]
+		"tags": ["blog", "mdsvex", "markdown"]
 	},
 	{
 		"title": "QWER Blog Starter",
 		"repository": "https://github.com/kwchang0831/svelte-QWER",
 		"description": "Blog Starter built with SvelteKit and Love. 100 Lighthouse, SEO, Post tags and TOC, Atom feed, Sitemap, PWA, image optimisation, Giscus, UnoCSS, typesafe-i18n",
 		"category": "SvelteKit",
-		"tags": ["blog", "markdown", "templates", "seo", "typescript"]
+		"tags": ["blog", "markdown", "seo", "typescript"]
 	},
 	{
 		"title": "svelte-mpa",
 		"repository": "https://github.com/kokizzu/svelte-mpa",
 		"description": "Multipage Svelte for any backend",
 		"category": "Svelte",
-		"tags": ["templates", "integrations"]
+		"tags": ["integrations"]
 	},
 	{
 		"title": "SvelteKit with Prisma and AuthJS",
@@ -705,28 +683,28 @@
 		"repository": "https://github.com/etherCorps/SveDev",
 		"description": "A blog starter for SvelteKit + Dev.to + Tailwind with DaisyUI + Any Adapter",
 		"category": "SvelteKit",
-		"tags": ["blog", "typescript", "templates"]
+		"tags": ["blog", "typescript"]
 	},
 	{
 		"title": "Wails.io w/ Sveltekit",
 		"repository": "https://github.com/plihelix/wails-template-sveltekit",
 		"description": "A template to generate cross-platform golang applications with a SvelteKit front-end.",
 		"category": "SvelteKit",
-		"tags": ["templates", "integrations"]
+		"tags": ["integrations"]
 	},
 	{
 		"title": "Tablog",
 		"repository": "https://github.com/lemmon/tablog-svelte",
 		"description": "A minimalistic blog theme built with SvelteKit and mdsvex.",
 		"category": "SvelteKit",
-		"tags": ["blog", "templates", "markdown", "mdsvex", "seo"]
+		"tags": ["blog", "markdown", "mdsvex", "seo"]
 	},
 	{
 		"title": "Web3 Hardhat & Svelte Boilerplate",
 		"repository": "https://github.com/fede-rodes/hardhat-svelte-boilerplate",
 		"description": "This boilerplate includes Hardhat, Svelte, Tailwind, TS and cva libs. Example integration using MetaMask",
 		"category": "Svelte",
-		"tags": ["storybook", "typescript"]
+		"tags": ["testing", "typescript"]
 	},
 	{
 		"title": "Sveltepress",
@@ -741,14 +719,14 @@
 		"repository": "https://github.com/joemmalatesta/SvelteKit-PWA-Guide",
 		"description": "A PWA Starter Template for SvelteKit",
 		"category": "SvelteKit",
-		"tags": ["templates"]
+		"tags": []
 	},
 	{
 		"title": "Vontigo",
 		"repository": "https://github.com/Vontigo/Vontigo",
 		"description": "An open-source CMS built with SvelteKit, featuring 🤖 AI-powered (ChatGPT) content generation. With fast page loads and seamless routing, Vontigo offers a user-friendly interface with customizable themes and templates.",
 		"category": "SvelteKit",
-		"tags": ["blog", "templates", "typescript", "components and libraries", "component sets"]
+		"tags": ["blog", "typescript", "components and libraries", "component sets"]
 	},
 	{
 		"title": "svelte-pilot-template",
@@ -762,14 +740,14 @@
 		"repository": "https://github.com/oskar-gmerek/surreal-sveltekit",
 		"description": "A Starter Kit with SurrealDB and SvelteKit, featuring Authentication and CRUD Operations + Realtime",
 		"category": "SvelteKit",
-		"tags": ["templates", "database", "integrations", "typescript", "ssr"]
+		"tags": ["database", "integrations", "typescript", "ssr"]
 	},
 	{
 		"title": "SvelteStore",
 		"repository": "https://github.com/gitbreaker222/SvelteStore",
 		"description": "Template for client side svelte store",
 		"category": "Svelte",
-		"tags": ["templates", "stores and state"]
+		"tags": ["stores and state"]
 	},
 	{
 		"title": "sveltekit-shadcn-ai",
@@ -777,21 +755,21 @@
 		"repository": "https://github.com/juliuslipp/sveltekit-shadcn-ai",
 		"description": "An innovative project combining Svelte, AI, and a range of web technologies, powered by Bun as its efficient package manager.",
 		"category": "SvelteKit",
-		"tags": ["templates", "blog", "database", "mdsvex", "markdown", "typescript"]
+		"tags": ["blog", "database", "mdsvex", "markdown", "typescript"]
 	},
 	{
 		"title": "svelte-library-template",
 		"repository": "https://github.com/lachlancollins/svelte-library-template",
 		"description": "Template to use svelte-package for library development.",
 		"category": "Svelte",
-		"tags": ["templates", "typescript", "testing"]
+		"tags": ["typescript", "testing"]
 	},
 	{
 		"title": "KitForStartups",
 		"repository": "https://github.com/okupter/kitforstartups",
 		"description": "A starter kit for building and shipping fast, secure, and scalable full stack SaaS applications with SvelteKit and TypeScript.",
 		"category": "SvelteKit",
-		"tags": ["templates", "typescript"]
+		"tags": ["typescript"]
 	},
 	{
 		"title": "Animotion",
