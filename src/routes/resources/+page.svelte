@@ -13,14 +13,18 @@
 	<div>There are a few books from major publishers:</div>
 	<ul>
 		{#each booksFromPublisher as { title, url, description }}
-			<li><a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}</li>
+			<li>
+				<a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}
+			</li>
 		{/each}
 	</ul>
 
 	<div>As well as a couple self-published books:</div>
 	<ul>
 		{#each booksSelfPublished as { title, url, description }}
-			<li><a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}</li>
+			<li>
+				<a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}
+			</li>
 		{/each}
 	</ul>
 
@@ -36,14 +40,18 @@
 	<div>There are also a number of third-party courses:</div>
 	<ul>
 		{#each videoCourses as { title, url, description }}
-			<li><a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}</li>
+			<li>
+				<a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}
+			</li>
 		{/each}
 	</ul>
 
 	<div>Finally, there are also YouTube channels and playlists that teach Svelte:</div>
 	<ul>
 		{#each youtube as { title, url, description }}
-			<li><a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}</li>
+			<li>
+				<a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}
+			</li>
 		{/each}
 	</ul>
 
@@ -68,7 +76,9 @@
 
 	<ul>
 		{#each misc as { title, url, description }}
-			<li><a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}</li>
+			<li>
+				<a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}
+			</li>
 		{/each}
 	</ul>
 </div>

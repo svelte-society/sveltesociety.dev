@@ -44,11 +44,3 @@ export const templatesSchema = z.array(
 		tags: z.array(z.string()).optional()
 	})
 );
-
-export const resourcesSchema = z.array(
-	z.object({
-		title: z.string(),
-		url: z.string().url(),
-		description: z.string()
-	})
-);
