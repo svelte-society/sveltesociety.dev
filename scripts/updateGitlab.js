@@ -1,8 +1,7 @@
 import { writeFileSync } from 'node:fs';
-import { componentsSchema, templatesSchema, toolsSchema } from '../src/lib/schemas.js';
-import components from '../src/routes/components/components.json' assert { type: 'json' };
+import { packagesSchema, templatesSchema } from '../src/lib/schemas.js';
+import packages from '../src/routes/packages/packages.json' assert { type: 'json' };
 import templates from '../src/routes/templates/templates.json' assert { type: 'json' };
-import tools from '../src/routes/tools/tools.json' assert { type: 'json' };
 import { chunk } from './chunk.js';
 
 const gitlabGraphQlUrl = 'https://gitlab.com/api/graphql';
@@ -32,9 +31,8 @@ async function doGraphQlQuery(url, query) {
 
 function getAllGitlabRepos() {
 	const repos = [
-		...componentsSchema.parse(components).map((component) => component.repository),
-		...templatesSchema.parse(templates).map((template) => template.repository),
-		...toolsSchema.parse(tools).map((tool) => tool.repository)
+		...packagesSchema.parse(packages).map((i) => i.repository),
+		...templatesSchema.parse(templates).map((i) => i.repository)
 	];
 	return repos.filter((url) => url && gitlabNameRegExp.test(url));
 }

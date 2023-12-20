@@ -1,15 +1,11 @@
 // @ts-check
 
-import { componentsSchema, templatesSchema, toolsSchema } from '../src/lib/schemas.js';
-import components from '../src/routes/components/components.json' assert { type: 'json' };
+import { packagesSchema, templatesSchema } from '../src/lib/schemas.js';
+import packages from '../src/routes/packages/packages.json' assert { type: 'json' };
 import templates from '../src/routes/templates/templates.json' assert { type: 'json' };
-import tools from '../src/routes/tools/tools.json' assert { type: 'json' };
 
-componentsSchema.parse(components);
-console.log('Validated components.json');
+packagesSchema.parse(packages);
+console.log('Validated packages.json');
 
 templatesSchema.parse(templates);
 console.log('Validated templates.json');
-
-toolsSchema.parse(tools);
-console.log('Validated tools.json');
