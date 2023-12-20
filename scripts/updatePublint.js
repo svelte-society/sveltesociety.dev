@@ -4,17 +4,16 @@
 import { writeFileSync } from 'node:fs';
 import { inflate } from 'pako';
 import getNpmTarballUrl from 'get-npm-tarball-url';
-import { componentsSchema, toolsSchema } from '../src/lib/schemas.js';
-import components from '../src/routes/components/components.json' assert { type: 'json' };
-import tools from '../src/routes/tools/tools.json' assert { type: 'json' };
+import { packagesSchema } from '../src/lib/schemas.js';
+import packages from '../src/routes/packages/packages.json' assert { type: 'json' };
 import npm from '../src/lib/data/npm.json' assert { type: 'json' };
 import { publint } from 'publint';
 import { untar } from './untar.js';
 import { createTarballVfs } from './tarball.js';
 
-const dataWithoutVersions = [...componentsSchema.parse(components), ...toolsSchema.parse(tools)];
+const dataWithoutVersions = packagesSchema.parse(packages);
 
-/** @param input {import('zod').infer<typeof toolsSchema>} */
+/** @param {import('zod').infer<typeof packagesSchema>} input */
 const injectVersions = (input) => {
 	const output = [];
 	for (const item of input) {
@@ -37,7 +36,7 @@ const output = await Promise.all(
 
 writeFileSync('src/lib/data/publint.json', JSON.stringify(output));
 
-/** @param pkg {ReturnType<typeof injectVersions>[0]} */
+/** @param {ReturnType<typeof injectVersions>[0]} pkg */
 async function processPackage(pkg) {
 	const tarballUrl = getNpmTarballUrl(pkg.npm, pkg.version);
 	let resultBuffer;
