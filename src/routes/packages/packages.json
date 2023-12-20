@@ -60,8 +60,7 @@
 			"animations",
 			"in-page navigation",
 			"inputs and widgets",
-			"intersection observer",
-			"table of contents"
+			"intersection observer"
 		]
 	},
 	{
@@ -1453,7 +1452,7 @@
 		"category": "User Interaction",
 		"description": "A (very experimental) project to bring WebGL to Svelte",
 		"npm": "@sveltejs/gl",
-		"tags": ["webgl"],
+		"tags": [],
 		"title": "@sveltejs/gl",
 		"repository": "https://github.com/sveltejs/gl"
 	},
@@ -1756,7 +1755,7 @@
 		"category": "Display Components",
 		"description": "svelte-pdf provides a component for rendering PDF documents using PDF.js",
 		"npm": "svelte-pdf",
-		"tags": ["components and libraries", "pdf"],
+		"tags": ["components and libraries"],
 		"title": "svelte-pdf",
 		"repository": "https://github.com/vinodnimbalkar/svelte-pdf"
 	},
@@ -1869,7 +1868,7 @@
 		"category": "Forms & User Input",
 		"description": "Svelte components for tiptap v2",
 		"npm": "svelte-tiptap",
-		"tags": ["components and libraries", "rich text editor"],
+		"tags": ["components and libraries"],
 		"title": "svelte-tiptap",
 		"repository": "https://github.com/sibiraj-s/svelte-tiptap"
 	},
@@ -1913,7 +1912,6 @@
 			"components and libraries",
 			"inputs and widgets",
 			"forms and validation",
-			"select",
 			"interactions"
 		],
 		"npm": "svelte-multiselect",
@@ -1925,11 +1923,8 @@
 		"description": "Sticky responsive table of contents component",
 		"tags": [
 			"components and libraries",
-			"table of contents",
 			"in-page navigation",
-			"async loading",
-			"mutation observer",
-			"doc sites"
+			"async loading"
 		],
 		"npm": "svelte-toc",
 		"category": "User Interaction"
@@ -2823,7 +2818,7 @@
 		"description": "Automatically updates route references in SvelteKit projects",
 		"npm": "vite-plugin-kit-routes",
 		"category": "Developer Experience",
-		"tags": ["validation"]
+		"tags": []
 	},
 	{
 		"title": "svelte-action-balancer",
@@ -2927,7 +2922,7 @@
 		"category": "Bundler Plugins",
 		"description": "Compile Svelte components with Rollup",
 		"repository": "https://github.com/sveltejs/rollup-plugin-svelte",
-		"tags": ["official"]
+		"tags": []
 	},
 	{
 		"title": "svelte-loader",
@@ -2935,7 +2930,7 @@
 		"category": "Bundler Plugins",
 		"description": "Webpack loader for svelte components",
 		"repository": "https://github.com/sveltejs/svelte-loader",
-		"tags": ["official"]
+		"tags": []
 	},
 	{
 		"title": "vite-plugin-svelte",
@@ -2943,7 +2938,7 @@
 		"category": "Bundler Plugins",
 		"description": "This is the official svelte plugin for vite",
 		"repository": "https://github.com/sveltejs/vite-plugin-svelte",
-		"tags": ["official"]
+		"tags": []
 	},
 	{
 		"title": "esbuild-svelte",
@@ -3007,7 +3002,7 @@
 		"category": "Preprocessors",
 		"description": "A ✨ magical ✨ Svelte preprocessor with sensible defaults and support for: PostCSS, SCSS, Less, Stylus, Coffeescript, TypeScript, Pug and much more",
 		"repository": "https://github.com/sveltejs/svelte-preprocess",
-		"tags": ["official"]
+		"tags": []
 	},
 	{
 		"category": "Preprocessors",
@@ -3084,7 +3079,7 @@
 		"category": "Linting and Formatting",
 		"description": "Format your svelte components using prettier.",
 		"repository": "https://github.com/sveltejs/prettier-plugin-svelte",
-		"tags": ["official"]
+		"tags": []
 	},
 	{
 		"title": "svelte-check",
@@ -3092,7 +3087,7 @@
 		"category": "Linting and Formatting",
 		"description": "Detects unused css. Adds Svelte A11y hints. Provides JavaScript/TypeScript diagnostics.",
 		"repository": "https://github.com/sveltejs/language-tools/tree/master/packages/svelte-check",
-		"tags": ["official"]
+		"tags": []
 	},
 	{
 		"title": "svelte-reactive-css-preprocess",
@@ -3115,7 +3110,7 @@
 		"description": "ESLint plugin that applies own rules to Svelte",
 		"npm": "eslint-plugin-svelte",
 		"category": "Linting and Formatting",
-		"tags": ["official"]
+		"tags": []
 	},
 	{
 		"title": "full-client-server-sveltekit",
