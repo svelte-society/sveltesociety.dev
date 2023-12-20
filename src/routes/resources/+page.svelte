@@ -1,24 +1,49 @@
 <script lang="ts">
-	import books from './books.json';
+	import booksFromPublisher from './booksFromPublisher.json';
+	import booksSelfPublished from './booksSelfPublished.json';
 	import extensions from './extensions.json';
 	import misc from './misc.json';
-	import videos from './videos.json';
+	import videoCourses from './videoCourses.json';
+	import youtube from './youtube.json';
 </script>
 
 <div>
 	<h2>Books</h2>
 
+	<div>There are a few books from major publishers:</div>
 	<ul>
-		{#each books as { title, url, description }}
-			<li><a href={url} target="_blank">{title}</a> - {description}</li>
+		{#each booksFromPublisher as { title, url, description }}
+			<li><a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}</li>
+		{/each}
+	</ul>
+
+	<div>As well as a couple self-published books:</div>
+	<ul>
+		{#each booksSelfPublished as { title, url, description }}
+			<li><a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}</li>
 		{/each}
 	</ul>
 
 	<h2>Videos</h2>
 
+	<div>Rich Harris, the creator of Svelte, taught a course:</div>
 	<ul>
-		{#each videos as { title, url, description }}
-			<li><a href={url} target="_blank">{title}</a> - {description}</li>
+		<li>
+			<a href="https://frontendmasters.com/courses/svelte/" target="_blank">Frontend Masters</a>
+		</li>
+	</ul>
+
+	<div>There are also a number of third-party courses:</div>
+	<ul>
+		{#each videoCourses as { title, url, description }}
+			<li><a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}</li>
+		{/each}
+	</ul>
+
+	<div>Finally, there are also YouTube channels and playlists that teach Svelte:</div>
+	<ul>
+		{#each youtube as { title, url, description }}
+			<li><a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}</li>
 		{/each}
 	</ul>
 
@@ -43,7 +68,7 @@
 
 	<ul>
 		{#each misc as { title, url, description }}
-			<li><a href={url} target="_blank">{title}</a> - {description}</li>
+			<li><a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}</li>
 		{/each}
 	</ul>
 </div>

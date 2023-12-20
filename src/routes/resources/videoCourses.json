@@ -1,0 +1,20 @@
+[
+	{
+		"title": "Level Up Tutorials",
+		"url": "https://levelup.video/library?tags=svelte",
+		"description": "by Scott Tolinski"
+	},
+	{
+		"title": "Egghead",
+		"url": "https://egghead.io/browse/frameworks/svelte"
+	},
+	{
+		"title": "Udemy",
+		"url": "https://www.udemy.com/courses/search/?q=sveltejs+svelte",
+		"description": "(Note: Udemy frequently has discounts over 90%)"
+	},
+	{
+		"title": "Pluralsight",
+		"url": "https://www.pluralsight.com/search?q=svelte"
+	}
+]
