@@ -164,7 +164,8 @@
 		"repository": "https://gitlab.com/davidhund/svelte-carbonbadge",
 		"description": "Svelte badge component for https://www.websitecarbon.com/",
 		"npm": "svelte-carbonbadge",
-		"category": "Testing"
+		"category": "Testing",
+		"tags": []
 	},
 	{
 		"title": "svelte-form-validation",
@@ -2397,7 +2398,8 @@
 		"description": "Add a blog (or changelog) to any SvelteKit site.",
 		"npm": "leblog",
 		"category": "Integration",
-		"repository": "https://github.com/nbgoodall/leblog"
+		"repository": "https://github.com/nbgoodall/leblog",
+		"tags": []
 	},
 	{
 		"title": "html-svelte-parser",
@@ -2602,7 +2604,8 @@
 		"repository": "https://github.com/hedgehog125/SvelteKit-Adapter-Versioned-Worker",
 		"description": "A SvelteKit adapter for generating service workers to make PWAs work offline",
 		"npm": "sveltekit-adapter-versioned-worker",
-		"category": "SvelteKit Adapters"
+		"category": "SvelteKit Adapters",
+		"tags": []
 	},
 	{
 		"title": "LayerChart",
@@ -2998,14 +3001,16 @@
 		"description": "Write Svelte components in markdown syntax",
 		"npm": "svelte-preprocess-markdown",
 		"title": "svelte-preprocess-markdown",
-		"repository": "https://github.com/AlexxNB/svelte-preprocess-markdown"
+		"repository": "https://github.com/AlexxNB/svelte-preprocess-markdown",
+		"tags": []
 	},
 	{
 		"category": "Preprocessors",
 		"description": "A markdown preprocessor for Svelte",
 		"npm": "mdsvex",
 		"title": "mdsvex",
-		"repository": "https://github.com/pngwn/MDsveX"
+		"repository": "https://github.com/pngwn/MDsveX",
+		"tags": []
 	},
 	{
 		"title": "svelte-preprocess-less",
@@ -3020,7 +3025,8 @@
 		"repository": "https://github.com/l-portet/svelte-switch-case",
 		"description": "Switch case syntax for Svelte",
 		"npm": "svelte-switch-case",
-		"category": "Preprocessors"
+		"category": "Preprocessors",
+		"tags": []
 	},
 	{
 		"title": "modular-css",
@@ -3091,7 +3097,8 @@
 		"repository": "https://github.com/srmullen/svelte-subcomponent-preprocessor",
 		"description": "Write more than one component per svelte file",
 		"npm": "svelte-subcomponent-preprocessor",
-		"category": "Preprocessors"
+		"category": "Preprocessors",
+		"tags": []
 	},
 	{
 		"title": "eslint-plugin-svelte",
@@ -3106,21 +3113,24 @@
 		"repository": "https://github.com/SBHattarj/full-client-server-sveltekit",
 		"description": "A plugin allowing usage of server directly on browser using web socket",
 		"npm": "full-client-server-sveltekit",
-		"category": "Bundler Plugins"
+		"category": "Bundler Plugins",
+		"tags": []
 	},
 	{
 		"title": "svelte-preprocess-delegate-events",
 		"repository": "https://github.com/baseballyama/svelte-preprocess-delegate-events",
 		"description": "Delegate events with on:* 🎉",
 		"npm": "svelte-preprocess-delegate-events",
-		"category": "Preprocessors"
+		"category": "Preprocessors",
+		"tags": []
 	},
 	{
 		"title": "Dark Runes",
 		"repository": "https://github.com/flakolefluk/dark-runes",
 		"description": "Svelte Custom Runes. Dark Runes will be retired when equivalent features are incorporated into the core Svelte framework.",
 		"npm": "dark-runes",
-		"category": "Preprocessors"
+		"category": "Preprocessors",
+		"tags": []
 	},
 	{
 		"title": "Clerk SvelteKit",
