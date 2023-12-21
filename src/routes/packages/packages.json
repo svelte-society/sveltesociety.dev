@@ -1852,7 +1852,7 @@
 	},
 	{
 		"category": "Forms & User Input",
-		"description": "Svelte components for tiptap v2",
+		"description": "Svelte components for tiptap v2. Open source headless content editor.",
 		"npm": "svelte-tiptap",
 		"tags": ["components and libraries"],
 		"title": "svelte-tiptap",
@@ -2327,6 +2327,14 @@
 		"tags": ["stores and state"]
 	},
 	{
+		"title": "sveltekit-view-transition",
+		"repository": "https://github.com/paoloricciuti/sveltekit-view-transition",
+		"description": "Simplified view-transition-api for Sveltekit.",
+		"npm": "sveltekit-view-transition",
+		"category": "Developer Experience",
+		"tags": ["in-page navigation"]
+	},
+	{
 		"title": "sterling-svelte",
 		"repository": "https://github.com/GeoffCox/sterling-svelte",
 		"description": "A modern, accessible, and lightweight component library for Svelte.",
@@ -2724,7 +2732,7 @@
 	{
 		"title": "Supabase Auth",
 		"npm": "@supabase/auth-helpers-sveltekit",
-		"repository": "https://github.com/supabase/auth-helpers",
+		"repository": "https://github.com/supabase/auth-helpers/tree/main/packages/sveltekit",
 		"description": "A collection of framework specific Auth utilities for working with Supabase",
 		"category": "Integration",
 		"tags": ["components and libraries", "integrations", "auth"]
@@ -3106,5 +3114,76 @@
 		"description": "Delegate events with on:* 🎉",
 		"npm": "svelte-preprocess-delegate-events",
 		"category": "Preprocessors"
+	},
+	{
+		"title": "Dark Runes",
+		"repository": "https://github.com/flakolefluk/dark-runes",
+		"description": "Svelte Custom Runes. Dark Runes will be retired when equivalent features are incorporated into the core Svelte framework.",
+		"npm": "dark-runes",
+		"category": "Preprocessors"
+	},
+	{
+		"title": "Clerk SvelteKit",
+		"repository": "https://github.com/markjaquith/clerk-sveltekit",
+		"description": "Adapter for using Clerk authentication in SvelteKit.",
+		"npm": "clerk-sveltekit",
+		"category": "Integration",
+		"tags": ["auth"]
+	},
+	{
+		"title": "Svelvet",
+		"repository": "https://github.com/open-source-labs/Svelvet",
+		"description": "A Svelte library for building dynamic, infinitely customizable node-based user interfaces and flowcharts",
+		"npm": "svelvet",
+		"category": "Data Visualisation",
+		"tags": []
+	},
+	{
+		"title": "Carta",
+		"repository": "https://github.com/BearToCode/carta",
+		"description": "Carta is a lightweight, fast and extensible Svelte Markdown editor and viewer, based on Marked.",
+		"npm": "carta-md",
+		"category": "Forms & User Input",
+		"tags": []
+	},
+	{
+		"title": "svelte-broadcastable",
+		"repository": "https://github.com/Hugos68/svelte-broadcastable",
+		"description": "Svelte broadcastable is a store wrapper for the Broadcast Channel API.",
+		"npm": "svelte-broadcastable",
+		"category": "Stores",
+		"tags": []
+	},
+	{
+		"title": "svelte-markdown-input",
+		"repository": "https://github.com/CaptainCodeman/svelte-markdown-input",
+		"description": "A simple markdown input action and store for Svelte. Designed for simple inputs of HTML snippets.",
+		"npm": "svelte-markdown-input",
+		"category": "Forms & User Input",
+		"tags": []
+	},
+	{
+		"title": "svelte-tweakpane-ui",
+		"repository": "https://github.com/kitschpatrol/svelte-tweakpane-ui",
+		"description": "A Svelte component library wrapping UI elements from Tweakpane.",
+		"npm": "svelte-tweakpane-ui",
+		"category": "Display Components",
+		"tags": []
+	},
+	{
+		"title": "tRPC-SvelteKit",
+		"repository": "https://github.com/icflorescu/trpc-sveltekit",
+		"description": "End-to-end typesafe APIs with tRPC.io for your SvelteKit applications.",
+		"npm": "trpc-sveltekit",
+		"category": "Integration",
+		"tags": []
+	},
+	{
+		"title": "Konsta UI",
+		"repository": "https://github.com/konstaui/konsta",
+		"description": "Mobile UI components made with Tailwind CSS",
+		"npm": "konsta",
+		"category": "Design System",
+		"tags": ["components and libraries"]
 	}
 ]
