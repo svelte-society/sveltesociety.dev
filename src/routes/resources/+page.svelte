@@ -55,7 +55,7 @@
 		{/each}
 	</ul>
 
-	<h2 id="extensions">Editor Extensions</h2>
+	<h2 id="editor-support">Editor Extensions</h2>
 
 	<ul>
 		{#each extensions as { title, url, description }}
