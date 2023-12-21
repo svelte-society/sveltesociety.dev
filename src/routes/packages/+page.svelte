@@ -1,11 +1,11 @@
 <script lang="ts">
-	import packages from './packages.json';
 	import SearchableJson from '$lib/SearchableJson.svelte';
-	import { injectData } from '$utils/injectData';
+
+	export let data;
 </script>
 
 <SearchableJson
-	data={injectData(packages)}
+	data={data.packages}
 	displayTitle="Packages"
 	displayTitleSingular="package"
 	submittingType="package"
