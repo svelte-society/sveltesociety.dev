@@ -8,7 +8,9 @@
 <div>
 	{#each tags as tag}
 		{#if selectedTags.includes(tag)}
-			<a class="active" href={`${$page.url.pathname}?tags=${selectedTags.filter((t) => t !== tag).join(',')}`}
+			<a
+				class="active"
+				href={`${$page.url.pathname}?tags=${selectedTags.filter((t) => t !== tag).join(',')}`}
 				>{tag}</a
 			>
 		{/if}

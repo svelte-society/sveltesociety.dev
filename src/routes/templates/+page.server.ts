@@ -3,6 +3,8 @@ import { getTags } from '$utils/getTags';
 import { injectData } from '$utils/injectData';
 import templates from './templates.json';
 
+export const prerender = false;
+
 export const load = async ({ url }) => {
 	const data = injectData(templatesSchema.parse(templates));
 
