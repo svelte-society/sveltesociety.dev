@@ -777,5 +777,40 @@
 		"description": "Animotion is a presentational framework for creating beautiful slides and visualizing ideas with code using Svelte, Reveal.js and Tailwind CSS.",
 		"category": "Svelte",
 		"tags": []
+	},
+	{
+		"title": "create-o7-app",
+		"repository": "https://github.com/ottomated/create-o7-app",
+		"description": "An opinionated CLI for creating type-safe Svelte apps.",
+		"category": "SvelteKit",
+		"tags": []
+	},
+	{
+		"title": "Sveltekit Auth Starter",
+		"repository": "https://github.com/delay/sveltekit-auth-starter",
+		"description": "Utilizes Lucia for authentication, Skeleton for ui elements, Prisma for database connectivity and type safety, Lucide for icons, inlang for translation, Zod and Superforms to handle forms and validation and Sveltekit.",
+		"category": "SvelteKit",
+		"tags": []
+	},
+	{
+		"title": "Svelte Realworld",
+		"repository": "https://github.com/sveltejs/realworld",
+		"description": "Svelte codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the RealWorld spec and API.",
+		"category": "SvelteKit",
+		"tags": []
+	},
+	{
+		"title": "editable-website",
+		"repository": "https://github.com/michael/editable-website",
+		"description": "A SvelteKit template for coding completely custom websites, while allowing non-technical people to make edits to the content by simply logging in with a secure admin password.",
+		"category": "SvelteKit",
+		"tags": []
+	},
+	{
+		"title": "SPLAT",
+		"repository": "https://github.com/zeucapua/splat-template",
+		"description": "A project template to get started with the SPLAT stack (SvelteKit, Prisma, Lucia (Auth), TailwindCSS)",
+		"category": "SvelteKit",
+		"tags": []
 	}
 ]
