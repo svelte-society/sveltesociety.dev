@@ -11,7 +11,6 @@
 		title: string;
 		ascending: boolean;
 	};
-	type FacetValue = { value: string } | Array<{ value: string }>;
 
 	export let data;
 	let sort = { value: 'stars_desc' };
@@ -44,13 +43,6 @@
 	}
 
 	$: query, sort, search();
-
-	function defaultEmpty(values: Array<string>, defaultValue = 'Unclassified'): Array<string> {
-		return values.map((value) => value || defaultValue);
-	}
-	function revertDefaultValue(value: string, defaultValue = 'Unclassified'): string {
-		return value === defaultValue ? '' : value;
-	}
 </script>
 
 <Select

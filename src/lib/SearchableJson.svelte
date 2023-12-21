@@ -65,7 +65,7 @@
 </section>
 <hr />
 <section>
-	<CardList title={'Unclassified'} id={'unclassified'}>
+	<CardList>
 		{#each data as cardData}
 			<ComponentCard {...cardData} />
 		{/each}
