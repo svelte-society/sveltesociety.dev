@@ -8,6 +8,7 @@
 	import Search from '$lib/components/Search.svelte';
 	import Select from '$lib/components/Select.svelte';
 	import { packageManager } from '$stores/packageManager';
+	import { page } from "$app/stores";
 
 	export let data;
 	export let displayTitle = '';
@@ -16,10 +17,14 @@
 
 	let searchValue;
 
-	const dataDefault = { category: '' };
-	$: dataToDisplay = data.map((line) => ({ ...dataDefault, ...line }));
-
-	$: categories = extractUnique(dataToDisplay, 'category');
+	const tags = []
+	data.forEach((item) => {
+		item.tags.forEach((tag) => {
+			if (!tags.includes(tag)) {
+				tags.push(tag)
+			}
+		})
+	})
 </script>
 
 <Seo title={displayTitle} />
@@ -28,7 +33,7 @@
 	<section slot="controls" class="controls">
 		<div class="inputs">
 			<Search
-				data={dataToDisplay}
+				data={data}
 				bind:query={searchValue}
 				sortableFields={[
 					{ identifier: 'stars', title: 'Stars', ascending: false },
@@ -46,7 +51,7 @@
 						isMulti: true
 					}
 				]}
-				on:search={(a) => (dataToDisplay = a.detail.data.items)}
+				on:search={(a) => (data = a.detail.data.items)}
 			/>
 			<Select
 				label="Package manager"
@@ -73,21 +78,20 @@
 			bind:value={searchValue}
 		/>
 		<span class="searchbar-count"
-			>{dataToDisplay.length} result{#if dataToDisplay.length !== 1}s{/if}</span
+			>{data.length} result{#if data.length !== 1}s{/if}</span
 		>
 	</section>
 	<section slot="items">
-		{#each categories as category}
+		{#each tags as tag}
+		<a href={`${$page.url.pathname}?tags=${tag}`}>{tag}</a>
+	{/each}
 			<CardList
-				title={category.label || 'Unclassified'}
-				id={slugify(category.label) || 'unclassified'}
+				title={'Unclassified'}
+				id={'unclassified'}
 			>
-				{#each dataToDisplay.filter((d) => d.category === category.value || (!categories
-							.map((v) => v.value)
-							.includes(d.category) && category.value === '')) as cardData}
+				{#each data as cardData}
 					<ComponentCard {...cardData} />
 				{/each}
 			</CardList>
-		{/each}
 	</section>
 </SearchLayout>

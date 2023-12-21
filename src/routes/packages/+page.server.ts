@@ -8,14 +8,14 @@ export const load = async ({ url }) => {
 	const tagsParam = url.searchParams.get('tags');
 
 	if (!tagsParam) {
-		return { packages: data, tags: [] };
+		return { packages: data, selectedTags: [] };
 	}
 
-    const tags = tagsParam.split(',')
+    const selectedTags = tagsParam.split(',')
 
 	const filteredData = data.filter((entry) => {
-		return tags.every((val) => entry.tags.includes(val));
+		return selectedTags.every((val) => entry.tags.includes(val));
 	});
 
-	return { packages: filteredData, tags };
+	return { packages: filteredData, selectedTags };
 };
