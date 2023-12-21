@@ -24,6 +24,12 @@
 <TagsFilter {tags} {selectedTags} />
 <br />
 <section class="controls">
+	<input
+		class="searchbar"
+		type="text"
+		placeholder="Search for {displayTitle.toLowerCase()}..."
+		bind:value={searchValue}
+	/>
 	<div class="inputs">
 		<Search
 			{data}
@@ -52,13 +58,6 @@
 			>Submit a {displayTitleSingular}</a
 		>
 	</div>
-
-	<input
-		class="searchbar"
-		type="text"
-		placeholder="Search for {displayTitle.toLowerCase()}..."
-		bind:value={searchValue}
-	/>
 	<span class="searchbar-count"
 		>{data.length} result{#if data.length !== 1}s{/if}</span
 	>
@@ -89,7 +88,6 @@
 		padding: 20.5px var(--s-2);
 		border: 2px solid var(--dark-gray);
 		border-radius: 2px;
-		align-self: flex-end;
 		grid-row: 1/2;
 		font-family: Overpass;
 		background: #f3f6f9 url(/images/search-icon.svg) 98% no-repeat;
@@ -105,15 +103,9 @@
 		right: 0;
 	}
 
-	@media (min-width: 1280px) {
-		.controls {
-			grid-template-columns: 2fr 1fr;
-		}
+	@media (min-width: 1024px) {
 		.inputs {
-			grid-template-columns: repeat(4, auto);
-		}
-		.searchbar {
-			grid-row: auto;
+			grid-template-columns: repeat(2, auto);
 		}
 	}
 </style>
