@@ -91,3 +91,49 @@
 		{/each}
 	</section>
 </SearchLayout>
+
+<style>
+	.controls {
+		display: grid;
+		justify-content: stretch;
+		align-items: center;
+		gap: var(--s-4);
+		font-family: Overpass;
+		position: relative;
+	}
+	.inputs {
+		display: grid;
+		gap: var(--s-2);
+	}
+	.searchbar {
+		padding: 20.5px var(--s-2);
+		border: 2px solid var(--dark-gray);
+		border-radius: 2px;
+		align-self: flex-end;
+		grid-row: 1/2;
+		font-family: Overpass;
+		background: #f3f6f9 url(/images/search-icon.svg) 98% no-repeat;
+		margin: 0;
+	}
+	.searchbar:focus {
+		outline: none;
+		border: 1px solid var(--secondary);
+	}
+	.searchbar-count {
+		position: absolute;
+		top: calc(100% + 1rem);
+		right: 0;
+	}
+
+	@media (min-width: 1280px) {
+		.controls {
+			grid-template-columns: 2fr 1fr;
+		}
+		.inputs {
+			grid-template-columns: repeat(4, auto);
+		}
+		.searchbar {
+			grid-row: auto;
+		}
+	}
+</style>
