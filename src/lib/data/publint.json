@@ -285,6 +285,7 @@
 	"svelte-google-auth": { "valid": true },
 	"sveltekit-adapter-firebase": { "valid": true },
 	"sveltekit-search-params": { "valid": true },
+	"sveltekit-view-transition": { "valid": true },
 	"@geoffcox/sterling-svelte": { "valid": true },
 	"@perfectthings/ui": { "valid": true },
 	"@tanstack/svelte-query": { "valid": true },
@@ -379,5 +380,14 @@
 	"svelte-subcomponent-preprocessor": { "valid": true },
 	"eslint-plugin-svelte": { "valid": true },
 	"full-client-server-sveltekit": { "valid": true },
-	"svelte-preprocess-delegate-events": { "valid": true }
+	"svelte-preprocess-delegate-events": { "valid": true },
+	"dark-runes": { "valid": true },
+	"clerk-sveltekit": { "valid": true },
+	"svelvet": { "valid": true },
+	"carta-md": { "valid": true },
+	"svelte-broadcastable": { "valid": true },
+	"svelte-markdown-input": { "valid": true },
+	"svelte-tweakpane-ui": { "valid": true },
+	"trpc-sveltekit": { "valid": true },
+	"konsta": { "valid": false }
 }
