@@ -5,16 +5,43 @@
 	export let selectedTags;
 </script>
 
-{#each tags as tag}
-	{#if selectedTags.includes(tag)}
-		<a href={`${$page.url.pathname}?tags=${selectedTags.filter((t) => t !== tag).join(',')}`}
-			>Remove {tag}</a
-		>
-	{/if}
-{/each}
+<div>
+	{#each tags as tag}
+		{#if selectedTags.includes(tag)}
+			<a class="active" href={`${$page.url.pathname}?tags=${selectedTags.filter((t) => t !== tag).join(',')}`}
+				>{tag}</a
+			>
+		{/if}
+	{/each}
 
-{#each tags as tag}
-	{#if !selectedTags.includes(tag)}
-		<a href={`${$page.url.pathname}?tags=${[...selectedTags, tag].join(',')}`}>Add {tag}</a>
-	{/if}
-{/each}
+	{#each tags as tag}
+		{#if !selectedTags.includes(tag)}
+			<a href={`${$page.url.pathname}?tags=${[...selectedTags, tag].join(',')}`}>{tag}</a>
+		{/if}
+	{/each}
+</div>
+
+<style>
+	div {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	a {
+		padding: 4px 12px;
+		border-radius: 9999px;
+		font-family: Overpass;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 14px;
+		line-height: 150%;
+		text-align: center;
+		margin-right: 0.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.active {
+		color: #ff3e01;
+		background: #ffdbcf;
+	}
+</style>
