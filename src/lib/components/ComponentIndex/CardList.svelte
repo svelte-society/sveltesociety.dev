@@ -1,24 +1,10 @@
-<script lang="ts">
-	export let title;
-	export let id = `category-${encodeURI(title)}`;
-</script>
-
 <div class="list">
-	<h1 {id}>{title} <a href="#{id}">#</a></h1>
 	<div class="grid">
 		<slot />
 	</div>
 </div>
 
 <style>
-	h1 {
-		font-family: Overpass;
-		font-style: normal;
-		font-weight: 600;
-		line-height: 150%;
-		margin-bottom: 1rem;
-		@apply text-4xl;
-	}
 	.grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);

@@ -29,6 +29,7 @@
 
 	a {
 		padding: 4px 12px;
+		border: 1px solid var(--link-color);
 		border-radius: 9999px;
 		font-family: Overpass;
 		font-style: normal;
