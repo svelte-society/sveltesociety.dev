@@ -1,5 +1,5 @@
 import { templatesSchema } from '$lib/schemas.js';
-import { getTags } from "$utils/getTags";
+import { getTags } from '$utils/getTags';
 import { injectData } from '$utils/injectData';
 import templates from './templates.json';
 
@@ -12,7 +12,7 @@ export const load = async ({ url }) => {
 		return { templates: data, tags: getTags(data), selectedTags: [] };
 	}
 
-    const selectedTags = tagsParam.split(',')
+	const selectedTags = tagsParam.split(',');
 
 	const filteredData = data.filter((entry) => {
 		return selectedTags.every((val) => entry.tags.includes(val));

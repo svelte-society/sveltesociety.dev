@@ -6,7 +6,7 @@
 	import Search from '$lib/components/Search.svelte';
 	import Select from '$lib/components/Select.svelte';
 	import { packageManager } from '$stores/packageManager';
-	import TagsFilter from "$lib/TagsFilter.svelte";
+	import TagsFilter from '$lib/TagsFilter.svelte';
 
 	export let data;
 	export let tags;
@@ -24,24 +24,13 @@
 	<section slot="controls" class="controls">
 		<div class="inputs">
 			<Search
-				data={data}
+				{data}
 				bind:query={searchValue}
 				sortableFields={[
 					{ identifier: 'stars', title: 'Stars', ascending: false },
 					{ identifier: 'title', title: 'Name', ascending: true }
 				]}
 				searchableFields={['title', 'description']}
-				facetsConfig={[
-					{
-						title: 'Category',
-						identifier: 'category'
-					},
-					{
-						title: 'Tags',
-						identifier: 'tags',
-						isMulti: true
-					}
-				]}
 				on:search={(a) => (data = a.detail.data.items)}
 			/>
 			<Select
@@ -73,11 +62,8 @@
 		>
 	</section>
 	<section slot="items">
-		<TagsFilter tags={tags} selectedTags={selectedTags} />
-		<CardList
-			title={'Unclassified'}
-			id={'unclassified'}
-		>
+		<TagsFilter {tags} {selectedTags} />
+		<CardList title={'Unclassified'} id={'unclassified'}>
 			{#each data as cardData}
 				<ComponentCard {...cardData} />
 			{/each}

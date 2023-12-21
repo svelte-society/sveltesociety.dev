@@ -1,5 +1,5 @@
 import { packagesSchema } from '$lib/schemas.js';
-import { getTags } from "$utils/getTags";
+import { getTags } from '$utils/getTags';
 import { injectData } from '$utils/injectData';
 import packages from './packages.json';
 
@@ -12,7 +12,7 @@ export const load = async ({ url }) => {
 		return { packages: data, tags: getTags(data), selectedTags: [] };
 	}
 
-    const selectedTags = tagsParam.split(',')
+	const selectedTags = tagsParam.split(',');
 
 	const filteredData = data.filter((entry) => {
 		return selectedTags.every((val) => entry.tags.includes(val));
