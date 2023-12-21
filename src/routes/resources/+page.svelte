@@ -8,7 +8,7 @@
 </script>
 
 <div>
-	<h2>Books</h2>
+	<h2 id="books">Books</h2>
 
 	<div>There are a few books from major publishers:</div>
 	<ul>
@@ -28,7 +28,7 @@
 		{/each}
 	</ul>
 
-	<h2>Videos</h2>
+	<h2 id="videos">Videos</h2>
 
 	<div>Rich Harris, the creator of Svelte, taught a course:</div>
 	<ul>
@@ -55,7 +55,7 @@
 		{/each}
 	</ul>
 
-	<h2>Extensions</h2>
+	<h2 id="extensions">Editor Extensions</h2>
 
 	<ul>
 		{#each extensions as { title, url, description }}
@@ -63,7 +63,7 @@
 		{/each}
 	</ul>
 
-	<h2>Discovery</h2>
+	<h2 id="discovery">Discovery</h2>
 
 	<ul>
 		<li>
@@ -72,7 +72,7 @@
 		</li>
 	</ul>
 
-	<h2>Miscellaneous</h2>
+	<h2 id="misc">Miscellaneous</h2>
 
 	<ul>
 		{#each misc as { title, url, description }}
