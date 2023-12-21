@@ -8,7 +8,7 @@ export const load = async ({ url }) => {
 	const tagsParam = url.searchParams.get('tags');
 
 	if (!tagsParam) {
-		return { packages: data, selectedTags: [] };
+		return { packages: data, tags: getTags(data), selectedTags: [] };
 	}
 
     const selectedTags = tagsParam.split(',')
@@ -17,5 +17,17 @@ export const load = async ({ url }) => {
 		return selectedTags.every((val) => entry.tags.includes(val));
 	});
 
-	return { packages: filteredData, selectedTags };
+	return { packages: filteredData, tags: getTags(filteredData), selectedTags };
 };
+
+const getTags = (input) => {
+	const output = []
+	input.forEach((item) => {
+		item.tags.forEach((tag) => {
+			if (!output.includes(tag)) {
+				output.push(tag)
+			}
+		})
+	})
+	return output
+}

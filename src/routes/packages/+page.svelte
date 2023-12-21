@@ -6,6 +6,8 @@
 
 <SearchableJson
 	data={data.packages}
+	tags={data.tags}
+	selectedTags={data.selectedTags}
 	displayTitle="Packages"
 	displayTitleSingular="package"
 	submittingType="package"

@@ -1,30 +1,21 @@
 <script lang="ts">
-	import slugify from '@sindresorhus/slugify';
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
 	import CardList from '$lib/components/ComponentIndex/CardList.svelte';
 	import SearchLayout from '$layouts/SearchLayout.svelte';
-	import { extractUnique } from '$lib/utils/extractUnique';
 	import Seo from '$lib/components/Seo.svelte';
 	import Search from '$lib/components/Search.svelte';
 	import Select from '$lib/components/Select.svelte';
 	import { packageManager } from '$stores/packageManager';
-	import { page } from "$app/stores";
+	import TagsFilter from "$lib/TagsFilter.svelte";
 
 	export let data;
+	export let tags;
+	export let selectedTags;
 	export let displayTitle = '';
 	export let displayTitleSingular = '';
 	export let submittingType = '';
 
 	let searchValue;
-
-	const tags = []
-	data.forEach((item) => {
-		item.tags.forEach((tag) => {
-			if (!tags.includes(tag)) {
-				tags.push(tag)
-			}
-		})
-	})
 </script>
 
 <Seo title={displayTitle} />
@@ -82,16 +73,14 @@
 		>
 	</section>
 	<section slot="items">
-		{#each tags as tag}
-		<a href={`${$page.url.pathname}?tags=${tag}`}>{tag}</a>
-	{/each}
-			<CardList
-				title={'Unclassified'}
-				id={'unclassified'}
-			>
-				{#each data as cardData}
-					<ComponentCard {...cardData} />
-				{/each}
-			</CardList>
+		<TagsFilter tags={tags} selectedTags={selectedTags} />
+		<CardList
+			title={'Unclassified'}
+			id={'unclassified'}
+		>
+			{#each data as cardData}
+				<ComponentCard {...cardData} />
+			{/each}
+		</CardList>
 	</section>
 </SearchLayout>
