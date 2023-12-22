@@ -1,8 +1,7 @@
 <script lang="ts">
 	import booksFromPublisher from './booksFromPublisher.json';
 	import booksSelfPublished from './booksSelfPublished.json';
-	import extensions from './extensions.json';
-	import misc from './misc.json';
+	import editor from './editor.json';
 	import videoCourses from './videoCourses.json';
 	import youtube from './youtube.json';
 </script>
@@ -55,10 +54,10 @@
 		{/each}
 	</ul>
 
-	<h2 id="editor-support">Editor Extensions</h2>
+	<h2 id="editor-support">Editor Support</h2>
 
 	<ul>
-		{#each extensions as { title, url, description }}
+		{#each editor as { title, url, description }}
 			<li><a href={url} target="_blank">{title}</a> - {description}</li>
 		{/each}
 	</ul>
@@ -70,16 +69,6 @@
 			For a curated list of SvelteKit examples in the wild, see
 			<a href="https://github.com/janosh/awesome-sveltekit" target="_blank">awesome-sveltekit</a>
 		</li>
-	</ul>
-
-	<h2 id="misc">Miscellaneous</h2>
-
-	<ul>
-		{#each misc as { title, url, description }}
-			<li>
-				<a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}
-			</li>
-		{/each}
 	</ul>
 </div>
 
