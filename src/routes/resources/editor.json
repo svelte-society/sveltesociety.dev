@@ -53,5 +53,10 @@
 		"title": "SvelteKit Snippets",
 		"description": "Svelte & SvelteKit Snippets for VS Code",
 		"url": "https://github.com/stordahl/sveltekit-snippets"
+	},
+	{
+		"title": "SvelteLab",
+		"url": "https://www.sveltelab.dev/",
+		"description": "Supercharged REPL for Svelte. Instantly spin up a SvelteKit project and share it with the world."
 	}
 ]
