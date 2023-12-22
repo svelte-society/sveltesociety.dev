@@ -408,11 +408,12 @@
 	},
 	{
 		"category": "Design System",
-		"description": "Bootstrap 4 components for Svelte",
-		"npm": "sveltestrap",
+		"description": "Bootstrap components for Svelte 4+",
+		"npm": "@sveltestrap/sveltestrap",
 		"tags": ["components and libraries"],
 		"title": "sveltestrap",
-		"repository": "https://github.com/bestguy/sveltestrap"
+		"url": "https://sveltestrap.js.org",
+		"repository": "https://github.com/sveltestrap/sveltestrap"
 	},
 	{
 		"category": "User Interaction",
