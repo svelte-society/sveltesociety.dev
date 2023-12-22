@@ -1,24 +1,31 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 
-	export let tags;
-	export let selectedTags;
+	export let tags: string[];
+	export let selectedTags: string[];
 </script>
 
 <div>
 	{#each tags as tag}
 		{#if selectedTags.includes(tag)}
-			<a
-				class="active"
-				href={`${$page.url.pathname}?tags=${selectedTags.filter((t) => t !== tag).join(',')}`}
-				>{tag}</a
-			>
+			{@const newTags = selectedTags.filter((t) => t !== tag)}
+			{#if newTags.length === 0}
+				<a class="active" href={`${$page.url.pathname}`}>{tag}</a>
+			{:else}
+				<a
+					class="active"
+					href={`${$page.url.pathname}?${newTags.map((t) => `tag=${t}`).join('&')}`}
+				>
+					{tag}
+				</a>
+			{/if}
 		{/if}
 	{/each}
 
 	{#each tags as tag}
 		{#if !selectedTags.includes(tag)}
-			<a href={`${$page.url.pathname}?tags=${[...selectedTags, tag].join(',')}`}>{tag}</a>
+			{@const newTags = [...selectedTags, tag]}
+			<a href={`${$page.url.pathname}?${newTags.map((t) => `tag=${t}`).join('&')}`}>{tag}</a>
 		{/if}
 	{/each}
 </div>

@@ -8,13 +8,11 @@ export const prerender = false;
 export const load = async ({ url }) => {
 	const data = injectData(templatesSchema.parse(templates));
 
-	const tagsParam = url.searchParams.get('tags');
+	const selectedTags = url.searchParams.getAll('tag');
 
-	if (!tagsParam) {
-		return { templates: data, tags: getTags(data), selectedTags: [] };
+	if (!selectedTags) {
+		return { packages: data, tags: getTags(data), selectedTags: [] };
 	}
-
-	const selectedTags = tagsParam.split(',');
 
 	const filteredData = data.filter((entry) => {
 		return selectedTags.every((val) => entry.tags.includes(val));
