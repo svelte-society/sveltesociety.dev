@@ -3,6 +3,7 @@
 node_modules
 /.netlify
 /.svelte-kit
+/.vercel
 /build
 /functions
 coverage
