@@ -3196,5 +3196,22 @@
 		"npm": "konsta",
 		"category": "Design System",
 		"tags": ["components and libraries"]
+	},
+	{
+		"title": "@prismicio/svelte",
+		"repository": "https://github.com/prismicio/prismic-svelte",
+		"description": "Svelte components to render content from the Prismic API",
+		"npm": "@prismicio/svelte",
+		"category": "Integration",
+		"tags": ["integrations", "images", "layout and structure"]
+	},
+	{
+		"title": "@slicemachine/adapter-sveltekit",
+		"url": "https://prismic.io/docs/svelte",
+		"repository": "https://github.com/prismicio/slice-machine/tree/master/packages/adapter-sveltekit",
+		"description": "Turn your SvelteKit project into a website builder with Prismic's Slice Machine",
+		"npm": "@slicemachine/adapter-sveltekit",
+		"category": "Integration",
+		"tags": ["integrations"]
 	}
 ]
