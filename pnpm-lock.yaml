@@ -20,9 +20,6 @@ devDependencies:
   '@types/eslint':
     specifier: ^8.44.9
     version: 8.44.9
-  '@types/itemsjs':
-    specifier: ^2.1.6
-    version: 2.1.6
   '@types/node':
     specifier: ^20.10.5
     version: 20.10.5
@@ -50,9 +47,6 @@ devDependencies:
   highlight.js:
     specifier: ^11.9.0
     version: 11.9.0
-  itemsjs:
-    specifier: ^2.1.24
-    version: 2.1.24
   mdsvex:
     specifier: ^0.11.0
     version: 0.11.0(svelte@4.2.8)
@@ -680,10 +674,6 @@ packages:
     resolution: {integrity: sha512-2fYGlaDy/qyLlhidX42wAH0KBi2TCjKMH8CHmBXgRlJ3Y+OXTiqsPQ6IWarZKwF1JoUcAJdPogv1d4b0COTpmQ==}
     dependencies:
       '@types/unist': 2.0.6
-    dev: true
-
-  /@types/itemsjs@2.1.6:
-    resolution: {integrity: sha512-86+xKLcdG6aRwTPSel5ZJLj3VdcMNiNA7PRqyayGoCOfltRbVdXTxD64+HM4jl7ApqhqTLn9p561WIDsPOivxw==}
     dev: true
 
   /@types/json-schema@7.0.12:
@@ -1826,10 +1816,6 @@ packages:
 
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
-    dev: true
-
-  /itemsjs@2.1.24:
-    resolution: {integrity: sha512-e9t06r0jiSzC6Rx/rlJTh32VtocOEpwx7K+GCjkLk+ITMWQk5hxtl6yQzuZeRdMSdTFd6yoSLyT8GcDRmVKujw==}
     dev: true
 
   /js-yaml@4.1.0:

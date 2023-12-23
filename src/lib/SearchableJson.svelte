@@ -2,19 +2,30 @@
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
 	import CardList from '$lib/components/ComponentIndex/CardList.svelte';
 	import Seo from '$lib/components/Seo.svelte';
-	import Search from '$lib/components/Search.svelte';
 	import Select from '$lib/components/Select.svelte';
 	import { packageManager } from '$stores/packageManager';
 	import TagsFilter from '$lib/TagsFilter.svelte';
+	import { filterArray, sortArray } from '$utils/arrayUtils';
 
-	export let data;
-	export let tags;
-	export let selectedTags;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	export let data: any[];
+	export let tags: string[];
+	export let selectedTags: string[];
 	export let displayTitle = '';
 	export let displayTitleSingular = '';
 	export let submittingType = '';
 
-	let searchValue;
+	const sortableFields = [
+		{ value: 'stars', label: 'Stars', asc: false },
+		{ value: 'title', label: 'Name', asc: true },
+		{ value: 'date', label: 'Date', asc: false }
+	];
+
+	let searchValue: string;
+	let sort = sortableFields[0];
+
+	$: filteredData = filterArray(data, searchValue);
+	$: sortedData = sortArray(filteredData, sort);
 </script>
 
 <Seo title={displayTitle} />
@@ -31,16 +42,12 @@
 		bind:value={searchValue}
 	/>
 	<div class="inputs">
-		<Search
-			{data}
-			bind:query={searchValue}
-			sortableFields={[
-				{ identifier: 'stars', title: 'Stars', ascending: false },
-				{ identifier: 'title', title: 'Name', ascending: true },
-				{ identifier: 'date', title: 'Date', ascending: false }
-			]}
-			searchableFields={['title', 'description']}
-			on:search={(a) => (data = a.detail.data.items)}
+		<Select
+			items={sortableFields}
+			bind:value={sort}
+			label="Sorting"
+			showIndicator
+			isClearable={false}
 		/>
 		<Select
 			label="Package manager"
@@ -66,8 +73,17 @@
 <hr />
 <section>
 	<CardList>
-		{#each data as cardData}
-			<ComponentCard {...cardData} />
+		{#each sortedData as entry (entry.title)}
+			<ComponentCard
+				title={entry.title}
+				description={entry.description}
+				repository={entry.repository}
+				stars={entry.stars}
+				tags={entry.tags}
+				date={entry.date}
+				npm={entry.npm}
+				version={entry.version}
+			/>
 		{/each}
 	</CardList>
 </section>
