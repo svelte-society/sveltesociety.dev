@@ -3213,5 +3213,13 @@
 		"npm": "@slicemachine/adapter-sveltekit",
 		"category": "Integration",
 		"tags": ["integrations"]
+	},
+	{
+		"title": "svelte-i18next",
+		"repository": "https://github.com/maximux13/svelte-i18next",
+		"description": "Add support to your svelte kit project to use i18next",
+		"npm": "@maximux13/svelte-i18next",
+		"category": "Integration",
+		"tags": ["integrations", "internationalization", "ssr"]
 	}
 ]
