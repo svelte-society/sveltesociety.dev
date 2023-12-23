@@ -3213,5 +3213,93 @@
 		"npm": "@slicemachine/adapter-sveltekit",
 		"category": "Integration",
 		"tags": ["integrations"]
+	},
+	{
+		"title": "svelte-i18next",
+		"repository": "https://github.com/maximux13/svelte-i18next",
+		"description": "Add support to your svelte kit project to use i18next",
+		"npm": "@maximux13/svelte-i18next",
+		"category": "Integration",
+		"tags": ["integrations", "internationalization", "ssr"]
+	},
+	{
+		"title": "@vite-pwa/sveltekit",
+		"repository": "https://github.com/vite-pwa/sveltekit",
+		"description": "Zero-config PWA Plugin for SvelteKit",
+		"npm": "@vite-pwa/sveltekit",
+		"category": "Integration",
+		"tags": []
+	},
+	{
+		"title": "Bits UI",
+		"repository": "https://github.com/huntabyte/bits-ui",
+		"description": "The headless components for Svelte.",
+		"npm": "bits-ui",
+		"category": "Design System",
+		"tags": ["components and libraries"]
+	},
+	{
+		"title": "Formsnap",
+		"repository": "https://github.com/huntabyte/formsnap",
+		"description": "Functional, accessible, and powerful form components for Svelte.",
+		"npm": "formsnap",
+		"category": "Integration",
+		"tags": ["forms and validation"]
+	},
+	{
+		"title": "cmdk-sv",
+		"repository": "https://github.com/huntabyte/cmdk-sv",
+		"description": "cmdk, but for Svelte",
+		"npm": "cmdk-sv",
+		"category": "Display Components",
+		"tags": ["components and libraries"]
+	},
+	{
+		"title": "Ato UI",
+		"repository": "https://github.com/bennymi/ato-ui",
+		"description": "The elemental UI component library for Svelte, built with UnoCSS and Melt UI.",
+		"npm": "ato-ui",
+		"category": "Design System",
+		"tags": ["components and libraries"]
+	},
+	{
+		"title": "svelte-monaco",
+		"repository": "https://github.com/LeoDog896/svelte-monaco",
+		"description": "Reactive two-way, full theme support monaco editor for Svelte(&Kit).",
+		"npm": "svelte-monaco",
+		"category": "Forms & User Input",
+		"tags": ["components and libraries"]
+	},
+	{
+		"title": "SuperNavigation",
+		"repository": "https://github.com/0xDjole/super-navigation",
+		"description": "SuperNavigation is a powerful, customizable navigation library for Svelte and SvelteKit applications.",
+		"npm": "super-navigation",
+		"category": "CSS and Layout",
+		"tags": ["in-page navigation"]
+	},
+	{
+		"title": "svelte-audio-store",
+		"repository": "https://github.com/elron/svelte-audio-store",
+		"description": "A Svelte store for managing and playing audio",
+		"npm": "@elron/svelte-audio-store",
+		"category": "Stores",
+		"tags": ["audio"]
+	},
+	{
+		"title": "Svelte Color Select",
+		"repository": "https://github.com/CaptainCodeman/svelte-color-select",
+		"description": "Okhsv color select for Svelte",
+		"npm": "svelte-color-select",
+		"category": "Display Components",
+		"tags": ["components and libraries"]
+	},
+	{
+		"title": "svelte-enhanced-transitions",
+		"repository": "https://github.com/Thiagolino8/svelte-enhanced-transitions",
+		"description": "Enhance your svelte transitions",
+		"npm": "svelte-enhanced-transitions",
+		"category": "CSS and Layout",
+		"tags": ["in-page navigation"]
 	}
 ]

@@ -48,7 +48,7 @@
 	"svelte-infinite-scroll": { "valid": true },
 	"svelte-formly": { "valid": true },
 	"svelte-websocket-store": { "valid": true },
-	"sveltestrap": { "valid": false },
+	"@sveltestrap/sveltestrap": { "valid": false },
 	"@beyonk/gdpr-cookie-consent-banner": { "valid": true },
 	"@beyonk/svelte-carousel": { "valid": true },
 	"@beyonk/svelte-facebook-customer-chat": { "valid": true },
@@ -389,5 +389,18 @@
 	"svelte-markdown-input": { "valid": true },
 	"svelte-tweakpane-ui": { "valid": true },
 	"trpc-sveltekit": { "valid": true },
-	"konsta": { "valid": false }
+	"konsta": { "valid": false },
+	"@prismicio/svelte": { "valid": true },
+	"@slicemachine/adapter-sveltekit": { "valid": false },
+	"@maximux13/svelte-i18next": { "valid": true },
+	"@vite-pwa/sveltekit": { "valid": true },
+	"bits-ui": { "valid": true },
+	"formsnap": { "valid": true },
+	"cmdk-sv": { "valid": true },
+	"ato-ui": { "valid": true },
+	"svelte-monaco": { "valid": true },
+	"super-navigation": { "valid": true },
+	"@elron/svelte-audio-store": { "valid": true },
+	"svelte-color-select": { "valid": true },
+	"svelte-enhanced-transitions": { "valid": true }
 }
