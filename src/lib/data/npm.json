@@ -37,7 +37,7 @@
 		"date": "2023-07-04T14:27:58.842Z",
 		"support": "^3.54.0 || ^4.0.0"
 	},
-	"stwui": { "version": "0.18.13-next", "date": "2023-11-22T02:13:11.391Z", "support": "^4.2.2" },
+	"stwui": { "version": "0.20.0-next", "date": "2023-12-22T13:15:07.451Z", "support": "^4.2.2" },
 	"@sveltejs/adapter-auto": {
 		"version": "3.0.1",
 		"date": "2023-12-19T19:39:49.339Z",
@@ -59,8 +59,8 @@
 		"support": "Unknown"
 	},
 	"@sveltejs/adapter-node": {
-		"version": "2.0.1",
-		"date": "2023-12-19T19:39:51.596Z",
+		"version": "2.0.2",
+		"date": "2023-12-21T17:29:04.934Z",
 		"support": "Unknown"
 	},
 	"@sveltejs/adapter-static": {
@@ -192,7 +192,11 @@
 		"date": "2023-11-14T22:02:34.319Z",
 		"support": "Unknown"
 	},
-	"sveltestrap": { "version": "5.11.2", "date": "2023-08-31T02:12:52.847Z", "support": "^3.53.1" },
+	"@sveltestrap/sveltestrap": {
+		"version": "6.0.5",
+		"date": "2023-12-22T19:12:56.211Z",
+		"support": "^4.0.0 || ^5.0.0 || ^5.0.0-next.0"
+	},
 	"@beyonk/gdpr-cookie-consent-banner": {
 		"version": "12.1.0",
 		"date": "2023-10-11T15:22:27.659Z",
@@ -354,7 +358,7 @@
 		"date": "2023-09-04T21:18:03.569Z",
 		"support": "Unknown"
 	},
-	"@ikun-ui/core": { "version": "0.0.16", "date": "2023-12-11T05:38:59.942Z", "support": "^4.0.0" },
+	"@ikun-ui/core": { "version": "0.1.0", "date": "2023-12-22T07:22:34.282Z", "support": "^4.0.0" },
 	"carbon-components-svelte": {
 		"version": "0.82.7",
 		"date": "2023-12-17T17:46:39.974Z",
@@ -458,8 +462,8 @@
 	},
 	"smelte": { "version": "1.1.8", "date": "2021-09-06T04:05:31.316Z", "support": "Unknown" },
 	"@melt-ui/svelte": {
-		"version": "0.66.1",
-		"date": "2023-12-20T13:44:46.559Z",
+		"version": "0.66.2",
+		"date": "2023-12-21T20:29:25.444Z",
 		"support": ">=3 <5"
 	},
 	"radix-svelte": { "version": "0.9.0", "date": "2023-07-23T19:43:39.851Z", "support": "^4.1.1" },
@@ -724,9 +728,9 @@
 		"support": "Unknown"
 	},
 	"svelte-easy-crop": {
-		"version": "2.0.1",
-		"date": "2023-01-27T22:03:50.810Z",
-		"support": "Unknown"
+		"version": "2.0.2",
+		"date": "2023-12-22T16:55:21.128Z",
+		"support": "^4.0.0"
 	},
 	"svelte-mui": {
 		"version": "0.5.9",
@@ -1051,8 +1055,8 @@
 		"support": "Unknown"
 	},
 	"flowbite-svelte": {
-		"version": "0.44.20",
-		"date": "2023-11-24T10:11:03.623Z",
+		"version": "0.44.21",
+		"date": "2023-12-22T18:05:17.029Z",
 		"support": "^4.0.0"
 	},
 	"typesafe-i18n": {
@@ -1061,8 +1065,8 @@
 		"support": "Unknown"
 	},
 	"@tolgee/svelte": {
-		"version": "5.18.0",
-		"date": "2023-12-13T15:32:59.471Z",
+		"version": "5.19.0",
+		"date": "2023-12-22T14:18:54.164Z",
 		"support": "^3.29.0 || ^4.0.0"
 	},
 	"sthemer": { "version": "1.3.0", "date": "2022-12-22T17:42:14.040Z", "support": "^3" },
@@ -1154,8 +1158,8 @@
 	},
 	"chat-embed": { "version": "0.0.32", "date": "2023-03-18T13:25:04.673Z", "support": "Unknown" },
 	"lucide-svelte": {
-		"version": "0.299.0",
-		"date": "2023-12-20T08:11:49.935Z",
+		"version": "0.300.0",
+		"date": "2023-12-22T12:56:01.504Z",
 		"support": ">=3 <5"
 	},
 	"yesvelte": {
@@ -1224,8 +1228,8 @@
 	"drab": { "version": "4.1.6", "date": "2023-12-12T18:06:20.879Z", "support": "Unknown" },
 	"supasveltekit": { "version": "0.1.4", "date": "2023-12-02T20:04:37.024Z", "support": "^4.0.0" },
 	"@jill64/sveltekit-adapter-aws": {
-		"version": "1.2.3",
-		"date": "2023-12-19T11:12:53.606Z",
+		"version": "1.2.5",
+		"date": "2023-12-22T19:20:40.087Z",
 		"support": "Unknown"
 	},
 	"sveltekit-adapter-versioned-worker": {
@@ -1260,8 +1264,8 @@
 		"support": "^4.0.0"
 	},
 	"sveltekit-superforms": {
-		"version": "1.12.0",
-		"date": "2023-12-14T22:13:06.140Z",
+		"version": "1.13.1",
+		"date": "2023-12-22T05:36:49.292Z",
 		"support": "3.x || 4.x"
 	},
 	"svelte-reparent": {
@@ -1270,8 +1274,8 @@
 		"support": ">=4.0.0"
 	},
 	"svelte-inline-modal": {
-		"version": "1.1.3",
-		"date": "2023-12-18T03:49:02.509Z",
+		"version": "1.1.4",
+		"date": "2023-12-21T20:14:06.512Z",
 		"support": "^4.0.0"
 	},
 	"@tanstack/svelte-table": {
@@ -1284,7 +1288,7 @@
 		"date": "2023-11-25T14:21:52.980Z",
 		"support": "^3.0.0 || ^4.0.0"
 	},
-	"lucia": { "version": "2.7.5", "date": "2023-12-15T07:43:19.183Z", "support": "Unknown" },
+	"lucia": { "version": "2.7.6", "date": "2023-12-22T03:00:11.168Z", "support": "Unknown" },
 	"@monaco-auth/sveltekit": {
 		"version": "0.1.1",
 		"date": "2023-11-10T13:16:53.719Z",
@@ -1307,13 +1311,13 @@
 		"support": "^4.0.0"
 	},
 	"svelte-exmarkdown": {
-		"version": "3.0.1",
-		"date": "2023-09-21T09:52:28.751Z",
+		"version": "3.0.2",
+		"date": "2023-12-22T00:43:19.500Z",
 		"support": "^3.47.0 || ^4.0.0"
 	},
 	"@sentry/svelte": {
-		"version": "7.90.0",
-		"date": "2023-12-20T14:22:08.704Z",
+		"version": "7.91.0",
+		"date": "2023-12-22T11:36:05.962Z",
 		"support": "3.x || 4.x"
 	},
 	"svelte-french-toast": {
@@ -1549,5 +1553,46 @@
 		"date": "2023-10-24T10:20:50.259Z",
 		"support": "Unknown"
 	},
-	"konsta": { "version": "3.1.2", "date": "2023-11-09T10:04:16.114Z", "support": "Unknown" }
+	"konsta": { "version": "3.1.2", "date": "2023-11-09T10:04:16.114Z", "support": "Unknown" },
+	"@prismicio/svelte": { "version": "1.0.3", "date": "2023-12-14T19:37:15.291Z", "support": ">=4" },
+	"@slicemachine/adapter-sveltekit": {
+		"version": "0.3.31",
+		"date": "2023-12-18T21:14:32.600Z",
+		"support": "^3.54.0 || ^4.0.0-next.0"
+	},
+	"@maximux13/svelte-i18next": {
+		"version": "2.0.0",
+		"date": "2023-11-27T16:08:58.637Z",
+		"support": "^3.55.1 || ^4.0.0"
+	},
+	"@vite-pwa/sveltekit": {
+		"version": "0.3.0",
+		"date": "2023-12-17T14:18:51.954Z",
+		"support": "Unknown"
+	},
+	"bits-ui": { "version": "0.11.8", "date": "2023-12-15T21:55:58.523Z", "support": "^4.0.0" },
+	"formsnap": { "version": "0.4.1", "date": "2023-11-03T17:51:01.868Z", "support": "^4.0.0" },
+	"cmdk-sv": { "version": "0.0.12", "date": "2023-11-20T02:37:24.863Z", "support": "^4.0.0" },
+	"ato-ui": { "version": "0.4.0", "date": "2023-11-25T19:05:39.718Z", "support": ">=4" },
+	"svelte-monaco": { "version": "0.3.0", "date": "2023-09-11T22:31:41.570Z", "support": ">=4.0.0" },
+	"super-navigation": {
+		"version": "0.0.17",
+		"date": "2023-12-21T02:23:12.179Z",
+		"support": "Unknown"
+	},
+	"@elron/svelte-audio-store": {
+		"version": "1.0.0",
+		"date": "2023-08-30T15:51:32.838Z",
+		"support": "^4.0.0"
+	},
+	"svelte-color-select": {
+		"version": "0.0.12",
+		"date": "2023-08-28T18:27:41.427Z",
+		"support": "^3.54.0 || ^4.0.0"
+	},
+	"svelte-enhanced-transitions": {
+		"version": "0.0.8",
+		"date": "2023-09-12T13:52:21.309Z",
+		"support": "^4.0.0"
+	}
 }
