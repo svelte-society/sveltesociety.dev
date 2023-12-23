@@ -3201,7 +3201,7 @@
 		"title": "@prismicio/svelte",
 		"repository": "https://github.com/prismicio/prismic-svelte",
 		"description": "Svelte components to render content from the Prismic API",
-		"npm": "https://npmjs.com/package/@prismicio/svelte",
+		"npm": "@prismicio/svelte",
 		"category": "Integration",
 		"tags": ["integrations", "images", "layout and structure"]
 	},
@@ -3211,6 +3211,7 @@
 		"repository": "https://github.com/prismicio/slice-machine/tree/master/packages/adapter-sveltekit",
 		"description": "Turn your SvelteKit project into a website builder with Prismic's Slice Machine",
 		"npm": "@slicemachine/adapter-sveltekit",
-		"category": "Content Management"
+		"category": "Integration",
+		"tags": ["integrations"]
 	}
 ]
