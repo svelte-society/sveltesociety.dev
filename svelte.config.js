@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import adapter from '@sveltejs/adapter-vercel';
+import adapter from '@sveltejs/adapter-auto';
 import hljs from 'highlight.js';
 import { mdsvex, escapeSvelte } from 'mdsvex';
 import rehypeSlug from 'rehype-slug';
@@ -30,7 +30,7 @@ const config = {
 	],
 	extensions: extensions,
 	kit: {
-		adapter: adapter({ runtime: 'edge' }),
+		adapter: adapter(),
 		alias: {
 			$components: path.resolve('./src/lib/components'),
 			$layout: path.resolve('./src/lib/components/layout'),
