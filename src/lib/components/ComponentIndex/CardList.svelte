@@ -1,6 +1,6 @@
 <script lang="ts">
-	export let title;
-	export let id = `category-${encodeURI(title)}`;
+	export let title: string;
+	export let id = `category-${title}`;
 </script>
 
 <div class="list">
@@ -17,7 +17,6 @@
 		font-weight: 600;
 		line-height: 150%;
 		margin-bottom: 1rem;
-		@apply text-4xl;
 	}
 	.grid {
 		display: grid;

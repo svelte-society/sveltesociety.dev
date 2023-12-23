@@ -4,12 +4,10 @@
 	import { packageManager as manager } from '$stores/packageManager';
 	import { relativeDate } from '$utils/relativeDate';
 
-	export let active = false;
-	export let title = '';
-	export let description = '';
-	export let tags = [];
-	export let stars;
-	export let url = '';
+	export let title: string;
+	export let description: string;
+	export let tags: string[];
+	export let stars: string;
 	export let npm = '';
 	export let repository = undefined;
 	export let date = undefined;
@@ -18,9 +16,7 @@
 	let clipboardCopy = false;
 
 	const copy = () => {
-		copyToClipboard(`${packageManagers[$manager]} ${cleanupNpm(npm)}`).then(
-			() => (clipboardCopy = false)
-		);
+		copyToClipboard(`${packageManagers[$manager]} ${npm}`).then(() => (clipboardCopy = false));
 		clipboardCopy = true;
 	};
 
@@ -29,28 +25,23 @@
 		pnpm: 'pnpm add',
 		yarn: 'yarn add'
 	};
-
-	const cleanupNpm = (npm) => {
-		return npm.replace('https://www.npmjs.com/package/', '');
-	};
 </script>
 
-<div class="card" class:active id="component-{title}">
+<div class="card" id="component-{title}">
 	<div class="card__top">
 		<div>
 			<h3>
 				<a href="#component-{title}">#</a>
-				{#if url || repository}<a href={url || repository}>{title}</a>{:else}<span>{title}</span
-					>{/if}
+				{#if repository}<a href={repository}>{title}</a>{:else}<span>{title}</span>{/if}
 			</h3>
 		</div>
 		<div>
-			{#if (repository || url || '').includes('github')}
-				<a class="repo" title="Go to the source code" href={repository || url}
+			{#if repository.includes('github')}
+				<a class="repo" title="Go to the source code" href={repository}
 					><img style="display:inline" src="/images/github_logo.svg" alt="github logo" /></a
 				>
-			{:else if (repository || url || '').includes('gitlab')}
-				<a class="repo" title="Go to the source code" href={repository || url}
+			{:else if repository.includes('gitlab')}
+				<a class="repo" title="Go to the source code" href={repository}
 					><img style="display:inline" src="/images/gitlab_logo.svg" alt="gitlab logo" /></a
 				>
 				<!-- {:else} -->
@@ -62,7 +53,7 @@
 		<Tag
 			click={() => copy()}
 			variant="copy"
-			title={clipboardCopy ? 'copied!' : `${packageManagers[$manager]} ${cleanupNpm(npm)}`}
+			title={clipboardCopy ? 'copied!' : `${packageManagers[$manager]} ${npm}`}
 		/>
 	{/if}
 	<p class="flex-grow">{description}</p>
@@ -97,7 +88,6 @@
 		word-break: none;
 		font-size: var(--font-300);
 	}
-	.active,
 	.card:hover {
 		background: #e8f3fe;
 	}

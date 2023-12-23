@@ -1,11 +1,12 @@
 <script lang="ts">
 	import Link from './Link.svelte';
-
 	import { page } from '$app/stores';
+
 	const linksLeft = [
 		['/packages', 'packages'],
 		['/templates', 'templates']
 	];
+
 	const linksRight = [
 		['/resources', 'resources'],
 		['/recipes', 'recipes'],

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import CategoryTree from '$lib/components/recipes/CategoryTree.svelte';
 	import Icon from '$lib/components/Icon/index.svelte';
-	import { page } from '$app/stores';
 	import { categories } from '$lib/stores/recipes';
 	import Seo from '$lib/components/Seo.svelte';
 </script>
@@ -39,7 +38,7 @@
 							<a href={category.path} class="list-title">{category.title}</a>
 						</h3>
 						<div class="category-list">
-							<CategoryTree currentPath={$page.url.pathname} nodes={category.children} />
+							<CategoryTree nodes={category.children} />
 						</div>
 					</section>
 				{/if}
