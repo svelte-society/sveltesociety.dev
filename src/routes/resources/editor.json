@@ -1,0 +1,62 @@
+[
+	{
+		"title": "Svelte DevTools",
+		"description": "An extension that allows inspection of Svelte component hierarchy and state in the Firefox and Chrome developer tools",
+		"url": "https://github.com/sveltejs/svelte-devtools"
+	},
+	{
+		"title": "Svelte for VS Code",
+		"description": "Svelte language support for VS Code",
+		"url": "https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode"
+	},
+	{
+		"title": "vim-svelte",
+		"description": "Vim syntax highlighting and indentation for Svelte 3 components.",
+		"url": "https://github.com/evanleck/vim-svelte"
+	},
+	{
+		"title": "vim-svelte-plugin",
+		"description": "Vim syntax and indent plugin for .svelte files",
+		"url": "https://github.com/leafOfTree/vim-svelte-plugin"
+	},
+	{
+		"title": "coc-svelte",
+		"description": "Svelte support for (Neo)Vim",
+		"url": "https://github.com/coc-extensions/coc-svelte"
+	},
+	{
+		"title": "web-mode.el",
+		"description": "Emacs major mode including support for Svelte",
+		"url": "https://github.com/fxbois/web-mode"
+	},
+	{
+		"title": "IntelliJ (WebStorm)",
+		"description": "Svelte Plugin for IntelliJ (WebStorm)",
+		"url": "https://plugins.jetbrains.com/plugin/12375-svelte"
+	},
+	{
+		"title": "Svelte for Sublime Text",
+		"description": "Sublime Text syntax highlighting for Svelte 3 components",
+		"url": "https://packagecontrol.io/packages/Svelte"
+	},
+	{
+		"title": "SvelteNova",
+		"description": "Svelte language support for Nova Editor by Panic",
+		"url": "https://github.com/laosb/SvelteNova"
+	},
+	{
+		"title": "Svelte Component Extractor",
+		"description": "Highlight text in VS Code and extract it to a new component",
+		"url": "https://github.com/proverbial-ninja/vscode-svelte-component-extractor"
+	},
+	{
+		"title": "SvelteKit Snippets",
+		"description": "Svelte & SvelteKit Snippets for VS Code",
+		"url": "https://github.com/stordahl/sveltekit-snippets"
+	},
+	{
+		"title": "SvelteLab",
+		"url": "https://www.sveltelab.dev/",
+		"description": "Supercharged REPL for Svelte. Instantly spin up a SvelteKit project and share it with the world."
+	}
+]

@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
+	import slugify from '@sindresorhus/slugify';
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
-	import List from '$lib/components/ComponentIndex/CardList.svelte';
+	import CardList from '$lib/components/ComponentIndex/CardList.svelte';
 	import SearchLayout from '$layouts/SearchLayout.svelte';
 	import { extractUnique } from '$lib/utils/extractUnique';
 	import Seo from '$lib/components/Seo.svelte';
 	import Search from '$lib/components/Search.svelte';
-	import Select from '../lib/components/Select.svelte';
+	import Select from '$lib/components/Select.svelte';
 	import { packageManager } from '$stores/packageManager';
 
 	export let data;
@@ -19,8 +20,6 @@
 	$: dataToDisplay = data.map((line) => ({ ...dataDefault, ...line }));
 
 	$: categories = extractUnique(dataToDisplay, 'category');
-
-	export let categoryId = {};
 </script>
 
 <Seo title={displayTitle} />
@@ -39,9 +38,7 @@
 				facetsConfig={[
 					{
 						title: 'Category',
-						identifier: 'category',
-						isClearable: true,
-						showIndicator: true
+						identifier: 'category'
 					},
 					{
 						title: 'Tags',
@@ -81,16 +78,62 @@
 	</section>
 	<section slot="items">
 		{#each categories as category}
-			<List
+			<CardList
 				title={category.label || 'Unclassified'}
-				id={categoryId[category.label] || category.label || 'unclassified'}
+				id={slugify(category.label) || 'unclassified'}
 			>
 				{#each dataToDisplay.filter((d) => d.category === category.value || (!categories
 							.map((v) => v.value)
 							.includes(d.category) && category.value === '')) as cardData}
 					<ComponentCard {...cardData} />
 				{/each}
-			</List>
+			</CardList>
 		{/each}
 	</section>
 </SearchLayout>
+
+<style>
+	.controls {
+		display: grid;
+		justify-content: stretch;
+		align-items: center;
+		gap: var(--s-4);
+		font-family: Overpass;
+		position: relative;
+	}
+	.inputs {
+		display: grid;
+		gap: var(--s-2);
+	}
+	.searchbar {
+		padding: 20.5px var(--s-2);
+		border: 2px solid var(--dark-gray);
+		border-radius: 2px;
+		align-self: flex-end;
+		grid-row: 1/2;
+		font-family: Overpass;
+		background: #f3f6f9 url(/images/search-icon.svg) 98% no-repeat;
+		margin: 0;
+	}
+	.searchbar:focus {
+		outline: none;
+		border: 1px solid var(--secondary);
+	}
+	.searchbar-count {
+		position: absolute;
+		top: calc(100% + 1rem);
+		right: 0;
+	}
+
+	@media (min-width: 1280px) {
+		.controls {
+			grid-template-columns: 2fr 1fr;
+		}
+		.inputs {
+			grid-template-columns: repeat(4, auto);
+		}
+		.searchbar {
+			grid-row: auto;
+		}
+	}
+</style>

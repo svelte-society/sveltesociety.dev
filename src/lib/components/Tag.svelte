@@ -1,10 +1,10 @@
-<script>
-	export let title = '';
-	export let variant;
-	export let click = undefined;
+<script lang="ts">
+	export let title: string;
+	export let variant: string;
+	export let click: () => void = undefined;
 </script>
 
-<div on:click={click} class={variant}>{title}</div>
+<div on:click={click} on:keypress={click} class={variant} role="button" tabindex="0">{title}</div>
 
 <style>
 	div {
