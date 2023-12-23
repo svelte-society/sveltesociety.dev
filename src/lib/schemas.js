@@ -1,60 +1,46 @@
 import { z } from 'zod';
 import { packageNameRegex } from 'package-name-regex';
 
-export const componentsSchema = z.array(
+export const packagesSchema = z.array(
 	z.object({
-		title: z.string(),
+		title: z.string().max(50),
 		npm: z.string().regex(packageNameRegex),
 		url: z.string().url().optional(),
 		repository: z.string().url(),
-		description: z.string(),
+		description: z.string().max(250),
 		category: z.enum([
-			'Display Components',
-			'Developer Experience',
-			'Internationalization',
+			'Bundler Plugins',
 			'CSS and Layout',
-			'Icons',
-			'Multimedia',
-			'Testing',
 			'Data Visualisation',
-			'Integration',
+			'Debugging',
 			'Design Pattern',
-			'Stores',
-			'Routers',
-			'SvelteKit Adapters',
 			'Design System',
-			'User Interaction',
-			'Forms & User Input'
+			'Developer Experience',
+			'Display Components',
+			'Forms & User Input',
+			'Icons',
+			'Integration',
+			'Internationalization',
+			'Linting and Formatting',
+			'Multimedia',
+			'Preprocessors',
+			'Routers',
+			'Stores',
+			'SvelteKit Adapters',
+			'Testing',
+			'User Interaction'
 		]),
-		tags: z.array(z.string()).optional()
+		tags: z.array(z.string()).max(5)
 	})
 );
 
 export const templatesSchema = z.array(
 	z.object({
-		title: z.string(),
+		title: z.string().max(50),
 		url: z.string().url().optional(),
 		repository: z.string().url(),
-		description: z.string(),
+		description: z.string().max(250),
 		category: z.enum(['Svelte Add', 'SvelteKit', 'Svelte']),
-		tags: z.array(z.string()).optional()
-	})
-);
-
-export const toolsSchema = z.array(
-	z.object({
-		title: z.string(),
-		npm: z.string().regex(packageNameRegex).optional(),
-		url: z.string().url().optional(),
-		repository: z.string().url(),
-		description: z.string(),
-		category: z.enum([
-			'Debugging',
-			'Linting and Formatting',
-			'Editor Extensions',
-			'Bundler Plugins',
-			'Preprocessors'
-		]),
-		tags: z.array(z.string()).optional()
+		tags: z.array(z.string()).max(5)
 	})
 );

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Icon from '$lib/components/Icon/index.svelte';
 	import societies from './societies.json';
 </script>

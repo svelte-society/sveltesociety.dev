@@ -1,18 +1,9 @@
-import components from '../routes/components/components.json';
-import tools from '../routes/tools/tools.json';
+import packages from '../routes/packages/packages.json';
 import templates from '../routes/templates/templates.json';
 import { cheatSheet } from '../routes/cheatsheet/cheat-sheet';
 
 export type SearchItem = {
-	type:
-		| 'Component'
-		| 'Tool'
-		| 'Template'
-		| 'Recipe Category'
-		| 'Recipe'
-		| 'CheatSheet'
-		| 'Event'
-		| 'Link';
+	type: 'Package' | 'Template' | 'Recipe Category' | 'Recipe' | 'CheatSheet' | 'Event' | 'Link';
 	url: string;
 	tags: Array<string>;
 	title: string;
@@ -264,20 +255,12 @@ const allItems: Array<SearchItem> = [
 		url: 'https://www.svelteradio.com/'
 	},
 	{
-		title: 'Tools',
-		tags: ['tools'],
+		title: 'Packages',
+		tags: ['Packages'],
 		type: 'Link',
-		description: 'SvelteSociety Tools page',
-		search: 'tools',
-		url: '/tools'
-	},
-	{
-		title: 'Components',
-		tags: ['components'],
-		type: 'Link',
-		description: 'SvelteSociety Components page',
-		search: 'components',
-		url: '/components'
+		description: 'SvelteSociety Packages page',
+		search: 'packages',
+		url: '/packages'
 	},
 	{
 		title: 'Templates',
@@ -319,21 +302,13 @@ const allItems: Array<SearchItem> = [
 		search: 'cheat sheet cheatsheet',
 		url: '/cheatsheet'
 	},
-	...(components as Array<JsonItem>).map<SearchItem>((item) => ({
+	...(packages as Array<JsonItem>).map<SearchItem>((item) => ({
 		title: item.title,
 		description: item.description,
 		tags: item.tags,
-		type: 'Component',
+		type: 'Package',
 		search: searchKeywords(item.title, item.description, ...(item.tags ?? []), item.npm ?? ''),
-		url: '/components#component-' + item.title
-	})),
-	...(tools as Array<JsonItem>).map<SearchItem>((item) => ({
-		title: item.title,
-		description: item.description,
-		tags: item.tags,
-		type: 'Tool',
-		search: searchKeywords(item.title, item.description, ...(item.tags ?? []), item.npm ?? ''),
-		url: '/tools#component-' + item.title
+		url: '/packages#component-' + item.title
 	})),
 	...(templates as Array<JsonItem>).map<SearchItem>((item) => ({
 		title: item.title,

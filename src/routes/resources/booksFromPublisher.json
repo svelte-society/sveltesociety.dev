@@ -1,0 +1,22 @@
+[
+	{
+		"title": "Svelte 3 Up and Running",
+		"url": "https://www.amazon.com/dp/B08D6T6BKS/",
+		"description": "by Alessandro Segala"
+	},
+	{
+		"title": "Svelte and Sapper in Action",
+		"url": "https://www.manning.com/books/svelte-and-sapper-in-action",
+		"description": "by R. Mark Volkmann"
+	},
+	{
+		"title": "SvelteKit Up and Running",
+		"url": "https://sveltekitbook.dev",
+		"description": "by Dylan Hildenbrand"
+	},
+	{
+		"title": "Svelte with Test-Driven Development",
+		"url": "https://www.amazon.com/dp/1837638330",
+		"description": "by Daniel Irvine"
+	}
+]

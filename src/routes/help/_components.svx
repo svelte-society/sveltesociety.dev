@@ -19,11 +19,11 @@ tr:nth-of-type(2n) {
 }
 </style>
 
-# How to submit a new component?
+# How to submit a new package?
 
-To add a new component on the website, the process is rather simple.
+To add a new package on the website, the process is rather simple.
 
-You have to add your component in [components.json](https://github.com/svelte-society/sveltesociety.dev/blob/master/src/routes/components/components.json)
+You have to add your package in [packages.json](https://github.com/svelte-society/sveltesociety.dev/blob/main/src/routes/packages/packages.json)
 
 ## Forking the project
 
@@ -31,7 +31,7 @@ You can fork the [GitHub project](https://github.com/svelte-society/sveltesociet
 
 ## Edit the file
 
-You can edit and propose your changes [directly in GitHub](https://github.com/svelte-society/sveltesociety.dev/edit/master/src/pages/components/components.json)
+You can edit and propose your changes [directly in GitHub](https://github.com/svelte-society/sveltesociety.dev/edit/main/src/routes/packages/packages.json)
 
 # What information should I give ?
 

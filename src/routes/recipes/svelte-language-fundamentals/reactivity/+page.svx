@@ -25,6 +25,7 @@ The following works as expected and update the dom:
 </script>
 
 <button on:click={updateNum}>Update</button>
+
 <p>{num}</p>
 ```
 
@@ -91,6 +92,7 @@ This is the sort of problem you may run into when dealing with objects. Since ob
 </script>
 
 <button on:click={updateNum}>Update</button>
+
 <p>{obj.num}</p>
 ```
 
@@ -112,6 +114,7 @@ Another situation that can sometimes cause unexpected results is when you reassi
 </script>
 
 <button on:click={() => updateNum(obj)}>Update</button>
+
 <p>{num}</p>
 ```
 
