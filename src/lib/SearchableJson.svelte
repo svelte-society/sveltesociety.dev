@@ -36,7 +36,8 @@
 			bind:query={searchValue}
 			sortableFields={[
 				{ identifier: 'stars', title: 'Stars', ascending: false },
-				{ identifier: 'title', title: 'Name', ascending: true }
+				{ identifier: 'title', title: 'Name', ascending: true },
+				{ identifier: 'date', title: 'Date', ascending: false }
 			]}
 			searchableFields={['title', 'description']}
 			on:search={(a) => (data = a.detail.data.items)}

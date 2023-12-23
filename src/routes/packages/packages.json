@@ -2210,7 +2210,7 @@
 	},
 	{
 		"title": "svelte-hover-draw-svg",
-		"repository": "https://github.com/davipon/svelte-hover-draw-svg",
+		"repository": "https://github.com/wd-David/svelte-hover-draw-svg",
 		"description": "A lightweight Svelte component to draw SVG on hover.",
 		"npm": "svelte-hover-draw-svg",
 		"category": "User Interaction",
@@ -2783,7 +2783,7 @@
 	},
 	{
 		"title": "svodals",
-		"repository": "https://github.com/mavthedev/svodals",
+		"repository": "https://github.com/chadulous/svodals",
 		"description": "Cybernatically enhanced modals",
 		"npm": "@mavthedev/svodals",
 		"category": "User Interaction",
