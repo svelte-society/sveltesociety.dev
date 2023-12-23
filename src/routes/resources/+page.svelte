@@ -1,14 +1,13 @@
 <script lang="ts">
 	import booksFromPublisher from './booksFromPublisher.json';
 	import booksSelfPublished from './booksSelfPublished.json';
-	import extensions from './extensions.json';
-	import misc from './misc.json';
+	import editor from './editor.json';
 	import videoCourses from './videoCourses.json';
 	import youtube from './youtube.json';
 </script>
 
 <div>
-	<h2>Books</h2>
+	<h2 id="books">Books</h2>
 
 	<div>There are a few books from major publishers:</div>
 	<ul>
@@ -28,7 +27,7 @@
 		{/each}
 	</ul>
 
-	<h2>Videos</h2>
+	<h2 id="videos">Videos</h2>
 
 	<div>Rich Harris, the creator of Svelte, taught a course:</div>
 	<ul>
@@ -55,31 +54,21 @@
 		{/each}
 	</ul>
 
-	<h2>Extensions</h2>
+	<h2 id="editor-support">Editor Support</h2>
 
 	<ul>
-		{#each extensions as { title, url, description }}
+		{#each editor as { title, url, description }}
 			<li><a href={url} target="_blank">{title}</a> - {description}</li>
 		{/each}
 	</ul>
 
-	<h2>Discovery</h2>
+	<h2 id="discovery">Discovery</h2>
 
 	<ul>
 		<li>
 			For a curated list of SvelteKit examples in the wild, see
 			<a href="https://github.com/janosh/awesome-sveltekit" target="_blank">awesome-sveltekit</a>
 		</li>
-	</ul>
-
-	<h2>Miscellaneous</h2>
-
-	<ul>
-		{#each misc as { title, url, description }}
-			<li>
-				<a href={url} target="_blank">{title}</a>{#if description}&nbsp;- {description}{/if}
-			</li>
-		{/each}
 	</ul>
 </div>
 
