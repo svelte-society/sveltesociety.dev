@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '$styles/reset.css';
+	import '$styles/app.css';
 	import '$styles/root.css';
 	import '$styles/globals.css';
 	import Header from '$layout/Header.svelte';

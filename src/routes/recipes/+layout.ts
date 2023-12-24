@@ -1,5 +1,4 @@
 import { error } from '@sveltejs/kit';
-import '$styles/highlight.css';
 import { getPages } from '$lib/pageList';
 import type { SvxMetadata } from '$lib/pageList';
 import type { RecipeMetadata } from '$lib/Mdsvx';

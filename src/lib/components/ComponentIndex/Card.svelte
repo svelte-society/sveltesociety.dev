@@ -58,7 +58,7 @@
 	{/if}
 	<p class="flex-grow">{description}</p>
 	{#if tags}
-		<div class="card__tags">
+		<div class="flex flex-row flex-wrap mb-4">
 			{#each tags as tag}
 				<Tag title={tag} variant="blue" />
 			{/each}
@@ -91,12 +91,6 @@
 	.card:hover {
 		background: #e8f3fe;
 	}
-	.card__tags {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		margin-bottom: 1rem;
-	}
 	.card__top {
 		display: flex;
 		justify-content: space-between;
@@ -105,7 +99,7 @@
 	.card__bottom {
 		display: flex;
 		justify-content: space-between;
-		align-items: end;
+		align-items: flex-end;
 	}
 	.card__bottom > * {
 		white-space: nowrap;
