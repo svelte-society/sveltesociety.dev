@@ -4,9 +4,9 @@
 	import { packageManager as manager } from '$stores/packageManager';
 	import { relativeDate } from '$utils/relativeDate';
 
-	export let title = '';
-	export let description = '';
-	export let tags: string[] = [];
+	export let title: string;
+	export let description: string;
+	export let tags: string[];
 	export let stars: string;
 	export let npm = '';
 	export let repository = undefined;
@@ -16,9 +16,7 @@
 	let clipboardCopy = false;
 
 	const copy = () => {
-		copyToClipboard(`${packageManagers[$manager]} ${cleanupNpm(npm)}`).then(
-			() => (clipboardCopy = false)
-		);
+		copyToClipboard(`${packageManagers[$manager]} ${npm}`).then(() => (clipboardCopy = false));
 		clipboardCopy = true;
 	};
 

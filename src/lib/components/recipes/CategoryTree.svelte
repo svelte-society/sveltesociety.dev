@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import type { Recipe } from '$lib/stores/recipes';
 
-	export let nodes;
+	export let nodes: Recipe[];
 </script>
 
 <ul>

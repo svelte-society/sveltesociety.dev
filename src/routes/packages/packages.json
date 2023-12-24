@@ -2452,7 +2452,7 @@
 		"title": "QR Code generator for SvelteKit",
 		"repository": "https://github.com/bonosoft/sveltekit-qrcode",
 		"description": "Use QR codes to initialise your onetime password generator or transfer other information",
-		"npm": "@bonosoft/sveltekit-codeentry",
+		"npm": "@bonosoft/sveltekit-qrcode",
 		"category": "User Interaction",
 		"tags": ["auth", "interactions"]
 	},
@@ -2468,7 +2468,7 @@
 		"title": "Code Entry component for SvelteKit",
 		"repository": "https://github.com/bonosoft/sveltekit-codeentry",
 		"description": "Allows user to enter pin or numeric codes for example onetime passwords",
-		"npm": "@bonosoft/sveltekit-qrcode",
+		"npm": "@bonosoft/sveltekit-codeentry",
 		"category": "Forms & User Input",
 		"tags": ["auth"]
 	},
