@@ -1,8 +1,9 @@
 <script lang="ts">
 	import Icon from '$lib/components/Icon/index.svelte';
-	export let title,
-		date,
-		url = '';
+
+	export let title: string;
+	export let date: string;
+	export let url = '';
 
 	const MILLIS_IN_A_DAY = 24 * 60 * 60 * 1000;
 	$: isPast = Date.now() - new Date(date).getTime() > MILLIS_IN_A_DAY;

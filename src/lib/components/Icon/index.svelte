@@ -1,7 +1,8 @@
 <script lang="ts">
-	export let name;
+	export let name: string;
 	export let width = '24px';
 	export let height = '24px';
+
 	let icons = [
 		{
 			box: '24 24',
@@ -142,6 +143,7 @@
     />`
 		}
 	];
+
 	let displayIcon = icons.find((e) => e.name === name);
 	if (!displayIcon) {
 		throw Error(`Could not find icon with name ${name}`);

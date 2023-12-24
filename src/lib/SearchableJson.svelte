@@ -9,12 +9,19 @@
 	import Select from '$lib/components/Select.svelte';
 	import { packageManager } from '$stores/packageManager';
 
-	export let data;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	export let data: any[];
 	export let displayTitle = '';
 	export let displayTitleSingular = '';
 	export let submittingType = '';
 
-	let searchValue;
+	const sortableFields = [
+		{ identifier: 'stars', title: 'Stars', ascending: false },
+		{ identifier: 'title', title: 'Name', ascending: true },
+		{ identifier: 'date', title: 'Date', ascending: false }
+	];
+
+	let searchValue: string;
 
 	const dataDefault = { category: '' };
 	$: dataToDisplay = data.map((line) => ({ ...dataDefault, ...line }));
@@ -30,11 +37,7 @@
 			<Search
 				data={dataToDisplay}
 				bind:query={searchValue}
-				sortableFields={[
-					{ identifier: 'stars', title: 'Stars', ascending: false },
-					{ identifier: 'title', title: 'Name', ascending: true },
-					{ identifier: 'date', title: 'Date', ascending: false }
-				]}
+				{sortableFields}
 				searchableFields={['title', 'description']}
 				facetsConfig={[
 					{
@@ -79,14 +82,20 @@
 	</section>
 	<section slot="items">
 		{#each categories as category}
-			<CardList
-				title={category.label || 'Unclassified'}
-				id={slugify(category.label) || 'unclassified'}
-			>
+			<CardList title={category.label} id={slugify(category.label)}>
 				{#each dataToDisplay.filter((d) => d.category === category.value || (!categories
 							.map((v) => v.value)
-							.includes(d.category) && category.value === '')) as cardData}
-					<ComponentCard {...cardData} />
+							.includes(d.category) && category.value === '')) as entry (entry.title)}
+					<ComponentCard
+						title={entry.title}
+						description={entry.description}
+						repository={entry.repository}
+						stars={entry.stars}
+						tags={entry.tags}
+						date={entry.date}
+						npm={entry.npm}
+						version={entry.version}
+					/>
 				{/each}
 			</CardList>
 		{/each}
