@@ -3301,5 +3301,13 @@
 		"npm": "svelte-enhanced-transitions",
 		"category": "CSS and Layout",
 		"tags": ["in-page navigation"]
+	},
+	{
+		"title": "Amplify Adapter",
+		"repository": "https://github.com/gzimbron/amplify-adapter",
+		"description": "Deploy Sveltekit SSR application to Aws Amplify (CI/CD)",
+		"npm": "amplify-adapter",
+		"category": "SvelteKit Adapters",
+		"tags": ["ssr","components and libraries","layout and structure"]
 	}
 ]
