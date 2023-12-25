@@ -11,15 +11,10 @@
 	export let data: any[];
 	export let tags: string[];
 	export let selectedTags: string[];
+	export let sortableFields: { value: string; label: string; asc: boolean }[];
 	export let displayTitle = '';
 	export let displayTitleSingular = '';
 	export let submittingType = '';
-
-	const sortableFields = [
-		{ value: 'stars', label: 'Stars', asc: false },
-		{ value: 'title', label: 'Name', asc: true },
-		{ value: 'date', label: 'Date', asc: false }
-	];
 
 	let searchValue: string;
 	let sort = sortableFields[0];
