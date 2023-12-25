@@ -5,18 +5,15 @@
 	export let selectedTags: string[];
 </script>
 
-<div>
+<div data-sveltekit-noscroll>
 	{#each selectedTags as tag}
 		{@const newTags = selectedTags.filter((t) => t !== tag)}
+		{@const title = tag.replaceAll('-', ' ')}
 		{#if newTags.length === 0}
-			<a data-sveltekit-noscroll class="active" href={`${$page.url.pathname}`}>{tag}</a>
+			<a class="active" href={`${$page.url.pathname}`}>{title}</a>
 		{:else}
-			<a
-				data-sveltekit-noscroll
-				class="active"
-				href={`${$page.url.pathname}?${newTags.map((t) => `tag=${t}`).join('&')}`}
-			>
-				{tag}
+			<a class="active" href={`${$page.url.pathname}?${newTags.map((t) => `tag=${t}`).join('&')}`}>
+				{title}
 			</a>
 		{/if}
 	{/each}
@@ -24,11 +21,9 @@
 	{#each tags as tag}
 		{#if !selectedTags.includes(tag)}
 			{@const newTags = [...selectedTags, tag]}
-			<a
-				data-sveltekit-noscroll
-				href={`${$page.url.pathname}?${newTags.map((t) => `tag=${t}`).join('&')}`}
-			>
-				{tag}
+			{@const title = tag.replaceAll('-', ' ')}
+			<a href={`${$page.url.pathname}?${newTags.map((t) => `tag=${t}`).join('&')}`}>
+				{title}
 			</a>
 		{/if}
 	{/each}

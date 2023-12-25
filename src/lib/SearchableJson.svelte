@@ -4,7 +4,7 @@
 	import Seo from '$lib/components/Seo.svelte';
 	import Select from '$lib/components/Select.svelte';
 	import { packageManager } from '$stores/packageManager';
-	import TagsFilter from '$lib/TagsFilter.svelte';
+	import TagFilters from '$lib/TagFilters.svelte';
 	import { filterArray, sortArray } from '$utils/arrayUtils';
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -27,7 +27,7 @@
 
 <h1>{displayTitle}</h1>
 
-<TagsFilter {tags} {selectedTags} />
+<TagFilters {tags} {selectedTags} />
 <br />
 <section class="controls">
 	<input
