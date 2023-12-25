@@ -3308,6 +3308,6 @@
 		"description": "Deploy Sveltekit SSR application to Aws Amplify (CI/CD)",
 		"npm": "amplify-adapter",
 		"category": "SvelteKit Adapters",
-		"tags": ["ssr","components and libraries","layout and structure"]
+		"tags": ["ssr", "components and libraries", "layout and structure"]
 	}
 ]
