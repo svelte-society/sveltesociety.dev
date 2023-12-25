@@ -2601,6 +2601,22 @@
 		"tags": ["integrations"]
 	},
 	{
+		"title": "@jill64/sentry-sveltekit-cloudflare",
+		"repository": "https://github.com/jill64/sentry-sveltekit-cloudflare",
+		"description": "Unofficial Sentry Integration for SvelteKit Cloudflare Adapter",
+		"npm": "@jill64/sentry-sveltekit-cloudflare",
+		"category": "Integration",
+		"tags": []
+	},
+	{
+		"title": "@jill64/sentry-sveltekit-edge",
+		"repository": "https://github.com/jill64/sentry-sveltekit-edge",
+		"description": "Unofficial Sentry integration for SvelteKit edge runtime",
+		"npm": "@jill64/sentry-sveltekit-edge",
+		"category": "Integration",
+		"tags": []
+	},
+	{
 		"title": "SvelteKit-Adapter-Versioned-Worker",
 		"repository": "https://github.com/hedgehog125/SvelteKit-Adapter-Versioned-Worker",
 		"description": "A SvelteKit adapter for generating service workers to make PWAs work offline",
@@ -2684,6 +2700,22 @@
 		"npm": "svelte-inline-modal",
 		"category": "User Interaction",
 		"tags": ["interactions", "layout and structure"]
+	},
+	{
+		"title": "@jill64/svelte-input",
+		"repository": "https://github.com/jill64/svelte-input",
+		"description": "Functional Input Component Set for Svelte",
+		"npm": "@jill64/svelte-input",
+		"category": "Display Components",
+		"tags": ["inputs and widgets"]
+	},
+	{
+		"title": "@jill64/svelte-toast",
+		"repository": "https://github.com/jill64/svelte-toast",
+		"description": "Pre-Themed Responsive Toast Notification",
+		"npm": "@jill64/svelte-toast",
+		"category": "User Interaction",
+		"tags": ["components and libraries", "notifications"]
 	},
 	{
 		"title": "@tanstack/svelte-table",
