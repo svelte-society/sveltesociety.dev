@@ -9,9 +9,13 @@
 	{#each selectedTags as tag}
 		{@const newTags = selectedTags.filter((t) => t !== tag)}
 		{#if newTags.length === 0}
-			<a class="active" href={`${$page.url.pathname}`}>{tag}</a>
+			<a data-sveltekit-noscroll class="active" href={`${$page.url.pathname}`}>{tag}</a>
 		{:else}
-			<a class="active" href={`${$page.url.pathname}?${newTags.map((t) => `tag=${t}`).join('&')}`}>
+			<a
+				data-sveltekit-noscroll
+				class="active"
+				href={`${$page.url.pathname}?${newTags.map((t) => `tag=${t}`).join('&')}`}
+			>
 				{tag}
 			</a>
 		{/if}
@@ -20,7 +24,12 @@
 	{#each tags as tag}
 		{#if !selectedTags.includes(tag)}
 			{@const newTags = [...selectedTags, tag]}
-			<a href={`${$page.url.pathname}?${newTags.map((t) => `tag=${t}`).join('&')}`}>{tag}</a>
+			<a
+				data-sveltekit-noscroll
+				href={`${$page.url.pathname}?${newTags.map((t) => `tag=${t}`).join('&')}`}
+			>
+				{tag}
+			</a>
 		{/if}
 	{/each}
 </div>
