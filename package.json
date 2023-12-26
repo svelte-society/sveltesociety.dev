@@ -11,8 +11,8 @@
 		"sync": "svelte-kit sync",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"test": "vitest",
-		"lint": "prettier --check ./**/*.{js,cjs,ts,css,md,svx,svelte,html,json} && eslint . && node scripts/validateData.js",
-		"format": "prettier --write ./**/*.{js,cjs,ts,css,md,svx,svelte,html,json}"
+		"lint": "prettier --check '**/*' --ignore-unknown && eslint . && node scripts/validateData.js",
+		"format": "prettier --write '**/*' --ignore-unknown"
 	},
 	"devDependencies": {
 		"@macfja/svelte-persistent-store": "2.4.1",
@@ -35,7 +35,7 @@
 		"mdsvex": "^0.11.0",
 		"package-name-regex": "^3.1.1",
 		"pako": "^2.1.0",
-		"prettier": "^3.1.1",
+		"prettier": "^4.0.0-alpha.8",
 		"prettier-plugin-svelte": "^3.1.2",
 		"publint": "^0.2.6",
 		"rehype-slug": "^6.0.0",
