@@ -17,8 +17,8 @@
 	},
 	"svelte-pilot": { "version": "0.6.2", "date": "2023-12-06T03:33:58.539Z", "support": "^4" },
 	"super-sitemap": {
-		"version": "0.14.12",
-		"date": "2023-12-11T00:19:51.413Z",
+		"version": "0.14.13",
+		"date": "2023-12-25T21:18:57.992Z",
 		"support": "^4.0.0"
 	},
 	"svelte-scrollactive": {
@@ -207,11 +207,6 @@
 		"date": "2022-01-13T16:20:23.849Z",
 		"support": "Unknown"
 	},
-	"@beyonk/svelte-facebook-customer-chat": {
-		"version": "1.0.0",
-		"date": "2019-05-25T17:04:33.458Z",
-		"support": "Unknown"
-	},
 	"@beyonk/svelte-facebook-pixel": {
 		"version": "3.0.1",
 		"date": "2022-05-03T16:13:38.720Z",
@@ -245,11 +240,6 @@
 	"svelte-simple-icons": {
 		"version": "1.0.3",
 		"date": "2019-10-30T09:39:51.719Z",
-		"support": "Unknown"
-	},
-	"@beyonk/svelte-trustpilot": {
-		"version": "1.0.2",
-		"date": "2019-06-22T07:13:07.617Z",
 		"support": "Unknown"
 	},
 	"@bjornlu/svelte-router": {
@@ -288,11 +278,6 @@
 		"support": "^3.54.0 || ^4.0.0"
 	},
 	"svelte-ruler": { "version": "0.19.0", "date": "2023-06-02T16:20:49.677Z", "support": "Unknown" },
-	"waxwing-rating": {
-		"version": "0.0.2",
-		"date": "2019-05-28T21:53:16.573Z",
-		"support": "Unknown"
-	},
 	"@dopry/svelte-auth0": {
 		"version": "2.0.0",
 		"date": "2021-04-01T17:34:25.430Z",
@@ -306,11 +291,6 @@
 	"@easylogic/svelte-summernote": {
 		"version": "0.0.3",
 		"date": "2020-03-22T15:16:23.015Z",
-		"support": "Unknown"
-	},
-	"svelte-dev-helper": {
-		"version": "1.1.9",
-		"date": "2018-07-04T15:39:03.543Z",
 		"support": "Unknown"
 	},
 	"svelte-routing": {
@@ -544,7 +524,6 @@
 		"date": "2021-09-23T13:39:51.058Z",
 		"support": "Unknown"
 	},
-	"svelte-test": { "version": "0.4.0", "date": "2019-06-14T19:00:10.394Z", "support": "Unknown" },
 	"svelte-fusioncharts": {
 		"version": "1.0.0",
 		"date": "2019-09-11T13:17:41.018Z",
@@ -554,11 +533,6 @@
 		"version": "2.5.2",
 		"date": "2023-02-09T16:21:48.586Z",
 		"support": "Unknown"
-	},
-	"svelte-hash-router": {
-		"version": "1.0.1",
-		"date": "2019-06-16T16:31:41.755Z",
-		"support": "^3.5.1"
 	},
 	"svelte-color-picker": {
 		"version": "1.0.7",
@@ -592,12 +566,6 @@
 		"date": "2020-01-16T06:53:51.360Z",
 		"support": ">= 3"
 	},
-	"svelte-image-encoder": {
-		"version": "1.2.5",
-		"date": "2019-06-11T00:53:44.024Z",
-		"support": "Unknown"
-	},
-	"multicarousel": { "version": "3.0.1", "date": "2019-04-24T01:15:37.438Z", "support": "Unknown" },
 	"svelte-heatmap": {
 		"version": "1.0.2",
 		"date": "2020-06-06T19:20:26.563Z",
@@ -659,11 +627,6 @@
 		"support": "Unknown"
 	},
 	"routify": { "version": "2.0.1", "date": "2023-07-27T20:27:54.916Z", "support": "Unknown" },
-	"@sveltejs/gestures": {
-		"version": "0.0.1",
-		"date": "2019-03-05T22:29:24.286Z",
-		"support": "Unknown"
-	},
 	"@sveltejs/gl": { "version": "0.0.37", "date": "2020-02-18T18:25:21.038Z", "support": "Unknown" },
 	"@sveltejs/svelte-repl": {
 		"version": "0.4.1",
@@ -673,11 +636,6 @@
 	"@sveltejs/svelte-scroller": {
 		"version": "2.0.7",
 		"date": "2021-06-10T04:13:51.114Z",
-		"support": "Unknown"
-	},
-	"@sveltejs/svelte-subdivide": {
-		"version": "2.2.0",
-		"date": "2018-06-14T19:50:18.577Z",
 		"support": "Unknown"
 	},
 	"@sveltejs/svelte-virtual-list": {
@@ -706,11 +664,6 @@
 		"support": "^3.54.0 || ^4.0.0"
 	},
 	"svelte-apollo": { "version": "0.5.0", "date": "2022-02-21T22:26:28.006Z", "support": "^3" },
-	"svelte-observable": {
-		"version": "0.4.0",
-		"date": "2019-04-26T20:13:35.925Z",
-		"support": "^3.0.0"
-	},
 	"sveltemantic": {
 		"version": "0.1.1-alpha.2",
 		"date": "2019-08-22T03:56:54.500Z",
@@ -1116,13 +1069,13 @@
 		"support": "^4.0.0"
 	},
 	"@perfectthings/ui": {
-		"version": "9.3.2",
-		"date": "2023-12-17T21:15:28.841Z",
+		"version": "9.3.3",
+		"date": "2023-12-25T22:45:47.681Z",
 		"support": "Unknown"
 	},
 	"@tanstack/svelte-query": {
-		"version": "5.14.2",
-		"date": "2023-12-19T20:38:08.144Z",
+		"version": "5.14.6",
+		"date": "2023-12-23T16:04:22.120Z",
 		"support": "^3.54.0 || ^4.0.0 || ^5.0.0-next.0"
 	},
 	"@pragmatic-engineering/svelte-form-builder-community": {
@@ -1158,8 +1111,8 @@
 	},
 	"chat-embed": { "version": "0.0.32", "date": "2023-03-18T13:25:04.673Z", "support": "Unknown" },
 	"lucide-svelte": {
-		"version": "0.300.0",
-		"date": "2023-12-22T12:56:01.504Z",
+		"version": "0.302.0",
+		"date": "2023-12-25T10:30:53.293Z",
 		"support": ">=3 <5"
 	},
 	"yesvelte": {
@@ -1175,6 +1128,11 @@
 	"@bonosoft/sveltekit-progress": {
 		"version": "0.0.1",
 		"date": "2023-03-27T06:42:19.211Z",
+		"support": "^3.54.0"
+	},
+	"@bonosoft/sveltekit-codeentry": {
+		"version": "0.0.3",
+		"date": "2023-04-03T21:16:12.509Z",
 		"support": "^3.54.0"
 	},
 	"@radar-azdelta/svelte-datatable": {
@@ -1232,6 +1190,16 @@
 		"date": "2023-12-22T19:20:40.087Z",
 		"support": "Unknown"
 	},
+	"@jill64/sentry-sveltekit-cloudflare": {
+		"version": "1.7.0",
+		"date": "2023-12-20T03:06:34.015Z",
+		"support": "Unknown"
+	},
+	"@jill64/sentry-sveltekit-edge": {
+		"version": "1.2.0",
+		"date": "2023-12-20T08:14:18.873Z",
+		"support": "Unknown"
+	},
 	"sveltekit-adapter-versioned-worker": {
 		"version": "1.0.1",
 		"date": "2023-09-08T20:33:20.084Z",
@@ -1278,6 +1246,16 @@
 		"date": "2023-12-21T20:14:06.512Z",
 		"support": "^4.0.0"
 	},
+	"@jill64/svelte-input": {
+		"version": "1.6.6",
+		"date": "2023-12-20T07:49:40.145Z",
+		"support": "^4.0.0"
+	},
+	"@jill64/svelte-toast": {
+		"version": "1.3.7",
+		"date": "2023-12-22T05:34:52.002Z",
+		"support": "^4.0.0"
+	},
 	"@tanstack/svelte-table": {
 		"version": "8.11.2",
 		"date": "2023-12-20T18:04:17.531Z",
@@ -1306,8 +1284,8 @@
 		"support": "Unknown"
 	},
 	"svelte-markdown": {
-		"version": "0.4.0",
-		"date": "2023-08-29T18:14:36.552Z",
+		"version": "0.4.1",
+		"date": "2023-12-25T15:34:13.274Z",
 		"support": "^4.0.0"
 	},
 	"svelte-exmarkdown": {
@@ -1358,8 +1336,8 @@
 		"support": "^3.0.0"
 	},
 	"@neoconfetti/svelte": {
-		"version": "2.2.0",
-		"date": "2023-12-19T19:12:39.751Z",
+		"version": "2.2.1",
+		"date": "2023-12-24T08:59:28.049Z",
 		"support": "Unknown"
 	},
 	"svelte-headless-table": {
@@ -1429,8 +1407,6 @@
 		"date": "2021-08-12T09:13:48.921Z",
 		"support": "^3.0.0"
 	},
-	"sveltify": { "version": "3.0.0", "date": "2019-05-01T22:44:39.919Z", "support": "Unknown" },
-	"gulp-svelte": { "version": "0.8.0", "date": "2018-12-17T09:01:59.954Z", "support": "Unknown" },
 	"sveltejs-brunch": {
 		"version": "1.0.1",
 		"date": "2021-07-27T22:26:01.518Z",
@@ -1447,11 +1423,6 @@
 		"support": "Unknown"
 	},
 	"mdsvex": { "version": "0.11.0", "date": "2023-06-24T23:41:27.741Z", "support": ">=3 <5" },
-	"svelte-preprocess-less": {
-		"version": "0.4.0",
-		"date": "2019-05-01T20:24:16.092Z",
-		"support": "Unknown"
-	},
 	"svelte-switch-case": {
 		"version": "2.0.0",
 		"date": "2022-08-31T22:51:03.399Z",
@@ -1544,8 +1515,8 @@
 		"support": "^3.54.0 || ^4.0.0"
 	},
 	"svelte-tweakpane-ui": {
-		"version": "1.1.3",
-		"date": "2023-12-18T21:49:47.702Z",
+		"version": "1.1.4",
+		"date": "2023-12-23T21:05:01.457Z",
 		"support": "^4.0.0"
 	},
 	"trpc-sveltekit": {
@@ -1571,7 +1542,7 @@
 		"support": "Unknown"
 	},
 	"bits-ui": { "version": "0.11.8", "date": "2023-12-15T21:55:58.523Z", "support": "^4.0.0" },
-	"formsnap": { "version": "0.4.1", "date": "2023-11-03T17:51:01.868Z", "support": "^4.0.0" },
+	"formsnap": { "version": "0.4.2", "date": "2023-12-25T03:05:00.684Z", "support": "^4.0.0" },
 	"cmdk-sv": { "version": "0.0.12", "date": "2023-11-20T02:37:24.863Z", "support": "^4.0.0" },
 	"ato-ui": { "version": "0.4.0", "date": "2023-11-25T19:05:39.718Z", "support": ">=4" },
 	"svelte-monaco": { "version": "0.3.0", "date": "2023-09-11T22:31:41.570Z", "support": ">=4.0.0" },
@@ -1594,5 +1565,10 @@
 		"version": "0.0.8",
 		"date": "2023-09-12T13:52:21.309Z",
 		"support": "^4.0.0"
+	},
+	"amplify-adapter": {
+		"version": "0.0.7",
+		"date": "2023-12-24T23:07:47.385Z",
+		"support": "Unknown"
 	}
 }

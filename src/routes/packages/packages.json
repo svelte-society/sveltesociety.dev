@@ -433,14 +433,6 @@
 	},
 	{
 		"category": "Integration",
-		"description": "Facebook Messaging Platform - Customer Chat Integration",
-		"npm": "@beyonk/svelte-facebook-customer-chat",
-		"tags": ["components and libraries", "third party services"],
-		"title": "@beyonk/svelte-facebook-customer-chat",
-		"repository": "https://github.com/beyonk-group/svelte-facebook-customer-chat"
-	},
-	{
-		"category": "Integration",
 		"description": "A Facebook pixel module for Svelte / Sapper",
 		"npm": "@beyonk/svelte-facebook-pixel",
 		"tags": ["components and libraries", "third party services"],
@@ -494,14 +486,6 @@
 		"tags": ["components and libraries", "fonts and icons"],
 		"title": "svelte-simple-icons",
 		"repository": "https://github.com/beyonk-group/svelte-simple-icons"
-	},
-	{
-		"category": "Integration",
-		"description": "Svelte / Vanilla JS Trustpilot Widget with proper SPA support",
-		"npm": "@beyonk/svelte-trustpilot",
-		"tags": ["components and libraries", "third party services"],
-		"title": "@beyonk/svelte-trustpilot",
-		"repository": "https://github.com/beyonk-group/svelte-trustpilot"
 	},
 	{
 		"category": "Routers",
@@ -600,14 +584,6 @@
 		"repository": "https://github.com/daybrush/ruler/tree/master/packages/svelte-ruler"
 	},
 	{
-		"category": "Forms & User Input",
-		"description": "rating widget for the web",
-		"npm": "waxwing-rating",
-		"tags": ["components and libraries", "inputs and widgets"],
-		"title": "waxwing-rating",
-		"repository": "https://github.com/dmitrykurmanov/waxwing-rating"
-	},
-	{
 		"category": "Integration",
 		"description": "Auth0 component library",
 		"npm": "@dopry/svelte-auth0",
@@ -630,14 +606,6 @@
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "@easylogic/svelte-summernote",
 		"repository": "https://github.com/easylogic/svelte-summernote"
-	},
-	{
-		"category": "Developer Experience",
-		"description": "Helper for svelte components to ease development",
-		"npm": "svelte-dev-helper",
-		"tags": ["components and libraries", "development and documentation"],
-		"title": "svelte-dev-helper",
-		"repository": "https://github.com/ekhaled/svelte-dev-helper"
 	},
 	{
 		"category": "Routers",
@@ -1208,14 +1176,6 @@
 		"repository": "https://github.com/pngwn/svelte-adapter"
 	},
 	{
-		"category": "Testing",
-		"description": "Testing utilities for Svelte",
-		"npm": "svelte-test",
-		"tags": ["testing"],
-		"title": "svelte-test",
-		"repository": "https://github.com/pngwn/svelte-test"
-	},
-	{
 		"category": "Data Visualisation",
 		"description": "Svelte component for FusionCharts JavaScript charting library",
 		"npm": "svelte-fusioncharts",
@@ -1230,14 +1190,6 @@
 		"tags": ["components and libraries", "inputs and widgets"],
 		"title": "Simple Svelte Autocomplete",
 		"repository": "https://github.com/pstanoev/simple-svelte-autocomplete"
-	},
-	{
-		"category": "Routers",
-		"description": "Simple Svelte 3 hash based router with global routes",
-		"npm": "svelte-hash-router",
-		"tags": ["routers"],
-		"title": "svelte-hash-router",
-		"repository": "https://github.com/tienpv222/svelte-hash-router"
 	},
 	{
 		"category": "Forms & User Input",
@@ -1302,22 +1254,6 @@
 		"tags": ["testing"],
 		"title": "jest-transform-svelte",
 		"repository": "https://github.com/rspieker/jest-transform-svelte"
-	},
-	{
-		"category": "Multimedia",
-		"description": "An `<ImgEncoder>` component for editing and compressing profile pictures",
-		"npm": "svelte-image-encoder",
-		"tags": ["components and libraries", "images"],
-		"title": "svelte-image-encoder",
-		"repository": "https://github.com/saabi/svelte-image-encoder"
-	},
-	{
-		"category": "User Interaction",
-		"description": "A dependency free multiple item JavaScript carousel",
-		"npm": "multicarousel",
-		"tags": ["components and libraries", "layout and structure"],
-		"title": "multicarousel",
-		"repository": "https://github.com/sciactive/multicarousel"
 	},
 	{
 		"category": "Data Visualisation",
@@ -1430,14 +1366,6 @@
 	},
 	{
 		"category": "User Interaction",
-		"description": "Svelte actions for cross-platform gesture detection (work in progress)",
-		"npm": "@sveltejs/gestures",
-		"tags": ["components and libraries", "interactions"],
-		"title": "@sveltejs/gestures",
-		"repository": "https://github.com/sveltejs/gestures"
-	},
-	{
-		"category": "User Interaction",
 		"description": "A (very experimental) project to bring WebGL to Svelte",
 		"npm": "@sveltejs/gl",
 		"tags": [],
@@ -1459,14 +1387,6 @@
 		"tags": ["components and libraries", "layout and structure"],
 		"title": "@sveltejs/svelte-scroller",
 		"repository": "https://github.com/sveltejs/svelte-scroller"
-	},
-	{
-		"category": "User Interaction",
-		"description": "A component for building Blender-style layouts in Svelte apps",
-		"npm": "@sveltejs/svelte-subdivide",
-		"tags": ["components and libraries", "layout and structure"],
-		"title": "@sveltejs/svelte-subdivide",
-		"repository": "https://github.com/sveltejs/svelte-subdivide"
 	},
 	{
 		"category": "Design Pattern",
@@ -1515,14 +1435,6 @@
 		"tags": ["components and libraries", "stores and state"],
 		"title": "svelte-apollo",
 		"repository": "https://github.com/timhall/svelte-apollo"
-	},
-	{
-		"category": "Stores",
-		"description": "Use observables in Svelte components with ease",
-		"npm": "svelte-observable",
-		"tags": ["components and libraries", "stores and state"],
-		"title": "svelte-observable",
-		"repository": "https://github.com/timhall/svelte-observable"
 	},
 	{
 		"category": "Design System",
@@ -2601,6 +2513,22 @@
 		"tags": ["integrations"]
 	},
 	{
+		"title": "@jill64/sentry-sveltekit-cloudflare",
+		"repository": "https://github.com/jill64/sentry-sveltekit-cloudflare",
+		"description": "Unofficial Sentry Integration for SvelteKit Cloudflare Adapter",
+		"npm": "@jill64/sentry-sveltekit-cloudflare",
+		"category": "Integration",
+		"tags": []
+	},
+	{
+		"title": "@jill64/sentry-sveltekit-edge",
+		"repository": "https://github.com/jill64/sentry-sveltekit-edge",
+		"description": "Unofficial Sentry integration for SvelteKit edge runtime",
+		"npm": "@jill64/sentry-sveltekit-edge",
+		"category": "Integration",
+		"tags": []
+	},
+	{
 		"title": "SvelteKit-Adapter-Versioned-Worker",
 		"repository": "https://github.com/hedgehog125/SvelteKit-Adapter-Versioned-Worker",
 		"description": "A SvelteKit adapter for generating service workers to make PWAs work offline",
@@ -2684,6 +2612,22 @@
 		"npm": "svelte-inline-modal",
 		"category": "User Interaction",
 		"tags": ["interactions", "layout and structure"]
+	},
+	{
+		"title": "@jill64/svelte-input",
+		"repository": "https://github.com/jill64/svelte-input",
+		"description": "Functional Input Component Set for Svelte",
+		"npm": "@jill64/svelte-input",
+		"category": "Display Components",
+		"tags": ["inputs and widgets"]
+	},
+	{
+		"title": "@jill64/svelte-toast",
+		"repository": "https://github.com/jill64/svelte-toast",
+		"description": "Pre-Themed Responsive Toast Notification",
+		"npm": "@jill64/svelte-toast",
+		"category": "User Interaction",
+		"tags": ["components and libraries", "notifications"]
 	},
 	{
 		"title": "@tanstack/svelte-table",
@@ -2966,22 +2910,6 @@
 		"tags": []
 	},
 	{
-		"title": "sveltify",
-		"npm": "sveltify",
-		"category": "Bundler Plugins",
-		"description": "Browserify transform for Svelte",
-		"repository": "https://github.com/tehshrike/sveltify",
-		"tags": []
-	},
-	{
-		"title": "gulp-svelte",
-		"npm": "gulp-svelte",
-		"category": "Bundler Plugins",
-		"description": "A gulp 4 plugin to compile Svelte template to vanilla JavaScript",
-		"repository": "https://github.com/shinnn/gulp-svelte",
-		"tags": []
-	},
-	{
 		"title": "sveltejs-brunch",
 		"npm": "sveltejs-brunch",
 		"category": "Bundler Plugins",
@@ -3011,14 +2939,6 @@
 		"npm": "mdsvex",
 		"title": "mdsvex",
 		"repository": "https://github.com/pngwn/MDsveX",
-		"tags": []
-	},
-	{
-		"title": "svelte-preprocess-less",
-		"npm": "svelte-preprocess-less",
-		"category": "Preprocessors",
-		"description": "Svelte preprocessor for less",
-		"repository": "https://github.com/ls-age/svelte-preprocess-less",
 		"tags": []
 	},
 	{
@@ -3301,5 +3221,13 @@
 		"npm": "svelte-enhanced-transitions",
 		"category": "CSS and Layout",
 		"tags": ["in-page navigation"]
+	},
+	{
+		"title": "Amplify Adapter",
+		"repository": "https://github.com/gzimbron/amplify-adapter",
+		"description": "Deploy Sveltekit SSR application to Aws Amplify (CI/CD)",
+		"npm": "amplify-adapter",
+		"category": "SvelteKit Adapters",
+		"tags": ["ssr", "components and libraries", "layout and structure"]
 	}
 ]
