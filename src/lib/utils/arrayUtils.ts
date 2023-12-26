@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export const filterArray = <T>(arr: T[], filter: string): T[] => {
 	if (!filter) {
 		return arr;
@@ -16,9 +18,17 @@ export const filterArray = <T>(arr: T[], filter: string): T[] => {
 export const sortArray = <T>(arr: T[], filter: { value: string; asc: boolean }): T[] => {
 	return arr.toSorted((a, b) => {
 		if (filter.asc) {
-			return a[filter.value] > b[filter.value] ? 1 : -1;
+			if (filter.value === 'date') {
+				return dayjs(a[filter.value]) > dayjs(b[filter.value]) ? 1 : -1;
+			} else {
+				return a[filter.value] > b[filter.value] ? 1 : -1;
+			}
 		} else {
-			return a[filter.value] < b[filter.value] ? 1 : -1;
+			if (filter.value === 'date') {
+				return dayjs(a[filter.value]) < dayjs(b[filter.value]) ? 1 : -1;
+			} else {
+				return a[filter.value] < b[filter.value] ? 1 : -1;
+			}
 		}
 	});
 };
