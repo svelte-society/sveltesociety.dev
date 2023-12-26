@@ -96,8 +96,24 @@
 		"tags": ["components and libraries"]
 	},
 	{
+		"title": "SvelteKit",
+		"repository": "https://github.com/sveltejs/kit/tree/main/packages/kit",
+		"description": "The fastest way to build Svelte apps",
+		"npm": "@sveltejs/kit",
+		"tags": ["routers", "ssr", "layout and structure", "forms and validation", "typescript"],
+		"category": "Routers"
+	},
+	{
+		"title": "@sveltejs/package",
+		"repository": "https://github.com/sveltejs/kit/tree/main/packages/package",
+		"description": "The fastest way to build Svelte packages",
+		"npm": "@sveltejs/package",
+		"tags": ["cli tools"],
+		"category": "Bundler Plugins"
+	},
+	{
 		"title": "@sveltejs/adapter-auto",
-		"repository": "https://github.com/sveltejs/kit/tree/master/packages/adapter-auto",
+		"repository": "https://github.com/sveltejs/kit/tree/main/packages/adapter-auto",
 		"description": "Automatically chooses adapter for your current environment if possible",
 		"npm": "@sveltejs/adapter-auto",
 		"tags": ["integrations"],
@@ -105,7 +121,7 @@
 	},
 	{
 		"title": "@sveltejs/adapter-netlify",
-		"repository": "https://github.com/sveltejs/kit/tree/master/packages/adapter-netlify",
+		"repository": "https://github.com/sveltejs/kit/tree/main/packages/adapter-netlify",
 		"description": "A SvelteKit adapter that creates a Netlify app. If you're using adapter-auto, you don't need to install this unless you need to specify Netlify-specific options, since it's already included.",
 		"npm": "@sveltejs/adapter-netlify",
 		"tags": ["integrations"],
@@ -113,7 +129,7 @@
 	},
 	{
 		"title": "@sveltejs/adapter-cloudflare-workers",
-		"repository": "https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare-workers",
+		"repository": "https://github.com/sveltejs/kit/tree/main/packages/adapter-cloudflare-workers",
 		"description": "SvelteKit adapter that creates a Cloudflare Workers site using a function for dynamic server rendering.",
 		"npm": "@sveltejs/adapter-cloudflare-workers",
 		"tags": ["integrations"],
@@ -121,7 +137,7 @@
 	},
 	{
 		"title": "@sveltejs/adapter-cloudflare",
-		"repository": "https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare",
+		"repository": "https://github.com/sveltejs/kit/tree/main/packages/adapter-cloudflare",
 		"description": "Adapter for building SvelteKit applications on Cloudflare Pages with Workers integration. If you're using adapter-auto, you don't need to install this — it's already included.",
 		"npm": "@sveltejs/adapter-cloudflare",
 		"tags": ["integrations"],
@@ -129,7 +145,7 @@
 	},
 	{
 		"title": "@sveltejs/adapter-node",
-		"repository": "https://github.com/sveltejs/kit/tree/master/packages/adapter-node",
+		"repository": "https://github.com/sveltejs/kit/tree/main/packages/adapter-node",
 		"description": "Adapter for SvelteKit apps that generates a standalone Node server.",
 		"npm": "@sveltejs/adapter-node",
 		"tags": ["integrations"],
@@ -137,7 +153,7 @@
 	},
 	{
 		"title": "@sveltejs/adapter-static",
-		"repository": "https://github.com/sveltejs/kit/tree/master/packages/adapter-static",
+		"repository": "https://github.com/sveltejs/kit/tree/main/packages/adapter-static",
 		"description": "Adapter for SvelteKit apps that prerenders your entire site as a collection of static files. If you'd like to prerender only some pages, you will need to use a different adapter together with the prerender option.",
 		"npm": "@sveltejs/adapter-static",
 		"tags": ["integrations"],
@@ -145,7 +161,7 @@
 	},
 	{
 		"title": "@sveltejs/adapter-vercel",
-		"repository": "https://github.com/sveltejs/kit/tree/master/packages/adapter-vercel",
+		"repository": "https://github.com/sveltejs/kit/tree/main/packages/adapter-vercel",
 		"description": "A SvelteKit adapter that creates a Vercel app.If you're using adapter-auto, you don't need to install this unless you need to specify Vercel-specific options, since it's already included.",
 		"npm": "@sveltejs/adapter-vercel",
 		"tags": ["integrations"],
@@ -2704,8 +2720,16 @@
 	{
 		"title": "Sentry for Svelte",
 		"npm": "@sentry/svelte",
-		"repository": "https://github.com/getsentry/sentry-javascript",
-		"description": "Official Sentry SDKs for JavaScript",
+		"repository": "https://github.com/getsentry/sentry-javascript/tree/develop/packages/svelte",
+		"description": "Official Sentry SDK for Svelte",
+		"category": "Integration",
+		"tags": ["integrations"]
+	},
+	{
+		"title": "Sentry for SvelteKit",
+		"npm": "@sentry/sveltekit",
+		"repository": "https://github.com/getsentry/sentry-javascript/tree/develop/packages/sveltekit",
+		"description": "Official Sentry SDK for SvelteKit",
 		"category": "Integration",
 		"tags": ["integrations"]
 	},
