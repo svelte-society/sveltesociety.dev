@@ -37,11 +37,11 @@
 		</div>
 		<div>
 			{#if repository.includes('github')}
-				<a class="repo" title="Go to the source code" href={repository}
+				<a class="repo" title="Go to the source code" target="_blank" href={repository}
 					><img style="display:inline" src="/images/github_logo.svg" alt="github logo" /></a
 				>
 			{:else if repository.includes('gitlab')}
-				<a class="repo" title="Go to the source code" href={repository}
+				<a class="repo" title="Go to the source code" target="_blank" href={repository}
 					><img style="display:inline" src="/images/gitlab_logo.svg" alt="gitlab logo" /></a
 				>
 				<!-- {:else} -->
