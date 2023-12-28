@@ -1375,9 +1375,9 @@
 	{
 		"category": "Routers",
 		"description": "Automated Svelte routes",
-		"npm": "routify",
+		"npm": "@roxi/routify",
 		"tags": ["routers", "ssr"],
-		"title": "routify",
+		"title": "Routify",
 		"repository": "https://github.com/roxiness/routify"
 	},
 	{
@@ -3253,5 +3253,45 @@
 		"npm": "amplify-adapter",
 		"category": "SvelteKit Adapters",
 		"tags": ["ssr", "components and libraries", "layout and structure"]
+	},
+	{
+		"title": "@tsconfig/svelte",
+		"repository": "https://github.com/tsconfig/bases",
+		"description": "A base TSConfig for working with Svelte.",
+		"npm": "@tsconfig/svelte",
+		"category": "Developer Experience",
+		"tags": ["typescript"]
+	},
+	{
+		"title": "svelte-highlight",
+		"repository": "https://github.com/metonym/svelte-highlight",
+		"description": "Syntax highlighting for Svelte using highlight.js.",
+		"npm": "svelte-highlight",
+		"category": "Display Components",
+		"tags": ["components and libraries"]
+	},
+	{
+		"title": "progressbar-svelte",
+		"repository": "https://github.com/dhimankamal/svelte-progressbar",
+		"description": "A Svelte package for customizable progress bars.",
+		"npm": "progressbar-svelte",
+		"category": "Display Components",
+		"tags": ["components and libraries"]
+	},
+	{
+		"title": "Brefer",
+		"repository": "https://github.com/KilDesu/brefer",
+		"description": "A Svelte preprocessor to shorten the new Svelte 5 syntax for handling reactivity",
+		"npm": "brefer",
+		"category": "Preprocessors",
+		"tags": ["stores and state"]
+	},
+	{
+		"title": "svelte-mapbox",
+		"repository": "https://github.com/jack-weilage/svelte-mapbox",
+		"description": "A simple and powerful Svelte wrapper around mapbox-gl",
+		"npm": "svelte-mapbox",
+		"category": "Display Components",
+		"tags": ["maps"]
 	}
 ]
