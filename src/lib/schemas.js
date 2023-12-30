@@ -20,11 +20,10 @@ const PACKAGES_TAGS = /** @type {const} */ ([
 	'development-and-documentation',
 	'display-components',
 	'fonts-and-icons',
-	'forms-and-validation',
+	'forms-and-input',
 	'graphql',
 	'images',
 	'in-page-navigation',
-	'inputs-and-widgets',
 	'integrations',
 	'internationalization',
 	'intersection-observer',
@@ -46,7 +45,9 @@ const PACKAGES_TAGS = /** @type {const} */ ([
 	'testing',
 	'third-party-services',
 	'typescript',
+	'ui-components',
 	'user-interaction',
+	'validation',
 	'viewport'
 ]);
 

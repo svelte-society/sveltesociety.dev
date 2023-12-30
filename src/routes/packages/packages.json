@@ -18,7 +18,7 @@
 		"repository": "https://github.com/SBHattarj/svelte-zod-form",
 		"description": "A dummy text generator that does not exist",
 		"npm": "svelte-zod-form",
-		"tags": ["forms-and-validation"]
+		"tags": ["forms-and-input", "validation"]
 	},
 	{
 		"title": "svelte-selecto",
@@ -58,7 +58,6 @@
 			"components-and-libraries",
 			"animations",
 			"in-page-navigation",
-			"inputs-and-widgets",
 			"intersection-observer",
 			"user-interaction"
 		]
@@ -68,7 +67,7 @@
 		"repository": "https://github.com/gyurielf/svelte-tel-input",
 		"description": "Lightweight phone input standardizer.",
 		"npm": "svelte-tel-input",
-		"tags": ["inputs-and-widgets", "forms-and-validation", "typescript", "components-and-libraries"]
+		"tags": ["forms-and-input", "typescript", "components-and-libraries"]
 	},
 	{
 		"title": "Svault",
@@ -96,7 +95,7 @@
 		"repository": "https://github.com/sveltejs/kit/tree/main/packages/kit",
 		"description": "The fastest way to build Svelte apps",
 		"npm": "@sveltejs/kit",
-		"tags": ["routers", "ssr", "layout-and-structure", "forms-and-validation", "typescript"]
+		"tags": ["routers", "ssr", "layout-and-structure", "forms-and-input", "typescript"]
 	},
 	{
 		"title": "@sveltejs/package",
@@ -173,31 +172,21 @@
 		"repository": "https://github.com/DhyeyMoliya/svelte-form-validation",
 		"npm": "svelte-form-validation",
 		"description": "Svelte Form Validation Library",
-		"tags": ["forms-and-validation", "components-and-libraries"]
+		"tags": ["forms-and-input", "validation"]
 	},
 	{
 		"title": "Date Picker Svelte",
 		"repository": "https://github.com/probablykasper/date-picker-svelte",
 		"description": "Date and time picker for Svelte",
 		"npm": "date-picker-svelte",
-		"tags": [
-			"date-and-time",
-			"components-and-libraries",
-			"inputs-and-widgets",
-			"forms-and-validation"
-		]
+		"tags": ["date-and-time", "components-and-libraries", "forms-and-input"]
 	},
 	{
 		"title": "use-vest",
 		"repository": "https://github.com/enyo/use-vest",
 		"npm": "use-vest",
 		"description": "Vest can be used both on the front and backend. This library provides a Svelte action for Vest, that makes it easy to validate forms and show errors when necessary — built with TypeScript.",
-		"tags": [
-			"forms-and-validation",
-			"components-and-libraries",
-			"inputs-and-widgets",
-			"forms-and-validation"
-		]
+		"tags": ["forms-and-input", "components-and-libraries"]
 	},
 	{
 		"title": "svelte-virtual-table",
@@ -211,7 +200,7 @@
 		"description": "A number input field that can be controlled by mouse/touch drag, arrow keys or usual editing.",
 		"repository": "https://github.com/bohnacker/svelte-number-spinner",
 		"npm": "svelte-number-spinner",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "forms-and-validation"]
+		"tags": ["components-and-libraries", "forms-and-input"]
 	},
 	{
 		"title": "svelte-remixicon",
@@ -268,7 +257,7 @@
 		"url": "https://felte.dev",
 		"npm": "felte",
 		"description": "An extensible form library for Svelte",
-		"tags": ["forms-and-validation", "components-and-libraries", "forms-and-validation"],
+		"tags": ["forms-and-input", "validation", "components-and-libraries"],
 		"repository": "https://github.com/pablo-abc/felte"
 	},
 	{
@@ -283,26 +272,26 @@
 		"repository": "https://gitlab.com/public-e-soa-com/svelte-time-picker",
 		"npm": "svelte-time-picker",
 		"description": "Time Picker UI for Svelte, inspired by the MaterialUI React Time Picker",
-		"tags": ["components-and-libraries", "date-and-time", "forms-and-validation"]
+		"tags": ["components-and-libraries", "date-and-time", "forms-and-input"]
 	},
 	{
 		"title": "svelte-formula",
 		"repository": "https://github.com/tanepiper/svelte-formula",
 		"npm": "svelte-formula",
 		"description": "Zero Configuration Reactive Forms for Svelte",
-		"tags": ["components-and-libraries", "forms-and-validation", "forms-and-validation"]
+		"tags": ["components-and-libraries", "forms-and-input", "validation"]
 	},
 	{
 		"description": "A lightweight datepicker with neat animations and a unique UX",
 		"npm": "svelte-calendar",
-		"tags": ["components-and-libraries", "date-and-time", "forms-and-validation"],
+		"tags": ["components-and-libraries", "date-and-time", "forms-and-input"],
 		"title": "svelte-calendar",
 		"repository": "https://github.com/6eDesign/svelte-calendar"
 	},
 	{
 		"description": "Svelte tags input is a component to use with Svelte and easily enter tags and customize some functions",
 		"npm": "svelte-tags-input",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input"],
 		"title": "svelte-tags-input",
 		"repository": "https://github.com/agustinl/svelte-tags-input"
 	},
@@ -316,7 +305,7 @@
 	{
 		"description": "Easy use Aovi to validate forms or values in your components",
 		"npm": "aovi-svelte",
-		"tags": ["forms-and-validation", "components-and-libraries", "forms-and-validation"],
+		"tags": ["forms-and-input", "validation", "components-and-libraries"],
 		"title": "aovi-svelte",
 		"repository": "https://github.com/AlexxNB/aovi-svelte"
 	},
@@ -372,7 +361,7 @@
 	{
 		"description": "Generate dynamic forms for Svelte JS",
 		"npm": "svelte-formly",
-		"tags": ["components-and-libraries", "forms-and-validation", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input"],
 		"title": "svelte-formly",
 		"repository": "https://github.com/dyaliCode/svelte-formly"
 	},
@@ -394,7 +383,7 @@
 	{
 		"description": "A GDPR compliant cookie consent banner implementation",
 		"npm": "@beyonk/gdpr-cookie-consent-banner",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "user-interaction"],
+		"tags": ["components-and-libraries", "user-interaction"],
 		"title": "@beyonk/gdpr-cookie-consent-banner",
 		"repository": "https://github.com/beyonk-group/gdpr-cookie-consent-banner"
 	},
@@ -492,7 +481,7 @@
 	{
 		"description": "Svelte forms validation made easy",
 		"npm": "svelte-forms",
-		"tags": ["components-and-libraries", "forms-and-validation", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input", "validation"],
 		"title": "svelte-forms",
 		"repository": "https://github.com/chainlist/svelte-forms"
 	},
@@ -534,7 +523,7 @@
 	{
 		"description": "A Ruler component that can draw grids and scroll infinitely",
 		"npm": "svelte-ruler",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "user-interaction"],
+		"tags": ["ui-components", "user-interaction"],
 		"title": "svelte-ruler",
 		"repository": "https://github.com/daybrush/ruler/tree/master/packages/svelte-ruler"
 	},
@@ -555,7 +544,7 @@
 	{
 		"description": "summernote extension for Svelte, a wysiwyg editor",
 		"npm": "@easylogic/svelte-summernote",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input"],
 		"title": "@easylogic/svelte-summernote",
 		"repository": "https://github.com/easylogic/svelte-summernote"
 	},
@@ -569,14 +558,14 @@
 	{
 		"description": "A rate component for Svelte apps",
 		"npm": "svelte-rate-it",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input"],
 		"title": "svelte-rate-it",
 		"repository": "https://github.com/emrekara37/svelte-rate-it"
 	},
 	{
 		"description": "A user interface for inputting date ranges",
 		"npm": "@equipmentshare/date-range-input",
-		"tags": ["components-and-libraries", "date-and-time", "forms-and-validation"],
+		"tags": ["components-and-libraries", "date-and-time", "forms-and-input"],
 		"title": "@equipmentshare/date-range-input",
 		"repository": "https://github.com/EquipmentShare/date-range-input"
 	},
@@ -681,7 +670,7 @@
 	{
 		"description": "Flatpickr component for Svelte",
 		"npm": "svelte-flatpickr",
-		"tags": ["components-and-libraries", "date-and-time", "forms-and-validation"],
+		"tags": ["components-and-libraries", "date-and-time", "forms-and-input"],
 		"title": "svelte-flatpickr",
 		"repository": "https://github.com/jacobmischka/svelte-flatpickr"
 	},
@@ -709,7 +698,7 @@
 	{
 		"description": "Svelte component for position and area selection with Leaflet",
 		"npm": "svelte-pick-a-place",
-		"tags": ["components-and-libraries", "data-visualisation", "forms-and-validation"],
+		"tags": ["components-and-libraries", "data-visualisation", "forms-and-input"],
 		"title": "svelte-pick-a-place",
 		"repository": "https://github.com/jimutt/svelte-pick-a-place"
 	},
@@ -904,7 +893,7 @@
 	{
 		"description": "Form components using Yup for validation",
 		"npm": "sveltejs-forms",
-		"tags": ["components-and-libraries", "forms-and-validation", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input", "validation"],
 		"title": "sveltejs-forms",
 		"repository": "https://github.com/mdauner/sveltejs-forms"
 	},
@@ -939,7 +928,7 @@
 	{
 		"description": "A multiseries, SVG progressbar component made with Svelte",
 		"npm": "@okrad/svelte-progressbar",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "data-visualisation"],
+		"tags": ["ui-components", "data-visualisation"],
 		"title": "@okrad/svelte-progressbar",
 		"repository": "https://github.com/okrad/svelte-progressbar"
 	},
@@ -988,7 +977,7 @@
 	{
 		"description": "IMask input component and action for Svelte 3.",
 		"npm": "svelte-imask",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input"],
 		"title": "svelte-imask",
 		"repository": "https://github.com/PaulMaly/svelte-imask"
 	},
@@ -1023,7 +1012,7 @@
 	{
 		"description": "A replacement for the select menu with searching, multiple selections, async data loading etc.,",
 		"npm": "select-madu",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input"],
 		"title": "select-madu",
 		"repository": "https://github.com/pavish/select-madu"
 	},
@@ -1072,14 +1061,14 @@
 	{
 		"description": "Simple autocomplete / typeahead component for Svelte",
 		"npm": "simple-svelte-autocomplete",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input"],
 		"title": "Simple Svelte Autocomplete",
 		"repository": "https://github.com/pstanoev/simple-svelte-autocomplete"
 	},
 	{
 		"description": "A color picker component for Svelte",
 		"npm": "svelte-color-picker",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input"],
 		"title": "svelte-color-picker",
 		"repository": "https://github.com/efeskucuk/svelte-color-picker"
 	},
@@ -1114,7 +1103,7 @@
 	{
 		"description": "A select component for Svelte apps",
 		"npm": "svelte-select",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input"],
 		"title": "svelte-select",
 		"repository": "https://github.com/rob-balfre/svelte-select"
 	},
@@ -1163,12 +1152,7 @@
 	{
 		"description": "Range Slider Input, with Multi-handle and Pips features",
 		"npm": "svelte-range-slider-pips",
-		"tags": [
-			"components-and-libraries",
-			"inputs-and-widgets",
-			"forms-and-validation",
-			"user-interaction"
-		],
+		"tags": ["components-and-libraries", "forms-and-input", "user-interaction"],
 		"title": "svelte-range-slider-pips",
 		"repository": "https://github.com/simeydotme/svelte-range-slider-pips"
 	},
@@ -1182,7 +1166,7 @@
 	{
 		"description": "Simple Svelte form model handler and input validations",
 		"npm": "@spaceavocado/svelte-form",
-		"tags": ["components-and-libraries", "forms-and-validation", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input", "validation"],
 		"title": "@spaceavocado/svelte-form",
 		"repository": "https://github.com/spaceavocado/svelte-form"
 	},
@@ -1238,7 +1222,7 @@
 	{
 		"description": "The `<Repl>` component used on the Svelte website",
 		"npm": "@sveltejs/svelte-repl",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input"],
 		"title": "@sveltejs/svelte-repl",
 		"repository": "https://github.com/sveltejs/svelte-repl"
 	},
@@ -1280,7 +1264,7 @@
 	{
 		"description": "Svelte component for file upload and file dropzone.",
 		"npm": "svelte-file-dropzone",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input"],
 		"title": "svelte-file-dropzone",
 		"repository": "https://github.com/thecodejack/svelte-file-dropzone"
 	},
@@ -1301,7 +1285,7 @@
 	{
 		"description": "A lightweight library for managing forms in Svelte",
 		"npm": "svelte-forms-lib",
-		"tags": ["components-and-libraries", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input", "validation"],
 		"title": "svelte-forms-lib",
 		"repository": "https://github.com/tjinauyeung/svelte-forms-lib"
 	},
@@ -1322,7 +1306,7 @@
 	{
 		"description": "A Svelte component to crop images with easy interactions",
 		"npm": "svelte-easy-crop",
-		"tags": ["components-and-libraries", "images", "forms-and-validation"],
+		"tags": ["components-and-libraries", "images", "forms-and-input"],
 		"title": "svelte-easy-crop",
 		"repository": "https://github.com/ValentinH/svelte-easy-crop"
 	},
@@ -1336,7 +1320,7 @@
 	{
 		"description": "Focused on making embedding and using media elements for the web simple.",
 		"npm": "@vime/svelte",
-		"tags": ["audio-and-video", "components-and-libraries", "inputs-and-widgets", "multimedia"],
+		"tags": ["audio-and-video", "components-and-libraries", "multimedia"],
 		"title": "Vime",
 		"repository": "https://github.com/vime-js/vime"
 	},
@@ -1387,21 +1371,21 @@
 	{
 		"description": "Input masking component for Svelte (credit cards, phones, dates, numbers, etc.)",
 		"npm": "svelte-input-mask",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input"],
 		"title": "svelte-input-mask",
 		"repository": "https://github.com/xnimorz/svelte-input-mask"
 	},
 	{
 		"description": "Easily customizable library for validation scenarios in svelte components.",
 		"npm": "svelidation",
-		"tags": ["components-and-libraries", "forms-and-validation"],
+		"tags": ["components-and-libraries", "validation"],
 		"title": "svelidation",
 		"repository": "https://github.com/yazonnile/svelidation"
 	},
 	{
 		"description": "A Svelte component wrapper around FullCalendar.",
 		"npm": "svelte-fullcalendar",
-		"tags": ["components-and-libraries", "date-and-time", "forms-and-validation"],
+		"tags": ["components-and-libraries", "date-and-time", "forms-and-input"],
 		"title": "svelte-fullcalendar",
 		"repository": "https://github.com/YogliB/svelte-fullcalendar"
 	},
@@ -1444,12 +1428,7 @@
 	{
 		"description": "Drop files(s) or click to browse file system",
 		"npm": "@svelte-parts/drop-file",
-		"tags": [
-			"components-and-libraries",
-			"inputs-and-widgets",
-			"typescript",
-			"forms-and-validation"
-		],
+		"tags": ["components-and-libraries", "typescript", "forms-and-input"],
 		"title": "@svelte-parts/drop-file",
 		"url": "https://svelte-parts.surge.sh/drop-file",
 		"repository": "https://github.com/idris-maps/svelte-parts"
@@ -1457,7 +1436,7 @@
 	{
 		"description": "Yet another form component",
 		"npm": "@svelte-parts/form",
-		"tags": ["components-and-libraries", "typescript", "forms-and-validation"],
+		"tags": ["components-and-libraries", "typescript", "forms-and-input"],
 		"title": "@svelte-parts/form",
 		"url": "https://svelte-parts.surge.sh/form",
 		"repository": "https://github.com/idris-maps/svelte-parts"
@@ -1587,7 +1566,7 @@
 	{
 		"description": "Svelte components for tiptap v2. Open source headless content editor.",
 		"npm": "svelte-tiptap",
-		"tags": ["components-and-libraries", "forms-and-validation"],
+		"tags": ["components-and-libraries", "forms-and-input"],
 		"title": "svelte-tiptap",
 		"repository": "https://github.com/sibiraj-s/svelte-tiptap"
 	},
@@ -1601,7 +1580,7 @@
 	{
 		"description": "Full-sized drag & drop event calendar with resource view",
 		"npm": "@event-calendar/core",
-		"tags": ["components-and-libraries", "date-and-time", "forms-and-validation"],
+		"tags": ["components-and-libraries", "date-and-time", "forms-and-input"],
 		"title": "Event Calendar",
 		"repository": "https://github.com/vkurko/calendar"
 	},
@@ -1623,12 +1602,7 @@
 		"title": "svelte-multiselect",
 		"repository": "https://github.com/janosh/svelte-multiselect",
 		"description": "Keyboard-friendly, accessible and highly customizable multi-select component",
-		"tags": [
-			"components-and-libraries",
-			"inputs-and-widgets",
-			"forms-and-validation",
-			"user-interaction"
-		],
+		"tags": ["components-and-libraries", "forms-and-input", "user-interaction"],
 		"npm": "svelte-multiselect"
 	},
 	{
@@ -1664,14 +1638,14 @@
 		"repository": "https://github.com/chanced/filedrop-svelte",
 		"description": "file dropzone action & component",
 		"npm": "filedrop-svelte",
-		"tags": ["user-interaction", "inputs-and-widgets", "forms-and-validation"]
+		"tags": ["user-interaction", "forms-and-input"]
 	},
 	{
 		"title": "focus-svelte",
 		"repository": "https://github.com/chanced/focus-svelte",
 		"description": "focus lock for accessibility",
 		"npm": "focus-svelte",
-		"tags": ["user-interaction", "forms-and-validation"]
+		"tags": ["user-interaction", "forms-and-input"]
 	},
 	{
 		"title": "svelte-translate",
@@ -1685,12 +1659,7 @@
 		"repository": "https://github.com/mskocik/svelecte",
 		"description": "Selectize-like autocomplete select/multiselect/tagging component",
 		"npm": "svelecte",
-		"tags": [
-			"components-and-libraries",
-			"forms-and-validation",
-			"user-interaction",
-			"inputs-and-widgets"
-		]
+		"tags": ["components-and-libraries", "forms-and-input", "user-interaction"]
 	},
 	{
 		"title": "svelte-adapter-azure-swa",
@@ -1725,14 +1694,14 @@
 		"repository": "https://github.com/Yellowinq/svelte-pin-input",
 		"description": "Pin Input component for Svelte",
 		"npm": "@yellowinq/svelte-pin-input",
-		"tags": ["inputs-and-widgets", "components-and-libraries", "forms-and-validation"]
+		"tags": ["components-and-libraries", "forms-and-input"]
 	},
 	{
 		"title": "svelte-codesandbox",
 		"repository": "https://github.com/tropix126/svelte-codesandbox",
 		"description": "A powerful Svelte wrapper component around the CodeSandbox editor embed.",
 		"npm": "svelte-codesandbox",
-		"tags": ["integrations", "inputs-and-widgets", "typescript"]
+		"tags": ["integrations", "forms-and-input", "typescript"]
 	},
 	{
 		"title": "svelte-icons-pack",
@@ -1768,21 +1737,21 @@
 		"repository": "https://github.com/GCBenlloch/svelte-cleavejs",
 		"description": "Svelte action for Cleave.js input masking",
 		"npm": "svelte-cleavejs",
-		"tags": ["inputs-and-widgets", "user-interaction"]
+		"tags": ["forms-and-input", "user-interaction"]
 	},
 	{
 		"title": "svelty-picker",
 		"repository": "https://github.com/mskocik/svelty-picker",
 		"description": "Simple date & time picker you will love",
 		"npm": "svelty-picker",
-		"tags": ["forms-and-validation", "inputs-and-widgets", "user-interaction", "date-and-time"]
+		"tags": ["forms-and-input", "user-interaction", "date-and-time"]
 	},
 	{
 		"title": "svelte-slider",
 		"repository": "https://github.com/korywka/svelte-slider",
 		"description": "Single and Range sliders",
 		"npm": "svelte-slider",
-		"tags": ["components-and-libraries", "forms-and-validation", "inputs-and-widgets"]
+		"tags": ["components-and-libraries", "forms-and-input"]
 	},
 	{
 		"title": "sveltekit-adapter-wordpress-shortcode",
@@ -1824,7 +1793,7 @@
 		"repository": "https://github.com/Rezi/svelte-gestures",
 		"description": "collection of gesture recognisers for Svelte.",
 		"npm": "svelte-gestures",
-		"tags": ["inputs-and-widgets", "user-interaction"]
+		"tags": ["user-interaction"]
 	},
 	{
 		"title": "svelte-adapter-github",
@@ -1838,7 +1807,7 @@
 		"repository": "https://github.com/shaozi/svelte-steps",
 		"description": "A wizard steps component",
 		"npm": "svelte-steps",
-		"tags": ["inputs-and-widgets", "user-interaction"]
+		"tags": ["ui-components", "user-interaction"]
 	},
 	{
 		"title": "agnostic-svelte",
@@ -1912,7 +1881,7 @@
 		"tags": [
 			"animations",
 			"components-and-libraries",
-			"forms-and-validation",
+			"forms-and-input",
 			"notifications",
 			"user-interaction"
 		]
@@ -1929,7 +1898,7 @@
 		"repository": "https://github.com/fmaclen/svelte-currency-input",
 		"description": "A form input that converts numbers to localized currency formats as you type",
 		"npm": "@canutin/svelte-currency-input",
-		"tags": ["forms-and-validation", "inputs-and-widgets", "internationalization", "typescript"]
+		"tags": ["forms-and-input", "internationalization", "typescript"]
 	},
 	{
 		"title": "flowbite-svelte",
@@ -1977,7 +1946,7 @@
 		"description": "A component to play a video by scrolling the page",
 		"repository": "https://github.com/macfja/svelte-scroll-video#readme",
 		"npm": "@macfja/svelte-scroll-video",
-		"tags": ["audio-and-video", "images", "inputs-and-widgets", "viewport", "user-interaction"]
+		"tags": ["audio-and-video", "images", "viewport", "user-interaction"]
 	},
 	{
 		"title": "@prgm/sveltekit-progress-bar",
@@ -2033,7 +2002,7 @@
 		"url": "https://ui.perfectthings.dev/",
 		"description": "A set of simple, but perfect, UI components, written in Svelte",
 		"npm": "@perfectthings/ui",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "display-components"],
+		"tags": ["components-and-libraries", "forms-and-input", "display-components"],
 		"repository": "https://github.com/perfect-things/ui/"
 	},
 	{
@@ -2048,7 +2017,7 @@
 		"repository": "https://github.com/pragmatic-engineering/svelte-form-builder-community",
 		"description": "A No-Code Form Builder Library",
 		"npm": "@pragmatic-engineering/svelte-form-builder-community",
-		"tags": ["forms-and-validation", "components-and-libraries"]
+		"tags": ["forms-and-input", "validation", "components-and-libraries"]
 	},
 	{
 		"title": "SvelteKit Cordova/Capacitor Adapter",
@@ -2097,14 +2066,14 @@
 		"repository": "https://github.com/probablykasper/svelte-droplet",
 		"description": "File dropzone utility with styling up to you",
 		"npm": "svelte-droplet",
-		"tags": ["inputs-and-widgets", "forms-and-validation", "user-interaction"]
+		"tags": ["forms-and-input", "user-interaction"]
 	},
 	{
 		"title": "chat-embed",
 		"repository": "https://github.com/mawa-ai/chat-embed",
 		"description": "A chat component made with svelte",
 		"npm": "chat-embed",
-		"tags": ["components-and-libraries", "forms-and-validation", "inputs-and-widgets"]
+		"tags": ["components-and-libraries", "forms-and-input"]
 	},
 	{
 		"title": "Lucide icons",
@@ -2118,13 +2087,7 @@
 		"repository": "https://github.com/yesvelte/yesvelte",
 		"description": "Flexible Svelte UI component library, designed to help developers build enterprise-grade web applications quickly and easily",
 		"npm": "yesvelte",
-		"tags": [
-			"components-and-libraries",
-			"forms-and-validation",
-			"inputs-and-widgets",
-			"date-and-time",
-			"typescript"
-		]
+		"tags": ["components-and-libraries", "forms-and-input", "date-and-time", "typescript"]
 	},
 	{
 		"title": "QR Code generator for SvelteKit",
@@ -2145,7 +2108,7 @@
 		"repository": "https://github.com/bonosoft/sveltekit-codeentry",
 		"description": "Allows user to enter pin or numeric codes for example onetime passwords",
 		"npm": "@bonosoft/sveltekit-codeentry",
-		"tags": ["auth", "forms-and-validation"]
+		"tags": ["auth", "forms-and-input"]
 	},
 	{
 		"title": "@radar-azdelta/svelte-datatable",
@@ -2173,7 +2136,7 @@
 		"repository": "https://github.com/nerd-coder/svelte-zod-form",
 		"description": "Building forms in Svelte with breeze, using Zod",
 		"npm": "@nerd-coder/svelte-zod-form",
-		"tags": ["forms-and-validation"]
+		"tags": ["forms-and-input", "validation"]
 	},
 	{
 		"title": "sveltekit-adapter-iis",
@@ -2194,14 +2157,14 @@
 		"repository": "https://github.com/thecodejack/svelte-switch",
 		"description": "SvelteJS component for switch or toggle a boolean. User would be able to drag or click for toggling.",
 		"npm": "svelte-switch",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "forms-and-validation"]
+		"tags": ["components-and-libraries", "forms-and-input"]
 	},
 	{
 		"title": "svelte-pagination",
 		"repository": "https://github.com/thecodejack/svelte-pagination",
 		"description": "Raw SvelteJS component for dynamic pagination. By applying styles, developer can acheive component in multiple forms.",
 		"npm": "svelte-pagination",
-		"tags": ["components-and-libraries", "inputs-and-widgets", "forms-and-validation"]
+		"tags": ["components-and-libraries", "in-page-navigation"]
 	},
 	{
 		"title": "STDF",
@@ -2318,7 +2281,7 @@
 		"repository": "https://github.com/BearToCode/mismerge",
 		"description": "A modern merge editor for the Web",
 		"npm": "@mismerge/core",
-		"tags": ["components-and-libraries", "typescript", "inputs-and-widgets", "forms-and-validation"]
+		"tags": ["components-and-libraries", "typescript", "forms-and-input"]
 	},
 	{
 		"title": "svelte-ripple-action",
@@ -2333,7 +2296,7 @@
 		"repository": "https://github.com/ciscoheat/sveltekit-superforms",
 		"description": "Making SvelteKit validation and displaying of forms a pleasure!",
 		"npm": "sveltekit-superforms",
-		"tags": ["forms-and-validation", "typescript", "ssr"]
+		"tags": ["forms-and-input", "validation", "typescript", "ssr"]
 	},
 	{
 		"title": "svelte-reparent",
@@ -2355,7 +2318,7 @@
 		"repository": "https://github.com/jill64/svelte-input",
 		"description": "Functional Input Component Set for Svelte",
 		"npm": "@jill64/svelte-input",
-		"tags": ["inputs-and-widgets", "display-components"]
+		"tags": ["forms-and-input", "display-components"]
 	},
 	{
 		"title": "@jill64/svelte-toast",
@@ -2761,7 +2724,7 @@
 		"repository": "https://github.com/BearToCode/carta",
 		"description": "Carta is a lightweight, fast and extensible Svelte Markdown editor and viewer, based on Marked.",
 		"npm": "carta-md",
-		"tags": ["forms-and-validation"]
+		"tags": ["forms-and-input", "markdown"]
 	},
 	{
 		"title": "svelte-broadcastable",
@@ -2775,7 +2738,7 @@
 		"repository": "https://github.com/CaptainCodeman/svelte-markdown-input",
 		"description": "A simple markdown input action and store for Svelte. Designed for simple inputs of HTML snippets.",
 		"npm": "svelte-markdown-input",
-		"tags": ["forms-and-validation"]
+		"tags": ["forms-and-input", "markdown"]
 	},
 	{
 		"title": "svelte-tweakpane-ui",
@@ -2839,7 +2802,7 @@
 		"repository": "https://github.com/huntabyte/formsnap",
 		"description": "Functional, accessible, and powerful form components for Svelte.",
 		"npm": "formsnap",
-		"tags": ["forms-and-validation", "integrations"]
+		"tags": ["forms-and-input", "validation", "integrations"]
 	},
 	{
 		"title": "cmdk-sv",
@@ -2860,7 +2823,7 @@
 		"repository": "https://github.com/LeoDog896/svelte-monaco",
 		"description": "Reactive two-way, full theme support monaco editor for Svelte(&Kit).",
 		"npm": "svelte-monaco",
-		"tags": ["components-and-libraries", "forms-and-validation"]
+		"tags": ["ui-components", "forms-and-input"]
 	},
 	{
 		"title": "SuperNavigation",
@@ -2881,7 +2844,7 @@
 		"repository": "https://github.com/CaptainCodeman/svelte-color-select",
 		"description": "Okhsv color select for Svelte",
 		"npm": "svelte-color-select",
-		"tags": ["components-and-libraries", "display-components"]
+		"tags": ["ui-components"]
 	},
 	{
 		"title": "svelte-enhanced-transitions",
@@ -2895,7 +2858,7 @@
 		"repository": "https://github.com/gzimbron/amplify-adapter",
 		"description": "Deploy Sveltekit SSR application to Aws Amplify (CI/CD)",
 		"npm": "amplify-adapter",
-		"tags": ["ssr", "components-and-libraries", "layout-and-structure", "sveltekit-adapters"]
+		"tags": ["ssr", "sveltekit-adapters", "integrations"]
 	},
 	{
 		"title": "@tsconfig/svelte",
@@ -2909,14 +2872,14 @@
 		"repository": "https://github.com/metonym/svelte-highlight",
 		"description": "Syntax highlighting for Svelte using highlight.js.",
 		"npm": "svelte-highlight",
-		"tags": ["components-and-libraries", "display-components"]
+		"tags": ["ui-components", "data-visualisation"]
 	},
 	{
 		"title": "progressbar-svelte",
 		"repository": "https://github.com/dhimankamal/svelte-progressbar",
 		"description": "A Svelte package for customizable progress bars.",
 		"npm": "progressbar-svelte",
-		"tags": ["components-and-libraries", "display-components"]
+		"tags": ["ui-components"]
 	},
 	{
 		"title": "Brefer",
@@ -2930,6 +2893,6 @@
 		"repository": "https://github.com/jack-weilage/svelte-mapbox",
 		"description": "A simple and powerful Svelte wrapper around mapbox-gl",
 		"npm": "svelte-mapbox",
-		"tags": ["data-visualisation", "display-components"]
+		"tags": ["data-visualisation", "integrations"]
 	}
 ]
