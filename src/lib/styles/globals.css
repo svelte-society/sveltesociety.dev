@@ -1,5 +1,4 @@
 body {
-	border-top: 6px solid var(--primary);
 	font-family: var(--font-body);
 	font-size: var(--font-200);
 	min-height: 100vh;

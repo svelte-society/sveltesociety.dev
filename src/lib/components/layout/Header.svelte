@@ -48,6 +48,7 @@
 
 <style>
 	header {
+		border-top: 6px solid var(--primary);
 		background: var(--accent-color);
 		color: var(--header-text-color);
 	}
