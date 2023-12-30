@@ -397,14 +397,14 @@
 	{
 		"description": "A Facebook pixel module for Svelte / Sapper",
 		"npm": "@beyonk/svelte-facebook-pixel",
-		"tags": ["components-and-libraries", "third-party-services", "integrations"],
+		"tags": ["components-and-libraries", "integrations"],
 		"title": "@beyonk/svelte-facebook-pixel",
 		"repository": "https://github.com/beyonk-group/svelte-facebook-pixel"
 	},
 	{
 		"description": "Google Analytics tracking module for Svelte / Sapper",
 		"npm": "@beyonk/svelte-google-analytics",
-		"tags": ["components-and-libraries", "third-party-services", "integrations"],
+		"tags": ["components-and-libraries", "integrations"],
 		"title": "@beyonk/svelte-google-analytics",
 		"repository": "https://github.com/beyonk-group/svelte-google-analytics"
 	},
@@ -1325,9 +1325,9 @@
 		"repository": "https://github.com/vime-js/vime"
 	},
 	{
-		"description": "🔌 Simple Svelte component to detect offline & online changes.",
+		"description": "Simple Svelte component to detect offline & online changes.",
 		"npm": "s-offline",
-		"tags": ["offline-and-online-detection", "network-events", "design-pattern"],
+		"tags": ["user-interaction", "network-events", "design-pattern"],
 		"title": "s-offline",
 		"repository": "https://github.com/vinayakkulkarni/s-offline"
 	},
@@ -1623,7 +1623,7 @@
 		"title": "Svelte (and SvelteKit) OAuth2",
 		"description": "Add OAuth2 authorization in Svelte (and SvelteKit, works with SSR)",
 		"npm": "@macfja/svelte-oauth2",
-		"tags": ["auth", "integrations", "ssr", "third-party-services"],
+		"tags": ["auth", "integrations", "ssr"],
 		"repository": "https://github.com/macfja/svelte-oauth2#readme"
 	},
 	{
@@ -2251,7 +2251,7 @@
 		"repository": "https://github.com/techniq/layerchart",
 		"description": "Composable Svelte chart components to build a wide range of visualizations",
 		"npm": "layerchart",
-		"tags": ["charts", "components-and-libraries", "data-visualisation"]
+		"tags": ["charts", "ui-components", "data-visualisation"]
 	},
 	{
 		"title": "@egjs/svelte-flicking",
@@ -2266,7 +2266,7 @@
 		"repository": "https://github.com/techniq/svelte-ux",
 		"description": "Collection of Svelte components, actions, stores, and utilities to build highly interactive applications",
 		"npm": "svelte-ux",
-		"tags": ["components-and-libraries", "design-system"]
+		"tags": ["ui-components", "stores-and-state", "layout-and-structure", "design-system"]
 	},
 	{
 		"title": "sveltekit-proxy",
@@ -2274,14 +2274,14 @@
 		"repository": "https://github.com/born05/sveltekit-proxy",
 		"description": "A simple way to proxy paths from SvelteKit to a different server.",
 		"npm": "@born05/sveltekit-proxy",
-		"tags": ["ssr", "integrations", "integrations"]
+		"tags": ["ssr", "integrations"]
 	},
 	{
 		"title": "MisMerge",
 		"repository": "https://github.com/BearToCode/mismerge",
 		"description": "A modern merge editor for the Web",
 		"npm": "@mismerge/core",
-		"tags": ["components-and-libraries", "typescript", "forms-and-input"]
+		"tags": ["ui-components", "typescript", "forms-and-input"]
 	},
 	{
 		"title": "svelte-ripple-action",
@@ -2304,7 +2304,7 @@
 		"repository": "https://github.com/LeoDog896/svelte-reparent",
 		"description": "Utility for reparenting elements",
 		"npm": "svelte-reparent",
-		"tags": ["stores-and-state", "components-and-libraries", "developer-experience"]
+		"tags": ["stores-and-state", "user-interaction", "developer-experience"]
 	},
 	{
 		"title": "svelte-inline-modal",
@@ -2325,35 +2325,41 @@
 		"repository": "https://github.com/jill64/svelte-toast",
 		"description": "Pre-Themed Responsive Toast Notification",
 		"npm": "@jill64/svelte-toast",
-		"tags": ["components-and-libraries", "notifications", "user-interaction"]
+		"tags": ["ui-components", "notifications", "user-interaction"]
 	},
 	{
 		"title": "@tanstack/svelte-table",
 		"npm": "@tanstack/svelte-table",
 		"repository": "https://github.com/tanstack/table",
 		"description": "Headless UI for building powerful tables & datagrids for TS/JS",
-		"tags": ["components-and-libraries", "layout-and-structure", "typescript", "data-visualisation"]
+		"tags": [
+			"ui-components",
+			"headless",
+			"layout-and-structure",
+			"typescript",
+			"data-visualisation"
+		]
 	},
 	{
 		"title": "Histoire",
 		"npm": "@histoire/plugin-svelte",
 		"repository": "https://github.com/histoire-dev/histoire",
 		"description": "Fast and beautiful interactive component playgrounds, powered by Vite",
-		"tags": ["testing"]
+		"tags": ["testing", "typescript"]
 	},
 	{
 		"title": "Lucia",
 		"npm": "lucia",
 		"repository": "https://github.com/lucia-auth/lucia",
 		"description": "An auth library that abstracts away the complexity of handling users and sessions",
-		"tags": ["components-and-libraries", "integrations", "auth"]
+		"tags": ["developer-experience", "integrations", "auth"]
 	},
 	{
 		"title": "Monaco",
 		"npm": "@monaco-auth/sveltekit",
 		"repository": "https://github.com/pilcrowOnPaper/monaco",
 		"description": "A simple, lightweight alternative to Auth.js",
-		"tags": ["components-and-libraries", "integrations", "auth"]
+		"tags": ["developer-experience", "integrations", "auth"]
 	},
 	{
 		"title": "trpc-svelte-query",
@@ -2367,56 +2373,56 @@
 		"npm": "svelte-legos",
 		"repository": "https://github.com/ankurrsinghal/svelte-legos",
 		"description": "Collection of essential Svelte Composition Utilities",
-		"tags": ["components-and-libraries", "design-system"]
+		"tags": ["user-interaction", "developer-experience", "stores-and-state"]
 	},
 	{
 		"title": "Supabase Auth",
 		"npm": "@supabase/auth-helpers-sveltekit",
 		"repository": "https://github.com/supabase/auth-helpers/tree/main/packages/sveltekit",
 		"description": "A collection of framework specific Auth utilities for working with Supabase",
-		"tags": ["components-and-libraries", "integrations", "auth"]
+		"tags": ["integrations", "auth", "ssr"]
 	},
 	{
 		"title": "svelte-markdown",
 		"npm": "svelte-markdown",
 		"repository": "https://github.com/pablo-abc/svelte-markdown",
 		"description": "Markdown parser to svelte components",
-		"tags": ["components-and-libraries", "markdown", "ui-components"]
+		"tags": ["ui-components", "markdown"]
 	},
 	{
 		"title": "svelte-exmarkdown",
 		"npm": "svelte-exmarkdown",
 		"repository": "https://github.com/ssssota/svelte-exmarkdown",
 		"description": "Svelte component to render markdown. Dynamic and Extensible.",
-		"tags": ["components-and-libraries", "markdown", "ui-components"]
+		"tags": ["ui-components", "markdown"]
 	},
 	{
 		"title": "Sentry for Svelte",
 		"npm": "@sentry/svelte",
 		"repository": "https://github.com/getsentry/sentry-javascript/tree/develop/packages/svelte",
 		"description": "Official Sentry SDK for Svelte",
-		"tags": ["integrations"]
+		"tags": ["integrations", "testing"]
 	},
 	{
 		"title": "Sentry for SvelteKit",
 		"npm": "@sentry/sveltekit",
 		"repository": "https://github.com/getsentry/sentry-javascript/tree/develop/packages/sveltekit",
 		"description": "Official Sentry SDK for SvelteKit",
-		"tags": ["integrations"]
+		"tags": ["integrations", "testing"]
 	},
 	{
 		"title": "svelte-french-toast",
 		"npm": "svelte-french-toast",
 		"repository": "https://github.com/kbrgl/svelte-french-toast",
 		"description": "Buttery smooth toast notifications for Svelte",
-		"tags": ["components-and-libraries", "notifications", "user-interaction"]
+		"tags": ["ui-components", "notifications", "user-interaction"]
 	},
 	{
 		"title": "@zerodevx/svelte-toast",
 		"npm": "@zerodevx/svelte-toast",
 		"repository": "https://github.com/zerodevx/svelte-toast",
 		"description": "Simple elegant toast notifications",
-		"tags": ["components-and-libraries", "notifications", "user-interaction"]
+		"tags": ["ui-components", "notifications", "user-interaction"]
 	},
 	{
 		"title": "svodals",
@@ -2437,14 +2443,14 @@
 		"repository": "https://github.com/joshnuss/svelte-stripe",
 		"description": "Everything you need to add Stripe Elements to your Svelte project.",
 		"npm": "svelte-stripe",
-		"tags": ["integrations"]
+		"tags": ["integrations", "ui-components"]
 	},
 	{
 		"title": "vite-plugin-kit-routes",
 		"repository": "https://github.com/jycouet/kitql/tree/main/packages/vite-plugin-kit-routes",
 		"description": "Automatically updates route references in SvelteKit projects",
 		"npm": "vite-plugin-kit-routes",
-		"tags": ["developer-experience"]
+		"tags": ["bundler-plugins", "developer-experience"]
 	},
 	{
 		"title": "svelte-action-balancer",
@@ -2458,7 +2464,7 @@
 		"repository": "https://github.com/wobsoriano/svelte-sonner",
 		"description": "An opinionated toast component for Svelte.",
 		"npm": "svelte-sonner",
-		"tags": ["components-and-libraries", "notifications", "user-interaction"]
+		"tags": ["ui-components", "notifications", "user-interaction"]
 	},
 	{
 		"title": "Square Svelte Store",
@@ -2479,7 +2485,13 @@
 		"repository": "https://github.com/bryanmylee/svelte-headless-table",
 		"description": "Unopinionated and extensible data tables for Svelte",
 		"npm": "svelte-headless-table",
-		"tags": ["components-and-libraries", "layout-and-structure", "typescript", "data-visualisation"]
+		"tags": [
+			"ui-components",
+			"layout-and-structure",
+			"typescript",
+			"data-visualisation",
+			"headless"
+		]
 	},
 	{
 		"title": "AutoAnimate",
@@ -2493,7 +2505,7 @@
 		"repository": "https://github.com/svelteuidev/svelteui",
 		"description": "SvelteUI is a Svelte library with a variety of packages to help make development easier!",
 		"npm": "@svelteuidev/core",
-		"tags": ["components-and-libraries", "design-system"]
+		"tags": ["components-and-libraries", "ui-components", "design-system"]
 	},
 	{
 		"title": "Houdini",
@@ -2514,21 +2526,21 @@
 		"repository": "https://github.com/grail-ui/grail-ui",
 		"description": "Grail UI offers a set of component primitives, actions and utilities that help you build accessible and high quality Svelte applications faster",
 		"npm": "@grail-ui/svelte",
-		"tags": ["components-and-libraries", "design-system"]
+		"tags": ["components-and-libraries", "ui-components", "design-system"]
 	},
 	{
 		"title": "svelte-maplibre",
 		"repository": "https://github.com/dimfeld/svelte-maplibre",
 		"description": "Svelte wrapper for the maplibre mapping library.",
 		"npm": "svelte-maplibre",
-		"tags": ["components-and-libraries", "data-visualisation", "integrations"]
+		"tags": ["ui-components", "data-visualisation", "integrations"]
 	},
 	{
 		"title": "SvelteKit Open Graph Image Generation",
 		"repository": "https://github.com/etherCorps/sveltekit-og",
 		"description": "Dynamically generate Open Graph images from an HTML+CSS template or Svelte component. Based on Satori.",
 		"npm": "@ethercorps/sveltekit-og",
-		"tags": ["integrations"]
+		"tags": ["integrations", "seo"]
 	},
 	{
 		"title": "rollup-plugin-svelte",
