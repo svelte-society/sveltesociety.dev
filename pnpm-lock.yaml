@@ -8,9 +8,6 @@ devDependencies:
   '@macfja/svelte-persistent-store':
     specifier: 2.4.1
     version: 2.4.1(svelte@4.2.8)
-  '@sindresorhus/slugify':
-    specifier: ^2.2.1
-    version: 2.2.1
   '@sveltejs/adapter-auto':
     specifier: ^3.0.1
     version: 3.0.1(@sveltejs/kit@2.0.1)
@@ -23,9 +20,6 @@ devDependencies:
   '@types/eslint':
     specifier: ^8.44.9
     version: 8.44.9
-  '@types/itemsjs':
-    specifier: ^2.1.6
-    version: 2.1.6
   '@types/node':
     specifier: ^20.10.5
     version: 20.10.5
@@ -53,9 +47,6 @@ devDependencies:
   highlight.js:
     specifier: ^11.9.0
     version: 11.9.0
-  itemsjs:
-    specifier: ^2.1.24
-    version: 2.1.24
   mdsvex:
     specifier: ^0.11.0
     version: 0.11.0(svelte@4.2.8)
@@ -594,21 +585,6 @@ packages:
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
     dev: true
 
-  /@sindresorhus/slugify@2.2.1:
-    resolution: {integrity: sha512-MkngSCRZ8JdSOCHRaYd+D01XhvU3Hjy6MGl06zhOk614hp9EOAp5gIkBeQg7wtmxpitU6eAL4kdiRMcJa2dlrw==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@sindresorhus/transliterate': 1.6.0
-      escape-string-regexp: 5.0.0
-    dev: true
-
-  /@sindresorhus/transliterate@1.6.0:
-    resolution: {integrity: sha512-doH1gimEu3A46VX6aVxpHTeHrytJAG6HgdxntYnCFiIFHEM/ZGpG8KiZGBChchjQmG0XFIBL552kBTjVcMZXwQ==}
-    engines: {node: '>=12'}
-    dependencies:
-      escape-string-regexp: 5.0.0
-    dev: true
-
   /@sveltejs/adapter-auto@3.0.1(@sveltejs/kit@2.0.1):
     resolution: {integrity: sha512-OpilmvRN136lUgOa9F0zpSI6g+PouOmk+YvJQrB+/hAtllLghjjYuoyfUsrF7U6oJ52cxCtAJTPXgZdyyCffrQ==}
     peerDependencies:
@@ -699,10 +675,6 @@ packages:
     resolution: {integrity: sha512-2fYGlaDy/qyLlhidX42wAH0KBi2TCjKMH8CHmBXgRlJ3Y+OXTiqsPQ6IWarZKwF1JoUcAJdPogv1d4b0COTpmQ==}
     dependencies:
       '@types/unist': 2.0.6
-    dev: true
-
-  /@types/itemsjs@2.1.6:
-    resolution: {integrity: sha512-86+xKLcdG6aRwTPSel5ZJLj3VdcMNiNA7PRqyayGoCOfltRbVdXTxD64+HM4jl7ApqhqTLn9p561WIDsPOivxw==}
     dev: true
 
   /@types/json-schema@7.0.12:
@@ -1261,11 +1233,6 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /escape-string-regexp@5.0.0:
-    resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
-    engines: {node: '>=12'}
-    dev: true
-
   /eslint-compat-utils@0.1.2(eslint@8.56.0):
     resolution: {integrity: sha512-Jia4JDldWnFNIru1Ehx1H5s9/yxiRHY/TimCuUc0jNexew3cF1gI6CYZil1ociakfWO3rRqFjl1mskBblB3RYg==}
     engines: {node: '>=12'}
@@ -1760,10 +1727,6 @@ packages:
 
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
-    dev: true
-
-  /itemsjs@2.1.24:
-    resolution: {integrity: sha512-e9t06r0jiSzC6Rx/rlJTh32VtocOEpwx7K+GCjkLk+ITMWQk5hxtl6yQzuZeRdMSdTFd6yoSLyT8GcDRmVKujw==}
     dev: true
 
   /js-yaml@4.1.0:

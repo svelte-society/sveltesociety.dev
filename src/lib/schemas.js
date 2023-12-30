@@ -1,6 +1,58 @@
 import { z } from 'zod';
 import { packageNameRegex } from 'package-name-regex';
 
+const PACKAGES_TAGS = /** @type {const} */ ([
+	'animations',
+	'async-data',
+	'async-loading',
+	'audio-and-video',
+	'auth',
+	'bundler-plugins',
+	'charts',
+	'cli-tools',
+	'components-and-libraries',
+	'css-and-layout',
+	'data-visualisation',
+	'debugging',
+	'design-pattern',
+	'design-system',
+	'developer-experience',
+	'development-and-documentation',
+	'display-components',
+	'fonts-and-icons',
+	'forms-and-validation',
+	'graphql',
+	'images',
+	'in-page-navigation',
+	'inputs-and-widgets',
+	'integrations',
+	'interactions',
+	'internationalization',
+	'intersection-observer',
+	'jsx',
+	'layout-and-structure',
+	'linting-and-formatting',
+	'maps',
+	'markdown',
+	'modals',
+	'multimedia',
+	'native',
+	'network-events',
+	'notifications',
+	'offline-and-online-detection',
+	'preprocessors',
+	'routers',
+	'ssr',
+	'stores-and-state',
+	'sveltekit-adapters',
+	'testing',
+	'third-party-services',
+	'time-and-date',
+	'typescript',
+	'user-interaction',
+	'viewport'
+]);
+
 export const packagesSchema = z.array(
 	z.object({
 		title: z.string().max(50),
@@ -8,31 +60,34 @@ export const packagesSchema = z.array(
 		url: z.string().url().optional(),
 		repository: z.string().url(),
 		description: z.string().max(250),
-		category: z.enum([
-			'Bundler Plugins',
-			'CSS and Layout',
-			'Data Visualisation',
-			'Debugging',
-			'Design Pattern',
-			'Design System',
-			'Developer Experience',
-			'Display Components',
-			'Forms & User Input',
-			'Icons',
-			'Integration',
-			'Internationalization',
-			'Linting and Formatting',
-			'Multimedia',
-			'Preprocessors',
-			'Routers',
-			'Stores',
-			'SvelteKit Adapters',
-			'Testing',
-			'User Interaction'
-		]),
-		tags: z.array(z.string()).max(5)
+		tags: z.array(z.enum(PACKAGES_TAGS)).min(1).max(6)
 	})
 );
+
+const TEMPLATES_TAGS = /** @type {const} */ ([
+	'blog',
+	'code-splitting',
+	'component-sets',
+	'components-and-libraries',
+	'database',
+	'electron',
+	'integrations',
+	'lazy-loading',
+	'markdown',
+	'mdsvex',
+	'mobile',
+	'preprocessors',
+	'seo',
+	'ssr',
+	'stores-and-state',
+	'storybook',
+	'svelte',
+	'svelte-add',
+	'sveltekit',
+	'testing',
+	'typescript',
+	'webpack'
+]);
 
 export const templatesSchema = z.array(
 	z.object({
@@ -40,7 +95,6 @@ export const templatesSchema = z.array(
 		url: z.string().url().optional(),
 		repository: z.string().url(),
 		description: z.string().max(250),
-		category: z.enum(['Svelte Add', 'SvelteKit', 'Svelte']),
-		tags: z.array(z.string()).max(5)
+		tags: z.array(z.enum(TEMPLATES_TAGS)).min(1).max(6)
 	})
 );
