@@ -221,7 +221,7 @@
 		"description": "Svelte stale while revalidate (SWR) data fetching strategy",
 		"repository": "https://github.com/ConsoleTVs/sswr",
 		"npm": "sswr",
-		"tags": ["async-loading", "design-pattern"]
+		"tags": ["data-fetching", "design-pattern"]
 	},
 	{
 		"title": "svelte-adapter-firebase",
@@ -593,7 +593,7 @@
 	{
 		"description": "Svelte integration for FormidableLabs URQL",
 		"npm": "@urql/svelte",
-		"tags": ["ui-components", "stores-and-state", "graphql", "design-pattern"],
+		"tags": ["stores-and-state", "data-fetching", "design-pattern"],
 		"title": "@urql/svelte",
 		"repository": "https://github.com/urql-graphql/urql/tree/main/packages/svelte-urql"
 	},
@@ -754,7 +754,7 @@
 	{
 		"description": "Dynamically load a Svelte component",
 		"npm": "svelte-loadable",
-		"tags": ["ui-components", "async-loading", "design-pattern"],
+		"tags": ["ui-components", "design-pattern"],
 		"title": "svelte-loadable",
 		"repository": "https://github.com/kaisermann/svelte-loadable"
 	},
@@ -936,7 +936,7 @@
 	{
 		"description": "Wrapper for FetchQL, a GraphQL query client",
 		"npm": "svql",
-		"tags": ["graphql", "stores-and-state", "design-pattern"],
+		"tags": ["data-fetching", "stores-and-state", "design-pattern"],
 		"title": "svql",
 		"repository": "https://github.com/pateketrueke/svql"
 	},
@@ -950,14 +950,14 @@
 	{
 		"description": "Asyncable store for Svelte 3 which is store a value as promise.",
 		"npm": "svelte-asyncable",
-		"tags": ["stores-and-state", "async-data"],
+		"tags": ["stores-and-state"],
 		"title": "svelte-asyncable",
 		"repository": "https://github.com/sveltetools/svelte-asyncable"
 	},
 	{
 		"description": "SVG placeholder components for loading content",
 		"npm": "svelte-content-loader",
-		"tags": ["ui-components", "async-loading", "multimedia"],
+		"tags": ["ui-components", "multimedia"],
 		"title": "svelte-content-loader",
 		"repository": "https://github.com/PaulMaly/svelte-content-loader"
 	},
@@ -999,7 +999,7 @@
 	{
 		"description": "Dynamically load a Svelte component with placeholders and preloading",
 		"npm": "svelte-viewpoint",
-		"tags": ["ui-components", "async-loading", "design-pattern"],
+		"tags": ["ui-components", "design-pattern"],
 		"title": "svelte-viewpoint",
 		"repository": "https://github.com/sveltetools/svelte-viewpoint"
 	},
@@ -1265,7 +1265,7 @@
 	{
 		"description": "Svelte integration for Apollo GraphQL",
 		"npm": "svelte-apollo",
-		"tags": ["async-data", "stores-and-state", "design-pattern"],
+		"tags": ["data-fetching", "stores-and-state", "design-pattern"],
 		"title": "svelte-apollo",
 		"repository": "https://github.com/timhall/svelte-apollo"
 	},
@@ -1603,7 +1603,7 @@
 		"title": "svelte-toc",
 		"repository": "https://github.com/janosh/svelte-toc",
 		"description": "Sticky responsive table of contents component",
-		"tags": ["ui-components", "in-page-navigation", "async-loading", "user-interaction"],
+		"tags": ["ui-components", "in-page-navigation", "user-interaction"],
 		"npm": "svelte-toc"
 	},
 	{
@@ -1822,7 +1822,7 @@
 		"repository": "https://github.com/jycouet/kitql",
 		"description": "A set of tools, helping you building efficient apps in a fast way.",
 		"npm": "@kitql/all-in",
-		"tags": ["async-data", "async-loading", "graphql", "ssr", "stores-and-state"]
+		"tags": ["data-fetching", "ssr", "stores-and-state"]
 	},
 	{
 		"title": "svelte-brick-gallery",
@@ -1998,7 +1998,7 @@
 		"repository": "https://github.com/tanstack/query",
 		"description": "Powerful asynchronous state management, server-state utilities and data fetching for the web",
 		"npm": "@tanstack/svelte-query",
-		"tags": ["async-data", "async-loading", "network-events", "stores-and-state", "typescript"]
+		"tags": ["data-fetching", "network-events", "stores-and-state", "typescript"]
 	},
 	{
 		"title": "svelte-form-builder",
@@ -2341,7 +2341,7 @@
 		"npm": "trpc-svelte-query",
 		"repository": "https://github.com/ottomated/trpc-svelte-query",
 		"description": "A tRPC wrapper around @tanstack/svelte-query",
-		"tags": ["async-data", "async-loading", "network-events", "ssr", "typescript", "design-pattern"]
+		"tags": ["data-fetching", "network-events", "ssr", "typescript", "design-pattern"]
 	},
 	{
 		"title": "Svelte Legos",
@@ -2487,7 +2487,7 @@
 		"repository": "https://github.com/HoudiniGraphql/houdini",
 		"description": "The disappearing GraphQL client.",
 		"npm": "houdini",
-		"tags": ["graphql", "integrations"]
+		"tags": ["data-fetching", "integrations"]
 	},
 	{
 		"title": "@svelte-put/clickoutside",
@@ -2739,7 +2739,7 @@
 		"repository": "https://github.com/icflorescu/trpc-sveltekit",
 		"description": "End-to-end typesafe APIs with tRPC.io for your SvelteKit applications.",
 		"npm": "trpc-sveltekit",
-		"tags": ["integrations", "ssr", "stores-and-state", "async-data"]
+		"tags": ["integrations", "ssr", "stores-and-state", "data-fetching"]
 	},
 	{
 		"title": "Konsta UI",

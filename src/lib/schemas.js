@@ -3,14 +3,13 @@ import { packageNameRegex } from 'package-name-regex';
 
 const PACKAGES_TAGS = /** @type {const} */ ([
 	'animations',
-	'async-data',
-	'async-loading',
 	'audio-and-video',
 	'auth',
 	'bundler-plugins',
 	'charts',
 	'cli-tools',
 	'css-and-layout',
+	'data-fetching',
 	'data-visualisation',
 	'date-and-time',
 	'design-pattern',
@@ -18,7 +17,6 @@ const PACKAGES_TAGS = /** @type {const} */ ([
 	'developer-experience',
 	'documentation',
 	'forms-and-input',
-	'graphql',
 	'headless',
 	'icons-and-fonts',
 	'images',
