@@ -13,6 +13,7 @@ const PACKAGES_TAGS = /** @type {const} */ ([
 	'components-and-libraries',
 	'css-and-layout',
 	'data-visualisation',
+	'date-and-time',
 	'debugging',
 	'design-pattern',
 	'design-system',
@@ -26,7 +27,6 @@ const PACKAGES_TAGS = /** @type {const} */ ([
 	'in-page-navigation',
 	'inputs-and-widgets',
 	'integrations',
-	'interactions',
 	'internationalization',
 	'intersection-observer',
 	'jsx',
@@ -47,7 +47,6 @@ const PACKAGES_TAGS = /** @type {const} */ ([
 	'sveltekit-adapters',
 	'testing',
 	'third-party-services',
-	'time-and-date',
 	'typescript',
 	'user-interaction',
 	'viewport'

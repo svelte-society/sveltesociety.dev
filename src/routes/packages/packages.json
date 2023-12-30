@@ -4,14 +4,14 @@
 		"repository": "https://github.com/erokar/svelte-stopwatch",
 		"description": "A Svelte timer component with a countdown option and events for start, stop and reset of the timer.",
 		"npm": "svelte-stopwatch",
-		"tags": ["time-and-date", "components-and-libraries", "user-interaction"]
+		"tags": ["date-and-time", "components-and-libraries", "user-interaction"]
 	},
 	{
 		"title": "Curseur",
 		"repository": "https://github.com/n3-rd/curseur",
 		"description": "Svelte component for creating customizable cursors.",
 		"npm": "curseur",
-		"tags": ["interactions", "typescript", "user-interaction"]
+		"tags": ["typescript", "user-interaction"]
 	},
 	{
 		"title": "svelte-zod-form",
@@ -25,7 +25,7 @@
 		"repository": "https://github.com/daybrush/selecto/tree/master/packages/svelte-selecto",
 		"description": "Selecto.js is a component that allows you to select elements in the drag area using the mouse or touch.",
 		"npm": "svelte-selecto",
-		"tags": ["components-and-libraries", "typescript", "interactions", "user-interaction"]
+		"tags": ["components-and-libraries", "typescript", "user-interaction"]
 	},
 	{
 		"title": "svelte-pilot",
@@ -181,7 +181,7 @@
 		"description": "Date and time picker for Svelte",
 		"npm": "date-picker-svelte",
 		"tags": [
-			"time-and-date",
+			"date-and-time",
 			"components-and-libraries",
 			"inputs-and-widgets",
 			"forms-and-validation"
@@ -283,7 +283,7 @@
 		"repository": "https://gitlab.com/public-e-soa-com/svelte-time-picker",
 		"npm": "svelte-time-picker",
 		"description": "Time Picker UI for Svelte, inspired by the MaterialUI React Time Picker",
-		"tags": ["components-and-libraries", "time-and-date", "forms-and-validation"]
+		"tags": ["components-and-libraries", "date-and-time", "forms-and-validation"]
 	},
 	{
 		"title": "svelte-formula",
@@ -295,7 +295,7 @@
 	{
 		"description": "A lightweight datepicker with neat animations and a unique UX",
 		"npm": "svelte-calendar",
-		"tags": ["components-and-libraries", "time-and-date", "forms-and-validation"],
+		"tags": ["components-and-libraries", "date-and-time", "forms-and-validation"],
 		"title": "svelte-calendar",
 		"repository": "https://github.com/6eDesign/svelte-calendar"
 	},
@@ -443,7 +443,7 @@
 	{
 		"description": "Scroll Spy component for Svelte",
 		"npm": "@beyonk/svelte-scrollspy",
-		"tags": ["components-and-libraries", "interactions", "design-pattern"],
+		"tags": ["components-and-libraries", "user-interaction", "design-pattern"],
 		"title": "@beyonk/svelte-scrollspy",
 		"repository": "https://github.com/beyonk-group/svelte-scrollspy"
 	},
@@ -527,7 +527,7 @@
 	{
 		"description": "Component for moveable, draggable, resizable, scalable, rotatable, and more",
 		"npm": "svelte-moveable",
-		"tags": ["components-and-libraries", "interactions", "user-interaction"],
+		"tags": ["components-and-libraries", "user-interaction"],
 		"title": "svelte-moveable",
 		"repository": "https://github.com/daybrush/moveable/tree/master/packages/svelte-moveable"
 	},
@@ -576,7 +576,7 @@
 	{
 		"description": "A user interface for inputting date ranges",
 		"npm": "@equipmentshare/date-range-input",
-		"tags": ["components-and-libraries", "time-and-date", "forms-and-validation"],
+		"tags": ["components-and-libraries", "date-and-time", "forms-and-validation"],
 		"title": "@equipmentshare/date-range-input",
 		"repository": "https://github.com/EquipmentShare/date-range-input"
 	},
@@ -681,7 +681,7 @@
 	{
 		"description": "Flatpickr component for Svelte",
 		"npm": "svelte-flatpickr",
-		"tags": ["components-and-libraries", "time-and-date", "forms-and-validation"],
+		"tags": ["components-and-libraries", "date-and-time", "forms-and-validation"],
 		"title": "svelte-flatpickr",
 		"repository": "https://github.com/jacobmischka/svelte-flatpickr"
 	},
@@ -1135,7 +1135,7 @@
 	{
 		"description": "Customizable version of GitHub's contribution graph",
 		"npm": "svelte-heatmap",
-		"tags": ["components-and-libraries", "time-and-date", "data-visualisation"],
+		"tags": ["components-and-libraries", "date-and-time", "data-visualisation"],
 		"title": "svelte-heatmap",
 		"repository": "https://github.com/scottbedard/svelte-heatmap"
 	},
@@ -1167,8 +1167,7 @@
 			"components-and-libraries",
 			"inputs-and-widgets",
 			"forms-and-validation",
-			"interactions",
-			"forms-and-validation"
+			"user-interaction"
 		],
 		"title": "svelte-range-slider-pips",
 		"repository": "https://github.com/simeydotme/svelte-range-slider-pips"
@@ -1402,7 +1401,7 @@
 	{
 		"description": "A Svelte component wrapper around FullCalendar.",
 		"npm": "svelte-fullcalendar",
-		"tags": ["components-and-libraries", "time-and-date", "forms-and-validation"],
+		"tags": ["components-and-libraries", "date-and-time", "forms-and-validation"],
 		"title": "svelte-fullcalendar",
 		"repository": "https://github.com/YogliB/svelte-fullcalendar"
 	},
@@ -1602,7 +1601,7 @@
 	{
 		"description": "Full-sized drag & drop event calendar with resource view",
 		"npm": "@event-calendar/core",
-		"tags": ["components-and-libraries", "time-and-date", "forms-and-validation"],
+		"tags": ["components-and-libraries", "date-and-time", "forms-and-validation"],
 		"title": "Event Calendar",
 		"repository": "https://github.com/vkurko/calendar"
 	},
@@ -1628,7 +1627,7 @@
 			"components-and-libraries",
 			"inputs-and-widgets",
 			"forms-and-validation",
-			"interactions"
+			"user-interaction"
 		],
 		"npm": "svelte-multiselect"
 	},
@@ -1665,14 +1664,14 @@
 		"repository": "https://github.com/chanced/filedrop-svelte",
 		"description": "file dropzone action & component",
 		"npm": "filedrop-svelte",
-		"tags": ["interactions", "inputs-and-widgets", "forms-and-validation"]
+		"tags": ["user-interaction", "inputs-and-widgets", "forms-and-validation"]
 	},
 	{
 		"title": "focus-svelte",
 		"repository": "https://github.com/chanced/focus-svelte",
 		"description": "focus lock for accessibility",
 		"npm": "focus-svelte",
-		"tags": ["interactions", "forms-and-validation"]
+		"tags": ["user-interaction", "forms-and-validation"]
 	},
 	{
 		"title": "svelte-translate",
@@ -1689,7 +1688,7 @@
 		"tags": [
 			"components-and-libraries",
 			"forms-and-validation",
-			"interactions",
+			"user-interaction",
 			"inputs-and-widgets"
 		]
 	},
@@ -1776,7 +1775,7 @@
 		"repository": "https://github.com/mskocik/svelty-picker",
 		"description": "Simple date & time picker you will love",
 		"npm": "svelty-picker",
-		"tags": ["forms-and-validation", "inputs-and-widgets", "interactions", "time-and-date"]
+		"tags": ["forms-and-validation", "inputs-and-widgets", "user-interaction", "date-and-time"]
 	},
 	{
 		"title": "svelte-slider",
@@ -1797,7 +1796,7 @@
 		"repository": "https://github.com/MacFJA/svelte-expirable",
 		"description": "A Svelte store with items that expire",
 		"npm": "@macfja/svelte-expirable",
-		"tags": ["interactions", "notifications", "stores-and-state"]
+		"tags": ["user-interaction", "notifications", "stores-and-state"]
 	},
 	{
 		"title": "Store2",
@@ -1825,7 +1824,7 @@
 		"repository": "https://github.com/Rezi/svelte-gestures",
 		"description": "collection of gesture recognisers for Svelte.",
 		"npm": "svelte-gestures",
-		"tags": ["interactions", "inputs-and-widgets", "user-interaction"]
+		"tags": ["inputs-and-widgets", "user-interaction"]
 	},
 	{
 		"title": "svelte-adapter-github",
@@ -1888,7 +1887,7 @@
 		"repository": "https://github.com/beerui/BeerUi",
 		"description": "A Svelte Ui Components",
 		"npm": "@brewer/beerui",
-		"tags": ["components-and-libraries", "time-and-date", "design-system"]
+		"tags": ["components-and-libraries", "date-and-time", "design-system"]
 	},
 	{
 		"title": "Skeleton",
@@ -1903,7 +1902,7 @@
 		"repository": "https://github.com/wd-David/svelte-hover-draw-svg",
 		"description": "A lightweight Svelte component to draw SVG on hover.",
 		"npm": "svelte-hover-draw-svg",
-		"tags": ["animations", "components-and-libraries", "interactions", "user-interaction"]
+		"tags": ["animations", "components-and-libraries", "user-interaction"]
 	},
 	{
 		"title": "Casual UI Svelte",
@@ -1978,14 +1977,7 @@
 		"description": "A component to play a video by scrolling the page",
 		"repository": "https://github.com/macfja/svelte-scroll-video#readme",
 		"npm": "@macfja/svelte-scroll-video",
-		"tags": [
-			"audio-and-video",
-			"images",
-			"inputs-and-widgets",
-			"interactions",
-			"viewport",
-			"user-interaction"
-		]
+		"tags": ["audio-and-video", "images", "inputs-and-widgets", "viewport", "user-interaction"]
 	},
 	{
 		"title": "@prgm/sveltekit-progress-bar",
@@ -2105,7 +2097,7 @@
 		"repository": "https://github.com/probablykasper/svelte-droplet",
 		"description": "File dropzone utility with styling up to you",
 		"npm": "svelte-droplet",
-		"tags": ["inputs-and-widgets", "forms-and-validation", "interactions"]
+		"tags": ["inputs-and-widgets", "forms-and-validation", "user-interaction"]
 	},
 	{
 		"title": "chat-embed",
@@ -2130,7 +2122,7 @@
 			"components-and-libraries",
 			"forms-and-validation",
 			"inputs-and-widgets",
-			"time-and-date",
+			"date-and-time",
 			"typescript"
 		]
 	},
@@ -2139,7 +2131,7 @@
 		"repository": "https://github.com/bonosoft/sveltekit-qrcode",
 		"description": "Use QR codes to initialise your onetime password generator or transfer other information",
 		"npm": "@bonosoft/sveltekit-qrcode",
-		"tags": ["auth", "interactions", "user-interaction"]
+		"tags": ["auth", "user-interaction"]
 	},
 	{
 		"title": "Progress component for SvelteKit",
@@ -2253,7 +2245,7 @@
 		"repository": "https://github.com/rossrobino/drab",
 		"description": "Unstyled Svelte component library",
 		"npm": "drab",
-		"tags": ["components-and-libraries", "interactions", "typescript", "display-components"]
+		"tags": ["components-and-libraries", "user-interaction", "typescript", "display-components"]
 	},
 	{
 		"title": "supasveltekit",
@@ -2303,14 +2295,7 @@
 		"repository": "https://github.com/naver/egjs-flicking",
 		"description": "🎠 ♻️ Everyday 30 million people experience. It's reliable, flexible and extendable carousel.",
 		"npm": "@egjs/svelte-flicking",
-		"tags": [
-			"interactions",
-			"images",
-			"typescript",
-			"ssr",
-			"layout-and-structure",
-			"user-interaction"
-		]
+		"tags": ["images", "typescript", "ssr", "layout-and-structure", "user-interaction"]
 	},
 	{
 		"title": "Svelte UX",
@@ -2341,7 +2326,7 @@
 		"repository": "https://github.com/Posandu/svelte-ripple-action",
 		"description": "Svelte action to add ripple effects to Svelte components",
 		"npm": "svelte-ripple-action",
-		"tags": ["animations", "interactions", "user-interaction"]
+		"tags": ["animations", "user-interaction"]
 	},
 	{
 		"title": "sveltekit-superforms",
@@ -2363,7 +2348,7 @@
 		"repository": "https://github.com/jill64/svelte-inline-modal",
 		"description": "Simple Modal on the Fly",
 		"npm": "svelte-inline-modal",
-		"tags": ["interactions", "layout-and-structure", "user-interaction"]
+		"tags": ["layout-and-structure", "user-interaction"]
 	},
 	{
 		"title": "@jill64/svelte-input",
@@ -2398,14 +2383,14 @@
 		"npm": "lucia",
 		"repository": "https://github.com/lucia-auth/lucia",
 		"description": "An auth library that abstracts away the complexity of handling users and sessions",
-		"tags": ["components-and-libraries", "integrations", "auth", "integrations"]
+		"tags": ["components-and-libraries", "integrations", "auth"]
 	},
 	{
 		"title": "Monaco",
 		"npm": "@monaco-auth/sveltekit",
 		"repository": "https://github.com/pilcrowOnPaper/monaco",
 		"description": "A simple, lightweight alternative to Auth.js",
-		"tags": ["components-and-libraries", "integrations", "auth", "integrations"]
+		"tags": ["components-and-libraries", "integrations", "auth"]
 	},
 	{
 		"title": "trpc-svelte-query",
@@ -2426,7 +2411,7 @@
 		"npm": "@supabase/auth-helpers-sveltekit",
 		"repository": "https://github.com/supabase/auth-helpers/tree/main/packages/sveltekit",
 		"description": "A collection of framework specific Auth utilities for working with Supabase",
-		"tags": ["components-and-libraries", "integrations", "auth", "integrations"]
+		"tags": ["components-and-libraries", "integrations", "auth"]
 	},
 	{
 		"title": "svelte-markdown",
@@ -2447,14 +2432,14 @@
 		"npm": "@sentry/svelte",
 		"repository": "https://github.com/getsentry/sentry-javascript/tree/develop/packages/svelte",
 		"description": "Official Sentry SDK for Svelte",
-		"tags": ["integrations", "integrations"]
+		"tags": ["integrations"]
 	},
 	{
 		"title": "Sentry for SvelteKit",
 		"npm": "@sentry/sveltekit",
 		"repository": "https://github.com/getsentry/sentry-javascript/tree/develop/packages/sveltekit",
 		"description": "Official Sentry SDK for SvelteKit",
-		"tags": ["integrations", "integrations"]
+		"tags": ["integrations"]
 	},
 	{
 		"title": "svelte-french-toast",
@@ -2489,7 +2474,7 @@
 		"repository": "https://github.com/joshnuss/svelte-stripe",
 		"description": "Everything you need to add Stripe Elements to your Svelte project.",
 		"npm": "svelte-stripe",
-		"tags": ["integrations", "integrations"]
+		"tags": ["integrations"]
 	},
 	{
 		"title": "vite-plugin-kit-routes",
@@ -2818,7 +2803,7 @@
 		"repository": "https://github.com/prismicio/prismic-svelte",
 		"description": "Svelte components to render content from the Prismic API",
 		"npm": "@prismicio/svelte",
-		"tags": ["integrations", "images", "layout-and-structure", "integrations"]
+		"tags": ["integrations", "images", "layout-and-structure"]
 	},
 	{
 		"title": "@slicemachine/adapter-sveltekit",
@@ -2826,14 +2811,14 @@
 		"repository": "https://github.com/prismicio/slice-machine/tree/master/packages/adapter-sveltekit",
 		"description": "Turn your SvelteKit project into a website builder with Prismic's Slice Machine",
 		"npm": "@slicemachine/adapter-sveltekit",
-		"tags": ["integrations", "integrations"]
+		"tags": ["integrations"]
 	},
 	{
 		"title": "svelte-i18next",
 		"repository": "https://github.com/maximux13/svelte-i18next",
 		"description": "Add support to your svelte kit project to use i18next",
 		"npm": "@maximux13/svelte-i18next",
-		"tags": ["integrations", "internationalization", "ssr", "integrations"]
+		"tags": ["integrations", "internationalization", "ssr"]
 	},
 	{
 		"title": "@vite-pwa/sveltekit",
