@@ -33,7 +33,6 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			$components: path.resolve('./src/lib/components'),
-			$layout: path.resolve('./src/lib/components/layout'),
 			$layouts: path.resolve('./src/lib/layouts'),
 			$utils: path.resolve('./src/lib/utils'),
 			$styles: path.resolve('./src/lib/styles'),
