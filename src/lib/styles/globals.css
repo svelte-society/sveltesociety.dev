@@ -13,8 +13,7 @@ body {
 
 a {
 	color: var(--link-color);
-	text-decoration: none;
-	border-bottom: 1px solid var(--link-color);
+	text-decoration-line: underline;
 	transition: var(--link-transition);
 }
 

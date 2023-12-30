@@ -15,7 +15,7 @@
 </script>
 
 <header class="px-6 py-4 print:hidden">
-	<div class="w-full xl:w-4/5 mx-auto">
+	<div class="w-full max-w-7xl mx-auto">
 		<nav class="py-6">
 			<ul
 				class="xl:flex xl:justify-between grid gap-6 justify-center place-items-center font-extrabold"

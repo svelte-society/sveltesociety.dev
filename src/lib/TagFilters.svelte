@@ -46,7 +46,7 @@
 	}
 
 	a {
-		border: none;
+		text-decoration: none;
 	}
 
 	.tag {
