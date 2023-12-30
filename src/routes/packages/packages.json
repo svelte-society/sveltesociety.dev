@@ -214,7 +214,7 @@
 		"description": "A Marquee component for Svelte inspired by react-fast-marquee.",
 		"repository": "https://github.com/abosch19/svelte-fast-marquee",
 		"npm": "svelte-fast-marquee",
-		"tags": ["components-and-libraries", "display-components"]
+		"tags": ["components-and-libraries", "ui-components"]
 	},
 	{
 		"title": "sswr",
@@ -298,7 +298,7 @@
 	{
 		"description": "Generate a JSON documentation for a Svelte component",
 		"npm": "sveltedoc-parser",
-		"tags": ["components-and-libraries", "development-and-documentation", "developer-experience"],
+		"tags": ["components-and-libraries", "documentation", "developer-experience"],
 		"title": "sveltedoc-parser",
 		"repository": "https://github.com/alexprey/sveltedoc-parser"
 	},
@@ -614,7 +614,7 @@
 	{
 		"description": "A Svelte component to format and display a copyright notice.",
 		"npm": "svelte-copyright",
-		"tags": ["components-and-libraries", "display-components"],
+		"tags": ["components-and-libraries", "ui-components"],
 		"title": "svelte-copyright",
 		"repository": "https://github.com/himynameisdave/svelte-copyright"
 	},
@@ -998,7 +998,7 @@
 	{
 		"description": "Simple Svelte component which automatically makes its contents scrollable ticker-style if it's necessary.",
 		"npm": "svelte-ticker",
-		"tags": ["components-and-libraries", "display-components"],
+		"tags": ["components-and-libraries", "ui-components"],
 		"title": "svelte-ticker",
 		"repository": "https://github.com/PaulMaly/svelte-ticker"
 	},
@@ -1075,7 +1075,7 @@
 	{
 		"description": "Development helper for inspecting and opening Svelte components in your editor",
 		"npm": "svelte-inspector",
-		"tags": ["components-and-libraries", "development-and-documentation", "developer-experience"],
+		"tags": ["components-and-libraries", "documentation", "developer-experience"],
 		"title": "svelte-inspector",
 		"repository": "https://github.com/qutran/svelte-inspector"
 	},
@@ -1145,7 +1145,7 @@
 	{
 		"description": "Marquee fully responsive and adaptive for Svelte",
 		"npm": "svelte-marquee",
-		"tags": ["components-and-libraries", "display-components"],
+		"tags": ["components-and-libraries", "ui-components"],
 		"title": "svelte-marquee",
 		"repository": "https://github.com/silvestrevivo/svelte-marquee"
 	},
@@ -1467,7 +1467,7 @@
 	{
 		"description": "svelte-pdf provides a component for rendering PDF documents using PDF.js",
 		"npm": "svelte-pdf",
-		"tags": ["components-and-libraries", "display-components"],
+		"tags": ["components-and-libraries", "ui-components", "multimedia"],
 		"title": "svelte-pdf",
 		"repository": "https://github.com/vinodnimbalkar/svelte-pdf"
 	},
@@ -1559,7 +1559,7 @@
 	{
 		"description": "Official tsParticles Svelte Component - Easily create highly customizable particle animations and use them as animated backgrounds for your website.",
 		"npm": "svelte-particles",
-		"tags": ["components-and-libraries", "typescript", "animations", "display-components"],
+		"tags": ["components-and-libraries", "typescript", "animations", "ui-components"],
 		"title": "svelte-particles",
 		"repository": "https://github.com/tsparticles/svelte/"
 	},
@@ -2002,7 +2002,7 @@
 		"url": "https://ui.perfectthings.dev/",
 		"description": "A set of simple, but perfect, UI components, written in Svelte",
 		"npm": "@perfectthings/ui",
-		"tags": ["components-and-libraries", "forms-and-input", "display-components"],
+		"tags": ["components-and-libraries", "forms-and-input", "ui-components"],
 		"repository": "https://github.com/perfect-things/ui/"
 	},
 	{
@@ -2208,7 +2208,7 @@
 		"repository": "https://github.com/rossrobino/drab",
 		"description": "Unstyled Svelte component library",
 		"npm": "drab",
-		"tags": ["components-and-libraries", "user-interaction", "typescript", "display-components"]
+		"tags": ["components-and-libraries", "user-interaction", "typescript", "ui-components"]
 	},
 	{
 		"title": "supasveltekit",
@@ -2318,7 +2318,7 @@
 		"repository": "https://github.com/jill64/svelte-input",
 		"description": "Functional Input Component Set for Svelte",
 		"npm": "@jill64/svelte-input",
-		"tags": ["forms-and-input", "display-components"]
+		"tags": ["forms-and-input", "ui-components"]
 	},
 	{
 		"title": "@jill64/svelte-toast",
@@ -2381,14 +2381,14 @@
 		"npm": "svelte-markdown",
 		"repository": "https://github.com/pablo-abc/svelte-markdown",
 		"description": "Markdown parser to svelte components",
-		"tags": ["components-and-libraries", "markdown", "display-components"]
+		"tags": ["components-and-libraries", "markdown", "ui-components"]
 	},
 	{
 		"title": "svelte-exmarkdown",
 		"npm": "svelte-exmarkdown",
 		"repository": "https://github.com/ssssota/svelte-exmarkdown",
 		"description": "Svelte component to render markdown. Dynamic and Extensible.",
-		"tags": ["components-and-libraries", "markdown", "display-components"]
+		"tags": ["components-and-libraries", "markdown", "ui-components"]
 	},
 	{
 		"title": "Sentry for Svelte",
@@ -2472,7 +2472,7 @@
 		"repository": "https://github.com/PuruVJ/neoconfetti/tree/main/packages/svelte",
 		"description": "@neoconfetti/svelte allows you to show an awesome confetti explosion on your page, with Svelte!",
 		"npm": "@neoconfetti/svelte",
-		"tags": ["typescript", "display-components"]
+		"tags": ["typescript", "animations", "user-interaction"]
 	},
 	{
 		"title": "Svelte Headless Table",
@@ -2486,7 +2486,7 @@
 		"repository": "https://github.com/formkit/auto-animate",
 		"description": "Add motion to your apps with a single line of code.",
 		"npm": "@formkit/auto-animate",
-		"tags": ["animations", "display-components"]
+		"tags": ["animations", "user-interaction"]
 	},
 	{
 		"title": "SvelteUI",
@@ -2745,7 +2745,7 @@
 		"repository": "https://github.com/kitschpatrol/svelte-tweakpane-ui",
 		"description": "A Svelte component library wrapping UI elements from Tweakpane.",
 		"npm": "svelte-tweakpane-ui",
-		"tags": ["display-components"]
+		"tags": ["ui-components", "layout-and-structure"]
 	},
 	{
 		"title": "tRPC-SvelteKit",
@@ -2809,7 +2809,7 @@
 		"repository": "https://github.com/huntabyte/cmdk-sv",
 		"description": "cmdk, but for Svelte",
 		"npm": "cmdk-sv",
-		"tags": ["components-and-libraries", "display-components"]
+		"tags": ["ui-components", "user-interaction"]
 	},
 	{
 		"title": "Ato UI",
