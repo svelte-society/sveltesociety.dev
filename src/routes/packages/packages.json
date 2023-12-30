@@ -95,63 +95,63 @@
 		"repository": "https://github.com/sveltejs/kit/tree/main/packages/kit",
 		"description": "The fastest way to build Svelte apps",
 		"npm": "@sveltejs/kit",
-		"tags": ["routers", "ssr", "layout-and-structure", "forms-and-input", "typescript"]
+		"tags": ["routers", "ssr", "layout-and-structure", "typescript", "official"]
 	},
 	{
 		"title": "@sveltejs/package",
 		"repository": "https://github.com/sveltejs/kit/tree/main/packages/package",
 		"description": "The fastest way to build Svelte packages",
 		"npm": "@sveltejs/package",
-		"tags": ["cli-tools", "bundler-plugins"]
+		"tags": ["cli-tools", "bundler-plugins", "official"]
 	},
 	{
 		"title": "@sveltejs/adapter-auto",
 		"repository": "https://github.com/sveltejs/kit/tree/main/packages/adapter-auto",
 		"description": "Automatically chooses adapter for your current environment if possible",
 		"npm": "@sveltejs/adapter-auto",
-		"tags": ["integrations", "sveltekit-adapters"]
+		"tags": ["integrations", "sveltekit-adapters", "official"]
 	},
 	{
 		"title": "@sveltejs/adapter-netlify",
 		"repository": "https://github.com/sveltejs/kit/tree/main/packages/adapter-netlify",
 		"description": "A SvelteKit adapter that creates a Netlify app. If you're using adapter-auto, you don't need to install this unless you need to specify Netlify-specific options, since it's already included.",
 		"npm": "@sveltejs/adapter-netlify",
-		"tags": ["integrations", "sveltekit-adapters"]
+		"tags": ["integrations", "sveltekit-adapters", "official"]
 	},
 	{
 		"title": "@sveltejs/adapter-cloudflare-workers",
 		"repository": "https://github.com/sveltejs/kit/tree/main/packages/adapter-cloudflare-workers",
 		"description": "SvelteKit adapter that creates a Cloudflare Workers site using a function for dynamic server rendering.",
 		"npm": "@sveltejs/adapter-cloudflare-workers",
-		"tags": ["integrations", "sveltekit-adapters"]
+		"tags": ["integrations", "sveltekit-adapters", "official"]
 	},
 	{
 		"title": "@sveltejs/adapter-cloudflare",
 		"repository": "https://github.com/sveltejs/kit/tree/main/packages/adapter-cloudflare",
 		"description": "Adapter for building SvelteKit applications on Cloudflare Pages with Workers integration. If you're using adapter-auto, you don't need to install this — it's already included.",
 		"npm": "@sveltejs/adapter-cloudflare",
-		"tags": ["integrations", "sveltekit-adapters"]
+		"tags": ["integrations", "sveltekit-adapters", "official"]
 	},
 	{
 		"title": "@sveltejs/adapter-node",
 		"repository": "https://github.com/sveltejs/kit/tree/main/packages/adapter-node",
 		"description": "Adapter for SvelteKit apps that generates a standalone Node server.",
 		"npm": "@sveltejs/adapter-node",
-		"tags": ["integrations", "sveltekit-adapters"]
+		"tags": ["integrations", "sveltekit-adapters", "official"]
 	},
 	{
 		"title": "@sveltejs/adapter-static",
 		"repository": "https://github.com/sveltejs/kit/tree/main/packages/adapter-static",
 		"description": "Adapter for SvelteKit apps that prerenders your entire site as a collection of static files. If you'd like to prerender only some pages, you will need to use a different adapter together with the prerender option.",
 		"npm": "@sveltejs/adapter-static",
-		"tags": ["integrations", "sveltekit-adapters"]
+		"tags": ["integrations", "sveltekit-adapters", "official"]
 	},
 	{
 		"title": "@sveltejs/adapter-vercel",
 		"repository": "https://github.com/sveltejs/kit/tree/main/packages/adapter-vercel",
 		"description": "A SvelteKit adapter that creates a Vercel app.If you're using adapter-auto, you don't need to install this unless you need to specify Vercel-specific options, since it's already included.",
 		"npm": "@sveltejs/adapter-vercel",
-		"tags": ["integrations", "sveltekit-adapters"]
+		"tags": ["integrations", "sveltekit-adapters", "official"]
 	},
 	{
 		"title": "svelte-lazy-loader",
@@ -1215,28 +1215,28 @@
 	{
 		"description": "A (very experimental) project to bring WebGL to Svelte",
 		"npm": "@sveltejs/gl",
-		"tags": ["user-interaction"],
+		"tags": ["user-interaction", "official"],
 		"title": "@sveltejs/gl",
 		"repository": "https://github.com/sveltejs/gl"
 	},
 	{
 		"description": "The `<Repl>` component used on the Svelte website",
 		"npm": "@sveltejs/svelte-repl",
-		"tags": ["components-and-libraries", "forms-and-input"],
+		"tags": ["ui-components", "forms-and-input", "official"],
 		"title": "@sveltejs/svelte-repl",
 		"repository": "https://github.com/sveltejs/svelte-repl"
 	},
 	{
 		"description": "A `<Scroller>` component for Svelte apps",
 		"npm": "@sveltejs/svelte-scroller",
-		"tags": ["components-and-libraries", "layout-and-structure", "user-interaction"],
+		"tags": ["ui-components", "layout-and-structure", "user-interaction", "official"],
 		"title": "@sveltejs/svelte-scroller",
 		"repository": "https://github.com/sveltejs/svelte-scroller"
 	},
 	{
 		"description": "A virtual list component for Svelte apps",
 		"npm": "@sveltejs/svelte-virtual-list",
-		"tags": ["components-and-libraries", "layout-and-structure", "design-pattern"],
+		"tags": ["ui-components", "layout-and-structure", "design-pattern", "official"],
 		"title": "@sveltejs/svelte-virtual-list",
 		"repository": "https://github.com/sveltejs/svelte-virtual-list"
 	},
@@ -2010,7 +2010,7 @@
 		"repository": "https://github.com/tanstack/query",
 		"description": "Powerful asynchronous state management, server-state utilities and data fetching for the web",
 		"npm": "@tanstack/svelte-query",
-		"tags": ["async-data", "async-loading", "network-events", "ssr", "typescript", "design-pattern"]
+		"tags": ["async-data", "async-loading", "network-events", "stores-and-state", "typescript"]
 	},
 	{
 		"title": "svelte-form-builder",
@@ -2535,21 +2535,21 @@
 		"npm": "rollup-plugin-svelte",
 		"description": "Compile Svelte components with Rollup",
 		"repository": "https://github.com/sveltejs/rollup-plugin-svelte",
-		"tags": ["bundler-plugins"]
+		"tags": ["bundler-plugins", "official"]
 	},
 	{
 		"title": "svelte-loader",
 		"npm": "svelte-loader",
 		"description": "Webpack loader for svelte components",
 		"repository": "https://github.com/sveltejs/svelte-loader",
-		"tags": ["bundler-plugins"]
+		"tags": ["bundler-plugins", "official"]
 	},
 	{
 		"title": "vite-plugin-svelte",
 		"npm": "@sveltejs/vite-plugin-svelte",
 		"description": "This is the official svelte plugin for vite",
 		"repository": "https://github.com/sveltejs/vite-plugin-svelte",
-		"tags": ["bundler-plugins"]
+		"tags": ["bundler-plugins", "official"]
 	},
 	{
 		"title": "esbuild-svelte",
@@ -2591,21 +2591,21 @@
 		"npm": "svelte-preprocess",
 		"description": "A ✨ magical ✨ Svelte preprocessor with sensible defaults and support for: PostCSS, SCSS, Less, Stylus, Coffeescript, TypeScript, Pug and much more",
 		"repository": "https://github.com/sveltejs/svelte-preprocess",
-		"tags": ["preprocessors"]
+		"tags": ["preprocessors", "official"]
 	},
 	{
 		"description": "Write Svelte components in markdown syntax",
 		"npm": "svelte-preprocess-markdown",
 		"title": "svelte-preprocess-markdown",
 		"repository": "https://github.com/AlexxNB/svelte-preprocess-markdown",
-		"tags": ["preprocessors"]
+		"tags": ["preprocessors", "markdown"]
 	},
 	{
 		"description": "A markdown preprocessor for Svelte",
 		"npm": "mdsvex",
 		"title": "mdsvex",
 		"repository": "https://github.com/pngwn/MDsveX",
-		"tags": ["preprocessors"]
+		"tags": ["preprocessors", "markdown"]
 	},
 	{
 		"title": "svelte-switch-case",
@@ -2654,14 +2654,14 @@
 		"npm": "prettier-plugin-svelte",
 		"description": "Format your svelte components using prettier.",
 		"repository": "https://github.com/sveltejs/prettier-plugin-svelte",
-		"tags": ["linting-and-formatting"]
+		"tags": ["linting-and-formatting", "official"]
 	},
 	{
 		"title": "svelte-check",
 		"npm": "svelte-check",
 		"description": "Detects unused css. Adds Svelte A11y hints. Provides JavaScript/TypeScript diagnostics.",
 		"repository": "https://github.com/sveltejs/language-tools/tree/master/packages/svelte-check",
-		"tags": ["linting-and-formatting"]
+		"tags": ["linting-and-formatting", "typescript", "official"]
 	},
 	{
 		"title": "svelte-reactive-css-preprocess",
@@ -2682,14 +2682,14 @@
 		"repository": "https://github.com/sveltejs/eslint-plugin-svelte",
 		"description": "ESLint plugin that applies own rules to Svelte",
 		"npm": "eslint-plugin-svelte",
-		"tags": ["linting-and-formatting"]
+		"tags": ["linting-and-formatting", "official"]
 	},
 	{
 		"title": "full-client-server-sveltekit",
 		"repository": "https://github.com/SBHattarj/full-client-server-sveltekit",
 		"description": "A plugin allowing usage of server directly on browser using web socket",
 		"npm": "full-client-server-sveltekit",
-		"tags": ["bundler-plugins"]
+		"tags": ["bundler-plugins", "preprocessors"]
 	},
 	{
 		"title": "svelte-preprocess-delegate-events",
@@ -2703,7 +2703,7 @@
 		"repository": "https://github.com/flakolefluk/dark-runes",
 		"description": "Svelte Custom Runes. Dark Runes will be retired when equivalent features are incorporated into the core Svelte framework.",
 		"npm": "dark-runes",
-		"tags": ["preprocessors"]
+		"tags": ["preprocessors", "stores-and-state"]
 	},
 	{
 		"title": "Clerk SvelteKit",
@@ -2717,7 +2717,7 @@
 		"repository": "https://github.com/open-source-labs/Svelvet",
 		"description": "A Svelte library for building dynamic, infinitely customizable node-based user interfaces and flowcharts",
 		"npm": "svelvet",
-		"tags": ["data-visualisation"]
+		"tags": ["data-visualisation", "ui-components"]
 	},
 	{
 		"title": "Carta",
@@ -2752,14 +2752,14 @@
 		"repository": "https://github.com/icflorescu/trpc-sveltekit",
 		"description": "End-to-end typesafe APIs with tRPC.io for your SvelteKit applications.",
 		"npm": "trpc-sveltekit",
-		"tags": ["integrations"]
+		"tags": ["integrations", "ssr", "stores-and-state", "async-data"]
 	},
 	{
 		"title": "Konsta UI",
 		"repository": "https://github.com/konstaui/konsta",
 		"description": "Mobile UI components made with Tailwind CSS",
 		"npm": "konsta",
-		"tags": ["components-and-libraries", "design-system"]
+		"tags": ["components-and-libraries", "ui-components", "design-system"]
 	},
 	{
 		"title": "@prismicio/svelte",
@@ -2774,7 +2774,7 @@
 		"repository": "https://github.com/prismicio/slice-machine/tree/master/packages/adapter-sveltekit",
 		"description": "Turn your SvelteKit project into a website builder with Prismic's Slice Machine",
 		"npm": "@slicemachine/adapter-sveltekit",
-		"tags": ["integrations"]
+		"tags": ["integrations", "sveltekit-adapters"]
 	},
 	{
 		"title": "svelte-i18next",
@@ -2788,21 +2788,21 @@
 		"repository": "https://github.com/vite-pwa/sveltekit",
 		"description": "Zero-config PWA Plugin for SvelteKit",
 		"npm": "@vite-pwa/sveltekit",
-		"tags": ["integrations"]
+		"tags": ["integrations", "bundler-plugins"]
 	},
 	{
 		"title": "Bits UI",
 		"repository": "https://github.com/huntabyte/bits-ui",
 		"description": "The headless components for Svelte.",
 		"npm": "bits-ui",
-		"tags": ["components-and-libraries", "design-system"]
+		"tags": ["ui-components", "headless"]
 	},
 	{
 		"title": "Formsnap",
 		"repository": "https://github.com/huntabyte/formsnap",
 		"description": "Functional, accessible, and powerful form components for Svelte.",
 		"npm": "formsnap",
-		"tags": ["forms-and-input", "validation", "integrations"]
+		"tags": ["forms-and-input", "validation", "ui-components"]
 	},
 	{
 		"title": "cmdk-sv",
@@ -2816,7 +2816,7 @@
 		"repository": "https://github.com/bennymi/ato-ui",
 		"description": "The elemental UI component library for Svelte, built with UnoCSS and Melt UI.",
 		"npm": "ato-ui",
-		"tags": ["components-and-libraries", "design-system"]
+		"tags": ["components-and-libraries", "ui-components", "design-system"]
 	},
 	{
 		"title": "svelte-monaco",
@@ -2844,7 +2844,7 @@
 		"repository": "https://github.com/CaptainCodeman/svelte-color-select",
 		"description": "Okhsv color select for Svelte",
 		"npm": "svelte-color-select",
-		"tags": ["ui-components"]
+		"tags": ["ui-components", "forms-and-input"]
 	},
 	{
 		"title": "svelte-enhanced-transitions",
