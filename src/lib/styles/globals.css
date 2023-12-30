@@ -1,5 +1,4 @@
 body {
-	border-top: 6px solid var(--primary);
 	font-family: var(--font-body);
 	font-size: var(--font-200);
 	min-height: 100vh;
@@ -13,8 +12,7 @@ body {
 
 a {
 	color: var(--link-color);
-	text-decoration: none;
-	border-bottom: 1px solid var(--link-color);
+	text-decoration-line: underline;
 	transition: var(--link-transition);
 }
 
@@ -80,21 +78,9 @@ li {
 
 /* *******UTILITY CLASSES********* */
 
-.container {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr);
-	margin: 0 auto;
-	width: 100%;
-	max-width: var(--max-width);
-}
-
 .heading {
 	text-align: center;
 	margin: var(--s-6);
-}
-
-.text-center {
-	text-align: center;
 }
 
 .center {

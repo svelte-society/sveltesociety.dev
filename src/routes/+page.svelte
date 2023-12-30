@@ -8,7 +8,7 @@
 	description="Svelte Society is a community-driven effort to organise and promote SvelteJS."
 />
 
-<article class="container">
+<article class="max-w-5xl gap-6 grid grid-cols-1 mx-auto w-full">
 	<h1 class="text-center">Welcome to Svelte Society!</h1>
 	<section>
 		<p>
@@ -57,11 +57,6 @@
 </article>
 
 <style>
-	article {
-		max-width: 1024px;
-		display: grid;
-		gap: var(--s-10);
-	}
 	h1 {
 		margin: 0;
 	}

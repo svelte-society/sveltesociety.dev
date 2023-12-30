@@ -44,8 +44,10 @@ const config = {
 					...config.include,
 					'../scripts/**/*.js',
 					'../.eslintrc.cjs',
+					'../postcss.config.js',
 					'../prettier.config.js',
-					'../svelte.config.js'
+					'../svelte.config.js',
+					'../tailwind.config.cjs'
 				];
 				return config;
 			}

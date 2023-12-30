@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '$styles/reset.css';
+	import '$styles/app.css';
 	import '$styles/root.css';
 	import '$styles/globals.css';
 	import Header from '$components/layout/Header.svelte';
@@ -12,11 +12,13 @@
 
 <GlobalSearch bind:this={globalSearch} />
 
-<Header />
-<main class="container">
-	<slot />
-</main>
-<Footer />
+<div class="flex flex-col h-screen justify-between">
+	<Header />
+	<main class="grid mx-auto w-full max-w-7xl mb-auto">
+		<slot />
+	</main>
+	<Footer />
+</div>
 
 <button on:click|preventDefault={globalSearch.open} aria-label="Open global search"
 	><img src="{assets}/images/search-icon.svg" alt="Search" /></button

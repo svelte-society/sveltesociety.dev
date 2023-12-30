@@ -7,7 +7,7 @@
 	categories.set(data.categories);
 </script>
 
-<div class="container">
+<div class="grid grid-cols-1 mx-auto w-full max-w-7xl">
 	<slot />
 </div>
 
@@ -18,15 +18,15 @@
 		color: black;
 		border-left: 2px solid #ff3e01;
 	}
-	.container :global(h2),
-	.container :global(h3) {
+	div :global(h2),
+	div :global(h3) {
 		margin-top: 2rem;
 		margin-bottom: 1.25rem;
 	}
-	.container :global(p) {
+	div :global(p) {
 		margin-bottom: 1.25rem;
 	}
-	.container :global(li) {
+	div :global(li) {
 		margin-bottom: 1.1rem;
 	}
 </style>
