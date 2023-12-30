@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Link from '$layout/Link.svelte';
+	import Link from '$components/layout/Link.svelte';
 	import Seo from '$lib/components/Seo.svelte';
 </script>
 

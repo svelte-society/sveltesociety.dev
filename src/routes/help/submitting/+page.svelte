@@ -15,12 +15,10 @@
 
 	const data = {
 		package: {
-			tags: extractUnique(packages, 'tags'),
-			categories: [...extractUnique(packages, 'category').filter((cat) => cat.label !== '')]
+			tags: extractUnique(packages, 'tags')
 		},
 		template: {
-			tags: extractUnique(templates, 'tags'),
-			categories: extractUnique(templates, 'category')
+			tags: extractUnique(templates, 'tags')
 		}
 	};
 
@@ -35,7 +33,6 @@
 	let url = 'https://svelte-lorem-ipsum.dev';
 	let description = 'A dummy text generator that does not exist';
 	let npm = 'svelte-lorem-ipsum';
-	let category;
 	let tags;
 	let repository = 'https://github.com/sveltejs/svelte-lorem-ipsum';
 
@@ -46,21 +43,18 @@
 		repository: repository ? repository : undefined,
 		description,
 		npm: npm ? npm : undefined,
-		category: category?.value,
 		tags: tags?.map((tag) => tag.value)
 	};
 
 	$: currentTags = data[type.value].tags;
-	$: currentCategories = data[type.value].categories;
 
 	onMount(() => {
 		const typeQuery = new URLSearchParams(location.search).get('type');
 		type = types.find((t) => t.value == typeQuery) || types[0];
 	});
 
-	async function clearCategoryAndTags() {
+	async function clearTags() {
 		await tick();
-		category = null;
 		tags = null;
 	}
 </script>
@@ -86,7 +80,7 @@
 				isClearable={false}
 				showIndicator
 				bind:value={type}
-				on:select={clearCategoryAndTags}
+				on:select={clearTags}
 			/>
 			<span class="input-helper">The type of snippet to generate</span>
 		</div>
@@ -129,22 +123,9 @@
 		</div>
 	</div>
 	<div class="input-wrapper">
-		<label for="category">Category:</label>
-		<div>
-			<SvelteSelect
-				id="category"
-				items={currentCategories}
-				isClearable={false}
-				showIndicator
-				bind:value={category}
-			/>
-			<span class="input-helper">The category of the package</span>
-		</div>
-	</div>
-	<div class="input-wrapper">
 		<label for="tags" class="required">Tags:</label>
 		<div>
-			<SvelteSelect id="category" items={currentTags} showIndicator isMulti bind:value={tags} />
+			<SvelteSelect id="tags" items={currentTags} showIndicator isMulti bind:value={tags} />
 			<span class="input-helper">A list of tags</span>
 		</div>
 	</div>

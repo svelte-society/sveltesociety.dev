@@ -2,8 +2,8 @@
 	import '$styles/app.css';
 	import '$styles/root.css';
 	import '$styles/globals.css';
-	import Header from '$layout/Header.svelte';
-	import Footer from '$layout/Footer.svelte';
+	import Header from '$components/layout/Header.svelte';
+	import Footer from '$components/layout/Footer.svelte';
 	import GlobalSearch from '$components/GlobalSearch.svelte';
 	import { assets } from '$app/paths';
 

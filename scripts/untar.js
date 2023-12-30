@@ -78,6 +78,7 @@ PaxHeader.parse = function (buffer) {
 			fieldValue = null;
 		} else if (fieldValue.match(/^\d+$/) !== null) {
 			// If it's a integer field, parse it as int
+			// @ts-expect-error code wasn't written in TS
 			fieldValue = parseInt(fieldValue);
 		}
 		// Don't parse float values since precision is lost

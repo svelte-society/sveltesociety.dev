@@ -3,9 +3,9 @@ import gitlab from '$lib/data/gitlab.json';
 import npm from '$lib/data/npm.json';
 import publint from '$lib/data/publint.json';
 import type { z } from 'zod';
-import type { packagesSchema } from '$lib/schemas';
+import type { packagesSchema, templatesSchema } from '$lib/schemas';
 
-export const injectData = (input: z.infer<typeof packagesSchema>) => {
+export const injectData = (input: z.infer<typeof packagesSchema | typeof templatesSchema>) => {
 	const output = [];
 	for (const item of input) {
 		// Github

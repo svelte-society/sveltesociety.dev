@@ -1,7 +1,9 @@
 <script lang="ts">
 	import '$styles/highlight.css';
 	import { categories } from '$lib/stores/recipes';
+
 	export let data;
+
 	categories.set(data.categories);
 </script>
 
