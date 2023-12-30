@@ -1,11 +1,11 @@
 import { z } from 'zod';
 import { packageNameRegex } from 'package-name-regex';
 
-export const PACKAGES_TAGS = /** @type {const} */ ([
+const PACKAGES_TAGS = /** @type {const} */ ([
 	'animations',
 	'async-data',
 	'async-loading',
-	'audio',
+	'audio-and-video',
 	'auth',
 	'bundler-plugins',
 	'charts',
@@ -22,7 +22,6 @@ export const PACKAGES_TAGS = /** @type {const} */ ([
 	'fonts-and-icons',
 	'forms-and-validation',
 	'graphql',
-	'icons',
 	'images',
 	'in-page-navigation',
 	'inputs-and-widgets',
@@ -51,7 +50,6 @@ export const PACKAGES_TAGS = /** @type {const} */ ([
 	'time-and-date',
 	'typescript',
 	'user-interaction',
-	'video',
 	'viewport'
 ]);
 
@@ -62,11 +60,11 @@ export const packagesSchema = z.array(
 		url: z.string().url().optional(),
 		repository: z.string().url(),
 		description: z.string().max(250),
-		tags: z.array(z.enum(PACKAGES_TAGS)).max(6)
+		tags: z.array(z.enum(PACKAGES_TAGS)).min(1).max(6)
 	})
 );
 
-export const TEMPLATES_TAGS = /** @type {const} */ ([
+const TEMPLATES_TAGS = /** @type {const} */ ([
 	'blog',
 	'code-splitting',
 	'component-sets',
@@ -97,6 +95,6 @@ export const templatesSchema = z.array(
 		url: z.string().url().optional(),
 		repository: z.string().url(),
 		description: z.string().max(250),
-		tags: z.array(z.enum(TEMPLATES_TAGS)).max(6)
+		tags: z.array(z.enum(TEMPLATES_TAGS)).min(1).max(6)
 	})
 );
