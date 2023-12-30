@@ -14,10 +14,12 @@
 	];
 </script>
 
-<header>
-	<div class="container">
-		<nav>
-			<ul>
+<header class="px-6 py-4 print:hidden">
+	<div class="w-full xl:w-4/5 mx-auto">
+		<nav class="py-6">
+			<ul
+				class="xl:flex xl:justify-between grid gap-6 justify-center place-items-center font-extrabold"
+			>
 				{#each linksLeft as [path, name]}
 					<Link
 						{path}
@@ -48,17 +50,6 @@
 	header {
 		background: var(--accent-color);
 		color: var(--header-text-color);
-		padding: var(--s-6) var(--s-4);
-	}
-	nav {
-		padding: 2rem 0;
-	}
-	ul {
-		display: grid;
-		gap: var(--s-6);
-		justify-content: center;
-		place-items: center;
-		font-weight: 800;
 	}
 	li {
 		position: absolute;
@@ -73,10 +64,6 @@
 		border-bottom: none;
 	}
 	@media (min-width: 1280px) {
-		ul {
-			display: flex;
-			justify-content: space-between;
-		}
 		li {
 			display: flex;
 			position: relative;
@@ -86,11 +73,6 @@
 		img {
 			width: var(--s-32);
 			height: var(--s-32);
-		}
-	}
-	@media print {
-		header {
-			display: none;
 		}
 	}
 </style>

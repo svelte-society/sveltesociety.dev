@@ -13,7 +13,7 @@
 <GlobalSearch bind:this={globalSearch} />
 
 <Header />
-<main class="container">
+<main class="grid mx-auto w-full">
 	<slot />
 </main>
 <Footer />

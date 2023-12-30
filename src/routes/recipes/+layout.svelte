@@ -7,26 +7,34 @@
 	categories.set(data.categories);
 </script>
 
-<div class="container">
+<div class="old-container">
 	<slot />
 </div>
 
 <style>
+	.old-container {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		margin: 0 auto;
+		width: 100%;
+		max-width: var(--max-width);
+	}
+
 	:global(article blockquote) {
 		background: rgba(255, 62, 1, 0.2);
 		border-radius: 5px 0px 0px 5px;
 		color: black;
 		border-left: 2px solid #ff3e01;
 	}
-	.container :global(h2),
-	.container :global(h3) {
+	.old-container :global(h2),
+	.old-container :global(h3) {
 		margin-top: 2rem;
 		margin-bottom: 1.25rem;
 	}
-	.container :global(p) {
+	.old-container :global(p) {
 		margin-bottom: 1.25rem;
 	}
-	.container :global(li) {
+	.old-container :global(li) {
 		margin-bottom: 1.1rem;
 	}
 </style>

@@ -80,21 +80,9 @@ li {
 
 /* *******UTILITY CLASSES********* */
 
-.container {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr);
-	margin: 0 auto;
-	width: 100%;
-	max-width: var(--max-width);
-}
-
 .heading {
 	text-align: center;
 	margin: var(--s-6);
-}
-
-.text-center {
-	text-align: center;
 }
 
 .center {
