@@ -47,7 +47,6 @@
 	};
 
 	$: currentTags = data[type.value].tags;
-	$: currentCategories = data[type.value].categories;
 
 	onMount(() => {
 		const typeQuery = new URLSearchParams(location.search).get('type');
