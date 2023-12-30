@@ -422,14 +422,14 @@
 	{
 		"description": "Google Maps integration for Svelte",
 		"npm": "@beyonk/svelte-googlemaps",
-		"tags": ["components-and-libraries", "maps", "integrations"],
+		"tags": ["components-and-libraries", "data-visualisation", "integrations"],
 		"title": "@beyonk/svelte-googlemaps",
 		"repository": "https://github.com/beyonk-group/svelte-googlemaps"
 	},
 	{
 		"description": "Mapbox integration for Svelte",
 		"npm": "@beyonk/svelte-mapbox",
-		"tags": ["components-and-libraries", "maps", "integrations"],
+		"tags": ["components-and-libraries", "data-visualisation", "integrations"],
 		"title": "@beyonk/svelte-mapbox",
 		"repository": "https://github.com/beyonk-group/svelte-mapbox"
 	},
@@ -709,7 +709,7 @@
 	{
 		"description": "Svelte component for position and area selection with Leaflet",
 		"npm": "svelte-pick-a-place",
-		"tags": ["components-and-libraries", "maps", "forms-and-validation"],
+		"tags": ["components-and-libraries", "data-visualisation", "forms-and-validation"],
 		"title": "svelte-pick-a-place",
 		"repository": "https://github.com/jimutt/svelte-pick-a-place"
 	},
@@ -2558,7 +2558,7 @@
 		"repository": "https://github.com/dimfeld/svelte-maplibre",
 		"description": "Svelte wrapper for the maplibre mapping library.",
 		"npm": "svelte-maplibre",
-		"tags": ["components-and-libraries", "maps", "integrations"]
+		"tags": ["components-and-libraries", "data-visualisation", "integrations"]
 	},
 	{
 		"title": "SvelteKit Open Graph Image Generation",
@@ -2930,6 +2930,6 @@
 		"repository": "https://github.com/jack-weilage/svelte-mapbox",
 		"description": "A simple and powerful Svelte wrapper around mapbox-gl",
 		"npm": "svelte-mapbox",
-		"tags": ["maps", "display-components"]
+		"tags": ["data-visualisation", "display-components"]
 	}
 ]
