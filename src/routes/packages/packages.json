@@ -845,7 +845,7 @@
 	{
 		"description": "A Svelte component that monitors an element enters or leaves the viewport.🔥",
 		"npm": "svelte-inview",
-		"tags": ["ui-components", "intersection-observer", "viewport", "design-pattern"],
+		"tags": ["ui-components", "intersection-observer", "design-pattern"],
 		"title": "svelte-inview",
 		"repository": "https://github.com/maciekgrzybek/svelte-inview"
 	},
@@ -915,7 +915,7 @@
 	{
 		"description": "Svelte Component that tracks a users progress through a page as they scroll",
 		"npm": "svelte-page-progress",
-		"tags": ["intersection-observer", "viewport", "ui-components", "user-interaction"],
+		"tags": ["intersection-observer", "ui-components", "user-interaction"],
 		"title": "svelte-page-progress",
 		"repository": "https://github.com/NomanGul/svelte-page-progress"
 	},
@@ -1934,7 +1934,7 @@
 		"description": "A component to play a video by scrolling the page",
 		"repository": "https://github.com/macfja/svelte-scroll-video#readme",
 		"npm": "@macfja/svelte-scroll-video",
-		"tags": ["audio-and-video", "images", "viewport", "user-interaction"]
+		"tags": ["audio-and-video", "images", "intersection-observer", "user-interaction"]
 	},
 	{
 		"title": "@prgm/sveltekit-progress-bar",
@@ -2161,7 +2161,7 @@
 		"repository": "https://github.com/ShipBit/svane",
 		"description": "A single-component dev helper to see your current Tailwind breakpoint",
 		"npm": "@shipbit/svane",
-		"tags": ["ui-components", "viewport", "layout-and-structure", "developer-experience"]
+		"tags": ["ui-components", "layout-and-structure", "developer-experience"]
 	},
 	{
 		"title": "sveltekit-html-minifier",

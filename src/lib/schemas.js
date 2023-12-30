@@ -42,8 +42,7 @@ const PACKAGES_TAGS = /** @type {const} */ ([
 	'typescript',
 	'ui-components',
 	'user-interaction',
-	'validation',
-	'viewport'
+	'validation'
 ]);
 
 export const packagesSchema = z.array(
