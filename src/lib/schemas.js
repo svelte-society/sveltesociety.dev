@@ -2,47 +2,32 @@ import { z } from 'zod';
 import { packageNameRegex } from 'package-name-regex';
 
 const PACKAGES_TAGS = /** @type {const} */ ([
-	'animations',
 	'audio-and-video',
 	'auth',
 	'bundler-plugins',
-	'charts',
-	'cli-tools',
 	'css-and-layout',
 	'data-fetching',
 	'data-visualisation',
 	'date-and-time',
-	'design-pattern',
 	'design-system',
-	'developer-experience',
-	'documentation',
 	'forms-and-input',
-	'headless',
 	'icons-and-fonts',
 	'images',
-	'in-page-navigation',
 	'integrations',
 	'internationalization',
-	'intersection-observer',
 	'layout-and-structure',
 	'linting-and-formatting',
 	'markdown',
-	'modals',
 	'multimedia',
-	'network-events',
 	'notifications',
 	'official',
 	'preprocessors',
 	'routers',
-	'seo',
-	'ssr',
 	'stores-and-state',
 	'sveltekit-adapters',
 	'testing',
-	'typescript',
 	'ui-components',
-	'user-interaction',
-	'validation'
+	'user-interaction'
 ]);
 
 export const packagesSchema = z.array(
