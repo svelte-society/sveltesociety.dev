@@ -2,19 +2,14 @@ import { z } from 'zod';
 import { packageNameRegex } from 'package-name-regex';
 
 const PACKAGES_TAGS = /** @type {const} */ ([
-	'animations',
 	'audio-and-video',
 	'auth',
 	'bundler-plugins',
-	'charts',
-	'cli-tools',
 	'css-and-layout',
 	'data-fetching',
 	'data-visualisation',
 	'date-and-time',
-	'design-pattern',
 	'design-system',
-	'developer-experience',
 	'documentation',
 	'forms-and-input',
 	'headless',

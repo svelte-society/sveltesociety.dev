@@ -40,13 +40,7 @@
 		"repository": "https://github.com/jasongitmail/super-sitemap",
 		"description": "SvelteKit sitemap focused on ease of use and making it impossible to forget to add your paths.",
 		"npm": "super-sitemap",
-		"tags": [
-			"ui-components",
-			"integrations",
-			"layout-and-structure",
-			"typescript",
-			"developer-experience"
-		]
+		"tags": ["ui-components", "integrations", "layout-and-structure", "typescript"]
 	},
 	{
 		"title": "svelte-scrollactive",
@@ -54,13 +48,7 @@
 		"repository": "https://github.com/dmvvilela/svelte-scrollactive",
 		"description": "This is a port of vue-scrollactive to Svelte, a lightweight and simple to use component that highlights menu items as you scroll the page, also scrolling to target section when clicked.",
 		"npm": "svelte-scrollactive",
-		"tags": [
-			"ui-components",
-			"animations",
-			"in-page-navigation",
-			"intersection-observer",
-			"user-interaction"
-		]
+		"tags": ["ui-components", "in-page-navigation", "intersection-observer", "user-interaction"]
 	},
 	{
 		"title": "svelte-tel-input",
@@ -102,7 +90,7 @@
 		"repository": "https://github.com/sveltejs/kit/tree/main/packages/package",
 		"description": "The fastest way to build Svelte packages",
 		"npm": "@sveltejs/package",
-		"tags": ["cli-tools", "bundler-plugins", "official"]
+		"tags": ["bundler-plugins", "official"]
 	},
 	{
 		"title": "@sveltejs/adapter-auto",
@@ -221,7 +209,7 @@
 		"description": "Svelte stale while revalidate (SWR) data fetching strategy",
 		"repository": "https://github.com/ConsoleTVs/sswr",
 		"npm": "sswr",
-		"tags": ["data-fetching", "design-pattern"]
+		"tags": ["data-fetching"]
 	},
 	{
 		"title": "svelte-adapter-firebase",
@@ -298,7 +286,7 @@
 	{
 		"description": "Generate a JSON documentation for a Svelte component",
 		"npm": "sveltedoc-parser",
-		"tags": ["ui-components", "documentation", "developer-experience"],
+		"tags": ["ui-components", "documentation"],
 		"title": "sveltedoc-parser",
 		"repository": "https://github.com/alexprey/sveltedoc-parser"
 	},
@@ -319,7 +307,7 @@
 	{
 		"description": "Simple eventbus realization based on internal Svelte's tools only",
 		"npm": "svelte-eventbus",
-		"tags": ["ui-components", "design-pattern"],
+		"tags": ["ui-components"],
 		"title": "svelte-eventbus",
 		"repository": "https://github.com/AlexxNB/svelte-eventbus"
 	},
@@ -432,7 +420,7 @@
 	{
 		"description": "Scroll Spy component for Svelte",
 		"npm": "@beyonk/svelte-scrollspy",
-		"tags": ["ui-components", "user-interaction", "design-pattern"],
+		"tags": ["ui-components", "user-interaction"],
 		"title": "@beyonk/svelte-scrollspy",
 		"repository": "https://github.com/beyonk-group/svelte-scrollspy"
 	},
@@ -593,7 +581,7 @@
 	{
 		"description": "Svelte integration for FormidableLabs URQL",
 		"npm": "@urql/svelte",
-		"tags": ["stores-and-state", "data-fetching", "design-pattern"],
+		"tags": ["stores-and-state", "data-fetching"],
 		"title": "@urql/svelte",
 		"repository": "https://github.com/urql-graphql/urql/tree/main/packages/svelte-urql"
 	},
@@ -628,7 +616,7 @@
 	{
 		"description": "Svelte bindings for frappe-charts.",
 		"npm": "svelte-frappe-charts",
-		"tags": ["charts", "ui-components", "data-visualisation"],
+		"tags": ["ui-components", "data-visualisation"],
 		"title": "svelte-frappe-charts",
 		"repository": "https://github.com/himynameisdave/svelte-frappe-charts"
 	},
@@ -733,7 +721,7 @@
 	{
 		"description": "Ever wanted to have reactive css variables in Svelte? What if I tell you there's a way?",
 		"npm": "svelte-css-vars",
-		"tags": ["css-and-layout", "developer-experience"],
+		"tags": ["css-and-layout"],
 		"title": "svelte-css-vars",
 		"repository": "https://github.com/kaisermann/svelte-css-vars"
 	},
@@ -754,7 +742,7 @@
 	{
 		"description": "Dynamically load a Svelte component",
 		"npm": "svelte-loadable",
-		"tags": ["ui-components", "design-pattern"],
+		"tags": ["ui-components"],
 		"title": "svelte-loadable",
 		"repository": "https://github.com/kaisermann/svelte-loadable"
 	},
@@ -803,7 +791,7 @@
 	{
 		"description": "Redux binding to Svelte based on react-redux",
 		"npm": "svelte-redux-connect",
-		"tags": ["stores-and-state", "design-pattern"],
+		"tags": ["stores-and-state"],
 		"title": "svelte-redux-connect",
 		"repository": "https://github.com/kolodziejczak-sz/svelte-redux-connect"
 	},
@@ -824,28 +812,28 @@
 	{
 		"description": "Baidu Echarts(v3.0 & v4.0) components for Svelte wrapper",
 		"npm": "echarts-for-svelte",
-		"tags": ["ui-components", "charts", "data-visualisation"],
+		"tags": ["ui-components", "data-visualisation"],
 		"title": "echarts-for-svelte",
 		"repository": "https://github.com/liyuanqiu/echarts-for-svelte"
 	},
 	{
 		"description": "Lottie player component for use with Svelte for viewing Lottie animations.",
 		"npm": "@lottiefiles/svelte-lottie-player",
-		"tags": ["ui-components", "integrations", "animations"],
+		"tags": ["ui-components", "integrations"],
 		"title": "@lottiefiles/svelte-lottie-player",
 		"repository": "https://github.com/LottieFiles/svelte-lottie-player"
 	},
 	{
 		"description": "Universal PWA Builder (WIP)",
 		"npm": "@pwa/cli",
-		"tags": ["integrations", "cli-tools", "developer-experience"],
+		"tags": ["integrations"],
 		"title": "@pwa/cli",
 		"repository": "https://github.com/lukeed/pwa"
 	},
 	{
 		"description": "A Svelte component that monitors an element enters or leaves the viewport.🔥",
 		"npm": "svelte-inview",
-		"tags": ["ui-components", "intersection-observer", "design-pattern"],
+		"tags": ["ui-components", "intersection-observer"],
 		"title": "svelte-inview",
 		"repository": "https://github.com/maciekgrzybek/svelte-inview"
 	},
@@ -901,7 +889,7 @@
 	{
 		"description": "a framework for mostly-reusable graphics with Svelte",
 		"npm": "layercake",
-		"tags": ["ui-components", "charts", "data-visualisation"],
+		"tags": ["ui-components", "data-visualisation"],
 		"title": "layercake",
 		"repository": "https://github.com/mhkeller/layercake"
 	},
@@ -936,7 +924,7 @@
 	{
 		"description": "Wrapper for FetchQL, a GraphQL query client",
 		"npm": "svql",
-		"tags": ["data-fetching", "stores-and-state", "design-pattern"],
+		"tags": ["data-fetching", "stores-and-state"],
 		"title": "svql",
 		"repository": "https://github.com/pateketrueke/svql"
 	},
@@ -999,7 +987,7 @@
 	{
 		"description": "Dynamically load a Svelte component with placeholders and preloading",
 		"npm": "svelte-viewpoint",
-		"tags": ["ui-components", "design-pattern"],
+		"tags": ["ui-components"],
 		"title": "svelte-viewpoint",
 		"repository": "https://github.com/sveltetools/svelte-viewpoint"
 	},
@@ -1048,7 +1036,7 @@
 	{
 		"description": "Svelte component for FusionCharts JavaScript charting library",
 		"npm": "svelte-fusioncharts",
-		"tags": ["ui-components", "charts", "data-visualisation"],
+		"tags": ["ui-components", "data-visualisation"],
 		"title": "svelte-fusioncharts",
 		"repository": "https://github.com/fusioncharts/svelte-fusioncharts"
 	},
@@ -1069,7 +1057,7 @@
 	{
 		"description": "Development helper for inspecting and opening Svelte components in your editor",
 		"npm": "svelte-inspector",
-		"tags": ["testing", "documentation", "developer-experience"],
+		"tags": ["testing", "documentation"],
 		"title": "svelte-inspector",
 		"repository": "https://github.com/qutran/svelte-inspector"
 	},
@@ -1090,7 +1078,7 @@
 	{
 		"description": "Experimental charting library for Svelte",
 		"npm": "@sveltejs/pancake",
-		"tags": ["ui-components", "charts", "data-visualisation"],
+		"tags": ["ui-components", "data-visualisation"],
 		"title": "@sveltejs/pancake",
 		"repository": "https://github.com/Rich-Harris/pancake"
 	},
@@ -1230,7 +1218,7 @@
 	{
 		"description": "A virtual list component for Svelte apps",
 		"npm": "@sveltejs/svelte-virtual-list",
-		"tags": ["ui-components", "layout-and-structure", "design-pattern", "official"],
+		"tags": ["ui-components", "layout-and-structure", "official"],
 		"title": "@sveltejs/svelte-virtual-list",
 		"repository": "https://github.com/sveltejs/svelte-virtual-list"
 	},
@@ -1239,7 +1227,7 @@
 		"repository": "https://github.com/gitbreaker222/svelte-virtual-list",
 		"description": "A virtual list component for Svelte apps - Community Edition",
 		"npm": "svelte-virtual-list-ce",
-		"tags": ["ui-components", "layout-and-structure", "design-pattern"]
+		"tags": ["ui-components", "layout-and-structure"]
 	},
 	{
 		"description": "abstract-state-router renderer for Svelte",
@@ -1265,7 +1253,7 @@
 	{
 		"description": "Svelte integration for Apollo GraphQL",
 		"npm": "svelte-apollo",
-		"tags": ["data-fetching", "stores-and-state", "design-pattern"],
+		"tags": ["data-fetching", "stores-and-state"],
 		"title": "svelte-apollo",
 		"repository": "https://github.com/timhall/svelte-apollo"
 	},
@@ -1321,7 +1309,7 @@
 	{
 		"description": "Simple Svelte component to detect offline & online changes.",
 		"npm": "s-offline",
-		"tags": ["user-interaction", "network-events", "design-pattern"],
+		"tags": ["user-interaction", "network-events"],
 		"title": "s-offline",
 		"repository": "https://github.com/vinayakkulkarni/s-offline"
 	},
@@ -1358,7 +1346,7 @@
 	{
 		"description": "Reactive MVVM with MobX & Svelte",
 		"npm": "svelte-mobx",
-		"tags": ["stores-and-state", "design-pattern"],
+		"tags": ["stores-and-state"],
 		"title": "svelte-mobx",
 		"repository": "https://github.com/xelaok/svelte-mobx"
 	},
@@ -1407,7 +1395,7 @@
 	{
 		"description": "frictionless state management",
 		"npm": "overmind-svelte",
-		"tags": ["stores-and-state", "design-pattern"],
+		"tags": ["stores-and-state"],
 		"title": "overmind-svelte",
 		"url": "https://overmindjs.org",
 		"repository": "https://github.com/cerebral/overmind"
@@ -1415,7 +1403,7 @@
 	{
 		"description": "A tiny but mighty list virtualization library for Svelte, with zero dependencies - Supports variable heights/widths, sticky items, scrolling to index, and more!",
 		"npm": "svelte-tiny-virtual-list",
-		"tags": ["ui-components", "layout-and-structure", "design-pattern"],
+		"tags": ["ui-components", "layout-and-structure"],
 		"title": "svelte-tiny-virtual-list",
 		"repository": "https://github.com/Skayo/svelte-tiny-virtual-list"
 	},
@@ -1496,7 +1484,7 @@
 	{
 		"description": "Set of simple state machines for Svelte applications",
 		"npm": "svate",
-		"tags": ["design-pattern", "stores-and-state"],
+		"tags": ["stores-and-state"],
 		"title": "svate",
 		"repository": "https://github.com/AlexxNB/svate"
 	},
@@ -1553,7 +1541,7 @@
 	{
 		"description": "Official tsParticles Svelte Component - Easily create highly customizable particle animations and use them as animated backgrounds for your website.",
 		"npm": "@tsparticles/svelte",
-		"tags": ["ui-components", "typescript", "animations"],
+		"tags": ["ui-components", "typescript"],
 		"title": "@tsparticles/svelte",
 		"repository": "https://github.com/tsparticles/svelte/"
 	},
@@ -1681,7 +1669,7 @@
 		"repository": "https://github.com/kenkunz/svelte-fsm",
 		"description": "Tiny, expressive, Svelte-optimized Finite State Machine library",
 		"npm": "svelte-fsm",
-		"tags": ["design-pattern", "stores-and-state"]
+		"tags": ["stores-and-state"]
 	},
 	{
 		"title": "svelte-pin-input",
@@ -1865,7 +1853,7 @@
 		"repository": "https://github.com/wd-David/svelte-hover-draw-svg",
 		"description": "A lightweight Svelte component to draw SVG on hover.",
 		"npm": "svelte-hover-draw-svg",
-		"tags": ["animations", "ui-components", "user-interaction"]
+		"tags": ["ui-components", "user-interaction"]
 	},
 	{
 		"title": "Casual UI Svelte",
@@ -1976,7 +1964,7 @@
 		"repository": "https://github.com/paoloricciuti/sveltekit-view-transition",
 		"description": "Simplified view-transition-api for Sveltekit.",
 		"npm": "sveltekit-view-transition",
-		"tags": ["in-page-navigation", "developer-experience"]
+		"tags": ["in-page-navigation"]
 	},
 	{
 		"title": "sterling-svelte",
@@ -2041,7 +2029,7 @@
 		"repository": "https://github.com/PatrickG/html-svelte-parser",
 		"description": "HTML to Svelte parser that works on both the server and the client.",
 		"npm": "html-svelte-parser",
-		"tags": ["ui-components", "ssr", "typescript", "developer-experience"]
+		"tags": ["ui-components", "ssr", "typescript"]
 	},
 	{
 		"title": "Svelte Droplet",
@@ -2161,7 +2149,7 @@
 		"repository": "https://github.com/ShipBit/svane",
 		"description": "A single-component dev helper to see your current Tailwind breakpoint",
 		"npm": "@shipbit/svane",
-		"tags": ["ui-components", "layout-and-structure", "developer-experience"]
+		"tags": ["ui-components", "layout-and-structure"]
 	},
 	{
 		"title": "sveltekit-html-minifier",
@@ -2175,7 +2163,7 @@
 		"repository": "https://github.com/ntsd/svelte-tex",
 		"description": "Svelte component to convert TeX/LaTeX to MathML or SVG",
 		"npm": "svelte-tex",
-		"tags": ["ui-components", "images", "developer-experience"]
+		"tags": ["ui-components", "images"]
 	},
 	{
 		"title": "drab",
@@ -2190,7 +2178,7 @@
 		"repository": "https://github.com/OpenFrenchFries/supasveltekit",
 		"description": "🌟 Where Svelte's elegance meets Supabase's might! 🌟",
 		"npm": "supasveltekit",
-		"tags": ["ui-components", "integrations", "developer-experience"]
+		"tags": ["ui-components", "integrations"]
 	},
 	{
 		"title": "@jill64/sveltekit-adapter-aws",
@@ -2226,7 +2214,7 @@
 		"repository": "https://github.com/techniq/layerchart",
 		"description": "Composable Svelte chart components to build a wide range of visualizations",
 		"npm": "layerchart",
-		"tags": ["charts", "ui-components", "data-visualisation"]
+		"tags": ["ui-components", "data-visualisation"]
 	},
 	{
 		"title": "@egjs/svelte-flicking",
@@ -2264,7 +2252,7 @@
 		"repository": "https://github.com/Posandu/svelte-ripple-action",
 		"description": "Svelte action to add ripple effects to Svelte components",
 		"npm": "svelte-ripple-action",
-		"tags": ["animations", "user-interaction"]
+		"tags": ["user-interaction"]
 	},
 	{
 		"title": "sveltekit-superforms",
@@ -2279,7 +2267,7 @@
 		"repository": "https://github.com/LeoDog896/svelte-reparent",
 		"description": "Utility for reparenting elements",
 		"npm": "svelte-reparent",
-		"tags": ["stores-and-state", "user-interaction", "developer-experience"]
+		"tags": ["stores-and-state", "user-interaction"]
 	},
 	{
 		"title": "svelte-inline-modal",
@@ -2327,28 +2315,28 @@
 		"npm": "lucia",
 		"repository": "https://github.com/lucia-auth/lucia",
 		"description": "An auth library that abstracts away the complexity of handling users and sessions",
-		"tags": ["developer-experience", "integrations", "auth"]
+		"tags": ["integrations", "auth"]
 	},
 	{
 		"title": "Monaco",
 		"npm": "@monaco-auth/sveltekit",
 		"repository": "https://github.com/pilcrowOnPaper/monaco",
 		"description": "A simple, lightweight alternative to Auth.js",
-		"tags": ["developer-experience", "integrations", "auth"]
+		"tags": ["integrations", "auth"]
 	},
 	{
 		"title": "trpc-svelte-query",
 		"npm": "trpc-svelte-query",
 		"repository": "https://github.com/ottomated/trpc-svelte-query",
 		"description": "A tRPC wrapper around @tanstack/svelte-query",
-		"tags": ["data-fetching", "network-events", "ssr", "typescript", "design-pattern"]
+		"tags": ["data-fetching", "network-events", "ssr", "typescript"]
 	},
 	{
 		"title": "Svelte Legos",
 		"npm": "svelte-legos",
 		"repository": "https://github.com/ankurrsinghal/svelte-legos",
 		"description": "Collection of essential Svelte Composition Utilities",
-		"tags": ["user-interaction", "developer-experience", "stores-and-state"]
+		"tags": ["user-interaction", "stores-and-state"]
 	},
 	{
 		"title": "Supabase Auth",
@@ -2425,7 +2413,7 @@
 		"repository": "https://github.com/jycouet/kitql/tree/main/packages/vite-plugin-kit-routes",
 		"description": "Automatically updates route references in SvelteKit projects",
 		"npm": "vite-plugin-kit-routes",
-		"tags": ["bundler-plugins", "developer-experience"]
+		"tags": ["bundler-plugins"]
 	},
 	{
 		"title": "svelte-action-balancer",
@@ -2453,7 +2441,7 @@
 		"repository": "https://github.com/PuruVJ/neoconfetti/tree/main/packages/svelte",
 		"description": "@neoconfetti/svelte allows you to show an awesome confetti explosion on your page, with Svelte!",
 		"npm": "@neoconfetti/svelte",
-		"tags": ["typescript", "animations", "user-interaction"]
+		"tags": ["typescript", "user-interaction"]
 	},
 	{
 		"title": "Svelte Headless Table",
@@ -2473,7 +2461,7 @@
 		"repository": "https://github.com/formkit/auto-animate",
 		"description": "Add motion to your apps with a single line of code.",
 		"npm": "@formkit/auto-animate",
-		"tags": ["animations", "user-interaction"]
+		"tags": ["user-interaction"]
 	},
 	{
 		"title": "SvelteUI",
@@ -2852,7 +2840,7 @@
 		"repository": "https://github.com/tsconfig/bases",
 		"description": "A base TSConfig for working with Svelte.",
 		"npm": "@tsconfig/svelte",
-		"tags": ["typescript", "developer-experience"]
+		"tags": ["typescript"]
 	},
 	{
 		"title": "svelte-highlight",
