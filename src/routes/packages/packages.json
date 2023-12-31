@@ -48,7 +48,7 @@
 		"repository": "https://github.com/dmvvilela/svelte-scrollactive",
 		"description": "This is a port of vue-scrollactive to Svelte, a lightweight and simple to use component that highlights menu items as you scroll the page, also scrolling to target section when clicked.",
 		"npm": "svelte-scrollactive",
-		"tags": ["ui-components", "in-page-navigation", "intersection-observer", "user-interaction"]
+		"tags": ["ui-components", "user-interaction"]
 	},
 	{
 		"title": "svelte-tel-input",
@@ -286,7 +286,7 @@
 	{
 		"description": "Generate a JSON documentation for a Svelte component",
 		"npm": "sveltedoc-parser",
-		"tags": ["ui-components", "documentation"],
+		"tags": ["ui-components"],
 		"title": "sveltedoc-parser",
 		"repository": "https://github.com/alexprey/sveltedoc-parser"
 	},
@@ -833,7 +833,7 @@
 	{
 		"description": "A Svelte component that monitors an element enters or leaves the viewport.🔥",
 		"npm": "svelte-inview",
-		"tags": ["ui-components", "intersection-observer"],
+		"tags": ["ui-components"],
 		"title": "svelte-inview",
 		"repository": "https://github.com/maciekgrzybek/svelte-inview"
 	},
@@ -847,14 +847,14 @@
 	{
 		"description": "A set of headless, accessible component builders for Svelte.",
 		"npm": "@melt-ui/svelte",
-		"tags": ["ui-components", "headless", "design-system"],
+		"tags": ["ui-components", "design-system"],
 		"title": "melt-ui",
 		"repository": "https://github.com/melt-ui/melt-ui"
 	},
 	{
 		"description": "A port of Radix UI for Svelte.",
 		"npm": "radix-svelte",
-		"tags": ["ui-components", "headless", "design-system"],
+		"tags": ["ui-components", "design-system"],
 		"title": "radix-svelte",
 		"repository": "https://github.com/radix-svelte/radix-svelte"
 	},
@@ -903,7 +903,7 @@
 	{
 		"description": "Svelte Component that tracks a users progress through a page as they scroll",
 		"npm": "svelte-page-progress",
-		"tags": ["intersection-observer", "ui-components", "user-interaction"],
+		"tags": ["ui-components", "user-interaction"],
 		"title": "svelte-page-progress",
 		"repository": "https://github.com/NomanGul/svelte-page-progress"
 	},
@@ -1057,7 +1057,7 @@
 	{
 		"description": "Development helper for inspecting and opening Svelte components in your editor",
 		"npm": "svelte-inspector",
-		"tags": ["testing", "documentation"],
+		"tags": ["testing"],
 		"title": "svelte-inspector",
 		"repository": "https://github.com/qutran/svelte-inspector"
 	},
@@ -1334,7 +1334,7 @@
 		"repository": "https://github.com/CaptainCodeman/svelte-headlessui",
 		"description": "HeadlessUI components for Svelte",
 		"npm": "svelte-headlessui",
-		"tags": ["ui-components", "design-system", "headless"]
+		"tags": ["ui-components", "design-system"]
 	},
 	{
 		"description": "CSS media queries in Svelte",
@@ -1477,7 +1477,7 @@
 	{
 		"description": "A collection of renderless/headless components for Svelte",
 		"npm": "renderless-svelte",
-		"tags": ["ui-components", "headless", "user-interaction"],
+		"tags": ["ui-components", "user-interaction"],
 		"title": "Renderless Svelte",
 		"repository": "https://github.com/stephane-vanraes/renderless-svelte"
 	},
@@ -1591,7 +1591,7 @@
 		"title": "svelte-toc",
 		"repository": "https://github.com/janosh/svelte-toc",
 		"description": "Sticky responsive table of contents component",
-		"tags": ["ui-components", "in-page-navigation", "user-interaction"],
+		"tags": ["ui-components", "user-interaction"],
 		"npm": "svelte-toc"
 	},
 	{
@@ -1831,7 +1831,7 @@
 		"repository": "https://github.com/rgossiaux/svelte-headlessui",
 		"description": "Unofficial Svelte port of the Headless UI component library",
 		"npm": "@rgossiaux/svelte-headlessui",
-		"tags": ["ui-components", "headless", "design-system"]
+		"tags": ["ui-components", "design-system"]
 	},
 	{
 		"title": "BeerUi",
@@ -1922,14 +1922,14 @@
 		"description": "A component to play a video by scrolling the page",
 		"repository": "https://github.com/macfja/svelte-scroll-video#readme",
 		"npm": "@macfja/svelte-scroll-video",
-		"tags": ["audio-and-video", "images", "intersection-observer", "user-interaction"]
+		"tags": ["audio-and-video", "images", "user-interaction"]
 	},
 	{
 		"title": "@prgm/sveltekit-progress-bar",
 		"repository": "https://github.com/prgm-dev/sveltekit-progress-bar",
 		"description": "A progress bar component that hooks to SvelteKit navigation",
 		"npm": "@prgm/sveltekit-progress-bar",
-		"tags": ["ui-components", "in-page-navigation", "user-interaction"]
+		"tags": ["ui-components", "user-interaction"]
 	},
 	{
 		"title": "svelte-unicons",
@@ -1964,7 +1964,7 @@
 		"repository": "https://github.com/paoloricciuti/sveltekit-view-transition",
 		"description": "Simplified view-transition-api for Sveltekit.",
 		"npm": "sveltekit-view-transition",
-		"tags": ["in-page-navigation"]
+		"tags": ["css-and-layout"]
 	},
 	{
 		"title": "sterling-svelte",
@@ -2127,7 +2127,7 @@
 		"repository": "https://github.com/thecodejack/svelte-pagination",
 		"description": "Raw SvelteJS component for dynamic pagination. By applying styles, developer can acheive component in multiple forms.",
 		"npm": "svelte-pagination",
-		"tags": ["ui-components", "in-page-navigation"]
+		"tags": ["ui-components"]
 	},
 	{
 		"title": "STDF",
@@ -2171,7 +2171,7 @@
 		"repository": "https://github.com/rossrobino/drab",
 		"description": "Unstyled Svelte component library",
 		"npm": "drab",
-		"tags": ["design-system", "headless", "user-interaction", "typescript", "ui-components"]
+		"tags": ["design-system", "user-interaction", "typescript", "ui-components"]
 	},
 	{
 		"title": "SupaSvelteKit",
@@ -2295,13 +2295,7 @@
 		"npm": "@tanstack/svelte-table",
 		"repository": "https://github.com/tanstack/table",
 		"description": "Headless UI for building powerful tables & datagrids for TS/JS",
-		"tags": [
-			"ui-components",
-			"headless",
-			"layout-and-structure",
-			"typescript",
-			"data-visualisation"
-		]
+		"tags": ["ui-components", "layout-and-structure", "typescript", "data-visualisation"]
 	},
 	{
 		"title": "Histoire",
@@ -2392,7 +2386,7 @@
 		"repository": "https://github.com/chadulous/svodals",
 		"description": "Cybernatically enhanced modals",
 		"npm": "@mavthedev/svodals",
-		"tags": ["modals", "user-interaction"]
+		"tags": ["user-interaction"]
 	},
 	{
 		"title": "svelte-persisted-store",
@@ -2448,13 +2442,7 @@
 		"repository": "https://github.com/bryanmylee/svelte-headless-table",
 		"description": "Unopinionated and extensible data tables for Svelte",
 		"npm": "svelte-headless-table",
-		"tags": [
-			"ui-components",
-			"layout-and-structure",
-			"typescript",
-			"data-visualisation",
-			"headless"
-		]
+		"tags": ["ui-components", "layout-and-structure", "typescript", "data-visualisation"]
 	},
 	{
 		"title": "AutoAnimate",
@@ -2489,7 +2477,7 @@
 		"repository": "https://github.com/grail-ui/grail-ui",
 		"description": "Grail UI offers a set of component primitives, actions and utilities that help you build accessible and high quality Svelte applications faster",
 		"npm": "@grail-ui/svelte",
-		"tags": ["ui-components", "headless", "design-system"]
+		"tags": ["ui-components", "design-system"]
 	},
 	{
 		"title": "svelte-maplibre",
@@ -2770,7 +2758,7 @@
 		"repository": "https://github.com/huntabyte/bits-ui",
 		"description": "The headless components for Svelte.",
 		"npm": "bits-ui",
-		"tags": ["ui-components", "headless"]
+		"tags": ["ui-components"]
 	},
 	{
 		"title": "Formsnap",
@@ -2805,7 +2793,7 @@
 		"repository": "https://github.com/0xDjole/super-navigation",
 		"description": "SuperNavigation is a powerful, customizable navigation library for Svelte and SvelteKit applications.",
 		"npm": "super-navigation",
-		"tags": ["in-page-navigation", "css-and-layout"]
+		"tags": ["css-and-layout"]
 	},
 	{
 		"title": "svelte-audio-store",
@@ -2826,7 +2814,7 @@
 		"repository": "https://github.com/Thiagolino8/svelte-enhanced-transitions",
 		"description": "Enhance your svelte transitions",
 		"npm": "svelte-enhanced-transitions",
-		"tags": ["in-page-navigation", "css-and-layout"]
+		"tags": ["css-and-layout"]
 	},
 	{
 		"title": "Amplify Adapter",
