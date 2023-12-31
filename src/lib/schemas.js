@@ -19,20 +19,15 @@ const PACKAGES_TAGS = /** @type {const} */ ([
 	'linting-and-formatting',
 	'markdown',
 	'multimedia',
-	'network-events',
 	'notifications',
 	'official',
 	'preprocessors',
 	'routers',
-	'seo',
-	'ssr',
 	'stores-and-state',
 	'sveltekit-adapters',
 	'testing',
-	'typescript',
 	'ui-components',
-	'user-interaction',
-	'validation'
+	'user-interaction'
 ]);
 
 export const packagesSchema = z.array(
