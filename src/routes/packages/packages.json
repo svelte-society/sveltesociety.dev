@@ -2857,5 +2857,33 @@
 		"description": "A simple and powerful Svelte wrapper around mapbox-gl",
 		"npm": "svelte-mapbox",
 		"tags": ["data-visualisation", "integrations"]
+	},
+	{
+		"title": "@sveltejs/enhanced-img",
+		"repository": "https://github.com/sveltejs/kit/tree/main/packages/enhanced-img",
+		"description": "A Vite plugin which runs a Svelte preprocessor to locate images and then transform them at build-time.",
+		"npm": "@sveltejs/enhanced-img",
+		"tags": ["official", "images", "preprocessors"]
+	},
+	{
+		"title": "@unpic/svelte",
+		"repository": "https://github.com/ascorbic/unpic-img/tree/main/packages/svelte",
+		"description": "A high-performance, responsive image component for Svelte.",
+		"npm": "@unpic/svelte",
+		"tags": ["images", "ui-components"]
+	},
+	{
+		"title": "@unpic/svelte",
+		"repository": "https://github.com/ascorbic/unpic-img/tree/main/packages/svelte",
+		"description": "A high-performance, responsive image component for Svelte.",
+		"npm": "@unpic/svelte",
+		"tags": ["images", "ui-components"]
+	},
+	{
+		"title": "@playwright/experimental-ct-svelte",
+		"repository": "https://github.com/microsoft/playwright/tree/main/packages/playwright-ct-svelte",
+		"description": "Playwright plugin which can test your Svelte components",
+		"npm": "@playwright/experimental-ct-svelte",
+		"tags": ["images", "ui-components"]
 	}
 ]
