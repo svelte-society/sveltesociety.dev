@@ -2873,13 +2873,6 @@
 		"tags": ["images", "ui-components"]
 	},
 	{
-		"title": "@unpic/svelte",
-		"repository": "https://github.com/ascorbic/unpic-img/tree/main/packages/svelte",
-		"description": "A high-performance, responsive image component for Svelte.",
-		"npm": "@unpic/svelte",
-		"tags": ["images", "ui-components"]
-	},
-	{
 		"title": "@playwright/experimental-ct-svelte",
 		"repository": "https://github.com/microsoft/playwright/tree/main/packages/playwright-ct-svelte",
 		"description": "Playwright plugin which can test your Svelte components",
