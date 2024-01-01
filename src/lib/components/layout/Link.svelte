@@ -3,16 +3,13 @@
 	export let active = false;
 </script>
 
-<li>
+<li class="uppercase">
 	<a href={path} class:active class="nav-item">
 		<slot />
 	</a>
 </li>
 
 <style>
-	li {
-		text-transform: uppercase;
-	}
 	a {
 		text-decoration: none;
 		border-bottom: transparent;

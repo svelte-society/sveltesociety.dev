@@ -4,7 +4,7 @@
 	var year = date.getFullYear();
 </script>
 
-<footer>
+<footer class="p-8 md:p-12 print:hidden">
 	<div class="mx-auto grid justify-center justify-items-center gap-2 text-center md:flex md:gap-6">
 		<span>&copy; {year} Svelte Society</span>
 		<span>•</span>
@@ -23,17 +23,6 @@
 	footer {
 		background-color: var(--accent);
 		color: var(--white);
-		padding: var(--s-8);
 		font-size: var(--font-200);
-	}
-	@media (min-width: 768px) {
-		footer {
-			padding: var(--s-12);
-		}
-	}
-	@media print {
-		footer {
-			display: none;
-		}
 	}
 </style>

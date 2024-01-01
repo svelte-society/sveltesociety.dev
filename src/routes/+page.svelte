@@ -23,7 +23,7 @@
 			out the resources below:
 		</p>
 	</section>
-	<ul>
+	<ul class="flex flex-wrap justify-around text-center">
 		<Link path="https://discord.gg/svelte">
 			<img src="images/discord.svg" alt="" />
 			Discord
@@ -37,7 +37,7 @@
 			Twitter
 		</Link>
 	</ul>
-	<ul>
+	<ul class="flex flex-wrap justify-around text-center">
 		<Link path="https://svelte.substack.com/">
 			<img src="images/newsletter.svg" alt="" />
 			Newsletter
@@ -62,12 +62,8 @@
 		gap: var(--s-5);
 	}
 	ul {
-		display: flex;
-		flex-wrap: wrap;
 		column-gap: var(--s-20);
 		row-gap: var(--s-5);
-		justify-content: space-around;
-		text-align: center;
 	}
 	img {
 		width: 128px;
