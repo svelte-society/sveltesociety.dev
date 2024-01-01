@@ -90,7 +90,7 @@
 		"repository": "https://github.com/sveltejs/kit/tree/main/packages/package",
 		"description": "The fastest way to build Svelte packages",
 		"npm": "@sveltejs/package",
-		"tags": ["bundler-plugins", "official"]
+		"tags": ["build-plugins", "official"]
 	},
 	{
 		"title": "@sveltejs/adapter-auto",
@@ -1711,7 +1711,7 @@
 		"url": "https://svelte-intl-precompile.com/",
 		"description": "I18n library for Svelte.js that analyzes your keys at build time for max performance and minimal footprint",
 		"npm": "svelte-intl-precompile",
-		"tags": ["internationalization", "bundler-plugins"],
+		"tags": ["internationalization", "build-plugins"],
 		"repository": "https://github.com/cibernox/svelte-intl-precompile"
 	},
 	{
@@ -2407,7 +2407,7 @@
 		"repository": "https://github.com/jycouet/kitql/tree/main/packages/vite-plugin-kit-routes",
 		"description": "Automatically updates route references in SvelteKit projects",
 		"npm": "vite-plugin-kit-routes",
-		"tags": ["bundler-plugins"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "svelte-action-balancer",
@@ -2498,119 +2498,119 @@
 		"npm": "rollup-plugin-svelte",
 		"description": "Compile Svelte components with Rollup",
 		"repository": "https://github.com/sveltejs/rollup-plugin-svelte",
-		"tags": ["bundler-plugins", "official"]
+		"tags": ["build-plugins", "official"]
 	},
 	{
 		"title": "svelte-loader",
 		"npm": "svelte-loader",
 		"description": "Webpack loader for svelte components",
 		"repository": "https://github.com/sveltejs/svelte-loader",
-		"tags": ["bundler-plugins", "official"]
+		"tags": ["build-plugins", "official"]
 	},
 	{
 		"title": "vite-plugin-svelte",
 		"npm": "@sveltejs/vite-plugin-svelte",
 		"description": "This is the official svelte plugin for vite",
 		"repository": "https://github.com/sveltejs/vite-plugin-svelte",
-		"tags": ["bundler-plugins", "official"]
+		"tags": ["build-plugins", "official"]
 	},
 	{
 		"title": "esbuild-svelte",
 		"npm": "esbuild-svelte",
 		"description": "An esbuild plugin to compile Svelte components",
 		"repository": "https://github.com/EMH333/esbuild-svelte",
-		"tags": ["bundler-plugins"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "rollup-plugin-svelte-hot",
 		"npm": "rollup-plugin-svelte-hot",
 		"description": "Fork of official rollup-plugin-svelte with added HMR support (for both Nollup or Rollup)",
 		"repository": "https://github.com/rixo/rollup-plugin-svelte-hot",
-		"tags": ["bundler-plugins"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "parcel-transformer-svelte3-plus",
 		"npm": "parcel-transformer-svelte3-plus",
 		"description": "Transformer plugin for Parcel v2; works with Svelte 3 & Svelte 4",
 		"repository": "https://github.com/HellButcher/parcel-transformer-svelte3-plus",
-		"tags": ["bundler-plugins"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "parcel-plugin-svelte",
 		"npm": "parcel-plugin-svelte",
 		"description": "A Parcel v1 plugin that enables Svelte support",
 		"repository": "https://github.com/DeMoorJasper/parcel-plugin-svelte",
-		"tags": ["bundler-plugins"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "sveltejs-brunch",
 		"npm": "sveltejs-brunch",
 		"description": "Compile Svelte components inside Brunch projects",
 		"repository": "https://github.com/StarpTech/sveltejs-brunch",
-		"tags": ["bundler-plugins"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "svelte-preprocess",
 		"npm": "svelte-preprocess",
 		"description": "A ✨ magical ✨ Svelte preprocessor with sensible defaults and support for: PostCSS, SCSS, Less, Stylus, Coffeescript, TypeScript, Pug and much more",
 		"repository": "https://github.com/sveltejs/svelte-preprocess",
-		"tags": ["preprocessors", "official"]
+		"tags": ["build-plugins", "official"]
 	},
 	{
 		"description": "Write Svelte components in markdown syntax",
 		"npm": "svelte-preprocess-markdown",
 		"title": "svelte-preprocess-markdown",
 		"repository": "https://github.com/AlexxNB/svelte-preprocess-markdown",
-		"tags": ["preprocessors", "markdown"]
+		"tags": ["build-plugins", "markdown"]
 	},
 	{
 		"description": "A markdown preprocessor for Svelte",
 		"npm": "mdsvex",
 		"title": "mdsvex",
 		"repository": "https://github.com/pngwn/MDsveX",
-		"tags": ["preprocessors", "markdown"]
+		"tags": ["build-plugins", "markdown"]
 	},
 	{
 		"title": "svelte-switch-case",
 		"repository": "https://github.com/l-portet/svelte-switch-case",
 		"description": "Switch case syntax for Svelte",
 		"npm": "svelte-switch-case",
-		"tags": ["preprocessors"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "modular-css",
 		"npm": "@modular-css/svelte",
 		"description": "Svelte preprocessor support for modular-css",
 		"repository": "https://github.com/tivac/modular-css/tree/main/packages/svelte",
-		"tags": ["preprocessors"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "svelte-preprocess-sass",
 		"npm": "svelte-preprocess-sass",
 		"description": "Svelte preprocessor for sass",
 		"repository": "https://github.com/ls-age/svelte-preprocess-sass",
-		"tags": ["preprocessors"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "svelte-preprocess-css-hash",
 		"npm": "svelte-preprocess-css-hash",
 		"description": "Passing hashed css class name to child component. It is used to avoid class name conflicts.",
 		"repository": "https://github.com/jiangfengming/svelte-preprocess-css-hash",
-		"tags": ["preprocessors"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "svelte-preprocess-html-asset",
 		"npm": "svelte-preprocess-html-asset",
 		"description": "Transform html asset relative path. Works with snowpack & webpack 5.",
 		"repository": "https://github.com/jiangfengming/svelte-preprocess-html-asset",
-		"tags": ["preprocessors"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "svelte-preprocessor-fetch",
 		"npm": "svelte-preprocessor-fetch",
 		"description": "A preprocessor for Svelte can be used to fetch data before the component is compiled.",
 		"repository": "https://github.com/kevmodrome/svelte-preprocessor-fetch",
-		"tags": ["preprocessors"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "prettier-plugin-svelte",
@@ -2631,14 +2631,14 @@
 		"repository": "https://github.com/srmullen/svelte-reactive-css-preprocess",
 		"description": "Automatically update css on component state changes.",
 		"npm": "svelte-reactive-css-preprocess",
-		"tags": ["preprocessors"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "svelte-subcomponent-preprocessor",
 		"repository": "https://github.com/srmullen/svelte-subcomponent-preprocessor",
 		"description": "Write more than one component per svelte file",
 		"npm": "svelte-subcomponent-preprocessor",
-		"tags": ["preprocessors"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "eslint-plugin-svelte",
@@ -2652,21 +2652,21 @@
 		"repository": "https://github.com/SBHattarj/full-client-server-sveltekit",
 		"description": "A plugin allowing usage of server directly on browser using web socket",
 		"npm": "full-client-server-sveltekit",
-		"tags": ["bundler-plugins", "preprocessors"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "svelte-preprocess-delegate-events",
 		"repository": "https://github.com/baseballyama/svelte-preprocess-delegate-events",
 		"description": "Delegate events with on:* 🎉",
 		"npm": "svelte-preprocess-delegate-events",
-		"tags": ["preprocessors"]
+		"tags": ["build-plugins"]
 	},
 	{
 		"title": "Dark Runes",
 		"repository": "https://github.com/flakolefluk/dark-runes",
 		"description": "Svelte Custom Runes. Dark Runes will be retired when equivalent features are incorporated into the core Svelte framework.",
 		"npm": "dark-runes",
-		"tags": ["preprocessors", "stores-and-state"]
+		"tags": ["build-plugins", "stores-and-state"]
 	},
 	{
 		"title": "Clerk SvelteKit",
@@ -2751,7 +2751,7 @@
 		"repository": "https://github.com/vite-pwa/sveltekit",
 		"description": "Zero-config PWA Plugin for SvelteKit",
 		"npm": "@vite-pwa/sveltekit",
-		"tags": ["integrations", "bundler-plugins"]
+		"tags": ["integrations", "build-plugins"]
 	},
 	{
 		"title": "Bits UI",
@@ -2849,7 +2849,7 @@
 		"repository": "https://github.com/KilDesu/brefer",
 		"description": "A Svelte preprocessor to shorten the new Svelte 5 syntax for handling reactivity",
 		"npm": "brefer",
-		"tags": ["stores-and-state", "preprocessors"]
+		"tags": ["stores-and-state", "build-plugins"]
 	},
 	{
 		"title": "svelte-mapbox",
@@ -2863,7 +2863,7 @@
 		"repository": "https://github.com/sveltejs/kit/tree/main/packages/enhanced-img",
 		"description": "A Vite plugin which runs a Svelte preprocessor to locate images and then transform them at build-time.",
 		"npm": "@sveltejs/enhanced-img",
-		"tags": ["official", "images", "preprocessors"]
+		"tags": ["official", "images", "build-plugins"]
 	},
 	{
 		"title": "@unpic/svelte",

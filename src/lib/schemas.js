@@ -4,7 +4,7 @@ import { packageNameRegex } from 'package-name-regex';
 const PACKAGES_TAGS = /** @type {const} */ ([
 	'audio-and-video',
 	'auth',
-	'bundler-plugins',
+	'build-plugins',
 	'css-and-layout',
 	'data-fetching',
 	'data-visualisation',
@@ -21,7 +21,6 @@ const PACKAGES_TAGS = /** @type {const} */ ([
 	'multimedia',
 	'notifications',
 	'official',
-	'preprocessors',
 	'routers',
 	'stores-and-state',
 	'sveltekit-adapters',
