@@ -58,7 +58,7 @@
 	{/if}
 	<p class="flex-grow">{description}</p>
 	{#if tags}
-		<div class="flex flex-row flex-wrap mb-4">
+		<div class="mb-4 flex flex-row flex-wrap">
 			{#each tags as tag}
 				<Tag title={tag} variant="blue" />
 			{/each}

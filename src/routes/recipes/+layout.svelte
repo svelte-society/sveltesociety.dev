@@ -7,7 +7,7 @@
 	categories.set(data.categories);
 </script>
 
-<div class="grid grid-cols-1 mx-auto w-full max-w-7xl">
+<div class="mx-auto grid w-full max-w-7xl grid-cols-1">
 	<slot />
 </div>
 

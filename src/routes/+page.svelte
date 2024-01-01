@@ -8,8 +8,8 @@
 	description="Svelte Society is a community-driven effort to organise and promote SvelteJS."
 />
 
-<article class="max-w-5xl gap-5 xl:gap-10 grid grid-cols-1 mx-auto w-full">
-	<h1 class="text-center m-0">Welcome to Svelte Society!</h1>
+<article class="mx-auto grid w-full max-w-5xl grid-cols-1 gap-5 xl:gap-10">
+	<h1 class="m-0 text-center">Welcome to Svelte Society!</h1>
 	<section>
 		<p>
 			We are a volunteer global network of Svelte fans that strive to promote Svelte and its

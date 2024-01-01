@@ -5,7 +5,7 @@
 </script>
 
 <footer>
-	<div class="grid mx-auto gap-2 justify-items-center justify-center text-center md:flex md:gap-6">
+	<div class="mx-auto grid justify-center justify-items-center gap-2 text-center md:flex md:gap-6">
 		<span>&copy; {year} Svelte Society</span>
 		<span>•</span>
 		<a href="/about">Code of Conduct</a>

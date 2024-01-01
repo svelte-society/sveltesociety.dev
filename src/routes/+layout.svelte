@@ -12,9 +12,9 @@
 
 <GlobalSearch bind:this={globalSearch} />
 
-<div class="flex flex-col h-screen justify-between">
+<div class="flex h-screen flex-col justify-between">
 	<Header />
-	<main class="grid mx-auto w-full max-w-7xl mb-auto py-10 px-5 xl:py-20">
+	<main class="mx-auto mb-auto grid w-full max-w-7xl px-5 py-10 xl:py-20">
 		<slot />
 	</main>
 	<Footer />
