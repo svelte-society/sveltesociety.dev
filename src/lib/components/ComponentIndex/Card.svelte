@@ -27,10 +27,10 @@
 	};
 </script>
 
-<div class="card" id="component-{title}">
-	<div class="card__top">
+<div class="card flex flex-col p-3 rounded-md text-base lg:text-lg" id="component-{title}">
+	<div class="flex justify-between align-top">
 		<div>
-			<h3>
+			<h3 class="text-xl">
 				<a href="#component-{title}">#</a>
 				{#if repository}<a href={repository}>{title}</a>{:else}<span>{title}</span>{/if}
 			</h3>
@@ -64,45 +64,23 @@
 			{/each}
 		</div>
 	{/if}
-	<div class="card__bottom">
+	<div class="flex justify-between items-end">
 		<div>
 			{#if typeof stars !== 'undefined'}
 				&#9733;
 				<code>{stars}</code>
 			{/if}
 		</div>
-		{#if date && version}<span class="date">Updated {relativeDate(date)} ({version})</span>{/if}
+		{#if date && version}<span class="text-sm">Updated {relativeDate(date)} ({version})</span>{/if}
 	</div>
 </div>
 
 <style>
 	.card {
-		display: flex;
-		flex-direction: column;
-		max-width: var(--width-card);
-		padding: 14px;
 		background: #f3f6f9;
-		border-radius: 5px;
-	}
-	.card h3 {
-		word-break: none;
-		font-size: var(--font-300);
 	}
 	.card:hover {
 		background: #e8f3fe;
-	}
-	.card__top {
-		display: flex;
-		justify-content: space-between;
-		align-items: top;
-	}
-	.card__bottom {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-end;
-	}
-	.card__bottom > * {
-		white-space: nowrap;
 	}
 	.repo {
 		border-bottom: none;
@@ -118,21 +96,5 @@
 	}
 	.repo:hover {
 		background-color: rgba(0, 0, 0, 0.25);
-	}
-	.date {
-		font-size: 14px;
-	}
-	.flex-grow {
-		flex-grow: 1;
-	}
-
-	@media screen and (max-width: 400px) {
-		.card {
-			font-size: 0.9rem;
-		}
-
-		.card h3 {
-			font-size: 24px;
-		}
 	}
 </style>
