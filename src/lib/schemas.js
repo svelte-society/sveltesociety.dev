@@ -8,7 +8,7 @@ const PACKAGES_TAGS = /** @type {const} */ ([
 	'data-visualisation',
 	'design-system',
 	'forms-and-input',
-	'icons-and-fonts',
+	'icons',
 	'images',
 	'integrations',
 	'internationalization',

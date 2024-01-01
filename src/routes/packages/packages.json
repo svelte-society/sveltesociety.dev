@@ -195,7 +195,7 @@
 		"description": "An icon library for svelte based on Remix Icon. Consists of more than 2000 icons.",
 		"repository": "https://github.com/aantusahaa/svelte-remixicon",
 		"npm": "svelte-remixicon",
-		"tags": ["ui-components", "icons-and-fonts"]
+		"tags": ["ui-components", "icons"]
 	},
 	{
 		"title": "svelte-fast-marquee",
@@ -321,7 +321,7 @@
 	{
 		"description": "Font Awesome 5 for Svelte",
 		"npm": "fa-svelte",
-		"tags": ["ui-components", "icons-and-fonts"],
+		"tags": ["ui-components", "icons"],
 		"title": "fa-svelte",
 		"repository": "https://github.com/alphapeter/fa-svelte"
 	},
@@ -427,7 +427,7 @@
 	{
 		"description": "SVG icons for popular brands",
 		"npm": "svelte-simple-icons",
-		"tags": ["ui-components", "icons-and-fonts"],
+		"tags": ["ui-components", "icons"],
 		"title": "svelte-simple-icons",
 		"repository": "https://github.com/beyonk-group/svelte-simple-icons"
 	},
@@ -490,7 +490,7 @@
 	{
 		"description": "Tiny FontAwesome 5 component for Svelte",
 		"npm": "svelte-fa",
-		"tags": ["ui-components", "icons-and-fonts"],
+		"tags": ["ui-components", "icons"],
 		"title": "svelte-fa",
 		"repository": "https://github.com/Cweili/svelte-fa"
 	},
@@ -525,7 +525,7 @@
 	{
 		"description": "Feather icons for Svelte",
 		"npm": "svelte-feather-icons",
-		"tags": ["ui-components", "icons-and-fonts"],
+		"tags": ["ui-components", "icons"],
 		"title": "svelte-feather-icons",
 		"repository": "https://github.com/dylanblokhuis/svelte-feather-icons"
 	},
@@ -588,7 +588,7 @@
 	{
 		"description": "Icon components for Svelte, featuring many icon sets",
 		"npm": "svelte-icons",
-		"tags": ["ui-components", "icons-and-fonts"],
+		"tags": ["ui-components", "icons"],
 		"title": "svelte-icons",
 		"repository": "https://github.com/Introvertuous/svelte-icons"
 	},
@@ -784,7 +784,7 @@
 	{
 		"description": "A custom component that adds a favicon and a badge that you can use to show for example number of unread messages.",
 		"npm": "svelte-favicon-badge",
-		"tags": ["ui-components", "icons-and-fonts"],
+		"tags": ["ui-components", "icons"],
 		"title": "svelte-favicon-badge",
 		"repository": "https://github.com/kevmodrome/svelte-favicon-badge"
 	},
@@ -1092,7 +1092,7 @@
 	{
 		"description": "Awesome SVG icon component for Svelte JS, built with Font Awesome icons",
 		"npm": "svelte-awesome",
-		"tags": ["ui-components", "icons-and-fonts"],
+		"tags": ["ui-components", "icons"],
 		"title": "svelte-awesome",
 		"repository": "https://github.com/RobBrazier/svelte-awesome"
 	},
@@ -1426,7 +1426,7 @@
 	{
 		"description": "SVG icons from feather icons, maki icons and octicons",
 		"npm": "@svelte-parts/icons",
-		"tags": ["ui-components", "icons-and-fonts"],
+		"tags": ["ui-components", "icons"],
 		"title": "@svelte-parts/icons",
 		"url": "https://svelte-parts.surge.sh/icons",
 		"repository": "https://github.com/idris-maps/svelte-parts"
@@ -1613,7 +1613,7 @@
 		"repository": "https://github.com/paolotiu/svelte-boring-avatars",
 		"description": "Svelte port of Boring Avatars",
 		"npm": "svelte-boring-avatars",
-		"tags": ["ui-components", "images", "icons-and-fonts"]
+		"tags": ["ui-components", "images", "icons"]
 	},
 	{
 		"title": "filedrop-svelte",
@@ -1690,7 +1690,7 @@
 		"repository": "https://github.com/leshak/svelte-icons-pack",
 		"description": "Icons pack",
 		"npm": "svelte-icons-pack",
-		"tags": ["icons-and-fonts", "design-system"]
+		"tags": ["icons", "design-system"]
 	},
 	{
 		"title": "@joeinnes/svelte-image",
@@ -1936,7 +1936,7 @@
 		"repository": "https://github.com/devShamim/svelte-unicons",
 		"description": "Unicons for Svelte based on @iconscout/unicons",
 		"npm": "svelte-unicons",
-		"tags": ["ui-components", "icons-and-fonts", "user-interaction"]
+		"tags": ["ui-components", "icons", "user-interaction"]
 	},
 	{
 		"title": "svelte-google-auth",
@@ -2050,7 +2050,7 @@
 		"repository": "https://github.com/lucide-icons/lucide",
 		"description": "Beautiful & consistent icon toolkit made by the community. Open-source project and a fork of Feather Icons.",
 		"npm": "lucide-svelte",
-		"tags": ["icons-and-fonts", "ui-components"]
+		"tags": ["icons", "ui-components"]
 	},
 	{
 		"title": "YeSvelte",
@@ -2092,7 +2092,7 @@
 		"repository": "https://github.com/bartektelec/svelte-svg-transform",
 		"description": "A tiny component to override SVG file properties",
 		"npm": "svelte-svg-transform",
-		"tags": ["ui-components", "icons-and-fonts", "images"]
+		"tags": ["ui-components", "icons", "images"]
 	},
 	{
 		"title": "@nerd-coder/svelte-zod-form",
