@@ -40,5 +40,6 @@ async function processPackage(pkg) {
 	const version = data.version;
 	const date = data.time[version];
 	const support = data.peerDependencies?.svelte ? data.peerDependencies.svelte : 'Unknown';
-	return { [pkg.npm]: { version, date, support } };
+	const keywords = data.keywords;
+	return { [pkg.npm]: { version, date, support, keywords } };
 }
