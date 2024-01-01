@@ -8,8 +8,8 @@
 	description="Svelte Society is a community-driven effort to organise and promote SvelteJS."
 />
 
-<article class="max-w-5xl gap-6 grid grid-cols-1 mx-auto w-full">
-	<h1 class="text-center">Welcome to Svelte Society!</h1>
+<article class="mx-auto grid w-full max-w-5xl grid-cols-1 gap-5 xl:gap-10">
+	<h1 class="m-0 text-center">Welcome to Svelte Society!</h1>
 	<section>
 		<p>
 			We are a volunteer global network of Svelte fans that strive to promote Svelte and its
@@ -23,7 +23,7 @@
 			out the resources below:
 		</p>
 	</section>
-	<ul>
+	<ul class="flex flex-wrap justify-around text-center">
 		<Link path="https://discord.gg/svelte">
 			<img src="images/discord.svg" alt="" />
 			Discord
@@ -37,7 +37,7 @@
 			Twitter
 		</Link>
 	</ul>
-	<ul>
+	<ul class="flex flex-wrap justify-around text-center">
 		<Link path="https://svelte.substack.com/">
 			<img src="images/newsletter.svg" alt="" />
 			Newsletter
@@ -57,28 +57,15 @@
 </article>
 
 <style>
-	h1 {
-		margin: 0;
-	}
 	section {
 		display: grid;
 		gap: var(--s-5);
 	}
 	ul {
-		display: flex;
-		flex-wrap: wrap;
 		column-gap: var(--s-20);
 		row-gap: var(--s-5);
-		justify-content: space-around;
-		text-align: center;
 	}
 	img {
 		width: 128px;
-	}
-
-	@media (min-width: 1280px) {
-		article {
-			gap: var(--s-20);
-		}
 	}
 </style>

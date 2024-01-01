@@ -27,23 +27,32 @@
 	};
 </script>
 
-<div class="card" id="component-{title}">
-	<div class="card__top">
+<div class="card flex flex-col rounded-md p-3 text-base lg:text-lg" id="component-{title}">
+	<div class="flex justify-between align-top">
 		<div>
-			<h3>
-				<a href="#component-{title}">#</a>
-				{#if repository}<a href={repository}>{title}</a>{:else}<span>{title}</span>{/if}
+			<h3 class="text-xl">
+				<a href="#component-{title}"># {title}</a>
 			</h3>
 		</div>
 		<div>
 			{#if repository.includes('github')}
-				<a class="repo" title="Go to the source code" target="_blank" href={repository}
-					><img style="display:inline" src="/images/github_logo.svg" alt="github logo" /></a
+				<a
+					class="repo box-border flex aspect-square rounded-full border-none"
+					title="Go to the source code"
+					target="_blank"
+					href={repository}
 				>
+					<img style="display:inline" src="/images/github_logo.svg" alt="github logo" />
+				</a>
 			{:else if repository.includes('gitlab')}
-				<a class="repo" title="Go to the source code" target="_blank" href={repository}
-					><img style="display:inline" src="/images/gitlab_logo.svg" alt="gitlab logo" /></a
+				<a
+					class="repo box-border flex aspect-square rounded-full border-none"
+					title="Go to the source code"
+					target="_blank"
+					href={repository}
 				>
+					<img style="display:inline" src="/images/gitlab_logo.svg" alt="gitlab logo" />
+				</a>
 				<!-- {:else} -->
 			{/if}
 		</div>
@@ -56,83 +65,33 @@
 			title={clipboardCopy ? 'copied!' : `${packageManagers[$manager]} ${npm}`}
 		/>
 	{/if}
-	<p class="flex-grow">{description}</p>
-	{#if tags}
-		<div class="flex flex-row flex-wrap mb-4">
-			{#each tags as tag}
-				<Tag title={tag} variant="blue" />
-			{/each}
-		</div>
-	{/if}
-	<div class="card__bottom">
+	<p class="flex-grow pb-6">{description}</p>
+	<div class="flex items-end justify-between">
 		<div>
 			{#if typeof stars !== 'undefined'}
 				&#9733;
 				<code>{stars}</code>
 			{/if}
 		</div>
-		{#if date && version}<span class="date">Updated {relativeDate(date)} ({version})</span>{/if}
+		{#if date && version}<span class="text-sm">Updated {relativeDate(date)} ({version})</span>{/if}
 	</div>
 </div>
 
 <style>
 	.card {
-		display: flex;
-		flex-direction: column;
-		max-width: var(--width-card);
-		padding: 14px;
 		background: #f3f6f9;
-		border-radius: 5px;
-	}
-	.card h3 {
-		word-break: none;
-		font-size: var(--font-300);
 	}
 	.card:hover {
 		background: #e8f3fe;
 	}
-	.card__top {
-		display: flex;
-		justify-content: space-between;
-		align-items: top;
-	}
-	.card__bottom {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-end;
-	}
-	.card__bottom > * {
-		white-space: nowrap;
-	}
 	.repo {
-		border-bottom: none;
-		aspect-ratio: 1/1;
-		display: flex;
 		min-height: 26px;
 		padding: 4px;
-		border-radius: 50%;
 		margin: -4px;
-		box-sizing: border-box;
 		background-color: rgba(0, 0, 0, 0);
 		transition: background-color 200ms ease-out;
 	}
 	.repo:hover {
 		background-color: rgba(0, 0, 0, 0.25);
-	}
-	.date {
-		font-size: 14px;
-	}
-	.flex-grow {
-		flex-grow: 1;
-	}
-
-	@media screen and (max-width: 400px) {
-		.card {
-			font-size: 0.9rem;
-		}
-
-		.card h3 {
-			font-size: 24px;
-		}
 	}
 </style>

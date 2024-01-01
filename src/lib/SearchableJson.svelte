@@ -1,6 +1,5 @@
 <script lang="ts">
 	import ComponentCard from '$lib/components/ComponentIndex/Card.svelte';
-	import CardList from '$lib/components/ComponentIndex/CardList.svelte';
 	import Seo from '$lib/components/Seo.svelte';
 	import Select from '$lib/components/Select.svelte';
 	import { packageManager } from '$stores/packageManager';
@@ -29,14 +28,14 @@
 
 <TagFilters {tags} {selectedTags} />
 <br />
-<section class="controls">
+<section class="controls relative grid items-center justify-stretch gap-4">
 	<input
 		class="searchbar"
 		type="text"
 		placeholder="Search for {displayTitle.toLowerCase()}..."
 		bind:value={searchValue}
 	/>
-	<div class="inputs">
+	<div class="grid gap-2 lg:grid-cols-2">
 		<Select
 			items={sortableFields}
 			bind:value={sort}
@@ -66,35 +65,24 @@
 	>
 </section>
 <hr />
-<section>
-	<CardList>
-		{#each sortedData as entry (entry.title)}
-			<ComponentCard
-				title={entry.title}
-				description={entry.description}
-				repository={entry.repository}
-				stars={entry.stars}
-				tags={entry.tags}
-				date={entry.date}
-				npm={entry.npm}
-				version={entry.version}
-			/>
-		{/each}
-	</CardList>
+<section class="mx-auto mb-12 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+	{#each sortedData as entry (entry.title)}
+		<ComponentCard
+			title={entry.title}
+			description={entry.description}
+			repository={entry.repository}
+			stars={entry.stars}
+			tags={entry.tags}
+			date={entry.date}
+			npm={entry.npm}
+			version={entry.version}
+		/>
+	{/each}
 </section>
 
 <style>
 	.controls {
-		display: grid;
-		justify-content: stretch;
-		align-items: center;
-		gap: var(--s-4);
 		font-family: Overpass;
-		position: relative;
-	}
-	.inputs {
-		display: grid;
-		gap: var(--s-2);
 	}
 	.searchbar {
 		padding: 20.5px var(--s-2);
@@ -113,11 +101,5 @@
 		position: absolute;
 		top: calc(100% + 1rem);
 		right: 0;
-	}
-
-	@media (min-width: 1024px) {
-		.inputs {
-			grid-template-columns: repeat(2, auto);
-		}
 	}
 </style>

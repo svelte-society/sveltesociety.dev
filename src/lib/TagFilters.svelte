@@ -6,7 +6,7 @@
 	export let selectedTags: string[];
 </script>
 
-<div data-sveltekit-noscroll>
+<div class="flex flex-wrap items-center gap-2" data-sveltekit-noscroll>
 	{#each selectedTags as tag}
 		{@const newTags = selectedTags.filter((t) => t !== tag)}
 		{@const title = tag.replaceAll('-', ' ')}
@@ -38,13 +38,6 @@
 </div>
 
 <style>
-	div {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
 	a {
 		text-decoration: none;
 	}

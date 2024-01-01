@@ -12,9 +12,9 @@
 
 <GlobalSearch bind:this={globalSearch} />
 
-<div class="flex flex-col h-screen justify-between">
+<div class="flex h-screen flex-col justify-between">
 	<Header />
-	<main class="grid mx-auto w-full max-w-7xl mb-auto">
+	<main class="mx-auto mb-auto grid w-full max-w-7xl px-5 py-10 xl:py-20">
 		<slot />
 	</main>
 	<Footer />
@@ -25,10 +25,6 @@
 >
 
 <style>
-	main {
-		padding: var(--s-10) var(--s-5) var(--s-20);
-	}
-
 	button {
 		position: fixed;
 		bottom: var(--s-2);
@@ -48,11 +44,5 @@
 	}
 	button img {
 		filter: grayscale(1) brightness(0) invert(1);
-	}
-
-	@media (min-width: 1280px) {
-		main {
-			padding: var(--s-20) var(--s-5);
-		}
 	}
 </style>

@@ -15,10 +15,10 @@
 </script>
 
 <header class="px-6 py-4 print:hidden">
-	<div class="w-full max-w-7xl mx-auto">
+	<div class="mx-auto w-full max-w-7xl">
 		<nav class="py-6">
 			<ul
-				class="xl:flex xl:justify-between grid gap-6 justify-center place-items-center font-extrabold"
+				class="grid place-items-center justify-center gap-6 font-extrabold xl:flex xl:justify-between"
 			>
 				{#each linksLeft as [path, name]}
 					<Link
@@ -29,7 +29,7 @@
 					</Link>
 				{/each}
 				<li>
-					<a href="/" class="logo">
+					<a href="/" class="border-none">
 						<img alt="Svelte Society Logo" src="/images/logo.svg" />
 					</a>
 				</li>
@@ -60,9 +60,6 @@
 	img {
 		width: var(--s-12);
 		height: var(--s-12);
-	}
-	.logo {
-		border-bottom: none;
 	}
 	@media (min-width: 1280px) {
 		li {
