@@ -146,7 +146,7 @@
 		"repository": "https://github.com/sawyerclick/svelte-lazy-loader",
 		"description": "A component library for effortlessly loading media using a shared IntersectionObserver instance if native lazy-loading doesn't exist.",
 		"npm": "svelte-lazy-loader",
-		"tags": ["images", "ui-components", "multimedia"]
+		"tags": ["images", "ui-components"]
 	},
 	{
 		"title": "svelte-carbonbadge",
@@ -861,14 +861,14 @@
 	{
 		"description": "Image processing with Sharp for Svelte",
 		"npm": "svelte-image",
-		"tags": ["ui-components", "images", "multimedia"],
+		"tags": ["ui-components", "images"],
 		"title": "svelte-image",
 		"repository": "https://github.com/matyunya/svelte-image"
 	},
 	{
 		"description": "Lazyload images or anything component for Svelte",
 		"npm": "svelte-waypoint",
-		"tags": ["ui-components", "images", "multimedia"],
+		"tags": ["ui-components", "images"],
 		"title": "svelte-waypoint",
 		"repository": "https://github.com/matyunya/svelte-waypoint"
 	},
@@ -945,7 +945,7 @@
 	{
 		"description": "SVG placeholder components for loading content",
 		"npm": "svelte-content-loader",
-		"tags": ["ui-components", "multimedia"],
+		"tags": ["ui-components", "images"],
 		"title": "svelte-content-loader",
 		"repository": "https://github.com/PaulMaly/svelte-content-loader"
 	},
@@ -1162,7 +1162,7 @@
 	{
 		"description": "Component to easily generate multitone images",
 		"npm": "svelte-multitoneimage",
-		"tags": ["ui-components", "images", "multimedia"],
+		"tags": ["ui-components", "images"],
 		"title": "svelte-multitoneimage",
 		"repository": "https://github.com/stephane-vanraes/svelte-multitoneimage"
 	},
@@ -1302,7 +1302,7 @@
 	{
 		"description": "Focused on making embedding and using media elements for the web simple.",
 		"npm": "@vime/svelte",
-		"tags": ["audio-and-video", "ui-components", "multimedia"],
+		"tags": ["audio-and-video", "ui-components"],
 		"title": "Vime",
 		"repository": "https://github.com/vime-js/vime"
 	},
@@ -1434,7 +1434,7 @@
 	{
 		"description": "Allow pan and zoom on images",
 		"npm": "@svelte-parts/zoom",
-		"tags": ["ui-components", "multimedia"],
+		"tags": ["ui-components", "images"],
 		"title": "@svelte-parts/zoom",
 		"url": "https://svelte-parts.surge.sh/zoom",
 		"repository": "https://github.com/idris-maps/svelte-parts"
@@ -1449,7 +1449,7 @@
 	{
 		"description": "svelte-pdf provides a component for rendering PDF documents using PDF.js",
 		"npm": "svelte-pdf",
-		"tags": ["ui-components", "multimedia", "integrations"],
+		"tags": ["ui-components", "integrations"],
 		"title": "svelte-pdf",
 		"repository": "https://github.com/vinodnimbalkar/svelte-pdf"
 	},
@@ -1697,7 +1697,7 @@
 		"repository": "https://github.com/joeinnes/svelte-image",
 		"description": "Svelte Component for using image CDNs to dynamically serve responsive images.",
 		"npm": "@joeinnes/svelte-image",
-		"tags": ["images", "multimedia"]
+		"tags": ["images"]
 	},
 	{
 		"title": "@budgetdraw/sveltekit-cloudflare-adapter",
@@ -1817,7 +1817,7 @@
 		"repository": "https://github.com/anotherempty/svelte-brick-gallery",
 		"description": "A masonry-like image gallery component for svelte",
 		"npm": "svelte-brick-gallery",
-		"tags": ["images", "layout-and-structure", "multimedia"]
+		"tags": ["images", "layout-and-structure"]
 	},
 	{
 		"title": "SvelteKit Adapter Bun.js",
@@ -2142,7 +2142,7 @@
 		"repository": "https://github.com/TwicPics/components",
 		"description": "Images and videos components - Context aware resizing and cropping, lazy-loading, LQIP, Next-Gen format, compression, CDN.",
 		"npm": "@twicpics/components",
-		"tags": ["ui-components", "images", "audio-and-video", "multimedia"]
+		"tags": ["ui-components", "images", "audio-and-video"]
 	},
 	{
 		"title": "Svane",

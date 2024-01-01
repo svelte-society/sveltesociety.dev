@@ -18,7 +18,6 @@ const PACKAGES_TAGS = /** @type {const} */ ([
 	'layout-and-structure',
 	'linting-and-formatting',
 	'markdown',
-	'multimedia',
 	'notifications',
 	'official',
 	'routers',
