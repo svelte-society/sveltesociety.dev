@@ -37,13 +37,23 @@
 		</div>
 		<div>
 			{#if repository.includes('github')}
-				<a class="repo" title="Go to the source code" target="_blank" href={repository}
-					><img style="display:inline" src="/images/github_logo.svg" alt="github logo" /></a
+				<a
+					class="repo border-none aspect-square flex box-border rounded-full"
+					title="Go to the source code"
+					target="_blank"
+					href={repository}
 				>
+					<img style="display:inline" src="/images/github_logo.svg" alt="github logo" />
+				</a>
 			{:else if repository.includes('gitlab')}
-				<a class="repo" title="Go to the source code" target="_blank" href={repository}
-					><img style="display:inline" src="/images/gitlab_logo.svg" alt="gitlab logo" /></a
+				<a
+					class="repo border-none aspect-square flex box-border rounded-full"
+					title="Go to the source code"
+					target="_blank"
+					href={repository}
 				>
+					<img style="display:inline" src="/images/gitlab_logo.svg" alt="gitlab logo" />
+				</a>
 				<!-- {:else} -->
 			{/if}
 		</div>
@@ -56,14 +66,7 @@
 			title={clipboardCopy ? 'copied!' : `${packageManagers[$manager]} ${npm}`}
 		/>
 	{/if}
-	<p class="flex-grow">{description}</p>
-	{#if tags}
-		<div class="mb-4 flex flex-row flex-wrap">
-			{#each tags as tag}
-				<Tag title={tag} variant="blue" />
-			{/each}
-		</div>
-	{/if}
+	<p class="flex-grow pb-6">{description}</p>
 	<div class="flex justify-between items-end">
 		<div>
 			{#if typeof stars !== 'undefined'}
@@ -83,14 +86,9 @@
 		background: #e8f3fe;
 	}
 	.repo {
-		border-bottom: none;
-		aspect-ratio: 1/1;
-		display: flex;
 		min-height: 26px;
 		padding: 4px;
-		border-radius: 50%;
 		margin: -4px;
-		box-sizing: border-box;
 		background-color: rgba(0, 0, 0, 0);
 		transition: background-color 200ms ease-out;
 	}
