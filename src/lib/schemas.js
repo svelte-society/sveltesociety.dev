@@ -4,10 +4,8 @@ import { packageNameRegex } from 'package-name-regex';
 const PACKAGES_TAGS = /** @type {const} */ ([
 	'auth',
 	'build-plugins',
-	'css-and-layout',
 	'data-fetching',
 	'data-visualisation',
-	'date-and-time',
 	'design-system',
 	'forms-and-input',
 	'icons-and-fonts',
@@ -20,6 +18,7 @@ const PACKAGES_TAGS = /** @type {const} */ ([
 	'official',
 	'routers',
 	'stores-and-state',
+	'styling-and-layout',
 	'sveltekit-adapters',
 	'testing',
 	'ui-components',
