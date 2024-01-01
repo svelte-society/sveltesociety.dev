@@ -4,7 +4,7 @@
 	var year = date.getFullYear();
 </script>
 
-<footer class="p-8 md:p-12 print:hidden">
+<footer class="p-8 print:hidden md:p-12">
 	<div class="mx-auto grid justify-center justify-items-center gap-2 text-center md:flex md:gap-6">
 		<span>&copy; {year} Svelte Society</span>
 		<span>•</span>

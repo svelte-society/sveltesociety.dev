@@ -28,7 +28,7 @@
 
 <TagFilters {tags} {selectedTags} />
 <br />
-<section class="grid justify-stretch items-center gap-4 relative controls">
+<section class="controls relative grid items-center justify-stretch gap-4">
 	<input
 		class="searchbar"
 		type="text"
@@ -65,7 +65,7 @@
 	>
 </section>
 <hr />
-<section class="grid mx-auto gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mb-12">
+<section class="mx-auto mb-12 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
 	{#each sortedData as entry (entry.title)}
 		<ComponentCard
 			title={entry.title}

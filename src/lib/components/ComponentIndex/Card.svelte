@@ -27,7 +27,7 @@
 	};
 </script>
 
-<div class="card flex flex-col p-3 rounded-md text-base lg:text-lg" id="component-{title}">
+<div class="card flex flex-col rounded-md p-3 text-base lg:text-lg" id="component-{title}">
 	<div class="flex justify-between align-top">
 		<div>
 			<h3 class="text-xl">
@@ -37,7 +37,7 @@
 		<div>
 			{#if repository.includes('github')}
 				<a
-					class="repo border-none aspect-square flex box-border rounded-full"
+					class="repo box-border flex aspect-square rounded-full border-none"
 					title="Go to the source code"
 					target="_blank"
 					href={repository}
@@ -46,7 +46,7 @@
 				</a>
 			{:else if repository.includes('gitlab')}
 				<a
-					class="repo border-none aspect-square flex box-border rounded-full"
+					class="repo box-border flex aspect-square rounded-full border-none"
 					title="Go to the source code"
 					target="_blank"
 					href={repository}
@@ -66,7 +66,7 @@
 		/>
 	{/if}
 	<p class="flex-grow pb-6">{description}</p>
-	<div class="flex justify-between items-end">
+	<div class="flex items-end justify-between">
 		<div>
 			{#if typeof stars !== 'undefined'}
 				&#9733;
