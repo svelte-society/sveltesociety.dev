@@ -2,7 +2,6 @@ import { z } from 'zod';
 import { packageNameRegex } from 'package-name-regex';
 
 const PACKAGES_TAGS = /** @type {const} */ ([
-	'audio-and-video',
 	'auth',
 	'build-plugins',
 	'css-and-layout',

@@ -1302,7 +1302,7 @@
 	{
 		"description": "Focused on making embedding and using media elements for the web simple.",
 		"npm": "@vime/svelte",
-		"tags": ["audio-and-video", "ui-components"],
+		"tags": ["ui-components"],
 		"title": "Vime",
 		"repository": "https://github.com/vime-js/vime"
 	},
@@ -1922,7 +1922,7 @@
 		"description": "A component to play a video by scrolling the page",
 		"repository": "https://github.com/macfja/svelte-scroll-video#readme",
 		"npm": "@macfja/svelte-scroll-video",
-		"tags": ["audio-and-video", "images", "user-interaction"]
+		"tags": ["images", "user-interaction"]
 	},
 	{
 		"title": "@prgm/sveltekit-progress-bar",
@@ -2142,7 +2142,7 @@
 		"repository": "https://github.com/TwicPics/components",
 		"description": "Images and videos components - Context aware resizing and cropping, lazy-loading, LQIP, Next-Gen format, compression, CDN.",
 		"npm": "@twicpics/components",
-		"tags": ["ui-components", "images", "audio-and-video"]
+		"tags": ["ui-components", "images"]
 	},
 	{
 		"title": "Svane",
@@ -2800,7 +2800,7 @@
 		"repository": "https://github.com/elron/svelte-audio-store",
 		"description": "A Svelte store for managing and playing audio",
 		"npm": "@elron/svelte-audio-store",
-		"tags": ["audio-and-video", "stores-and-state"]
+		"tags": ["stores-and-state"]
 	},
 	{
 		"title": "Svelte Color Select",
