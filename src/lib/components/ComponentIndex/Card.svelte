@@ -31,8 +31,7 @@
 	<div class="flex justify-between align-top">
 		<div>
 			<h3 class="text-xl">
-				<a href="#component-{title}">#</a>
-				{#if repository}<a href={repository}>{title}</a>{:else}<span>{title}</span>{/if}
+				<a href="#component-{title}"># {title}</a>
 			</h3>
 		</div>
 		<div>
