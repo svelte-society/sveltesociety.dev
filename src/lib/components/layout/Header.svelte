@@ -29,7 +29,7 @@
 					</Link>
 				{/each}
 				<li>
-					<a href="/" class="logo">
+					<a href="/" class="border-none">
 						<img alt="Svelte Society Logo" src="/images/logo.svg" />
 					</a>
 				</li>
@@ -60,9 +60,6 @@
 	img {
 		width: var(--s-12);
 		height: var(--s-12);
-	}
-	.logo {
-		border-bottom: none;
 	}
 	@media (min-width: 1280px) {
 		li {
