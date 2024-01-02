@@ -12,7 +12,6 @@ const PACKAGES_TAGS = /** @type {const} */ ([
 	'images',
 	'integrations',
 	'internationalization',
-	'linting-and-formatting',
 	'markdown',
 	'notifications',
 	'official',

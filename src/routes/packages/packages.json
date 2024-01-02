@@ -2617,14 +2617,14 @@
 		"npm": "prettier-plugin-svelte",
 		"description": "Format your svelte components using prettier.",
 		"repository": "https://github.com/sveltejs/prettier-plugin-svelte",
-		"tags": ["linting-and-formatting", "official"]
+		"tags": ["build-plugins", "official"]
 	},
 	{
 		"title": "svelte-check",
 		"npm": "svelte-check",
 		"description": "Detects unused css. Adds Svelte A11y hints. Provides JavaScript/TypeScript diagnostics.",
 		"repository": "https://github.com/sveltejs/language-tools/tree/master/packages/svelte-check",
-		"tags": ["linting-and-formatting", "official"]
+		"tags": ["build-plugins", "official"]
 	},
 	{
 		"title": "svelte-reactive-css-preprocess",
@@ -2645,7 +2645,7 @@
 		"repository": "https://github.com/sveltejs/eslint-plugin-svelte",
 		"description": "ESLint plugin that applies own rules to Svelte",
 		"npm": "eslint-plugin-svelte",
-		"tags": ["linting-and-formatting", "official"]
+		"tags": ["build-plugins", "official"]
 	},
 	{
 		"title": "full-client-server-sveltekit",
