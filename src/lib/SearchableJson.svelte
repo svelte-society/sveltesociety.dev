@@ -61,7 +61,7 @@
 		>
 	</div>
 	<span class="searchbar-count"
-		>{data.length} result{#if data.length !== 1}s{/if}</span
+		>{sortedData.length} result{#if sortedData.length !== 1}s{/if}</span
 	>
 </section>
 <hr />
