@@ -6,8 +6,8 @@
 
 <SearchableJson
 	data={data.packages}
-	tags={data.tags}
-	selectedTags={data.selectedTags}
+	categories={data.categories}
+	selectedCategories={data.selectedCategories}
 	sortableFields={[
 		{ value: 'stars', label: 'Stars', asc: false },
 		{ value: 'title', label: 'Name', asc: true },

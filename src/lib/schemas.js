@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { packageNameRegex } from 'package-name-regex';
 
-const PACKAGES_TAGS = /** @type {const} */ ([
+const PACKAGES_CATEGORIES = /** @type {const} */ ([
 	'auth',
 	'build-plugins',
 	'data-fetching',
@@ -31,11 +31,11 @@ export const packagesSchema = z.array(
 		url: z.string().url().optional(),
 		repository: z.string().url(),
 		description: z.string().max(250),
-		tags: z.array(z.enum(PACKAGES_TAGS)).min(1).max(6)
+		categories: z.array(z.enum(PACKAGES_CATEGORIES)).min(1).max(6)
 	})
 );
 
-const TEMPLATES_TAGS = /** @type {const} */ ([
+const TEMPLATES_CATEGORIES = /** @type {const} */ ([
 	'blog',
 	'code-splitting',
 	'component-sets',
@@ -66,6 +66,6 @@ export const templatesSchema = z.array(
 		url: z.string().url().optional(),
 		repository: z.string().url(),
 		description: z.string().max(250),
-		tags: z.array(z.enum(TEMPLATES_TAGS)).min(1).max(6)
+		categories: z.array(z.enum(TEMPLATES_CATEGORIES)).min(1).max(6)
 	})
 );

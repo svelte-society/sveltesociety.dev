@@ -6,7 +6,7 @@ import type { z } from 'zod';
 import type { packagesSchema, templatesSchema } from '$lib/schemas';
 
 export const injectData = (input: z.infer<typeof packagesSchema | typeof templatesSchema>) => {
-	const output = [];
+	const output: z.infer<typeof packagesSchema | typeof templatesSchema> = [];
 	for (const item of input) {
 		// Github
 		const githubIndex = Object.keys(github).find((key) =>

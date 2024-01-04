@@ -308,7 +308,7 @@ const allItems: Array<SearchItem> = [
 		tags: item.tags,
 		type: 'Package',
 		search: searchKeywords(item.title, item.description, ...(item.tags ?? []), item.npm ?? ''),
-		url: '/packages#component-' + item.title
+		url: '/packages#' + item.title
 	})),
 	...(templates as Array<JsonItem>).map<SearchItem>((item) => ({
 		title: item.title,
@@ -316,7 +316,7 @@ const allItems: Array<SearchItem> = [
 		tags: item.tags,
 		type: 'Template',
 		search: searchKeywords(item.title, item.description, ...(item.tags ?? []), item.npm ?? ''),
-		url: '/templates#component-' + item.title
+		url: '/templates#' + item.title
 	})),
 	...Object.entries(
 		import.meta.glob('../routes/recipes/**/*.svx', { eager: true }) as Record<

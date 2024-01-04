@@ -6,7 +6,6 @@
 
 	export let title: string;
 	export let description: string;
-	export let tags: string[];
 	export let stars: string;
 	export let npm = '';
 	export let repository = undefined;
@@ -27,11 +26,11 @@
 	};
 </script>
 
-<div class="card flex flex-col rounded-md p-3 text-base lg:text-lg" id="component-{title}">
+<div class="card flex flex-col rounded-md p-3 text-base lg:text-lg" id={title}>
 	<div class="flex justify-between align-top">
 		<div>
 			<h3 class="text-xl">
-				<a href="#component-{title}"># {title}</a>
+				<a href="#{title}"># {title}</a>
 			</h3>
 		</div>
 		<div>

@@ -1,5 +1,5 @@
 import { packagesSchema } from '$lib/schemas.js';
-import { getTags } from '$utils/getTags';
+import { getCategories } from '$utils/getCategories';
 import { injectData } from '$utils/injectData';
 import packages from './packages.json';
 
@@ -8,15 +8,15 @@ export const prerender = false;
 export const load = async ({ url }) => {
 	const data = injectData(packagesSchema.parse(packages));
 
-	const selectedTags = url.searchParams.getAll('tag');
+	const selectedCategories = url.searchParams.getAll('category');
 
-	if (!selectedTags) {
-		return { packages: data, tags: getTags(data), selectedTags: [] };
+	if (!selectedCategories) {
+		return { packages: data, categories: getCategories(data), selectedCategories: [] };
 	}
 
 	const filteredData = data.filter((entry) => {
-		return selectedTags.every((val) => entry.tags.includes(val));
+		return selectedCategories.every((val) => entry.categories.includes(val));
 	});
 
-	return { packages: filteredData, tags: getTags(filteredData), selectedTags };
+	return { packages: filteredData, categories: getCategories(filteredData), selectedCategories };
 };
