@@ -6,7 +6,6 @@
 
 	export let title: string;
 	export let description: string;
-	export let tags: string[];
 	export let stars: string;
 	export let npm = '';
 	export let repository = undefined;

@@ -3,13 +3,13 @@
 	import Seo from '$lib/components/Seo.svelte';
 	import Select from '$lib/components/Select.svelte';
 	import { packageManager } from '$stores/packageManager';
-	import TagFilters from '$lib/TagFilters.svelte';
+	import CategoryFilters from '$lib/CategoryFilters.svelte';
 	import { filterArray, sortArray } from '$utils/arrayUtils';
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	export let data: any[];
-	export let tags: string[];
-	export let selectedTags: string[];
+	export let categories: string[];
+	export let selectedCategories: string[];
 	export let sortableFields: { value: string; label: string; asc: boolean }[];
 	export let displayTitle = '';
 	export let displayTitleSingular = '';
@@ -26,7 +26,7 @@
 
 <h1>{displayTitle}</h1>
 
-<TagFilters {tags} {selectedTags} />
+<CategoryFilters {categories} {selectedCategories} />
 <br />
 <section class="controls relative grid items-center justify-stretch gap-4">
 	<input
@@ -72,7 +72,6 @@
 			description={entry.description}
 			repository={entry.repository}
 			stars={entry.stars}
-			tags={entry.tags}
 			date={entry.date}
 			npm={entry.npm}
 			version={entry.version}

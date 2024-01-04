@@ -1,5 +1,5 @@
 import { templatesSchema } from '$lib/schemas.js';
-import { getTags } from '$utils/getTags';
+import { getCategories } from '$utils/getCategories';
 import { injectData } from '$utils/injectData';
 import templates from './templates.json';
 
@@ -8,15 +8,15 @@ export const prerender = false;
 export const load = async ({ url }) => {
 	const data = injectData(templatesSchema.parse(templates));
 
-	const selectedTags = url.searchParams.getAll('tag');
+	const selectedCategories = url.searchParams.getAll('category');
 
-	if (!selectedTags) {
-		return { packages: data, tags: getTags(data), selectedTags: [] };
+	if (!selectedCategories) {
+		return { templates: data, categories: getCategories(data), selectedCategories: [] };
 	}
 
 	const filteredData = data.filter((entry) => {
-		return selectedTags.every((val) => entry.tags.includes(val));
+		return selectedCategories.every((val) => entry.categories.includes(val));
 	});
 
-	return { templates: filteredData, tags: getTags(filteredData), selectedTags };
+	return { templates: filteredData, categories: getCategories(filteredData), selectedCategories };
 };

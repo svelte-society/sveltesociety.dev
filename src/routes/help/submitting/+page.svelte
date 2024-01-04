@@ -4,7 +4,7 @@
 	import templates from '../../templates/templates.json';
 	import { onMount, tick } from 'svelte';
 	import { copyToClipboard } from '$lib/utils/clipboard';
-	import { extractUnique } from '$lib/utils/extractUnique';
+	import { getCategories } from '$utils/getCategories';
 	import Seo from '$lib/components/Seo.svelte';
 
 	const repoURL = 'https://github.com/svelte-society/sveltesociety.dev';
@@ -15,10 +15,10 @@
 
 	const data = {
 		package: {
-			tags: extractUnique(packages, 'tags')
+			categories: getCategories(packages)
 		},
 		template: {
-			tags: extractUnique(templates, 'tags')
+			categories: getCategories(templates)
 		}
 	};
 
@@ -33,7 +33,7 @@
 	let url = 'https://svelte-lorem-ipsum.dev';
 	let description = 'A dummy text generator that does not exist';
 	let npm = 'svelte-lorem-ipsum';
-	let tags;
+	let categories;
 	let repository = 'https://github.com/sveltejs/svelte-lorem-ipsum';
 
 	$: pathName = `${type.value}s`;
@@ -43,19 +43,19 @@
 		repository: repository ? repository : undefined,
 		description,
 		npm: npm ? npm : undefined,
-		tags: tags?.map((tag) => tag.value)
+		categories: categories?.map((c) => c.value)
 	};
 
-	$: currentTags = data[type.value].tags;
+	$: currentCategories = data[type.value].categories;
 
 	onMount(() => {
 		const typeQuery = new URLSearchParams(location.search).get('type');
 		type = types.find((t) => t.value == typeQuery) || types[0];
 	});
 
-	async function clearTags() {
+	async function clearCategories() {
 		await tick();
-		tags = null;
+		categories = null;
 	}
 </script>
 
@@ -80,7 +80,7 @@
 				isClearable={false}
 				showIndicator
 				bind:value={type}
-				on:select={clearTags}
+				on:select={clearCategories}
 			/>
 			<span class="input-helper">The type of snippet to generate</span>
 		</div>
@@ -123,10 +123,16 @@
 		</div>
 	</div>
 	<div class="input-wrapper">
-		<label for="tags" class="required">Tags:</label>
+		<label for="categories" class="required">Categories:</label>
 		<div>
-			<SvelteSelect id="tags" items={currentTags} showIndicator isMulti bind:value={tags} />
-			<span class="input-helper">A list of tags</span>
+			<SvelteSelect
+				id="categories"
+				items={currentCategories}
+				showIndicator
+				isMulti
+				bind:value={categories}
+			/>
+			<span class="input-helper">A list of categories</span>
 		</div>
 	</div>
 </div>
