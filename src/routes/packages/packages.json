@@ -2758,7 +2758,7 @@
 		"repository": "https://github.com/huntabyte/bits-ui",
 		"description": "The headless components for Svelte.",
 		"npm": "bits-ui",
-		"categories": ["ui-components"]
+		"categories": ["design-system", "ui-components"]
 	},
 	{
 		"title": "Formsnap",
@@ -2878,5 +2878,26 @@
 		"description": "Playwright plugin which can test your Svelte components",
 		"npm": "@playwright/experimental-ct-svelte",
 		"categories": ["images", "ui-components"]
+	},
+	{
+		"title": "Vaul Svelte",
+		"repository": "https://github.com/huntabyte/vaul-svelte",
+		"description": "An unstyled drawer component for Svelte.",
+		"npm": "vaul-svelte",
+		"categories": ["ui-components", "user-interaction"]
+	},
+	{
+		"title": "svelte-client-components",
+		"repository": "https://github.com/paoloricciuti/svelte-client-components",
+		"description": "Preprocessor for svelte that allows you to annotate a component as a client component with the extension `.client.svelte`",
+		"npm": "svelte-client-components",
+		"categories": ["build-plugins"]
+	},
+	{
+		"title": "Svelte Interactions",
+		"repository": "https://github.com/svecosystem/svelte-interactions",
+		"description": "Streamlined interaction events for Svelte",
+		"npm": "svelte-interactions",
+		"categories": ["user-interaction"]
 	}
 ]
