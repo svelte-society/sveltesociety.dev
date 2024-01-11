@@ -2758,7 +2758,7 @@
 		"repository": "https://github.com/huntabyte/bits-ui",
 		"description": "The headless components for Svelte.",
 		"npm": "bits-ui",
-		"categories": ["ui-components"]
+		"categories": ["design-system", "ui-components"]
 	},
 	{
 		"title": "Formsnap",
