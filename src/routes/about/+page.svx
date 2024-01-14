@@ -38,6 +38,8 @@ However, a lot of work remains to be done. The original Svelte Society meetups a
 
 Special thanks to [VueMeetups](https://events.vuejs.org/code-of-conduct/#english) for the basis of this Code of Conduct.
 
+<!--- Uncomment this before closing issue #566
 ## License information
 
 The license information can be found [here](https://sveltesociety.dev/licenses).
+-->
