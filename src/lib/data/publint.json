@@ -405,5 +405,8 @@
 	"svelte-mapbox": { "valid": true },
 	"@sveltejs/enhanced-img": { "valid": true },
 	"@unpic/svelte": { "valid": true },
-	"@playwright/experimental-ct-svelte": { "valid": true }
+	"@playwright/experimental-ct-svelte": { "valid": true },
+	"vaul-svelte": { "valid": true },
+	"svelte-client-components": { "valid": true },
+	"svelte-interactions": { "valid": true }
 }
