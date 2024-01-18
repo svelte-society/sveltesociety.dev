@@ -703,5 +703,12 @@
 		"repository": "https://github.com/zeucapua/splat-template",
 		"description": "A project template to get started with the SPLAT stack (SvelteKit, Prisma, Lucia (Auth), TailwindCSS)",
 		"categories": ["sveltekit"]
+	},
+	{
+		"title": "SaaS Starter",
+		"url": "https://saasstarter.work",
+		"repository": "https://github.com/CriticalMoments/CMSaasStarter",
+		"description": "An open source, fast, and free to host SaaS template. Includes auth, admin portal, subscriptions, blog engine, and much more.",
+		"categories": ["blog", "database", "svelte", "sveltekit"]
 	}
 ]
