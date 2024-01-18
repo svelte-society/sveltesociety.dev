@@ -709,11 +709,6 @@
 		"url": "https://saasstarter.work",
 		"repository": "https://github.com/CriticalMoments/CMSaasStarter",
 		"description": "An open source, fast, and free to host SaaS template. Includes auth, admin portal, subscriptions, blog engine, and much more.",
-		"categories": [
-			"blog",
-			"database",
-			"svelte",
-			"sveltekit"
-		]
+		"categories": ["blog", "database", "svelte", "sveltekit"]
 	}
 ]
