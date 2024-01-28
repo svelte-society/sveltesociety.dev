@@ -80,7 +80,7 @@
 	"@equipmentshare/date-range-input": { "valid": true },
 	"svelte-tree": { "valid": false },
 	"svelteify": { "valid": true },
-	"svelte-simple-modal": { "valid": true },
+	"svelte-simple-modal": { "valid": false },
 	"@urql/svelte": { "valid": false },
 	"svelte-icons": { "valid": false },
 	"svelte-native": { "valid": false },
@@ -408,5 +408,7 @@
 	"@playwright/experimental-ct-svelte": { "valid": true },
 	"vaul-svelte": { "valid": true },
 	"svelte-client-components": { "valid": true },
-	"svelte-interactions": { "valid": true }
+	"svelte-interactions": { "valid": true },
+	"@inlang/paraglide-js-adapter-sveltekit": { "valid": false },
+	"embla-carousel-svelte": { "valid": true }
 }
