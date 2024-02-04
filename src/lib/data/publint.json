@@ -393,7 +393,7 @@
 	"cmdk-sv": { "valid": true },
 	"ato-ui": { "valid": true },
 	"svelte-monaco": { "valid": true },
-	"super-navigation": { "valid": true },
+	"super-navigation": { "valid": false },
 	"@elron/svelte-audio-store": { "valid": true },
 	"svelte-color-select": { "valid": true },
 	"svelte-enhanced-transitions": { "valid": true },
