@@ -2913,5 +2913,21 @@
 		"description": "Embla Carousel is a bare bones carousel library with great fluid motion and awesome swipe precision. It's library agnostic, dependency free and 100% open source.",
 		"npm": "embla-carousel-svelte",
 		"categories": ["ui-components", "styling-and-layout", "user-interaction"]
+	},
+	{
+		"title": "AgnosUI Headless",
+		"url": "https://amadeusitgroup.github.io/AgnosUI/latest/",
+		"repository": "https://github.com/AmadeusITGroup/AgnosUI",
+		"description": "Headless, reactive and accessible components for Svelte.",
+		"npm": "@agnos-ui/svelte-headless",
+		"categories": ["design-system", "ui-components"]
+	},
+	{
+		"title": "AgnosUI Bootstrap",
+		"url": "https://amadeusitgroup.github.io/AgnosUI/latest/",
+		"repository": "https://github.com/AmadeusITGroup/AgnosUI",
+		"description": "Reactive, accessible and Bootstrap-compliant components for Svelte.",
+		"npm": "@agnos-ui/svelte",
+		"categories": ["design-system", "ui-components"]
 	}
 ]
