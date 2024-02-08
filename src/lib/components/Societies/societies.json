@@ -99,5 +99,14 @@
 		"name": "Svelte Malaysia",
 		"country": "🇲🇾 Malaysia",
 		"url": "https://www.facebook.com/groups/1049534299333802"
+	},
+	{
+		"name": "Svelte Vietnam",
+		"country": "🇻🇳 Vietnam",
+		"url": "https://www.sveltevietnam.dev",
+		"twitter": "@sveltevietnam",
+		"githuburl": "https://github.com/sveltevietnam",
+		"discord": "https://discord.sveltevietnam.dev",
+		"youtube": "https://www.youtube.com/@sveltevietnam"
 	}
 ]
