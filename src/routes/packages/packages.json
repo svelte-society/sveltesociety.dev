@@ -2929,5 +2929,13 @@
 		"description": "Reactive, accessible and Bootstrap-compliant components for Svelte.",
 		"npm": "@agnos-ui/svelte",
 		"categories": ["design-system", "ui-components"]
+	},
+	{
+		"title": "Svelte DrataGrid",
+		"url": "https://gzimbron.github.io/svelte-datagrid",
+		"repository": "https://github.com/gzimbron/svelte-datagrid",
+		"description": "Svelte DataGrid is a high-performance, feature-rich grid component for Svelte. It's based on the excellent (but deprecated) svelte-data-grid.",
+		"npm": "@gzim/svelte-datagrid",
+		"categories": ["data-visualisation", "ui-components"]
 	}
 ]
