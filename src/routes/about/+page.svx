@@ -40,4 +40,4 @@ Special thanks to [VueMeetups](https://events.vuejs.org/code-of-conduct/#english
 
 ## License information
 
-The license information can be found [here](https://sveltesociety.dev/licenses).
+The license information can be found [here](/licenses).
