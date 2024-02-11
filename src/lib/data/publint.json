@@ -305,7 +305,7 @@
 	"@shipbit/svane": { "valid": true },
 	"sveltekit-html-minifier": { "valid": true },
 	"svelte-tex": { "valid": false },
-	"drab": { "valid": true },
+	"drab": { "valid": false },
 	"supasveltekit": { "valid": true },
 	"@jill64/sveltekit-adapter-aws": { "valid": true },
 	"@jill64/sentry-sveltekit-cloudflare": { "valid": true },
@@ -410,5 +410,8 @@
 	"svelte-client-components": { "valid": true },
 	"svelte-interactions": { "valid": true },
 	"@inlang/paraglide-js-adapter-sveltekit": { "valid": false },
-	"embla-carousel-svelte": { "valid": true }
+	"embla-carousel-svelte": { "valid": true },
+	"@agnos-ui/svelte-headless": { "valid": true },
+	"@agnos-ui/svelte": { "valid": true },
+	"@gzim/svelte-datagrid": { "valid": true }
 }
