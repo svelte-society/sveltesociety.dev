@@ -1,5 +1,12 @@
 [
 	{
+		"title": "svelte-appwrite-adapter",
+		"repository": "https://github.com/LukeHagar/sveltekit-adapters/tree/main/packages/adapter-appwrite",
+		"description": "An adapter to deploy SvelteKit applications as Appwrite functions",
+		"npm": "adapter-appwrite",
+		"categories": ["sveltekit-adapters"]
+	},
+	{
 		"title": "svelte-stopwatch",
 		"repository": "https://github.com/erokar/svelte-stopwatch",
 		"description": "A Svelte timer component with a countdown option and events for start, stop and reset of the timer.",
