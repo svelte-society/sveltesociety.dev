@@ -1,5 +1,12 @@
 [
 	{
+		"title": "svelte-electron-adapter",
+		"repository": "https://github.com/LukeHagar/sveltekit-adapters/tree/main/packages/adapter-electron",
+		"description": "An adapter to deploy SvelteKit applications as electron desktop applications.",
+		"npm": "adapter-electron",
+		"categories": ["sveltekit-adapters"]
+	},
+	{
 		"title": "svelte-appwrite-adapter",
 		"repository": "https://github.com/LukeHagar/sveltekit-adapters/tree/main/packages/adapter-appwrite",
 		"description": "An adapter to deploy SvelteKit applications as Appwrite functions",
