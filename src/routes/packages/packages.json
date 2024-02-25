@@ -1,5 +1,20 @@
 [
 	{
+		"title": "virtue-ui",
+		"url": "https://github.com/virtueorg/ui",
+		"repository": "https://github.com/virtueorg/ui",
+		"description": "A simple Svelte component library built on top of melt-ui and TailwindCSS.",
+		"npm": "virtue-ui",
+		"categories": [
+			"design-system",
+			"official",
+			"styling-and-layout",
+			"ui-components",
+			"user-interaction",
+			"data-visualisation"
+		]
+	},
+	{
 		"title": "svelte-electron-adapter",
 		"repository": "https://github.com/LukeHagar/sveltekit-adapters/tree/main/packages/adapter-electron",
 		"description": "An adapter to deploy SvelteKit applications as electron desktop applications.",
