@@ -2965,5 +2965,13 @@
 		"description": "Svelte DataGrid is a high-performance, feature-rich grid component for Svelte. It's based on the excellent (but deprecated) svelte-data-grid.",
 		"npm": "@gzim/svelte-datagrid",
 		"categories": ["data-visualisation", "ui-components"]
+	},
+	{
+		"title": "svelte-infinite",
+		"url": "https://svelte-5-infinite.vercel.app",
+		"repository": "https://github.com/ndom91/svelte-infinite",
+		"description": "Infinite Loader for Svelte 5",
+		"npm": "svelte-infinite",
+		"categories": ["ui-components", "user-interaction"]
 	}
 ]
