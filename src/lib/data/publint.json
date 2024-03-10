@@ -1,6 +1,6 @@
 {
 	"virtue-ui": { "valid": true },
-	"adapter-electron": { "valid": false },
+	"adapter-electron": { "valid": true },
 	"adapter-appwrite": { "valid": true },
 	"svelte-stopwatch": { "valid": true },
 	"curseur": { "valid": true },
@@ -416,5 +416,6 @@
 	"embla-carousel-svelte": { "valid": true },
 	"@agnos-ui/svelte-headless": { "valid": true },
 	"@agnos-ui/svelte": { "valid": true },
-	"@gzim/svelte-datagrid": { "valid": true }
+	"@gzim/svelte-datagrid": { "valid": true },
+	"svelte-infinite": { "valid": true }
 }
