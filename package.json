@@ -12,7 +12,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"test": "vitest",
 		"lint": "prettier --check '**/*' --ignore-unknown && eslint . && node scripts/validateData.js",
-		"format": "prettier --write '**/*' --ignore-unknown"
+		"format": "prettier --write '**/*' --ignore-unknown",
+		"update:licenses": "pnpm licenses list --long --json > src/routes/licenses/licenses.json && node scripts/licenses.mjs && prettier --write 'src/routes/licenses/licenses.json'"
 	},
 	"devDependencies": {
 		"@macfja/svelte-persistent-store": "2.4.1",
