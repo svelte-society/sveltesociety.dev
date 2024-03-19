@@ -48,6 +48,15 @@
 						</span>
 					</li>
 				{/if}
+
+				{#if society.discord}
+					<li>
+						<span class="icon-wrapper">
+							<Icon name="discord" />
+							<a href={society.discord} target="_blank" rel="noopener">Discord</a>
+						</span>
+					</li>
+				{/if}
 			</ul>
 		{/if}
 	{/each}
