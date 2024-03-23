@@ -2926,9 +2926,16 @@
 		"repository": "https://github.com/svecosystem/svelte-interactions",
 		"description": "Streamlined interaction events for Svelte",
 		"npm": "svelte-interactions",
-		"categories": ["user-interaction"]
-	},
-	{
+		"categories": ["user-{
+	"title": "svelte-lorem-ipsum",
+	"url": "https://svelte-lorem-ipsum.dev",
+	"repository": "https://github.com/sveltejs/svelte-lorem-ipsum",
+	"description": "A dummy text generator that does not exist",
+	"npm": "svelte-lorem-ipsum",
+	"categories": [
+		"auth"
+	]
+}
 		"title": "Paraglide JS Adapter SvelteKit",
 		"repository": "https://github.com/opral/monorepo/tree/main/inlang/source-code/paraglide/paraglide-js-adapter-sveltekit",
 		"description": "Everything you need to internationalize your SvelteKit app with Paraglide.",
