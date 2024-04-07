@@ -710,5 +710,11 @@
 		"repository": "https://github.com/CriticalMoments/CMSaasStarter",
 		"description": "An open source, fast, and free to host SaaS template. Includes auth, admin portal, subscriptions, blog engine, and much more.",
 		"categories": ["blog", "database", "svelte", "sveltekit"]
+	},
+	{
+		"title": "SvelteKit + FSD + shadcn-svelte",
+		"repository": "https://github.com/falkomerr/sveltekit-starter",
+		"description": "Starter for SvelteKit with FSD, shadcn-svelte and tailwind",
+		"categories": ["sveltekit", "typescript", "code-splitting"]
 	}
 ]
