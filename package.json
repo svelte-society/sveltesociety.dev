@@ -1,0 +1,18 @@
+{
+  "name": "svelte-society",
+  "description": "Monorepo for the Svelte Society website",
+  "homepage": "https://craft.provi.design/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/svelte-society/sveltesociety.dev"
+  },
+  "type": "module",
+  "scripts": {
+    "test:all": "pnpm -r test",
+    "dev:ui": "pnpm --filter ui dev",
+    "build:ui": "pnpm --filter ui build",
+    "dev:www": "pnpm --filter www dev",
+    "build:www": "pnpm --filter www build"
+  },
+  "packageManager": "pnpm@8.15.1"
+}

@@ -6,6 +6,8 @@ settings:
 
 importers:
 
+  .: {}
+
   packages/ui:
     devDependencies:
       '@playwright/test':
