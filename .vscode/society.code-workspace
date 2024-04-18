@@ -1,0 +1,40 @@
+{
+  "folders": [
+    {
+      "name": "svelte-society",
+      "path": "../"
+    },
+    {
+      "name": "packages",
+      "path": "../packages"
+    },
+    {
+      "name": "sites",
+      "path": "../sites"
+    }
+  ],
+  "settings": {
+    "testing.automaticallyOpenPeekView": "never",
+    "workbench.colorCustomizations": {
+      // "activityBar.activeBackground": "#88cfc2",
+      // "activityBar.background": "#88cfc2",
+      // "activityBar.foreground": "#15202b",
+      // "activityBar.inactiveForeground": "#15202b99",
+      // "activityBarBadge.background": "#ad60bf",
+      // "activityBarBadge.foreground": "#15202b",
+      // "commandCenter.border": "#15202b99",
+      // "sash.hoverBorder": "#88cfc2",
+      // "statusBar.background": "#64c0b0",
+      // "statusBar.foreground": "#15202b",
+      // "statusBarItem.hoverBackground": "#46ab9a",
+      // "statusBarItem.remoteBackground": "#64c0b0",
+      // "statusBarItem.remoteForeground": "#15202b",
+      // "titleBar.activeBackground": "#64c0b0",
+      // "titleBar.activeForeground": "#15202b",
+      // "titleBar.inactiveBackground": "#64c0b099",
+      // "titleBar.inactiveForeground": "#15202b99"
+    },
+    "peacock.color": "#64c0b0",
+    "vitest.commandLine": "pnpm test:unit"
+  },
+}

@@ -1,0 +1,11 @@
+.DS_Store
+node_modules
+dist
+build
+.netlify
+*.env
+*.svelte-kit
+*.tgz
+storybook-static
+
+.nx/cache
