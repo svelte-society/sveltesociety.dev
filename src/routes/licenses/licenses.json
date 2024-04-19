@@ -1,0 +1,2593 @@
+{
+	"MIT": [
+		{
+			"name": "@aashutoshrathi/word-wrap",
+			"version": "1.2.6",
+			"author": "Jon Schlinkert",
+			"homepage": "https://github.com/aashutoshrathi/word-wrap",
+			"description": "Wrap words to a specified length."
+		},
+		{
+			"name": "@alloc/quick-lru",
+			"version": "5.2.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/quick-lru#readme",
+			"description": "Simple “Least Recently Used” (LRU) cache"
+		},
+		{
+			"name": "@esbuild/linux-x64",
+			"version": "0.19.9",
+			"homepage": "https://github.com/evanw/esbuild#readme",
+			"description": "The Linux 64-bit binary for esbuild, a JavaScript bundler."
+		},
+		{
+			"name": "@eslint-community/eslint-utils",
+			"version": "4.4.0",
+			"author": "Toru Nagashima",
+			"homepage": "https://github.com/eslint-community/eslint-utils#readme",
+			"description": "Utilities for ESLint plugins."
+		},
+		{
+			"name": "@eslint-community/regexpp",
+			"version": "4.10.0",
+			"author": "Toru Nagashima",
+			"homepage": "https://github.com/eslint-community/regexpp#readme",
+			"description": "Regular expression parser for ECMAScript."
+		},
+		{
+			"name": "@eslint/eslintrc",
+			"version": "2.1.4",
+			"author": "Nicholas C. Zakas",
+			"homepage": "https://github.com/eslint/eslintrc#readme",
+			"description": "The legacy ESLintRC config file format for ESLint"
+		},
+		{
+			"name": "@eslint/js",
+			"version": "8.56.0",
+			"homepage": "https://eslint.org",
+			"description": "ESLint JavaScript language implementation"
+		},
+		{
+			"name": "@jest/schemas",
+			"version": "29.6.3",
+			"homepage": "https://github.com/jestjs/jest#readme"
+		},
+		{
+			"name": "@jridgewell/gen-mapping",
+			"version": "0.3.3",
+			"author": "Justin Ridgewell",
+			"homepage": "https://github.com/jridgewell/gen-mapping#readme",
+			"description": "Generate source maps"
+		},
+		{
+			"name": "@jridgewell/resolve-uri",
+			"version": "3.1.0",
+			"author": "Justin Ridgewell",
+			"homepage": "https://github.com/jridgewell/resolve-uri#readme",
+			"description": "Resolve a URI relative to an optional base URI"
+		},
+		{
+			"name": "@jridgewell/set-array",
+			"version": "1.1.2",
+			"author": "Justin Ridgewell",
+			"homepage": "https://github.com/jridgewell/set-array#readme",
+			"description": "Like a Set, but provides the index of the `key` in the backing array"
+		},
+		{
+			"name": "@jridgewell/sourcemap-codec",
+			"version": "1.4.15",
+			"author": "Rich Harris",
+			"homepage": "https://github.com/jridgewell/sourcemap-codec#readme",
+			"description": "Encode/decode sourcemap mappings"
+		},
+		{
+			"name": "@jridgewell/trace-mapping",
+			"version": "0.3.18",
+			"author": "Justin Ridgewell",
+			"homepage": "https://github.com/jridgewell/trace-mapping#readme",
+			"description": "Trace the original position through a source map"
+		},
+		{
+			"name": "@macfja/serializer",
+			"version": "1.1.2",
+			"author": "MacFJA",
+			"homepage": "https://github.com/MacFJA/js-serializer",
+			"description": "Transform any object, class, array, primitive to a serialized string and vice-versa"
+		},
+		{
+			"name": "@macfja/svelte-persistent-store",
+			"version": "2.4.1",
+			"author": "MacFJA",
+			"homepage": "https://github.com/macfja/svelte-persistent-store#readme",
+			"description": "A Svelte store that keep its value through pages and reloads"
+		},
+		{
+			"name": "@nodelib/fs.scandir",
+			"version": "2.1.5",
+			"homepage": "https://github.com/nodelib/nodelib/tree/master#readme",
+			"description": "List files and directories inside the specified directory"
+		},
+		{
+			"name": "@nodelib/fs.stat",
+			"version": "2.0.5",
+			"homepage": "https://github.com/nodelib/nodelib/tree/master#readme",
+			"description": "Get the status of a file with some features"
+		},
+		{
+			"name": "@nodelib/fs.walk",
+			"version": "1.2.8",
+			"homepage": "https://github.com/nodelib/nodelib/tree/master#readme",
+			"description": "A library for efficiently walking a directory recursively"
+		},
+		{
+			"name": "@pkgjs/parseargs",
+			"version": "0.11.0",
+			"author": "",
+			"homepage": "https://github.com/pkgjs/parseargs#readme",
+			"description": "Polyfill of future proposal for `util.parseArgs()`"
+		},
+		{
+			"name": "@polka/url",
+			"version": "1.0.0-next.24",
+			"author": "Luke Edwards",
+			"homepage": "https://github.com/lukeed/polka#readme",
+			"description": "Super fast, memoized `req.url` parser"
+		},
+		{
+			"name": "@prettier/cli",
+			"version": "0.3.0",
+			"homepage": "https://github.com/prettier/prettier-cli#readme",
+			"description": "A faster CLI for Prettier."
+		},
+		{
+			"name": "@rollup/rollup-linux-x64-gnu",
+			"version": "4.9.0",
+			"author": "Lukas Taegert-Atkinson",
+			"homepage": "https://rollupjs.org/",
+			"description": "Native bindings for Rollup"
+		},
+		{
+			"name": "@rollup/rollup-linux-x64-musl",
+			"version": "4.9.0",
+			"author": "Lukas Taegert-Atkinson",
+			"homepage": "https://rollupjs.org/",
+			"description": "Native bindings for Rollup"
+		},
+		{
+			"name": "@sinclair/typebox",
+			"version": "0.27.8",
+			"author": "sinclairzx81",
+			"homepage": "https://github.com/sinclairzx81/typebox#readme",
+			"description": "JSONSchema Type Builder with Static Type Resolution for TypeScript"
+		},
+		{
+			"name": "@sveltejs/adapter-auto",
+			"version": "3.0.1",
+			"homepage": "https://kit.svelte.dev",
+			"description": "Automatically chooses the SvelteKit adapter for your current environment, if possible."
+		},
+		{
+			"name": "@sveltejs/kit",
+			"version": "2.0.6",
+			"homepage": "https://kit.svelte.dev",
+			"description": "The fastest way to build Svelte apps"
+		},
+		{
+			"name": "@sveltejs/vite-plugin-svelte",
+			"version": "3.0.1",
+			"author": "dominikg",
+			"homepage": "https://github.com/sveltejs/vite-plugin-svelte#readme"
+		},
+		{
+			"name": "@sveltejs/vite-plugin-svelte-inspector",
+			"version": "2.0.0",
+			"author": "dominikg",
+			"homepage": "https://github.com/sveltejs/vite-plugin-svelte#readme"
+		},
+		{
+			"name": "@types/cookie",
+			"version": "0.6.0",
+			"homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/cookie",
+			"description": "TypeScript definitions for cookie"
+		},
+		{
+			"name": "@types/eslint",
+			"version": "8.56.0",
+			"homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/eslint",
+			"description": "TypeScript definitions for eslint"
+		},
+		{
+			"name": "@types/estree",
+			"version": "1.0.1",
+			"homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/estree",
+			"description": "TypeScript definitions for estree"
+		},
+		{
+			"name": "@types/hast",
+			"version": "3.0.3",
+			"homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/hast",
+			"description": "TypeScript definitions for hast"
+		},
+		{
+			"name": "@types/json-schema",
+			"version": "7.0.12",
+			"homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/json-schema",
+			"description": "TypeScript definitions for json-schema 4.0, 6.0 and"
+		},
+		{
+			"name": "@types/node",
+			"version": "20.10.6",
+			"homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/node",
+			"description": "TypeScript definitions for node"
+		},
+		{
+			"name": "@types/pug",
+			"version": "2.0.6",
+			"homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/pug",
+			"description": "TypeScript definitions for pug"
+		},
+		{
+			"name": "@types/semver",
+			"version": "7.5.0",
+			"homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/semver",
+			"description": "TypeScript definitions for semver"
+		},
+		{
+			"name": "@types/unist",
+			"version": "3.0.2",
+			"homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/unist",
+			"description": "TypeScript definitions for unist"
+		},
+		{
+			"name": "@typescript-eslint/eslint-plugin",
+			"version": "6.16.0",
+			"homepage": "https://github.com/typescript-eslint/typescript-eslint#readme",
+			"description": "TypeScript plugin for ESLint"
+		},
+		{
+			"name": "@typescript-eslint/scope-manager",
+			"version": "6.16.0",
+			"homepage": "https://github.com/typescript-eslint/typescript-eslint#readme",
+			"description": "TypeScript scope analyser for ESLint"
+		},
+		{
+			"name": "@typescript-eslint/type-utils",
+			"version": "6.16.0",
+			"homepage": "https://github.com/typescript-eslint/typescript-eslint#readme",
+			"description": "Type utilities for working with TypeScript + ESLint together"
+		},
+		{
+			"name": "@typescript-eslint/types",
+			"version": "6.16.0",
+			"homepage": "https://github.com/typescript-eslint/typescript-eslint#readme",
+			"description": "Types for the TypeScript-ESTree AST spec"
+		},
+		{
+			"name": "@typescript-eslint/utils",
+			"version": "6.16.0",
+			"homepage": "https://github.com/typescript-eslint/typescript-eslint#readme",
+			"description": "Utilities for working with TypeScript + ESLint together"
+		},
+		{
+			"name": "@typescript-eslint/visitor-keys",
+			"version": "6.16.0",
+			"homepage": "https://github.com/typescript-eslint/typescript-eslint#readme",
+			"description": "Visitor keys used to help traverse the TypeScript-ESTree AST"
+		},
+		{
+			"name": "@vitest/expect",
+			"version": "1.1.0",
+			"homepage": "https://github.com/vitest-dev/vitest/tree/main/packages/expect#readme",
+			"description": "Jest's expect matchers as a Chai plugin"
+		},
+		{
+			"name": "@vitest/runner",
+			"version": "1.1.0",
+			"homepage": "https://github.com/vitest-dev/vitest/tree/main/packages/runner#readme",
+			"description": "Vitest test runner"
+		},
+		{
+			"name": "@vitest/snapshot",
+			"version": "1.1.0",
+			"homepage": "https://github.com/vitest-dev/vitest/tree/main/packages/snapshot#readme",
+			"description": "Vitest snapshot manager"
+		},
+		{
+			"name": "@vitest/spy",
+			"version": "1.1.0",
+			"homepage": "https://github.com/vitest-dev/vitest/tree/main/packages/spy#readme",
+			"description": "Lightweight Jest compatible spy implementation"
+		},
+		{
+			"name": "@vitest/utils",
+			"version": "1.1.0",
+			"homepage": "https://github.com/vitest-dev/vitest/tree/main/packages/utils#readme",
+			"description": "Shared Vitest utility functions"
+		},
+		{
+			"name": "acorn",
+			"version": "8.11.2",
+			"homepage": "https://github.com/acornjs/acorn",
+			"description": "ECMAScript parser"
+		},
+		{
+			"name": "acorn-jsx",
+			"version": "5.3.2",
+			"homepage": "https://github.com/acornjs/acorn-jsx",
+			"description": "Modern, fast React.js JSX parser"
+		},
+		{
+			"name": "acorn-walk",
+			"version": "8.3.1",
+			"homepage": "https://github.com/acornjs/acorn",
+			"description": "ECMAScript (ESTree) AST walker"
+		},
+		{
+			"name": "ajv",
+			"version": "6.12.6",
+			"author": "Evgeny Poberezkin",
+			"homepage": "https://github.com/ajv-validator/ajv",
+			"description": "Another JSON Schema Validator"
+		},
+		{
+			"name": "ansi-regex",
+			"version": "6.0.1",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/chalk/ansi-regex#readme",
+			"description": "Regular expression for matching ANSI escape codes"
+		},
+		{
+			"name": "ansi-styles",
+			"version": "5.2.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/chalk/ansi-styles#readme",
+			"description": "ANSI escape codes for styling strings in the terminal"
+		},
+		{
+			"name": "any-promise",
+			"version": "1.3.0",
+			"author": "Kevin Beaty",
+			"homepage": "http://github.com/kevinbeaty/any-promise",
+			"description": "Resolve any installed ES6 compatible promise"
+		},
+		{
+			"name": "arg",
+			"version": "5.0.2",
+			"author": "Josh Junon",
+			"homepage": "https://github.com/vercel/arg#readme",
+			"description": "Unopinionated, no-frills CLI argument parser"
+		},
+		{
+			"name": "array-union",
+			"version": "2.1.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/array-union#readme",
+			"description": "Create an array of unique values, in order, from the input arrays"
+		},
+		{
+			"name": "assertion-error",
+			"version": "1.1.0",
+			"author": "Jake Luer",
+			"homepage": "https://github.com/chaijs/assertion-error#readme",
+			"description": "Error constructor for test and validation frameworks that implements standardized AssertionError specification."
+		},
+		{
+			"name": "autoprefixer",
+			"version": "10.4.16",
+			"author": "Andrey Sitnik",
+			"homepage": "https://github.com/postcss/autoprefixer#readme",
+			"description": "Parse CSS and add vendor prefixes to CSS rules using values from the Can I Use website"
+		},
+		{
+			"name": "balanced-match",
+			"version": "1.0.2",
+			"author": "Julian Gruber",
+			"homepage": "https://github.com/juliangruber/balanced-match",
+			"description": "Match balanced character pairs, like \"{\" and \"}\""
+		},
+		{
+			"name": "binary-extensions",
+			"version": "2.2.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/binary-extensions#readme",
+			"description": "List of binary file extensions"
+		},
+		{
+			"name": "brace-expansion",
+			"version": "2.0.1",
+			"author": "Julian Gruber",
+			"homepage": "https://github.com/juliangruber/brace-expansion",
+			"description": "Brace expansion as known from sh/bash"
+		},
+		{
+			"name": "braces",
+			"version": "3.0.2",
+			"author": "Jon Schlinkert",
+			"homepage": "https://github.com/micromatch/braces",
+			"description": "Bash-like brace expansion, implemented in JavaScript. Safer than other brace expansion libs, with complete support for the Bash 4.3 braces specification, without sacrificing speed."
+		},
+		{
+			"name": "browserslist",
+			"version": "4.22.2",
+			"author": "Andrey Sitnik",
+			"homepage": "https://github.com/browserslist/browserslist#readme",
+			"description": "Share target browsers between different front-end tools, like Autoprefixer, Stylelint and babel-env-preset"
+		},
+		{
+			"name": "buffer-crc32",
+			"version": "0.2.13",
+			"author": "Brian J. Brennan",
+			"homepage": "https://github.com/brianloveswords/buffer-crc32",
+			"description": "A pure javascript CRC32 algorithm that plays nice with binary data"
+		},
+		{
+			"name": "cac",
+			"version": "6.7.14",
+			"author": "egoist",
+			"homepage": "https://github.com/egoist/cac#readme",
+			"description": "Simple yet powerful framework for building command-line apps."
+		},
+		{
+			"name": "callsites",
+			"version": "3.1.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/callsites#readme",
+			"description": "Get callsites from the V8 stack trace API"
+		},
+		{
+			"name": "camelcase-css",
+			"version": "2.0.1",
+			"author": "Steven Vachon",
+			"homepage": "https://github.com/stevenvachon/camelcase-css#readme",
+			"description": "Convert a kebab-cased CSS property into a camelCased DOM property."
+		},
+		{
+			"name": "chai",
+			"version": "4.3.10",
+			"author": "Jake Luer",
+			"homepage": "http://chaijs.com",
+			"description": "BDD/TDD assertion library for node.js and the browser. Test framework agnostic."
+		},
+		{
+			"name": "chalk",
+			"version": "4.1.2",
+			"homepage": "https://github.com/chalk/chalk#readme",
+			"description": "Terminal string styling done right"
+		},
+		{
+			"name": "check-error",
+			"version": "1.0.3",
+			"author": "Jake Luer",
+			"homepage": "https://github.com/chaijs/check-error#readme",
+			"description": "Error comparison and information related utility for node and the browser"
+		},
+		{
+			"name": "chokidar",
+			"version": "3.5.3",
+			"author": "Paul Miller",
+			"homepage": "https://github.com/paulmillr/chokidar",
+			"description": "Minimal and efficient cross-platform file watching library"
+		},
+		{
+			"name": "code-red",
+			"version": "1.0.3",
+			"homepage": "https://github.com/Rich-Harris/code-red#readme",
+			"description": "code-red"
+		},
+		{
+			"name": "color-convert",
+			"version": "2.0.1",
+			"author": "Heather Arthur",
+			"homepage": "https://github.com/Qix-/color-convert#readme",
+			"description": "Plain color conversion functions"
+		},
+		{
+			"name": "color-name",
+			"version": "1.1.4",
+			"author": "DY",
+			"homepage": "https://github.com/colorjs/color-name",
+			"description": "A list of color names and its values"
+		},
+		{
+			"name": "commander",
+			"version": "4.1.1",
+			"author": "TJ Holowaychuk",
+			"homepage": "https://github.com/tj/commander.js#readme",
+			"description": "the complete solution for node.js command-line programs"
+		},
+		{
+			"name": "concat-map",
+			"version": "0.0.1",
+			"author": "James Halliday",
+			"homepage": "https://github.com/substack/node-concat-map#readme",
+			"description": "concatenative mapdashery"
+		},
+		{
+			"name": "cookie",
+			"version": "0.6.0",
+			"author": "Roman Shtylman",
+			"homepage": "https://github.com/jshttp/cookie#readme",
+			"description": "HTTP server cookie parsing and serialization"
+		},
+		{
+			"name": "cross-spawn",
+			"version": "7.0.3",
+			"author": "André Cruz",
+			"homepage": "https://github.com/moxystudio/node-cross-spawn",
+			"description": "Cross platform child_process#spawn and child_process#spawnSync"
+		},
+		{
+			"name": "css-tree",
+			"version": "2.3.1",
+			"author": "Roman Dvornov",
+			"homepage": "https://github.com/csstree/csstree#readme",
+			"description": "A tool set for CSS: fast detailed parser (CSS → AST), walker (AST traversal), generator (AST → CSS) and lexer (validation and matching) based on specs and browser implementations"
+		},
+		{
+			"name": "cssesc",
+			"version": "3.0.0",
+			"author": "Mathias Bynens",
+			"homepage": "https://mths.be/cssesc",
+			"description": "A JavaScript library for escaping CSS strings and identifiers while generating the shortest possible ASCII-only output."
+		},
+		{
+			"name": "dayjs",
+			"version": "1.11.10",
+			"author": "iamkun",
+			"homepage": "https://day.js.org",
+			"description": "2KB immutable date time library alternative to Moment.js with the same modern API "
+		},
+		{
+			"name": "debug",
+			"version": "4.3.4",
+			"author": "Josh Junon",
+			"homepage": "https://github.com/debug-js/debug#readme",
+			"description": "Lightweight debugging utility for Node.js and the browser"
+		},
+		{
+			"name": "deep-eql",
+			"version": "4.1.3",
+			"author": "Jake Luer",
+			"homepage": "https://github.com/chaijs/deep-eql#readme",
+			"description": "Improved deep equality testing for Node.js and the browser."
+		},
+		{
+			"name": "deep-is",
+			"version": "0.1.4",
+			"author": "Thorsten Lorenz",
+			"homepage": "https://github.com/thlorenz/deep-is#readme",
+			"description": "node's assert.deepEqual algorithm except for NaN being equal to NaN"
+		},
+		{
+			"name": "deepmerge",
+			"version": "4.3.1",
+			"homepage": "https://github.com/TehShrike/deepmerge",
+			"description": "A library for deep (recursive) merging of Javascript objects"
+		},
+		{
+			"name": "dequal",
+			"version": "2.0.3",
+			"author": "Luke Edwards",
+			"homepage": "https://github.com/lukeed/dequal#readme",
+			"description": "A tiny (304B to 489B) utility for check for deep equality"
+		},
+		{
+			"name": "detect-indent",
+			"version": "6.1.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/detect-indent#readme",
+			"description": "Detect the indentation of code"
+		},
+		{
+			"name": "devalue",
+			"version": "4.3.2",
+			"homepage": "https://github.com/Rich-Harris/devalue#readme",
+			"description": "Gets the job done when JSON.stringify can't"
+		},
+		{
+			"name": "diff-sequences",
+			"version": "29.6.3",
+			"homepage": "https://github.com/jestjs/jest#readme",
+			"description": "Compare items in two sequences to find a longest common subsequence"
+		},
+		{
+			"name": "dir-glob",
+			"version": "3.0.1",
+			"author": "Kevin Mårtensson",
+			"homepage": "https://github.com/kevva/dir-glob#readme",
+			"description": "Convert directories to glob compatible strings"
+		},
+		{
+			"name": "dlv",
+			"version": "1.1.3",
+			"author": "Jason Miller",
+			"homepage": "https://github.com/developit/dlv#readme",
+			"description": "Safely get a dot-notated property within an object."
+		},
+		{
+			"name": "emoji-regex",
+			"version": "8.0.0",
+			"author": "Mathias Bynens",
+			"homepage": "https://mths.be/emoji-regex",
+			"description": "A regular expression to match all Emoji-only symbols as per the Unicode Standard."
+		},
+		{
+			"name": "es6-promise",
+			"version": "3.3.1",
+			"author": "Yehuda Katz, Tom Dale, Stefan Penner and contributors",
+			"homepage": "https://github.com/stefanpenner/es6-promise#readme",
+			"description": "A lightweight library that provides tools for organizing asynchronous code"
+		},
+		{
+			"name": "esbuild",
+			"version": "0.19.9",
+			"homepage": "https://github.com/evanw/esbuild#readme",
+			"description": "An extremely fast JavaScript and CSS bundler and minifier."
+		},
+		{
+			"name": "escalade",
+			"version": "3.1.1",
+			"author": "Luke Edwards",
+			"homepage": "https://github.com/lukeed/escalade#readme",
+			"description": "A tiny (183B to 210B) and fast utility to ascend parent directories"
+		},
+		{
+			"name": "escape-string-regexp",
+			"version": "4.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/escape-string-regexp#readme",
+			"description": "Escape RegExp special characters"
+		},
+		{
+			"name": "eslint",
+			"version": "8.56.0",
+			"author": "Nicholas C. Zakas",
+			"homepage": "https://eslint.org",
+			"description": "An AST-based pattern checker for JavaScript."
+		},
+		{
+			"name": "eslint-compat-utils",
+			"version": "0.1.2",
+			"author": "Yosuke Ota",
+			"homepage": "https://github.com/ota-meshi/eslint-compat-utils#readme",
+			"description": "Provides an API for ESLint custom rules that is compatible with the latest ESLint even when using older ESLint."
+		},
+		{
+			"name": "eslint-config-prettier",
+			"version": "9.1.0",
+			"author": "Simon Lydell",
+			"homepage": "https://github.com/prettier/eslint-config-prettier#readme",
+			"description": "Turns off all rules that are unnecessary or might conflict with Prettier."
+		},
+		{
+			"name": "eslint-plugin-svelte",
+			"version": "2.35.1",
+			"author": "Yosuke Ota",
+			"homepage": "https://sveltejs.github.io/eslint-plugin-svelte",
+			"description": "ESLint plugin for Svelte using AST"
+		},
+		{
+			"name": "esm-env",
+			"version": "1.0.0",
+			"author": "Ben McCann",
+			"homepage": "https://github.com/benmccann/esm-env"
+		},
+		{
+			"name": "estree-walker",
+			"version": "3.0.3",
+			"author": "Rich Harris",
+			"homepage": "https://github.com/Rich-Harris/estree-walker#readme",
+			"description": "Traverse an ESTree-compliant AST"
+		},
+		{
+			"name": "execa",
+			"version": "8.0.1",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/execa#readme",
+			"description": "Process execution for humans"
+		},
+		{
+			"name": "fast-deep-equal",
+			"version": "3.1.3",
+			"author": "Evgeny Poberezkin",
+			"homepage": "https://github.com/epoberezkin/fast-deep-equal#readme",
+			"description": "Fast deep equal"
+		},
+		{
+			"name": "fast-glob",
+			"version": "3.3.0",
+			"author": "Denis Malinochkin",
+			"homepage": "https://github.com/mrmlnc/fast-glob#readme",
+			"description": "It's a very fast and efficient glob library for Node.js"
+		},
+		{
+			"name": "fast-json-stable-stringify",
+			"version": "2.1.0",
+			"author": "James Halliday",
+			"homepage": "https://github.com/epoberezkin/fast-json-stable-stringify",
+			"description": "deterministic `JSON.stringify()` - a faster version of substack's json-stable-strigify without jsonify"
+		},
+		{
+			"name": "fast-levenshtein",
+			"version": "2.0.6",
+			"author": "Ramesh Nair",
+			"homepage": "https://github.com/hiddentao/fast-levenshtein#readme",
+			"description": "Efficient implementation of Levenshtein algorithm  with locale-specific collator support."
+		},
+		{
+			"name": "file-entry-cache",
+			"version": "6.0.1",
+			"author": "Roy Riojas",
+			"homepage": "https://github.com/royriojas/file-entry-cache#readme",
+			"description": "Super simple cache for file metadata, useful for process that work o a given series of files and that only need to repeat the job on the changed ones since the previous run of the process"
+		},
+		{
+			"name": "fill-range",
+			"version": "7.0.1",
+			"author": "Jon Schlinkert",
+			"homepage": "https://github.com/jonschlinkert/fill-range",
+			"description": "Fill in a range of numbers or letters, optionally passing an increment or `step` to use, or create a regex-compatible range with `options.toRegex`"
+		},
+		{
+			"name": "find-up",
+			"version": "5.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/find-up#readme",
+			"description": "Find a file or directory by walking up parent directories"
+		},
+		{
+			"name": "flat-cache",
+			"version": "3.0.4",
+			"author": "Roy Riojas",
+			"homepage": "https://github.com/royriojas/flat-cache#readme",
+			"description": "A stupidly simple key/value storage using files to persist some data"
+		},
+		{
+			"name": "fraction.js",
+			"version": "4.3.7",
+			"author": "Robert Eisele",
+			"homepage": "https://www.xarg.org/2014/03/rational-numbers-in-javascript/",
+			"description": "A rational number library"
+		},
+		{
+			"name": "function-bind",
+			"version": "1.1.2",
+			"author": "Raynos",
+			"homepage": "https://github.com/Raynos/function-bind",
+			"description": "Implementation of Function.prototype.bind"
+		},
+		{
+			"name": "get-func-name",
+			"version": "2.0.2",
+			"author": "Jake Luer",
+			"homepage": "https://github.com/chaijs/get-func-name#readme",
+			"description": "Utility for getting a function's name for node and the browser"
+		},
+		{
+			"name": "get-npm-tarball-url",
+			"version": "2.1.0",
+			"author": "Zoltan Kochan",
+			"homepage": "https://github.com/pnpm/get-npm-tarball-url#readme",
+			"description": "Create the tarball URL of a npm package"
+		},
+		{
+			"name": "get-stream",
+			"version": "8.0.1",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/get-stream#readme",
+			"description": "Get a stream as a string, Buffer, ArrayBuffer or array"
+		},
+		{
+			"name": "globals",
+			"version": "13.20.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/globals#readme",
+			"description": "Global identifiers from different JavaScript environments"
+		},
+		{
+			"name": "globalyzer",
+			"version": "0.1.0",
+			"author": "Terkel Gjervig",
+			"homepage": "https://github.com/terkelg/globalyzer#readme",
+			"description": "Detects and extract the glob part of a string"
+		},
+		{
+			"name": "globby",
+			"version": "11.1.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/globby#readme",
+			"description": "User-friendly glob matching"
+		},
+		{
+			"name": "globrex",
+			"version": "0.1.2",
+			"author": "Terkel Gjervig",
+			"homepage": "https://github.com/terkelg/globrex#readme",
+			"description": "Glob to regular expression with support for extended globs"
+		},
+		{
+			"name": "graphemer",
+			"version": "1.4.0",
+			"author": "Matt Davies",
+			"homepage": "https://github.com/flmnt/graphemer",
+			"description": "A JavaScript library that breaks strings into their individual user-perceived characters (including emojis!)"
+		},
+		{
+			"name": "has-flag",
+			"version": "4.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/has-flag#readme",
+			"description": "Check if argv has a specific flag"
+		},
+		{
+			"name": "hasown",
+			"version": "2.0.0",
+			"author": "Jordan Harband",
+			"homepage": "https://github.com/inspect-js/hasOwn#readme",
+			"description": "A robust, ES3 compatible, \"has own property\" predicate."
+		},
+		{
+			"name": "hast-util-heading-rank",
+			"version": "3.0.0",
+			"author": "Titus Wormer",
+			"homepage": "https://github.com/syntax-tree/hast-util-heading-rank#readme",
+			"description": "hast utility to get the rank (or depth, level) of headings"
+		},
+		{
+			"name": "hast-util-to-string",
+			"version": "3.0.0",
+			"author": "Titus Wormer",
+			"homepage": "https://github.com/rehypejs/rehype-minify/tree/main#readme",
+			"description": "hast utility to get the plain-text value of a node"
+		},
+		{
+			"name": "ignore",
+			"version": "5.2.4",
+			"author": "kael",
+			"homepage": "https://github.com/kaelzhang/node-ignore#readme",
+			"description": "Ignore is a manager and filter for .gitignore rules, the one used by eslint, gitbook and many others."
+		},
+		{
+			"name": "import-fresh",
+			"version": "3.3.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/import-fresh#readme",
+			"description": "Import a module while bypassing the cache"
+		},
+		{
+			"name": "import-meta-resolve",
+			"version": "4.0.0",
+			"author": "Titus Wormer",
+			"homepage": "https://github.com/wooorm/import-meta-resolve#readme",
+			"description": "Resolve things like Node.js — ponyfill for `import.meta.resolve`"
+		},
+		{
+			"name": "imurmurhash",
+			"version": "0.1.4",
+			"author": "Jens Taylor",
+			"homepage": "https://github.com/jensyt/imurmurhash-js",
+			"description": "An incremental implementation of MurmurHash3"
+		},
+		{
+			"name": "is-binary-path",
+			"version": "2.1.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/is-binary-path#readme",
+			"description": "Check if a file path is a binary file"
+		},
+		{
+			"name": "is-core-module",
+			"version": "2.13.1",
+			"author": "Jordan Harband",
+			"homepage": "https://github.com/inspect-js/is-core-module",
+			"description": "Is this specifier a node.js core module?"
+		},
+		{
+			"name": "is-extglob",
+			"version": "2.1.1",
+			"author": "Jon Schlinkert",
+			"homepage": "https://github.com/jonschlinkert/is-extglob",
+			"description": "Returns true if a string has an extglob."
+		},
+		{
+			"name": "is-fullwidth-code-point",
+			"version": "3.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/is-fullwidth-code-point#readme",
+			"description": "Check if the character represented by a given Unicode code point is fullwidth"
+		},
+		{
+			"name": "is-glob",
+			"version": "4.0.3",
+			"author": "Jon Schlinkert",
+			"homepage": "https://github.com/micromatch/is-glob",
+			"description": "Returns `true` if the given string looks like a glob pattern or an extglob pattern. This makes it easy to create code that only uses external modules like node-glob when necessary, resulting in much faster code execution and initialization time, and a better user experience."
+		},
+		{
+			"name": "is-number",
+			"version": "7.0.0",
+			"author": "Jon Schlinkert",
+			"homepage": "https://github.com/jonschlinkert/is-number",
+			"description": "Returns true if a number or string value is a finite number. Useful for regex matches, parsing, user input, etc."
+		},
+		{
+			"name": "is-path-inside",
+			"version": "3.0.3",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/is-path-inside#readme",
+			"description": "Check if a path is inside another path"
+		},
+		{
+			"name": "is-reference",
+			"version": "3.0.1",
+			"author": "Rich Harris",
+			"homepage": "https://github.com/Rich-Harris/is-reference#readme",
+			"description": "Determine whether an AST node is a reference"
+		},
+		{
+			"name": "is-stream",
+			"version": "3.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/is-stream#readme",
+			"description": "Check if something is a Node.js stream"
+		},
+		{
+			"name": "jiti",
+			"version": "1.21.0",
+			"homepage": "https://github.com/unjs/jiti#readme",
+			"description": "Runtime typescript and ESM support for Node.js"
+		},
+		{
+			"name": "js-yaml",
+			"version": "4.1.0",
+			"author": "Vladimir Zapparov",
+			"homepage": "https://github.com/nodeca/js-yaml#readme",
+			"description": "YAML 1.2 parser and serializer"
+		},
+		{
+			"name": "json-schema-traverse",
+			"version": "0.4.1",
+			"author": "Evgeny Poberezkin",
+			"homepage": "https://github.com/epoberezkin/json-schema-traverse#readme",
+			"description": "Traverse JSON Schema passing each schema object to callback"
+		},
+		{
+			"name": "json-stable-stringify-without-jsonify",
+			"version": "1.0.1",
+			"author": "James Halliday",
+			"homepage": "https://github.com/samn/json-stable-stringify",
+			"description": "deterministic JSON.stringify() with custom sorting to get deterministic hashes from stringified results, with no public domain dependencies"
+		},
+		{
+			"name": "json5",
+			"version": "2.2.3",
+			"author": "Aseem Kishore",
+			"homepage": "http://json5.org/",
+			"description": "JSON for Humans"
+		},
+		{
+			"name": "jsonc-parser",
+			"version": "3.2.0",
+			"author": "Microsoft Corporation",
+			"homepage": "https://github.com/microsoft/node-jsonc-parser#readme",
+			"description": "Scanner and parser for JSON with comments."
+		},
+		{
+			"name": "kleur",
+			"version": "4.1.5",
+			"author": "Luke Edwards",
+			"homepage": "https://github.com/lukeed/kleur#readme",
+			"description": "The fastest Node.js library for formatting terminal text with ANSI colors~!"
+		},
+		{
+			"name": "known-css-properties",
+			"version": "0.29.0",
+			"author": "Viorel Cojocaru",
+			"homepage": "https://github.com/known-css/known-css-properties#readme",
+			"description": "List of known CSS properties"
+		},
+		{
+			"name": "levn",
+			"version": "0.4.1",
+			"author": "George Zahariev",
+			"homepage": "https://github.com/gkz/levn",
+			"description": "Light ECMAScript (JavaScript) Value Notation - human written, concise, typed, flexible"
+		},
+		{
+			"name": "lilconfig",
+			"version": "3.0.0",
+			"author": "antonk52",
+			"homepage": "https://github.com/antonk52/lilconfig#readme",
+			"description": "A zero-dependency alternative to cosmiconfig"
+		},
+		{
+			"name": "lines-and-columns",
+			"version": "1.2.4",
+			"author": "Brian Donovan",
+			"homepage": "https://github.com/eventualbuddha/lines-and-columns#readme",
+			"description": "Maps lines and columns to character offsets and back."
+		},
+		{
+			"name": "local-pkg",
+			"version": "0.5.0",
+			"author": "Anthony Fu",
+			"homepage": "https://github.com/antfu/local-pkg#readme",
+			"description": "Get information on local packages."
+		},
+		{
+			"name": "locate-character",
+			"version": "3.0.0",
+			"author": "Rich Harris",
+			"homepage": "https://gitlab.com/Rich-Harris/locate-character#README",
+			"description": "Get the line and column number of a specific character in a string"
+		},
+		{
+			"name": "locate-path",
+			"version": "6.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/locate-path#readme",
+			"description": "Get the first path that exists on disk of multiple paths"
+		},
+		{
+			"name": "lodash.merge",
+			"version": "4.6.2",
+			"author": "John-David Dalton",
+			"homepage": "https://lodash.com/",
+			"description": "The Lodash method `_.merge` exported as a module."
+		},
+		{
+			"name": "loupe",
+			"version": "2.3.7",
+			"author": "Veselin Todorov",
+			"homepage": "https://github.com/chaijs/loupe",
+			"description": "Inspect utility for Node.js and browsers"
+		},
+		{
+			"name": "magic-string",
+			"version": "0.30.5",
+			"author": "Rich Harris",
+			"homepage": "https://github.com/rich-harris/magic-string#readme",
+			"description": "Modify strings, generate sourcemaps"
+		},
+		{
+			"name": "mdsvex",
+			"version": "0.11.0",
+			"author": "pngwn",
+			"homepage": "https://github.com/pngwn/MDsveX#readme",
+			"description": "Markdown preprocessor for Svelte"
+		},
+		{
+			"name": "merge-stream",
+			"version": "2.0.0",
+			"author": "Stephen Sugden",
+			"homepage": "https://github.com/grncdr/merge-stream#readme",
+			"description": "Create a stream that emits events from multiple other streams"
+		},
+		{
+			"name": "merge2",
+			"version": "1.4.1",
+			"homepage": "https://github.com/teambition/merge2",
+			"description": "Merge multiple streams into one stream in sequence or parallel."
+		},
+		{
+			"name": "micromatch",
+			"version": "4.0.5",
+			"author": "Jon Schlinkert",
+			"homepage": "https://github.com/micromatch/micromatch",
+			"description": "Glob matching for javascript/node.js. A replacement and faster alternative to minimatch and multimatch."
+		},
+		{
+			"name": "mimic-fn",
+			"version": "4.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/mimic-fn#readme",
+			"description": "Make a function mimic another one"
+		},
+		{
+			"name": "min-indent",
+			"version": "1.0.1",
+			"author": "James Kyle",
+			"homepage": "https://github.com/thejameskyle/min-indent#readme",
+			"description": "Get the shortest leading whitespace from lines in a string"
+		},
+		{
+			"name": "minimist",
+			"version": "1.2.8",
+			"author": "James Halliday",
+			"homepage": "https://github.com/minimistjs/minimist",
+			"description": "parse argument options"
+		},
+		{
+			"name": "mkdirp",
+			"version": "0.5.6",
+			"author": "James Halliday",
+			"homepage": "https://github.com/substack/node-mkdirp#readme",
+			"description": "Recursively mkdir, like `mkdir -p`"
+		},
+		{
+			"name": "mlly",
+			"version": "1.4.2",
+			"homepage": "https://github.com/unjs/mlly#readme",
+			"description": "Missing ECMAScript module utils for Node.js"
+		},
+		{
+			"name": "mri",
+			"version": "1.2.0",
+			"author": "Luke Edwards",
+			"homepage": "https://github.com/lukeed/mri#readme",
+			"description": "Quickly scan for CLI flags and arguments"
+		},
+		{
+			"name": "mrmime",
+			"version": "2.0.0",
+			"author": "Luke Edwards",
+			"homepage": "https://github.com/lukeed/mrmime#readme",
+			"description": "A tiny (2.8kB) and fast utility for getting a MIME type from an extension or filename"
+		},
+		{
+			"name": "ms",
+			"version": "2.1.2",
+			"homepage": "https://github.com/zeit/ms#readme",
+			"description": "Tiny millisecond conversion utility"
+		},
+		{
+			"name": "mz",
+			"version": "2.7.0",
+			"author": "Jonathan Ong",
+			"homepage": "https://github.com/normalize/mz#readme",
+			"description": "modernize node.js to current ECMAScript standards"
+		},
+		{
+			"name": "nanoid",
+			"version": "3.3.7",
+			"author": "Andrey Sitnik",
+			"homepage": "https://github.com/ai/nanoid#readme",
+			"description": "A tiny (116 bytes), secure URL-friendly unique string ID generator"
+		},
+		{
+			"name": "natural-compare",
+			"version": "1.4.0",
+			"author": "Lauri Rooden",
+			"homepage": "https://github.com/litejs/natural-compare-lite#readme",
+			"description": "Compare strings containing a mix of letters and numbers in the way a human being would in sort order."
+		},
+		{
+			"name": "node-releases",
+			"version": "2.0.14",
+			"author": "Sergey Rubanov",
+			"homepage": "https://github.com/chicoxyzzy/node-releases#readme",
+			"description": "Node.js releases data"
+		},
+		{
+			"name": "normalize-path",
+			"version": "3.0.0",
+			"author": "Jon Schlinkert",
+			"homepage": "https://github.com/jonschlinkert/normalize-path",
+			"description": "Normalize slashes in a file path to be posix/unix-like forward slashes. Also condenses repeat slashes to a single slash and removes and trailing slashes, unless disabled."
+		},
+		{
+			"name": "normalize-range",
+			"version": "0.1.2",
+			"author": "James Talmage",
+			"homepage": "https://github.com/jamestalmage/normalize-range#readme",
+			"description": "Utility for normalizing a numeric range, with a wrapping function useful for polar coordinates"
+		},
+		{
+			"name": "npm-run-path",
+			"version": "5.1.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/npm-run-path#readme",
+			"description": "Get your PATH prepended with locally installed binaries"
+		},
+		{
+			"name": "object-assign",
+			"version": "4.1.1",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/object-assign#readme",
+			"description": "ES2015 `Object.assign()` ponyfill"
+		},
+		{
+			"name": "object-hash",
+			"version": "3.0.0",
+			"author": "Scott Puleo",
+			"homepage": "https://github.com/puleos/object-hash",
+			"description": "Generate hashes from javascript objects in node and the browser."
+		},
+		{
+			"name": "onetime",
+			"version": "6.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/onetime#readme",
+			"description": "Ensure a function is only called once"
+		},
+		{
+			"name": "optionator",
+			"version": "0.9.3",
+			"author": "George Zahariev",
+			"homepage": "https://github.com/gkz/optionator",
+			"description": "option parsing and help generation"
+		},
+		{
+			"name": "p-limit",
+			"version": "5.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/p-limit#readme",
+			"description": "Run multiple promise-returning & async functions with limited concurrency"
+		},
+		{
+			"name": "p-locate",
+			"version": "5.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/p-locate#readme",
+			"description": "Get the first fulfilled promise that satisfies the provided testing function"
+		},
+		{
+			"name": "package-name-regex",
+			"version": "3.1.1",
+			"author": "Sebastian Landwehr",
+			"homepage": "https://github.com/dword-design/package-name-regex#readme",
+			"description": "Provides a regex that can be used to test if a string is a valid NPM package name."
+		},
+		{
+			"name": "parent-module",
+			"version": "1.0.1",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/parent-module#readme",
+			"description": "Get the path of the parent module"
+		},
+		{
+			"name": "path-exists",
+			"version": "4.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/path-exists#readme",
+			"description": "Check if a path exists"
+		},
+		{
+			"name": "path-is-absolute",
+			"version": "1.0.1",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/path-is-absolute#readme",
+			"description": "Node.js 0.12 path.isAbsolute() ponyfill"
+		},
+		{
+			"name": "path-key",
+			"version": "4.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/path-key#readme",
+			"description": "Get the PATH environment variable key cross-platform"
+		},
+		{
+			"name": "path-parse",
+			"version": "1.0.7",
+			"author": "Javier Blanco",
+			"homepage": "https://github.com/jbgutierrez/path-parse#readme",
+			"description": "Node.js path.parse() ponyfill"
+		},
+		{
+			"name": "path-type",
+			"version": "4.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/path-type#readme",
+			"description": "Check if a path is a file, directory, or symlink"
+		},
+		{
+			"name": "pathe",
+			"version": "1.1.1",
+			"homepage": "https://github.com/unjs/pathe#readme",
+			"description": "Universal filesystem path utils"
+		},
+		{
+			"name": "pathval",
+			"version": "1.1.1",
+			"author": "Veselin Todorov",
+			"homepage": "https://github.com/chaijs/pathval",
+			"description": "Object value retrieval given a string path"
+		},
+		{
+			"name": "periscopic",
+			"version": "3.1.0",
+			"homepage": "https://github.com/Rich-Harris/periscopic#readme",
+			"description": "periscopic"
+		},
+		{
+			"name": "picomatch",
+			"version": "2.3.1",
+			"author": "Jon Schlinkert",
+			"homepage": "https://github.com/micromatch/picomatch",
+			"description": "Blazing fast and accurate glob matcher written in JavaScript, with no dependencies and full support for standard and extended Bash glob features, including braces, extglobs, POSIX brackets, and regular expressions."
+		},
+		{
+			"name": "pify",
+			"version": "2.3.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/pify#readme",
+			"description": "Promisify a callback-style function"
+		},
+		{
+			"name": "pirates",
+			"version": "4.0.6",
+			"author": "Ari Porad",
+			"homepage": "https://github.com/danez/pirates#readme",
+			"description": "Properly hijack require, i.e., properly define require hooks and customizations"
+		},
+		{
+			"name": "pkg-types",
+			"version": "1.0.3",
+			"homepage": "https://github.com/unjs/pkg-types#readme",
+			"description": "Node.js utilities and TypeScript definitions for `package.json` and `tsconfig.json`"
+		},
+		{
+			"name": "postcss",
+			"version": "8.4.32",
+			"author": "Andrey Sitnik",
+			"homepage": "https://postcss.org/",
+			"description": "Tool for transforming styles with JS plugins"
+		},
+		{
+			"name": "postcss-import",
+			"version": "15.1.0",
+			"author": "Maxime Thirouin",
+			"homepage": "https://github.com/postcss/postcss-import#readme",
+			"description": "PostCSS plugin to import CSS files"
+		},
+		{
+			"name": "postcss-js",
+			"version": "4.0.1",
+			"author": "Andrey Sitnik",
+			"homepage": "https://github.com/postcss/postcss-js#readme",
+			"description": "PostCSS for CSS-in-JS and styles in JS objects"
+		},
+		{
+			"name": "postcss-load-config",
+			"version": "4.0.2",
+			"author": "Michael Ciniawky",
+			"homepage": "https://github.com/postcss/postcss-load-config#readme",
+			"description": "Autoload Config for PostCSS"
+		},
+		{
+			"name": "postcss-nested",
+			"version": "6.0.1",
+			"author": "Andrey Sitnik",
+			"homepage": "https://github.com/postcss/postcss-nested#readme",
+			"description": "PostCSS plugin to unwrap nested rules like how Sass does it"
+		},
+		{
+			"name": "postcss-safe-parser",
+			"version": "6.0.0",
+			"author": "Andrey Sitnik",
+			"homepage": "https://github.com/postcss/postcss-safe-parser#readme",
+			"description": "Fault-tolerant CSS parser for PostCSS"
+		},
+		{
+			"name": "postcss-scss",
+			"version": "4.0.9",
+			"author": "Andrey Sitnik",
+			"homepage": "https://github.com/postcss/postcss-scss#readme",
+			"description": "SCSS parser for PostCSS"
+		},
+		{
+			"name": "postcss-selector-parser",
+			"version": "6.0.13",
+			"homepage": "https://github.com/postcss/postcss-selector-parser"
+		},
+		{
+			"name": "postcss-value-parser",
+			"version": "4.2.0",
+			"author": "Bogdan Chadkin",
+			"homepage": "https://github.com/TrySound/postcss-value-parser",
+			"description": "Transforms css values and at-rule params into the tree"
+		},
+		{
+			"name": "prelude-ls",
+			"version": "1.2.1",
+			"author": "George Zahariev",
+			"homepage": "http://preludels.com",
+			"description": "prelude.ls is a functionally oriented utility library. It is powerful and flexible. Almost all of its functions are curried. It is written in, and is the recommended base library for, LiveScript."
+		},
+		{
+			"name": "prettier",
+			"version": "4.0.0-alpha.8",
+			"author": "James Long",
+			"homepage": "https://prettier.io",
+			"description": "Prettier is an opinionated code formatter"
+		},
+		{
+			"name": "prettier-plugin-svelte",
+			"version": "3.1.2",
+			"author": "James Birtles",
+			"homepage": "https://github.com/sveltejs/prettier-plugin-svelte#readme",
+			"description": "Svelte plugin for prettier"
+		},
+		{
+			"name": "prettier-plugin-tailwindcss",
+			"version": "0.5.10",
+			"homepage": "https://github.com/tailwindlabs/prettier-plugin-tailwindcss#readme",
+			"description": "A Prettier plugin for sorting Tailwind CSS classes."
+		},
+		{
+			"name": "pretty-format",
+			"version": "29.7.0",
+			"author": "James Kyle",
+			"homepage": "https://github.com/jestjs/jest#readme",
+			"description": "Stringify any JavaScript value."
+		},
+		{
+			"name": "prism-svelte",
+			"version": "0.4.7",
+			"author": "pngwn",
+			"homepage": "https://github.com/pngwn/prism-svelte#readme",
+			"description": "Svelte language extension for prismjs"
+		},
+		{
+			"name": "prismjs",
+			"version": "1.29.0",
+			"author": "Lea Verou",
+			"homepage": "https://github.com/PrismJS/prism#readme",
+			"description": "Lightweight, robust, elegant syntax highlighting. A spin-off project from Dabblet."
+		},
+		{
+			"name": "publint",
+			"version": "0.2.7",
+			"author": "Bjorn Lu",
+			"homepage": "https://publint.dev",
+			"description": "Lint packaging errors"
+		},
+		{
+			"name": "punycode",
+			"version": "2.3.0",
+			"author": "Mathias Bynens",
+			"homepage": "https://mths.be/punycode",
+			"description": "A robust Punycode converter that fully complies to RFC 3492 and RFC 5891, and works on nearly all JavaScript platforms."
+		},
+		{
+			"name": "queue-microtask",
+			"version": "1.2.3",
+			"author": "Feross Aboukhadijeh",
+			"homepage": "https://github.com/feross/queue-microtask",
+			"description": "fast, tiny `queueMicrotask` shim for modern engines"
+		},
+		{
+			"name": "react-is",
+			"version": "18.2.0",
+			"homepage": "https://reactjs.org/",
+			"description": "Brand checking of React Elements."
+		},
+		{
+			"name": "read-cache",
+			"version": "1.0.0",
+			"author": "Bogdan Chadkin",
+			"homepage": "https://github.com/TrySound/read-cache#readme",
+			"description": "Reads and caches the entire contents of a file until it is modified"
+		},
+		{
+			"name": "readdirp",
+			"version": "3.6.0",
+			"author": "Thorsten Lorenz",
+			"homepage": "https://github.com/paulmillr/readdirp",
+			"description": "Recursive version of fs.readdir with streaming API."
+		},
+		{
+			"name": "rehype-slug",
+			"version": "6.0.0",
+			"author": "Titus Wormer",
+			"homepage": "https://github.com/rehypejs/rehype-slug#readme",
+			"description": "rehype plugin to add `id` attributes to headings"
+		},
+		{
+			"name": "resolve",
+			"version": "1.22.8",
+			"author": "James Halliday",
+			"homepage": "https://github.com/browserify/resolve#readme",
+			"description": "resolve like require.resolve() on behalf of files asynchronously and synchronously"
+		},
+		{
+			"name": "resolve-from",
+			"version": "4.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/resolve-from#readme",
+			"description": "Resolve the path of a module like `require.resolve()` but from a given path"
+		},
+		{
+			"name": "reusify",
+			"version": "1.0.4",
+			"author": "Matteo Collina",
+			"homepage": "https://github.com/mcollina/reusify#readme",
+			"description": "Reuse objects and functions with style"
+		},
+		{
+			"name": "rollup",
+			"version": "4.9.0",
+			"author": "Rich Harris",
+			"homepage": "https://rollupjs.org/",
+			"description": "Next-generation ES module bundler"
+		},
+		{
+			"name": "run-parallel",
+			"version": "1.2.0",
+			"author": "Feross Aboukhadijeh",
+			"homepage": "https://github.com/feross/run-parallel",
+			"description": "Run an array of functions in parallel"
+		},
+		{
+			"name": "sade",
+			"version": "1.8.1",
+			"author": "Luke Edwards",
+			"homepage": "https://github.com/lukeed/sade#readme",
+			"description": "Smooth (CLI) operator 🎶"
+		},
+		{
+			"name": "sander",
+			"version": "0.5.1",
+			"author": "Rich Harris",
+			"homepage": "https://github.com/rich-harris/sander#readme",
+			"description": "Promise-based power tool for common filesystem tasks"
+		},
+		{
+			"name": "set-cookie-parser",
+			"version": "2.6.0",
+			"author": "Nathan Friedly",
+			"homepage": "https://github.com/nfriedly/set-cookie-parser",
+			"description": "Parses set-cookie headers into objects"
+		},
+		{
+			"name": "shebang-command",
+			"version": "2.0.0",
+			"author": "Kevin Mårtensson",
+			"homepage": "https://github.com/kevva/shebang-command#readme",
+			"description": "Get the command from a shebang"
+		},
+		{
+			"name": "shebang-regex",
+			"version": "3.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/shebang-regex#readme",
+			"description": "Regular expression for matching a shebang line"
+		},
+		{
+			"name": "sirv",
+			"version": "2.0.4",
+			"author": "Luke Edwards",
+			"homepage": "https://github.com/lukeed/sirv#readme",
+			"description": "The optimized & lightweight middleware for serving requests to static assets"
+		},
+		{
+			"name": "slash",
+			"version": "3.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/slash#readme",
+			"description": "Convert Windows backslash paths to slash paths"
+		},
+		{
+			"name": "sorcery",
+			"version": "0.11.0",
+			"author": "Rich Harris",
+			"homepage": "https://github.com/Rich-Harris/sorcery#readme",
+			"description": "Resolve a chain of sourcemaps back to the original source"
+		},
+		{
+			"name": "stackback",
+			"version": "0.0.2",
+			"author": "Roman Shtylman",
+			"homepage": "https://github.com/shtylman/node-stackback#readme",
+			"description": "return list of CallSite objects from a captured stacktrace"
+		},
+		{
+			"name": "std-env",
+			"version": "3.6.0",
+			"homepage": "https://github.com/unjs/std-env#readme",
+			"description": "Runtime agnostic JS utils"
+		},
+		{
+			"name": "string-width",
+			"version": "4.2.3",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/string-width#readme",
+			"description": "Get the visual width of a string - the number of columns required to display it"
+		},
+		{
+			"name": "strip-ansi",
+			"version": "7.1.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/chalk/strip-ansi#readme",
+			"description": "Strip ANSI escape codes from a string"
+		},
+		{
+			"name": "strip-final-newline",
+			"version": "3.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/strip-final-newline#readme",
+			"description": "Strip the final newline character from a string/buffer"
+		},
+		{
+			"name": "strip-indent",
+			"version": "3.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/strip-indent#readme",
+			"description": "Strip leading whitespace from each line in a string"
+		},
+		{
+			"name": "strip-json-comments",
+			"version": "3.1.1",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/strip-json-comments#readme",
+			"description": "Strip comments from JSON. Lets you use comments in your JSON files!"
+		},
+		{
+			"name": "strip-literal",
+			"version": "1.3.0",
+			"author": "Anthony Fu",
+			"homepage": "https://github.com/antfu/strip-literal#readme",
+			"description": "Strip comments and string literals from JavaScript code"
+		},
+		{
+			"name": "sucrase",
+			"version": "3.35.0",
+			"author": "Alan Pierce",
+			"homepage": "https://github.com/alangpierce/sucrase#readme",
+			"description": "Super-fast alternative to Babel for when you can target modern JS runtimes"
+		},
+		{
+			"name": "supports-color",
+			"version": "7.2.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/chalk/supports-color#readme",
+			"description": "Detect whether a terminal supports color"
+		},
+		{
+			"name": "supports-preserve-symlinks-flag",
+			"version": "1.0.0",
+			"author": "Jordan Harband",
+			"homepage": "https://github.com/inspect-js/node-supports-preserve-symlinks-flag#readme",
+			"description": "Determine if the current node version supports the `--preserve-symlinks` flag."
+		},
+		{
+			"name": "svelte",
+			"version": "4.2.8",
+			"author": "Rich Harris",
+			"homepage": "https://svelte.dev",
+			"description": "Cybernetically enhanced web apps"
+		},
+		{
+			"name": "svelte-check",
+			"version": "3.6.2",
+			"author": "The Svelte Community",
+			"homepage": "https://github.com/sveltejs/language-tools#readme",
+			"description": "Svelte Code Checker Terminal Interface"
+		},
+		{
+			"name": "svelte-eslint-parser",
+			"version": "0.33.1",
+			"author": "Yosuke Ota",
+			"homepage": "https://github.com/sveltejs/svelte-eslint-parser#readme",
+			"description": "Svelte parser for ESLint"
+		},
+		{
+			"name": "svelte-highlight",
+			"version": "7.4.7",
+			"author": "Eric Liu",
+			"homepage": "https://github.com/metonym/svelte-highlight",
+			"description": "Svelte component library for highlighting code using highlight.js"
+		},
+		{
+			"name": "svelte-preprocess",
+			"version": "5.1.2",
+			"author": "Christian Kaisermann",
+			"homepage": "https://github.com/sveltejs/svelte-preprocess#readme",
+			"description": "A Svelte preprocessor wrapper with baked-in support for commonly used preprocessors"
+		},
+		{
+			"name": "tailwindcss",
+			"version": "3.4.0",
+			"homepage": "https://tailwindcss.com",
+			"description": "A utility-first CSS framework for rapidly building custom user interfaces."
+		},
+		{
+			"name": "text-table",
+			"version": "0.2.0",
+			"author": "James Halliday",
+			"homepage": "https://github.com/substack/text-table",
+			"description": "borderless text tables with alignment"
+		},
+		{
+			"name": "thenify",
+			"version": "3.3.1",
+			"author": "Jonathan Ong",
+			"homepage": "https://github.com/thenables/thenify#readme",
+			"description": "Promisify a callback-based function"
+		},
+		{
+			"name": "thenify-all",
+			"version": "1.6.0",
+			"author": "Jonathan Ong",
+			"homepage": "https://github.com/thenables/thenify-all#readme",
+			"description": "Promisifies all the selected functions in an object"
+		},
+		{
+			"name": "tiny-glob",
+			"version": "0.2.9",
+			"author": "Terkel Gjervig",
+			"homepage": "https://github.com/terkelg/tiny-glob#readme",
+			"description": "Tiny and extremely fast globbing"
+		},
+		{
+			"name": "tinybench",
+			"version": "2.5.1",
+			"homepage": "https://github.com/tinylibs/tinybench#readme"
+		},
+		{
+			"name": "tinypool",
+			"version": "0.8.1",
+			"homepage": "https://github.com/tinylibs/tinypool#readme",
+			"description": "A minimal and tiny Node.js Worker Thread Pool implementation, a fork of piscina, but with fewer features"
+		},
+		{
+			"name": "tinyspy",
+			"version": "2.2.0",
+			"homepage": "https://github.com/tinylibs/tinyspy#readme"
+		},
+		{
+			"name": "to-regex-range",
+			"version": "5.0.1",
+			"author": "Jon Schlinkert",
+			"homepage": "https://github.com/micromatch/to-regex-range",
+			"description": "Pass two numbers, get a regex-compatible source string for matching ranges. Validated against more than 2.78 million test assertions."
+		},
+		{
+			"name": "totalist",
+			"version": "3.0.1",
+			"author": "Luke Edwards",
+			"homepage": "https://github.com/lukeed/totalist#readme",
+			"description": "A tiny (195B to 220B) utility to recursively list all (total) files in a directory"
+		},
+		{
+			"name": "ts-api-utils",
+			"version": "1.0.3",
+			"author": "Josh Goldberg",
+			"homepage": "https://github.com/JoshuaKGoldberg/ts-api-utils#readme",
+			"description": "Utility functions for working with TypeScript's API. Successor to the wonderful tsutils."
+		},
+		{
+			"name": "type-check",
+			"version": "0.4.0",
+			"author": "George Zahariev",
+			"homepage": "https://github.com/gkz/type-check",
+			"description": "type-check allows you to check the types of JavaScript values at runtime with a Haskell like type syntax."
+		},
+		{
+			"name": "type-detect",
+			"version": "4.0.8",
+			"author": "Jake Luer",
+			"homepage": "https://github.com/chaijs/type-detect#readme",
+			"description": "Improved typeof detection for node.js and the browser."
+		},
+		{
+			"name": "ufo",
+			"version": "1.3.2",
+			"homepage": "https://github.com/unjs/ufo#readme",
+			"description": "URL utils for humans"
+		},
+		{
+			"name": "undici-types",
+			"version": "5.26.5",
+			"homepage": "https://undici.nodejs.org",
+			"description": "A stand-alone types package for Undici"
+		},
+		{
+			"name": "unist-util-is",
+			"version": "6.0.0",
+			"author": "Titus Wormer",
+			"homepage": "https://github.com/syntax-tree/unist-util-is#readme",
+			"description": "unist utility to check if a node passes a test"
+		},
+		{
+			"name": "unist-util-stringify-position",
+			"version": "2.0.3",
+			"author": "Titus Wormer",
+			"homepage": "https://github.com/syntax-tree/unist-util-stringify-position#readme",
+			"description": "unist utility to serialize a node, position, or point as a human readable location"
+		},
+		{
+			"name": "unist-util-visit",
+			"version": "5.0.0",
+			"author": "Titus Wormer",
+			"homepage": "https://github.com/syntax-tree/unist-util-visit#readme",
+			"description": "unist utility to visit nodes"
+		},
+		{
+			"name": "unist-util-visit-parents",
+			"version": "6.0.1",
+			"author": "Titus Wormer",
+			"homepage": "https://github.com/syntax-tree/unist-util-visit-parents#readme",
+			"description": "unist utility to recursively walk over nodes, with ancestral information"
+		},
+		{
+			"name": "update-browserslist-db",
+			"version": "1.0.13",
+			"author": "Andrey Sitnik",
+			"homepage": "https://github.com/browserslist/update-db#readme",
+			"description": "CLI tool to update caniuse-lite to refresh target browsers from Browserslist config"
+		},
+		{
+			"name": "util-deprecate",
+			"version": "1.0.2",
+			"author": "Nathan Rajlich",
+			"homepage": "https://github.com/TooTallNate/util-deprecate",
+			"description": "The Node.js `util.deprecate()` function with browser support"
+		},
+		{
+			"name": "vfile-message",
+			"version": "2.0.4",
+			"author": "Titus Wormer",
+			"homepage": "https://github.com/vfile/vfile-message#readme",
+			"description": "vfile utility to create a virtual message"
+		},
+		{
+			"name": "vite",
+			"version": "5.0.10",
+			"author": "Evan You",
+			"homepage": "https://vitejs.dev",
+			"description": "Native-ESM powered web dev build tool"
+		},
+		{
+			"name": "vite-node",
+			"version": "1.1.0",
+			"author": "Anthony Fu",
+			"homepage": "https://github.com/vitest-dev/vitest/blob/main/packages/vite-node#readme",
+			"description": "Vite as Node.js runtime"
+		},
+		{
+			"name": "vitefu",
+			"version": "0.2.5",
+			"homepage": "https://github.com/svitejs/vitefu#readme",
+			"description": "Utilities for building frameworks with Vite"
+		},
+		{
+			"name": "vitest",
+			"version": "1.1.0",
+			"author": "Anthony Fu",
+			"homepage": "https://github.com/vitest-dev/vitest#readme",
+			"description": "Next generation testing framework powered by Vite"
+		},
+		{
+			"name": "why-is-node-running",
+			"version": "2.2.2",
+			"author": "Mathias Buus",
+			"homepage": "https://github.com/mafintosh/why-is-node-running",
+			"description": "Node is running but you don't know why? why-is-node-running is here to help you."
+		},
+		{
+			"name": "wrap-ansi",
+			"version": "7.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/chalk/wrap-ansi#readme",
+			"description": "Wordwrap a string with ANSI escape codes"
+		},
+		{
+			"name": "yocto-queue",
+			"version": "1.0.0",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/yocto-queue#readme",
+			"description": "Tiny queue data structure"
+		},
+		{
+			"name": "zod",
+			"version": "3.22.4",
+			"author": "Colin McDonnell",
+			"homepage": "https://zod.dev",
+			"description": "TypeScript-first schema declaration and validation library with static type inference"
+		}
+	],
+	"Apache-2.0": [
+		{
+			"name": "@ampproject/remapping",
+			"version": "2.2.1",
+			"author": "Justin Ridgewell",
+			"homepage": "https://github.com/ampproject/remapping#readme",
+			"description": "Remap sequential sourcemaps through transformations to point at the original source code"
+		},
+		{
+			"name": "@humanwhocodes/config-array",
+			"version": "0.11.13",
+			"author": "Nicholas C. Zakas",
+			"homepage": "https://github.com/humanwhocodes/config-array#readme",
+			"description": "Glob-based configuration matching."
+		},
+		{
+			"name": "@humanwhocodes/module-importer",
+			"version": "1.0.1",
+			"author": "Nicholas C. Zaks",
+			"homepage": "https://github.com/humanwhocodes/module-importer#readme",
+			"description": "Universal module importer for Node.js"
+		},
+		{
+			"name": "aria-query",
+			"version": "5.3.0",
+			"author": "Jesse Beach",
+			"homepage": "https://github.com/A11yance/aria-query#readme",
+			"description": "Programmatic access to the ARIA specification"
+		},
+		{
+			"name": "axobject-query",
+			"version": "3.2.1",
+			"author": "Jesse Beach",
+			"homepage": "https://github.com/A11yance/axobject-query#readme",
+			"description": "Programmatic access to information about the AXObject Model"
+		},
+		{
+			"name": "didyoumean",
+			"version": "1.2.2",
+			"author": "Dave Porter",
+			"homepage": "https://github.com/dcporter/didyoumean.js",
+			"description": "Match human-quality input to potential matches by edit distance."
+		},
+		{
+			"name": "doctrine",
+			"version": "3.0.0",
+			"homepage": "https://github.com/eslint/doctrine",
+			"description": "JSDoc parser"
+		},
+		{
+			"name": "eslint-visitor-keys",
+			"version": "3.4.3",
+			"author": "Toru Nagashima",
+			"homepage": "https://github.com/eslint/eslint-visitor-keys#readme",
+			"description": "Constants and utilities about visitor keys to traverse AST."
+		},
+		{
+			"name": "human-signals",
+			"version": "5.0.0",
+			"author": "ehmicky",
+			"homepage": "https://www.github.com/ehmicky/human-signals",
+			"description": "Human-friendly process signals"
+		},
+		{
+			"name": "idb-keyval",
+			"version": "5.1.5",
+			"author": "Jake Archibald",
+			"homepage": "https://github.com/jakearchibald/idb-keyval#readme",
+			"description": "A super-simple-small keyval store built on top of IndexedDB"
+		},
+		{
+			"name": "safari-14-idb-fix",
+			"version": "1.0.6",
+			"homepage": "https://github.com/jakearchibald/safari-14-idb-fix",
+			"description": "Working around a Safari 14 IndexedDB bug"
+		},
+		{
+			"name": "ts-interface-checker",
+			"version": "0.1.13",
+			"author": "Dmitry S, Grist Labs",
+			"homepage": "https://github.com/gristlabs/ts-interface-checker#readme",
+			"description": "Runtime library to validate data against TypeScript interfaces"
+		},
+		{
+			"name": "typescript",
+			"version": "5.3.3",
+			"author": "Microsoft Corp.",
+			"homepage": "https://www.typescriptlang.org/",
+			"description": "TypeScript is a language for application scale JavaScript development"
+		}
+	],
+	"BSD-3-Clause": [
+		{
+			"name": "@humanwhocodes/object-schema",
+			"version": "2.0.1",
+			"author": "Nicholas C. Zakas",
+			"homepage": "https://github.com/humanwhocodes/object-schema#readme",
+			"description": "An object schema merger/validator"
+		},
+		{
+			"name": "esquery",
+			"version": "1.5.0",
+			"author": "Joel Feenstra",
+			"homepage": "https://github.com/estools/esquery/",
+			"description": "A query library for ECMAScript AST using a CSS selector like query language."
+		},
+		{
+			"name": "highlight.js",
+			"version": "11.9.0",
+			"author": "Josh Goebel",
+			"homepage": "https://highlightjs.org/",
+			"description": "Syntax highlighting with language autodetection."
+		},
+		{
+			"name": "source-map-js",
+			"version": "1.0.2",
+			"author": "Valentin 7rulnik Semirulnik",
+			"homepage": "https://github.com/7rulnik/source-map-js",
+			"description": "Generates and consumes source maps"
+		}
+	],
+	"ISC": [
+		{
+			"name": "@iarna/toml",
+			"version": "2.2.5",
+			"author": "Rebecca Turner",
+			"homepage": "https://github.com/iarna/iarna-toml#readme",
+			"description": "Better TOML parsing and stringifying all in that familiar JSON interface."
+		},
+		{
+			"name": "@isaacs/cliui",
+			"version": "8.0.2",
+			"author": "Ben Coe",
+			"homepage": "https://github.com/yargs/cliui#readme",
+			"description": "easily create complex multi-column command-line-interfaces"
+		},
+		{
+			"name": "@ungap/structured-clone",
+			"version": "1.2.0",
+			"author": "Andrea Giammarchi",
+			"homepage": "https://github.com/ungap/structured-clone#readme",
+			"description": "A structuredClone polyfill"
+		},
+		{
+			"name": "anymatch",
+			"version": "3.1.3",
+			"author": "Elan Shanker",
+			"homepage": "https://github.com/micromatch/anymatch",
+			"description": "Matches strings against configurable strings, globs, regular expressions, and/or functions"
+		},
+		{
+			"name": "electron-to-chromium",
+			"version": "1.4.616",
+			"author": "Kilian Valkhof",
+			"homepage": "https://github.com/kilian/electron-to-chromium#readme",
+			"description": "Provides a list of electron-to-chromium version mappings"
+		},
+		{
+			"name": "fastq",
+			"version": "1.15.0",
+			"author": "Matteo Collina",
+			"homepage": "https://github.com/mcollina/fastq#readme",
+			"description": "Fast, in memory work queue"
+		},
+		{
+			"name": "flatted",
+			"version": "3.2.7",
+			"author": "Andrea Giammarchi",
+			"homepage": "https://github.com/WebReflection/flatted#readme",
+			"description": "A super light and fast circular JSON parser."
+		},
+		{
+			"name": "foreground-child",
+			"version": "3.1.1",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/tapjs/foreground-child#readme",
+			"description": "Run a child as if it's the foreground process. Give it stdio. Exit when it exits."
+		},
+		{
+			"name": "fs.realpath",
+			"version": "1.0.0",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/isaacs/fs.realpath#readme",
+			"description": "Use node's fs.realpath, but fall back to the JS implementation if the native one fails"
+		},
+		{
+			"name": "github-slugger",
+			"version": "2.0.0",
+			"author": "Dan Flettre",
+			"homepage": "https://github.com/Flet/github-slugger",
+			"description": "Generate a slug just like GitHub does for markdown headings."
+		},
+		{
+			"name": "glob",
+			"version": "10.3.10",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/isaacs/node-glob#readme",
+			"description": "the most correct and second fastest glob implementation in JavaScript"
+		},
+		{
+			"name": "glob-parent",
+			"version": "6.0.2",
+			"author": "Gulp Team",
+			"homepage": "https://github.com/gulpjs/glob-parent#readme",
+			"description": "Extract the non-magic parent path from a glob string."
+		},
+		{
+			"name": "graceful-fs",
+			"version": "4.2.11",
+			"homepage": "https://github.com/isaacs/node-graceful-fs#readme",
+			"description": "A drop-in replacement for fs, making various improvements."
+		},
+		{
+			"name": "ignore-walk",
+			"version": "5.0.1",
+			"author": "GitHub Inc.",
+			"homepage": "https://github.com/npm/ignore-walk#readme",
+			"description": "Nested/recursive `.gitignore`/`.npmignore` parsing and filtering."
+		},
+		{
+			"name": "inflight",
+			"version": "1.0.6",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/isaacs/inflight",
+			"description": "Add callbacks to requests in flight to avoid async duplication"
+		},
+		{
+			"name": "inherits",
+			"version": "2.0.4",
+			"homepage": "https://github.com/isaacs/inherits#readme",
+			"description": "Browser-friendly inheritance fully compatible with standard node.js inherits()"
+		},
+		{
+			"name": "isexe",
+			"version": "2.0.0",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/isaacs/isexe#readme",
+			"description": "Minimal module to check if a file is executable."
+		},
+		{
+			"name": "lru-cache",
+			"version": "10.1.0",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/isaacs/node-lru-cache#readme",
+			"description": "A cache object that deletes the least-recently-used items."
+		},
+		{
+			"name": "minimatch",
+			"version": "9.0.3",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/isaacs/minimatch#readme",
+			"description": "a glob matcher in javascript"
+		},
+		{
+			"name": "minipass",
+			"version": "7.0.4",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/isaacs/minipass#readme",
+			"description": "minimal implementation of a PassThrough stream"
+		},
+		{
+			"name": "npm-bundled",
+			"version": "2.0.1",
+			"author": "GitHub Inc.",
+			"homepage": "https://github.com/npm/npm-bundled#readme",
+			"description": "list things in node_modules that are bundledDependencies, or transitive dependencies thereof"
+		},
+		{
+			"name": "npm-normalize-package-bin",
+			"version": "2.0.0",
+			"author": "GitHub Inc.",
+			"homepage": "https://github.com/npm/npm-normalize-package-bin#readme",
+			"description": "Turn any flavor of allowable package.json bin into a normalized object"
+		},
+		{
+			"name": "npm-packlist",
+			"version": "5.1.3",
+			"author": "GitHub Inc.",
+			"homepage": "https://github.com/npm/npm-packlist#readme",
+			"description": "Get a list of the files to add from a folder into an npm package"
+		},
+		{
+			"name": "once",
+			"version": "1.4.0",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/isaacs/once#readme",
+			"description": "Run a function exactly one time"
+		},
+		{
+			"name": "picocolors",
+			"version": "1.0.0",
+			"author": "Alexey Raspopov",
+			"homepage": "https://github.com/alexeyraspopov/picocolors#readme",
+			"description": "The tiniest and the fastest library for terminal output formatting with ANSI colors"
+		},
+		{
+			"name": "rimraf",
+			"version": "3.0.2",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/isaacs/rimraf#readme",
+			"description": "A deep deletion module for node (like `rm -rf`)"
+		},
+		{
+			"name": "semver",
+			"version": "7.5.4",
+			"author": "GitHub Inc.",
+			"homepage": "https://github.com/npm/node-semver#readme",
+			"description": "The semantic version parser used by npm."
+		},
+		{
+			"name": "siginfo",
+			"version": "2.0.0",
+			"author": "Emil Bay",
+			"homepage": "https://github.com/emilbayes/siginfo#readme",
+			"description": "Utility module to print pretty messages on SIGINFO/SIGUSR1"
+		},
+		{
+			"name": "signal-exit",
+			"version": "4.1.0",
+			"author": "Ben Coe",
+			"homepage": "https://github.com/tapjs/signal-exit#readme",
+			"description": "when you want to fire an event no matter how a process exits."
+		},
+		{
+			"name": "svelte-hmr",
+			"version": "0.15.3",
+			"author": "rixo",
+			"homepage": "https://github.com/sveltejs/svelte-hmr",
+			"description": "Bundler agnostic HMR utils for Svelte 3"
+		},
+		{
+			"name": "which",
+			"version": "2.0.2",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/isaacs/node-which#readme",
+			"description": "Like which(1) unix command. Find the first instance of an executable in the PATH."
+		},
+		{
+			"name": "wrappy",
+			"version": "1.0.2",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/npm/wrappy",
+			"description": "Callback wrapping utility"
+		},
+		{
+			"name": "yallist",
+			"version": "4.0.0",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/isaacs/yallist#readme",
+			"description": "Yet Another Linked List"
+		},
+		{
+			"name": "yaml",
+			"version": "2.3.4",
+			"author": "Eemeli Aro",
+			"homepage": "https://eemeli.org/yaml/",
+			"description": "JavaScript parser and stringifier for YAML"
+		}
+	],
+	"BSD-2-Clause": [
+		{
+			"name": "@typescript-eslint/parser",
+			"version": "6.16.0",
+			"homepage": "https://github.com/typescript-eslint/typescript-eslint#readme",
+			"description": "An ESLint custom parser which leverages TypeScript ESTree"
+		},
+		{
+			"name": "@typescript-eslint/typescript-estree",
+			"version": "6.16.0",
+			"homepage": "https://github.com/typescript-eslint/typescript-eslint#readme",
+			"description": "A parser that converts TypeScript source code into an ESTree compatible form"
+		},
+		{
+			"name": "eslint-scope",
+			"version": "7.2.2",
+			"homepage": "http://github.com/eslint/eslint-scope",
+			"description": "ECMAScript scope analyzer for ESLint"
+		},
+		{
+			"name": "espree",
+			"version": "9.6.1",
+			"author": "Nicholas C. Zakas",
+			"homepage": "https://github.com/eslint/espree",
+			"description": "An Esprima-compatible JavaScript parser built on Acorn"
+		},
+		{
+			"name": "esrecurse",
+			"version": "4.3.0",
+			"homepage": "https://github.com/estools/esrecurse",
+			"description": "ECMAScript AST recursive visitor"
+		},
+		{
+			"name": "estraverse",
+			"version": "5.3.0",
+			"homepage": "https://github.com/estools/estraverse",
+			"description": "ECMAScript JS AST traversal functions"
+		},
+		{
+			"name": "esutils",
+			"version": "2.0.3",
+			"homepage": "https://github.com/estools/esutils",
+			"description": "utility box for ECMAScript language tools"
+		},
+		{
+			"name": "uri-js",
+			"version": "4.4.1",
+			"author": "Gary Court",
+			"homepage": "https://github.com/garycourt/uri-js",
+			"description": "An RFC 3986/3987 compliant, scheme extendable URI/IRI parsing/validating/resolving library for JavaScript."
+		}
+	],
+	"Unknown": [
+		{
+			"name": "ansi-purge",
+			"version": "1.0.0",
+			"homepage": "https://github.com/fabiospampinato/ansi-purge#readme",
+			"description": "A tiny function for deleting ANSI escape sequences from a string."
+		},
+		{
+			"name": "ansi-truncate",
+			"version": "1.0.1",
+			"homepage": "https://github.com/fabiospampinato/ansi-truncate#readme",
+			"description": "A tiny function for truncating a string that may contain ANSI escape sequences."
+		},
+		{
+			"name": "atomically",
+			"version": "2.0.2",
+			"homepage": "https://github.com/fabiospampinato/atomically#readme",
+			"description": "Read and write files atomically and reliably."
+		},
+		{
+			"name": "dettle",
+			"version": "1.0.1",
+			"homepage": "https://github.com/fabiospampinato/dettle#readme",
+			"description": "A tiny fully-featured debounce and throttle implementation."
+		},
+		{
+			"name": "fast-ignore",
+			"version": "1.1.1",
+			"homepage": "https://github.com/fabiospampinato/fast-ignore#readme",
+			"description": "A fast parser and processor for .gitignore files."
+		},
+		{
+			"name": "find-up-json",
+			"version": "2.0.2",
+			"homepage": "https://github.com/fabiospampinato/find-up-json#readme",
+			"description": "Find, read and parse the first matching file found walking the filesystem upwards."
+		},
+		{
+			"name": "get-current-package",
+			"version": "1.0.0",
+			"homepage": "https://github.com/fabiospampinato/get-current-package#readme",
+			"description": "Get the package.json of the currently executing bin."
+		},
+		{
+			"name": "grammex",
+			"version": "3.1.2",
+			"homepage": "https://github.com/fabiospampinato/grammex#readme",
+			"description": "A tiny, PEG-like system for building language grammars with regexes."
+		},
+		{
+			"name": "ini-simple-parser",
+			"version": "1.0.0",
+			"homepage": "https://github.com/fabiospampinato/ini-simple-parser#readme",
+			"description": "A simple, fast and configurable INI parser."
+		},
+		{
+			"name": "ionstore",
+			"version": "1.0.0",
+			"homepage": "https://github.com/fabiospampinato/ionstore#readme",
+			"description": "A very simple isomorphic key-value store with a Map-like API for persisting session data."
+		},
+		{
+			"name": "json-sorted-stringify",
+			"version": "1.0.0",
+			"homepage": "https://github.com/fabiospampinato/json-sorted-stringify#readme",
+			"description": "Alternative JSON.stringify function with sorted keys, so the output is stable."
+		},
+		{
+			"name": "kasi",
+			"version": "1.1.0",
+			"homepage": "https://github.com/fabiospampinato/kasi#readme",
+			"description": "A collection of functions for working with different casings."
+		},
+		{
+			"name": "pioppo",
+			"version": "1.1.0",
+			"homepage": "https://github.com/fabiospampinato/pioppo#readme",
+			"description": "A tiny isomorphic batched logger. ~3x faster than regular logging in Node."
+		},
+		{
+			"name": "promise-make-naked",
+			"version": "2.1.1",
+			"homepage": "https://github.com/fabiospampinato/promise-make-naked#readme",
+			"description": "A simple function that makes a promise that can be resolved or rejected from the outside."
+		},
+		{
+			"name": "specialist",
+			"version": "1.4.0",
+			"homepage": "https://github.com/fabiospampinato/specialist#readme",
+			"description": "A library that helps you write tiny, fast and beautiful CLI apps that can automatically check for updates."
+		},
+		{
+			"name": "stdin-blocker",
+			"version": "2.0.0",
+			"homepage": "https://github.com/fabiospampinato/stdin-blocker#readme",
+			"description": "A tiny library for blocking stdin keypresses, except for ctrl+c. Useful while displaying animations."
+		},
+		{
+			"name": "stubborn-fs",
+			"version": "1.2.5",
+			"homepage": "https://github.com/fabiospampinato/stubborn-fs#readme",
+			"description": "Stubborn versions of Node's fs functions that try really hard to do their job."
+		},
+		{
+			"name": "tiny-bin",
+			"version": "1.7.0",
+			"homepage": "https://github.com/fabiospampinato/tiny-bin#readme",
+			"description": "A library for building tiny and beautiful command line apps."
+		},
+		{
+			"name": "tiny-colors",
+			"version": "2.1.2",
+			"homepage": "https://github.com/fabiospampinato/tiny-colors#readme",
+			"description": "A tiny library providing the basic ANSI colors for the terminal."
+		},
+		{
+			"name": "tiny-cursor",
+			"version": "2.0.0",
+			"homepage": "https://github.com/fabiospampinato/tiny-cursor#readme",
+			"description": "A tiny library for hiding and showing the cursor in the terminal."
+		},
+		{
+			"name": "tiny-editorconfig",
+			"version": "1.0.0",
+			"homepage": "https://github.com/fabiospampinato/tiny-editorconfig#readme",
+			"description": "A tiny isomorphic parser and resolver for EditorConfig."
+		},
+		{
+			"name": "tiny-jsonc",
+			"version": "1.0.1",
+			"homepage": "https://github.com/fabiospampinato/jsonc-simple-parser#readme",
+			"description": "An absurdly small JSONC parser."
+		},
+		{
+			"name": "tiny-levenshtein",
+			"version": "1.0.0",
+			"homepage": "https://github.com/fabiospampinato/tiny-levenshtein#readme",
+			"description": "A tiny implementation of the Levenshtein edit distance algorithm."
+		},
+		{
+			"name": "tiny-parse-argv",
+			"version": "2.4.0",
+			"homepage": "https://github.com/fabiospampinato/tiny-parse-argv#readme",
+			"description": "A tiny function for parsing process.argv, a modern rewrite of a sensible subset of minimist."
+		},
+		{
+			"name": "tiny-readdir",
+			"version": "2.4.0",
+			"homepage": "https://github.com/fabiospampinato/tiny-readdir#readme",
+			"description": "A simple promisified recursive readdir function."
+		},
+		{
+			"name": "tiny-readdir-glob",
+			"version": "1.2.1",
+			"homepage": "https://github.com/fabiospampinato/tiny-readdir-glob#readme",
+			"description": "A simple promisified recursive readdir function, with support for globs."
+		},
+		{
+			"name": "tiny-spinner",
+			"version": "2.0.3",
+			"homepage": "https://github.com/fabiospampinato/tiny-spinner#readme",
+			"description": "A simple, yet beautiful, CLI spinner."
+		},
+		{
+			"name": "tiny-truncate",
+			"version": "1.0.2",
+			"homepage": "https://github.com/fabiospampinato/tiny-truncate#readme",
+			"description": "A tiny function for truncating a string which may containg ANSI escapes, with automatic terminal width detection."
+		},
+		{
+			"name": "tiny-updater",
+			"version": "3.5.1",
+			"homepage": "https://github.com/fabiospampinato/tiny-updater#readme",
+			"description": "A small update notifier for NPM packages, useful for CLI apps."
+		},
+		{
+			"name": "webworker-shim",
+			"version": "1.1.0",
+			"homepage": "https://github.com/fabiospampinato/webworker-shim#readme",
+			"description": "A tiny shim for WebWorker (data URI only) that works in Node."
+		},
+		{
+			"name": "when-exit",
+			"version": "2.1.2",
+			"homepage": "https://github.com/fabiospampinato/when-exit#readme",
+			"description": "Execute a function right before the process, or the browser's tab, is about to exit."
+		},
+		{
+			"name": "worktank",
+			"version": "2.6.0",
+			"homepage": "https://github.com/fabiospampinato/worktank#readme",
+			"description": "A simple isomorphic library for executing functions inside WebWorkers or Node Threads pools."
+		},
+		{
+			"name": "zeptomatch",
+			"version": "1.2.2",
+			"homepage": "https://github.com/fabiospampinato/zeptomatch#readme",
+			"description": "An absurdly small glob matcher that packs a punch."
+		}
+	],
+	"Python-2.0": [
+		{
+			"name": "argparse",
+			"version": "2.0.1",
+			"homepage": "https://github.com/nodeca/argparse#readme",
+			"description": "CLI arguments parser. Native port of python's argparse."
+		}
+	],
+	"Unlicence": [
+		{
+			"name": "browser-cookies",
+			"version": "1.2.0",
+			"author": "Voltace",
+			"homepage": "https://github.com/voltace/browser-cookies#readme",
+			"description": "Tiny cookies library for the browser"
+		}
+	],
+	"CC-BY-4.0": [
+		{
+			"name": "caniuse-lite",
+			"version": "1.0.30001571",
+			"author": "Ben Briggs",
+			"homepage": "https://github.com/browserslist/caniuse-lite#readme",
+			"description": "A smaller version of caniuse-db, with only the essentials!"
+		}
+	],
+	"BlueOak-1.0.0": [
+		{
+			"name": "jackspeak",
+			"version": "2.3.6",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/isaacs/jackspeak#readme",
+			"description": "A very strict and proper argument parser."
+		},
+		{
+			"name": "path-scurry",
+			"version": "1.10.1",
+			"author": "Isaac Z. Schlueter",
+			"homepage": "https://github.com/isaacs/path-scurry#readme",
+			"description": "walk paths fast and efficiently"
+		}
+	],
+	"CC0-1.0": [
+		{
+			"name": "mdn-data",
+			"version": "2.0.30",
+			"author": "Mozilla Developer Network",
+			"homepage": "https://developer.mozilla.org",
+			"description": "Open Web data by the Mozilla Developer Network"
+		}
+	],
+	"(MIT AND Zlib)": [
+		{
+			"name": "pako",
+			"version": "2.1.0",
+			"homepage": "https://github.com/nodeca/pako#readme",
+			"description": "zlib port to javascript - fast, modularized, with browser support"
+		}
+	],
+	"BSD or GPL 2.0": [
+		{
+			"name": "sjcl-bit-array",
+			"version": "1.0.0",
+			"author": "Emily Stark; Mike Hamburg; Dan Boneh",
+			"homepage": "https://github.com/michaelrhodes/sjcl-bit-array",
+			"description": "a modular fork of the sjcl bitArray namespace"
+		},
+		{
+			"name": "sjcl-codec-hex",
+			"version": "1.0.0",
+			"author": "Emily Stark; Mike Hamburg; Dan Boneh",
+			"homepage": "https://github.com/michaelrhodes/sjcl-codec-hex",
+			"description": "a modular fork of the sjcl hex namespace"
+		}
+	],
+	"(BSD-2-Clause OR GPL-2.0-only)": [
+		{
+			"name": "sjcl-es",
+			"version": "2.0.0",
+			"author": "bitwiseshiftleft",
+			"homepage": "https://github.com/liufei/sjcl-es",
+			"description": "Tiny 2.72kB AES-GCM library"
+		}
+	],
+	"LIL": [
+		{
+			"name": "svelte-select",
+			"version": "4.4.7",
+			"author": "rob-balfre",
+			"homepage": "https://github.com/rob-balfre/svelte-select#readme",
+			"description": "A <Select> component for Svelte apps"
+		}
+	],
+	"(MIT OR CC0-1.0)": [
+		{
+			"name": "type-fest",
+			"version": "0.20.2",
+			"author": "Sindre Sorhus",
+			"homepage": "https://github.com/sindresorhus/type-fest#readme",
+			"description": "A collection of essential TypeScript types"
+		}
+	]
+}
