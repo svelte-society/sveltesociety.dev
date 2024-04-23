@@ -2973,5 +2973,13 @@
 		"description": "Infinite Loader for Svelte 5",
 		"npm": "svelte-infinite",
 		"categories": ["ui-components", "user-interaction"]
+	},
+	{
+		"title": "svelte-crossorigin-store",
+		"url": "https://github.com/idleberg/svelte-crossorigin-store",
+		"repository": "https://github.com/idleberg/svelte-crossorigin-store",
+		"description": "Share your Svelte store across origins, including iFrames",
+		"npm": "svelte-crossorigin-store",
+		"categories": ["stores-and-state"]
 	}
 ]
