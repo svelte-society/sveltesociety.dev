@@ -417,5 +417,6 @@
 	"@agnos-ui/svelte-headless": { "valid": true },
 	"@agnos-ui/svelte": { "valid": true },
 	"@gzim/svelte-datagrid": { "valid": true },
-	"svelte-infinite": { "valid": true }
+	"svelte-infinite": { "valid": true },
+	"svelte-crossorigin-store": { "valid": false }
 }
