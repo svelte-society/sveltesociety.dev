@@ -10,13 +10,13 @@ export const injectData = (input: z.infer<typeof packagesSchema | typeof templat
 	for (const item of input) {
 		// Github
 		const githubIndex = Object.keys(github).find((key) =>
-			item.repository.toLowerCase().includes(key)
+			normalize(item.repository) === key
 		);
 		const githubExtra = github[githubIndex] ?? {};
 
 		// Gitlab
 		const gitlabIndex = Object.keys(gitlab).find((key) =>
-			item.repository.toLowerCase().includes(key)
+			normalize(item.repository) === key
 		);
 		const gitlabExtra = gitlab[gitlabIndex] ?? {};
 
@@ -30,3 +30,9 @@ export const injectData = (input: z.infer<typeof packagesSchema | typeof templat
 	}
 	return output;
 };
+
+function normalize(item: string) {
+	// want to only keep repository portion and want to strip trailing slashes
+	// e.g. https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-starter
+	return item.toLowerCase().split('/').slice(0, 5).join('/');
+}
