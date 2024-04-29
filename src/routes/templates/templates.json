@@ -57,7 +57,7 @@
 		"description": "A complete implementation with components, store, unit e2e tests and linting.",
 		"categories": ["svelte"],
 		"title": "TodoMVC Svelte",
-		"repository": "https://github.com/vuesomedev/todomvc-svelte"
+		"repository": "https://github.com/sonicoder86/todomvc-svelte"
 	},
 	{
 		"description": "Electron Svelte boilerplate",
@@ -311,12 +311,6 @@
 		"categories": ["svelte"],
 		"title": "sveltejs/component-template",
 		"repository": "https://github.com/sveltejs/component-template"
-	},
-	{
-		"description": "Template for building basic applications with Svelte with rollup",
-		"categories": ["svelte"],
-		"title": "sveltejs/template",
-		"repository": "https://github.com/sveltejs/template"
 	},
 	{
 		"description": "Template for building basic applications with Svelte and custom elements",
