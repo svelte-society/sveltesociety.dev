@@ -4,11 +4,11 @@ layout: recipe
 published: 2021-06-14T11:30:41-07:00
 ---
 
-Using `bind:this` allows a component to store a reference to it's children, this can also be used when generating a series of components in an `{#each}` block.
+Using `bind:this` allows a component to store a reference to its children. This can also be used when generating a series of components in an `{#each}` block.
 
 **Method 1: Using an array**
 
-This method simply binds the generated component to an array element based on it's index within the loop.
+This method simply binds the generated component to an array element based on its index within the loop.
 
 ```svelte
 <script>
@@ -27,7 +27,7 @@ This method simply binds the generated component to an array element based on it
 
 **Method 2: Using an object as a hashtable**
 
-An alternative is to use an _unique_ key and bind the component to an object, effectively making a hashtable of components.
+An alternative is to use a _unique_ key and bind the component to an object, effectively making a hashtable of components.
 
 ```svelte
 <script>
