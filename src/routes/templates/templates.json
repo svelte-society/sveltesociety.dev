@@ -710,5 +710,11 @@
 		"repository": "https://github.com/falkomerr/sveltekit-starter",
 		"description": "Starter for SvelteKit with FSD, shadcn-svelte and tailwind",
 		"categories": ["sveltekit", "typescript", "code-splitting"]
+	},
+	{
+		"title": "Lucia + Passkeys + Social Sign In",
+		"repository": "https://github.com/passlock-dev/svelte-passkeys",
+		"description": "Authentication template supporting passkeys, mailbox verification emails, social sign in and more. (Lucia, Melt UI, Superforms, Tailwind + others)",
+		"categories": ["sveltekit", "typescript"]
 	}
 ]
