@@ -9,15 +9,11 @@ export const injectData = (input: z.infer<typeof packagesSchema | typeof templat
 	const output: z.infer<typeof packagesSchema | typeof templatesSchema> = [];
 	for (const item of input) {
 		// Github
-		const githubIndex = Object.keys(github).find((key) =>
-			normalize(item.repository) === key
-		);
+		const githubIndex = Object.keys(github).find((key) => normalize(item.repository) === key);
 		const githubExtra = github[githubIndex] ?? {};
 
 		// Gitlab
-		const gitlabIndex = Object.keys(gitlab).find((key) =>
-			normalize(item.repository) === key
-		);
+		const gitlabIndex = Object.keys(gitlab).find((key) => normalize(item.repository) === key);
 		const gitlabExtra = gitlab[gitlabIndex] ?? {};
 
 		// NPM
