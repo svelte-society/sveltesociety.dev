@@ -2988,9 +2988,6 @@
 		"repository": "https://github.com/WJSoftware/wj-dataview",
 		"description": "Svelte v5 table component suitable for examination of extensive tabular data.",
 		"npm": "@wj/dataview",
-		"categories": [
-			"data-visualisation",
-			"ui-components"
-		]
+		"categories": ["data-visualisation", "ui-components"]
 	}
 ]
