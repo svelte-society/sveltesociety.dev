@@ -2985,7 +2985,7 @@
 	{
 		"title": "@wjfe/dataview",
 		"url": "https://wj-dataview.vercel.app",
-		"repository": "https://github.com/WJSoftware/wj-dataview",
+		"repository": "https://github.com/WJSoftware/wjfe-dataview",
 		"description": "Svelte v5 table component suitable for examination of extensive tabular data.",
 		"npm": "@wjfe/dataview",
 		"categories": ["data-visualisation", "ui-components"]
