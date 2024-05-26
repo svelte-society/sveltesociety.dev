@@ -418,5 +418,6 @@
 	"@agnos-ui/svelte": { "valid": true },
 	"@gzim/svelte-datagrid": { "valid": true },
 	"svelte-infinite": { "valid": true },
-	"svelte-crossorigin-store": { "valid": false }
+	"svelte-crossorigin-store": { "valid": false },
+	"@wjfe/dataview": { "valid": true }
 }
