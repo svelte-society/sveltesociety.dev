@@ -2466,6 +2466,13 @@
 		"categories": ["user-interaction"]
 	},
 	{
+		"title": "@neodrag/svelte",
+		"repository": "https://github.com/PuruVJ/neodrag/tree/main/packages/svelte",
+		"description": "A lightweight Svelte action to make your elements draggable.",
+		"npm": "@neodrag/svelte",
+		"categories": ["user-interaction"]
+	},
+	{
 		"title": "Svelte Headless Table",
 		"repository": "https://github.com/bryanmylee/svelte-headless-table",
 		"description": "Unopinionated and extensible data tables for Svelte",
@@ -2930,9 +2937,9 @@
 	},
 	{
 		"title": "Paraglide JS Adapter SvelteKit",
-		"repository": "https://github.com/opral/monorepo/tree/main/inlang/source-code/paraglide/paraglide-js-adapter-sveltekit",
+		"repository": "https://github.com/opral/monorepo/tree/main/inlang/source-code/paraglide/paraglide-sveltekit",
 		"description": "Everything you need to internationalize your SvelteKit app with Paraglide.",
-		"npm": "@inlang/paraglide-js-adapter-sveltekit",
+		"npm": "@inlang/paraglide-sveltekit",
 		"categories": ["internationalization"]
 	},
 	{
@@ -2989,5 +2996,29 @@
 		"description": "Svelte v5 table component suitable for examination of extensive tabular data.",
 		"npm": "@wjfe/dataview",
 		"categories": ["data-visualisation", "ui-components"]
+	},
+	{
+		"title": "Runed",
+		"url": "https://runed.dev/docs",
+		"repository": "https://github.com/svecosystem/runed",
+		"description": "Magical functions for your Svelte applications",
+		"npm": "runed",
+		"categories": ["stores-and-state", "user-interaction"]
+	},
+	{
+		"title": "PaneForge",
+		"url": "https://paneforge.com/docs",
+		"repository": "https://github.com/svecosystem/paneforge",
+		"description": "Resizable pane components for Svelte.",
+		"npm": "paneforge",
+		"categories": ["styling-and-layout", "user-interaction"]
+	},
+	{
+		"title": "Altron",
+		"url": "https://altron.vercel.app/",
+		"repository": "https://github.com/EMPTYVOID-DEV/Altron",
+		"description": "Rich text editor as a svelte component",
+		"npm": "@altron/altron",
+		"categories": ["forms-and-input", "integrations"]
 	}
 ]

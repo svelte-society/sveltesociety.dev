@@ -716,5 +716,11 @@
 		"repository": "https://github.com/passlock-dev/svelte-passkeys",
 		"description": "Authentication template supporting passkeys, mailbox verification emails, social sign in and more. (Lucia, Melt UI, Superforms, Tailwind + others)",
 		"categories": ["sveltekit", "typescript"]
+	},
+	{
+		"title": "SvelteKit Omakase",
+		"repository": "https://github.com/n00ki/sveltekit-omakase",
+		"description": "This project embraces an omakase approach, inspired by the Rails doctrine. It offers an opinionated selection of tools and a structured approach.",
+		"categories": ["sveltekit", "typescript", "integrations"]
 	}
 ]
