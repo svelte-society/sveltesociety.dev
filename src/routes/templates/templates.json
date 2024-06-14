@@ -403,82 +403,16 @@
 		"repository": "https://github.com/babichjacob/university-website"
 	},
 	{
-		"description": "Add PostCSS to your Svelte project",
+		"description": "Add Tailwind, Bootstrap, Storybook, mdsvex (i.e. markdown), and more to your Svelte project with a single command.",
 		"categories": ["svelte-add"],
-		"title": "svelte-add/postcss",
-		"repository": "https://github.com/svelte-add/postcss"
-	},
-	{
-		"description": "Add Tailwind CSS to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/tailwindcss",
-		"repository": "https://github.com/svelte-add/tailwindcss"
-	},
-	{
-		"description": "Add Tauri to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/tauri",
-		"repository": "https://github.com/svelte-add/tauri"
-	},
-	{
-		"description": "Add Bulma to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/bulma",
-		"repository": "https://github.com/svelte-add/bulma"
-	},
-	{
-		"description": "Add CoffeeScript to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/coffeescript",
-		"repository": "https://github.com/svelte-add/coffeescript"
-	},
-	{
-		"description": "A command to add a GraphQL server to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/graphql-server",
-		"repository": "https://github.com/svelte-add/graphql-server"
-	},
-	{
-		"description": "A command to add hosting on Firebase to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/firebase-hosting",
-		"repository": "https://github.com/svelte-add/firebase-hosting"
-	},
-	{
-		"title": "svelte-add/scss",
-		"repository": "https://github.com/svelte-add/scss",
-		"description": "Add SCSS to your Svelte project",
-		"categories": ["svelte-add"]
-	},
-	{
-		"title": "svelte-add/3d",
-		"repository": "https://github.com/svelte-add/3d",
-		"description": "Add 3D scenes to your Svelte project",
-		"categories": ["svelte-add"]
+		"title": "svelte-add/svelte-add",
+		"repository": "https://github.com/svelte-add/svelte-add"
 	},
 	{
 		"title": "vhscom/svelte-headlessui-starter",
 		"repository": "https://github.com/vhscom/svelte-headlessui-starter",
 		"description": "Template designed to make it faster and easier to build libre Svelte apps using Headless UI.",
 		"categories": ["ssr", "typescript", "sveltekit"]
-	},
-	{
-		"description": "Add mdsvex to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/mdsvex",
-		"repository": "https://github.com/svelte-add/mdsvex"
-	},
-	{
-		"description": "Add Supabase to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "supabase-community/svelte-supabase",
-		"repository": "https://github.com/supabase-community/svelte-supabase"
-	},
-	{
-		"description": "Add Jest to your SvelteKit project",
-		"categories": ["svelte-add"],
-		"title": "rossyman/svelte-add-jest",
-		"repository": "https://github.com/rossyman/svelte-add-jest"
 	},
 	{
 		"description": "SvelteKit blog powered with mdsvex, json schema support, sitemap.xml, RSS-feed and other tools required for good SEO.",
