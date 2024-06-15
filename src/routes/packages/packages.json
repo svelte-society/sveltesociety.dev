@@ -3026,9 +3026,6 @@
 		"repository": "https://github.com/jacobbogers/svelte-remove-attributes",
 		"description": "svelte preprocessor to remove attributes (like data-testid) from builds",
 		"npm": "svelte-remove-attributes",
-		"categories": [
-			"styling-and-layout",
-			"build-plugins"
-		]
-        }
+		"categories": ["styling-and-layout", "build-plugins"]
+	}
 ]
