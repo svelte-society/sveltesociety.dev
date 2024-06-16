@@ -3020,5 +3020,12 @@
 		"description": "Rich text editor as a svelte component",
 		"npm": "@altron/altron",
 		"categories": ["forms-and-input", "integrations"]
+	},
+	{
+		"title": "remove-attributes",
+		"repository": "https://github.com/jacobbogers/svelte-remove-attributes",
+		"description": "svelte preprocessor to remove attributes (like data-testid) from builds",
+		"npm": "svelte-remove-attributes",
+		"categories": ["styling-and-layout", "build-plugins"]
 	}
 ]
