@@ -1,9 +1,10 @@
-import type { TypedPocketBase } from "$lib/pocketbase-types";
+import type { db } from "$lib/server/db";
+
 declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			pb: TypedPocketBase
+			user: User | null
 		}
 		// interface PageData {}
 		// interface PageState {}
