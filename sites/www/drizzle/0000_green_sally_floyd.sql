@@ -18,7 +18,7 @@ CREATE TABLE `sessions` (
 --> statement-breakpoint
 CREATE TABLE `users` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`github_id` integer NOT NULL,
+	`github_id` integer,
 	`email` text,
 	`username` text,
 	`name` text,
@@ -26,7 +26,7 @@ CREATE TABLE `users` (
 	`bio` text,
 	`location` text,
 	`twitter` text,
-	`role_id` integer NOT NULL,
+	`role_id` integer,
 	`created_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	FOREIGN KEY (`role_id`) REFERENCES `roles`(`id`) ON UPDATE no action ON DELETE no action
 );

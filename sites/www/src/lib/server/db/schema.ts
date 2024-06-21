@@ -3,7 +3,7 @@ import { sqliteTable, text, integer, uniqueIndex } from 'drizzle-orm/sqlite-core
 
 export const users = sqliteTable('users', {
     id: integer('id').primaryKey({ autoIncrement: true }),
-    github_id: integer('github_id').notNull(),
+    github_id: integer('github_id'),
     email: text('email'),
     username: text('username'),
     name: text('name'),
@@ -11,7 +11,7 @@ export const users = sqliteTable('users', {
     bio: text('bio'),
     location: text('location'),
     twitter: text('twitter'),
-    role_id: integer('role_id').notNull().references(() => roles.id),
+    role_id: integer('role_id').references(() => roles.id),
     created_at: text('created_at').notNull().default(sql`CURRENT_TIMESTAMP`),
 })
 
@@ -63,5 +63,3 @@ export const usersToRolesRelations = relations(usersToRoles, ({ one }) => ({
         references: [roles.id]
     })
 }))
-
-export const schema = { users, sessions }

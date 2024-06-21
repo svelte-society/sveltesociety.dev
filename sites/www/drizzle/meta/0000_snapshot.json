@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "2b1c8215-26e5-4b45-87e6-a73f0ba25b6b",
+  "id": "bae6a6d7-f5a0-4fd3-b8df-4f7b2f07a756",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "roles": {
@@ -129,7 +129,7 @@
           "name": "github_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "email": {
@@ -185,7 +185,7 @@
           "name": "role_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "created_at": {

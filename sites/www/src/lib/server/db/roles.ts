@@ -14,8 +14,7 @@ export interface Role {
 
 // Function to get all roles
 export async function get_roles() {
-    const roles = await db.execute(`SELECT * FROM roles`);
-    return roles.rows as unknown as Role[];
+    return await db.query.roles.findMany();
 }
 
 // Function to get a role by ID

@@ -1,6 +1,6 @@
 import type { RequestHandler } from './$types';
-import { create_session } from '$lib/server/db/session';
-import { get_user_by_github_id, create_user, update_user_info } from '$lib/server/db/user';
+import { create_session, delete_session } from '$lib/server/db/session';
+import { get_user_by_github_id, create_user, update_user } from '$lib/server/db/user';
 import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
 import { dev } from '$app/environment';
@@ -52,30 +52,49 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 
     if (!user) {
         // Create user
-        const result = await create_user(user_info)
+        const create_user_result = await create_user(user_info)
 
-        if (!result.success) {
+        if (!create_user_result.success) {
             return new Response('Error creating user', { status: 500 });
         }
 
-        user = result.user
+        user = create_user_result.user
+
+    } else {
+        const update_result = await update_user(user.id as number, user_info)
+
+        if (!update_result.success) {
+            return new Response('Error updating user', { status: 500 });
+        }
+        user = update_result.user
+        if (!user) {
+            return new Response('Error creating user', { status: 500 });
+        }
     }
 
     if (!user) {
         return new Response('Error creating user', { status: 500 });
     }
 
-    // Update user info + Create Session and store in cookie
-    const [session_id] = await Promise.all([
-        create_session(user.id as number),
-        update_user_info(user.id as number, user_info)
-    ])
+    // Delete old user session
+    const old_session_token = cookies.get('session_id')
 
-    if (!session_id) {
+    if (old_session_token) {
+        const delete_session_result = await delete_session(old_session_token)
+
+        if (!delete_session_result.success) {
+            return new Response('Error deleting old session', { status: 500 });
+        }
+    }
+
+    // Create new user session
+    const { session_token } = await create_session(user.id as number)
+
+    if (!session_token) {
         return new Response('Error creating session', { status: 500 });
     }
 
-    cookies.set('session_id', session_id, {
+    cookies.set('session_id', session_token, {
         path: '/',
         httpOnly: true,
         secure: !dev,

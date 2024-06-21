@@ -1,9 +1,23 @@
 import { db } from "./index";
+import { sql, eq } from "drizzle-orm";
+import { users, sessions } from "./schema";
+
+// Prepared statements
+export const findUserByGitHubIdStatement = db.query.users.findFirst({
+  where: (user, { eq }) => eq(user.github_id, sql.placeholder('id')),
+}).prepare();
+
+export const findUserStatement = db.query.users.findFirst({
+  where: (user, { eq }) => eq(user.id, sql.placeholder('id')),
+}).prepare();
+
+export const findUserBySessionId = db.select().from(sessions).innerJoin(users, eq(sessions.user_id, users.id)).where(eq(sessions.session_token, sql.placeholder('session_token'))).prepare();
 
 type GitHubUserInfo = {
   id: number;
   login: string;
   email: string;
+  name: string;
   bio: string;
   location: string;
   avatar_url: string;
@@ -11,84 +25,73 @@ type GitHubUserInfo = {
 }
 
 export async function get_users() {
-  const users = await db.execute(`SELECT * FROM users`)
-  return users.rows;
+  return await db.query.users.findMany()
 }
 
-export async function get_user_by_github_id(githubId: number) {
-  const user = await db.execute({
-    sql: `SELECT * FROM users WHERE github_id = ?`,
-    args: [githubId],
-  });
-  return user.rows[0] as unknown as User | undefined;
+export async function get_user_by_github_id(github_id: number) {
+  const user = await findUserByGitHubIdStatement.get({ id: github_id });
+  return user;
 }
 
 export async function get_user(userId: number) {
-  const role = await db.execute({
-    sql: `SELECT * FROM users WHERE id = ?`,
-    args: [userId],
-  });
-  return role.rows[0] as unknown as User | undefined;
+  const user = await findUserStatement.get({ id: userId });
+
+  console.log('User: ', user)
+
+  return user;
 }
 
 export async function create_user(github_user_info: GitHubUserInfo) {
-  const user_info = {
-    id: github_user_info.id,
-    login: github_user_info.login,
+  const user_info = extract_github_user_info(github_user_info);
+
+  try {
+    const [user] = await db.insert(users).values(user_info).returning();
+
+    return { success: true, user }
+  } catch (error) {
+    console.error(error)
+    return { success: false, error }
+  }
+}
+
+export async function update_user(id: number, new_user_info: GitHubUserInfo) {
+  const user_info = extract_github_user_info(new_user_info);
+  try {
+    const [user] = await db.update(users).set({ ...user_info }).where(eq(users.id, id)).returning()
+
+    return { success: true, user }
+  } catch (error) {
+    console.error(error)
+    return { success: false, error }
+  }
+}
+
+export async function get_user_by_session_id(session_token: string) {
+  try {
+    const result = await findUserBySessionId.get({ session_token });
+
+    if (!result?.users) {
+      return { success: false, error: 'User not found' }
+    }
+
+    return { success: true, user: result.users }
+  } catch (error) {
+    console.log(error)
+    return { success: false, error }
+  }
+
+  return {};
+}
+
+const extract_github_user_info = (github_user_info: GitHubUserInfo) => {
+  return {
+    github_id: github_user_info.id,
+    username: github_user_info.login,
     email: github_user_info.email,
+    name: github_user_info.name,
     bio: github_user_info.bio,
     location: github_user_info.location,
     avatar_url: github_user_info.avatar_url,
-    twitter_username: github_user_info.twitter_username,
+    twitter: github_user_info.twitter_username,
   }
-
-  try {
-    // Create user and fetch the same user
-    const [_, user] = await db.batch([
-      {
-        sql: `INSERT INTO users (github_id, username, email, bio, location, avatar_url, twitter) VALUES ($id, $login, $email, $bio, $location, $avatar_url, $twitter_username)`,
-        args: user_info,
-      },
-      {
-        sql: `SELECT * FROM users WHERE id = last_insert_rowid()`,
-        args: [],
-      },
-    ]);
-
-    return { success: true, user: user.rows[0] as unknown as User }
-  } catch (error) {
-    console.error(error)
-    return { success: false, error }
-  }
-}
-
-export async function update_user(new_user_info: any) {
-  try {
-    await db.execute({
-      sql: `UPDATE users SET username = $login, email = $email, bio = $bio, location = $location, avatar_url = $avatar_url, twitter = $twitter_username, role_id = $role_id WHERE id = $id`,
-      args: {
-        id: new_user_info.id,
-        login: new_user_info.login,
-        email: new_user_info.email,
-        bio: new_user_info.bio,
-        location: new_user_info.location,
-        avatar_url: new_user_info.avatar_url,
-        twitter_username: new_user_info.twitter_username,
-        role_id: new_user_info.role_id
-      },
-    });
-
-    return { success: true }
-  } catch (error) {
-    console.error(error)
-    return { success: false, error }
-  }
-}
-
-export async function get_user_by_session_id(sessionId: string) {
-  const user = await db.execute({
-    sql: `SELECT * FROM users WHERE id = (SELECT user_id FROM sessions WHERE session_token = ?)`,
-    args: [sessionId],
-  });
-  return user.rows[0];
 }
