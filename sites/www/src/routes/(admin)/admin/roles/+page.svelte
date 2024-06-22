@@ -47,7 +47,11 @@
 				<td
 					class="whitespace-nowrap border-l-0 border-r-0 border-t-0 p-4 px-6 align-middle text-xs"
 				>
-					{role.active}
+					<span
+						class="rounded-lg px-2 py-1 text-white"
+						class:bg-green-500={!!role.active}
+						class:bg-red-500={!role.active}>{!!role.active}</span
+					>
 				</td>
 				<td
 					class="align-center flex gap-2 whitespace-nowrap border-l-0 border-r-0 border-t-0 p-4 px-6 text-xs"
