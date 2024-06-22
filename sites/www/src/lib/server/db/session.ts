@@ -1,6 +1,6 @@
 import { db } from "./index";
 import { eq, gte, lt, and, sql } from "drizzle-orm";
-import { sessions } from "./schema";
+import { sessions, users } from "./schema";
 import { handleServiceCall } from "./utils";
 import crypto from 'crypto';
 
@@ -10,6 +10,9 @@ const SEVEN_DAYS = ONE_DAY * 7;
 // Prepared statements
 export const findSessionStatement = db.query.sessions.findFirst({
   where: (session, { eq }) => eq(session.session_token, sql.placeholder('session_token')),
+  with: {
+    user: true
+  },
 }).prepare();
 
 export const createSessionTokenStatement = db.insert(sessions).values({
