@@ -31,10 +31,27 @@ export const findUserBySessionId = db.select()
   .where(eq(sessions.session_token, sql.placeholder('session_token')))
   .prepare();
 
+export const countUsersStatement = db
+  .select({ count: sql<number>`count(*)` })
+  .from(users)
+  .prepare();
+
 export const findManyUsersStatement = db.query.users.findMany().prepare();
 
 export async function get_users() {
   return handleServiceCall(async () => await findManyUsersStatement.get() || []);
+}
+
+export async function get_user_count() {
+  return handleServiceCall(async () => {
+    const result = await countUsersStatement.get();
+
+    if (!result) {
+      throw new Error('Failed to get user count');
+    }
+
+    return result.count;
+  });
 }
 
 export async function get_user_by_github_id(github_id: number) {

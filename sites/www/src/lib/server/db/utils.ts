@@ -9,6 +9,7 @@ export interface ServiceResult<T> {
 export async function handleServiceCall<T>(serviceCall: () => Promise<T>): Promise<ServiceResult<T>> {
     try {
         const data = await serviceCall();
+
         return { success: true, data: data ?? undefined };
     } catch (error) {
         console.error(error);

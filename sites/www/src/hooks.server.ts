@@ -1,11 +1,7 @@
 import type { Handle } from '@sveltejs/kit'
 import { sequence } from '@sveltejs/kit/hooks';
-import { get_user_by_session_id } from '$lib/server/db/user';
 import { validate_session_id } from '$lib/server/db/session';
 import { redirect } from '@sveltejs/kit';
-
-import type { InferSelectModel } from "drizzle-orm";
-import { users } from "./lib/server/db/schema";
 
 const USER_ROUTES = ['/account', '/auth/logout']
 

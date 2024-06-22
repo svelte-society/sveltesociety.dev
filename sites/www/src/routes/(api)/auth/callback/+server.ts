@@ -4,6 +4,7 @@ import { get_user_by_github_id, create_user, update_user_from_github_info } from
 import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
 import { dev } from '$app/environment';
+import { appendToStream } from '$lib/server/event_db';
 
 export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
     const code = url.searchParams.get('code');
@@ -61,6 +62,24 @@ export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
         }
 
         user = create_user_result.data
+
+        if (!user) {
+            return new Response('Error creating user', { status: 500 });
+        }
+
+        appendToStream({
+            stream_id: user.id.toString(),
+            stream_type: 'USER',
+            event_type: 'USER_REGISTERED',
+            event_data: {
+                username: user.username,
+                email: user.email,
+                registrationDate: new Date().toISOString()
+            },
+            metadata: {
+                something: 'else'
+            }
+        });
 
     } else {
         const update_result = await update_user_from_github_info(user_result.data.id as number, user_info)
