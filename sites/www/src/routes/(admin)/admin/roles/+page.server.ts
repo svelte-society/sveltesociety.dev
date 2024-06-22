@@ -1,19 +1,22 @@
 import { delete_role, get_roles } from '$lib/server/db/roles';
 import { fail } from '@sveltejs/kit';
-import { zod } from 'sveltekit-superforms/adapters';
 
 export const load = (async () => {
-    const roles = await get_roles();
+    const result = await get_roles();
+
+    if (!result.success) {
+        fail(400, { message: 'Error getting roles' });
+    }
 
     return {
-        roles
+        roles: result.data
     }
 })
 
 export const actions = {
     default: async ({ request }) => {
         const data = await request.formData();
-        const id = data.get('id');
+        const id = data.get('id') as unknown as number;
 
         if (!id) {
             return fail(400, { message: 'No role id provided.' });

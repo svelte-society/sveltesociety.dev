@@ -41,6 +41,7 @@ export const roles = sqliteTable('roles', {
     value: text('value').notNull(),
     description: text('description'),
     permissions: text('permissions'),
+    active: integer('active').notNull().default(0),
     created_at: text('created_at').notNull().default(sql`CURRENT_TIMESTAMP`),
 })
 

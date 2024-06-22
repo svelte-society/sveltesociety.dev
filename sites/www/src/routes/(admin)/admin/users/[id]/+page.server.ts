@@ -23,16 +23,16 @@ const schema = z.object({
 
 export const load = (async ({ params }) => {
     // convert to promise.all
-    const [user, roles] = await Promise.all([get_user(parseInt(params.id)), get_roles()]);
+    const [user_result, roles_result] = await Promise.all([get_user(parseInt(params.id)), get_roles()]);
 
-    if (!user) {
+    if (!user_result.data) {
         redirect(302, '/admin/users');
     }
 
-    const form = await superValidate(user, zod(schema))
+    const form = await superValidate(user_result.data as z.infer<typeof schema>, zod(schema))
     return {
-        user,
-        roles,
+        user: user_result.data,
+        roles: roles_result.data,
         form
     };
 })
@@ -44,7 +44,7 @@ export const actions = {
             return fail(400, { form });
         }
 
-        const { success } = await update_user(form.data);
+        const { success } = await update_user(form.data.id as number, form.data);
 
         if (!success) {
             return message(form, 'Something went wrong.');

@@ -1,11 +1,11 @@
 import type { RequestHandler } from './$types';
 import { create_session, delete_session } from '$lib/server/db/session';
-import { get_user_by_github_id, create_user, update_user } from '$lib/server/db/user';
+import { get_user_by_github_id, create_user, update_user_from_github_info } from '$lib/server/db/user';
 import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
 import { dev } from '$app/environment';
 
-export const GET: RequestHandler = async ({ url, cookies }) => {
+export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
     const code = url.searchParams.get('code');
     if (!code) {
         return new Response('No code provided', { status: 400 });
@@ -43,14 +43,16 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 
     const user_info = await user_info_response.json()
 
+    let user;
+
     if (!user_info) {
         return new Response('Error getting user info', { status: 500 });
     }
 
     // Check if user exists
-    let user = await get_user_by_github_id(user_info.id)
+    let user_result = await get_user_by_github_id(user_info.id)
 
-    if (!user) {
+    if (!user_result.data) {
         // Create user
         const create_user_result = await create_user(user_info)
 
@@ -58,15 +60,17 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
             return new Response('Error creating user', { status: 500 });
         }
 
-        user = create_user_result.user
+        user = create_user_result.data
 
     } else {
-        const update_result = await update_user(user.id as number, user_info)
+        const update_result = await update_user_from_github_info(user_result.data.id as number, user_info)
 
         if (!update_result.success) {
             return new Response('Error updating user', { status: 500 });
         }
-        user = update_result.user
+
+        user = update_result.data
+
         if (!user) {
             return new Response('Error creating user', { status: 500 });
         }
@@ -88,13 +92,13 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
     }
 
     // Create new user session
-    const { session_token } = await create_session(user.id as number)
+    const session_create_result = await create_session(user.id as number)
 
-    if (!session_token) {
+    if (!session_create_result?.data) {
         return new Response('Error creating session', { status: 500 });
     }
 
-    cookies.set('session_id', session_token, {
+    cookies.set('session_id', session_create_result?.data, {
         path: '/',
         httpOnly: true,
         secure: !dev,

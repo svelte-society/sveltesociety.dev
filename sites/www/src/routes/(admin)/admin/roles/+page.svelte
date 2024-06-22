@@ -21,6 +21,11 @@
 			<th
 				class="bg-blueGray-50 text-blueGray-500 border-blueGray-100 whitespace-nowrap border border-l-0 border-r-0 border-solid px-6 py-3 text-left align-middle text-xs font-semibold uppercase"
 			>
+				Active
+			</th>
+			<th
+				class="bg-blueGray-50 text-blueGray-500 border-blueGray-100 whitespace-nowrap border border-l-0 border-r-0 border-solid px-6 py-3 text-left align-middle text-xs font-semibold uppercase"
+			>
 				Actions
 			</th>
 		</tr>
@@ -38,6 +43,11 @@
 					class="whitespace-nowrap border-l-0 border-r-0 border-t-0 p-4 px-6 align-middle text-xs"
 				>
 					{role.description}
+				</td>
+				<td
+					class="whitespace-nowrap border-l-0 border-r-0 border-t-0 p-4 px-6 align-middle text-xs"
+				>
+					{role.active}
 				</td>
 				<td
 					class="align-center flex gap-2 whitespace-nowrap border-l-0 border-r-0 border-t-0 p-4 px-6 text-xs"

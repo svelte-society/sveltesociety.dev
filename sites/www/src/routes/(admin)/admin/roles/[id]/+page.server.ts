@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { Schema, z } from 'zod';
 import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
@@ -19,13 +19,13 @@ const schema = z.object({
 });
 
 export const load = (async ({ params }) => {
-    const role = await get_role_by_id(parseInt(params.id));
+    const result = await get_role_by_id(parseInt(params.id));
 
-    if (!role) {
+    if (!result.data) {
         redirect(302, '/admin/roles');
     }
 
-    const form = await superValidate(role, zod(schema))
+    const form = await superValidate(result.data as z.infer<typeof schema>, zod(schema))
     return {
         form
     };

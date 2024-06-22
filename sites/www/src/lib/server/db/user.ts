@@ -1,6 +1,20 @@
 import { db } from "./index";
-import { sql, eq } from "drizzle-orm";
+import { sql, eq, type InferSelectModel } from "drizzle-orm";
 import { users, sessions } from "./schema";
+import { handleServiceCall } from "./utils";
+
+type GitHubUserInfo = {
+  id: number;
+  login: string;
+  email: string | null;
+  name: string | null;
+  bio: string | null;
+  location: string | null;
+  avatar_url: string | null;
+  twitter_username: string | null;
+}
+
+type UpdateUser = Omit<InferSelectModel<typeof users>, 'id' | 'created_at' | 'updated_at'>;
 
 // Prepared statements
 export const findUserByGitHubIdStatement = db.query.users.findFirst({
@@ -11,76 +25,60 @@ export const findUserStatement = db.query.users.findFirst({
   where: (user, { eq }) => eq(user.id, sql.placeholder('id')),
 }).prepare();
 
-export const findUserBySessionId = db.select().from(sessions).innerJoin(users, eq(sessions.user_id, users.id)).where(eq(sessions.session_token, sql.placeholder('session_token'))).prepare();
+export const findUserBySessionId = db.select()
+  .from(sessions)
+  .innerJoin(users, eq(sessions.user_id, users.id))
+  .where(eq(sessions.session_token, sql.placeholder('session_token')))
+  .prepare();
 
-type GitHubUserInfo = {
-  id: number;
-  login: string;
-  email: string;
-  name: string;
-  bio: string;
-  location: string;
-  avatar_url: string;
-  twitter_username: string;
-}
+export const findManyUsersStatement = db.query.users.findMany().prepare();
 
 export async function get_users() {
-  return await db.query.users.findMany()
+  return handleServiceCall(async () => await findManyUsersStatement.get() || []);
 }
 
 export async function get_user_by_github_id(github_id: number) {
-  const user = await findUserByGitHubIdStatement.get({ id: github_id });
-  return user;
+  return handleServiceCall(async () => await findUserByGitHubIdStatement.get({ id: github_id }));
 }
 
 export async function get_user(userId: number) {
-  const user = await findUserStatement.get({ id: userId });
-
-  console.log('User: ', user)
-
-  return user;
+  return handleServiceCall(async () => await findUserStatement.get({ id: userId }));
 }
 
 export async function create_user(github_user_info: GitHubUserInfo) {
-  const user_info = extract_github_user_info(github_user_info);
-
-  try {
+  return handleServiceCall(async () => {
+    const user_info = extract_github_user_info(github_user_info);
     const [user] = await db.insert(users).values(user_info).returning();
-
-    return { success: true, user }
-  } catch (error) {
-    console.error(error)
-    return { success: false, error }
-  }
+    return user;
+  });
 }
 
-export async function update_user(id: number, new_user_info: GitHubUserInfo) {
-  const user_info = extract_github_user_info(new_user_info);
-  try {
-    const [user] = await db.update(users).set({ ...user_info }).where(eq(users.id, id)).returning()
+export async function update_user_from_github_info(id: number, new_user_info: GitHubUserInfo) {
+  return handleServiceCall(async () => {
+    const user_info = extract_github_user_info(new_user_info);
 
-    return { success: true, user }
-  } catch (error) {
-    console.error(error)
-    return { success: false, error }
-  }
+    const [user] = await db.update(users).set(user_info).where(eq(users.id, id)).returning();
+
+    return user;
+  });
+}
+
+export async function update_user(id: number, new_user_info: UpdateUser) {
+  return handleServiceCall(async () => {
+    const [user] = await db.update(users).set(new_user_info).where(eq(users.id, id)).returning();
+
+    return user;
+  });
 }
 
 export async function get_user_by_session_id(session_token: string) {
-  try {
+  return handleServiceCall(async () => {
     const result = await findUserBySessionId.get({ session_token });
-
     if (!result?.users) {
-      return { success: false, error: 'User not found' }
+      throw new Error('User not found');
     }
-
-    return { success: true, user: result.users }
-  } catch (error) {
-    console.log(error)
-    return { success: false, error }
-  }
-
-  return {};
+    return result.users;
+  });
 }
 
 const extract_github_user_info = (github_user_info: GitHubUserInfo) => {
