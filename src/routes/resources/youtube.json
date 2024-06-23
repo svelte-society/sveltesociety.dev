@@ -15,5 +15,15 @@
 		"title": "Svelte Tutorial for Beginners",
 		"url": "https://youtube.com/playlist?list=PL4cUxeGkcC9hlbrVO_2QFVqVPhlZmz7tO&si=HHE2i-mSt9u1_CtW",
 		"description": "by The Net Ninja"
+	},
+	{
+		"title": "Svelte Tutorial for Beginners",
+		"url": "https://www.youtube.com/playlist?list=PLC3y8-rFHvwiYZOsc2D8AO1MYwLjZQrKx",
+		"description": "Codevolution"
+	},
+	{
+		"title": "SvelteKit Tutorial",
+		"url": "https://www.youtube.com/playlist?list=PLC3y8-rFHvwjifDNQYYWI6i06D7PjF0Ua",
+		"description": "Codevolution"
 	}
 ]
