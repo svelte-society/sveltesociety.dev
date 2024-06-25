@@ -3027,5 +3027,12 @@
 		"description": "svelte preprocessor to remove attributes (like data-testid) from builds",
 		"npm": "svelte-remove-attributes",
 		"categories": ["styling-and-layout", "build-plugins"]
+	},
+	{
+		"title": "svelte-paperscript",
+		"repository": "https://github.com/apple-phi/svelte-paperscript",
+		"description": "Write PaperScript code directly in your Svelte components!",
+		"npm": "svelte-paperscript",
+		"categories": ["build-plugins", "integrations"]
 	}
 ]
