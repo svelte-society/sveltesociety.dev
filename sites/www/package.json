@@ -47,6 +47,7 @@
 		"svelte": "5.0.0-next.175",
 		"svelte-check": "^3.8.4",
 		"sveltekit-superforms": "^2.15.2",
+		"sveltesociety.dev-service": "workspace:*",
 		"tailwindcss": "^3.4.4",
 		"tslib": "^2.6.3",
 		"tsx": "^4.16.2",
