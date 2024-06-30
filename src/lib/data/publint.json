@@ -424,5 +424,6 @@
 	"runed": { "valid": true },
 	"paneforge": { "valid": true },
 	"@altron/altron": { "valid": true },
-	"svelte-remove-attributes": { "valid": true }
+	"svelte-remove-attributes": { "valid": true },
+	"svelte-paperscript": { "valid": true }
 }
