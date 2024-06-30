@@ -40,8 +40,8 @@
 		"keywords": ["svelte", "router"]
 	},
 	"super-sitemap": {
-		"version": "0.14.14",
-		"date": "2024-02-03T16:53:06.618Z",
+		"version": "0.14.15",
+		"date": "2024-06-29T17:21:59.571Z",
 		"support": "^4.0.0",
 		"keywords": ["sitemap", "sveltekit", "svelte", "seo"]
 	},
@@ -62,8 +62,8 @@
 		]
 	},
 	"svelte-tel-input": {
-		"version": "3.3.9",
-		"date": "2023-11-20T19:18:26.402Z",
+		"version": "3.4.1",
+		"date": "2024-06-27T07:05:13.831Z",
 		"support": "^3.58.0 || ^4.0.0",
 		"keywords": [
 			"svelte",
@@ -124,8 +124,8 @@
 		]
 	},
 	"@sveltejs/kit": {
-		"version": "2.5.17",
-		"date": "2024-06-19T03:06:31.033Z",
+		"version": "2.5.18",
+		"date": "2024-06-29T14:59:24.165Z",
 		"support": "^4.0.0 || ^5.0.0-next.0",
 		"keywords": ["framework", "official", "svelte", "sveltekit", "vite"]
 	},
@@ -142,20 +142,20 @@
 		"keywords": ["adapter", "automatically", "deploy", "hosting", "platform", "svelte", "sveltekit"]
 	},
 	"@sveltejs/adapter-netlify": {
-		"version": "4.2.1",
-		"date": "2024-06-13T17:51:57.481Z",
+		"version": "4.3.0",
+		"date": "2024-06-29T14:59:17.714Z",
 		"support": "Unknown",
 		"keywords": ["adapter", "deploy", "hosting", "netlify", "svelte", "sveltekit"]
 	},
 	"@sveltejs/adapter-cloudflare-workers": {
-		"version": "2.4.1",
-		"date": "2024-06-13T17:51:56.128Z",
+		"version": "2.5.0",
+		"date": "2024-06-29T14:59:16.858Z",
 		"support": "Unknown",
 		"keywords": ["adapter", "cloudflare workers", "deploy", "hosting", "svelte", "sveltekit"]
 	},
 	"@sveltejs/adapter-cloudflare": {
-		"version": "4.5.0",
-		"date": "2024-06-19T03:06:24.641Z",
+		"version": "4.6.0",
+		"date": "2024-06-29T14:59:17.357Z",
 		"support": "Unknown",
 		"keywords": ["adapter", "cloudflare pages", "deploy", "hosting", "svelte", "sveltekit"]
 	},
@@ -180,8 +180,8 @@
 		]
 	},
 	"@sveltejs/adapter-vercel": {
-		"version": "5.3.2",
-		"date": "2024-06-13T17:51:56.135Z",
+		"version": "5.4.0",
+		"date": "2024-06-29T14:59:16.870Z",
 		"support": "Unknown",
 		"keywords": ["adapter", "deploy", "hosting", "svelte", "sveltekit", "vercel"]
 	},
@@ -303,8 +303,8 @@
 		"support": "Unknown"
 	},
 	"svelte-tags-input": {
-		"version": "6.0.0",
-		"date": "2024-01-26T20:36:44.018Z",
+		"version": "6.0.1",
+		"date": "2024-06-29T16:00:53.632Z",
 		"support": "Unknown",
 		"keywords": ["svelte", "tags", "input"]
 	},
@@ -676,9 +676,9 @@
 	},
 	"svelte-icons": { "version": "2.1.0", "date": "2020-03-07T23:48:39.756Z", "support": "Unknown" },
 	"svelte-native": {
-		"version": "1.0.21",
-		"date": "2024-04-11T13:57:49.660Z",
-		"support": "~4.2.8",
+		"version": "1.0.23",
+		"date": "2024-06-26T07:25:45.498Z",
+		"support": "^4.2.8",
 		"keywords": ["nativescript", "svelte"]
 	},
 	"svelte-copyright": {
@@ -1007,8 +1007,8 @@
 	},
 	"smelte": { "version": "1.1.8", "date": "2021-09-06T04:05:31.316Z", "support": "Unknown" },
 	"@melt-ui/svelte": {
-		"version": "0.81.0",
-		"date": "2024-05-31T09:29:36.369Z",
+		"version": "0.83.0",
+		"date": "2024-06-28T14:24:34.582Z",
 		"support": "^3.0.0 || ^4.0.0 || ^5.0.0-next.118"
 	},
 	"radix-svelte": { "version": "0.9.0", "date": "2023-07-23T19:43:39.851Z", "support": "^4.1.1" },
@@ -1052,8 +1052,8 @@
 		]
 	},
 	"layercake": {
-		"version": "8.3.1",
-		"date": "2024-06-22T21:32:35.866Z",
+		"version": "8.3.4",
+		"date": "2024-06-28T15:47:59.498Z",
 		"support": "3 - 5 || >=5.0.0-next.120"
 	},
 	"@egjs/svelte-infinitegrid": {
@@ -1216,8 +1216,8 @@
 		"support": "Unknown"
 	},
 	"svelte-fusioncharts": {
-		"version": "1.0.0",
-		"date": "2019-09-11T13:17:41.018Z",
+		"version": "1.1.0",
+		"date": "2024-06-23T09:47:07.097Z",
 		"support": "Unknown",
 		"keywords": [
 			"svelte",
@@ -1402,14 +1402,14 @@
 		"keywords": ["svelte"]
 	},
 	"@storybook/sveltekit": {
-		"version": "8.1.10",
-		"date": "2024-06-17T17:30:43.094Z",
+		"version": "8.1.11",
+		"date": "2024-06-27T03:43:11.030Z",
 		"support": "^4.0.0 || ^5.0.0-next.65",
 		"keywords": ["storybook", "svelte", "sveltekit", "svelte-kit"]
 	},
 	"@storybook/svelte": {
-		"version": "8.1.10",
-		"date": "2024-06-17T17:31:50.958Z",
+		"version": "8.1.11",
+		"date": "2024-06-27T03:44:10.209Z",
 		"support": "^4.0.0 || ^5.0.0-next.65",
 		"keywords": ["storybook"]
 	},
@@ -1471,9 +1471,9 @@
 		"keywords": ["svelte", "asr", "router", "browserify"]
 	},
 	"@testing-library/svelte": {
-		"version": "5.1.0",
-		"date": "2024-04-24T13:45:24.613Z",
-		"support": "^3 || ^4 || ^5",
+		"version": "5.2.0",
+		"date": "2024-06-28T22:52:03.926Z",
+		"support": "^3 || ^4 || ^5 || ^5.0.0-next.0",
 		"keywords": [
 			"testing",
 			"svelte",
@@ -1620,8 +1620,8 @@
 		]
 	},
 	"svelte-headlessui": {
-		"version": "0.0.40",
-		"date": "2024-06-22T23:38:05.301Z",
+		"version": "0.0.42",
+		"date": "2024-06-25T15:23:52.224Z",
 		"support": "^4.0.0 || ^5.0.0",
 		"keywords": [
 			"svelte",
@@ -2296,8 +2296,8 @@
 		"keywords": ["svelte", "currency", "money", "input", "i18n", "positive", "negative"]
 	},
 	"flowbite-svelte": {
-		"version": "0.46.4",
-		"date": "2024-06-19T17:12:22.594Z",
+		"version": "0.46.12",
+		"date": "2024-06-29T15:06:48.063Z",
 		"support": "^3.55.1 || ^4.0.0",
 		"keywords": [
 			"svelte",
@@ -2367,8 +2367,8 @@
 		]
 	},
 	"@tolgee/svelte": {
-		"version": "5.28.2",
-		"date": "2024-06-20T09:02:11.918Z",
+		"version": "5.28.4",
+		"date": "2024-06-26T14:26:33.589Z",
 		"support": "^3.29.0 || ^4.0.0",
 		"keywords": ["localization", "internationalization", "l10n", "i18n", "translation", "languages"]
 	},
@@ -2505,14 +2505,14 @@
 		]
 	},
 	"@perfectthings/ui": {
-		"version": "9.5.6",
-		"date": "2024-06-18T12:00:43.424Z",
+		"version": "9.6.0",
+		"date": "2024-06-29T11:56:58.957Z",
 		"support": "Unknown",
 		"keywords": ["UI", "svelte", "PerfectThings"]
 	},
 	"@tanstack/svelte-query": {
-		"version": "5.46.1",
-		"date": "2024-06-21T14:32:35.392Z",
+		"version": "5.49.0",
+		"date": "2024-06-29T06:22:48.366Z",
 		"support": "^3.54.0 || ^4.0.0 || ^5.0.0-next.0"
 	},
 	"@pragmatic-engineering/svelte-form-builder-community": {
@@ -2587,8 +2587,8 @@
 	},
 	"chat-embed": { "version": "0.0.32", "date": "2023-03-18T13:25:04.673Z", "support": "Unknown" },
 	"lucide-svelte": {
-		"version": "0.396.0",
-		"date": "2024-06-21T10:54:35.534Z",
+		"version": "0.399.0",
+		"date": "2024-06-28T08:25:34.458Z",
 		"support": "^3 || ^4 || ^5.0.0-next.42",
 		"keywords": [
 			"Lucide",
@@ -2803,20 +2803,20 @@
 	},
 	"supasveltekit": { "version": "0.1.5", "date": "2024-01-26T01:44:51.344Z", "support": "^4.0.0" },
 	"@jill64/sveltekit-adapter-aws": {
-		"version": "1.9.34",
-		"date": "2024-06-21T07:03:03.449Z",
+		"version": "1.9.40",
+		"date": "2024-06-29T08:16:04.784Z",
 		"support": "Unknown",
 		"keywords": ["adapter", "aws", "sveltekit"]
 	},
 	"@jill64/sentry-sveltekit-cloudflare": {
-		"version": "1.7.14",
-		"date": "2024-06-09T22:53:47.998Z",
+		"version": "1.7.15",
+		"date": "2024-06-25T13:42:45.683Z",
 		"support": "Unknown",
 		"keywords": ["cloudflare", "edge", "pages", "sentry", "sveltekit", "worker"]
 	},
 	"@jill64/sentry-sveltekit-edge": {
-		"version": "1.2.35",
-		"date": "2024-06-18T06:43:07.930Z",
+		"version": "1.2.37",
+		"date": "2024-06-26T07:41:50.698Z",
 		"support": "Unknown",
 		"keywords": ["edge", "sentry", "sveltekit", "vercel"]
 	},
@@ -2827,8 +2827,8 @@
 		"keywords": ["svelte", "sveltekit", "pwa", "service-worker", "sveltekit-adapter"]
 	},
 	"layerchart": {
-		"version": "0.41.6",
-		"date": "2024-06-21T05:22:01.715Z",
+		"version": "0.43.4",
+		"date": "2024-06-29T05:53:53.037Z",
 		"support": "^3.56.0 || ^4.0.0 || ^5.0.0-next.120"
 	},
 	"@egjs/svelte-flicking": {
@@ -2837,8 +2837,8 @@
 		"support": "Unknown"
 	},
 	"svelte-ux": {
-		"version": "0.70.1",
-		"date": "2024-06-22T03:43:29.137Z",
+		"version": "0.71.3",
+		"date": "2024-06-28T16:28:44.267Z",
 		"support": "^3.56.0 || ^4.0.0 || ^5.0.0-next.120"
 	},
 	"@born05/sveltekit-proxy": {
@@ -2866,8 +2866,8 @@
 		"support": "^4.0.0"
 	},
 	"sveltekit-superforms": {
-		"version": "2.15.1",
-		"date": "2024-06-10T11:56:35.929Z",
+		"version": "2.15.2",
+		"date": "2024-06-26T05:29:26.330Z",
 		"support": "3.x || 4.x || >=5.0.0-next.51",
 		"keywords": [
 			"sveltekit",
@@ -2894,14 +2894,14 @@
 		"keywords": ["svelte"]
 	},
 	"svelte-inline-modal": {
-		"version": "1.1.19",
-		"date": "2024-06-06T14:19:21.790Z",
+		"version": "1.1.20",
+		"date": "2024-06-23T08:26:41.436Z",
 		"support": "^4.0.0",
 		"keywords": ["inline", "modal", "onthefly", "svelte"]
 	},
 	"@jill64/svelte-input": {
-		"version": "1.6.30",
-		"date": "2024-06-13T15:57:07.182Z",
+		"version": "1.6.31",
+		"date": "2024-06-23T02:29:02.950Z",
 		"support": "^4.0.0",
 		"keywords": ["components", "input", "suite", "svelte"]
 	},
@@ -2912,8 +2912,8 @@
 		"keywords": ["notify", "svelte", "toast"]
 	},
 	"@tanstack/svelte-table": {
-		"version": "8.17.3",
-		"date": "2024-05-14T14:45:24.374Z",
+		"version": "8.19.1",
+		"date": "2024-06-29T23:35:23.937Z",
 		"support": "^4.0.0 || ^3.49.0",
 		"keywords": ["svelte", "table", "svelte-table", "datagrid"]
 	},
@@ -2957,13 +2957,13 @@
 		"keywords": ["svelte", "markdown", "remark", "unified", "commonmark", "gfm", "plugin"]
 	},
 	"@sentry/svelte": {
-		"version": "8.11.0",
-		"date": "2024-06-21T11:55:24.824Z",
+		"version": "8.13.0",
+		"date": "2024-06-27T13:07:52.351Z",
 		"support": "3.x || 4.x || 5.x"
 	},
 	"@sentry/sveltekit": {
-		"version": "8.11.0",
-		"date": "2024-06-21T11:55:49.259Z",
+		"version": "8.13.0",
+		"date": "2024-06-27T13:08:28.377Z",
 		"support": "Unknown"
 	},
 	"svelte-french-toast": {
@@ -3281,8 +3281,8 @@
 		"keywords": ["prettier", "svelte"]
 	},
 	"svelte-check": {
-		"version": "3.8.1",
-		"date": "2024-06-17T19:45:25.220Z",
+		"version": "3.8.4",
+		"date": "2024-06-26T15:42:30.199Z",
 		"support": "^3.55.0 || ^4.0.0-next.0 || ^4.0.0 || ^5.0.0-next.0",
 		"keywords": ["svelte", "cli"]
 	},
@@ -3298,8 +3298,8 @@
 		"support": "Unknown"
 	},
 	"eslint-plugin-svelte": {
-		"version": "2.40.0",
-		"date": "2024-06-17T15:00:21.506Z",
+		"version": "2.41.0",
+		"date": "2024-06-24T11:19:20.676Z",
 		"support": "^3.37.0 || ^4.0.0 || ^5.0.0-next.155",
 		"keywords": ["eslint", "eslint-plugin", "eslintplugin", "svelte", "sveltejs"]
 	},
@@ -3337,8 +3337,8 @@
 		"keywords": ["svelte", "svelvet", "typescript"]
 	},
 	"carta-md": {
-		"version": "4.2.1",
-		"date": "2024-06-17T07:42:10.943Z",
+		"version": "4.3.1",
+		"date": "2024-06-25T15:07:36.920Z",
 		"support": "^3.54.0 || ^4.0.0",
 		"keywords": [
 			"carta",
@@ -3435,8 +3435,8 @@
 		"keywords": ["sveltekit", "workbox", "pwa", "vite", "vite-plugin"]
 	},
 	"bits-ui": {
-		"version": "0.21.10",
-		"date": "2024-05-26T21:25:52.830Z",
+		"version": "0.21.11",
+		"date": "2024-06-27T22:26:58.776Z",
 		"support": "^4.0.0 || ^5.0.0-next.118"
 	},
 	"formsnap": {
@@ -3466,8 +3466,8 @@
 		]
 	},
 	"svelte-monaco": {
-		"version": "0.3.0",
-		"date": "2023-09-11T22:31:41.570Z",
+		"version": "0.4.0",
+		"date": "2024-06-29T03:35:39.513Z",
 		"support": ">=4.0.0",
 		"keywords": ["monaco", "svelte"]
 	},
@@ -3580,11 +3580,15 @@
 		"keywords": ["images", "svelte"]
 	},
 	"@playwright/experimental-ct-svelte": {
-		"version": "1.44.1",
-		"date": "2024-05-23T08:32:33.501Z",
+		"version": "1.45.0",
+		"date": "2024-06-24T22:29:44.305Z",
 		"support": "Unknown"
 	},
-	"vaul-svelte": { "version": "0.3.1", "date": "2024-05-17T20:14:22.448Z", "support": "^4.0.0" },
+	"vaul-svelte": {
+		"version": "0.3.2",
+		"date": "2024-06-29T16:12:55.492Z",
+		"support": "^4.0.0 || ^5.0.0-next.1"
+	},
 	"svelte-client-components": {
 		"version": "0.1.0",
 		"date": "2024-01-05T17:53:34.370Z",
@@ -3597,8 +3601,8 @@
 		"support": "^4.0.0"
 	},
 	"@inlang/paraglide-sveltekit": {
-		"version": "0.10.6",
-		"date": "2024-06-21T13:43:50.419Z",
+		"version": "0.10.8",
+		"date": "2024-06-26T11:36:26.077Z",
 		"support": "Unknown"
 	},
 	"embla-carousel-svelte": {
@@ -3679,7 +3683,7 @@
 		"support": "^5.0.0-next.136",
 		"keywords": ["svelte", "table", "data", "dataview", "grid", "gridview", "datagrid"]
 	},
-	"runed": { "version": "0.12.1", "date": "2024-06-12T16:22:46.437Z", "support": "^5.0.0" },
+	"runed": { "version": "0.13.0", "date": "2024-06-23T19:18:03.588Z", "support": "^5.0.0" },
 	"paneforge": {
 		"version": "0.0.5",
 		"date": "2024-06-17T15:47:32.621Z",
@@ -3704,5 +3708,11 @@
 		"date": "2024-06-14T18:56:57.930Z",
 		"support": "4 - 5",
 		"keywords": ["sveltekit", "preprocess", "preprocessor", "svelte", "data-testid"]
+	},
+	"svelte-paperscript": {
+		"version": "0.1.1",
+		"date": "2024-06-25T15:32:58.706Z",
+		"support": "Unknown",
+		"keywords": ["svelte", "preprocess", "paper.js", "paperscript", "typescript"]
 	}
 }
