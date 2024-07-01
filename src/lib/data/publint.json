@@ -425,5 +425,10 @@
 	"paneforge": { "valid": true },
 	"@altron/altron": { "valid": true },
 	"svelte-remove-attributes": { "valid": true },
-	"svelte-paperscript": { "valid": true }
+	"svelte-paperscript": { "valid": true },
+	"sveaflet": { "valid": true },
+	"svelte-contextify": { "valid": true },
+	"@xyflow/svelte": { "valid": true },
+	"convex-svelte": { "valid": true },
+	"sveltekit-reroute": { "valid": true }
 }
