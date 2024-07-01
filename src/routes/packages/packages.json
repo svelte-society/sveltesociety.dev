@@ -3034,5 +3034,40 @@
 		"description": "Write PaperScript code directly in your Svelte components!",
 		"npm": "svelte-paperscript",
 		"categories": ["build-plugins", "integrations"]
+	},
+	{
+		"title": "Sveaflet",
+		"repository": "https://github.com/GrayFrost/sveaflet",
+		"description": "Sveaflet is a library for the Svelte framework that wraps Leaflet making it easy to crete reactive maps.",
+		"npm": "sveaflet",
+		"categories": ["integrations"]
+	},
+	{
+		"title": "svelte-contextify",
+		"repository": "https://github.com/Hugos68/svelte-contextify",
+		"description": "A tiny library for vastly improving context managament in Svelte apps by encapsulating the Context API.",
+		"npm": "svelte-contextify",
+		"categories": ["stores-and-state"]
+	},
+	{
+		"title": "Svelte Flow",
+		"repository": "https://github.com/xyflow/xyflow",
+		"description": "Powerful open source libraries for building node-based UIs with Svelte",
+		"npm": "@xyflow/svelte",
+		"categories": ["data-visualisation"]
+	},
+	{
+		"title": "convex-svelte",
+		"repository": "https://github.com/get-convex/convex-svelte",
+		"description": "Receive live updates to Convex query subscriptions and call mutations and actions from Svelte",
+		"npm": "convex-svelte",
+		"categories": ["data-fetching"]
+	},
+	{
+		"title": "sveltekit-reroute",
+		"repository": "https://github.com/joshnuss/sveltekit-reroute",
+		"description": "A SvelteKit handler for redirection rules.",
+		"npm": "sveltekit-reroute",
+		"categories": ["routers"]
 	}
 ]
