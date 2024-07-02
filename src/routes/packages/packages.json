@@ -3070,4 +3070,12 @@
 		"npm": "sveltekit-reroute",
 		"categories": ["routers"]
 	}
+	{
+		"title": "SVAR Core",
+		"url": "https://svar.dev/svelte/core/",
+		"repository": "https://github.com/svar-widgets/core",
+		"description": "Svelte UI library of 20+ fast and responsive components: from buttons to date pickers. Lightweight, customizable, available in light and dark skins.",
+		"npm": "@wx/svelte-core",
+		"categories": ["ui-components"]
+	}
 ]
