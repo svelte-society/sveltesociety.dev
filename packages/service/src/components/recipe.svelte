@@ -16,7 +16,7 @@ export let tags: Array<string> = [];
 export let connected = false;
 </script>
 
-<Content type="Recipe" {...$$props}>
+<Content {...$$props} type="Recipe">
     <SvelteMarkdown source={preview} />
     <br />
     <a href="">Read more...</a>

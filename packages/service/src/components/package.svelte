@@ -15,7 +15,7 @@ export let tags: Array<string> = [];
 export let connected = false;
 </script>
 
-<Content {...$$props}>
+<Content {...$$props} type="Package">
     {#if cover}
     <figure>
         <img src={cover}/>

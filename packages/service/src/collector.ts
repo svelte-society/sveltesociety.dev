@@ -1,5 +1,6 @@
 import { ComposedService, type ContentData, type ServiceMetadata } from "./services/abstract.js";
 import { ArticleService } from "./services/article-service.js";
+import { GuildService } from "./services/guild-service.js";
 import { PackageService } from "./services/package-service.js";
 import { type ConnectedService, SocietyStatsService } from "./services/society-stats-service.js";
 import { VideoService } from "./services/video-service.js";
@@ -8,7 +9,7 @@ import { VideoService } from "./services/video-service.js";
 export class CollectorService extends ComposedService<any> {
 	private readonly stats = new SocietyStatsService();
 	constructor(private userService: ConnectedService) {
-		super([new VideoService(), new PackageService(), new ArticleService()]);
+		super([new VideoService(), new PackageService(), new ArticleService(), new GuildService()]);
 	}
 
 	async getInformation(metadata: ServiceMetadata): Promise<ContentData & StatsData & Record<string, unknown>> {

@@ -8,20 +8,32 @@ export let liked = false;
 export let likes: number;
 export let saved = false;
 export let name: string;
+export let cover: string;
+export let members: number;
 export let description: string;
-export let embed: string;
 export let tags: Array<string> = [];
 export let connected = false;
 </script>
 
-<Content {...$$props} type="Video">
-    <iframe id="player" width="600" height="340"
-            src={embed}
-             style="border:none"></iframe>
+<Content {...$$props} type="Guild">
+    {#if cover}
+        <figure>
+            <img src={cover}/>
+        </figure>
+    {/if}
+    <strong>{members}</strong> Members
 </Content>
 
 <style>
-    iframe {
+    figure {
+        margin: 0;
+        padding: 0;
+    }
+
+    figure img {
+        width: 600px;
+        height: 300px;
+
         border-radius: 8px;
     }
 </style>

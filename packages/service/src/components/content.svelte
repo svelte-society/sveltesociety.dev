@@ -1,10 +1,12 @@
 <script lang="ts">
 // biome-ignore lint/correctness/noUnusedImports: Used in Markup
 import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
+// biome-ignore lint/correctness/noUnusedImports: Used in Markup
+import SvelteMarkdown from "svelte-markdown";
 
 export let type: string;
 export let author: string;
-export let lastUpdate: string;
+export let lastUpdate: string | undefined;
 export let views: number;
 export let liked = false;
 export let likes: number;
@@ -20,8 +22,8 @@ export let connected = false;
         <div>
             <strong>{type}</strong>
             posted by {author}
-            &bull;
-            {formatDistanceToNow(lastUpdate ?? (new Date().toISOString()))}
+            {#if lastUpdate}&bull;
+                {formatDistanceToNow(lastUpdate ?? (new Date().toISOString()))}{/if}
             &bull;
             <span>{views}
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,17 +53,21 @@ export let connected = false;
         {/if}
     </header>
     <h3>{name}</h3>
-    <p>{description}</p>
+    <SvelteMarkdown source={description} />
     <section><slot></slot></section>
     <footer>
-        <ul>
-            {#each tags as tag}
-                <li>#️ {tag}</li>
-            {/each}
-        </ul>
-        <aside>
-            {formatDistanceToNow(lastUpdate ?? Date.now())}
-        </aside>
+        {#if tags.length}
+            <ul>
+                {#each tags as tag}
+                    <li>#️ {tag}</li>
+                {/each}
+            </ul>
+        {/if}
+        {#if lastUpdate}
+            <aside>
+                {formatDistanceToNow(lastUpdate ?? Date.now())}
+            </aside>
+        {/if}
     </footer>
 </article>
 

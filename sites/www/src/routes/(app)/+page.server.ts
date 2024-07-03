@@ -1,4 +1,5 @@
 import { CollectorService } from 'sveltesociety.dev-service/src/collector.js';
+import { GuildService } from 'sveltesociety.dev-service/src/services/guild-service';
 import { ConnectedService } from 'sveltesociety.dev-service/src/services/society-stats-service.js';
 import type { PageServerLoad } from './$types';
 
@@ -15,7 +16,9 @@ export const load: PageServerLoad = async () => {
 			{ type: 'video', identifier: '330781388' },
 			{ type: 'recipe', identifier: 'xxx' },
 			{ type: 'package', identifier: 'svelte' },
-			{ type: 'package', identifier: 'svelte-atoms' }
+			{ type: 'package', identifier: 'svelte-atoms' },
+			{ type: 'guild', identifier: 'london-javascript' },
+			...(await new GuildService().getAllServiceMetadata())
 		])
 	};
 };

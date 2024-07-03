@@ -3,6 +3,7 @@
 	import Package from 'sveltesociety.dev-service/src/components/package.svelte';
 	import Recipe from 'sveltesociety.dev-service/src/components/recipe.svelte';
 	import Video from 'sveltesociety.dev-service/src/components/video.svelte';
+	import Guild from 'sveltesociety.dev-service/src/components/guild.svelte';
 
 	import type { PageData } from './$types';
 	export let data: PageData;
@@ -29,47 +30,12 @@
 
 {#each data.items as item}
 	{#if item.type === 'package'}
-		<Package
-			type="Library"
-			description={item.description}
-			name={item.name}
-			author={item.author}
-			lastUpdate={item.lastUpdate}
-			likes={item.likes}
-			tags={item.keywords}
-			cover={item.cover}
-			connected={item.connected}
-			views={item.views}
-			liked={item.liked}
-			saved={item.saved}
-		/>
+		<Package {...item} tags={item.keywords} />
 	{:else if item.type === 'video'}
-		<Video
-			description={item.description}
-			name={item.name}
-			author={item.author}
-			lastUpdate={item.lastUpdate}
-			likes={item.likes}
-			tags={item.keywords}
-			embed={item.embed}
-			connected={item.connected}
-			views={item.views}
-			liked={item.liked}
-			saved={item.saved}
-		/>
+		<Video {...item} tags={item.keywords} />
 	{:else if item.type === 'recipe'}
-		<Recipe
-			description={item.description}
-			name={item.name}
-			author={item.author}
-			lastUpdate={item.lastUpdate}
-			likes={item.likes}
-			tags={item.keywords}
-			preview={item.preview}
-			connected={item.connected}
-			views={item.views}
-			liked={item.liked}
-			saved={item.saved}
-		/>
+		<Recipe {...item} tags={item.keywords} />
+	{:else if item.type === 'guild'}
+		<Guild {...item} />
 	{/if}
 {/each}

@@ -7,7 +7,7 @@ export type ContentData = {
 	type: string;
 	name: string;
 	author: string;
-	lastUpdate: string;
+	lastUpdate?: string;
 	keywords: Array<string>;
 	description: string;
 };

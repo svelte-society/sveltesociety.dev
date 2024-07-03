@@ -1,5 +1,5 @@
 import { Memorize, longTermCache } from "../cache.js";
-import {ComposedService, type ContentData, type ServiceInterface, type ServiceMetadata} from "./abstract.js";
+import { ComposedService, type ContentData, type ServiceInterface, type ServiceMetadata } from "./abstract.js";
 
 export const TYPE = "article";
 export const RECIPE_TYPE = "recipe";
@@ -9,7 +9,6 @@ export class ArticleService extends ComposedService<{ preview: string }> {
 		super([new RecipeService()]);
 	}
 }
-
 
 export class RecipeService implements ServiceInterface<{ preview: string }> {
 	canHandle(metadata: ServiceMetadata): Promise<boolean> {
