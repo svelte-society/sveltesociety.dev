@@ -2,14 +2,13 @@ import { db } from '../';
 import { eq, gte, lt, and, sql } from 'drizzle-orm';
 import { sessions } from '../schema';
 import { handleServiceCall } from './utils';
-import crypto from 'crypto';
 const ONE_DAY = 60 * 60 * 24;
 const SEVEN_DAYS = ONE_DAY * 7;
 
 export class SessionService {
 	private static instance: SessionService;
 
-	private constructor() {}
+	private constructor() { }
 
 	public static getInstance(): SessionService {
 		if (!SessionService.instance) {
