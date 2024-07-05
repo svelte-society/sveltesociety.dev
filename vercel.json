@@ -1,4 +1,4 @@
 {
     "buildCommand": "pnpm run build:www",
-    "outputDirectory": "sites/www/.svelte-ki"
+    "outputDirectory": "sites/www/.svelte-kit"
 }
