@@ -1,1 +1,0 @@
-ALTER TABLE `roles` ADD `active` integer DEFAULT 0 NOT NULL;
