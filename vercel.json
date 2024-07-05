@@ -1,4 +1,5 @@
 {
+    "$schema": "https://openapi.vercel.sh/vercel.json",
     "buildCommand": "cd sites/www && pnpm build",
-    "outputDirectory": "sites/www/.svelte-kit"
+    "outputDirectory": "sites/www/.vercel"
 }
