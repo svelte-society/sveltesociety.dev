@@ -3,7 +3,7 @@
 	import Button from '$lib/ui/Button.svelte';
 
 	const { data } = $props<{ form: any }>();
-	const { form, errors, enhance } = superForm(data.form);
+	const { form, errors, enhance } =superForm(data.form);
 </script>
 
 <form use:enhance method="post" class="mb-4 space-y-6 rounded bg-white px-8 pb-8 pt-6 shadow-md">

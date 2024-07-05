@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Select } from 'bits-ui';
+	import Select from '$lib/ui/Select.svelte';
 	import Button from '$lib/ui/Button.svelte';
 	import Avatar from '$lib/ui/Avatar.svelte';
 	import { toast } from 'svelte-sonner';
@@ -9,10 +9,11 @@
 
 	const { form, errors, enhance } = superForm(data.form);
 
-	console.log(data);
-
 	$effect(() => {
-		toast.error(data.form.message);
+		if (data.form.message) {
+			console.log(data.form.message);
+			toast.error(data.form.message);
+		}
 	});
 </script>
 
@@ -110,32 +111,12 @@
 	<div class="space-y-2">
 		<div class="space-y-2">
 			<label for="role" class="block text-sm font-medium text-gray-700">Role:</label>
-			<Select.Root name="role_id" bind:selected={$form.role_id}>
-				<Select.Trigger
-					class="mt-1 block h-10 w-full rounded-md border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-					aria-label="Select a role"
-				>
-					<Select.Value class="text-sm" placeholder="Select a role" />
-				</Select.Trigger>
-				<Select.Content
-					class="mt-1 rounded-md border border-gray-300 bg-white shadow-lg"
-					sideOffset={4}
-				>
-					{#each data.roles as role}
-						<Select.Item
-							class="cursor-pointer px-3 py-2 text-sm hover:bg-gray-100"
-							value={role.value}
-							label={role.name}
-						>
-							{role.name}
-							<Select.ItemIndicator class="ml-auto">
-								<Check class="h-4 w-4 text-indigo-600" />
-							</Select.ItemIndicator>
-						</Select.Item>
-					{/each}
-				</Select.Content>
-				<Select.Input name="role_id" />
-			</Select.Root>
+			<Select
+				options={data.roles}
+				bind:value={$form.role_id}
+				placeholder="Choose a role"
+				name="role_id"
+			/>
 		</div>
 	</div>
 

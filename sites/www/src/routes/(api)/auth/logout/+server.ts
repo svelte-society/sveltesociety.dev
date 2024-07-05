@@ -1,6 +1,6 @@
 import type { RequestHandler } from './$types';
 import { redirect } from '@sveltejs/kit';
-import { delete_session } from '$lib/server/db/session';
+import { sessionService } from '$lib/server/db/services/session';
 
 export const GET: RequestHandler = async ({ cookies }) => {
     const session_id = cookies.get('session_id')
@@ -9,7 +9,7 @@ export const GET: RequestHandler = async ({ cookies }) => {
         return new Response('No session id provided', { status: 400 });
     }
 
-    delete_session(session_id)
+    sessionService.delete_session(session_id)
     cookies.delete('session_id', { path: '/' })
 
     redirect(302, '/')

@@ -12,7 +12,7 @@
 	</div>
 	<div class="rounded-lg bg-white p-6 shadow-md">
 		<h3 class="mb-4 text-xl font-semibold text-gray-800">Active Roles</h3>
-		<div class="text-4xl font-bold text-green-600">5</div>
+		<div class="text-4xl font-bold text-green-600">{data.roles}</div>
 		<p class="text-gray-600">Current Roles</p>
 	</div>
 

@@ -1,10 +1,9 @@
 import type { RequestHandler } from './$types';
-import { create_session, delete_session } from '$lib/server/db/session';
-import { get_user_by_github_id, create_user, update_user_from_github_info } from '$lib/server/db/user';
+import { sessionService } from '$lib/server/db/services/session';
+import { userService } from '$lib/server/db/services/user';
 import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
 import { dev } from '$app/environment';
-import { appendToStream } from '$lib/server/event_db';
 
 export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
     const code = url.searchParams.get('code');
@@ -51,11 +50,11 @@ export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
     }
 
     // Check if user exists
-    let user_result = await get_user_by_github_id(user_info.id)
+    let user_result = await userService.get_user_by_github_id(user_info.id)
 
     if (!user_result.data) {
         // Create user
-        const create_user_result = await create_user(user_info)
+        const create_user_result = await userService.create_user(user_info)
 
         if (!create_user_result.success) {
             return new Response('Error creating user', { status: 500 });
@@ -67,22 +66,8 @@ export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
             return new Response('Error creating user', { status: 500 });
         }
 
-        appendToStream({
-            stream_id: user.id.toString(),
-            stream_type: 'USER',
-            event_type: 'USER_REGISTERED',
-            event_data: {
-                username: user.username,
-                email: user.email,
-                registrationDate: new Date().toISOString()
-            },
-            metadata: {
-                something: 'else'
-            }
-        });
-
     } else {
-        const update_result = await update_user_from_github_info(user_result.data.id as number, user_info)
+        const update_result = await userService.update_user_from_github_info(user_result.data.id as number, user_info)
 
         if (!update_result.success) {
             return new Response('Error updating user', { status: 500 });
@@ -103,7 +88,7 @@ export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
     const old_session_token = cookies.get('session_id')
 
     if (old_session_token) {
-        const delete_session_result = await delete_session(old_session_token)
+        const delete_session_result = await sessionService.delete_session(old_session_token)
 
         if (!delete_session_result.success) {
             return new Response('Error deleting old session', { status: 500 });
@@ -111,7 +96,7 @@ export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
     }
 
     // Create new user session
-    const session_create_result = await create_session(user.id as number)
+    const session_create_result = await sessionService.create_session(user.id as number)
 
     if (!session_create_result?.data) {
         return new Response('Error creating session', { status: 500 });

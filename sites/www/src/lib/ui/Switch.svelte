@@ -1,22 +1,35 @@
 <script lang="ts">
-	import { Switch, Label } from 'bits-ui';
+	interface SwitchProps {
+		checked: boolean;
+		disabled?: boolean;
+		name?: string;
+		label?: string;
+	}
 
-	type Props = {
-		text: string;
-		value?: boolean;
-	};
-
-	let { value = $bindable(), text }: Props = $props();
+	let {
+		checked = $bindable(false),
+		disabled = false,
+		name = '',
+		label = ''
+	}: SwitchProps = $props();
 </script>
 
-<div class="flex items-center space-x-3">
-	<Switch.Root
-		id="marketing"
-		class="focus-visible:ring-foreground focus-visible:ring-offset-background data-[state=checked]:bg-foreground data-[state=unchecked]:bg-dark-10 data-[state=unchecked]:shadow-mini-inset dark:data-[state=checked]:bg-foreground peer inline-flex h-[36px] min-h-[36px] w-[60px] shrink-0 cursor-pointer items-center rounded-full px-[3px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-	>
-		<Switch.Thumb
-			class="bg-background data-[state=unchecked]:shadow-mini dark:border-background/30 dark:bg-foreground dark:shadow-popover pointer-events-none block size-[30px] shrink-0 rounded-full transition-transform data-[state=checked]:translate-x-6 data-[state=unchecked]:translate-x-0 dark:border dark:data-[state=unchecked]:border"
-		/>
-	</Switch.Root>
-	<Label.Root for="marketing" class="text-sm font-medium">{text}</Label.Root>
-</div>
+<label
+	class="inline-flex cursor-pointer items-center {disabled ? 'cursor-not-allowed opacity-50' : ''}"
+>
+	<div class="relative">
+		<input type="checkbox" class="sr-only" {name} bind:checked {disabled} />
+		<div
+			class="h-6 w-10 rounded-full bg-gray-200 shadow-inner transition-colors duration-300 ease-in-out
+        {checked ? 'bg-blue-500' : 'bg-gray-200'}
+        {disabled ? 'opacity-50' : ''}"
+		></div>
+		<div
+			class="absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-300 ease-in-out
+        {checked ? 'translate-x-full transform' : ''}"
+		></div>
+	</div>
+	{#if label}
+		<span class="ml-3 text-sm font-medium text-gray-700">{label}</span>
+	{/if}
+</label>

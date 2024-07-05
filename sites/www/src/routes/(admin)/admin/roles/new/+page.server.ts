@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
-import { create_role } from '$lib/server/db/roles.js';
+import { roleService } from '$lib/server/db/services/roles';
 
 const schema = z.object({
     name: z.string(),
@@ -24,7 +24,7 @@ export const actions = {
             return fail(400, { form });
         }
 
-        const { success } = await create_role(form.data);
+        const { success } = await roleService.create_role(form.data);
 
         if (!success) {
             return message(form, 'Something went wrong.');

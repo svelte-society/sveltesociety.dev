@@ -1,8 +1,8 @@
-import { delete_role, get_roles } from '$lib/server/db/roles';
+import { roleService } from '$lib/server/db/services/roles';
 import { fail } from '@sveltejs/kit';
 
 export const load = (async () => {
-    const result = await get_roles();
+    const result = await roleService.get_roles();
 
     if (!result.success) {
         fail(400, { message: 'Error getting roles' });
@@ -22,7 +22,7 @@ export const actions = {
             return fail(400, { message: 'No role id provided.' });
         }
 
-        const { success } = await delete_role(id);
+        const { success } = await roleService.delete_role(id);
 
         if (!success) {
             return { message: 'Something went wrong.' };
