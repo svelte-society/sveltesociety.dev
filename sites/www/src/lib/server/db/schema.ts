@@ -1,5 +1,5 @@
-import { relations } from 'drizzle-orm';
-import { sqliteTable, text, integer, primaryKey } from 'drizzle-orm/sqlite-core';
+import { relations, sql } from 'drizzle-orm';
+import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 
 // Existing tables and relations...
 export const users = sqliteTable('users', {
@@ -78,9 +78,8 @@ export const content = sqliteTable('content', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
 	title: text('title').notNull(),
 	type: text('type', { enum: ['recipe', 'video'] }).notNull(),
-	blocks: text('blocks').notNull(), // Storing as JSON string
-	created_at: integer('created_at', { mode: 'timestamp' }).notNull().defaultNow(),
-	updated_at: integer('updated_at', { mode: 'timestamp' }).notNull().defaultNow()
+	created_at: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`),
+	updated_at: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`)
 });
 
 export const contentRelations = relations(content, ({ many }) => ({
@@ -91,22 +90,14 @@ export const contentRelations = relations(content, ({ many }) => ({
 export const collections = sqliteTable('collections', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
 	title: text('title').notNull(),
-	created_at: integer('created_at', { mode: 'timestamp' }).notNull().defaultNow(),
-	updated_at: integer('updated_at', { mode: 'timestamp' }).notNull().defaultNow()
+	created_at: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`),
+	updated_at: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`)
 });
 
 export const collectionsRelations = relations(collections, ({ many }) => ({
 	contents: many(contentToCollections),
 	authors: many(collectionsToUsers)
 }));
-
-export const blocks = sqliteTable('blocks', {
-	id: integer('id').primaryKey({ autoIncrement: true }),
-	type: text('type', { enum: ['text', 'image', 'video', 'code'] }).notNull(), // e.g., 'text', 'image', 'video', 'code', etc.
-	data: text('data').notNull(), // JSON string containing the block's data
-	created_at: integer('created_at', { mode: 'timestamp' }).notNull().defaultNow(),
-	updated_at: integer('updated_at', { mode: 'timestamp' }).notNull().defaultNow()
-});
 
 // Junction tables for many-to-many relationships
 export const contentToUsers = sqliteTable('content_to_users', {
@@ -169,35 +160,3 @@ export const collectionsToUsersRelations = relations(collectionsToUsers, ({ one 
 		references: [users.id]
 	})
 }));
-
-export const contentBlocks = sqliteTable(
-	'content_blocks',
-	{
-		content_id: integer('content_id')
-			.notNull()
-			.references(() => content.id),
-		block_id: integer('block_id')
-			.notNull()
-			.references(() => blocks.id),
-		order: integer('order').notNull()
-	},
-	(table) => ({
-		pk: primaryKey(table.content_id, table.block_id)
-	})
-);
-
-export const collectionBlocks = sqliteTable(
-	'collection_blocks',
-	{
-		collection_id: integer('collection_id')
-			.notNull()
-			.references(() => collections.id),
-		block_id: integer('block_id')
-			.notNull()
-			.references(() => blocks.id),
-		order: integer('order').notNull()
-	},
-	(table) => ({
-		pk: primaryKey(table.collection_id, table.block_id)
-	})
-);

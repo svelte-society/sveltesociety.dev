@@ -1,25 +1,8 @@
-CREATE TABLE `blocks` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`type` text NOT NULL,
-	`data` text NOT NULL,
-	`created_at` integer DEFAULT (cast((julianday('now') - 2440587.5)*86400000 as integer)) NOT NULL,
-	`updated_at` integer DEFAULT (cast((julianday('now') - 2440587.5)*86400000 as integer)) NOT NULL
-);
---> statement-breakpoint
-CREATE TABLE `collection_blocks` (
-	`collection_id` integer NOT NULL,
-	`block_id` integer NOT NULL,
-	`order` integer NOT NULL,
-	PRIMARY KEY(`block_id`, `collection_id`),
-	FOREIGN KEY (`collection_id`) REFERENCES `collections`(`id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`block_id`) REFERENCES `blocks`(`id`) ON UPDATE no action ON DELETE no action
-);
---> statement-breakpoint
 CREATE TABLE `collections` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`title` text NOT NULL,
-	`created_at` integer DEFAULT (cast((julianday('now') - 2440587.5)*86400000 as integer)) NOT NULL,
-	`updated_at` integer DEFAULT (cast((julianday('now') - 2440587.5)*86400000 as integer)) NOT NULL
+	`created_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
+	`updated_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `collections_to_users` (
@@ -33,18 +16,8 @@ CREATE TABLE `content` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`title` text NOT NULL,
 	`type` text NOT NULL,
-	`blocks` text NOT NULL,
-	`created_at` integer DEFAULT (cast((julianday('now') - 2440587.5)*86400000 as integer)) NOT NULL,
-	`updated_at` integer DEFAULT (cast((julianday('now') - 2440587.5)*86400000 as integer)) NOT NULL
-);
---> statement-breakpoint
-CREATE TABLE `content_blocks` (
-	`content_id` integer NOT NULL,
-	`block_id` integer NOT NULL,
-	`order` integer NOT NULL,
-	PRIMARY KEY(`block_id`, `content_id`),
-	FOREIGN KEY (`content_id`) REFERENCES `content`(`id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`block_id`) REFERENCES `blocks`(`id`) ON UPDATE no action ON DELETE no action
+	`created_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
+	`updated_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `content_to_collections` (

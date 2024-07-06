@@ -1,120 +1,9 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "a44787b7-4eff-4e04-b95f-a5619215b4bd",
+  "id": "9795f76b-741b-40c5-b61f-06840b374be5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "blocks": {
-      "name": "blocks",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "type": {
-          "name": "type",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "data": {
-          "name": "data",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "collection_blocks": {
-      "name": "collection_blocks",
-      "columns": {
-        "collection_id": {
-          "name": "collection_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "block_id": {
-          "name": "block_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "order": {
-          "name": "order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "collection_blocks_collection_id_collections_id_fk": {
-          "name": "collection_blocks_collection_id_collections_id_fk",
-          "tableFrom": "collection_blocks",
-          "tableTo": "collections",
-          "columnsFrom": [
-            "collection_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "collection_blocks_block_id_blocks_id_fk": {
-          "name": "collection_blocks_block_id_blocks_id_fk",
-          "tableFrom": "collection_blocks",
-          "tableTo": "blocks",
-          "columnsFrom": [
-            "block_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "collection_blocks_collection_id_block_id_pk": {
-          "columns": [
-            "block_id",
-            "collection_id"
-          ],
-          "name": "collection_blocks_collection_id_block_id_pk"
-        }
-      },
-      "uniqueConstraints": {}
-    },
     "collections": {
       "name": "collections",
       "columns": {
@@ -138,7 +27,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
+          "default": "(CURRENT_TIMESTAMP)"
         },
         "updated_at": {
           "name": "updated_at",
@@ -146,7 +35,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
+          "default": "(CURRENT_TIMESTAMP)"
         }
       },
       "indexes": {},
@@ -228,20 +117,13 @@
           "notNull": true,
           "autoincrement": false
         },
-        "blocks": {
-          "name": "blocks",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
         "created_at": {
           "name": "created_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
+          "default": "(CURRENT_TIMESTAMP)"
         },
         "updated_at": {
           "name": "updated_at",
@@ -249,77 +131,12 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
+          "default": "(CURRENT_TIMESTAMP)"
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "content_blocks": {
-      "name": "content_blocks",
-      "columns": {
-        "content_id": {
-          "name": "content_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "block_id": {
-          "name": "block_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "order": {
-          "name": "order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "content_blocks_content_id_content_id_fk": {
-          "name": "content_blocks_content_id_content_id_fk",
-          "tableFrom": "content_blocks",
-          "tableTo": "content",
-          "columnsFrom": [
-            "content_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "content_blocks_block_id_blocks_id_fk": {
-          "name": "content_blocks_block_id_blocks_id_fk",
-          "tableFrom": "content_blocks",
-          "tableTo": "blocks",
-          "columnsFrom": [
-            "block_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "content_blocks_content_id_block_id_pk": {
-          "columns": [
-            "block_id",
-            "content_id"
-          ],
-          "name": "content_blocks_content_id_block_id_pk"
-        }
-      },
       "uniqueConstraints": {}
     },
     "content_to_collections": {
