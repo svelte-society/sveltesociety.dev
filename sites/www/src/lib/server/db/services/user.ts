@@ -19,7 +19,7 @@ type UpdateUser = Omit<InferSelectModel<typeof users>, 'id' | 'created_at' | 'up
 export class UserService {
 	private static instance: UserService;
 
-	private constructor() {}
+	private constructor() { }
 
 	public static getInstance(): UserService {
 		if (!UserService.instance) {
@@ -89,7 +89,7 @@ export class UserService {
 	async create_user(github_user_info: GitHubUserInfo) {
 		return handleServiceCall(async () => {
 			const user_info = this.extract_github_user_info(github_user_info);
-			const [user] = await db.insert(users).values(user_info).returning();
+			const [user] = await db.insert(users).values({ ...user_info, role_id: 2 }).returning();
 			return user;
 		});
 	}
