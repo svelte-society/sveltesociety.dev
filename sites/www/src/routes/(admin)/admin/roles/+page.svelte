@@ -29,7 +29,7 @@
 					</tr>
 				</thead>
 				<tbody class="divide-y divide-gray-200 bg-white">
-					{#each data.roles as role}
+					{#each data.roles || [] as role}
 						<tr>
 							<td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900"
 								>{role.name}</td
@@ -52,11 +52,11 @@
 									<Dialog
 										trigger="Delete"
 										title="Confirm Deletion"
+										id={role.id}
 										description="Are you sure you want to delete this item? This action cannot be undone."
 										cancel="Cancel"
-										confirm="Delete"
-										id={role.id}
-									/>
+										confirm="Delete">Delete</Dialog
+									>
 								</div>
 							</td>
 						</tr>

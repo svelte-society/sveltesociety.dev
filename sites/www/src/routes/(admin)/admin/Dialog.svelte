@@ -11,7 +11,7 @@
 		cancel: string;
 		confirm: string;
 		action?: string;
-		id?: string;
+		id?: string | number;
 	};
 
 	const { children, title, description, cancel, confirm, action, id }: Props = $props();
@@ -27,9 +27,7 @@
 </script>
 
 <Dialog.Root>
-	<Dialog.Trigger class="font-medium text-red-600 hover:text-red-800"
-		>{@render children()}</Dialog.Trigger
-	>
+	<Dialog.Trigger class="font-medium text-red-600 hover:text-red-800"><slot /></Dialog.Trigger>
 	<Dialog.Portal>
 		<Dialog.Overlay class="fixed inset-0 bg-black bg-opacity-50 transition-opacity" />
 		<Dialog.Content
