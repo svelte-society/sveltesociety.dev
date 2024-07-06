@@ -21,7 +21,7 @@
 		"@libsql/client": "^0.6.2",
 		"@playwright/test": "^1.45.1",
 		"@sveltejs/adapter-auto": "^3.2.2",
-		"@sveltejs/adapter-vercel": "^5.4.0",
+		"@sveltejs/adapter-vercel": "^5.4.1",
 		"@sveltejs/enhanced-img": "^0.1.9",
 		"@sveltejs/kit": "^2.5.18",
 		"@sveltejs/vite-plugin-svelte": "^3.1.1",
@@ -44,7 +44,7 @@
 		"prettier-plugin-svelte": "^3.2.5",
 		"prettier-plugin-tailwindcss": "^0.5.14",
 		"svead": "^0.0.4",
-		"svelte": "5.0.0-next.173",
+		"svelte": "5.0.0-next.175",
 		"svelte-check": "^3.8.4",
 		"sveltekit-superforms": "^2.15.2",
 		"tailwindcss": "^3.4.4",
@@ -62,6 +62,6 @@
 		"bits-ui": "^0.21.11",
 		"drizzle-orm": "^0.31.2",
 		"formsnap": "^1.0.1",
-		"svelte-sonner": "^0.3.24"
+		"svelte-sonner": "^0.3.25"
 	}
 }
