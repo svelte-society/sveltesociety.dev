@@ -1,4 +1,5 @@
 <script lang="ts">
+	import LeftSidebar from './_components/LeftSidebar.svelte';
 	import { page } from '$app/stores';
 
 	let { data, children } = $props();
@@ -83,10 +84,7 @@
 	</header>
 
 	<div class="container mx-auto flex flex-1">
-		<aside class="w-64 bg-gray-100 p-4">
-			<h2 class="mb-4 text-xl font-semibold">Left Sidebar</h2>
-			<p>Content for the left sidebar goes here.</p>
-		</aside>
+		<LeftSidebar />
 
 		<main class="flex-1 p-4">
 			{@render children()}
