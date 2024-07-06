@@ -7,17 +7,18 @@ const config = {
 
 	theme: {
 		fontFamily: {
-		  'display': ['Manrope'],
-		  'body': ['Manrope']
+			'display': ['Inter'],
+			'body': ['Inter']
 		},
 		extend: {
-		  colors: {
-			primary: 'rgb(var(--color-primary) / <alpha-value>)',
-			secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
-			tertiary: 'rgb(var(--color-tertiary) / <alpha-value>)',
-		  }
+			colors: {
+				primary: 'rgb(var(--color-primary) / <alpha-value>)',
+				secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
+				tertiary: 'rgb(var(--color-tertiary) / <alpha-value>)',
+				svelte: 'rgb(var(--svelte-orange) / <alpha-value>)'
+			}
 		}
-	  },
+	},
 
 	plugins: [forms, typography]
 };
