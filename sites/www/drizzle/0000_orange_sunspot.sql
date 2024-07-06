@@ -38,9 +38,6 @@ CREATE TABLE `content_to_users` (
 CREATE TABLE `roles` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` text NOT NULL,
-	`value` text NOT NULL,
-	`description` text,
-	`permissions` text,
 	`active` integer DEFAULT false NOT NULL,
 	`created_at` integer DEFAULT (cast((julianday('now') - 2440587.5)*86400000 as integer)) NOT NULL
 );
@@ -64,14 +61,9 @@ CREATE TABLE `users` (
 	`bio` text,
 	`location` text,
 	`twitter` text,
-	`role_id` integer,
+	`role` integer,
 	`created_at` integer DEFAULT (cast((julianday('now') - 2440587.5)*86400000 as integer)) NOT NULL,
-	FOREIGN KEY (`role_id`) REFERENCES `roles`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`role`) REFERENCES `roles`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
-CREATE TABLE `users_to_roles` (
-	`user_id` integer NOT NULL,
-	`role_id` integer NOT NULL,
-	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`role_id`) REFERENCES `roles`(`id`) ON UPDATE no action ON DELETE no action
-);
+CREATE UNIQUE INDEX `githubIdIdx` ON `users` (`github_id`);

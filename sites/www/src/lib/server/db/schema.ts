@@ -1,5 +1,5 @@
 import { relations, sql } from 'drizzle-orm';
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, text, integer, uniqueIndex } from 'drizzle-orm/sqlite-core';
 
 // Existing tables and relations...
 export const users = sqliteTable('users', {
@@ -12,13 +12,16 @@ export const users = sqliteTable('users', {
 	bio: text('bio'),
 	location: text('location'),
 	twitter: text('twitter'),
-	role_id: integer('role_id').references(() => roles.id),
+	role: integer('role').references(() => roles.id),
 	created_at: integer('created_at', { mode: 'timestamp' }).notNull().defaultNow()
-});
+}, (users) => ({
+	githubIdIdx: uniqueIndex('githubIdIdx').on(users.github_id)
+})
+);
 
-export const usersRelations = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ many, one }) => ({
 	sessions: many(sessions),
-	usersToRoles: many(usersToRoles),
+	roles: one(users, { fields: [users.role], references: [users.id] }),
 	authoredContents: many(content),
 	authoredCollections: many(collections)
 }));
@@ -43,35 +46,12 @@ export const sessionsRelations = relations(sessions, ({ one }) => ({
 export const roles = sqliteTable('roles', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
 	name: text('name').notNull(),
-	value: text('value').notNull(),
-	description: text('description'),
-	permissions: text('permissions'),
 	active: integer('active', { mode: 'boolean' }).notNull().default(false),
 	created_at: integer('created_at', { mode: 'timestamp' }).notNull().defaultNow()
 });
 
 export const rolesRelations = relations(roles, ({ many }) => ({
-	usersToRoles: many(usersToRoles)
-}));
-
-export const usersToRoles = sqliteTable('users_to_roles', {
-	user_id: integer('user_id')
-		.notNull()
-		.references(() => users.id),
-	role_id: integer('role_id')
-		.notNull()
-		.references(() => roles.id)
-});
-
-export const usersToRolesRelations = relations(usersToRoles, ({ one }) => ({
-	user: one(users, {
-		fields: [usersToRoles.user_id],
-		references: [users.id]
-	}),
-	role: one(roles, {
-		fields: [usersToRoles.role_id],
-		references: [roles.id]
-	})
+	user: many(users)
 }));
 
 export const content = sqliteTable('content', {
