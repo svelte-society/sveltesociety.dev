@@ -34,11 +34,11 @@
 			</li>
 			<li class="flex justify-between">
 				<span class="text-gray-600">Popular posts:</span>
-				<a href="#" class="font-semibold text-blue-600 hover:underline">View top 10</a>
+				<a href="/admin" class="font-semibold text-blue-600 hover:underline">View top 10</a>
 			</li>
 			<li class="flex justify-between">
 				<span class="text-gray-600">Categories:</span>
-				<a href="#" class="font-semibold text-blue-600 hover:underline">View chart</a>
+				<a href="/admin" class="font-semibold text-blue-600 hover:underline">View chart</a>
 			</li>
 		</ul>
 	</div>
@@ -57,7 +57,7 @@
 			</li>
 			<li class="flex justify-between">
 				<span class="text-gray-600">Banned users:</span>
-				<a href="#" class="font-semibold text-blue-600 hover:underline">View list</a>
+				<a href="/admin" class="font-semibold text-blue-600 hover:underline">View list</a>
 			</li>
 		</ul>
 	</div>
