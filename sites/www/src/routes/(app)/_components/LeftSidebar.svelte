@@ -3,18 +3,18 @@
 
 	const links = [
 		{ name: 'Home', href: '/' },
-		{ name: 'Saved posts', href: '/' },
+		{ name: 'Saved posts', href: '/saved-posts' },
 		{ name: 'CURATED', href: null },
-		{ name: 'Announcements', href: '/' },
-		{ name: 'Collections', href: '/' },
+		{ name: 'Announcements', href: '/announcements' },
+		{ name: 'Collections', href: '/collections' },
 		{ name: 'CODE / RESOURCES', href: null },
-		{ name: 'Templates', href: '/' },
-		{ name: 'Components', href: '/' },
-		{ name: 'Libraries', href: '/' },
+		{ name: 'Templates', href: '/templates' },
+		{ name: 'Components', href: '/components' },
+		{ name: 'Libraries', href: '/libraries' },
 		{ name: 'LEARNING', href: null },
-		{ name: 'Videos', href: '/' },
-		{ name: 'Recipes', href: '/' },
-		{ name: 'Showcase', href: '/' }
+		{ name: 'Videos', href: '/videos' },
+		{ name: 'Recipes', href: '/recipes' },
+		{ name: 'Showcase', href: '/showcase' }
 	];
 </script>
 
