@@ -15,7 +15,11 @@ const config = {
 				primary: 'rgb(var(--color-primary) / <alpha-value>)',
 				secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
 				tertiary: 'rgb(var(--color-tertiary) / <alpha-value>)',
-				svelte: 'rgb(var(--svelte-orange) / <alpha-value>)'
+				svelte: {
+					900: 'rgb(var(--svelte-orange-900) / <alpha-value>)',
+					500: 'rgb(var(--svelte-orange-500) / <alpha-value>)',
+					100: 'rgb(var(--svelte-orange-100) / <alpha-value>)'
+				}
 			}
 		}
 	},
