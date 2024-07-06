@@ -6,16 +6,14 @@ import { handleServiceCall } from './utils';
 // Type definition for a New Role
 export interface NewRole {
 	name: string;
-	value: string;
-	description: string;
-	permissions: string;
-	active: number;
+	value: number;
+	active: boolean;
 }
 
 export class RoleService {
 	private static instance: RoleService;
 
-	private constructor() {}
+	private constructor() { }
 
 	public static getInstance(): RoleService {
 		if (!RoleService.instance) {

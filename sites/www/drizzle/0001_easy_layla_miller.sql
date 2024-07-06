@@ -1,0 +1,1 @@
+ALTER TABLE `roles` ADD `description` text NOT NULL;

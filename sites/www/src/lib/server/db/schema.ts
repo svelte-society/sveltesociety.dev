@@ -1,4 +1,4 @@
-import { relations, sql } from 'drizzle-orm';
+import { desc, relations, sql } from 'drizzle-orm';
 import { sqliteTable, text, integer, uniqueIndex } from 'drizzle-orm/sqlite-core';
 
 // Existing tables and relations...
@@ -46,6 +46,7 @@ export const sessionsRelations = relations(sessions, ({ one }) => ({
 export const roles = sqliteTable('roles', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
 	name: text('name').notNull(),
+	description: text('description').notNull(),
 	active: integer('active', { mode: 'boolean' }).notNull().default(false),
 	created_at: integer('created_at', { mode: 'timestamp' }).notNull().defaultNow()
 });
