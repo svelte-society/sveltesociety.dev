@@ -1,6 +1,7 @@
 <script lang="ts">
 	import LeftSidebar from './_components/LeftSidebar.svelte';
 	import { page } from '$app/stores';
+	import RightSidebar from './_components/RightSidebar.svelte';
 
 	let { data, children } = $props();
 </script>
@@ -90,10 +91,7 @@
 			{@render children()}
 		</main>
 
-		<aside class="w-64 bg-gray-100 p-4">
-			<h2 class="mb-4 text-xl font-semibold">Right Sidebar</h2>
-			<p>Content for the right sidebar goes here.</p>
-		</aside>
+		<RightSidebar />
 	</div>
 
 	<footer class="mt-auto bg-gray-800 p-4 text-white">

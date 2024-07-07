@@ -1,0 +1,63 @@
+<script>
+	import Tags from './Tags.svelte';
+
+	let tags = [
+		{ id: 'svelte5', name: 'Svelte5' },
+		{ id: 'runes', name: 'Runes' },
+		{ id: 'ui-library', name: 'UI library' },
+		{ id: 'utility', name: 'Utility' },
+		{ id: 'component', name: 'Component' },
+		{ id: 'library', name: 'Library' },
+		{ id: 'recipe', name: 'Recipe' },
+		{ id: 'video', name: 'Video' },
+		{ id: 'starter-kit', name: 'Starter kit' },
+		{ id: 'tip', name: 'Tip' },
+		{ id: 'snippet', name: 'Snippet' },
+		{ id: 'learning', name: 'Learning' },
+		{ id: 'navigation', name: 'Navigation' },
+		{ id: 'pro-tip', name: 'Pro-tip' },
+		{ id: 'tooltip', name: 'Tooltip' },
+		{ id: 'organization', name: 'Organization' },
+		{ id: 'server-rendering', name: 'Server Rendering' },
+		{ id: 'tools', name: 'Tools' },
+		{ id: 'hydration', name: 'Hydration' }
+	];
+</script>
+
+<main class="mx-auto mt-8 max-w-sm space-y-4 p-4">
+	<div class="mb-4 flex items-start justify-between">
+		<div>
+			<h3 class="text-lg font-semibold">Got Svelte News?</h3>
+			<p class="mb-4 text-sm">Share with the biggest community of Svelte enthusiasts</p>
+		</div>
+		<button class="rounded bg-orange-500 px-2 py-1 text-white hover:bg-orange-400">
+			<span class="line-height-0">+</span> <span class="text-sm">Submit post</span>
+		</button>
+	</div>
+
+	<div>
+		<h3 class="text-md mb-2 font-semibold">Tags</h3>
+		<input
+			type="text"
+			placeholder="Search Tags"
+			class="w-full rounded border-none bg-slate-100 p-2 text-xs"
+		/>
+	</div>
+
+	<Tags {tags} />
+
+	<div class="mb-4 rounded bg-amber-100 p-3 text-sm">
+		<p>
+			Welcome to Svelte Society, homepage for everything Svelte. Try navigate left menu to filter by
+			specific
+		</p>
+	</div>
+
+	<div class="rounded bg-slate-200 p-4">
+		<h3 class="text-md mb-2 font-bold">Our sponsors:</h3>
+		<ul class="flex flex-wrap gap-2 text-sm">
+			<li>ACME Inc.</li>
+			<li>John Doe Inc.</li>
+		</ul>
+	</div>
+</main>
