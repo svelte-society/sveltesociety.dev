@@ -1,5 +1,5 @@
 import { desc, relations, sql } from 'drizzle-orm';
-import { sqliteTable, text, integer, uniqueIndex } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, text, integer, uniqueIndex, index } from 'drizzle-orm/sqlite-core';
 
 // Existing tables and relations...
 export const users = sqliteTable('users', {
@@ -17,8 +17,7 @@ export const users = sqliteTable('users', {
 }, (users) => ({
 	githubIdIdx: uniqueIndex('githubIdIdx').on(users.github_id),
 	usernameIdx: uniqueIndex('usernameIdx').on(users.username)
-})
-);
+}));
 
 export const usersRelations = relations(users, ({ many, one }) => ({
 	sessions: many(sessions),
@@ -35,7 +34,9 @@ export const sessions = sqliteTable('sessions', {
 	session_token: text('session_token').notNull(),
 	expires_at: text('expires_at').notNull(),
 	created_at: integer('created_at', { mode: 'timestamp' }).notNull().defaultNow()
-});
+}, (sessions) => ({
+	userIdIdx: index('user_id_idx').on(sessions.user_id)
+}))
 
 export const sessionsRelations = relations(sessions, ({ one }) => ({
 	user: one(users, {
@@ -66,7 +67,7 @@ export const content = sqliteTable('content', {
 	created_at: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`),
 	updated_at: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`)
 }, (content) => ({
-	titleIdx: uniqueIndex('titleIdx').on(content.title),
+	titleIdx: index('titleIdx').on(content.title),
 	typeIdx: uniqueIndex('typeIdx').on(content.type)
 }));
 
@@ -174,7 +175,8 @@ export const contentToTags = sqliteTable('content_to_tags', {
 		.notNull()
 		.references(() => tags.id)
 }, (table) => ({
-	contentTagIdx: uniqueIndex('contentTagIdx').on(table.content_id, table.tag_id)
+	contentTagIdx: uniqueIndex('contentTagIdx').on(table.content_id, table.tag_id),
+	tagIdIdx: index('tag_id_idx').on(table.tag_id)
 }));
 
 export const contentToTagsRelations = relations(contentToTags, ({ one }) => ({
