@@ -6,6 +6,7 @@
 	import PackageCard from '$lib/ui/cards/PackageCard.svelte';
 	import RecipeCard from '$lib/ui/cards/RecipeCard.svelte';
 	import VideoCard from '$lib/ui/cards/VideoCard.svelte';
+	import GuildEventCard from '$lib/ui/cards/GuildEventCard.svelte';
 	export let data: PageData;
 
 	let tags = [
@@ -52,5 +53,7 @@
 		/>
 	{:else if item.type === 'guild'}
 		<GuildCard {...item} title={item.name} time={item.lastUpdate} tags={[]} />
+	{:else if item.type === 'guild-event'}
+		<GuildEventCard {...item} title={item.name} tags={[]} />
 	{/if}
 {/each}

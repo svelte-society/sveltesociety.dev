@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Tags from './Tags.svelte';
-	import SvelteMarkdown from "svelte-markdown";
-	import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
+	import SvelteMarkdown from 'svelte-markdown';
+	import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
 	let { id, title, description, type, author, time, views, likes, tags, url, children } = $props();
 </script>
 
@@ -10,7 +10,11 @@
 		<div class="flex">
 			<span class="font-semibold">{type}&nbsp;</span>
 			<span class="flex text-gray-500"
-				><span>by {author}&nbsp;•{#if time}&nbsp;{formatDistanceToNow(time)}&nbsp;•{/if}&nbsp;</span>
+				><span
+					>by {author}&nbsp;•{#if time}&nbsp;{formatDistanceToNow(time, {
+							addSuffix: true
+						})}&nbsp;•{/if}&nbsp;</span
+				>
 				<span class="flex items-center gap-1">
 					{views}
 					<svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +64,7 @@
 		</form>
 	</div>
 
-	<h2 class="mb-2 text-xl font-bold"><a href="{url}">{title}</a></h2>
+	<h2 class="mb-2 text-xl font-bold"><a href={url}>{title}</a></h2>
 	<p class="mb-4 text-gray-700"><SvelteMarkdown source={description} /></p>
 
 	{@render children()}
@@ -70,6 +74,8 @@
 			<Tags {tags} />
 		</div>
 
-		{#if time}<div class="text-xs text-gray-500">&nbsp;{formatDistanceToNow(time)}</div>{/if}
+		{#if time}<div class="text-xs text-gray-500">
+				&nbsp;{formatDistanceToNow(time, { addSuffix: true })}
+			</div>{/if}
 	</div>
 </div>

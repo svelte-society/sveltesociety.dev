@@ -4,12 +4,13 @@ import { GuildService } from "./services/guild-service.js";
 import { PackageService } from "./services/package-service.js";
 import { type ConnectedService, SocietyStatsService } from "./services/society-stats-service.js";
 import { VideoService } from "./services/video-service.js";
+import {GuildEventService} from "./services/guild-event-service.js";
 
 // biome-ignore lint/suspicious/noExplicitAny:
 export class CollectorService extends ComposedService<any> {
 	private readonly stats = new SocietyStatsService();
 	constructor(private userService: ConnectedService) {
-		super([new VideoService(), new PackageService(), new ArticleService(), new GuildService()]);
+		super([new VideoService(), new PackageService(), new ArticleService(), new GuildService(), new GuildEventService()]);
 	}
 
 	async getInformation(metadata: ServiceMetadata): Promise<ContentData & StatsData & Record<string, unknown>> {
