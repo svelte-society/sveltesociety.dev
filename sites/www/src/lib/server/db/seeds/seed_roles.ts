@@ -1,19 +1,7 @@
-import { config } from 'dotenv';
 
-import { createClient } from "@libsql/client/web";
-import { drizzle } from 'drizzle-orm/libsql'
 import * as schema from '../schema'
 
-config({
-    path: '.env.development'
-});
-
-export const db = drizzle(createClient({
-    url: process.env.TURSO_DATABASE_URL,
-    authToken: process.env.TURSO_AUTH_TOKEN,
-}), { schema })
-
-async function seedRoles() {
+export async function seedRoles(db: any) {
     try {
         await db.insert(schema.roles).values([
             {
@@ -37,5 +25,3 @@ async function seedRoles() {
         console.error('Error seeding roles:', error);
     }
 }
-
-seedRoles();
