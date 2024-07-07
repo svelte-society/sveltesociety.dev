@@ -60,26 +60,33 @@
 				/>
 			</div>
 			<nav>
-				<ul class="flex space-x-4">
+				<ul class="flex space-x-4 text-slate-800">
 					<li>
 						<a
 							href="/about"
-							class="hover:text-gray-300 {$page.url.pathname === '/about' ? 'font-bold' : ''}"
+							class="hover:text-slate-600 {$page.url.pathname === '/about' ? 'font-bold' : ''}"
 							>About</a
 						>
 					</li>
 					<li>
 						<a
-							href="/contact"
-							class="hover:text-gray-300 {$page.url.pathname === '/contact' ? 'font-bold' : ''}"
-							>Contact</a
+							href="/links"
+							class="hover:text-slate-600 {$page.url.pathname === '/about' ? 'font-bold' : ''}"
+							>Links</a
+						>
+					</li>
+					<li>
+						<a
+							href="/links"
+							class="hover:text-slate-600 {$page.url.pathname === '/contact' ? 'font-bold' : ''}"
+							>Links</a
 						>
 					</li>
 					{#if data.user}
 						<li><a href="/account">Profile</a></li>
 						<li><a href="/auth/logout">Logout</a></li>
 					{:else}
-						<li><a href="/auth/github">Log in with GitHub</a></li>
+						<li><a href="/auth/github">Login</a></li>
 					{/if}
 				</ul>
 			</nav>
