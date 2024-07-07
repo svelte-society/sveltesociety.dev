@@ -4,6 +4,7 @@
 	type Tag = {
 		id: string;
 		name: string;
+		slug: string;
 	};
 	let { tags }: { tags: Tag[] } = $props();
 </script>
