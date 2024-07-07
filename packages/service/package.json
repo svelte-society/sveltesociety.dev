@@ -24,9 +24,6 @@
 		"typescript": "^5.5.2"
 	},
 	"dependencies": {
-		"date-fns": "^3.6.0",
-		"lru-cache": "^10.3.0",
-		"svelte": "^4.2.18",
-		"svelte-markdown": "^0.4.1"
+		"lru-cache": "^10.3.0"
 	}
 }

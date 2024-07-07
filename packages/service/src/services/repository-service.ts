@@ -46,6 +46,7 @@ class GithubRepositoryService implements ServiceInterface<{ cover: string }> {
 			keywords: response.topics,
 			author: response.owner.login,
 			cover: `https://opengraph.githubassets.com/HEAD/${matches[1]}/${matches[2]}`,
+			url: `https://github.com/${matches[1]}/${matches[2]}`
 		}));
 	}
 	private async getStats(user: string, repo: string): Promise<GithubStatResponse> {

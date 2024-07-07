@@ -28,6 +28,7 @@ export class GuildService implements ServiceInterface<{ cover: string; members: 
 			author: "guild.host",
 			keywords: [],
 			members: guild.networkMembers.totalCount,
+			url: `https://guild.host/${guild.slugId}`,
 			cover: guild.backgroundPhoto
 				? `https://ik.imagekit.io/guild/prod/tr:w-600,dpr-1/${guild.backgroundPhoto?.rowId}.${guild.backgroundPhoto?.contentType.toLowerCase()}`
 				: "",

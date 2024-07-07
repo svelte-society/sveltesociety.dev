@@ -49,6 +49,7 @@ class YoutubeStrategy implements ServiceInterface<{ embed: string }> {
 				keywords: response.videoDetails.keywords,
 				lastUpdate: response.microformat.playerMicroformatRenderer.publishDate,
 				name: response.videoDetails.title,
+				url: `https://www.youtube.com/watch?v=${response.videoDetails.videoId}`
 			}));
 	}
 }
@@ -86,6 +87,7 @@ class VimeoStrategy implements ServiceInterface<{ embed: string }> {
 			keywords: [],
 			lastUpdate: response.upload_date,
 			name: response.title,
+			url: `https://vimeo.com/${metadata.identifier}`
 		}));
 	}
 }

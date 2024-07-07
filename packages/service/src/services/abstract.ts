@@ -10,6 +10,7 @@ export type ContentData = {
 	lastUpdate?: string;
 	keywords: Array<string>;
 	description: string;
+	url: string
 };
 
 export interface ServiceInterface<ServiceData extends object> {

@@ -20,6 +20,7 @@ export class RecipeService implements ServiceInterface<{ preview: string }> {
 			type: RECIPE_TYPE,
 			name: "Reactivity",
 			author: "John Doe",
+			url: '/post/reactivity',
 			description:
 				"The reactivity system introduced in Svelte 3 has made it easier than ever to trigger updates to the DOM. Despite this, there are a few simple rules that you must always follow. This guide explains how Svelte’s reactivity system works, what you can and cannot do, as well a few pitfalls to avoid.",
 			keywords: ["reactivity", "dom"],

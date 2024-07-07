@@ -4,23 +4,23 @@ import { RepositoryService, TYPE as repoType } from "./repository-service.js";
 
 export const TYPE = "package" as const;
 
-export class PackageService implements ServiceInterface<{ cover: string; npmUrl: string }> {
+export class PackageService implements ServiceInterface<{ cover: string}> {
 	canHandle(metadata: Partial<ServiceMetadata>): Promise<boolean> {
 		return Promise.resolve(metadata.type === TYPE);
 	}
 
 	@Memorize(longTermCache)
-	async getInformation(metadata: ServiceMetadata): Promise<{ cover: string; npmUrl: string } & ContentData> {
+	async getInformation(metadata: ServiceMetadata): Promise<{ cover: string } & ContentData> {
 		return fetch(`https://registry.npmjs.org/${metadata.identifier}`)
 			.then((response) => response.json() as Promise<NpmResponse>)
 			.then((response) => {
-				const base: ContentData & { npmUrl: string } = {
+				const base: ContentData = {
 					name: response.name,
 					description: response.description,
 					lastUpdate: response.time.modified,
 					keywords: response.keywords,
 					author: response.author?.name ?? response.maintainers?.map((item) => item.name).join(", "),
-					npmUrl: `https://www.npmjs.com/package/${metadata.identifier}`,
+					url: `https://www.npmjs.com/package/${metadata.identifier}`,
 					type: TYPE,
 				};
 				if (response.repository?.url !== undefined) {
