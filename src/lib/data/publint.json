@@ -430,5 +430,6 @@
 	"svelte-contextify": { "valid": true },
 	"@xyflow/svelte": { "valid": true },
 	"convex-svelte": { "valid": true },
-	"sveltekit-reroute": { "valid": true }
+	"sveltekit-reroute": { "valid": true },
+	"svelte-cartesian": { "valid": true }
 }
