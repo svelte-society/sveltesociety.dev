@@ -54,14 +54,10 @@
 		"uuid": "^9.0.1",
 		"vite": "^5.3.3",
 		"vite-plugin-kit-routes": "^0.2.12",
+		"drizzle-orm": "^0.31.2",
 		"vitest": "^1.6.0",
+		"svelte-sonner": "^0.3.25",
 		"zod": "^3.23.8"
 	},
-	"type": "module",
-	"dependencies": {
-		"bits-ui": "^0.21.11",
-		"drizzle-orm": "^0.31.2",
-		"formsnap": "^1.0.1",
-		"svelte-sonner": "^0.3.25"
-	}
+	"type": "module"
 }
