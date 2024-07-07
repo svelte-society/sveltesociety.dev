@@ -60,6 +60,8 @@ export const content = sqliteTable('content', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
 	title: text('title').notNull(),
 	type: text('type', { enum: ['recipe', 'video'] }).notNull(),
+	body: text('body').notNull(),
+	description: text('description').notNull(),
 	created_at: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`),
 	updated_at: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`)
 }, (content) => ({
