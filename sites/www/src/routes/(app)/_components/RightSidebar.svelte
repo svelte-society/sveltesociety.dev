@@ -1,5 +1,5 @@
 <script>
-	import Tags from './Tags.svelte';
+	import Tags from '$lib/ui/Tags.svelte';
 
 	let tags = [
 		{ id: 'svelte5', name: 'Svelte5' },
@@ -24,14 +24,14 @@
 	];
 </script>
 
-<main class="mx-auto mt-8 max-w-sm space-y-4 p-4">
-	<div class="mb-4 flex items-start justify-between">
+<main class="mx-auto mt-8 max-w-md space-y-4 p-4">
+	<div class="mb-4 grid grid-cols-[auto_1fr] items-start gap-1">
 		<div>
 			<h3 class="text-lg font-semibold">Got Svelte News?</h3>
 			<p class="mb-4 text-sm">Share with the biggest community of Svelte enthusiasts</p>
 		</div>
-		<button class="bg-svelte-900 rounded px-2 py-1 text-white hover:brightness-95">
-			<span class="line-height-0">+</span> <span class="text-sm">Submit post</span>
+		<button class="bg-svelte-900 w-28 rounded px-2 py-1 text-white hover:brightness-95">
+			<span class="line-height-0">+</span> <span class="text-sm">Submit Post</span>
 		</button>
 	</div>
 
@@ -44,7 +44,10 @@
 		/>
 	</div>
 
-	<Tags {tags} />
+	<div>
+		<h3 class="text-md mb-2 font-semibold">Popular tags</h3>
+		<Tags {tags} />
+	</div>
 
 	<div class="mb-4 rounded bg-amber-100 p-3 text-sm">
 		<p>
