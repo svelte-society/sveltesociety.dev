@@ -8,7 +8,7 @@
 
 <div class="flex min-h-screen flex-col">
 	<header class="border-svelte-900 border-b-4 p-4">
-		<div class="container mx-auto flex items-center justify-between">
+		<div class="container mx-auto flex items-center justify-between gap-4">
 			<a href="/" class="flex items-center gap-2">
 				<svg
 					width="117"
@@ -52,13 +52,15 @@
 					/>
 				</svg>
 			</a>
+			<div class="max-w-2xl flex-1">
+				<input
+					class="h-8 w-full rounded-md border-none bg-slate-100 text-sm"
+					type="search"
+					placeholder="Search by tags, name or author"
+				/>
+			</div>
 			<nav>
 				<ul class="flex space-x-4">
-					<li>
-						<a href="/" class="hover:text-gray-300 {$page.url.pathname === '/' ? 'font-bold' : ''}"
-							>Home</a
-						>
-					</li>
 					<li>
 						<a
 							href="/about"
