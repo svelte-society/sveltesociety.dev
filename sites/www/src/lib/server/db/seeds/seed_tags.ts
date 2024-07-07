@@ -18,7 +18,7 @@ export async function seedTags(db: any) {
             },
             {
                 name: 'Snippet',
-                slug: 'Snippet',
+                slug: 'snippet',
             },
         ]);
 
