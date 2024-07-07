@@ -1,27 +1,13 @@
-<script>
+<script lang="ts">
 	import Tags from '$lib/ui/Tags.svelte';
 
-	let tags = [
-		{ id: 'svelte5', name: 'Svelte5' },
-		{ id: 'runes', name: 'Runes' },
-		{ id: 'ui-library', name: 'UI library' },
-		{ id: 'utility', name: 'Utility' },
-		{ id: 'component', name: 'Component' },
-		{ id: 'library', name: 'Library' },
-		{ id: 'recipe', name: 'Recipe' },
-		{ id: 'video', name: 'Video' },
-		{ id: 'starter-kit', name: 'Starter kit' },
-		{ id: 'tip', name: 'Tip' },
-		{ id: 'snippet', name: 'Snippet' },
-		{ id: 'learning', name: 'Learning' },
-		{ id: 'navigation', name: 'Navigation' },
-		{ id: 'pro-tip', name: 'Pro-tip' },
-		{ id: 'tooltip', name: 'Tooltip' },
-		{ id: 'organization', name: 'Organization' },
-		{ id: 'server-rendering', name: 'Server Rendering' },
-		{ id: 'tools', name: 'Tools' },
-		{ id: 'hydration', name: 'Hydration' }
-	];
+	type Tag = {
+		id: string;
+		name: string;
+		slug: string;
+	};
+
+	let { tags }: { tags: Tag[] } = $props();
 </script>
 
 <main class="mx-auto mt-8 max-w-md space-y-4 p-4">

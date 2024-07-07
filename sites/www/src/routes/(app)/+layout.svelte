@@ -100,6 +100,6 @@
 			{@render children()}
 		</main>
 
-		<RightSidebar />
+		<RightSidebar tags={data.tags} />
 	</div>
 </div>

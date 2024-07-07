@@ -1,5 +1,5 @@
 import { db } from "../";
-import { sql, eq, and, type InferSelectModel } from "drizzle-orm";
+import { sql, eq, desc, and, type InferSelectModel } from "drizzle-orm";
 import { tags, contentToTags, content } from "../schema";
 import { handleServiceCall } from "./utils";
 
@@ -30,6 +30,30 @@ export class TagService {
 
     async get_tags() {
         return handleServiceCall(async () => await this.findManyTagsStatement.get() || []);
+    }
+
+    async get_tags_ordered_by_content_count(limit: number = 100) {
+        return handleServiceCall(async () => {
+            let query = db
+                .select({
+                    id: tags.id,
+                    name: tags.name,
+                    slug: tags.slug,
+                    contentCount: sql<number>`COUNT(${contentToTags.content_id})`.as('content_count')
+                })
+                .from(tags)
+                .leftJoin(contentToTags, eq(contentToTags.tag_id, tags.id))
+                .groupBy(tags.id, tags.name, tags.slug, tags.color)
+                .orderBy(desc(sql`content_count`))
+                .limit(limit)
+
+            const result = await query;
+
+            return result.map(tag => ({
+                ...tag,
+                contentCount: Number(tag.contentCount) // Ensure contentCount is a number
+            }));
+        });
     }
 
     async get_tags_count() {
