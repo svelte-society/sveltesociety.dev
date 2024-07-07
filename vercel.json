@@ -1,0 +1,10 @@
+{
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "buildCommand": "pnpm -w run build:www",
+    "outputDirectory": "sites/www/.vercel/output/static",
+    "functions": {
+        "sites/www/.vercel/output/functions/**/*": {
+            "runtime": "edge"
+        }
+    }
+}
