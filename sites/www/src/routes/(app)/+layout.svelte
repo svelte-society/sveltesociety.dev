@@ -86,7 +86,7 @@
 	<div class="container mx-auto flex flex-1">
 		<LeftSidebar />
 
-		<main class="flex-1 p-4">
+		<main class="flex-1 px-4 py-8">
 			{@render children()}
 		</main>
 

@@ -18,7 +18,7 @@
 	];
 </script>
 
-<aside class="w-56 p-4">
+<aside class="w-56 py-10">
 	<nav>
 		<ul class="text-sm font-bold">
 			{#each links as link}
