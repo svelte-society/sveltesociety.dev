@@ -3,12 +3,29 @@ import { ComposedService, type ContentData, type ServiceInterface, type ServiceM
 
 export const TYPE = "repository" as const;
 
+/**
+ * Code repository service.
+ *
+ * Get information about repository
+ */
 export class RepositoryService extends ComposedService<{ cover: string }> {
 	constructor() {
 		super([new GithubRepositoryService()], false);
 	}
 }
 
+/**
+ * Github repository service.
+ *
+ * Read information from a Github repository.
+ *  - Repository name
+ *  - Repository owner
+ *  - Repository description
+ *  - Date of the last commit on the default branch
+ *  - List of topics
+ *  - Cover picture of the repository
+ *
+ */
 class GithubRepositoryService implements ServiceInterface<{ cover: string }> {
 	canHandle(metadata: ServiceMetadata): Promise<boolean> {
 		const isGithub = metadata.identifier.includes("github.com") ?? false;
@@ -36,7 +53,7 @@ class GithubRepositoryService implements ServiceInterface<{ cover: string }> {
 	}
 }
 
-export type GithubStatResponse = {
+type GithubStatResponse = {
 	id: number;
 	node_id: string;
 	name: string;
