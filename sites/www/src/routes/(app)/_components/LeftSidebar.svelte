@@ -38,6 +38,6 @@
 
 <style>
 	.active {
-		@apply bg-orange-500 text-white;
+		@apply bg-svelte-900 text-white;
 	}
 </style>
