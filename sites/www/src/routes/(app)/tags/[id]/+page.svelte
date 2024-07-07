@@ -2,7 +2,8 @@
 	import Tag from '$lib/ui/Tag.svelte';
 
 	let { data } = $props();
+
+	console.log(data);
 </script>
 
-Test
-<!-- <Tag tag={data.tag} /> -->
+<Tag tag={data.tag} />
