@@ -61,6 +61,7 @@ export const content = sqliteTable('content', {
 	title: text('title').notNull(),
 	type: text('type', { enum: ['recipe', 'video'] }).notNull(),
 	body: text('body').notNull(),
+	slug: text('slug').notNull(),
 	description: text('description').notNull(),
 	created_at: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`),
 	updated_at: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`)
