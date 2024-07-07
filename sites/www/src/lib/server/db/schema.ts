@@ -15,7 +15,8 @@ export const users = sqliteTable('users', {
 	role: integer('role').references(() => roles.id),
 	created_at: integer('created_at', { mode: 'timestamp' }).notNull().defaultNow()
 }, (users) => ({
-	githubIdIdx: uniqueIndex('githubIdIdx').on(users.github_id)
+	githubIdIdx: uniqueIndex('githubIdIdx').on(users.github_id),
+	usernameIdx: uniqueIndex('usernameIdx').on(users.username)
 })
 );
 
@@ -61,11 +62,15 @@ export const content = sqliteTable('content', {
 	type: text('type', { enum: ['recipe', 'video'] }).notNull(),
 	created_at: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`),
 	updated_at: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`)
-});
+}, (content) => ({
+	titleIdx: uniqueIndex('titleIdx').on(content.title),
+	typeIdx: uniqueIndex('typeIdx').on(content.type)
+}));
 
 export const contentRelations = relations(content, ({ many }) => ({
 	authors: many(contentToUsers),
-	collections: many(contentToCollections)
+	collections: many(contentToCollections),
+	tags: many(contentToTags)
 }));
 
 export const collections = sqliteTable('collections', {
@@ -139,5 +144,43 @@ export const collectionsToUsersRelations = relations(collectionsToUsers, ({ one 
 	user: one(users, {
 		fields: [collectionsToUsers.user_id],
 		references: [users.id]
+	})
+}));
+
+export const tags = sqliteTable('tags', {
+	id: integer('id').primaryKey({ autoIncrement: true }),
+	name: text('name').notNull(),
+	slug: text('slug').notNull(),
+	color: text('color'),
+	created_at: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`),
+	updated_at: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`)
+}, (tags) => ({
+	slugIdx: uniqueIndex('slugIdx').on(tags.slug),
+	nameIdx: uniqueIndex('nameIdx').on(tags.name)
+}));
+
+export const tagsRelations = relations(tags, ({ many }) => ({
+	contents: many(contentToTags)
+}));
+
+export const contentToTags = sqliteTable('content_to_tags', {
+	content_id: integer('content_id')
+		.notNull()
+		.references(() => content.id),
+	tag_id: integer('tag_id')
+		.notNull()
+		.references(() => tags.id)
+}, (table) => ({
+	contentTagIdx: uniqueIndex('contentTagIdx').on(table.content_id, table.tag_id)
+}));
+
+export const contentToTagsRelations = relations(contentToTags, ({ one }) => ({
+	content: one(content, {
+		fields: [contentToTags.content_id],
+		references: [content.id]
+	}),
+	tag: one(tags, {
+		fields: [contentToTags.tag_id],
+		references: [tags.id]
 	})
 }));
