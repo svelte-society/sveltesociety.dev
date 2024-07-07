@@ -30,7 +30,7 @@
 			<h3 class="text-lg font-semibold">Got Svelte News?</h3>
 			<p class="mb-4 text-sm">Share with the biggest community of Svelte enthusiasts</p>
 		</div>
-		<button class="rounded bg-orange-500 px-2 py-1 text-white hover:bg-orange-400">
+		<button class="bg-svelte-900 rounded px-2 py-1 text-white hover:brightness-95">
 			<span class="line-height-0">+</span> <span class="text-sm">Submit post</span>
 		</button>
 	</div>
