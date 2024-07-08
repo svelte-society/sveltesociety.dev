@@ -95,5 +95,3 @@
 		</div>
 	</form>
 </div>
-
-<SuperDebug data={$form} />
