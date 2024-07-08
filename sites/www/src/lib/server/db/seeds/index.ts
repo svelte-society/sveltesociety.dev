@@ -1,6 +1,7 @@
 
 import { seedTags } from "./seed_tags"
 import { seedRoles } from "./seed_roles"
+import { seedContent } from "./seed_content"
 
 import { config } from 'dotenv';
 
@@ -19,3 +20,4 @@ export const db = drizzle(createClient({
 
 await seedTags(db)
 await seedRoles(db)
+await seedContent(db)
