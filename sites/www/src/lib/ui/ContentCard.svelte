@@ -3,10 +3,10 @@
 	let { id, title, description, type, author, time, views, likes, tags, slug, children } = $props();
 </script>
 
-<div class="grid gap-2 rounded-lg bg-zinc-50 p-5 shadow-md">
+<div class="grid gap-2 rounded-lg bg-zinc-50 p-5">
 	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between text-xs">
 		<div class="flex">
-			<span class="font-semibold">{type}&nbsp;</span>
+			<span class="font-semibold capitalize">{type}&nbsp;</span>
 			<span class="flex text-gray-500"
 				><span>by {author} • {time} •&nbsp;</span>
 				<span class="flex items-center gap-1">
@@ -59,11 +59,10 @@
 	</div>
 
 	<h2 class="mb-2 text-xl font-bold"><a href="/post/{slug}">{title}</a></h2>
-	<p class="mb-4 text-gray-700">{description}</p>
 
 	{@render children()}
 
-	<div class="grid grid-cols-[1fr_auto] items-start justify-between">
+	<div class="mt-4 grid grid-cols-[1fr_auto] items-start justify-between">
 		<div class="flex space-x-2">
 			<Tags {tags} />
 		</div>

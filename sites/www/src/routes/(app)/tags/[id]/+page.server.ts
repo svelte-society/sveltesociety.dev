@@ -1,20 +1,13 @@
-import { tagService } from '$lib/server/db/services/tags';
+import type { PageServerLoad } from './$types';
+import { contentService } from '$lib/server/db/services/content';
+import { fail } from '@sveltejs/kit';
 
-import { fail, redirect } from '@sveltejs/kit';
-
-export const load = (async ({ params }) => {
-    const result = await tagService.get_content_by_tag_slug(params.id);
-
-    if (!result.data.tag) {
-        redirect(302, '/');
-    }
+export const load: PageServerLoad = async ({ params }) => {
+    const result = await contentService.get_content_by_tag(params.id);
 
     if (!result.success) {
-        fail(400, { message: 'Error getting roles' });
+        fail(400, { message: 'Error getting content' });
     }
 
-    return {
-        tag: result.data.tag,
-        content: result.data.content
-    }
-})
+    return { content: result?.data?.items, count: result?.data?.totalCount };
+};

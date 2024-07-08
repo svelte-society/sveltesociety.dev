@@ -1,10 +1,19 @@
 import { db } from '../';
-import { sql, eq, type InferSelectModel } from 'drizzle-orm';
-import { content, contentToTags } from '../schema';
+import { sql, eq, inArray, type InferSelectModel } from 'drizzle-orm';
+import { content, contentToTags, tags } from '../schema';
 import { handleServiceCall } from './utils';
 
 type CreateContent = Omit<InferSelectModel<typeof content>, 'id' | 'created_at' | 'updated_at'> & { tags: number[] };
 type UpdateContent = Partial<CreateContent>;
+
+export type ContentWithTags = InferSelectModel<typeof content> & { tags: InferSelectModel<typeof tags>[] };
+export type PaginatedContentResult = {
+	items: ContentWithTags[];
+	totalCount: number;
+	page: number;
+	limit: number;
+	totalPages: number;
+};
 
 export class ContentService {
 	private static instance: ContentService;
@@ -86,7 +95,59 @@ export class ContentService {
 		});
 	}
 
+	private findContentByTagSlugStatement = db.query.content
+		.findMany({
+			limit: sql.placeholder('limit'),
+			offset: sql.placeholder('offset'),
+			where: inArray(content.id,
+				db.select({ id: contentToTags.content_id })
+					.from(contentToTags)
+					.innerJoin(tags, eq(contentToTags.tag_id, tags.id))
+					.where(eq(tags.slug, sql.placeholder('tagSlug')))
+			),
+			with: {
+				tags: {
+					columns: {},
+					with: {
+						tag: true
+					}
+				}
+			},
+			orderBy: (content, { desc }) => [desc(content.created_at)]
+		})
+		.prepare();
 
+	private countContentByTagSlugStatement = db
+		.select({ count: sql<number>`count(distinct ${content.id})` })
+		.from(content)
+		.innerJoin(contentToTags, eq(content.id, contentToTags.content_id))
+		.innerJoin(tags, eq(contentToTags.tag_id, tags.id))
+		.where(eq(tags.slug, sql.placeholder('tagSlug')))
+		.prepare();
+
+	async get_content_by_tag(tagSlug: string, limit: number = 10, page: number = 0) {
+		return handleServiceCall(async () => {
+			const offset = page * limit;
+
+			const [contentItems, countResult] = await Promise.all([
+				this.findContentByTagSlugStatement.execute({ tagSlug, limit, offset }),
+				this.countContentByTagSlugStatement.execute({ tagSlug })
+			]);
+
+			const totalCount = countResult[0]?.count ?? 0;
+
+			return {
+				items: contentItems.map(item => ({
+					...item,
+					tags: item.tags.map(t => t.tag)
+				})),
+				totalCount,
+				page,
+				limit,
+				totalPages: Math.ceil(totalCount / limit)
+			};
+		});
+	}
 
 	async get_content_count() {
 		return handleServiceCall(async () => {
