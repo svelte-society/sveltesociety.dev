@@ -17,6 +17,7 @@
 	}
 
 	function handleSelect(event: CustomEvent<number>) {
+		event.preventDefault();
 		addTag(event.detail);
 	}
 
@@ -48,17 +49,11 @@
 		{#each selectedTags as tagId}
 			{@const tag = tags.find((t) => t.id === tagId)}
 			{#if tag}
-				<Tag {tag} />
-				<span class="flex items-center rounded-full bg-blue-100 px-2 py-1 text-sm text-blue-800">
-					{tag.name}
-					<button
-						on:click={() => removeTag(tag.id)}
-						class="ml-1 text-blue-600 hover:text-blue-800 focus:outline-none"
-					>
-						&times;
-					</button>
-				</span>
+				<Tag {tag} onclick={() => removeTag(tag.id)} />
 			{/if}
 		{/each}
 	</div>
+	{#each selectedTags as tag}
+		<input type="hidden" name="tags" value={tag} />
+	{/each}
 </div>

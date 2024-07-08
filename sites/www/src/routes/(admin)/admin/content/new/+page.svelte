@@ -2,20 +2,11 @@
 <script lang="ts">
 	import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte';
 	import Button from '$lib/ui/Button.svelte';
-	import { superForm } from 'sveltekit-superforms';
+	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 	const { form, errors, enhance } = superForm(data.form);
-
-	let tags = [
-		{ id: 1, name: 'JavaScript' },
-		{ id: 2, name: 'TypeScript' },
-		{ id: 3, name: 'Svelte' },
-		{ id: 4, name: 'React' }
-	];
-
-	let selectedTags: number[] = [];
 </script>
 
 <div class="container mx-auto px-4 py-8">
@@ -91,7 +82,11 @@
 
 		<div class="space-y-2">
 			<label for="description" class="mb-2 block text-sm font-bold text-gray-700">Tags:</label>
-			<AutoComplete {tags} bind:selectedTags placeholder="Type to search or create a tag" />
+			<AutoComplete
+				tags={data.tags}
+				bind:selectedTags={$form.tags}
+				placeholder="Type to search or create a tag"
+			/>
 			{#if $errors.description}<p class="text-xs italic text-red-500">{$errors.description}</p>{/if}
 		</div>
 
@@ -100,3 +95,5 @@
 		</div>
 	</form>
 </div>
+
+<SuperDebug data={$form} />

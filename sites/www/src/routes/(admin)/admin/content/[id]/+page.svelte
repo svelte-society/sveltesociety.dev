@@ -1,6 +1,7 @@
 <!-- src/routes/content/[id]/edit/+page.svelte -->
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms';
+	import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte';
 	import Button from '$lib/ui/Button.svelte';
 	import type { PageData } from './$types';
 
@@ -78,6 +79,16 @@
 				required
 				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
 			></textarea>
+			{#if $errors.description}<p class="text-xs italic text-red-500">{$errors.description}</p>{/if}
+		</div>
+
+		<div class="space-y-2">
+			<label for="description" class="mb-2 block text-sm font-bold text-gray-700">Tags:</label>
+			<AutoComplete
+				tags={data.tags}
+				bind:selectedTags={$form.tags}
+				placeholder="Type to search or create a tag"
+			/>
 			{#if $errors.description}<p class="text-xs italic text-red-500">{$errors.description}</p>{/if}
 		</div>
 

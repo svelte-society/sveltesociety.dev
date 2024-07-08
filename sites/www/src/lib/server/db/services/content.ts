@@ -1,15 +1,15 @@
 import { db } from '../';
 import { sql, eq, type InferSelectModel } from 'drizzle-orm';
-import { content } from '../schema';
+import { content, contentToTags } from '../schema';
 import { handleServiceCall } from './utils';
 
-type CreateContent = Omit<InferSelectModel<typeof content>, 'id' | 'created_at' | 'updated_at'>;
+type CreateContent = Omit<InferSelectModel<typeof content>, 'id' | 'created_at' | 'updated_at'> & { tags: number[] };
 type UpdateContent = Partial<CreateContent>;
 
 export class ContentService {
 	private static instance: ContentService;
 
-	private constructor() {}
+	private constructor() { }
 
 	public static getInstance(): ContentService {
 		if (!ContentService.instance) {
@@ -18,9 +18,17 @@ export class ContentService {
 		return ContentService.instance;
 	}
 
-	private findContentStatement = db.query.content
+	private findContentWithTagsStatement = db.query.content
 		.findFirst({
-			where: (content, { eq }) => eq(content.id, sql.placeholder('id'))
+			where: (content, { eq }) => eq(content.id, sql.placeholder('id')),
+			with: {
+				tags: {
+					columns: {},
+					with: {
+						tag: true
+					}
+				}
+			}
 		})
 		.prepare();
 
@@ -46,36 +54,117 @@ export class ContentService {
 	}
 
 	async get_content(contentId: number) {
-		return handleServiceCall(async () => await this.findContentStatement.get({ id: contentId }));
+		return handleServiceCall(async () => {
+			const result = await this.findContentWithTagsStatement.execute({ id: contentId });
+
+			if (!result) return null;
+
+			return {
+				...result,
+				tags: result.tags.map(t => t.tag)
+			};
+		});
 	}
 
 	async create_content(content_info: CreateContent) {
 		return handleServiceCall(async () => {
-			const [newContent] = await db
-				.insert(content)
-				.values({
-					...content_info,
-					created_at: new Date(),
-					updated_at: new Date()
-				})
-				.returning();
-			return newContent;
+			return await db.transaction(async (tx) => {
+				// Create the content
+				const [newContent] = await tx
+					.insert(content)
+					.values({
+						title: content_info.title,
+						type: content_info.type,
+						body: content_info.body,
+						slug: content_info.slug,
+						description: content_info.description,
+						created_at: new Date(),
+						updated_at: new Date()
+					})
+					.returning();
+
+				// If there are tags, create the relationships
+				if (content_info.tags && content_info.tags.length > 0) {
+					await tx.insert(contentToTags).values(
+						content_info.tags.map(tagId => ({
+							content_id: newContent.id,
+							tag_id: tagId
+						}))
+					);
+				}
+
+				// Fetch the content with its tags
+				const contentWithTags = await tx.query.content.findFirst({
+					where: eq(content.id, newContent.id),
+					with: {
+						tags: {
+							columns: {
+								tag_id: true
+							}
+						}
+					}
+				});
+
+				return {
+					...contentWithTags,
+					tags: contentWithTags?.tags.map(t => t.tag_id) ?? []
+				};
+			});
 		});
 	}
 
-	async update_content(id: number, new_content_info: UpdateContent) {
+	async update_content(id: number, update_info: UpdateContent) {
 		return handleServiceCall(async () => {
-			const [updatedContent] = await db
-				.update(content)
-				.set({
-					...new_content_info,
-					updated_at: new Date()
-				})
-				.where(eq(content.id, id))
-				.returning();
-			return updatedContent;
+			return await db.transaction(async (tx) => {
+				// Update the content
+				const [updatedContent] = await tx
+					.update(content)
+					.set({
+						...update_info,
+						updated_at: new Date()
+					})
+					.where(eq(content.id, id))
+					.returning();
+
+				// If tags are provided, update the relationships
+				if (update_info.tags !== undefined) {
+					// Remove existing tag relationships
+					await tx
+						.delete(contentToTags)
+						.where(eq(contentToTags.content_id, id));
+
+					// Add new tag relationships
+					if (update_info.tags.length > 0) {
+						await tx.insert(contentToTags).values(
+							update_info.tags.map(tagId => ({
+								content_id: id,
+								tag_id: tagId
+							}))
+						);
+					}
+				}
+
+				// Fetch the updated content with its tags
+				const contentWithTags = await tx.query.content.findFirst({
+					where: eq(content.id, id),
+					with: {
+						tags: {
+							columns: {},
+							with: {
+								tag: true
+							}
+						}
+					}
+				});
+
+				return {
+					...contentWithTags,
+					tags: contentWithTags?.tags.map(t => t.tag) ?? []
+				};
+			});
 		});
 	}
+
 
 	async delete_content(id: number) {
 		return handleServiceCall(async () => {
