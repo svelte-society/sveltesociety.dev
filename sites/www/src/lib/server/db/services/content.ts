@@ -168,7 +168,20 @@ export class ContentService {
 
 	async delete_content(id: number) {
 		return handleServiceCall(async () => {
-			await db.delete(content).where(eq(content.id, id));
+			return await db.transaction(async (tx) => {
+				// First, delete the entries in the content_to_tags table
+				await tx
+					.delete(contentToTags)
+					.where(eq(contentToTags.content_id, id));
+
+				// Then, delete the content itself
+				const [deletedContent] = await tx
+					.delete(content)
+					.where(eq(content.id, id))
+					.returning();
+
+				return deletedContent;
+			});
 		});
 	}
 }
