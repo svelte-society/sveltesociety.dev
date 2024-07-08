@@ -82,8 +82,7 @@ export const content = sqliteTable(
 			.default(sql`(CURRENT_TIMESTAMP)`)
 	},
 	(content) => ({
-		titleIdx: index('titleIdx').on(content.title),
-		typeIdx: uniqueIndex('typeIdx').on(content.type)
+		titleIdx: index('titleIdx').on(content.title)
 	})
 );
 

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { formatRelativeDate } from '$lib/utils/date';
+	import Button from '$lib/ui/Button.svelte';
 	import { enhance } from '$app/forms';
 
 	export let data;
@@ -23,7 +25,7 @@
 					>Slug</th
 				>
 				<th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
-					>Created At</th
+					>Created</th
 				>
 				<th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
 					>Actions</th
@@ -40,7 +42,7 @@
 					<td class="px-6 py-4 text-sm text-gray-500">{content_item.description}</td>
 					<td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{content_item.slug}</td>
 					<td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-						{new Date(content_item.created_at).toLocaleDateString()}
+						{formatRelativeDate(content_item.created_at)}
 					</td>
 					<td class="whitespace-nowrap px-6 py-4 text-sm font-medium">
 						<div class="flex space-x-2">
@@ -93,4 +95,8 @@
 			{/each}
 		</tbody>
 	</table>
+</div>
+
+<div class="mt-6">
+	<Button primary href="/admin/content/new">New Content</Button>
 </div>

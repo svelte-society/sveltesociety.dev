@@ -1,11 +1,21 @@
 <!-- src/routes/content/new/+page.svelte -->
 <script lang="ts">
+	import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte';
 	import Button from '$lib/ui/Button.svelte';
 	import { superForm } from 'sveltekit-superforms';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 	const { form, errors, enhance } = superForm(data.form);
+
+	let tags = [
+		{ id: 1, name: 'JavaScript' },
+		{ id: 2, name: 'TypeScript' },
+		{ id: 3, name: 'Svelte' },
+		{ id: 4, name: 'React' }
+	];
+
+	let selectedTags: number[] = [];
 </script>
 
 <div class="container mx-auto px-4 py-8">
@@ -76,6 +86,12 @@
 				required
 				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
 			></textarea>
+			{#if $errors.description}<p class="text-xs italic text-red-500">{$errors.description}</p>{/if}
+		</div>
+
+		<div class="space-y-2">
+			<label for="description" class="mb-2 block text-sm font-bold text-gray-700">Tags:</label>
+			<AutoComplete {tags} bind:selectedTags placeholder="Type to search or create a tag" />
 			{#if $errors.description}<p class="text-xs italic text-red-500">{$errors.description}</p>{/if}
 		</div>
 
