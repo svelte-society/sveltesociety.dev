@@ -32,16 +32,61 @@ export class ContentService {
 		})
 		.prepare();
 
+	private findManyContentWithTagsStatement = db.query.content
+		.findMany({
+			limit: sql.placeholder('limit'),
+			offset: sql.placeholder('offset'),
+			with: {
+				tags: {
+					columns: {},
+					with: {
+						tag: true
+					}
+				}
+			},
+			columns: {
+				id: true,
+				title: true,
+				type: true,
+				slug: true,
+				description: true,
+				created_at: true,
+				updated_at: true
+			},
+			orderBy: (content, { desc }) => [desc(content.created_at)]
+		})
+		.prepare();
+
 	private countContentStatement = db
 		.select({ count: sql<number>`count(*)` })
 		.from(content)
 		.prepare();
 
-	private findManyContentStatement = db.query.content.findMany().prepare();
+	async get_content_items(limit: number = 10, page: number = 0) {
+		return handleServiceCall(async () => {
+			const offset = page * limit;
 
-	async get_content_items() {
-		return handleServiceCall(async () => (await this.findManyContentStatement.get()) || []);
+			const [contentItems, countResult] = await Promise.all([
+				this.findManyContentWithTagsStatement.execute({ limit, offset }),
+				this.countContentStatement.execute()
+			]);
+
+			const totalCount = countResult[0]?.count ?? 0;
+
+			return {
+				items: contentItems.map(item => ({
+					...item,
+					tags: item.tags.map(t => t.tag)
+				})),
+				totalCount,
+				page,
+				limit,
+				totalPages: Math.ceil(totalCount / limit)
+			};
+		});
 	}
+
+
 
 	async get_content_count() {
 		return handleServiceCall(async () => {

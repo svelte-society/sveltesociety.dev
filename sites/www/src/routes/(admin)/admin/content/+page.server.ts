@@ -5,7 +5,11 @@ import { fail } from '@sveltejs/kit';
 export const load: PageServerLoad = async () => {
 	const result = await contentService.get_content_items();
 
-	return { content: result.data };
+	if (!result.success) {
+		fail(400, { message: 'Error getting content' });
+	}
+
+	return { content: result?.data?.items };
 };
 
 export const actions = {
