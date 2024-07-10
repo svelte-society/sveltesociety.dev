@@ -125,6 +125,41 @@ export class ContentService {
 		.where(eq(tags.slug, sql.placeholder('tagSlug')))
 		.prepare();
 
+	async searchContent(query: string) {
+		return handleServiceCall(async () => {
+			const searchContentStatement = sql`
+				SELECT 
+				content.id,
+				content.title,
+				content.type,
+				content.description,
+				content.slug,
+				GROUP_CONCAT(DISTINCT tags.name) AS tag_names,
+				GROUP_CONCAT(DISTINCT tags.slug) AS tag_slugs,
+				GROUP_CONCAT(DISTINCT users.username) AS authors
+				FROM content_fts
+				JOIN content ON content.id = content_fts.id
+				LEFT JOIN content_to_tags ON content.id = content_to_tags.content_id
+				LEFT JOIN tags ON content_to_tags.tag_id = tags.id
+				LEFT JOIN content_to_users ON content.id = content_to_users.content_id
+				LEFT JOIN users ON content_to_users.user_id = users.id
+				WHERE content_fts MATCH ${query}
+				GROUP BY content.id
+				ORDER BY rank
+				LIMIT 10
+			`;
+			const result = await db.run(searchContentStatement)
+
+			console.log('Query results: ', result.rows)
+
+			return result.rows.map(result => ({
+				...result,
+				tags: result.tags ? result.tags.split(',') : [],
+				authors: result.authors ? result.authors.split(',') : []
+			}));
+		});
+	}
+
 	async get_content_by_tag(tagSlug: string, limit: number = 10, page: number = 0) {
 		return handleServiceCall(async () => {
 			const offset = page * limit;
