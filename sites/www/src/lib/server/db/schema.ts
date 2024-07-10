@@ -82,7 +82,8 @@ export const content = sqliteTable(
 			.default(sql`(CURRENT_TIMESTAMP)`)
 	},
 	(content) => ({
-		titleIdx: index('titleIdx').on(content.title)
+		titleIdx: uniqueIndex('titleIdx').on(content.title),
+		contentSlugIdx: uniqueIndex('contentSlugIdx').on(content.slug)
 	})
 );
 
@@ -185,8 +186,7 @@ export const tags = sqliteTable(
 			.default(sql`(CURRENT_TIMESTAMP)`)
 	},
 	(tags) => ({
-		slugIdx: uniqueIndex('slugIdx').on(tags.slug),
-		nameIdx: uniqueIndex('nameIdx').on(tags.name)
+		tagsSlugIdx: uniqueIndex('tagsSlugIdx').on(tags.slug)
 	})
 );
 
