@@ -70,10 +70,11 @@ export const content = sqliteTable(
 	{
 		id: integer('id').primaryKey({ autoIncrement: true }),
 		title: text('title').notNull(),
-		type: text('type', { enum: ['recipe', 'video'] }).notNull(),
+		type: text('type', { enum: ['recipe', 'video', 'library', 'link', 'blog'] }).notNull(),
 		body: text('body').notNull(),
 		slug: text('slug').notNull(),
 		description: text('description').notNull(),
+		metadata: text('metadata', { mode: 'json' }), // New field for JSON metadata
 		created_at: integer('created_at', { mode: 'timestamp' })
 			.notNull()
 			.default(sql`(CURRENT_TIMESTAMP)`),
