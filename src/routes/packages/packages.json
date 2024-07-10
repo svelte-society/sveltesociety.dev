@@ -3069,6 +3069,13 @@
 		"description": "A SvelteKit handler for redirection rules.",
 		"npm": "sveltekit-reroute",
 		"categories": ["routers"]
+	},
+	{
+		"title": "svelte-cartesian",
+		"repository": "https://github.com/theetrain/svelte-cartesian",
+		"description": "Cartesian Product component for Svelte",
+		"npm": "svelte-cartesian",
+		"categories": ["testing", "ui-components", "design-system"]
 	}
 	{
 		"title": "SVAR Core",

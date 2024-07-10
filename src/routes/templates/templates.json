@@ -656,5 +656,19 @@
 		"repository": "https://github.com/n00ki/sveltekit-omakase",
 		"description": "This project embraces an omakase approach, inspired by the Rails doctrine. It offers an opinionated selection of tools and a structured approach.",
 		"categories": ["sveltekit", "typescript", "integrations"]
+	},
+	{
+		"title": "spatz",
+		"url": "https://spatz.engage-dev.com",
+		"repository": "https://github.com/engageintellect/spatz",
+		"description": "An opinionated template for building full-stack Svelte applications ridiculously fast. Includes auth, database, admin panel, user dashboard, themes, icons, and more.",
+		"categories": [
+			"database",
+			"integrations",
+			"sveltekit",
+			"typescript",
+			"stores-and-state",
+			"svelte"
+		]
 	}
 ]
