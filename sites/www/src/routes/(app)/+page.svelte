@@ -7,11 +7,15 @@
 <div class="grid gap-6">
 	{#if data.search_results}
 		<h1>Searched for</h1>
-		<ul>
-			{#each data.search_results.content as row}
-				<li>{row.title}</li>
-			{/each}
-		</ul>
+		{#if data.search_results.error}
+			<p>{data.search_results.error}</p>
+		{:else}
+			<ul>
+				{#each data.search_results.content as row}
+					<li>{row.title}</li>
+				{/each}
+			</ul>
+		{/if}
 	{:else}
 		{#each data.content as item}
 			<ContentCard {...item} author="John Doe" views="11114" likes="10">

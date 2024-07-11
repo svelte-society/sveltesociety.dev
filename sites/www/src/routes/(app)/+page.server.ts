@@ -8,6 +8,12 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
         const resp = await fetch(`/search/${searchQuery}`)
         const content = await resp.json()
 
+        if (content.error) {
+            search_results: {
+                error: 'Rate limit exceeded'
+            }
+        }
+
         return {
             search_results: {
                 content,
