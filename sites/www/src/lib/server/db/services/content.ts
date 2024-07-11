@@ -150,8 +150,6 @@ export class ContentService {
 			`;
 			const result = await db.run(searchContentStatement)
 
-			console.log('Query results: ', result.rows)
-
 			return result.rows.map(result => ({
 				...result,
 				tags: result.tags ? result.tags.split(',') : [],
