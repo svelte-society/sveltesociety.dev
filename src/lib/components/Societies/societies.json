@@ -30,6 +30,12 @@
 		"githuburl": "https://github.com/svelte-meetup-hamburg/meetups/issues"
 	},
 	{
+		"name": "Svelte Berlin",
+		"country": "🇩🇪 Germany",
+		"url": "https://lu.ma/ud76698y",
+		"githuburl": "https://github.com/nika-d/svelte-berlin"
+	},
+	{
 		"name": "Amsterdam SvelteJS",
 		"country": "🇳🇱 Netherlands",
 		"url": "https://www.meetup.com/Amsterdam-SvelteJS/",
