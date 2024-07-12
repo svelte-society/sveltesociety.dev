@@ -112,6 +112,6 @@
 			{@render children()}
 		</main>
 
-		<RightSidebar tags={data.tags} />
+		<RightSidebar tags={data.tags || []} />
 	</div>
 </div>

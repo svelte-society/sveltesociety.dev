@@ -5,6 +5,7 @@
 		id: string;
 		name: string;
 		slug: string;
+		contentCount: number;
 	};
 
 	let { tags }: { tags: Tag[] } = $props();
