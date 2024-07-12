@@ -2,8 +2,8 @@ import { contentService } from '$lib/server/db/services/content';
 import { json } from '@sveltejs/kit';
 
 // Rate limit configuration
-const RATE_LIMIT = 5; // Number of requests allowed
-const TIME_WINDOW = 30 * 1000; // Time window in milliseconds (1 minute)
+const RATE_LIMIT = 3; // Number of requests allowed
+const TIME_WINDOW = 10 * 1000; // Time window in milliseconds (1 minute)
 
 // In-memory store for rate limiting
 const rateLimitStore = new Map<string, { count: number; timestamp: number }>();
@@ -31,8 +31,6 @@ function rateLimit(ip: string): boolean {
 }
 
 export const GET = async ({ params, getClientAddress }) => {
-
-    console.log(rateLimitStore)
     if (!rateLimit(getClientAddress())) {
         return json({ error: 'Rate limit exceeded' }, { status: 429 });
     }
