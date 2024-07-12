@@ -133,6 +133,7 @@ export class ContentService {
 				content.title,
 				content.type,
 				content.description,
+				content.body,
 				content.slug,
 				GROUP_CONCAT(DISTINCT tags.name) AS tag_names,
 				GROUP_CONCAT(DISTINCT tags.slug) AS tag_slugs,
@@ -143,7 +144,7 @@ export class ContentService {
 				LEFT JOIN tags ON content_to_tags.tag_id = tags.id
 				LEFT JOIN content_to_users ON content.id = content_to_users.content_id
 				LEFT JOIN users ON content_to_users.user_id = users.id
-				WHERE content_fts MATCH ${query}
+				WHERE content_fts MATCH ${query + '*'}
 				GROUP BY content.id
 				ORDER BY rank
 				LIMIT 10
@@ -151,8 +152,16 @@ export class ContentService {
 			const result = await db.run(searchContentStatement)
 
 			return result.rows.map(result => ({
-				...result,
-				tags: result.tags ? result.tags.split(',') : [],
+				id: result.id,
+				title: result.title,
+				type: result.type,
+				description: result.description,
+				slug: result.slug,
+				body: result.body,
+				tags: result.tag_slugs ? result.tag_slugs.split(',').map((slug, index) => ({
+					slug,
+					name: result?.tag_names?.split(',')[index]
+				})) : [],
 				authors: result.authors ? result.authors.split(',') : []
 			}));
 		});
@@ -208,7 +217,6 @@ export class ContentService {
 	async create_content(content_info: CreateContent) {
 		return handleServiceCall(async () => {
 			return await db.transaction(async (tx) => {
-				// Create the content
 				const [newContent] = await tx
 					.insert(content)
 					.values({
@@ -222,7 +230,6 @@ export class ContentService {
 					})
 					.returning();
 
-				// If there are tags, create the relationships
 				if (content_info.tags && content_info.tags.length > 0) {
 					await tx.insert(contentToTags).values(
 						content_info.tags.map(tagId => ({
@@ -232,22 +239,7 @@ export class ContentService {
 					);
 				}
 
-				// Fetch the content with its tags
-				const contentWithTags = await tx.query.content.findFirst({
-					where: eq(content.id, newContent.id),
-					with: {
-						tags: {
-							columns: {
-								tag_id: true
-							}
-						}
-					}
-				});
-
-				return {
-					...contentWithTags,
-					tags: contentWithTags?.tags.map(t => t.tag_id) ?? []
-				};
+				return newContent;
 			});
 		});
 	}
@@ -255,7 +247,6 @@ export class ContentService {
 	async update_content(id: number, update_info: UpdateContent) {
 		return handleServiceCall(async () => {
 			return await db.transaction(async (tx) => {
-				// Update the content
 				const [updatedContent] = await tx
 					.update(content)
 					.set({
@@ -265,14 +256,11 @@ export class ContentService {
 					.where(eq(content.id, id))
 					.returning();
 
-				// If tags are provided, update the relationships
 				if (update_info.tags !== undefined) {
-					// Remove existing tag relationships
 					await tx
 						.delete(contentToTags)
 						.where(eq(contentToTags.content_id, id));
 
-					// Add new tag relationships
 					if (update_info.tags.length > 0) {
 						await tx.insert(contentToTags).values(
 							update_info.tags.map(tagId => ({
@@ -283,37 +271,18 @@ export class ContentService {
 					}
 				}
 
-				// Fetch the updated content with its tags
-				const contentWithTags = await tx.query.content.findFirst({
-					where: eq(content.id, id),
-					with: {
-						tags: {
-							columns: {},
-							with: {
-								tag: true
-							}
-						}
-					}
-				});
-
-				return {
-					...contentWithTags,
-					tags: contentWithTags?.tags.map(t => t.tag) ?? []
-				};
+				return updatedContent;
 			});
 		});
 	}
 
-
 	async delete_content(id: number) {
 		return handleServiceCall(async () => {
 			return await db.transaction(async (tx) => {
-				// First, delete the entries in the content_to_tags table
 				await tx
 					.delete(contentToTags)
 					.where(eq(contentToTags.content_id, id));
 
-				// Then, delete the content itself
 				const [deletedContent] = await tx
 					.delete(content)
 					.where(eq(content.id, id))
