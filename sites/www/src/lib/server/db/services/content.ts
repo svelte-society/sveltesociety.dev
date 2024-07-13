@@ -63,8 +63,7 @@ export class ContentService {
 				updated_at: true
 			},
 			orderBy: (content, { desc }) => [desc(content.created_at)]
-		})
-		.prepare();
+		}).prepare()
 
 	private countContentStatement = db
 		.select({ count: sql<number>`count(*)` })
@@ -216,83 +215,92 @@ export class ContentService {
 
 	async create_content(content_info: CreateContent) {
 		return handleServiceCall(async () => {
-			return await db.transaction(async (tx) => {
-				const [newContent] = await tx
-					.insert(content)
-					.values({
-						title: content_info.title,
-						type: content_info.type,
-						body: content_info.body,
-						slug: content_info.slug,
-						description: content_info.description,
-						created_at: new Date(),
-						updated_at: new Date()
-					})
-					.returning();
+			const insertContentQuery = db
+				.insert(content)
+				.values({
+					title: content_info.title,
+					type: content_info.type,
+					body: content_info.body,
+					slug: content_info.slug,
+					description: content_info.description,
+					created_at: new Date(),
+					updated_at: new Date()
+				})
+				.returning();
 
-				if (content_info.tags && content_info.tags.length > 0) {
-					await tx.insert(contentToTags).values(
-						content_info.tags.map(tagId => ({
-							content_id: newContent.id,
-							tag_id: tagId
-						}))
-					);
-				}
+			const batchQueries = [insertContentQuery];
 
-				return newContent;
-			});
+			if (content_info.tags && content_info.tags.length > 0) {
+				const insertTagsQuery = db.insert(contentToTags).values(
+					content_info.tags.map(tagId => ({
+						content_id: sql`last_insert_rowid()`,
+						tag_id: tagId
+					}))
+				);
+				batchQueries.push(insertTagsQuery);
+			}
+
+			const [newContentResult] = await db.batch(batchQueries);
+			return newContentResult[0];
 		});
 	}
 
 	async update_content(id: number, update_info: UpdateContent) {
 		return handleServiceCall(async () => {
-			return await db.transaction(async (tx) => {
-				const [updatedContent] = await tx
-					.update(content)
-					.set({
-						...update_info,
-						updated_at: new Date()
-					})
-					.where(eq(content.id, id))
-					.returning();
+			const updateContentQuery = db
+				.update(content)
+				.set({
+					...update_info,
+					updated_at: new Date()
+				})
+				.where(eq(content.id, id))
+				.returning();
 
-				if (update_info.tags !== undefined) {
-					await tx
-						.delete(contentToTags)
-						.where(eq(contentToTags.content_id, id));
+			const batchQueries = [updateContentQuery];
 
-					if (update_info.tags.length > 0) {
-						await tx.insert(contentToTags).values(
-							update_info.tags.map(tagId => ({
-								content_id: id,
-								tag_id: tagId
-							}))
-						);
-					}
+			if (update_info.tags !== undefined) {
+				const deleteTagsQuery = db
+					.delete(contentToTags)
+					.where(eq(contentToTags.content_id, id));
+				batchQueries.push(deleteTagsQuery);
+
+				if (update_info.tags.length > 0) {
+					const insertTagsQuery = db.insert(contentToTags).values(
+						update_info.tags.map(tagId => ({
+							content_id: id,
+							tag_id: tagId
+						}))
+					);
+					batchQueries.push(insertTagsQuery);
 				}
+			}
 
-				return updatedContent;
-			});
+			const [updatedContentResult] = await db.batch(batchQueries);
+			return updatedContentResult[0];
 		});
 	}
 
 	async delete_content(id: number) {
 		return handleServiceCall(async () => {
-			return await db.transaction(async (tx) => {
-				await tx
-					.delete(contentToTags)
-					.where(eq(contentToTags.content_id, id));
+			const deleteTagsQuery = db
+				.delete(contentToTags)
+				.where(eq(contentToTags.content_id, id));
 
-				const [deletedContent] = await tx
-					.delete(content)
-					.where(eq(content.id, id))
-					.returning();
+			const deleteContentQuery = db
+				.delete(content)
+				.where(eq(content.id, id))
+				.returning();
 
-				return deletedContent;
-			});
+			const [, deletedContentResult] = await db.batch([
+				deleteTagsQuery,
+				deleteContentQuery
+			]);
+
+			return deletedContentResult[0];
 		});
 	}
 }
+
 
 // Export the singleton instance
 export const contentService = ContentService.getInstance();
