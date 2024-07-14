@@ -2017,6 +2017,20 @@
 		"categories": ["data-fetching", "stores-and-state"]
 	},
 	{
+		"title": "@tanstack/svelte-virtual",
+		"repository": "https://github.com/tanstack/virtual",
+		"description": "Headless UI for Virtualizing Large Element Lists in JS/TS, React, Solid, Vue and Svelte",
+		"npm": "@tanstack/svelte-virtual",
+		"categories": ["data-visualisation", "styling-and-layout"]
+	},
+	{
+		"title": "@tanstack/svelte-store",
+		"repository": "https://github.com/tanstack/store",
+		"description": "Framework agnostic, type-safe store w/ reactive framework adapters",
+		"npm": "@tanstack/svelte-store",
+		"categories": ["stores-and-state"]
+	},
+	{
 		"title": "svelte-form-builder",
 		"repository": "https://github.com/pragmatic-engineering/svelte-form-builder-community",
 		"description": "A No-Code Form Builder Library",
