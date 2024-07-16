@@ -3098,5 +3098,13 @@
 		"description": "Svelte UI library of 20+ fast and responsive components: from buttons to date pickers. Lightweight, customizable, available in light and dark skins.",
 		"npm": "@wx/svelte-core",
 		"categories": ["ui-components"]
+	},
+	{
+		"title": "sveltekit-superactions",
+		"url": "https://superactions.matsku.dev",
+		"repository": "https://github.com/kumpmati/sveltekit-superactions",
+		"description": "A library for type-safely calling server-side code",
+		"npm": "sveltekit-superactions",
+		"categories": ["data-fetching"]
 	}
 ]
