@@ -6,13 +6,20 @@
 
 <div class="grid gap-6">
 	{#if data.search_results}
-		<h1>Searched for</h1>
+		<h1>Searched for: {data.search_results.query}</h1>
 		{#if data.search_results.error}
 			<p>{data.search_results.error}</p>
 		{:else}
 			<ul>
 				{#each data.search_results.content as row}
-					<li>{row.title}</li>
+					<li>
+						{row.title}
+						<ul>
+							{#each row.tags as tag}
+								<li>{tag.name}</li>
+							{/each}
+						</ul>
+					</li>
 				{/each}
 			</ul>
 		{/if}

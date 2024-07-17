@@ -66,6 +66,7 @@
 							type="search"
 							name="search"
 							placeholder="Search by tags, name or author"
+							value={$page.url.searchParams.get('search')}
 						/>
 						<button type="submit">Search</button>
 					</form>
