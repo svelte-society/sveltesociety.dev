@@ -27,7 +27,8 @@ export const usersRelations = relations(users, ({ many, one }) => ({
 	sessions: many(sessions),
 	roles: one(users, { fields: [users.role], references: [users.id] }),
 	authoredContents: many(content),
-	authoredCollections: many(collections)
+	authoredCollections: many(collections),
+	likes: many(likes),
 }));
 
 export const sessions = sqliteTable(
@@ -80,7 +81,8 @@ export const content = sqliteTable(
 			.default(sql`(CURRENT_TIMESTAMP)`),
 		updated_at: integer('updated_at', { mode: 'timestamp' })
 			.notNull()
-			.default(sql`(CURRENT_TIMESTAMP)`)
+			.default(sql`(CURRENT_TIMESTAMP)`),
+		likes: integer('likes').notNull().default(0),
 	},
 	(content) => ({
 		titleIdx: uniqueIndex('titleIdx').on(content.title),
@@ -91,7 +93,8 @@ export const content = sqliteTable(
 export const contentRelations = relations(content, ({ many }) => ({
 	authors: many(contentToUsers),
 	collections: many(contentToCollections),
-	tags: many(contentToTags)
+	tags: many(contentToTags),
+	likes: many(likes),
 }));
 
 export const collections = sqliteTable('collections', {
@@ -102,12 +105,14 @@ export const collections = sqliteTable('collections', {
 		.default(sql`(CURRENT_TIMESTAMP)`),
 	updated_at: integer('updated_at', { mode: 'timestamp' })
 		.notNull()
-		.default(sql`(CURRENT_TIMESTAMP)`)
+		.default(sql`(CURRENT_TIMESTAMP)`),
+	likes: integer('likes').notNull().default(0),
 });
 
 export const collectionsRelations = relations(collections, ({ many }) => ({
 	contents: many(contentToCollections),
-	authors: many(collectionsToUsers)
+	authors: many(collectionsToUsers),
+	likes: many(likes),
 }));
 
 // Junction tables for many-to-many relationships
@@ -220,4 +225,34 @@ export const contentToTagsRelations = relations(contentToTags, ({ one }) => ({
 		fields: [contentToTags.tag_id],
 		references: [tags.id]
 	})
+}));
+
+export const likes = sqliteTable(
+	'likes',
+	{
+		id: integer('id').primaryKey({ autoIncrement: true }),
+		user_id: integer('user_id').notNull().references(() => users.id),
+		content_id: integer('content_id').references(() => content.id),
+		collection_id: integer('collection_id').references(() => collections.id),
+		created_at: integer('created_at', { mode: 'timestamp' }).notNull().defaultNow(),
+	},
+	(table) => ({
+		userContentLikeIdx: uniqueIndex('userContentLikeIdx').on(table.user_id, table.content_id),
+		userCollectionLikeIdx: uniqueIndex('userCollectionLikeIdx').on(table.user_id, table.collection_id),
+	})
+);
+
+export const likesRelations = relations(likes, ({ one }) => ({
+	user: one(users, {
+		fields: [likes.user_id],
+		references: [users.id],
+	}),
+	content: one(content, {
+		fields: [likes.content_id],
+		references: [content.id],
+	}),
+	collection: one(collections, {
+		fields: [likes.collection_id],
+		references: [collections.id],
+	}),
 }));
