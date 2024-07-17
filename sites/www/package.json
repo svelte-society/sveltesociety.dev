@@ -13,7 +13,7 @@
 		"format": "prettier --write .",
 		"db:generate": "drizzle-kit generate --dialect=sqlite --schema=src/lib/server/db/schema.ts",
 		"db:migrate": "drizzle-kit migrate",
-		"db:migrate:manual": "tsx ./src/lib/server/db/manual_migration.ts",
+		"db:migrate:manual": "tsx ./src/lib/server/db/manual_migrations/index.ts",
 		"db:seed": "tsx ./src/lib/server/db/seeds/index.ts",
 		"test:integration": "playwright test",
 		"test:unit": "vitest"
