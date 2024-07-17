@@ -1,1 +1,0 @@
-ALTER TABLE `content` ADD `metadata` text;

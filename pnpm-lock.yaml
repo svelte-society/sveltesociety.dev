@@ -172,6 +172,9 @@ importers:
       eslint-plugin-svelte:
         specifier: ^2.41.0
         version: 2.41.0(eslint@8.57.0)(svelte@5.0.0-next.175)
+      nanoid:
+        specifier: ^5.0.7
+        version: 5.0.7
       postcss:
         specifier: ^8.4.39
         version: 8.4.39

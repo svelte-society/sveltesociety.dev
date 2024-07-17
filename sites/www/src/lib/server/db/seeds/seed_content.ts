@@ -1,4 +1,5 @@
 import * as schema from '../schema';
+import { nanoid } from 'nanoid'
 
 export async function seedContent(db: any) {
     try {
@@ -56,6 +57,7 @@ export async function seedContent(db: any) {
         for (const item of contentItems) {
             const [insertedContent] = await db.insert(schema.content)
                 .values({
+                    id: nanoid(),
                     title: item.title,
                     type: item.type,
                     body: item.body,

@@ -2,6 +2,7 @@ import { db } from "../";
 import { sql, eq, type InferSelectModel } from "drizzle-orm";
 import { collections } from "../schema";
 import { handleServiceCall } from "./utils";
+import { nanoid } from "nanoid";
 
 type UpdateCollection = Omit<InferSelectModel<typeof collections>, 'id' | 'created_at' | 'updated_at'>;
 
@@ -48,19 +49,19 @@ export class CollectionsService {
 
     async create_collection(collection_info: UpdateCollection) {
         return handleServiceCall(async () => {
-            const [collection] = await db.insert(collections).values(collection_info).returning();
+            const [collection] = await db.insert(collections).values({ id: nanoid(), ...collection_info }).returning();
             return collection;
         });
     }
 
-    async update_collection(id: number, new_collection_info: UpdateCollection) {
+    async update_collection(id: string, new_collection_info: UpdateCollection) {
         return handleServiceCall(async () => {
             const [collection] = await db.update(collections).set(new_collection_info).where(eq(collections.id, id)).returning();
             return collection;
         });
     }
 
-    async delete_collection(id: number) {
+    async delete_collection(id: string) {
         return handleServiceCall(async () => {
             await db.delete(collections).where(eq(collections.id, id));
         });

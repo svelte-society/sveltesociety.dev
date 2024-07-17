@@ -2,6 +2,7 @@ import { db } from '../';
 import { sql, eq, inArray, type InferSelectModel } from 'drizzle-orm';
 import { content, contentToTags, tags } from '../schema';
 import { handleServiceCall } from './utils';
+import { nanoid } from 'nanoid';
 
 type CreateContent = Omit<InferSelectModel<typeof content>, 'id' | 'created_at' | 'updated_at'> & { tags: number[] };
 type UpdateContent = Partial<CreateContent>;
@@ -215,9 +216,12 @@ export class ContentService {
 
 	async create_content(content_info: CreateContent) {
 		return handleServiceCall(async () => {
+			let id = nanoid()
+
 			const insertContentQuery = db
 				.insert(content)
 				.values({
+					id,
 					title: content_info.title,
 					type: content_info.type,
 					body: content_info.body,
@@ -233,7 +237,7 @@ export class ContentService {
 			if (content_info.tags && content_info.tags.length > 0) {
 				const insertTagsQuery = db.insert(contentToTags).values(
 					content_info.tags.map(tagId => ({
-						content_id: sql`last_insert_rowid()`,
+						content_id: id,
 						tag_id: tagId
 					}))
 				);
@@ -245,7 +249,7 @@ export class ContentService {
 		});
 	}
 
-	async update_content(id: number, update_info: UpdateContent) {
+	async update_content(id: string, update_info: UpdateContent) {
 		return handleServiceCall(async () => {
 			const updateContentQuery = db
 				.update(content)

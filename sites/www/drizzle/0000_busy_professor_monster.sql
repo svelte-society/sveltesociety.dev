@@ -1,26 +1,29 @@
 CREATE TABLE `collections` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`id` text PRIMARY KEY NOT NULL,
 	`title` text NOT NULL,
 	`created_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
-	`updated_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL
+	`updated_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
+	`likes` integer DEFAULT 0 NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `collections_to_users` (
-	`collection_id` integer NOT NULL,
+	`collection_id` text NOT NULL,
 	`user_id` integer NOT NULL,
 	FOREIGN KEY (`collection_id`) REFERENCES `collections`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
 CREATE TABLE `content` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`id` text PRIMARY KEY NOT NULL,
 	`title` text NOT NULL,
 	`type` text NOT NULL,
 	`body` text NOT NULL,
 	`slug` text NOT NULL,
 	`description` text NOT NULL,
+	`metadata` text,
 	`created_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
-	`updated_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL
+	`updated_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
+	`likes` integer DEFAULT 0 NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `content_to_collections` (
@@ -32,7 +35,7 @@ CREATE TABLE `content_to_collections` (
 );
 --> statement-breakpoint
 CREATE TABLE `content_to_tags` (
-	`content_id` integer NOT NULL,
+	`content_id` text NOT NULL,
 	`tag_id` integer NOT NULL,
 	FOREIGN KEY (`content_id`) REFERENCES `content`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`tag_id`) REFERENCES `tags`(`id`) ON UPDATE no action ON DELETE no action
@@ -45,8 +48,16 @@ CREATE TABLE `content_to_users` (
 	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
+CREATE TABLE `likes` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`user_id` integer NOT NULL,
+	`target_id` text NOT NULL,
+	`created_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
+	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
 CREATE TABLE `roles` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`id` integer PRIMARY KEY NOT NULL,
 	`name` text NOT NULL,
 	`description` text NOT NULL,
 	`active` integer DEFAULT false NOT NULL,
@@ -54,7 +65,7 @@ CREATE TABLE `roles` (
 );
 --> statement-breakpoint
 CREATE TABLE `sessions` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`id` integer PRIMARY KEY NOT NULL,
 	`user_id` integer NOT NULL,
 	`session_token` text NOT NULL,
 	`expires_at` text NOT NULL,
@@ -63,7 +74,7 @@ CREATE TABLE `sessions` (
 );
 --> statement-breakpoint
 CREATE TABLE `tags` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`id` integer PRIMARY KEY NOT NULL,
 	`name` text NOT NULL,
 	`slug` text NOT NULL,
 	`color` text,
@@ -72,7 +83,7 @@ CREATE TABLE `tags` (
 );
 --> statement-breakpoint
 CREATE TABLE `users` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`id` integer PRIMARY KEY NOT NULL,
 	`github_id` integer,
 	`email` text,
 	`username` text,
@@ -90,8 +101,8 @@ CREATE UNIQUE INDEX `titleIdx` ON `content` (`title`);--> statement-breakpoint
 CREATE UNIQUE INDEX `contentSlugIdx` ON `content` (`slug`);--> statement-breakpoint
 CREATE UNIQUE INDEX `contentTagIdx` ON `content_to_tags` (`content_id`,`tag_id`);--> statement-breakpoint
 CREATE INDEX `tag_id_idx` ON `content_to_tags` (`tag_id`);--> statement-breakpoint
+CREATE UNIQUE INDEX `userTargetLikeIdx` ON `likes` (`user_id`,`target_id`);--> statement-breakpoint
 CREATE INDEX `user_id_idx` ON `sessions` (`user_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `tagsSlugIdx` ON `tags` (`slug`);--> statement-breakpoint
-CREATE UNIQUE INDEX `nameIdx` ON `tags` (`name`);--> statement-breakpoint
 CREATE UNIQUE INDEX `githubIdIdx` ON `users` (`github_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `usernameIdx` ON `users` (`username`);

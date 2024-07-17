@@ -5,7 +5,7 @@ import { sqliteTable, text, integer, uniqueIndex, index } from 'drizzle-orm/sqli
 export const users = sqliteTable(
 	'users',
 	{
-		id: integer('id').primaryKey({ autoIncrement: true }),
+		id: integer('id').primaryKey(),
 		github_id: integer('github_id'),
 		email: text('email'),
 		username: text('username'),
@@ -34,7 +34,7 @@ export const usersRelations = relations(users, ({ many, one }) => ({
 export const sessions = sqliteTable(
 	'sessions',
 	{
-		id: integer('id').primaryKey({ autoIncrement: true }),
+		id: integer('id').primaryKey(),
 		user_id: integer('user_id')
 			.notNull()
 			.references(() => users.id),
@@ -55,7 +55,7 @@ export const sessionsRelations = relations(sessions, ({ one }) => ({
 }));
 
 export const roles = sqliteTable('roles', {
-	id: integer('id').primaryKey({ autoIncrement: true }),
+	id: integer('id').primaryKey(),
 	name: text('name').notNull(),
 	description: text('description').notNull(),
 	active: integer('active', { mode: 'boolean' }).notNull().default(false),
@@ -69,7 +69,7 @@ export const rolesRelations = relations(roles, ({ many }) => ({
 export const content = sqliteTable(
 	'content',
 	{
-		id: integer('id').primaryKey({ autoIncrement: true }),
+		id: text('id').primaryKey(),
 		title: text('title').notNull(),
 		type: text('type', { enum: ['recipe', 'video', 'library', 'link', 'blog'] }).notNull(),
 		body: text('body').notNull(),
@@ -98,7 +98,7 @@ export const contentRelations = relations(content, ({ many }) => ({
 }));
 
 export const collections = sqliteTable('collections', {
-	id: integer('id').primaryKey({ autoIncrement: true }),
+	id: text('id').primaryKey(),
 	title: text('title').notNull(),
 	created_at: integer('created_at', { mode: 'timestamp' })
 		.notNull()
@@ -158,7 +158,7 @@ export const contentToCollectionsRelations = relations(contentToCollections, ({ 
 }));
 
 export const collectionsToUsers = sqliteTable('collections_to_users', {
-	collection_id: integer('collection_id')
+	collection_id: text('collection_id')
 		.notNull()
 		.references(() => collections.id),
 	user_id: integer('user_id')
@@ -180,7 +180,7 @@ export const collectionsToUsersRelations = relations(collectionsToUsers, ({ one 
 export const tags = sqliteTable(
 	'tags',
 	{
-		id: integer('id').primaryKey({ autoIncrement: true }),
+		id: integer('id').primaryKey(),
 		name: text('name').notNull(),
 		slug: text('slug').notNull(),
 		color: text('color'),
@@ -203,7 +203,7 @@ export const tagsRelations = relations(tags, ({ many }) => ({
 export const contentToTags = sqliteTable(
 	'content_to_tags',
 	{
-		content_id: integer('content_id')
+		content_id: text('content_id')
 			.notNull()
 			.references(() => content.id),
 		tag_id: integer('tag_id')
@@ -230,15 +230,13 @@ export const contentToTagsRelations = relations(contentToTags, ({ one }) => ({
 export const likes = sqliteTable(
 	'likes',
 	{
-		id: integer('id').primaryKey({ autoIncrement: true }),
+		id: integer('id').primaryKey(),
 		user_id: integer('user_id').notNull().references(() => users.id),
-		content_id: integer('content_id').references(() => content.id),
-		collection_id: integer('collection_id').references(() => collections.id),
-		created_at: integer('created_at', { mode: 'timestamp' }).notNull().defaultNow(),
+		target_id: text('target_id').notNull(),
+		created_at: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`)
 	},
 	(table) => ({
-		userContentLikeIdx: uniqueIndex('userContentLikeIdx').on(table.user_id, table.content_id),
-		userCollectionLikeIdx: uniqueIndex('userCollectionLikeIdx').on(table.user_id, table.collection_id),
+		userTargetLikeIdx: uniqueIndex('userTargetLikeIdx').on(table.user_id, table.target_id),
 	})
 );
 
@@ -248,11 +246,11 @@ export const likesRelations = relations(likes, ({ one }) => ({
 		references: [users.id],
 	}),
 	content: one(content, {
-		fields: [likes.content_id],
+		fields: [likes.target_id],
 		references: [content.id],
 	}),
 	collection: one(collections, {
-		fields: [likes.collection_id],
+		fields: [likes.target_id],
 		references: [collections.id],
 	}),
 }));

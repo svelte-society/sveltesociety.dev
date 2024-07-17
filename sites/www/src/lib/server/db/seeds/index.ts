@@ -14,8 +14,7 @@ config({
 });
 
 export const db = drizzle(createClient({
-    url: process.env.TURSO_DATABASE_URL as string,
-    authToken: process.env.TURSO_AUTH_TOKEN,
+    url: process.env.TURSO_DATABASE_URL as string
 }), { schema })
 
 await seedTags(db)

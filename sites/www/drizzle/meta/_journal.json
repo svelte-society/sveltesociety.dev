@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1720562275591,
-      "tag": "0000_married_masque",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1720562434133,
-      "tag": "0001_heavy_sunfire",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1720621468878,
-      "tag": "0002_melodic_mockingbird",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1720882675943,
-      "tag": "0003_lumpy_spyke",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "6",
-      "when": 1721158815801,
-      "tag": "0004_uneven_professor_monster",
+      "when": 1721235608562,
+      "tag": "0000_busy_professor_monster",
       "breakpoints": true
     }
   ]
