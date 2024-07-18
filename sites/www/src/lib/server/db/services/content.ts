@@ -169,6 +169,7 @@ export class ContentService {
 				content.description,
 				content.body,
 				content.slug,
+				content.likes,
 				GROUP_CONCAT(DISTINCT tags.name) AS tag_names,
 				GROUP_CONCAT(DISTINCT tags.slug) AS tag_slugs,
 				GROUP_CONCAT(DISTINCT users.username) AS authors
@@ -192,6 +193,7 @@ export class ContentService {
 				description: result.description,
 				slug: result.slug,
 				body: result.body,
+				likes: result.likes,
 				tags: result.tag_slugs ? result.tag_slugs.split(',').map((slug, index) => ({
 					slug,
 					name: result?.tag_names?.split(',')[index]
