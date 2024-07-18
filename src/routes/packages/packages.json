@@ -2976,7 +2976,7 @@
 		"url": "https://amadeusitgroup.github.io/AgnosUI/latest/",
 		"repository": "https://github.com/AmadeusITGroup/AgnosUI",
 		"description": "Reactive, accessible and Bootstrap-compliant components for Svelte.",
-		"npm": "@agnos-ui/svelte",
+		"npm": "@agnos-ui/svelte-bootstrap",
 		"categories": ["design-system", "ui-components"]
 	},
 	{
