@@ -40,7 +40,7 @@
 			</span>
 		</div>
 		<div class="flex items-center space-x-4">
-			<form method="POST" action="?/toggle_like" use:enhance={likeSubmit}>
+			<form method="POST" action="/?/toggle_like" use:enhance={likeSubmit}>
 				<input type="hidden" id="id" name="id" value={id} />
 				<input type="hidden" id="type" name="type" value={liked ? 'unlike' : 'like'} />
 				<button
