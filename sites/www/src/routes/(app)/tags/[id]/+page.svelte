@@ -9,7 +9,7 @@
 <!-- <Tag tag={data.tag.filter} /> -->
 <div class="grid gap-6">
 	{#each data.content as item}
-		<ContentCard {...item} author="John Doe" views="11114" likes="10">
+		<ContentCard {...item} author="John Doe" views="11114">
 			{item.description}</ContentCard
 		>
 	{/each}
