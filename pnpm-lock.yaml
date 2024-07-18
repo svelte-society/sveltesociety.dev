@@ -105,6 +105,10 @@ importers:
         version: 1.6.0(@types/node@20.14.10)(lightningcss@1.25.1)
 
   sites/www:
+    dependencies:
+      upgrade:
+        specifier: ^1.1.0
+        version: 1.1.0
     devDependencies:
       '@libsql/client':
         specifier: ^0.6.2
@@ -3697,6 +3701,9 @@ packages:
     peerDependencies:
       browserslist: '>= 4.21.0'
 
+  upgrade@1.1.0:
+    resolution: {integrity: sha512-NtkVvqVCqsJo5U3mYRum2Tw6uCltOxfIJ/AfTZeTmw6U39IB5X23xF+kRZ9aiPaORqeiQQ7Q209/ibhOvxzwHA==}
+
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
@@ -7158,6 +7165,8 @@ snapshots:
       browserslist: 4.23.0
       escalade: 3.1.2
       picocolors: 1.0.0
+
+  upgrade@1.1.0: {}
 
   uri-js@4.4.1:
     dependencies:

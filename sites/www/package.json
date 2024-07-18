@@ -41,6 +41,7 @@
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.41.0",
+		"nanoid": "^5.0.7",
 		"postcss": "^8.4.39",
 		"postcss-load-config": "^5.1.0",
 		"prettier": "^3.3.2",
@@ -58,9 +59,11 @@
 		"uuid": "^9.0.1",
 		"vite": "^5.3.3",
 		"vite-plugin-kit-routes": "^0.2.12",
-		"nanoid": "^5.0.7",
 		"vitest": "^1.6.0",
 		"zod": "^3.23.8"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"upgrade": "^1.1.0"
+	}
 }
