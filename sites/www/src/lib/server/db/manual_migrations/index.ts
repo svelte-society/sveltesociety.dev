@@ -14,96 +14,107 @@ export const db = drizzle(createClient({
 }), { schema })
 
 export async function up_likes(db: any) {
+  // Drop existing triggers if any
+  await db.run(sql`DROP TRIGGER IF EXISTS increment_likes;`);
+  await db.run(sql`DROP TRIGGER IF EXISTS decrement_likes;`);
+
   // Create triggers for like tables
   await db.run(sql`
-      CREATE TRIGGER IF NOT EXISTS increment_content_likes
-      AFTER INSERT ON likes
-      WHEN NEW.content_id IS NOT NULL
-      BEGIN
-        UPDATE content SET likes = likes + 1 WHERE id = NEW.content_id;
-      END;
-    `);
+    CREATE TRIGGER IF NOT EXISTS increment_likes
+    AFTER INSERT ON likes
+    BEGIN
+      UPDATE content SET likes = likes + 1 WHERE id = NEW.target_id;
+      UPDATE collections SET likes = likes + 1 WHERE id = NEW.target_id;
+    END;
+  `);
 
+  // Create a single, generic trigger for decrementing likes with error logging
   await db.run(sql`
-      CREATE TRIGGER IF NOT EXISTS decrement_content_likes
-      AFTER DELETE ON likes
-      WHEN OLD.content_id IS NOT NULL
-      BEGIN
-        UPDATE content SET likes = likes - 1 WHERE id = OLD.content_id;
-      END;
-    `);
-
-  await db.run(sql`
-      CREATE TRIGGER IF NOT EXISTS increment_collection_likes
-      AFTER INSERT ON likes
-      WHEN NEW.collection_id IS NOT NULL
-      BEGIN
-        UPDATE collections SET likes = likes + 1 WHERE id = NEW.collection_id;
-      END;
-    `);
-
-  await db.run(sql`
-      CREATE TRIGGER IF NOT EXISTS decrement_collection_likes
-      AFTER DELETE ON likes
-      WHEN OLD.collection_id IS NOT NULL
-      BEGIN
-        UPDATE collections SET likes = likes - 1 WHERE id = OLD.collection_id;
-      END;
-    `);
-
+    CREATE TRIGGER IF NOT EXISTS decrement_likes
+    AFTER DELETE ON likes
+    BEGIN
+      UPDATE content SET likes = likes - 1 WHERE id = OLD.target_id;
+      UPDATE collections SET likes = likes - 1 WHERE id = OLD.target_id;
+    END;
+  `);
 }
 
 export async function down_likes(db: any) {
   // Remove triggers
-  await db.run(sql`DROP TRIGGER IF EXISTS increment_content_likes`);
-  await db.run(sql`DROP TRIGGER IF EXISTS decrement_content_likes`);
-  await db.run(sql`DROP TRIGGER IF EXISTS increment_collection_likes`);
-  await db.run(sql`DROP TRIGGER IF EXISTS decrement_collection_likes`);
+  await db.run(sql`DROP TRIGGER IF EXISTS increment_likes`);
+  await db.run(sql`DROP TRIGGER IF EXISTS decrement_likes`);
+}
+
+// Add this to sites/www/src/lib/server/db/manual_migrations/index.ts
+
+async function up_saves(db: any) {
+  // Drop existing triggers if any
+  await db.run(sql`DROP TRIGGER IF EXISTS increment_saves;`);
+  await db.run(sql`DROP TRIGGER IF EXISTS decrement_saves;`);
+
+  // Create triggers for save tables
+  await db.run(sql`
+    CREATE TRIGGER IF NOT EXISTS increment_saves
+    AFTER INSERT ON saves
+    BEGIN
+      UPDATE content SET saves = saves + 1 WHERE id = NEW.target_id;
+      UPDATE collections SET saves = saves + 1 WHERE id = NEW.target_id;
+    END;
+  `);
+
+  // Create a single, generic trigger for decrementing saves
+  await db.run(sql`
+    CREATE TRIGGER IF NOT EXISTS decrement_saves
+    AFTER DELETE ON saves
+    BEGIN
+      UPDATE content SET saves = saves - 1 WHERE id = OLD.target_id;
+      UPDATE collections SET saves = saves - 1 WHERE id = OLD.target_id;
+    END;
+  `);
+}
+
+async function down_saves(db: any) {
+  // Remove triggers
+  await db.run(sql`DROP TRIGGER IF EXISTS increment_saves`);
+  await db.run(sql`DROP TRIGGER IF EXISTS decrement_saves`);
 }
 
 export async function up_fts(db: any) {
   // Create the FTS table if it doesn't exist
   await db.run(sql`
-      CREATE VIRTUAL TABLE IF NOT EXISTS content_fts USING fts5(
-        id UNINDEXED,
-        title,
-        body,
-        description,
-        content='content'
-      )
-    `);
+      CREATE VIRTUAL TABLE content_fts USING fts5(
+        content_id UNINDEXED,  -- Remove UNINDEXED to allow searching by ID if needed
+        title, 
+        body, 
+        description
+      );
+  `);
 
-  // Trigger for INSERT
+  // Insert Trigger
   await db.run(sql`
-      CREATE TRIGGER IF NOT EXISTS content_ai AFTER INSERT ON content BEGIN
-        INSERT INTO content_fts(id, title, body, description)
-        VALUES (new.id, new.title, new.body, new.description);
-      END;
-    `);
+    CREATE TRIGGER content_ai AFTER INSERT ON content BEGIN
+      INSERT INTO content_fts(content_id, title, body, description)
+      VALUES (NEW.id, NEW.title, NEW.body, NEW.description);
+    END;
+  `);
 
-  // Trigger for UPDATE
+  // Update Trigger
   await db.run(sql`
-      CREATE TRIGGER IF NOT EXISTS content_au AFTER UPDATE ON content BEGIN
-        UPDATE content_fts
-        SET title = new.title,
-            body = new.body,
-            description = new.description
-        WHERE id = old.id;
-      END;
-    `);
+    CREATE TRIGGER content_au AFTER UPDATE ON content BEGIN
+      UPDATE content_fts
+      SET title = NEW.title,
+          body = NEW.body,
+          description = NEW.description
+      WHERE content_id = NEW.id;
+    END;
+  `);
 
-  // Trigger for DELETE
+  // Delete Trigger
   await db.run(sql`
-      CREATE TRIGGER IF NOT EXISTS content_ad AFTER DELETE ON content BEGIN
-        DELETE FROM content_fts WHERE id = old.id;
-      END;
-    `);
-
-  // Populate the FTS table with existing content
-  await db.run(sql`
-      INSERT OR IGNORE INTO content_fts(id, title, body, description)
-      SELECT id, title, body, description FROM content
-    `);
+    CREATE TRIGGER content_ad AFTER DELETE ON content BEGIN
+      DELETE FROM content_fts WHERE content_id = OLD.id;
+    END;
+  `);
 }
 
 export async function down_fts(db: any) {
@@ -116,6 +127,6 @@ export async function down_fts(db: any) {
   await db.run(sql`DROP TABLE IF EXISTS content_fts`);
 }
 
-
 up_fts(db)
 up_likes(db)
+up_saves(db)

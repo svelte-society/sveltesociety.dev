@@ -25,7 +25,7 @@
 		{/if}
 	{:else}
 		{#each data.content as item}
-			<ContentCard {...item} author="John Doe" views="11114" likes="10">
+			<ContentCard {...item} author="John Doe" views="11114">
 				{item.description}</ContentCard
 			>
 		{/each}

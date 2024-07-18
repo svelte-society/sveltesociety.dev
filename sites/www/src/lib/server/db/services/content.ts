@@ -1,6 +1,6 @@
 import { db } from '../';
 import { sql, eq, inArray, type InferSelectModel } from 'drizzle-orm';
-import { content, contentToTags, tags } from '../schema';
+import { content, contentToTags, tags, likes } from '../schema';
 import { handleServiceCall } from './utils';
 import { nanoid } from 'nanoid';
 
@@ -42,58 +42,21 @@ export class ContentService {
 		})
 		.prepare();
 
-	private findManyContentWithTagsStatement = db.query.content
+	private getUserLikesStatement = db.query.likes
 		.findMany({
-			limit: sql.placeholder('limit'),
-			offset: sql.placeholder('offset'),
-			with: {
-				tags: {
-					columns: {},
-					with: {
-						tag: true
-					}
-				}
-			},
+			where: (likes, { eq, and, inArray }) => and(
+				eq(likes.user_id, sql.placeholder('user_id')),
+				inArray(likes.target_id, sql.placeholder('target_ids'))
+			),
 			columns: {
-				id: true,
-				title: true,
-				type: true,
-				slug: true,
-				description: true,
-				created_at: true,
-				updated_at: true
-			},
-			orderBy: (content, { desc }) => [desc(content.created_at)]
+				target_id: true
+			}
 		}).prepare()
 
 	private countContentStatement = db
 		.select({ count: sql<number>`count(*)` })
 		.from(content)
 		.prepare();
-
-	async get_content_items(limit: number = 10, page: number = 0) {
-		return handleServiceCall(async () => {
-			const offset = page * limit;
-
-			const [contentItems, countResult] = await Promise.all([
-				this.findManyContentWithTagsStatement.execute({ limit, offset }),
-				this.countContentStatement.execute()
-			]);
-
-			const totalCount = countResult[0]?.count ?? 0;
-
-			return {
-				items: contentItems.map(item => ({
-					...item,
-					tags: item.tags.map(t => t.tag)
-				})),
-				totalCount,
-				page,
-				limit,
-				totalPages: Math.ceil(totalCount / limit)
-			};
-		});
-	}
 
 	private findContentByTagSlugStatement = db.query.content
 		.findMany({
@@ -125,6 +88,77 @@ export class ContentService {
 		.where(eq(tags.slug, sql.placeholder('tagSlug')))
 		.prepare();
 
+	async get_content_items({ limit = 10, page = 0, user_id }: { limit?: number, page?: number, user_id?: number }) {
+		return handleServiceCall(async () => {
+			const offset = page * limit;
+
+			const [contentItems, countResult] = await db.batch([
+				db.query.content
+					.findMany({
+						limit,
+						offset,
+						with: {
+							tags: {
+								columns: {},
+								with: {
+									tag: true
+								}
+							}
+						},
+						columns: {
+							id: true,
+							title: true,
+							type: true,
+							slug: true,
+							description: true,
+							created_at: true,
+							updated_at: true,
+							likes: true
+						},
+						orderBy: (content, { desc }) => [desc(content.created_at)]
+					}),
+				db
+					.select({ count: sql<number>`count(*)` })
+					.from(content)
+			])
+
+			let user_likes: Set<string> = new Set()
+
+			// Check if user has liked content or not.
+			if (user_id) {
+				const target_ids = contentItems.map(item => item.id);
+
+				const userLikes = await db.query.likes.findMany({
+					where: (likes, { and, eq, inArray }) => and(
+						eq(likes.user_id, user_id),
+						inArray(likes.target_id, target_ids)
+					),
+					columns: {
+						target_id: true
+					}
+				});
+
+				user_likes = new Set(userLikes.map(like => like.target_id));
+			}
+
+
+
+			const totalCount = countResult[0]?.count ?? 0;
+
+			return {
+				items: contentItems.map(item => ({
+					...item,
+					tags: item.tags.map(t => t.tag),
+					liked: user_likes.has(item.id)
+				})),
+				totalCount,
+				page,
+				limit,
+				totalPages: Math.ceil(totalCount / limit)
+			};
+		});
+	}
+
 	async searchContent(query: string) {
 		return handleServiceCall(async () => {
 			const searchContentStatement = sql`
@@ -139,7 +173,7 @@ export class ContentService {
 				GROUP_CONCAT(DISTINCT tags.slug) AS tag_slugs,
 				GROUP_CONCAT(DISTINCT users.username) AS authors
 				FROM content_fts
-				JOIN content ON content.id = content_fts.id
+				JOIN content ON content.id = content_fts.content_id
 				LEFT JOIN content_to_tags ON content.id = content_to_tags.content_id
 				LEFT JOIN tags ON content_to_tags.tag_id = tags.id
 				LEFT JOIN content_to_users ON content.id = content_to_users.content_id
@@ -201,9 +235,11 @@ export class ContentService {
 		});
 	}
 
-	async get_content(contentId: number) {
+	async get_content(id: string) {
 		return handleServiceCall(async () => {
-			const result = await this.findContentWithTagsStatement.execute({ id: contentId });
+			const result = await this.findContentWithTagsStatement.execute({ id });
+
+			console.log(result)
 
 			if (!result) return null;
 
@@ -284,23 +320,28 @@ export class ContentService {
 		});
 	}
 
-	async delete_content(id: number) {
+	async delete_content(id: string) {
 		return handleServiceCall(async () => {
-			const deleteTagsQuery = db
-				.delete(contentToTags)
-				.where(eq(contentToTags.content_id, id));
+			// Start a transaction to ensure all operations succeed or fail together
+			return await db.transaction(async (tx) => {
+				// 1. Delete likes associated with this content
+				await tx
+					.delete(likes)
+					.where(eq(likes.target_id, id));
 
-			const deleteContentQuery = db
-				.delete(content)
-				.where(eq(content.id, id))
-				.returning();
+				// 2. Delete tags associated with this content
+				await tx
+					.delete(contentToTags)
+					.where(eq(contentToTags.content_id, id));
 
-			const [, deletedContentResult] = await db.batch([
-				deleteTagsQuery,
-				deleteContentQuery
-			]);
+				// 3. Delete the content itself
+				const deletedContent = await tx
+					.delete(content)
+					.where(eq(content.id, id))
+					.returning();
 
-			return deletedContentResult[0];
+				return deletedContent[0];
+			});
 		});
 	}
 }
