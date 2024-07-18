@@ -3,7 +3,7 @@
 	import Button from '$lib/ui/Button.svelte';
 	import { enhance } from '$app/forms';
 
-	export let data;
+	let { data } = $props();
 </script>
 
 <div class="container mx-auto px-4 py-8">
