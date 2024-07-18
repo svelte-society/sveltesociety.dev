@@ -2,8 +2,6 @@
 	import ContentCard from '$lib/ui/ContentCard.svelte';
 
 	let { data } = $props();
-
-	console.log(data.search_results);
 </script>
 
 <div class="grid gap-6">
