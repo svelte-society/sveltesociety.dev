@@ -20,7 +20,7 @@ const schema = z.object({
 export const load = async ({ params }) => {
 	// const result = await contentService.get_content(parseInt(params.id));
 	const [res_content, res_tags] = await Promise.all([
-		contentService.get_content(parseInt(params.id)),
+		contentService.get_content(params.id),
 		tagService.get_tags()
 	]);
 	if (!res_content.data || !res_tags.data) {
