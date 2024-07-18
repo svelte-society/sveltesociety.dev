@@ -83,6 +83,7 @@ export const content = sqliteTable(
 			.notNull()
 			.default(sql`(CURRENT_TIMESTAMP)`),
 		likes: integer('likes').notNull().default(0),
+		saves: integer('saves').notNull().default(0),
 	},
 	(content) => ({
 		titleIdx: uniqueIndex('titleIdx').on(content.title),
@@ -107,6 +108,7 @@ export const collections = sqliteTable('collections', {
 		.notNull()
 		.default(sql`(CURRENT_TIMESTAMP)`),
 	likes: integer('likes').notNull().default(0),
+	saves: integer('saves').notNull().default(0),
 });
 
 export const collectionsRelations = relations(collections, ({ many }) => ({
@@ -251,6 +253,34 @@ export const likesRelations = relations(likes, ({ one }) => ({
 	}),
 	collection: one(collections, {
 		fields: [likes.target_id],
+		references: [collections.id],
+	}),
+}));
+
+export const saves = sqliteTable(
+	'saves',
+	{
+		id: integer('id').primaryKey(),
+		user_id: integer('user_id').notNull().references(() => users.id),
+		target_id: text('target_id').notNull(),
+		created_at: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`)
+	},
+	(table) => ({
+		userTargetSaveIdx: uniqueIndex('userTargetSaveIdx').on(table.user_id, table.target_id),
+	})
+);
+
+export const savedRelations = relations(saves, ({ one }) => ({
+	user: one(users, {
+		fields: [saves.user_id],
+		references: [users.id],
+	}),
+	content: one(content, {
+		fields: [saves.target_id],
+		references: [content.id],
+	}),
+	collection: one(collections, {
+		fields: [saves.target_id],
 		references: [collections.id],
 	}),
 }));
