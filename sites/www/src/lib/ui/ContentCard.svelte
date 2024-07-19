@@ -1,6 +1,24 @@
 <script lang="ts">
+	import { Snippet } from 'svelte';
 	import { enhance } from '$app/forms';
 	import Tags from './Tags.svelte';
+	interface ContentCardProps {
+		id: string | number;
+		title: string;
+		description: string;
+		type: string;
+		author: string;
+		time: string;
+		views: number;
+		likes: number;
+		liked: boolean;
+		saves: number;
+		saved: boolean;
+		tags: string[];
+		slug: string;
+		children: Snippet;
+	}
+
 	let {
 		id,
 		title,
@@ -16,16 +34,16 @@
 		tags,
 		slug,
 		children
-	} = $props();
+	}: ContentCardProps = $props();
 
 	let submitting_like_toggle = $state(false);
 	let submitting_save_toggle = $state(false);
 
 	const likeSubmit = () => {
 		submitting_like_toggle = true;
+		likes = liked ? likes - 1 : likes + 1;
+		liked = !liked;
 		return async ({ result }) => {
-			likes = liked ? likes - 1 : likes + 1;
-			liked = !liked;
 			if (!result?.data?.success) {
 				likes = liked ? likes + 1 : likes - 1;
 				liked = !liked;
@@ -35,9 +53,9 @@
 	};
 	const saveSubmit = () => {
 		submitting_save_toggle = true;
+		saves = saved ? saves - 1 : saves + 1;
+		saved = !saved;
 		return async ({ result }) => {
-			saves = saved ? saves - 1 : saves + 1;
-			saved = !saved;
 			if (!result?.data?.success) {
 				saves = saved ? saves + 1 : saves - 1;
 				saved = !saved;
