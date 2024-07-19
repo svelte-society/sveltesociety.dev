@@ -2,6 +2,7 @@ import type { PageServerLoad } from './$types';
 import { contentService } from '$lib/server/db/services/content';
 import { fail, error } from '@sveltejs/kit';
 import { likeService } from '$lib/server/db/services/likes';
+import { saveService } from '$lib/server/db/services/saves';
 
 export const load: PageServerLoad = async ({ url, fetch, locals }) => {
     const searchQuery = new URL(url).searchParams.get('search');
@@ -65,6 +66,42 @@ export const actions = {
         } catch (err) {
             console.error('Error processing like:', err);
             throw error(500, 'An error occurred while processing the like action');
+        }
+    },
+    toggle_save: async ({ request, locals }) => {
+        if (!locals.user) {
+            // User is not logged in, return silently
+            return;
+        }
+
+        const data = await request.formData();
+        const id = data.get('id');
+        const type: 'save' | 'unsave' = data.get('type')
+
+        if (!id || typeof id !== 'string') {
+            return fail(400, { message: 'Invalid or missing id' });
+        }
+
+        try {
+
+            if (type === 'save') {
+                // Attempt to like the content
+                const saveResult = await saveService.save(locals.user.id, id);
+
+                if (!saveResult.success) {
+                    throw new Error('Failed to process save action');
+                }
+            } else {
+                const unlikeResult = await saveService.unsave(locals.user.id, id)
+                if (!unlikeResult.success) {
+                    throw new Error('Failed to process unsave action');
+                }
+            }
+            // Return success without any specific action information
+            return { success: true };
+        } catch (err) {
+            console.error('Error processing like:', err);
+            throw error(500, 'An error occurred while processing the save action');
         }
     },
 };

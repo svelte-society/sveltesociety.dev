@@ -113,7 +113,8 @@ export class ContentService {
 							description: true,
 							created_at: true,
 							updated_at: true,
-							likes: true
+							likes: true,
+							saves: true  // Added saves column
 						},
 						orderBy: (content, { desc }) => [desc(content.created_at)]
 					}),
@@ -123,25 +124,36 @@ export class ContentService {
 			])
 
 			let user_likes: Set<string> = new Set()
+			let user_saves: Set<string> = new Set()
 
-			// Check if user has liked content or not.
+			// Check if user has liked or saved content or not.
 			if (user_id) {
 				const target_ids = contentItems.map(item => item.id);
 
-				const userLikes = await db.query.likes.findMany({
-					where: (likes, { and, eq, inArray }) => and(
-						eq(likes.user_id, user_id),
-						inArray(likes.target_id, target_ids)
-					),
-					columns: {
-						target_id: true
-					}
-				});
+				const [userLikes, userSaves] = await db.batch([
+					db.query.likes.findMany({
+						where: (likes, { and, eq, inArray }) => and(
+							eq(likes.user_id, user_id),
+							inArray(likes.target_id, target_ids)
+						),
+						columns: {
+							target_id: true
+						}
+					}),
+					db.query.saves.findMany({
+						where: (saves, { and, eq, inArray }) => and(
+							eq(saves.user_id, user_id),
+							inArray(saves.target_id, target_ids)
+						),
+						columns: {
+							target_id: true
+						}
+					})
+				]);
 
 				user_likes = new Set(userLikes.map(like => like.target_id));
+				user_saves = new Set(userSaves.map(save => save.target_id));
 			}
-
-
 
 			const totalCount = countResult[0]?.count ?? 0;
 
@@ -149,7 +161,8 @@ export class ContentService {
 				items: contentItems.map(item => ({
 					...item,
 					tags: item.tags.map(t => t.tag),
-					liked: user_likes.has(item.id)
+					liked: user_likes.has(item.id),
+					saved: user_saves.has(item.id)  // Added saved state
 				})),
 				totalCount,
 				page,
@@ -170,6 +183,7 @@ export class ContentService {
 				content.body,
 				content.slug,
 				content.likes,
+				content.saves,
 				GROUP_CONCAT(DISTINCT tags.name) AS tag_names,
 				GROUP_CONCAT(DISTINCT tags.slug) AS tag_slugs,
 				GROUP_CONCAT(DISTINCT users.username) AS authors
@@ -194,6 +208,7 @@ export class ContentService {
 				slug: result.slug,
 				body: result.body,
 				likes: result.likes,
+				saves: result.saves,
 				tags: result.tag_slugs ? result.tag_slugs.split(',').map((slug, index) => ({
 					slug,
 					name: result?.tag_names?.split(',')[index]
