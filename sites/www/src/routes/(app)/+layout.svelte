@@ -88,9 +88,9 @@
 					</li>
 					<li>
 						<a
-							href="/links"
-							class="hover:text-slate-600 {$page.url.pathname === '/contact' ? 'font-bold' : ''}"
-							>Links</a
+							href="/events"
+							class="hover:text-slate-600 {$page.url.pathname === '/about' ? 'font-bold' : ''}"
+							>Events</a
 						>
 					</li>
 					{#if data.user}
