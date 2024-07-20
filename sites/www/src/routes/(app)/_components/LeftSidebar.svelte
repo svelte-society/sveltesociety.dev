@@ -3,7 +3,7 @@
 
 	const links = [
 		{ name: 'Home', href: '/' },
-		{ name: 'Saved posts', href: '/saved' },
+		{ name: 'Saved', href: '/saved' },
 		{ name: 'CURATED', href: null },
 		{ name: 'Announcements', href: '/announcements' },
 		{ name: 'Collections', href: '/collections' },

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ContentCard from '$lib/ui/ContentCard.svelte';
+	import Pagination from '$lib/ui/Pagination.svelte';
 
 	let { data } = $props();
 </script>
@@ -18,5 +19,9 @@
 		{#each data.content as item}
 			<ContentCard {...item} author="John Doe" views="11114" />
 		{/each}
+	{/if}
+
+	{#if data?.totalPages > 1}
+		<Pagination totalPages={data.totalPages} />
 	{/if}
 </div>

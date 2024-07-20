@@ -5,7 +5,8 @@ import { likeService } from '$lib/server/db/services/likes';
 import { saveService } from '$lib/server/db/services/saves';
 
 export const load: PageServerLoad = async ({ url, fetch, locals }) => {
-    const searchQuery = new URL(url).searchParams.get('search');
+    const searchQuery = url.searchParams.get('search');
+    const page = parseInt(url.searchParams.get('page'))
     if (searchQuery) {
         const resp = await fetch(`/search/${searchQuery}`)
         const content = await resp.json()
@@ -19,7 +20,8 @@ export const load: PageServerLoad = async ({ url, fetch, locals }) => {
         }
     } else {
         const result = await contentService.get_content_items({
-            user_id: locals?.user?.id
+            user_id: locals?.user?.id,
+            page,
         });
 
         if (!result.success) {
@@ -27,7 +29,7 @@ export const load: PageServerLoad = async ({ url, fetch, locals }) => {
         }
 
 
-        return { content: result?.data?.items, count: result?.data?.totalCount };
+        return { content: result?.data?.items, count: result?.data?.totalCount, totalPages: result?.data?.totalPages };
     }
 };
 

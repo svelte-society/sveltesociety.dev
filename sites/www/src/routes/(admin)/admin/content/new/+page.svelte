@@ -2,6 +2,7 @@
 <script lang="ts">
 	import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte';
 	import Button from '$lib/ui/Button.svelte';
+	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import type { PageData } from './$types';
 
@@ -50,6 +51,12 @@
 				required
 				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
 			></textarea>
+			{#if $errors.body}<p class="text-xs italic text-red-500">{$errors.body}</p>{/if}
+		</div>
+
+		<div class="space-y-2">
+			<label for="body" class="mb-2 block text-sm font-bold text-gray-700">Body:</label>
+			<MarkdownEditor />
 			{#if $errors.body}<p class="text-xs italic text-red-500">{$errors.body}</p>{/if}
 		</div>
 

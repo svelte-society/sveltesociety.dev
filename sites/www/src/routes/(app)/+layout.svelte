@@ -2,6 +2,7 @@
 	import LeftSidebar from './_components/LeftSidebar.svelte';
 	import { page } from '$app/stores';
 	import RightSidebar from './_components/RightSidebar.svelte';
+	import Breadcrumb from '$lib/ui/Breadcrumb.svelte';
 
 	let { data, children } = $props();
 </script>
@@ -110,6 +111,7 @@
 		<LeftSidebar />
 
 		<main class="flex-1 px-4 py-8">
+			<Breadcrumb />
 			{@render children()}
 		</main>
 

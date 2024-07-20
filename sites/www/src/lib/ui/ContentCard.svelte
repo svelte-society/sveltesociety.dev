@@ -6,7 +6,7 @@
 		id: string | number;
 		title: string;
 		description?: string;
-		body?: string;
+		rendered_body?: string;
 		type: string;
 		author: string;
 		time: string;
@@ -23,7 +23,7 @@
 		id,
 		title,
 		description,
-		body,
+		rendered_body,
 		type,
 		author,
 		time,
@@ -73,7 +73,7 @@
 	};
 </script>
 
-<div class="grid gap-2 rounded-lg bg-zinc-50 p-5">
+<article class="grid gap-2 rounded-lg bg-zinc-50 p-5">
 	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between text-xs">
 		<div class="flex">
 			<span class="font-semibold capitalize">{type}&nbsp;</span>
@@ -165,11 +165,10 @@
 		</div>
 	</div>
 
-	<h2 class="mb-2 text-xl font-bold"><a href="/{type}/{slug}">{title}</a></h2>
-
-	{#if body}
-		{body}
+	{#if rendered_body}
+		<div class="prose">{@html rendered_body}</div>
 	{:else}
+		<h2 class="mb-2 text-xl font-bold"><a href="/{type}/{slug}">{title}</a></h2>
 		{description}
 	{/if}
 
@@ -180,4 +179,4 @@
 
 		<div class="text-xs text-gray-500">{time}</div>
 	</div>
-</div>
+</article>
