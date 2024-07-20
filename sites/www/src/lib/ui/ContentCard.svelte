@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { Snippet } from 'svelte';
 	import { enhance } from '$app/forms';
+	import { page } from '$app/stores';
 	import Tags from './Tags.svelte';
 	interface ContentCardProps {
 		id: string | number;
 		title: string;
-		description: string;
+		description?: string;
+		body?: string;
 		type: string;
 		author: string;
 		time: string;
@@ -16,13 +17,13 @@
 		saved: boolean;
 		tags: string[];
 		slug: string;
-		children: Snippet;
 	}
 
 	let {
 		id,
 		title,
 		description,
+		body,
 		type,
 		author,
 		time,
@@ -32,14 +33,17 @@
 		saves,
 		saved,
 		tags,
-		slug,
-		children
+		slug
 	}: ContentCardProps = $props();
 
 	let submitting_like_toggle = $state(false);
 	let submitting_save_toggle = $state(false);
 
-	const likeSubmit = () => {
+	const likeSubmit = ({ cancel }) => {
+		if (!$page.data.logged_in) {
+			cancel();
+			return;
+		}
 		submitting_like_toggle = true;
 		likes = liked ? likes - 1 : likes + 1;
 		liked = !liked;
@@ -52,6 +56,10 @@
 		};
 	};
 	const saveSubmit = () => {
+		if (!$page.data.logged_in) {
+			cancel();
+			return;
+		}
 		submitting_save_toggle = true;
 		saves = saved ? saves - 1 : saves + 1;
 		saved = !saved;
@@ -124,6 +132,7 @@
 				<input type="hidden" name="id" value={id} />
 				<input type="hidden" id="type" name="type" value={saved ? 'unsave' : 'save'} />
 				<button
+					disabled={submitting_save_toggle}
 					aria-label="Like {type}"
 					type="submit"
 					class="-mx-2 -my-1 flex items-center gap-1 rounded-md px-2 py-1 text-gray-600 hover:bg-gray-200 hover:text-gray-700"
@@ -156,9 +165,13 @@
 		</div>
 	</div>
 
-	<h2 class="mb-2 text-xl font-bold"><a href="/post/{slug}">{title}</a></h2>
+	<h2 class="mb-2 text-xl font-bold"><a href="/{type}/{slug}">{title}</a></h2>
 
-	{@render children()}
+	{#if body}
+		{body}
+	{:else}
+		{description}
+	{/if}
 
 	<div class="mt-4 grid grid-cols-[1fr_auto] items-start justify-between">
 		<div class="flex space-x-2">

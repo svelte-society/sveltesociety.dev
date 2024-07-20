@@ -2,19 +2,11 @@
 	import Select from '$lib/ui/Select.svelte';
 	import Button from '$lib/ui/Button.svelte';
 	import Avatar from '$lib/ui/Avatar.svelte';
-	import { toast } from 'svelte-sonner';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 
 	let { data } = $props();
 
 	const { form, errors, enhance } = superForm(data.form);
-
-	$effect(() => {
-		if (data.form.message) {
-			console.log(data.form.message);
-			toast.error(data.form.message);
-		}
-	});
 </script>
 
 <form use:enhance method="post" class="space-y-6 rounded-lg bg-white p-6 shadow-md">

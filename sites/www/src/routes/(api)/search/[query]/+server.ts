@@ -8,11 +8,12 @@ const TIME_WINDOW = 10 * 1000; // Time window in milliseconds (1 minute)
 // In-memory store for rate limiting
 const rateLimitStore = new Map<string, { count: number; timestamp: number }>();
 
-export const GET = async ({ params, getClientAddress }) => {
+export const GET = async ({ params, getClientAddress, locals }) => {
     if (!rateLimit(getClientAddress())) {
         return json({ error: 'Rate limit exceeded' }, { status: 429 });
     }
-    const { data } = await contentService.searchContent(params.query)
+
+    const { data } = await contentService.searchContent(params.query, locals?.user?.id)
 
     return json(data)
 };
