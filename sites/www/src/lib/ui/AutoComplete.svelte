@@ -69,9 +69,9 @@
 	<input
 		type="text"
 		bind:value={inputValue}
-		on:input={handleInput}
-		on:keydown={handleKeydown}
-		on:blur={handleBlur}
+		oninput={handleInput}
+		onkeydown={handleKeydown}
+		onblur={handleBlur}
 		{placeholder}
 		class="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
 	/>
@@ -80,18 +80,20 @@
 			class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-white shadow-lg"
 		>
 			{#each filteredItems as item, index}
-				<li
-					class="cursor-pointer px-3 py-2 hover:bg-gray-100"
-					class:bg-blue-100={index === selectedIndex}
-					on:click={() => selectItem(item)}
-				>
-					{#if item.isNew}
-						<span class="font-semibold">Create:</span> {item[searchField]}
-					{:else}
-						<slot name="item" {item}>
-							{item[searchField]}
-						</slot>
-					{/if}
+				<li>
+					<button
+						class="flex w-full cursor-pointer px-3 py-2 hover:bg-gray-100"
+						class:bg-blue-100={index === selectedIndex}
+						onclick={() => selectItem(item)}
+					>
+						{#if item.isNew}
+							<a href=""><span class="font-semibold">Create:</span> {item[searchField]}</a>
+						{:else}
+							<slot name="item" {item}>
+								{item[searchField]}
+							</slot>
+						{/if}
+					</button>
 				</li>
 			{/each}
 		</ul>
