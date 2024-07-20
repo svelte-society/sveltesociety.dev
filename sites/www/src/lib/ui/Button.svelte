@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-
 	type Props = {
 		primary?: boolean;
 		error?: boolean;
@@ -11,7 +9,7 @@
 		href?: string;
 		type?: 'button' | 'submit' | 'reset';
 		disabled?: boolean;
-		children: Snippet;
+		children: any;
 		onclick?: () => void;
 	};
 

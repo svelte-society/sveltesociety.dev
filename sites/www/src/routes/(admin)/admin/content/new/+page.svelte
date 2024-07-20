@@ -2,7 +2,6 @@
 <script lang="ts">
 	import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte';
 	import Button from '$lib/ui/Button.svelte';
-	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import type { PageData } from './$types';
 
@@ -54,11 +53,11 @@
 			{#if $errors.body}<p class="text-xs italic text-red-500">{$errors.body}</p>{/if}
 		</div>
 
-		<div class="space-y-2">
+		<!-- <div class="space-y-2">
 			<label for="body" class="mb-2 block text-sm font-bold text-gray-700">Body:</label>
 			<MarkdownEditor />
 			{#if $errors.body}<p class="text-xs italic text-red-500">{$errors.body}</p>{/if}
-		</div>
+		</div> -->
 
 		<div class="space-y-2">
 			<label for="slug" class="mb-2 block text-sm font-bold text-gray-700">Slug:</label>
