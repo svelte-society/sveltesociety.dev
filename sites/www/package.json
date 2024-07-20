@@ -19,6 +19,10 @@
 		"test:unit": "vitest"
 	},
 	"devDependencies": {
+		"@cartamd/plugin-anchor": "^2.0.3",
+		"@cartamd/plugin-attachment": "^4.0.2",
+		"@cartamd/plugin-code": "^4.0.6",
+		"@cartamd/plugin-emoji": "^4.1.1",
 		"@libsql/client": "^0.6.2",
 		"@playwright/test": "^1.45.1",
 		"@sveltejs/adapter-auto": "^3.2.2",
@@ -35,6 +39,9 @@
 		"@typescript-eslint/parser": "^6.21.0",
 		"autoprefixer": "^10.4.19",
 		"bits-ui": "^0.21.11",
+		"carta-md": "^4.3.6",
+		"carta-plugin-ins-del": "^1.0.0",
+		"carta-plugin-video": "^1.0.0",
 		"dotenv": "^16.4.5",
 		"drizzle-kit": "^0.22.8",
 		"drizzle-orm": "^0.31.2",

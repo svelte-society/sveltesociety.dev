@@ -73,6 +73,7 @@ export const content = sqliteTable(
 		title: text('title').notNull(),
 		type: text('type', { enum: ['recipe', 'video', 'library', 'link', 'blog'] }).notNull(),
 		body: text('body').notNull(),
+		rendered_body: text('rendered_body'),
 		slug: text('slug').notNull(),
 		description: text('description').notNull(),
 		metadata: text('metadata', { mode: 'json' }), // New field for JSON metadata

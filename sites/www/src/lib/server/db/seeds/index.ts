@@ -20,5 +20,5 @@ export const db = drizzle(createClient({
 
 await seedTags(db)
 await seedRoles(db)
-await seedContent(db)
 await seed_users(db)
+await seedContent(db)

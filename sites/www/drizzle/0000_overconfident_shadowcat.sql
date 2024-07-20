@@ -3,7 +3,8 @@ CREATE TABLE `collections` (
 	`title` text NOT NULL,
 	`created_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
 	`updated_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
-	`likes` integer DEFAULT 0 NOT NULL
+	`likes` integer DEFAULT 0 NOT NULL,
+	`saves` integer DEFAULT 0 NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `collections_to_users` (
@@ -18,12 +19,14 @@ CREATE TABLE `content` (
 	`title` text NOT NULL,
 	`type` text NOT NULL,
 	`body` text NOT NULL,
+	`rendered_body` text,
 	`slug` text NOT NULL,
 	`description` text NOT NULL,
 	`metadata` text,
 	`created_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
 	`updated_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
-	`likes` integer DEFAULT 0 NOT NULL
+	`likes` integer DEFAULT 0 NOT NULL,
+	`saves` integer DEFAULT 0 NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `content_to_collections` (
@@ -64,6 +67,14 @@ CREATE TABLE `roles` (
 	`created_at` integer DEFAULT (cast((julianday('now') - 2440587.5)*86400000 as integer)) NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE `saves` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`user_id` integer NOT NULL,
+	`target_id` text NOT NULL,
+	`created_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
+	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
 CREATE TABLE `sessions` (
 	`id` integer PRIMARY KEY NOT NULL,
 	`user_id` integer NOT NULL,
@@ -102,6 +113,7 @@ CREATE UNIQUE INDEX `contentSlugIdx` ON `content` (`slug`);--> statement-breakpo
 CREATE UNIQUE INDEX `contentTagIdx` ON `content_to_tags` (`content_id`,`tag_id`);--> statement-breakpoint
 CREATE INDEX `tag_id_idx` ON `content_to_tags` (`tag_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `userTargetLikeIdx` ON `likes` (`user_id`,`target_id`);--> statement-breakpoint
+CREATE UNIQUE INDEX `userTargetSaveIdx` ON `saves` (`user_id`,`target_id`);--> statement-breakpoint
 CREATE INDEX `user_id_idx` ON `sessions` (`user_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `tagsSlugIdx` ON `tags` (`slug`);--> statement-breakpoint
 CREATE UNIQUE INDEX `githubIdIdx` ON `users` (`github_id`);--> statement-breakpoint
