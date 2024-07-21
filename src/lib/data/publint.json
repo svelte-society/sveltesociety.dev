@@ -282,6 +282,8 @@
 	"@geoffcox/sterling-svelte": { "valid": true },
 	"@perfectthings/ui": { "valid": true },
 	"@tanstack/svelte-query": { "valid": true },
+	"@tanstack/svelte-virtual": { "valid": true },
+	"@tanstack/svelte-store": { "valid": true },
 	"@pragmatic-engineering/svelte-form-builder-community": { "valid": true },
 	"@ptkdev/sveltekit-cordova-adapter": { "valid": true },
 	"@ptkdev/sveltekit-electron-adapter": { "valid": true },
@@ -415,7 +417,7 @@
 	"@inlang/paraglide-sveltekit": { "valid": false },
 	"embla-carousel-svelte": { "valid": true },
 	"@agnos-ui/svelte-headless": { "valid": true },
-	"@agnos-ui/svelte": { "valid": true },
+	"@agnos-ui/svelte-bootstrap": { "valid": true },
 	"@gzim/svelte-datagrid": { "valid": true },
 	"svelte-infinite": { "valid": true },
 	"svelte-crossorigin-store": { "valid": false },
@@ -426,9 +428,10 @@
 	"svelte-remove-attributes": { "valid": true },
 	"svelte-paperscript": { "valid": true },
 	"sveaflet": { "valid": true },
-	"svelte-contextify": { "valid": false },
+	"svelte-contextify": { "valid": true },
 	"@xyflow/svelte": { "valid": true },
 	"convex-svelte": { "valid": true },
 	"sveltekit-reroute": { "valid": true },
-	"svelte-cartesian": { "valid": true }
+	"svelte-cartesian": { "valid": true },
+	"sveltekit-superactions": { "valid": true }
 }
