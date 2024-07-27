@@ -3,6 +3,7 @@
 		"title": "actionview-svelte-handler",
 		"repository": "https://codeberg.org/reesericci/actionview-svelte-handler",
 		"description": "An Action View template handler to create Svelte views seamlessly in Rails applications.",
+		"gem": "actionview-svelte-handler",
 		"categories": ["build-plugins", "integrations"]
 	},
 	{
