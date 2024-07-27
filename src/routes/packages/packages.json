@@ -1,5 +1,14 @@
 [
 	{
+		"title": "actionview-svelte-handler",
+		"repository": "https://codeberg.org/reesericci/actionview-svelte-handler",
+		"description": "An Action View template handler to create Svelte views seamlessly in Rails applications.",
+		"categories": [
+			"build-plugins",
+			"integrations"
+		]
+	},
+	{
 		"title": "virtue-ui",
 		"url": "https://github.com/virtueorg/ui",
 		"repository": "https://github.com/virtueorg/ui",
