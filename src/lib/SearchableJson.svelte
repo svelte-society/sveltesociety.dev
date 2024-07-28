@@ -5,6 +5,7 @@
 	import { packageManager } from '$stores/packageManager';
 	import CategoryFilters from '$lib/CategoryFilters.svelte';
 	import { filterArray, sortArray } from '$utils/arrayUtils';
+	import { tick } from 'svelte';
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	export let data: any[];
@@ -17,6 +18,28 @@
 
 	let searchValue: string;
 	let sort = sortableFields[0];
+
+	packageManager.subscribe((newValues) => {
+		const grouped = newValues.reduce(
+			(carry, item) => {
+				if (['npm', 'pnpm', 'yarn'].includes(item)) {
+					carry['npm'].push(item);
+				}
+				if (['gem', 'bundler'].includes(item)) {
+					carry['gem'].push(item);
+				}
+				return carry;
+			},
+			{ npm: [], gem: [] } as { npm: Array<string>; gem: Array<string> }
+		);
+		const corrected = [
+			grouped['npm'][grouped['npm'].length - 1] ?? 'npm',
+			grouped['gem'][grouped['gem'].length - 1] ?? 'gem'
+		];
+		if (newValues.join() !== corrected.join()) {
+			tick().then(() => packageManager.set(corrected));
+		}
+	});
 
 	$: filteredData = filterArray(data, searchValue);
 	$: sortedData = sortArray(filteredData, sort);
@@ -48,12 +71,19 @@
 			isClearable={false}
 			isSearchable={false}
 			showIndicator
-			value={{ value: $packageManager }}
-			on:select={({ detail }) => ($packageManager = detail.value)}
+			handleClear={() => ({})}
+			value={$packageManager.map((value) => ({ value }))}
+			groupBy={(item) => item.group}
+			isMulti={true}
+			on:select={({ detail }) => {
+				$packageManager = (detail ?? []).map((i) => i.value);
+			}}
 			items={[
-				{ label: 'NPM', value: 'npm' },
-				{ label: 'PNPM', value: 'pnpm' },
-				{ label: 'Yarn', value: 'yarn' }
+				{ label: 'NPM', value: 'npm', group: 'NPM' },
+				{ label: 'PNPM', value: 'pnpm', group: 'NPM' },
+				{ label: 'Yarn', value: 'yarn', group: 'NPM' },
+				{ label: 'RubyGem', value: 'gem', group: 'Gem' },
+				{ label: 'Bundler', value: 'bundler', group: 'Gem' }
 			]}
 		/>
 		<a href="/help/submitting?type={submittingType}" class="submit"
@@ -74,6 +104,7 @@
 			stars={entry.stars}
 			date={entry.date}
 			npm={entry.npm}
+			gem={entry.gem}
 			version={entry.version}
 		/>
 	{/each}
