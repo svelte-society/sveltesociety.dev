@@ -25,14 +25,24 @@ const PACKAGES_CATEGORIES = /** @type {const} */ ([
 ]);
 
 export const packagesSchema = z.array(
-	z.object({
-		title: z.string().max(50),
-		npm: z.string().regex(packageNameRegex),
-		url: z.string().url().optional(),
-		repository: z.string().url(),
-		description: z.string().max(250),
-		categories: z.array(z.enum(PACKAGES_CATEGORIES)).min(1).max(6)
-	})
+	z.intersection(
+		z.object({
+			title: z.string().max(50),
+			url: z.string().url().optional(),
+			repository: z.string().url(),
+			description: z.string().max(250),
+			categories: z.array(z.enum(PACKAGES_CATEGORIES)).min(1).max(6)
+		}),
+		z
+			.object({
+				npm: z.string().regex(packageNameRegex)
+			})
+			.or(
+				z.object({
+					gem: z.string().regex(/^[a-z_-]+$/)
+				})
+			)
+	)
 );
 
 const TEMPLATES_CATEGORIES = /** @type {const} */ ([
