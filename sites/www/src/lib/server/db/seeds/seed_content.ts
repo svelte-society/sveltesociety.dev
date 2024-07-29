@@ -1,5 +1,4 @@
 import * as schema from '../schema';
-import { nanoid } from 'nanoid'
 
 export async function seedContent(db: any) {
   try {
@@ -11,6 +10,7 @@ export async function seedContent(db: any) {
 
     // Now let's create our content
     const contentItems = [
+
       {
         title: "Introduction to Svelte 5",
         type: "recipe",
@@ -709,21 +709,31 @@ export async function seedContent(db: any) {
         slug: "todo-app-svelte-5",
         description: "Step-by-step guide to building a todo app with Svelte 5",
         tags: [tagMap.get('svelte-5'), tagMap.get('runes'), tagMap.get('utility')]
+      },
+      {
+        title: "Svelte 5 Tutorial Series",
+        type: "collection",
+        body: "A comprehensive series of tutorials covering Svelte 5 features and best practices.",
+        rendered_body: "<p>A comprehensive series of tutorials covering Svelte 5 features and best practices.</p>",
+        slug: "svelte-5-tutorial-series",
+        description: "Learn Svelte 5 from the ground up",
+        tags: [tagMap.get('svelte-5'), tagMap.get('tutorial')],
+        children: []
       }
     ]
 
-    // Insert the content
+    // Insert the content and keep track of the inserted IDs
+    const insertedIds = {};
     for (const item of contentItems) {
       const [insertedContent] = await db.insert(schema.content)
         .values({
-          id: nanoid(),
           title: item.title,
           type: item.type,
           body: item.body,
           rendered_body: item.rendered_body,
           slug: item.slug,
           description: item.description,
-          author_id: 1,
+          children: item.children || [],
           created_at: new Date(),
           updated_at: new Date()
         })
