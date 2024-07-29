@@ -13,7 +13,7 @@
 	let editor: Editor;
 	let editorDiv: HTMLElement;
 
-	let { markdown = 'Test', value = $bindable(), name = '' } = $props();
+	let { value = $bindable(), name = '' } = $props();
 
 	$effect(async () => {
 		// const { menu, menuDefaultConfig } = await import('@milkdown-lab/plugin-menu');
@@ -38,7 +38,7 @@
 			// .use(menu)
 			.create();
 
-		editor.action(insert(markdown));
+		editor.action(insert(value));
 
 		return async () => {
 			await editor.destroy();

@@ -3,9 +3,9 @@
 	import { superForm } from 'sveltekit-superforms';
 	import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte';
 	import Button from '$lib/ui/Button.svelte';
-	import type { PageData } from './$types';
+	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte';
 
-	export let data: PageData;
+	let { data } = $props();
 	let { form, errors, enhance } = superForm(data.form);
 </script>
 
@@ -45,13 +45,11 @@
 
 		<div class="space-y-2">
 			<label for="body" class="mb-2 block text-sm font-bold text-gray-700">Body:</label>
-			<textarea
-				id="body"
-				name="body"
-				bind:value={$form.body}
-				required
+			<div
 				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-			></textarea>
+			>
+				<MarkdownEditor name="body" bind:value={$form.body} />
+			</div>
 			{#if $errors.body}<p class="text-xs italic text-red-500">{$errors.body}</p>{/if}
 		</div>
 
