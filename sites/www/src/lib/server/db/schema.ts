@@ -25,9 +25,8 @@ export const users = sqliteTable(
 
 export const usersRelations = relations(users, ({ many, one }) => ({
 	sessions: many(sessions),
-	roles: one(users, { fields: [users.role], references: [users.id] }),
-	authoredContents: many(content),
-	authoredCollections: many(collections),
+	role: one(roles, { fields: [users.role], references: [roles.id] }),
+	authored_content: many(content),
 	likes: many(likes),
 }));
 
@@ -55,7 +54,7 @@ export const sessionsRelations = relations(sessions, ({ one }) => ({
 }));
 
 export const roles = sqliteTable('roles', {
-	id: integer('id').primaryKey(),
+	id: integer('id').primaryKey({ autoIncrement: true }),
 	name: text('name').notNull(),
 	description: text('description').notNull(),
 	active: integer('active', { mode: 'boolean' }).notNull().default(false),
@@ -69,52 +68,38 @@ export const rolesRelations = relations(roles, ({ many }) => ({
 export const content = sqliteTable(
 	'content',
 	{
-		id: text('id').primaryKey(),
+		id: integer('id').primaryKey({
+			autoIncrement: true
+		}),
 		title: text('title').notNull(),
-		type: text('type', { enum: ['recipe', 'video', 'library', 'link', 'blog'] }).notNull(),
-		body: text('body').notNull(),
+		type: text('type', { enum: ['recipe', 'video', 'library', 'link', 'blog', 'collection'] }).notNull(),
+		status: text('status', { enum: ['draft', 'published', 'archived', 'pending_review'] }).notNull().default('draft'),
+		body: text('body'),
 		rendered_body: text('rendered_body'),
 		slug: text('slug').notNull(),
-		description: text('description').notNull(),
-		metadata: text('metadata', { mode: 'json' }), // New field for JSON metadata
+		description: text('description'),
+		metadata: text('metadata', { mode: 'json' }),
+		children: text('children', { mode: 'json' }).$type<number[]>(),
 		created_at: integer('created_at', { mode: 'timestamp' })
 			.notNull()
 			.default(sql`(CURRENT_TIMESTAMP)`),
 		updated_at: integer('updated_at', { mode: 'timestamp' })
 			.notNull()
 			.default(sql`(CURRENT_TIMESTAMP)`),
+		published_at: integer('published_at', { mode: 'timestamp' }),
 		likes: integer('likes').notNull().default(0),
 		saves: integer('saves').notNull().default(0),
 	},
 	(content) => ({
 		titleIdx: uniqueIndex('titleIdx').on(content.title),
-		contentSlugIdx: uniqueIndex('contentSlugIdx').on(content.slug)
+		contentSlugIdx: uniqueIndex('contentSlugIdx').on(content.slug),
+		statusIdx: index('statusIdx').on(content.status)
 	})
 );
 
 export const contentRelations = relations(content, ({ many }) => ({
 	authors: many(contentToUsers),
-	collections: many(contentToCollections),
 	tags: many(contentToTags),
-	likes: many(likes),
-}));
-
-export const collections = sqliteTable('collections', {
-	id: text('id').primaryKey(),
-	title: text('title').notNull(),
-	created_at: integer('created_at', { mode: 'timestamp' })
-		.notNull()
-		.default(sql`(CURRENT_TIMESTAMP)`),
-	updated_at: integer('updated_at', { mode: 'timestamp' })
-		.notNull()
-		.default(sql`(CURRENT_TIMESTAMP)`),
-	likes: integer('likes').notNull().default(0),
-	saves: integer('saves').notNull().default(0),
-});
-
-export const collectionsRelations = relations(collections, ({ many }) => ({
-	contents: many(contentToCollections),
-	authors: many(collectionsToUsers),
 	likes: many(likes),
 }));
 
@@ -139,46 +124,6 @@ export const contentToUsersRelations = relations(contentToUsers, ({ one }) => ({
 	})
 }));
 
-export const contentToCollections = sqliteTable('content_to_collections', {
-	content_id: integer('content_id')
-		.notNull()
-		.references(() => content.id),
-	collection_id: integer('collection_id')
-		.notNull()
-		.references(() => collections.id),
-	order: integer('order').notNull()
-});
-
-export const contentToCollectionsRelations = relations(contentToCollections, ({ one }) => ({
-	content: one(content, {
-		fields: [contentToCollections.content_id],
-		references: [content.id]
-	}),
-	collection: one(collections, {
-		fields: [contentToCollections.collection_id],
-		references: [collections.id]
-	})
-}));
-
-export const collectionsToUsers = sqliteTable('collections_to_users', {
-	collection_id: text('collection_id')
-		.notNull()
-		.references(() => collections.id),
-	user_id: integer('user_id')
-		.notNull()
-		.references(() => users.id)
-});
-
-export const collectionsToUsersRelations = relations(collectionsToUsers, ({ one }) => ({
-	collection: one(collections, {
-		fields: [collectionsToUsers.collection_id],
-		references: [collections.id]
-	}),
-	user: one(users, {
-		fields: [collectionsToUsers.user_id],
-		references: [users.id]
-	})
-}));
 
 export const tags = sqliteTable(
 	'tags',
@@ -235,7 +180,7 @@ export const likes = sqliteTable(
 	{
 		id: integer('id').primaryKey(),
 		user_id: integer('user_id').notNull().references(() => users.id),
-		target_id: text('target_id').notNull(),
+		target_id: integer('target_id').notNull(),
 		created_at: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`)
 	},
 	(table) => ({
@@ -251,11 +196,7 @@ export const likesRelations = relations(likes, ({ one }) => ({
 	content: one(content, {
 		fields: [likes.target_id],
 		references: [content.id],
-	}),
-	collection: one(collections, {
-		fields: [likes.target_id],
-		references: [collections.id],
-	}),
+	})
 }));
 
 export const saves = sqliteTable(
@@ -263,7 +204,7 @@ export const saves = sqliteTable(
 	{
 		id: integer('id').primaryKey(),
 		user_id: integer('user_id').notNull().references(() => users.id),
-		target_id: text('target_id').notNull(),
+		target_id: integer('target_id').notNull(),
 		created_at: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`)
 	},
 	(table) => ({
@@ -279,9 +220,5 @@ export const savedRelations = relations(saves, ({ one }) => ({
 	content: one(content, {
 		fields: [saves.target_id],
 		references: [content.id],
-	}),
-	collection: one(collections, {
-		fields: [saves.target_id],
-		references: [collections.id],
-	}),
+	})
 }));
