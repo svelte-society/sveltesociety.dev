@@ -12,12 +12,12 @@
 			<p>{data.search_results.error}</p>
 		{:else}
 			{#each data.search_results.content as item}
-				<ContentCard {...item} author="John Doe" views="11114" />
+				<ContentCard {...item} body={null} author="John Doe" views="11114" />
 			{/each}
 		{/if}
 	{:else}
 		{#each data.content as item}
-			<ContentCard {...item} author="John Doe" views="11114" />
+			<ContentCard {...item} body={null} author="John Doe" views="11114" />
 		{/each}
 	{/if}
 
