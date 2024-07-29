@@ -6,7 +6,8 @@ import { saveService } from '$lib/server/db/services/saves';
 
 export const load: PageServerLoad = async ({ url, fetch, locals }) => {
     const searchQuery = url.searchParams.get('search');
-    const page = parseInt(url.searchParams.get('page'))
+    let page = url.searchParams.get('page')
+
     if (searchQuery) {
         const resp = await fetch(`/search/${searchQuery}`)
         const content = await resp.json()
@@ -21,7 +22,7 @@ export const load: PageServerLoad = async ({ url, fetch, locals }) => {
     } else {
         const result = await contentService.get_content_items({
             user_id: locals?.user?.id,
-            page,
+            page: page ? parseInt(page) : 0
         });
 
         if (!result.success) {
@@ -44,7 +45,7 @@ export const actions = {
         const id = data.get('id');
         const type: 'like' | 'unlike' = data.get('type')
 
-        if (!id || typeof id !== 'string') {
+        if (!id) {
             return fail(400, { message: 'Invalid or missing id' });
         }
 
@@ -80,7 +81,7 @@ export const actions = {
         const id = data.get('id');
         const type: 'save' | 'unsave' = data.get('type')
 
-        if (!id || typeof id !== 'string') {
+        if (!id) {
             return fail(400, { message: 'Invalid or missing id' });
         }
 
