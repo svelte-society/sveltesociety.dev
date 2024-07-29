@@ -2,7 +2,6 @@ import { db } from '../';
 import { sql, eq, inArray, type InferSelectModel } from 'drizzle-orm';
 import { content, contentToTags, tags, likes, saves } from '../schema';
 import { handleServiceCall } from './utils';
-import { nanoid } from 'nanoid';
 
 type CreateContent = Omit<InferSelectModel<typeof content>, 'id' | 'created_at' | 'updated_at'> & { tags: number[] };
 type UpdateContent = Partial<CreateContent>;
@@ -42,153 +41,86 @@ export class ContentService {
 		})
 		.prepare();
 
-	private getUserLikesStatement = db.query.likes
-		.findMany({
-			where: (likes, { eq, and, inArray }) => and(
-				eq(likes.user_id, sql.placeholder('user_id')),
-				inArray(likes.target_id, sql.placeholder('target_ids'))
-			),
-			columns: {
-				target_id: true
-			}
-		}).prepare()
+	private async get_user_likes_and_saves(user_id: number | undefined, content_ids: number[]) {
+		if (!user_id || content_ids.length === 0) {
+			return { user_likes: new Set<number>(), user_saves: new Set<number>() };
+		}
 
-	private findContentBySlugStatement = db.query.content
-		.findFirst({
-			where: (content, { eq }) => eq(content.slug, sql.placeholder('slug')),
-			with: {
-				tags: {
-					columns: {},
-					with: {
-						tag: true
-					}
+		const [userLikes, userSaves] = await Promise.all([
+			db.query.likes.findMany({
+				where: (likes, { and, eq, inArray }) => and(
+					eq(likes.user_id, user_id),
+					inArray(likes.target_id, content_ids)
+				),
+				columns: {
+					target_id: true
 				}
-			}
-		})
-		.prepare();
+			}),
+			db.query.saves.findMany({
+				where: (saves, { and, eq, inArray }) => and(
+					eq(saves.user_id, user_id),
+					inArray(saves.target_id, content_ids)
+				),
+				columns: {
+					target_id: true
+				}
+			})
+		]);
 
-	private countContentStatement = db
-		.select({ count: sql<number>`count(*)` })
-		.from(content)
-		.prepare();
-
-	private findContentByTagSlugStatement = db.query.content
-		.findMany({
-			limit: sql.placeholder('limit'),
-			offset: sql.placeholder('offset'),
-			where: inArray(content.id,
-				db.select({ id: contentToTags.content_id })
-					.from(contentToTags)
-					.innerJoin(tags, eq(contentToTags.tag_id, tags.id))
-					.where(eq(tags.slug, sql.placeholder('slug')))
-			),
-			with: {
-				tags: {
-					columns: {},
-					with: {
-						tag: true
-					}
-				},
-			},
-			columns: {
-				id: true,
-				title: true,
-				type: true,
-				slug: true,
-				description: true,
-				created_at: true,
-				updated_at: true,
-				likes: true,
-				saves: true
-			},
-			orderBy: (content, { desc }) => [desc(content.created_at)]
-		})
-		.prepare();
-
-	private countContentByTagSlugStatement = db
-		.select({ count: sql<number>`count(distinct ${content.id})` })
-		.from(content)
-		.innerJoin(contentToTags, eq(content.id, contentToTags.content_id))
-		.innerJoin(tags, eq(contentToTags.tag_id, tags.id))
-		.where(eq(tags.slug, sql.placeholder('slug')))
-		.prepare();
+		return {
+			user_likes: new Set(userLikes.map(like => like.target_id)),
+			user_saves: new Set(userSaves.map(save => save.target_id))
+		};
+	}
 
 	async get_content_items({ limit = 10, page = 0, user_id }: { limit?: number, page?: number, user_id?: number }) {
 		return handleServiceCall(async () => {
 			const offset = page * limit;
 
-			const [contentItems, countResult] = await db.batch([
-				db.query.content
-					.findMany({
-						limit,
-						offset,
-						with: {
-							tags: {
-								columns: {},
-								with: {
-									tag: true
-								}
+			const [content_result, [{ count: totalCount }]] = await Promise.all([
+				db.query.content.findMany({
+					with: {
+						tags: {
+							columns: {},
+							with: {
+								tag: true
 							}
-						},
-						columns: {
-							id: true,
-							title: true,
-							type: true,
-							slug: true,
-							description: true,
-							created_at: true,
-							updated_at: true,
-							likes: true,
-							saves: true
-						},
-						orderBy: (content, { desc }) => [desc(content.created_at)]
-					}),
-				db
-					.select({ count: sql<number>`count(*)` })
-					.from(content)
-			])
-
-			let user_likes: Set<string> = new Set()
-			let user_saves: Set<string> = new Set()
-
-			// Check if user has liked or saved content or not.
-			if (user_id) {
-				const target_ids = contentItems.map(item => item.id);
-
-				const [userLikes, userSaves] = await db.batch([
-					db.query.likes.findMany({
-						where: (likes, { and, eq, inArray }) => and(
-							eq(likes.user_id, user_id),
-							inArray(likes.target_id, target_ids)
-						),
-						columns: {
-							target_id: true
 						}
-					}),
-					db.query.saves.findMany({
-						where: (saves, { and, eq, inArray }) => and(
-							eq(saves.user_id, user_id),
-							inArray(saves.target_id, target_ids)
-						),
-						columns: {
-							target_id: true
-						}
-					})
-				]);
+					},
+					columns: {
+						id: true,
+						title: true,
+						type: true,
+						slug: true,
+						description: true,
+						created_at: true,
+						updated_at: true,
+						likes: true,
+						saves: true,
+					},
+					limit,
+					offset,
+					orderBy: (content, { desc }) => [desc(content.created_at)]
+				}),
+				db.select({ count: sql<number>`count(*)` }).from(content)
+			]);
 
-				user_likes = new Set(userLikes.map(like => like.target_id));
-				user_saves = new Set(userSaves.map(save => save.target_id));
+			if (content_result.length === 0) {
+				return { items: [], totalCount: 0, page, limit, totalPages: 0 };
 			}
 
-			const totalCount = countResult[0]?.count ?? 0;
+			const content_ids = content_result.map(item => item.id);
+			const { user_likes, user_saves } = await this.get_user_likes_and_saves(user_id, content_ids);
+
+			const items = content_result.map(item => ({
+				...item,
+				tags: item.tags.map(tagRelation => tagRelation.tag),
+				liked: user_likes.has(item.id),
+				saved: user_saves.has(item.id),
+			}));
 
 			return {
-				items: contentItems.map(item => ({
-					...item,
-					tags: item.tags.map(t => t.tag),
-					liked: user_likes.has(item.id),
-					saved: user_saves.has(item.id)
-				})),
+				items,
 				totalCount,
 				page,
 				limit,
@@ -228,7 +160,6 @@ export class ContentService {
 						},
 					}
 				},
-
 				orderBy: (saves, { desc }) => [desc(saves.created_at)]
 			});
 
@@ -237,32 +168,21 @@ export class ContentService {
 				.from(saves)
 				.where(eq(saves.user_id, user_id));
 
-			const [savedContentItems, countResult] = await db.batch([
+			const [savedContentItems, [{ count: totalCount }]] = await Promise.all([
 				savedContentQuery,
 				countSavedContentQuery
 			]);
 
-			const totalCount = countResult[0]?.count ?? 0;
+			const content_ids = savedContentItems.map(item => item.content.id);
 
-			const contentIds = savedContentItems.map(item => item.content.id);
-
-			const userLikes = await db.query.likes.findMany({
-				where: (likes, { and, eq, inArray }) => and(
-					eq(likes.user_id, user_id),
-					inArray(likes.target_id, contentIds)
-				),
-				columns: {
-					target_id: true
-				}
-			});
-
-			const likedContentIds = new Set(userLikes.map(like => like.target_id));
+			// Use the private function to get likes and saves
+			const { user_likes } = await this.get_user_likes_and_saves(user_id, content_ids);
 
 			return {
 				items: savedContentItems.map(item => ({
 					...item.content,
 					tags: item.content.tags.map(t => t.tag),
-					liked: likedContentIds.has(item.content.id),
+					liked: user_likes.has(item.content.id),
 					saved: true // All items are saved as this is a saved content query
 				})),
 				totalCount,
@@ -273,8 +193,21 @@ export class ContentService {
 		});
 	}
 
-	async searchContent(query: string, user_id?: number) {
+	async searchContent(query: string, options: {
+		limit?: number,
+		offset?: number,
+		sortBy?: 'relevance' | 'date' | 'popularity',
+		user_id?: number
+	}) {
 		return handleServiceCall(async () => {
+			const { limit = 10, offset = 0, sortBy = 'relevance', user_id } = options;
+
+			const orderByClause = {
+				'relevance': 'ORDER BY rank',
+				'date': 'ORDER BY content.created_at DESC',
+				'popularity': 'ORDER BY (content.likes + content.saves) DESC'
+			}[sortBy];
+
 			const searchContentStatement = sql`
 				SELECT 
 				content.id,
@@ -285,6 +218,7 @@ export class ContentService {
 				content.slug,
 				content.likes,
 				content.saves,
+				content.created_at,
 				GROUP_CONCAT(DISTINCT tags.name) AS tag_names,
 				GROUP_CONCAT(DISTINCT tags.slug) AS tag_slugs,
 				GROUP_CONCAT(DISTINCT users.username) AS authors
@@ -296,17 +230,18 @@ export class ContentService {
 				LEFT JOIN users ON content_to_users.user_id = users.id
 				WHERE content_fts MATCH ${sanitizeQuery(query) + '*'}
 				GROUP BY content.id
-				ORDER BY rank
-				LIMIT 10
+				${sql.raw(orderByClause)}
+				LIMIT ${limit}
+				OFFSET ${offset}
 			`;
 			const result = await db.run(searchContentStatement);
 
-			let user_likes: Set<string> = new Set();
-			let user_saves: Set<string> = new Set();
+			let user_likes: Set<number> = new Set();
+			let user_saves: Set<number> = new Set();
 
 			// Check if user has liked or saved content or not.
 			if (user_id) {
-				const target_ids = result.rows.map(item => item.id);
+				const target_ids = result.rows.map(item => item.id) as number[];
 
 				const [userLikes, userSaves] = await db.batch([
 					db.query.likes.findMany({
@@ -354,38 +289,19 @@ export class ContentService {
 
 	async get_content_by_slug(slug: string, user_id?: number) {
 		return handleServiceCall(async () => {
-			const result = await this.findContentBySlugStatement.execute({ slug });
+			const result = await db.query.content.findFirst({
+				where: (content, { eq }) => eq(content.slug, slug),
+				with: {
+					tags: {
+						columns: {},
+						with: { tag: true }
+					}
+				}
+			});
 
 			if (!result) return null;
 
-			let user_likes: Set<string> = new Set();
-			let user_saves: Set<string> = new Set();
-
-			if (user_id) {
-				const [userLike, userSave] = await db.batch([
-					db.query.likes.findFirst({
-						where: (likes, { and, eq }) => and(
-							eq(likes.user_id, user_id),
-							eq(likes.target_id, result.id)
-						),
-						columns: {
-							target_id: true
-						}
-					}),
-					db.query.saves.findFirst({
-						where: (saves, { and, eq }) => and(
-							eq(saves.user_id, user_id),
-							eq(saves.target_id, result.id)
-						),
-						columns: {
-							target_id: true
-						}
-					})
-				]);
-
-				if (userLike) user_likes.add(result.id);
-				if (userSave) user_saves.add(result.id);
-			}
+			const { user_likes, user_saves } = await this.get_user_likes_and_saves(user_id, [result.id]);
 
 			return {
 				...result,
@@ -396,48 +312,48 @@ export class ContentService {
 		});
 	}
 
-	async get_content_by_tag({ slug, limit = 10, page = 0, user_id }: { slug: string, limit: number, page: number, user_id: string }) {
+	async get_content_by_tag({ slug, limit = 10, page = 0, user_id }: { slug: string, limit: number, page: number, user_id?: number }) {
 		return handleServiceCall(async () => {
 			const offset = page * limit;
 
-			const [contentItems, countResult] = await Promise.all([
-				this.findContentByTagSlugStatement.execute({ slug, limit, offset }),
-				this.countContentByTagSlugStatement.execute({ slug })
+			const [contentItems, [{ count: totalCount }]] = await db.batch([
+				db.query.content.findMany({
+					limit,
+					offset,
+					where: inArray(content.id,
+						db.select({ id: contentToTags.content_id })
+							.from(contentToTags)
+							.innerJoin(tags, eq(contentToTags.tag_id, tags.id))
+							.where(eq(tags.slug, slug))
+					),
+					columns: {
+						id: true,
+						title: true,
+						type: true,
+						slug: true,
+						description: true,
+						created_at: true,
+						updated_at: true,
+						likes: true,
+						saves: true
+					},
+					with: {
+						tags: {
+							columns: {},
+							with: { tag: true }
+						}
+					},
+					orderBy: (content, { desc }) => [desc(content.created_at)]
+				}),
+				db.select({ count: sql<number>`count(distinct ${content.id})` })
+					.from(content)
+					.innerJoin(contentToTags, eq(content.id, contentToTags.content_id))
+					.innerJoin(tags, eq(contentToTags.tag_id, tags.id))
+					.where(eq(tags.slug, slug))
 			]);
 
-			const totalCount = countResult[0]?.count ?? 0;
-
-			let user_likes: Set<string> = new Set();
-			let user_saves: Set<string> = new Set();
-
-			// Check if user has liked or saved content or not.
-			if (user_id) {
-				const target_ids = contentItems.map(item => item.id);
-
-				const [userLikes, userSaves] = await db.batch([
-					db.query.likes.findMany({
-						where: (likes, { and, eq, inArray }) => and(
-							eq(likes.user_id, user_id),
-							inArray(likes.target_id, target_ids)
-						),
-						columns: {
-							target_id: true
-						}
-					}),
-					db.query.saves.findMany({
-						where: (saves, { and, eq, inArray }) => and(
-							eq(saves.user_id, user_id),
-							inArray(saves.target_id, target_ids)
-						),
-						columns: {
-							target_id: true
-						}
-					})
-				]);
-
-				user_likes = new Set(userLikes.map(like => like.target_id));
-				user_saves = new Set(userSaves.map(save => save.target_id));
-			}
+			const content_ids = contentItems.map(item => item.id);
+			const { user_likes, user_saves } = await this.get_user_likes_and_saves(user_id, content_ids);
 
 			return {
 				items: contentItems.map(item => ({
@@ -454,18 +370,7 @@ export class ContentService {
 		});
 	}
 
-
-	async get_content_count() {
-		return handleServiceCall(async () => {
-			const result = await this.countContentStatement.get();
-			if (!result) {
-				throw new Error('Failed to get content count');
-			}
-			return result.count;
-		});
-	}
-
-	async get_content(id: string, user_id?: number) {
+	async get_content(id: number) {
 		return handleServiceCall(async () => {
 			const result = await this.findContentWithTagsStatement.execute({ id });
 
@@ -480,17 +385,20 @@ export class ContentService {
 
 	async create_content(content_info: CreateContent) {
 		return handleServiceCall(async () => {
-			let id = nanoid()
 
 			const insertContentQuery = db
 				.insert(content)
 				.values({
-					id,
 					title: content_info.title,
 					type: content_info.type,
+					status: content_info.status,
 					body: content_info.body,
+					rendered_body: content_info.rendered_body,
 					slug: content_info.slug,
 					description: content_info.description,
+					metadata: content_info.metadata,
+					children: content_info.children,
+					published_at: content_info.published_at,
 					created_at: new Date(),
 					updated_at: new Date()
 				})
@@ -513,7 +421,7 @@ export class ContentService {
 		});
 	}
 
-	async update_content(id: string, update_info: UpdateContent) {
+	async update_content(id: number, update_info: UpdateContent) {
 		return handleServiceCall(async () => {
 			const updateContentQuery = db
 				.update(content)
@@ -548,7 +456,7 @@ export class ContentService {
 		});
 	}
 
-	async delete_content(id: string) {
+	async delete_content(id: number) {
 		return handleServiceCall(async () => {
 			// Start a transaction to ensure all operations succeed or fail together
 			return await db.transaction(async (tx) => {
