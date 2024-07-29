@@ -1,0 +1,44 @@
+# The fuse section describes settings for the FUSE file system. This file system
+# is used as a thin layer between the SQLite client in your application and the
+# storage on disk. It intercepts disk writes to determine transaction boundaries
+# so that those transactions can be saved and shipped to replicas.
+fuse:
+  dir: "/litefs"
+
+# The data section describes settings for the internal LiteFS storage. We'll 
+# mount a volume to the data directory so it can be persisted across restarts.
+# However, this data should not be accessed directly by the user application.
+data:
+  dir: "/var/lib/litefs"
+
+# This flag ensure that LiteFS continues to run if there is an issue on starup.
+# It makes it easy to ssh in and debug any issues you might be having rather
+# than continually restarting on initialization failure.
+exit-on-error: false
+
+# This section defines settings for the option HTTP proxy.
+# This proxy can handle primary forwarding & replica consistency
+# for applications that use a single SQLite database.
+proxy:
+  addr: ":8080"
+  target: "localhost:4173"
+  db: "local"
+  passthrough: 
+    - "*.ico"
+    - "*.png"
+
+# This section defines a list of commands to run after LiteFS has connected
+# and sync'd with the cluster. You can run multiple commands but LiteFS expects
+# the last command to be long-running (e.g. an application server). When the
+# last command exits, LiteFS is shut down.
+exec:
+  - cmd: "pnpm run preview:www --host"
+
+# The lease section specifies how the cluster will be managed. We're using the
+# "consul" lease type so that our application can dynamically change the primary.
+#
+# These environment variables will be available in your Fly.io application.
+lease:
+  type: "static"
+  advertise-url: "http://${HOSTNAME}.vm.${FLY_APP_NAME}.internal:20202"
+  candidate: true

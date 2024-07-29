@@ -1,0 +1,19 @@
+version: '3'
+services:
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - primary
+  primary:
+    build:
+      context: ./
+    expose:
+      - "4173"
+    ports:
+      - "8081:4173"
+    privileged: true
+    environment:
+      IS_PRIMARY: "true"
