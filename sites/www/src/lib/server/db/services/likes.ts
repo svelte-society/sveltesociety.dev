@@ -32,7 +32,7 @@ class LikeService {
                 eq(likes.target_id, sql.placeholder('target_id')))
         ).prepare()
 
-    async like(user_id: number, target_id: string): Promise<ServiceResult<void>> {
+    async like(user_id: number, target_id: number): Promise<ServiceResult<void>> {
         return handleServiceCall(async () => {
             await this.like_statement.execute({
                 user_id,
@@ -41,7 +41,7 @@ class LikeService {
         });
     }
 
-    async unlike(user_id: number, target_id: string): Promise<ServiceResult<void>> {
+    async unlike(user_id: number, target_id: number): Promise<ServiceResult<void>> {
         return handleServiceCall(async () => {
             await this.unlike_statement.execute({ user_id, target_id });
         });
