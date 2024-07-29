@@ -24,7 +24,6 @@ export async function up_likes(db: any) {
     AFTER INSERT ON likes
     BEGIN
       UPDATE content SET likes = likes + 1 WHERE id = NEW.target_id;
-      UPDATE collections SET likes = likes + 1 WHERE id = NEW.target_id;
     END;
   `);
 
@@ -34,7 +33,6 @@ export async function up_likes(db: any) {
     AFTER DELETE ON likes
     BEGIN
       UPDATE content SET likes = likes - 1 WHERE id = OLD.target_id;
-      UPDATE collections SET likes = likes - 1 WHERE id = OLD.target_id;
     END;
   `);
 }
@@ -58,7 +56,6 @@ async function up_saves(db: any) {
     AFTER INSERT ON saves
     BEGIN
       UPDATE content SET saves = saves + 1 WHERE id = NEW.target_id;
-      UPDATE collections SET saves = saves + 1 WHERE id = NEW.target_id;
     END;
   `);
 
@@ -68,7 +65,6 @@ async function up_saves(db: any) {
     AFTER DELETE ON saves
     BEGIN
       UPDATE content SET saves = saves - 1 WHERE id = OLD.target_id;
-      UPDATE collections SET saves = saves - 1 WHERE id = OLD.target_id;
     END;
   `);
 }
