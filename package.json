@@ -12,7 +12,13 @@
     "dev:ui": "pnpm --filter ui dev",
     "build:ui": "pnpm --filter ui build",
     "dev:www": "pnpm --filter www dev",
-    "build:www": "pnpm --filter www build"
+    "build:www": "pnpm --filter www build",
+    "preview:www": "pnpm --filter www preview"
   },
-  "packageManager": "pnpm@9.1.4"
+  "packageManager": "pnpm@9.1.4",
+  "pnpm": {
+    "overrides": {
+      "rollup": "npm:@rollup/wasm-node"
+    }
+  }
 }
