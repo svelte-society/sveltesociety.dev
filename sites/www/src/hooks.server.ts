@@ -35,18 +35,20 @@ const protect_routes: Handle = async ({ event, resolve }) => {
 
 	if (USER_ROUTES.includes(event.url.pathname)) {
 		if (!user) {
-			redirect(302, '/');
+			throw redirect(302, '/');
 		}
 	}
 
 	// Add logic to protect routes.
-	// for (const route of routePermissions) {
-	// 	if (event.url.pathname.startsWith(route.path)) {
-	// 		if (!userRole || !route.allowedRoles.includes(userRole)) {
-	// 			// User doesn't have permission, redirect to homepage
-	// 			redirect(303, '/');
+	// if (user) {
+	// 	for (const route of routePermissions) {
+	// 		if (event.url.pathname.startsWith(route.path)) {
+	// 			if (!user.role || !route.allowedRoles.includes(user.role.name)) {
+	// 				// User doesn't have permission, redirect to homepage
+	// 				throw redirect(303, '/');
+	// 			}
+	// 			break; // Exit the loop if we've found a matching route
 	// 		}
-	// 		break; // Exit the loop if we've found a matching route
 	// 	}
 	// }
 
