@@ -3113,5 +3113,13 @@
 		"description": "A library for type-safely calling server-side code",
 		"npm": "sveltekit-superactions",
 		"categories": ["data-fetching"]
+	},
+	{
+		"title": "svelte-speedometer",
+		"url": "https://github.com/palerdot/svelte-speedometer/",
+		"repository": "https://github.com/palerdot/svelte-speedometer",
+		"description": "Svelte component library for showing speedometer like gauge using d3",
+		"npm": "svelte-speedometer",
+		"categories": ["data-visualisation", "design-system", "ui-components"]
 	}
 ]
