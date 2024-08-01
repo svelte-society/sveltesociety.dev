@@ -2,23 +2,30 @@
 import { seedTags } from "./seed_tags"
 import { seedRoles } from "./seed_roles"
 import { seedContent } from "./seed_content"
-import { seed_users } from "./seed_users";
+import { seedUsers } from "./seed_users";
 
-import { config } from 'dotenv';
+import Database from 'better-sqlite3';
 
-import { createClient } from "@libsql/client/web";
-import { drizzle } from 'drizzle-orm/libsql'
-import * as schema from '../schema'
+export const db = new Database('local.db')
+db.pragma('journal_mode = WAL')
+db.pragma('foreign_keys = ON')
 
-config({
-    path: '.env.development'
-});
+async function runSeeds() {
+    try {
+        // Run seeds in order
+        await seedRoles(db);
+        await seedTags(db);
+        await seedUsers(db);
+        await seedContent(db);
 
-export const db = drizzle(createClient({
-    url: process.env.TURSO_DATABASE_URL as string
-}), { schema })
+        console.log('All seeds completed successfully');
+    } catch (error) {
+        console.error('Error running seeds:', error);
+    } finally {
+        // Close the database connection
+        db.close();
+    }
+}
 
-await seedTags(db)
-await seedRoles(db)
-await seed_users(db)
-await seedContent(db)
+// Run the seeding process
+runSeeds();

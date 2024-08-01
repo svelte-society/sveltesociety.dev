@@ -1,25 +1,39 @@
+export function seedRoles(db) {
+    const insertRoleStmt = db.prepare(`
+      INSERT INTO roles (name, value, description, active, created_at)
+      VALUES (?, ?, ?, ?, ?)
+    `);
 
-import * as schema from '../schema'
+    const roles = [
+        {
+            name: 'Admin',
+            value: 'admin',
+            description: 'Administrator role with full access',
+            active: true,
+        },
+        {
+            name: 'User',
+            value: 'user',
+            description: 'Standard user role with limited access',
+            active: true,
+        },
+    ];
 
-export async function seedRoles(db: any) {
+    const insertRolesTransaction = db.transaction((roles) => {
+        for (const role of roles) {
+            const now = new Date().toISOString();
+            insertRoleStmt.run(
+                role.name,
+                role.value,
+                role.description,
+                role.active ? 1 : 0,
+                now
+            );
+        }
+    });
+
     try {
-        await db.insert(schema.roles).values([
-            {
-                name: 'Admin',
-                value: 'admin',
-                description: 'Administrator role with full access',
-                permissions: JSON.stringify(['read', 'write', 'delete', 'manage_users']),
-                active: true,
-            },
-            {
-                name: 'User',
-                value: 'user',
-                description: 'Standard user role with limited access',
-                permissions: JSON.stringify(['read', 'write']),
-                active: true,
-            },
-        ]);
-
+        insertRolesTransaction(roles);
         console.log('Roles seeded successfully');
     } catch (error) {
         console.error('Error seeding roles:', error);

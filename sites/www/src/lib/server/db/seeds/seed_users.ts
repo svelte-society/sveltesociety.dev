@@ -1,32 +1,32 @@
-import * as schema from '../schema';
-import { db as db_type } from './index'
-import { eq } from 'drizzle-orm';
+export function seedUsers(db) {
+    const findAdminRoleStmt = db.prepare(`
+      SELECT id FROM roles WHERE name = ?
+    `);
 
-export async function seed_users(db: typeof db_type) {
+    const insertUserStmt = db.prepare(`
+      INSERT INTO users (id, github_id, email, username, name, avatar_url, bio, location, twitter, role, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+
     try {
-        // First, let's get the Admin role ID
-        const adminRole = await db.query.roles.findFirst({
-            where: eq(schema.roles.name, 'Admin')
-        })
-
+        const adminRole = findAdminRoleStmt.get('Admin');
         if (!adminRole) {
             throw new Error('Admin role not found. Make sure to run seedRoles first.');
         }
 
-        // Now let's create our user
-        await db.insert(schema.users).values({
-            id: 1,
-            github_id: 534488,
-            email: null,
-            username: 'kevmodrome',
-            name: 'Kevin Åberg Kultalahti',
-            avatar_url: 'https://avatars.githubusercontent.com/u/534488?v=4',
-            bio: 'Technical Community Builder at Svelte Society, Organizer of Svelte Summit.',
-            location: 'Sweden',
-            twitter: 'kevmodrome',
-            role: adminRole.id,
-            created_at: new Date(1721331895712)
-        });
+        insertUserStmt.run(
+            1,
+            534488,
+            null,
+            'kevmodrome',
+            'Kevin Åberg Kultalahti',
+            'https://avatars.githubusercontent.com/u/534488?v=4',
+            'Technical Community Builder at Svelte Society, Organizer of Svelte Summit.',
+            'Sweden',
+            'kevmodrome',
+            adminRole.id,
+            new Date(1721331895712).toISOString()
+        );
 
         console.log('Users seeded successfully');
     } catch (error) {

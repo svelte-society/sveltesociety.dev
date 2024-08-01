@@ -1,29 +1,27 @@
-import * as schema from '../schema'
+export function seedTags(db) {
+    const insertTagStmt = db.prepare(`
+    INSERT INTO tags (name, slug, created_at, updated_at)
+    VALUES (?, ?, ?, ?)
+  `);
 
+    const tags = [
+        { name: 'Svelte5', slug: 'svelte-5' },
+        { name: 'Runes', slug: 'runes' },
+        { name: 'Utility', slug: 'utility' },
+        { name: 'Snippet', slug: 'snippet' }
+    ];
 
-export async function seedTags(db: any) {
+    const insertTagsTransaction = db.transaction((tags) => {
+        for (const tag of tags) {
+            const now = new Date().toISOString();
+            insertTagStmt.run(tag.name, tag.slug, now, now);
+        }
+    });
+
     try {
-        await db.insert(schema.tags).values([
-            {
-                name: 'Svelte5',
-                slug: 'svelte-5',
-            },
-            {
-                name: 'Runes',
-                slug: 'runes',
-            },
-            {
-                name: 'Utility',
-                slug: 'utility',
-            },
-            {
-                name: 'Snippet',
-                slug: 'snippet',
-            },
-        ]);
-
-        console.log('Tags seeded successfully');
+        insertTagsTransaction(tags);
+        console.log('Tags inserted successfully');
     } catch (error) {
-        console.error('Error seeding roles:', error);
+        console.error('Error inserting tags:', error);
     }
 }
