@@ -1,20 +1,14 @@
-import { roleService } from '$lib/server/db/services/roles';
+import { get_roles, delete_role } from '$lib/server/db/role';
 import { fail } from '@sveltejs/kit';
 
 export const load = (async () => {
-    const result = await roleService.get_roles();
-
-    if (!result.success) {
-        fail(400, { message: 'Error getting roles' });
-    }
-
     return {
-        roles: result.data
+        roles: get_roles()
     }
 })
 
 export const actions = {
-    default: async ({ request }) => {
+    delete: async ({ request }) => {
         const data = await request.formData();
         const id = data.get('id') as unknown as number;
 
@@ -22,9 +16,10 @@ export const actions = {
             return fail(400, { message: 'No role id provided.' });
         }
 
-        const { success } = await roleService.delete_role(id);
+        const deleted_role = delete_role(id);
 
-        if (!success) {
+
+        if (!deleted_role) {
             return { message: 'Something went wrong.' };
         }
 

@@ -2,13 +2,13 @@ import { z } from 'zod';
 import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
-import { roleService } from '$lib/server/db/services/roles';
+import { create_role } from '$lib/server/db/role';
 
 const schema = z.object({
     name: z.string(),
     value: z.string(),
     description: z.string(),
-    permissions: z.string(),
+    active: z.boolean(),
 });
 export const load = (async () => {
     const form = await superValidate(zod(schema))
@@ -20,17 +20,19 @@ export const actions = {
     default: async ({ request }) => {
         const form = await superValidate(request, zod(schema));
 
+        console.log(form.data)
+
         if (!form.valid) {
             return fail(400, { form });
         }
 
-        const { success } = await roleService.create_role(form.data);
+        const created_role_id = create_role(form.data);
 
-        if (!success) {
+        if (!created_role_id) {
             return message(form, 'Something went wrong.');
         }
 
         // Display a success status message
-        redirect(302, '/admin/roles');
+        redirect(302, '/admin/roles/');
     }
 };

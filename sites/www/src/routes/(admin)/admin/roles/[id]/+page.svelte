@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { superForm } from 'sveltekit-superforms';
+	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import Button from '$lib/ui/Button.svelte';
 
 	const { data } = $props<{ form: any }>();
@@ -24,6 +24,21 @@
 		{/if}
 	</div>
 
+	<div class="space-y-2">
+		<label for="value" class="mb-2 block text-sm font-bold text-gray-700">Value:</label>
+		<input
+			type="text"
+			id="value"
+			name="value"
+			bind:value={$form.value}
+			required
+			class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+		/>
+		{#if $errors.value}
+			<p class="text-xs italic text-red-500">{$errors.value}</p>
+		{/if}
+	</div>
+
 	<div class="mb-4">
 		<label for="description" class="mb-2 block text-sm font-bold text-gray-700">Description:</label>
 		<input
@@ -39,33 +54,21 @@
 		{/if}
 	</div>
 
-	<div class="mb-4">
-		<span class="mb-2 block text-sm font-bold text-gray-700">Active:</span>
-		<div class="flex items-center space-x-4">
-			<label class="inline-flex items-center">
-				<input
-					type="radio"
-					bind:group={$form.active}
-					name="active"
-					value={true}
-					class="form-radio text-blue-600"
-				/>
-				<span class="ml-2">Yes</span>
-			</label>
-			<label class="inline-flex items-center">
-				<input
-					type="radio"
-					bind:group={$form.active}
-					name="active"
-					value={false}
-					class="form-radio text-blue-600"
-				/>
-				<span class="ml-2">No</span>
-			</label>
-		</div>
+	<div class="mb-4 flex items-center">
+		<label class="inline-flex items-center space-x-2">
+			<span class="text-sm font-bold text-gray-700">Active:</span>
+			<input
+				type="checkbox"
+				name="active"
+				bind:checked={$form.active}
+				class="form-checkbox text-blue-600"
+			/>
+		</label>
 	</div>
 
 	<div class="flex items-center justify-between">
 		<Button primary type="submit">Update Role</Button>
 	</div>
 </form>
+
+<SuperDebug data={$form} />

@@ -1,6 +1,6 @@
 import type { RequestHandler } from './$types';
-import { sessionService } from '$lib/server/db/services/session';
-import { userService } from '$lib/server/db/services/user';
+import { create_or_update_user } from '$lib/server/db/user';
+import { delete_session, create_session } from '$lib/server/db/session';
 import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
 import { dev } from '$app/environment';
@@ -43,66 +43,28 @@ export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
 
     const user_info = await user_info_response.json()
 
-    let user;
-
     if (!user_info) {
         return new Response('Error getting user info', { status: 500 });
     }
 
-    // Check if user exists
-    let user_result = await userService.get_user_by_github_id(user_info.id)
+    // Create or update user
+    let user_result = create_or_update_user(user_info)
 
-    if (!user_result.data) {
-        // Create user
-        const create_user_result = await userService.create_user(user_info)
-
-        if (!create_user_result.success) {
-            return new Response('Error creating user', { status: 500 });
-        }
-
-        user = create_user_result.data
-
-        if (!user) {
-            return new Response('Error creating user', { status: 500 });
-        }
-
-    } else {
-        const update_result = await userService.update_user_from_github_info(user_result.data.id as number, user_info)
-
-        if (!update_result.success) {
-            return new Response('Error updating user', { status: 500 });
-        }
-
-        user = update_result.data
-
-        if (!user) {
-            return new Response('Error creating user', { status: 500 });
-        }
-    }
-
-    if (!user) {
-        return new Response('Error creating user', { status: 500 });
+    if (!user_result) {
+        return new Response('Error creating or updating user', { status: 500 });
     }
 
     // Delete old user session
     const old_session_token = cookies.get('session_id')
 
     if (old_session_token) {
-        const delete_session_result = await sessionService.delete_session(old_session_token)
-
-        if (!delete_session_result.success) {
-            return new Response('Error deleting old session', { status: 500 });
-        }
+        delete_session(old_session_token)
     }
 
     // Create new user session
-    const session_create_result = await sessionService.create_session(user.id as number)
+    const session_create_result = create_session(user_result.id as number)
 
-    if (!session_create_result?.data) {
-        return new Response('Error creating session', { status: 500 });
-    }
-
-    cookies.set('session_id', session_create_result?.data, {
+    cookies.set('session_id', session_create_result, {
         path: '/',
         httpOnly: true,
         secure: !dev,

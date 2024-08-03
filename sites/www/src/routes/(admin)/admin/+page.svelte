@@ -11,9 +11,9 @@
 		<p class="text-gray-600">Total Users</p>
 	</div>
 	<div class="rounded-lg bg-white p-6 shadow-md">
-		<h3 class="mb-4 text-xl font-semibold text-gray-800">Active Roles</h3>
-		<div class="text-4xl font-bold text-green-600">{data.roles}</div>
-		<p class="text-gray-600">Current Roles</p>
+		<h3 class="mb-4 text-xl font-semibold text-gray-800">Content Statistics</h3>
+		<div class="text-4xl font-bold text-green-600">{data.content}</div>
+		<p class="text-gray-600">Total Content</p>
 	</div>
 
 	<!-- Content Metrics Card -->
@@ -48,16 +48,12 @@
 		<h3 class="mb-4 text-xl font-semibold text-gray-800">Moderation Queue</h3>
 		<ul class="space-y-2">
 			<li class="flex justify-between">
-				<span class="text-gray-600">Reported items:</span>
-				<span class="font-semibold text-gray-800">50</span>
-			</li>
-			<li class="flex justify-between">
 				<span class="text-gray-600">Awaiting moderation:</span>
-				<span class="font-semibold text-gray-800">25</span>
+				<span class="font-semibold text-gray-800">{data.moderation_queue}</span>
 			</li>
-			<li class="flex justify-between">
-				<span class="text-gray-600">Banned users:</span>
-				<a href="/admin" class="font-semibold text-blue-600 hover:underline">View list</a>
+			<li class="flex justify-end">
+				<a href="/admin/moderation" class="font-semibold text-blue-600 hover:underline">View list</a
+				>
 			</li>
 		</ul>
 	</div>

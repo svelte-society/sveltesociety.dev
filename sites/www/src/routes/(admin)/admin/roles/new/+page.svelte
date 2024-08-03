@@ -23,6 +23,21 @@
 		{/if}
 	</div>
 
+	<div class="space-y-2">
+		<label for="value" class="mb-2 block text-sm font-bold text-gray-700">Value:</label>
+		<input
+			type="text"
+			id="value"
+			name="value"
+			bind:value={$form.value}
+			required
+			class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+		/>
+		{#if $errors.value}
+			<p class="text-xs italic text-red-500">{$errors.value}</p>
+		{/if}
+	</div>
+
 	<div class="mb-4">
 		<label for="description" class="mb-2 block text-sm font-bold text-gray-700">Description:</label>
 		<input

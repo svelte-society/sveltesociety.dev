@@ -1,23 +1,31 @@
 import type { PageServerLoad } from './$types';
 import { error, redirect } from '@sveltejs/kit';
-import { contentService } from '$lib/server/db/services/content';
+import { get_user_saved_content, get_tags_for_content } from '$lib/server/db/content';
+import { get_user_likes_and_saves } from '$lib/server/db/interactions';
+get_user_likes_and_saves
 
 export const load = (async ({ url, locals }) => {
-    const page = +(url.searchParams.get('page') || '1');
-    const limit = 10;
-
     if (!locals?.user?.id) redirect(302, '/')
 
     try {
-        const result = await contentService.get_user_saved_content(locals.user.id, limit, page - 1);
+        const content = get_user_saved_content({ user_id: locals.user.id, limit: 20, offset: 0 });
+
+        const tags = get_tags_for_content(content.map(c => c.id))
+        let content_with_tags = content.map((c, i) => ({ ...c, tags: tags[i] || [] }))
+
+        if (locals.user) {
+            const { user_likes, user_saves } = get_user_likes_and_saves(locals.user.id, content.map(c => c.id))
+
+            content_with_tags = content_with_tags.map((c, i) => ({
+                ...c,
+                liked: user_likes.has(c.id),
+                saved: user_saves.has(c.id)
+            }))
+        }
+
 
         return {
-            content: result.data.items,
-            pagination: {
-                currentPage: page,
-                totalPages: result.data.totalPages,
-                totalItems: result.data.totalCount
-            }
+            content: content_with_tags,
         };
     } catch (err) {
         console.error('Error fetching saved content:', err);

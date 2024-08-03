@@ -50,7 +50,7 @@
 										>Edit</a
 									>
 									<Dialog
-										trigger="Delete"
+										action="?/delete"
 										title="Confirm Deletion"
 										id={role.id}
 										description="Are you sure you want to delete this item? This action cannot be undone."

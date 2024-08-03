@@ -1,15 +1,15 @@
 import type { PageServerLoad } from './$types';
-import { contentService } from '$lib/server/db/services/content';
 import { fail } from '@sveltejs/kit';
+import { get_all_content, delete_content } from '$lib/server/db/content';
 
 export const load: PageServerLoad = async () => {
-	const result = await contentService.get_content_items({ limit: 10, page: 0 });
+	const content = get_all_content()
 
-	if (!result.success) {
+	if (!content) {
 		fail(400, { message: 'Error getting content' });
 	}
 
-	return { content: result?.data?.items };
+	return { content };
 };
 
 export const actions = {
@@ -22,7 +22,7 @@ export const actions = {
 		}
 
 		try {
-			await contentService.delete_content(id);
+			delete_content(parseInt(id))
 			return { success: true };
 		} catch (err) {
 			return fail(500, { message: 'Failed to delete content' });

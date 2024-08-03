@@ -1,15 +1,15 @@
 import type { RequestHandler } from './$types';
 import { redirect } from '@sveltejs/kit';
-import { sessionService } from '$lib/server/db/services/session';
+import { delete_session } from '$lib/server/db/session';
 
-export const GET: RequestHandler = async ({ cookies }) => {
+export const GET: RequestHandler = async ({ cookies, request }) => {
     const session_id = cookies.get('session_id')
 
     if (!session_id) {
         return new Response('No session id provided', { status: 400 });
     }
 
-    sessionService.delete_session(session_id)
+    delete_session(session_id)
     cookies.delete('session_id', { path: '/' })
 
     redirect(302, '/')

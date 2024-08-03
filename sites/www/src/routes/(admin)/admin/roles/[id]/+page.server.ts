@@ -2,30 +2,24 @@ import { z } from 'zod';
 import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
-import { roleService } from '$lib/server/db/services/roles';
-
-enum Active {
-    False = 0,
-    True = 1
-}
+import { update_role, get_role_by_id } from '$lib/server/db/role';
 
 const schema = z.object({
     id: z.number(),
     name: z.string(),
     value: z.string(),
     description: z.string(),
-    permissions: z.string(),
-    active: z.nativeEnum(Active)
+    active: z.boolean()
 });
 
 export const load = (async ({ params }) => {
-    const result = await roleService.get_role_by_id(parseInt(params.id));
+    const role = get_role_by_id(parseInt(params.id));
 
-    if (!result.data) {
+    if (!role) {
         redirect(302, '/admin/roles');
     }
 
-    const form = await superValidate(result.data as z.infer<typeof schema>, zod(schema))
+    const form = await superValidate(role as z.infer<typeof schema>, zod(schema))
     return {
         form
     };
@@ -38,9 +32,9 @@ export const actions = {
             return fail(400, { form });
         }
 
-        const { success } = await roleService.update_role(form.data);
+        const updated_role = update_role(form.data);
 
-        if (!success) {
+        if (!updated_role) {
             return message(form, 'Something went wrong.');
         }
 

@@ -40,7 +40,7 @@
 	let submitting_save_toggle = $state(false);
 
 	const likeSubmit = ({ cancel }) => {
-		if (!$page.data.logged_in) {
+		if (!$page.data.user) {
 			cancel();
 			return;
 		}
@@ -56,7 +56,7 @@
 		};
 	};
 	const saveSubmit = () => {
-		if (!$page.data.logged_in) {
+		if (!$page.data.user) {
 			cancel();
 			return;
 		}
@@ -94,9 +94,11 @@
 			</span>
 		</div>
 		<div class="flex items-center space-x-4">
-			<form method="POST" action="/?/toggle_like" use:enhance={likeSubmit}>
-				<input type="hidden" id="id" name="id" value={id} />
-				<input type="hidden" id="type" name="type" value={liked ? 'unlike' : 'like'} />
+			<form method="POST" action="/?/interact" use:enhance={likeSubmit}>
+				<input type="hidden" name="id" value={id} />
+				<input type="hidden" name="action" value={liked ? 'remove' : 'add'} />
+				<input type="hidden" id="type" name="type" value="like" />
+
 				<button
 					disabled={submitting_like_toggle}
 					aria-label="Like {type}"
@@ -128,9 +130,10 @@
 					{likes}
 				</button>
 			</form>
-			<form use:enhance={saveSubmit} method="POST" action="/?/toggle_save">
+			<form use:enhance={saveSubmit} method="POST" action="/?/interact">
 				<input type="hidden" name="id" value={id} />
-				<input type="hidden" id="type" name="type" value={saved ? 'unsave' : 'save'} />
+				<input type="hidden" name="action" value={saved ? 'remove' : 'add'} />
+				<input type="hidden" id="type" name="type" value="save" />
 				<button
 					disabled={submitting_save_toggle}
 					aria-label="Like {type}"

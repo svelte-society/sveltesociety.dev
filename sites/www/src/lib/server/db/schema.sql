@@ -106,30 +106,6 @@ CREATE TABLE IF NOT EXISTS saves (
     FOREIGN KEY (target_id) REFERENCES content(id)
 );
 
-CREATE TRIGGER IF NOT EXISTS increment_likes
-AFTER INSERT ON likes
-BEGIN
-  UPDATE content SET likes = likes + 1 WHERE id = NEW.target_id;
-END;
-
-CREATE TRIGGER IF NOT EXISTS decrement_likes
-AFTER DELETE ON likes
-BEGIN
-  UPDATE content SET likes = likes - 1 WHERE id = OLD.target_id;
-END;
-
-CREATE TRIGGER IF NOT EXISTS increment_saves
-AFTER INSERT ON saves
-BEGIN
-  UPDATE content SET saves = saves + 1 WHERE id = NEW.target_id;
-END;
-
-CREATE TRIGGER IF NOT EXISTS decrement_saves
-AFTER DELETE ON saves
-BEGIN
-  UPDATE content SET saves = saves - 1 WHERE id = OLD.target_id;
-END;
-
 -- Full-text search
 CREATE VIRTUAL TABLE IF NOT EXISTS content_fts USING fts5(
   content_id UNINDEXED,
@@ -138,19 +114,16 @@ CREATE VIRTUAL TABLE IF NOT EXISTS content_fts USING fts5(
   description
 );
 
-CREATE TRIGGER IF NOT EXISTS content_ai AFTER INSERT ON content BEGIN
-  INSERT INTO content_fts(content_id, title, body, description)
-  VALUES (NEW.id, NEW.title, NEW.body, NEW.description);
-END;
-
-CREATE TRIGGER IF NOT EXISTS content_au AFTER UPDATE ON content BEGIN
-  UPDATE content_fts
-  SET title = NEW.title,
-      body = NEW.body,
-      description = NEW.description
-  WHERE content_id = NEW.id;
-END;
-
-CREATE TRIGGER IF NOT EXISTS content_ad AFTER DELETE ON content BEGIN
-  DELETE FROM content_fts WHERE content_id = OLD.id;
-END;
+-- Moderation queue table
+CREATE TABLE IF NOT EXISTS moderation_queue (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'pending' CHECK(status IN ('pending', 'approved', 'rejected')),
+    data JSON NOT NULL,
+    submitted_by INTEGER,
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    moderated_by INTEGER,
+    moderated_at TIMESTAMP,
+    FOREIGN KEY (submitted_by) REFERENCES users(id),
+    FOREIGN KEY (moderated_by) REFERENCES users(id)
+);

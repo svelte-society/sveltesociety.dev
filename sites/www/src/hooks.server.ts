@@ -1,8 +1,8 @@
 import type { Handle } from '@sveltejs/kit';
+import { get_user } from '$lib/server/db/user';
+import { validate_session_id } from '$lib/server/db/session';
 import { sequence } from '@sveltejs/kit/hooks';
-import { sessionService } from '$lib/server/db/services/session';
 import { redirect } from '@sveltejs/kit';
-import { routePermissions } from '$lib/server/route_permissions';
 
 const USER_ROUTES = ['/account', '/auth/logout'];
 
@@ -12,18 +12,19 @@ const add_user_data: Handle = async ({ event, resolve }) => {
 	const session_id = cookies.get('session_id');
 
 	if (!session_id) {
-		const response = await resolve(event);
-		return response;
+		return await resolve(event);
 	}
 
-	const { data, success } = await sessionService.validate_session_id(session_id);
+	const { user_id } = validate_session_id(session_id);
 
-	if (!success) {
+	if (user_id === undefined) {
 		redirect(302, '/');
 	}
 
-	if (data?.user) {
-		event.locals.user = data.user;
+	const user = get_user(user_id)
+
+	if (user) {
+		event.locals.user = user;
 	}
 
 	const response = await resolve(event);
@@ -56,4 +57,4 @@ const protect_routes: Handle = async ({ event, resolve }) => {
 	return response;
 };
 
-export const handle = sequence(add_user_data, protect_routes);
+export const handle = sequence(add_user_data);

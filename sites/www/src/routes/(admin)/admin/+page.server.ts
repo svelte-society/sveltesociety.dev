@@ -1,13 +1,16 @@
-import { userService } from '$lib/server/db/services/user';
-import { roleService } from '$lib/server/db/services/roles';
+import { get_user_count } from '$lib/server/db/user';
+import { get_content_count } from '$lib/server/db/content';
+import { get_moderation_queue_count } from '$lib/server/db/moderation';
 import type { PageServerLoad } from './$types';
 
 export const load = (async () => {
-	const userResult = await userService.get_user_count();
-	const rolesResult = await roleService.get_roles_count();
+	const users = get_user_count()
+	const content = get_content_count();
+	const moderation_queue = get_moderation_queue_count();
 
 	return {
-		users: userResult.data,
-		roles: rolesResult.data
+		users,
+		content,
+		moderation_queue
 	};
 }) satisfies PageServerLoad;

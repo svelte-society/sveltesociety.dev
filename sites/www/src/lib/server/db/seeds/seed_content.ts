@@ -14,11 +14,7 @@ export function seedContent(db) {
     INSERT INTO content_to_tags (content_id, tag_id)
     VALUES (?, ?)
   `);
-
-  console.log('Getting all tags...');
   const tagIds = getAllTagsStmt.all();
-
-  console.log(tagIds)
 
   const tagMap = new Map(tagIds.map(tag => [tag.slug, tag.id]));
 
