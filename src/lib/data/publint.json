@@ -433,5 +433,6 @@
 	"convex-svelte": { "valid": true },
 	"sveltekit-reroute": { "valid": true },
 	"svelte-cartesian": { "valid": true },
-	"sveltekit-superactions": { "valid": true }
+	"sveltekit-superactions": { "valid": true },
+	"svelte-speedometer": { "valid": true }
 }
