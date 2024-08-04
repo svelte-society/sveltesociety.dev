@@ -35,6 +35,9 @@ writeFileSync('src/lib/data/npm.json', JSON.stringify(output));
 
 /** @param {import('zod').infer<typeof packagesSchema>[0]} pkg */
 async function processPackage(pkg) {
+	if (!('npm' in pkg)) {
+		return {};
+	}
 	const { stdout } = await execAsync(`npm view ${pkg.npm} --json`);
 	const data = JSON.parse(stdout.toString());
 	const version = data.version;
