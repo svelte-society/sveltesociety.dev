@@ -16,6 +16,9 @@ import { chunk } from './chunk.js';
 const injectVersions = (input) => {
 	const output = [];
 	for (const item of input) {
+		if (!('npm' in item)) {
+			continue;
+		}
 		/** @type {string} */
 		const version = npm[item.npm]?.version;
 		if (version) {
