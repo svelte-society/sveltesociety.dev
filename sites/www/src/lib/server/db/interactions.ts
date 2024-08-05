@@ -25,7 +25,7 @@ export function get_user_likes_and_saves(user_id: number | undefined, content_id
     return { user_likes, user_saves };
 }
 
-type InteractionType = 'likes' | 'saves';
+type InteractionType = 'like' | 'save';
 
 export function add_interaction(type: InteractionType, userId: number, contentId: number): void {
     const table = `${type}s`;
