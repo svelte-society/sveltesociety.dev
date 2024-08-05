@@ -1,8 +1,10 @@
+import type { User } from '$lib/server/db/user';
+
 declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			user: any | null
+			user: User | null
 		}
 		// interface PageData {}
 		// interface PageState {}
