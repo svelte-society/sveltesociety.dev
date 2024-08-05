@@ -1,8 +1,5 @@
 <script lang="ts">
-	let { children } = $props();
-	// These would typically come from your data store or API
-	let newContentCount = 5;
-	let newCollectionsCount = 3;
+	let { data, children } = $props();
 </script>
 
 <div class="flex h-screen bg-gray-100">
@@ -106,11 +103,6 @@
 								</svg>
 								Content
 							</div>
-							{#if newContentCount > 0}
-								<span class="ml-2 rounded-full bg-red-500 px-2 py-1 text-xs font-bold text-white">
-									{newContentCount}
-								</span>
-							{/if}
 						</a>
 					</li>
 					<li>
@@ -135,9 +127,35 @@
 								</svg>
 								Collections
 							</div>
-							{#if newCollectionsCount > 0}
-								<span class="ml-2 rounded-full bg-red-500 px-2 py-1 text-xs font-bold text-white">
-									{newCollectionsCount}
+						</a>
+					</li>
+					<li>
+						<a
+							href="/admin/moderation"
+							class="flex items-center justify-between rounded-lg p-2 text-gray-600 transition-colors duration-200 hover:bg-gray-200"
+						>
+							<div class="flex items-center">
+								<svg
+									class="mr-2 h-6 w-6"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+									></path>
+								</svg>
+								Moderation
+							</div>
+							{#if data.moderation_count > 0}
+								<span
+									class="inline-flex items-center justify-center rounded-full bg-red-600 px-2 py-1 text-xs font-bold leading-none text-red-100"
+								>
+									{data.moderation_count}
 								</span>
 							{/if}
 						</a>
