@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { dndzone, SHADOW_PLACEHOLDER_ITEM_ID } from 'svelte-dnd-action';
 	import { flip } from 'svelte/animate';
 
 	interface ContentItem {
@@ -52,7 +51,7 @@
 
 	let selectedItems = $derived.by(() => {
 		return selectedIds
-			.map((id) => contentItems.find((item) => item.id === id))
+			.map((id: number) => contentItems.find((item) => item.id === id))
 			.filter(Boolean) as ContentItem[];
 	});
 </script>
