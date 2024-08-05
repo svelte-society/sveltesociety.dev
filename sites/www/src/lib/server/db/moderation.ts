@@ -107,24 +107,12 @@ export const get_moderation_queue_paginated = (options: GetModerationQueueOption
     return stmt.all(params) as PreviewModerationQueueItem[];
 }
 
-export const get_moderation_queue_count_filtered = (options: Pick<GetModerationQueueOptions, 'status' | 'type'>): number => {
-    const {
-        status = 'pending',
-        type
-    } = options;
-
+export const get_moderation_queue_count_filtered = (params: Pick<GetModerationQueueOptions, 'status'>): number => {
     let query = `
         SELECT COUNT(*) as count
         FROM moderation_queue
         WHERE status = @status
     `;
-
-    const params: any = { status };
-
-    if (type) {
-        query += " AND type = @type";
-        params.type = type;
-    }
 
     const stmt = db.prepare(query);
     return (stmt.get(params) as { count: number }).count;
