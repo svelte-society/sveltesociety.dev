@@ -1,15 +1,33 @@
 import { db } from "./index";
 import { type Tag } from "./tags";
 
+interface GetContentParams {
+    limit?: number;
+    offset?: number;
+    types?: string[];
+}
+
+type ContentInput = {
+    title: string;
+    type: string;
+    status?: 'draft' | 'published' | 'archived';
+    body?: string;
+    rendered_body?: string;
+    slug: string;
+    description?: string;
+    metadata?: Record<string, any>;
+    children?: number[];
+};
+
 export type Content = {
     id: number;
     title: string;
-    type: string;
+    type: 'draft' | 'published' | 'archived';
     body: string;
     rendered_body: string;
     slug: string;
     description: string;
-    children: number[];
+    children: string;
     created_at: string;
     updated_at: string;
     published_at: string | null;
@@ -19,8 +37,8 @@ export type Content = {
 
 export type PreviewContent = Omit<Content, 'body' | 'rendered_body'>;
 
-export const get_content = () => {
-    const stmt = db.prepare(`
+export const get_content = ({ limit = 15, offset = 0, types = [] }: GetContentParams = {}): PreviewContent[] => {
+    let query = `
         SELECT 
             id, 
             title, 
@@ -34,9 +52,25 @@ export const get_content = () => {
             likes, 
             saves 
         FROM published_content
-    `);
-    return stmt.all() as PreviewContent[];
-}
+    `;
+
+    const params: Record<string, any> = {
+        "limit": limit,
+        "offset": offset
+    };
+
+    if (types.length > 0) {
+        query += " WHERE type IN (" + types.map((_, i) => `@type${i}`).join(", ") + ")";
+        types.forEach((type, i) => {
+            params[`@type${i}`] = type;
+        });
+    }
+
+    query += " LIMIT @limit OFFSET @offset";
+
+    const stmt = db.prepare(query);
+    return stmt.all(params) as PreviewContent[];
+};
 
 export const get_all_content = (): PreviewContent[] => {
     const stmt = db.prepare(`
@@ -249,3 +283,142 @@ export const delete_content = (id: number): boolean => {
         return false;
     }
 }
+
+export const create_content = (input: ContentInput): number | null => {
+    const {
+        title,
+        type,
+        status = 'draft',
+        body = null,
+        rendered_body = null,
+        slug,
+        description = null,
+        metadata = null,
+        children = null
+    } = input;
+
+    const stmt = db.prepare(`
+        INSERT INTO content (
+            title,
+            type,
+            status,
+            body,
+            rendered_body,
+            slug,
+            description,
+            metadata,
+            children,
+            created_at,
+            updated_at
+        ) VALUES (
+            @title,
+            @type,
+            @status,
+            @body,
+            @rendered_body,
+            @slug,
+            @description,
+            @metadata,
+            @children,
+            CURRENT_TIMESTAMP,
+            CURRENT_TIMESTAMP
+        )
+    `);
+
+    try {
+        const result = stmt.run({
+            title,
+            type,
+            status,
+            body,
+            rendered_body,
+            slug,
+            description,
+            metadata: metadata ? JSON.stringify(metadata) : null,
+            children: children ? JSON.stringify(children) : null
+        });
+
+        // Return the ID of the newly inserted content
+        return result.lastInsertRowid as number;
+    } catch (error) {
+        console.error('Error creating content:', error);
+        return null;
+    }
+}
+
+export const get_content_by_id = (id: number): Content | null => {
+    const stmt = db.prepare(`
+        SELECT *
+        FROM content
+        WHERE id = ?
+    `);
+
+    try {
+        const result = stmt.get(id) as (Omit<Content, 'children'> & { children: string }) | undefined;
+
+        if (!result) {
+            return null;
+        }
+
+        const children = result.children ? JSON.parse(result.children) : [];
+
+        return {
+            ...result,
+            children: children.split(',').map((n: string) => parseInt(n))
+        };
+    } catch (error) {
+        console.error('Error fetching content by id:', error);
+        return null;
+    }
+};
+
+export const update_content = (input: ContentInput & { id: number }): boolean => {
+    const {
+        id,
+        title,
+        type,
+        status,
+        body,
+        rendered_body,
+        slug,
+        description,
+        metadata,
+        children
+    } = input;
+
+    const stmt = db.prepare(`
+        UPDATE content
+        SET
+            title = @title,
+            type = @type,
+            status = @status,
+            body = @body,
+            rendered_body = @rendered_body,
+            slug = @slug,
+            description = @description,
+            metadata = @metadata,
+            children = @children,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = @id
+    `);
+
+    try {
+        const result = stmt.run({
+            id,
+            title,
+            type,
+            status,
+            body,
+            rendered_body,
+            slug,
+            description,
+            metadata: metadata ? JSON.stringify(metadata) : null,
+            children: children ? JSON.stringify(children) : null
+        });
+
+        return result.changes > 0;
+    } catch (error) {
+        console.error('Error updating content:', error);
+        return false;
+    }
+};
