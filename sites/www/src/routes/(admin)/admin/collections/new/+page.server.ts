@@ -3,14 +3,8 @@ import { error, fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { z } from 'zod';
 
-const schema = z.object({
-    title: z.string().min(1, 'Title is required'),
-    description: z.string().min(1, 'Description is required'),
-    children: z.array(z.number()).min(1, 'Children are required'),
-    slug: z.string().min(1, 'Slug is required')
-});
+import { schema } from './schema.ts'
 
 export const load = async () => {
     const form = await superValidate(zod(schema));

@@ -1,44 +1,32 @@
 <script lang="ts">
-	import { Avatar } from 'bits-ui';
-	let { name, src } = $props<{
-		name: string;
-		src?: string;
-	}>();
+	export let src: string | null = null;
+	export let name: string;
+	export let size: 'sm' | 'md' | 'lg' = 'md';
 
-	let loadingStatus: Avatar.Props['loadingStatus'] = $state();
+	const sizeClasses = {
+		sm: 'w-8 h-8 text-xs',
+		md: 'w-10 h-10 text-sm',
+		lg: 'w-12 h-12 text-base'
+	};
 
-	function capitalizeFirstLetters(sentence: string): string {
-		const words = sentence.split(' ');
-
-		// Map over the words array and capitalize the first letter of each word
-		const capitalizedLetters = words.map((word) => {
-			// Ensure word is not empty to avoid errors with .charAt(0)
-			if (word.length > 0) {
-				return word.charAt(0).toUpperCase();
-			} else {
-				return '';
-			}
-		});
-
-		// Join the capitalized letters into a single string
-		const capitalizedSentence = capitalizedLetters.join('');
-
-		return capitalizedSentence;
+	function getInitials(name: string): string {
+		return name
+			.split(' ')
+			.map((word) => word[0])
+			.join('')
+			.toUpperCase()
+			.slice(0, 2);
 	}
+
+	const initials = getInitials(name);
 </script>
 
-<Avatar.Root
-	bind:loadingStatus
-	class="h-12 w-12 rounded-full border {loadingStatus === 'loaded'
-		? 'border-foreground'
-		: 'border-transparent'} bg-muted text-muted-foreground text-[17px] font-medium uppercase"
+<div
+	class={`relative ${sizeClasses[size]} flex items-center justify-center overflow-hidden rounded-full border-2 border-indigo-500 bg-gray-200`}
 >
-	<div
-		class="flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-transparent"
-	>
-		<Avatar.Image {src} alt="{name} profile" />
-		<Avatar.Fallback class="border-muted border"
-			>{capitalizeFirstLetters(name || 'John Doe')}</Avatar.Fallback
-		>
-	</div>
-</Avatar.Root>
+	{#if src}
+		<img {src} alt={name} class="h-full w-full object-cover" />
+	{:else}
+		<span class="font-medium text-gray-600">{initials}</span>
+	{/if}
+</div>

@@ -1,99 +1,82 @@
-<!-- src/routes/content/new/+page.svelte -->
 <script lang="ts">
-	import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte';
-	import Button from '$lib/ui/Button.svelte';
+	import { superForm } from 'sveltekit-superforms';
+	import { zod } from 'sveltekit-superforms/adapters';
+	import Input from '$lib/ui/form/Input.svelte';
+	import Select from '$lib/ui/form/Select.svelte';
 	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte';
-	import SuperDebug, { superForm } from 'sveltekit-superforms';
+	import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte';
+	import { schema } from './schema';
 
 	let { data } = $props();
-
-	$inspect(data.form);
-	const { form, errors, enhance } = superForm(data.form);
+	const { form, errors, enhance } = superForm(data.form, zod(schema));
 </script>
 
-<div class="container mx-auto px-4 py-8">
-	<h1 class="mb-4 text-2xl font-bold">Create New Content</h1>
-
-	<form use:enhance method="post" class="space-y-6 rounded-lg bg-white p-6 shadow-md">
+<div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
+	<h1 class="mb-6 text-3xl font-bold text-gray-800">Create New Content</h1>
+	<form method="POST" use:enhance class="space-y-6">
+		<Input
+			name="title"
+			label="Title"
+			type="text"
+			placeholder="Best Svelte Runes Tutorial"
+			description="Enter the title of the content"
+			bind:value={$form.title}
+			errors={$errors.title}
+		/>
+		<Select
+			name="type"
+			label="Type"
+			description="Select the type of content"
+			options={[
+				{ value: 'recipe', label: 'Recipe' },
+				{ value: 'video', label: 'Video' }
+			]}
+			bind:value={$form.type}
+			errors={$errors.type}
+		/>
 		<div class="space-y-2">
-			<label for="title" class="mb-2 block text-sm font-bold text-gray-700">Title:</label>
-			<input
-				type="text"
-				id="title"
-				name="title"
-				bind:value={$form.title}
-				required
-				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-			/>
-			{#if $errors.title}<p class="text-xs italic text-red-500">{$errors.title}</p>{/if}
-		</div>
-
-		<div class="space-y-2">
-			<label for="type" class="mb-2 block text-sm font-bold text-gray-700">Type:</label>
-			<select
-				id="type"
-				name="type"
-				bind:value={$form.type}
-				required
-				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-			>
-				<option value="recipe">Recipe</option>
-				<option value="video">Video</option>
-			</select>
-			{#if $errors.type}<p class="text-xs italic text-red-500">{$errors.type}</p>{/if}
-		</div>
-
-		<div class="space-y-2">
-			<label for="body" class="mb-2 block text-sm font-bold text-gray-700">Body:</label>
+			<label for="body" class="block text-sm font-medium text-gray-700">Body</label>
 			<div
-				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+				class="w-full rounded-md border-2 border-transparent bg-slate-100 text-sm text-slate-800 placeholder-slate-500"
 			>
-				<MarkdownEditor name="body" bind:value={$form.body} />
+				<div class="px-2 py-1.5 pr-4">
+					<MarkdownEditor name="body" bind:value={$form.body} />
+				</div>
 			</div>
 			{#if $errors.body}<p class="text-xs italic text-red-500">{$errors.body}</p>{/if}
 		</div>
-
+		<Input
+			name="slug"
+			label="Slug"
+			type="text"
+			placeholder="best-svelte-runes-tutorial"
+			description="Enter the slug for the content URL"
+			bind:value={$form.slug}
+			errors={$errors.slug}
+		/>
+		<Input
+			name="description"
+			label="Description"
+			type="textarea"
+			placeholder="Learn how to use Svelte runes effectively"
+			description="Enter a brief description of the content"
+			bind:value={$form.description}
+			errors={$errors.description}
+		/>
 		<div class="space-y-2">
-			<label for="slug" class="mb-2 block text-sm font-bold text-gray-700">Slug:</label>
-			<input
-				type="text"
-				id="slug"
-				name="slug"
-				bind:value={$form.slug}
-				required
-				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-			/>
-			{#if $errors.slug}<p class="text-xs italic text-red-500">{$errors.slug}</p>{/if}
-		</div>
-
-		<div class="space-y-2">
-			<label for="description" class="mb-2 block text-sm font-bold text-gray-700"
-				>Description:</label
-			>
-			<textarea
-				id="description"
-				name="description"
-				bind:value={$form.description}
-				required
-				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-			></textarea>
-			{#if $errors.description}<p class="text-xs italic text-red-500">{$errors.description}</p>{/if}
-		</div>
-
-		<div class="space-y-2">
-			<label for="description" class="mb-2 block text-sm font-bold text-gray-700">Tags:</label>
+			<label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
 			<AutoComplete
 				tags={data.tags}
-				bind:selectedTags={$form.tags}
+				bind:selectedTags={$form.tags._errors}
 				placeholder="Type to search or create a tag"
 			/>
-			{#if $errors.description}<p class="text-xs italic text-red-500">{$errors.description}</p>{/if}
+			{#if $errors.tags}<p class="text-xs italic text-red-500">{$errors.tags}</p>{/if}
 		</div>
-
-		<div class="pt-4">
-			<Button primary type="submit">Create Content</Button>
-		</div>
+		<button
+			type="submit"
+			class="w-full rounded-md bg-indigo-600 px-4 py-2 text-white transition duration-150 ease-in-out hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+		>
+			Create Content
+		</button>
 	</form>
 </div>
-
-<SuperDebug data={$form} />

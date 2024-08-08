@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from '$lib/ui/Button.svelte';
 	import Tags from '$lib/ui/Tags.svelte';
 
 	type Tag = {
@@ -11,16 +12,12 @@
 	let { tags }: { tags: Tag[] } = $props();
 </script>
 
-<main class="mx-auto mt-8 max-w-md space-y-4 p-4">
-	<div class="mb-4 grid grid-cols-[auto_1fr] items-start gap-1">
-		<div>
-			<h3 class="text-lg font-semibold">Got Svelte News?</h3>
-			<p class="mb-4 text-sm">Share with the biggest community of Svelte enthusiasts</p>
-		</div>
-		<button class="bg-svelte-900 w-28 rounded px-2 py-1 text-white hover:brightness-95">
-			<span class="line-height-0">+</span> <span class="text-sm">Submit Post</span>
-		</button>
+<main class="mx-auto mt-8 max-w-xs space-y-4 p-4">
+	<div class="mb-4 grid grid-cols-[1fr_auto] items-start gap-1">
+		<h3 class="text-lg font-semibold">Interested in contributing?</h3>
+		<Button href="/submit" primary small icon_left="plus">Submit Post</Button>
 	</div>
+	<p class="mb-4 text-sm">Share with the biggest community of Svelte enthusiasts</p>
 
 	<div>
 		<h3 class="text-md mb-2 font-semibold">Tags</h3>

@@ -5,7 +5,7 @@
 </script>
 
 <div class="flex min-h-screen flex-col">
-	<header class="border-svelte-900 border-b-4 p-4">
+	<header class="border-b-4 border-svelte-900 p-4">
 		<div class="container mx-auto flex items-center justify-between gap-4">
 			<a href="/" class="flex items-center gap-2">
 				<svg
@@ -75,26 +75,23 @@
 					<li>
 						<a
 							href="/about"
-							class="hover:text-slate-600 {$page.url.pathname === '/about' ? 'font-bold' : ''}"
-							>About</a
-						>
-					</li>
-					<li>
-						<a
-							href="/links"
-							class="hover:text-slate-600 {$page.url.pathname === '/about' ? 'font-bold' : ''}"
-							>Links</a
+							class:font-bold={$page.url.pathname === '/about'}
+							class="hover:text-slate-600">About</a
 						>
 					</li>
 					<li>
 						<a
 							href="/events"
-							class="hover:text-slate-600 {$page.url.pathname === '/about' ? 'font-bold' : ''}"
-							>Events</a
+							class:font-bold={$page.url.pathname === '/events'}
+							class="hover:text-slate-600">Events</a
 						>
 					</li>
 					{#if data.user}
-						<li><a href="/account">Profile</a></li>
+						<li>
+							<a href="/account" class:font-bold={$page.url.pathname.startsWith('/account')}
+								>Profile</a
+							>
+						</li>
 						<li><a href="/auth/logout">Logout</a></li>
 					{:else}
 						<li><a href="/auth/github">Login</a></li>

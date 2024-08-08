@@ -7,7 +7,7 @@
 		label?: string;
 		value: string;
 		description?: string;
-		error?: string;
+		errors?: string;
 		initial?: string;
 		placeholder?: string;
 		options: SelectOption[];
@@ -21,7 +21,7 @@
 		label,
 		description,
 		placeholder = 'Select an option...',
-		error,
+		errors,
 		initial = '',
 		options = []
 	}: SelectProps = $props();
@@ -52,9 +52,13 @@
 			</svg>
 		</div>
 	</div>
-	{#if error || description}
+	{#if errors}
+		<div class="text-xs text-slate-500" class:error={errors}>
+			{errors}
+		</div>
+	{:else if description}
 		<div class="text-xs text-slate-500" class:error={false}>
-			{error || description}
+			{description}
 		</div>
 	{/if}
 </div>

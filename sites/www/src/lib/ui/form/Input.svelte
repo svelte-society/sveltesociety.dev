@@ -3,11 +3,13 @@
 		label?: string;
 		value?: string;
 		description?: string;
-		error?: string;
+		errors?: string[];
 		initial?: string;
 		placeholder?: string;
 		name: string;
+		constraints?: any;
 		disabled?: boolean;
+		type: string;
 	}
 	let {
 		name,
@@ -15,16 +17,17 @@
 		label,
 		description,
 		placeholder = 'Some text...',
-		error,
-		initial = ''
+		constraints,
+		errors,
+		disabled,
+		type = 'text'
 	}: TextInputProps = $props();
-	let inputValue = $state(initial);
 	let inputElement: HTMLInputElement;
 
-	let showClearButton = $derived(inputValue.length > 0);
+	let showClearButton = $derived(value.length > 0);
 
 	function clearText() {
-		inputValue = '';
+		value = '';
 		inputElement.focus();
 	}
 </script>
@@ -35,15 +38,18 @@
 	{/if}
 	<div class="relative">
 		<input
+			{type}
 			bind:this={inputElement}
-			bind:value={inputValue}
+			aria-invalid={errors ? 'true' : undefined}
+			{disabled}
+			bind:value
 			{placeholder}
 			class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-7 text-sm text-slate-800 placeholder-slate-500"
-			type="text"
 			{name}
-			class:error={false}
+			{...constraints}
+			class:error={errors}
 		/>
-		{#if showClearButton}
+		{#if showClearButton && !disabled}
 			<button
 				type="button"
 				class="absolute right-2.5 top-1/2 -translate-y-1/2"
@@ -75,9 +81,13 @@
 			</button>
 		{/if}
 	</div>
-	{#if error || description}
+	{#if errors}
+		<div class="text-xs text-slate-500" class:error={errors}>
+			{errors}
+		</div>
+	{:else if description}
 		<div class="text-xs text-slate-500" class:error={false}>
-			{error || description}
+			{description}
 		</div>
 	{/if}
 </div>
@@ -88,8 +98,5 @@
 	}
 	div .error {
 		@apply text-red-600;
-	}
-	input:disabled {
-		@apply cursor-not-allowed text-gray-400;
 	}
 </style>

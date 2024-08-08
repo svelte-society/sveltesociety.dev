@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { flip } from 'svelte/animate';
+	import Button from '$lib/ui/Button.svelte';
+	import Input from '$lib/ui/form/Input.svelte';
 
 	interface ContentItem {
 		id: number;
@@ -7,7 +8,14 @@
 		type: string;
 	}
 
-	let { selectedIds = $bindable([]), name } = $props<{ selectedIds: number[]; name: string }>();
+	interface Props {
+		selectedIds: number[];
+		name: string;
+		errors?: any;
+		description?: string;
+	}
+
+	let { selectedIds = $bindable([]), name, description, errors }: Props = $props();
 	let searchQuery = $state('');
 	let showModal = $state(false);
 	let contentItems: ContentItem[] = $state([]);
@@ -16,8 +24,6 @@
 			item.title.toLowerCase().includes(searchQuery.toLowerCase())
 		);
 	});
-
-	const flipDurationMs = 200;
 
 	function toggleModal() {
 		showModal = !showModal;
@@ -57,45 +63,16 @@
 </script>
 
 <div class="content-selector">
-	<div class="mb-4 flex items-center space-x-2">
-		<input
+	<div class="mb-4 grid grid-cols-1 items-start gap-2 sm:grid-cols-[1fr_auto]">
+		<Input
+			disabled
+			placeholder="Learn how to use the best runes in Svelte"
 			type="text"
-			readonly
+			{description}
+			errors={errors?._errors}
 			value={selectedIds.join(', ')}
-			placeholder="Selected content IDs"
-			class="flex-grow rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
 		/>
-		<button
-			type="button"
-			onclick={toggleModal}
-			class="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-		>
-			Select Content
-		</button>
-	</div>
-	<div class="mb-4 overflow-hidden rounded-md border">
-		{#each selectedItems as item, index (item.id)}
-			<div
-				class="flex cursor-move items-center border-b bg-white p-2 last:border-b-0 hover:bg-gray-50"
-				animate:flip={{ duration: flipDurationMs }}
-				data-sveltekit-preload-data="off"
-			>
-				<span class="mr-3 w-8 text-right text-gray-500">{index + 1}.</span>
-				<a href={`/content/${item.id}`} class="mr-2 flex-grow text-blue-600 hover:underline"
-					>{item.title}</a
-				>
-				<span class="mr-2 rounded-full bg-gray-200 px-2 py-1 text-xs">{item.type}</span>
-				<button
-					type="button"
-					onclick={() => unselectItem(item.id)}
-					class="text-gray-500 hover:text-gray-700 focus:outline-none"
-					aria-label={`Remove ${item.title}`}
-				>
-					&times;
-				</button>
-				<input type="checkbox" hidden checked {name} value={item.id} class="hidden" />
-			</div>
-		{/each}
+		<Button type="button" onclick={toggleModal} primary>Select Content</Button>
 	</div>
 	{#if showModal}
 		<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -120,54 +97,33 @@
 								{item.title}
 								<span class="ml-2 rounded-full bg-gray-200 px-2 py-1 text-xs">{item.type}</span>
 							</span>
-							<button
+							<Button
+								small
 								type="button"
 								onclick={() => selectItem(item)}
-								class={`rounded-md px-3 py-1 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-									selectedIds.includes(item.id)
-										? 'bg-red-500 hover:bg-red-600 focus:ring-red-500'
-										: 'bg-blue-500 hover:bg-blue-600 focus:ring-blue-500'
-								}`}
+								secondary={selectedIds.includes(item.id)}
+								primary={!selectedIds.includes(item.id)}
+								>{selectedIds.includes(item.id) ? 'Remove' : 'Select'}
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									class="ml-1"
+								>
+									{#if selectedIds.includes(item.id)}
+										<path d="M18 6 6 18"></path>
+										<path d="m6 6 12 12"></path>
+									{:else}
+										<path d="M20 6 9 17l-5-5"></path>
+									{/if}
+								</svg></Button
 							>
-								{#if selectedIds.includes(item.id)}
-									<span class="flex items-center">
-										Unselect
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="16"
-											height="16"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											class="ml-1"
-										>
-											<path d="M18 6 6 18"></path>
-											<path d="m6 6 12 12"></path>
-										</svg>
-									</span>
-								{:else}
-									<span class="flex items-center">
-										Select
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="16"
-											height="16"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											class="ml-1"
-										>
-											<path d="M20 6 9 17l-5-5"></path>
-										</svg>
-									</span>
-								{/if}
-							</button>
 						</div>
 					{/each}
 				</div>
@@ -183,4 +139,38 @@
 			</div>
 		</div>
 	{/if}
+	{#if selectedItems.length > 0}
+		<div class="mb-4 overflow-hidden rounded-md border">
+			{#each selectedItems as item, index (item.id)}
+				<div
+					class="flex cursor-move items-center border-b bg-white p-2 last:border-b-0 hover:bg-gray-50"
+					data-sveltekit-preload-data="off"
+				>
+					<span class="mr-3 w-8 text-right text-gray-500">{index + 1}.</span>
+					<a href={`/content/${item.id}`} class="mr-2 flex-grow text-blue-600 hover:underline"
+						>{item.title}</a
+					>
+					<span class="mr-2 rounded-full bg-gray-200 px-2 py-1 text-xs">{item.type}</span>
+					<button
+						type="button"
+						onclick={() => unselectItem(item.id)}
+						class="text-gray-500 hover:text-gray-700"
+						aria-label={`Remove ${item.title}`}
+					>
+						&times;
+					</button>
+					<input type="checkbox" hidden checked {name} value={item.id} class="hidden" />
+				</div>
+			{/each}
+		</div>
+	{/if}
 </div>
+
+<style lang="postcss">
+	input.error {
+		@apply border-red-300 bg-red-50 text-red-600;
+	}
+	div .error {
+		@apply text-red-600;
+	}
+</style>

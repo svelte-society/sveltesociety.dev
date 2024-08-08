@@ -238,6 +238,9 @@ importers:
       tailwindcss:
         specifier: ^3.4.7
         version: 3.4.7
+      tschema:
+        specifier: ^2.0.0
+        version: 2.0.0
       tslib:
         specifier: ^2.6.3
         version: 2.6.3
@@ -3649,6 +3652,10 @@ packages:
 
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
+
+  tschema@2.0.0:
+    resolution: {integrity: sha512-CN1XiDRcYu88uPZKaghjniFkBzdQ8XQLVF2wt4hSc/nXaisMqAxfNcdZT6bfnm3fIRSu7aTn8+bTcsbgHQpMMQ==}
+    engines: {node: '>=14'}
 
   tslib@2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
@@ -7803,6 +7810,8 @@ snapshots:
   ts-deepmerge@7.0.1: {}
 
   ts-interface-checker@0.1.13: {}
+
+  tschema@2.0.0: {}
 
   tslib@2.4.0:
     optional: true
