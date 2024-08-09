@@ -6,6 +6,8 @@
 	export let tags: Array<{ id: number; name: string }> = [];
 	export let selectedTags: number[] = [];
 	export let placeholder: string = 'Type to search or create a tag';
+	export let errors: any;
+	export let description: string;
 
 	const dispatch = createEventDispatcher();
 
@@ -43,6 +45,7 @@
 		createNew={true}
 		on:create={handleCreate}
 		on:select={handleSelect}
+		error={errors}
 	/>
 
 	<div class="mt-2 flex flex-wrap gap-2">
@@ -53,7 +56,24 @@
 			{/if}
 		{/each}
 	</div>
+	{#if errors}
+		{#each errors as error}
+			<div class="text-xs text-slate-500" class:error={errors}>
+				{errors}
+			</div>
+		{/each}
+	{:else if description}
+		<div class="text-xs text-slate-500">
+			{description}
+		</div>
+	{/if}
 	{#each selectedTags as tag}
 		<input type="hidden" name="tags" value={tag} />
 	{/each}
 </div>
+
+<style lang="postcss">
+	div .error {
+		@apply text-red-600;
+	}
+</style>

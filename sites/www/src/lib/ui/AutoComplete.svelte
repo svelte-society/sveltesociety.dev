@@ -6,6 +6,7 @@
 	export let valueField: string = 'id';
 	export let placeholder: string = 'Search...';
 	export let createNew: boolean = false;
+	export let error: false;
 
 	let inputValue = '';
 	let filteredItems: any[] = [];
@@ -72,14 +73,15 @@
 		oninput={handleInput}
 		onkeydown={handleKeydown}
 		onblur={handleBlur}
+		class:error
 		{placeholder}
-		class="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+		class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-7 text-sm text-slate-800 placeholder-slate-500"
 	/>
 	{#if showDropdown && filteredItems.length > 0}
 		<ul
 			class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-white shadow-lg"
 		>
-			{#each filteredItems as item, index}
+			{#each filteredItems || [] as item, index}
 				<li>
 					<button
 						class="flex w-full cursor-pointer px-3 py-2 hover:bg-gray-100"
@@ -99,3 +101,9 @@
 		</ul>
 	{/if}
 </div>
+
+<style lang="postcss">
+	input.error {
+		@apply border-red-300 bg-red-50 text-red-600;
+	}
+</style>
