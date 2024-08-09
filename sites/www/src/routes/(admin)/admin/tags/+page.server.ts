@@ -1,6 +1,6 @@
-import { tagService } from '$lib/server/db/services/tags';
+import { get_tags, delete_tag } from '$lib/server/db/tags';
 import type { PageServerLoad, Actions } from './$types';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { z } from 'zod';
@@ -10,14 +10,14 @@ const deleteSchema = z.object({
 });
 
 export const load: PageServerLoad = async () => {
-    const result = await tagService.get_tags_ordered_by_content_count();
+    const result = get_tags()
     const form = await superValidate(zod(deleteSchema));
 
-    if (!result.success) {
+    if (!result) {
         return fail(400, { message: 'Error getting tags' });
     }
 
-    return { tags: result.data, form };
+    return { tags: result, form };
 };
 
 export const actions: Actions = {
@@ -29,8 +29,8 @@ export const actions: Actions = {
         }
 
         try {
-            await tagService.delete_tag(form.data.id);
-            return message(form, 'Tag deleted successfully');
+            delete_tag(form.data.id);
+            redirect(302, '/admin/tags');
         } catch (error) {
             return message(form, 'Failed to delete tag', { status: 500 });
         }
