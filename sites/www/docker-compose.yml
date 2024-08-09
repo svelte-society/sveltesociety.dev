@@ -6,13 +6,13 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "4173:4173"
+      - "3000:3000"
     volumes:
       - .:/app
       - /app/node_modules
     environment:
       - NODE_ENV=production
-    command: sh -c "npm run build && npm run preview"
+    command: sh -c "npm run build && npm run start"
 
 volumes:
   node_modules:
