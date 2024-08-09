@@ -16,7 +16,7 @@ export const load = async () => {
 	const form = await superValidate(zod(schema));
 	return {
 		form,
-		tags: result.data
+		tags: result
 	};
 };
 
