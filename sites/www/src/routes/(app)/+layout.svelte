@@ -5,7 +5,7 @@
 </script>
 
 <div class="flex min-h-screen flex-col">
-	<header class="border-b-4 border-svelte-900 p-4">
+	<header class="border-svelte-900 border-b-4 p-4">
 		<div class="container mx-auto flex items-center justify-between gap-4">
 			<a href="/" class="flex items-center gap-2">
 				<svg
@@ -101,7 +101,7 @@
 		</div>
 	</header>
 
-	<div class="container mx-auto flex flex-1">
+	<div class="mx-auto flex flex-1">
 		{@render children()}
 	</div>
 </div>
