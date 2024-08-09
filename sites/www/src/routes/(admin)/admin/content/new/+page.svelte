@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { superForm } from 'sveltekit-superforms';
+	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import Input from '$lib/ui/form/Input.svelte';
 	import Select from '$lib/ui/form/Select.svelte';
@@ -11,7 +11,7 @@
 	const { form, errors, enhance } = superForm(data.form, zod(schema));
 </script>
 
-<div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
+<div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
 	<h1 class="mb-6 text-3xl font-bold text-gray-800">Create New Content</h1>
 	<form method="POST" use:enhance class="space-y-6">
 		<Input
@@ -67,10 +67,10 @@
 			<label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
 			<AutoComplete
 				tags={data.tags}
-				bind:selectedTags={$form.tags._errors}
 				placeholder="Type to search or create a tag"
+				description="Select tags for your content"
+				errors={$errors.tags?._errors}
 			/>
-			{#if $errors.tags}<p class="text-xs italic text-red-500">{$errors.tags}</p>{/if}
 		</div>
 		<button
 			type="submit"
@@ -80,3 +80,5 @@
 		</button>
 	</form>
 </div>
+
+<SuperDebug data={$errors} />
