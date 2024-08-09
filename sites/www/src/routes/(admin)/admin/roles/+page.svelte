@@ -15,7 +15,7 @@
 			<table class="w-full text-left text-xs text-gray-500">
 				<thead class="bg-gray-50 text-xs uppercase text-gray-700">
 					<tr>
-						<th scope="col" class="sticky left-0 z-20 min-w-[180px] bg-gray-50 px-3 py-2">Name</th>
+						<th scope="col" class="sticky left-0 z-20 bg-gray-50 px-3 py-2">Name</th>
 						<th scope="col" class="min-w-[180px] px-3 py-2">Description</th>
 						<th scope="col" class="min-w-[80px] px-3 py-2">Active</th>
 						<th scope="col" class="sticky right-0 z-20 min-w-[70px] bg-gray-50 px-3 py-2">
