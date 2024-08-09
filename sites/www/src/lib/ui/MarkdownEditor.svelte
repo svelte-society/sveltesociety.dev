@@ -1,53 +1,48 @@
 <script lang="ts">
-	import { insert } from '@milkdown/utils';
-	import { defaultValueCtx, Editor, rootCtx } from '@milkdown/core';
-	import { commonmark } from '@milkdown/preset-commonmark';
-	import { clipboard } from '@milkdown/plugin-clipboard';
-	import { emoji } from '@milkdown/plugin-emoji';
-	import { history } from '@milkdown/plugin-history';
-	import { listener, listenerCtx } from '@milkdown/plugin-listener';
-	import { upload } from '@milkdown/plugin-upload';
-	import { nord } from '@milkdown/theme-nord';
-	import '@milkdown-lab/plugin-menu/style.css';
+	import { marked } from 'marked';
+	let { value = $bindable(''), name = '' } = $props();
 
-	let editor: Editor;
-	let editorDiv: HTMLElement;
-
-	let { value = $bindable(), name = '' } = $props();
-
-	$effect(async () => {
-		// const { menu, menuDefaultConfig } = await import('@milkdown-lab/plugin-menu');
-
-		editor = await Editor.make()
-			// .config(menuDefaultConfig)
-			.config((ctx) => {
-				ctx.set(rootCtx, editorDiv);
-			})
-			.config((ctx) => {
-				ctx.get(listenerCtx).markdownUpdated((ctx, markdown, prevMarkdown) => {
-					value = markdown;
-				});
-			})
-			.config(nord)
-			.use(commonmark)
-			.use(clipboard)
-			.use(emoji)
-			.use(history)
-			.use(upload)
-			.use(listener)
-			// .use(menu)
-			.create();
-
-		editor.action(insert(value));
-
-		return async () => {
-			await editor.destroy();
-		};
-	});
+	let tab = $state('write');
 </script>
 
-<div class="markdown-editor">
-	<div bind:this={editorDiv}></div>
+<div class="w-full">
+	<div class="flex border-b border-gray-200">
+		<button
+			type="button"
+			class:active={tab === 'write'}
+			class="px-4 py-2 font-medium text-gray-500 hover:text-gray-700"
+			onclick={() => (tab = 'write')}
+		>
+			Write
+		</button>
+		<button
+			type="button"
+			class:active={tab === 'preview'}
+			class="px-4 py-2 font-medium text-gray-500 hover:text-gray-700"
+			onclick={() => (tab = 'preview')}
+		>
+			Preview
+		</button>
+	</div>
+
+	<div class="mt-4">
+		<textarea
+			class:hidden={tab === 'preview'}
+			{name}
+			bind:value
+			placeholder="Enter markdown here"
+			class="display h-[500px] w-full resize-none rounded-md border p-4 font-mono focus:ring-2 focus:ring-blue-500"
+		></textarea>
+		{#if tab === 'preview'}
+			<div class="prose h-[500px] max-w-none overflow-y-auto rounded-md border bg-gray-50 p-4">
+				{@html marked(value)}
+			</div>
+		{/if}
+	</div>
 </div>
 
-<input type="hidden" {value} {name} />
+<style lang="postcss">
+	.active {
+		@apply border-svelte-900 text-svelte-900 border-b-2;
+	}
+</style>
