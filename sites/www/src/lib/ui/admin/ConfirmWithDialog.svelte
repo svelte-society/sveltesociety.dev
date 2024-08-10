@@ -1,5 +1,7 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { enhance, applyAction } from '$app/forms';
+	import Button from '../Button.svelte';
 
 	let showDialog = $state(false);
 
@@ -10,9 +12,11 @@
 		id: number;
 		confirmButtonText?: string;
 		cancelButtonText?: string;
+		children?: Snippet;
 	}
 
-	let { title, description, action, id, confirmButtonText, cancelButtonText }: Props = $props();
+	let { title, description, action, id, confirmButtonText, cancelButtonText, children }: Props =
+		$props();
 </script>
 
 <button
@@ -35,15 +39,13 @@
 	<div class="z-5000 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
 		<div class="rounded-lg bg-white p-6 shadow-xl">
 			<h2 class="mb-4 text-xl font-bold">{title}</h2>
-			<p class="mb-4">{description}</p>
+			{#if children}
+				{@render children()}
+			{:else}
+				<p class="mb-4">{description}</p>
+			{/if}
 			<div class="flex justify-end space-x-2">
-				<button
-					type="button"
-					onclick={() => (showDialog = false)}
-					class="rounded bg-gray-300 px-4 py-2 text-gray-800 hover:bg-gray-400"
-				>
-					{cancelButtonText}
-				</button>
+				<Button onclick={() => (showDialog = false)} secondary>{cancelButtonText}</Button>
 				<form
 					{action}
 					method="POST"
@@ -57,9 +59,7 @@
 					}}
 				>
 					<input type="hidden" name="id" value={id} />
-					<button type="submit" class="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600">
-						{confirmButtonText}
-					</button>
+					<Button primary>{confirmButtonText}</Button>
 				</form>
 			</div>
 		</div>
