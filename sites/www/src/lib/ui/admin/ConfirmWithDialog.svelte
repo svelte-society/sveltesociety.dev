@@ -5,15 +5,25 @@
 
 	let showDialog = $state(false);
 
-	interface Props {
+	interface BaseProps {
 		title: string;
-		description: string;
 		action: string;
 		id: number;
 		confirmButtonText?: string;
 		cancelButtonText?: string;
-		children?: Snippet;
 	}
+
+	interface PropsWithDescription extends BaseProps {
+		description: string;
+		children?: never;
+	}
+
+	interface PropsWithChildren extends BaseProps {
+		description?: never;
+		children: Snippet;
+	}
+
+	type Props = PropsWithDescription | PropsWithChildren;
 
 	let { title, description, action, id, confirmButtonText, cancelButtonText, children }: Props =
 		$props();
