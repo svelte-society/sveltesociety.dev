@@ -2,6 +2,7 @@
 	import { formatRelativeDate } from '$lib/utils/date';
 	import Button from '$lib/ui/Button.svelte';
 	import { enhance } from '$app/forms';
+	import ConfirmWithDialog from '$lib/ui/admin/ConfirmWithDialog.svelte';
 	let { data } = $props();
 </script>
 
@@ -112,6 +113,14 @@
 											</svg>
 										</button>
 									</form>
+									<ConfirmWithDialog
+										title="Are you sure you want to delete this collection?"
+										description="This action cannot be undone."
+										action="?/delete"
+										confirmButtonText="Delete"
+										cancelButtonText="Cancel"
+										id={collection.id}
+									/>
 								</div>
 							</td>
 						</tr>
