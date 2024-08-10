@@ -81,6 +81,7 @@ export const get_moderation_queue_paginated = (options: GetModerationQueueOption
     let query = `
         SELECT 
             id, 
+            title,
             type, 
             status, 
             submitted_by, 

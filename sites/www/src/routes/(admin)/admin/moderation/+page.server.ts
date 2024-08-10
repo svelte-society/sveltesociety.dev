@@ -1,6 +1,5 @@
 import { get_moderation_queue_paginated, update_moderation_status, get_moderation_queue_count_filtered } from '$lib/server/db/moderation';
 import type { PageServerLoad, Actions } from './$types';
-import { error, redirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ url }) => {
     const page = Number(url.searchParams.get('page') || '1');
@@ -8,11 +7,6 @@ export const load: PageServerLoad = async ({ url }) => {
 
     const totalItems = await get_moderation_queue_count_filtered({ status: 'pending' });
     const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-    // Validate page number
-    if (page < 1 || page > totalPages) {
-        throw redirect(302, '/admin/');
-    }
 
     const items = await get_moderation_queue_paginated({
         status: 'pending',
