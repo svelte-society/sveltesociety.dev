@@ -3,12 +3,10 @@
 	import { formatRelativeDate } from '$lib/utils/date';
 	import Button from '$lib/ui/Button.svelte';
 	import ConfirmWithDialog from '$lib/ui/admin/ConfirmWithDialog.svelte';
-	import type { PageData } from './$types';
 
-	export let data: PageData;
-	$: ({ items, page, totalPages, totalItems } = data);
+	let { data } = $props();
 
-	let selectedIds: number[] = [];
+	let selectedIds: number[] = $state([]);
 
 	function toggleSelection(id: number) {
 		if (selectedIds.includes(id)) {
@@ -19,7 +17,7 @@
 	}
 
 	function getPageUrl(pageNum: number) {
-		if (pageNum < 1 || pageNum > totalPages) {
+		if (pageNum < 1 || pageNum > data.totalPages) {
 			return null;
 		}
 		return `?page=${pageNum}`;
@@ -33,14 +31,7 @@
 			{#each selectedIds as id}
 				<input type="hidden" name="selectedIds" value={id} />
 			{/each}
-			<Button
-				small
-				disabled={selectedIds.length === 0}
-				secondary={selectedIds.length === 0}
-				primary={selectedIds.length > 0}
-				type="submit"
-				icon_left="x-circle"
-			>
+			<Button small primary={selectedIds.length > 0} disabled type="submit" icon_left="x-circle">
 				{#if selectedIds.length > 0}
 					Reject {selectedIds.length} item{selectedIds.length !== 1 ? 's' : ''}
 				{:else}
@@ -51,7 +42,7 @@
 	</div>
 
 	<div class="mb-4">
-		<p class="text-sm text-gray-600">Total items: {totalItems}</p>
+		<p class="text-sm text-gray-600">Total items: {data.totalItems}</p>
 	</div>
 
 	<div class="overflow-hidden rounded-lg bg-white shadow-sm">
@@ -91,7 +82,7 @@
 					</tr>
 				</thead>
 				<tbody class="divide-y divide-gray-200">
-					{#each items as item (item.id)}
+					{#each data.items as item (item.id)}
 						<tr class="hover:bg-gray-50">
 							<td class="sticky left-0 w-10 px-3 py-2">
 								<input
@@ -179,9 +170,9 @@
 	</div>
 
 	<div class="mt-4 flex items-center justify-between">
-		{#if getPageUrl(page - 1)}
+		{#if getPageUrl(data.page - 1)}
 			<a
-				href={getPageUrl(page - 1)}
+				href={getPageUrl(data.page - 1)}
 				class="rounded bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
 			>
 				Previous
@@ -193,10 +184,10 @@
 				Previous
 			</span>
 		{/if}
-		<span class="text-sm text-gray-700">Page {page} of {totalPages}</span>
-		{#if getPageUrl(page + 1)}
+		<span class="text-sm text-gray-700">Page {data.page} of {data.totalPages}</span>
+		{#if getPageUrl(data.page + 1)}
 			<a
-				href={getPageUrl(page + 1)}
+				href={getPageUrl(data.page + 1)}
 				class="rounded bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
 			>
 				Next

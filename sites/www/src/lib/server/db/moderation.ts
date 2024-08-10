@@ -3,6 +3,7 @@ import { db } from "./index";
 export type ModerationQueueItem = {
     id: number;
     type: string;
+    title: string;
     status: 'pending' | 'approved' | 'rejected';
     data: string; // JSON string
     submitted_by: number;
