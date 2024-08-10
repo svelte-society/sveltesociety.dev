@@ -3,6 +3,7 @@
 	import Button from '$lib/ui/Button.svelte';
 	import { enhance } from '$app/forms';
 	import Avatar from '$lib/ui/Avatar.svelte';
+	import ConfirmWithDialog from '$lib/ui/admin/ConfirmWithDialog.svelte';
 	let { data } = $props();
 </script>
 
@@ -16,12 +17,12 @@
 			<table class="w-full text-left text-xs text-gray-500">
 				<thead class="bg-gray-50 text-xs uppercase text-gray-700">
 					<tr>
-						<th scope="col" class="sticky left-0 z-20 min-w-[180px] bg-gray-50 px-3 py-2">User</th>
+						<th scope="col" class="sticky left-0 min-w-[180px] bg-gray-50 px-3 py-2">User</th>
 						<th scope="col" class="min-w-[180px] px-3 py-2">Email</th>
 						<th scope="col" class="min-w-[120px] px-3 py-2">Location</th>
 						<th scope="col" class="min-w-[120px] px-3 py-2">Twitter</th>
 						<th scope="col" class="min-w-[120px] px-3 py-2">Created</th>
-						<th scope="col" class="sticky right-0 z-20 min-w-[100px] bg-gray-50 px-3 py-2">
+						<th scope="col" class="sticky right-0 min-w-[100px] bg-gray-50 px-3 py-2">
 							<span class="sr-only">Actions</span>
 							<svg
 								class="mx-auto h-4 w-4"
@@ -50,7 +51,7 @@
 					{#each data.users as user}
 						<tr class="hover:bg-gray-50">
 							<td
-								class="sticky left-0 z-10 flex min-w-[180px] items-center whitespace-nowrap bg-white px-3 py-2 font-medium text-gray-900 group-hover:bg-gray-50"
+								class="sticky left-0 flex min-w-[180px] items-center whitespace-nowrap px-3 py-2 font-medium text-gray-900 group-hover:bg-gray-50"
 							>
 								<Avatar src={user.avatar_url} name={user.username} size="sm" />
 								<span class="ml-2">{user.username}</span>
@@ -59,7 +60,7 @@
 							<td class="min-w-[120px] px-3 py-2">{user.location || '-'}</td>
 							<td class="min-w-[120px] px-3 py-2">{user.twitter || '-'}</td>
 							<td class="min-w-[120px] px-3 py-2">{formatRelativeDate(user.created_at)}</td>
-							<td class="sticky right-0 z-10 min-w-[100px] bg-white px-3 py-2">
+							<td class="sticky right-0 min-w-[100px] px-3 py-2">
 								<div class="flex justify-center space-x-1">
 									<a
 										href="/admin/users/{user.id}"
@@ -104,29 +105,14 @@
 											</svg>
 										</button>
 									</form>
-									<form action="?/delete" method="POST" use:enhance>
-										<input type="hidden" name="id" value={user.id} />
-										<button
-											type="submit"
-											class="text-red-600 hover:text-red-900"
-											aria-label="Delete user"
-										>
-											<svg
-												class="h-4 w-4"
-												fill="none"
-												stroke="currentColor"
-												viewBox="0 0 24 24"
-												xmlns="http://www.w3.org/2000/svg"
-											>
-												<path
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													stroke-width="2"
-													d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-												></path>
-											</svg>
-										</button>
-									</form>
+									<ConfirmWithDialog
+										title="Are you sure you want to delete this user?"
+										description="This action cannot be undone."
+										action="?/delete"
+										confirmButtonText="Delete"
+										cancelButtonText="Cancel"
+										id={user.id}
+									/>
 								</div>
 							</td>
 						</tr>
