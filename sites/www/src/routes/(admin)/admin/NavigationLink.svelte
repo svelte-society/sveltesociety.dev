@@ -1,10 +1,14 @@
 <script lang="ts">
 	import type { Link } from './types';
 
-	export let item: Link;
-	export let isActive: (href: string) => boolean;
-	export let moderationCount: number = 0;
-	export let isCollapsed: boolean = false;
+	interface Props {
+		item: Link;
+		isActive: (href: string) => boolean;
+		moderationCount?: number;
+		isCollapsed: boolean;
+	}
+
+	let { item, isActive, moderationCount = 0, isCollapsed }: Props = $props();
 </script>
 
 <li>
@@ -24,7 +28,7 @@
 			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon}></path>
 		</svg>
 		<span class:sr-only={isCollapsed} class="ml-2">{item.label}</span>
-		{#if moderationCount > 0}
+		{#if moderationCount && moderationCount > 0}
 			<span
 				class="absolute flex items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white"
 				class:collapsed={isCollapsed}

@@ -12,7 +12,12 @@
 		return $page.url.pathname.startsWith(href);
 	}
 
-	let { links, moderationCount } = $props();
+	interface Props {
+		links: Link[];
+		moderationCount?: number;
+	}
+
+	let { links, moderationCount }: Props = $props();
 
 	const homeLink: Link = {
 		href: '/',
@@ -29,7 +34,7 @@
 >
 	<div class="flex flex-grow flex-col gap-2 p-4">
 		<button
-			on:click={() => (isCollapsed = !isCollapsed)}
+			onclick={() => (isCollapsed = !isCollapsed)}
 			class="flex items-center rounded-lg p-2 text-gray-600 hover:bg-slate-100 hover:text-gray-800"
 			aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
 			aria-expanded={!isCollapsed}
