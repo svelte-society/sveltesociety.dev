@@ -1,53 +1,51 @@
 <script lang="ts">
-	import SuperDebug from 'sveltekit-superforms';
 	import ContentSelector from '../new/ContentSelector.svelte';
+	import Input from '$lib/ui/form/Input.svelte';
+	import { zod } from 'sveltekit-superforms/adapters';
+	import { schema } from '../new/schema';
 	import { superForm } from 'sveltekit-superforms';
-	import type { PageData } from './$types';
-
-	export let data: PageData;
-
-	const { form, enhance, constraints } = superForm(data.form);
+	let { data } = $props();
+	const { form, errors, enhance } = superForm(data.form, zod(schema));
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
 	<h1 class="mb-6 text-3xl font-bold text-gray-800">Edit Collection</h1>
 	<form method="POST" use:enhance class="space-y-6">
 		<input type="hidden" name="id" bind:value={$form.id} />
+		<Input
+			name="title"
+			label="Title"
+			type="text"
+			placeholder="Best Rune Tutorials"
+			description="Enter the title of the collection"
+			bind:value={$form.title}
+			errors={$errors.title}
+		/>
+		<Input
+			name="slug"
+			label="Slug"
+			placeholder="best-rune-tutorials"
+			description="Enter the slug of the collection"
+			type="text"
+			bind:value={$form.slug}
+			errors={$errors.slug}
+		/>
+		<Input
+			name="description"
+			label="Description"
+			type="textarea"
+			placeholder="Learn how to use the best runes in Svelte"
+			description="Enter the description of the collection"
+			bind:value={$form.description}
+			errors={$errors.description}
+		/>
 		<div>
-			<label for="title" class="mb-1 block text-sm font-medium text-gray-700">Title:</label>
-			<input
-				{...$constraints.title}
-				id="title"
-				name="title"
-				bind:value={$form.title}
-				required
-				class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+			<ContentSelector
+				name="children"
+				bind:selectedIds={$form.children}
+				errors={$errors.children}
+				description="Select content to add to the collection"
 			/>
-		</div>
-		<div>
-			<label for="slug" class="mb-1 block text-sm font-medium text-gray-700">Slug:</label>
-			<input
-				{...$constraints.slug}
-				id="slug"
-				name="slug"
-				bind:value={$form.slug}
-				class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-			/>
-		</div>
-		<div>
-			<label for="description" class="mb-1 block text-sm font-medium text-gray-700"
-				>Description:</label
-			>
-			<textarea
-				{...$constraints.description}
-				id="description"
-				name="description"
-				bind:value={$form.description}
-				class="h-32 w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-			></textarea>
-		</div>
-		<div>
-			<ContentSelector name="children" bind:selectedIds={$form.children} />
 		</div>
 		<button
 			type="submit"

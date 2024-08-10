@@ -364,7 +364,7 @@ export const get_content_by_id = (id: number): Content | null => {
 
         return {
             ...result,
-            children: children.split(',').map((n: string) => parseInt(n))
+            children
         };
     } catch (error) {
         console.error('Error fetching content by id:', error);

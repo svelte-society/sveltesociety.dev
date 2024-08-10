@@ -15,7 +15,7 @@ const schema = z.object({
 
 export const load: PageServerLoad = async ({ params }) => {
     const id = parseInt(params.id);
-    const collection = await get_content_by_id(id);
+    const collection = get_content_by_id(id);
 
     if (!collection) {
         throw error(404, 'Collection not found');
@@ -34,7 +34,7 @@ export const actions: Actions = {
             return fail(400, { form });
         }
 
-        const result = await update_content({
+        const result = update_content({
             id: form.data.id,
             title: form.data.title,
             description: form.data.description,
