@@ -2,7 +2,6 @@
 	import { formatRelativeDate } from '$lib/utils/date';
 	import ConfirmWithDialog from '$lib/ui/admin/ConfirmWithDialog.svelte';
 	import Button from '$lib/ui/Button.svelte';
-	import { enhance } from '$app/forms';
 	let { data } = $props();
 </script>
 
@@ -45,7 +44,7 @@
 					</tr>
 				</thead>
 				<tbody class="divide-y divide-gray-200">
-					{#each data.tags as tag}
+					{#each data.tags || [] as tag}
 						<tr class="hover:bg-gray-50">
 							<td
 								class="sticky left-0 min-w-[180px] whitespace-nowrap px-3 py-2 font-medium text-gray-900 group-hover:bg-gray-50"

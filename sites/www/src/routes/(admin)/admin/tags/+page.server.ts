@@ -10,7 +10,7 @@ const deleteSchema = z.object({
 });
 
 export const load: PageServerLoad = async () => {
-    const result = get_tags()
+    const result = get_tags() || []
     const form = await superValidate(zod(deleteSchema));
 
     if (!result) {

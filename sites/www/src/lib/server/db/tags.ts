@@ -5,6 +5,7 @@ export type Tag = {
     name: string;
     slug: string;
     color?: string | null;
+    created_at: string;
 };
 
 export const get_tags = () => {
@@ -23,13 +24,13 @@ export const delete_tag = (id: number) => {
     return result.changes > 0;
 }
 
-export const create_tag = (tag: Omit<Tag, 'id' | 'color'>) => {
+export const create_tag = (tag: Omit<Tag, 'id' | 'created_at' | 'color'>) => {
     const stmt = db.prepare('INSERT INTO tags (name, slug) VALUES (?, ?)');
     const result = stmt.run(tag.name, tag.slug);
     return result.lastInsertRowid as number;
 }
 
-export const update_tag = (tag: Tag) => {
+export const update_tag = (tag: Omit<Tag, 'created_at'>) => {
     const stmt = db.prepare('UPDATE tags SET name = ?, slug = ? WHERE id = ?');
     const result = stmt.run(tag.name, tag.slug, tag.id);
     return result.changes > 0;
