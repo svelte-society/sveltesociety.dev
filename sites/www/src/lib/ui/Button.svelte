@@ -76,8 +76,8 @@
 	class:small
 	class:large
 	class:fullWidth
-	class:disabled
 	class:success
+	class="inline-flex items-center justify-center gap-1 rounded-md px-4 py-2 font-medium focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-700"
 >
 	{#if icon_left}
 		<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -93,10 +93,6 @@
 </svelte:element>
 
 <style lang="postcss">
-	button,
-	a {
-		@apply inline-flex items-center justify-center gap-1 rounded-md px-4 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-offset-2;
-	}
 	.primary {
 		@apply bg-svelte-900 focus:ring-svelte-900 text-white hover:brightness-150;
 	}
@@ -119,9 +115,5 @@
 	}
 	.fullWidth {
 		@apply w-full;
-	}
-	a:disabled,
-	button:disabled {
-		@apply cursor-not-allowed opacity-50;
 	}
 </style>
