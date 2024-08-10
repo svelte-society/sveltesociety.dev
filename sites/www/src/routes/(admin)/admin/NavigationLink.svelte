@@ -26,13 +26,11 @@
 		<span class:sr-only={isCollapsed} class="ml-2">{item.label}</span>
 		{#if moderationCount > 0}
 			<span
-				class="absolute flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white"
-				class:h-5={!isCollapsed}
-				class:w-5={!isCollapsed}
+				class="absolute flex items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white"
 				class:collapsed={isCollapsed}
 				class:not-collapsed={!isCollapsed}
 			>
-				{moderationCount}
+				{moderationCount > 99 ? '99+' : moderationCount}
 			</span>
 		{/if}
 	</a>
@@ -40,9 +38,9 @@
 
 <style lang="postcss">
 	.collapsed {
-		@apply bottom-0 left-auto right-0 top-auto h-4 w-4;
+		@apply -right-1 bottom-1 h-4 min-w-4 px-1;
 	}
 	.not-collapsed {
-		@apply bottom-0 right-2.5 top-2.5;
+		@apply bottom-0 right-2.5 top-2.5 h-5 min-w-5 px-1;
 	}
 </style>
