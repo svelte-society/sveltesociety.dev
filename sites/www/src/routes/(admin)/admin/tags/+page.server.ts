@@ -21,18 +21,14 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions: Actions = {
-    deleteTag: async (event) => {
+    delete: async (event) => {
         const form = await superValidate(event, zod(deleteSchema));
 
         if (!form.valid) {
             return fail(400, { form });
         }
 
-        try {
-            delete_tag(form.data.id);
-            redirect(302, '/admin/tags');
-        } catch (error) {
-            return message(form, 'Failed to delete tag', { status: 500 });
-        }
+        delete_tag(form.data.id);
+        redirect(302, '/admin/tags');
     }
 };

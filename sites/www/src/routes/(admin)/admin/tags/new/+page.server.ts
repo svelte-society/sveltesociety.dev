@@ -16,11 +16,7 @@ export const actions: Actions = {
         if (!form.valid) {
             return fail(400, { form });
         }
-        try {
-            create_tag(form.data);
-            redirect(302, '/admin/tags');
-        } catch (error) {
-            return message(form, 'Failed to create tag. Please try again.');
-        }
+        create_tag(form.data);
+        redirect(302, '/admin/tags');
     }
 };
