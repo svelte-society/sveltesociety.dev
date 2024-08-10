@@ -33,7 +33,14 @@
 			{#each selectedIds as id}
 				<input type="hidden" name="selectedIds" value={id} />
 			{/each}
-			<Button small error disabled={selectedIds.length === 0} type="submit" icon_left="x-circle">
+			<Button
+				small
+				disabled={selectedIds.length === 0}
+				secondary={selectedIds.length === 0}
+				primary={selectedIds.length > 0}
+				type="submit"
+				icon_left="x-circle"
+			>
 				{#if selectedIds.length > 0}
 					Reject {selectedIds.length} item{selectedIds.length !== 1 ? 's' : ''}
 				{:else}
