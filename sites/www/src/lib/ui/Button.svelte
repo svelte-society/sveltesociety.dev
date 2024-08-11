@@ -34,6 +34,7 @@
 		secondary?: boolean;
 		success?: boolean;
 		small?: boolean;
+		thin?: boolean;
 		large?: boolean;
 		fullWidth?: boolean;
 		href?: string;
@@ -56,6 +57,7 @@
 		href,
 		type,
 		disabled,
+		thin,
 		icon_left,
 		icon_right,
 		children,
@@ -69,11 +71,13 @@
 	tabindex="0"
 	{type}
 	{href}
+	{disabled}
 	{onclick}
 	class:primary
 	class:secondary
 	class:error
 	class:small
+	class:thin
 	class:large
 	class:fullWidth
 	class:success
@@ -109,6 +113,9 @@
 	}
 	.small {
 		@apply px-3 py-2 text-sm;
+	}
+	.thin {
+		@apply px-2 py-1 text-xs;
 	}
 	.large {
 		@apply px-6 py-3 text-lg;
