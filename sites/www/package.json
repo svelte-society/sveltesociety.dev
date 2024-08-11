@@ -12,7 +12,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
-		"db:migrate": "tsx ./src/lib/server/db/migrations.ts",
+		"db:init": "tsx ./src/lib/server/db/initiate.ts",
 		"db:seed": "tsx ./src/lib/server/db/seeds/index.ts",
 		"test:integration": "playwright test",
 		"test:unit": "vitest"

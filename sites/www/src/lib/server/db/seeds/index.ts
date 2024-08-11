@@ -12,15 +12,15 @@ export const db = new Database('local.db')
 db.pragma('journal_mode = WAL')
 db.pragma('foreign_keys = ON')
 
-async function runSeeds() {
+function runSeeds() {
     try {
         // Run seeds in order
-        await seedRoles(db);
-        await seedTags(db);
-        await seedUsers(db);
-        await seedContent(db);
-        await seedInteractions(db);
-        await seedModerationQueue(db);
+        seedRoles(db);
+        seedTags(db);
+        seedUsers(db);
+        seedContent(db);
+        seedInteractions(db);
+        seedModerationQueue(db);
 
         console.log('All seeds completed successfully');
     } catch (error) {
