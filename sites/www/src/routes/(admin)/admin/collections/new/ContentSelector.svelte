@@ -165,12 +165,3 @@
 		</div>
 	{/if}
 </div>
-
-<style lang="postcss">
-	input.error {
-		@apply border-red-300 bg-red-50 text-red-600;
-	}
-	div .error {
-		@apply text-red-600;
-	}
-</style>
