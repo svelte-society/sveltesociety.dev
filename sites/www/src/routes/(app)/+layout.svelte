@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Search from './Search.svelte';
 	import { page } from '$app/stores';
 
 	let { data, children } = $props();
@@ -50,26 +51,7 @@
 					/>
 				</svg>
 			</a>
-			<div class="max-w-2xl flex-1">
-				<search>
-					<form
-						method="GET"
-						action="/"
-						data-sveltekit-keepfocus
-						data-sveltekit-replacestate
-						data-sveltekit-noscroll
-					>
-						<input
-							class="h-8 w-full rounded-md border-none bg-slate-100 text-sm"
-							type="search"
-							name="search"
-							placeholder="Search by tags, name or author"
-							value={$page.url.searchParams.get('search')}
-						/>
-						<button type="submit">Search</button>
-					</form>
-				</search>
-			</div>
+			<Search />
 			<nav>
 				<ul class="flex space-x-4 text-slate-800">
 					<li>
