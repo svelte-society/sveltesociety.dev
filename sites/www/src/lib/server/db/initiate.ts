@@ -1,9 +1,15 @@
-import { db } from './index'
+import Database from 'better-sqlite3';
 import fs from 'fs'
 import path from 'path'
+import * as dotenv from 'dotenv'
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
 const TRIGGERS_FOLDER = './src/lib/server/db/triggers'
 const VIEWS_FOLDER = './src/lib/server/db/views'
+
+export const db = new Database(process.env.DB_PATH)
+db.pragma('journal_mode = WAL')
+db.pragma('foreign_keys = ON')
 
 export const initiate_db = async () => {
     console.log('Initiating database...')
