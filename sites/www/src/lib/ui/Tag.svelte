@@ -22,6 +22,7 @@
 	class="bg-svelte-100 border-svelte-100 text-svelte-900 flex items-center gap-0.5 rounded border-2 px-1 py-0.5 text-xs"
 	class:active={$page.url.pathname === `/tags/${tag.slug}`}
 	onclick={onclick ? handleClick : undefined}
+	role={onclick ? 'button' : 'link'}
 >
 	#{tag.name}
 	{#if onclick}
