@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
-import { userService } from '$lib/server/db/services/user';
+import { create_or_update_user } from '$lib/server/db/user';
 
 const schema = z.object({
     name: z.string().optional(),
@@ -17,9 +17,6 @@ export const load = async ({ locals }) => {
     if (!locals.user) {
         throw redirect(302, '/login');
     }
-    if (!locals.user) {
-        throw redirect(302, '/account');
-    }
 
     const form = await superValidate(locals.user, zod(schema));
     return { form };
@@ -32,7 +29,7 @@ export const actions = {
             return fail(400, { form });
         }
         try {
-            await userService.update_user(locals.user.id, form.data);
+            await create_or_update_user({ id: locals.user.id, login: form.data.username, ...form.data });
             return message(form, 'Profile updated successfully.');
         } catch (error) {
             return message(form, 'Failed to update profile.', { status: 500 });
