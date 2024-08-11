@@ -15,7 +15,8 @@ export const add_user_data: Handle = async ({ event, resolve }) => {
     const { user_id } = validate_session_id(session_id);
 
     if (user_id === undefined) {
-        redirect(302, '/');
+        const response = await resolve(event);
+        return response;
     }
 
     const user = get_user(user_id)
