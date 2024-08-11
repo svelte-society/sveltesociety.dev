@@ -33,6 +33,20 @@
 	aria-label="Admin sidebar"
 >
 	<div class="flex flex-grow flex-col gap-2 p-4">
+		<nav class="flex-grow">
+			<ul class="space-y-2">
+				{#each links as item}
+					<NavigationLink
+						{item}
+						{isActive}
+						moderationCount={item.href === '/admin/moderation' ? moderationCount : 0}
+						{isCollapsed}
+					/>
+				{/each}
+			</ul>
+		</nav>
+	</div>
+	<ul class="border-t border-gray-200 p-4">
 		<button
 			onclick={() => (isCollapsed = !isCollapsed)}
 			class="flex items-center rounded-lg p-2 text-gray-600 hover:bg-slate-100 hover:text-gray-800"
@@ -55,22 +69,6 @@
 			</svg>
 			<span class:sr-only={isCollapsed} class="ml-2">Collapse Menu</span>
 		</button>
-		<hr class="mx-auto h-1 w-4/5 rounded-full bg-gray-300" />
-		<h2 class="text-xl font-bold text-gray-800" class:sr-only={isCollapsed}>Admin Panel</h2>
-		<nav class="flex-grow">
-			<ul class="space-y-2">
-				{#each links as item}
-					<NavigationLink
-						{item}
-						{isActive}
-						moderationCount={item.href === '/admin/moderation' ? moderationCount : 0}
-						{isCollapsed}
-					/>
-				{/each}
-			</ul>
-		</nav>
-	</div>
-	<ul class="border-t border-gray-200 p-4">
 		<NavigationLink item={homeLink} isActive={() => false} {isCollapsed} />
 	</ul>
 </aside>
