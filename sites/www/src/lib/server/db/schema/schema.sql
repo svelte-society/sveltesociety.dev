@@ -117,6 +117,9 @@ CREATE VIRTUAL TABLE IF NOT EXISTS content_fts USING fts5(
 -- Moderation queue table
 CREATE TABLE IF NOT EXISTS moderation_queue (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT GENERATED ALWAYS AS (
+        COALESCE(JSON_EXTRACT(data, '$.title'), '<No Title>')
+    ) VIRTUAL,
     type TEXT NOT NULL,
     status TEXT NOT NULL DEFAULT 'pending' CHECK(status IN ('pending', 'approved', 'rejected')),
     data JSON NOT NULL,
