@@ -1,7 +1,8 @@
 import Database from 'better-sqlite3';
 import fs from 'fs'
 import path from 'path'
-import * as dotenv from 'dotenv'
+import * as dotenv from 'dotenv';
+
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
 const TRIGGERS_FOLDER = './src/lib/server/db/triggers'
@@ -11,7 +12,7 @@ export const db = new Database(process.env.DB_PATH)
 db.pragma('journal_mode = WAL')
 db.pragma('foreign_keys = ON')
 
-export const initiate_db = async () => {
+const initiate_db = async () => {
     console.log('Initiating database...')
 
     // Read schema.sql file, should probably split this up into multiple files eventually
@@ -21,7 +22,6 @@ export const initiate_db = async () => {
     // Read triggers and insert them into the database
     const triggers = fs.readdir(TRIGGERS_FOLDER, (e, files) => {
         files.forEach(file => {
-            console.log(file)
             const filePath = path.join(TRIGGERS_FOLDER, file);
             fs.readFile(filePath, 'utf8', (err, content) => {
                 if (err) {
@@ -37,7 +37,6 @@ export const initiate_db = async () => {
     // Read views and insert them into the database
     const views = fs.readdir(VIEWS_FOLDER, (e, files) => {
         files.forEach(file => {
-            console.log(file)
             const filePath = path.join(VIEWS_FOLDER, file);
             fs.readFile(filePath, 'utf8', (err, content) => {
                 if (err) {

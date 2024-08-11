@@ -1,18 +1,22 @@
+import Database from 'better-sqlite3';
+import * as dotenv from 'dotenv';
+
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
 import { seedTags } from "./seed_tags"
 import { seedRoles } from "./seed_roles"
 import { seedContent } from "./seed_content"
 import { seedUsers } from "./seed_users";
 import { seedInteractions } from "./seed_interactions";
-
-import Database from 'better-sqlite3';
 import { seedModerationQueue } from "./seed_moderation_queue";
 
-export const db = new Database('local.db')
+const db = new Database(process.env.DB_PATH)
 db.pragma('journal_mode = WAL')
 db.pragma('foreign_keys = ON')
 
-function runSeeds() {
+
+
+export function run_seeds() {
     try {
         // Run seeds in order
         seedRoles(db);
@@ -31,5 +35,4 @@ function runSeeds() {
     }
 }
 
-// Run the seeding process
-runSeeds();
+run_seeds()
