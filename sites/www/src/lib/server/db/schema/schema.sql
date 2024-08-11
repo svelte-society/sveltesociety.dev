@@ -28,8 +28,8 @@ CREATE INDEX IF NOT EXISTS user_id_idx ON sessions(user_id);
 -- Roles table
 CREATE TABLE IF NOT EXISTS roles (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    value TEXT NOT NULL,
+    name TEXT NOT NULL UNIQUE,
+    value TEXT NOT NULL UNIQUE,
     description TEXT NOT NULL,
     active BOOLEAN NOT NULL DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
