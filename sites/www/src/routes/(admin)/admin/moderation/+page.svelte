@@ -88,7 +88,7 @@
 								<input
 									type="checkbox"
 									checked={selectedIds.includes(item.id)}
-									on:change={() => toggleSelection(item.id)}
+									onchange={() => toggleSelection(item.id)}
 									class="form-checkbox h-4 w-4 text-indigo-600"
 								/>
 							</td>
