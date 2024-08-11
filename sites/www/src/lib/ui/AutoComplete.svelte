@@ -89,7 +89,7 @@
 						onclick={() => selectItem(item)}
 					>
 						{#if item.isNew}
-							<a href=""><span class="font-semibold">Create:</span> {item[searchField]}</a>
+							<span class="font-semibold">Create:</span> {item[searchField]}
 						{:else}
 							<slot name="item" {item}>
 								{item[searchField]}
