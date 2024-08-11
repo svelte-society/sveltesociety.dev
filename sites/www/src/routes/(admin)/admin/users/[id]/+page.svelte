@@ -1,120 +1,97 @@
 <script lang="ts">
-	import Select from '$lib/ui/Select.svelte';
-	import Button from '$lib/ui/Button.svelte';
-	import Avatar from '$lib/ui/Avatar.svelte';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
+	import { zod } from 'sveltekit-superforms/adapters';
+	import Button from '$lib/ui/Button.svelte';
+	import Input from '$lib/ui/form/Input.svelte';
+	import Select from '$lib/ui/form/Select.svelte';
+	import Avatar from '$lib/ui/Avatar.svelte';
+	import { schema } from './schema';
 
 	let { data } = $props();
-
-	const { form, errors, enhance } = superForm(data.form);
+	const { form, errors, enhance } = superForm(data.form, zod(schema));
 </script>
 
-<form use:enhance method="post" class="space-y-6 rounded-lg bg-white p-6 shadow-md">
-	<input type="hidden" id="id" name="id" bind:value={$form.id} />
+<div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
+	<h1 class="mb-6 text-3xl font-bold text-gray-800">Edit User</h1>
+	<form method="POST" use:enhance class="space-y-6">
+		<input type="hidden" name="id" bind:value={$form.id} />
 
-	<div class="space-y-2">
-		<label for="username" class="block text-sm font-medium text-gray-700">Username:</label>
-		<input
-			type="text"
-			id="username"
+		<Input
 			name="username"
+			label="Username"
+			type="text"
+			placeholder="johndoe"
+			description="Enter the user's username"
 			bind:value={$form.username}
-			required
-			class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+			errors={$errors.username}
 		/>
-		{#if $errors.username}
-			<p class="text-xs italic text-red-500">{$errors.username}</p>
-		{/if}
-	</div>
 
-	<div class="space-y-2">
-		<label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
-		<input
-			type="email"
-			id="email"
+		<Input
 			name="email"
+			label="Email"
+			type="email"
+			placeholder="john@example.com"
+			description="Enter the user's email address"
 			bind:value={$form.email}
-			class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+			errors={$errors.email}
 		/>
-		{#if $errors.email}
-			<p class="text-xs italic text-red-500">{$errors.email}</p>
-		{/if}
-	</div>
 
-	<div class="space-y-2">
-		<label for="bio" class="block text-sm font-medium text-gray-700">Bio:</label>
-		<input
-			type="text"
-			id="bio"
+		<Input
 			name="bio"
+			label="Bio"
+			type="textarea"
+			placeholder="A short bio about the user"
+			description="Enter a brief description about the user"
 			bind:value={$form.bio}
-			class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+			errors={$errors.bio}
 		/>
-		{#if $errors.bio}
-			<p class="text-xs italic text-red-500">{$errors.bio}</p>
-		{/if}
-	</div>
 
-	<div class="space-y-2">
-		<label for="location" class="block text-sm font-medium text-gray-700">Location:</label>
-		<input
-			type="text"
-			id="location"
+		<Input
 			name="location"
-			bind:value={$form.location}
-			class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-		/>
-		{#if $errors.location}
-			<p class="text-xs italic text-red-500">{$errors.location}</p>
-		{/if}
-	</div>
-
-	<div class="space-y-2">
-		<label for="twitter" class="block text-sm font-medium text-gray-700">Twitter:</label>
-		<input
+			label="Location"
 			type="text"
-			id="twitter"
-			name="twitter"
-			bind:value={$form.twitter}
-			class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+			placeholder="New York, USA"
+			description="Enter the user's location"
+			bind:value={$form.location}
+			errors={$errors.location}
 		/>
-		{#if $errors.twitter}
-			<p class="text-xs italic text-red-500">{$errors.twitter}</p>
-		{/if}
-	</div>
 
-	<div class="space-y-2">
-		<label for="avatar_url" class="block text-sm font-medium text-gray-700">Avatar URL:</label>
-		<div class="flex items-center space-x-4">
-			<Avatar src={$form.avatar_url} name={$form.username} />
-			<input
-				type="text"
-				id="avatar_url"
-				name="avatar_url"
-				bind:value={$form.avatar_url}
-				class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-			/>
-		</div>
-		{#if $errors.avatar_url}
-			<p class="text-xs italic text-red-500">{$errors.avatar_url}</p>
-		{/if}
-	</div>
+		<Input
+			name="twitter"
+			label="Twitter"
+			type="text"
+			placeholder="@johndoe"
+			description="Enter the user's Twitter handle"
+			bind:value={$form.twitter}
+			errors={$errors.twitter}
+		/>
 
-	<div class="space-y-2">
 		<div class="space-y-2">
-			<label for="role" class="block text-sm font-medium text-gray-700">Role:</label>
-			<Select
-				options={data.roles}
-				bind:value={$form.role_id}
-				placeholder="Choose a role"
-				name="role_id"
-			/>
+			<label for="avatar_url" class="block text-sm font-medium text-gray-700">Avatar</label>
+			<div class="flex items-center space-x-4">
+				<Avatar src={$form.avatar_url} name={$form.username} />
+				<Input
+					name="avatar_url"
+					type="text"
+					placeholder="https://example.com/avatar.jpg"
+					description="Enter the URL for the user's avatar"
+					bind:value={$form.avatar_url}
+					errors={$errors.avatar_url}
+				/>
+			</div>
 		</div>
-	</div>
 
-	<div class="pt-4">
-		<Button primary type="submit">Edit User</Button>
-	</div>
-</form>
+		<Select
+			name="role_id"
+			label="Role"
+			description="Select the user's role"
+			options={data.roles.map((role) => ({ value: role.id, label: role.name }))}
+			bind:value={$form.role_id}
+			errors={$errors.role_id}
+		/>
+
+		<Button primary fullWidth>Update User</Button>
+	</form>
+</div>
 
 <SuperDebug data={$form} />

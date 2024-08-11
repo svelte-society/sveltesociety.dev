@@ -3,9 +3,6 @@ import { z } from 'zod';
 import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
-import { contentService } from '$lib/server/db/services/content';
-import { tagService } from '$lib/server/db/services/tags';
-import { tags } from '$lib/server/db/schema.js';
 
 const schema = z.object({
 	id: z.number(),
@@ -18,22 +15,24 @@ const schema = z.object({
 });
 
 export const load = async ({ params }) => {
-	// const result = await contentService.get_content(parseInt(params.id));
-	const [res_content, res_tags] = await Promise.all([
-		contentService.get_content(params.id),
-		tagService.get_tags()
-	]);
-	if (!res_content.data || !res_tags.data) {
-		redirect(302, '/content');
-	}
+	// // const result = await contentService.get_content(parseInt(params.id));
+	// const [res_content, res_tags] = await Promise.all([
+	// 	contentService.get_content(params.id),
+	// 	tagService.get_tags()
+	// ]);
+	// if (!res_content.data || !res_tags.data) {
+	// 	redirect(302, '/content');
+	// }
 
-	const dto = { ...res_content.data, tags: res_content.data.tags.map(t => t.id) }
+	// const dto = { ...res_content.data, tags: res_content.data.tags.map(t => t.id) }
 
-	const form = await superValidate(dto, zod(schema));
-	return {
-		form,
-		tags: res_tags.data
-	};
+	// const form = await superValidate(dto, zod(schema));
+	// return {
+	// 	form,
+	// 	tags: res_tags.data
+	// };
+
+	return {}
 };
 
 export const actions = {
