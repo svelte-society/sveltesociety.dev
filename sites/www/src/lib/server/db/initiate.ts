@@ -12,6 +12,8 @@ export const db = new Database(process.env.DB_PATH)
 db.pragma('journal_mode = WAL')
 db.pragma('foreign_keys = ON')
 
+export const event_db = new Database(process.env.EVENT_DB_PATH)
+
 const initiate_db = async () => {
     console.log('Initiating database...')
 
@@ -50,4 +52,11 @@ const initiate_db = async () => {
     })
 }
 
+const initiate_events_db = async () => {
+    console.log('Initiating events database...')
+    const schema = fs.readFileSync('./src/lib/server/event_db/schema/schema.sql', 'utf8')
+    event_db.exec(schema)
+}
+
 initiate_db()
+initiate_events_db()
