@@ -9,6 +9,9 @@ import { seedContent } from "./seed_content"
 import { seedUsers } from "./seed_users";
 import { seedInteractions } from "./seed_interactions";
 import { seedModerationQueue } from "./seed_moderation_queue";
+import { seedTestSession } from "./seed_test_session";
+
+console.log(process.env.DB_PATH)
 
 const db = new Database(process.env.DB_PATH)
 db.pragma('journal_mode = WAL')
@@ -25,6 +28,10 @@ export function run_seeds() {
         seedContent(db);
         seedInteractions(db);
         seedModerationQueue(db);
+
+        if (process.env.NODE_ENV === 'test') {
+            seedTestSession(db);
+        }
 
         console.log('All seeds completed successfully');
     } catch (error) {
