@@ -1,8 +1,0 @@
-test/test-ignore.ts
-dist
-node_modules
-.vercel
-.svelte-kit
-local.db
-local.db-shm
-local.db-wal
