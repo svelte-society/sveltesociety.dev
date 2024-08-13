@@ -1,7 +1,6 @@
 import type { Handle } from '@sveltejs/kit';
 import { get_user } from '$lib/server/db/user';
 import { validate_session_id } from '$lib/server/db/session';
-import { redirect } from '@sveltejs/kit';
 
 export const add_user_data: Handle = async ({ event, resolve }) => {
     const { cookies } = event;
@@ -15,6 +14,7 @@ export const add_user_data: Handle = async ({ event, resolve }) => {
     const { user_id } = validate_session_id(session_id);
 
     if (user_id === undefined) {
+        event.cookies.delete('session_id', { path: '/' });
         const response = await resolve(event);
         return response;
     }
