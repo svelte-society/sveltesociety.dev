@@ -14,7 +14,9 @@
 		"format": "prettier --write .",
 		"db:init": "NODE_ENV=development tsx ./src/lib/server/db/initiate.ts",
 		"db:seed": "NODE_ENV=development tsx ./src/lib/server/db/seeds/index.ts",
-		"test:integration": "NODE_ENV=test pnpm run db:init && pnpm run db:seed && playwright test",
+		"db:test:init": "NODE_ENV=test tsx ./src/lib/server/db/initiate.ts",
+		"db:test:seed": "NODE_ENV=test tsx ./src/lib/server/db/seeds/index.ts",
+		"test:integration": "NODE_ENV=test pnpm run db:test:init && pnpm run db:test:seed && pnpm run build && playwright test",
 		"test:unit": "vitest"
 	},
 	"devDependencies": {
@@ -29,8 +31,8 @@
 		"@typescript-eslint/eslint-plugin": "^6.21.0",
 		"@typescript-eslint/parser": "^6.21.0",
 		"autoprefixer": "^10.4.20",
-		"better-sqlite3": "^11.1.2",
 		"dotenv": "^16.4.5",
+		"duckdb-async": "^1.0.0",
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.43.0",
@@ -51,6 +53,9 @@
 		"vite": "^5.3.5",
 		"vitest": "^1.6.0",
 		"zod": "^3.23.8"
+	},
+	"dependencies": {
+		"better-sqlite3": "^11.1.2"
 	},
 	"type": "module"
 }
