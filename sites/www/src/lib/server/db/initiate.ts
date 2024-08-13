@@ -1,3 +1,4 @@
+import { Database as DuckDB } from "duckdb-async";
 import Database from 'better-sqlite3';
 import fs from 'fs'
 import path from 'path'
@@ -12,7 +13,7 @@ export const db = new Database(process.env.DB_PATH)
 db.pragma('journal_mode = WAL')
 db.pragma('foreign_keys = ON')
 
-export const event_db = new Database(process.env.EVENT_DB_PATH)
+export const event_db = await DuckDB.create(process.env.EVENT_DB_PATH)
 
 const initiate_db = async () => {
     console.log('Initiating database...')
