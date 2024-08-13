@@ -11,6 +11,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vscode
 local_event.db
+local_event.db-wal
 local.db
 local.db-shm
 local.db-wal
