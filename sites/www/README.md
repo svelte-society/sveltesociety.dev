@@ -4,17 +4,20 @@ This branch contains the upcoming Svelte Society website featuring a new design 
 
 ## Developing
 
-To start off, clone and run `pnpm i`
+To start off, clone and run `pnpm i`.
 
-Add all the relevant .env variables:
+Add all the relevant .env.development variables:
 
 ```
-PUBLIC_API_URL=
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+GITHUB_AUTHORIZATION_CALLBACK_URL=http://localhost:5173/auth/callback
 
-// For Type gen
-PB_TYPEGEN_URL=
-PB_TYPEGEN_EMAIL=
-PB_TYPEGEN_PASSWORD=
+DB_PATH=local.db
 ```
 
-To pull down new types use `pnpm gen:types`.
+Run `pnpm run db:init` and then `pnpm run db:seed` to seed the database.
+
+To run the application, run `pnpm run dev`.
+
+After this you can login with GitHub. To access the admin dashboard, you'll need to open the `local.db` file and change your role to 1 (Admin).
