@@ -80,6 +80,6 @@ export function validate_session_id(sessionToken: string): SessionResult {
     }
 }
 
-function formatDateForSQLite(date: Date): string {
+export function formatDateForSQLite(date: Date): string {
     return date.toISOString().replace('T', ' ').replace('Z', '');
 }
