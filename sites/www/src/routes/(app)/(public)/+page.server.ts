@@ -25,12 +25,12 @@ export const load: PageServerLoad = async ({ url, fetch, locals }) => {
 		const content = get_content();
 		const tags = get_tags_for_content(content.map((c) => c.id));
 		const content_with_tags = content.map((c, i) => ({ ...c, tags: tags[i] || [] }));
-		const all_children = [...new Set(content.reduce((acc, c) => [...acc, ...JSON.parse(c.children)], []))]
+		const all_children = [...new Set(content.reduce((acc, c) => [...acc, ...JSON.parse(c.children ?? '[]')], []))]
 		const children = get_content_by_ids(all_children)
 
 		let content_with_tags_and_children = content_with_tags.map((c, i) => ({
 			...c,
-			children: JSON.parse(c.children).map(id => children.find(child => child.id === id))
+			children: JSON.parse(c.children ?? '[]').map(id => children.find(child => child.id === id))
 		}))
 
 
