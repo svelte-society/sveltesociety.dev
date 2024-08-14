@@ -32,6 +32,7 @@
 		primary?: boolean;
 		error?: boolean;
 		secondary?: boolean;
+		tertiary?: boolean;
 		success?: boolean;
 		small?: boolean;
 		thin?: boolean;
@@ -51,6 +52,7 @@
 	let {
 		primary,
 		secondary,
+		tertiary,
 		success,
 		error,
 		small,
@@ -81,6 +83,7 @@
 	{onclick}
 	class:primary
 	class:secondary
+	class:tertiary
 	class:error
 	class:small
 	class:thin
@@ -108,6 +111,9 @@
 	}
 	.secondary {
 		@apply bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500;
+	}
+	.tertiary {
+		@apply bg-svelte-100 border-svelte-300 focus:ring-svelte-900 text-svelte-900 border text-sm font-bold;
 	}
 
 	.success {

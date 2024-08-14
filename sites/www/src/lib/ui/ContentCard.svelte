@@ -117,6 +117,7 @@
 				<input type="hidden" id="type" name="type" value="like" />
 
 				<button
+					data-sveltekit-keepfocus
 					disabled={submitting_like_toggle}
 					aria-label="Like {type}"
 					type="submit"
