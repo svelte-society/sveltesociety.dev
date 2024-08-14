@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
+	import { formatRelativeDate } from '$lib/utils/date';
+
 	import Tags from './Tags.svelte';
 
 	import Recipe from '$lib/ui/content/Recipe.svelte';
@@ -20,7 +22,7 @@
 		rendered_body?: string;
 		type: string;
 		author: string;
-		time: string;
+		published_at: string;
 		views: number;
 		likes: number;
 		liked: boolean;
@@ -38,7 +40,7 @@
 		rendered_body,
 		type,
 		author,
-		time,
+		published_at,
 		views,
 		likes,
 		liked,
@@ -50,8 +52,6 @@
 	}: ContentCardProps = $props();
 
 	let Type = component_map[type];
-
-	console.log(children);
 
 	let submitting_like_toggle = $state(false);
 	let submitting_save_toggle = $state(false);
@@ -90,12 +90,12 @@
 	};
 </script>
 
-<article class="grid gap-2 rounded-lg bg-zinc-50 p-5">
+<article class="grid gap-2 rounded-lg bg-zinc-50 px-6 py-5">
 	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between text-xs">
 		<div class="flex">
 			<span class="font-semibold capitalize">{type}&nbsp;</span>
 			<span class="flex text-gray-500"
-				><span>by {author} • {time} •&nbsp;</span>
+				><span>by {author} • {formatRelativeDate(published_at)} •&nbsp;</span>
 				<span class="flex items-center gap-1">
 					{views}
 					<svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
@@ -197,6 +197,6 @@
 			<Tags {tags} />
 		</div>
 
-		<div class="text-xs text-gray-500">{time}</div>
+		<div class="text-xs text-gray-500">{formatRelativeDate(published_at)}</div>
 	</div>
 </article>
