@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import { get_content, get_content_count, get_tags_for_content } from '$lib/server/db/content';
+import { get_content, get_content_by_ids, get_content_count, get_tags_for_content } from '$lib/server/db/content';
 import {
 	get_user_likes_and_saves,
 	add_interaction,
@@ -24,7 +24,15 @@ export const load: PageServerLoad = async ({ url, fetch, locals }) => {
 	} else {
 		const content = get_content();
 		const tags = get_tags_for_content(content.map((c) => c.id));
-		let content_with_tags = content.map((c, i) => ({ ...c, tags: tags[i] || [] }));
+		const content_with_tags = content.map((c, i) => ({ ...c, tags: tags[i] || [] }));
+		const all_children = [...new Set(content.reduce((acc, c) => [...acc, ...JSON.parse(c.children)], []))]
+		const children = get_content_by_ids(all_children)
+
+		let content_with_tags_and_children = content_with_tags.map((c, i) => ({
+			...c,
+			children: JSON.parse(c.children).map(id => children.find(child => child.id === id))
+		}))
+
 
 		if (locals.user) {
 			const { user_likes, user_saves } = get_user_likes_and_saves(
@@ -32,7 +40,7 @@ export const load: PageServerLoad = async ({ url, fetch, locals }) => {
 				content.map((c) => c.id)
 			);
 
-			content_with_tags = content_with_tags.map((c, i) => ({
+			content_with_tags_and_children = content_with_tags_and_children.map((c, i) => ({
 				...c,
 				liked: user_likes.has(c.id),
 				saved: user_saves.has(c.id)
@@ -40,7 +48,7 @@ export const load: PageServerLoad = async ({ url, fetch, locals }) => {
 		}
 
 		return {
-			content: content_with_tags,
+			content: content_with_tags_and_children,
 			count: 0
 		};
 	}

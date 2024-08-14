@@ -2,6 +2,17 @@
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	import Tags from './Tags.svelte';
+
+	import Recipe from '$lib/ui/content/Recipe.svelte';
+	import Collection from '$lib/ui/content/Collection.svelte';
+	import Video from '$lib/ui/content/Video.svelte';
+
+	const component_map = {
+		recipe: Recipe,
+		collection: Collection,
+		video: Video
+	};
+
 	interface ContentCardProps {
 		id: string | number;
 		title: string;
@@ -17,6 +28,7 @@
 		saved: boolean;
 		tags: string[];
 		slug: string;
+		children: any[];
 	}
 
 	let {
@@ -33,8 +45,13 @@
 		saves,
 		saved,
 		tags,
-		slug
+		slug,
+		children
 	}: ContentCardProps = $props();
+
+	let Type = component_map[type];
+
+	console.log(children);
 
 	let submitting_like_toggle = $state(false);
 	let submitting_save_toggle = $state(false);
@@ -168,12 +185,12 @@
 		</div>
 	</div>
 
-	{#if rendered_body}
-		<div class="prose">{@html rendered_body}</div>
-	{:else}
-		<h2 class="mb-2 text-xl font-bold"><a href="/{type}/{slug}">{title}</a></h2>
-		{description}
-	{/if}
+	<h2 class="mb-2 text-xl font-bold"><a href="/{type}/{slug}">{title}</a></h2>
+	{description}
+
+	<div>
+		<Type {children} />
+	</div>
 
 	<div class="mt-4 grid grid-cols-[1fr_auto] items-start justify-between">
 		<div class="flex space-x-2">
