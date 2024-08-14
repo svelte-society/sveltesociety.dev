@@ -13,34 +13,18 @@
 		name: string;
 		errors?: any;
 		description?: string;
+		content: ContentItem[];
 	}
 
-	let { selectedIds = $bindable([]), name, description, errors }: Props = $props();
+	let { selectedIds = $bindable([]), name, description, errors, content }: Props = $props();
 	let searchQuery = $state('');
 	let showModal = $state(false);
-	let contentItems: ContentItem[] = $state([]);
 	let filteredItems = $derived.by(() => {
-		return contentItems.filter((item) =>
-			item.title.toLowerCase().includes(searchQuery.toLowerCase())
-		);
+		return content.filter((item) => item.title.toLowerCase().includes(searchQuery.toLowerCase()));
 	});
 
 	function toggleModal() {
 		showModal = !showModal;
-		if (showModal) {
-			searchContent();
-		}
-	}
-
-	async function searchContent() {
-		// TODO: Implement actual API call to search content
-		contentItems = [
-			{ id: 1, title: 'Recipe 1', type: 'recipe' },
-			{ id: 2, title: 'Video Tutorial', type: 'video' },
-			{ id: 3, title: 'Blog Post', type: 'blog' },
-			{ id: 4, title: 'Library Book', type: 'library' },
-			{ id: 5, title: 'Collection Summer', type: 'collection' }
-		];
 	}
 
 	function selectItem(item: ContentItem) {
@@ -57,7 +41,7 @@
 
 	let selectedItems = $derived.by(() => {
 		return selectedIds
-			.map((id: number) => contentItems.find((item) => item.id === id))
+			.map((id: number) => content.find((item) => item.id === id))
 			.filter(Boolean) as ContentItem[];
 	});
 </script>
@@ -66,7 +50,7 @@
 	<div class="mb-4 grid grid-cols-1 items-start gap-2 sm:grid-cols-[1fr_auto]">
 		<Input
 			disabled
-			placeholder="Learn how to use the best runes in Svelte"
+			placeholder="1, 2, 3"
 			type="text"
 			{description}
 			errors={errors?._errors}

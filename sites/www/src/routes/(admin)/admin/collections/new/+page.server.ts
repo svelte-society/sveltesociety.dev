@@ -1,16 +1,18 @@
-import { create_content } from '$lib/server/db/content';
+import { create_content, get_content } from '$lib/server/db/content';
 import { error, fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
-import { schema } from './schema.ts'
+import { schema } from './schema.js'
 
 export const load = async () => {
+    const content = get_content();
     const form = await superValidate(zod(schema));
 
     return {
-        form
+        form,
+        content
     }
 };
 

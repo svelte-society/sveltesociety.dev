@@ -44,6 +44,7 @@
 				name="children"
 				bind:selectedIds={$form.children}
 				errors={$errors.children}
+				content={data.content}
 				description="Select content to add to the collection"
 			/>
 		</div>
