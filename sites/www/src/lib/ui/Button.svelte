@@ -43,6 +43,8 @@
 		children: any;
 		icon_left?: string;
 		icon_right?: string;
+		value?: string;
+		name?: string;
 		onclick?: () => void;
 	};
 
@@ -61,6 +63,8 @@
 		icon_left,
 		icon_right,
 		children,
+		value,
+		name,
 		onclick
 	}: Props = $props();
 </script>
@@ -69,6 +73,8 @@
 	this={href ? 'a' : 'button'}
 	role={href ? '' : 'button'}
 	tabindex="0"
+	{value}
+	{name}
 	{type}
 	{href}
 	{disabled}
