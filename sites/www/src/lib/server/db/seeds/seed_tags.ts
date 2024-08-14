@@ -8,7 +8,8 @@ export function seedTags(db) {
         { name: 'Svelte5', slug: 'svelte-5' },
         { name: 'Runes', slug: 'runes' },
         { name: 'Utility', slug: 'utility' },
-        { name: 'Snippet', slug: 'snippet' }
+        { name: 'Snippet', slug: 'snippet' },
+        { name: 'Tutorial', slug: 'tutorial' }
     ];
 
     const insertTagsTransaction = db.transaction((tags) => {

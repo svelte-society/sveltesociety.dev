@@ -10,11 +10,6 @@ node_modules
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vscode
-local_event.db
-local_event.db-wal
-local.db
-local.db-shm
-local.db-wal
-test.db
-test.db-shm
-test.db-wal
+/local_event.db*
+/local.db*
+/test.db*
