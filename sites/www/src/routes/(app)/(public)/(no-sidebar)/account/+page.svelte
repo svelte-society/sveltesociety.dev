@@ -104,12 +104,12 @@
 					<div class="rounded-lg bg-white p-4">
 						<dt class="text-sm font-medium text-gray-500">Likes Given</dt>
 						<dd class="mt-1 text-3xl font-semibold text-gray-900">
-							{data.user.likes?.length || 0}
+							{data.user_likes || 0}
 						</dd>
 						<div class="mt-2 h-2.5 w-full rounded-full bg-gray-200">
 							<div
 								class="h-2.5 rounded-full bg-purple-600"
-								style="width: {Math.min(((data.user.likes?.length || 0) / 500) * 100, 100)}%"
+								style="width: {Math.min(((data.user_likes || 0) / 500) * 100, 100)}%"
 							></div>
 						</div>
 					</div>
