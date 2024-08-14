@@ -52,6 +52,7 @@ export const get_content = ({ limit = 15, offset = 0, types = [] }: GetContentPa
             likes, 
             saves 
         FROM published_content
+        ORDER BY published_at ASC
     `;
 
     const params: Record<string, any> = {
