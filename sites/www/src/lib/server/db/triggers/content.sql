@@ -29,3 +29,13 @@ FOR EACH ROW
 BEGIN
     DELETE FROM saves WHERE target_id = OLD.id;
 END;
+
+-- Trigger to set published_at when published
+CREATE TRIGGER update_published_at
+AFTER UPDATE OF status ON content
+WHEN NEW.status = 'published' AND OLD.status != 'published'
+BEGIN
+    UPDATE content
+    SET published_at = CURRENT_TIMESTAMP
+    WHERE id = NEW.id;
+END;
