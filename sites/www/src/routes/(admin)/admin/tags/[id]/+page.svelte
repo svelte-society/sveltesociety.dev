@@ -3,7 +3,8 @@
 	import Input from '$lib/ui/form/Input.svelte';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { schema } from '../new/schema';
-	import SuperDebug, { superForm } from 'sveltekit-superforms';
+	import { superForm } from 'sveltekit-superforms';
+	import {slugify} from "$lib/utils/slug";
 	let { data } = $props();
 	const { form, errors, enhance } = superForm(data.form, zod(schema));
 </script>
@@ -27,11 +28,10 @@
 			type="text"
 			placeholder="svelte"
 			description="Enter the slug of the tag"
+			magic={() => slugify($form.name)}
 			bind:value={$form.slug}
 			errors={$errors.slug}
 		/>
 		<Button primary fullWidth>Update Tag</Button>
 	</form>
 </div>
-
-<SuperDebug data={$form} />

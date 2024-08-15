@@ -4,6 +4,7 @@
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { schema } from '../new/schema';
 	import { superForm } from 'sveltekit-superforms';
+	import {slugify} from "$lib/utils/slug";
 	let { data } = $props();
 	const { form, errors, enhance } = superForm(data.form, zod(schema));
 </script>
@@ -27,6 +28,7 @@
 			placeholder="best-rune-tutorials"
 			description="Enter the slug of the collection"
 			type="text"
+			magic={() => slugify($form.title)}
 			bind:value={$form.slug}
 			errors={$errors.slug}
 		/>
