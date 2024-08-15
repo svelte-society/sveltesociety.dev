@@ -1,4 +1,6 @@
-export function seedInteractions(db) {
+import Database from "better-sqlite3";
+
+export function seedInteractions(db: Database.Database) {
     // Prepare statements
     const insertLikeStmt = db.prepare('INSERT INTO likes (user_id, target_id, created_at) VALUES (?, ?, ?)');
     const insertSaveStmt = db.prepare('INSERT INTO saves (user_id, target_id, created_at) VALUES (?, ?, ?)');

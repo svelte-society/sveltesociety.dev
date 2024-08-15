@@ -1,4 +1,6 @@
-export function seedUsers(db) {
+import Database from "better-sqlite3";
+
+export function seedUsers(db: Database.Database) {
     const findAdminRoleStmt = db.prepare(`
       SELECT id FROM roles WHERE name = ?
     `);
@@ -9,7 +11,7 @@ export function seedUsers(db) {
     `);
 
     try {
-        const adminRole = findAdminRoleStmt.get('Admin');
+        const adminRole = findAdminRoleStmt.get('Admin') as {id: number};
         if (!adminRole) {
             throw new Error('Admin role not found. Make sure to run seedRoles first.');
         }

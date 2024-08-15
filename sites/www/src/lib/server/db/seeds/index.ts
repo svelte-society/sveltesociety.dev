@@ -1,9 +1,5 @@
 import { Database as DuckDB } from "duckdb-async";
 import Database from 'better-sqlite3';
-import * as dotenv from 'dotenv';
-
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
-
 import { seedTags } from "./seed_tags"
 import { seedRoles } from "./seed_roles"
 import { seedContent } from "./seed_content"
@@ -13,14 +9,13 @@ import { seedModerationQueue } from "./seed_moderation_queue";
 import { seedTestSession } from "./seed_test_session";
 
 import { seedEventUserEvents } from "./seed_event_db";
+import { config } from "$lib/server/db/seeds/utils";
 
-const db = new Database(process.env.DB_PATH)
+const db = new Database(config.DB_PATH)
 db.pragma('journal_mode = WAL')
 db.pragma('foreign_keys = ON')
 
-export const event_db = await DuckDB.create(process.env.EVENT_DB_PATH)
-
-
+export const event_db = await DuckDB.create(config.EVENT_DB_PATH)
 
 export function run_seeds() {
     try {
@@ -32,7 +27,7 @@ export function run_seeds() {
         seedInteractions(db);
         seedModerationQueue(db);
 
-        if (process.env.NODE_ENV === 'test') {
+        if (config.NODE_ENV === 'test') {
             seedTestSession(db);
         }
 

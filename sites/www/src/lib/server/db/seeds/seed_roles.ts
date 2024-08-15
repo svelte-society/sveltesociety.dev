@@ -1,4 +1,6 @@
-export function seedRoles(db) {
+import Database from "better-sqlite3";
+
+export function seedRoles(db: Database.Database) {
     const insertRoleStmt = db.prepare(`
       INSERT INTO roles (name, value, description, active, created_at)
       VALUES (?, ?, ?, ?, ?)

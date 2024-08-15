@@ -1,4 +1,5 @@
 import { db } from "./index";
+import { Status } from "$lib/server/db/common";
 
 export type Collection = {
     id: number;
@@ -8,12 +9,13 @@ export type Collection = {
     children: string;
     created_at: string;
     updated_at: string;
-    status: 'draft' | 'published';
+    status: Status;
     published_at: string | null;
     slug: string;
 };
 
 export const get_collections = (): Collection[] => {
+    console.warn('get_collections: No limit provided, risk of memory exhaustion')
     const stmt = db.prepare(`
         SELECT * FROM collections_view
     `);

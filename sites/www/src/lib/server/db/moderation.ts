@@ -1,10 +1,16 @@
 import { db } from "./index";
 
+export enum ModerationStatus {
+    PENDING = 'pending' ,
+    APPROVED = 'approved' ,
+    REJECTED = 'rejected'
+}
+
 export type ModerationQueueItem = {
     id: number;
     type: string;
     title: string;
-    status: 'pending' | 'approved' | 'rejected';
+    status: ModerationStatus;
     data: string; // JSON string
     submitted_by: number;
     submitted_at: string;
@@ -14,7 +20,8 @@ export type ModerationQueueItem = {
 
 export type PreviewModerationQueueItem = Omit<ModerationQueueItem, 'data'>;
 
-export const get_moderation_queue = (status: 'pending' | 'approved' | 'rejected' = 'pending'): PreviewModerationQueueItem[] => {
+export const get_moderation_queue = (status: ModerationStatus = ModerationStatus.PENDING): PreviewModerationQueueItem[] => {
+    console.warn('get_moderation_queue: No limit provided, risk of memory exhaustion')
     const stmt = db.prepare(`
         SELECT 
             id, 
@@ -43,13 +50,13 @@ export const get_moderation_queue_item = (id: number): ModerationQueueItem | und
 export const add_to_moderation_queue = (item: Omit<ModerationQueueItem, 'id' | 'status' | 'submitted_at' | 'moderated_by' | 'moderated_at'>): number => {
     const stmt = db.prepare(`
         INSERT INTO moderation_queue (type, status, data, submitted_by, submitted_at)
-        VALUES (?, 'pending', ?, ?, CURRENT_TIMESTAMP)
+        VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
     `);
-    const result = stmt.run(item.type, item.data, item.submitted_by);
+    const result = stmt.run(item.type, ModerationStatus.PENDING, item.data, item.submitted_by);
     return result.lastInsertRowid as number;
 }
 
-export const update_moderation_status = (id: number, status: 'approved' | 'rejected', moderated_by: number): boolean => {
+export const update_moderation_status = (id: number, status: Omit<ModerationStatus, ModerationStatus.PENDING>, moderated_by: number): boolean => {
     const stmt = db.prepare(`
         UPDATE moderation_queue
         SET status = ?, moderated_by = ?, moderated_at = CURRENT_TIMESTAMP
@@ -59,13 +66,13 @@ export const update_moderation_status = (id: number, status: 'approved' | 'rejec
     return result.changes > 0;
 }
 
-export const get_moderation_queue_count = (status: 'pending' | 'approved' | 'rejected' = 'pending'): number => {
+export const get_moderation_queue_count = (status: ModerationStatus = ModerationStatus.PENDING): number => {
     const stmt = db.prepare('SELECT COUNT(*) as count FROM moderation_queue WHERE status = ?');
     return (stmt.get(status) as { count: number }).count;
 }
 
 interface GetModerationQueueOptions {
-    status?: 'pending' | 'approved' | 'rejected';
+    status?: ModerationStatus;
     type?: string;
     limit?: number;
     offset?: number;
@@ -73,7 +80,7 @@ interface GetModerationQueueOptions {
 
 export const get_moderation_queue_paginated = (options: GetModerationQueueOptions): PreviewModerationQueueItem[] => {
     const {
-        status = 'pending',
+        status = ModerationStatus.PENDING,
         type,
         limit = 10,
         offset = 0

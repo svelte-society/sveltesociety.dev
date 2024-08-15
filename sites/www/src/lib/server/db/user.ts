@@ -31,8 +31,7 @@ export const get_user = (id: number): User | undefined => {
     `);
 
     try {
-        const result = stmt.get({ id }) as User;
-        return result;
+        return stmt.get({ id }) as User;
     } catch (error) {
         console.error('Error getting user:', error);
         return undefined;
@@ -40,13 +39,13 @@ export const get_user = (id: number): User | undefined => {
 }
 
 export const get_users = (): User[] => {
+    console.warn('get_users: No limit provided, risk of memory exhaustion')
     const stmt = db.prepare(`
       SELECT * FROM users
     `);
 
     try {
-        const result = stmt.all() as User[];
-        return result;
+        return stmt.all() as User[];
     } catch (error) {
         console.error('Error getting users:', error);
         return []
@@ -86,8 +85,7 @@ export const create_or_update_user = (githubInfo: GitHubUserInfo): User => {
     `);
 
     try {
-        const result = stmt.get(userInfo) as User;
-        return result;
+        return stmt.get(userInfo) as User;
     } catch (error) {
         console.error('Error upserting user:', error);
         throw error;
