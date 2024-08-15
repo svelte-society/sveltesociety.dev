@@ -1,4 +1,6 @@
-export function seedTags(db) {
+import Database from "better-sqlite3";
+
+export function seedTags(db: Database.Database) {
     const insertTagStmt = db.prepare(`
     INSERT INTO tags (name, slug, created_at, updated_at)
     VALUES (?, ?, ?, ?)

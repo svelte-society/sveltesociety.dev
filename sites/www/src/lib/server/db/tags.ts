@@ -9,6 +9,7 @@ export type Tag = {
 };
 
 export const get_tags = () => {
+    console.warn('get_tags: No limit provided, risk of memory exhaustion')
     const stmt = db.prepare('SELECT * FROM tags');
     return stmt.all() as Tag[];
 }

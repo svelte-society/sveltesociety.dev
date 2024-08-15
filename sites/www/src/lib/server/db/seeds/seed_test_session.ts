@@ -1,6 +1,8 @@
+import Database from "better-sqlite3";
+
 const SEVEN_DAYS = 7 * 24 * 60 * 60; // 7 days in seconds
 
-export function seedTestSession(db) {
+export function seedTestSession(db: Database.Database) {
     const createSessionStatement = db.prepare(`
         INSERT INTO sessions (user_id, session_token, expires_at)
         VALUES (@user_id, @session_token, @expires_at)

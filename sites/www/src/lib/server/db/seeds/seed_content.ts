@@ -1,6 +1,6 @@
+import Database from "better-sqlite3";
 
-
-export function seedContent(db) {
+export function seedContent(db: Database.Database) {
   const getAllTagsStmt = db.prepare(`
     SELECT id, slug FROM tags
   `);
@@ -14,7 +14,7 @@ export function seedContent(db) {
     INSERT INTO content_to_tags (content_id, tag_id)
     VALUES (?, ?)
   `);
-  const tagIds = getAllTagsStmt.all();
+  const tagIds = getAllTagsStmt.all() as Array<{slug: string, id: number}>;
 
   const tagMap = new Map(tagIds.map(tag => [tag.slug, tag.id]));
 

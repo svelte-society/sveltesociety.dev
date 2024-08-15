@@ -1,5 +1,6 @@
 import { db } from "./index";
 import { type Tag } from "./tags";
+import { Status } from "$lib/server/db/common";
 
 interface GetContentParams {
     limit?: number;
@@ -10,7 +11,7 @@ interface GetContentParams {
 type ContentInput = {
     title: string;
     type: string;
-    status?: 'draft' | 'published' | 'archived';
+    status?: Status;
     body?: string;
     rendered_body?: string;
     slug: string;
@@ -22,7 +23,8 @@ type ContentInput = {
 export type Content = {
     id: number;
     title: string;
-    type: 'draft' | 'published' | 'archived';
+    type: string;
+    status: Status;
     body: string;
     rendered_body: string;
     slug: string;
@@ -55,10 +57,7 @@ export const get_content = ({ limit = 15, offset = 0, types = [] }: GetContentPa
         ORDER BY published_at ASC
     `;
 
-    const params: Record<string, any> = {
-        "limit": limit,
-        "offset": offset
-    };
+    const params: Record<string, any> = { limit, offset };
 
     if (types.length > 0) {
         query += " WHERE type IN (" + types.map((_, i) => `@type${i}`).join(", ") + ")";
@@ -74,6 +73,7 @@ export const get_content = ({ limit = 15, offset = 0, types = [] }: GetContentPa
 };
 
 export const get_all_content = (): PreviewContent[] => {
+    console.warn('get_all_content: No limit provided, risk of memory exhaustion')
     const stmt = db.prepare(`
         SELECT 
             id, 
@@ -93,6 +93,7 @@ export const get_all_content = (): PreviewContent[] => {
 }
 
 export const get_content_by_type = (type: string): PreviewContent[] => {
+    console.warn('get_content_by_type: No limit provided, risk of memory exhaustion')
     const stmt = db.prepare(`
         SELECT 
             id, 
@@ -289,7 +290,7 @@ export const create_content = (input: ContentInput): number | null => {
     const {
         title,
         type,
-        status = 'draft',
+        status = Status.DRAFT,
         body = null,
         rendered_body = null,
         slug,

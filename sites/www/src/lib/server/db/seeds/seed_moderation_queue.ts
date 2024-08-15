@@ -1,4 +1,6 @@
-export function seedModerationQueue(db) {
+import Database from "better-sqlite3";
+
+export function seedModerationQueue(db: Database.Database) {
     const insertModerationItemStmt = db.prepare(`
         INSERT INTO moderation_queue (type, status, data, submitted_by, submitted_at)
         VALUES (?, ?, ?, ?, ?)
