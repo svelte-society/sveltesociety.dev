@@ -3,7 +3,9 @@
 	import Button from '$lib/ui/Button.svelte';
 	import { enhance } from '$app/forms';
 	import Avatar from '$lib/ui/Avatar.svelte';
-	import ConfirmWithDialog from '$lib/ui/admin/ConfirmWithDialog.svelte';
+	import Table from "$lib/ui/admin/Table.svelte";
+	import Actions from "$lib/ui/admin/Actions.svelte";
+	import type {User} from "$lib/server/db/user";
 	let { data } = $props();
 </script>
 
@@ -12,113 +14,51 @@
 		<h1 class="text-xl font-bold">Users Management</h1>
 		<Button small primary icon_left="plus" href="/admin/users/new">New User</Button>
 	</div>
-	<div class="overflow-hidden rounded-lg bg-white shadow-sm">
-		<div class="w-full overflow-x-auto">
-			<table class="w-full text-left text-xs text-gray-500">
-				<thead class="bg-gray-50 text-xs uppercase text-gray-700">
-					<tr>
-						<th scope="col" class="sticky left-0 min-w-[180px] bg-gray-50 px-3 py-2">User</th>
-						<th scope="col" class="min-w-[180px] px-3 py-2">Email</th>
-						<th scope="col" class="min-w-[120px] px-3 py-2">Location</th>
-						<th scope="col" class="min-w-[120px] px-3 py-2">Twitter</th>
-						<th scope="col" class="min-w-[120px] px-3 py-2">Created</th>
-						<th scope="col" class="sticky right-0 min-w-[100px] bg-gray-50 px-3 py-2">
-							<span class="sr-only">Actions</span>
-							<svg
-								class="mx-auto h-4 w-4"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-								></path>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-								></path>
-							</svg>
-						</th>
-					</tr>
-				</thead>
-				<tbody class="divide-y divide-gray-200">
-					{#each data.users as user}
-						<tr class="hover:bg-gray-50">
-							<td
-								class="sticky left-0 flex min-w-[180px] items-center whitespace-nowrap px-3 py-2 font-medium text-gray-900 group-hover:bg-gray-50"
-							>
-								<Avatar src={user.avatar_url} name={user.username} size="sm" />
-								<span class="ml-2">{user.username}</span>
-							</td>
-							<td class="min-w-[180px] truncate px-3 py-2">{user.email || '-'}</td>
-							<td class="min-w-[120px] px-3 py-2">{user.location || '-'}</td>
-							<td class="min-w-[120px] px-3 py-2">{user.twitter || '-'}</td>
-							<td class="min-w-[120px] px-3 py-2">{formatRelativeDate(user.created_at)}</td>
-							<td class="sticky right-0 min-w-[100px] px-3 py-2">
-								<div class="flex justify-center space-x-1">
-									<a
-										href="/admin/users/{user.id}"
-										class="text-indigo-600 hover:text-indigo-900"
-										aria-label="Edit user"
-									>
-										<svg
-											class="h-4 w-4"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												stroke-width="2"
-												d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-											></path>
-										</svg>
-									</a>
-									<form action="?/clear_sessions" method="POST" use:enhance>
-										<input type="hidden" name="id" value={user.id} />
-										<button
-											type="submit"
-											class="text-yellow-600 hover:text-yellow-900"
-											aria-label="Clear user sessions"
-										>
-											<svg
-												class="h-4 w-4"
-												fill="none"
-												stroke="currentColor"
-												viewBox="0 0 24 24"
-												xmlns="http://www.w3.org/2000/svg"
-											>
-												<path
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													stroke-width="2"
-													d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-												></path>
-											</svg>
-										</button>
-									</form>
-									<ConfirmWithDialog
-										title="Are you sure you want to delete this user?"
-										description="This action cannot be undone."
-										action="?/delete"
-										confirmButtonText="Delete"
-										cancelButtonText="Cancel"
-										id={user.id}
-									/>
-								</div>
-							</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
-		</div>
-	</div>
+	<Table action={true} data={data.users}>
+		{#snippet header(classes)}
+			<th scope="col" class={classes}>User</th>
+			<th scope="col" class={classes}>Email</th>
+			<th scope="col" class={classes}>Location</th>
+			<th scope="col" class={classes}>Twitter</th>
+			<th scope="col" class={classes}>Created</th>
+		{/snippet}
+		{#snippet row(item: User, classes)}
+			<td class="whitespace-nowrap {classes} font-medium text-gray-900 items-center flex">
+				<Avatar src={item.avatar_url} name={item.username} size="sm" />
+				<span class="ml-2">{item.username}</span>
+			</td>
+			<td class="{classes} truncate">{item.email ?? '-'}</td>
+			<td class={classes}>{item.location ?? '-'}</td>
+			<td class={classes}>{item.twitter ?? '-'}</td>
+			<td class={classes}>
+				{formatRelativeDate(item.created_at)}
+			</td>
+		{/snippet}
+		{#snippet actionCell(item: User)}
+			<Actions route="content" id={item.id} canDelete={true} canEdit={true} type="this user" />
+			<form action="?/clear_sessions" method="POST" use:enhance style="line-height: 0">
+				<input type="hidden" name="id" value={item.id} />
+				<button
+						type="submit"
+						class="text-yellow-600 hover:text-yellow-900"
+						aria-label="Clear user sessions"
+				>
+					<svg
+							class="h-4 w-4"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+							xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+						></path>
+					</svg>
+				</button>
+			</form>
+		{/snippet}
+	</Table>
 </div>

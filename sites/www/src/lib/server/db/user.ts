@@ -11,7 +11,7 @@ interface GitHubUserInfo {
     twitter_username?: string;
 }
 
-interface User {
+export interface User {
     id: number;
     github_id: number;
     email: string | null;

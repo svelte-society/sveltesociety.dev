@@ -6,6 +6,7 @@
 	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte';
 	import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte';
 	import { schema } from './schema';
+	import {slugify} from "$lib/utils/slug";
 
 	let { data } = $props();
 	const { form, errors, enhance } = superForm(data.form, zod(schema));
@@ -51,6 +52,7 @@
 			type="text"
 			placeholder="best-svelte-runes-tutorial"
 			description="Enter the slug for the content URL"
+			magic={() => slugify($form.title)}
 			bind:value={$form.slug}
 			errors={$errors.slug}
 		/>
