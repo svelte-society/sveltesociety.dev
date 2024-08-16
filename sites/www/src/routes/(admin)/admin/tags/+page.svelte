@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { formatRelativeDate } from '$lib/utils/date';
 	import Button from '$lib/ui/Button.svelte';
-	import Table from "$lib/ui/admin/Table.svelte";
-	import Actions from "$lib/ui/admin/Actions.svelte";
-	import type {Tag} from "$lib/server/db/tags";
+	import Table from '$lib/ui/admin/Table.svelte';
+	import Actions from '$lib/ui/admin/Actions.svelte';
+	import type { Tag } from '$lib/server/db/tags';
 	let { data } = $props();
 </script>
 
@@ -15,14 +15,13 @@
 	<Table action={true} data={data.tags ?? []}>
 		{#snippet header(classes)}
 			<th scope="col" class={classes}>Name</th>
-			<th scope="col" class={classes}>Slug</th>
 			<th scope="col" class={classes}>Created</th>
 		{/snippet}
 		{#snippet row(item: Tag, classes)}
 			<td class="whitespace-nowrap {classes} font-medium text-gray-900">
-				{item.name}
+				<div>{item.name}</div>
+				<div class="mt-1 text-xs text-gray-400">{item.slug}</div>
 			</td>
-			<td class={classes}>{item.slug}</td>
 			<td class={classes}>
 				{formatRelativeDate(item.created_at)}
 			</td>
