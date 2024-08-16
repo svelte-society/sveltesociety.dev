@@ -1,11 +1,13 @@
 <script lang="ts">
+	import AutoCompleteTags from '$lib/ui/AutoComplete-Tags.svelte';
 	import ContentSelector from './ContentSelector.svelte';
+	import Button from '$lib/ui/Button.svelte';
 	import Input from '$lib/ui/form/Input.svelte';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { schema } from './schema';
 
-	import { superForm } from 'sveltekit-superforms';
-	import {slugify} from "$lib/utils/slug";
+	import SuperDebug, { superForm } from 'sveltekit-superforms';
+	import { slugify } from '$lib/utils/slug';
 	let { data } = $props();
 	const { form, errors, enhance } = superForm(data.form, zod(schema));
 </script>
@@ -50,12 +52,18 @@
 				description="Select content to add to the collection"
 			/>
 		</div>
+		<div class="space-y-2">
+			<label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
+			<AutoCompleteTags
+				bind:tags={data.tags}
+				placeholder="Type to search or create a tag"
+				description="Select tags for your content"
+				errors={$errors.tags?._errors}
+			/>
+		</div>
 
-		<button
-			type="submit"
-			class="w-full rounded-md bg-indigo-600 px-4 py-2 text-white transition duration-150 ease-in-out hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-		>
-			Create Collection
-		</button>
+		<Button primary fullWidth>Create Collection</Button>
 	</form>
 </div>
+
+<SuperDebug data={$form} />
