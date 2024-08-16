@@ -83,7 +83,7 @@
 		</div>
 	</header>
 
-	<div class="mx-auto flex flex-1">
+	<div class="mx-auto flex w-full max-w-6xl flex-1">
 		{@render children()}
 	</div>
 </div>
