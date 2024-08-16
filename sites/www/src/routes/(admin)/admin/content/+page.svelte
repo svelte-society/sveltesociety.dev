@@ -1,10 +1,17 @@
 <script lang="ts">
 	import { formatRelativeDate } from '$lib/utils/date';
 	import Button from '$lib/ui/Button.svelte';
-	import Table from "$lib/ui/admin/Table.svelte";
-	import type {PreviewContent} from "$lib/server/db/content";
-	import Actions from "$lib/ui/admin/Actions.svelte";
+	import Table from '$lib/ui/admin/Table.svelte';
+	import type { PreviewContent } from '$lib/server/db/content';
+	import Actions from '$lib/ui/admin/Actions.svelte';
+	import Badge from '$lib/ui/admin/Badge.svelte';
 	let { data } = $props();
+
+	let colorMap = new Map([
+		['draft', 'warning'],
+		['published', 'success'],
+		['archived', 'danger']
+	]);
 </script>
 
 <div class="container mx-auto px-2 py-4">
@@ -15,6 +22,7 @@
 	<Table action={true} data={data.content}>
 		{#snippet header(classes)}
 			<th scope="col" class={classes}>Title</th>
+			<th scope="col" class={classes}>Status</th>
 			<th scope="col" class={classes}>Type</th>
 			<th scope="col" class={classes}>Description</th>
 			<th scope="col" class={classes}>Created</th>
@@ -24,6 +32,7 @@
 				<div>{item.title}</div>
 				<div class="mt-1 text-xs text-gray-400">{item.slug}</div>
 			</td>
+			<td class={classes}><Badge color={colorMap.get(item.status)} text={item.status} /></td>
 			<td class={classes}>{item.type}</td>
 			<td class={classes}>{item.description}</td>
 			<td class={classes}>

@@ -86,7 +86,8 @@ export const get_all_content = (): PreviewContent[] => {
             updated_at, 
             published_at, 
             likes, 
-            saves 
+            saves,
+            status
         FROM content_without_collections
     `);
     return stmt.all() as PreviewContent[];

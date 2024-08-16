@@ -1,35 +1,24 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import Badge from '$lib/ui/admin/Badge.svelte';
 	import Button from '$lib/ui/Button.svelte';
 	import { formatRelativeDate } from '$lib/utils/date';
 	let { data } = $props();
 	function formatJSON(obj: any): string {
 		return JSON.stringify(obj, null, 2);
 	}
-	function getStatusColor(status: string): string {
-		switch (status.toLowerCase()) {
-			case 'pending':
-				return 'bg-yellow-100 text-yellow-800';
-			case 'approved':
-				return 'bg-green-100 text-green-800';
-			case 'rejected':
-				return 'bg-red-100 text-red-800';
-			default:
-				return 'bg-gray-100 text-gray-800';
-		}
-	}
-	function getRoleColor(role: string): string {
-		switch (role.toLowerCase()) {
-			case 'admin':
-				return 'bg-purple-100 text-purple-800';
-			case 'editor':
-				return 'bg-blue-100 text-blue-800';
-			case 'user':
-				return 'bg-gray-100 text-gray-800';
-			default:
-				return 'bg-gray-100 text-gray-800';
-		}
-	}
+
+	let colorMap = new Map([
+		['pending', 'warning'],
+		['approved', 'success'],
+		['rejected', 'danger']
+	]);
+
+	const roleColorMap = new Map([
+		['admin', 'success'],
+		['editor', 'warning'],
+		['user', 'danger']
+	]);
 </script>
 
 <div class="container mx-auto px-2 py-4">
@@ -45,13 +34,7 @@
 					<p><span class="font-medium">Type:</span> {data.item.type}</p>
 					<p>
 						<span class="font-medium">Status:</span>
-						<span
-							class={`ml-2 inline-block rounded-full px-2 py-1 text-xs font-medium ${getStatusColor(
-								data.item.status
-							)}`}
-						>
-							{data.item.status}
-						</span>
+						<Badge color={colorMap.get(data.item.status)} text={data.item.status} />
 					</p>
 					<p>
 						<span class="font-medium">Submitted:</span>
@@ -121,13 +104,10 @@
 					<p><span class="font-medium">Email:</span> {data.submitter.email}</p>
 					<p>
 						<span class="font-medium">Role:</span>
-						<span
-							class={`ml-2 inline-block rounded-full px-2 py-1 text-xs font-medium ${getRoleColor(
-								data.submitter.role || 'Unknown'
-							)}`}
-						>
-							{data.submitter.role}
-						</span>
+						<Badge
+							color={roleColorMap.get(data.submitter.role || 'Unknown')}
+							text={data.submitter.role}
+						/>
 					</p>
 				</div>
 			</div>
