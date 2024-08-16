@@ -3,6 +3,8 @@
 
 	interface CollectionProps {
 		children: any[];
+		slug: string;
+		type: string;
 	}
 
 	let { slug, type, children = [] }: CollectionProps = $props();
