@@ -5,18 +5,11 @@
 
 	export let tags: Array<{ id: number; name: string }> = [];
 	export let selectedTags: number[] = [];
-	export let placeholder: string = 'Type to search or create a tag';
+	export let placeholder: string = 'Type to search for a tag';
 	export let errors: any;
 	export let description: string;
 
 	const dispatch = createEventDispatcher();
-
-	function handleCreate(event: CustomEvent<string>) {
-		const newTag = { id: Math.max(0, ...tags.map((t) => t.id)) + 1, name: event.detail };
-		tags = [...tags, newTag];
-		addTag(newTag.id);
-		dispatch('create', newTag);
-	}
 
 	function handleSelect(event: CustomEvent<number>) {
 		event.preventDefault();
@@ -42,12 +35,9 @@
 		{placeholder}
 		searchField="name"
 		valueField="id"
-		createNew={true}
-		on:create={handleCreate}
 		on:select={handleSelect}
 		error={errors}
 	/>
-
 	<div class="mt-2 flex flex-wrap gap-2">
 		{#each selectedTags as tagId}
 			{@const tag = tags.find((t) => t.id === tagId)}
