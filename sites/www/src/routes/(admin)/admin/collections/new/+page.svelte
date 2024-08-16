@@ -65,5 +65,3 @@
 		<Button primary fullWidth>Create Collection</Button>
 	</form>
 </div>
-
-<SuperDebug data={$form} />
