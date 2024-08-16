@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import AutoComplete from './AutoComplete.svelte';
 	import Tag from './Tag.svelte';
 
@@ -9,8 +8,6 @@
 	export let errors: any;
 	export let description: string;
 
-	const dispatch = createEventDispatcher();
-
 	function handleSelect(event: CustomEvent<number>) {
 		event.preventDefault();
 		addTag(event.detail);
@@ -19,13 +16,11 @@
 	function addTag(tagId: number) {
 		if (!selectedTags.includes(tagId)) {
 			selectedTags = [...selectedTags, tagId];
-			dispatch('add', tagId);
 		}
 	}
 
 	function removeTag(tagId: number) {
 		selectedTags = selectedTags.filter((id) => id !== tagId);
-		dispatch('remove', tagId);
 	}
 </script>
 
@@ -49,7 +44,7 @@
 	{#if errors}
 		{#each errors as error}
 			<div class="text-xs text-slate-500" class:error={errors}>
-				{errors}
+				{error}
 			</div>
 		{/each}
 	{:else if description}
