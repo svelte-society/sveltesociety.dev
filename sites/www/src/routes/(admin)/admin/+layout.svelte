@@ -47,7 +47,7 @@
 <div class="flex h-screen bg-gray-100">
 	<Sidebar {links} moderationCount={data.moderation_count} />
 	<div class="flex-1 overflow-y-auto">
-		<div class="p-8">
+		<div class="mx-auto max-w-6xl p-8">
 			{@render children()}
 		</div>
 	</div>
