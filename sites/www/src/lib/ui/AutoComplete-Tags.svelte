@@ -2,11 +2,13 @@
 	import AutoComplete from './AutoComplete.svelte';
 	import Tag from './Tag.svelte';
 
-	export let tags: Array<{ id: number; name: string }> = [];
-	export let selectedTags: number[] = [];
-	export let placeholder: string = 'Type to search for a tag';
-	export let errors: any;
-	export let description: string;
+	let {tags = [], selectedTags = $bindable([]), placeholder = 'Type to search for a tag', errors, description}: {
+		tags: Array<{ id: number, name: string, sleg: string }>,
+		selectedTags: number[],
+		placeholder: string,
+		errors: any,
+		description: string
+	} = $props()
 
 	function handleSelect(event: CustomEvent<number>) {
 		event.preventDefault();

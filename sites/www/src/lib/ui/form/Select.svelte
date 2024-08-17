@@ -22,10 +22,8 @@
 		description,
 		placeholder = 'Select an option...',
 		errors,
-		initial = '',
 		options = []
 	}: SelectProps = $props();
-	let selectedValue = $state(initial);
 </script>
 
 <div class="flex flex-col gap-1">
@@ -34,7 +32,7 @@
 	{/if}
 	<div class="relative">
 		<select
-			bind:value={selectedValue}
+			bind:value={value}
 			{name}
 			class="w-full appearance-none rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-8 text-sm text-slate-800"
 			class:error={false}
