@@ -1,97 +1,124 @@
-<!-- src/routes/content/[id]/edit/+page.svelte -->
 <script lang="ts">
-	import { superForm } from 'sveltekit-superforms';
-	import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte';
-	import Button from '$lib/ui/Button.svelte';
+	import SuperDebug, { superForm } from 'sveltekit-superforms';
+	import { zod } from 'sveltekit-superforms/adapters';
+	import Input from '$lib/ui/form/Input.svelte';
+	import Select from '$lib/ui/form/Select.svelte';
 	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte';
+	import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte';
+	import { schema } from './schema';
+	import {slugify} from "$lib/utils/slug";
+	import { slide } from "svelte/transition";
+	import { page } from "$app/stores"
 
 	let { data } = $props();
-	let { form, errors, enhance } = superForm(data.form);
+	const { form, errors, enhance } = superForm(data.form, {
+		validators: zod(schema),
+		dataType: 'json'
+	});
+	async function tryVideo(id: string): Promise<{ preview: string, title: string, author: string } | undefined> {
+		return fetch(`https://www.youtube.com/oembed?url=https%3A//youtube.com/watch%3Fv%3D${id}&format=json`)
+				.then(response => response.json())
+				.then(response => ({preview: response.thumbnail_url, title: response.title, author: response.author_name }))
+				.catch(_ => undefined)
+	}
+	const startingTitle = $form.title
 </script>
 
-<div class="container mx-auto px-4 py-8">
-	<h1 class="mb-4 text-2xl font-bold">Edit Content</h1>
-
-	<form use:enhance method="post" class="space-y-6 rounded-lg bg-white p-6 shadow-md">
-		<input type="hidden" id="id" name="id" bind:value={$form.id} />
-
+<div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
+	<h1 class="mb-6 text-3xl font-bold text-gray-800">{#if $page.params.id === 'new'}Create New Content{:else}Edit <var>{startingTitle}</var>{/if}</h1>
+	<form method="POST" use:enhance class="space-y-6">
+		<input type="hidden" name="status" value={$form.status} />
+		<Input
+			name="title"
+			label="Title"
+			type="text"
+			placeholder="Best Svelte Runes Tutorial"
+			description="Enter the title of the content"
+			bind:value={$form.title}
+			errors={$errors.title}
+		/>
+		<Select
+			name="type"
+			label="Type"
+			description="Select the type of content"
+			options={[
+				{ value: 'recipe', label: 'Recipe' },
+				{ value: 'video', label: 'Video' }
+			]}
+			bind:value={$form.type}
+			errors={$errors.type}
+		/>
+		{#if $form.type === 'video'}
+			<div transition:slide class="space-y-2">
+				<Input
+						name="metadata[videoId]"
+						label="Youtube video Id"
+						type="text"
+						placeholder="RVnxF3j3N8U"
+						description="Enter the Id of the Youtube video"
+						bind:value={$form.metadata.videoId}
+						errors={$errors.metadata?.videoId}
+				/>
+			</div>
+			{#await tryVideo($form.metadata.videoId) then info}
+				{#if info}
+					<div class="rounded-md border-2 border-transparent bg-slate-100 text-sm text-slate-800 placeholder-slate-500 mx-4 p-4 flex gap-4" style="margin-top: 0.5rem">
+						<img src={info.preview} alt="Video preview" class="max-w-xs rounded" />
+						<div>
+							<strong>{info.title}</strong>
+							<div><i>by</i> {info.author}</div>
+						</div>
+					</div>
+				{/if}
+			{/await}
+		{/if}
 		<div class="space-y-2">
-			<label for="title" class="mb-2 block text-sm font-bold text-gray-700">Title:</label>
-			<input
-				type="text"
-				id="title"
-				name="title"
-				bind:value={$form.title}
-				required
-				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-			/>
-			{#if $errors.title}<p class="text-xs italic text-red-500">{$errors.title}</p>{/if}
-		</div>
-
-		<div class="space-y-2">
-			<label for="type" class="mb-2 block text-sm font-bold text-gray-700">Type:</label>
-			<select
-				id="type"
-				name="type"
-				bind:value={$form.type}
-				required
-				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-			>
-				<option value="recipe">Recipe</option>
-				<option value="video">Video</option>
-			</select>
-			{#if $errors.type}<p class="text-xs italic text-red-500">{$errors.type}</p>{/if}
-		</div>
-
-		<div class="space-y-2">
-			<label for="body" class="mb-2 block text-sm font-bold text-gray-700">Body:</label>
+			<label for="body" class="block text-sm font-medium text-gray-700">Body</label>
 			<div
-				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+				class="w-full rounded-md border-2 border-transparent bg-slate-100 text-sm text-slate-800 placeholder-slate-500"
 			>
-				<MarkdownEditor name="body" bind:value={$form.body} />
+				<div class="px-2 py-1.5 pr-4">
+					<MarkdownEditor name="body" bind:value={$form.body} />
+				</div>
 			</div>
 			{#if $errors.body}<p class="text-xs italic text-red-500">{$errors.body}</p>{/if}
 		</div>
-
+		<Input
+			name="slug"
+			label="Slug"
+			type="text"
+			placeholder="best-svelte-runes-tutorial"
+			description="Enter the slug for the content URL"
+			magic={() => slugify($form.title)}
+			bind:value={$form.slug}
+			errors={$errors.slug}
+		/>
+		<Input
+			name="description"
+			label="Description"
+			type="textarea"
+			placeholder="Learn how to use Svelte runes effectively"
+			description="Enter a brief description of the content"
+			bind:value={$form.description}
+			errors={$errors.description}
+		/>
 		<div class="space-y-2">
-			<label for="slug" class="mb-2 block text-sm font-bold text-gray-700">Slug:</label>
-			<input
-				type="text"
-				id="slug"
-				name="slug"
-				bind:value={$form.slug}
-				required
-				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-			/>
-			{#if $errors.slug}<p class="text-xs italic text-red-500">{$errors.slug}</p>{/if}
-		</div>
-
-		<div class="space-y-2">
-			<label for="description" class="mb-2 block text-sm font-bold text-gray-700"
-				>Description:</label
-			>
-			<textarea
-				id="description"
-				name="description"
-				bind:value={$form.description}
-				required
-				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-			></textarea>
-			{#if $errors.description}<p class="text-xs italic text-red-500">{$errors.description}</p>{/if}
-		</div>
-
-		<div class="space-y-2">
-			<label for="description" class="mb-2 block text-sm font-bold text-gray-700">Tags:</label>
+			<label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
 			<AutoComplete
 				tags={data.tags}
-				bind:selectedTags={$form.tags}
 				placeholder="Type to search or create a tag"
+				description="Select tags for your content"
+				errors={$errors.tags?._errors}
+				bind:selectedTags={$form.tags}
 			/>
-			{#if $errors.description}<p class="text-xs italic text-red-500">{$errors.description}</p>{/if}
 		</div>
-
-		<div class="flex items-center justify-between">
-			<Button primary type="submit">Update Content</Button>
-		</div>
+		<button
+			type="submit"
+			class="w-full rounded-md bg-indigo-600 px-4 py-2 text-white transition duration-150 ease-in-out hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+		>
+			{#if $page.params.id === 'new'}Create Content{:else}Update Content{/if}
+		</button>
 	</form>
 </div>
+
+<SuperDebug data={$errors} />

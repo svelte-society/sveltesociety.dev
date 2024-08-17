@@ -3,7 +3,7 @@
 	import Tag from './Tag.svelte';
 
 	let {tags = [], selectedTags = $bindable([]), placeholder = 'Type to search for a tag', errors, description}: {
-		tags: Array<{ id: number, name: string, sleg: string }>,
+		tags: Array<{ id: number, name: string, slug: string }>,
 		selectedTags: number[],
 		placeholder: string,
 		errors: any,
