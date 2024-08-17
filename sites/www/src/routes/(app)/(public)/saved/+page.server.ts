@@ -23,7 +23,7 @@ export const load = (async ({ url, locals }) => {
         if (locals.user) {
             const { user_likes, user_saves } = get_user_likes_and_saves(locals.user.id, content.map(c => c.id))
 
-            content_with_tags_and_children = content_with_tags.map((c, i) => ({
+            content_with_tags_and_children = content_with_tags_and_children.map((c) => ({
                 ...c,
                 liked: user_likes.has(c.id),
                 saved: user_saves.has(c.id)

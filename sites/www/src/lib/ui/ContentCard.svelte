@@ -9,12 +9,6 @@
 	import Collection from '$lib/ui/content/Collection.svelte';
 	import Video from '$lib/ui/content/Video.svelte';
 
-	const component_map = {
-		recipe: Recipe,
-		collection: Collection,
-		video: Video
-	};
-
 	interface ContentCardProps {
 		id: string | number;
 		title: string;
@@ -30,7 +24,7 @@
 		saved: boolean;
 		tags: string[];
 		slug: string;
-		children: any[];
+		child_content: any[];
 	}
 
 	let {
@@ -48,10 +42,8 @@
 		saved,
 		tags,
 		slug,
-		children
+		child_content
 	}: ContentCardProps = $props();
-
-	let Type = component_map[type];
 
 	let submitting_like_toggle = $state(false);
 	let submitting_save_toggle = $state(false);
@@ -190,7 +182,13 @@
 	{description}
 
 	<div>
-		<Type {children} />
+		{#if type === 'recipe'}
+			<Recipe />
+		{:else if type === 'collection'}
+			<Collection {type} {slug} {child_content} />
+		{:else if type === 'video'}
+			<Video />
+		{/if}
 	</div>
 
 	<div class="mt-4 grid grid-cols-[1fr_auto] items-start justify-between">

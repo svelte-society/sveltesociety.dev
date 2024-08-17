@@ -7,7 +7,7 @@
 
 <div class="grid gap-6">
 	{#each data.content as item}
-		<ContentCard {...item} author="John Doe" views={11114}>
+		<ContentCard child_content={item.children} {...item} author="John Doe" views={11114}>
 			{item.description}</ContentCard
 		>
 	{/each}
