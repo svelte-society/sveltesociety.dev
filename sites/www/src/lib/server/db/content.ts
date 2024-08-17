@@ -30,6 +30,7 @@ export type Content = {
     rendered_body: string;
     slug: string;
     description: string;
+    metadata: Record<string, any>;
     children: string;
     created_at: string;
     updated_at: string;
@@ -370,6 +371,7 @@ export const get_content_by_id = (id: number): Content | null => {
 
         return {
             ...result,
+            metadata: JSON.parse((result.metadata as unknown as string | undefined) ?? '{}'),
             children
         };
     } catch (error) {
