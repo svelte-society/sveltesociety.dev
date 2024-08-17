@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Chart, Svg, Axis, Bars } from 'layerchart';
 	import Button from '$lib/ui/Button.svelte';
 
 	let { data } = $props();
