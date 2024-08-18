@@ -366,7 +366,7 @@
 	"sveltejs-brunch": { "valid": true },
 	"svelte-preprocess": { "valid": true },
 	"svelte-preprocess-markdown": { "valid": true },
-	"mdsvex": { "valid": false },
+	"mdsvex": { "valid": true },
 	"svelte-switch-case": { "valid": true },
 	"@modular-css/svelte": { "valid": true },
 	"svelte-preprocess-sass": { "valid": false },
