@@ -11,13 +11,14 @@ interface GetContentParams {
 type ContentInput = {
     title: string;
     type: string;
-    status?: Status;
+    status?: string;
     body?: string;
     rendered_body?: string;
     slug: string;
     description?: string;
     metadata?: Record<string, any>;
     children?: number[];
+    tags?: number[];
 };
 
 export type Content = {
@@ -29,6 +30,7 @@ export type Content = {
     rendered_body: string;
     slug: string;
     description: string;
+    metadata: Record<string, any>;
     children: string;
     created_at: string;
     updated_at: string;
@@ -297,7 +299,8 @@ export const create_content = (input: ContentInput): number | null => {
         slug,
         description = null,
         metadata = null,
-        children = null
+        children = null,
+        tags = null
     } = input;
 
     const stmt = db.prepare(`
@@ -340,6 +343,7 @@ export const create_content = (input: ContentInput): number | null => {
             metadata: metadata ? JSON.stringify(metadata) : null,
             children: children ? JSON.stringify(children) : null
         });
+        update_content_tags(Number(result.lastInsertRowid), tags ?? [])
 
         // Return the ID of the newly inserted content
         return result.lastInsertRowid as number;
@@ -367,6 +371,7 @@ export const get_content_by_id = (id: number): Content | null => {
 
         return {
             ...result,
+            metadata: JSON.parse((result.metadata as unknown as string | undefined) ?? '{}'),
             children
         };
     } catch (error) {
@@ -386,7 +391,8 @@ export const update_content = (input: ContentInput & { id: number }): boolean =>
         slug,
         description,
         metadata,
-        children
+        children,
+        tags,
     } = input;
 
     const stmt = db.prepare(`
@@ -418,6 +424,7 @@ export const update_content = (input: ContentInput & { id: number }): boolean =>
             metadata: metadata ? JSON.stringify(metadata) : null,
             children: children ? JSON.stringify(children) : null
         });
+        update_content_tags(id, tags ?? [])
 
         return result.changes > 0;
     } catch (error) {
@@ -425,3 +432,25 @@ export const update_content = (input: ContentInput & { id: number }): boolean =>
         return false;
     }
 };
+
+const update_content_tags = (contentId: number, tags: number[]) => {
+    const remove_tags = db.prepare(`
+    DELETE FROM content_to_tags
+           WHERE content_id = @contentId AND tag_id NOT IN (${tags.map(_ => '?').join(',')})
+    `)
+    const upsert_tags = db.prepare(`
+    INSERT INTO content_to_tags (content_id, tag_id)
+        SELECT @contentId AS content_id, tags.id AS tag_id 
+        FROM tags 
+        WHERE tags.id in (${tags.map(_ => '?').join(',')})
+    ON CONFLICT DO NOTHING 
+
+    `);
+
+    try {
+        remove_tags.run({contentId}, ...tags)
+        upsert_tags.run({contentId}, ...tags)
+    } catch (error) {
+        console.error('Error updating content tags:', error);
+    }
+}

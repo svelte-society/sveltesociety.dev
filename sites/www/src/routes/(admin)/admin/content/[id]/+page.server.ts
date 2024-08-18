@@ -1,51 +1,61 @@
-// src/routes/content/[id]/edit/+page.server.ts
-import { z } from 'zod';
 import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
+import {
+	type Content,
+	create_content,
+	get_content_by_id,
+	get_tags_for_content,
+	update_content
+} from '$lib/server/db/content';
+import { get_tags } from '$lib/server/db/tags';
 
-const schema = z.object({
-	id: z.number(),
-	title: z.string().min(1, 'Title is required'),
-	type: z.enum(['recipe', 'video']),
-	body: z.string().min(1, 'Body is required'),
-	slug: z.string().min(1, 'Slug is required'),
-	description: z.string().min(1, 'Description is required'),
-	tags: z.array(z.number()).min(1, 'At least one tag is required')
-});
+import { schema } from './schema';
 
 export const load = async ({ params }) => {
-	// // const result = await contentService.get_content(parseInt(params.id));
-	// const [res_content, res_tags] = await Promise.all([
-	// 	contentService.get_content(params.id),
-	// 	tagService.get_tags()
-	// ]);
-	// if (!res_content.data || !res_tags.data) {
-	// 	redirect(302, '/content');
-	// }
+	const all_tags = get_tags()
+	if (!all_tags) {
+		fail(400, { message: 'Error getting tags' });
+	}
+	let data: Content|undefined = undefined
 
-	// const dto = { ...res_content.data, tags: res_content.data.tags.map(t => t.id) }
+	const contentId = params.id
 
-	// const form = await superValidate(dto, zod(schema));
-	// return {
-	// 	form,
-	// 	tags: res_tags.data
-	// };
+	if (contentId !== 'new') {
+		const [res_content, res_content_tags] = await Promise.all([
+			get_content_by_id(Number(params.id)),
+			get_tags_for_content([Number(params.id)]),
+		]);
+		if (!res_content || !res_content_tags || res_content_tags.length !== 1) {
+			redirect(302, '/content');
+		}
 
-	return {}
+		data = { ...res_content, tags: res_content_tags[0].map(i => i.id) } as Content
+	}
+
+	const form = await superValidate(data, zod(schema), {});
+	return {
+		form,
+		tags: all_tags
+	};
 };
 
 export const actions = {
-	default: async ({ request }) => {
+	default: async ({ params, request }) => {
 		const form = await superValidate(request, zod(schema));
 		if (!form.valid) {
 			return fail(400, { form });
 		}
+
 		try {
-			await contentService.update_content(form.data.id, form.data);
-			redirect(304, '/content');
+			if (params.id === 'new') {
+				create_content(form.data);
+			} else {
+				update_content({...form.data, id: Number(params.id)});
+			}
+			redirect(302, '/content');
 		} catch (error) {
-			return message(form, 'Failed to update content.');
+			return message(form, 'Failed to save content.');
 		}
 	}
 };
