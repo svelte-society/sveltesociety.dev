@@ -742,8 +742,8 @@ export function seedContent(db: Database.Database) {
       item.rendered_body,
       item.slug,
       item.description,
-      "published",
       children,
+      "published",
       now,
       now
     );
