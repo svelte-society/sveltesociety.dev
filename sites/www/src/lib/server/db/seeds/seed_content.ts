@@ -6,15 +6,15 @@ export function seedContent(db: Database.Database) {
   `);
 
   const insertContentStmt = db.prepare(`
-    INSERT INTO content (title, type, body, rendered_body, slug, description, children, created_at, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO content (title, type, body, rendered_body, slug, description, children, status, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
   const insertContentTagStmt = db.prepare(`
     INSERT INTO content_to_tags (content_id, tag_id)
     VALUES (?, ?)
   `);
-  const tagIds = getAllTagsStmt.all() as Array<{slug: string, id: number}>;
+  const tagIds = getAllTagsStmt.all() as Array<{ slug: string, id: number }>;
 
   const tagMap = new Map(tagIds.map(tag => [tag.slug, tag.id]));
 
@@ -742,6 +742,7 @@ export function seedContent(db: Database.Database) {
       item.rendered_body,
       item.slug,
       item.description,
+      "published",
       children,
       now,
       now
