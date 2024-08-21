@@ -1,31 +1,42 @@
 <script lang="ts">
-	import SuperDebug, { superForm } from 'sveltekit-superforms';
+	import { superForm } from 'sveltekit-superforms';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import Input from '$lib/ui/form/Input.svelte';
+	import 
 	import Select from '$lib/ui/form/Select.svelte';
 	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte';
 	import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte';
 	import { schema } from './schema';
-	import {slugify} from "$lib/utils/slug";
-	import { slide } from "svelte/transition";
-	import { page } from "$app/stores"
+	import { slugify } from '$lib/utils/slug';
+	import { slide } from 'svelte/transition';
+	import { page } from '$app/stores';
 
 	let { data } = $props();
 	const { form, errors, enhance } = superForm(data.form, {
 		validators: zod(schema),
 		dataType: 'json'
 	});
-	async function tryVideo(id: string): Promise<{ preview: string, title: string, author: string } | undefined> {
-		return fetch(`https://www.youtube.com/oembed?url=https%3A//youtube.com/watch%3Fv%3D${id}&format=json`)
-				.then(response => response.json())
-				.then(response => ({preview: response.thumbnail_url, title: response.title, author: response.author_name }))
-				.catch(_ => undefined)
+	async function tryVideo(
+		id: string
+	): Promise<{ preview: string; title: string; author: string } | undefined> {
+		return fetch(
+			`https://www.youtube.com/oembed?url=https%3A//youtube.com/watch%3Fv%3D${id}&format=json`
+		)
+			.then((response) => response.json())
+			.then((response) => ({
+				preview: response.thumbnail_url,
+				title: response.title,
+				author: response.author_name
+			}))
+			.catch((_) => undefined);
 	}
-	const startingTitle = $form.title
+	const startingTitle = $form.title;
 </script>
 
 <div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
-	<h1 class="mb-6 text-3xl font-bold text-gray-800">{#if $page.params.id === 'new'}Create New Content{:else}Edit <var>{startingTitle}</var>{/if}</h1>
+	<h1 class="mb-6 text-3xl font-bold text-gray-800">
+		{#if $page.params.id === 'new'}Create New Content{:else}Edit <var>{startingTitle}</var>{/if}
+	</h1>
 	<form method="POST" use:enhance class="space-y-6">
 		<input type="hidden" name="status" value={$form.status} />
 		<Input
@@ -48,21 +59,36 @@
 			bind:value={$form.type}
 			errors={$errors.type}
 		/>
+		<Select
+			name="status"
+			label="Status"
+			description="Select the status"
+			options={[
+				{ value: 'draft', label: 'Draft' },
+				{ value: 'published', label: 'Published' },
+				{ value: 'archived', label: 'Archived' }
+			]}
+			bind:value={$form.status}
+			errors={$errors.status}
+		/>
 		{#if $form.type === 'video'}
 			<div transition:slide class="space-y-2">
 				<Input
-						name="metadata[videoId]"
-						label="Youtube video Id"
-						type="text"
-						placeholder="RVnxF3j3N8U"
-						description="Enter the Id of the Youtube video"
-						bind:value={$form.metadata.videoId}
-						errors={$errors.metadata?.videoId}
+					name="metadata[videoId]"
+					label="Youtube video Id"
+					type="text"
+					placeholder="RVnxF3j3N8U"
+					description="Enter the Id of the Youtube video"
+					bind:value={$form.metadata.videoId}
+					errors={$errors.metadata?.videoId}
 				/>
 			</div>
 			{#await tryVideo($form.metadata.videoId) then info}
 				{#if info}
-					<div class="rounded-md border-2 border-transparent bg-slate-100 text-sm text-slate-800 placeholder-slate-500 mx-4 p-4 flex gap-4" style="margin-top: 0.5rem">
+					<div
+						class="mx-4 flex gap-4 rounded-md border-2 border-transparent bg-slate-100 p-4 text-sm text-slate-800 placeholder-slate-500"
+						style="margin-top: 0.5rem"
+					>
 						<img src={info.preview} alt="Video preview" class="max-w-xs rounded" />
 						<div>
 							<strong>{info.title}</strong>
@@ -112,13 +138,8 @@
 				bind:selectedTags={$form.tags}
 			/>
 		</div>
-		<button
-			type="submit"
-			class="w-full rounded-md bg-indigo-600 px-4 py-2 text-white transition duration-150 ease-in-out hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-		>
+		<Button primary fullWidth>
 			{#if $page.params.id === 'new'}Create Content{:else}Update Content{/if}
-		</button>
+		</Button>
 	</form>
 </div>
-
-<SuperDebug data={$errors} />

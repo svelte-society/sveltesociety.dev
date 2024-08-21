@@ -17,7 +17,7 @@ export const load = async ({ params }) => {
 	if (!all_tags) {
 		fail(400, { message: 'Error getting tags' });
 	}
-	let data: Content|undefined = undefined
+	let data: Content | undefined = undefined
 
 	const contentId = params.id
 
@@ -51,7 +51,7 @@ export const actions = {
 			if (params.id === 'new') {
 				create_content(form.data);
 			} else {
-				update_content({...form.data, id: Number(params.id)});
+				update_content({ ...form.data, id: Number(params.id) });
 			}
 			redirect(302, '/content');
 		} catch (error) {
