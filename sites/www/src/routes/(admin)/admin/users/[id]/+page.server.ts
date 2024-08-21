@@ -2,7 +2,7 @@ import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
 import { get_active_roles } from '$lib/server/db/role.js';
-import { get_user, create_or_update_user } from '$lib/server/db/user.js';
+import { get_user, update_user } from '$lib/server/db/user.js';
 import { schema } from './schema';
 
 export const load = async ({ params }) => {
@@ -15,7 +15,6 @@ export const load = async ({ params }) => {
 
 	const form = await superValidate(user, zod(schema));
 
-	console.log(form)
 	return {
 		user: user,
 		roles: roles.map((r) => ({ ...r, label: r.name, value: r.id })),
@@ -30,11 +29,9 @@ export const actions = {
 			return fail(400, { form });
 		}
 
-		const { success } = await create_or_update_user(form.data.id as number, form.data);
+		const updated_user = await update_user(form.data.id as number, form.data);
 
-		if (!success) {
-			return message(form, 'Something went wrong.');
-		}
+		console.log(updated_user)
 
 		// Display a success status message
 		redirect(302, '/admin/users');

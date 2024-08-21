@@ -92,6 +92,48 @@ export const create_or_update_user = (githubInfo: GitHubUserInfo): User => {
     }
 }
 
+export const update_user = (userId: number, updatedInfo: Partial<User>): User | null => {
+    const updateFields = Object.keys(updatedInfo)
+        .filter(key => key !== 'id' && key !== 'github_id') // Exclude id and github_id from updates
+        .map(key => `${key} = @${key}`)
+        .join(', ');
+
+    if (!updateFields) {
+        console.warn('No valid fields to update');
+        return null;
+    }
+
+    const stmt = db.prepare(`
+        UPDATE users
+        SET ${updateFields}
+        WHERE id = @userId
+        RETURNING *
+    `);
+
+    try {
+        const result = stmt.get({ ...updatedInfo, userId }) as User | undefined;
+        return result || null;
+    } catch (error) {
+        console.error('Error updating user:', error);
+        throw error;
+    }
+}
+
+export const delete_user = (userId: number): boolean => {
+    const stmt = db.prepare(`
+      DELETE FROM users
+      WHERE id = @userId
+    `);
+
+    try {
+        const result = stmt.run({ userId });
+        return result.changes > 0;
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        return false;
+    }
+}
+
 
 function extractGithubUserInfo(info: GitHubUserInfo): Omit<User, 'id' | 'role'> {
     return {

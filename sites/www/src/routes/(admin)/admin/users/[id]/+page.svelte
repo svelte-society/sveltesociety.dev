@@ -82,16 +82,14 @@
 		</div>
 
 		<Select
-			name="role_id"
+			name="role"
 			label="Role"
 			description="Select the user's role"
 			options={data.roles.map((role) => ({ value: role.id, label: role.name }))}
-			bind:value={$form.role_id}
-			errors={$errors.role_id}
+			bind:value={$form.role}
+			errors={$errors.role}
 		/>
 
 		<Button primary fullWidth>Update User</Button>
 	</form>
 </div>
-
-<SuperDebug data={$form} />
