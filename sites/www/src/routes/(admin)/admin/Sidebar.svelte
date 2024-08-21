@@ -3,7 +3,7 @@
 	import type { Link } from './types';
 	import NavigationLink from './NavigationLink.svelte';
 
-	let isCollapsed = $state(false);
+	let isCollapsed = $state(true);
 
 	function isActive(href: string) {
 		if (href === '/admin') {
