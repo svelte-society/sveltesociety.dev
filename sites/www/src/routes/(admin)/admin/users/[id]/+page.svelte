@@ -8,7 +8,10 @@
 	import { schema } from './schema';
 
 	let { data } = $props();
-	const { form, errors, enhance } = superForm(data.form, zod(schema));
+	const { form, errors, enhance } = superForm(data.form, {
+		validators: zod(schema),
+		dataType: 'json'
+	});
 </script>
 
 <div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
