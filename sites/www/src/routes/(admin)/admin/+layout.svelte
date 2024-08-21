@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Link } from './types';
 	import Sidebar from './Sidebar.svelte';
-
+	import Breadcrumb from '$lib/ui/Breadcrumb.svelte';
 	let { data, children } = $props();
 
 	let links: Link[] = [
@@ -48,6 +48,7 @@
 	<Sidebar {links} moderationCount={data.moderation_count} />
 	<div class="flex-1 overflow-y-auto">
 		<div class="mx-auto max-w-6xl p-8">
+			<Breadcrumb />
 			{@render children()}
 		</div>
 	</div>

@@ -1,24 +1,28 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 
-	$: path = $page.url.pathname.split('/').filter(Boolean);
-	$: breadcrumbs = path.map((part, index) => ({
+	$: isAdminPage = $page.url.pathname.startsWith('/admin');
+	$: basePath = isAdminPage ? '/admin' : '';
+	$: pathParts = $page.url.pathname.replace(basePath, '').split('/').filter(Boolean);
+	$: breadcrumbs = pathParts.map((part, index) => ({
 		name: part.charAt(0).toUpperCase() + part.slice(1),
-		href: '/' + path.slice(0, index + 1).join('/')
+		href: basePath + '/' + pathParts.slice(0, index + 1).join('/')
 	}));
 
 	$: if ($page.data.content?.title && breadcrumbs.length > 0) {
 		breadcrumbs[breadcrumbs.length - 1].name = $page.data.content.title;
 	}
 
-	$: isHomePage = $page.url.pathname === '/';
+	$: isHomePage = $page.url.pathname === '/' || $page.url.pathname === '/admin';
 </script>
 
 {#if !isHomePage}
 	<nav class="py-4 text-sm">
 		<ol class="flex list-none p-0">
 			<li class="flex items-center">
-				<a href="/" class="text-gray-600 hover:text-gray-900 hover:underline">Home</a>
+				<a href={basePath || '/'} class="text-gray-600 hover:text-gray-900 hover:underline">
+					{isAdminPage ? 'Admin' : 'Home'}
+				</a>
 			</li>
 			{#each breadcrumbs as crumb, index}
 				<li class="flex items-center">
