@@ -12,7 +12,6 @@ const schema = z.object({
 });
 
 export const load: PageServerLoad = async ({ params }) => {
-    console.log(params)
     const tag = get_tag(parseInt(params.id))
 
     if (!tag) {
