@@ -32,7 +32,6 @@
 		"@typescript-eslint/parser": "^6.21.0",
 		"autoprefixer": "^10.4.20",
 		"dotenv": "^16.4.5",
-		"duckdb-async": "^1.0.0",
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.43.0",
@@ -55,6 +54,7 @@
 		"zod": "^3.23.8"
 	},
 	"dependencies": {
+		"duckdb-async": "^1.0.0",
 		"better-sqlite3": "^11.1.2"
 	},
 	"type": "module"
