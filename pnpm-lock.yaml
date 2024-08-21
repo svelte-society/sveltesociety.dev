@@ -112,6 +112,9 @@ importers:
       better-sqlite3:
         specifier: ^11.1.2
         version: 11.1.2
+      duckdb-async:
+        specifier: ^1.0.0
+        version: 1.0.0(encoding@0.1.13)
     devDependencies:
       '@playwright/test':
         specifier: ^1.46.1
@@ -149,9 +152,6 @@ importers:
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
-      duckdb-async:
-        specifier: ^1.0.0
-        version: 1.0.0(encoding@0.1.13)
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -164,6 +164,9 @@ importers:
       marked:
         specifier: ^14.0.0
         version: 14.0.0
+      package-name-regex:
+        specifier: ^4.0.0
+        version: 4.0.0
       postcss:
         specifier: ^8.4.41
         version: 8.4.41
@@ -2576,6 +2579,10 @@ packages:
 
   package-json-from-dist@1.0.0:
     resolution: {integrity: sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==}
+
+  package-name-regex@4.0.0:
+    resolution: {integrity: sha512-rNphQEBCoMdt0dRVtvJF7MkwNycG+XYkdHt2jfBvaZWYeD2Mi/IKUiwH19EWNXpjya2M+i9OIbeKatZz3qb1yQ==}
+    engines: {node: '>=18'}
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -5995,6 +6002,8 @@ snapshots:
       aggregate-error: 3.1.0
 
   package-json-from-dist@1.0.0: {}
+
+  package-name-regex@4.0.0: {}
 
   parent-module@1.0.1:
     dependencies:
