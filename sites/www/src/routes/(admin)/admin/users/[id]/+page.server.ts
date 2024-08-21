@@ -31,9 +31,6 @@ export const actions = {
 
 		const updated_user = await update_user(form.data.id as number, form.data);
 
-		console.log(updated_user)
-
-		// Display a success status message
 		redirect(302, '/admin/users');
 	}
 };
