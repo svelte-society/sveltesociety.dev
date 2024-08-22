@@ -30,16 +30,21 @@
 		"githuburl": "https://github.com/svelte-meetup-hamburg/meetups/issues"
 	},
 	{
+		"name": "Svelte Berlin",
+		"country": "🇩🇪 Germany",
+		"url": "https://lu.ma/ud76698y",
+		"githuburl": "https://github.com/nika-d/svelte-berlin"
+	},
+	{
 		"name": "Amsterdam SvelteJS",
 		"country": "🇳🇱 Netherlands",
 		"url": "https://www.meetup.com/Amsterdam-SvelteJS/",
 		"discord": "https://discord.gg/YWbEhX99"
 	},
 	{
-		"name": "Svelte Bergen",
+		"name": "Svelte Norway",
 		"country": "🇳🇴 Norway",
-		"twitter": "@stephanevanraes",
-		"url": "https://www.downtomeet.com/Svelte-Bergen"
+		"discord": "https://discord.gg/Agneq5jQ7P"
 	},
 	{
 		"name": "Svelte Society Stockholm",

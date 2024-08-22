@@ -1,5 +1,12 @@
 [
 	{
+		"title": "actionview-svelte-handler",
+		"repository": "https://codeberg.org/reesericci/actionview-svelte-handler",
+		"description": "An Action View template handler to create Svelte views seamlessly in Rails applications.",
+		"gem": "actionview-svelte-handler",
+		"categories": ["build-plugins", "integrations"]
+	},
+	{
 		"title": "virtue-ui",
 		"url": "https://github.com/virtueorg/ui",
 		"repository": "https://github.com/virtueorg/ui",
@@ -2017,6 +2024,20 @@
 		"categories": ["data-fetching", "stores-and-state"]
 	},
 	{
+		"title": "@tanstack/svelte-virtual",
+		"repository": "https://github.com/tanstack/virtual",
+		"description": "Headless UI for Virtualizing Large Element Lists in JS/TS, React, Solid, Vue and Svelte",
+		"npm": "@tanstack/svelte-virtual",
+		"categories": ["data-visualisation", "styling-and-layout"]
+	},
+	{
+		"title": "@tanstack/svelte-store",
+		"repository": "https://github.com/tanstack/store",
+		"description": "Framework agnostic, type-safe store w/ reactive framework adapters",
+		"npm": "@tanstack/svelte-store",
+		"categories": ["stores-and-state"]
+	},
+	{
 		"title": "svelte-form-builder",
 		"repository": "https://github.com/pragmatic-engineering/svelte-form-builder-community",
 		"description": "A No-Code Form Builder Library",
@@ -2962,7 +2983,7 @@
 		"url": "https://amadeusitgroup.github.io/AgnosUI/latest/",
 		"repository": "https://github.com/AmadeusITGroup/AgnosUI",
 		"description": "Reactive, accessible and Bootstrap-compliant components for Svelte.",
-		"npm": "@agnos-ui/svelte",
+		"npm": "@agnos-ui/svelte-bootstrap",
 		"categories": ["design-system", "ui-components"]
 	},
 	{
@@ -3069,5 +3090,36 @@
 		"description": "A SvelteKit handler for redirection rules.",
 		"npm": "sveltekit-reroute",
 		"categories": ["routers"]
+	},
+	{
+		"title": "svelte-cartesian",
+		"repository": "https://github.com/theetrain/svelte-cartesian",
+		"description": "Cartesian Product component for Svelte",
+		"npm": "svelte-cartesian",
+		"categories": ["testing", "ui-components", "design-system"]
+	},
+	{
+		"title": "SVAR Core",
+		"url": "https://svar.dev/svelte/core/",
+		"repository": "https://github.com/svar-widgets/core",
+		"description": "Svelte UI library of 20+ fast and responsive components: from buttons to date pickers. Lightweight, customizable, available in light and dark skins.",
+		"npm": "@wx/svelte-core",
+		"categories": ["ui-components"]
+	},
+	{
+		"title": "sveltekit-superactions",
+		"url": "https://superactions.matsku.dev",
+		"repository": "https://github.com/kumpmati/sveltekit-superactions",
+		"description": "A library for type-safely calling server-side code",
+		"npm": "sveltekit-superactions",
+		"categories": ["data-fetching"]
+	},
+	{
+		"title": "svelte-speedometer",
+		"url": "https://github.com/palerdot/svelte-speedometer/",
+		"repository": "https://github.com/palerdot/svelte-speedometer",
+		"description": "Svelte component library for showing speedometer like gauge using d3",
+		"npm": "svelte-speedometer",
+		"categories": ["data-visualisation", "design-system", "ui-components"]
 	}
 ]
