@@ -14,7 +14,7 @@
 	}
 	let {
 		name,
-		value = $bindable(''),
+		value = $bindable(),
 		label,
 		description,
 		placeholder = 'Some text...',
@@ -26,7 +26,7 @@
 	}: TextInputProps = $props();
 	let inputElement: HTMLInputElement;
 
-	let showClearButton = $derived(value.length > 0);
+	let showClearButton = $derived(value?.length > 0);
 
 	function clearText() {
 		value = '';

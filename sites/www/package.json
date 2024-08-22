@@ -36,6 +36,7 @@
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.43.0",
 		"marked": "^14.0.0",
+		"package-name-regex": "^4.0.0",
 		"postcss": "^8.4.41",
 		"postcss-load-config": "^5.1.0",
 		"prettier": "^3.3.3",

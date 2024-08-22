@@ -9,6 +9,7 @@
 	import { slugify } from '$lib/utils/slug';
 	import { slide } from 'svelte/transition';
 	import { page } from '$app/stores';
+	import Button from "$lib/ui/Button.svelte";
 
 	let { data } = $props();
 	const { form, errors, enhance } = superForm(data.form, {
@@ -29,7 +30,18 @@
 			}))
 			.catch((_) => undefined);
 	}
-	const startingTitle = $form.title;
+	async function tryNpm(id: string | undefined): Promise<{ name: string, description: string, keywords: Array<string>, maintainers: Array<{
+			name: string
+		}>, versions: Array<string> } | undefined> {
+		if (!id) {
+			return Promise.reject()
+		}
+		return fetch(`https://registry.npmjs.org/${id}`)
+				.then(response => response.json())
+				.then(response => ({name: response.name, description: response.description, keywords: response.keywords, maintainers: response.maintainers ?? [] }))
+				.catch(_ => undefined)
+	}
+	const startingTitle = $form.title
 </script>
 
 <div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
@@ -53,7 +65,8 @@
 			description="Select the type of content"
 			options={[
 				{ value: 'recipe', label: 'Recipe' },
-				{ value: 'video', label: 'Video' }
+				{ value: 'video', label: 'Video' },
+				{ value: 'library', label: 'Library' }
 			]}
 			bind:value={$form.type}
 			errors={$errors.type}
@@ -93,6 +106,50 @@
 							<strong>{info.title}</strong>
 							<div><i>by</i> {info.author}</div>
 						</div>
+					</div>
+				{/if}
+			{/await}
+		{/if}
+		{#if $form.type === 'library'}
+			<div transition:slide class="space-y-2">
+				<Input
+						name="metadata[npm]"
+						label="NPM name of the package"
+						type="text"
+						placeholder="@sveltejs/kit"
+						description="Enter the NPM package identifier"
+						bind:value={$form.metadata.npm}
+						errors={$errors.metadata?.npm}
+				/>
+			</div>
+			{#await tryNpm($form.metadata.npm) then info}
+				{#if info}
+					<div class="rounded-md border-2 border-transparent bg-slate-100 text-sm text-slate-800 placeholder-slate-500 mx-4 p-4" style="margin-top: 0.5rem">
+						<div class="flex gap-4 items-center">
+							<strong class="text-lg">{info.name}</strong>
+							<p>{info.description}</p>
+						</div>
+						<dl class="mt-4">
+							<dt class="text-slate-600 font-semibold">Authors / Maintainers</dt>
+							<dd class="pl-4">{info.maintainers.map(i => i.name).join(', ')}</dd>
+
+							<dt class="text-slate-600 font-semibold">Keywords</dt>
+							<dd class="pl-4">{info.keywords.join(', ')}</dd>
+						</dl>
+					</div>
+					<div class="flex gap-1 items-end justify-end px-4" style="margin-top: 0.5rem;">
+						<Button secondary onclick={() => $form.title = info.name}>
+							<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M4.5 22V17M4.5 7V2M2 4.5H7M2 19.5H7M13 3L11.2658 7.50886C10.9838 8.24209 10.8428 8.60871 10.6235 8.91709C10.4292 9.1904 10.1904 9.42919 9.91709 9.62353C9.60871 9.8428 9.24209 9.98381 8.50886 10.2658L4 12L8.50886 13.7342C9.24209 14.0162 9.60871 14.1572 9.91709 14.3765C10.1904 14.5708 10.4292 14.8096 10.6235 15.0829C10.8428 15.3913 10.9838 15.7579 11.2658 16.4911L13 21L14.7342 16.4911C15.0162 15.7579 15.1572 15.3913 15.3765 15.0829C15.5708 14.8096 15.8096 14.5708 16.0829 14.3765C16.3913 14.1572 16.7579 14.0162 17.4911 13.7342L22 12L17.4911 10.2658C16.7579 9.98381 16.3913 9.8428 16.0829 9.62353C15.8096 9.42919 15.5708 9.1904 15.3765 8.91709C15.1572 8.60871 15.0162 8.24209 14.7342 7.50886L13 3Z" stroke="currentcolor" opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+							Title
+						</Button>
+						<Button secondary onclick={() => $form.description = info.description}>
+							<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M4.5 22V17M4.5 7V2M2 4.5H7M2 19.5H7M13 3L11.2658 7.50886C10.9838 8.24209 10.8428 8.60871 10.6235 8.91709C10.4292 9.1904 10.1904 9.42919 9.91709 9.62353C9.60871 9.8428 9.24209 9.98381 8.50886 10.2658L4 12L8.50886 13.7342C9.24209 14.0162 9.60871 14.1572 9.91709 14.3765C10.1904 14.5708 10.4292 14.8096 10.6235 15.0829C10.8428 15.3913 10.9838 15.7579 11.2658 16.4911L13 21L14.7342 16.4911C15.0162 15.7579 15.1572 15.3913 15.3765 15.0829C15.5708 14.8096 15.8096 14.5708 16.0829 14.3765C16.3913 14.1572 16.7579 14.0162 17.4911 13.7342L22 12L17.4911 10.2658C16.7579 9.98381 16.3913 9.8428 16.0829 9.62353C15.8096 9.42919 15.5708 9.1904 15.3765 8.91709C15.1572 8.60871 15.0162 8.24209 14.7342 7.50886L13 3Z" stroke="currentcolor" opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+							Description
+						</Button>
 					</div>
 				{/if}
 			{/await}
