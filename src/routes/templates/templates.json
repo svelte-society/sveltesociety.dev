@@ -678,12 +678,10 @@
 		"description": "An opinionated template for building full-stack Svelte applications ridiculously fast. Includes auth, database, admin panel, user dashboard, themes, icons, and more.",
 		"npm": "svelte-lorem-ipsum",
 		"categories": [
-			"svelte",
-			"svelte-add",
 			"sveltekit",
+			"svelte-add",
 			"database",
 			"ssr",
-			"preprocessors",
 			"integrations",
 			"mobile"
 		]
