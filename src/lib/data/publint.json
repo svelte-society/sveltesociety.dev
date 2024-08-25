@@ -342,7 +342,7 @@
 	"@mavthedev/svodals": { "valid": true },
 	"svelte-persisted-store": { "valid": true },
 	"svelte-stripe": { "valid": true },
-	"vite-plugin-kit-routes": { "valid": false },
+	"vite-plugin-kit-routes": { "valid": true },
 	"svelte-action-balancer": { "valid": true },
 	"svelte-sonner": { "valid": true },
 	"@square/svelte-store": { "valid": true },
