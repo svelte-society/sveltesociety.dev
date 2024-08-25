@@ -6,8 +6,8 @@
 </script>
 
 <div class="flex min-h-screen flex-col">
-	<header class="border-svelte-900 border-b-4 p-4">
-		<div class="container mx-auto flex items-center justify-between gap-4">
+	<header class="border-b-4 border-svelte-900 py-4">
+		<div class="container mx-auto flex max-w-7xl items-center justify-between gap-4 px-4">
 			<a href="/" class="flex items-center gap-2">
 				<svg
 					width="117"
@@ -83,7 +83,7 @@
 		</div>
 	</header>
 
-	<div class="mx-auto flex w-full max-w-6xl flex-1">
+	<div class="mx-auto flex w-full max-w-7xl">
 		{@render children()}
 	</div>
 </div>

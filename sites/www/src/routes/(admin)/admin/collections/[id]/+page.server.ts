@@ -6,47 +6,47 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { z } from 'zod';
 
 const schema = z.object({
-    id: z.number(),
-    title: z.string().min(1, 'Title is required'),
-    description: z.string().min(1, 'Description is required'),
-    children: z.array(z.number()).min(1, 'Children are required'),
-    slug: z.string().min(1, 'Slug is required')
+	id: z.number(),
+	title: z.string().min(1, 'Title is required'),
+	description: z.string().min(1, 'Description is required'),
+	children: z.array(z.number()).min(1, 'Children are required'),
+	slug: z.string().min(1, 'Slug is required')
 });
 
 export const load: PageServerLoad = async ({ params }) => {
-    const id = parseInt(params.id);
-    const collection = get_content_by_id(id);
+	const id = parseInt(params.id);
+	const collection = get_content_by_id(id);
 
-    if (!collection) {
-        throw error(404, 'Collection not found');
-    }
+	if (!collection) {
+		throw error(404, 'Collection not found');
+	}
 
-    const form = await superValidate(collection, zod(schema));
-    return {
-        form
-    };
+	const form = await superValidate(collection, zod(schema));
+	return {
+		form
+	};
 };
 
 export const actions: Actions = {
-    default: async ({ request }) => {
-        const form = await superValidate(request, zod(schema));
-        if (!form.valid) {
-            return fail(400, { form });
-        }
+	default: async ({ request }) => {
+		const form = await superValidate(request, zod(schema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
 
-        const result = update_content({
-            id: form.data.id,
-            title: form.data.title,
-            description: form.data.description,
-            children: form.data.children,
-            slug: form.data.slug,
-            type: 'collection'
-        });
+		const result = update_content({
+			id: form.data.id,
+			title: form.data.title,
+			description: form.data.description,
+			children: form.data.children,
+			slug: form.data.slug,
+			type: 'collection'
+		});
 
-        if (result) {
-            throw redirect(303, '/admin/collections');
-        } else {
-            throw error(500, 'Failed to update collection');
-        }
-    }
+		if (result) {
+			throw redirect(303, '/admin/collections');
+		} else {
+			throw error(500, 'Failed to update collection');
+		}
+	}
 };

@@ -6,8 +6,8 @@ import { get_user, update_user } from '$lib/server/db/user.js';
 import { schema } from './schema';
 
 export const load = async ({ params }) => {
-	const user = get_user(parseInt(params.id))
-	const roles = get_active_roles()
+	const user = get_user(parseInt(params.id));
+	const roles = get_active_roles();
 
 	if (!user) {
 		redirect(302, '/admin/users');

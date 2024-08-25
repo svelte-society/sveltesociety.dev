@@ -5,40 +5,40 @@ import type { Actions } from './$types';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
-import { schema } from './schema.js'
+import { schema } from './schema.js';
 
 export const load = async () => {
-    const tags = get_tags();
-    const content = get_content();
-    const form = await superValidate(zod(schema));
+	const tags = get_tags();
+	const content = get_content();
+	const form = await superValidate(zod(schema));
 
-    return {
-        form,
-        content,
-        tags
-    }
+	return {
+		form,
+		content,
+		tags
+	};
 };
 
 export const actions: Actions = {
-    default: async ({ request }) => {
-        const form = await superValidate(request, zod(schema));
+	default: async ({ request }) => {
+		const form = await superValidate(request, zod(schema));
 
-        if (!form.valid) {
-            return fail(400, { form });
-        }
+		if (!form.valid) {
+			return fail(400, { form });
+		}
 
-        const result = create_content({
-            title: form.data.title,
-            description: form.data.description,
-            children: form.data.children,
-            slug: form.data.slug,
-            type: 'collection'
-        });
+		const result = create_content({
+			title: form.data.title,
+			description: form.data.description,
+			children: form.data.children,
+			slug: form.data.slug,
+			type: 'collection'
+		});
 
-        if (result) {
-            redirect(303, '/admin/collections');
-        } else {
-            error(500, 'Failed to create collection');
-        }
-    }
+		if (result) {
+			redirect(303, '/admin/collections');
+		} else {
+			error(500, 'Failed to create collection');
+		}
+	}
 };

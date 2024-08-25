@@ -32,7 +32,7 @@
 	{/if}
 	<div class="relative">
 		<select
-			bind:value={value}
+			bind:value
 			{name}
 			class="w-full appearance-none rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-8 text-sm text-slate-800"
 			class:error={false}
