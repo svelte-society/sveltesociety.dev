@@ -31,7 +31,7 @@
 			{name}
 			bind:value
 			placeholder="Enter markdown here"
-			class="display h-[500px] w-full resize-none rounded-md border p-4 font-mono focus:ring-2 focus:ring-blue-500"
+			class="display font-mono h-[500px] w-full resize-none rounded-md border p-4 focus:ring-2 focus:ring-blue-500"
 		></textarea>
 		{#if tab === 'preview'}
 			<div class="prose h-[500px] max-w-none overflow-y-auto rounded-md border bg-gray-50 p-4">
@@ -43,6 +43,6 @@
 
 <style lang="postcss">
 	.active {
-		@apply border-svelte-900 text-svelte-900 border-b-2;
+		@apply border-b-2 border-svelte-900 text-svelte-900;
 	}
 </style>

@@ -107,13 +107,13 @@
 
 <style lang="postcss">
 	.primary {
-		@apply bg-svelte-900 focus:ring-svelte-900 text-white hover:brightness-150;
+		@apply bg-svelte-900 text-white hover:brightness-150 focus:ring-svelte-900;
 	}
 	.secondary {
 		@apply bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500;
 	}
 	.tertiary {
-		@apply bg-svelte-100 border-svelte-300 focus:ring-svelte-900 text-svelte-900 border text-sm font-bold;
+		@apply border border-svelte-300 bg-svelte-100 text-sm font-bold text-svelte-900 focus:ring-svelte-900;
 	}
 
 	.success {

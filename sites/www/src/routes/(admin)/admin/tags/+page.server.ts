@@ -6,29 +6,29 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { z } from 'zod';
 
 const deleteSchema = z.object({
-    id: z.number().int().positive()
+	id: z.number().int().positive()
 });
 
 export const load: PageServerLoad = async () => {
-    const result = get_tags() || []
-    const form = await superValidate(zod(deleteSchema));
+	const result = get_tags() || [];
+	const form = await superValidate(zod(deleteSchema));
 
-    if (!result) {
-        return fail(400, { message: 'Error getting tags' });
-    }
+	if (!result) {
+		return fail(400, { message: 'Error getting tags' });
+	}
 
-    return { tags: result, form };
+	return { tags: result, form };
 };
 
 export const actions: Actions = {
-    delete: async (event) => {
-        const form = await superValidate(event, zod(deleteSchema));
+	delete: async (event) => {
+		const form = await superValidate(event, zod(deleteSchema));
 
-        if (!form.valid) {
-            return fail(400, { form });
-        }
+		if (!form.valid) {
+			return fail(400, { form });
+		}
 
-        delete_tag(form.data.id);
-        redirect(302, '/admin/tags');
-    }
+		delete_tag(form.data.id);
+		redirect(302, '/admin/tags');
+	}
 };

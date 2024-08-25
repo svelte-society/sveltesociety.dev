@@ -6,8 +6,8 @@ const config = {
 
 	theme: {
 		fontFamily: {
-			'display': ['Inter'],
-			'body': ['Inter']
+			display: ['Inter'],
+			body: ['Inter']
 		},
 		extend: {
 			colors: {

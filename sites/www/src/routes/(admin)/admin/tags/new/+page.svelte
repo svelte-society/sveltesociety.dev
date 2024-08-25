@@ -3,7 +3,7 @@
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { schema } from './schema';
 	import { superForm } from 'sveltekit-superforms';
-	import {slugify} from "$lib/utils/slug";
+	import { slugify } from '$lib/utils/slug';
 	let { data } = $props();
 	const { form, errors, enhance } = superForm(data.form, zod(schema));
 </script>

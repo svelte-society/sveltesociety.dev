@@ -13,24 +13,24 @@ import { get_tags } from '$lib/server/db/tags';
 import { schema } from './schema';
 
 export const load = async ({ params }) => {
-	const all_tags = get_tags()
+	const all_tags = get_tags();
 	if (!all_tags) {
 		fail(400, { message: 'Error getting tags' });
 	}
-	let data: Content | undefined = undefined
+	let data: Content | undefined = undefined;
 
-	const contentId = params.id
+	const contentId = params.id;
 
 	if (contentId !== 'new') {
 		const [res_content, res_content_tags] = await Promise.all([
 			get_content_by_id(Number(params.id)),
-			get_tags_for_content([Number(params.id)]),
+			get_tags_for_content([Number(params.id)])
 		]);
 		if (!res_content || !res_content_tags || res_content_tags.length !== 1) {
 			redirect(302, '/content');
 		}
 
-		data = { ...res_content, tags: res_content_tags[0].map(i => i.id) } as Content
+		data = { ...res_content, tags: res_content_tags[0].map((i) => i.id) } as Content;
 	}
 
 	const form = await superValidate(data, zod(schema), {});

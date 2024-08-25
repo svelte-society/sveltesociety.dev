@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS roles (
 CREATE TABLE IF NOT EXISTS content (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL UNIQUE,
-    type TEXT NOT NULL CHECK(type IN ('recipe', 'video', 'library', 'link', 'blog', 'collection')),
+    type TEXT NOT NULL CHECK(type IN ('recipe', 'video', 'library', 'announcement', 'showcase', 'link', 'blog', 'collection')),
     status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft', 'published', 'archived', 'pending_review')),
     body TEXT,
     rendered_body TEXT,
@@ -109,8 +109,8 @@ CREATE TABLE IF NOT EXISTS saves (
 -- Full-text search
 CREATE VIRTUAL TABLE IF NOT EXISTS content_fts USING fts5(
   content_id UNINDEXED,
-  title, 
-  body, 
+  title,
+  body,
   description
 );
 

@@ -4,7 +4,7 @@ import { get_moderation_queue_count } from '$lib/server/db/moderation';
 import type { PageServerLoad } from './$types';
 
 export const load = (async () => {
-	const users = get_user_count()
+	const users = get_user_count();
 	const content = get_content_count();
 	const moderation_queue = get_moderation_queue_count();
 

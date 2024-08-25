@@ -6,33 +6,33 @@ import type { PageServerLoad, Actions } from './$types';
 import { z } from 'zod';
 
 const schema = z.object({
-    id: z.number(),
-    name: z.string().min(1, 'Name is required'),
-    slug: z.string().min(1, 'Slug is required')
+	id: z.number(),
+	name: z.string().min(1, 'Name is required'),
+	slug: z.string().min(1, 'Slug is required')
 });
 
 export const load: PageServerLoad = async ({ params }) => {
-    const tag = get_tag(parseInt(params.id))
+	const tag = get_tag(parseInt(params.id));
 
-    if (!tag) {
-        throw error(404, 'Tag not found');
-    }
+	if (!tag) {
+		throw error(404, 'Tag not found');
+	}
 
-    const form = await superValidate(tag, zod(schema));
+	const form = await superValidate(tag, zod(schema));
 
-    return { form };
+	return { form };
 };
 
 export const actions: Actions = {
-    default: async ({ request }) => {
-        const form = await superValidate(request, zod(schema));
+	default: async ({ request }) => {
+		const form = await superValidate(request, zod(schema));
 
-        if (!form.valid) {
-            return fail(400, { form });
-        }
+		if (!form.valid) {
+			return fail(400, { form });
+		}
 
-        update_tag(form.data)
+		update_tag(form.data);
 
-        redirect(302, '/admin/tags');
-    }
+		redirect(302, '/admin/tags');
+	}
 };
