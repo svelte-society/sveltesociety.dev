@@ -4,7 +4,6 @@
 	let PLAUSIBLE_HTML =
 		'<script' +
 		`async src="https://analytics.sveltesociety.dev/js/embed.host.js">` +
-		'<' +
 		`
 
     <iframe
