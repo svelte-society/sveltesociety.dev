@@ -1,6 +1,6 @@
 -- Users table
 CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY,
+    id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
     github_id INTEGER UNIQUE,
     email TEXT,
     username TEXT UNIQUE,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS roles (
 
 -- Content table
 CREATE TABLE IF NOT EXISTS content (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
     title TEXT NOT NULL UNIQUE,
     type TEXT NOT NULL CHECK(type IN ('recipe', 'video', 'library', 'announcement', 'showcase', 'link', 'blog', 'collection')),
     status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft', 'published', 'archived', 'pending_review')),
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS content_to_users (
 
 -- Tags table
 CREATE TABLE IF NOT EXISTS tags (
-    id INTEGER PRIMARY KEY,
+    id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
     name TEXT NOT NULL,
     slug TEXT NOT NULL UNIQUE,
     color TEXT,
@@ -86,7 +86,7 @@ CREATE INDEX IF NOT EXISTS tag_id_idx ON content_to_tags(tag_id);
 
 -- Likes table
 CREATE TABLE IF NOT EXISTS likes (
-    id INTEGER PRIMARY KEY,
+    id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
     user_id INTEGER NOT NULL,
     target_id INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS likes (
 
 -- Saves table
 CREATE TABLE IF NOT EXISTS saves (
-    id INTEGER PRIMARY KEY,
+    id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
     user_id INTEGER NOT NULL,
     target_id INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -116,7 +116,7 @@ CREATE VIRTUAL TABLE IF NOT EXISTS content_fts USING fts5(
 
 -- Moderation queue table
 CREATE TABLE IF NOT EXISTS moderation_queue (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
     title TEXT GENERATED ALWAYS AS (
         COALESCE(JSON_EXTRACT(data, '$.title'), '<No Title>')
     ) VIRTUAL,
