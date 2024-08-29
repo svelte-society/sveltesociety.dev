@@ -18,7 +18,7 @@ export function seedInteractions(db: Database.Database) {
 	}
 
 	// Get the first two content pieces (assuming we have at least two)
-	const contentItems = db.prepare('SELECT id FROM content LIMIT 2').all() as { id: number }[];
+	const contentItems = db.prepare('SELECT id FROM content LIMIT 2').all() as { id: string }[];
 
 	if (contentItems.length < 2) {
 		console.error('Not enough content items found. Please seed content first.');
