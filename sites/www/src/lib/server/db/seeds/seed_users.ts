@@ -6,8 +6,8 @@ export function seedUsers(db: Database.Database) {
     `);
 
 	const insertUserStmt = db.prepare(`
-      INSERT INTO users (id, github_id, email, username, name, avatar_url, bio, location, twitter, role, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO users (github_id, email, username, name, avatar_url, bio, location, twitter, role, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
 	try {
@@ -17,7 +17,6 @@ export function seedUsers(db: Database.Database) {
 		}
 
 		insertUserStmt.run(
-			1,
 			534488,
 			null,
 			'kevmodrome',

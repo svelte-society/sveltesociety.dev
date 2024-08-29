@@ -1,6 +1,9 @@
 import Database from 'better-sqlite3';
 
 export function seedModerationQueue(db: Database.Database) {
+	// Get the first user's ID (assuming we have at least one user)
+	const user = db.prepare('SELECT id FROM users LIMIT 1').get() as { id: string };
+
 	const insertModerationItemStmt = db.prepare(`
         INSERT INTO moderation_queue (type, status, data, submitted_by, submitted_at)
         VALUES (?, ?, ?, ?, ?)
@@ -15,7 +18,7 @@ export function seedModerationQueue(db: Database.Database) {
 				body: 'This tutorial covers the new runes feature in Svelte 5...',
 				type: 'recipe'
 			}),
-			submitted_by: 1
+			submitted_by: user.id
 		},
 		{
 			type: 'content',
@@ -25,7 +28,7 @@ export function seedModerationQueue(db: Database.Database) {
 				body: 'A collection of useful utility functions for SvelteKit projects...',
 				type: 'recipe'
 			}),
-			submitted_by: 1
+			submitted_by: user.id
 		},
 		{
 			type: 'content',
@@ -35,7 +38,7 @@ export function seedModerationQueue(db: Database.Database) {
 				body: 'Step-by-step guide to creating a blog using SvelteKit...',
 				type: 'recipe'
 			}),
-			submitted_by: 1
+			submitted_by: user.id
 		}
 	];
 
