@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
 	const colors = {
 		default: 'bg-gray-100 text-gray-800',
 		primary: 'bg-blue-100 text-blue-800',
