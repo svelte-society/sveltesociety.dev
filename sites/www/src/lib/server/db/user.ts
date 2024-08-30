@@ -12,7 +12,7 @@ interface GitHubUserInfo {
 }
 
 export interface User {
-	id: number;
+	id: string;
 	github_id: number;
 	email: string | null;
 	username: string;
