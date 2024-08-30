@@ -67,13 +67,12 @@ export const actions = {
 		if (!locals.user) return;
 		const data = await request.formData();
 		const type = data.get('type') as 'like' | 'save';
-		const contentId = Number(data.get('id'));
+		const contentId = data.get('id') as string || null;
 		const action = data.get('action') as 'add' | 'remove';
 
 		if (
 			!['like', 'save'].includes(type) ||
-			!['add', 'remove'].includes(action) ||
-			isNaN(contentId)
+			!['add', 'remove'].includes(action) || !contentId
 		) {
 			return fail(400, { message: 'Invalid input' });
 		}

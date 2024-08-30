@@ -52,13 +52,13 @@ export function get_user_likes_and_saves_count(user_id: number | undefined): {
 
 type InteractionType = 'like' | 'save';
 
-export function add_interaction(type: InteractionType, userId: number, contentId: number): void {
+export function add_interaction(type: InteractionType, userId: string, contentId: string): void {
 	const table = `${type}s`;
 	const query = `INSERT OR IGNORE INTO ${table} (user_id, target_id, created_at) VALUES (?, ?, CURRENT_TIMESTAMP)`;
 	db.prepare(query).run(userId, contentId);
 }
 
-export function remove_interaction(type: InteractionType, userId: number, contentId: number): void {
+export function remove_interaction(type: InteractionType, userId: string, contentId: string): void {
 	const table = `${type}s`;
 	const query = `DELETE FROM ${table} WHERE user_id = ? AND target_id = ?`;
 	db.prepare(query).run(userId, contentId);
