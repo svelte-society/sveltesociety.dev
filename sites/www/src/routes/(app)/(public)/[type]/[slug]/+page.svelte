@@ -4,6 +4,6 @@
 	let { data } = $props();
 </script>
 
-<ContentCard {...data.content} />
+<ContentCard {...data.content} extra={data.extra} />
 
 AuthorCard goes here

@@ -130,3 +130,14 @@ CREATE TABLE IF NOT EXISTS moderation_queue (
     FOREIGN KEY (submitted_by) REFERENCES users(id),
     FOREIGN KEY (moderated_by) REFERENCES users(id)
 );
+
+-- metadata table
+CREATE TABLE IF NOT EXISTS metadata (
+    content_id TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expired_at TIMESTAMP,
+    content TEXT,
+    status TEXT NOT NULL DEFAULT 'pending' CHECK ( status in ('pending', 'fresh', 'stale') ),
+    PRIMARY KEY (content_id, created_at),
+    FOREIGN KEY (content_id) REFERENCES content(id)
+);

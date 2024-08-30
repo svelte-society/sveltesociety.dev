@@ -11,6 +11,7 @@ import {
 	remove_interaction
 } from '$lib/server/db/interactions';
 import { fail } from '@sveltejs/kit';
+import { get_metadata } from '$lib/server/db/metadata';
 
 export const load: PageServerLoad = async ({ url, fetch, locals }) => {
 	const searchQuery = url.searchParams.get('search');
@@ -32,7 +33,7 @@ export const load: PageServerLoad = async ({ url, fetch, locals }) => {
 		const content_with_tags = content.map((c, i) => ({ ...c, tags: tags[i] || [] }));
 		const all_children = [
 			...new Set(content.reduce((acc, c) => [...acc, ...JSON.parse(c.children ?? '[]')], []))
-		];
+		] as string[];
 		const children = get_content_by_ids(all_children);
 
 		let content_with_tags_and_children = content_with_tags.map((c, i) => ({
@@ -56,7 +57,10 @@ export const load: PageServerLoad = async ({ url, fetch, locals }) => {
 		}
 
 		return {
-			content: content_with_tags_and_children,
+			content: content_with_tags_and_children.map((item) => ({
+				...item,
+				extra: get_metadata(item.id).content
+			})),
 			count: 0
 		};
 	}

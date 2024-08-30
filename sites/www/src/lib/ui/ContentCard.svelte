@@ -8,6 +8,7 @@
 	import Recipe from '$lib/ui/content/Recipe.svelte';
 	import Collection from '$lib/ui/content/Collection.svelte';
 	import Video from '$lib/ui/content/Video.svelte';
+	import Library from '$lib/ui/content/Library.svelte';
 
 	interface ContentCardProps {
 		id: string | number;
@@ -25,6 +26,7 @@
 		tags: string[];
 		slug: string;
 		child_content: any[];
+		extra: any;
 	}
 
 	let {
@@ -42,7 +44,8 @@
 		saved,
 		tags,
 		slug,
-		child_content
+		child_content,
+		extra
 	}: ContentCardProps = $props();
 
 	let submitting_like_toggle = $state(false);
@@ -187,7 +190,9 @@
 		{:else if type === 'collection'}
 			<Collection {type} {slug} {child_content} />
 		{:else if type === 'video'}
-			<Video />
+			<Video {...extra} />
+		{:else if type === 'library'}
+			<Library {...extra} />
 		{/if}
 	</div>
 
