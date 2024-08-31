@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { formatRelativeDate } from '$lib/utils/date';
 
-	let { cover, updated_at, last }: { cover: string; updated_at: string; last: string } = $props();
+	type Props = { cover: string; updated_at: string; last: string; week_download: number };
+
+	let { cover, updated_at, last, week_download }: Props = $props();
 </script>
 
 {#if last && updated_at}
@@ -10,6 +12,8 @@
 		<dd>{last}</dd>
 		<dt>Last update</dt>
 		<dd>{formatRelativeDate(updated_at)}</dd>
+		<dt>Last week download</dt>
+		<dd>{Intl.NumberFormat().format(week_download)}</dd>
 	</dl>
 {/if}
 {#if cover}

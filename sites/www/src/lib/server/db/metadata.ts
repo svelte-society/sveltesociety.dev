@@ -115,6 +115,9 @@ async function get_npm_metadata(metadata: Content['metadata']): Promise<FetchMet
 	const npmResponse = (await fetch(`https://registry.npmjs.org/${metadata.npm}`).then((response) =>
 		response.json()
 	)) as NpmResponse;
+	const npmDownload = (await fetch(
+		`https://api.npmjs.org/downloads/point/last-week/${metadata.npm}`
+	).then((response) => response.json())) as NpmDownloadResponse;
 
 	const get_cover = (repository: string): string | undefined => {
 		if (repository.startsWith('https://github.com/')) {
@@ -135,7 +138,8 @@ async function get_npm_metadata(metadata: Content['metadata']): Promise<FetchMet
 			updated_at: npmResponse.time.modified,
 			last: npmResponse['dist-tags'].latest,
 			repository: npmResponse.repository.url,
-			cover: get_cover(npmResponse.repository.url)
+			cover: get_cover(npmResponse.repository.url),
+			week_download: npmDownload.downloads
 		}),
 		expired_at: Date.now() + 24 * 3600 * 1000
 	};
@@ -153,4 +157,10 @@ interface NpmResponse {
 		[version: string]: string;
 	};
 	repository: { url: string; type: string };
+}
+interface NpmDownloadResponse {
+	downloads: number;
+	start: string;
+	end: string;
+	package: string;
 }

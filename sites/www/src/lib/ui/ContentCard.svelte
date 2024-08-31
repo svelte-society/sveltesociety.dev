@@ -9,12 +9,14 @@
 	import Collection from '$lib/ui/content/Collection.svelte';
 	import Video from '$lib/ui/content/Video.svelte';
 	import Library from '$lib/ui/content/Library.svelte';
+	import SvelteMarkdown from 'svelte-markdown';
 
 	interface ContentCardProps {
 		id: string | number;
 		title: string;
 		description?: string;
 		rendered_body?: string;
+		body?: string;
 		type: string;
 		author: string;
 		published_at: string;
@@ -34,6 +36,7 @@
 		title,
 		description,
 		rendered_body,
+		body,
 		type,
 		author,
 		published_at,
@@ -195,6 +198,15 @@
 			<Library {...extra} />
 		{/if}
 	</div>
+	{#if $page.route.id === '/(app)/(public)/[type]/[slug]'}
+		<section class="markdown-body">
+			{#if rendered_body}
+				{@html rendered_body}
+			{:else if body}
+				<SvelteMarkdown source={body} />
+			{/if}
+		</section>
+	{/if}
 
 	<div class="mt-4 grid grid-cols-[1fr_auto] items-start justify-between">
 		<div class="flex space-x-2">
@@ -204,3 +216,10 @@
 		<div class="text-xs text-gray-500">{formatRelativeDate(published_at)}</div>
 	</div>
 </article>
+
+<style>
+	.markdown-body {
+		padding: 1.5rem;
+		border-radius: 8px;
+	}
+</style>
