@@ -677,13 +677,6 @@
 		"repository": "https://github.com/engageintellect/spatz-2",
 		"description": "An opinionated template for building full-stack Svelte applications ridiculously fast. Includes auth, database, admin panel, user dashboard, themes, icons, and more.",
 		"npm": "svelte-lorem-ipsum",
-		"categories": [
-			"sveltekit",
-			"svelte-add",
-			"database",
-			"ssr",
-			"integrations",
-			"mobile"
-		]
+		"categories": ["sveltekit", "svelte-add", "database", "ssr", "integrations", "mobile"]
 	}
 ]
