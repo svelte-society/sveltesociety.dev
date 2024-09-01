@@ -198,7 +198,7 @@
 			<Library {...extra} />
 		{/if}
 	</div>
-	{#if $page.route.id === '/(app)/(public)/[type]/[slug]'}
+	{#if $page.route.id === '/(app)/(public)/[type]/[slug]' && (rendered_body || body)}
 		<section class="markdown-body">
 			{#if rendered_body}
 				{@html rendered_body}

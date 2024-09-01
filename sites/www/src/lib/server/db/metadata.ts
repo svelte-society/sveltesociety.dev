@@ -64,6 +64,7 @@ async function background_load(content_id: string): Promise<void> {
 		UPDATE metadata SET status = 'stale' WHERE content_id = @content_id
 	`);
 	staleStmt.run({ content_id });
+	await new Promise((resolve) => setTimeout(resolve, 1000));
 
 	// Create next content
 	const pendingStmt = db.prepare(`
@@ -135,12 +136,12 @@ async function get_npm_metadata(metadata: Content['metadata']): Promise<FetchMet
 
 	const get_cover = (repository: string): string | undefined => {
 		if (repository.startsWith('https://github.com/')) {
-			return npmResponse.repository.url
+			return repository
 				.replace('https://github.com/', 'https://opengraph.githubassets.com/HEAD/')
 				.replace(/\.git$/, '');
 		}
 		if (repository.startsWith('git+https://github.com/')) {
-			return npmResponse.repository.url
+			return repository
 				.replace('git+https://github.com/', 'https://opengraph.githubassets.com/HEAD/')
 				.replace(/\.git$/, '');
 		}
@@ -149,12 +150,12 @@ async function get_npm_metadata(metadata: Content['metadata']): Promise<FetchMet
 
 	return {
 		content: JSON.stringify({
-			updated_at: npmResponse.time.modified,
-			last: npmResponse['dist-tags'].latest,
-			repository: npmResponse.repository.url,
-			cover: get_cover(npmResponse.repository.url),
+			updated_at: npmResponse.time?.modified,
+			last: npmResponse['dist-tags']?.latest,
+			repository: npmResponse.repository?.url,
+			cover: get_cover(npmResponse.repository?.url ?? ''),
 			week_download: npmDownload.downloads,
-			author: npmResponse.maintainers.map((item) => item.name).join(', ')
+			author: npmResponse.maintainers?.map((item) => item.name).join(', ')
 		}),
 		expired_at: Date.now() + 24 * 3600 * 1000
 	};
