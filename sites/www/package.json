@@ -35,7 +35,6 @@
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.43.0",
-		"github-markdown-css": "^5.6.1",
 		"marked": "^14.0.0",
 		"package-name-regex": "^4.0.0",
 		"postcss": "^8.4.41",

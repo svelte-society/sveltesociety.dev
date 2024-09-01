@@ -161,9 +161,6 @@ importers:
       eslint-plugin-svelte:
         specifier: ^2.43.0
         version: 2.43.0(eslint@8.57.0)(svelte@5.0.0-next.241)
-      github-markdown-css:
-        specifier: ^5.6.1
-        version: 5.6.1
       marked:
         specifier: ^14.0.0
         version: 14.0.0
@@ -1881,10 +1878,6 @@ packages:
 
   github-from-package@0.0.0:
     resolution: {integrity: sha512-SyHy3T1v2NUXn29OsWdxmK6RwHD+vkj3v8en8AOBZ1wBQ/hCAQ5bAQTD02kW4W9tUp/3Qh6J8r9EvntiyCmOOw==}
-
-  github-markdown-css@5.6.1:
-    resolution: {integrity: sha512-DItLFgHd+s7HQmk63YN4/TdvLeRqk1QP7pPKTTPrDTYoI5x7f/luJWSOZxesmuxBI2srHp8RDyoZd+9WF+WK8Q==}
-    engines: {node: '>=10'}
 
   glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
@@ -5363,8 +5356,6 @@ snapshots:
       resolve-pkg-maps: 1.0.0
 
   github-from-package@0.0.0: {}
-
-  github-markdown-css@5.6.1: {}
 
   glob-parent@5.1.2:
     dependencies:

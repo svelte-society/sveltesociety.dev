@@ -199,7 +199,7 @@
 		{/if}
 	</div>
 	{#if $page.route.id === '/(app)/(public)/[type]/[slug]' && (rendered_body || body)}
-		<section class="markdown-body">
+		<section class="prose">
 			{#if rendered_body}
 				{@html rendered_body}
 			{:else if body}
@@ -216,10 +216,3 @@
 		<div class="text-xs text-gray-500">{formatRelativeDate(published_at)}</div>
 	</div>
 </article>
-
-<style>
-	.markdown-body {
-		padding: 1.5rem;
-		border-radius: 8px;
-	}
-</style>
