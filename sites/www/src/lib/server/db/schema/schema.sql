@@ -132,12 +132,8 @@ CREATE TABLE IF NOT EXISTS moderation_queue (
 );
 
 -- metadata table
-CREATE TABLE IF NOT EXISTS metadata (
-    content_id TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    expired_at TIMESTAMP,
+CREATE TABLE IF NOT EXISTS content_cache (
+    content_id TEXT PRIMARY KEY ,
     content TEXT,
-    status TEXT NOT NULL DEFAULT 'pending' CHECK ( status in ('pending', 'fresh', 'stale') ),
-    PRIMARY KEY (content_id, created_at),
     FOREIGN KEY (content_id) REFERENCES content(id)
 );

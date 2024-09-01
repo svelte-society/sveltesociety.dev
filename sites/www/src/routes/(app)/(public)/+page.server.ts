@@ -11,7 +11,7 @@ import {
 	remove_interaction
 } from '$lib/server/db/interactions';
 import { fail } from '@sveltejs/kit';
-import { get_metadata } from '$lib/server/db/metadata';
+import { get_metadata } from '$lib/server/db/content_cache';
 
 export const load: PageServerLoad = async ({ url, fetch, locals }) => {
 	const searchQuery = url.searchParams.get('search');
@@ -57,10 +57,12 @@ export const load: PageServerLoad = async ({ url, fetch, locals }) => {
 		}
 
 		return {
-			content: content_with_tags_and_children.map((item) => ({
-				...item,
-				extra: get_metadata(item.id).content
-			})),
+			content: await Promise.all(
+				content_with_tags_and_children.map(async (item) => ({
+					...item,
+					extra: await get_metadata(item.id)
+				}))
+			),
 			count: 0
 		};
 	}

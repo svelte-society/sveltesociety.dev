@@ -1,7 +1,7 @@
 import { get_content_by_type, get_tags_for_content } from '$lib/server/db/content';
 import { get_user_likes_and_saves } from '$lib/server/db/interactions';
 import { fail } from '@sveltejs/kit';
-import { get_metadata } from '$lib/server/db/metadata';
+import { get_metadata } from '$lib/server/db/content_cache';
 
 export const load = async ({ locals, params }) => {
 	const content = get_content_by_type(params.type);
@@ -27,9 +27,11 @@ export const load = async ({ locals, params }) => {
 	}
 
 	return {
-		content: content_with_tags.map((item) => ({
-			...item,
-			extra: get_metadata(item.id).content
-		}))
+		content: await Promise.all(
+			content_with_tags.map(async (item) => ({
+				...item,
+				extra: await get_metadata(item.id)
+			}))
+		)
 	};
 };
