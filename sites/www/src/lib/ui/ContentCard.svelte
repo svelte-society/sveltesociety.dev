@@ -93,7 +93,7 @@
 		<div class="flex">
 			<span class="font-semibold capitalize">{type}&nbsp;</span>
 			<span class="flex text-gray-500"
-				><span>by {author} • {formatRelativeDate(published_at)} •&nbsp;</span>
+				><span>by {author ?? extra.author} • {formatRelativeDate(published_at)} •&nbsp;</span>
 				<span class="flex items-center gap-1">
 					{views}
 					<svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">

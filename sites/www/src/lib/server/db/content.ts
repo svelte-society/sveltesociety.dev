@@ -1,6 +1,7 @@
 import { db } from './index';
 import { type Tag } from './tags';
 import { Status } from '$lib/server/db/common';
+import { get_user_by_ids, type User } from '$lib/server/db/user';
 
 interface GetContentParams {
 	limit?: number;
@@ -450,3 +451,11 @@ const update_content_tags = (contentId: number, tags: number[]) => {
 		console.error('Error updating content tags:', error);
 	}
 };
+
+export function get_content_users(content_id: string): Array<User> {
+	const relationStmt = db.prepare(`
+	SELECT user_id from content_to_users WHERE content_id = @content_id
+	`);
+	const user_ids = relationStmt.all({ content_id }).map((item) => item.user_id) as Array<number>;
+	return get_user_by_ids(user_ids);
+}

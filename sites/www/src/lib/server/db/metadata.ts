@@ -103,9 +103,23 @@ async function get_content_metadata(content_id: string): Promise<FetchMetadata> 
 	};
 }
 async function get_video_metadata(metadata: Content['metadata']): Promise<FetchMetadata> {
+	const youtubeResponse = await fetch(
+		'https://www.youtube.com/youtubei/v1/player?prettyPrint=false',
+		{
+			body: JSON.stringify({
+				context: { client: { clientName: 'WEB', clientVersion: '2.20240628.01.00' } },
+				videoId: metadata.videoId
+			}),
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json'
+			}
+		}
+	).then((response) => response.json());
 	return {
 		content: JSON.stringify({
-			embed: `https://www.youtube.com/embed/${metadata.videoId}?controls=0&modestbranding=1&color=white&showinfo=0`
+			embed: `https://www.youtube.com/embed/${metadata.videoId}?controls=0&modestbranding=1&color=white&showinfo=0`,
+			author: youtubeResponse.videoDetails.author
 		}),
 		expired_at: Date.now() + 30 * 24 * 3600 * 1000
 	};
@@ -139,7 +153,8 @@ async function get_npm_metadata(metadata: Content['metadata']): Promise<FetchMet
 			last: npmResponse['dist-tags'].latest,
 			repository: npmResponse.repository.url,
 			cover: get_cover(npmResponse.repository.url),
-			week_download: npmDownload.downloads
+			week_download: npmDownload.downloads,
+			author: npmResponse.maintainers.map((item) => item.name).join(', ')
 		}),
 		expired_at: Date.now() + 24 * 3600 * 1000
 	};
@@ -156,6 +171,7 @@ interface NpmResponse {
 		modified: string;
 		[version: string]: string;
 	};
+	maintainers: Array<{ name: string }>;
 	repository: { url: string; type: string };
 }
 interface NpmDownloadResponse {

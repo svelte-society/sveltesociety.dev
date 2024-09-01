@@ -71,13 +71,10 @@ export const actions = {
 		if (!locals.user) return;
 		const data = await request.formData();
 		const type = data.get('type') as 'like' | 'save';
-		const contentId = data.get('id') as string || null;
+		const contentId = (data.get('id') as string) || null;
 		const action = data.get('action') as 'add' | 'remove';
 
-		if (
-			!['like', 'save'].includes(type) ||
-			!['add', 'remove'].includes(action) || !contentId
-		) {
+		if (!['like', 'save'].includes(type) || !['add', 'remove'].includes(action) || !contentId) {
 			return fail(400, { message: 'Invalid input' });
 		}
 

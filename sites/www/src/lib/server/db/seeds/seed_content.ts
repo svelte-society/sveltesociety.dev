@@ -15,6 +15,10 @@ export function seedContent(db: Database.Database) {
     INSERT INTO content_to_tags (content_id, tag_id)
     VALUES (?, ?)
   `);
+	const insetContentUserStmt = db.prepare(`
+	INSERT INTO content_to_users (content_id, user_id)
+	SELECT content.id as content_id, 1 as user_id FROM content
+	`);
 	const tagIds = getAllTagsStmt.all() as Array<{ slug: string; id: string }>;
 
 	const tagMap = new Map(tagIds.map((tag) => [tag.slug, tag.id]));
@@ -762,6 +766,7 @@ export function seedContent(db: Database.Database) {
 		for (const item of contentItems) {
 			insertContentAndTags(item);
 		}
+		insetContentUserStmt.run();
 		console.log('Content seeded successfully');
 	} catch (error) {
 		console.error('Error seeding content:', error);
