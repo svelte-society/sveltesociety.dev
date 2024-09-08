@@ -124,8 +124,8 @@
 		]
 	},
 	"@sveltejs/kit": {
-		"version": "2.5.25",
-		"date": "2024-08-27T21:02:16.821Z",
+		"version": "2.5.26",
+		"date": "2024-09-04T17:05:19.974Z",
 		"support": "^4.0.0 || ^5.0.0-next.0",
 		"keywords": ["framework", "official", "svelte", "sveltekit", "vite"]
 	},
@@ -1494,8 +1494,8 @@
 		]
 	},
 	"svelte-file-dropzone": {
-		"version": "2.0.7",
-		"date": "2024-04-08T02:11:52.925Z",
+		"version": "2.0.8",
+		"date": "2024-09-01T22:14:04.092Z",
 		"support": "^3.54.0 || ^4.0.0",
 		"keywords": [
 			"svelte",
@@ -2296,8 +2296,8 @@
 		"keywords": ["svelte", "currency", "money", "input", "i18n", "positive", "negative"]
 	},
 	"flowbite-svelte": {
-		"version": "0.46.15",
-		"date": "2024-07-11T15:31:43.990Z",
+		"version": "0.46.16",
+		"date": "2024-09-04T05:22:58.846Z",
 		"support": "^3.55.1 || ^4.0.0 || ^5.0.0",
 		"keywords": [
 			"svelte",
@@ -2511,13 +2511,13 @@
 		"keywords": ["UI", "svelte", "PerfectThings"]
 	},
 	"@tanstack/svelte-query": {
-		"version": "5.53.1",
-		"date": "2024-08-30T10:30:10.014Z",
+		"version": "5.54.2",
+		"date": "2024-09-05T19:51:29.132Z",
 		"support": "^3.54.0 || ^4.0.0 || ^5.0.0-next.0"
 	},
 	"@tanstack/svelte-virtual": {
-		"version": "3.10.6",
-		"date": "2024-08-29T09:29:58.250Z",
+		"version": "3.10.7",
+		"date": "2024-09-04T13:15:50.894Z",
 		"support": "^3.48.0 || ^4.0.0",
 		"keywords": ["react", "vue", "solid", "svelte", "virtual", "virtual-core", "datagrid"]
 	},
@@ -2599,8 +2599,8 @@
 	},
 	"chat-embed": { "version": "0.0.32", "date": "2023-03-18T13:25:04.673Z", "support": "Unknown" },
 	"lucide-svelte": {
-		"version": "0.437.0",
-		"date": "2024-08-31T11:18:49.687Z",
+		"version": "0.439.0",
+		"date": "2024-09-06T07:42:45.803Z",
 		"support": "^3 || ^4 || ^5.0.0-next.42",
 		"keywords": [
 			"Lucide",
@@ -2849,8 +2849,8 @@
 		"support": "Unknown"
 	},
 	"svelte-ux": {
-		"version": "0.74.6",
-		"date": "2024-08-18T19:54:36.402Z",
+		"version": "0.74.7",
+		"date": "2024-09-05T15:11:39.566Z",
 		"support": "^3.56.0 || ^4.0.0 || ^5.0.0-next.120"
 	},
 	"@born05/sveltekit-proxy": {
@@ -2969,13 +2969,13 @@
 		"keywords": ["svelte", "markdown", "remark", "unified", "commonmark", "gfm", "plugin"]
 	},
 	"@sentry/svelte": {
-		"version": "8.27.0",
-		"date": "2024-08-27T13:27:16.211Z",
+		"version": "8.28.0",
+		"date": "2024-09-03T10:33:31.149Z",
 		"support": "3.x || 4.x || 5.x"
 	},
 	"@sentry/sveltekit": {
-		"version": "8.27.0",
-		"date": "2024-08-27T13:27:50.753Z",
+		"version": "8.28.0",
+		"date": "2024-09-03T10:34:06.943Z",
 		"support": "Unknown"
 	},
 	"svelte-french-toast": {
@@ -3293,9 +3293,9 @@
 		"keywords": ["prettier", "svelte"]
 	},
 	"svelte-check": {
-		"version": "3.8.6",
-		"date": "2024-08-22T16:12:59.267Z",
-		"support": "^3.55.0 || ^4.0.0-next.0 || ^4.0.0 || ^5.0.0-next.0",
+		"version": "4.0.1",
+		"date": "2024-09-04T11:48:04.413Z",
+		"support": "^4.0.0 || ^5.0.0-next.0",
 		"keywords": ["svelte", "cli"]
 	},
 	"svelte-reactive-css-preprocess": {
@@ -3429,8 +3429,8 @@
 		"keywords": ["typescript", "prismic"]
 	},
 	"@slicemachine/adapter-sveltekit": {
-		"version": "0.3.48",
-		"date": "2024-08-30T17:26:28.976Z",
+		"version": "0.3.49",
+		"date": "2024-09-03T13:45:44.165Z",
 		"support": "^3.54.0 || ^4.0.0-next.0 || ^5.0.0-next.1",
 		"keywords": ["typescript", "prismic"]
 	},
@@ -3441,8 +3441,8 @@
 		"keywords": ["svelte", "i18n", "i18next", "kit"]
 	},
 	"@vite-pwa/sveltekit": {
-		"version": "0.6.1",
-		"date": "2024-08-23T14:55:57.887Z",
+		"version": "0.6.5",
+		"date": "2024-09-04T19:21:59.811Z",
 		"support": "Unknown",
 		"keywords": ["sveltekit", "workbox", "pwa", "vite", "vite-plugin"]
 	},
@@ -3596,8 +3596,8 @@
 		"keywords": ["images", "svelte"]
 	},
 	"@playwright/experimental-ct-svelte": {
-		"version": "1.46.1",
-		"date": "2024-08-16T20:17:21.087Z",
+		"version": "1.47.0",
+		"date": "2024-09-05T21:15:55.785Z",
 		"support": "Unknown"
 	},
 	"vaul-svelte": {
@@ -3622,8 +3622,8 @@
 		"support": "Unknown"
 	},
 	"embla-carousel-svelte": {
-		"version": "8.2.0",
-		"date": "2024-08-20T07:54:06.307Z",
+		"version": "8.2.1",
+		"date": "2024-09-04T07:42:24.794Z",
 		"support": "^3.49.0 || ^4.0.0",
 		"keywords": [
 			"slider",
@@ -3704,7 +3704,7 @@
 		"support": "^5.0.0-next.205",
 		"keywords": ["svelte", "table", "data", "dataview", "grid", "gridview", "datagrid", "datatable"]
 	},
-	"runed": { "version": "0.15.1", "date": "2024-08-13T20:36:41.519Z", "support": "^5.0.0-next.1" },
+	"runed": { "version": "0.15.2", "date": "2024-09-03T23:02:46.445Z", "support": "^5.0.0-next.1" },
 	"paneforge": {
 		"version": "0.0.5",
 		"date": "2024-06-17T15:47:32.621Z",
@@ -3775,8 +3775,8 @@
 		"support": "^4.0.0 || ^5.0.0-next.0"
 	},
 	"@xyflow/svelte": {
-		"version": "0.1.17",
-		"date": "2024-08-28T14:37:21.477Z",
+		"version": "0.1.18",
+		"date": "2024-09-04T13:26:25.230Z",
 		"support": "^3.0.0 || ^4.0.0",
 		"keywords": ["svelte", "node-based UI", "graph", "diagram", "workflow", "svelte-flow", "xyflow"]
 	},
@@ -3791,8 +3791,8 @@
 		"support": "^4.0.0"
 	},
 	"svelte-cartesian": {
-		"version": "1.1.2",
-		"date": "2024-08-29T17:59:19.741Z",
+		"version": "1.1.5",
+		"date": "2024-09-06T02:07:39.457Z",
 		"support": "^4.2.18 || ^5.0.0-next.164"
 	},
 	"sveltekit-superactions": {
