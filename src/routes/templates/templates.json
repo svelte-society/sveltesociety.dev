@@ -403,12 +403,6 @@
 		"repository": "https://github.com/babichjacob/university-website"
 	},
 	{
-		"description": "Add Tailwind, Bootstrap, Storybook, mdsvex (i.e. markdown), and more to your Svelte project with a single command.",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/svelte-add",
-		"repository": "https://github.com/svelte-add/svelte-add"
-	},
-	{
 		"title": "vhscom/svelte-headlessui-starter",
 		"repository": "https://github.com/vhscom/svelte-headlessui-starter",
 		"description": "Template designed to make it faster and easier to build libre Svelte apps using Headless UI.",
@@ -676,6 +670,6 @@
 		"url": "https://spatz2.engage-dev.com",
 		"repository": "https://github.com/engageintellect/spatz-2",
 		"description": "An opinionated template for building full-stack Svelte applications ridiculously fast. Includes auth, database, admin panel, user dashboard, themes, icons, and more.",
-		"categories": ["sveltekit", "svelte-add", "database", "ssr", "integrations", "mobile"]
+		"categories": ["sveltekit", "database", "ssr", "integrations", "mobile"]
 	}
 ]
