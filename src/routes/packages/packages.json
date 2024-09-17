@@ -24,6 +24,7 @@
 		"description": "Add Tailwind, Storybook, mdsvex (i.e. markdown), and more to your Svelte project with a single command.",
 		"categories": ["svelte-add"],
 		"title": "svelte-add/svelte-add",
+		"npm": "svelte-add",
 		"repository": "https://github.com/svelte-add/svelte-add"
 	},
 	{
