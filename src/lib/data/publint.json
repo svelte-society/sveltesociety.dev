@@ -1,5 +1,6 @@
 {
 	"virtue-ui": { "valid": true },
+	"svelte-add": { "valid": true },
 	"adapter-electron": { "valid": true },
 	"adapter-appwrite": { "valid": true },
 	"svelte-stopwatch": { "valid": true },
