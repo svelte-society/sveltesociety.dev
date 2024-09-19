@@ -1,5 +1,12 @@
 [
 	{
+		"title": "svelte-adapter-fastly",
+		"repository": "https://github.com/bertybot/svelte-adapter-fastly",
+		"description": "Sveltekit adapter for Fastly's Edge Compute platform.",
+		"npm": "svelte-adapter-fastly",
+		"categories": ["sveltekit-adapters"]
+	},
+	{
 		"title": "actionview-svelte-handler",
 		"repository": "https://codeberg.org/reesericci/actionview-svelte-handler",
 		"description": "An Action View template handler to create Svelte views seamlessly in Rails applications.",
