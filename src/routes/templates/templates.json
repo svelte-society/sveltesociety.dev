@@ -640,9 +640,9 @@
 		"categories": ["sveltekit", "typescript", "code-splitting"]
 	},
 	{
-		"title": "Lucia + Passkeys + Social Sign In",
-		"repository": "https://github.com/passlock-dev/svelte-passkeys",
-		"description": "Authentication template supporting passkeys, mailbox verification emails, social sign in and more. (Lucia, Melt UI, Superforms, Tailwind + others)",
+		"title": "Starter App with Auth, Social Login & CRUD ops",
+		"repository": "https://github.com/passlock-dev/passlock",
+		"description": "Full stack app including CRUD operations, Passkey auth, social sign in and more. Choose from Daisy UI, Preline or Shadcn templates.",
 		"categories": ["sveltekit", "typescript"]
 	},
 	{
