@@ -1,4 +1,5 @@
 {
+	"svelte-adapter-fastly": { "valid": true },
 	"virtue-ui": { "valid": true },
 	"svelte-add": { "valid": true },
 	"adapter-electron": { "valid": true },
@@ -300,7 +301,7 @@
 	"@bonosoft/sveltekit-codeentry": { "valid": true },
 	"@radar-azdelta/svelte-datatable": { "valid": true },
 	"svelte-svg-transform": { "valid": true },
-	"@nerd-coder/svelte-zod-form": { "valid": true },
+	"@nerd-coder/svelte-zod-form": { "valid": false },
 	"sveltekit-adapter-iis": { "valid": true },
 	"svelte-dx-table": { "valid": false },
 	"svelte-switch": { "valid": false },
