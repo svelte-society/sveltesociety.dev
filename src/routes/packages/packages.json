@@ -3135,5 +3135,12 @@
 		"description": "Svelte component library for showing speedometer like gauge using d3",
 		"npm": "svelte-speedometer",
 		"categories": ["data-visualisation", "design-system", "ui-components"]
+	},
+	{
+		"title": "sveltekit-adapter-wordpress-admin",
+		"repository": "https://github.com/lolcabanon/sveltekit-adapter-wordpress-admin",
+		"description": "Build wordpress plugin admin interface with SvelteKit",
+		"npm": "sveltekit-adapter-wordpress-admin",
+		"categories": ["sveltekit-adapters"]
 	}
 ]
