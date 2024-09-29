@@ -436,5 +436,6 @@
 	"sveltekit-reroute": { "valid": true },
 	"svelte-cartesian": { "valid": true },
 	"sveltekit-superactions": { "valid": true },
-	"svelte-speedometer": { "valid": true }
+	"svelte-speedometer": { "valid": true },
+	"sveltekit-adapter-wordpress-admin": { "valid": true }
 }
