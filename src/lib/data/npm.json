@@ -968,9 +968,9 @@
 	},
 	"@pwa/cli": { "version": "0.5.4", "date": "2020-04-16T19:10:28.055Z", "support": "Unknown" },
 	"svelte-inview": {
-		"version": "4.0.2",
-		"date": "2023-12-19T17:14:02.652Z",
-		"support": "^3.0.0 || ^4.0.0",
+		"version": "4.0.4",
+		"date": "2024-10-01T19:10:39.170Z",
+		"support": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^5.0.0-next",
 		"keywords": [
 			"svelte",
 			"observer",
@@ -1415,14 +1415,14 @@
 		"keywords": ["svelte"]
 	},
 	"@storybook/sveltekit": {
-		"version": "8.3.4",
-		"date": "2024-09-28T10:59:54.007Z",
+		"version": "8.3.5",
+		"date": "2024-10-04T07:15:21.731Z",
 		"support": "^4.0.0 || ^5.0.0-next.65",
 		"keywords": ["storybook", "svelte", "sveltekit", "svelte-kit"]
 	},
 	"@storybook/svelte": {
-		"version": "8.3.4",
-		"date": "2024-09-28T11:00:35.024Z",
+		"version": "8.3.5",
+		"date": "2024-10-04T07:16:01.907Z",
 		"support": "^4.0.0 || ^5.0.0-next.65",
 		"keywords": ["storybook"]
 	},
@@ -1484,8 +1484,8 @@
 		"keywords": ["svelte", "asr", "router", "browserify"]
 	},
 	"@testing-library/svelte": {
-		"version": "5.2.1",
-		"date": "2024-07-25T23:07:39.043Z",
+		"version": "5.2.3",
+		"date": "2024-10-02T02:48:16.957Z",
 		"support": "^3 || ^4 || ^5 || ^5.0.0-next.0",
 		"keywords": [
 			"testing",
@@ -1986,8 +1986,8 @@
 		"keywords": ["svelte", "sveltejs", "papercss", "components"]
 	},
 	"@event-calendar/core": {
-		"version": "3.5.0",
-		"date": "2024-09-20T08:42:39.960Z",
+		"version": "3.6.1",
+		"date": "2024-10-01T10:45:08.474Z",
 		"support": "Unknown",
 		"keywords": ["calendar", "event", "resource", "timeline", "full-sized"]
 	},
@@ -2303,8 +2303,8 @@
 		"keywords": ["svelte", "currency", "money", "input", "i18n", "positive", "negative"]
 	},
 	"flowbite-svelte": {
-		"version": "0.46.20",
-		"date": "2024-09-28T16:06:08.638Z",
+		"version": "0.46.22",
+		"date": "2024-09-30T11:00:14.937Z",
 		"support": "^3.55.1 || ^4.0.0 || ^5.0.0",
 		"keywords": [
 			"svelte",
@@ -2518,8 +2518,8 @@
 		"keywords": ["UI", "svelte", "PerfectThings"]
 	},
 	"@tanstack/svelte-query": {
-		"version": "5.56.2",
-		"date": "2024-09-12T18:06:53.220Z",
+		"version": "5.59.0",
+		"date": "2024-10-01T15:46:18.779Z",
 		"support": "^3.54.0 || ^4.0.0 || ^5.0.0-next.0"
 	},
 	"@tanstack/svelte-virtual": {
@@ -2606,8 +2606,8 @@
 	},
 	"chat-embed": { "version": "0.0.32", "date": "2023-03-18T13:25:04.673Z", "support": "Unknown" },
 	"lucide-svelte": {
-		"version": "0.446.0",
-		"date": "2024-09-25T05:24:01.239Z",
+		"version": "0.447.0",
+		"date": "2024-10-01T20:15:56.459Z",
 		"support": "^3 || ^4 || ^5.0.0-next.42",
 		"keywords": [
 			"Lucide",
@@ -2750,8 +2750,8 @@
 		]
 	},
 	"stdf": {
-		"version": "0.5.0",
-		"date": "2024-09-09T05:48:05.986Z",
+		"version": "0.5.2",
+		"date": "2024-10-02T15:43:40.838Z",
 		"support": "Unknown",
 		"keywords": [
 			"svelte",
@@ -2856,8 +2856,8 @@
 		"support": "Unknown"
 	},
 	"svelte-ux": {
-		"version": "0.74.9",
-		"date": "2024-09-15T22:49:03.266Z",
+		"version": "0.75.0",
+		"date": "2024-10-05T15:28:36.463Z",
 		"support": "^3.56.0 || ^4.0.0 || ^5.0.0-next.120"
 	},
 	"@born05/sveltekit-proxy": {
@@ -2885,8 +2885,8 @@
 		"support": "^4.0.0"
 	},
 	"sveltekit-superforms": {
-		"version": "2.19.0",
-		"date": "2024-09-18T11:30:32.811Z",
+		"version": "2.19.1",
+		"date": "2024-10-05T13:27:22.215Z",
 		"support": "3.x || 4.x || >=5.0.0-next.51",
 		"keywords": [
 			"sveltekit",
@@ -2913,9 +2913,9 @@
 		"keywords": ["svelte"]
 	},
 	"svelte-inline-modal": {
-		"version": "2.0.0-next.1",
-		"date": "2024-07-26T01:21:08.060Z",
-		"support": "^5.0.0",
+		"version": "1.1.24",
+		"date": "2024-09-30T01:30:36.329Z",
+		"support": "^4.0.0",
 		"keywords": ["inline", "modal", "onthefly", "svelte"]
 	},
 	"@jill64/svelte-input": {
@@ -2976,13 +2976,13 @@
 		"keywords": ["svelte", "markdown", "remark", "unified", "commonmark", "gfm", "plugin"]
 	},
 	"@sentry/svelte": {
-		"version": "8.32.0",
-		"date": "2024-09-25T09:48:57.645Z",
+		"version": "8.33.1",
+		"date": "2024-10-03T12:37:07.214Z",
 		"support": "3.x || 4.x || 5.x"
 	},
 	"@sentry/sveltekit": {
-		"version": "8.32.0",
-		"date": "2024-09-25T09:49:33.288Z",
+		"version": "8.33.1",
+		"date": "2024-10-03T12:37:46.305Z",
 		"support": "Unknown"
 	},
 	"svelte-french-toast": {
@@ -3114,8 +3114,8 @@
 		]
 	},
 	"houdini": {
-		"version": "1.2.62",
-		"date": "2024-09-13T19:07:23.396Z",
+		"version": "1.2.64",
+		"date": "2024-10-02T08:36:54.043Z",
 		"support": "Unknown",
 		"keywords": ["typescript", "graphql", "graphql-client"]
 	},
@@ -3151,8 +3151,8 @@
 		]
 	},
 	"svelte-maplibre": {
-		"version": "0.9.13",
-		"date": "2024-08-23T19:02:47.945Z",
+		"version": "0.9.14",
+		"date": "2024-10-03T20:25:33.779Z",
 		"support": "^3.54.0 || ^4.0.0 || ^5.0.0",
 		"keywords": ["gis", "map", "maplibre", "svelte"]
 	},
@@ -3437,8 +3437,8 @@
 		"keywords": ["typescript", "prismic"]
 	},
 	"@slicemachine/adapter-sveltekit": {
-		"version": "0.3.49",
-		"date": "2024-09-03T13:45:44.165Z",
+		"version": "0.3.51",
+		"date": "2024-10-04T12:47:13.534Z",
 		"support": "^3.54.0 || ^4.0.0-next.0 || ^5.0.0-next.1",
 		"keywords": ["typescript", "prismic"]
 	},
@@ -3455,8 +3455,8 @@
 		"keywords": ["sveltekit", "workbox", "pwa", "vite", "vite-plugin"]
 	},
 	"bits-ui": {
-		"version": "0.21.15",
-		"date": "2024-09-19T16:04:48.943Z",
+		"version": "0.21.16",
+		"date": "2024-10-03T01:35:53.021Z",
 		"support": "^4.0.0 || ^5.0.0-next.118"
 	},
 	"formsnap": {
@@ -3496,8 +3496,8 @@
 		"keywords": ["monaco", "svelte"]
 	},
 	"super-navigation": {
-		"version": "0.0.43",
-		"date": "2024-08-31T18:22:43.109Z",
+		"version": "0.0.50",
+		"date": "2024-10-05T22:15:54.141Z",
 		"support": "Unknown"
 	},
 	"@elron/svelte-audio-store": {
@@ -3720,7 +3720,7 @@
 		"support": "^5.0.0-next.205",
 		"keywords": ["svelte", "table", "data", "dataview", "grid", "gridview", "datagrid", "datatable"]
 	},
-	"runed": { "version": "0.15.2", "date": "2024-09-03T23:02:46.445Z", "support": "^5.0.0-next.1" },
+	"runed": { "version": "0.15.3", "date": "2024-09-29T20:08:04.513Z", "support": "^5.0.0-next.1" },
 	"paneforge": {
 		"version": "0.0.6",
 		"date": "2024-09-19T21:01:48.516Z",
