@@ -1,5 +1,13 @@
 [
 	{
+		"title": "Svelte Sortable List",
+		"url": "https://svelte-sortable-list.netlify.app/",
+		"repository": "https://github.com/rodrigodagostino/svelte-sortable-list",
+		"description": "Create accessible reorderable lists in Svelte",
+		"npm": "@rodrigodagostino/svelte-sortable-list",
+		"categories": ["styling-and-layout", "ui-components", "user-interaction"]
+	},
+	{
 		"title": "svelte-adapter-fastly",
 		"repository": "https://github.com/bertybot/svelte-adapter-fastly",
 		"description": "Sveltekit adapter for Fastly's Edge Compute platform.",
