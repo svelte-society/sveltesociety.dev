@@ -1,5 +1,13 @@
 [
 	{
+		"title": "kampsy-ui",
+		"url": "https://ui.kampsy.xyz/",
+		"repository": "https://github.com/kampsy/ui",
+		"description": "A Svelte 5 UI component library, designed to deliver consistent, cohesive, and high-performance web experiences.",
+		"npm": "kampsy-ui",
+		"categories": ["ui-components", "design-system"]
+	},
+	{
 		"title": "Svelte Sortable List",
 		"url": "https://svelte-sortable-list.netlify.app/",
 		"repository": "https://github.com/rodrigodagostino/svelte-sortable-list",
