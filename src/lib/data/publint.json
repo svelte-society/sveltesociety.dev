@@ -1,4 +1,6 @@
 {
+	"kampsy-ui": { "valid": true },
+	"@rodrigodagostino/svelte-sortable-list": { "valid": true },
 	"svelte-adapter-fastly": { "valid": true },
 	"virtue-ui": { "valid": true },
 	"svelte-add": { "valid": true },
