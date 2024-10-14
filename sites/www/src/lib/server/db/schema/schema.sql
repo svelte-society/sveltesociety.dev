@@ -111,7 +111,7 @@ CREATE VIRTUAL TABLE IF NOT EXISTS content_fts USING fts5(
   content_id UNINDEXED,
   title,
   body,
-  description
+  tokenize="trigram"
 );
 
 -- Moderation queue table

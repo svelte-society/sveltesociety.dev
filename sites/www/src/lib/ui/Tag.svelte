@@ -1,19 +1,19 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+import { page } from '$app/stores'
 
-	type Tag = {
-		id: string;
-		name: string;
-		slug: string;
-	};
-	let { tag, onclick }: { tag: Tag; onclick?: () => void } = $props();
+type Tag = {
+	id: string
+	name: string
+	slug: string
+}
+let { tag, onclick }: { tag: Tag; onclick?: () => void } = $props()
 
-	const handleClick = (e) => {
-		if (onclick) {
-			e.preventDefault();
-			onclick();
-		}
-	};
+const handleClick = (e) => {
+	if (onclick) {
+		e.preventDefault()
+		onclick()
+	}
+}
 </script>
 
 <svelte:element

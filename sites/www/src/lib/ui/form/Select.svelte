@@ -1,29 +1,29 @@
 <script lang="ts">
-	type SelectOption = {
-		value: string;
-		label: string;
-	};
-	interface SelectProps {
-		label?: string;
-		value: string;
-		description?: string;
-		errors?: string;
-		initial?: string;
-		placeholder?: string;
-		options: SelectOption[];
-		name: string;
-		disabled?: boolean;
-	}
+type SelectOption = {
+	value: string
+	label: string
+}
+interface SelectProps {
+	label?: string
+	value: string
+	description?: string
+	errors?: string
+	initial?: string
+	placeholder?: string
+	options: SelectOption[]
+	name: string
+	disabled?: boolean
+}
 
-	let {
-		name,
-		value = $bindable(),
-		label,
-		description,
-		placeholder = 'Select an option...',
-		errors,
-		options = []
-	}: SelectProps = $props();
+let {
+	name,
+	value = $bindable(),
+	label,
+	description,
+	placeholder = 'Select an option...',
+	errors,
+	options = []
+}: SelectProps = $props()
 </script>
 
 <div class="flex flex-col gap-1">

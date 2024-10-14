@@ -1,32 +1,32 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-	import { enhance, applyAction } from '$app/forms';
-	import Button from '../Button.svelte';
+import type { Snippet } from 'svelte'
+import { enhance, applyAction } from '$app/forms'
+import Button from '../Button.svelte'
 
-	let showDialog = $state(false);
+let showDialog = $state(false)
 
-	interface BaseProps {
-		title: string;
-		action: string;
-		id: number;
-		confirmButtonText?: string;
-		cancelButtonText?: string;
-	}
+interface BaseProps {
+	title: string
+	action: string
+	id: number
+	confirmButtonText?: string
+	cancelButtonText?: string
+}
 
-	interface PropsWithDescription extends BaseProps {
-		description: string;
-		children?: never;
-	}
+interface PropsWithDescription extends BaseProps {
+	description: string
+	children?: never
+}
 
-	interface PropsWithChildren extends BaseProps {
-		description?: never;
-		children: Snippet;
-	}
+interface PropsWithChildren extends BaseProps {
+	description?: never
+	children: Snippet
+}
 
-	type Props = PropsWithDescription | PropsWithChildren;
+type Props = PropsWithDescription | PropsWithChildren
 
-	let { title, description, action, id, confirmButtonText, cancelButtonText, children }: Props =
-		$props();
+let { title, description, action, id, confirmButtonText, cancelButtonText, children }: Props =
+	$props()
 </script>
 
 <button

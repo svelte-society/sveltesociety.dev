@@ -1,13 +1,12 @@
 CREATE TRIGGER IF NOT EXISTS content_ai AFTER INSERT ON content BEGIN
-  INSERT INTO content_fts(content_id, title, body, description)
-  VALUES (NEW.id, NEW.title, NEW.body, NEW.description);
+  INSERT INTO content_fts(content_id, title, body)
+  VALUES (NEW.id, NEW.title, NEW.body);
 END;
 
 CREATE TRIGGER IF NOT EXISTS content_au AFTER UPDATE ON content BEGIN
   UPDATE content_fts
   SET title = NEW.title,
       body = NEW.body,
-      description = NEW.description
   WHERE content_id = NEW.id;
 END;
 

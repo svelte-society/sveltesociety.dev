@@ -1,24 +1,24 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import Badge from '$lib/ui/admin/Badge.svelte';
-	import Button from '$lib/ui/Button.svelte';
-	import { formatRelativeDate } from '$lib/utils/date';
-	let { data } = $props();
-	function formatJSON(obj: any): string {
-		return JSON.stringify(obj, null, 2);
-	}
+import { enhance } from '$app/forms'
+import Badge from '$lib/ui/admin/Badge.svelte'
+import Button from '$lib/ui/Button.svelte'
+import { formatRelativeDate } from '$lib/utils/date'
+let { data } = $props()
+function formatJSON(obj: any): string {
+	return JSON.stringify(obj, null, 2)
+}
 
-	let colorMap = new Map([
-		['pending', 'warning'],
-		['approved', 'success'],
-		['rejected', 'danger']
-	]);
+let colorMap = new Map([
+	['pending', 'warning'],
+	['approved', 'success'],
+	['rejected', 'danger']
+])
 
-	const roleColorMap = new Map([
-		['admin', 'success'],
-		['editor', 'warning'],
-		['user', 'danger']
-	]);
+const roleColorMap = new Map([
+	['admin', 'success'],
+	['editor', 'warning'],
+	['user', 'danger']
+])
 </script>
 
 <div class="container mx-auto px-2 py-4">

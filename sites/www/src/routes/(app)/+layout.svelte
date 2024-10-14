@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Search from './Search.svelte';
-	import { page } from '$app/stores';
+import Search from './Search.svelte'
+import { page } from '$app/stores'
 
-	let { data, children } = $props();
+let { data, children } = $props()
 </script>
 
 <div class="flex min-h-screen flex-col">

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { formatRelativeDate } from '$lib/utils/date';
-	import Button from '$lib/ui/Button.svelte';
-	import { enhance } from '$app/forms';
-	import Avatar from '$lib/ui/Avatar.svelte';
-	import Table from '$lib/ui/admin/Table.svelte';
-	import Actions from '$lib/ui/admin/Actions.svelte';
-	import type { User } from '$lib/server/db/user';
-	let { data } = $props();
+import { formatRelativeDate } from '$lib/utils/date'
+import Button from '$lib/ui/Button.svelte'
+import { enhance } from '$app/forms'
+import Avatar from '$lib/ui/Avatar.svelte'
+import Table from '$lib/ui/admin/Table.svelte'
+import Actions from '$lib/ui/admin/Actions.svelte'
+import type { User } from '$lib/server/db/user'
+let { data } = $props()
 </script>
 
 <div class="container mx-auto px-2 py-4">

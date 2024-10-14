@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Input from '$lib/ui/form/Input.svelte';
-	import Select from '$lib/ui/form/Select.svelte';
+import Input from '$lib/ui/form/Input.svelte'
+import Select from '$lib/ui/form/Select.svelte'
 
-	let { data } = $props();
+let { data } = $props()
 </script>
 
 <div class="grid gap-6">

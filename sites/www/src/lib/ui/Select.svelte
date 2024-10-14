@@ -1,26 +1,26 @@
 <script lang="ts">
-	type SelectOption = {
-		value: string;
-		label: string;
-	};
+type SelectOption = {
+	value: string
+	label: string
+}
 
-	interface SelectProps {
-		options: SelectOption[];
-		value?: string;
-		placeholder?: string;
-		name?: string;
-		disabled?: boolean;
-		onchange?: ChangeEventHandler;
-	}
+interface SelectProps {
+	options: SelectOption[]
+	value?: string
+	placeholder?: string
+	name?: string
+	disabled?: boolean
+	onchange?: ChangeEventHandler
+}
 
-	let {
-		options = [],
-		placeholder = 'Select an option',
-		name = '',
-		value = $bindable(''),
-		disabled = false,
-		onchange
-	}: SelectProps = $props();
+let {
+	options = [],
+	placeholder = 'Select an option',
+	name = '',
+	value = $bindable(''),
+	disabled = false,
+	onchange
+}: SelectProps = $props()
 </script>
 
 <div class="relative inline-block w-full">

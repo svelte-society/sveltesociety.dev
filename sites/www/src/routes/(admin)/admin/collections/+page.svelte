@@ -1,17 +1,17 @@
 <script lang="ts">
-	import { formatRelativeDate } from '$lib/utils/date';
-	import Button from '$lib/ui/Button.svelte';
-	import Table from '$lib/ui/admin/Table.svelte';
-	import type { Collection } from '$lib/server/db/collections';
-	import Actions from '$lib/ui/admin/Actions.svelte';
-	import Badge from '$lib/ui/admin/Badge.svelte';
-	let { data } = $props();
+import { formatRelativeDate } from '$lib/utils/date'
+import Button from '$lib/ui/Button.svelte'
+import Table from '$lib/ui/admin/Table.svelte'
+import type { Collection } from '$lib/server/db/collections'
+import Actions from '$lib/ui/admin/Actions.svelte'
+import Badge from '$lib/ui/admin/Badge.svelte'
+let { data } = $props()
 
-	let colorMap = new Map([
-		['draft', 'warning'],
-		['published', 'success'],
-		['archived', 'danger']
-	]);
+let colorMap = new Map([
+	['draft', 'warning'],
+	['published', 'success'],
+	['archived', 'danger']
+])
 </script>
 
 <div class="container mx-auto px-2 py-4">

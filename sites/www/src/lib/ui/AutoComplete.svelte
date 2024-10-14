@@ -1,69 +1,69 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+import { createEventDispatcher } from 'svelte'
 
-	export let items: any[] = [];
-	export let searchField: string = 'name';
-	export let valueField: string = 'id';
-	export let placeholder: string = 'Search...';
-	export let createNew: boolean = false;
-	export let error: false;
+export let items: any[] = []
+export let searchField: string = 'name'
+export let valueField: string = 'id'
+export let placeholder: string = 'Search...'
+export let createNew: boolean = false
+export let error: false
 
-	let inputValue = '';
-	let filteredItems: any[] = [];
-	let selectedIndex = -1;
-	let showDropdown = false;
+let inputValue = ''
+let filteredItems: any[] = []
+let selectedIndex = -1
+let showDropdown = false
 
-	const dispatch = createEventDispatcher();
+const dispatch = createEventDispatcher()
 
-	$: {
-		if (inputValue) {
-			filteredItems = items.filter((item) =>
-				item[searchField].toLowerCase().includes(inputValue.toLowerCase())
-			);
-			if (
-				createNew &&
-				!filteredItems.some((item) => item[searchField].toLowerCase() === inputValue.toLowerCase())
-			) {
-				filteredItems = [{ [searchField]: inputValue, isNew: true }, ...filteredItems];
-			}
-		} else {
-			filteredItems = [];
+$: {
+	if (inputValue) {
+		filteredItems = items.filter((item) =>
+			item[searchField].toLowerCase().includes(inputValue.toLowerCase())
+		)
+		if (
+			createNew &&
+			!filteredItems.some((item) => item[searchField].toLowerCase() === inputValue.toLowerCase())
+		) {
+			filteredItems = [{ [searchField]: inputValue, isNew: true }, ...filteredItems]
 		}
-		selectedIndex = -1;
+	} else {
+		filteredItems = []
 	}
+	selectedIndex = -1
+}
 
-	function handleInput() {
-		showDropdown = true;
-	}
+function handleInput() {
+	showDropdown = true
+}
 
-	function handleKeydown(event: KeyboardEvent) {
-		if (event.key === 'ArrowDown') {
-			event.preventDefault();
-			selectedIndex = (selectedIndex + 1) % filteredItems.length;
-		} else if (event.key === 'ArrowUp') {
-			event.preventDefault();
-			selectedIndex = (selectedIndex - 1 + filteredItems.length) % filteredItems.length;
-		} else if (event.key === 'Enter' && selectedIndex !== -1) {
-			event.preventDefault();
-			selectItem(filteredItems[selectedIndex]);
-		}
+function handleKeydown(event: KeyboardEvent) {
+	if (event.key === 'ArrowDown') {
+		event.preventDefault()
+		selectedIndex = (selectedIndex + 1) % filteredItems.length
+	} else if (event.key === 'ArrowUp') {
+		event.preventDefault()
+		selectedIndex = (selectedIndex - 1 + filteredItems.length) % filteredItems.length
+	} else if (event.key === 'Enter' && selectedIndex !== -1) {
+		event.preventDefault()
+		selectItem(filteredItems[selectedIndex])
 	}
+}
 
-	function selectItem(item: any) {
-		if (item.isNew) {
-			dispatch('create', inputValue);
-		} else {
-			dispatch('select', item[valueField]);
-		}
-		inputValue = '';
-		showDropdown = false;
+function selectItem(item: any) {
+	if (item.isNew) {
+		dispatch('create', inputValue)
+	} else {
+		dispatch('select', item[valueField])
 	}
+	inputValue = ''
+	showDropdown = false
+}
 
-	function handleBlur() {
-		setTimeout(() => {
-			showDropdown = false;
-		}, 200);
-	}
+function handleBlur() {
+	setTimeout(() => {
+		showDropdown = false
+	}, 200)
+}
 </script>
 
 <div class="relative">

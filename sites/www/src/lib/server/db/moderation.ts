@@ -1,4 +1,4 @@
-import { db } from './index';
+import { db } from './index'
 
 export enum ModerationStatus {
 	PENDING = 'pending',
@@ -7,23 +7,23 @@ export enum ModerationStatus {
 }
 
 export type ModerationQueueItem = {
-	id: number;
-	type: string;
-	title: string;
-	status: ModerationStatus;
-	data: string; // JSON string
-	submitted_by: number;
-	submitted_at: string;
-	moderated_by: number | null;
-	moderated_at: string | null;
-};
+	id: number
+	type: string
+	title: string
+	status: ModerationStatus
+	data: string // JSON string
+	submitted_by: number
+	submitted_at: string
+	moderated_by: number | null
+	moderated_at: string | null
+}
 
-export type PreviewModerationQueueItem = Omit<ModerationQueueItem, 'data'>;
+export type PreviewModerationQueueItem = Omit<ModerationQueueItem, 'data'>
 
 export const get_moderation_queue = (
 	status: ModerationStatus = ModerationStatus.PENDING
 ): PreviewModerationQueueItem[] => {
-	console.warn('get_moderation_queue: No limit provided, risk of memory exhaustion');
+	console.warn('get_moderation_queue: No limit provided, risk of memory exhaustion')
 	const stmt = db.prepare(`
         SELECT 
             id, 
@@ -36,18 +36,18 @@ export const get_moderation_queue = (
         FROM moderation_queue
         WHERE status = ?
         ORDER BY submitted_at DESC
-    `);
-	return stmt.all(status) as PreviewModerationQueueItem[];
-};
+    `)
+	return stmt.all(status) as PreviewModerationQueueItem[]
+}
 
 export const get_moderation_queue_item = (id: number): ModerationQueueItem | undefined => {
 	const stmt = db.prepare(`
         SELECT *
         FROM moderation_queue
         WHERE id = ?
-    `);
-	return stmt.get(id) as ModerationQueueItem | undefined;
-};
+    `)
+	return stmt.get(id) as ModerationQueueItem | undefined
+}
 
 export const add_to_moderation_queue = (
 	item: Omit<
@@ -58,10 +58,10 @@ export const add_to_moderation_queue = (
 	const stmt = db.prepare(`
         INSERT INTO moderation_queue (type, status, data, submitted_by, submitted_at)
         VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
-    `);
-	const result = stmt.run(item.type, ModerationStatus.PENDING, item.data, item.submitted_by);
-	return result.lastInsertRowid as number;
-};
+    `)
+	const result = stmt.run(item.type, ModerationStatus.PENDING, item.data, item.submitted_by)
+	return result.lastInsertRowid as number
+}
 
 export const update_moderation_status = (
 	id: number,
@@ -72,29 +72,29 @@ export const update_moderation_status = (
         UPDATE moderation_queue
         SET status = ?, moderated_by = ?, moderated_at = CURRENT_TIMESTAMP
         WHERE id = ?
-    `);
-	const result = stmt.run(status, moderated_by, id);
-	return result.changes > 0;
-};
+    `)
+	const result = stmt.run(status, moderated_by, id)
+	return result.changes > 0
+}
 
 export const get_moderation_queue_count = (
 	status: ModerationStatus = ModerationStatus.PENDING
 ): number => {
-	const stmt = db.prepare('SELECT COUNT(*) as count FROM moderation_queue WHERE status = ?');
-	return (stmt.get(status) as { count: number }).count;
-};
+	const stmt = db.prepare('SELECT COUNT(*) as count FROM moderation_queue WHERE status = ?')
+	return (stmt.get(status) as { count: number }).count
+}
 
 interface GetModerationQueueOptions {
-	status?: ModerationStatus;
-	type?: string;
-	limit?: number;
-	offset?: number;
+	status?: ModerationStatus
+	type?: string
+	limit?: number
+	offset?: number
 }
 
 export const get_moderation_queue_paginated = (
 	options: GetModerationQueueOptions
 ): PreviewModerationQueueItem[] => {
-	const { status = ModerationStatus.PENDING, type, limit = 10, offset = 0 } = options;
+	const { status = ModerationStatus.PENDING, type, limit = 10, offset = 0 } = options
 
 	let query = `
         SELECT 
@@ -108,23 +108,23 @@ export const get_moderation_queue_paginated = (
             moderated_at
         FROM moderation_queue
         WHERE status = @status
-    `;
+    `
 
-	const params: any = { status, limit, offset };
+	const params: any = { status, limit, offset }
 
 	if (type) {
-		query += ' AND type = @type';
-		params.type = type;
+		query += ' AND type = @type'
+		params.type = type
 	}
 
 	query += `
         ORDER BY submitted_at DESC
         LIMIT @limit OFFSET @offset
-    `;
+    `
 
-	const stmt = db.prepare(query);
-	return stmt.all(params) as PreviewModerationQueueItem[];
-};
+	const stmt = db.prepare(query)
+	return stmt.all(params) as PreviewModerationQueueItem[]
+}
 
 export const get_moderation_queue_count_filtered = (
 	params: Pick<GetModerationQueueOptions, 'status'>
@@ -133,8 +133,8 @@ export const get_moderation_queue_count_filtered = (
         SELECT COUNT(*) as count
         FROM moderation_queue
         WHERE status = @status
-    `;
+    `
 
-	const stmt = db.prepare(query);
-	return (stmt.get(params) as { count: number }).count;
-};
+	const stmt = db.prepare(query)
+	return (stmt.get(params) as { count: number }).count
+}

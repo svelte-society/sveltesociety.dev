@@ -1,12 +1,12 @@
 <script lang="ts">
-	import Input from '$lib/ui/form/Input.svelte';
-	import Button from '$lib/ui/Button.svelte';
-	import { zod } from 'sveltekit-superforms/adapters';
-	import { superForm } from 'sveltekit-superforms';
-	import { schema } from './schema';
+import Input from '$lib/ui/form/Input.svelte'
+import Button from '$lib/ui/Button.svelte'
+import { zod } from 'sveltekit-superforms/adapters'
+import { superForm } from 'sveltekit-superforms'
+import { schema } from './schema'
 
-	let { data } = $props();
-	const { form, errors, enhance } = superForm(data.form, zod(schema));
+let { data } = $props()
+const { form, errors, enhance } = superForm(data.form, zod(schema))
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">

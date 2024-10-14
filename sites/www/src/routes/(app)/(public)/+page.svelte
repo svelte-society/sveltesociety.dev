@@ -1,8 +1,8 @@
 <script lang="ts">
-	import ContentCard from '$lib/ui/ContentCard.svelte';
-	import Pagination from '$lib/ui/Pagination.svelte';
+import ContentCard from '$lib/ui/ContentCard.svelte'
+import Pagination from '$lib/ui/Pagination.svelte'
 
-	let { data } = $props();
+let { data } = $props()
 </script>
 
 <div class="grid gap-6">

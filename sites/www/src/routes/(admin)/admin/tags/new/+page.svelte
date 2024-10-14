@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Input from '$lib/ui/form/Input.svelte';
-	import { zod } from 'sveltekit-superforms/adapters';
-	import { schema } from './schema';
-	import { superForm } from 'sveltekit-superforms';
-	import { slugify } from '$lib/utils/slug';
-	let { data } = $props();
-	const { form, errors, enhance } = superForm(data.form, zod(schema));
+import Input from '$lib/ui/form/Input.svelte'
+import { zod } from 'sveltekit-superforms/adapters'
+import { schema } from './schema'
+import { superForm } from 'sveltekit-superforms'
+import { slugify } from '$lib/utils/slug'
+let { data } = $props()
+const { form, errors, enhance } = superForm(data.form, zod(schema))
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">

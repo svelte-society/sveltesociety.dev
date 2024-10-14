@@ -1,17 +1,12 @@
 <script lang="ts">
-	interface SwitchProps {
-		checked: boolean;
-		disabled?: boolean;
-		name?: string;
-		label?: string;
-	}
+interface SwitchProps {
+	checked: boolean
+	disabled?: boolean
+	name?: string
+	label?: string
+}
 
-	let {
-		checked = $bindable(false),
-		disabled = false,
-		name = '',
-		label = ''
-	}: SwitchProps = $props();
+let { checked = $bindable(false), disabled = false, name = '', label = '' }: SwitchProps = $props()
 </script>
 
 <label

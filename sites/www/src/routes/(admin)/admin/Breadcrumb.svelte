@@ -1,19 +1,21 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+import { page } from '$app/stores'
 
-	$: isAdminPage = $page.url.pathname.startsWith('/admin');
-	$: basePath = isAdminPage ? '/admin' : '';
-	$: pathParts = $page.url.pathname.replace(basePath, '').split('/').filter(Boolean);
-	$: breadcrumbs = pathParts.map((part, index) => ({
-		name: part.charAt(0).toUpperCase() + part.slice(1),
-		href: basePath + '/' + pathParts.slice(0, index + 1).join('/')
-	}));
+$page.url.searchParams
 
-	$: if ($page.data.content?.title && breadcrumbs.length > 0) {
-		breadcrumbs[breadcrumbs.length - 1].name = $page.data.content.title;
-	}
+$: isAdminPage = $page.url.pathname.startsWith('/admin')
+$: basePath = isAdminPage ? '/admin' : ''
+$: pathParts = $page.url.pathname.replace(basePath, '').split('/').filter(Boolean)
+$: breadcrumbs = pathParts.map((part, index) => ({
+	name: part.charAt(0).toUpperCase() + part.slice(1),
+	href: basePath + '/' + pathParts.slice(0, index + 1).join('/')
+}))
 
-	$: isHomePage = $page.url.pathname === '/' || $page.url.pathname === '/admin';
+$: if ($page.data.content?.title && breadcrumbs.length > 0) {
+	breadcrumbs[breadcrumbs.length - 1].name = $page.data.content.title
+}
+
+$: isHomePage = $page.url.pathname === '/' || $page.url.pathname === '/admin'
 </script>
 
 {#if !isHomePage}

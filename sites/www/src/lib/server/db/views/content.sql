@@ -21,3 +21,5 @@ CREATE VIEW IF NOT EXISTS content_without_collections AS
 SELECT *
 FROM content
 WHERE type != 'collection';
+
+CREATE INDEX idx_content_status_published_at ON content(status, published_at);

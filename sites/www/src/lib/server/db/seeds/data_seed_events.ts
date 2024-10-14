@@ -636,4 +636,4 @@ export const event_sample_data = [
 		contentId: 140,
 		additionalInfo: null
 	}
-];
+]

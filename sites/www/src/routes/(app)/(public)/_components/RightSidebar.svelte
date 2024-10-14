@@ -1,15 +1,14 @@
 <script lang="ts">
-	import Button from '$lib/ui/Button.svelte';
-	import Tags from '$lib/ui/Tags.svelte';
+import Button from '$lib/ui/Button.svelte'
+import Tags from '$lib/ui/Tags.svelte'
 
-	type Tag = {
-		id: string;
-		name: string;
-		slug: string;
-		contentCount: number;
-	};
+type Tag = {
+	id: string
+	name: string
+	slug: string
+}
 
-	let { tags }: { tags: Tag[] } = $props();
+const { tags }: { tags: Tag[] } = $props()
 </script>
 
 <main class="mx-auto mt-8 max-w-xs space-y-4 p-4">

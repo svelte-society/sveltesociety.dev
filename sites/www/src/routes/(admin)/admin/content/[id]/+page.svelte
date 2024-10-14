@@ -1,61 +1,61 @@
 <script lang="ts">
-	import { superForm } from 'sveltekit-superforms';
-	import { zod } from 'sveltekit-superforms/adapters';
-	import Input from '$lib/ui/form/Input.svelte';
-	import Select from '$lib/ui/form/Select.svelte';
-	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte';
-	import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte';
-	import { schema } from './schema';
-	import { slugify } from '$lib/utils/slug';
-	import { slide } from 'svelte/transition';
-	import { page } from '$app/stores';
-	import Button from '$lib/ui/Button.svelte';
+import { superForm } from 'sveltekit-superforms'
+import { zod } from 'sveltekit-superforms/adapters'
+import Input from '$lib/ui/form/Input.svelte'
+import Select from '$lib/ui/form/Select.svelte'
+import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte'
+import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte'
+import { schema } from './schema'
+import { slugify } from '$lib/utils/slug'
+import { slide } from 'svelte/transition'
+import { page } from '$app/stores'
+import Button from '$lib/ui/Button.svelte'
 
-	let { data } = $props();
-	const { form, errors, enhance } = superForm(data.form, {
-		validators: zod(schema),
-		dataType: 'json'
-	});
-	async function tryVideo(
-		id: string
-	): Promise<{ preview: string; title: string; author: string } | undefined> {
-		return fetch(
-			`https://www.youtube.com/oembed?url=https%3A//youtube.com/watch%3Fv%3D${id}&format=json`
-		)
-			.then((response) => response.json())
-			.then((response) => ({
-				preview: response.thumbnail_url,
-				title: response.title,
-				author: response.author_name
-			}))
-			.catch((_) => undefined);
+let { data } = $props()
+const { form, errors, enhance } = superForm(data.form, {
+	validators: zod(schema),
+	dataType: 'json'
+})
+async function tryVideo(
+	id: string
+): Promise<{ preview: string; title: string; author: string } | undefined> {
+	return fetch(
+		`https://www.youtube.com/oembed?url=https%3A//youtube.com/watch%3Fv%3D${id}&format=json`
+	)
+		.then((response) => response.json())
+		.then((response) => ({
+			preview: response.thumbnail_url,
+			title: response.title,
+			author: response.author_name
+		}))
+		.catch((_) => undefined)
+}
+async function tryNpm(id: string | undefined): Promise<
+	| {
+			name: string
+			description: string
+			keywords: Array<string>
+			maintainers: Array<{
+				name: string
+			}>
+			versions: Array<string>
+	  }
+	| undefined
+> {
+	if (!id) {
+		return Promise.reject()
 	}
-	async function tryNpm(id: string | undefined): Promise<
-		| {
-				name: string;
-				description: string;
-				keywords: Array<string>;
-				maintainers: Array<{
-					name: string;
-				}>;
-				versions: Array<string>;
-		  }
-		| undefined
-	> {
-		if (!id) {
-			return Promise.reject();
-		}
-		return fetch(`https://registry.npmjs.org/${id}`)
-			.then((response) => response.json())
-			.then((response) => ({
-				name: response.name,
-				description: response.description,
-				keywords: response.keywords,
-				maintainers: response.maintainers ?? []
-			}))
-			.catch((_) => undefined);
-	}
-	const startingTitle = $form.title;
+	return fetch(`https://registry.npmjs.org/${id}`)
+		.then((response) => response.json())
+		.then((response) => ({
+			name: response.name,
+			description: response.description,
+			keywords: response.keywords,
+			maintainers: response.maintainers ?? []
+		}))
+		.catch((_) => undefined)
+}
+const startingTitle = $form.title
 </script>
 
 <div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">

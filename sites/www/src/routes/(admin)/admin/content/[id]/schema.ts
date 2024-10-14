@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { packageNameRegex } from 'package-name-regex';
+import { z } from 'zod'
+import { packageNameRegex } from 'package-name-regex'
 
 export const schema = z.object({
 	title: z.string().min(1, 'Title is required'),
@@ -19,4 +19,4 @@ export const schema = z.object({
 		}),
 		z.record(z.string().regex(/^[a-z0-9]+$/i), z.string())
 	])
-});
+})

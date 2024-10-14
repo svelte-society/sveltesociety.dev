@@ -1,17 +1,17 @@
 <script lang="ts">
-	import SuperDebug, { superForm } from 'sveltekit-superforms';
-	import { zod } from 'sveltekit-superforms/adapters';
-	import Button from '$lib/ui/Button.svelte';
-	import Input from '$lib/ui/form/Input.svelte';
-	import Select from '$lib/ui/form/Select.svelte';
-	import Avatar from '$lib/ui/Avatar.svelte';
-	import { schema } from './schema';
+import SuperDebug, { superForm } from 'sveltekit-superforms'
+import { zod } from 'sveltekit-superforms/adapters'
+import Button from '$lib/ui/Button.svelte'
+import Input from '$lib/ui/form/Input.svelte'
+import Select from '$lib/ui/form/Select.svelte'
+import Avatar from '$lib/ui/Avatar.svelte'
+import { schema } from './schema'
 
-	let { data } = $props();
-	const { form, errors, enhance } = superForm(data.form, {
-		validators: zod(schema),
-		dataType: 'json'
-	});
+let { data } = $props()
+const { form, errors, enhance } = superForm(data.form, {
+	validators: zod(schema),
+	dataType: 'json'
+})
 </script>
 
 <div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">

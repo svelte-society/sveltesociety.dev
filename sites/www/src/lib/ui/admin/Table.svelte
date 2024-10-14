@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
+import type { Snippet } from 'svelte'
 
-	interface Props<T> {
-		action: boolean;
-		header: (classes: string) => ReturnType<Snippet>;
-		row: (item: T, classes: string) => ReturnType<Snippet>;
-		actionCell?: (item: T) => ReturnType<Snippet>;
-		data: Array<T>;
-	}
-	let { action = false, header, row, actionCell, data }: Props<any> = $props();
+interface Props<T> {
+	action: boolean
+	header: (classes: string) => ReturnType<Snippet>
+	row: (item: T, classes: string) => ReturnType<Snippet>
+	actionCell?: (item: T) => ReturnType<Snippet>
+	data: Array<T>
+}
+let { action = false, header, row, actionCell, data }: Props<any> = $props()
 </script>
 
 <div class="overflow-hidden rounded-lg bg-white shadow-sm">

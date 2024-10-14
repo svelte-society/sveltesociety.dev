@@ -1,17 +1,17 @@
 <script context="module">
-	export interface Header {
-		key: string;
-		label: string;
-		sticky?: 'left' | 'right';
-	}
+export interface Header {
+	key: string
+	label: string
+	sticky?: 'left' | 'right'
+}
 
-	export interface TableProps<T> {
-		headers: Header[];
-		items: T[];
-		itemKey: keyof T;
-		renderCell?: Snippet<[item: T, header: Header]>;
-		renderActions?: Snippet<[item: T]>;
-	}
+export interface TableProps<T> {
+	headers: Header[]
+	items: T[]
+	itemKey: keyof T
+	renderCell?: Snippet<[item: T, header: Header]>
+	renderActions?: Snippet<[item: T]>
+}
 </script>
 
 <script lang="ts">

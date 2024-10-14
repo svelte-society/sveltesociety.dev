@@ -1,37 +1,37 @@
 <script lang="ts">
-	interface TextInputProps {
-		label?: string;
-		value?: string;
-		description?: string;
-		errors?: string[];
-		initial?: string;
-		placeholder?: string;
-		name: string;
-		constraints?: any;
-		disabled?: boolean;
-		type: string;
-		magic?: () => string;
-	}
-	let {
-		name,
-		value = $bindable(),
-		label,
-		description,
-		placeholder = 'Some text...',
-		constraints,
-		errors,
-		disabled,
-		type = 'text',
-		magic = undefined
-	}: TextInputProps = $props();
-	let inputElement: HTMLInputElement;
+interface TextInputProps {
+	label?: string
+	value?: string
+	description?: string
+	errors?: string[]
+	initial?: string
+	placeholder?: string
+	name: string
+	constraints?: any
+	disabled?: boolean
+	type: string
+	magic?: () => string
+}
+let {
+	name,
+	value = $bindable(),
+	label,
+	description,
+	placeholder = 'Some text...',
+	constraints,
+	errors,
+	disabled,
+	type = 'text',
+	magic = undefined
+}: TextInputProps = $props()
+let inputElement: HTMLInputElement
 
-	let showClearButton = $derived(value?.length > 0);
+let showClearButton = $derived(value?.length > 0)
 
-	function clearText() {
-		value = '';
-		inputElement.focus();
-	}
+function clearText() {
+	value = ''
+	inputElement.focus()
+}
 </script>
 
 <div class="flex flex-col gap-1">

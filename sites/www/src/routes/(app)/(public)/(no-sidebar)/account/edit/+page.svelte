@@ -1,10 +1,10 @@
 <!-- sites/www/src/routes/(app)/(account)/account/edit/+page.svelte -->
 <script lang="ts">
-	import { superForm } from 'sveltekit-superforms';
-	import Button from '$lib/ui/Button.svelte';
+import { superForm } from 'sveltekit-superforms'
+import Button from '$lib/ui/Button.svelte'
 
-	let { data } = $props();
-	const { form, errors, enhance } = superForm(data.form);
+let { data } = $props()
+const { form, errors, enhance } = superForm(data.form)
 </script>
 
 <div class="container mx-auto px-4 py-8">

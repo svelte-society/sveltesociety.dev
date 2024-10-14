@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { marked } from 'marked';
-	let { value = $bindable(''), name = '' } = $props();
+import { marked } from 'marked'
+let { value = $bindable(''), name = '' } = $props()
 
-	let tab = $state('write');
+let tab = $state('write')
 </script>
 
 <div class="w-full">

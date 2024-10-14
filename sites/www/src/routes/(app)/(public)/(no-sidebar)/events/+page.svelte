@@ -1,19 +1,19 @@
 <script lang="ts">
-	import Button from '$lib/ui/Button.svelte';
+import Button from '$lib/ui/Button.svelte'
 
-	// Mock data for events and meetups
-	const meetups = [
-		{ id: 1, name: 'Svelte NYC', location: 'New York City', members: 500 },
-		{ id: 2, name: 'Svelte London', location: 'London', members: 450 },
-		{ id: 3, name: 'Svelte Berlin', location: 'Berlin', members: 300 }
-	];
+// Mock data for events and meetups
+const meetups = [
+	{ id: 1, name: 'Svelte NYC', location: 'New York City', members: 500 },
+	{ id: 2, name: 'Svelte London', location: 'London', members: 450 },
+	{ id: 3, name: 'Svelte Berlin', location: 'Berlin', members: 300 }
+]
 
-	const events = [
-		{ id: 1, title: 'Introduction to Svelte 5', date: '2024-09-15', meetupId: 1 },
-		{ id: 2, title: 'Advanced State Management in Svelte', date: '2024-09-20', meetupId: 2 },
-		{ id: 3, title: 'Building Accessible Svelte Apps', date: '2024-09-25', meetupId: 3 },
-		{ id: 4, title: 'Svelte and TypeScript Workshop', date: '2024-10-01', meetupId: 1 }
-	];
+const events = [
+	{ id: 1, title: 'Introduction to Svelte 5', date: '2024-09-15', meetupId: 1 },
+	{ id: 2, title: 'Advanced State Management in Svelte', date: '2024-09-20', meetupId: 2 },
+	{ id: 3, title: 'Building Accessible Svelte Apps', date: '2024-09-25', meetupId: 3 },
+	{ id: 4, title: 'Svelte and TypeScript Workshop', date: '2024-10-01', meetupId: 1 }
+]
 </script>
 
 <div class="grid gap-6">

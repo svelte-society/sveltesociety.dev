@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { Link } from './types';
+import type { Link } from './types'
 
-	interface Props {
-		item: Link;
-		isActive: (href: string) => boolean;
-		moderationCount?: number;
-		isCollapsed: boolean;
-	}
+interface Props {
+	item: Link
+	isActive: (href: string) => boolean
+	moderationCount?: number
+	isCollapsed: boolean
+}
 
-	let { item, isActive, moderationCount = 0, isCollapsed }: Props = $props();
+let { item, isActive, moderationCount = 0, isCollapsed }: Props = $props()
 </script>
 
 <li>

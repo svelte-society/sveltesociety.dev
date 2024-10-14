@@ -1,29 +1,16 @@
-import { get_content_by_slug, get_tags_for_content } from '$lib/server/db/content';
-import { get_user_likes_and_saves } from '$lib/server/db/interactions';
-import { fail } from '@sveltejs/kit';
+import { get_content_by_slug, get_tags_for_content } from '$lib/server/db/content'
+import { get_user_likes_and_saves } from '$lib/server/db/interactions'
+import { fail } from '@sveltejs/kit'
 
 export const load = async ({ locals, params }) => {
-	const content = get_content_by_slug(params.slug);
-
-	const tags = get_tags_for_content([content.id]);
-	let content_with_tags = [content].map((c, i) => ({ ...c, tags: tags[i] || [] }));
-
-	if (locals.user) {
-		const { user_likes, user_saves } = get_user_likes_and_saves(
-			locals.user.id,
-			[content].map((c) => c.id)
-		);
-
-		content_with_tags = content_with_tags.map((c, i) => ({
-			...c,
-			liked: user_likes.has(c.id),
-			saved: user_saves.has(c.id)
-		}));
-	}
+	const start = performance.now()
+	const content = get_content_by_slug(params.slug, locals.user?.id || '')
 
 	if (!content) {
-		fail(400, { message: 'Error getting content' });
+		fail(400, { message: 'Error getting content' })
 	}
 
-	return { content: content_with_tags[0] };
-};
+	const stop = performance.now()
+	console.log('Loading content took: ', stop - start)
+	return { content }
+}

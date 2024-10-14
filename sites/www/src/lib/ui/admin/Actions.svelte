@@ -1,12 +1,12 @@
 <script lang="ts">
-	import ConfirmWithDialog from '$lib/ui/admin/ConfirmWithDialog.svelte';
-	let {
-		route,
-		id,
-		type,
-		canDelete = true,
-		canEdit = true
-	}: { route: string; id: number; type: string; canDelete: boolean; canEdit: boolean } = $props();
+import ConfirmWithDialog from '$lib/ui/admin/ConfirmWithDialog.svelte'
+let {
+	route,
+	id,
+	type,
+	canDelete = true,
+	canEdit = true
+}: { route: string; id: number; type: string; canDelete: boolean; canEdit: boolean } = $props()
 </script>
 
 {#if canEdit}

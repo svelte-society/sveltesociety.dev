@@ -1,49 +1,49 @@
 <script lang="ts">
-	import Button from '$lib/ui/Button.svelte';
-	import Input from '$lib/ui/form/Input.svelte';
+import Button from '$lib/ui/Button.svelte'
+import Input from '$lib/ui/form/Input.svelte'
 
-	interface ContentItem {
-		id: number;
-		title: string;
-		type: string;
+interface ContentItem {
+	id: number
+	title: string
+	type: string
+}
+
+interface Props {
+	selectedIds: number[]
+	name: string
+	errors?: any
+	description?: string
+	content: ContentItem[]
+}
+
+let { selectedIds = $bindable([]), name, description, errors, content }: Props = $props()
+let searchQuery = $state('')
+let showModal = $state(false)
+let filteredItems = $derived.by(() => {
+	return content.filter((item) => item.title.toLowerCase().includes(searchQuery.toLowerCase()))
+})
+
+function toggleModal() {
+	showModal = !showModal
+}
+
+function selectItem(item: ContentItem) {
+	if (!selectedIds.includes(item.id)) {
+		selectedIds = [...selectedIds, item.id]
+	} else {
+		unselectItem(item.id)
 	}
+}
 
-	interface Props {
-		selectedIds: number[];
-		name: string;
-		errors?: any;
-		description?: string;
-		content: ContentItem[];
-	}
+function unselectItem(id: number) {
+	selectedIds = selectedIds.filter((itemId: number) => itemId !== id)
+}
 
-	let { selectedIds = $bindable([]), name, description, errors, content }: Props = $props();
-	let searchQuery = $state('');
-	let showModal = $state(false);
-	let filteredItems = $derived.by(() => {
-		return content.filter((item) => item.title.toLowerCase().includes(searchQuery.toLowerCase()));
-	});
-
-	function toggleModal() {
-		showModal = !showModal;
-	}
-
-	function selectItem(item: ContentItem) {
-		if (!selectedIds.includes(item.id)) {
-			selectedIds = [...selectedIds, item.id];
-		} else {
-			unselectItem(item.id);
-		}
-	}
-
-	function unselectItem(id: number) {
-		selectedIds = selectedIds.filter((itemId: number) => itemId !== id);
-	}
-
-	let selectedItems = $derived.by(() => {
-		return selectedIds
-			.map((id: number) => content.find((item) => item.id === id))
-			.filter(Boolean) as ContentItem[];
-	});
+let selectedItems = $derived.by(() => {
+	return selectedIds
+		.map((id: number) => content.find((item) => item.id === id))
+		.filter(Boolean) as ContentItem[]
+})
 </script>
 
 <div class="content-selector">

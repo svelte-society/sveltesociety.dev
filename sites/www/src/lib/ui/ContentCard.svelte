@@ -1,85 +1,85 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { page } from '$app/stores';
-	import { formatRelativeDate } from '$lib/utils/date';
+import { enhance } from '$app/forms'
+import { page } from '$app/stores'
+import { formatRelativeDate } from '$lib/utils/date'
 
-	import Tags from './Tags.svelte';
+import Tags from './Tags.svelte'
 
-	import Recipe from '$lib/ui/content/Recipe.svelte';
-	import Collection from '$lib/ui/content/Collection.svelte';
-	import Video from '$lib/ui/content/Video.svelte';
+import Recipe from '$lib/ui/content/Recipe.svelte'
+import Collection from '$lib/ui/content/Collection.svelte'
+import Video from '$lib/ui/content/Video.svelte'
 
-	interface ContentCardProps {
-		id: string | number;
-		title: string;
-		description?: string;
-		rendered_body?: string;
-		type: string;
-		author: string;
-		published_at: string;
-		views: number;
-		likes: number;
-		liked: boolean;
-		saves: number;
-		saved: boolean;
-		tags: string[];
-		slug: string;
-		child_content: any[];
+interface ContentCardProps {
+	id: string | number
+	title: string
+	description?: string
+	rendered_body?: string
+	type: string
+	author: string
+	published_at: string
+	views: number
+	likes: number
+	liked: boolean
+	saves: number
+	saved: boolean
+	tags: string[]
+	slug: string
+	child_content: any[]
+}
+
+let {
+	id,
+	title,
+	description,
+	rendered_body,
+	type,
+	author,
+	published_at,
+	views,
+	likes,
+	liked,
+	saves,
+	saved,
+	tags,
+	slug,
+	child_content
+}: ContentCardProps = $props()
+
+let submitting_like_toggle = $state(false)
+let submitting_save_toggle = $state(false)
+
+const likeSubmit = ({ cancel }) => {
+	if (!$page.data.user) {
+		cancel()
+		return
 	}
-
-	let {
-		id,
-		title,
-		description,
-		rendered_body,
-		type,
-		author,
-		published_at,
-		views,
-		likes,
-		liked,
-		saves,
-		saved,
-		tags,
-		slug,
-		child_content
-	}: ContentCardProps = $props();
-
-	let submitting_like_toggle = $state(false);
-	let submitting_save_toggle = $state(false);
-
-	const likeSubmit = ({ cancel }) => {
-		if (!$page.data.user) {
-			cancel();
-			return;
+	submitting_like_toggle = true
+	likes = liked ? likes - 1 : likes + 1
+	liked = !liked
+	return async ({ result }) => {
+		if (!result?.data?.success) {
+			likes = liked ? likes + 1 : likes - 1
+			liked = !liked
 		}
-		submitting_like_toggle = true;
-		likes = liked ? likes - 1 : likes + 1;
-		liked = !liked;
-		return async ({ result }) => {
-			if (!result?.data?.success) {
-				likes = liked ? likes + 1 : likes - 1;
-				liked = !liked;
-			}
-			submitting_like_toggle = false;
-		};
-	};
-	const saveSubmit = () => {
-		if (!$page.data.user) {
-			cancel();
-			return;
+		submitting_like_toggle = false
+	}
+}
+const saveSubmit = () => {
+	if (!$page.data.user) {
+		cancel()
+		return
+	}
+	submitting_save_toggle = true
+	saves = saved ? saves - 1 : saves + 1
+	saved = !saved
+	return async ({ result }) => {
+		if (!result?.data?.success) {
+			saves = saved ? saves + 1 : saves - 1
+			saved = !saved
 		}
-		submitting_save_toggle = true;
-		saves = saved ? saves - 1 : saves + 1;
-		saved = !saved;
-		return async ({ result }) => {
-			if (!result?.data?.success) {
-				saves = saved ? saves + 1 : saves - 1;
-				saved = !saved;
-			}
-			submitting_save_toggle = false;
-		};
-	};
+		submitting_save_toggle = false
+	}
+}
 </script>
 
 <article class="grid gap-2 rounded-lg bg-zinc-50 px-6 py-5">

@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { Content } from '$lib/server/db/content';
-	import Button from '$lib/ui/Button.svelte';
+import type { Content } from '$lib/server/db/content'
+import Button from '$lib/ui/Button.svelte'
 
-	interface Props {
-		child_content: Content[];
-		slug: string;
-		type: string;
-	}
+interface Props {
+	child_content: Content[]
+	slug: string
+	type: string
+}
 
-	let { slug, type, child_content = [] }: Props = $props();
+let { slug, type, child_content = [] }: Props = $props()
 </script>
 
 <ul class="mb-4 flex flex-col gap-1.5">

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Button from '$lib/ui/Button.svelte';
+import Button from '$lib/ui/Button.svelte'
 
-	let { data } = $props();
+let { data } = $props()
 </script>
 
 <main class="flex-1 px-4 py-8">

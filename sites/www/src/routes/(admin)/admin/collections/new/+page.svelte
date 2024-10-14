@@ -1,15 +1,15 @@
 <script lang="ts">
-	import AutoCompleteTags from '$lib/ui/AutoComplete-Tags.svelte';
-	import ContentSelector from './ContentSelector.svelte';
-	import Button from '$lib/ui/Button.svelte';
-	import Input from '$lib/ui/form/Input.svelte';
-	import { zod } from 'sveltekit-superforms/adapters';
-	import { schema } from './schema';
+import AutoCompleteTags from '$lib/ui/AutoComplete-Tags.svelte'
+import ContentSelector from './ContentSelector.svelte'
+import Button from '$lib/ui/Button.svelte'
+import Input from '$lib/ui/form/Input.svelte'
+import { zod } from 'sveltekit-superforms/adapters'
+import { schema } from './schema'
 
-	import SuperDebug, { superForm } from 'sveltekit-superforms';
-	import { slugify } from '$lib/utils/slug';
-	let { data } = $props();
-	const { form, errors, enhance } = superForm(data.form, zod(schema));
+import SuperDebug, { superForm } from 'sveltekit-superforms'
+import { slugify } from '$lib/utils/slug'
+let { data } = $props()
+const { form, errors, enhance } = superForm(data.form, zod(schema))
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">

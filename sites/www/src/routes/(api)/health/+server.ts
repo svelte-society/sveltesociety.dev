@@ -1,3 +1,3 @@
 export const GET = async () => {
-	return new Response('OK');
-};
+	return new Response('OK')
+}

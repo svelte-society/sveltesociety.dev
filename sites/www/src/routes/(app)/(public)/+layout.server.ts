@@ -1,15 +1,15 @@
-import { get_tags } from '$lib/server/db/tags';
+import { get_tags } from '$lib/server/db/tags'
 
-import { fail } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit'
 
-export const load = async ({ params, locals }) => {
-	const result = get_tags();
+export const load = async () => {
+	const result = get_tags()
 
 	if (!result) {
-		fail(400, { message: 'Error getting roles' });
+		fail(400, { message: 'Error getting roles' })
 	}
 
 	return {
-		tags: result
-	};
-};
+		tags: result || []
+	}
+}

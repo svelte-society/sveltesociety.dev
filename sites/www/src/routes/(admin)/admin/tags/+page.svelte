@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { formatRelativeDate } from '$lib/utils/date';
-	import Button from '$lib/ui/Button.svelte';
-	import Table from '$lib/ui/admin/Table.svelte';
-	import Actions from '$lib/ui/admin/Actions.svelte';
-	import type { Tag } from '$lib/server/db/tags';
-	let { data } = $props();
+import { formatRelativeDate } from '$lib/utils/date'
+import Button from '$lib/ui/Button.svelte'
+import Table from '$lib/ui/admin/Table.svelte'
+import Actions from '$lib/ui/admin/Actions.svelte'
+import type { Tag } from '$lib/server/db/tags'
+let { data } = $props()
 </script>
 
 <div class="container mx-auto px-2 py-4">

@@ -1,31 +1,31 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+import { page } from '$app/stores'
 
-	let { totalPages = 1 } = $props();
+let { totalPages = 1 } = $props()
 
-	let currentPage = $derived(parseInt($page.url.searchParams.get('page') || '1', 10));
-	let visiblePages = $derived(getVisiblePages(currentPage, totalPages));
+let currentPage = $derived(parseInt($page.url.searchParams.get('page') || '1', 10))
+let visiblePages = $derived(getVisiblePages(currentPage, totalPages))
 
-	function getVisiblePages(current: number, total: number) {
-		if (total <= 6) {
-			return Array.from({ length: total }, (_, i) => i + 1);
-		}
-
-		let pages = [1, total];
-
-		if (current > 2) pages.push(current - 1);
-		if (current < total - 1) pages.push(current + 1);
-
-		pages.push(current);
-
-		pages = [...new Set(pages)].sort((a, b) => a - b);
-
-		if (pages[1] - pages[0] > 1) pages.splice(1, 0, '...');
-		if (pages[pages.length - 1] - pages[pages.length - 2] > 1)
-			pages.splice(pages.length - 1, 0, '...');
-
-		return pages;
+function getVisiblePages(current: number, total: number) {
+	if (total <= 6) {
+		return Array.from({ length: total }, (_, i) => i + 1)
 	}
+
+	let pages = [1, total]
+
+	if (current > 2) pages.push(current - 1)
+	if (current < total - 1) pages.push(current + 1)
+
+	pages.push(current)
+
+	pages = [...new Set(pages)].sort((a, b) => a - b)
+
+	if (pages[1] - pages[0] > 1) pages.splice(1, 0, '...')
+	if (pages[pages.length - 1] - pages[pages.length - 2] > 1)
+		pages.splice(pages.length - 1, 0, '...')
+
+	return pages
+}
 </script>
 
 <nav aria-label="Pagination" class="mt-8 flex justify-center">

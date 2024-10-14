@@ -1,12 +1,12 @@
-import { db } from './index';
+import { db } from './index'
 
 export type Event = {
-	timestamp: string;
-	userId: number;
-	eventType: string;
-	contentId: number | null;
-	additionalInfo: { [key: string]: any } | null;
-};
+	timestamp: string
+	userId: number
+	eventType: string
+	contentId: number | null
+	additionalInfo: { [key: string]: any } | null
+}
 
 export const get_events_by_interval = async (
 	interval: string = '1 century',
@@ -23,12 +23,12 @@ export const get_events_by_interval = async (
         WHERE event_type IN ('like', 'save', 'signup')
         GROUP BY time
         ORDER BY time;
-    `);
+    `)
 
-	const result = await stmt.all(interval);
+	const result = await stmt.all(interval)
 
-	return result;
-};
+	return result
+}
 
 export const get_events_count_by_type = async () => {
 	const stmt = await db.prepare(` 
@@ -37,15 +37,15 @@ export const get_events_count_by_type = async () => {
             COUNT(*) AS count
         FROM user_events
         GROUP BY event_type
-    `);
+    `)
 
-	const result = await stmt.all();
+	const result = await stmt.all()
 
 	return result.reduce(
 		(acc, { event_type, count }) => {
-			acc[event_type] = count;
-			return acc;
+			acc[event_type] = count
+			return acc
 		},
 		{} as Record<string, bigint>
-	);
-};
+	)
+}
