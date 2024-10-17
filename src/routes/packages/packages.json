@@ -1246,13 +1246,6 @@
 		"repository": "https://github.com/storybookjs/storybook"
 	},
 	{
-		"description": "A UI component library for Svelte implementing Google's Material Design specification",
-		"npm": "svelte-toolbox",
-		"categories": ["ui-components", "design-system"],
-		"title": "svelte-toolbox",
-		"repository": "https://github.com/svelte-toolbox/svelte-toolbox"
-	},
-	{
 		"description": "Automated Svelte routes",
 		"npm": "@roxi/routify",
 		"categories": ["routers"],
