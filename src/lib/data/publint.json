@@ -174,7 +174,6 @@
 	"svelte-multitoneimage": { "valid": true },
 	"@storybook/sveltekit": { "valid": false },
 	"@storybook/svelte": { "valid": false },
-	"svelte-toolbox": { "valid": false },
 	"@roxi/routify": { "valid": false },
 	"@sveltejs/gl": { "valid": false },
 	"@sveltejs/svelte-repl": { "valid": false },
