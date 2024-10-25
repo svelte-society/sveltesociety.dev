@@ -22,7 +22,7 @@
 	packageManager.subscribe((newValues) => {
 		const grouped = newValues.reduce(
 			(carry, item) => {
-				if (['npm', 'pnpm', 'yarn'].includes(item)) {
+				if (['npm', 'pnpm', 'yarn', 'deno'].includes(item)) {
 					carry['npm'].push(item);
 				}
 				if (['gem', 'bundler'].includes(item)) {
@@ -79,9 +79,10 @@
 				$packageManager = (detail ?? []).map((i) => i.value);
 			}}
 			items={[
-				{ label: 'NPM', value: 'npm', group: 'NPM' },
-				{ label: 'PNPM', value: 'pnpm', group: 'NPM' },
-				{ label: 'Yarn', value: 'yarn', group: 'NPM' },
+				{ label: 'NPM', value: 'npm', group: 'JS+TS' },
+				{ label: 'PNPM', value: 'pnpm', group: 'JS+TS' },
+				{ label: 'Yarn', value: 'yarn', group: 'JS+TS' },
+				{ label: 'Deno', value: 'deno', group: 'JS+TS' },
 				{ label: 'RubyGem', value: 'gem', group: 'Gem' },
 				{ label: 'Bundler', value: 'bundler', group: 'Gem' }
 			]}
@@ -105,6 +106,7 @@
 			date={entry.date}
 			npm={entry.npm}
 			gem={entry.gem}
+			jsr={entry.jsr}
 			version={entry.version}
 		/>
 	{/each}

@@ -3,12 +3,14 @@
 	import { copyToClipboard } from '$lib/utils/clipboard';
 	import { packageManager as manager } from '$stores/packageManager';
 	import { relativeDate } from '$utils/relativeDate';
+	import { derived } from 'svelte/store';
 
 	export let title: string;
 	export let description: string;
 	export let stars: string;
 	export let npm: string | undefined = undefined;
 	export let gem: string | undefined = undefined;
+	export let jsr: string | undefined = undefined;
 	export let repository: string | undefined = undefined;
 	export let date = undefined;
 	export let version = undefined;
@@ -16,27 +18,46 @@
 	let clipboardCopy = false;
 
 	const copy = () => {
-		copyToClipboard(packageManagerAction($manager, npm, gem)).then(() => (clipboardCopy = false));
+		copyToClipboard($managerAction).then(() => (clipboardCopy = false));
 		clipboardCopy = true;
 	};
 
-	const packageManagerAction = ($manager: Array<string>, npm?: string, gem?: string): string => {
-		if (npm) {
-			return `${packageManagers[$manager.find((m) => ['npm', 'pnpm', 'yarn'].includes(m)) ?? 'npm']} ${npm}`;
+	const managerAction = derived(manager, ($manager) => {
+		if (npm && $manager.includes('npm')) {
+			return `npm install ${npm}`;
 		}
-		if (gem) {
-			return `${packageManagers[$manager.find((m) => ['gem', 'bundler'].includes(m)) ?? 'gem']} ${gem}`;
+		if (npm && $manager.includes('pnpm')) {
+			return `pnpm add ${npm}`;
 		}
-		return '';
-	};
+		if (npm && $manager.includes('yarn')) {
+			return `yarn add ${npm}`;
+		}
+		if (npm && $manager.includes('deno')) {
+			return `deno install npm:${npm}`;
+		}
 
-	const packageManagers = {
-		npm: 'npm install',
-		pnpm: 'pnpm add',
-		yarn: 'yarn add',
-		gem: 'gem install',
-		bundler: 'bundle add'
-	};
+		if (gem && $manager.includes('gem')) {
+			return `gem install ${gem}`;
+		}
+		if (gem && $manager.includes('bundler')) {
+			return `bundle add ${gem}`;
+		}
+
+		if (jsr && $manager.includes('npm')) {
+			return `npx jsr add ${jsr}`;
+		}
+		if (jsr && $manager.includes('pnpm')) {
+			return `pnpm dlx jsr add ${jsr}`;
+		}
+		if (jsr && $manager.includes('yarn')) {
+			return `yarn dlx jsr add ${jsr}`;
+		}
+		if (jsr && $manager.includes('deno')) {
+			return `deno install ${jsr}`;
+		}
+
+		return '';
+	});
 </script>
 
 <div class="card flex flex-col rounded-md p-3 text-base lg:text-lg" id={title}>
@@ -78,12 +99,8 @@
 		</div>
 	</div>
 
-	{#if npm || gem}
-		<Tag
-			click={() => copy()}
-			variant="copy"
-			title={clipboardCopy ? 'copied!' : packageManagerAction($manager, npm, gem)}
-		/>
+	{#if npm || gem || jsr}
+		<Tag click={() => copy()} variant="copy" title={clipboardCopy ? 'copied!' : $managerAction} />
 	{/if}
 	<p class="flex-grow pb-6">{description}</p>
 	<div class="flex items-end justify-between">
