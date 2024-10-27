@@ -671,5 +671,12 @@
 		"repository": "https://github.com/engageintellect/spatz-2",
 		"description": "An opinionated template for building full-stack Svelte applications ridiculously fast. Includes auth, database, admin panel, user dashboard, themes, icons, and more.",
 		"categories": ["sveltekit", "database", "ssr", "integrations", "mobile"]
+	},
+	{
+		"title": "svelte-express-sanity-oauth-template",
+		"url": "https://github.com/thomax/svelte-express-sanity-oauth-template",
+		"repository": "https://github.com/thomax/svelte-express-sanity-oauth-template",
+		"description": "Template repo for setting up a full-stack web application with little config and even less hassle.",
+		"categories": ["integrations", "svelte", "database"]
 	}
 ]
