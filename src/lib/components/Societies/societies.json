@@ -35,6 +35,12 @@
 		"githuburl": "https://github.com/nika-d/svelte-berlin"
 	},
 	{
+		"name": "Svelte Zurich",
+		"country": "🇨🇭 Switzerland",
+		"url": "https://guild.host/svelte-society-zurich/events",
+		"discord": "https://discord.gg/5mZGndNUkw"
+	},
+	{
 		"name": "Amsterdam SvelteJS",
 		"country": "🇳🇱 Netherlands",
 		"url": "https://www.meetup.com/Amsterdam-SvelteJS/",
