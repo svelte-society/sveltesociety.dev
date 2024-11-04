@@ -3157,6 +3157,6 @@
 		"repository": "https://github.com/gzimbron/svelte-actions",
 		"description": "Svelte Actions is a package that includes a variety of Svelte actions to streamline the development of your applications.",
 		"npm": "@gzim/svelte-actions",
-		"categories": ["design-system", "user-interaction"]
+		"categories": ["user-interaction"]
 	}
 ]
