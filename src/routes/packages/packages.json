@@ -3151,5 +3151,12 @@
 		"description": "Build wordpress plugin admin interface with SvelteKit",
 		"npm": "sveltekit-adapter-wordpress-admin",
 		"categories": ["sveltekit-adapters"]
+	},
+	{
+		"title": "Svelte Actions",
+		"repository": "https://github.com/gzimbron/svelte-actions",
+		"description": "Svelte Actions is a package that includes a variety of Svelte actions to streamline the development of your applications.",
+		"npm": "@gzim/svelte-actions",
+		"categories": ["design-system", "user-interaction"]
 	}
 ]
