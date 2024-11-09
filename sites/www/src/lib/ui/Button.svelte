@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script lang="ts">
 const icon_paths_map = new Map<string, string>([
 	[
 		'plus',
@@ -25,50 +25,47 @@ const icon_paths_map = new Map<string, string>([
 		`<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zM5.5 8.5L7 10l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`
 	]
 ])
-</script>
+type Props = {
+	primary?: boolean
+	error?: boolean
+	secondary?: boolean
+	tertiary?: boolean
+	success?: boolean
+	small?: boolean
+	thin?: boolean
+	large?: boolean
+	fullWidth?: boolean
+	href?: string
+	type?: 'button' | 'submit' | 'reset'
+	disabled?: boolean
+	children: any
+	icon_left?: string
+	icon_right?: string
+	value?: string
+	name?: string
+	onclick?: () => void
+}
 
-<script lang="ts">
-	type Props = {
-		primary?: boolean;
-		error?: boolean;
-		secondary?: boolean;
-		tertiary?: boolean;
-		success?: boolean;
-		small?: boolean;
-		thin?: boolean;
-		large?: boolean;
-		fullWidth?: boolean;
-		href?: string;
-		type?: 'button' | 'submit' | 'reset';
-		disabled?: boolean;
-		children: any;
-		icon_left?: string;
-		icon_right?: string;
-		value?: string;
-		name?: string;
-		onclick?: () => void;
-	};
-
-	let {
-		primary,
-		secondary,
-		tertiary,
-		success,
-		error,
-		small,
-		large,
-		fullWidth,
-		href,
-		type,
-		disabled,
-		thin,
-		icon_left,
-		icon_right,
-		children,
-		value,
-		name,
-		onclick
-	}: Props = $props();
+let {
+	primary,
+	secondary,
+	tertiary,
+	success,
+	error,
+	small,
+	large,
+	fullWidth,
+	href,
+	type,
+	disabled,
+	thin,
+	icon_left,
+	icon_right,
+	children,
+	value,
+	name,
+	onclick
+}: Props = $props()
 </script>
 
 <svelte:element

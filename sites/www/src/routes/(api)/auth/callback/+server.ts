@@ -48,7 +48,7 @@ export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
 	}
 
 	// Create or update user
-	let user_result = create_or_update_user(user_info)
+	const user_result = create_or_update_user(user_info)
 
 	if (!user_result) {
 		return new Response('Error creating or updating user', { status: 500 })
@@ -62,7 +62,7 @@ export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
 	}
 
 	// Create new user session
-	const session_create_result = create_session(user_result.id as number)
+	const session_create_result = create_session(user_result.id)
 
 	cookies.set('session_id', session_create_result, {
 		path: '/',
