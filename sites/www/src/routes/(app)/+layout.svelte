@@ -1,8 +1,8 @@
 <script lang="ts">
-import Search from './Search.svelte'
-import { page } from '$app/stores'
+	import Search from './Search.svelte';
+	import { page } from '$app/stores';
 
-let { data, children } = $props()
+	let { data, children } = $props();
 </script>
 
 <div class="flex min-h-screen flex-col">
@@ -74,7 +74,11 @@ let { data, children } = $props()
 								>Profile</a
 							>
 						</li>
-						<li><a href="/auth/logout">Logout</a></li>
+						<li>
+							<form action="/auth/logout" method="POST" class="inline">
+								<button type="submit" class="hover:text-slate-600">Logout</button>
+							</form>
+						</li>
 					{:else}
 						<li><a href="/auth/github">Login</a></li>
 					{/if}

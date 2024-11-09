@@ -2,7 +2,7 @@ import type { RequestHandler } from './$types'
 import { redirect } from '@sveltejs/kit'
 import { delete_session } from '$lib/server/db/session'
 
-export const GET: RequestHandler = async ({ cookies, request }) => {
+export const POST: RequestHandler = async ({ cookies }) => {
 	const session_id = cookies.get('session_id')
 
 	if (!session_id) {
