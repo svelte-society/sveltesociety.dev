@@ -1,4 +1,4 @@
-import Database from 'better-sqlite3'
+import type Database from 'bun:sqlite'
 
 export function seedRoles(db: Database.Database) {
 	const insertRoleStmt = db.prepare(`

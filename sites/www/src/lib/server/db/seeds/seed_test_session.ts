@@ -1,4 +1,4 @@
-import Database from 'better-sqlite3'
+import type Database from 'bun:sqlite'
 
 const SEVEN_DAYS = 7 * 24 * 60 * 60 // 7 days in seconds
 

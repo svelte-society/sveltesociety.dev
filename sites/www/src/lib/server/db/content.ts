@@ -16,7 +16,7 @@ type ContentInput = {
 	rendered_body?: string
 	slug: string
 	description?: string
-	metadata?: Record<string, any>
+	metadata?: Record<string, unknown>
 	children?: number[]
 	tags?: number[]
 }
@@ -30,7 +30,7 @@ export type Content = {
 	rendered_body: string
 	slug: string
 	description: string
-	metadata: Record<string, any>
+	metadata: Record<string, unknown>
 	children: string
 	created_at: string
 	updated_at: string
@@ -42,11 +42,11 @@ export type Content = {
 }
 
 const s = {
-	get_tag_id_by_slug: db.prepare<Pick<Tag, 'id'>>('SELECT t.id FROM tags t WHERE slug = @slug'),
-	get_content_ids_by_tag_id: db.prepare<Pick<Content, 'id'>>(
+	get_tag_id_by_slug: db.prepare('SELECT t.id FROM tags t WHERE slug = @slug'),
+	get_content_ids_by_tag_id: db.prepare(
 		'SELECT ct.content_id FROM content_to_tags ct WHERE ct.tag_id = @tag_id LIMIT @limit OFFSET @offset'
 	),
-	get_content_by_id: db.prepare<Content>(`SELECT c.id,
+	get_content_by_id: db.prepare(`SELECT c.id,
             c.title,
             c.type,
             c.slug,
@@ -58,7 +58,7 @@ const s = {
             c.likes,
             c.saves
       FROM published_content c
-      WHERE c.id = @content_id`),
+      WHERE c.id = $content_id`),
 	get_saved_content_ids_by_user_id: db.prepare(`
 	     SELECT
 					target_id
@@ -66,28 +66,39 @@ const s = {
 				WHERE s.user_id = @user_id
 				LIMIT @limit OFFSET @offset`),
 	get_user_has_liked_content: db.prepare(
-		'SELECT 1 FROM likes WHERE user_id = @user_id AND target_id = @target_id'
+		'SELECT 1 FROM likes WHERE user_id = $user_id AND target_id = $target_id'
 	),
 	get_user_has_saved_content: db.prepare(
-		'SELECT 1 FROM saves WHERE user_id = @user_id AND target_id = @target_id'
+		'SELECT 1 FROM saves WHERE user_id = $user_id AND target_id = $target_id'
 	),
 	get_tag_ids_for_content: db.prepare(
-		'SELECT ct.tag_id FROM content_to_tags ct WHERE ct.content_id = @content_id'
+		'SELECT ct.tag_id FROM content_to_tags ct WHERE ct.content_id = $content_id'
 	),
-	get_tag_by_tag_id: db.prepare('SELECT * FROM tags WHERE tags.id = @tag_id'),
-	get_content_by_slug: db.prepare<{ slug: string }, PreviewContent>(
-		'SELECT * FROM published_content WHERE slug = @slug'
-	)
+	get_tag_by_tag_id: db.prepare('SELECT * FROM tags WHERE tags.id = $tag_id'),
+	get_content_by_slug: db.prepare('SELECT * FROM published_content WHERE slug = $slug')
 }
 
 export type PreviewContent = Omit<Content, 'body' | 'rendered_body'>
 
 export const get_content = (
-	{ limit = 15, offset = 0, types = [] },
-	user_id: GetContentParams = {}
+	{ limit = 15, offset = 0, types = [] }: GetContentParams,
+	user_id?: string
 ): PreviewContent[] => {
+	// Input validation
+	if (limit < 0 || limit > 100) throw new Error('Invalid limit')
+	if (offset < 0) throw new Error('Invalid offset')
+	if (!Array.isArray(types)) throw new Error('Invalid types parameter')
+
+	// Sanitize types array
+	const sanitizedTypes = types.map((type) => {
+		if (typeof type !== 'string') throw new Error('Invalid type value')
+		return type.replace(/[^a-zA-Z0-9_-]/g, '')
+	})
+
 	const start = performance.now()
-	let query = `
+
+	// Use prepared statement with parameters
+	const baseQuery = `
         SELECT
             id,
             title,
@@ -101,21 +112,15 @@ export const get_content = (
             likes,
             saves
         FROM published_content
+        WHERE 1=1
+        ${sanitizedTypes.length > 0 ? `AND type IN ('${sanitizedTypes.map(() => '?').join(',')}')` : ''}
         ORDER BY published_at ASC
+        LIMIT ? OFFSET ?
     `
 
-	const params: Record<string, any> = { limit, offset }
+	const stmt = db.prepare(baseQuery)
+	const params = [...sanitizedTypes, limit, offset]
 
-	if (types.length > 0) {
-		query += ' WHERE type IN (' + types.map((_, i) => `@type${i}`).join(', ') + ')'
-		types.forEach((type, i) => {
-			params[`@type${i}`] = type
-		})
-	}
-
-	query += ' LIMIT @limit OFFSET @offset'
-
-	const stmt = db.prepare(query)
 	let content = stmt.all(params) as PreviewContent[]
 
 	content = add_tags(content)
@@ -147,7 +152,7 @@ export const get_all_content = (): PreviewContent[] => {
             status
         FROM content_without_collections
     `)
-	return stmt.all() as PreviewContent[]
+	return stmt.values() as PreviewContent[]
 }
 
 export const get_content_by_type = (type: string): PreviewContent[] => {
@@ -168,11 +173,11 @@ export const get_content_by_type = (type: string): PreviewContent[] => {
         FROM published_content
         WHERE type = ?
     `)
-	return stmt.all(type) as PreviewContent[]
+	return stmt.values(type) as PreviewContent[]
 }
 
 export const get_content_by_slug = (slug: string, user_id: string): PreviewContent | undefined => {
-	const content = s.get_content_by_slug.all({ slug })
+	const content = s.get_content_by_slug.values({ slug })
 	const content_with_tags = add_tags(content)
 	const [full_content] = add_user_liked_and_saved(user_id, content_with_tags)
 
@@ -192,16 +197,16 @@ export const get_tags_for_content = (content_ids: number[]): Tag[][] => {
         WHERE ct.content_id = ?
       `)
 
-	const getManyTags = db.transaction((ids: number[]) => {
+	const getManyTags = db.transaction(() => {
 		const results: Tag[][] = []
-		for (const id of ids) {
-			const tags = stmt.all(id) as Tag[]
+		for (const id of content_ids) {
+			const tags = stmt.values(id) as Tag[]
 			results.push(tags)
 		}
 		return results
 	})
 
-	return getManyTags(content_ids)
+	return getManyTags()
 }
 
 export const get_content_by_ids = (contentIds: number[]): PreviewContent[] => {
@@ -228,7 +233,7 @@ export const get_content_by_ids = (contentIds: number[]): PreviewContent[] => {
     `)
 
 	try {
-		return stmt.all(...contentIds) as PreviewContent[]
+		return stmt.values(...contentIds) as PreviewContent[]
 	} catch (error) {
 		console.error('Error fetching content:', error)
 		return []
@@ -250,9 +255,9 @@ export const get_content_by_tag = (options: GetContentByTagOptions, user_id: str
 		const tag = s.get_tag_id_by_slug.get({ slug }) as Tag
 		const ids = s.get_content_ids_by_tag_id
 			.all({ tag_id: tag.id, limit, offset })
-			.map((ids) => ids.content_id)
+			.map((ids: { content_id: number }) => ids.content_id)
 
-		const content_without_tags = []
+		const content_without_tags: Content[] = []
 
 		for (const content_id of ids) {
 			content_without_tags.push(s.get_content_by_id.get({ content_id }) as Content)
@@ -278,12 +283,12 @@ export const get_content_by_tag_count = (slug: string): number => {
         FROM published_content c
         JOIN content_to_tags ct ON c.id = ct.content_id
         JOIN tags t ON ct.tag_id = t.id
-        WHERE t.slug = ?
+        WHERE t.slug = $slug
     `
 
 	const stmtCount = db.prepare(queryCount)
 
-	const { count } = stmtCount.get(slug) as { count: number }
+	const { count } = stmtCount.get({ $slug: slug }) as { count: number }
 
 	return count
 }
@@ -298,18 +303,18 @@ export function get_user_saved_content(options: GetSavedContentOptions): Content
 	const { user_id, limit = 2, offset = 5 } = options
 
 	const saved_content_ids = s.get_saved_content_ids_by_user_id
-		.all({ user_id, limit, offset })
-		.map((ids) => ids.target_id)
+		.values({ user_id, limit, offset })
+		.map((ids: { target_id: number }) => ids.target_id)
 
 	const content: Content[] = []
 
-	const get_many = db.transaction((ids) => {
-		for (const content_id of ids) {
+	const get_many = db.transaction(() => {
+		for (const content_id of saved_content_ids) {
 			content.push(s.get_content_by_id.get({ content_id }) as Content)
 		}
 	})
 
-	get_many(saved_content_ids)
+	get_many()
 	return content
 }
 
@@ -496,32 +501,43 @@ export const update_content_tags = (contentId: number, tags: number[]) => {
 	}
 }
 
-export function add_user_liked_and_saved(user_id, rows) {
+export function add_user_liked_and_saved(
+	user_id: string,
+	rows: PreviewContent[]
+): PreviewContent[] {
 	if (user_id) {
 		for (const row of rows) {
-			if (s.get_user_has_liked_content.get({ user_id, target_id: row.id })) {
-				rows.find((c) => c.id === row.id).liked = true
-			} else {
-				row.liked = false
+			const likedContent = rows.find((c) => c.id === row.id)
+			if (likedContent) {
+				if (s.get_user_has_liked_content.get({ user_id: user_id, target_id: row.id })) {
+					likedContent.liked = true
+				} else {
+					likedContent.liked = false
+				}
 			}
-			if (s.get_user_has_saved_content.get({ user_id, target_id: row.id })) {
-				rows.find((c) => c.id === row.id).saved = true
-			} else {
-				row.saved = false
+			const savedContent = rows.find((c) => c.id === row.id)
+			if (savedContent) {
+				if (s.get_user_has_saved_content.get({ user_id: user_id, target_id: row.id })) {
+					savedContent.saved = true
+				} else {
+					savedContent.saved = false
+				}
 			}
 		}
 	}
 	return rows
 }
 
-export function add_tags(rows) {
+export function add_tags(rows: PreviewContent[]): PreviewContent[] {
 	return rows.map((c) => {
-		const tag_ids = s.get_tag_ids_for_content.all({ content_id: c.id }).map((t) => t.tag_id)
+		const tag_ids = s.get_tag_ids_for_content
+			.all({ content_id: c.id })
+			.map((t: { tag_id: number }) => t.tag_id)
 
-		const tags = []
+		const tags: Tag[] = []
 
 		for (const tag_id of tag_ids) {
-			tags.push(s.get_tag_by_tag_id.get({ tag_id }))
+			tags.push(s.get_tag_by_tag_id.get({ tag_id: tag_id }) as Tag)
 		}
 
 		return {
@@ -531,13 +547,13 @@ export function add_tags(rows) {
 	})
 }
 
-export function add_children(rows) {
+export function add_children(rows: Content[]): Content[] {
 	return rows.map((c) => {
 		const parsed_children = JSON.parse(c.children)
 		if (parsed_children.length === 0) return { ...c, children: [] }
 		console.log()
-		const children = rows.children.map((id) => {
-			return s.get_content_by_id.get(id)
+		const children = parsed_children.map((id: number) => {
+			return s.get_content_by_id.get({ $id: id })
 		})
 
 		return {

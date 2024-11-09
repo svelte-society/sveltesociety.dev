@@ -1,5 +1,5 @@
 import { db } from './index'
-import { Status } from '$lib/server/db/common'
+import type { Status } from '$lib/server/db/common'
 
 export type Collection = {
 	id: number
@@ -19,5 +19,5 @@ export const get_collections = (): Collection[] => {
 	const stmt = db.prepare(`
         SELECT * FROM collections_view
     `)
-	return stmt.all() as Collection[]
+	return stmt.values() as Collection[]
 }

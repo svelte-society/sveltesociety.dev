@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3'
+import type Database from 'bun:sqlite'
 
 export function seedContent(db: Database.Database) {
 	const getAllTagsStmt = db.prepare(`

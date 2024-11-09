@@ -1,5 +1,5 @@
+import type Database from 'bun:sqlite'
 import type { User } from '$lib/server/db/user'
-import type Database from 'better-sqlite3'
 
 declare global {
 	namespace App {

@@ -1,4 +1,3 @@
-import { db } from '$lib/server/db'
 import { validate_session_id } from '$lib/server/db/session'
 import { get_user } from '$lib/server/db/user'
 import type { Handle } from '@sveltejs/kit'

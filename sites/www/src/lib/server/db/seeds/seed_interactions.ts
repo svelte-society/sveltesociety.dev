@@ -1,5 +1,4 @@
-import Database from 'better-sqlite3'
-
+import type Database from 'bun:sqlite'
 export function seedInteractions(db: Database.Database) {
 	// Prepare statements
 	const insertLikeStmt = db.prepare(

@@ -1,4 +1,4 @@
-import Database from 'better-sqlite3'
+import type Database from 'bun:sqlite'
 
 export function seedUsers(db: Database.Database) {
 	const findAdminRoleStmt = db.prepare(`

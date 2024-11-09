@@ -27,11 +27,11 @@ export interface User {
 export const get_user = (id: number): User | undefined => {
 	const stmt = db.prepare(`
       SELECT * FROM users
-      WHERE id = @id
+      WHERE id = $id
     `)
 
 	try {
-		return stmt.get({ id }) as User
+		return stmt.get({ id: id }) as User
 	} catch (error) {
 		console.error('Error getting user:', error)
 		return undefined
@@ -52,7 +52,7 @@ export const get_users = (): User[] => {
 	}
 }
 
-export const get_user_count = (): Number => {
+export const get_user_count = (): number => {
 	const stmt = db.prepare(`
       SELECT COUNT(*) as count
       FROM users
@@ -85,7 +85,8 @@ export const create_or_update_user = (githubInfo: GitHubUserInfo): User => {
     `)
 
 	try {
-		return stmt.get(userInfo) as User
+		const result = stmt.get(userInfo) as User
+		return result
 	} catch (error) {
 		console.error('Error upserting user:', error)
 		throw error

@@ -1,4 +1,4 @@
-import Database from 'better-sqlite3'
+import type Database from 'bun:sqlite'
 
 export function seedModerationQueue(db: Database.Database) {
 	// Get the first user's ID (assuming we have at least one user)

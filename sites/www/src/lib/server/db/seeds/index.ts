@@ -1,4 +1,4 @@
-import Database from 'better-sqlite3'
+import { Database } from 'bun:sqlite'
 import { Database as DuckDB } from 'duckdb-async'
 import { seedContent } from './seed_content'
 import { seedInteractions } from './seed_interactions'
@@ -13,8 +13,8 @@ import { config } from '$lib/server/db/seeds/utils'
 import { seedEventUserEvents } from './seed_event_db'
 
 const db = new Database(config.DB_PATH)
-db.pragma('journal_mode = WAL')
-db.pragma('foreign_keys = ON')
+db.exec('PRAGMA journal_mode = WAL')
+db.exec('PRAGMA foreign_keys = ON')
 
 // export const event_db = await DuckDB.create(config.EVENT_DB_PATH)
 

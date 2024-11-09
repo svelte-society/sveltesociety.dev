@@ -1,15 +1,15 @@
-import { Database as DuckDB } from 'duckdb-async'
-import Database from 'better-sqlite3'
+import { Database } from 'bun:sqlite'
 import fs from 'fs'
 import path from 'path'
 import { config } from '$lib/server/db/seeds/utils'
+import { Database as DuckDB } from 'duckdb-async'
 
 const TRIGGERS_FOLDER = './src/lib/server/db/triggers'
 const VIEWS_FOLDER = './src/lib/server/db/views'
 
 export const db = new Database(config.DB_PATH)
-db.pragma('journal_mode = WAL')
-db.pragma('foreign_keys = ON')
+db.exec('PRAGMA journal_mode = WAL')
+db.exec('PRAGMA foreign_keys = ON')
 
 export const event_db = await DuckDB.create(config.EVENT_DB_PATH)
 

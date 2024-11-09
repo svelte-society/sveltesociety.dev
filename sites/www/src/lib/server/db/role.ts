@@ -20,7 +20,7 @@ export const get_active_roles = () => {
 
 export const get_role_by_id = (id: number) => {
 	const stmt = db.prepare('SELECT * FROM roles WHERE id = ?')
-	let role = stmt.get(id) as Role | undefined
+	const role = stmt.get(id) as Role | undefined
 	return { ...role, active: role?.active === 1 } as Role | undefined
 }
 

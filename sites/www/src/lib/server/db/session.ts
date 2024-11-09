@@ -1,5 +1,5 @@
-import { db } from './index'
 import { randomUUID } from 'crypto'
+import { db } from './index'
 
 const SEVEN_DAYS = 7 * 24 * 60 * 60 // 7 days in seconds
 
@@ -18,20 +18,20 @@ interface SessionResult {
 
 const deleteSessionStatement = db.prepare(`
     DELETE FROM sessions
-    WHERE session_token = @session_token
+    WHERE session_token = $session_token
     RETURNING *
   `)
 
 const createSessionStatement = db.prepare(`
     INSERT INTO sessions (user_id, session_token, expires_at)
-    VALUES (@user_id, @session_token, @expires_at)
+    VALUES ($user_id, $session_token, $expires_at)
     RETURNING session_token
   `)
 
 const validateSessionStatement = db.prepare(`
     SELECT user_id
     FROM sessions
-    WHERE session_token = @session_token
+    WHERE session_token = $session_token
     AND expires_at > datetime('now')
     LIMIT 1
   `)
@@ -45,14 +45,14 @@ export function delete_session(sessionToken: string): Session | undefined {
 	}
 }
 
-export function create_session(userId: number): string {
+export function create_session(user_id: number): string {
 	try {
 		const sessionToken = randomUUID()
 		const now = new Date()
 		const expiration = new Date(now.getTime() + SEVEN_DAYS * 1000)
 
 		const result = createSessionStatement.get({
-			user_id: userId,
+			user_id: user_id,
 			session_token: sessionToken,
 			expires_at: formatDateForSQLite(expiration)
 		}) as { session_token: string }
@@ -72,9 +72,9 @@ export function validate_session_id(sessionToken: string): SessionResult {
 
 		if (result === undefined) {
 			return { valid: false }
-		} else {
+		} 
 			return { valid: true, user_id: result.user_id }
-		}
+
 	} catch (error) {
 		console.error('Error validating session:', error)
 		return { valid: false }
