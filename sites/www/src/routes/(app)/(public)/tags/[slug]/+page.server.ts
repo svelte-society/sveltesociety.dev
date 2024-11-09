@@ -1,5 +1,4 @@
-import { get_content_by_tag, get_tags_for_content } from '$lib/server/db/content'
-import { get_user_likes_and_saves } from '$lib/server/db/interactions'
+import { get_content_by_tag } from '$lib/server/db/content'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = ({ params, locals }) => {
