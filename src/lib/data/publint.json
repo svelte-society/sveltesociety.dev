@@ -438,5 +438,6 @@
 	"svelte-cartesian": { "valid": true },
 	"sveltekit-superactions": { "valid": true },
 	"svelte-speedometer": { "valid": true },
-	"sveltekit-adapter-wordpress-admin": { "valid": true }
+	"sveltekit-adapter-wordpress-admin": { "valid": true },
+	"@gzim/svelte-actions": { "valid": true }
 }
