@@ -207,6 +207,13 @@
 		"categories": ["integrations", "sveltekit-adapters", "official"]
 	},
 	{
+		"title": "Svelte CLI",
+		"repository": "https://github.com/sveltejs/cli",
+		"description": "A command line interface (CLI) for creating and maintaining Svelte applications",
+		"npm": "sv",
+		"categories": ["svelte-add", "official"]
+	},
+	{
 		"title": "svelte-lazy-loader",
 		"repository": "https://github.com/sawyerclick/svelte-lazy-loader",
 		"description": "A component library for effortlessly loading media using a shared IntersectionObserver instance if native lazy-loading doesn't exist.",
@@ -3158,5 +3165,19 @@
 		"description": "Svelte Actions is a package that includes a variety of Svelte actions to streamline the development of your applications.",
 		"npm": "@gzim/svelte-actions",
 		"categories": ["user-interaction"]
+	},
+	{
+		"title": "Sheepdog",
+		"repository": "https://github.com/mainmatter/sheepdog",
+		"description": "Handle async tasks in your svelte application with ease",
+		"npm": "@sheepdog/svelte",
+		"categories": ["stores-and-state"]
+	},
+	{
+		"title": "Tipex",
+		"repository": "https://github.com/friendofsvelte/tipex",
+		"description": "Tipex stands as an advanced rich text editor tailored for Svelte",
+		"npm": "@friendofsvelte/tipex",
+		"categories": ["forms-and-input"]
 	}
 ]
