@@ -34,15 +34,17 @@ export const packagesSchema = z.array(
 			description: z.string().max(250),
 			categories: z.array(z.enum(PACKAGES_CATEGORIES)).min(1).max(6)
 		}),
-		z
-			.object({
+		z.union([
+			z.object({
 				npm: z.string().regex(packageNameRegex)
+			}),
+			z.object({
+				gem: z.string().regex(/^[a-z_-]+$/)
+			}),
+			z.object({
+				jsr: z.string().regex(/^@[a-z0-9-]+\/[a-z0-9-]+$/)
 			})
-			.or(
-				z.object({
-					gem: z.string().regex(/^[a-z_-]+$/)
-				})
-			)
+		])
 	)
 );
 

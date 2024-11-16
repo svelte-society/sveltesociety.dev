@@ -35,6 +35,7 @@
 	let npm = 'svelte-lorem-ipsum';
 	let categories;
 	let repository = 'https://github.com/sveltejs/svelte-lorem-ipsum';
+	let manager = { value: 'npm' };
 
 	$: pathName = `${type.value}s`;
 	$: jsonSnippet = {
@@ -42,7 +43,7 @@
 		url: url ? url : undefined,
 		repository: repository ? repository : undefined,
 		description,
-		npm: npm ? npm : undefined,
+		[manager.value]: type.value === 'package' ? npm : undefined,
 		categories: categories?.map((c) => c.value)
 	};
 
@@ -115,13 +116,33 @@
 			<span class="input-helper">A short description of the package</span>
 		</div>
 	</div>
-	<div class="input-wrapper">
-		<label for="npm">NPM:</label>
-		<div>
-			<input id="npm" type="text" bind:value={npm} />
-			<span class="input-helper">The npm name of the package</span>
+	{#if type.value === 'package'}
+		<div class="input-wrapper">
+			<label for="npm">
+				<SvelteSelect
+					id="categories"
+					items={[
+						{ value: 'npm', label: 'NPM' },
+						{ value: 'jsr', label: 'JSR' },
+						{ value: 'gem', label: 'Ruby' }
+					]}
+					showIndicator
+					isClearable={false}
+					bind:value={manager}
+				/>
+			</label>
+			<div>
+				<input id="npm" type="text" bind:value={npm} />
+				<span class="input-helper"
+					>The {manager.value === 'npm'
+						? 'npm'
+						: manager.value === 'jsr'
+							? 'deno jsr package'
+							: 'gem'} name of the package</span
+				>
+			</div>
 		</div>
-	</div>
+	{/if}
 	<div class="input-wrapper">
 		<label for="categories" class="required">Categories:</label>
 		<div>
