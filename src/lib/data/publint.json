@@ -26,6 +26,7 @@
 	"@sveltejs/adapter-node": { "valid": true },
 	"@sveltejs/adapter-static": { "valid": true },
 	"@sveltejs/adapter-vercel": { "valid": true },
+	"sv": { "valid": true },
 	"svelte-lazy-loader": { "valid": true },
 	"svelte-carbonbadge": { "valid": true },
 	"svelte-form-validation": { "valid": true },
@@ -63,7 +64,7 @@
 	"@beyonk/svelte-facebook-pixel": { "valid": false },
 	"@beyonk/svelte-google-analytics": { "valid": false },
 	"@beyonk/svelte-googlemaps": { "valid": false },
-	"@beyonk/svelte-mapbox": { "valid": true },
+	"@beyonk/svelte-mapbox": { "valid": false },
 	"@beyonk/svelte-notifications": { "valid": true },
 	"@beyonk/svelte-scrollspy": { "valid": false },
 	"svelte-simple-icons": { "valid": false },
@@ -439,5 +440,7 @@
 	"sveltekit-superactions": { "valid": true },
 	"svelte-speedometer": { "valid": true },
 	"sveltekit-adapter-wordpress-admin": { "valid": true },
-	"@gzim/svelte-actions": { "valid": true }
+	"@gzim/svelte-actions": { "valid": true },
+	"@sheepdog/svelte": { "valid": true },
+	"@friendofsvelte/tipex": { "valid": true }
 }
