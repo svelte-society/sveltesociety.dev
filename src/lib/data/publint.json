@@ -97,7 +97,7 @@
 	"svelte-frappe-charts": { "valid": false },
 	"svelte-material-ui": { "valid": true },
 	"@ikun-ui/core": { "valid": false },
-	"carbon-components-svelte": { "valid": false },
+	"carbon-components-svelte": { "valid": true },
 	"attractions": { "valid": false },
 	"svelte-spa-router": { "valid": true },
 	"svelte-flatpickr": { "valid": false },
