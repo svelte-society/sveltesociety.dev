@@ -211,7 +211,7 @@
 	"@svelte-parts/icons": { "valid": false },
 	"@svelte-parts/zoom": { "valid": true },
 	"svelte-appwrite": { "valid": false },
-	"svelte-pdf": { "valid": true },
+	"svelte-pdf": { "valid": false },
 	"svelte-micro": { "valid": false },
 	"svantic": { "valid": true },
 	"@macfja/svelte-undoable": { "valid": true },
