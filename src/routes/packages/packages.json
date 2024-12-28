@@ -3179,5 +3179,13 @@
 		"description": "Tipex stands as an advanced rich text editor tailored for Svelte",
 		"npm": "@friendofsvelte/tipex",
 		"categories": ["forms-and-input"]
+	},
+	{
+		"title": "Sonda",
+		"url": "https://sonda.dev/",
+		"repository": "https://github.com/filipsobol/sonda",
+		"description": "Universal visualizer and analyzer for JavaScript and CSS",
+		"npm": "sonda",
+		"categories": ["build-plugins", "integrations"]
 	}
 ]
