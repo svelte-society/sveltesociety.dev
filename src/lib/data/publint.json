@@ -413,7 +413,7 @@
 	"brefer": { "valid": false },
 	"svelte-mapbox": { "valid": true },
 	"@sveltejs/enhanced-img": { "valid": true },
-	"@unpic/svelte": { "valid": true },
+	"@unpic/svelte": { "valid": false },
 	"@playwright/experimental-ct-svelte": { "valid": true },
 	"vaul-svelte": { "valid": true },
 	"svelte-client-components": { "valid": true },
@@ -442,5 +442,6 @@
 	"sveltekit-adapter-wordpress-admin": { "valid": true },
 	"@gzim/svelte-actions": { "valid": true },
 	"@sheepdog/svelte": { "valid": true },
-	"@friendofsvelte/tipex": { "valid": true }
+	"@friendofsvelte/tipex": { "valid": true },
+	"sonda": { "valid": true }
 }
