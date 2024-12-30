@@ -679,4 +679,11 @@
 		"description": "Template repo for setting up a full-stack web application with little config and even less hassle.",
 		"categories": ["integrations", "svelte", "database"]
 	}
+	{
+	        "title": "svelte-minimal-site",
+	        "url": "https://sahil.zerops.xyz",
+	        "repository": "https://github.com/nermalcat69/svelte-minimal-site",
+	        "description": "Minimal personal website template with tailwindcss",
+	        "categories": ["sveltekit"]
+	}
 ]
