@@ -18,8 +18,8 @@
 		]
 	},
 	"@rodrigodagostino/svelte-sortable-list": {
-		"version": "0.10.10",
-		"date": "2024-12-11T17:51:17.917Z",
+		"version": "0.10.12",
+		"date": "2025-01-04T20:58:18.792Z",
 		"support": "^4.0.0"
 	},
 	"svelte-adapter-fastly": {
@@ -2536,8 +2536,8 @@
 		"keywords": ["UI", "svelte", "PerfectThings"]
 	},
 	"@tanstack/svelte-query": {
-		"version": "5.62.9",
-		"date": "2024-12-23T16:52:53.363Z",
+		"version": "5.62.12",
+		"date": "2025-01-03T14:51:06.096Z",
 		"support": "^3.54.0 || ^4.0.0 || ^5.0.0-next.0"
 	},
 	"@tanstack/svelte-virtual": {
@@ -2840,8 +2840,8 @@
 	},
 	"supasveltekit": { "version": "0.1.6", "date": "2024-08-07T13:13:28.223Z", "support": "^4.0.0" },
 	"@jill64/sveltekit-adapter-aws": {
-		"version": "1.9.71",
-		"date": "2024-12-20T15:02:19.689Z",
+		"version": "1.10.0",
+		"date": "2024-12-31T05:20:06.078Z",
 		"support": "Unknown",
 		"keywords": ["adapter", "aws", "sveltekit"]
 	},
@@ -2852,8 +2852,8 @@
 		"keywords": ["cloudflare", "edge", "pages", "sentry", "sveltekit", "worker"]
 	},
 	"@jill64/sentry-sveltekit-edge": {
-		"version": "1.2.55",
-		"date": "2024-08-30T17:44:02.481Z",
+		"version": "2.0.1",
+		"date": "2025-01-03T11:08:20.659Z",
 		"support": "Unknown",
 		"keywords": ["edge", "sentry", "sveltekit", "vercel"]
 	},
@@ -2931,22 +2931,22 @@
 		"keywords": ["svelte"]
 	},
 	"svelte-inline-modal": {
-		"version": "2.0.0",
-		"date": "2024-12-13T02:23:08.496Z",
+		"version": "2.0.1",
+		"date": "2024-12-30T19:04:58.251Z",
 		"support": "^5.0.0",
 		"keywords": ["inline", "modal", "onthefly", "svelte"]
 	},
 	"@jill64/svelte-input": {
-		"version": "2.0.0",
-		"date": "2024-12-28T03:10:52.017Z",
-		"support": "^4.0.0",
+		"version": "2.0.1",
+		"date": "2024-12-30T21:28:06.325Z",
+		"support": "^5.0.0",
 		"keywords": ["components", "input", "suite", "svelte"]
 	},
 	"@jill64/svelte-toast": {
-		"version": "2.1.4",
-		"date": "2024-12-27T22:14:25.353Z",
+		"version": "2.1.5",
+		"date": "2024-12-30T18:09:51.827Z",
 		"support": "^5.0.0",
-		"keywords": ["notify", "svelte", "toast"]
+		"keywords": ["library", "notify", "svelte", "toast"]
 	},
 	"@tanstack/svelte-table": {
 		"version": "8.20.5",
@@ -3169,8 +3169,8 @@
 		]
 	},
 	"svelte-maplibre": {
-		"version": "1.0.0-next.8",
-		"date": "2024-12-12T18:32:37.202Z",
+		"version": "1.0.0-next.9",
+		"date": "2025-01-04T00:30:20.298Z",
 		"support": "^5.0.0",
 		"keywords": ["gis", "map", "maplibre", "svelte"]
 	},
@@ -3467,8 +3467,8 @@
 		"keywords": ["svelte", "i18n", "i18next", "kit"]
 	},
 	"@vite-pwa/sveltekit": {
-		"version": "0.6.6",
-		"date": "2024-10-19T01:06:54.310Z",
+		"version": "0.6.7",
+		"date": "2024-12-31T15:28:58.780Z",
 		"support": "Unknown",
 		"keywords": ["sveltekit", "workbox", "pwa", "vite", "vite-plugin"]
 	},
@@ -3647,8 +3647,8 @@
 		"support": "^4.0.0"
 	},
 	"@inlang/paraglide-sveltekit": {
-		"version": "0.15.0",
-		"date": "2024-12-16T23:52:57.563Z",
+		"version": "0.15.3",
+		"date": "2025-01-03T16:34:22.277Z",
 		"support": "Unknown"
 	},
 	"embla-carousel-svelte": {
@@ -3736,7 +3736,7 @@
 		"support": "^5.0.2",
 		"keywords": ["svelte", "table", "data", "dataview", "grid", "gridview", "datagrid", "datatable"]
 	},
-	"runed": { "version": "0.22.0", "date": "2024-12-20T19:36:41.016Z", "support": "^5.7.0" },
+	"runed": { "version": "0.23.0", "date": "2025-01-03T19:08:12.866Z", "support": "^5.7.0" },
 	"paneforge": {
 		"version": "0.0.6",
 		"date": "2024-09-19T21:01:48.516Z",
@@ -3852,20 +3852,19 @@
 		"support": "^4.0.0 || ^5.0.0 || ^5.0.0-next.1"
 	},
 	"@friendofsvelte/tipex": {
-		"version": "0.0.7-up-6",
-		"date": "2024-12-13T06:54:40.389Z",
+		"version": "0.0.7-fix-0",
+		"date": "2024-12-29T03:39:17.626Z",
 		"support": "^5.0.0",
 		"keywords": ["svelte", "text editor", "svelte 5", "rich text", "svelte kit"]
 	},
 	"sonda": {
-		"version": "0.7.0",
-		"date": "2024-12-27T11:04:18.494Z",
+		"version": "0.7.1",
+		"date": "2024-12-31T08:29:09.012Z",
 		"support": "Unknown",
 		"keywords": [
 			"bundle",
-			"analyzer",
 			"visualizer",
-			"source-map",
+			"analyzer",
 			"vite",
 			"rollup",
 			"rolldown",
@@ -3874,7 +3873,11 @@
 			"esbuild",
 			"nextjs",
 			"nuxt",
-			"astro"
+			"withastro",
+			"sveltekit",
+			"angular",
+			"performance",
+			"devtools"
 		]
 	}
 }
