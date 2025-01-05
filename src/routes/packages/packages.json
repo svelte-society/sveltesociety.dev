@@ -3187,5 +3187,15 @@
 		"description": "Universal visualizer and analyzer for JavaScript and CSS",
 		"npm": "sonda",
 		"categories": ["build-plugins", "integrations"]
+	},
+	{
+		"title": "UI Ingredients",
+		"url": "https://ui-ingredients.vercel.app/",
+		"repository": "https://github.com/calvo-jp/ui-ingredients",
+		"description": "Headless component library powered by zag",
+		"npm": "ui-ingredients",
+		"categories": [
+			"ui-components"
+		]
 	}
 ]
