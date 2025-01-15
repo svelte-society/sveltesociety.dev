@@ -3194,8 +3194,6 @@
 		"repository": "https://github.com/calvo-jp/ui-ingredients",
 		"description": "Headless component library powered by zag",
 		"npm": "ui-ingredients",
-		"categories": [
-			"ui-components"
-		]
+		"categories": ["ui-components"]
 	}
 ]
