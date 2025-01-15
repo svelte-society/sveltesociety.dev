@@ -3187,5 +3187,13 @@
 		"description": "Universal visualizer and analyzer for JavaScript and CSS",
 		"npm": "sonda",
 		"categories": ["build-plugins", "integrations"]
+	},
+	{
+		"title": "svelte-maplibre-gl",
+		"url": "https://svelte-maplibre-gl.mierune.dev/",
+		"repository": "https://github.com/MIERUNE/svelte-maplibre-gl",
+		"description": "Build interactive web maps effortlessly with MapLibre GL JS and Svelte",
+		"npm": "svelte-maplibre-gl",
+		"categories": ["integrations", "data-visualisation", "user-interaction", "ui-components"]
 	}
 ]
