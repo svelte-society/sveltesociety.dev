@@ -469,18 +469,6 @@
 		"categories": ["typescript", "preprocessors", "svelte"]
 	},
 	{
-		"title": "Svelte + FAST + Vite template",
-		"repository": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-starter",
-		"description": "A Svelte + FAST + Vite starter project",
-		"categories": ["svelte"]
-	},
-	{
-		"title": "Svelte + FAST + Vite + TypeScript template",
-		"repository": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-typescript-starter",
-		"description": "A Svelte + FAST + Vite + TypeScript starter project",
-		"categories": ["svelte"]
-	},
-	{
 		"title": "svelte-vite-typescript-tailwindcss-template",
 		"repository": "https://github.com/skshahriarahmedraka/vite-svelte-tailwind-template",
 		"description": "svelte & vite & typescript & tailwindcss",
