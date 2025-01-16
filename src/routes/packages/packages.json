@@ -3195,5 +3195,13 @@
 		"description": "Build interactive web maps effortlessly with MapLibre GL JS and Svelte",
 		"npm": "svelte-maplibre-gl",
 		"categories": ["integrations", "data-visualisation", "user-interaction", "ui-components"]
+  },
+  {
+		"title": "UI Ingredients",
+		"url": "https://ui-ingredients.vercel.app/",
+		"repository": "https://github.com/calvo-jp/ui-ingredients",
+		"description": "Headless component library powered by zag",
+		"npm": "ui-ingredients",
+		"categories": ["ui-components"]
 	}
 ]
