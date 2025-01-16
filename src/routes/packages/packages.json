@@ -3189,6 +3189,14 @@
 		"categories": ["build-plugins", "integrations"]
 	},
 	{
+		"title": "svelte-maplibre-gl",
+		"url": "https://svelte-maplibre-gl.mierune.dev/",
+		"repository": "https://github.com/MIERUNE/svelte-maplibre-gl",
+		"description": "Build interactive web maps effortlessly with MapLibre GL JS and Svelte",
+		"npm": "svelte-maplibre-gl",
+		"categories": ["integrations", "data-visualisation", "user-interaction", "ui-components"]
+	},
+	{
 		"title": "UI Ingredients",
 		"url": "https://ui-ingredients.vercel.app/",
 		"repository": "https://github.com/calvo-jp/ui-ingredients",
