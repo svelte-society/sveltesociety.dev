@@ -666,5 +666,12 @@
 		"repository": "https://github.com/thomax/svelte-express-sanity-oauth-template",
 		"description": "Template repo for setting up a full-stack web application with little config and even less hassle.",
 		"categories": ["integrations", "svelte", "database"]
+	},
+	{
+		"title": "Kener - A sveltekit Status Page System",
+		"url": "https://kener.ing",
+		"repository": "https://github.com/rajnandan1/kener",
+		"description": "Kener is status page system built with Sveltekit and NodeJS. It tries to help some who wants to come up with a status page that looks nice and minimum overhead, in a modern way.",
+		"categories": ["sveltekit", "ssr", "svelte"]
 	}
 ]
