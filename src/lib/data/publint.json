@@ -443,5 +443,7 @@
 	"@gzim/svelte-actions": { "valid": true },
 	"@sheepdog/svelte": { "valid": true },
 	"@friendofsvelte/tipex": { "valid": true },
-	"sonda": { "valid": true }
+	"sonda": { "valid": true },
+	"svelte-maplibre-gl": { "valid": true },
+	"ui-ingredients": { "valid": true }
 }
