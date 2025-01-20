@@ -3203,5 +3203,13 @@
 		"description": "Headless component library powered by zag",
 		"npm": "ui-ingredients",
 		"categories": ["ui-components"]
+	},
+	{
+		"title": "tauri-plugin-svelte",
+		"url": "https://tb.dev.br/tauri-store/guide/getting-started?plugin=tauri-plugin-svelte",
+		"repository": "https://github.com/ferreira-tb/tauri-store",
+		"description": "Persistent Svelte stores and runes for Tauri",
+		"npm": "tauri-plugin-svelte",
+		"categories": ["stores-and-state", "integrations"]
 	}
 ]
