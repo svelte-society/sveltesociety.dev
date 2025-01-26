@@ -3211,5 +3211,21 @@
 		"description": "Persistent Svelte stores and runes for Tauri",
 		"npm": "tauri-plugin-svelte",
 		"categories": ["stores-and-state", "integrations"]
+	},
+	{
+		"title": "SVAR Gantt",
+		"url": "https://svar.dev/svelte/gantt/",
+		"repository": "https://github.com/svar-widgets/gantt",
+		"description": "Customizable, interactive Gantt chart component with dnd interface",
+		"npm": "wx-svelte-gantt",
+		"categories": ["data-visualisation", "user-interaction", "ui-components"]
+	},
+	{
+		"title": "SVAR DataGrid",
+		"url": "https://svar.dev/svelte/datagrid/",
+		"repository": "https://github.com/svar-widgets/grid",
+		"description": "DataGrid component with in-cell editing, virtual scrolling, sorting, frozen columns, tree data, and more",
+		"npm": "wx-svelte-grid",
+		"categories": ["data-visualisation", "user-interaction", "ui-components"]
 	}
 ]
