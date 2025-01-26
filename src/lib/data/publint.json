@@ -445,5 +445,6 @@
 	"@friendofsvelte/tipex": { "valid": true },
 	"sonda": { "valid": true },
 	"svelte-maplibre-gl": { "valid": true },
-	"ui-ingredients": { "valid": true }
+	"ui-ingredients": { "valid": true },
+	"tauri-plugin-svelte": { "valid": true }
 }
