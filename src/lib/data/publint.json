@@ -313,7 +313,7 @@
 	"@shipbit/svane": { "valid": true },
 	"sveltekit-html-minifier": { "valid": true },
 	"svelte-tex": { "valid": false },
-	"drab": { "valid": true },
+	"drab": { "valid": false },
 	"supasveltekit": { "valid": true },
 	"@jill64/sveltekit-adapter-aws": { "valid": true },
 	"@jill64/sentry-sveltekit-cloudflare": { "valid": true },
