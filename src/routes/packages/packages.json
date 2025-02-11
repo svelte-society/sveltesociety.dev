@@ -3227,5 +3227,12 @@
 		"description": "DataGrid component with in-cell editing, virtual scrolling, sorting, frozen columns, tree data, and more",
 		"npm": "wx-svelte-grid",
 		"categories": ["data-visualisation", "user-interaction", "ui-components"]
+	},
+	{
+		"title": "svelte-clerk",
+		"repository": "https://github.com/wobsoriano/svelte-clerk",
+		"description": "Community Clerk Svelte SDK",
+		"npm": "svelte-clerk",
+		"categories": ["auth", "ui-components"]
 	}
 ]
