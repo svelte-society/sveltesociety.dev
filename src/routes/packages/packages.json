@@ -3234,5 +3234,13 @@
 		"description": "Community Clerk Svelte SDK",
 		"npm": "svelte-clerk",
 		"categories": ["auth", "ui-components"]
+	},
+	{
+		"title": "Svelte <Inspect {value} />",
+		"url": "https://inspect.eirik.space",
+		"repository": "https://github.com/ampled/svelte-inspect-value",
+		"description": "A simple but ambitious value inspector component for devs",
+		"npm": "svelte-inspect-value",
+		"categories": [	"ui-components", "data-visualisation" ]
 	}
 ]
