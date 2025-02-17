@@ -448,5 +448,6 @@
 	"ui-ingredients": { "valid": true },
 	"tauri-plugin-svelte": { "valid": true },
 	"wx-svelte-gantt": { "valid": true },
-	"wx-svelte-grid": { "valid": true }
+	"wx-svelte-grid": { "valid": true },
+	"svelte-clerk": { "valid": true }
 }
