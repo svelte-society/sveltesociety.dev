@@ -3242,5 +3242,12 @@
 		"description": "A simple but ambitious value inspector component for devs",
 		"npm": "svelte-inspect-value",
 		"categories": ["ui-components", "data-visualisation"]
+	},
+	{
+		"title": "Svelte Persistent Runes",
+		"repository": "https://github.com/MacFJA/svelte-persistent-runes",
+		"description": "A rune that keep its value through pages and reloads",
+		"npm": "@macfja/svelte-persistent-runes",
+		"categories": ["stores-and-state", "user-interaction"]
 	}
 ]
