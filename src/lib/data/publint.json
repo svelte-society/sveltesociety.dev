@@ -351,7 +351,7 @@
 	"svelte-sonner": { "valid": true },
 	"@square/svelte-store": { "valid": true },
 	"@neoconfetti/svelte": { "valid": true },
-	"@neodrag/svelte": { "valid": true },
+	"@neodrag/svelte": { "valid": false },
 	"svelte-headless-table": { "valid": true },
 	"@formkit/auto-animate": { "valid": false },
 	"@svelteuidev/core": { "valid": true },
@@ -449,5 +449,6 @@
 	"tauri-plugin-svelte": { "valid": true },
 	"wx-svelte-gantt": { "valid": true },
 	"wx-svelte-grid": { "valid": true },
-	"svelte-clerk": { "valid": true }
+	"svelte-clerk": { "valid": true },
+	"svelte-inspect-value": { "valid": true }
 }
