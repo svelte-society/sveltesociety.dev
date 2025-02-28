@@ -3249,5 +3249,12 @@
 		"description": "A rune that keep its value through pages and reloads",
 		"npm": "@macfja/svelte-persistent-runes",
 		"categories": ["stores-and-state", "user-interaction"]
+	},
+	{
+		"title": "@wjfe/n-savant - Reactive, multi path router",
+		"repository": "https://github.com/WJSoftware/wjfe-n-savant",
+		"description": "A client-side router for Svelte v5 powered by reactivity that can simultaneously route with multiple paths.",
+		"npm": "@wjfe/n-savant",
+		"categories": ["routers"]
 	}
 ]
