@@ -28,7 +28,7 @@
 		flex-direction: column;
 	}
 
-	.themed :global(.select-container) {
+	.themed :global(.select-container.select-container) {
 		border: 2px solid var(--dark-gray);
 		cursor: pointer;
 		flex: 1;
@@ -39,17 +39,18 @@
 	}
 
 	.themed :global(.multiSelectItem) {
-		font-size: 0.875rem;
+		font-size: 1rem;
 		align-items: center;
 		--multiItemBorderRadius: var(--s-1);
-		--multiItemHeight: 1.25rem;
+		/*--multiItemHeight: 1.25rem;*/
 		--multiItemMargin: 0;
 		--multiItemPadding: 0.2rem 0.3rem;
 		--multiClearBG: transparent;
 		--multiClearFill: var(--secondary);
 		--multiClearHoverBG: transparent;
-		/* --multiClearHoverFill: var(--white); */
-		/* --multiLabelMargin: 1px 5px 0 0; */
+		--multiClearHoverFill: var(--white);
+		--multiClearTop: 0px;
+		/*--multiLabelMargin: 1px 5px 0 0;*/
 	}
 
 	.themed :global(input) {

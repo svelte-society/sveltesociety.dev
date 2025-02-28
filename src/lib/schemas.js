@@ -18,6 +18,7 @@ const PACKAGES_CATEGORIES = /** @type {const} */ ([
 	'routers',
 	'stores-and-state',
 	'styling-and-layout',
+	'svelte-add',
 	'sveltekit-adapters',
 	'testing',
 	'ui-components',
@@ -25,14 +26,26 @@ const PACKAGES_CATEGORIES = /** @type {const} */ ([
 ]);
 
 export const packagesSchema = z.array(
-	z.object({
-		title: z.string().max(50),
-		npm: z.string().regex(packageNameRegex),
-		url: z.string().url().optional(),
-		repository: z.string().url(),
-		description: z.string().max(250),
-		categories: z.array(z.enum(PACKAGES_CATEGORIES)).min(1).max(6)
-	})
+	z.intersection(
+		z.object({
+			title: z.string().max(50),
+			url: z.string().url().optional(),
+			repository: z.string().url(),
+			description: z.string().max(250),
+			categories: z.array(z.enum(PACKAGES_CATEGORIES)).min(1).max(6)
+		}),
+		z.union([
+			z.object({
+				npm: z.string().regex(packageNameRegex)
+			}),
+			z.object({
+				gem: z.string().regex(/^[a-z_-]+$/)
+			}),
+			z.object({
+				jsr: z.string().regex(/^@[a-z0-9-]+\/[a-z0-9-]+$/)
+			})
+		])
+	)
 );
 
 const TEMPLATES_CATEGORIES = /** @type {const} */ ([
@@ -53,7 +66,6 @@ const TEMPLATES_CATEGORIES = /** @type {const} */ ([
 	'stores-and-state',
 	'storybook',
 	'svelte',
-	'svelte-add',
 	'sveltekit',
 	'testing',
 	'typescript',

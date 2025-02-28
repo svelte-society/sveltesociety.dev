@@ -403,82 +403,10 @@
 		"repository": "https://github.com/babichjacob/university-website"
 	},
 	{
-		"description": "Add PostCSS to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/postcss",
-		"repository": "https://github.com/svelte-add/postcss"
-	},
-	{
-		"description": "Add Tailwind CSS to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/tailwindcss",
-		"repository": "https://github.com/svelte-add/tailwindcss"
-	},
-	{
-		"description": "Add Tauri to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/tauri",
-		"repository": "https://github.com/svelte-add/tauri"
-	},
-	{
-		"description": "Add Bulma to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/bulma",
-		"repository": "https://github.com/svelte-add/bulma"
-	},
-	{
-		"description": "Add CoffeeScript to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/coffeescript",
-		"repository": "https://github.com/svelte-add/coffeescript"
-	},
-	{
-		"description": "A command to add a GraphQL server to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/graphql-server",
-		"repository": "https://github.com/svelte-add/graphql-server"
-	},
-	{
-		"description": "A command to add hosting on Firebase to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/firebase-hosting",
-		"repository": "https://github.com/svelte-add/firebase-hosting"
-	},
-	{
-		"title": "svelte-add/scss",
-		"repository": "https://github.com/svelte-add/scss",
-		"description": "Add SCSS to your Svelte project",
-		"categories": ["svelte-add"]
-	},
-	{
-		"title": "svelte-add/3d",
-		"repository": "https://github.com/svelte-add/3d",
-		"description": "Add 3D scenes to your Svelte project",
-		"categories": ["svelte-add"]
-	},
-	{
 		"title": "vhscom/svelte-headlessui-starter",
 		"repository": "https://github.com/vhscom/svelte-headlessui-starter",
 		"description": "Template designed to make it faster and easier to build libre Svelte apps using Headless UI.",
 		"categories": ["ssr", "typescript", "sveltekit"]
-	},
-	{
-		"description": "Add mdsvex to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "svelte-add/mdsvex",
-		"repository": "https://github.com/svelte-add/mdsvex"
-	},
-	{
-		"description": "Add Supabase to your Svelte project",
-		"categories": ["svelte-add"],
-		"title": "supabase-community/svelte-supabase",
-		"repository": "https://github.com/supabase-community/svelte-supabase"
-	},
-	{
-		"description": "Add Jest to your SvelteKit project",
-		"categories": ["svelte-add"],
-		"title": "rossyman/svelte-add-jest",
-		"repository": "https://github.com/rossyman/svelte-add-jest"
 	},
 	{
 		"description": "SvelteKit blog powered with mdsvex, json schema support, sitemap.xml, RSS-feed and other tools required for good SEO.",
@@ -539,18 +467,6 @@
 		"repository": "https://github.com/timoyo93/svelte-template",
 		"description": "A template that uses TailwindCSS v3, Typescript and SCSS",
 		"categories": ["typescript", "preprocessors", "svelte"]
-	},
-	{
-		"title": "Svelte + FAST + Vite template",
-		"repository": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-starter",
-		"description": "A Svelte + FAST + Vite starter project",
-		"categories": ["svelte"]
-	},
-	{
-		"title": "Svelte + FAST + Vite + TypeScript template",
-		"repository": "https://github.com/microsoft/fast/tree/master/examples/svelte-starters/svelte-fast-typescript-starter",
-		"description": "A Svelte + FAST + Vite + TypeScript starter project",
-		"categories": ["svelte"]
 	},
 	{
 		"title": "svelte-vite-typescript-tailwindcss-template",
@@ -712,9 +628,50 @@
 		"categories": ["sveltekit", "typescript", "code-splitting"]
 	},
 	{
-		"title": "Lucia + Passkeys + Social Sign In",
-		"repository": "https://github.com/passlock-dev/svelte-passkeys",
-		"description": "Authentication template supporting passkeys, mailbox verification emails, social sign in and more. (Lucia, Melt UI, Superforms, Tailwind + others)",
+		"title": "Starter App with Auth, Social Login & CRUD ops",
+		"repository": "https://github.com/passlock-dev/passlock",
+		"description": "Full stack app including CRUD operations, Passkey auth, social sign in and more. Choose from Daisy UI, Preline or Shadcn templates.",
 		"categories": ["sveltekit", "typescript"]
+	},
+	{
+		"title": "SvelteKit Omakase",
+		"repository": "https://github.com/n00ki/sveltekit-omakase",
+		"description": "This project embraces an omakase approach, inspired by the Rails doctrine. It offers an opinionated selection of tools and a structured approach.",
+		"categories": ["sveltekit", "typescript", "integrations"]
+	},
+	{
+		"title": "spatz",
+		"url": "https://spatz.engage-dev.com",
+		"repository": "https://github.com/engageintellect/spatz",
+		"description": "An opinionated template for building full-stack Svelte applications ridiculously fast. Includes auth, database, admin panel, user dashboard, themes, icons, and more.",
+		"categories": [
+			"database",
+			"integrations",
+			"sveltekit",
+			"typescript",
+			"stores-and-state",
+			"svelte"
+		]
+	},
+	{
+		"title": "spatz2",
+		"url": "https://spatz2.engage-dev.com",
+		"repository": "https://github.com/engageintellect/spatz-2",
+		"description": "An opinionated template for building full-stack Svelte applications ridiculously fast. Includes auth, database, admin panel, user dashboard, themes, icons, and more.",
+		"categories": ["sveltekit", "database", "ssr", "integrations", "mobile"]
+	},
+	{
+		"title": "svelte-express-sanity-oauth-template",
+		"url": "https://github.com/thomax/svelte-express-sanity-oauth-template",
+		"repository": "https://github.com/thomax/svelte-express-sanity-oauth-template",
+		"description": "Template repo for setting up a full-stack web application with little config and even less hassle.",
+		"categories": ["integrations", "svelte", "database"]
+	},
+	{
+		"title": "Kener - A sveltekit Status Page System",
+		"url": "https://kener.ing",
+		"repository": "https://github.com/rajnandan1/kener",
+		"description": "Kener is status page system built with Sveltekit and NodeJS. It tries to help some who wants to come up with a status page that looks nice and minimum overhead, in a modern way.",
+		"categories": ["sveltekit", "ssr", "svelte"]
 	}
 ]

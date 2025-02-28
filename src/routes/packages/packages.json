@@ -1,5 +1,35 @@
 [
 	{
+		"title": "kampsy-ui",
+		"url": "https://ui.kampsy.xyz/",
+		"repository": "https://github.com/kampsy/ui",
+		"description": "A Svelte 5 UI component library, designed to deliver consistent, cohesive, and high-performance web experiences.",
+		"npm": "kampsy-ui",
+		"categories": ["ui-components", "design-system"]
+	},
+	{
+		"title": "Svelte Sortable List",
+		"url": "https://svelte-sortable-list.netlify.app/",
+		"repository": "https://github.com/rodrigodagostino/svelte-sortable-list",
+		"description": "Create accessible reorderable lists in Svelte",
+		"npm": "@rodrigodagostino/svelte-sortable-list",
+		"categories": ["styling-and-layout", "ui-components", "user-interaction"]
+	},
+	{
+		"title": "svelte-adapter-fastly",
+		"repository": "https://github.com/bertybot/svelte-adapter-fastly",
+		"description": "Sveltekit adapter for Fastly's Edge Compute platform.",
+		"npm": "svelte-adapter-fastly",
+		"categories": ["sveltekit-adapters"]
+	},
+	{
+		"title": "actionview-svelte-handler",
+		"repository": "https://codeberg.org/reesericci/actionview-svelte-handler",
+		"description": "An Action View template handler to create Svelte views seamlessly in Rails applications.",
+		"gem": "actionview-svelte-handler",
+		"categories": ["build-plugins", "integrations"]
+	},
+	{
 		"title": "virtue-ui",
 		"url": "https://github.com/virtueorg/ui",
 		"repository": "https://github.com/virtueorg/ui",
@@ -12,6 +42,13 @@
 			"user-interaction",
 			"data-visualisation"
 		]
+	},
+	{
+		"description": "Add Tailwind, Storybook, mdsvex (i.e. markdown), and more to your Svelte project with a single command.",
+		"categories": ["svelte-add"],
+		"title": "svelte-add/svelte-add",
+		"npm": "svelte-add",
+		"repository": "https://github.com/svelte-add/svelte-add"
 	},
 	{
 		"title": "svelte-electron-adapter",
@@ -168,6 +205,13 @@
 		"description": "A SvelteKit adapter that creates a Vercel app.If you're using adapter-auto, you don't need to install this unless you need to specify Vercel-specific options, since it's already included.",
 		"npm": "@sveltejs/adapter-vercel",
 		"categories": ["integrations", "sveltekit-adapters", "official"]
+	},
+	{
+		"title": "Svelte CLI",
+		"repository": "https://github.com/sveltejs/cli",
+		"description": "A command line interface (CLI) for creating and maintaining Svelte applications",
+		"npm": "sv",
+		"categories": ["svelte-add", "official"]
 	},
 	{
 		"title": "svelte-lazy-loader",
@@ -1209,13 +1253,6 @@
 		"repository": "https://github.com/storybookjs/storybook"
 	},
 	{
-		"description": "A UI component library for Svelte implementing Google's Material Design specification",
-		"npm": "svelte-toolbox",
-		"categories": ["ui-components", "design-system"],
-		"title": "svelte-toolbox",
-		"repository": "https://github.com/svelte-toolbox/svelte-toolbox"
-	},
-	{
 		"description": "Automated Svelte routes",
 		"npm": "@roxi/routify",
 		"categories": ["routers"],
@@ -2017,6 +2054,20 @@
 		"categories": ["data-fetching", "stores-and-state"]
 	},
 	{
+		"title": "@tanstack/svelte-virtual",
+		"repository": "https://github.com/tanstack/virtual",
+		"description": "Headless UI for Virtualizing Large Element Lists in JS/TS, React, Solid, Vue and Svelte",
+		"npm": "@tanstack/svelte-virtual",
+		"categories": ["data-visualisation", "styling-and-layout"]
+	},
+	{
+		"title": "@tanstack/svelte-store",
+		"repository": "https://github.com/tanstack/store",
+		"description": "Framework agnostic, type-safe store w/ reactive framework adapters",
+		"npm": "@tanstack/svelte-store",
+		"categories": ["stores-and-state"]
+	},
+	{
 		"title": "svelte-form-builder",
 		"repository": "https://github.com/pragmatic-engineering/svelte-form-builder-community",
 		"description": "A No-Code Form Builder Library",
@@ -2463,6 +2514,13 @@
 		"repository": "https://github.com/PuruVJ/neoconfetti/tree/main/packages/svelte",
 		"description": "@neoconfetti/svelte allows you to show an awesome confetti explosion on your page, with Svelte!",
 		"npm": "@neoconfetti/svelte",
+		"categories": ["user-interaction"]
+	},
+	{
+		"title": "@neodrag/svelte",
+		"repository": "https://github.com/PuruVJ/neodrag/tree/main/packages/svelte",
+		"description": "A lightweight Svelte action to make your elements draggable.",
+		"npm": "@neodrag/svelte",
 		"categories": ["user-interaction"]
 	},
 	{
@@ -2930,9 +2988,9 @@
 	},
 	{
 		"title": "Paraglide JS Adapter SvelteKit",
-		"repository": "https://github.com/opral/monorepo/tree/main/inlang/source-code/paraglide/paraglide-js-adapter-sveltekit",
+		"repository": "https://github.com/opral/monorepo/tree/main/inlang/source-code/paraglide/paraglide-sveltekit",
 		"description": "Everything you need to internationalize your SvelteKit app with Paraglide.",
-		"npm": "@inlang/paraglide-js-adapter-sveltekit",
+		"npm": "@inlang/paraglide-sveltekit",
 		"categories": ["internationalization"]
 	},
 	{
@@ -2955,7 +3013,7 @@
 		"url": "https://amadeusitgroup.github.io/AgnosUI/latest/",
 		"repository": "https://github.com/AmadeusITGroup/AgnosUI",
 		"description": "Reactive, accessible and Bootstrap-compliant components for Svelte.",
-		"npm": "@agnos-ui/svelte",
+		"npm": "@agnos-ui/svelte-bootstrap",
 		"categories": ["design-system", "ui-components"]
 	},
 	{
@@ -2989,5 +3047,207 @@
 		"description": "Svelte v5 table component suitable for examination of extensive tabular data.",
 		"npm": "@wjfe/dataview",
 		"categories": ["data-visualisation", "ui-components"]
+	},
+	{
+		"title": "Runed",
+		"url": "https://runed.dev/docs",
+		"repository": "https://github.com/svecosystem/runed",
+		"description": "Magical functions for your Svelte applications",
+		"npm": "runed",
+		"categories": ["stores-and-state", "user-interaction"]
+	},
+	{
+		"title": "PaneForge",
+		"url": "https://paneforge.com/docs",
+		"repository": "https://github.com/svecosystem/paneforge",
+		"description": "Resizable pane components for Svelte.",
+		"npm": "paneforge",
+		"categories": ["styling-and-layout", "user-interaction"]
+	},
+	{
+		"title": "Altron",
+		"url": "https://altron.vercel.app/",
+		"repository": "https://github.com/EMPTYVOID-DEV/Altron",
+		"description": "Rich text editor as a svelte component",
+		"npm": "@altron/altron",
+		"categories": ["forms-and-input", "integrations"]
+	},
+	{
+		"title": "remove-attributes",
+		"repository": "https://github.com/jacobbogers/svelte-remove-attributes",
+		"description": "svelte preprocessor to remove attributes (like data-testid) from builds",
+		"npm": "svelte-remove-attributes",
+		"categories": ["styling-and-layout", "build-plugins"]
+	},
+	{
+		"title": "svelte-paperscript",
+		"repository": "https://github.com/apple-phi/svelte-paperscript",
+		"description": "Write PaperScript code directly in your Svelte components!",
+		"npm": "svelte-paperscript",
+		"categories": ["build-plugins", "integrations"]
+	},
+	{
+		"title": "Sveaflet",
+		"repository": "https://github.com/GrayFrost/sveaflet",
+		"description": "Sveaflet is a library for the Svelte framework that wraps Leaflet making it easy to crete reactive maps.",
+		"npm": "sveaflet",
+		"categories": ["integrations"]
+	},
+	{
+		"title": "svelte-contextify",
+		"repository": "https://github.com/Hugos68/svelte-contextify",
+		"description": "A tiny library for vastly improving context managament in Svelte apps by encapsulating the Context API.",
+		"npm": "svelte-contextify",
+		"categories": ["stores-and-state"]
+	},
+	{
+		"title": "Svelte Flow",
+		"repository": "https://github.com/xyflow/xyflow",
+		"description": "Powerful open source libraries for building node-based UIs with Svelte",
+		"npm": "@xyflow/svelte",
+		"categories": ["data-visualisation"]
+	},
+	{
+		"title": "convex-svelte",
+		"repository": "https://github.com/get-convex/convex-svelte",
+		"description": "Receive live updates to Convex query subscriptions and call mutations and actions from Svelte",
+		"npm": "convex-svelte",
+		"categories": ["data-fetching"]
+	},
+	{
+		"title": "sveltekit-reroute",
+		"repository": "https://github.com/joshnuss/sveltekit-reroute",
+		"description": "A SvelteKit handler for redirection rules.",
+		"npm": "sveltekit-reroute",
+		"categories": ["routers"]
+	},
+	{
+		"title": "svelte-cartesian",
+		"repository": "https://github.com/theetrain/svelte-cartesian",
+		"description": "Cartesian Product component for Svelte",
+		"npm": "svelte-cartesian",
+		"categories": ["testing", "ui-components", "design-system"]
+	},
+	{
+		"title": "SVAR Core",
+		"url": "https://svar.dev/svelte/core/",
+		"repository": "https://github.com/svar-widgets/core",
+		"description": "Svelte UI library of 20+ fast and responsive components: from buttons to date pickers. Lightweight, customizable, available in light and dark skins.",
+		"npm": "@wx/svelte-core",
+		"categories": ["ui-components"]
+	},
+	{
+		"title": "sveltekit-superactions",
+		"url": "https://superactions.matsku.dev",
+		"repository": "https://github.com/kumpmati/sveltekit-superactions",
+		"description": "A library for type-safely calling server-side code",
+		"npm": "sveltekit-superactions",
+		"categories": ["data-fetching"]
+	},
+	{
+		"title": "svelte-speedometer",
+		"url": "https://github.com/palerdot/svelte-speedometer/",
+		"repository": "https://github.com/palerdot/svelte-speedometer",
+		"description": "Svelte component library for showing speedometer like gauge using d3",
+		"npm": "svelte-speedometer",
+		"categories": ["data-visualisation", "design-system", "ui-components"]
+	},
+	{
+		"title": "sveltekit-adapter-wordpress-admin",
+		"repository": "https://github.com/lolcabanon/sveltekit-adapter-wordpress-admin",
+		"description": "Build wordpress plugin admin interface with SvelteKit",
+		"npm": "sveltekit-adapter-wordpress-admin",
+		"categories": ["sveltekit-adapters"]
+	},
+	{
+		"title": "Svelte Actions",
+		"repository": "https://github.com/gzimbron/svelte-actions",
+		"description": "Svelte Actions is a package that includes a variety of Svelte actions to streamline the development of your applications.",
+		"npm": "@gzim/svelte-actions",
+		"categories": ["user-interaction"]
+	},
+	{
+		"title": "Sheepdog",
+		"repository": "https://github.com/mainmatter/sheepdog",
+		"description": "Handle async tasks in your svelte application with ease",
+		"npm": "@sheepdog/svelte",
+		"categories": ["stores-and-state"]
+	},
+	{
+		"title": "Tipex",
+		"repository": "https://github.com/friendofsvelte/tipex",
+		"description": "Tipex stands as an advanced rich text editor tailored for Svelte",
+		"npm": "@friendofsvelte/tipex",
+		"categories": ["forms-and-input"]
+	},
+	{
+		"title": "Sonda",
+		"url": "https://sonda.dev/",
+		"repository": "https://github.com/filipsobol/sonda",
+		"description": "Universal visualizer and analyzer for JavaScript and CSS",
+		"npm": "sonda",
+		"categories": ["build-plugins", "integrations"]
+	},
+	{
+		"title": "svelte-maplibre-gl",
+		"url": "https://svelte-maplibre-gl.mierune.dev/",
+		"repository": "https://github.com/MIERUNE/svelte-maplibre-gl",
+		"description": "Build interactive web maps effortlessly with MapLibre GL JS and Svelte",
+		"npm": "svelte-maplibre-gl",
+		"categories": ["integrations", "data-visualisation", "user-interaction", "ui-components"]
+	},
+	{
+		"title": "UI Ingredients",
+		"url": "https://ui-ingredients.vercel.app/",
+		"repository": "https://github.com/calvo-jp/ui-ingredients",
+		"description": "Headless component library powered by zag",
+		"npm": "ui-ingredients",
+		"categories": ["ui-components"]
+	},
+	{
+		"title": "tauri-plugin-svelte",
+		"url": "https://tb.dev.br/tauri-store/guide/getting-started?plugin=tauri-plugin-svelte",
+		"repository": "https://github.com/ferreira-tb/tauri-store",
+		"description": "Persistent Svelte stores and runes for Tauri",
+		"npm": "tauri-plugin-svelte",
+		"categories": ["stores-and-state", "integrations"]
+	},
+	{
+		"title": "SVAR Gantt",
+		"url": "https://svar.dev/svelte/gantt/",
+		"repository": "https://github.com/svar-widgets/gantt",
+		"description": "Customizable, interactive Gantt chart component with dnd interface",
+		"npm": "wx-svelte-gantt",
+		"categories": ["data-visualisation", "user-interaction", "ui-components"]
+	},
+	{
+		"title": "SVAR DataGrid",
+		"url": "https://svar.dev/svelte/datagrid/",
+		"repository": "https://github.com/svar-widgets/grid",
+		"description": "DataGrid component with in-cell editing, virtual scrolling, sorting, frozen columns, tree data, and more",
+		"npm": "wx-svelte-grid",
+		"categories": ["data-visualisation", "user-interaction", "ui-components"]
+	},
+	{
+		"title": "svelte-clerk",
+		"repository": "https://github.com/wobsoriano/svelte-clerk",
+		"description": "Community Clerk Svelte SDK",
+		"npm": "svelte-clerk",
+		"categories": ["auth", "ui-components"]
+	},
+	{
+		"title": "Svelte <Inspect {value} />",
+		"url": "https://inspect.eirik.space",
+		"repository": "https://github.com/ampled/svelte-inspect-value",
+		"description": "A simple but ambitious value inspector component for devs",
+		"npm": "svelte-inspect-value",
+		"categories": ["ui-components", "data-visualisation"]
+	},
+	{
+		"title": "Svelte Persistent Runes",
+		"repository": "https://github.com/MacFJA/svelte-persistent-runes",
+		"description": "A rune that keep its value through pages and reloads",
+		"npm": "@macfja/svelte-persistent-runes",
+		"categories": ["stores-and-state", "user-interaction"]
 	}
 ]
