@@ -450,5 +450,7 @@
 	"wx-svelte-gantt": { "valid": true },
 	"wx-svelte-grid": { "valid": true },
 	"svelte-clerk": { "valid": true },
-	"svelte-inspect-value": { "valid": true }
+	"svelte-inspect-value": { "valid": true },
+	"@macfja/svelte-persistent-runes": { "valid": true },
+	"@wjfe/n-savant": { "valid": true }
 }
