@@ -51,7 +51,7 @@ function removeTag(tagId: number) {
 	</div>
 	{#if errors}
 		{#each errors as error}
-			<div class="text-xs text-slate-500" class:error={errors}>
+			<div class="text-xs text-slate-500 {{ 'text-red-600': errors}}">
 				{error}
 			</div>
 		{/each}
@@ -64,9 +64,3 @@ function removeTag(tagId: number) {
 		<input type="hidden" name="tags" value={tag} />
 	{/each}
 </div>
-
-<style lang="postcss">
-	div .error {
-		@apply text-red-600;
-	}
-</style>

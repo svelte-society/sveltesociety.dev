@@ -23,7 +23,7 @@ const links = [
 		<ul class="text-sm font-bold">
 			{#each links as link}
 				{#if link.href}
-					<li class:active={$page.url.pathname === link.href} class="rounded-sm px-2 py-0.5">
+					<li lass="rounded-sm px-2 py-0.5 {{'bg-svelte-900 text-white': $page.url.pathname === link.href }}">
 						<a href={link.href}>{link.name}</a>
 					</li>
 				{:else}
@@ -35,9 +35,3 @@ const links = [
 		</ul>
 	</nav>
 </aside>
-
-<style>
-	.active {
-		@apply bg-svelte-900 text-white;
-	}
-</style>

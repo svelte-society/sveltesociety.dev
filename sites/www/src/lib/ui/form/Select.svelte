@@ -34,8 +34,7 @@ let {
 		<select
 			bind:value
 			{name}
-			class="w-full appearance-none rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-8 text-sm text-slate-800"
-			class:error={false}
+			class="disabled:cursor-not-allowed disabled:text-gray-400 w-full appearance-none rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-8 text-sm text-slate-800"
 		>
 			<option value="" disabled selected hidden>{placeholder}</option>
 			{#each options as option}
@@ -51,24 +50,12 @@ let {
 		</div>
 	</div>
 	{#if errors}
-		<div class="text-xs text-slate-500" class:error={errors}>
+		<div class="{{ 'text-red-600': errors}}text-xs text-slate-500">
 			{errors}
 		</div>
 	{:else if description}
-		<div class="text-xs text-slate-500" class:error={false}>
+		<div class="text-xs text-slate-500">
 			{description}
 		</div>
 	{/if}
 </div>
-
-<style lang="postcss">
-	select.error {
-		@apply border-red-300 bg-red-50 text-red-600;
-	}
-	div .error {
-		@apply text-red-600;
-	}
-	select:disabled {
-		@apply cursor-not-allowed text-gray-400;
-	}
-</style>

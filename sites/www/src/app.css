@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+    --font-display: 'Inter', system-ui, sans-serif;
+
+    --color-svelte-100: oklch(73.57,55.28,270.48);
+    --color-svelte-300: oklch(67.69,48.65,271.21);
+    --color-svelte-500: oklch(57.21,36.32,273.7);
+    --color-svelte-900: oklch(43.73,21.69,287.37);
+}
+
+@layer base {
+	html {
+		font-family: 'Inter', system-ui, sans-serif;
+	}
+}
+
+@font-face {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src:
+		local(''),
+		url('/fonts/Inter.woff2') format('woff2');
+}

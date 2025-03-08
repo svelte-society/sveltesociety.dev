@@ -19,8 +19,7 @@ const handleClick = (e) => {
 <svelte:element
 	this={onclick ? 'button' : 'a'}
 	href={$page.url.pathname === `/tags/${tag.slug}` ? '/' : `/tags/${tag.slug}`}
-	class="flex items-center gap-0.5 rounded border-2 border-slate-200 bg-slate-100 px-1.5 py-1 text-xs text-zinc-800"
-	class:active={$page.url.pathname === `/tags/${tag.slug}`}
+	class="{{ 'border-svelte-900': $page.url.pathname === `/tags/${tag.slug}` }}flex items-center gap-0.5 rounded border-2 border-slate-200 bg-slate-100 px-1.5 py-1 text-xs text-zinc-800"
 	onclick={onclick ? handleClick : undefined}
 	role={onclick ? 'button' : 'link'}
 >
@@ -50,9 +49,3 @@ const handleClick = (e) => {
 		</svg>
 	{/if}
 </svelte:element>
-
-<style lang="postcss">
-	.active {
-		@apply border-svelte-900;
-	}
-</style>

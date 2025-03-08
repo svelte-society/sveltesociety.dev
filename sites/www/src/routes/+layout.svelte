@@ -1,7 +1,7 @@
 <script>
-import '../app.pcss'
+  import "../app.css";
 
-const { children } = $props()
+  const { children } = $props()
 </script>
 
 {@render children()}
