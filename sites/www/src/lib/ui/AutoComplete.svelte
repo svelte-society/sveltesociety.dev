@@ -74,7 +74,7 @@ function handleBlur() {
 		onkeydown={handleKeydown}
 		onblur={handleBlur}
 		{placeholder}
-		class="{{ 'border-red-300 bg-red-50 text-red-600': error }} w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-7 text-sm text-slate-800 placeholder-slate-500"
+		class={[{ 'border-red-300 bg-red-50 text-red-600': error }, 'w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-7 text-sm text-slate-800 placeholder-slate-500']}
 	/>
 	{#if showDropdown && filteredItems.length > 0}
 		<ul

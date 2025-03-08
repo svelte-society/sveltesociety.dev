@@ -50,7 +50,7 @@ let {
 		</div>
 	</div>
 	{#if errors}
-		<div class="{{ 'text-red-600': errors}}text-xs text-slate-500">
+		<div class={[{ 'text-red-600': errors}, 'text-xs text-slate-500']}>
 			{errors}
 		</div>
 	{:else if description}

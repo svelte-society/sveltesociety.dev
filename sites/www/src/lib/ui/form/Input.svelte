@@ -46,7 +46,7 @@ function clearText() {
 			{disabled}
 			bind:value
 			{placeholder}
-			class="{{ 'border-red-300 bg-red-50 text-red-600': errors }}w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-7 text-sm text-slate-800 placeholder-slate-500"
+			class={[{ 'border-red-300 bg-red-50 text-red-600': errors }, 'w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-7 text-sm text-slate-800 placeholder-slate-500']}
 			{name}
 			{...constraints}
 		/>
@@ -107,11 +107,11 @@ function clearText() {
 		{/if}
 	</div>
 	{#if errors}
-		<div class="{{ 'text-red-600': errors}}text-xs text-slate-500" >
+		<div class={[{ 'text-red-600': errors}, 'text-xs text-slate-500']}>
 			{errors}
 		</div>
 	{:else if description}
-		<div class="{{ 'text-red-600': errors}}text-xs text-slate-500">
+		<div class={[{ 'text-red-600': errors}, 'text-xs text-slate-500']}>
 			{description}
 		</div>
 	{/if}

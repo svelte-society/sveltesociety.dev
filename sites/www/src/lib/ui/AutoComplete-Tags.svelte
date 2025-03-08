@@ -51,7 +51,7 @@ function removeTag(tagId: number) {
 	</div>
 	{#if errors}
 		{#each errors as error}
-			<div class="text-xs text-slate-500 {{ 'text-red-600': errors}}">
+			<div class={['text-xs text-slate-500', { 'text-red-600': errors}]}>
 				{error}
 			</div>
 		{/each}

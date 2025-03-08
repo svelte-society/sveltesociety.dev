@@ -80,7 +80,7 @@ let {
 	{href}
 	{disabled}
 	{onclick}
-	class="{baseStyles} {{ 'bg-svelte-900 text-white hover:brightness-150 focus:ring-svelte-900': primary, 'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500': secondary, 'border border-svelte-300 bg-svelte-100 text-sm font-bold text-svelte-900 focus:ring-svelte-900': tertiary, 'bg-green-400 text-black hover:bg-green-200 focus:ring-green-500': success, 'w-full': fullWidth, 'px-6 py-3 text-lg': large, 'px-2 py-1 text-xs': thin, 'px-3 py-2 text-sm': small, 'rounded-md bg-red-600 text-white transition-colors duration-200 hover:bg-red-700': error }} "
+	class={[baseStyles, { 'bg-svelte-900 text-white hover:brightness-150 focus:ring-svelte-900': primary, 'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500': secondary, 'border border-svelte-300 bg-svelte-100 text-sm font-bold text-svelte-900 focus:ring-svelte-900': tertiary, 'bg-green-400 text-black hover:bg-green-200 focus:ring-green-500': success, 'w-full': fullWidth, 'px-6 py-3 text-lg': large, 'px-2 py-1 text-xs': thin, 'px-3 py-2 text-sm': small, 'rounded-md bg-red-600 text-white transition-colors duration-200 hover:bg-red-700': error }]}
 >
 	{#if icon_left}
 		<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
