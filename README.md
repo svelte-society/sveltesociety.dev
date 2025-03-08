@@ -1,17 +1,24 @@
-# Welcome to the Svelte Society website
+# sveltesociety.dev
 
-This branch contains the upcoming Svelte Society website featuring a monorepo with a new design system and data that lives in a database.
+This branch contains the upcoming Svelte Society website featuring a new design and data that lives in a database.
 
 ## Developing
 
-To start off, clone and run `pnpm i` from the root directory to install all dependencies. Then run one of the following commands to start developing:
-- ui: `pnpm dev:ui`
-- www: `pnpm dev:www`
+Steps to get running:
+- Go to `/sites/www` and run `bun i`
+- Run `bun run --bun db:init`
+- Run `bun run --bun db:seed`
+- Run `bun run --bun dev`
 
-## Design System
+### Environment Variables
 
-The design system lives in the `packages/ui` directory. It is a SvelteKit app that is used to develop and document the design system.
+Add all the relevant .env.development variables:
 
-## Website
+```
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+GITHUB_AUTHORIZATION_CALLBACK_URL=http://localhost:5173/auth/callback
 
-The website lives in the `sites/www` directory. It is a SvelteKit app that is used to develop the website.
+DB_PATH=local.db
+EVENT_DB_PATH=local_event.db
+```

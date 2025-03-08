@@ -1,24 +1,51 @@
 {
-  "name": "svelte-society",
-  "description": "Monorepo for the Svelte Society website",
-  "homepage": "https://sveltesociety.dev/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/svelte-society/sveltesociety.dev"
-  },
-  "type": "module",
-  "scripts": {
-    "test:all": "pnpm -r test",
-    "dev:ui": "pnpm --filter ui dev",
-    "build:ui": "pnpm --filter ui build",
-    "dev:www": "pnpm --filter www dev",
-    "build:www": "pnpm --filter www build",
-    "preview:www": "pnpm --filter www preview"
-  },
-  "packageManager": "pnpm@9.1.4",
-  "pnpm": {
-    "overrides": {
-      "rollup": "npm:@rollup/wasm-node"
-    }
-  }
+	"name": "www",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"start": "node --env-file=.env build",
+		"test": "npm run test:integration && npm run test:unit",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"db:init": "NODE_ENV=development bun ./src/lib/server/db/initiate.ts",
+		"db:seed": "NODE_ENV=development bun ./src/lib/server/db/seeds/index.ts",
+		"db:test:init": "NODE_ENV=test ./src/lib/server/db/initiate.ts",
+		"db:test:seed": "NODE_ENV=test ./src/lib/server/db/seeds/index.ts",
+		"test:integration": "NODE_ENV=test pnpm run db:test:init && pnpm run db:test:seed && pnpm run build && playwright test",
+		"test:unit": "vitest"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@playwright/test": "^1.51.0",
+		"@sveltejs/adapter-node": "^5.2.12",
+		"@sveltejs/enhanced-img": "^0.4.4",
+		"@sveltejs/kit": "^2.19.0",
+		"@sveltejs/vite-plugin-svelte": "5.0.3",
+		"@tailwindcss/forms": "^0.5.10",
+		"@tailwindcss/typography": "^0.5.16",
+		"@tailwindcss/vite": "^4.0.12",
+		"autoprefixer": "^10.4.20",
+		"dotenv": "^16.4.7",
+		"marked": "^15.0.7",
+		"package-name-regex": "^4.0.0",
+		"prettier": "^3.5.3",
+		"prettier-plugin-svelte": "^3.3.3",
+		"prettier-plugin-tailwindcss": "^0.6.11",
+		"svelte": "^5.22.6",
+		"svelte-check": "^4.1.5",
+		"sveltekit-superforms": "^2.23.1",
+		"tailwindcss": "^4.0.12",
+		"tslib": "^2.8.1",
+		"typescript": "^5.8.2",
+		"vite": "^6.2.1",
+		"vitest": "^3.0.8",
+		"zod": "^3.24.2"
+	},
+	"dependencies": {
+		"duckdb-async": "^1.2.0"
+	},
+	"type": "module"
 }
