@@ -4,7 +4,13 @@ This branch contains the upcoming Svelte Society website featuring a new design 
 
 ## Developing
 
-To start off, clone and run `pnpm i`.
+Steps to get running:
+- Go to `/sites/www` and run `bun i`
+- Run `bun run --bun db:init`
+- Run `bun run --bun db:seed`
+- Run `bun run --bun dev`
+
+### Environment Variables
 
 Add all the relevant .env.development variables:
 
@@ -16,9 +22,3 @@ GITHUB_AUTHORIZATION_CALLBACK_URL=http://localhost:5173/auth/callback
 DB_PATH=local.db
 EVENT_DB_PATH=local_event.db
 ```
-
-Run `pnpm run db:init` and then `pnpm run db:seed` to seed the database.
-
-To run the application, run `pnpm run dev`.
-
-After this you can login with GitHub. To access the admin dashboard, you'll need to open the `local.db` file and change your role to 1 (Admin).
