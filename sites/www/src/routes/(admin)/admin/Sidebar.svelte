@@ -1,5 +1,5 @@
 <script lang="ts">
-import { page } from '$app/stores'
+import { page } from '$app/state'
 import type { Link } from './types'
 import NavigationLink from './NavigationLink.svelte'
 
@@ -7,9 +7,9 @@ let isCollapsed = $state(true)
 
 function isActive(href: string) {
 	if (href === '/admin') {
-		return $page.url.pathname === href
+		return page.url.pathname === href
 	}
-	return $page.url.pathname.startsWith(href)
+	return page.url.pathname.startsWith(href)
 }
 
 interface Props {
@@ -27,9 +27,7 @@ const homeLink: Link = {
 </script>
 
 <aside
-	class="flex h-full flex-col bg-white shadow-md transition-all duration-300"
-	class:w-52={!isCollapsed}
-	class:w-18={isCollapsed}
+    class="{ isCollapsed ? 'w-18' : 'w-52'} flex h-full flex-col bg-white shadow-md transition-all duration-300"
 	aria-label="Admin sidebar"
 >
 	<div class="flex flex-grow flex-col gap-2 p-4">

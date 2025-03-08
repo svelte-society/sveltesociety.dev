@@ -53,7 +53,7 @@ const links: Link[] = [
 	<Sidebar {links} moderationCount={data.moderation_count} />
 	<div class="flex-1 overflow-y-auto">
 		<div class="mx-auto max-w-6xl p-8">
-			<Breadcrumb />
+		      <Breadcrumb />
 			{@render children()}
 		</div>
 	</div>
