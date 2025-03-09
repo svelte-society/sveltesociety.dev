@@ -34,11 +34,11 @@ async function tryNpm(id: string | undefined): Promise<
 	| {
 			name: string
 			description: string
-			keywords: Array<string>
+			keywords: string[]
 			maintainers: Array<{
 				name: string
 			}>
-			versions: Array<string>
+			versions: string[]
 	  }
 	| undefined
 > {
@@ -50,12 +50,71 @@ async function tryNpm(id: string | undefined): Promise<
 		.then((response) => ({
 			name: response.name,
 			description: response.description,
-			keywords: response.keywords,
-			maintainers: response.maintainers ?? []
+			keywords: response.keywords || [],
+			maintainers: response.maintainers || [],
+			versions: Object.keys(response.versions || {})
 		}))
 		.catch((_) => undefined)
 }
 const startingTitle = $form.title
+
+// Helper function to safely get video ID
+function getVideoId(): string {
+	if (!$form.metadata || typeof $form.metadata.videoId === 'undefined') {
+		return '';
+	}
+	
+	// Handle array case
+	if (Array.isArray($form.metadata.videoId)) {
+		return $form.metadata.videoId[0] || '';
+	}
+	
+	return $form.metadata.videoId || '';
+}
+
+// Helper function to safely get npm package
+function getNpmPackage(): string {
+	if (!$form.metadata || typeof $form.metadata.npm === 'undefined') {
+		return '';
+	}
+	
+	// Handle array case
+	if (Array.isArray($form.metadata.npm)) {
+		return $form.metadata.npm[0] || '';
+	}
+	
+	return $form.metadata.npm || '';
+}
+
+// Helper function to handle form errors as array
+function getErrorsAsArray(errors: any): string[] {
+	if (!errors) return [];
+	if (Array.isArray(errors)) return errors;
+	if (errors._errors) return Array.isArray(errors._errors) ? errors._errors : [errors._errors];
+	return [];
+}
+
+// Helper function to handle form errors as string
+function getErrorsAsString(errors: any): string {
+	if (!errors) return '';
+	if (typeof errors === 'string') return errors;
+	
+	const errorArray = getErrorsAsArray(errors);
+	return errorArray.length > 0 ? errorArray.join(', ') : '';
+}
+
+// Create string versions of type and status for binding
+let typeValue = $state($form.type as string);
+let statusValue = $state($form.status as string);
+
+// Update form values when string values change
+$effect(() => {
+	$form.type = typeValue as any;
+});
+
+$effect(() => {
+	$form.status = statusValue as any;
+});
 </script>
 
 <div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
@@ -84,9 +143,11 @@ const startingTitle = $form.title
 				{ value: 'announcement', label: 'Announcement' },
 				{ value: 'showcase', label: 'Showcase' }
 			]}
-			bind:value={$form.type}
-			errors={$errors.type}
+			bind:value={typeValue}
+			errors={getErrorsAsString($errors.type)}
 		/>
+		<input type="hidden" name="type" value={typeValue} />
+		
 		<Select
 			name="status"
 			label="Status"
@@ -96,9 +157,10 @@ const startingTitle = $form.title
 				{ value: 'published', label: 'Published' },
 				{ value: 'archived', label: 'Archived' }
 			]}
-			bind:value={$form.status}
-			errors={$errors.status}
+			bind:value={statusValue}
+			errors={getErrorsAsString($errors.status)}
 		/>
+		<input type="hidden" name="status" value={statusValue} />
 		{#if $form.type === 'video'}
 			<div transition:slide class="space-y-2">
 				<Input
@@ -111,7 +173,7 @@ const startingTitle = $form.title
 					errors={$errors.metadata?.videoId}
 				/>
 			</div>
-			{#await tryVideo($form.metadata.videoId) then info}
+			{#await tryVideo(getVideoId()) then info}
 				{#if info}
 					<div
 						class="mx-4 flex gap-4 rounded-md border-2 border-transparent bg-slate-100 p-4 text-sm text-slate-800 placeholder-slate-500"
@@ -138,7 +200,7 @@ const startingTitle = $form.title
 					errors={$errors.metadata?.npm}
 				/>
 			</div>
-			{#await tryNpm($form.metadata.npm) then info}
+			{#await tryNpm(getNpmPackage()) then info}
 				{#if info}
 					<div
 						class="mx-4 rounded-md border-2 border-transparent bg-slate-100 p-4 text-sm text-slate-800 placeholder-slate-500"
@@ -211,7 +273,7 @@ const startingTitle = $form.title
 					errors={$errors.metadata?.npm}
 				/>
 			</div>
-			{#await tryNpm($form.metadata.npm) then info}
+			{#await tryNpm(getNpmPackage()) then info}
 				{#if info}
 					<div
 						class="mx-4 rounded-md border-2 border-transparent bg-slate-100 p-4 text-sm text-slate-800 placeholder-slate-500"

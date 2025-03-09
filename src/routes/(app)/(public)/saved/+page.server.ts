@@ -6,7 +6,6 @@ import {
 import { get_user_likes_and_saves } from '$lib/server/db/interactions'
 import { error, redirect } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
-get_user_likes_and_saves
 
 export const load = (async ({ locals }) => {
 	if (!locals?.user?.id) redirect(302, '/')
@@ -16,22 +15,29 @@ export const load = (async ({ locals }) => {
 
 		const tags = get_tags_for_content(content.map((c) => c.id))
 		const content_with_tags = content.map((c, i) => ({ ...c, tags: tags[i] || [] }))
-		const all_children = [
-			...new Set(content.reduce((acc, c) => [...acc, ...JSON.parse(c.children ?? '[]')], []))
-		]
-		const children = get_content_by_ids(all_children)
+		
+		// Parse children and create a unique set of child IDs
+		const allChildrenArrays = content.map(c => JSON.parse(c.children ?? '[]') as number[]);
+		const allChildrenFlat = allChildrenArrays.flat();
+		const uniqueChildIds = [...new Set(allChildrenFlat)];
+		
+		const children = get_content_by_ids(uniqueChildIds)
 
-		let content_with_tags_and_children = content_with_tags.map((c, i) => ({
+		let content_with_tags_and_children = content_with_tags.map((c) => ({
 			...c,
-			children: JSON.parse(c.children ?? '[]').map((id) =>
+			children: JSON.parse(c.children ?? '[]').map((id: number) =>
 				children.find((child) => child.id === id)
 			)
 		}))
 
 		if (locals.user) {
+			// Convert string ID to number
+			const userId = parseInt(locals.user.id);
+			const contentIds = content.map((c) => c.id);
+			
 			const { user_likes, user_saves } = get_user_likes_and_saves(
-				locals.user.id,
-				content.map((c) => c.id)
+				userId,
+				contentIds
 			)
 
 			content_with_tags_and_children = content_with_tags_and_children.map((c) => ({

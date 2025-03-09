@@ -6,7 +6,18 @@ import Avatar from '$lib/ui/Avatar.svelte'
 import Table from '$lib/ui/admin/Table.svelte'
 import Actions from '$lib/ui/admin/Actions.svelte'
 import type { User } from '$lib/server/db/user'
+
+// Extended User interface to include created_at
+interface ExtendedUser extends User {
+	created_at: string;
+}
+
 let { data } = $props()
+
+// Convert string ID to number for Actions component
+function toNumberId(id: string | number): number {
+	return typeof id === 'string' ? parseInt(id, 10) : id;
+}
 </script>
 
 <div class="container mx-auto px-2 py-4">
@@ -22,7 +33,7 @@ let { data } = $props()
 			<th scope="col" class={classes}>Twitter</th>
 			<th scope="col" class={classes}>Created</th>
 		{/snippet}
-		{#snippet row(item: User, classes)}
+		{#snippet row(item: ExtendedUser, classes)}
 			<td class="whitespace-nowrap {classes} flex items-center font-medium text-gray-900">
 				<Avatar src={item.avatar_url} name={item.username} size="sm" />
 				<span class="ml-2">{item.username}</span>
@@ -34,8 +45,8 @@ let { data } = $props()
 				{formatRelativeDate(item.created_at)}
 			</td>
 		{/snippet}
-		{#snippet actionCell(item: User)}
-			<Actions route="users" id={item.id} canDelete={true} canEdit={true} type="this user" />
+		{#snippet actionCell(item: ExtendedUser)}
+			<Actions route="users" id={toNumberId(item.id)} canDelete={true} canEdit={true} type="this user" />
 			<form action="?/clear_sessions" method="POST" use:enhance style="line-height: 0">
 				<input type="hidden" name="id" value={item.id} />
 				<button

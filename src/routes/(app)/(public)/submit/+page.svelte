@@ -3,6 +3,7 @@ import Input from '$lib/ui/form/Input.svelte'
 import Select from '$lib/ui/form/Select.svelte'
 
 let { data } = $props()
+let selectedTag = $state('');
 </script>
 
 <div class="grid gap-6">
@@ -11,14 +12,16 @@ let { data } = $props()
 		name="title"
 		label="Title"
 		description="Enter the title of your content submission"
-		error="This field is required"
+		errors={[]}
+		type="text"
 	/>
 	<Input
 		placeholder="Text"
 		name="description"
 		label="Description"
 		description="Enter the description of your recipe"
-		error="This field is required"
+		errors={[]}
+		type="text"
 	/>
 	<Select
 		name="tags"
@@ -28,6 +31,7 @@ let { data } = $props()
 			{ value: '1', label: 'Tag 1' },
 			{ value: '2', label: 'Tag 2' }
 		]}
-		error="This field is required"
+		errors=""
+		bind:value={selectedTag}
 	/>
 </div>

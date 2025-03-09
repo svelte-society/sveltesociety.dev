@@ -1,4 +1,4 @@
-import { get_content_by_id, update_content } from '$lib/server/db/content'
+import { get_content, get_content_by_id, update_content } from '$lib/server/db/content'
 import { error, fail, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 import { superValidate } from 'sveltekit-superforms'
@@ -21,9 +21,26 @@ export const load: PageServerLoad = async ({ params }) => {
 		throw error(404, 'Collection not found')
 	}
 
-	const form = await superValidate(collection, zod(schema))
+	// Create a form data object with the correct types
+	const formData = {
+		id: collection.id,
+		title: collection.title,
+		description: collection.description,
+		slug: collection.slug,
+		// Parse children from string to array if needed
+		children: typeof collection.children === 'string' 
+			? JSON.parse(collection.children || '[]') 
+			: []
+	};
+
+	const form = await superValidate(formData, zod(schema))
+	
+	// Get all content for the selector
+	const allContent = get_content({})
+	
 	return {
-		form
+		form,
+		content: allContent
 	}
 }
 

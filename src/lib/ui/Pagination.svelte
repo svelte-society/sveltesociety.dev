@@ -6,12 +6,14 @@ let { totalPages = 1 } = $props()
 let currentPage = $derived(parseInt($page.url.searchParams.get('page') || '1', 10))
 let visiblePages = $derived(getVisiblePages(currentPage, totalPages))
 
-function getVisiblePages(current: number, total: number) {
+type PageItem = number | 'ellipsis';
+
+function getVisiblePages(current: number, total: number): PageItem[] {
 	if (total <= 6) {
 		return Array.from({ length: total }, (_, i) => i + 1)
 	}
 
-	let pages = [1, total]
+	let pages: number[] = [1, total]
 
 	if (current > 2) pages.push(current - 1)
 	if (current < total - 1) pages.push(current + 1)
@@ -20,11 +22,17 @@ function getVisiblePages(current: number, total: number) {
 
 	pages = [...new Set(pages)].sort((a, b) => a - b)
 
-	if (pages[1] - pages[0] > 1) pages.splice(1, 0, '...')
-	if (pages[pages.length - 1] - pages[pages.length - 2] > 1)
-		pages.splice(pages.length - 1, 0, '...')
+	// Create a new array with ellipsis
+	const result: PageItem[] = [pages[0]];
+	
+	for (let i = 1; i < pages.length; i++) {
+		if (pages[i] - pages[i-1] > 1) {
+			result.push('ellipsis');
+		}
+		result.push(pages[i]);
+	}
 
-	return pages
+	return result;
 }
 </script>
 
@@ -45,7 +53,7 @@ function getVisiblePages(current: number, total: number) {
 		</li>
 
 		{#each visiblePages as page}
-			{#if page === '...'}
+			{#if page === 'ellipsis'}
 				<li class="px-2 py-1 text-gray-500">...</li>
 			{:else}
 				<li>

@@ -47,6 +47,7 @@ const { form, errors, enhance } = superForm(data.form, zod(schema))
 				bind:selectedIds={$form.children}
 				errors={$errors.children}
 				description="Select content to add to the collection"
+				content={data.content}
 			/>
 		</div>
 		<button

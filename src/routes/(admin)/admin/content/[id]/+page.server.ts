@@ -9,6 +9,7 @@ import {
 	update_content
 } from '$lib/server/db/content'
 import { get_tags } from '$lib/server/db/tags'
+import { Status } from '$lib/server/db/common'
 
 import { schema } from './schema'
 
@@ -17,7 +18,9 @@ export const load = async ({ params }) => {
 	if (!all_tags) {
 		fail(400, { message: 'Error getting tags' })
 	}
-	let data: Content | undefined = undefined
+	
+	// Initialize with undefined for new content
+	let formData = undefined;
 
 	const contentId = params.id
 
@@ -30,10 +33,20 @@ export const load = async ({ params }) => {
 			redirect(302, '/content')
 		}
 
-		data = { ...res_content, tags: res_content_tags[0].map((i) => i.id) } as Content
+		// Create a properly typed form data object
+		formData = {
+			title: res_content.title,
+			type: res_content.type as "recipe" | "video" | "library" | "announcement" | "showcase",
+			body: res_content.body,
+			slug: res_content.slug,
+			description: res_content.description,
+			tags: res_content_tags[0].map((i) => i.id),
+			status: res_content.status === Status.PUBLISHED ? 'published' as const : 'draft' as const,
+			metadata: res_content.metadata || { videoId: '', npm: '' }
+		};
 	}
 
-	const form = await superValidate(data, zod(schema), {})
+	const form = await superValidate(formData, zod(schema), {})
 	return {
 		form,
 		tags: all_tags

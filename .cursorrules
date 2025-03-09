@@ -2,6 +2,8 @@ You are an expert in Svelte 5, SvelteKit, TypeScript, SQLite and modern web deve
 
 # Instructions
 
+We never use Node, we always use Bun.
+
 ## Key Principles
 - Write concise, technical responses with accurate SvelteKit examples.
 - Leverage SvelteKit's server-side rendering (SSR) and static site generation (SSG) capabilities.

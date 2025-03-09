@@ -1,9 +1,11 @@
 <script lang="ts">
 import { enhance } from '$app/forms'
+import type { ActionResult, SubmitFunction } from '@sveltejs/kit'
 import { page } from '$app/stores'
 import { formatRelativeDate } from '$lib/utils/date'
 
 import Tags from './Tags.svelte'
+import type { TagType } from './Tags.svelte'
 
 import Recipe from '$lib/ui/content/Recipe.svelte'
 import Collection from '$lib/ui/content/Collection.svelte'
@@ -22,9 +24,11 @@ interface ContentCardProps {
 	liked: boolean
 	saves: number
 	saved: boolean
-	tags: string[]
+	tags: TagType[]
 	slug: string
 	child_content: any[]
+	// For backward compatibility
+	children?: any[]
 }
 
 let {
@@ -42,38 +46,70 @@ let {
 	saved,
 	tags,
 	slug,
-	child_content
+	child_content = [],
+	children
 }: ContentCardProps = $props()
+
+// If children is provided but child_content is not, use children
+if (!child_content.length && children && children.length) {
+	child_content = children;
+}
+
+// Convert string tags to TagType objects if needed
+const formattedTags: TagType[] = Array.isArray(tags) 
+	? tags.map(tag => {
+		if (typeof tag === 'string') {
+			return { 
+				id: tag, 
+				name: tag, 
+				slug: String(tag).toLowerCase().replace(/\s+/g, '-') 
+			};
+		}
+		// Ensure tag has the correct shape
+		return {
+			id: String(tag.id),
+			name: String(tag.name),
+			slug: String(tag.slug)
+		};
+	})
+	: [];
 
 let submitting_like_toggle = $state(false)
 let submitting_save_toggle = $state(false)
 
-const likeSubmit = ({ cancel }) => {
+// Use any for now to avoid type errors with enhance
+const likeSubmit = (event: any) => {
 	if (!$page.data.user) {
-		cancel()
+		event.cancel()
 		return
 	}
 	submitting_like_toggle = true
 	likes = liked ? likes - 1 : likes + 1
 	liked = !liked
-	return async ({ result }) => {
-		if (!result?.data?.success) {
+	
+	return async (event: any) => {
+		const data = event.result?.data
+		if (!data?.success) {
 			likes = liked ? likes + 1 : likes - 1
 			liked = !liked
 		}
 		submitting_like_toggle = false
 	}
 }
-const saveSubmit = () => {
+
+// Use any for now to avoid type errors with enhance
+const saveSubmit = (event: any) => {
 	if (!$page.data.user) {
-		cancel()
+		event.cancel()
 		return
 	}
 	submitting_save_toggle = true
 	saves = saved ? saves - 1 : saves + 1
 	saved = !saved
-	return async ({ result }) => {
-		if (!result?.data?.success) {
+	
+	return async (event: any) => {
+		const data = event.result?.data
+		if (!data?.success) {
 			saves = saved ? saves + 1 : saves - 1
 			saved = !saved
 		}
@@ -193,7 +229,7 @@ const saveSubmit = () => {
 
 	<div class="mt-4 grid grid-cols-[1fr_auto] items-start justify-between">
 		<div class="flex space-x-2">
-			<Tags {tags} />
+			<Tags tags={formattedTags} />
 		</div>
 
 		<div class="text-xs text-gray-500">{formatRelativeDate(published_at)}</div>

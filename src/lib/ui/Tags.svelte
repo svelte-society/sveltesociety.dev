@@ -1,11 +1,14 @@
-<script lang="ts">
-import Tag from './Tag.svelte'
-
-type TagType = {
+<script module>
+export type TagType = {
 	id: string
 	name: string
 	slug: string
 }
+</script>
+
+<script lang="ts">
+import Tag from './Tag.svelte'
+
 let { tags }: { tags: TagType[] } = $props()
 </script>
 

@@ -3,6 +3,10 @@ const { data, children } = $props()
 
 import LeftSidebar from './_components/LeftSidebar.svelte'
 import RightSidebar from './_components/RightSidebar.svelte'
+import { convertTags } from '$lib/types/content'
+
+// Convert tags to the expected format with string IDs
+const formattedTags = data.tags ? convertTags(data.tags) : []
 </script>
 
 <LeftSidebar />
@@ -11,4 +15,4 @@ import RightSidebar from './_components/RightSidebar.svelte'
 	{@render children()}
 </main>
 
-<RightSidebar tags={data.tags} />
+<RightSidebar tags={formattedTags} />

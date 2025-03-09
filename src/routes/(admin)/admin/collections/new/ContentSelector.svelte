@@ -50,6 +50,7 @@ let selectedItems = $derived.by(() => {
 	<div class="mb-4 grid grid-cols-1 items-start gap-2 sm:grid-cols-[1fr_auto]">
 		<Input
 			disabled
+			name="selected_ids_display"
 			placeholder="1, 2, 3"
 			type="text"
 			{description}

@@ -11,7 +11,7 @@ export const load = (async () => {
 export const actions = {
 	delete: async ({ request }) => {
 		const data = await request.formData()
-		const id = data.get('id') as unknown as number
+		const id = data.get('id') as string
 
 		if (!id) {
 			return fail(400, { message: 'No user id provided.' })

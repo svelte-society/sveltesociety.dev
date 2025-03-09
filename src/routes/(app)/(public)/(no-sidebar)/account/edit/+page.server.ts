@@ -18,18 +18,37 @@ export const load = async ({ locals }) => {
 		throw redirect(302, '/login')
 	}
 
-	const form = await superValidate(locals.user, zod(schema))
+	// Convert null values to undefined to match schema expectations
+	const userData = {
+		...locals.user,
+		name: locals.user.name || undefined,
+		bio: locals.user.bio || undefined,
+		location: locals.user.location || undefined,
+		twitter: locals.user.twitter || undefined
+	}
+
+	const form = await superValidate(userData, zod(schema))
 	return { form }
 }
 
 export const actions = {
 	default: async ({ request, locals }) => {
+		if (!locals.user) {
+			throw redirect(302, '/login')
+		}
+
 		const form = await superValidate(request, zod(schema))
 		if (!form.valid) {
 			return fail(400, { form })
 		}
 		try {
-			await create_or_update_user({ id: locals.user.id, login: form.data.username, ...form.data })
+			// Convert string ID to number for GitHub API
+			const githubId = parseInt(locals.user.id);
+			await create_or_update_user({ 
+				id: githubId, 
+				login: form.data.username, 
+				...form.data 
+			})
 			return message(form, 'Profile updated successfully.')
 		} catch (error) {
 			return message(form, 'Failed to update profile.', { status: 500 })

@@ -1,9 +1,9 @@
 <script lang="ts">
-import SuperDebug, { superForm } from 'sveltekit-superforms'
+import { superForm } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
-import Button from '$lib/ui/Button.svelte'
 import Input from '$lib/ui/form/Input.svelte'
-import Select from '$lib/ui/form/Select.svelte'
+import Button from '$lib/ui/Button.svelte'
+import Select from '$lib/ui/Select.svelte'
 import Avatar from '$lib/ui/Avatar.svelte'
 import { schema } from './schema'
 
@@ -12,11 +12,21 @@ const { form, errors, enhance } = superForm(data.form, {
 	validators: zod(schema),
 	dataType: 'json'
 })
+
+// Convert numeric role IDs to strings for the Select component
+const roleOptions = data.roles.map((role) => ({ 
+	value: String(role.id), 
+	label: role.name 
+}));
+
+// Create a string version of the role for binding
+let roleValue = $state(String($form.role));
 </script>
 
-<div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
-	<h1 class="mb-6 text-3xl font-bold text-gray-800">Edit User</h1>
-	<form method="POST" use:enhance class="space-y-6">
+<div class="container mx-auto max-w-2xl px-4 py-8">
+	<h1 class="mb-6 text-2xl font-bold">Edit User</h1>
+
+	<form method="POST" use:enhance>
 		<input type="hidden" name="id" bind:value={$form.id} />
 
 		<Input
@@ -88,10 +98,11 @@ const { form, errors, enhance } = superForm(data.form, {
 			name="role"
 			label="Role"
 			description="Select the user's role"
-			options={data.roles.map((role) => ({ value: role.id, label: role.name }))}
-			bind:value={$form.role}
+			options={roleOptions}
+			bind:value={roleValue}
 			errors={$errors.role}
 		/>
+		<input type="hidden" name="role" value={Number(roleValue)} />
 
 		<Button primary fullWidth>Update User</Button>
 	</form>

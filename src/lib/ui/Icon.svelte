@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
 let icon_paths_map = new Map([
 	[
 		'inbox',

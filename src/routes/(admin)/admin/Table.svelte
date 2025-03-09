@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
 export interface Header {
 	key: string
 	label: string

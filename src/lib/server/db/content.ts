@@ -177,7 +177,7 @@ export const get_content_by_type = (type: string): PreviewContent[] => {
 }
 
 export const get_content_by_slug = (slug: string, user_id: string): PreviewContent | undefined => {
-	const content = s.get_content_by_slug.values({ slug })
+	const content = s.get_content_by_slug.values({ slug }) as unknown as PreviewContent[]
 	const content_with_tags = add_tags(content)
 	const [full_content] = add_user_liked_and_saved(user_id, content_with_tags)
 
@@ -255,7 +255,7 @@ export const get_content_by_tag = (options: GetContentByTagOptions, user_id: str
 		const tag = s.get_tag_id_by_slug.get({ slug }) as Tag
 		const ids = s.get_content_ids_by_tag_id
 			.all({ tag_id: tag.id, limit, offset })
-			.map((ids: { content_id: number }) => ids.content_id)
+			.map((ids: unknown) => (ids as { content_id: number }).content_id)
 
 		const content_without_tags: Content[] = []
 
@@ -263,8 +263,8 @@ export const get_content_by_tag = (options: GetContentByTagOptions, user_id: str
 			content_without_tags.push(s.get_content_by_id.get({ content_id }) as Content)
 		}
 
-		const content_with_tags = add_tags(content_without_tags)
-		const content_with_interactions = add_user_liked_and_saved(user_id, content_with_tags)
+		const content_with_tags = add_tags(content_without_tags as unknown as PreviewContent[]) as unknown as Content[]
+		const content_with_interactions = add_user_liked_and_saved(user_id, content_with_tags as PreviewContent[]) as unknown as Content[]
 		return content_with_interactions
 	})
 
@@ -304,7 +304,7 @@ export function get_user_saved_content(options: GetSavedContentOptions): Content
 
 	const saved_content_ids = s.get_saved_content_ids_by_user_id
 		.values({ user_id, limit, offset })
-		.map((ids: { target_id: number }) => ids.target_id)
+		.map((ids: unknown) => (ids as { target_id: number }).target_id)
 
 	const content: Content[] = []
 
@@ -532,7 +532,7 @@ export function add_tags(rows: PreviewContent[]): PreviewContent[] {
 	return rows.map((c) => {
 		const tag_ids = s.get_tag_ids_for_content
 			.all({ content_id: c.id })
-			.map((t: { tag_id: number }) => t.tag_id)
+			.map((t: unknown) => (t as { tag_id: number }).tag_id)
 
 		const tags: Tag[] = []
 

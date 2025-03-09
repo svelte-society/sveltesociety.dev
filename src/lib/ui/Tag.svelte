@@ -8,7 +8,7 @@ type Tag = {
 }
 let { tag, onclick }: { tag: Tag; onclick?: () => void } = $props()
 
-const handleClick = (e) => {
+const handleClick = (e: MouseEvent) => {
 	if (onclick) {
 		e.preventDefault()
 		onclick()

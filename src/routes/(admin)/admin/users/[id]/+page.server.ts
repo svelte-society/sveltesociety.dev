@@ -6,17 +6,27 @@ import { get_user, update_user } from '$lib/server/db/user.js'
 import { schema } from './schema'
 
 export const load = async ({ params }) => {
-	const user = get_user(parseInt(params.id))
+	const userFromDb = get_user(params.id)
 	const roles = get_active_roles()
 
-	if (!user) {
+	if (!userFromDb) {
 		redirect(302, '/admin/users')
+	}
+	
+	// Convert null values to undefined to match schema expectations
+	const user = {
+		...userFromDb,
+		email: userFromDb.email || undefined,
+		bio: userFromDb.bio || undefined,
+		location: userFromDb.location || undefined,
+		twitter: userFromDb.twitter || undefined,
+		avatar_url: userFromDb.avatar_url || ''
 	}
 
 	const form = await superValidate(user, zod(schema))
 
 	return {
-		user: user,
+		user: userFromDb,
 		roles: roles.map((r) => ({ ...r, label: r.name, value: r.id })),
 		form
 	}
@@ -29,7 +39,7 @@ export const actions = {
 			return fail(400, { form })
 		}
 
-		const updated_user = await update_user(form.data.id as number, form.data)
+		const updated_user = await update_user(form.data.id, form.data)
 
 		redirect(302, '/admin/users')
 	}

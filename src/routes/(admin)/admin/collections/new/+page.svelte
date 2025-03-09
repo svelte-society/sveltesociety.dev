@@ -52,13 +52,14 @@ const { form, errors, enhance } = superForm(data.form, zod(schema))
 				description="Select content to add to the collection"
 			/>
 		</div>
-		<div class="space-y-2">
+		<div>
 			<label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
 			<AutoCompleteTags
-				bind:tags={data.tags}
+				tags={data.tags}
+				selectedTags={$form.tags}
 				placeholder="Type to search or create a tag"
-				description="Select tags for your content"
-				errors={$errors.tags?._errors}
+				description="Select tags for this collection"
+				errors={$errors.tags}
 			/>
 		</div>
 

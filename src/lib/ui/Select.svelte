@@ -1,16 +1,21 @@
 <script lang="ts">
 type SelectOption = {
-	value: string
+	value: string | number
 	label: string
 }
 
+type ChangeEventHandler = (event: Event) => void;
+
 interface SelectProps {
 	options: SelectOption[]
-	value?: string
+	value?: string | number
 	placeholder?: string
 	name?: string
 	disabled?: boolean
 	onchange?: ChangeEventHandler
+	label?: string
+	description?: string
+	errors?: string | string[] | any
 }
 
 let {
@@ -19,16 +24,33 @@ let {
 	name = '',
 	value = $bindable(''),
 	disabled = false,
-	onchange
+	onchange,
+	label,
+	description,
+	errors
 }: SelectProps = $props()
+
+function handleChange(event: Event) {
+	if (onchange) {
+		onchange(event);
+	}
+}
 </script>
 
 <div class="relative inline-block w-full">
+	{#if label}
+		<label for={name} class="block text-sm font-medium text-gray-700">{label}</label>
+	{/if}
+	
+	{#if description}
+		<p class="mt-1 text-sm text-gray-500">{description}</p>
+	{/if}
+	
 	<select
 		{name}
 		bind:value
-		{onchange}
 		{disabled}
+		onchange={handleChange}
 		class="
       focus:shadow-outline block w-full appearance-none rounded border border-gray-300
       bg-white px-4 py-2 pr-8 leading-tight shadow hover:border-gray-400 focus:outline-none
@@ -47,4 +69,16 @@ let {
 			<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
 		</svg>
 	</div>
+	
+	{#if errors}
+		<div class="mt-1 text-sm text-red-600">
+			{#if Array.isArray(errors)}
+				{#each errors as error}
+					<p>{error}</p>
+				{/each}
+			{:else}
+				<p>{errors}</p>
+			{/if}
+		</div>
+	{/if}
 </div>

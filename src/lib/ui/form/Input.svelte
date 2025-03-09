@@ -3,7 +3,7 @@ interface TextInputProps {
 	label?: string
 	value?: string
 	description?: string
-	errors?: string[]
+	errors?: string[] | any
 	initial?: string
 	placeholder?: string
 	name: string
@@ -26,7 +26,7 @@ let {
 }: TextInputProps = $props()
 let inputElement: HTMLInputElement
 
-let showClearButton = $derived(value?.length > 0)
+let showClearButton = $derived(value !== undefined && value !== null && value.length > 0)
 
 function clearText() {
 	value = ''

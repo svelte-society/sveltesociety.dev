@@ -9,12 +9,15 @@ export const load = async ({ locals, params }) => {
 	let content_with_tags = content.map((c, i) => ({ ...c, tags: tags[i] || [] }))
 
 	if (locals.user) {
+		const userId = parseInt(locals.user.id);
+		const contentIds = content.map((c) => c.id);
+		
 		const { user_likes, user_saves } = get_user_likes_and_saves(
-			locals.user.id,
-			content.map((c) => c.id)
+			userId,
+			contentIds
 		)
 
-		content_with_tags = content_with_tags.map((c, i) => ({
+		content_with_tags = content_with_tags.map((c) => ({
 			...c,
 			liked: user_likes.has(c.id),
 			saved: user_saves.has(c.id)

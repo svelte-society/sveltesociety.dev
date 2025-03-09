@@ -1,6 +1,7 @@
 <script lang="ts">
 import AutoComplete from './AutoComplete.svelte'
 import Tag from './Tag.svelte'
+import type { TagType } from './Tags.svelte'
 
 let {
 	tags = [],
@@ -30,6 +31,15 @@ function addTag(tagId: number) {
 function removeTag(tagId: number) {
 	selectedTags = selectedTags.filter((id) => id !== tagId)
 }
+
+// Convert numeric ID tags to TagType with string IDs for the Tag component
+function convertTag(tag: { id: number; name: string; slug: string }): TagType {
+	return {
+		id: String(tag.id),
+		name: tag.name,
+		slug: tag.slug
+	};
+}
 </script>
 
 <div class="space-y-2">
@@ -43,9 +53,10 @@ function removeTag(tagId: number) {
 	/>
 	<div class="mt-2 flex flex-wrap gap-2">
 		{#each selectedTags as tagId}
-			{@const tag = tags.find((t) => t.id === tagId)}
-			{#if tag}
-				<Tag {tag} onclick={() => removeTag(tag.id)} />
+			{@const originalTag = tags.find((t) => t.id === tagId)}
+			{#if originalTag}
+				{@const tag = convertTag(originalTag)}
+				<Tag {tag} onclick={() => removeTag(originalTag.id)} />
 			{/if}
 		{/each}
 	</div>

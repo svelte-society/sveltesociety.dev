@@ -9,8 +9,18 @@ import { schema } from './schema.js'
 
 export const load = async () => {
 	const tags = get_tags()
-	const content = get_content()
-	const form = await superValidate(zod(schema))
+	const content = get_content({})
+	
+	// Initialize form with empty data
+	const formData = {
+		title: '',
+		description: '',
+		children: [],
+		slug: '',
+		tags: []
+	};
+	
+	const form = await superValidate(formData, zod(schema))
 
 	return {
 		form,
