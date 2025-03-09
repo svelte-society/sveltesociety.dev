@@ -23,10 +23,10 @@ const roleOptions = data.roles.map((role) => ({
 let roleValue = $state(String($form.role));
 </script>
 
-<div class="container mx-auto max-w-2xl px-4 py-8">
-	<h1 class="mb-6 text-2xl font-bold">Edit User</h1>
+<div class="container mx-auto px-4 py-6">
+	<h1 class="mb-6 text-2xl font-bold text-gray-800">Edit User</h1>
 
-	<form method="POST" use:enhance>
+	<form method="POST" use:enhance class="mb-4 max-w-3xl space-y-6 rounded-lg bg-white px-8 pb-8 pt-6 shadow-md">
 		<input type="hidden" name="id" bind:value={$form.id} />
 
 		<Input
@@ -81,16 +81,18 @@ let roleValue = $state(String($form.role));
 
 		<div class="space-y-2">
 			<label for="avatar_url" class="block text-sm font-medium text-gray-700">Avatar</label>
-			<div class="flex items-center space-x-4">
+			<div class="flex items-center gap-4">
 				<Avatar src={$form.avatar_url} name={$form.username} />
-				<Input
-					name="avatar_url"
-					type="text"
-					placeholder="https://example.com/avatar.jpg"
-					description="Enter the URL for the user's avatar"
-					bind:value={$form.avatar_url}
-					errors={$errors.avatar_url}
-				/>
+				<div class="flex-grow">
+					<Input
+						name="avatar_url"
+						type="text"
+						placeholder="https://example.com/avatar.jpg"
+						description="Enter the URL for the user's avatar"
+						bind:value={$form.avatar_url}
+						errors={$errors.avatar_url}
+					/>
+				</div>
 			</div>
 		</div>
 
@@ -104,6 +106,9 @@ let roleValue = $state(String($form.role));
 		/>
 		<input type="hidden" name="role" value={Number(roleValue)} />
 
-		<Button primary fullWidth>Update User</Button>
+		<div class="mt-8 flex items-center justify-between">
+			<Button primary type="submit">Update User</Button>
+			<a href="/admin/users" class="text-sm text-gray-600 hover:text-gray-900">Back to Users</a>
+		</div>
 	</form>
 </div>

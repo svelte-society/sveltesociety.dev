@@ -14,9 +14,9 @@ interface ExtendedUser extends User {
 
 let { data } = $props()
 
-// Convert string ID to number for Actions component
-function toNumberId(id: string | number): number {
-	return typeof id === 'string' ? parseInt(id, 10) : id;
+// Ensure ID is a string for Actions component
+function ensureStringId(id: string | number): string {
+	return id.toString();
 }
 </script>
 
@@ -46,12 +46,12 @@ function toNumberId(id: string | number): number {
 			</td>
 		{/snippet}
 		{#snippet actionCell(item: ExtendedUser)}
-			<Actions route="users" id={toNumberId(item.id)} canDelete={true} canEdit={true} type="this user" />
+			<Actions route="users" id={ensureStringId(item.id)} canDelete={true} canEdit={true} type="this user" />
 			<form action="?/clear_sessions" method="POST" use:enhance style="line-height: 0">
 				<input type="hidden" name="id" value={item.id} />
 				<button
 					type="submit"
-					class="text-yellow-600 hover:text-yellow-900"
+					class="text-orange-600 hover:text-orange-900 relative group"
 					aria-label="Clear user sessions"
 				>
 					<svg
@@ -65,9 +65,12 @@ function toNumberId(id: string | number): number {
 							stroke-linecap="round"
 							stroke-linejoin="round"
 							stroke-width="2"
-							d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+							d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
 						></path>
 					</svg>
+					<span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity">
+						Clear sessions
+					</span>
 				</button>
 			</form>
 		{/snippet}
