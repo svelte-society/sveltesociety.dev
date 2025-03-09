@@ -105,8 +105,7 @@ If creating methods on classes or standalone functions, document them using jsdo
 ```
 // HelloWorld.svelte
 <script>
-	/** What should we call the user? */
-	export let name = 'world';
+	let { name  = 'world' } = $props()
 </script>
 
 <!--
