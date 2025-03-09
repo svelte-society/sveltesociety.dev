@@ -13,7 +13,6 @@ interface GitHubUserInfo {
 
 export interface User {
 	id: string
-	github_id: number
 	email: string | null
 	username: string
 	name: string | null
@@ -24,7 +23,28 @@ export interface User {
 	role: number
 }
 
-export const get_user = (id: number): User | undefined => {
+export interface OAuthProvider {
+	id: number
+	name: string
+	description: string | null
+	active: boolean
+	created_at: string
+}
+
+export interface UserOAuth {
+	id: string
+	user_id: string
+	provider_id: number
+	provider_user_id: string
+	access_token: string | null
+	refresh_token: string | null
+	token_expires_at: string | null
+	profile_data: any | null
+	created_at: string
+	updated_at: string
+}
+
+export const get_user = (id: string): User | undefined => {
 	const stmt = db.prepare(`
       SELECT * FROM users
       WHERE id = $id
@@ -34,6 +54,22 @@ export const get_user = (id: number): User | undefined => {
 		return stmt.get({ id: id }) as User
 	} catch (error) {
 		console.error('Error getting user:', error)
+		return undefined
+	}
+}
+
+export const get_user_by_oauth = (provider: string, providerUserId: string): User | undefined => {
+	const stmt = db.prepare(`
+      SELECT u.* FROM users u
+      JOIN user_oauth uo ON u.id = uo.user_id
+      JOIN oauth_providers op ON uo.provider_id = op.id
+      WHERE op.name = $provider AND uo.provider_user_id = $providerUserId
+    `)
+
+	try {
+		return stmt.get({ provider, providerUserId }) as User
+	} catch (error) {
+		console.error('Error getting user by OAuth:', error)
 		return undefined
 	}
 }
@@ -54,82 +90,187 @@ export const get_users = (): User[] => {
 
 export const get_user_count = (): number => {
 	const stmt = db.prepare(`
-      SELECT COUNT(*) as count
-      FROM users
+      SELECT COUNT(*) as count FROM users
     `)
 
 	try {
 		const result = stmt.get() as { count: number }
 		return result.count
 	} catch (error) {
-		console.error('Error getting user:', error)
+		console.error('Error getting user count:', error)
 		return 0
 	}
 }
 
 export const create_or_update_user = (githubInfo: GitHubUserInfo): User => {
-	const userInfo = extractGithubUserInfo(githubInfo)
-
-	const stmt = db.prepare(`
-      INSERT INTO users (github_id, email, username, name, avatar_url, bio, location, twitter)
-      VALUES (@github_id, @email, @username, @name, @avatar_url, @bio, @location, @twitter)
-      ON CONFLICT (github_id) DO UPDATE SET
-        email = @email,
-        name = @name,
-        username = @username,
-        avatar_url = @avatar_url,
-        bio = @bio,
-        location = @location,
-        twitter = @twitter
-      RETURNING *
-    `)
+	// Start a transaction
+	db.exec('BEGIN TRANSACTION')
 
 	try {
-		const result = stmt.get(userInfo) as User
-		return result
+		// Get the GitHub provider ID
+		const providerStmt = db.prepare(`
+			SELECT id FROM oauth_providers WHERE name = 'github'
+		`)
+		const provider = providerStmt.get() as OAuthProvider
+		
+		if (!provider) {
+			throw new Error('GitHub OAuth provider not found')
+		}
+
+		// Check if user already exists with this OAuth provider
+		const existingUserStmt = db.prepare(`
+			SELECT u.* FROM users u
+			JOIN user_oauth uo ON u.id = uo.user_id
+			WHERE uo.provider_id = $providerId AND uo.provider_user_id = $providerUserId
+		`)
+		
+		const existingUser = existingUserStmt.get({
+			providerId: provider.id,
+			providerUserId: githubInfo.id.toString()
+		}) as User | undefined
+
+		let user: User
+
+		if (existingUser) {
+			// Update existing user
+			const updateUserStmt = db.prepare(`
+				UPDATE users SET
+					email = COALESCE($email, email),
+					name = COALESCE($name, name),
+					username = COALESCE($username, username),
+					avatar_url = COALESCE($avatar_url, avatar_url),
+					bio = COALESCE($bio, bio),
+					location = COALESCE($location, location),
+					twitter = COALESCE($twitter, twitter)
+				WHERE id = $id
+				RETURNING *
+			`)
+
+			user = updateUserStmt.get({
+				id: existingUser.id,
+				email: githubInfo.email || null,
+				username: githubInfo.login,
+				name: githubInfo.name || null,
+				avatar_url: githubInfo.avatar_url || null,
+				bio: githubInfo.bio || null,
+				location: githubInfo.location || null,
+				twitter: githubInfo.twitter_username || null
+			}) as User
+
+			// Update OAuth profile data
+			const updateOAuthStmt = db.prepare(`
+				UPDATE user_oauth SET
+					profile_data = $profileData,
+					updated_at = CURRENT_TIMESTAMP
+				WHERE user_id = $userId AND provider_id = $providerId
+			`)
+
+			updateOAuthStmt.run({
+				userId: user.id,
+				providerId: provider.id,
+				profileData: JSON.stringify(githubInfo)
+			})
+		} else {
+			// Create new user
+			const userInfo = extractGithubUserInfo(githubInfo)
+			
+			const createUserStmt = db.prepare(`
+				INSERT INTO users (email, username, name, avatar_url, bio, location, twitter)
+				VALUES ($email, $username, $name, $avatar_url, $bio, $location, $twitter)
+				RETURNING *
+			`)
+
+			user = createUserStmt.get(userInfo) as User
+
+			// Create OAuth entry
+			const createOAuthStmt = db.prepare(`
+				INSERT INTO user_oauth (user_id, provider_id, provider_user_id, profile_data)
+				VALUES ($userId, $providerId, $providerUserId, $profileData)
+			`)
+
+			createOAuthStmt.run({
+				userId: user.id,
+				providerId: provider.id,
+				providerUserId: githubInfo.id.toString(),
+				profileData: JSON.stringify(githubInfo)
+			})
+		}
+
+		// Commit the transaction
+		db.exec('COMMIT')
+		
+		return user
 	} catch (error) {
-		console.error('Error upserting user:', error)
+		// Rollback the transaction on error
+		db.exec('ROLLBACK')
+		console.error('Error in create_or_update_user:', error)
 		throw error
 	}
 }
 
-export const update_user = (userId: number, updatedInfo: Partial<User>): User | null => {
-	const updateFields = Object.keys(updatedInfo)
-		.filter((key) => key !== 'id' && key !== 'github_id') // Exclude id and github_id from updates
-		.map((key) => `${key} = @${key}`)
-		.join(', ')
+export const update_user = (userId: string, updatedInfo: Partial<User>): User | null => {
+	// Start a transaction
+	db.exec('BEGIN TRANSACTION')
 
-	if (!updateFields) {
-		console.warn('No valid fields to update')
+	try {
+		// Update user information
+		const updateFields = Object.keys(updatedInfo)
+			.filter(key => key !== 'id' && updatedInfo[key as keyof User] !== undefined)
+			.map(key => `${key} = @${key}`)
+			.join(', ')
+
+		if (!updateFields) {
+			db.exec('ROLLBACK')
+			return null
+		}
+
+		const updateUserStmt = db.prepare(`
+			UPDATE users
+			SET ${updateFields}
+			WHERE id = @id
+			RETURNING *
+		`)
+
+		const params = { ...updatedInfo, id: userId }
+		const updatedUser = updateUserStmt.get(params) as User | undefined
+
+		if (!updatedUser) {
+			db.exec('ROLLBACK')
+			return null
+		}
+
+		// Commit the transaction
+		db.exec('COMMIT')
+		return updatedUser
+	} catch (error) {
+		// Rollback on error
+		db.exec('ROLLBACK')
+		console.error('Error updating user:', error)
 		return null
 	}
-
-	const stmt = db.prepare(`
-        UPDATE users
-        SET ${updateFields}
-        WHERE id = @userId
-        RETURNING *
-    `)
-
-	try {
-		const result = stmt.get({ ...updatedInfo, userId }) as User | undefined
-		return result || null
-	} catch (error) {
-		console.error('Error updating user:', error)
-		throw error
-	}
 }
 
-export const delete_user = (userId: number): boolean => {
-	const stmt = db.prepare(`
-      DELETE FROM users
-      WHERE id = @userId
-    `)
+export const delete_user = (userId: string): boolean => {
+	// Start a transaction
+	db.exec('BEGIN TRANSACTION')
 
 	try {
-		const result = stmt.run({ userId })
-		return result.changes > 0
+		// Delete user
+		const deleteUserStmt = db.prepare('DELETE FROM users WHERE id = ?')
+		const result = deleteUserStmt.run(userId)
+
+		// Check if user was deleted
+		if (result.changes === 0) {
+			db.exec('ROLLBACK')
+			return false
+		}
+
+		// Commit the transaction
+		db.exec('COMMIT')
+		return true
 	} catch (error) {
+		// Rollback on error
+		db.exec('ROLLBACK')
 		console.error('Error deleting user:', error)
 		return false
 	}
@@ -137,7 +278,6 @@ export const delete_user = (userId: number): boolean => {
 
 function extractGithubUserInfo(info: GitHubUserInfo): Omit<User, 'id' | 'role'> {
 	return {
-		github_id: info.id,
 		email: info.email || null,
 		username: info.login,
 		name: info.name || null,

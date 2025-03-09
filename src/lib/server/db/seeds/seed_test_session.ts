@@ -3,6 +3,18 @@ import type Database from 'bun:sqlite'
 const SEVEN_DAYS = 7 * 24 * 60 * 60 // 7 days in seconds
 
 export function seedTestSession(db: Database.Database) {
+	// Get the first user's ID
+	const getUserStmt = db.prepare(`
+		SELECT id FROM users LIMIT 1
+	`)
+	
+	const user = getUserStmt.get() as { id: string } | undefined
+	
+	if (!user) {
+		console.error('No users found. Please seed users first.')
+		return
+	}
+
 	const createSessionStatement = db.prepare(`
         INSERT INTO sessions (user_id, session_token, expires_at)
         VALUES (@user_id, @session_token, @expires_at)
@@ -14,7 +26,7 @@ export function seedTestSession(db: Database.Database) {
 	const expiration = new Date(now.getTime() + SEVEN_DAYS * 1000)
 
 	createSessionStatement.get({
-		user_id: 1,
+		user_id: user.id,
 		session_token: sessionToken,
 		expires_at: formatDateForSQLite(expiration)
 	})

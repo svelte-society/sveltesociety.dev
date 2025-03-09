@@ -1,11 +1,15 @@
-import { randomUUID } from 'crypto'
 import { db } from './index'
 
 const SEVEN_DAYS = 7 * 24 * 60 * 60 // 7 days in seconds
 
+// Generate a random UUID for session tokens
+function generateUUID(): string {
+	return crypto.randomUUID();
+}
+
 interface Session {
 	id: number
-	user_id: number
+	user_id: string
 	session_token: string
 	expires_at: string
 	created_at: string
@@ -13,7 +17,7 @@ interface Session {
 
 interface SessionResult {
 	valid: boolean
-	user_id?: number
+	user_id?: string
 }
 
 const deleteSessionStatement = db.prepare(`
@@ -45,9 +49,9 @@ export function delete_session(sessionToken: string): Session | undefined {
 	}
 }
 
-export function create_session(user_id: number): string {
+export const create_session = (user_id: string): string => {
 	try {
-		const sessionToken = randomUUID()
+		const sessionToken = generateUUID()
 		const now = new Date()
 		const expiration = new Date(now.getTime() + SEVEN_DAYS * 1000)
 
@@ -67,13 +71,13 @@ export function create_session(user_id: number): string {
 export function validate_session_id(sessionToken: string): SessionResult {
 	try {
 		const result = validateSessionStatement.get({ session_token: sessionToken }) as
-			| { user_id: number }
+			| { user_id: string }
 			| undefined
 
 		if (result === undefined) {
 			return { valid: false }
 		} 
-			return { valid: true, user_id: result.user_id }
+		return { valid: true, user_id: result.user_id }
 
 	} catch (error) {
 		console.error('Error validating session:', error)

@@ -7,14 +7,14 @@ export enum ModerationStatus {
 }
 
 export type ModerationQueueItem = {
-	id: number
+	id: string
 	type: string
 	title: string
 	status: ModerationStatus
 	data: string // JSON string
-	submitted_by: number
+	submitted_by: string
 	submitted_at: string
-	moderated_by: number | null
+	moderated_by: string | null
 	moderated_at: string | null
 }
 
@@ -40,7 +40,7 @@ export const get_moderation_queue = (
 	return stmt.all(status) as PreviewModerationQueueItem[]
 }
 
-export const get_moderation_queue_item = (id: number): ModerationQueueItem | undefined => {
+export const get_moderation_queue_item = (id: string): ModerationQueueItem | undefined => {
 	const stmt = db.prepare(`
         SELECT *
         FROM moderation_queue
@@ -54,19 +54,20 @@ export const add_to_moderation_queue = (
 		ModerationQueueItem,
 		'id' | 'status' | 'submitted_at' | 'moderated_by' | 'moderated_at'
 	>
-): number => {
+): string => {
 	const stmt = db.prepare(`
         INSERT INTO moderation_queue (type, status, data, submitted_by, submitted_at)
         VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+        RETURNING id
     `)
-	const result = stmt.run(item.type, ModerationStatus.PENDING, item.data, item.submitted_by)
-	return result.lastInsertRowid as number
+	const result = stmt.get(item.type, ModerationStatus.PENDING, item.data, item.submitted_by) as { id: string }
+	return result.id
 }
 
 export const update_moderation_status = (
-	id: number,
+	id: string,
 	status: Omit<ModerationStatus, ModerationStatus.PENDING>,
-	moderated_by: number
+	moderated_by: string
 ): boolean => {
 	const stmt = db.prepare(`
         UPDATE moderation_queue

@@ -1,8 +1,7 @@
 -- Users table
 CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
-    github_id INTEGER UNIQUE,
-    email TEXT,
+    email TEXT UNIQUE,
     username TEXT UNIQUE,
     name TEXT,
     avatar_url TEXT,
@@ -14,14 +13,44 @@ CREATE TABLE IF NOT EXISTS users (
     FOREIGN KEY (role) REFERENCES roles(id)
 );
 
+-- OAuth Providers table
+CREATE TABLE IF NOT EXISTS oauth_providers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE,
+    description TEXT,
+    active BOOLEAN NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- User OAuth table - links users to their OAuth accounts
+CREATE TABLE IF NOT EXISTS user_oauth (
+    id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
+    user_id TEXT NOT NULL,
+    provider_id INTEGER NOT NULL,
+    provider_user_id TEXT NOT NULL,
+    access_token TEXT,
+    refresh_token TEXT,
+    token_expires_at TIMESTAMP,
+    profile_data JSON,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (provider_id) REFERENCES oauth_providers(id),
+    UNIQUE(provider_id, provider_user_id)
+);
+
+-- Create index for faster OAuth lookups
+CREATE INDEX IF NOT EXISTS idx_user_oauth_user_id ON user_oauth(user_id);
+CREATE INDEX IF NOT EXISTS idx_user_oauth_provider ON user_oauth(provider_id, provider_user_id);
+
 -- Sessions table
 CREATE TABLE IF NOT EXISTS sessions (
     id INTEGER PRIMARY KEY,
-    user_id INTEGER NOT NULL,
+    user_id TEXT NOT NULL,
     session_token TEXT NOT NULL,
     expires_at TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 CREATE INDEX IF NOT EXISTS user_id_idx ON sessions(user_id);
 
@@ -57,11 +86,11 @@ CREATE INDEX IF NOT EXISTS statusIdx ON content(status);
 
 -- Content to Users junction table
 CREATE TABLE IF NOT EXISTS content_to_users (
-    content_id INTEGER NOT NULL,
-    user_id INTEGER NOT NULL,
+    content_id TEXT NOT NULL,
+    user_id TEXT NOT NULL,
     PRIMARY KEY (content_id, user_id),
-    FOREIGN KEY (content_id) REFERENCES content(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (content_id) REFERENCES content(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Tags table
@@ -76,34 +105,34 @@ CREATE TABLE IF NOT EXISTS tags (
 
 -- Content to Tags junction table
 CREATE TABLE IF NOT EXISTS content_to_tags (
-    content_id INTEGER NOT NULL,
-    tag_id INTEGER NOT NULL,
+    content_id TEXT NOT NULL,
+    tag_id TEXT NOT NULL,
     PRIMARY KEY (content_id, tag_id),
-    FOREIGN KEY (content_id) REFERENCES content(id),
-    FOREIGN KEY (tag_id) REFERENCES tags(id)
+    FOREIGN KEY (content_id) REFERENCES content(id) ON DELETE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
 );
 CREATE INDEX IF NOT EXISTS tag_id_idx ON content_to_tags(tag_id);
 
 -- Likes table
 CREATE TABLE IF NOT EXISTS likes (
     id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
-    user_id INTEGER NOT NULL,
-    target_id INTEGER NOT NULL,
+    user_id TEXT NOT NULL,
+    target_id TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(user_id, target_id),
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (target_id) REFERENCES content(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (target_id) REFERENCES content(id) ON DELETE CASCADE
 );
 
 -- Saves table
 CREATE TABLE IF NOT EXISTS saves (
     id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
-    user_id INTEGER NOT NULL,
-    target_id INTEGER NOT NULL,
+    user_id TEXT NOT NULL,
+    target_id TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(user_id, target_id),
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (target_id) REFERENCES content(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (target_id) REFERENCES content(id) ON DELETE CASCADE
 );
 
 -- Full-text search
@@ -123,10 +152,14 @@ CREATE TABLE IF NOT EXISTS moderation_queue (
     type TEXT NOT NULL,
     status TEXT NOT NULL DEFAULT 'pending' CHECK(status IN ('pending', 'approved', 'rejected')),
     data JSON NOT NULL,
-    submitted_by INTEGER,
+    submitted_by TEXT,
     submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    moderated_by INTEGER,
+    moderated_by TEXT,
     moderated_at TIMESTAMP,
-    FOREIGN KEY (submitted_by) REFERENCES users(id),
-    FOREIGN KEY (moderated_by) REFERENCES users(id)
+    FOREIGN KEY (submitted_by) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (moderated_by) REFERENCES users(id) ON DELETE SET NULL
 );
+
+-- Insert default OAuth providers
+INSERT OR IGNORE INTO oauth_providers (name, description, active) 
+VALUES ('github', 'GitHub OAuth Provider', 1);

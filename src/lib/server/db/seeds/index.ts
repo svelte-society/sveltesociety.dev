@@ -8,6 +8,7 @@ import { seedRoles } from './seed_roles';
 import { seedTags } from './seed_tags';
 import { seedTestSession } from './seed_test_session';
 import { seedUsers } from './seed_users';
+import { seedOAuthProviders } from './seed_oauth_providers';
 
 import { config } from '$lib/server/db/seeds/utils';
 import { seedEventUserEvents } from './seed_event_db';
@@ -22,6 +23,7 @@ export function run_seeds() {
 	try {
 		// Run seeds in order
 		seedRoles(db);
+		seedOAuthProviders(db);
 		seedTags(db);
 		seedUsers(db);
 		seedContent(db);
