@@ -28,6 +28,7 @@
 		"@tailwindcss/typography": "^0.5.16",
 		"@tailwindcss/vite": "^4.0.12",
 		"autoprefixer": "^10.4.20",
+		"bits-ui": "^1.3.6",
 		"dotenv": "^16.4.7",
 		"marked": "^15.0.7",
 		"package-name-regex": "^4.0.0",

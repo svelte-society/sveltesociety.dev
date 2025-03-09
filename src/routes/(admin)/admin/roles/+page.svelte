@@ -5,6 +5,8 @@ import Table from '$lib/ui/admin/Table.svelte'
 import Actions from '$lib/ui/admin/Actions.svelte'
 import type { Role } from '$lib/server/db/role'
 import Badge from '$lib/ui/admin/Badge.svelte'
+import Pagination from '$lib/ui/Pagination.svelte'
+
 let { data } = $props()
 
 let colorMap = new Map([
@@ -46,4 +48,11 @@ let colorMap = new Map([
 			/>
 		{/snippet}
 	</Table>
+	
+	{#if data.pagination}
+		<Pagination 
+			count={data.pagination.count} 
+			perPage={data.pagination.perPage} 
+		/>
+	{/if}
 </div>

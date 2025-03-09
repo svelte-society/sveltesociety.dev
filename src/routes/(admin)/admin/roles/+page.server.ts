@@ -1,9 +1,27 @@
 import { get_roles, delete_role } from '$lib/server/db/role'
 import { fail } from '@sveltejs/kit'
+import { db } from '$lib/server/db'
 
-export const load = async () => {
+export const load = async ({ url }) => {
+	const page = parseInt(url.searchParams.get('page') || '1', 10)
+	const perPage = 10
+	const offset = (page - 1) * perPage
+
+	// Get paginated roles
+	const stmt = db.prepare('SELECT * FROM roles LIMIT ? OFFSET ?')
+	const roles = stmt.all(perPage, offset)
+
+	// Get total count for pagination
+	const countStmt = db.prepare('SELECT COUNT(*) as count FROM roles')
+	const { count } = countStmt.get() as { count: number }
+
 	return {
-		roles: get_roles()
+		roles,
+		pagination: {
+			count,
+			perPage,
+			currentPage: page
+		}
 	}
 }
 

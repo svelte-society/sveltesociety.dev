@@ -1,87 +1,98 @@
 <script lang="ts">
-import { page } from '$app/stores'
+	import { Pagination } from "bits-ui";
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 
-let { totalPages = 1 } = $props()
+	let { 
+		/**
+		 * The total number of items to paginate
+		 */
+		count = 100,
+		
+		/**
+		 * The number of items to show per page
+		 */
+		perPage = 10,
+		
+		/**
+		 * The number of sibling pages to show on either side of the current page
+		 */
+		siblingCount = 1,
+		
+		/**
+		 * Whether to preserve existing URL parameters when navigating
+		 */
+		preserveParams = true 
+	} = $props();
 
-let currentPage = $derived(parseInt($page.url.searchParams.get('page') || '1', 10))
-let visiblePages = $derived(getVisiblePages(currentPage, totalPages))
+	// Get the current page from the URL
+	let currentPage = $derived(parseInt($page.url.searchParams.get('page') || '1', 10));
 
-type PageItem = number | 'ellipsis';
-
-function getVisiblePages(current: number, total: number): PageItem[] {
-	if (total <= 6) {
-		return Array.from({ length: total }, (_, i) => i + 1)
-	}
-
-	let pages: number[] = [1, total]
-
-	if (current > 2) pages.push(current - 1)
-	if (current < total - 1) pages.push(current + 1)
-
-	pages.push(current)
-
-	pages = [...new Set(pages)].sort((a, b) => a - b)
-
-	// Create a new array with ellipsis
-	const result: PageItem[] = [pages[0]];
-	
-	for (let i = 1; i < pages.length; i++) {
-		if (pages[i] - pages[i-1] > 1) {
-			result.push('ellipsis');
+	// Function to handle page change
+	function handlePageChange(pageNum: number) {
+		if (preserveParams) {
+			const url = new URL($page.url);
+			url.searchParams.set('page', pageNum.toString());
+			goto(url.toString(), { replaceState: false });
+		} else {
+			goto(`?page=${pageNum}`, { replaceState: false });
 		}
-		result.push(pages[i]);
 	}
-
-	return result;
-}
 </script>
 
-<nav aria-label="Pagination" class="mt-8 flex justify-center">
-	<ul class="flex items-center space-x-1">
-		<li>
-			<a
-				href="?page={currentPage - 1}"
-				class="rounded-md border border-gray-300 bg-white px-2 py-1 text-gray-500 hover:bg-gray-100 {currentPage ===
-				1
-					? 'pointer-events-none cursor-not-allowed opacity-50'
-					: 'hover:bg-gray-50'}"
-				aria-label="Previous page"
-				tabindex={currentPage === 1 ? -1 : 0}
-			>
-				&laquo;
-			</a>
-		</li>
+<!--
+@component
+A pagination component built with Bits UI.
 
-		{#each visiblePages as page}
-			{#if page === 'ellipsis'}
-				<li class="px-2 py-1 text-gray-500">...</li>
-			{:else}
-				<li>
-					<a
-						href="?page={page}"
-						class="rounded-md border border-gray-300 px-2 py-1 {page === currentPage
-							? 'pointer-events-none bg-blue-500 text-white'
-							: 'bg-white text-gray-500 hover:bg-gray-50'}"
-						aria-current={page === currentPage ? 'page' : undefined}
-					>
-						{page}
-					</a>
-				</li>
-			{/if}
-		{/each}
+- Uses the Bits UI Pagination component
+- Preserves URL parameters when navigating between pages
+- Styled with custom Svelte colors
+- Uses SvelteKit's goto for client-side navigation
 
-		<li>
-			<a
-				href="?page={currentPage + 1}"
-				class="rounded-md border border-gray-300 bg-white px-2 py-1 text-gray-500 hover:bg-gray-100 {currentPage ===
-				totalPages
-					? 'pointer-events-none cursor-not-allowed opacity-50'
-					: 'hover:bg-gray-50'}"
-				aria-label="Next page"
-				tabindex={currentPage === totalPages ? -1 : 0}
+Usage:
+```svelte
+<Pagination count={100} perPage={10} />
+```
+-->
+
+<Pagination.Root {count} {perPage} {siblingCount} page={currentPage} onPageChange={handlePageChange}>
+	{#snippet children({ pages, range })}
+		<div class="my-8 flex items-center justify-center">
+			<Pagination.PrevButton
+				class="mr-4 inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 hover:disabled:bg-transparent"
 			>
-				&raquo;
-			</a>
-		</li>
-	</ul>
-</nav>
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="m15 18-6-6 6-6"/>
+				</svg>
+			</Pagination.PrevButton>
+
+			<div class="flex items-center gap-2">
+				{#each pages as page (page.key)}
+					{#if page.type === "ellipsis"}
+						<div class="select-none text-sm font-medium text-gray-500">
+							...
+						</div>
+					{:else}
+						<Pagination.Page
+							{page}
+							class="inline-flex h-9 w-9 select-none items-center justify-center rounded-md border text-sm font-medium data-selected:border-svelte-900 data-selected:bg-svelte-900 data-selected:text-white hover:bg-gray-50 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 hover:disabled:bg-transparent"
+						>
+							{page.value}
+						</Pagination.Page>
+					{/if}
+				{/each}
+			</div>
+
+			<Pagination.NextButton
+				class="ml-4 inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 hover:disabled:bg-transparent"
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="m9 18 6-6-6-6"/>
+				</svg>
+			</Pagination.NextButton>
+		</div>
+		<p class="text-center text-sm text-gray-500">
+			Showing {range.start} - {range.end} of {count}
+		</p>
+	{/snippet}
+</Pagination.Root>
