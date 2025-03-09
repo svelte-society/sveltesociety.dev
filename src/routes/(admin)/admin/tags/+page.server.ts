@@ -1,4 +1,4 @@
-import { get_tags, delete_tag } from '$lib/server/db/tags'
+import { get_tags, delete_tag, get_tags_count } from '$lib/server/db/tags'
 import type { PageServerLoad, Actions } from './$types'
 import { fail, redirect } from '@sveltejs/kit'
 import { superValidate, message } from 'sveltekit-superforms'
@@ -9,15 +9,27 @@ const deleteSchema = z.object({
 	id: z.string()
 })
 
-export const load: PageServerLoad = async () => {
-	const result = get_tags() || []
+export const load: PageServerLoad = async ({ url }) => {
+	// Get pagination parameters from URL
+	const page = parseInt(url.searchParams.get('page') || '1', 10)
+	const perPage = 10
+	const offset = (page - 1) * perPage
+	
+	// Get paginated tags and total count
+	const tags = get_tags({ limit: perPage, offset }) || []
+	const count = get_tags_count()
 	const form = await superValidate(zod(deleteSchema))
 
-	if (!result) {
+	if (!tags) {
 		return fail(400, { message: 'Error getting tags' })
 	}
 
-	return { tags: result, form }
+	return { 
+		tags, 
+		count,
+		perPage,
+		form 
+	}
 }
 
 export const actions: Actions = {
