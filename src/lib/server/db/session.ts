@@ -71,10 +71,10 @@ export const create_session = (user_id: string): string => {
 export function validate_session_id(sessionToken: string): SessionResult {
 	try {
 		const result = validateSessionStatement.get({ session_token: sessionToken }) as
-			| { user_id: string }
+			| { user_id: string | null }
 			| undefined
 
-		if (result === undefined) {
+		if (result === undefined || result.user_id === null) {
 			return { valid: false }
 		} 
 		return { valid: true, user_id: result.user_id }

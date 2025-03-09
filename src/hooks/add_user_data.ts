@@ -11,15 +11,15 @@ export const add_user_data: Handle = async ({ event, resolve }) => {
 		return await resolve(event)
 	}
 
-	const { user_id } = validate_session_id(session_id)
+	const sessionResult = validate_session_id(session_id)
 
-	if (user_id === undefined) {
-		event.cookies.delete('session_id', { path: '/' })
-		const response = await resolve(event)
-		return response
+	if (!sessionResult.valid || !sessionResult.user_id) {
+		// Remove invalid session cookie
+		cookies.delete('session_id', { path: '/' })
+		return await resolve(event)
 	}
 
-	const user = get_user(user_id)
+	const user = get_user(sessionResult.user_id)
 
 	if (user) {
 		event.locals.user = user
