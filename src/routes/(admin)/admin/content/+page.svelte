@@ -5,6 +5,8 @@ import Table from '$lib/ui/admin/Table.svelte'
 import type { PreviewContent } from '$lib/server/db/content'
 import Actions from '$lib/ui/admin/Actions.svelte'
 import Badge from '$lib/ui/admin/Badge.svelte'
+import Pagination from '$lib/ui/Pagination.svelte'
+
 let { data } = $props()
 
 let colorMap = new Map([
@@ -43,4 +45,11 @@ let colorMap = new Map([
 			<Actions route="content" id={item.id} canDelete={true} canEdit={true} type={item.title} />
 		{/snippet}
 	</Table>
+	
+	{#if data.pagination}
+		<Pagination 
+			count={data.pagination.count} 
+			perPage={data.pagination.perPage} 
+		/>
+	{/if}
 </div>
