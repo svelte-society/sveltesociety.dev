@@ -79,7 +79,7 @@ function getPageUrl(pageNum: number) {
 			<div class="flex space-x-2">
 				<form method="POST" action="?/approve" use:enhance>
 					<input type="hidden" name="id" value={item.id} />
-					<Button small primary icon_left="check">Approve</Button>
+					<Button small primary>Approve</Button>
 				</form>
 				<ConfirmWithDialog
 					title="Reject Item"
