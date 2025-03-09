@@ -40,12 +40,28 @@ const validateSessionStatement = db.prepare(`
     LIMIT 1
   `)
 
+const deleteSessionsByUserIdStatement = db.prepare(`
+    DELETE FROM sessions
+    WHERE user_id = $user_id
+    RETURNING *
+  `)
+
 export function delete_session(sessionToken: string): Session | undefined {
 	try {
 		return deleteSessionStatement.get({ session_token: sessionToken }) as Session | undefined
 	} catch (error) {
 		console.error('Error deleting session:', error)
 		return undefined
+	}
+}
+
+export function delete_sessions_by_user_id(userId: string): number {
+	try {
+		const result = deleteSessionsByUserIdStatement.all({ user_id: userId }) as Session[]
+		return result.length
+	} catch (error) {
+		console.error('Error deleting sessions by user ID:', error)
+		return 0
 	}
 }
 
