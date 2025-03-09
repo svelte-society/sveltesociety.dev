@@ -215,6 +215,24 @@ export const get_content_count = () => {
 	return (stmt.get() as { count: number }).count
 }
 
+/**
+ * Gets the total count of all content items regardless of publication status
+ * @returns The total count of all content items
+ */
+export const get_all_content_count = () => {
+	const stmt = db.prepare('SELECT COUNT(*) as count FROM content')
+	return (stmt.get() as { count: number }).count
+}
+
+/**
+ * Gets the count of published content items only
+ * @returns The count of published content items
+ */
+export const get_published_content_count = () => {
+	const stmt = db.prepare('SELECT COUNT(*) as count FROM published_content')
+	return (stmt.get() as { count: number }).count
+}
+
 export const get_tags_for_content = (content_ids: number[]): Tag[][] => {
 	const stmt = db.prepare(`
         SELECT t.id, t.name, t.slug, t.color
