@@ -6,13 +6,13 @@ import type { PageServerLoad, Actions } from './$types'
 import { z } from 'zod'
 
 const schema = z.object({
-	id: z.number(),
+	id: z.string(),
 	name: z.string().min(1, 'Name is required'),
 	slug: z.string().min(1, 'Slug is required')
 })
 
 export const load: PageServerLoad = async ({ params }) => {
-	const tag = get_tag(parseInt(params.id))
+	const tag = get_tag(params.id)
 
 	if (!tag) {
 		throw error(404, 'Tag not found')

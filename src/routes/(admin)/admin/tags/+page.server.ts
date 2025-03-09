@@ -6,7 +6,7 @@ import { zod } from 'sveltekit-superforms/adapters'
 import { z } from 'zod'
 
 const deleteSchema = z.object({
-	id: z.number().int().positive()
+	id: z.string()
 })
 
 export const load: PageServerLoad = async () => {

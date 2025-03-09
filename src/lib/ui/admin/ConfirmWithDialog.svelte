@@ -8,7 +8,7 @@ let showDialog = $state(false)
 interface BaseProps {
 	title: string
 	action: string
-	id: number
+	id: string
 	confirmButtonText?: string
 	cancelButtonText?: string
 }

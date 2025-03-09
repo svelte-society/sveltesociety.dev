@@ -6,7 +6,7 @@ let {
 	type,
 	canDelete = true,
 	canEdit = true
-}: { route: string; id: number; type: string; canDelete: boolean; canEdit: boolean } = $props()
+}: { route: string; id: string; type: string; canDelete: boolean; canEdit: boolean } = $props()
 </script>
 
 {#if canEdit}
