@@ -604,3 +604,54 @@ export function add_children(rows: Content[]): Content[] {
 		}
 	})
 }
+
+/**
+ * Fetches all content for admin purposes, regardless of publication status
+ * @param options Pagination options
+ * @param user_id Optional user ID for liked/saved status
+ * @returns Array of content items with preview information
+ */
+export const get_admin_content = (
+	{ limit = 50, offset = 0 }: { limit?: number; offset?: number },
+	user_id?: string
+): PreviewContent[] => {
+	// Input validation
+	if (limit < 0 || limit > 200) throw new Error('Invalid limit')
+	if (offset < 0) throw new Error('Invalid offset')
+
+	const start = performance.now()
+
+	// Query all content regardless of status
+	const stmt = db.prepare(`
+		SELECT
+			id,
+			title,
+			type,
+			slug,
+			description,
+			children,
+			created_at,
+			updated_at,
+			published_at,
+			status,
+			likes,
+			saves
+		FROM content
+		ORDER BY updated_at DESC
+		LIMIT ? OFFSET ?
+	`)
+	
+	let content = stmt.all([limit, offset]) as PreviewContent[]
+
+	// Add tags to content
+	content = add_tags(content)
+
+	// Add user interaction data if user_id is provided
+	if (user_id) {
+		content = add_user_liked_and_saved(user_id, content)
+	}
+
+	const end = performance.now()
+	console.log(`get_admin_content took ${end - start}ms`)
+	return content
+}
