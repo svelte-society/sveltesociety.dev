@@ -97,31 +97,57 @@ export const get_content = (
 
 	const start = performance.now()
 
-	// Use prepared statement with parameters
-	const baseQuery = `
-        SELECT
-            id,
-            title,
-            type,
-            slug,
-            description,
-            children,
-            created_at,
-            updated_at,
-            published_at,
-            likes,
-            saves
-        FROM published_content
-        WHERE 1=1
-        ${sanitizedTypes.length > 0 ? `AND type IN ('${sanitizedTypes.map(() => '?').join(',')}')` : ''}
-        ORDER BY published_at ASC
-        LIMIT ? OFFSET ?
-    `
-
-	const stmt = db.prepare(baseQuery)
-	const params = [...sanitizedTypes, limit, offset]
-
-	let content = stmt.all(params) as PreviewContent[]
+	let content: PreviewContent[] = []
+	
+	// Use the appropriate query based on whether types filter is needed
+	if (sanitizedTypes.length > 0) {
+		// Create placeholders for the IN clause
+		const placeholders = sanitizedTypes.map(() => '?').join(',')
+		
+		// Use a properly parameterized query
+		const stmt = db.prepare(`
+			SELECT
+				id,
+				title,
+				type,
+				slug,
+				description,
+				children,
+				created_at,
+				updated_at,
+				published_at,
+				likes,
+				saves
+			FROM published_content
+			WHERE type IN (${placeholders})
+			ORDER BY published_at ASC
+			LIMIT ? OFFSET ?
+		`)
+		
+		// Execute with all parameters
+		content = stmt.all([...sanitizedTypes, limit, offset]) as PreviewContent[]
+	} else {
+		// No types filter needed
+		const stmt = db.prepare(`
+			SELECT
+				id,
+				title,
+				type,
+				slug,
+				description,
+				children,
+				created_at,
+				updated_at,
+				published_at,
+				likes,
+				saves
+			FROM published_content
+			ORDER BY published_at ASC
+			LIMIT ? OFFSET ?
+		`)
+		
+		content = stmt.all([limit, offset]) as PreviewContent[]
+	}
 
 	content = add_tags(content)
 
