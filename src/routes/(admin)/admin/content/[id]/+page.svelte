@@ -8,7 +8,7 @@ import AutoComplete from '$lib/ui/AutoComplete-Tags.svelte'
 import { schema } from './schema'
 import { slugify } from '$lib/utils/slug'
 import { slide } from 'svelte/transition'
-import { page } from '$app/stores'
+import { page } from '$app/state'
 import Button from '$lib/ui/Button.svelte'
 
 let { data } = $props()
@@ -119,7 +119,7 @@ $effect(() => {
 
 <div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
 	<h1 class="mb-6 text-3xl font-bold text-gray-800">
-		{#if $page.params.id === 'new'}Create New Content{:else}Edit <var>{startingTitle}</var>{/if}
+		{#if page.params.id === 'new'}Create New Content{:else}Edit <var>{startingTitle}</var>{/if}
 	</h1>
 	<form method="POST" use:enhance class="space-y-6">
 		<input type="hidden" name="status" value={$form.status} />
@@ -375,7 +375,7 @@ $effect(() => {
 			/>
 		</div>
 		<Button primary fullWidth>
-			{#if $page.params.id === 'new'}Create Content{:else}Update Content{/if}
+			{#if page.params.id === 'new'}Create Content{:else}Update Content{/if}
 		</Button>
 	</form>
 </div>

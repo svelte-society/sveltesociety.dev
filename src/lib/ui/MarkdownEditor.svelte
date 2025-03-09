@@ -16,7 +16,7 @@ let tab = $state('write')
 		</button>
 		<button
 			type="button"
-			class={[{ 'border-b-2 border-svelte-900 text-svelte-900': tab === 'write'}, 'px-4 py-2 font-medium text-gray-500 hover:text-gray-700']}
+			class={[{ 'border-b-2 border-svelte-900 text-svelte-900': tab === 'preview'}, 'px-4 py-2 font-medium text-gray-500 hover:text-gray-700']}
 			onclick={() => (tab = 'preview')}
 		>
 			Preview
