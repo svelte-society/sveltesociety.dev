@@ -10,7 +10,7 @@ import { seedTestSession } from './seed_test_session';
 import { seedUsers } from './seed_users';
 import { seedOAuthProviders } from './seed_oauth_providers';
 
-import { config } from '$lib/server/db/seeds/utils';
+import { config } from './utils';
 import { seedEventUserEvents } from './seed_event_db';
 
 const db = new Database(config.DB_PATH);

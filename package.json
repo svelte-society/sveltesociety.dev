@@ -12,9 +12,8 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"db:init": "NODE_ENV=development bun ./src/lib/server/db/initiate.ts",
 		"db:seed": "NODE_ENV=development bun ./src/lib/server/db/seeds/index.ts",
-		"db:migrate:oauth": "NODE_ENV=development bun ./src/lib/server/db/migrations/migrate_to_oauth.ts",
-		"db:test:init": "NODE_ENV=test ./src/lib/server/db/initiate.ts",
-		"db:test:seed": "NODE_ENV=test ./src/lib/server/db/seeds/index.ts",
+		"db:test:init": "NODE_ENV=test bun ./src/lib/server/db/initiate.ts",
+		"db:test:seed": "NODE_ENV=test bun ./src/lib/server/db/seeds/index.ts",
 		"test:integration": "NODE_ENV=test pnpm run db:test:init && pnpm run db:test:seed && pnpm run build && playwright test",
 		"test:unit": "vitest"
 	},
