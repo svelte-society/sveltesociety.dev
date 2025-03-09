@@ -58,7 +58,7 @@ const s = {
             c.likes,
             c.saves
       FROM published_content c
-      WHERE c.id = $content_id`),
+      WHERE c.id = @content_id`),
 	get_saved_content_ids_by_user_id: db.prepare(`
 	     SELECT
 					target_id
@@ -66,16 +66,16 @@ const s = {
 				WHERE s.user_id = @user_id
 				LIMIT @limit OFFSET @offset`),
 	get_user_has_liked_content: db.prepare(
-		'SELECT 1 FROM likes WHERE user_id = $user_id AND target_id = $target_id'
+		'SELECT 1 FROM likes WHERE user_id = @user_id AND target_id = @target_id'
 	),
 	get_user_has_saved_content: db.prepare(
-		'SELECT 1 FROM saves WHERE user_id = $user_id AND target_id = $target_id'
+		'SELECT 1 FROM saves WHERE user_id = @user_id AND target_id = @target_id'
 	),
 	get_tag_ids_for_content: db.prepare(
-		'SELECT ct.tag_id FROM content_to_tags ct WHERE ct.content_id = $content_id'
+		'SELECT ct.tag_id FROM content_to_tags ct WHERE ct.content_id = @content_id'
 	),
-	get_tag_by_tag_id: db.prepare('SELECT * FROM tags WHERE tags.id = $tag_id'),
-	get_content_by_slug: db.prepare('SELECT * FROM published_content WHERE slug = $slug')
+	get_tag_by_tag_id: db.prepare('SELECT * FROM tags WHERE tags.id = @tag_id'),
+	get_content_by_slug: db.prepare('SELECT * FROM published_content WHERE slug = @slug')
 }
 
 export type PreviewContent = Omit<Content, 'body' | 'rendered_body'>
@@ -300,21 +300,39 @@ interface GetSavedContentOptions {
 }
 
 export function get_user_saved_content(options: GetSavedContentOptions): Content[] {
-	const { user_id, limit = 2, offset = 5 } = options
+	const { user_id, limit = 20, offset = 0 } = options
 
+	// Get saved content IDs
 	const saved_content_ids = s.get_saved_content_ids_by_user_id
 		.values({ user_id, limit, offset })
-		.map((ids: unknown) => (ids as { target_id: number }).target_id)
+		.map((row: any) => row.target_id)
 
+	// If no saved content, return empty array
+	if (!saved_content_ids.length) {
+		return []
+	}
+
+	// Prepare array to hold content
 	const content: Content[] = []
 
-	const get_many = db.transaction(() => {
-		for (const content_id of saved_content_ids) {
-			content.push(s.get_content_by_id.get({ content_id }) as Content)
-		}
+	// Create a transaction to get content by IDs
+	const fetchContent = db.transaction(() => {
+		// Iterate through each saved content ID
+		saved_content_ids.forEach((id: string | number) => {
+			// Get content by ID with proper parameter naming
+			const contentItem = s.get_content_by_id.get({ content_id: id })
+			
+			// Only add non-null items
+			if (contentItem) {
+				content.push(contentItem as Content)
+			}
+		})
 	})
 
-	get_many()
+	// Execute the transaction
+	fetchContent()
+	
+	// Return the content
 	return content
 }
 
