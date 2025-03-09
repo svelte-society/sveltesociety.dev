@@ -1,4 +1,7 @@
 import { db } from './index'
+// Remove the incorrect import
+// Add import for environment variables
+import { dev } from '$app/environment'
 
 interface GitHubUserInfo {
 	id: number
@@ -131,8 +134,11 @@ export const create_or_update_user = (githubInfo: GitHubUserInfo): User => {
 
 		let user: User
 
+		// Check if we're in development mode using SvelteKit's dev flag
+		const isDevelopment = dev
+
 		if (existingUser) {
-			// Update existing user
+			// Update existing user with role=1 in development mode
 			const updateUserStmt = db.prepare(`
 				UPDATE users SET
 					email = COALESCE($email, email),
@@ -142,6 +148,7 @@ export const create_or_update_user = (githubInfo: GitHubUserInfo): User => {
 					bio = COALESCE($bio, bio),
 					location = COALESCE($location, location),
 					twitter = COALESCE($twitter, twitter)
+					${isDevelopment ? ', role = 1' : ''}
 				WHERE id = $id
 				RETURNING *
 			`)
@@ -174,11 +181,52 @@ export const create_or_update_user = (githubInfo: GitHubUserInfo): User => {
 			// Create new user
 			const userInfo = extractGithubUserInfo(githubInfo)
 			
-			const createUserStmt = db.prepare(`
-				INSERT INTO users (email, username, name, avatar_url, bio, location, twitter)
-				VALUES ($email, $username, $name, $avatar_url, $bio, $location, $twitter)
-				RETURNING *
-			`)
+			// In development mode, set role to 1 (admin)
+			const createUserStmt = isDevelopment 
+				? db.prepare(`
+					INSERT INTO users (
+						email, 
+						username, 
+						name, 
+						avatar_url, 
+						bio, 
+						location, 
+						twitter,
+						role
+					)
+					VALUES (
+						$email, 
+						$username, 
+						$name, 
+						$avatar_url, 
+						$bio, 
+						$location, 
+						$twitter,
+						1
+					)
+					RETURNING *
+				`)
+				: db.prepare(`
+					INSERT INTO users (
+						email, 
+						username, 
+						name, 
+						avatar_url, 
+						bio, 
+						location, 
+						twitter
+					)
+					VALUES (
+						$email, 
+						$username, 
+						$name, 
+						$avatar_url, 
+						$bio, 
+						$location, 
+						$twitter
+					)
+					RETURNING *
+				`);
 
 			user = createUserStmt.get(userInfo) as User
 
