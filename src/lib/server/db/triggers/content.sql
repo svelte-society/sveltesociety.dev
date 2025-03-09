@@ -31,7 +31,7 @@ BEGIN
 END;
 
 -- Trigger to set published_at when published
-CREATE TRIGGER update_published_at
+CREATE TRIGGER IF NOT EXISTS update_published_at
 AFTER UPDATE OF status ON content
 WHEN NEW.status = 'published' AND OLD.status != 'published'
 BEGIN

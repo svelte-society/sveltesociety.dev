@@ -6,7 +6,7 @@ END;
 CREATE TRIGGER IF NOT EXISTS content_au AFTER UPDATE ON content BEGIN
   UPDATE content_fts
   SET title = NEW.title,
-      body = NEW.body,
+      body = NEW.body
   WHERE content_id = NEW.id;
 END;
 

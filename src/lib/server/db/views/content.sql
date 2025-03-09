@@ -22,4 +22,4 @@ SELECT *
 FROM content
 WHERE type != 'collection';
 
-CREATE INDEX idx_content_status_published_at ON content(status, published_at);
+CREATE INDEX IF NOT EXISTS idx_content_status_published_at ON content(status, published_at);

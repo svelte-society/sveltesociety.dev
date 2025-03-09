@@ -1,11 +1,17 @@
 import { Database } from 'bun:sqlite';
 import fs from 'fs';
 import path from 'path';
-import { config } from '$lib/server/db/seeds/utils';
+import { config } from './seeds/utils';
 import { Database as DuckDB } from 'duckdb-async';
 
 const TRIGGERS_FOLDER = './src/lib/server/db/triggers';
 const VIEWS_FOLDER = './src/lib/server/db/views';
+
+// Create database directory if it doesn't exist
+const dbDir = path.dirname(config.DB_PATH);
+if (!fs.existsSync(dbDir)) {
+	fs.mkdirSync(dbDir, { recursive: true });
+}
 
 export const db = new Database(config.DB_PATH);
 db.exec('PRAGMA journal_mode = WAL');
@@ -14,22 +20,29 @@ db.exec('PRAGMA foreign_keys = ON');
 export const event_db = await DuckDB.create(config.EVENT_DB_PATH);
 
 const read_and_import_dir = (folder: string, db: Database | DuckDB) => {
-	fs.readdir(folder, (e, files) => {
+	try {
+		const files = fs.readdirSync(folder);
 		files.forEach((file) => {
 			const filePath = path.join(folder, file);
 			read_and_import_file(filePath, db);
 		});
-	});
+	} catch (error) {
+		console.error(`Error reading directory ${folder}:`, error);
+	}
 };
-const read_and_import_file = (filePath: string, db: Database | DuckDB) => {
-	fs.readFile(filePath, 'utf8', (err, content) => {
-		if (err) {
-			console.error('Error reading file %s\nError: %o', filePath, err);
-			return;
-		}
 
-		db.exec(content);
-	});
+const read_and_import_file = (filePath: string, db: Database | DuckDB) => {
+	try {
+		const content = fs.readFileSync(filePath, 'utf8');
+		try {
+			db.exec(content);
+			console.log(`Successfully executed SQL from ${filePath}`);
+		} catch (sqlError) {
+			console.error(`Error executing SQL from ${filePath}:`, sqlError);
+		}
+	} catch (fileError) {
+		console.error(`Error reading file ${filePath}:`, fileError);
+	}
 };
 
 const initiate_db = async () => {
@@ -42,11 +55,14 @@ const initiate_db = async () => {
 	read_and_import_dir(TRIGGERS_FOLDER, db);
 	// Read views and insert them into the database
 	read_and_import_dir(VIEWS_FOLDER, db);
+	
+	console.log('Database initialization completed.');
 };
 
 const initiate_events_db = async () => {
 	console.log('Initiating events database...');
 	read_and_import_file('./src/lib/server/event_db/schema/schema.sql', event_db);
+	console.log('Events database initialization completed.');
 };
 
 initiate_db();
