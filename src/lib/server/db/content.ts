@@ -303,9 +303,7 @@ export function get_user_saved_content(options: GetSavedContentOptions): Content
 	const { user_id, limit = 20, offset = 0 } = options
 
 	// Get saved content IDs
-	const saved_content_ids = s.get_saved_content_ids_by_user_id
-		.values({ user_id, limit, offset })
-		.map((row: any) => row.target_id)
+	const saved_content_ids = s.get_saved_content_ids_by_user_id.all({ user_id, limit, offset }).map((res: unknown) => (res as { target_id: number }).target_id)
 
 	// If no saved content, return empty array
 	if (!saved_content_ids.length) {
