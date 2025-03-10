@@ -118,12 +118,12 @@ const saveSubmit = (event: any) => {
 }
 </script>
 
-<article class="grid gap-2 rounded-lg bg-zinc-50 px-6 py-5">
-	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between text-xs">
-		<div class="flex">
+<article class="grid gap-2 rounded-lg bg-zinc-50 px-4 sm:px-6 py-4 sm:py-5">
+	<div class="mb-2 grid grid-cols-1 sm:grid-cols-[1fr_auto] items-start justify-between gap-2 sm:gap-0 text-xs">
+		<div class="flex flex-wrap items-center">
 			<span class="font-semibold capitalize">{type}&nbsp;</span>
-			<span class="flex text-gray-500"
-				><span>by {author} • {formatRelativeDate(published_at)} •&nbsp;</span>
+			<span class="flex flex-wrap text-gray-500">
+				<span>by {author} • {formatRelativeDate(published_at)} •&nbsp;</span>
 				<span class="flex items-center gap-1">
 					{views}
 					<svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
@@ -138,7 +138,7 @@ const saveSubmit = (event: any) => {
 				</span>
 			</span>
 		</div>
-		<div class="flex items-center space-x-4">
+		<div class="flex items-center space-x-3 sm:space-x-4">
 			<form method="POST" action="/?/interact" use:enhance={likeSubmit}>
 				<input type="hidden" name="id" value={id} />
 				<input type="hidden" name="action" value={liked ? 'remove' : 'add'} />
@@ -149,7 +149,7 @@ const saveSubmit = (event: any) => {
 					disabled={submitting_like_toggle}
 					aria-label="Like {type}"
 					type="submit"
-					class="-mx-2 -my-1 flex items-center gap-1 rounded-md px-2 py-1 text-gray-600 hover:bg-gray-200 hover:text-gray-700"
+					class="-mx-2 -my-1 flex items-center gap-1 rounded-md px-2 py-1.5 sm:py-1 text-gray-600 hover:bg-gray-200 hover:text-gray-700 touch-manipulation"
 				>
 					<svg
 						width="12"
@@ -184,7 +184,7 @@ const saveSubmit = (event: any) => {
 					disabled={submitting_save_toggle}
 					aria-label="Like {type}"
 					type="submit"
-					class="-mx-2 -my-1 flex items-center gap-1 rounded-md px-2 py-1 text-gray-600 hover:bg-gray-200 hover:text-gray-700"
+					class="-mx-2 -my-1 flex items-center gap-1 rounded-md px-2 py-1.5 sm:py-1 text-gray-600 hover:bg-gray-200 hover:text-gray-700 touch-manipulation"
 				>
 					<svg
 						width="12"
@@ -214,8 +214,8 @@ const saveSubmit = (event: any) => {
 		</div>
 	</div>
 
-	<h2 class="mb-2 text-xl font-bold"><a href="/{type}/{slug}">{title}</a></h2>
-	{description}
+	<h2 class="mb-2 text-lg sm:text-xl font-bold"><a href="/{type}/{slug}">{title}</a></h2>
+	<div class="text-sm sm:text-base">{description}</div>
 
 	<div>
 		{#if type === 'recipe'}
@@ -227,8 +227,8 @@ const saveSubmit = (event: any) => {
 		{/if}
 	</div>
 
-	<div class="mt-4 grid grid-cols-[1fr_auto] items-start justify-between">
-		<div class="flex space-x-2">
+	<div class="mt-4 grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 sm:gap-0 items-start justify-between">
+		<div class="flex flex-wrap gap-2">
 			<Tags tags={formattedTags} />
 		</div>
 
