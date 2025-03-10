@@ -22,7 +22,7 @@ type ContentInput = {
 }
 
 export type Content = {
-	id: number
+	id: string
 	title: string
 	type: string
 	status: Status
@@ -125,7 +125,7 @@ export const get_content = (
 		`)
 		
 		// Execute with all parameters
-		content = stmt.all([...sanitizedTypes, limit, offset]) as PreviewContent[]
+		content = stmt.all(...sanitizedTypes, limit, offset) as PreviewContent[]
 	} else {
 		// No types filter needed
 		const stmt = db.prepare(`
@@ -146,7 +146,7 @@ export const get_content = (
 			LIMIT ? OFFSET ?
 		`)
 		
-		content = stmt.all([limit, offset]) as PreviewContent[]
+		content = stmt.all(limit, offset) as PreviewContent[]
 	}
 
 	content = add_tags(content)
@@ -178,7 +178,7 @@ export const get_all_content = (): PreviewContent[] => {
             status
         FROM content_without_collections
     `)
-	return stmt.values() as PreviewContent[]
+	return stmt.get() as PreviewContent[]
 }
 
 export const get_content_by_type = (type: string): PreviewContent[] => {
@@ -199,7 +199,7 @@ export const get_content_by_type = (type: string): PreviewContent[] => {
         FROM published_content
         WHERE type = ?
     `)
-	return stmt.values(type) as PreviewContent[]
+	return stmt.all(type) as PreviewContent[]
 }
 
 export const get_content_by_slug = (slug: string, user_id: string): PreviewContent | undefined => {
@@ -244,7 +244,7 @@ export const get_tags_for_content = (content_ids: number[]): Tag[][] => {
 	const getManyTags = db.transaction(() => {
 		const results: Tag[][] = []
 		for (const id of content_ids) {
-			const tags = stmt.values(id) as Tag[]
+			const tags = stmt.all(id) as Tag[]
 			results.push(tags)
 		}
 		return results
@@ -277,7 +277,7 @@ export const get_content_by_ids = (contentIds: number[]): PreviewContent[] => {
     `)
 
 	try {
-		return stmt.values(...contentIds) as PreviewContent[]
+		return stmt.all(...contentIds) as PreviewContent[]
 	} catch (error) {
 		console.error('Error fetching content:', error)
 		return []
@@ -529,7 +529,7 @@ export const update_content = (input: ContentInput & { id: number }): boolean =>
 			description,
 			metadata: metadata ? JSON.stringify(metadata) : null,
 			children: children ? JSON.stringify(children) : null
-		})
+		} as unknown as any)
 		update_content_tags(id, tags ?? [])
 
 		return result.changes > 0
@@ -659,7 +659,7 @@ export const get_admin_content = (
 		LIMIT ? OFFSET ?
 	`)
 	
-	let content = stmt.all([limit, offset]) as PreviewContent[]
+	let content = stmt.all(limit, offset) as PreviewContent[]
 
 	// Add tags to content
 	content = add_tags(content)
