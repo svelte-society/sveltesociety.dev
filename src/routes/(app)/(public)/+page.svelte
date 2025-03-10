@@ -5,12 +5,6 @@ import type { ContentItem } from '$lib/types/content';
 import { isContentArray, convertTags } from '$lib/types/content';
 
 let { data } = $props()
-
-// Debug: Check the actual type of data.content
-console.log('data.content type:', typeof data.content, Array.isArray(data.content));
-if (data.content) {
-	console.log('data.content sample:', data.content[0]);
-}
 </script>
 
 <div class="grid gap-6">
@@ -43,6 +37,6 @@ if (data.content) {
 
 {#if data.count > 0}
 	<div class="mt-8">
-		<Pagination totalPages={Math.ceil(data.count / 10)} />
+		<Pagination count={data.count} />
 	</div>
 {/if}

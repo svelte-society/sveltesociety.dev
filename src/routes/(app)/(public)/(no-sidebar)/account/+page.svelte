@@ -29,7 +29,12 @@ const user = data.user as ExtendedUser | null;
 		<div class="px-4 py-5 sm:p-6">
 			<div class="mb-6 flex items-center justify-between">
 				<h2 class="text-2xl font-bold text-gray-900">Profile</h2>
-				<Button primary href="/account/edit">Edit Profile</Button>
+				<div class="flex gap-3">
+					<Button small primary href="/account/edit">Edit Profile</Button>
+					<form action="/auth/logout" method="POST">
+						<Button secondary small type="submit">Logout</Button>
+					</form>
+				</div>
 			</div>
 
 			<div class="mb-8 flex flex-col items-center sm:flex-row sm:space-x-6">

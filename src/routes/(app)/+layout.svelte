@@ -1,8 +1,17 @@
 <script lang="ts">
 	import Search from './Search.svelte';
 	import { page } from '$app/stores';
+	import { fade } from 'svelte/transition';
 
 	let { data, children } = $props();
+	
+	// State for mobile menu toggle
+	let isMenuOpen = $state(false);
+
+	// Toggle the mobile menu
+	function toggleMenu() {
+		isMenuOpen = !isMenuOpen;
+	}
 </script>
 
 <div class="flex min-h-screen flex-col">
@@ -10,6 +19,7 @@
 		<div class="container mx-auto flex max-w-7xl items-center justify-between gap-4 px-4">
 			<a href="/" class="flex items-center gap-2">
 				<svg
+					class="h-auto w-24 sm:w-28 md:w-full"
 					width="117"
 					height="55"
 					viewBox="0 0 117 55"
@@ -51,8 +61,54 @@
 					/>
 				</svg>
 			</a>
-			<Search />
-			<nav>
+			
+			<!-- Search component visible on medium screens and up -->
+			<div class="hidden md:block flex-1 max-w-lg mx-4">
+				<Search />
+			</div>
+			
+			<!-- Mobile menu button -->
+			<button 
+				class="md:hidden flex items-center p-2 rounded-md text-slate-800 hover:bg-slate-100"
+				onclick={toggleMenu}
+				aria-label="Toggle menu"
+			>
+				{#if isMenuOpen}
+					<!-- X icon for close -->
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				{:else}
+					<!-- Hamburger icon -->
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+					</svg>
+				{/if}
+			</button>
+			
+			<!-- Login button visible on mobile when not logged in -->
+			{#if !data.user}
+				<a href="/auth/github" class="md:hidden flex items-center gap-2 px-4 py-2 bg-svelte-900 text-white rounded-md hover:bg-svelte-800 transition-colors">
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+						<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+						<polyline points="10 17 15 12 10 7"></polyline>
+						<line x1="15" y1="12" x2="3" y2="12"></line>
+					</svg>
+					<span>Login</span>
+				</a>
+			{:else}
+				<!-- User avatar on mobile -->
+				<a href="/account" class="md:hidden flex items-center">
+					<img 
+						src={data.user.avatar_url || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.user.name || 'User')} 
+						alt="User avatar" 
+						class="w-8 h-8 rounded-full border-2 border-svelte-900"
+					/>
+				</a>
+			{/if}
+			
+			<!-- Desktop navigation -->
+			<nav class="hidden md:flex items-center ml-auto space-x-4 text-slate-800">
 				<ul class="flex space-x-4 text-slate-800">
 					<li>
 						<a
@@ -68,23 +124,96 @@
 							class="hover:text-slate-600">Events</a
 						>
 					</li>
-					{#if data.user}
+				</ul>
+				
+				{#if data.user}
+					<!-- User avatar only -->
+					<div class="relative ml-2">
+						<a 
+							href="/account" 
+							class="flex items-center gap-2 hover:opacity-80 transition-opacity"
+							title="View profile"
+						>
+							<img 
+								src={data.user.avatar_url || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.user.name || 'User')} 
+								alt="User avatar" 
+								class="w-8 h-8 rounded-full border-2 border-svelte-900"
+							/>
+						</a>
+					</div>
+				{:else}
+					<!-- Login button -->
+					<a href="/auth/github" class="flex items-center gap-2 px-4 py-2 bg-svelte-900 text-white rounded-md hover:bg-svelte-800 transition-colors">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+							<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+							<polyline points="10 17 15 12 10 7"></polyline>
+							<line x1="15" y1="12" x2="3" y2="12"></line>
+						</svg>
+						<span>Login with GitHub</span>
+					</a>
+				{/if}
+			</nav>
+		</div>
+		
+		<!-- Mobile menu and search - shown when menu is open -->
+		{#if isMenuOpen}
+			<div 
+				class="md:hidden pt-4 pb-2 px-4 border-t border-slate-200"
+				transition:fade={{ duration: 200 }}
+			>
+				<!-- Mobile search -->
+				<div class="mb-4">
+					<Search />
+				</div>
+				
+				<!-- Mobile navigation -->
+				<nav>
+					<ul class="flex flex-col space-y-3 text-slate-800">
 						<li>
-							<a href="/account" class:font-bold={$page.url.pathname.startsWith('/account')}
-								>Profile</a
+							<a
+								href="/about"
+								class:font-bold={$page.url.pathname === '/about'}
+								class="block py-1 hover:text-slate-600">About</a
 							>
 						</li>
 						<li>
-							<form action="/auth/logout" method="POST" class="inline">
-								<button type="submit" class="hover:text-slate-600">Logout</button>
-							</form>
+							<a
+								href="/events"
+								class:font-bold={$page.url.pathname === '/events'}
+								class="block py-1 hover:text-slate-600">Events</a
+							>
 						</li>
-					{:else}
-						<li><a href="/auth/github">Login</a></li>
-					{/if}
-				</ul>
-			</nav>
-		</div>
+						{#if data.user}
+							<li>
+								<a 
+									href="/account" 
+									class:font-bold={$page.url.pathname.startsWith('/account')}
+									class="flex items-center gap-2 py-1 hover:text-slate-600"
+								>
+									<img 
+										src={data.user.avatar_url || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.user.name || 'User')} 
+										alt="User avatar" 
+										class="w-6 h-6 rounded-full border border-svelte-900"
+									/>
+									Profile
+								</a>
+							</li>
+						{:else}
+							<li>
+								<a href="/auth/github" class="flex items-center gap-2 py-2 px-3 bg-svelte-900 text-white rounded-md hover:bg-svelte-800 transition-colors">
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+										<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+										<polyline points="10 17 15 12 10 7"></polyline>
+										<line x1="15" y1="12" x2="3" y2="12"></line>
+									</svg>
+									Login with GitHub
+								</a>
+							</li>
+						{/if}
+					</ul>
+				</nav>
+			</div>
+		{/if}
 	</header>
 
 	<div class="mx-auto flex w-full max-w-7xl">
