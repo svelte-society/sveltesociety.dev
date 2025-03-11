@@ -1,5 +1,5 @@
 <script lang="ts">
-import { superForm } from 'sveltekit-superforms'
+import SuperDebug, { superForm } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
 import Input from '$lib/ui/form/Input.svelte'
 import Select from '$lib/ui/form/Select.svelte'
@@ -379,3 +379,5 @@ $effect(() => {
 		</Button>
 	</form>
 </div>
+
+<SuperDebug data={$errors} />

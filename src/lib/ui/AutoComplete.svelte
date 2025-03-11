@@ -1,102 +1,171 @@
 <script lang="ts">
-import { createEventDispatcher } from 'svelte'
+import { Combobox } from "bits-ui"
 
-export let items: any[] = []
-export let searchField: string = 'name'
-export let valueField: string = 'id'
-export let placeholder: string = 'Search...'
-export let createNew: boolean = false
-export let error: false
+// Define a generic type for the items
+type Item = Record<string, any>
 
-let inputValue = ''
-let filteredItems: any[] = []
-let selectedIndex = -1
-let showDropdown = false
+const { 
+	/** Array of items to display in the autocomplete dropdown */
+	items = [], 
+	/** Field name to use for displaying and searching items */
+	searchField = 'name', 
+	/** Field name to use as the value when an item is selected */
+	valueField = 'id', 
+	/** Placeholder text for the input field */
+	placeholder = 'Search...', 
+	/** Whether to allow creating new items when no match is found */
+	createNew = false, 
+	/** Whether to display the input in an error state */
+	error = false,
+	/** Callback function when an item is selected */
+	onSelect = undefined
+} = $props<{
+	items?: Item[];
+	searchField?: string;
+	valueField?: string;
+	placeholder?: string;
+	createNew?: boolean;
+	error?: boolean;
+	onSelect?: (value: string, item: Item | undefined, isNew?: boolean) => void;
+}>();
 
-const dispatch = createEventDispatcher()
+let searchValue = $state('')
+let open = $state(false)
 
-$: {
-	if (inputValue) {
-		filteredItems = items.filter((item) =>
-			item[searchField].toLowerCase().includes(inputValue.toLowerCase())
-		)
-		if (
-			createNew &&
-			!filteredItems.some((item) => item[searchField].toLowerCase() === inputValue.toLowerCase())
-		) {
-			filteredItems = [{ [searchField]: inputValue, isNew: true }, ...filteredItems]
-		}
+const filteredItems = $derived(
+	searchValue === ""
+		? []
+		: items.filter((item: Item) =>
+				item[searchField].toLowerCase().includes(searchValue.toLowerCase())
+			)
+)
+
+const displayItems = $derived(
+	createNew && searchValue && !filteredItems.some(
+		(item: Item) => item[searchField].toLowerCase() === searchValue.toLowerCase()
+	)
+		? [{ [searchField]: searchValue, [valueField]: searchValue, isNew: true }, ...filteredItems]
+		: filteredItems
+)
+
+function handleSelect(value: string) {
+	const selectedItem = displayItems.find((item: Item) => item[valueField] === value)
+	
+	if (selectedItem?.isNew) {
+		console.log('create', searchValue)
+		if (onSelect) onSelect(value, selectedItem, true)
 	} else {
-		filteredItems = []
+		console.log('select', value)
+		if (onSelect) onSelect(value, selectedItem, false)
 	}
-	selectedIndex = -1
+	
+	searchValue = ""
+	open = false
 }
 
-function handleInput() {
-	showDropdown = true
-}
-
-function handleKeydown(event: KeyboardEvent) {
-	if (event.key === 'ArrowDown') {
-		event.preventDefault()
-		selectedIndex = (selectedIndex + 1) % filteredItems.length
-	} else if (event.key === 'ArrowUp') {
-		event.preventDefault()
-		selectedIndex = (selectedIndex - 1 + filteredItems.length) % filteredItems.length
-	} else if (event.key === 'Enter' && selectedIndex !== -1) {
-		event.preventDefault()
-		selectItem(filteredItems[selectedIndex])
+function handleOpenChange(isOpen: boolean) {
+	open = isOpen
+	if (!isOpen) {
+		searchValue = ""
 	}
-}
-
-function selectItem(item: any) {
-	if (item.isNew) {
-		dispatch('create', inputValue)
-	} else {
-		dispatch('select', item[valueField])
-	}
-	inputValue = ''
-	showDropdown = false
-}
-
-function handleBlur() {
-	setTimeout(() => {
-		showDropdown = false
-	}, 200)
 }
 </script>
 
-<div class="relative">
-	<input
-		type="text"
-		bind:value={inputValue}
-		oninput={handleInput}
-		onkeydown={handleKeydown}
-		onblur={handleBlur}
-		{placeholder}
-		class={[{ 'border-red-300 bg-red-50 text-red-600': error }, 'w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-7 text-sm text-slate-800 placeholder-slate-500']}
-	/>
-	{#if showDropdown && filteredItems.length > 0}
-		<ul
-			class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-white shadow-lg"
+<!--
+@component
+A customizable autocomplete component built with bits-ui Combobox.
+
+Features:
+- Filtering items as you type
+- Optional "create new" functionality
+- Error state styling
+- Customizable field mappings
+- Callback for selection handling
+
+## Usage
+
+Basic usage:
+```svelte
+<AutoComplete 
+  items={[
+    { id: '1', name: 'Apple' },
+    { id: '2', name: 'Banana' },
+    { id: '3', name: 'Cherry' }
+  ]}
+  onSelect={(value, item) => console.log('Selected:', item.name)}
+/>
+```
+
+With custom fields and create option:
+```svelte
+<AutoComplete 
+  items={products}
+  searchField="title"
+  valueField="productId"
+  placeholder="Search products..."
+  createNew={true}
+  onSelect={(value, item, isNew) => {
+    if (isNew) {
+      createNewProduct(value);
+    } else {
+      selectProduct(value);
+    }
+  }}
+/>
+```
+
+With error state:
+```svelte
+<AutoComplete 
+  items={users}
+  error={formErrors.user}
+  onSelect={handleUserSelect}
+/>
+```
+-->
+
+<Combobox.Root
+	type="single"
+	onValueChange={handleSelect}
+	onOpenChange={handleOpenChange}
+	bind:open
+	
+>
+	<div class="relative">
+		<Combobox.Input
+			oninput={(e) => (searchValue = e.currentTarget.value)}
+			{placeholder}
+			class={`w-full rounded-md border-2 ${error ? 'border-red-300 bg-red-50 text-red-600' : 'border-transparent bg-slate-100 text-slate-800'} px-2 py-1.5 pr-7 text-sm placeholder-slate-500`}
+		/>
+	</div>
+	
+	<Combobox.Portal>
+		<Combobox.Content
+			class="z-10 mt-1 max-h-60 w-[var(--bits-combobox-anchor-width)] overflow-auto rounded-md border bg-white shadow-lg"
 		>
-			{#each filteredItems || [] as item, index}
-				<li>
-					<button
-						class="flex w-full cursor-pointer px-3 py-2 hover:bg-gray-100"
-						class:bg-blue-100={index === selectedIndex}
-						onclick={() => selectItem(item)}
-					>
-						{#if item.isNew}
-							<span class="font-semibold">Create:</span> {item[searchField]}
-						{:else}
-							<slot name="item" {item}>
-								{item[searchField]}
-							</slot>
-						{/if}
-					</button>
-				</li>
-			{/each}
-		</ul>
-	{/if}
-</div>
+			<Combobox.Viewport class="p-0">
+				{#if displayItems.length > 0}
+					{#each displayItems as item (item[valueField])}
+						<Combobox.Item
+							value={item[valueField]}
+							label={item[searchField]}
+							class="flex w-full cursor-pointer px-3 py-2 data-highlighted:bg-blue-100"
+						>
+							{#snippet children({ selected })}
+								{#if item.isNew}
+									<span class="font-semibold">Create:</span> {item[searchField]}
+								{:else}
+									{item[searchField]}
+								{/if}
+							{/snippet}
+						</Combobox.Item>
+					{/each}
+				{:else}
+					<span class="block px-3 py-2 text-sm text-slate-500">
+						No results found
+					</span>
+				{/if}
+			</Combobox.Viewport>
+		</Combobox.Content>
+	</Combobox.Portal>
+</Combobox.Root>

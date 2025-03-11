@@ -23,14 +23,14 @@ export const load: PageServerLoad = async ({ params }) => {
 
 	// Create a form data object with the correct types
 	const formData = {
-		id: collection.id,
+		id: Number(collection.id),
 		title: collection.title,
 		description: collection.description,
 		slug: collection.slug,
 		// Parse children from string to array if needed
 		children: typeof collection.children === 'string' 
 			? JSON.parse(collection.children || '[]') 
-			: []
+			: (collection.children || [])
 	};
 
 	const form = await superValidate(formData, zod(schema))

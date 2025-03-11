@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { superValidate, message } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
 import { fail, redirect } from '@sveltejs/kit'
-import { create_or_update_user } from '$lib/server/db/user'
+import { update_user } from '$lib/server/db/user'
 
 const schema = z.object({
 	name: z.string().optional(),
@@ -14,8 +14,9 @@ const schema = z.object({
 })
 
 export const load = async ({ locals }) => {
+	// Check if user is logged in
 	if (!locals.user) {
-		throw redirect(302, '/login')
+		redirect(302, '/login')
 	}
 
 	// Convert null values to undefined to match schema expectations
@@ -33,24 +34,39 @@ export const load = async ({ locals }) => {
 
 export const actions = {
 	default: async ({ request, locals }) => {
+		// Check if user is logged in
 		if (!locals.user) {
-			throw redirect(302, '/login')
+			redirect(302, '/login')
 		}
 
 		const form = await superValidate(request, zod(schema))
 		if (!form.valid) {
 			return fail(400, { form })
 		}
+
 		try {
-			// Convert string ID to number for GitHub API
-			const githubId = parseInt(locals.user.id);
-			await create_or_update_user({ 
-				id: githubId, 
-				login: form.data.username, 
-				...form.data 
+			// Use the update_user function to update the user's information
+			const updatedUser = await update_user(locals.user.id, { 
+				username: form.data.username,
+				name: form.data.name || null,
+				bio: form.data.bio || null,
+				location: form.data.location || null,
+				twitter: form.data.twitter || null
 			})
-			return message(form, 'Profile updated successfully.')
+
+			if (!updatedUser) {
+				return message(form, 'Failed to update profile.', { status: 500 })
+			}
+
+			// Redirect to the accounts page after successful update
+			redirect(303, '/account')
 		} catch (error) {
+			// Check if the error is a redirect (which we threw intentionally)
+			if (error instanceof Response && error.status === 303) {
+				throw error;
+			}
+			
+			console.error('Error updating user profile:', error)
 			return message(form, 'Failed to update profile.', { status: 500 })
 		}
 	}

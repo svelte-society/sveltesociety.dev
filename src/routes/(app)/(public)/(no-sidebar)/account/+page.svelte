@@ -25,7 +25,7 @@ const user = data.user as ExtendedUser | null;
 	<h1 class="mb-4 sm:mb-6 text-xl sm:text-2xl font-bold">My Account</h1>
 	
 	{#if user}
-	<div class="grid gap-2 rounded-lg bg-zinc-50 p-3 sm:p-5">
+	<div class="grid gap-2 rounded-lg bg-zinc-50 p-3">
 		<div class="px-2 py-3 sm:px-4 sm:py-5 md:p-6">
 			<div class="mb-4 sm:mb-6 flex items-center justify-between gap-3">
 				<h2 class="text-xl sm:text-2xl font-bold text-gray-900">Profile</h2>
@@ -202,7 +202,7 @@ const user = data.user as ExtendedUser | null;
 	<div class="rounded-lg bg-zinc-50 p-6 sm:p-8 text-center">
 		<h2 class="mb-4 text-lg sm:text-xl font-semibold">Please log in to view your account</h2>
 		<!-- Login button - full button on all screen sizes -->
-		<Button primary href="/login">Log In</Button>
+		<Button primary href="/auth/github">Log In</Button>
 	</div>
 	{/if}
 </main>

@@ -30,7 +30,7 @@ export const load = async ({ params }) => {
 			get_tags_for_content([Number(params.id)])
 		])
 		if (!res_content || !res_content_tags || res_content_tags.length !== 1) {
-			redirect(302, '/content')
+			redirect(302, '/admin/content')
 		}
 
 		// Create a properly typed form data object
@@ -66,7 +66,7 @@ export const actions = {
 			} else {
 				update_content({ ...form.data, id: Number(params.id) })
 			}
-			redirect(302, '/content')
+			redirect(302, '/admin/content')
 		} catch (error) {
 			return message(form, 'Failed to save content.')
 		}

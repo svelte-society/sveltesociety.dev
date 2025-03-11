@@ -7,7 +7,7 @@ export const schema = z.object({
 	body: z.string().min(1, 'Body is required'),
 	slug: z.string().min(1, 'Slug is required'),
 	description: z.string().min(1, 'Description is required'),
-	tags: z.array(z.number()).min(1, 'At least one tag is required'),
+	tags: z.array(z.string()).min(1, 'At least one tag is required'),
 	status: z.enum(['draft', 'published']).default('draft'),
 	metadata: z.union([
 		z.object({
