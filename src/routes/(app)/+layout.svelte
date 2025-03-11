@@ -19,8 +19,9 @@
 		<div class="container mx-auto flex max-w-7xl items-center justify-between w-full gap-4 px-4">
 			<a href="/" class="flex items-center gap-2">
 				<svg
-					class="h-auto md:w-full"
+					class="h-auto w-24 md:w-full"
 					height="55"
+					width="117"
 					viewBox="0 0 117 55"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
