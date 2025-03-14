@@ -673,5 +673,12 @@
 		"repository": "https://github.com/rajnandan1/kener",
 		"description": "Kener is status page system built with Sveltekit and NodeJS. It tries to help some who wants to come up with a status page that looks nice and minimum overhead, in a modern way.",
 		"categories": ["sveltekit", "ssr", "svelte"]
+	},
+	{
+		"title": "Sveltx",
+		"url": "https://sveltx.vercel.app/",
+		"repository": "https://github.com/SmrtMrktX/Sveltx",
+		"description": "Sveltx – a modern, feature-rich template for building scalable and high-performance web applications with the SvelteKit framework and the DaisyUI library.",
+		"categories": ["blog", "sveltekit"]
 	}
 ]
