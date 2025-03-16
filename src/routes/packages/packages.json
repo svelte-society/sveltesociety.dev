@@ -3205,11 +3205,11 @@
 		"categories": ["ui-components"]
 	},
 	{
-		"title": "tauri-plugin-svelte",
-		"url": "https://tb.dev.br/tauri-store/guide/getting-started?plugin=tauri-plugin-svelte",
+		"title": "@tauri-store/svelte",
+		"url": "https://tb.dev.br/tauri-store/plugin-svelte/guide/getting-started",
 		"repository": "https://github.com/ferreira-tb/tauri-store",
 		"description": "Persistent Svelte stores and runes for Tauri",
-		"npm": "tauri-plugin-svelte",
+		"npm": "@tauri-store/svelte",
 		"categories": ["stores-and-state", "integrations"]
 	},
 	{
