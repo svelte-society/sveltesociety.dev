@@ -1,3 +1,10 @@
+CREATE VIRTUAL TABLE content_fts USING fts5(
+  content_id UNINDEXED,
+  title,
+  body,
+  description
+);
+
 -- Users table
 CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
@@ -133,14 +140,6 @@ CREATE TABLE IF NOT EXISTS saves (
     UNIQUE(user_id, target_id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (target_id) REFERENCES content(id) ON DELETE CASCADE
-);
-
--- Full-text search
-CREATE VIRTUAL TABLE IF NOT EXISTS content_fts USING fts5(
-  content_id UNINDEXED,
-  title,
-  body,
-  tokenize="trigram"
 );
 
 -- Moderation queue table

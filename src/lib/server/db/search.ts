@@ -1,31 +1,82 @@
 import { db } from './index'
+import { Database } from 'bun:sqlite';
 
 interface SearchResult {
-	content_id: number
+	content_id: string
 	rank: number
 }
 
-export const search_content = (query: string, limit = 20): number[] => {
-	const start = performance.now()
-	// Prepare the SQL statement
-	const stmt = db.prepare(`
-    SELECT content_id, rank
-    FROM content_fts
-    WHERE content_fts MATCH ?
-    ORDER BY rank
-    LIMIT ?
-  `)
+interface SearchOptions {
+	query: string
+	limit?: number
+	searchFields?: ('title' | 'body' | 'description')[]
+}
 
-	try {
-		// Execute the query
-		const results = stmt.all(query, limit) as SearchResult[]
+export class SearchService {
+	constructor(private db: Database) {}
 
-		// Extract and return only the content_ids
-		const end = performance.now()
-		console.log('Search function: ', end - start)
-		return results.map((result) => result.content_id)
-	} catch (error) {
-		console.error('Error performing full-text search:', error)
-		return []
+	/**
+	 * Escapes special characters in a search query
+	 */
+	private escapeSearchQuery(query: string): string {
+		// Replace any special characters that could break the FTS query
+		return query.replace(/['"\\]/g, '');
+	}
+
+	/**
+	 * Searches for content using the FTS index
+	 */
+	search({ query, limit = 20, searchFields = ['title', 'body', 'description'] }: SearchOptions): string[] {
+		try {
+			const escapedQuery = this.escapeSearchQuery(query);
+			
+			// Build the search query for specified fields
+			const searchQuery = searchFields
+				.map(field => `${field}:${escapedQuery}*`)
+				.join(' OR ');
+
+			// Prepare and execute the search statement
+			const stmt = this.db.prepare(`
+				SELECT content_id, rank
+				FROM content_fts
+				WHERE content_fts MATCH ?
+				ORDER BY rank
+				LIMIT ?
+			`);
+
+			const results = stmt.all(searchQuery, limit) as SearchResult[];
+			return results.map(result => result.content_id);
+		} catch (error) {
+			console.error('Error performing full-text search:', error);
+			return [];
+		}
+	}
+
+	/**
+	 * Returns the total count of matches for a search query
+	 */
+	count({ query, searchFields = ['title', 'body', 'description'] }: Omit<SearchOptions, 'limit'>): number {
+		try {
+			const escapedQuery = this.escapeSearchQuery(query);
+			
+			const searchQuery = searchFields
+				.map(field => `${field}:${escapedQuery}*`)
+				.join(' OR ');
+
+			const stmt = this.db.prepare(`
+				SELECT COUNT(*) as count
+				FROM content_fts
+				WHERE content_fts MATCH ?
+			`);
+
+			const result = stmt.get(searchQuery) as { count: number };
+			return result.count;
+		} catch (error) {
+			console.error('Error counting search results:', error);
+			return 0;
+		}
 	}
 }
+
+// Export a singleton instance
+export const searchService = new SearchService(db);
