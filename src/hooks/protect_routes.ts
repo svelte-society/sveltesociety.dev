@@ -1,6 +1,6 @@
 import type { Handle } from '@sveltejs/kit'
 import { redirect } from '@sveltejs/kit'
-import { get_roles } from '$lib/server/db/role'
+import type { Role } from '$lib/server/db/role'
 
 interface RoutePermission {
 	path: string
@@ -14,9 +14,7 @@ const routePermissions: RoutePermission[] = [
 ]
 
 export const protect_routes: Handle = async ({ event, resolve }) => {
-	const { user } = event.locals
-	const roles = get_roles()
-	const roleMap = new Map(roles.map((role) => [role.id, role]))
+	const { user, roleService } = event.locals
 
 	const currentPath = event.url.pathname
 	const restrictedRoute = routePermissions.find((route) => currentPath.startsWith(route.path))
@@ -26,6 +24,10 @@ export const protect_routes: Handle = async ({ event, resolve }) => {
 			// User is not logged in, redirect to login page
 			throw redirect(302, '/') // Adjust the login route as needed
 		}
+
+		// Get all roles to build the role map
+		const roles = roleService.getRoles()
+		const roleMap = new Map(roles.map((role: Role) => [role.id, role]))
 
 		const userRole = roleMap.get(user.role)
 
@@ -40,6 +42,5 @@ export const protect_routes: Handle = async ({ event, resolve }) => {
 		}
 	}
 
-	// If we've reached this point, either the route is public or the user has permission
 	return await resolve(event)
 }

@@ -44,13 +44,17 @@ export class TagService {
 	}
 
 	getTags(options?: { limit?: number; offset?: number }): Tag[] {
-		const limit = options?.limit ?? 10;
-		const offset = options?.offset ?? 0;
-		
-		return this.getTagsStatement.all({
-			$limit: limit,
-			$offset: offset
-		}) as Tag[];
+		try {
+			const limit = options?.limit ?? 10;
+			const offset = options?.offset ?? 0;
+			return this.getTagsStatement.all({
+				$limit: limit,
+				$offset: offset
+			}) as Tag[];
+		} catch (error) {
+			console.error('Error getting tags:', error);
+			return [];
+		}
 	}
 
 	getTagsCount(): number {
@@ -73,7 +77,6 @@ export class TagService {
 			$name: tag.name,
 			$slug: tag.slug
 		});
-		
 		return result as Tag;
 	}
 
@@ -83,7 +86,6 @@ export class TagService {
 			$slug: tag.slug,
 			$id: tag.id
 		});
-		
 		return result ? result as Tag : undefined;
 	}
 }

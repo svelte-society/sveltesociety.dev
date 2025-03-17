@@ -18,7 +18,7 @@ export class ContentService {
     this.searchService = new SearchService(db);
   }
 
-  private getContentById(id: string) {
+  getContentById(id: string) {
     const content = this.db.prepare(`
       SELECT c.*, 
         COALESCE(

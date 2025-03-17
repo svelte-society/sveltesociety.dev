@@ -1,62 +1,57 @@
-import {
-	get_content_by_ids,
-	get_tags_for_content,
-	get_user_saved_content
-} from '$lib/server/db/content'
-import { get_user_likes_and_saves } from '$lib/server/db/interactions'
 import { error, redirect } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
+import type { ContentItem } from '$lib/types/content'
 
-export const load = (async ({ locals }) => {
+export const load = (async ({ locals, url }) => {
 	if (!locals?.user?.id) redirect(302, '/')
 
 	try {
-		// Get saved content
-		const content = get_user_saved_content({ user_id: locals.user.id, limit: 20, offset: 0 })
-		
+		// Get pagination parameters
+		const page = parseInt(url.searchParams.get('page') || '1')
+		const limit = 20
+		const offset = (page - 1) * limit
+
+		// Get total count of saved content
+		const countQuery = locals.db.prepare(`
+			SELECT COUNT(1) as count 
+			FROM saves s
+			JOIN content c ON s.target_id = c.id
+			WHERE s.user_id = ? AND c.status = 'published'
+		`)
+		const { count } = countQuery.get(locals.user.id) as { count: number }
+
 		// If no saved content, return early with empty array
-		if (!content || content.length === 0) {
-			return { content: [] }
+		if (count === 0) {
+			return { content: [], count: 0 }
 		}
 
-		// Get tags for content
-		const tags = get_tags_for_content(content.map((c) => c.id))
-		const content_with_tags = content.map((c, i) => ({ ...c, tags: tags[i] || [] }))
-		
-		// Parse children and create a unique set of child IDs
-		const allChildrenArrays = content.map(c => JSON.parse(c.children ?? '[]') as number[])
-		const allChildrenFlat = allChildrenArrays.flat()
-		const uniqueChildIds = [...new Set(allChildrenFlat)]
-		
-		// Only fetch children if there are any
-		const children = uniqueChildIds.length > 0 ? get_content_by_ids(uniqueChildIds) : []
+		// Get paginated saved content IDs
+		const savedContentQuery = locals.db.prepare(`
+			SELECT s.target_id 
+			FROM saves s
+			JOIN content c ON s.target_id = c.id
+			WHERE s.user_id = ? AND c.status = 'published'
+			ORDER BY s.created_at DESC
+			LIMIT ? OFFSET ?
+		`)
+		const savedContentIds = savedContentQuery.all(locals.user.id, limit, offset).map(row => (row as { target_id: string }).target_id)
 
-		let content_with_tags_and_children = content_with_tags.map((c) => ({
-			...c,
-			children: JSON.parse(c.children ?? '[]')
-				.map((id: number) => children.find((child) => child.id === id))
-				.filter(Boolean) // Filter out any null/undefined children
-		}))
+		// Get content details for the paginated IDs
+		const content = savedContentIds.map(id => locals.contentService.getContentById(id)).filter(Boolean) as ContentItem[]
 
-		if (locals.user) {
-			// Convert string ID to number
-			const userId = parseInt(locals.user.id)
-			const contentIds = content.map((c) => c.id)
-			
-			const { user_likes, user_saves } = get_user_likes_and_saves(
-				userId,
-				contentIds
-			)
-
-			content_with_tags_and_children = content_with_tags_and_children.map((c) => ({
-				...c,
-				liked: user_likes.has(c.id),
-				saved: user_saves.has(c.id)
-			}))
-		}
+		// Get user interactions
+		const { userLikes, userSaves } = locals.interactionsService.getUserLikesAndSaves(
+			locals.user.id,
+			content.map(c => c.id.toString())
+		)
 
 		return {
-			content: content_with_tags_and_children
+			content: content.map(c => ({
+				...c,
+				liked: userLikes.has(c.id.toString()),
+				saved: userSaves.has(c.id.toString())
+			})),
+			count
 		}
 	} catch (err) {
 		console.error('Error fetching saved content:', err)

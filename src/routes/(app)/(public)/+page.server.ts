@@ -1,6 +1,4 @@
-import { get_content } from '$lib/server/db/content'
-import { add_interaction, remove_interaction } from '$lib/server/db/interactions'
-import { filter_content_schema, get_filtered_content } from '$lib/server/filter'
+import { filter_content_schema } from '$lib/server/filter'
 import { fail } from '@sveltejs/kit'
 import { superValidate } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
@@ -8,31 +6,28 @@ import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ url, locals }) => {
 	const filters = await superValidate(url, zod(filter_content_schema))
-
-	let content = []
-
 	const start = performance.now()
 
-	if (filters.valid) {
-		content = get_filtered_content(filters.data, locals.user?.id || '')
-	} else {
-		content = get_content({ limit: 50 }, locals.user?.id || '')
-	}
+	let content = []
+	let count = 0
 
-	if (content.length === 0) {
-		return {
-			content: [],
-			count: 0
-		}
+	if (filters.valid) {
+		content = locals.contentService.getFilteredContent({
+			...filters.data,
+			limit: 50
+		})
+		count = locals.contentService.getFilteredContentCount(filters.data)
+	} else {
+		content = locals.contentService.getFilteredContent({ limit: 50 })
+		count = locals.contentService.getFilteredContentCount()
 	}
 
 	const end = performance.now()
-	// Old result 40~
 	console.log('Load function: ', end - start)
 
 	return {
 		content,
-		count: 0
+		count
 	}
 }
 
@@ -50,9 +45,9 @@ export const actions = {
 
 		try {
 			if (action === 'add') {
-				add_interaction(type, locals.user.id, contentId)
+				await locals.interactionsService.addInteraction(type, locals.user.id, contentId)
 			} else {
-				remove_interaction(type, locals.user.id, contentId)
+				await locals.interactionsService.removeInteraction(type, locals.user.id, contentId)
 			}
 			return { success: true }
 		} catch (error) {
