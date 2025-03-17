@@ -10,7 +10,7 @@ describe('TagService', () => {
   beforeAll(() => {
     // Read and execute schema
     const schema = fs.readFileSync('src/lib/server/db/schema/schema.sql', 'utf-8');
-    db = new Database(':memory:');
+    db = new Database(':memory:', { strict: true });
     db.exec(schema);
   });
 
@@ -35,10 +35,10 @@ describe('TagService', () => {
 
     for (const tag of testData.tags) {
       insertTag.run({
-        $id: tag.id,
-        $name: tag.name,
-        $slug: tag.slug,
-        $color: tag.color
+        id: tag.id,
+        name: tag.name,
+        slug: tag.slug,
+        color: tag.color
       });
     }
 

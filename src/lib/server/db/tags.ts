@@ -48,8 +48,8 @@ export class TagService {
 			const limit = options?.limit ?? 10;
 			const offset = options?.offset ?? 0;
 			return this.getTagsStatement.all({
-				$limit: limit,
-				$offset: offset
+				limit: limit,
+				offset: offset
 			}) as Tag[];
 		} catch (error) {
 			console.error('Error getting tags:', error);
@@ -63,28 +63,28 @@ export class TagService {
 	}
 
 	getTag(id: string): Tag | undefined {
-		const result = this.getTagStatement.get({ $id: id });
+		const result = this.getTagStatement.get({ id: id });
 		return result ? result as Tag : undefined;
 	}
 
 	deleteTag(id: string): boolean {
-		const result = this.deleteTagStatement.run({ $id: id });
+		const result = this.deleteTagStatement.run({ id: id });
 		return result.changes > 0;
 	}
 
 	createTag(tag: Omit<Tag, 'id' | 'created_at' | 'updated_at' | 'color'>): Tag {
 		const result = this.createTagStatement.get({
-			$name: tag.name,
-			$slug: tag.slug
+			name: tag.name,
+			slug: tag.slug
 		});
 		return result as Tag;
 	}
 
 	updateTag(tag: Omit<Tag, 'created_at' | 'updated_at'>): Tag | undefined {
 		const result = this.updateTagStatement.get({
-			$name: tag.name,
-			$slug: tag.slug,
-			$id: tag.id
+			name: tag.name,
+			slug: tag.slug,
+			id: tag.id
 		});
 		return result ? result as Tag : undefined;
 	}
