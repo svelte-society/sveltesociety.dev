@@ -1,9 +1,8 @@
-import { db } from './index'
-// Remove the incorrect import
-// Add import for environment variables
-import { dev } from '$app/environment'
+import { Database } from 'bun:sqlite'
+// For testing purposes, we'll use a constant
+const dev = process.env.NODE_ENV === 'development'
 
-interface GitHubUserInfo {
+export interface GitHubUserInfo {
 	id: number
 	email?: string
 	name?: string
@@ -47,291 +46,270 @@ export interface UserOAuth {
 	updated_at: string
 }
 
-export const get_user = (id: string): User | undefined => {
-	const stmt = db.prepare(`
-      SELECT * FROM users
-      WHERE id = $id
-    `)
+export class UserService {
+	private getUserStatement
+	private getUserByOAuthStatement
+	private getUsersStatement
+	private getUserCountStatement
+	private getProviderStatement
+	private getExistingUserStatement
+	private updateUserStatement
+	private createUserStatement
+	private createUserAdminStatement
+	private updateOAuthStatement
+	private createOAuthStatement
+	private deleteUserStatement
 
-	try {
-		return stmt.get({ id: id }) as User
-	} catch (error) {
-		console.error('Error getting user:', error)
-		return undefined
-	}
-}
+	constructor(private db: Database) {
+		this.getUserStatement = this.db.prepare(`
+			SELECT * FROM users
+			WHERE id = $id
+		`)
 
-export const get_user_by_oauth = (provider: string, providerUserId: string): User | undefined => {
-	const stmt = db.prepare(`
-      SELECT u.* FROM users u
-      JOIN user_oauth uo ON u.id = uo.user_id
-      JOIN oauth_providers op ON uo.provider_id = op.id
-      WHERE op.name = $provider AND uo.provider_user_id = $providerUserId
-    `)
+		this.getUserByOAuthStatement = this.db.prepare(`
+			SELECT u.* FROM users u
+			JOIN user_oauth uo ON u.id = uo.user_id
+			JOIN oauth_providers op ON uo.provider_id = op.id
+			WHERE op.name = $provider AND uo.provider_user_id = $providerUserId
+		`)
 
-	try {
-		return stmt.get({ provider, providerUserId }) as User
-	} catch (error) {
-		console.error('Error getting user by OAuth:', error)
-		return undefined
-	}
-}
+		this.getUsersStatement = this.db.prepare(`
+			SELECT * FROM users
+		`)
 
-export const get_users = (): User[] => {
-	console.warn('get_users: No limit provided, risk of memory exhaustion')
-	const stmt = db.prepare(`
-      SELECT * FROM users
-    `)
+		this.getUserCountStatement = this.db.prepare(`
+			SELECT COUNT(*) as count FROM users
+		`)
 
-	try {
-		return stmt.all() as User[]
-	} catch (error) {
-		console.error('Error getting users:', error)
-		return []
-	}
-}
-
-export const get_user_count = (): number => {
-	const stmt = db.prepare(`
-      SELECT COUNT(*) as count FROM users
-    `)
-
-	try {
-		const result = stmt.get() as { count: number }
-		return result.count
-	} catch (error) {
-		console.error('Error getting user count:', error)
-		return 0
-	}
-}
-
-export const create_or_update_user = (githubInfo: GitHubUserInfo): User => {
-	// Start a transaction
-	db.exec('BEGIN TRANSACTION')
-
-	try {
-		// Get the GitHub provider ID
-		const providerStmt = db.prepare(`
+		this.getProviderStatement = this.db.prepare(`
 			SELECT id FROM oauth_providers WHERE name = 'github'
 		`)
-		const provider = providerStmt.get() as OAuthProvider
-		
-		if (!provider) {
-			throw new Error('GitHub OAuth provider not found')
-		}
 
-		// Check if user already exists with this OAuth provider
-		const existingUserStmt = db.prepare(`
+		this.getExistingUserStatement = this.db.prepare(`
 			SELECT u.* FROM users u
 			JOIN user_oauth uo ON u.id = uo.user_id
 			WHERE uo.provider_id = $providerId AND uo.provider_user_id = $providerUserId
 		`)
-		
-		const existingUser = existingUserStmt.get({
-			providerId: provider.id,
-			providerUserId: githubInfo.id.toString()
-		}) as User | undefined
 
-		let user: User
-
-		// Check if we're in development mode using SvelteKit's dev flag
-		const isDevelopment = dev
-
-		if (existingUser) {
-			// Update existing user with role=1 in development mode
-			const updateUserStmt = db.prepare(`
-				UPDATE users SET
-					email = COALESCE($email, email),
-					name = COALESCE($name, name),
-					username = COALESCE($username, username),
-					avatar_url = COALESCE($avatar_url, avatar_url),
-					bio = COALESCE($bio, bio),
-					location = COALESCE($location, location),
-					twitter = COALESCE($twitter, twitter)
-					${isDevelopment ? ', role = 1' : ''}
-				WHERE id = $id
-				RETURNING *
-			`)
-
-			user = updateUserStmt.get({
-				id: existingUser.id,
-				email: githubInfo.email || null,
-				username: githubInfo.login,
-				name: githubInfo.name || null,
-				avatar_url: githubInfo.avatar_url || null,
-				bio: githubInfo.bio || null,
-				location: githubInfo.location || null,
-				twitter: githubInfo.twitter_username || null
-			}) as User
-
-			// Update OAuth profile data
-			const updateOAuthStmt = db.prepare(`
-				UPDATE user_oauth SET
-					profile_data = $profileData,
-					updated_at = CURRENT_TIMESTAMP
-				WHERE user_id = $userId AND provider_id = $providerId
-			`)
-
-			updateOAuthStmt.run({
-				userId: user.id,
-				providerId: provider.id,
-				profileData: JSON.stringify(githubInfo)
-			})
-		} else {
-			// Create new user
-			const userInfo = extractGithubUserInfo(githubInfo)
-			
-			// In development mode, set role to 1 (admin)
-			const createUserStmt = isDevelopment 
-				? db.prepare(`
-					INSERT INTO users (
-						email, 
-						username, 
-						name, 
-						avatar_url, 
-						bio, 
-						location, 
-						twitter,
-						role
-					)
-					VALUES (
-						$email, 
-						$username, 
-						$name, 
-						$avatar_url, 
-						$bio, 
-						$location, 
-						$twitter,
-						1
-					)
-					RETURNING *
-				`)
-				: db.prepare(`
-					INSERT INTO users (
-						email, 
-						username, 
-						name, 
-						avatar_url, 
-						bio, 
-						location, 
-						twitter
-					)
-					VALUES (
-						$email, 
-						$username, 
-						$name, 
-						$avatar_url, 
-						$bio, 
-						$location, 
-						$twitter
-					)
-					RETURNING *
-				`);
-
-			user = createUserStmt.get(userInfo) as User
-
-			// Create OAuth entry
-			const createOAuthStmt = db.prepare(`
-				INSERT INTO user_oauth (user_id, provider_id, provider_user_id, profile_data)
-				VALUES ($userId, $providerId, $providerUserId, $profileData)
-			`)
-
-			createOAuthStmt.run({
-				userId: user.id,
-				providerId: provider.id,
-				providerUserId: githubInfo.id.toString(),
-				profileData: JSON.stringify(githubInfo)
-			})
-		}
-
-		// Commit the transaction
-		db.exec('COMMIT')
-		
-		return user
-	} catch (error) {
-		// Rollback the transaction on error
-		db.exec('ROLLBACK')
-		console.error('Error in create_or_update_user:', error)
-		throw error
-	}
-}
-
-export const update_user = (userId: string, updatedInfo: Partial<User>): User | null => {
-	// Start a transaction
-	db.exec('BEGIN TRANSACTION')
-
-	try {
-		// Update user information
-		const updateFields = Object.keys(updatedInfo)
-			.filter(key => key !== 'id' && updatedInfo[key as keyof User] !== undefined)
-			.map(key => `${key} = @${key}`)
-			.join(', ')
-
-		if (!updateFields) {
-			db.exec('ROLLBACK')
-			return null
-		}
-
-		const updateUserStmt = db.prepare(`
-			UPDATE users
-			SET ${updateFields}
-			WHERE id = @id
+		this.updateUserStatement = this.db.prepare(`
+			UPDATE users SET
+				email = COALESCE($email, email),
+				name = COALESCE($name, name),
+				username = COALESCE($username, username),
+				avatar_url = COALESCE($avatar_url, avatar_url),
+				bio = COALESCE($bio, bio),
+				location = COALESCE($location, location),
+				twitter = COALESCE($twitter, twitter)
+				${dev ? ', role = 1' : ''}
+			WHERE id = $id
 			RETURNING *
 		`)
 
-		const params = { ...updatedInfo, id: userId }
-		const updatedUser = updateUserStmt.get(params) as User | undefined
+		this.createUserStatement = this.db.prepare(`
+			INSERT INTO users (
+				email, 
+				username, 
+				name, 
+				avatar_url, 
+				bio, 
+				location, 
+				twitter
+			)
+			VALUES (
+				$email, 
+				$username, 
+				$name, 
+				$avatar_url, 
+				$bio, 
+				$location, 
+				$twitter
+			)
+			RETURNING *
+		`)
 
-		if (!updatedUser) {
-			db.exec('ROLLBACK')
-			return null
+		this.createUserAdminStatement = this.db.prepare(`
+			INSERT INTO users (
+				email, 
+				username, 
+				name, 
+				avatar_url, 
+				bio, 
+				location, 
+				twitter,
+				role
+			)
+			VALUES (
+				$email, 
+				$username, 
+				$name, 
+				$avatar_url, 
+				$bio, 
+				$location, 
+				$twitter,
+				1
+			)
+			RETURNING *
+		`)
+
+		this.updateOAuthStatement = this.db.prepare(`
+			UPDATE user_oauth SET
+				profile_data = $profileData,
+				updated_at = CURRENT_TIMESTAMP
+			WHERE user_id = $userId AND provider_id = $providerId
+		`)
+
+		this.createOAuthStatement = this.db.prepare(`
+			INSERT INTO user_oauth (user_id, provider_id, provider_user_id, profile_data)
+			VALUES ($userId, $providerId, $providerUserId, $profileData)
+		`)
+
+		this.deleteUserStatement = this.db.prepare('DELETE FROM users WHERE id = $id')
+	}
+
+	getUser(id: string): User | undefined {
+		try {
+			const result = this.getUserStatement.get({ $id: id })
+			return result ? result as User : undefined
+		} catch (error) {
+			console.error('Error getting user:', error)
+			return undefined
+		}
+	}
+
+	getUserByOAuth(provider: string, providerUserId: string): User | undefined {
+		try {
+			const result = this.getUserByOAuthStatement.get({ 
+				$provider: provider, 
+				$providerUserId: providerUserId 
+			})
+			return result ? result as User : undefined
+		} catch (error) {
+			console.error('Error getting user by OAuth:', error)
+			return undefined
+		}
+	}
+
+	getUsers(): User[] {
+		console.warn('getUsers: No limit provided, risk of memory exhaustion')
+		try {
+			return this.getUsersStatement.all() as User[]
+		} catch (error) {
+			console.error('Error getting users:', error)
+			return []
+		}
+	}
+
+	getUserCount(): number {
+		try {
+			const result = this.getUserCountStatement.get() as { count: number }
+			return result.count
+		} catch (error) {
+			console.error('Error getting user count:', error)
+			return 0
+		}
+	}
+
+	private extractGithubUserInfo(githubInfo: GitHubUserInfo) {
+		return {
+			$email: githubInfo.email || null,
+			$username: githubInfo.login,
+			$name: githubInfo.name || null,
+			$avatar_url: githubInfo.avatar_url || null,
+			$bio: githubInfo.bio || null,
+			$location: githubInfo.location || null,
+			$twitter: githubInfo.twitter_username || null
+		}
+	}
+
+	createOrUpdateUser(githubInfo: GitHubUserInfo): User {
+		this.db.exec('BEGIN TRANSACTION')
+
+		try {
+			const provider = this.getProviderStatement.get() as OAuthProvider
+			
+			if (!provider) {
+				throw new Error('GitHub OAuth provider not found')
+			}
+
+			const existingUser = this.getExistingUserStatement.get({
+				$providerId: provider.id,
+				$providerUserId: githubInfo.id.toString()
+			}) as User | undefined
+
+			let user: User
+
+			if (existingUser) {
+				user = this.updateUserStatement.get({
+					$id: existingUser.id,
+					$email: githubInfo.email || null,
+					$username: githubInfo.login,
+					$name: githubInfo.name || null,
+					$avatar_url: githubInfo.avatar_url || null,
+					$bio: githubInfo.bio || null,
+					$location: githubInfo.location || null,
+					$twitter: githubInfo.twitter_username || null
+				}) as User
+
+				this.updateOAuthStatement.run({
+					$userId: user.id,
+					$providerId: provider.id,
+					$profileData: JSON.stringify(githubInfo)
+				})
+			} else {
+				const userInfo = this.extractGithubUserInfo(githubInfo)
+				const createStmt = dev ? this.createUserAdminStatement : this.createUserStatement
+				
+				user = createStmt.get(userInfo) as User
+
+				this.createOAuthStatement.run({
+					$userId: user.id,
+					$providerId: provider.id,
+					$providerUserId: githubInfo.id.toString(),
+					$profileData: JSON.stringify(githubInfo)
+				})
+			}
+
+			this.db.exec('COMMIT')
+			return user
+		} catch (error) {
+			this.db.exec('ROLLBACK')
+			console.error('Error in createOrUpdateUser:', error)
+			throw error
+		}
+	}
+
+	updateUser(id: string, updates: Partial<User>): User | undefined {
+		if (Object.keys(updates).length === 0) {
+			return undefined
 		}
 
-		// Commit the transaction
-		db.exec('COMMIT')
-		return updatedUser
-	} catch (error) {
-		// Rollback on error
-		db.exec('ROLLBACK')
-		console.error('Error updating user:', error)
-		return null
+		try {
+			const params = {
+				$id: id,
+				$email: updates.email || null,
+				$username: updates.username || null,
+				$name: updates.name || null,
+				$avatar_url: updates.avatar_url || null,
+				$bio: updates.bio || null,
+				$location: updates.location || null,
+				$twitter: updates.twitter || null
+			}
+
+			const result = this.updateUserStatement.get(params)
+			return result ? result as User : undefined
+		} catch (error) {
+			console.error('Error updating user:', error)
+			return undefined
+		}
 	}
-}
 
-export const delete_user = (userId: string): boolean => {
-	// Start a transaction
-	db.exec('BEGIN TRANSACTION')
-
-	try {
-		// Delete user
-		const deleteUserStmt = db.prepare('DELETE FROM users WHERE id = ?')
-		const result = deleteUserStmt.run(userId)
-
-		// Check if user was deleted
-		if (result.changes === 0) {
-			db.exec('ROLLBACK')
+	deleteUser(id: string): boolean {
+		try {
+			const result = this.deleteUserStatement.run({ $id: id })
+			return result.changes > 0
+		} catch (error) {
+			console.error('Error deleting user:', error)
 			return false
 		}
-
-		// Commit the transaction
-		db.exec('COMMIT')
-		return true
-	} catch (error) {
-		// Rollback on error
-		db.exec('ROLLBACK')
-		console.error('Error deleting user:', error)
-		return false
-	}
-}
-
-function extractGithubUserInfo(info: GitHubUserInfo): Omit<User, 'id' | 'role'> {
-	return {
-		email: info.email || null,
-		username: info.login,
-		name: info.name || null,
-		avatar_url: info.avatar_url || null,
-		bio: info.bio || null,
-		location: info.location || null,
-		twitter: info.twitter_username || null
 	}
 }

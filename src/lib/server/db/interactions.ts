@@ -1,70 +1,69 @@
-import { db } from './index'
+import { Database } from 'bun:sqlite';
 
-export function get_user_likes_and_saves(
-	user_id: number | undefined,
-	content_ids: number[]
-): { user_likes: Set<number>; user_saves: Set<number> } {
-	if (!user_id || content_ids.length === 0) {
-		return { user_likes: new Set<number>(), user_saves: new Set<number>() }
-	}
+export class InteractionsService {
+	constructor(private db: Database) {}
 
-	const user_likes = new Set<number>()
-	const user_saves = new Set<number>()
-
-	const likeStmt = db.prepare(
-		'SELECT 1 FROM likes WHERE user_id = @user_id AND target_id = @target_id'
-	)
-	const saveStmt = db.prepare(
-		'SELECT 1 FROM saves WHERE user_id = @user_id AND target_id = @target_id'
-	)
-
-	db.transaction(() => {
-		for (const content_id of content_ids) {
-			if (likeStmt.get({ user_id, target_id: content_id })) {
-				user_likes.add(content_id)
-			}
-			if (saveStmt.get({ user_id, target_id: content_id })) {
-				user_saves.add(content_id)
-			}
+	getUserLikesAndSaves(userId: string | undefined, contentIds: string[]): { userLikes: Set<string>; userSaves: Set<string> } {
+		if (!userId || contentIds.length === 0) {
+			return { userLikes: new Set<string>(), userSaves: new Set<string>() };
 		}
-	})()
 
-	return { user_likes, user_saves }
-}
+		const userLikes = new Set<string>();
+		const userSaves = new Set<string>();
 
-export function get_user_likes_and_saves_count(user_id: number | undefined): {
-	user_likes: number
-	user_saves: number
-} {
-	if (!user_id) {
-		return { user_likes: 0, user_saves: 0 }
+		const likeStmt = this.db.prepare(
+			'SELECT 1 FROM likes WHERE user_id = $user_id AND target_id = $target_id'
+		);
+		const saveStmt = this.db.prepare(
+			'SELECT 1 FROM saves WHERE user_id = $user_id AND target_id = $target_id'
+		);
+
+		this.db.transaction(() => {
+			for (const contentId of contentIds) {
+				if (likeStmt.get({ $user_id: userId, $target_id: contentId })) {
+					userLikes.add(contentId);
+				}
+				if (saveStmt.get({ $user_id: userId, $target_id: contentId })) {
+					userSaves.add(contentId);
+				}
+			}
+		})();
+
+		return { userLikes, userSaves };
 	}
 
-	let user_likes = 0
-	let user_saves = 0
+	getUserLikesAndSavesCount(userId: string | undefined): {
+		userLikes: number;
+		userSaves: number;
+	} {
+		if (!userId) {
+			return { userLikes: 0, userSaves: 0 };
+		}
 
-	const likeStmt = db.prepare('SELECT COUNT(1) AS count FROM likes WHERE user_id = @id')
-	const saveStmt = db.prepare('SELECT COUNT(1) AS count FROM saves WHERE user_id = @id')
+		let userLikes = 0;
+		let userSaves = 0;
 
-	db.transaction(() => {
-		user_likes = (likeStmt.get({ id: user_id }) as { count: number }).count
-		user_saves = (saveStmt.get({ id: user_id }) as { count: number }).count
-	})()
+		const likeStmt = this.db.prepare('SELECT COUNT(1) AS count FROM likes WHERE user_id = $id');
+		const saveStmt = this.db.prepare('SELECT COUNT(1) AS count FROM saves WHERE user_id = $id');
 
-	return { user_likes, user_saves }
-}
+		this.db.transaction(() => {
+			userLikes = (likeStmt.get({ $id: userId }) as { count: number }).count;
+			userSaves = (saveStmt.get({ $id: userId }) as { count: number }).count;
+		})();
 
-type InteractionType = 'like' | 'save'
+		return { userLikes, userSaves };
+	}
 
-export function add_interaction(type: InteractionType, user_id: string, contentId: string): void {
-	const query = db.prepare(
-		`INSERT OR IGNORE INTO ${type}s (user_id, target_id, created_at) VALUES (@user_id, @target_id, CURRENT_TIMESTAMP)`
-	)
-	query.run({ user_id, target_id: contentId })
-}
+	addInteraction(type: 'like' | 'save', userId: string, contentId: string): void {
+		const query = this.db.prepare(
+			`INSERT OR IGNORE INTO ${type}s (user_id, target_id, created_at) VALUES ($user_id, $target_id, CURRENT_TIMESTAMP)`
+		);
+		query.run({ $user_id: userId, $target_id: contentId });
+	}
 
-export function remove_interaction(type: InteractionType, userId: string, contentId: string): void {
-	const table = `${type}s`
-	const query = `DELETE FROM ${table} WHERE user_id = @user_id AND target_id = @target_id`
-	db.prepare(query).run({ user_id: userId, target_id: contentId })
+	removeInteraction(type: 'like' | 'save', userId: string, contentId: string): void {
+		const table = `${type}s`;
+		const query = `DELETE FROM ${table} WHERE user_id = $user_id AND target_id = $target_id`;
+		this.db.prepare(query).run({ $user_id: userId, $target_id: contentId });
+	}
 }

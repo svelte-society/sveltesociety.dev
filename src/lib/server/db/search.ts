@@ -1,4 +1,3 @@
-import { db } from './index'
 import { Database } from 'bun:sqlite';
 
 interface SearchResult {
@@ -77,6 +76,3 @@ export class SearchService {
 		}
 	}
 }
-
-// Export a singleton instance
-export const searchService = new SearchService(db);

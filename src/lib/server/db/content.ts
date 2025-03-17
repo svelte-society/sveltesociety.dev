@@ -1,4 +1,3 @@
-import { db } from './index'
 import { Database } from 'bun:sqlite';
 import { SearchService } from './search';
 
@@ -241,5 +240,3 @@ export class ContentService {
     });
   }
 }
-
-export const contentService = new ContentService(db);

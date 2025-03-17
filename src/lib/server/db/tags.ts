@@ -1,4 +1,4 @@
-import { db } from './index'
+import { Database } from 'bun:sqlite';
 
 export type Tag = {
 	id: string
@@ -9,38 +9,81 @@ export type Tag = {
 	updated_at: string
 }
 
-export const get_tags = (options?: { limit?: number; offset?: number }) => {
-	const limit = options?.limit ?? 10
-	const offset = options?.offset ?? 0
-	
-	const stmt = db.prepare('SELECT * FROM tags ORDER BY created_at DESC LIMIT ? OFFSET ?')
-	return stmt.all(limit, offset) as Tag[]
-}
+export class TagService {
+	private getTagsStatement;
+	private getTagsCountStatement;
+	private getTagStatement;
+	private deleteTagStatement;
+	private createTagStatement;
+	private updateTagStatement;
 
-export const get_tags_count = () => {
-	const stmt = db.prepare('SELECT COUNT(*) as count FROM tags')
-	return (stmt.get() as { count: number }).count
-}
+	constructor(private db: Database) {
+		this.getTagsStatement = this.db.prepare(
+			'SELECT * FROM tags ORDER BY created_at DESC LIMIT $limit OFFSET $offset'
+		);
 
-export const get_tag = (id: string) => {
-	const stmt = db.prepare('SELECT * FROM tags WHERE id = ?')
-	return stmt.get(id) as Tag | undefined
-}
+		this.getTagsCountStatement = this.db.prepare(
+			'SELECT COUNT(*) as count FROM tags'
+		);
 
-export const delete_tag = (id: string) => {
-	const stmt = db.prepare('DELETE FROM tags WHERE id = ?')
-	const result = stmt.run(id)
-	return result.changes > 0
-}
+		this.getTagStatement = this.db.prepare(
+			'SELECT * FROM tags WHERE id = $id'
+		);
 
-export const create_tag = (tag: Omit<Tag, 'id' | 'created_at' | 'updated_at' | 'color'>) => {
-	const stmt = db.prepare('INSERT INTO tags (name, slug) VALUES (?, ?)')
-	const result = stmt.run(tag.name, tag.slug)
-	return String(result.lastInsertRowid)
-}
+		this.deleteTagStatement = this.db.prepare(
+			'DELETE FROM tags WHERE id = $id RETURNING *'
+		);
 
-export const update_tag = (tag: Omit<Tag, 'created_at' | 'updated_at'>) => {
-	const stmt = db.prepare('UPDATE tags SET name = ?, slug = ? WHERE id = ?')
-	const result = stmt.run(tag.name, tag.slug, tag.id)
-	return result.changes > 0
+		this.createTagStatement = this.db.prepare(
+			'INSERT INTO tags (name, slug) VALUES ($name, $slug) RETURNING *'
+		);
+
+		this.updateTagStatement = this.db.prepare(
+			'UPDATE tags SET name = $name, slug = $slug WHERE id = $id RETURNING *'
+		);
+	}
+
+	getTags(options?: { limit?: number; offset?: number }): Tag[] {
+		const limit = options?.limit ?? 10;
+		const offset = options?.offset ?? 0;
+		
+		return this.getTagsStatement.all({
+			$limit: limit,
+			$offset: offset
+		}) as Tag[];
+	}
+
+	getTagsCount(): number {
+		const result = this.getTagsCountStatement.get() as { count: number };
+		return result.count;
+	}
+
+	getTag(id: string): Tag | undefined {
+		const result = this.getTagStatement.get({ $id: id });
+		return result ? result as Tag : undefined;
+	}
+
+	deleteTag(id: string): boolean {
+		const result = this.deleteTagStatement.run({ $id: id });
+		return result.changes > 0;
+	}
+
+	createTag(tag: Omit<Tag, 'id' | 'created_at' | 'updated_at' | 'color'>): Tag {
+		const result = this.createTagStatement.get({
+			$name: tag.name,
+			$slug: tag.slug
+		});
+		
+		return result as Tag;
+	}
+
+	updateTag(tag: Omit<Tag, 'created_at' | 'updated_at'>): Tag | undefined {
+		const result = this.updateTagStatement.get({
+			$name: tag.name,
+			$slug: tag.slug,
+			$id: tag.id
+		});
+		
+		return result ? result as Tag : undefined;
+	}
 }
