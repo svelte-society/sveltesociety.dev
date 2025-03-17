@@ -2,6 +2,7 @@
 	import ContentCard from '$lib/ui/ContentCard.svelte';
 	import type { ContentItem } from '$lib/types/content';
 	import { isContentArray, convertTags } from '$lib/types/content';
+	import Pagination from '$lib/ui/Pagination.svelte';
 
 	let { data } = $props();
 </script>
@@ -26,6 +27,11 @@
 				child_content={Array.isArray(item.children) ? item.children : []}
 			/>
 		{/each}
+
+		<Pagination 
+			count={data.total} 
+			perPage={12} 
+		/>
 	{:else}
 		<div class="text-center py-10">
 			<h2 class="text-2xl font-bold">No content found for this tag</h2>
