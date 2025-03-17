@@ -1,11 +1,9 @@
 import type { RequestHandler } from './$types'
-import { create_or_update_user } from '$lib/server/db/user'
-import { delete_session, create_session } from '$lib/server/db/session'
 import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private'
 import { redirect } from '@sveltejs/kit'
 import { dev } from '$app/environment'
 
-export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
+export const GET: RequestHandler = async ({ url, cookies, locals }) => {
 	const code = url.searchParams.get('code')
 	if (!code) {
 		return new Response('No code provided', { status: 400 })
@@ -47,28 +45,43 @@ export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
 		return new Response('Error getting user info', { status: 500 })
 	}
 
-	// Create or update user
-	const user_result = create_or_update_user(user_info)
+	try {
+		// Make sure user_info matches GitHubUserInfo interface
+		const github_user = {
+			id: user_info.id,
+			login: user_info.login,
+			email: user_info.email,
+			name: user_info.name,
+			avatar_url: user_info.avatar_url,
+			bio: user_info.bio,
+			location: user_info.location,
+			twitter_username: user_info.twitter_username
+		}
 
-	if (!user_result) {
-		return new Response('Error creating or updating user', { status: 500 })
+		// Create or update user using GitHub info
+		const user = locals.userService.createOrUpdateUser(github_user)
+
+		// Delete old user session if it exists
+		const old_session_token = cookies.get('session_id')
+		if (old_session_token) {
+			locals.sessionService.deleteSession(old_session_token)
+		}
+
+		// Create new session
+		const session_token = locals.sessionService.createSession(user.id)
+
+		cookies.set('session_id', session_token, {
+			path: '/',
+			httpOnly: true,
+			secure: !dev
+		})
+
+		throw redirect(302, '/')
+	} catch (error) {
+		console.error('Auth error:', error)
+		if (error instanceof Error && error.message === 'GitHub OAuth provider not found') {
+			return new Response('OAuth configuration error. Please contact the administrator.', { status: 500 })
+		}
+		return new Response('Authentication failed: ' + (error instanceof Error ? error.message : String(error)), { status: 500 })
 	}
-
-	// Delete old user session
-	const old_session_token = cookies.get('session_id')
-
-	if (old_session_token) {
-		delete_session(old_session_token)
-	}
-
-	// Create new user session
-	const session_create_result = create_session(user_result.id)
-
-	cookies.set('session_id', session_create_result, {
-		path: '/',
-		httpOnly: true,
-		secure: !dev
-	})
-
-	redirect(302, '/')
 }
