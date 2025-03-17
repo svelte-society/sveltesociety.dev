@@ -39,8 +39,8 @@ export class CollectionService {
 		try {
 			const offset = (page - 1) * perPage
 			return this.getCollectionsStatement.all({
-				$limit: perPage,
-				$offset: offset
+				limit: perPage,
+				offset: offset
 			}) as Collection[]
 		} catch (error) {
 			console.error('Error getting collections:', error)

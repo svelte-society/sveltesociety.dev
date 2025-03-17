@@ -10,7 +10,7 @@ describe('ContentService', () => {
 
   beforeEach(() => {
     // Create a new in-memory database for each test
-    db = new Database(':memory:');
+    db = new Database(':memory:', { strict: true });
     db.exec('PRAGMA journal_mode = WAL;');
 
     // Read and execute schema

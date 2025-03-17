@@ -10,7 +10,7 @@ describe('ModerationService', () => {
   beforeAll(() => {
     // Read and execute schema
     const schema = fs.readFileSync('src/lib/server/db/schema/schema.sql', 'utf-8');
-    db = new Database(':memory:');
+    db = new Database(':memory:', { strict: true });
     db.exec(schema);
   });
 
@@ -32,9 +32,9 @@ describe('ModerationService', () => {
 
     for (const user of testUsers) {
       insertUser.run({
-        $id: user.id,
-        $username: user.username,
-        $email: user.email
+        id: user.id,
+        username: user.username,
+        email: user.email
       });
     }
 
@@ -81,13 +81,13 @@ describe('ModerationService', () => {
 
     for (const item of testItems) {
       insertItem.run({
-        $id: item.id,
-        $type: item.type,
-        $status: item.status,
-        $data: item.data,
-        $submitted_by: item.submitted_by,
-        $moderated_by: item.moderated_by,
-        $moderated_at: item.moderated_at
+        id: item.id,
+        type: item.type,
+        status: item.status,
+        data: item.data,
+        submitted_by: item.submitted_by,
+        moderated_by: item.moderated_by,
+        moderated_at: item.moderated_at
       });
     }
 

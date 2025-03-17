@@ -10,7 +10,7 @@ describe('RoleService', () => {
   beforeAll(() => {
     // Read and execute schema
     const schema = fs.readFileSync('src/lib/server/db/schema/schema.sql', 'utf-8');
-    db = new Database(':memory:');
+    db = new Database(':memory:', { strict: true });
     db.exec(schema);
   });
 

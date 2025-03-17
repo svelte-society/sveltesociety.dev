@@ -10,7 +10,7 @@ describe('InteractionsService', () => {
   beforeAll(() => {
     // Read and execute schema
     const schema = fs.readFileSync('src/lib/server/db/schema/schema.sql', 'utf-8');
-    db = new Database(':memory:');
+    db = new Database(':memory:', { strict: true });
     db.exec(schema);
   });
 
@@ -78,9 +78,9 @@ describe('InteractionsService', () => {
     `);
     for (const user of testData.users) {
       insertUser.run({
-        $id: user.id,
-        $username: user.username,
-        $email: user.email
+        id: user.id,
+        username: user.username,
+        email: user.email
       });
     }
 
@@ -98,14 +98,14 @@ describe('InteractionsService', () => {
     `);
     for (const content of testData.content) {
       insertContent.run({
-        $id: content.id,
-        $title: content.title,
-        $type: content.type,
-        $status: content.status,
-        $slug: content.slug,
-        $description: content.description,
-        $body: content.body,
-        $rendered_body: content.rendered_body
+        id: content.id,
+        title: content.title,
+        type: content.type,
+        status: content.status,
+        slug: content.slug,
+        description: content.description,
+        body: content.body,
+        rendered_body: content.rendered_body
       });
     }
 
@@ -115,8 +115,8 @@ describe('InteractionsService', () => {
     );
     for (const like of testData.likes) {
       insertLike.run({
-        $user_id: like.user_id,
-        $target_id: like.target_id
+        user_id: like.user_id,
+        target_id: like.target_id
       });
     }
 
@@ -126,8 +126,8 @@ describe('InteractionsService', () => {
     );
     for (const save of testData.saves) {
       insertSave.run({
-        $user_id: save.user_id,
-        $target_id: save.target_id
+        user_id: save.user_id,
+        target_id: save.target_id
       });
     }
 

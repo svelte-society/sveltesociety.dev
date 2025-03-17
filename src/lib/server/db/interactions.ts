@@ -20,10 +20,10 @@ export class InteractionsService {
 
 		this.db.transaction(() => {
 			for (const contentId of contentIds) {
-				if (likeStmt.get({ $user_id: userId, $target_id: contentId })) {
+				if (likeStmt.get({ user_id: userId, target_id: contentId })) {
 					userLikes.add(contentId);
 				}
-				if (saveStmt.get({ $user_id: userId, $target_id: contentId })) {
+				if (saveStmt.get({ user_id: userId, target_id: contentId })) {
 					userSaves.add(contentId);
 				}
 			}
@@ -47,8 +47,8 @@ export class InteractionsService {
 		const saveStmt = this.db.prepare('SELECT COUNT(1) AS count FROM saves WHERE user_id = $id');
 
 		this.db.transaction(() => {
-			userLikes = (likeStmt.get({ $id: userId }) as { count: number }).count;
-			userSaves = (saveStmt.get({ $id: userId }) as { count: number }).count;
+			userLikes = (likeStmt.get({ id: userId }) as { count: number }).count;
+			userSaves = (saveStmt.get({ id: userId }) as { count: number }).count;
 		})();
 
 		return { userLikes, userSaves };
@@ -58,12 +58,12 @@ export class InteractionsService {
 		const query = this.db.prepare(
 			`INSERT OR IGNORE INTO ${type}s (user_id, target_id, created_at) VALUES ($user_id, $target_id, CURRENT_TIMESTAMP)`
 		);
-		query.run({ $user_id: userId, $target_id: contentId });
+		query.run({ user_id: userId, target_id: contentId });
 	}
 
 	removeInteraction(type: 'like' | 'save', userId: string, contentId: string): void {
 		const table = `${type}s`;
 		const query = `DELETE FROM ${table} WHERE user_id = $user_id AND target_id = $target_id`;
-		this.db.prepare(query).run({ $user_id: userId, $target_id: contentId });
+		this.db.prepare(query).run({ user_id: userId, target_id: contentId });
 	}
 }

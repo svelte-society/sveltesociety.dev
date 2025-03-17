@@ -104,11 +104,11 @@ export class ModerationService {
 	}
 
 	getModerationQueue(status: ModerationStatus = ModerationStatus.PENDING): PreviewModerationQueueItem[] {
-		return this.getModerationQueueStatement.all({ $status: status }) as PreviewModerationQueueItem[];
+		return this.getModerationQueueStatement.all({ status: status }) as PreviewModerationQueueItem[];
 	}
 
 	getModerationQueueItem(id: string): ModerationQueueItem | undefined {
-		const result = this.getModerationQueueItemStatement.get({ $id: id });
+		const result = this.getModerationQueueItemStatement.get({ id: id });
 		return result ? result as ModerationQueueItem : undefined;
 	}
 
@@ -116,10 +116,10 @@ export class ModerationService {
 		item: Omit<ModerationQueueItem, 'id' | 'status' | 'submitted_at' | 'moderated_by' | 'moderated_at'>
 	): string {
 		const result = this.addToModerationQueueStatement.get({
-			$type: item.type,
-			$status: ModerationStatus.PENDING,
-			$data: item.data,
-			$submitted_by: item.submitted_by
+			type: item.type,
+			status: ModerationStatus.PENDING,
+			data: item.data,
+			submitted_by: item.submitted_by
 		}) as { id: string };
 
 		return result.id;
@@ -131,10 +131,10 @@ export class ModerationService {
 		moderated_by: string
 	): ModerationQueueItem | undefined {
 		const result = this.updateModerationStatusStatement.get({
-			$status: status,
-			$moderated_by: moderated_by,
-			$moderated_at: new Date().toISOString(),
-			$id: id
+			status: status,
+			moderated_by: moderated_by,
+			moderated_at: new Date().toISOString(),
+			id: id
 		}) as ModerationQueueItem | null;
 		
 		return result || undefined;
@@ -149,16 +149,16 @@ export class ModerationService {
 		const { status = ModerationStatus.PENDING, type, limit = 10, offset = 0 } = options;
 
 		return this.getModerationQueuePaginatedStatement.all({
-			$status: status,
-			$type: type ?? null,
-			$limit: limit,
-			$offset: offset
+			status: status,
+			type: type ?? null,
+			limit: limit,
+			offset: offset
 		}) as PreviewModerationQueueItem[];
 	}
 
 	getModerationQueueCountFiltered(params: Pick<GetModerationQueueOptions, 'status'>): number {
 		const result = this.getModerationQueueCountFilteredStatement.get({
-			$status: params.status ?? ModerationStatus.PENDING
+			status: params.status ?? ModerationStatus.PENDING
 		}) as { count: number };
 		return result.count;
 	}

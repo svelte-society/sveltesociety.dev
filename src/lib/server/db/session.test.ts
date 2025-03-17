@@ -10,7 +10,7 @@ describe('SessionService', () => {
   beforeAll(() => {
     // Read and execute schema
     const schema = fs.readFileSync('src/lib/server/db/schema/schema.sql', 'utf-8');
-    db = new Database(':memory:');
+    db = new Database(':memory:', { strict: true });
     db.exec(schema);
   });
 
@@ -25,9 +25,9 @@ describe('SessionService', () => {
       VALUES ($id, $username, $email)
     `);
     insertUser.run({
-      $id: 'test-user-1',
-      $username: 'testuser1',
-      $email: 'test1@example.com'
+      id: 'test-user-1',
+      username: 'testuser1',
+      email: 'test1@example.com'
     });
 
     sessionService = new SessionService(db);
@@ -68,8 +68,8 @@ describe('SessionService', () => {
         VALUES ($user_id, $session_token, datetime('now', '-1 day'))
       `);
       insertExpiredSession.run({
-        $user_id: 'test-user-1',
-        $session_token: 'expired-token'
+        user_id: 'test-user-1',
+        session_token: 'expired-token'
       });
 
       const result = sessionService.validateSessionId('expired-token');

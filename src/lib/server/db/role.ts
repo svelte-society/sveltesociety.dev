@@ -25,7 +25,7 @@ export class RoleService {
 
 	getRoleById(id: number): Role | undefined {
 		const stmt = this.db.prepare('SELECT * FROM roles WHERE id = $id');
-		const role = stmt.get({ $id: id }) as (Omit<Role, 'active'> & { active: number }) | undefined;
+		const role = stmt.get({ id: id }) as (Omit<Role, 'active'> & { active: number }) | undefined;
 		return role ? { ...role, active: role.active === 1 } : undefined;
 	}
 
@@ -34,10 +34,10 @@ export class RoleService {
 			'INSERT INTO roles (name, value, description, active) VALUES ($name, $value, $description, $active)'
 		);
 		const info = stmt.run({
-			$name: role.name,
-			$value: role.value,
-			$description: role.description,
-			$active: role.active ? 1 : 0
+			name: role.name,
+			value: role.value,
+			description: role.description,
+			active: role.active ? 1 : 0
 		});
 		return Number(info.lastInsertRowid);
 	}
@@ -47,18 +47,18 @@ export class RoleService {
 			'UPDATE roles SET name = $name, value = $value, description = $description, active = $active WHERE id = $id'
 		);
 		const info = stmt.run({
-			$id: role.id,
-			$name: role.name,
-			$value: role.value,
-			$description: role.description,
-			$active: role.active ? 1 : 0
+			id: role.id,
+			name: role.name,
+			value: role.value,
+			description: role.description,
+			active: role.active ? 1 : 0
 		});
 		return info.changes > 0;
 	}
 
 	deleteRole(id: number): boolean {
 		const stmt = this.db.prepare('DELETE FROM roles WHERE id = $id');
-		const info = stmt.run({ $id: id });
+		const info = stmt.run({ id: id });
 		return info.changes > 0;
 	}
 }

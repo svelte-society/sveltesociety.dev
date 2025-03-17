@@ -8,7 +8,7 @@ describe('CollectionService', () => {
 
     beforeAll(async () => {
         // Create in-memory database for testing
-        db = new Database(':memory:', { create: true })
+        db = new Database(':memory:', { strict: true })
         db.exec('PRAGMA foreign_keys = ON')
 
         // Create tables from schema

@@ -63,13 +63,13 @@ export class SessionService {
 	}
 
 	private userExists(userId: string): boolean {
-		const result = this.checkUserExistsStatement.get({ $user_id: userId });
+		const result = this.checkUserExistsStatement.get({ user_id: userId });
 		return result !== null;
 	}
 
 	deleteSession(sessionToken: string): Session | undefined {
 		try {
-			const result = this.deleteSessionStatement.get({ $session_token: sessionToken });
+			const result = this.deleteSessionStatement.get({ session_token: sessionToken });
 			return result ? result as Session : undefined;
 		} catch (error) {
 			console.error('Error deleting session:', error);
@@ -79,7 +79,7 @@ export class SessionService {
 
 	deleteSessionsByUserId(userId: string): number {
 		try {
-			const result = this.deleteSessionsByUserIdStatement.all({ $user_id: userId }) as Session[];
+			const result = this.deleteSessionsByUserIdStatement.all({ user_id: userId }) as Session[];
 			return result.length;
 		} catch (error) {
 			console.error('Error deleting sessions by user ID:', error);
@@ -98,9 +98,9 @@ export class SessionService {
 			const expiration = new Date(now.getTime() + SEVEN_DAYS * 1000);
 
 			const result = this.createSessionStatement.get({
-				$user_id: userId,
-				$session_token: sessionToken,
-				$expires_at: this.formatDateForSQLite(expiration)
+				user_id: userId,
+				session_token: sessionToken,
+				expires_at: this.formatDateForSQLite(expiration)
 			}) as { session_token: string };
 
 			return result.session_token;
@@ -112,7 +112,7 @@ export class SessionService {
 
 	validateSessionId(sessionToken: string): SessionResult {
 		try {
-			const result = this.validateSessionStatement.get({ $session_token: sessionToken });
+			const result = this.validateSessionStatement.get({ session_token: sessionToken });
 			
 			if (!result) {
 				return { valid: false };
