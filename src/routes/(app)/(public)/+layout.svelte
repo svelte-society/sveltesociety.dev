@@ -3,11 +3,11 @@ const { data, children } = $props()
 
 import LeftSidebar from './_components/LeftSidebar.svelte'
 import RightSidebar from './_components/RightSidebar.svelte'
-import { convertTags } from '$lib/types/content'
 import { toggleLeftSidebar, toggleRightSidebar } from '$lib/stores/ui'
+import type { Tag } from '$lib/server/db/tags'
 
-// Convert tags to the expected format with string IDs
-const formattedTags = data.tags ? convertTags(data.tags) : []
+// The tags are already in the correct format from the TagService
+const tags = data.tags as Tag[]
 </script>
 
 <div class="flex flex-col lg:flex-row w-full max-w-screen-2xl mx-auto relative">
@@ -53,6 +53,6 @@ const formattedTags = data.tags ? convertTags(data.tags) : []
        class:translate-x-0={$toggleRightSidebar}
        class:translate-x-full={!$toggleRightSidebar}
        class:lg:translate-x-0={true}>
-    <RightSidebar tags={formattedTags} />
+    <RightSidebar {tags} />
   </div>
 </div>

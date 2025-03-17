@@ -1,15 +1,9 @@
-import { get_tags } from '$lib/server/db/tags'
+import type { LayoutServerLoad } from './$types'
 
-import { fail } from '@sveltejs/kit'
-
-export const load = async () => {
-	const result = get_tags()
-
-	if (!result) {
-		fail(400, { message: 'Error getting roles' })
-	}
-
+export const load: LayoutServerLoad = async ({ locals }) => {
+	const tags = locals.tagService.getTags({ limit: 100 }) // Get up to 100 tags for the sidebar
+	
 	return {
-		tags: result || []
+		tags
 	}
 }
