@@ -1,4 +1,3 @@
-import { get_tag, update_tag } from '$lib/server/db/tags'
 import { error, fail, redirect } from '@sveltejs/kit'
 import { superValidate } from 'sveltekit-superforms/server'
 import { zod } from 'sveltekit-superforms/adapters'
@@ -11,8 +10,8 @@ const schema = z.object({
 	slug: z.string().min(1, 'Slug is required')
 })
 
-export const load: PageServerLoad = async ({ params }) => {
-	const tag = get_tag(params.id)
+export const load: PageServerLoad = async ({ params, locals }) => {
+	const tag = locals.tagService.getTag(params.id)
 
 	if (!tag) {
 		throw error(404, 'Tag not found')
@@ -24,14 +23,14 @@ export const load: PageServerLoad = async ({ params }) => {
 }
 
 export const actions: Actions = {
-	default: async ({ request }) => {
+	default: async ({ request, locals }) => {
 		const form = await superValidate(request, zod(schema))
 
 		if (!form.valid) {
 			return fail(400, { form })
 		}
 
-		update_tag(form.data)
+		locals.tagService.updateTag(form.data)
 
 		redirect(302, '/admin/tags')
 	}

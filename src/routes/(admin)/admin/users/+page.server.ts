@@ -1,16 +1,14 @@
 import type { PageServerLoad } from './$types'
-import { get_users, delete_user } from '$lib/server/db/user'
-import { delete_sessions_by_user_id } from '$lib/server/db/session'
 import { fail, redirect } from '@sveltejs/kit'
 
-export const load = (async () => {
+export const load = (async ({ locals }) => {
 	return {
-		users: get_users()
+		users: locals.userService.getUsers()
 	}
 }) satisfies PageServerLoad
 
 export const actions = {
-	delete: async ({ request }) => {
+	delete: async ({ request, locals }) => {
 		const data = await request.formData()
 		const id = data.get('id') as string
 
@@ -18,7 +16,7 @@ export const actions = {
 			return fail(400, { message: 'No user id provided.' })
 		}
 
-		const deleted_user = delete_user(id)
+		const deleted_user = locals.userService.deleteUser(id)
 
 		if (!deleted_user) {
 			return { message: 'Something went wrong.' }
@@ -27,7 +25,7 @@ export const actions = {
 		return { message: `User deleted.` }
 	},
 	
-	clear_sessions: async ({ request }) => {
+	clear_sessions: async ({ request, locals }) => {
 		const data = await request.formData()
 		const id = data.get('id') as string
 
@@ -35,7 +33,7 @@ export const actions = {
 			return fail(400, { message: 'No user id provided.' })
 		}
 
-		const deletedCount = delete_sessions_by_user_id(id)
+		const deletedCount = locals.sessionService.deleteSessionsByUserId(id)
 
 		if (deletedCount === 0) {
 			return { message: 'No sessions found for this user.' }
