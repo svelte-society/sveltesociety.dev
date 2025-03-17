@@ -1,6 +1,5 @@
 <script lang="ts">
 import Button from '$lib/ui/Button.svelte'
-import type { PreviewContent } from '$lib/server/db/content'
 import Table from '$lib/ui/admin/Table.svelte'
 import Actions from '$lib/ui/admin/Actions.svelte'
 import type { Role } from '$lib/server/db/role'
@@ -38,13 +37,13 @@ let colorMap = new Map([
 				/></td
 			>
 		{/snippet}
-		{#snippet actionCell(item: PreviewContent)}
+		{#snippet actionCell(item: Role)}
 			<Actions
 				route="roles"
-				id={item.id}
+				id={String(item.id)}
 				canDelete={true}
 				canEdit={true}
-				type="{item.title} role"
+				type="{item.name} role"
 			/>
 		{/snippet}
 	</Table>

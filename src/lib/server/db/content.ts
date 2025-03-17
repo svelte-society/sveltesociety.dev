@@ -1,6 +1,24 @@
 import { Database } from 'bun:sqlite';
 import { SearchService } from './search';
 
+export interface Content {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  type: string;
+  status: string;
+  content: string;
+  tags?: Array<{ id: string; name: string; slug: string; color: string }>;
+  created_at: string;
+  updated_at: string;
+  published_at: string | null;
+  likes: number;
+  saves: number;
+}
+
+export type PreviewContent = Omit<Content, 'content'>;
+
 interface ContentFilters {
   type?: string;
   tags?: string | string[];

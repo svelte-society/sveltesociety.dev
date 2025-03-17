@@ -1,15 +1,13 @@
-import { create_content, get_content } from '$lib/server/db/content'
-import { get_tags } from '$lib/server/db/tags'
 import { error, fail, redirect } from '@sveltejs/kit'
-import type { Actions } from './$types'
+import type { Actions, PageServerLoad } from './$types'
 import { superValidate } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
 
 import { schema } from './schema.js'
 
-export const load = async () => {
-	const tags = get_tags()
-	const content = get_content({})
+export const load: PageServerLoad = async ({ locals }) => {
+	const tags = locals.tagService.getTags()
+	const content = locals.contentService.getFilteredContent({})
 	
 	// Initialize form with empty data
 	const formData = {
@@ -30,22 +28,30 @@ export const load = async () => {
 }
 
 export const actions: Actions = {
-	default: async ({ request }) => {
+	default: async ({ request, locals }) => {
 		const form = await superValidate(request, zod(schema))
 
 		if (!form.valid) {
 			return fail(400, { form })
 		}
 
-		const result = create_content({
-			title: form.data.title,
-			description: form.data.description,
-			children: form.data.children,
-			slug: form.data.slug,
-			type: 'collection'
-		})
+		// Create the collection using the database directly since we need specific functionality
+		// This will be refactored once we fully migrate to service methods
+		const insertStmt = locals.db.prepare(`
+			INSERT INTO content (title, slug, description, type, content, status)
+			VALUES (?, ?, ?, 'collection', ?, 'published')
+			RETURNING id
+		`);
 
-		if (result) {
+		const collectionContent = JSON.stringify({ children: form.data.children });
+		const result = insertStmt.get(
+			form.data.title,
+			form.data.slug,
+			form.data.description,
+			collectionContent
+		) as { id: string } | undefined;
+
+		if (result?.id) {
 			redirect(303, '/admin/collections')
 		} else {
 			error(500, 'Failed to create collection')

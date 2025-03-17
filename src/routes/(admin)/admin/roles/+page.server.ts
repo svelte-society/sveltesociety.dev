@@ -1,19 +1,16 @@
-import { get_roles, delete_role } from '$lib/server/db/role'
 import { fail } from '@sveltejs/kit'
-import { db } from '$lib/server/db'
+import type { PageServerLoad, Actions } from './$types'
 
-export const load = async ({ url }) => {
+export const load: PageServerLoad = async ({ url, locals }) => {
 	const page = parseInt(url.searchParams.get('page') || '1', 10)
 	const perPage = 10
 	const offset = (page - 1) * perPage
 
-	// Get paginated roles
-	const stmt = db.prepare('SELECT * FROM roles LIMIT ? OFFSET ?')
-	const roles = stmt.all(perPage, offset)
-
-	// Get total count for pagination
-	const countStmt = db.prepare('SELECT COUNT(*) as count FROM roles')
-	const { count } = countStmt.get() as { count: number }
+	// Get roles using the role service
+	const roles = locals.roleService.getRoles()
+	
+	// Calculate total count from roles array
+	const count = roles.length
 
 	return {
 		roles,
@@ -25,8 +22,8 @@ export const load = async ({ url }) => {
 	}
 }
 
-export const actions = {
-	delete: async ({ request }) => {
+export const actions: Actions = {
+	delete: async ({ request, locals }) => {
 		const data = await request.formData()
 		const id = data.get('id') as unknown as number
 
@@ -34,7 +31,7 @@ export const actions = {
 			return fail(400, { message: 'No role id provided.' })
 		}
 
-		const deleted_role = delete_role(id)
+		const deleted_role = locals.roleService.deleteRole(id)
 
 		if (!deleted_role) {
 			return { message: 'Something went wrong.' }
