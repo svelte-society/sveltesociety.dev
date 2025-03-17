@@ -13,22 +13,20 @@ export interface ContentItem {
   liked?: boolean;
   saves?: number;
   saved?: boolean;
-  tags?: any[];
+  tags: TagType[];
   slug: string;
-  children?: any[];
-}
-
-// Helper function to check if content is an array
-export function isContentArray(content: any): content is ContentItem[] {
-  return Array.isArray(content);
+  children: ContentItem[];
 }
 
 // Helper function to convert tags to TagType
-export function convertTags(tags: any[]): TagType[] {
+export function convertTags(tags: unknown[]): TagType[] {
   if (!Array.isArray(tags)) return [];
-  return tags.map(tag => ({
-    id: String(tag.id),
-    name: String(tag.name),
-    slug: String(tag.slug)
-  }));
+  return tags.map(tag => {
+    const t = tag as { id?: unknown; name?: unknown; slug?: unknown };
+    return {
+      id: String(t.id ?? ''),
+      name: String(t.name ?? ''),
+      slug: String(t.slug ?? '')
+    };
+  });
 } 

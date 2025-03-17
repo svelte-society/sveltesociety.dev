@@ -1,14 +1,13 @@
 <script lang="ts">
 	import ContentCard from '$lib/ui/ContentCard.svelte';
-	import type { ContentItem } from '$lib/types/content';
-	import { isContentArray, convertTags } from '$lib/types/content';
+	import { convertTags } from '$lib/types/content';
 	import Pagination from '$lib/ui/Pagination.svelte';
 
 	let { data } = $props();
 </script>
 
 <div class="grid gap-6">
-	{#if isContentArray(data.content) && data.content.length > 0}
+	{#if data.content.length > 0}
 		{#each data.content as item}
 			<ContentCard 
 				id={item.id}
@@ -22,9 +21,9 @@
 				liked={item.liked || false}
 				saves={item.saves || 0}
 				saved={item.saved || false}
-				tags={convertTags(item.tags || [])}
+				tags={convertTags(item.tags)}
 				slug={item.slug}
-				child_content={Array.isArray(item.children) ? item.children : []}
+				child_content={item.children}
 			/>
 		{/each}
 
