@@ -70,13 +70,22 @@ export const GET: RequestHandler = async ({ url, cookies, locals }) => {
 		// Create new session
 		const session_token = locals.sessionService.createSession(user.id)
 
+		// Set cookie
 		cookies.set('session_id', session_token, {
 			path: '/',
 			httpOnly: true,
 			secure: !dev
 		})
 
-		throw redirect(302, '/')
+		// Create a manual redirect response with appropriate headers
+		return new Response(null, {
+			status: 303,
+			headers: {
+				Location: '/',
+				'Cache-Control': 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+				Pragma: 'no-cache'
+			}
+		})
 	} catch (error) {
 		console.error('Auth error:', error)
 		if (error instanceof Error && error.message === 'GitHub OAuth provider not found') {
