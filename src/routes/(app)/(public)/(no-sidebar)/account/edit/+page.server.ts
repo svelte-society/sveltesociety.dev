@@ -3,7 +3,6 @@ import { z } from 'zod'
 import { superValidate, message } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
 import { fail, redirect } from '@sveltejs/kit'
-import { update_user } from '$lib/server/db/user'
 
 const schema = z.object({
 	name: z.string().optional(),
@@ -45,8 +44,8 @@ export const actions = {
 		}
 
 		try {
-			// Use the update_user function to update the user's information
-			const updatedUser = await update_user(locals.user.id, { 
+			// Use the userService to update the user's information
+			const updatedUser = locals.userService.updateUser(locals.user.id, { 
 				username: form.data.username,
 				name: form.data.name || null,
 				bio: form.data.bio || null,
