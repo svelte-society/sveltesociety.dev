@@ -39,7 +39,7 @@ let colorMap = new Map([
 			</td>
 		{/snippet}
 		{#snippet actionCell(item: Collection)}
-			<Actions route="collections" id={item.id} canDelete={true} canEdit={true} type={item.title} />
+			<Actions route="collections" id={String(item.id)} canDelete={true} canEdit={true} type={item.title} />
 		{/snippet}
 	</Table>
 	
