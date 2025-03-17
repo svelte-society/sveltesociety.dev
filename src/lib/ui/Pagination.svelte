@@ -92,7 +92,7 @@ Usage:
 			</Pagination.NextButton>
 		</div>
 		<p class="text-center text-sm text-gray-500">
-			Showing {range.start} - {range.end} of {count}
+			Showing {range.start + 1} - {range.end} of {count}
 		</p>
 	{/snippet}
 </Pagination.Root>
