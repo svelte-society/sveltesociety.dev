@@ -168,7 +168,7 @@ export class UserService {
 
 	getUser(id: string): User | undefined {
 		try {
-			const result = this.getUserStatement.get({ $id: id })
+			const result = this.getUserStatement.get({ id: id })
 			return result ? result as User : undefined
 		} catch (error) {
 			console.error('Error getting user:', error)
@@ -179,8 +179,8 @@ export class UserService {
 	getUserByOAuth(provider: string, providerUserId: string): User | undefined {
 		try {
 			const result = this.getUserByOAuthStatement.get({ 
-				$provider: provider, 
-				$providerUserId: providerUserId 
+				provider: provider, 
+				providerUserId: providerUserId 
 			})
 			return result ? result as User : undefined
 		} catch (error) {
@@ -211,13 +211,13 @@ export class UserService {
 
 	private extractGithubUserInfo(githubInfo: GitHubUserInfo) {
 		return {
-			$email: githubInfo.email || null,
-			$username: githubInfo.login,
-			$name: githubInfo.name || null,
-			$avatar_url: githubInfo.avatar_url || null,
-			$bio: githubInfo.bio || null,
-			$location: githubInfo.location || null,
-			$twitter: githubInfo.twitter_username || null
+			email: githubInfo.email || null,
+			username: githubInfo.login,
+			name: githubInfo.name || null,
+			avatar_url: githubInfo.avatar_url || null,
+			bio: githubInfo.bio || null,
+			location: githubInfo.location || null,
+			twitter: githubInfo.twitter_username || null
 		}
 	}
 
@@ -232,28 +232,28 @@ export class UserService {
 			}
 
 			const existingUser = this.getExistingUserStatement.get({
-				$providerId: provider.id,
-				$providerUserId: githubInfo.id.toString()
+				providerId: provider.id,
+				providerUserId: githubInfo.id.toString()
 			}) as User | undefined
 
 			let user: User
 
 			if (existingUser) {
 				user = this.updateUserStatement.get({
-					$id: existingUser.id,
-					$email: githubInfo.email || null,
-					$username: githubInfo.login,
-					$name: githubInfo.name || null,
-					$avatar_url: githubInfo.avatar_url || null,
-					$bio: githubInfo.bio || null,
-					$location: githubInfo.location || null,
-					$twitter: githubInfo.twitter_username || null
+					id: existingUser.id,
+					email: githubInfo.email || null,
+					username: githubInfo.login,
+					name: githubInfo.name || null,
+					avatar_url: githubInfo.avatar_url || null,
+					bio: githubInfo.bio || null,
+					location: githubInfo.location || null,
+					twitter: githubInfo.twitter_username || null
 				}) as User
 
 				this.updateOAuthStatement.run({
-					$userId: user.id,
-					$providerId: provider.id,
-					$profileData: JSON.stringify(githubInfo)
+					userId: user.id,
+					providerId: provider.id,
+					profileData: JSON.stringify(githubInfo)
 				})
 			} else {
 				const userInfo = this.extractGithubUserInfo(githubInfo)
@@ -262,10 +262,10 @@ export class UserService {
 				user = createStmt.get(userInfo) as User
 
 				this.createOAuthStatement.run({
-					$userId: user.id,
-					$providerId: provider.id,
-					$providerUserId: githubInfo.id.toString(),
-					$profileData: JSON.stringify(githubInfo)
+					userId: user.id,
+					providerId: provider.id,
+					providerUserId: githubInfo.id.toString(),
+					profileData: JSON.stringify(githubInfo)
 				})
 			}
 
@@ -285,14 +285,14 @@ export class UserService {
 
 		try {
 			const params = {
-				$id: id,
-				$email: updates.email || null,
-				$username: updates.username || null,
-				$name: updates.name || null,
-				$avatar_url: updates.avatar_url || null,
-				$bio: updates.bio || null,
-				$location: updates.location || null,
-				$twitter: updates.twitter || null
+				id: id,
+				email: updates.email || null,
+				username: updates.username || null,
+				name: updates.name || null,
+				avatar_url: updates.avatar_url || null,
+				bio: updates.bio || null,
+				location: updates.location || null,
+				twitter: updates.twitter || null
 			}
 
 			const result = this.updateUserStatement.get(params)
@@ -305,7 +305,7 @@ export class UserService {
 
 	deleteUser(id: string): boolean {
 		try {
-			const result = this.deleteUserStatement.run({ $id: id })
+			const result = this.deleteUserStatement.run({ id: id })
 			return result.changes > 0
 		} catch (error) {
 			console.error('Error deleting user:', error)

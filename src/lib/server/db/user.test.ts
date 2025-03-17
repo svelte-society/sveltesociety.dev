@@ -10,7 +10,7 @@ describe('UserService', () => {
   beforeAll(() => {
     // Read and execute schema
     const schema = fs.readFileSync('src/lib/server/db/schema/schema.sql', 'utf-8');
-    db = new Database(':memory:');
+    db = new Database(':memory:', { strict: true});
     // Enable foreign key constraints
     db.exec('PRAGMA foreign_keys = ON;');
     db.exec(schema);
@@ -45,26 +45,26 @@ describe('UserService', () => {
 
     const testUsers = [
       {
-        $id: 'user1',
-        $email: 'user1@test.com',
-        $username: 'testuser1',
-        $name: 'Test User 1',
-        $avatar_url: 'https://avatar1.test',
-        $bio: 'Test bio 1',
-        $location: 'Test location 1',
-        $twitter: 'testuser1',
-        $role: 0
+        id: 'user1',
+        email: 'user1@test.com',
+        username: 'testuser1',
+        name: 'Test User 1',
+        avatar_url: 'https://avatar1.test',
+        bio: 'Test bio 1',
+        location: 'Test location 1',
+        twitter: 'testuser1',
+        role: 0
       },
       {
-        $id: 'user2',
-        $email: 'user2@test.com',
-        $username: 'testuser2',
-        $name: 'Test User 2',
-        $avatar_url: 'https://avatar2.test',
-        $bio: 'Test bio 2',
-        $location: 'Test location 2',
-        $twitter: 'testuser2',
-        $role: 1
+        id: 'user2',
+        email: 'user2@test.com',
+        username: 'testuser2',
+        name: 'Test User 2',
+        avatar_url: 'https://avatar2.test',
+        bio: 'Test bio 2',
+        location: 'Test location 2',
+        twitter: 'testuser2',
+        role: 1
       }
     ];
 
@@ -79,10 +79,10 @@ describe('UserService', () => {
     `);
 
     insertOAuth.run({
-      $userId: 'user1',
-      $providerId: 1,
-      $providerUserId: '12345',
-      $profileData: JSON.stringify({ id: 12345, login: 'testuser1' })
+      userId: 'user1',
+      providerId: 1,
+      providerUserId: '12345',
+      profileData: JSON.stringify({ id: 12345, login: 'testuser1' })
     });
 
     userService = new UserService(db);
@@ -153,7 +153,7 @@ describe('UserService', () => {
       const oauthEntry = db.prepare(`
         SELECT * FROM user_oauth 
         WHERE provider_user_id = $providerUserId
-      `).get({ $providerUserId: '67890' });
+      `).get({ providerUserId: '67890' });
       expect(oauthEntry).toBeDefined();
     });
 
@@ -232,7 +232,7 @@ describe('UserService', () => {
       const oauthEntry = db.prepare(`
         SELECT * FROM user_oauth 
         WHERE user_id = $userId
-      `).get({ $userId: 'user1' });
+      `).get({ userId: 'user1' });
       expect(oauthEntry).toBeNull();
     });
 
@@ -248,7 +248,7 @@ describe('UserService', () => {
       const oauthEntry = db.prepare(`
         SELECT * FROM user_oauth 
         WHERE user_id = $userId
-      `).get({ $userId: 'user1' });
+      `).get({ userId: 'user1' });
       expect(oauthEntry).toBeNull();
     });
   });
