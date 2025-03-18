@@ -64,9 +64,42 @@ export class ContentService {
       content.tags = JSON.parse(content.tags);
       // Remove null entries from tags array
       content.tags = content.tags.filter(Boolean);
+      
+      // Process collection children if this is a collection
+      if (content.type === 'collection') {
+        this.populateContentChildren(content);
+      }
     }
     
     return content;
+  }
+
+  // Helper method to populate children for collections
+  private populateContentChildren(collectionContent: any) {
+    try {
+      // Parse the content field which contains children IDs
+      const childrenIds = [];
+      if (collectionContent.content) {
+        const contentObj = JSON.parse(collectionContent.content);
+        if (contentObj && Array.isArray(contentObj.children)) {
+          childrenIds.push(...contentObj.children);
+        }
+      }
+      
+      // Fetch each child content item and add to the collection
+      const children = childrenIds.map(id => this.getContentById(id)).filter(Boolean);
+      
+      // Ensure the child_content property is set and is an array
+      collectionContent.child_content = children;
+      
+      // For backwards compatibility, also set children property
+      collectionContent.children = children;
+    } catch (e) {
+      console.error('Error populating collection children:', e);
+      // Ensure we always have arrays even if there was an error
+      collectionContent.child_content = [];
+      collectionContent.children = [];
+    }
   }
 
   getFilteredContent(filters: ContentFilters = {}) {
@@ -162,7 +195,15 @@ export class ContentService {
     const ids = this.db.prepare(query).all(...params) as { id: string }[];
     
     // Then get full content with tags for each ID
-    return ids.map(({ id }) => this.getContentById(id)).filter(Boolean);
+    const contents = ids.map(({ id }) => this.getContentById(id)).filter(Boolean);
+    
+    // Process collections to populate their children property
+    return contents.map(content => {
+      if (content.type === 'collection' && !content.child_content) {
+        this.populateContentChildren(content);
+      }
+      return content;
+    });
   }
 
   getFilteredContentCount(filters: Omit<ContentFilters, 'limit' | 'offset' | 'sort'> = {}) {
