@@ -1,7 +1,6 @@
 <script lang="ts">
 import { enhance } from '$app/forms'
-import type { ActionResult, SubmitFunction } from '@sveltejs/kit'
-import { page } from '$app/stores'
+import {page } from '$app/state'
 import { formatRelativeDate } from '$lib/utils/date'
 
 import Tags from './Tags.svelte'
@@ -55,6 +54,18 @@ if (!child_content.length && children && children.length) {
 	child_content = children;
 }
 
+// Ensure each child has proper properties for rendering
+if (type === 'collection') {
+	child_content = child_content.map(child => ({
+		...child,
+		// Set defaults for any missing properties
+		type: child.type || 'unknown',
+		title: child.title || 'Untitled',
+		slug: child.slug || '',
+		published_at: child.published_at || published_at
+	}));
+}
+
 // Convert string tags to TagType objects if needed
 const formattedTags: TagType[] = Array.isArray(tags) 
 	? tags.map(tag => {
@@ -79,7 +90,7 @@ let submitting_save_toggle = $state(false)
 
 // Use any for now to avoid type errors with enhance
 const likeSubmit = (event: any) => {
-	if (!$page.data.user) {
+	if (!page.data.user) {
 		event.cancel()
 		return
 	}
@@ -99,7 +110,7 @@ const likeSubmit = (event: any) => {
 
 // Use any for now to avoid type errors with enhance
 const saveSubmit = (event: any) => {
-	if (!$page.data.user) {
+	if (!page.data.user) {
 		event.cancel()
 		return
 	}
