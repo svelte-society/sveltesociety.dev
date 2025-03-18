@@ -91,13 +91,8 @@
 			
 			<!-- Login button visible on mobile when not logged in -->
 			{#if !data.user}
-				<a href="/auth/github" class="md:hidden flex items-center gap-2 px-4 py-2 bg-svelte-900 text-white rounded-md hover:bg-svelte-800 transition-colors">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
-						<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-						<polyline points="10 17 15 12 10 7"></polyline>
-						<line x1="15" y1="12" x2="3" y2="12"></line>
-					</svg>
-					<span>Login</span>
+				<a href="/auth/github" class="md:hidden flex items-center text-svelte-900 hover:underline">
+					Login
 				</a>
 			{:else}
 				<!-- User avatar on mobile -->
@@ -146,14 +141,9 @@
 						</a>
 					</div>
 				{:else}
-					<!-- Login button -->
-					<a href="/auth/github" class="flex items-center gap-2 px-4 py-2 bg-svelte-900 text-white rounded-md hover:bg-svelte-800 transition-colors">
-						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
-							<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-							<polyline points="10 17 15 12 10 7"></polyline>
-							<line x1="15" y1="12" x2="3" y2="12"></line>
-						</svg>
-						<span>Login with GitHub</span>
+					<!-- Login link -->
+					<a href="/auth/github" class="text-svelte-900 hover:underline">
+						Login
 					</a>
 				{/if}
 			</nav>
@@ -204,13 +194,8 @@
 							</li>
 						{:else}
 							<li>
-								<a href="/auth/github" class="flex items-center gap-2 py-2 px-3 bg-svelte-900 text-white rounded-md hover:bg-svelte-800 transition-colors">
-									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
-										<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-										<polyline points="10 17 15 12 10 7"></polyline>
-										<line x1="15" y1="12" x2="3" y2="12"></line>
-									</svg>
-									Login with GitHub
+								<a href="/auth/github" class="text-svelte-900 hover:underline">
+									Login
 								</a>
 							</li>
 						{/if}
