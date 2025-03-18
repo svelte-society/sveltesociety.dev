@@ -91,7 +91,7 @@
 			
 			<!-- Login button visible on mobile when not logged in -->
 			{#if !data.user}
-				<a href="/auth/github" class="md:hidden flex items-center text-svelte-900 hover:underline">
+				<a href="/auth/github" class="md:hidden flex items-center hover:underline">
 					Login
 				</a>
 			{:else}
@@ -141,8 +141,9 @@
 						</a>
 					</div>
 				{:else}
-					<!-- Login link -->
-					<a href="/auth/github" class="text-svelte-900 hover:underline">
+					<!-- Separator + Login link -->
+					<div class="h-6 border-l border-slate-300 mx-2"></div>
+					<a href="/auth/github" class="hover:underline">
 						Login
 					</a>
 				{/if}
@@ -193,8 +194,8 @@
 								</a>
 							</li>
 						{:else}
-							<li>
-								<a href="/auth/github" class="text-svelte-900 hover:underline">
+							<li class="border-t border-slate-200 pt-2 mt-2">
+								<a href="/auth/github" class="hover:underline">
 									Login
 								</a>
 							</li>
