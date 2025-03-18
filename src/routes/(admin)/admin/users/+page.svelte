@@ -5,6 +5,7 @@ import { enhance } from '$app/forms'
 import Avatar from '$lib/ui/Avatar.svelte'
 import Table from '$lib/ui/admin/Table.svelte'
 import Actions from '$lib/ui/admin/Actions.svelte'
+import Pagination from '$lib/ui/Pagination.svelte'
 import type { User } from '$lib/server/db/user'
 
 // Extended User interface to include created_at
@@ -75,4 +76,11 @@ function ensureStringId(id: string | number): string {
 			</form>
 		{/snippet}
 	</Table>
+	
+	{#if data.pagination}
+		<Pagination 
+			count={data.pagination.count} 
+			perPage={data.pagination.perPage} 
+		/>
+	{/if}
 </div>

@@ -1,9 +1,21 @@
 import type { PageServerLoad } from './$types'
 import { fail, redirect } from '@sveltejs/kit'
 
-export const load = (async ({ locals }) => {
+export const load = (async ({ url, locals }) => {
+	const page = parseInt(url.searchParams.get('page') || '1', 10)
+	const perPage = 10
+	const offset = (page - 1) * perPage
+
+	const users = locals.userService.getUsers({ limit: perPage, offset })
+	const totalUsers = locals.userService.getUserCount()
+
 	return {
-		users: locals.userService.getUsers()
+		users,
+		pagination: {
+			count: totalUsers,
+			perPage,
+			currentPage: page
+		}
 	}
 }) satisfies PageServerLoad
 

@@ -75,6 +75,7 @@ export class UserService {
 
 		this.getUsersStatement = this.db.prepare(`
 			SELECT * FROM users
+			LIMIT $limit OFFSET $offset
 		`)
 
 		this.getUserCountStatement = this.db.prepare(`
@@ -189,10 +190,12 @@ export class UserService {
 		}
 	}
 
-	getUsers(): User[] {
-		console.warn('getUsers: No limit provided, risk of memory exhaustion')
+	getUsers(options?: { limit?: number, offset?: number }): User[] {
 		try {
-			return this.getUsersStatement.all() as User[]
+			const limit = options?.limit ?? -1
+			const offset = options?.offset ?? 0
+			
+			return this.getUsersStatement.all({ limit, offset }) as User[]
 		} catch (error) {
 			console.error('Error getting users:', error)
 			return []
