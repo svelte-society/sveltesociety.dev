@@ -64,12 +64,13 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	
 	return {
 		form,
-		content: allContent
+		content: allContent,
+		searchResults: [] // Initial empty search results
 	}
 }
 
 export const actions: Actions = {
-	default: async ({ request, locals }) => {
+	update: async ({ request, locals }) => {
 		const form = await superValidate(request, zod(schema))
 		if (!form.valid) {
 			return fail(400, { form })
@@ -99,6 +100,31 @@ export const actions: Actions = {
 			throw redirect(303, '/admin/collections')
 		} else {
 			throw error(500, 'Failed to update collection')
+		}
+	},
+
+	search: async ({ request, locals, params }) => {
+		const data = await request.formData()
+		const query = data.get('search')?.toString() || ''
+
+		if (!query) {
+			return {
+				results: locals.contentService.getFilteredContent({ limit: 10 })
+			}
+		}
+		
+		const contentIds = locals.searchService.search({ 
+			query,
+			searchFields: ['title', 'description'] 
+		});
+		
+		// Get the full content objects for the search results
+		const results = contentIds.map(id => locals.contentService.getContentById(id)).filter(Boolean);
+		
+		return {
+			form: {
+				results
+			}
 		}
 	}
 }
