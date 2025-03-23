@@ -19,23 +19,14 @@ const { tags }: { tags: Tag[] } = $props()
 	<p class="mb-4 text-sm">Share with the biggest community of Svelte enthusiasts in the world</p>
 
 	<div>
-		<h3 class="text-md mb-2 font-semibold">Tags</h3>
-		<input
-			type="text"
-			placeholder="Search Tags"
-			class="w-full rounded border-none bg-slate-100 p-2 text-xs"
-		/>
-	</div>
-
-	<div>
 		<h3 class="text-md mb-2 font-semibold">Popular tags</h3>
 		<Tags {tags} />
 	</div>
 
 	<div class="mb-4 rounded bg-amber-100 p-3 text-xs">
 		<p>
-			Welcome to Svelte Society, homepage for everything Svelte. Try navigate left menu to filter by
-			specific topics and resources.
+			Welcome to Svelte Society, homepage for everything Svelte. Find what you're looking for in the left
+			menu!
 		</p>
 	</div>
 
