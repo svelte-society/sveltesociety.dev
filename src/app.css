@@ -4,10 +4,11 @@
 @theme {
     --font-display: Inter, system-ui, sans-serif;
 
-    --color-svelte-900: oklch(65.4% 0.585 34.196);
-    --color-svelte-500: oklch(76.9% 0.3525 38.529);
-    --color-svelte-300: oklch(86.8% 0.1825 38.598);
-    --color-svelte-100: oklch(92.7% 0.0975 39.91);
+    --color-svelte-900: oklch(65.43% 0.2341 34.2);
+    --color-svelte-500: oklch(71.09% 0.1862 37.91);
+    --color-svelte-300: oklch(86.8% 0.1825 38.60);
+    --color-svelte-100: oklch(92.72% 0.0386 39.91);
+    --color-svelte-50: oklch(97.02% 0.0151 37.88);
 }
 
 @layer base {
