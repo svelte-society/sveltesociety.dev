@@ -1,6 +1,6 @@
 import type { Handle } from '@sveltejs/kit'
 import { redirect } from '@sveltejs/kit'
-import type { Role } from '$lib/server/db/role'
+import type { Role } from '$lib/server/services/role'
 
 interface RoutePermission {
 	path: string
