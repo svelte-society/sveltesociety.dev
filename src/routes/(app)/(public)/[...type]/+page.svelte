@@ -1,11 +1,14 @@
 <script lang="ts">
-import ContentCard from '$lib/ui/ContentCard.svelte'
-import Pagination from '$lib/ui/Pagination.svelte'
-import type { ContentItem } from '$lib/types/content';
-import { convertTags } from '$lib/types/content';
+	import ContentCard from '$lib/ui/ContentCard.svelte'
+	import Pagination from '$lib/ui/Pagination.svelte'
+	import { convertTags } from '$lib/types/content';
+	import Filters from './Filters.svelte';
 
-let { data } = $props()
+	let { data } = $props()
+
 </script>
+
+<Filters categories={data.categories} tags={data.tags} sort={data.sort} />
 
 <div class="grid gap-6">
 	{#if data.content.length > 0}

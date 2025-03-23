@@ -1,7 +1,19 @@
 <script lang="ts">
 	import { CaretUpDown, Check } from 'phosphor-svelte'
 	import { Select } from 'bits-ui'
-	let { options, value = $bindable(), name, selected, props } = $props()
+	type Option = {
+        label: string
+        value: string
+    }
+
+	type Props = {
+		options: Option[]
+		value?: Option
+		name: string
+		selected?: string
+		props?: any
+	}
+	let { options, value = $bindable(), name, selected, props }: Props = $props()
 </script>
 
 <Select.Root type="single" bind:value {name}>

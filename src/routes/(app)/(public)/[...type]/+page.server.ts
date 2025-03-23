@@ -1,28 +1,63 @@
-import { filter_content_schema } from '$lib/server/filter'
-import { fail, error } from '@sveltejs/kit'
+import { fail } from '@sveltejs/kit'
 import { superValidate } from 'sveltekit-superforms'
+import { schema } from './schema'
 import { zod } from 'sveltekit-superforms/adapters'
 import type { PageServerLoad } from './$types'
 
-const VALID_TYPES = ['recipe', 'video', 'library', 'announcement', 'showcase', 'link', 'blog', 'collection'] as const
+const categories = [
+	{
+		label: 'All',
+		value: 'all'
+	},
+	{
+		label: 'Recipe',
+		value: 'recipe'
+	},
+	{
+		label: 'Video',
+		value: 'video'
+	},
+	{
+		label: 'Library',
+		value: 'library'
+	},
+	{
+		label: 'Announcement',
+		value: 'announcement'
+	},
+	{
+		label: 'Showcase',
+		value: 'showcase'
+	},
+	{
+		label: 'Collection',
+		value: 'collection'
+	}
+]
+
+const sortOptions = [
+	{
+		label: 'Newest',
+		value: 'newest'
+	},
+	{
+		label: 'Oldest',
+		value: 'oldest'	
+	},
+	{
+		label: 'Most Popular',
+		value: 'most_popular'
+	},
+]
+
 
 export const load: PageServerLoad = async ({ url, locals, params }) => {
-	const { type } = params
-	
-	// Allow empty type for showing all content, otherwise validate the type
-	if (type && !VALID_TYPES.includes(type as any)) {
-		throw error(404, {
-			message: `Invalid content type "${type}". Valid types are: ${VALID_TYPES.join(', ')}`
-		})
-	}
+	const filters = await superValidate(url, zod(schema));
 
-	// Get tags from query params - support both ?tags=tag1,tag2 and ?tags=tag1&tags=tag2 formats
-	const tagsParam = url.searchParams.getAll('tags')
-	const tags = tagsParam.length > 0 
-		? tagsParam.flatMap(t => t.split(',').map(tag => tag.trim())).filter(Boolean)
-		: undefined
+	const { data } = filters;
+	console.log(data)
+	const { category, tags, search, sort } = data;
 
-	const filters = await superValidate(url, zod(filter_content_schema))
 	const start = performance.now()
 
 	let content = []
@@ -31,35 +66,37 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 	if (filters.valid) {
 		content = locals.contentService.getFilteredContent({
 			...filters.data,
-			...(type && { type }),
+			...(category && { category }),
 			...(tags && { tags }),
 			limit: 50
 		})
 		count = locals.contentService.getFilteredContentCount({ 
 			...filters.data, 
-			...(type && { type }),
+			...(category && { category }),
 			...(tags && { tags })
 		})
 	} else {
 		content = locals.contentService.getFilteredContent({ 
-			...(type && { type }), 
+			...(category && { category }), 
 			...(tags && { tags }),
 			limit: 50 
 		})
 		count = locals.contentService.getFilteredContentCount({
-			...(type && { type }),
+			...(category && { category }),
 			...(tags && { tags })
 		})
 	}
 
 	const end = performance.now()
-	console.log('Load function: ', end - start)
+
+	const allTags = locals.tagService.getTags().map(t => ({ label: t.name, value: t.id }))
 
 	return {
 		content,
 		count,
-		type,
-		tags
+		tags: allTags,
+		sort: sortOptions,
+		categories
 	}
 }
 

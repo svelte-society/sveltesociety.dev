@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { CaretUpDown, Check } from 'phosphor-svelte'
 	import type { SuperForm } from 'sveltekit-superforms'
 	import { Control, Description, Field, FieldErrors, Label } from 'formsnap'
 	import { getContext } from 'svelte';
@@ -39,7 +38,7 @@
 				<Label class="text-xs font-medium outline-none">
 					{label}
 				</Label>
-				<Select {options} {name} bind:value={$formData[name]} {placeholder} {props} selected={selectedOptionLabel} />
+				<Select {options} {name} bind:value={$formData[name]} {props} selected={selectedOptionLabel} />
 				
 			{/snippet}
 		</Control>
