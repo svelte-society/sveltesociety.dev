@@ -33,6 +33,7 @@
 		"formsnap": "^2.0.0",
 		"marked": "^15.0.7",
 		"package-name-regex": "^4.0.0",
+		"phosphor-svelte": "^3.0.1",
 		"prettier": "^3.5.3",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
