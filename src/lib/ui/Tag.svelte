@@ -19,7 +19,7 @@ const handleClick = (e: MouseEvent) => {
 <svelte:element
 	this={onclick ? 'button' : 'a'}
 	href={$page.url.pathname === `/tags/${tag.slug}` ? '/' : `/tags/${tag.slug}`}
-	class='flex items-center gap-0.5 rounded border-2 border-svelte-300 bg-svelte-100 px-1.5 py-1 text-xs text-svelte-900'
+	class='flex items-center gap-0.5 rounded border-1 border-svelte-300 bg-svelte-100 px-1.5 py-1 text-xs text-svelte-900'
 	onclick={onclick ? handleClick : undefined}
 	role={onclick ? 'button' : 'link'}
 >
