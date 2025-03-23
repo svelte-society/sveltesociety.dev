@@ -38,6 +38,24 @@ const { form: formData } = form
         description="Select the type of content you are submitting"
         {options}
     />
+    <Input
+      placeholder="Enter the URL"
+      name="url"
+      label="Url"
+      description="The URL for the resource you are submitting."
+    />
+    <Input
+      placeholder="Enter the GitHub repo"
+      name="github_repo"
+      label="GitHub Repository"
+      description="Enter the GitHub repo for the resource you are submitting."
+    />
+    <Textarea
+      placeholder="Enter notes"
+      name="notes"
+      label="Notes"
+      description="Enter the notes for the resource you are submitting."
+    />
   </Form>
   <div class="grid gap-6">
     <div class="mt-4">
