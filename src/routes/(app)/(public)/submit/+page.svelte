@@ -4,21 +4,28 @@ import Form from '$lib/ui/form/Form.svelte';
 import Input from '$lib/ui/form/Input.svelte';
 import SuperDebug from 'sveltekit-superforms';
 import Select from '$lib/ui/form/Select.svelte';
-import { options } from './schema';
+import { options, schema } from './schema';
 	import Textarea from '$lib/ui/form/Textarea.svelte';
+	import Button from '$lib/ui/Button.svelte';
+	import { zodClient } from 'sveltekit-superforms/adapters';
 let { data } = $props();
 
 const form = superForm(data.form, {
   resetForm: true,
   delayMs: 500,
-  timeoutMs: 8000
+  timeoutMs: 8000,
+  dataType: 'json',
+  validators: zodClient(schema)
 });
 
-const { form: formData } = form
+const { form: formData, submitting } = form
 </script>
 
-<div class="max-w-3xl mx-auto">
-  <h1 class="text-2xl font-bold mb-6">Submit Content</h1>
+<div class="max-w-3xl mx-auto grid gap-6">
+  <h1 class="text-2xl font-bold mb-6">Submit a new resource</h1>
+  <p class="text-sm">
+    Before making a submission, please ensure that the resource you are submitting is not already listed on the site. Use the search bar to check if the resource is already listed.
+  </p>
   <Form {form} action="?/submit">
     <Input
         placeholder="Enter a title..."
@@ -56,29 +63,8 @@ const { form: formData } = form
       label="Notes"
       description="Enter the notes for the resource you are submitting."
     />
+    <Button type="submit" primary disabled={$submitting}>{$submitting ? 'Submitting...' : 'Submit'}</Button>
   </Form>
-  <div class="grid gap-6">
-    <div class="mt-4">
-      <button
-        type="submit"
-        class="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-md font-medium"
-        disabled={false}
-      >
-        {#if false}
-          <span class="inline-block animate-spin mr-2">↻</span>
-          Submitting...
-        {:else}
-          Submit Content
-        {/if}
-      </button>
-      
-      {#if false}
-        <p class="text-sm text-gray-500 mt-2">
-          Your submission is being processed, please wait...
-        </p>
-      {/if}
-    </div>
-  </div>
 </div>
 
 <SuperDebug data={$formData} />
