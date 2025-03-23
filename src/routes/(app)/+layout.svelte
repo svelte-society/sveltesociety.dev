@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Search from './Search.svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { fade } from 'svelte/transition';
 
 	let { data, children } = $props();
@@ -112,14 +112,14 @@
 					<li>
 						<a
 							href="/about"
-							class:font-bold={$page.url.pathname === '/about'}
+							class:font-bold={page.url.pathname === '/about'}
 							class="hover:text-slate-600">About</a
 						>
 					</li>
 					<li>
 						<a
 							href="/events"
-							class:font-bold={$page.url.pathname === '/events'}
+							class:font-bold={page.url.pathname === '/events'}
 							class="hover:text-slate-600">Events</a
 						>
 					</li>
@@ -166,14 +166,14 @@
 						<li>
 							<a
 								href="/about"
-								class:font-bold={$page.url.pathname === '/about'}
+								class:font-bold={page.url.pathname === '/about'}
 								class="block py-1 hover:text-slate-600">About</a
 							>
 						</li>
 						<li>
 							<a
 								href="/events"
-								class:font-bold={$page.url.pathname === '/events'}
+								class:font-bold={page.url.pathname === '/events'}
 								class="block py-1 hover:text-slate-600">Events</a
 							>
 						</li>
@@ -181,7 +181,7 @@
 							<li>
 								<a 
 									href="/account" 
-									class:font-bold={$page.url.pathname.startsWith('/account')}
+									class:font-bold={page.url.pathname.startsWith('/account')}
 									class="flex items-center gap-2 py-1 hover:text-slate-600"
 								>
 									<img 
