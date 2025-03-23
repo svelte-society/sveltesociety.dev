@@ -176,7 +176,7 @@ $effect(() => {
 			{#await tryVideo(getVideoId()) then info}
 				{#if info}
 					<div
-						class="mx-4 flex gap-4 rounded-md border-2 border-transparent bg-slate-100 p-4 text-sm text-slate-800 placeholder-slate-500"
+						class="mx-4 flex gap-4 rounded-md border-2 border-transparent bg-slate-100 p-4 text-sm placeholder-slate-500"
 						style="margin-top: 0.5rem"
 					>
 						<img src={info.preview} alt="Video preview" class="max-w-xs rounded" />
@@ -203,7 +203,7 @@ $effect(() => {
 			{#await tryNpm(getNpmPackage()) then info}
 				{#if info}
 					<div
-						class="mx-4 rounded-md border-2 border-transparent bg-slate-100 p-4 text-sm text-slate-800 placeholder-slate-500"
+						class="mx-4 rounded-md border-2 border-transparent bg-slate-100 p-4 text-sm  placeholder-slate-500"
 						style="margin-top: 0.5rem"
 					>
 						<div class="flex items-center gap-4">
@@ -276,7 +276,7 @@ $effect(() => {
 			{#await tryNpm(getNpmPackage()) then info}
 				{#if info}
 					<div
-						class="mx-4 rounded-md border-2 border-transparent bg-slate-100 p-4 text-sm text-slate-800 placeholder-slate-500"
+						class="mx-4 rounded-md border-2 border-transparent bg-slate-100 p-4 text-sm  placeholder-slate-500"
 						style="margin-top: 0.5rem"
 					>
 						<div class="flex items-center gap-4">
@@ -337,7 +337,7 @@ $effect(() => {
 		<div class="space-y-2">
 			<label for="body" class="block text-sm font-medium text-gray-700">Body</label>
 			<div
-				class="w-full rounded-md border-2 border-transparent bg-slate-100 text-sm text-slate-800 placeholder-slate-500"
+				class="w-full rounded-md border-2 border-transparent bg-slate-100 text-sm  placeholder-slate-500"
 			>
 				<div class="px-2 py-1.5 pr-4">
 					<MarkdownEditor name="body" bind:value={$form.body} />

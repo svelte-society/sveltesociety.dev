@@ -26,10 +26,10 @@
 	<div class="flex flex-col gap-2">
 		<Control>
 			{#snippet children({ props })}
-				<Label class="text-xs font-medium text-slate-800 outline-none">
+				<Label class="text-xs font-medium outline-none">
 					{label}
 				</Label>
-				<input class="data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600 focus:outline-2 focus:outline-sky-200 w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-7 text-sm text-slate-800 placeholder-slate-500" {...props} bind:value={$formData[name]} {placeholder} />
+				<input class="data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600 focus:outline-2 focus:outline-sky-200 w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-7 text-sm placeholder-slate-500" {...props} bind:value={$formData[name]} {placeholder} />
 			{/snippet}
 		</Control>
 		<Description class="data-fs-error:sr-only text-xs text-slate-500">{description}</Description>

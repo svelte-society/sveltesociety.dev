@@ -72,7 +72,7 @@
 			<!-- Mobile menu button -->
 			<div class="flex gap-4">
 				<button 
-				class="md:hidden md:ml-auto flex items-center p-2 rounded-md text-slate-800 hover:bg-slate-100"
+				class="md:hidden md:ml-auto flex items-center p-2 rounded-md hover:bg-slate-100"
 				onclick={toggleMenu}
 				aria-label="Toggle menu"
 			>
@@ -107,8 +107,8 @@
 			</div>
 			
 			<!-- Desktop navigation -->
-			<nav class="hidden md:flex items-center ml-auto space-x-4 text-slate-800">
-				<ul class="flex space-x-4 text-slate-800">
+			<nav class="hidden md:flex items-center ml-auto space-x-4">
+				<ul class="flex space-x-4">
 					<li>
 						<a
 							href="/about"
@@ -162,7 +162,7 @@
 				
 				<!-- Mobile navigation -->
 				<nav>
-					<ul class="flex flex-col space-y-3 text-slate-800">
+					<ul class="flex flex-col space-y-3">
 						<li>
 							<a
 								href="/about"
