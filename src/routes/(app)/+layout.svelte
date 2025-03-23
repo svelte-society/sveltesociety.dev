@@ -142,8 +142,7 @@
 					</div>
 				{:else}
 					<!-- Separator + Login link -->
-					<div class="h-6 border-l border-slate-300 mx-2"></div>
-					<a data-sveltekit-preload-data={false} href="/auth/github" class="hover:underline">
+					<a data-sveltekit-preload-data={false} href="/auth/github" class="hover:underline border-l border-slate-200 borderd-1 mx-2 pl-4">
 						Login
 					</a>
 				{/if}

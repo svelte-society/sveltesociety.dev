@@ -4,17 +4,12 @@ const { data, children } = $props()
 import LeftSidebar from './_components/LeftSidebar.svelte'
 import RightSidebar from './_components/RightSidebar.svelte'
 import { toggleLeftSidebar, toggleRightSidebar } from '$lib/stores/ui'
-import type { Tag } from '$lib/server/db/tags'
-
-// The tags are already in the correct format from the TagService
-const tags = data.tags as Tag[]
 
 // Get admin status from data
 const isAdmin = data.isAdmin
 </script>
 
 <div class="flex flex-col lg:flex-row w-full max-w-screen-2xl mx-auto relative">
-  <!-- Left sidebar - hidden on mobile/tablet, shown on desktop -->
   <button aria-label="Close left sidebar" class="fixed inset-0 z-30 bg-white opacity-90 transition-opacity lg:hidden" 
        class:hidden={!$toggleLeftSidebar} 
        onclick={() => toggleLeftSidebar.set(false)}>
@@ -27,7 +22,6 @@ const isAdmin = data.isAdmin
     <LeftSidebar />
   </div>
 
-  <!-- Main content area - full width on mobile/tablet, flex on desktop -->
   <main class="flex-1 px-4 py-6 lg:py-8 w-full">
     <div class="lg:hidden flex justify-between mb-4">
       <button aria-label="Toggle left sidebar" class="p-2 rounded-md hover:bg-gray-100" onclick={() => toggleLeftSidebar.set(true)}>
@@ -56,7 +50,7 @@ const isAdmin = data.isAdmin
        class:translate-x-0={$toggleRightSidebar}
        class:translate-x-full={!$toggleRightSidebar}
        class:lg:translate-x-0={true}>
-    <RightSidebar {tags} />
+    <RightSidebar tags={data.tags} />
   </div>
 
   <!-- Admin link - only visible for admin users -->
