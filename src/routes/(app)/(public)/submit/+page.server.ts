@@ -1,8 +1,6 @@
 import { z } from 'zod';
 import { superValidate, message } from 'sveltekit-superforms/server';
 import { fail } from '@sveltejs/kit';
-import { add_to_moderation_queue } from '$lib/server/db/moderation';
-import { get_tags } from '$lib/server/db/tags';
 import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 
@@ -21,9 +19,9 @@ const contentSchema = z.object({
 	notes: z.string().optional().or(z.literal(''))
 });
 
-export const load = (async () => {
+export const load = (async ({ locals }) => {
 	// Get all available tags for the form
-	const tags = get_tags({ limit: 50 });
+	const tags = locals.tagService.getTags({ limit: 50 });
 	
 	// Create the form using Superforms with the zod adapter
 	const form = await superValidate(zod(contentSchema));
@@ -53,7 +51,7 @@ export const actions = {
 			};
 			
 			// Add to moderation queue
-			const submissionId = add_to_moderation_queue(submissionData);
+			const submissionId = locals.moderationService.addToModerationQueue(submissionData);
 			
 			// Return success message
 			return {
