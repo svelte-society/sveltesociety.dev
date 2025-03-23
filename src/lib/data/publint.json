@@ -446,7 +446,7 @@
 	"sonda": { "valid": true },
 	"svelte-maplibre-gl": { "valid": true },
 	"ui-ingredients": { "valid": true },
-	"tauri-plugin-svelte": { "valid": true },
+	"@tauri-store/svelte": { "valid": true },
 	"wx-svelte-gantt": { "valid": true },
 	"wx-svelte-grid": { "valid": true },
 	"svelte-clerk": { "valid": true },
