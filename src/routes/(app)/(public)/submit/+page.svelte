@@ -5,6 +5,7 @@ import Input from '$lib/ui/form/Input.svelte';
 import SuperDebug from 'sveltekit-superforms';
 import Select from '$lib/ui/form/Select.svelte';
 import { options } from './schema';
+	import Textarea from '$lib/ui/form/Textarea.svelte';
 let { data } = $props();
 
 const form = superForm(data.form, {
@@ -24,6 +25,12 @@ const { form: formData } = form
         name="title"
         label="Title"
         description="Enter the title of your content submission"
+      />
+    <Textarea
+        placeholder="Enter a description..."
+        name="description"
+        label="Description"
+        description="Enter the description of your content submission."
       />
     <Select
         name="type"
