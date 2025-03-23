@@ -1,73 +1,140 @@
-Always follow these templates when creating new routes unless specifically asked to implement a server endpoint:
+## Form Implementation Pattern
+
+When implementing forms, follow this pattern:
+
+### Server-side (+page.server.ts):
 
 ```ts
-//+page.server.ts // handles everything on the backend for this route.
-import { fail } from '@sveltejs/kit'
-import type { PageServerLoad, Actions } from './$types'
+import { superValidate, message } from 'sveltekit-superforms/server';
+import { fail } from '@sveltejs/kit';
+import type { Actions, PageServerLoad } from './$types';
+import { zod } from 'sveltekit-superforms/adapters';
+import { schema } from './schema'; // Import schema from separate file
 
-// Load data and pass it to the frontend
-export const load: PageServerLoad = async ({ url, locals }) => {
-	// Example of something that can be done in the load function
-	const page = parseInt(url.searchParams.get('page') || '1', 10)
-	const perPage = 10
-	const offset = (page - 1) * perPage
-
-	const roles = locals.roleService.getRoles()
+export const load = (async ({ locals }) => {
+	// Load any data needed for the form (e.g., options)
+	const tags = locals.tagService.getTags({ limit: 50 });
 	
-	const count = roles.length
+	// Create the form using Superforms with the zod adapter
+	const form = await superValidate(zod(schema));
+	
+	return { form, tags };
+}) satisfies PageServerLoad;
 
-	return {
-		roles,
-		pagination: {
-			count,
-			perPage,
-			currentPage: page
+export const actions = {
+	submit: async ({ request, locals }) => {
+		const form = await superValidate(request, zod(schema));
+		
+		// Validate the form data
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		
+		try {
+			// Process form data (e.g., save to database)
+			const userId = locals.user?.id || 'anonymous';
+			
+			// Example: adding to moderation queue
+			const submissionData = {
+				// Form data processing
+				title: form.data.title,
+				data: JSON.stringify(form.data),
+				submitted_by: userId
+			};
+			
+			// Process the data
+			const result = locals.someService.processData(submissionData);
+			
+			// Return success message
+			return {
+				form,
+				success: true,
+				message: 'Your submission has been received.'
+			};
+		} catch (error) {
+			console.error('Error processing form:', error);
+			return message(form, {
+				type: 'error',
+				text: 'There was an error processing your submission. Please try again.'
+			});
 		}
 	}
-}
-
-export const actions: Actions = {
-
-	// Name of form action used on the front-end. Corresponds to the action in a form: `<form action="?/delete">`
-	delete: async ({ request, locals }) => {
-		// Examples of what can be done in a form action - here a user role is deleted.
-		const data = await request.formData()
-		const id = data.get('id') as unknown as number
-
-		if (!id) {
-			return fail(400, { message: 'No role id provided.' })
-		}
-
-		const deleted_role = locals.roleService.deleteRole(id)
-
-		if (!deleted_role) {
-			return { message: 'Something went wrong.' }
-		}
-
-		return { message: `Role deleted.` }
-	}
-}
+} satisfies Actions;
 ```
 
-Here is the corresponding frontend part of the route:
+### Client-side (+page.svelte):
 
-```html
+```svelte
 <script lang="ts">
-import Pagination from '$lib/ui/Pagination.svelte'
+import { superForm } from 'sveltekit-superforms/client';
+import { zodClient } from 'sveltekit-superforms/adapters';
+import Form from '$lib/ui/form/Form.svelte';
+import Input from '$lib/ui/form/Input.svelte';
+import Textarea from '$lib/ui/form/Textarea.svelte';
+import Select from '$lib/ui/form/Select.svelte';
+import Button from '$lib/ui/Button.svelte';
+import { schema, options } from './schema';
 
-let { data } = $props() // Data is where data we returned in the load function comes from. `data.roles` or `data.pagination` in this case.
+let { data } = $props();
+
+const form = superForm(data.form, {
+  resetForm: true,
+  delayMs: 500,
+  timeoutMs: 8000,
+  dataType: 'json',
+  validators: zodClient(schema)
+});
+
+const { form: formData, submitting } = form;
 </script>
 
-<div class="container mx-auto px-2 py-4">
-	{#each data.roles as role}
-		<p>{role.name}</p>
-	{/each}
-	
-	{#if data.pagination}
-		<Pagination 
-			count={data.pagination.count} 
-			perPage={data.pagination.perPage} 
-		/>
-	{/if}
+<div class="max-w-3xl mx-auto grid gap-6">
+  <h1 class="text-2xl font-bold mb-6">Form Title</h1>
+  
+  <Form {form} action="?/submit">
+    <Input
+      name="fieldName"
+      label="Field Label"
+      description="Field description"
+      placeholder="Enter value..."
+    />
+    
+    <Textarea
+      name="textArea"
+      label="Text Area"
+      description="Enter longer text here"
+      placeholder="Enter text..."
+    />
+    
+    <Select
+      name="selectField"
+      label="Select Option"
+      description="Choose from dropdown"
+      options={options}
+    />
+    
+    <Button type="submit" primary disabled={$submitting}>
+      {$submitting ? 'Submitting...' : 'Submit'}
+    </Button>
+  </Form>
 </div>
+```
+
+### Schema Definition (schema.ts):
+
+```ts
+import { z } from 'zod';
+
+export const schema = z.object({
+  fieldName: z.string().min(1, "This field is required"),
+  textArea: z.string().optional(),
+  selectField: z.string().min(1, "Please select an option"),
+  // Add other fields as needed
+});
+
+export const options = [
+  { value: 'option1', label: 'Option 1' },
+  { value: 'option2', label: 'Option 2' },
+  // Add other options as needed
+];
 ```
