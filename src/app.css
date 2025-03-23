@@ -12,6 +12,9 @@
 }
 
 @layer base {
+	html {
+		@apply text-slate-800;
+	}
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
