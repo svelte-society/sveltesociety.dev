@@ -16,10 +16,10 @@
 
 <div class="flex min-h-screen flex-col">
 	<header class="border-b-4 border-svelte-900 py-4">
-		<div class="container mx-auto flex max-w-7xl items-center justify-between w-full gap-4 px-4">
+		<div class=" container mx-auto w-full grid grid-cols-[1fr_4fr_2fr] items-center gap-4 px-4">
 			<a href="/" class="flex items-center gap-2">
 				<svg
-					class="h-auto w-24 md:w-full"
+					class="h-auto w-24"
 					height="55"
 					width="117"
 					viewBox="0 0 117 55"
@@ -64,49 +64,10 @@
 				</svg>
 			</a>
 			
-			<!-- Search component visible on medium screens and up -->
-			<div class="hidden md:block flex-1 max-w-lg mx-4">
+			<div class="flex-1">
 				<Search />
 			</div>
 			
-			<!-- Mobile menu button -->
-			<div class="flex gap-4">
-				<button 
-				class="md:hidden md:ml-auto flex items-center p-2 rounded-md hover:bg-slate-100"
-				onclick={toggleMenu}
-				aria-label="Toggle menu"
-			>
-				{#if isMenuOpen}
-					<!-- X icon for close -->
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-					</svg>
-				{:else}
-					<!-- Hamburger icon -->
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-					</svg>
-				{/if}
-			</button>
-			
-			<!-- Login button visible on mobile when not logged in -->
-			{#if !data.user}
-				<a href="/auth/github" class="md:hidden flex items-center hover:underline">
-					Login
-				</a>
-			{:else}
-				<!-- User avatar on mobile -->
-				<a href="/account" class="md:hidden flex items-center">
-					<img 
-						src={data.user.avatar_url || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.user.name || 'User')} 
-						alt="User avatar" 
-						class="w-8 h-8 rounded-full border-2 border-svelte-900"
-					/>
-				</a>
-			{/if}
-			</div>
-			
-			<!-- Desktop navigation -->
 			<nav class="hidden md:flex items-center ml-auto space-x-4">
 				<ul class="flex space-x-4">
 					<li>
@@ -148,64 +109,9 @@
 				{/if}
 			</nav>
 		</div>
-		
-		<!-- Mobile menu and search - shown when menu is open -->
-		{#if isMenuOpen}
-			<div 
-				class="md:hidden pt-4 pb-2 px-4 border-t border-slate-200"
-				transition:fade={{ duration: 200 }}
-			>
-				<!-- Mobile search -->
-				<div class="mb-4">
-					<Search />
-				</div>
-				
-				<!-- Mobile navigation -->
-				<nav>
-					<ul class="flex flex-col space-y-3">
-						<li>
-							<a
-								href="/about"
-								class:font-bold={page.url.pathname === '/about'}
-								class="block py-1 hover:text-slate-600">About</a
-							>
-						</li>
-						<li>
-							<a
-								href="/events"
-								class:font-bold={page.url.pathname === '/events'}
-								class="block py-1 hover:text-slate-600">Events</a
-							>
-						</li>
-						{#if data.user}
-							<li>
-								<a 
-									href="/account" 
-									class:font-bold={page.url.pathname.startsWith('/account')}
-									class="flex items-center gap-2 py-1 hover:text-slate-600"
-								>
-									<img 
-										src={data.user.avatar_url || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.user.name || 'User')} 
-										alt="User avatar" 
-										class="w-6 h-6 rounded-full border border-svelte-900"
-									/>
-									Profile
-								</a>
-							</li>
-						{:else}
-							<li class="border-t border-slate-200 pt-2 mt-2">
-								<a href="/auth/github" class="hover:underline">
-									Login
-								</a>
-							</li>
-						{/if}
-					</ul>
-				</nav>
-			</div>
-		{/if}
 	</header>
 
-	<div class="mx-auto flex w-full max-w-7xl">
+	<div class="mx-auto flex w-full container">
 		{@render children()}
 	</div>
 </div>

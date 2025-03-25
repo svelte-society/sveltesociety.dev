@@ -11,7 +11,7 @@ type Tag = {
 const { tags }: { tags: Tag[] } = $props()
 </script>
 
-<main class="mx-auto mt-8 max-w-xs space-y-4 p-4 md:min-w-96">
+<div class="mx-auto mt-8 max-xs space-y-4 p-4">
 	<div class="mb-4 grid grid-cols-[1fr_auto] items-start gap-1">
 		<h3 class="text-lg font-semibold">Interested in contributing?</h3>
 		<Button href="/submit" primary small icon_left="plus">Submit Post</Button>
@@ -23,8 +23,8 @@ const { tags }: { tags: Tag[] } = $props()
 		<Tags {tags} />
 	</div>
 
-	<div class="mb-4 rounded bg-amber-100 p-3 text-xs">
-		<p>
+	<div class="rounded bg-amber-100 p-3 text-xs min-w-0">
+		<p class="text-wrap">
 			Welcome to Svelte Society, homepage for everything Svelte. Find what you're looking for in the left
 			menu!
 		</p>
@@ -37,4 +37,4 @@ const { tags }: { tags: Tag[] } = $props()
 			<li>John Doe Inc.</li>
 		</ul>
 	</div>
-</main>
+</div>
