@@ -45,6 +45,14 @@ const sortOptions = [
 		value: 'oldest'	
 	},
 	{
+		label: 'Most Likes',
+		value: 'most_likes'
+	},
+	{
+		label: 'Most Saved',
+		value: 'most_saved'
+	},
+	{
 		label: 'Most Popular',
 		value: 'most_popular'
 	},
@@ -55,10 +63,7 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 	const filters = await superValidate(url, zod(schema));
 
 	const { data } = filters;
-	console.log(data)
-	const { category, tags, search, sort } = data;
-
-	const start = performance.now()
+	const { category, tags } = data;
 
 	let content = []
 	let count = 0
@@ -86,8 +91,6 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 			...(tags && { tags })
 		})
 	}
-
-	const end = performance.now()
 
 	const allTags = locals.tagService.getTags().map(t => ({ label: t.name, value: t.id }))
 
