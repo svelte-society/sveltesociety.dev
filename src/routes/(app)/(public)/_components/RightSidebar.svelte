@@ -11,8 +11,8 @@ type Tag = {
 const { tags }: { tags: Tag[] } = $props()
 </script>
 
-<div class="mx-auto mt-8 max-xs space-y-4 p-4">
-	<div class="mb-4 grid grid-cols-[1fr_auto] items-start gap-1">
+<div class="@container space-y-4">
+	<div class="mb-4 grid grid-cols-1 @xs:grid-cols-[1fr_auto] items-start gap-1">
 		<h3 class="text-lg font-semibold">Interested in contributing?</h3>
 		<Button href="/submit" primary small icon_left="plus">Submit Post</Button>
 	</div>

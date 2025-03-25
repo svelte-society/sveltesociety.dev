@@ -111,7 +111,7 @@
 		</div>
 	</header>
 
-	<div class="w-full grid grid-cols-[1fr_4fr_2fr] mx-auto relative max-w-7xl">
+	<div class="w-full grid grid-cols-[1fr_4fr_2fr] gap-2 md:gap-4 lg:gap-6 mx-auto px-4 relative max-w-7xl py-8">
 		{@render children()}
 	</div>
 </div>

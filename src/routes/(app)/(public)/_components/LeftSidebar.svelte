@@ -17,7 +17,7 @@ const links = [
 ]
 </script>
 
-<aside class="w-48 px-4 py-10">
+<aside>
 	<nav>
 		<ul class="text-sm font-bold">
 			{#each links as link}
