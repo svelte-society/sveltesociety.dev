@@ -16,7 +16,7 @@
 
 <div class="flex min-h-screen flex-col">
 	<header class="border-b-4 border-svelte-900 py-4">
-		<div class=" container mx-auto w-full grid grid-cols-[1fr_4fr_2fr] items-center gap-4 px-4">
+		<div class="max-w-7xl mx-auto w-full grid grid-cols-[1fr_4fr_2fr] items-center gap-4 px-4">
 			<a href="/" class="flex items-center gap-2">
 				<svg
 					class="h-auto w-24"
@@ -111,7 +111,7 @@
 		</div>
 	</header>
 
-	<div class="mx-auto flex w-full container">
+	<div class="w-full grid grid-cols-[1fr_4fr_2fr] mx-auto relative max-w-7xl">
 		{@render children()}
 	</div>
 </div>
