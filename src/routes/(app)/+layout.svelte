@@ -11,7 +11,7 @@
 <div class="flex min-h-screen flex-col">
 	<Header user={data.user} />
 
-	<main class="w-full grid grid-cols-[1fr_4fr_2fr] gap-2 md:gap-4 lg:gap-6 mx-auto px-4 relative max-w-7xl py-8">
+	<main class="w-full grid grid-cols-[1.5fr_5fr_2.5fr] gap-2 md:gap-4 lg:gap-6 mx-auto px-4 relative max-w-7xl py-8">
 		<LeftSidebar />
 
 		<div>

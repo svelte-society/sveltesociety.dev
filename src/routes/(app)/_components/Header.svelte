@@ -6,7 +6,7 @@
 </script>
 
 <header class="border-b-4 border-svelte-900 py-4">
-    <div class="max-w-7xl mx-auto w-full grid grid-cols-[1fr_4fr_2fr] items-center gap-4 px-4">
+    <div class="max-w-7xl mx-auto w-full grid grid-cols-[1.5fr_5fr_2.5fr] items-center gap-4 px-4">
         <a href="/" class="flex items-center gap-2">
             <svg
                 class="h-auto w-24"

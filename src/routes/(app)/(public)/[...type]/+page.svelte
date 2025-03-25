@@ -8,10 +8,10 @@
 
 </script>
 
-<Filters categories={data.categories} tags={data.tags} sort={data.sort} />
 
 <div class="grid gap-6">
-	{#if data.content.length > 0}
+	<Filters categories={data.categories} tags={data.tags} sort={data.sort} />
+	{#if data.count > 0}
 		{#each data.content as item}
 			<ContentCard 
 				id={item.id}
@@ -36,10 +36,7 @@
 			<p class="text-gray-500">Try adjusting your filters or check back later.</p>
 		</div>
 	{/if}
-</div>
-
-{#if data.count > 0}
-	<div class="mt-8">
+	{#if data.count > 0}
 		<Pagination count={data.count} />
-	</div>
-{/if}
+	{/if}
+</div>
