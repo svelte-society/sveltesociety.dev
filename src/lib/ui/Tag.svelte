@@ -1,5 +1,10 @@
+<script module>
+	import { queryParameters } from 'sveltekit-search-params';
+
+	const params = queryParameters()
+</script>
 <script lang="ts">
-import { page } from '$app/stores'
+import { page } from '$app/state'
 
 type Tag = {
 	id: string
@@ -18,12 +23,12 @@ const handleClick = (e: MouseEvent) => {
 
 <svelte:element
 	this={onclick ? 'button' : 'a'}
-	href={$page.url.pathname === `/tags/${tag.slug}` ? '/' : `/tags/${tag.slug}`}
-	class='flex items-center gap-0.5 rounded border-1 border-svelte-300 bg-svelte-100 px-1.5 py-1 text-xs text-svelte-900'
+	href={page.url.pathname === `/tags/${tag.slug}` ? '/' : `/tags/${tag.slug}`}
+	class={['flex items-center gap-0.5 rounded border-1 border-slate-200 bg-slate-100 px-1.5 py-1 text-xs text-zinc-800', { 'border-svelte-300 bg-svelte-100 text-svelte-900': $params?.tags?.includes(tag.slug) }]}
 	onclick={onclick ? handleClick : undefined}
 	role={onclick ? 'button' : 'link'}
 >
-	<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-svelte-500">
 		<path
 			fill-rule="evenodd"
 			clip-rule="evenodd"
