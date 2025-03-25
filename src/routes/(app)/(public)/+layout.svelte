@@ -10,7 +10,7 @@ const isAdmin = data.isAdmin
 
 <LeftSidebar />
 
-<main class="px-4 py-6 lg:py-8 w-full">
+<main class="">
   {@render children()}
 </main>
 
