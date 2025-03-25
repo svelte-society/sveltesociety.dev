@@ -3,8 +3,6 @@ import Button from '$lib/ui/Button.svelte'
 
 let { data } = $props()
 
-$inspect(data)
-
 const statCards = [
 	{ title: 'Posts', color: 'bg-blue-100', count: 0, icon: 'post' },
 	{ title: 'Likes', color: 'bg-green-100', count: data.counts.like, icon: 'thumb-up' },
