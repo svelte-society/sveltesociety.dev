@@ -10,7 +10,7 @@ let value = $state('')
 	data-sveltekit-keepfocus
 	data-sveltekit-replacestate
 	data-sveltekit-noscroll
-	class="relative w-full max-w-2xl"
+	class="relative w-full"
 >
 	<div class="relative">
 		<div class="pointer-events-none absolute inset-y-0 left-2.5 flex items-center">
@@ -36,8 +36,8 @@ let value = $state('')
 			name="search"
 			placeholder="Search by title, description or body..."
 		/>
-		<div class="absolute inset-y-0 right-1.5 flex items-center">
-			<Button thin type="submit" secondary>Search</Button>
+		<div class="sr-only">
+			<Button type="submit">Search</Button>
 		</div>
 	</div>
 </form>
