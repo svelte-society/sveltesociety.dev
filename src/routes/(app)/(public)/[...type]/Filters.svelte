@@ -51,25 +51,23 @@
         }, 0);
     }
 </script>
-
-<div class="grid gap-4 mb-4">    
-    <form class="grid gap-0.5">
-        <div class="flex w-full gap-2 mb-4">
-            <div class="flex flex-col gap-2 w-full">
-                <label for="category" class="text-xs font-medium outline-none">Category</label>
-                <Select name="category" bind:value={selectedCategory} selected={selectedCategoryLabel} options={categories} />
-            </div>
-            <div class="flex flex-col gap-2 w-full">
-                <label for="sort" class="text-xs font-medium outline-none">Sort</label>
-                <Select name="sort" bind:value={selectedSort} selected={selectedSortLabel} options={sort} />
-            </div>
+  
+<form class="@container grid gap-0.5">
+    <div class="grid grid-cols-1 @md:grid-cols-2 w-full gap-2 mb-4">
+        <div class="flex flex-col gap-2 w-full">
+            <label for="category" class="text-xs font-medium outline-none">Category</label>
+            <Select name="category" bind:value={selectedCategory} selected={selectedCategoryLabel} options={categories} />
         </div>
         <div class="flex flex-col gap-2 w-full">
-            <label for="sort" class="text-xs font-medium outline-none">Tags</label>
-            <Combobox {tags} />
+            <label for="sort" class="text-xs font-medium outline-none">Sort</label>
+            <Select name="sort" bind:value={selectedSort} selected={selectedSortLabel} options={sort} />
         </div>
-        <div class="sr-only">
-            <Button type="submit">Filter</Button>
-        </div>
-    </form>
-</div>
+    </div>
+    <div class="flex flex-col gap-2 w-full">
+        <label for="sort" class="text-xs font-medium outline-none">Tags</label>
+        <Combobox {tags} />
+    </div>
+    <div class="sr-only">
+        <Button type="submit">Filter</Button>
+    </div>
+</form>
