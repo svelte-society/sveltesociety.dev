@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types'
-import { ModerationStatus } from '$lib/server/db/moderation'
+import { ModerationStatus } from '$lib/server/services/moderation'
 
 export const load = (async ({ locals }) => {
 	const users = locals.userService.getUserCount()

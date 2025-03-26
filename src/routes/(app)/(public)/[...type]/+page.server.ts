@@ -92,10 +92,22 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 		})
 	}
 
-	const allTags = locals.tagService.getTags().map(t => ({ label: t.name, value: t.id }))
+	const allTags = locals.tagService.getTags().map(t => ({ label: t.name, value: t.slug }))
+
+	let mappedContent = content;
+	if (locals.user?.id) {
+		const contentIds = content.map(piece => piece.id);
+		const { userLikes, userSaves } = locals.interactionsService.getUserLikesAndSaves(locals.user.id, contentIds);
+		
+		mappedContent = content.map(piece => ({
+			...piece,
+			liked: userLikes.has(piece.id),
+			saved: userSaves.has(piece.id)
+		}));
+	}
 
 	return {
-		content,
+		content: mappedContent,
 		count,
 		tags: allTags,
 		sort: sortOptions,

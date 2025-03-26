@@ -1,74 +1,62 @@
 <script lang="ts">
-import SuperDebug, { superForm } from 'sveltekit-superforms'
+import Input from '$lib/ui/form/Input.svelte'
 import Button from '$lib/ui/Button.svelte'
+import Form from '$lib/ui/form/Form.svelte'
+import { superForm } from 'sveltekit-superforms/client'
 
-const { data } = $props<{ form: any }>()
-const { form, errors, enhance } = superForm(data.form)
+let { data } = $props()
+
+const form = superForm(data.form, {
+	resetForm: false,
+	delayMs: 500,
+	timeoutMs: 8000,
+	dataType: 'json'
+})
+
+const { form: formData, submitting } = form
 </script>
 
-<form use:enhance method="post" class="mb-4 space-y-6 rounded bg-white px-8 pb-8 pt-6 shadow-md">
-	<input type="hidden" id="id" name="id" value={$form.id} />
-
-	<div class="mb-4">
-		<label for="name" class="mb-2 block text-sm font-bold text-gray-700">Name:</label>
-		<input
-			type="text"
-			id="name"
+<div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
+	<h1 class="mb-6 text-3xl font-bold text-gray-800">Edit Role</h1>
+	<Form {form} action="">
+		<input type="hidden" name="id" value={$formData.id} />
+		
+		<Input
 			name="name"
-			bind:value={$form.name}
-			required
-			class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+			label="Name"
+			placeholder="Admin"
+			description="Enter the name of the role"
 		/>
-		{#if $errors.name}
-			<p class="text-xs italic text-red-500">{$errors.name}</p>
-		{/if}
-	</div>
-
-	<div class="space-y-2">
-		<label for="value" class="mb-2 block text-sm font-bold text-gray-700">Value:</label>
-		<input
-			type="text"
-			id="value"
+		<Input
 			name="value"
-			bind:value={$form.value}
-			required
-			class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+			label="Value"
+			placeholder="ADMIN"
+			description="Enter the value of the role (usually uppercase)"
 		/>
-		{#if $errors.value}
-			<p class="text-xs italic text-red-500">{$errors.value}</p>
-		{/if}
-	</div>
-
-	<div class="mb-4">
-		<label for="description" class="mb-2 block text-sm font-bold text-gray-700">Description:</label>
-		<input
-			type="text"
-			id="description"
+		<Input
 			name="description"
-			bind:value={$form.description}
-			required
-			class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+			label="Description"
+			placeholder="Administrator role with full access"
+			description="Enter a description of the role"
 		/>
-		{#if $errors.description}
-			<p class="text-xs italic text-red-500">{$errors.description}</p>
-		{/if}
-	</div>
-
-	<div class="mb-4 flex items-center">
-		<label class="inline-flex items-center space-x-2">
-			<span class="text-sm font-bold text-gray-700">Active:</span>
-			<input
-				type="checkbox"
-				name="active"
-				bind:checked={$form.active}
-				class="form-checkbox text-blue-600"
-			/>
-		</label>
-	</div>
-
-	<div class="flex items-center justify-between">
-		<Button primary type="submit">Update Role</Button>
-	</div>
-</form>
-
-<SuperDebug data={$form} />
+		
+		<div class="mb-4">
+			<label class="flex items-center space-x-2">
+				<input
+					type="checkbox"
+					name="active"
+					checked={$formData.active}
+					class="form-checkbox h-5 w-5 text-blue-600"
+				/>
+				<span class="text-sm font-medium text-gray-700">Active</span>
+			</label>
+			<p class="mt-1 text-sm text-gray-500">Is this role currently active?</p>
+		</div>
+		
+		<div class="pt-4">
+			<Button primary type="submit" disabled={$submitting}>
+				{$submitting ? 'Updating...' : 'Update Role'}
+			</Button>
+		</div>
+	</Form>
+</div>
