@@ -129,8 +129,12 @@ export class ContentService {
     }
     
     // Status filter
-    whereConditions.push(filters.status ? "c.status = ?" : "c.status = 'published'");
-    if (filters.status) params.push(filters.status);
+    if (filters.status === 'all') {
+      // Don't add any status condition when requesting all content
+    } else {
+      whereConditions.push(filters.status ? "c.status = ?" : "c.status = 'published'");
+      if (filters.status) params.push(filters.status);
+    }
     
     // Type filter
     if (filters.type) {
@@ -227,8 +231,12 @@ export class ContentService {
     }
     
     // Status filter
-    whereConditions.push(filters.status ? "c.status = ?" : "c.status = 'published'");
-    if (filters.status) params.push(filters.status);
+    if (filters.status === 'all') {
+      // Don't add any status condition when requesting all content
+    } else {
+      whereConditions.push(filters.status ? "c.status = ?" : "c.status = 'published'");
+      if (filters.status) params.push(filters.status);
+    }
     
     // Type filter
     if (filters.type) {
