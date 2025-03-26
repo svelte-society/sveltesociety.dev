@@ -1,32 +1,26 @@
 <script lang="ts">
-export let src: string | null = null
-export let name: string
-export let size: 'sm' | 'md' | 'lg' = 'md'
+	import { Avatar } from "bits-ui";
 
-const sizeClasses = {
-	sm: 'w-8 h-8 text-xs',
-	md: 'w-10 h-10 text-sm',
-	lg: 'w-12 h-12 text-base'
-}
+	let { src, name, size } = $props()
 
-function getInitials(name: string): string {
+	function getInitials(name: string): string {
 	return name
 		.split(' ')
 		.map((word) => word[0])
 		.join('')
 		.toUpperCase()
 		.slice(0, 2)
-}
-
-const initials = getInitials(name)
-</script>
-
-<div
-	class={`relative ${sizeClasses[size]} flex items-center justify-center overflow-hidden rounded-full border-2 border-indigo-500 bg-gray-200`}
->
-	{#if src}
-		<img {src} alt={name} class="h-full w-full object-cover" />
-	{:else}
-		<span class="font-medium text-gray-600">{initials}</span>
-	{/if}
-</div>
+	}
+  </script>
+   
+  <Avatar.Root
+	delayMs={200}
+	class="data-[status=loaded]:border-svelte-900 bg-svelte-500 text-white h-10 w-10 rounded-full border text-sm font-medium uppercase data-[status=loading]:border-transparent hover:opacity-80"
+  >
+	<div
+	  class="flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-transparent"
+	>
+	  <Avatar.Image {src} alt={name} />
+	  <Avatar.Fallback class="border-none">{getInitials(name)}</Avatar.Fallback>
+	</div>
+  </Avatar.Root>
