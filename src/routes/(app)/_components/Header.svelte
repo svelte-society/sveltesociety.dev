@@ -81,7 +81,7 @@
                 <Dropdown {user} />
             {:else}
                 <!-- Separator + Login link -->
-                <a data-sveltekit-preload-data={false} href="/auth/github" class="hover:underline border-l border-slate-200 borderd-1 mx-2 pl-4">
+                <a data-sveltekit-preload-data={false} href="/auth/github" class="hover:underline">
                     Login
                 </a>
             {/if}
