@@ -28,7 +28,7 @@ export const actions: Actions = {
 
 		try {
 			// Create new content using service
-			const contentId = await locals.contentService.addContent(form.data)
+			const contentId = locals.contentService.addContent(form.data)
 
 			// Redirect to content listing after successful save
 			throw redirect(303, '/admin/content')

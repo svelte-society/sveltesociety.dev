@@ -310,4 +310,53 @@ export class ContentService {
 			offset
 		})
 	}
+
+	addContent(data: {
+		title: string;
+		slug: string;
+		description: string;
+		type: string;
+		status: string;
+		content: string;
+		tags: string[];
+		metadata?: {
+			videoId?: string;
+			npm?: string;
+		};
+	}) {
+		const id = crypto.randomUUID()
+		const now = new Date().toISOString()
+
+		this.db.prepare(`
+			INSERT INTO content (
+				id, title, slug, description, type, status, 
+				content, created_at, updated_at, published_at,
+				likes, saves
+			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)
+		`).run(
+			id,
+			data.title,
+			data.slug,
+			data.description,
+			data.type,
+			data.status,
+			data.content,
+			now,
+			now,
+			data.status === 'published' ? now : null
+		)
+
+		// Add tags if present
+		if (data.tags && data.tags.length > 0) {
+			const insertTagStmt = this.db.prepare(
+				`INSERT INTO content_to_tags (content_id, tag_id) VALUES (?, ?)`
+			)
+			
+			for (const tag of data.tags) {
+				insertTagStmt.run(id, tag)
+			}
+		}
+
+		return id
+	}
 }
