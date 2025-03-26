@@ -1,26 +1,36 @@
-import { ModerationStatus } from '$lib/server/db/moderation'
+import { ModerationStatus } from '$lib/server/services/moderation'
 import type { PageServerLoad, Actions } from './$types'
 import { fail } from '@sveltejs/kit'
 
 export const load: PageServerLoad = async ({ url, locals }) => {
-	const page = Number(url.searchParams.get('page') || '1')
-	const itemsPerPage = 10
-	const offset = (page - 1) * itemsPerPage
+	try {
+		const page = Math.max(1, Number(url.searchParams.get('page') || '1'))
+		const itemsPerPage = 10
+		const offset = (page - 1) * itemsPerPage
 
-	const totalItems = locals.moderationService.getModerationQueueCount(ModerationStatus.PENDING)
-	const totalPages = Math.ceil(totalItems / itemsPerPage)
+		const totalItems = await locals.moderationService.getModerationQueueCount(ModerationStatus.PENDING)
+		const totalPages = Math.ceil(totalItems / itemsPerPage)
 
-	const items = locals.moderationService.getModerationQueuePaginated({
-		status: ModerationStatus.PENDING,
-		limit: itemsPerPage,
-		offset
-	})
+		const items = await locals.moderationService.getModerationQueuePaginated({
+			status: ModerationStatus.PENDING,
+			limit: itemsPerPage,
+			offset
+		})
 
-	return {
-		items,
-		page,
-		totalPages,
-		totalItems
+		return {
+			items,
+			page,
+			totalPages,
+			totalItems
+		}
+	} catch (error) {
+		console.error('Error loading moderation queue:', error)
+		return {
+			items: [],
+			page: 1,
+			totalPages: 0,
+			totalItems: 0
+		}
 	}
 }
 
@@ -30,35 +40,50 @@ export const actions: Actions = {
 			return fail(401, { success: false, message: 'Unauthorized' })
 		}
 
-		const data = await request.formData()
-		const id = data.get('id') as string
-		if (!id) return fail(400, { success: false, message: 'Missing ID' })
+		try {
+			const data = await request.formData()
+			const id = data.get('id') as string
+			if (!id) return fail(400, { success: false, message: 'Missing ID' })
 
-		locals.moderationService.updateModerationStatus(id, ModerationStatus.APPROVED, locals.user.id)
-		return { success: true }
+			await locals.moderationService.updateModerationStatus(id, ModerationStatus.APPROVED, locals.user.id)
+			return { success: true }
+		} catch (error) {
+			console.error('Error approving item:', error)
+			return fail(500, { success: false, message: 'Failed to approve item' })
+		}
 	},
 	reject: async ({ request, locals }) => {
 		if (!locals.user) {
 			return fail(401, { success: false, message: 'Unauthorized' })
 		}
 
-		const data = await request.formData()
-		const id = data.get('id') as string
-		if (!id) return fail(400, { success: false, message: 'Missing ID' })
+		try {
+			const data = await request.formData()
+			const id = data.get('id') as string
+			if (!id) return fail(400, { success: false, message: 'Missing ID' })
 
-		locals.moderationService.updateModerationStatus(id, ModerationStatus.REJECTED, locals.user.id)
-		return { success: true }
+			await locals.moderationService.updateModerationStatus(id, ModerationStatus.REJECTED, locals.user.id)
+			return { success: true }
+		} catch (error) {
+			console.error('Error rejecting item:', error)
+			return fail(500, { success: false, message: 'Failed to reject item' })
+		}
 	},
 	bulk_reject: async ({ request, locals }) => {
 		if (!locals.user) {
 			return fail(401, { success: false, message: 'Unauthorized' })
 		}
 
-		const data = await request.formData()
-		const ids = JSON.parse(data.get('ids') as string) as string[]
-		for (const id of ids) {
-			locals.moderationService.updateModerationStatus(id, ModerationStatus.REJECTED, locals.user.id)
+		try {
+			const data = await request.formData()
+			const ids = JSON.parse(data.get('ids') as string) as string[]
+			for (const id of ids) {
+				await locals.moderationService.updateModerationStatus(id, ModerationStatus.REJECTED, locals.user.id)
+			}
+			return { success: true }
+		} catch (error) {
+			console.error('Error bulk rejecting items:', error)
+			return fail(500, { success: false, message: 'Failed to bulk reject items' })
 		}
-		return { success: true }
 	}
 }
