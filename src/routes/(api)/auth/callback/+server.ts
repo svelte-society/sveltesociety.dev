@@ -89,8 +89,13 @@ export const GET: RequestHandler = async ({ url, cookies, locals }) => {
 	} catch (error) {
 		console.error('Auth error:', error)
 		if (error instanceof Error && error.message === 'GitHub OAuth provider not found') {
-			return new Response('OAuth configuration error. Please contact the administrator.', { status: 500 })
+			return new Response('OAuth configuration error. Please contact the administrator.', {
+				status: 500
+			})
 		}
-		return new Response('Authentication failed: ' + (error instanceof Error ? error.message : String(error)), { status: 500 })
+		return new Response(
+			'Authentication failed: ' + (error instanceof Error ? error.message : String(error)),
+			{ status: 500 }
+		)
 	}
 }

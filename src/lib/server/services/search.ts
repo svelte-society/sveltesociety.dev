@@ -1,4 +1,4 @@
-import { Database } from 'bun:sqlite';
+import { Database } from 'bun:sqlite'
 
 interface SearchResult {
 	content_id: string
@@ -19,20 +19,22 @@ export class SearchService {
 	 */
 	private escapeSearchQuery(query: string): string {
 		// Replace any special characters that could break the FTS query
-		return query.replace(/['"\\]/g, '');
+		return query.replace(/['"\\]/g, '')
 	}
 
 	/**
 	 * Searches for content using the FTS index
 	 */
-	search({ query, limit = 20, searchFields = ['title', 'body', 'description'] }: SearchOptions): string[] {
+	search({
+		query,
+		limit = 20,
+		searchFields = ['title', 'body', 'description']
+	}: SearchOptions): string[] {
 		try {
-			const escapedQuery = this.escapeSearchQuery(query);
-			
+			const escapedQuery = this.escapeSearchQuery(query)
+
 			// Build the search query for specified fields
-			const searchQuery = searchFields
-				.map(field => `${field}:${escapedQuery}*`)
-				.join(' OR ');
+			const searchQuery = searchFields.map((field) => `${field}:${escapedQuery}*`).join(' OR ')
 
 			// Prepare and execute the search statement
 			const stmt = this.db.prepare(`
@@ -41,38 +43,39 @@ export class SearchService {
 				WHERE content_fts MATCH ?
 				ORDER BY rank
 				LIMIT ?
-			`);
+			`)
 
-			const results = stmt.all(searchQuery, limit) as SearchResult[];
-			return results.map(result => result.content_id);
+			const results = stmt.all(searchQuery, limit) as SearchResult[]
+			return results.map((result) => result.content_id)
 		} catch (error) {
-			console.error('Error performing full-text search:', error);
-			return [];
+			console.error('Error performing full-text search:', error)
+			return []
 		}
 	}
 
 	/**
 	 * Returns the total count of matches for a search query
 	 */
-	count({ query, searchFields = ['title', 'body', 'description'] }: Omit<SearchOptions, 'limit'>): number {
+	count({
+		query,
+		searchFields = ['title', 'body', 'description']
+	}: Omit<SearchOptions, 'limit'>): number {
 		try {
-			const escapedQuery = this.escapeSearchQuery(query);
-			
-			const searchQuery = searchFields
-				.map(field => `${field}:${escapedQuery}*`)
-				.join(' OR ');
+			const escapedQuery = this.escapeSearchQuery(query)
+
+			const searchQuery = searchFields.map((field) => `${field}:${escapedQuery}*`).join(' OR ')
 
 			const stmt = this.db.prepare(`
 				SELECT COUNT(*) as count
 				FROM content_fts
 				WHERE content_fts MATCH ?
-			`);
+			`)
 
-			const result = stmt.get(searchQuery) as { count: number };
-			return result.count;
+			const result = stmt.get(searchQuery) as { count: number }
+			return result.count
 		} catch (error) {
-			console.error('Error counting search results:', error);
-			return 0;
+			console.error('Error counting search results:', error)
+			return 0
 		}
 	}
 }

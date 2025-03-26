@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ url, locals }) => {
 	const page = parseInt(url.searchParams.get('page') || '1', 10)
 	const perPage = 10
 	const offset = (page - 1) * perPage
-	
+
 	// Get paginated tags and total count
 	const tags = locals.tagService.getTags({ limit: perPage, offset }) || []
 	const count = locals.tagService.getTagsCount()
@@ -23,11 +23,11 @@ export const load: PageServerLoad = async ({ url, locals }) => {
 		return fail(400, { message: 'Error getting tags' })
 	}
 
-	return { 
-		tags, 
+	return {
+		tags,
 		count,
 		perPage,
-		form 
+		form
 	}
 }
 

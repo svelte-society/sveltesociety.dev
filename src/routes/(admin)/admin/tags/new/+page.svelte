@@ -1,11 +1,11 @@
 <script lang="ts">
-import Input from '$lib/ui/form/Input.svelte'
-import { zod } from 'sveltekit-superforms/adapters'
-import { schema } from './schema'
-import { superForm } from 'sveltekit-superforms'
-import { slugify } from '$lib/utils/slug'
-let { data } = $props()
-const { form, errors, enhance } = superForm(data.form, zod(schema))
+	import Input from '$lib/ui/form/Input.svelte'
+	import { zod } from 'sveltekit-superforms/adapters'
+	import { schema } from './schema'
+	import { superForm } from 'sveltekit-superforms'
+	import { slugify } from '$lib/utils/slug'
+	let { data } = $props()
+	const { form, errors, enhance } = superForm(data.form, zod(schema))
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
@@ -32,7 +32,7 @@ const { form, errors, enhance } = superForm(data.form, zod(schema))
 		/>
 		<button
 			type="submit"
-			class="w-full rounded-md bg-indigo-600 px-4 py-2 text-white transition duration-150 ease-in-out hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+			class="w-full rounded-md bg-indigo-600 px-4 py-2 text-white transition duration-150 ease-in-out hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
 		>
 			Create Tag
 		</button>

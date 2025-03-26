@@ -42,7 +42,7 @@ const sortOptions = [
 	},
 	{
 		label: 'Oldest',
-		value: 'oldest'	
+		value: 'oldest'
 	},
 	{
 		label: 'Most Likes',
@@ -55,15 +55,14 @@ const sortOptions = [
 	{
 		label: 'Most Popular',
 		value: 'most_popular'
-	},
+	}
 ]
 
-
 export const load: PageServerLoad = async ({ url, locals, params }) => {
-	const filters = await superValidate(url, zod(schema));
+	const filters = await superValidate(url, zod(schema))
 
-	const { data } = filters;
-	const { category, tags } = data;
+	const { data } = filters
+	const { category, tags } = data
 
 	let content = []
 	let count = 0
@@ -75,16 +74,16 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 			...(tags && { tags }),
 			limit: 50
 		})
-		count = locals.contentService.getFilteredContentCount({ 
-			...filters.data, 
+		count = locals.contentService.getFilteredContentCount({
+			...filters.data,
 			...(category && { category }),
 			...(tags && { tags })
 		})
 	} else {
-		content = locals.contentService.getFilteredContent({ 
-			...(category && { category }), 
+		content = locals.contentService.getFilteredContent({
+			...(category && { category }),
 			...(tags && { tags }),
-			limit: 50 
+			limit: 50
 		})
 		count = locals.contentService.getFilteredContentCount({
 			...(category && { category }),
@@ -92,18 +91,21 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 		})
 	}
 
-	const allTags = locals.tagService.getTags().map(t => ({ label: t.name, value: t.slug }))
+	const allTags = locals.tagService.getTags().map((t) => ({ label: t.name, value: t.slug }))
 
-	let mappedContent = content;
+	let mappedContent = content
 	if (locals.user?.id) {
-		const contentIds = content.map(piece => piece.id);
-		const { userLikes, userSaves } = locals.interactionsService.getUserLikesAndSaves(locals.user.id, contentIds);
-		
-		mappedContent = content.map(piece => ({
+		const contentIds = content.map((piece) => piece.id)
+		const { userLikes, userSaves } = locals.interactionsService.getUserLikesAndSaves(
+			locals.user.id,
+			contentIds
+		)
+
+		mappedContent = content.map((piece) => ({
 			...piece,
 			liked: userLikes.has(piece.id),
 			saved: userSaves.has(piece.id)
-		}));
+		}))
 	}
 
 	return {

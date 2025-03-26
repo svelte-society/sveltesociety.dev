@@ -1,15 +1,15 @@
 <script lang="ts">
-	import ContentCard from '$lib/ui/ContentCard.svelte';
-	import { convertTags } from '$lib/types/content';
-	import Pagination from '$lib/ui/Pagination.svelte';
+	import ContentCard from '$lib/ui/ContentCard.svelte'
+	import { convertTags } from '$lib/types/content'
+	import Pagination from '$lib/ui/Pagination.svelte'
 
-	let { data } = $props();
+	let { data } = $props()
 </script>
 
 <div class="grid gap-6">
 	{#if data.content.length > 0}
 		{#each data.content as item}
-			<ContentCard 
+			<ContentCard
 				id={item.id}
 				title={item.title}
 				description={item.description}
@@ -27,12 +27,9 @@
 			/>
 		{/each}
 
-		<Pagination 
-			count={data.total} 
-			perPage={12} 
-		/>
+		<Pagination count={data.total} perPage={12} />
 	{:else}
-		<div class="text-center py-10">
+		<div class="py-10 text-center">
 			<h2 class="text-2xl font-bold">No content found for this tag</h2>
 			<p class="text-gray-500">Try browsing other tags or check back later.</p>
 		</div>

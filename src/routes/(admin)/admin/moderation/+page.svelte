@@ -1,35 +1,35 @@
 <script lang="ts">
-import { enhance } from '$app/forms'
-import { formatRelativeDate } from '$lib/utils/date'
-import Button from '$lib/ui/Button.svelte'
-import ConfirmWithDialog from '$lib/ui/admin/ConfirmWithDialog.svelte'
-import Table from '$lib/ui/admin/Table.svelte'
-import type { PreviewModerationQueueItem } from '$lib/server/db/moderation'
+	import { enhance } from '$app/forms'
+	import { formatRelativeDate } from '$lib/utils/date'
+	import Button from '$lib/ui/Button.svelte'
+	import ConfirmWithDialog from '$lib/ui/admin/ConfirmWithDialog.svelte'
+	import Table from '$lib/ui/admin/Table.svelte'
+	import type { PreviewModerationQueueItem } from '$lib/server/db/moderation'
 
-let { data } = $props()
+	let { data } = $props()
 
-let selectedIds: number[] = $state([])
+	let selectedIds: number[] = $state([])
 
-// Convert string ID to number
-function toNumberId(id: string | number): number {
-	return typeof id === 'string' ? parseInt(id, 10) : id;
-}
-
-function toggleSelection(id: string | number) {
-	const numId = toNumberId(id);
-	if (selectedIds.includes(numId)) {
-		selectedIds = selectedIds.filter((item) => item !== numId)
-	} else {
-		selectedIds = [...selectedIds, numId]
+	// Convert string ID to number
+	function toNumberId(id: string | number): number {
+		return typeof id === 'string' ? parseInt(id, 10) : id
 	}
-}
 
-function getPageUrl(pageNum: number) {
-	if (pageNum < 1 || pageNum > data.totalPages) {
-		return null
+	function toggleSelection(id: string | number) {
+		const numId = toNumberId(id)
+		if (selectedIds.includes(numId)) {
+			selectedIds = selectedIds.filter((item) => item !== numId)
+		} else {
+			selectedIds = [...selectedIds, numId]
+		}
 	}
-	return `?page=${pageNum}`
-}
+
+	function getPageUrl(pageNum: number) {
+		if (pageNum < 1 || pageNum > data.totalPages) {
+			return null
+		}
+		return `?page=${pageNum}`
+	}
 </script>
 
 <div class="container mx-auto px-2 py-4">

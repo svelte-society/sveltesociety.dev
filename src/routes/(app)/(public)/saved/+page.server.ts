@@ -34,19 +34,23 @@ export const load = (async ({ locals, url }) => {
 			ORDER BY s.created_at DESC
 			LIMIT ? OFFSET ?
 		`)
-		const savedContentIds = savedContentQuery.all(locals.user.id, limit, offset).map(row => (row as { target_id: string }).target_id)
+		const savedContentIds = savedContentQuery
+			.all(locals.user.id, limit, offset)
+			.map((row) => (row as { target_id: string }).target_id)
 
 		// Get content details for the paginated IDs
-		const content = savedContentIds.map(id => locals.contentService.getContentById(id)).filter(Boolean) as ContentItem[]
+		const content = savedContentIds
+			.map((id) => locals.contentService.getContentById(id))
+			.filter(Boolean) as ContentItem[]
 
 		// Get user interactions
 		const { userLikes, userSaves } = locals.interactionsService.getUserLikesAndSaves(
 			locals.user.id,
-			content.map(c => c.id.toString())
+			content.map((c) => c.id.toString())
 		)
 
 		return {
-			content: content.map(c => ({
+			content: content.map((c) => ({
 				...c,
 				liked: userLikes.has(c.id.toString()),
 				saved: userSaves.has(c.id.toString())

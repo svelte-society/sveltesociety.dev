@@ -33,15 +33,15 @@ const userService = new UserService(db)
 const collectionService = new CollectionService(db)
 
 export const attach_services: Handle = async ({ event, resolve }) => {
-    event.locals.db = db
-    event.locals.contentService = contentService
-    event.locals.searchService = searchService
-    event.locals.interactionsService = interactionsService
-    event.locals.roleService = roleService
-    event.locals.sessionService = sessionService
-    event.locals.tagService = tagService
-    event.locals.moderationService = moderationService
-    event.locals.userService = userService
-    event.locals.collectionService = collectionService
-    return resolve(event)
-} 
+	event.locals.db = db
+	event.locals.contentService = contentService
+	event.locals.searchService = searchService
+	event.locals.interactionsService = interactionsService
+	event.locals.roleService = roleService
+	event.locals.sessionService = sessionService
+	event.locals.tagService = tagService
+	event.locals.moderationService = moderationService
+	event.locals.userService = userService
+	event.locals.collectionService = collectionService
+	return resolve(event)
+}

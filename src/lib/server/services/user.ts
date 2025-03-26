@@ -170,7 +170,7 @@ export class UserService {
 	getUser(id: string): User | undefined {
 		try {
 			const result = this.getUserStatement.get({ id: id })
-			return result ? result as User : undefined
+			return result ? (result as User) : undefined
 		} catch (error) {
 			console.error('Error getting user:', error)
 			return undefined
@@ -179,22 +179,22 @@ export class UserService {
 
 	getUserByOAuth(provider: string, providerUserId: string): User | undefined {
 		try {
-			const result = this.getUserByOAuthStatement.get({ 
-				provider: provider, 
-				providerUserId: providerUserId 
+			const result = this.getUserByOAuthStatement.get({
+				provider: provider,
+				providerUserId: providerUserId
 			})
-			return result ? result as User : undefined
+			return result ? (result as User) : undefined
 		} catch (error) {
 			console.error('Error getting user by OAuth:', error)
 			return undefined
 		}
 	}
 
-	getUsers(options?: { limit?: number, offset?: number }): User[] {
+	getUsers(options?: { limit?: number; offset?: number }): User[] {
 		try {
 			const limit = options?.limit ?? -1
 			const offset = options?.offset ?? 0
-			
+
 			return this.getUsersStatement.all({ limit, offset }) as User[]
 		} catch (error) {
 			console.error('Error getting users:', error)
@@ -229,7 +229,7 @@ export class UserService {
 
 		try {
 			const provider = this.getProviderStatement.get() as OAuthProvider
-			
+
 			if (!provider) {
 				throw new Error('GitHub OAuth provider not found')
 			}
@@ -261,7 +261,7 @@ export class UserService {
 			} else {
 				const userInfo = this.extractGithubUserInfo(githubInfo)
 				const createStmt = dev ? this.createUserAdminStatement : this.createUserStatement
-				
+
 				user = createStmt.get(userInfo) as User
 
 				this.createOAuthStatement.run({
@@ -299,7 +299,7 @@ export class UserService {
 			}
 
 			const result = this.updateUserStatement.get(params)
-			return result ? result as User : undefined
+			return result ? (result as User) : undefined
 		} catch (error) {
 			console.error('Error updating user:', error)
 			return undefined

@@ -14,15 +14,15 @@ const schema = z.object({
 
 // Define an interface for the collection from the database
 interface CollectionFromDB {
-	id: string;
-	title: string;
-	slug: string; 
-	description: string;
-	content: string;
-	type: string;
-	status: string;
-	created_at: string;
-	updated_at: string;
+	id: string
+	title: string
+	slug: string
+	description: string
+	content: string
+	type: string
+	status: string
+	created_at: string
+	updated_at: string
 }
 
 export const load: PageServerLoad = async ({ params, locals }) => {
@@ -30,22 +30,22 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	const collectionStmt = locals.db.prepare(`
 		SELECT * FROM content
 		WHERE id = ? AND type = 'collection'
-	`);
-	const collection = collectionStmt.get(params.id) as CollectionFromDB | undefined;
+	`)
+	const collection = collectionStmt.get(params.id) as CollectionFromDB | undefined
 
 	if (!collection) {
 		throw error(404, 'Collection not found')
 	}
 
 	// Parse content field which contains the collection children
-	let children: number[] = [];
+	let children: number[] = []
 	try {
 		if (collection.content) {
-			const contentObj = JSON.parse(collection.content);
-			children = contentObj.children || [];
+			const contentObj = JSON.parse(collection.content)
+			children = contentObj.children || []
 		}
 	} catch (e) {
-		children = [];
+		children = []
 	}
 
 	// Create a form data object with the correct types
@@ -55,13 +55,13 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		description: collection.description,
 		slug: collection.slug,
 		children: children
-	};
+	}
 
 	const form = await superValidate(formData, zod(schema))
-	
+
 	// Get all content for the selector
 	const allContent = locals.contentService.getFilteredContent({})
-	
+
 	return {
 		form,
 		content: allContent,
@@ -85,16 +85,16 @@ export const actions: Actions = {
 			    content = ?
 			WHERE id = ?
 			RETURNING id
-		`);
-		
-		const collectionContent = JSON.stringify({ children: form.data.children });
+		`)
+
+		const collectionContent = JSON.stringify({ children: form.data.children })
 		const result = updateStmt.get(
 			form.data.title,
 			form.data.description,
 			form.data.slug,
 			collectionContent,
 			form.data.id
-		) as { id: string } | undefined;
+		) as { id: string } | undefined
 
 		if (result) {
 			throw redirect(303, '/admin/collections')
@@ -112,15 +112,15 @@ export const actions: Actions = {
 				results: locals.contentService.getFilteredContent({ limit: 10 })
 			}
 		}
-		
-		const contentIds = locals.searchService.search({ 
+
+		const contentIds = locals.searchService.search({
 			query,
-			searchFields: ['title', 'description'] 
-		});
-		
+			searchFields: ['title', 'description']
+		})
+
 		// Get the full content objects for the search results
-		const results = contentIds.map(id => locals.contentService.getContentById(id)).filter(Boolean);
-		
+		const results = contentIds.map((id) => locals.contentService.getContentById(id)).filter(Boolean)
+
 		return {
 			form: {
 				results

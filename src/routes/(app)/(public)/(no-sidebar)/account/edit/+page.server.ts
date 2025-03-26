@@ -45,7 +45,7 @@ export const actions = {
 
 		try {
 			// Use the userService to update the user's information
-			const updatedUser = locals.userService.updateUser(locals.user.id, { 
+			const updatedUser = locals.userService.updateUser(locals.user.id, {
 				username: form.data.username,
 				name: form.data.name || null,
 				bio: form.data.bio || null,
@@ -62,9 +62,9 @@ export const actions = {
 		} catch (error) {
 			// Check if the error is a redirect (which we threw intentionally)
 			if (error instanceof Response && error.status === 303) {
-				throw error;
+				throw error
 			}
-			
+
 			console.error('Error updating user profile:', error)
 			return message(form, 'Failed to update profile.', { status: 500 })
 		}

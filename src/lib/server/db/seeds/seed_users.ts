@@ -28,7 +28,9 @@ export function seedUsers(db: Database.Database) {
 
 		const githubProvider = findGithubProviderStmt.get('github') as { id: number }
 		if (!githubProvider) {
-			throw new Error('GitHub OAuth provider not found. Make sure the schema is properly initialized.')
+			throw new Error(
+				'GitHub OAuth provider not found. Make sure the schema is properly initialized.'
+			)
 		}
 
 		// Insert user

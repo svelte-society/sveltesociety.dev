@@ -1,10 +1,10 @@
 <!-- sites/www/src/routes/(app)/(account)/account/edit/+page.svelte -->
 <script lang="ts">
-import { superForm } from 'sveltekit-superforms'
-import Button from '$lib/ui/Button.svelte'
+	import { superForm } from 'sveltekit-superforms'
+	import Button from '$lib/ui/Button.svelte'
 
-let { data } = $props()
-const { form, errors, enhance } = superForm(data.form)
+	let { data } = $props()
+	const { form, errors, enhance } = superForm(data.form)
 </script>
 
 <div class="container mx-auto px-4 py-8">
@@ -20,7 +20,7 @@ const { form, errors, enhance } = superForm(data.form)
 				bind:value={$form.name}
 				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
 			/>
-			{#if $errors.name}<p class="text-xs italic text-red-500">{$errors.name}</p>{/if}
+			{#if $errors.name}<p class="text-xs text-red-500 italic">{$errors.name}</p>{/if}
 		</div>
 
 		<div class="space-y-2">
@@ -33,7 +33,7 @@ const { form, errors, enhance } = superForm(data.form)
 				required
 				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
 			/>
-			{#if $errors.username}<p class="text-xs italic text-red-500">{$errors.username}</p>{/if}
+			{#if $errors.username}<p class="text-xs text-red-500 italic">{$errors.username}</p>{/if}
 		</div>
 
 		<div class="space-y-2">
@@ -44,7 +44,7 @@ const { form, errors, enhance } = superForm(data.form)
 				bind:value={$form.bio}
 				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
 			></textarea>
-			{#if $errors.bio}<p class="text-xs italic text-red-500">{$errors.bio}</p>{/if}
+			{#if $errors.bio}<p class="text-xs text-red-500 italic">{$errors.bio}</p>{/if}
 		</div>
 
 		<div class="space-y-2">
@@ -56,7 +56,7 @@ const { form, errors, enhance } = superForm(data.form)
 				bind:value={$form.location}
 				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
 			/>
-			{#if $errors.location}<p class="text-xs italic text-red-500">{$errors.location}</p>{/if}
+			{#if $errors.location}<p class="text-xs text-red-500 italic">{$errors.location}</p>{/if}
 		</div>
 
 		<div class="space-y-2">
@@ -68,7 +68,7 @@ const { form, errors, enhance } = superForm(data.form)
 				bind:value={$form.twitter}
 				class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
 			/>
-			{#if $errors.twitter}<p class="text-xs italic text-red-500">{$errors.twitter}</p>{/if}
+			{#if $errors.twitter}<p class="text-xs text-red-500 italic">{$errors.twitter}</p>{/if}
 		</div>
 
 		<div class="flex items-center justify-between">

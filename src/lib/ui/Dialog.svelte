@@ -1,104 +1,104 @@
 <script lang="ts">
-	import { Dialog, Label, Separator } from "bits-ui";
-	import X from "phosphor-svelte/lib/X";
-	import type { Snippet } from "svelte";
+	import { Dialog, Label, Separator } from 'bits-ui'
+	import X from 'phosphor-svelte/lib/X'
+	import type { Snippet } from 'svelte'
 
 	type DialogProps = Dialog.RootProps & {
 		/**
 		 * The text displayed on the trigger button
 		 */
-		triggerText: string;
-		
+		triggerText: string
+
 		/**
 		 * The title of the dialog
 		 */
-		title: string | Snippet;
-		
+		title: string | Snippet
+
 		/**
 		 * The description of the dialog
 		 */
-		description?: string | Snippet;
-		
+		description?: string | Snippet
+
 		/**
 		 * Custom content to render in the dialog body
 		 */
-		content?: Snippet;
-		
+		content?: Snippet
+
 		/**
 		 * Text for the confirmation/save button
 		 */
-		confirmText?: string;
-		
+		confirmText?: string
+
 		/**
 		 * Additional props to pass to the content component
 		 */
-		contentProps?: Omit<Dialog.ContentProps, "children" | "child">;
-		
+		contentProps?: Omit<Dialog.ContentProps, 'children' | 'child'>
+
 		/**
 		 * Additional props to pass to the trigger button
 		 */
-		triggerProps?: Omit<Dialog.TriggerProps, "children" | "child">;
-		
+		triggerProps?: Omit<Dialog.TriggerProps, 'children' | 'child'>
+
 		/**
 		 * Additional props to pass to the overlay
 		 */
-		overlayProps?: Omit<Dialog.OverlayProps, "children" | "child">;
-		
+		overlayProps?: Omit<Dialog.OverlayProps, 'children' | 'child'>
+
 		/**
 		 * Additional props to pass to the close button
 		 */
-		closeProps?: Omit<Dialog.CloseProps, "children" | "child">;
-		
+		closeProps?: Omit<Dialog.CloseProps, 'children' | 'child'>
+
 		/**
 		 * Additional class names for the trigger button
 		 */
-		triggerClass?: string;
-		
+		triggerClass?: string
+
 		/**
 		 * Additional class names for the content container
 		 */
-		contentClass?: string;
-		
+		contentClass?: string
+
 		/**
 		 * Additional class names for the overlay
 		 */
-		overlayClass?: string;
-		
+		overlayClass?: string
+
 		/**
 		 * Additional class names for the confirm button
 		 */
-		confirmClass?: string;
-		
+		confirmClass?: string
+
 		/**
 		 * Additional class names for the close button
 		 */
-		closeClass?: string;
-		
+		closeClass?: string
+
 		/**
 		 * Whether to show the confirm button
 		 */
-		showConfirm?: boolean;
-	};
+		showConfirm?: boolean
+	}
 
 	let {
 		open = $bindable(false),
-		triggerText = "Open",
+		triggerText = 'Open',
 		title,
 		description,
 		content,
-		confirmText = "Save",
+		confirmText = 'Save',
 		contentProps = {},
 		triggerProps = {},
 		overlayProps = {},
 		closeProps = {},
-		triggerClass = "",
-		contentClass = "",
-		overlayClass = "",
-		confirmClass = "",
-		closeClass = "",
+		triggerClass = '',
+		contentClass = '',
+		overlayClass = '',
+		confirmClass = '',
+		closeClass = '',
 		showConfirm = true,
 		...rootProps
-	}: DialogProps = $props();
+	}: DialogProps = $props()
 </script>
 
 <!--
@@ -138,9 +138,9 @@ For simple usage with string content:
 
 <Dialog.Root bind:open {...rootProps}>
 	<Dialog.Trigger
-		class="rounded-md bg-orange-400 text-white
-      shadow-sm hover:bg-orange-500 focus-visible:ring-orange-400 focus-visible:ring-offset-white focus-visible:outline-none
-      inline-flex h-12 items-center justify-center whitespace-nowrap px-5 text-base font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.98] {triggerClass}"
+		class="inline-flex h-12 items-center
+      justify-center rounded-md bg-orange-400 px-5 text-base
+      font-semibold whitespace-nowrap text-white shadow-sm transition-colors hover:bg-orange-500 focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none active:scale-[0.98] {triggerClass}"
 		{...triggerProps}
 	>
 		{triggerText}
@@ -151,7 +151,7 @@ For simple usage with string content:
 			{...overlayProps}
 		/>
 		<Dialog.Content
-			class="rounded-lg bg-white shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 outline-none fixed left-[50%] top-[50%] z-50 w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] border border-orange-100 p-5 sm:max-w-[490px] md:w-full {contentClass}"
+			class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] rounded-lg border border-orange-100 bg-white p-5 shadow-lg outline-none sm:max-w-[490px] md:w-full {contentClass}"
 			{...contentProps}
 		>
 			<Dialog.Title
@@ -163,10 +163,10 @@ For simple usage with string content:
 					{@render title()}
 				{/if}
 			</Dialog.Title>
-			<Separator.Root class="bg-orange-200 -mx-5 mb-6 mt-5 block h-px" />
-			
+			<Separator.Root class="-mx-5 mt-5 mb-6 block h-px bg-orange-200" />
+
 			{#if description}
-				<Dialog.Description class="text-gray-500 text-sm">
+				<Dialog.Description class="text-sm text-gray-500">
 					{#if typeof description === 'string'}
 						{description}
 					{:else}
@@ -174,29 +174,29 @@ For simple usage with string content:
 					{/if}
 				</Dialog.Description>
 			{/if}
-			
+
 			{#if content}
 				<div class="py-5">
 					{@render content()}
 				</div>
 			{/if}
-			
+
 			{#if showConfirm}
 				<div class="flex w-full justify-end">
 					<Dialog.Close
-						class="h-10 rounded-md bg-orange-500 text-white shadow-sm hover:bg-orange-600 focus-visible:ring-orange-400 focus-visible:ring-offset-white focus-visible:outline-none inline-flex items-center justify-center px-6 text-base font-semibold focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.98] {confirmClass}"
+						class="inline-flex h-10 items-center justify-center rounded-md bg-orange-500 px-6 text-base font-semibold text-white shadow-sm hover:bg-orange-600 focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none active:scale-[0.98] {confirmClass}"
 					>
 						{confirmText}
 					</Dialog.Close>
 				</div>
 			{/if}
-			
+
 			<Dialog.Close
-				class="focus-visible:ring-orange-400 focus-visible:ring-offset-white focus-visible:outline-none absolute right-5 top-5 rounded-md focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.98] {closeClass}"
+				class="absolute top-5 right-5 rounded-md focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none active:scale-[0.98] {closeClass}"
 				{...closeProps}
 			>
 				<div>
-					<X class="text-orange-400 w-5 h-5" />
+					<X class="h-5 w-5 text-orange-400" />
 					<span class="sr-only">Close</span>
 				</div>
 			</Dialog.Close>

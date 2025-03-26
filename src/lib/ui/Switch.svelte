@@ -1,12 +1,17 @@
 <script lang="ts">
-interface SwitchProps {
-	checked: boolean
-	disabled?: boolean
-	name?: string
-	label?: string
-}
+	interface SwitchProps {
+		checked: boolean
+		disabled?: boolean
+		name?: string
+		label?: string
+	}
 
-let { checked = $bindable(false), disabled = false, name = '', label = '' }: SwitchProps = $props()
+	let {
+		checked = $bindable(false),
+		disabled = false,
+		name = '',
+		label = ''
+	}: SwitchProps = $props()
 </script>
 
 <label
@@ -20,7 +25,7 @@ let { checked = $bindable(false), disabled = false, name = '', label = '' }: Swi
         {disabled ? 'opacity-50' : ''}"
 		></div>
 		<div
-			class="absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-300 ease-in-out
+			class="absolute top-1 left-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-300 ease-in-out
         {checked ? 'translate-x-full transform' : ''}"
 		></div>
 	</div>

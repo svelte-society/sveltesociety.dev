@@ -8,7 +8,9 @@ export const load: PageServerLoad = async ({ url, locals }) => {
 		const itemsPerPage = 10
 		const offset = (page - 1) * itemsPerPage
 
-		const totalItems = await locals.moderationService.getModerationQueueCount(ModerationStatus.PENDING)
+		const totalItems = await locals.moderationService.getModerationQueueCount(
+			ModerationStatus.PENDING
+		)
 		const totalPages = Math.ceil(totalItems / itemsPerPage)
 
 		const items = await locals.moderationService.getModerationQueuePaginated({
@@ -45,7 +47,11 @@ export const actions: Actions = {
 			const id = data.get('id') as string
 			if (!id) return fail(400, { success: false, message: 'Missing ID' })
 
-			await locals.moderationService.updateModerationStatus(id, ModerationStatus.APPROVED, locals.user.id)
+			await locals.moderationService.updateModerationStatus(
+				id,
+				ModerationStatus.APPROVED,
+				locals.user.id
+			)
 			return { success: true }
 		} catch (error) {
 			console.error('Error approving item:', error)
@@ -62,7 +68,11 @@ export const actions: Actions = {
 			const id = data.get('id') as string
 			if (!id) return fail(400, { success: false, message: 'Missing ID' })
 
-			await locals.moderationService.updateModerationStatus(id, ModerationStatus.REJECTED, locals.user.id)
+			await locals.moderationService.updateModerationStatus(
+				id,
+				ModerationStatus.REJECTED,
+				locals.user.id
+			)
 			return { success: true }
 		} catch (error) {
 			console.error('Error rejecting item:', error)
@@ -78,7 +88,11 @@ export const actions: Actions = {
 			const data = await request.formData()
 			const ids = JSON.parse(data.get('ids') as string) as string[]
 			for (const id of ids) {
-				await locals.moderationService.updateModerationStatus(id, ModerationStatus.REJECTED, locals.user.id)
+				await locals.moderationService.updateModerationStatus(
+					id,
+					ModerationStatus.REJECTED,
+					locals.user.id
+				)
 			}
 			return { success: true }
 		} catch (error) {

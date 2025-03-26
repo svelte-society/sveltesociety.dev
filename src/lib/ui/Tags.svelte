@@ -1,15 +1,15 @@
 <script module>
-export type TagType = {
-	id: string
-	name: string
-	slug: string
-}
+	export type TagType = {
+		id: string
+		name: string
+		slug: string
+	}
 </script>
 
 <script lang="ts">
-import Tag from './Tag.svelte'
+	import Tag from './Tag.svelte'
 
-let { tags }: { tags: TagType[] } = $props()
+	let { tags }: { tags: TagType[] } = $props()
 </script>
 
 <div class="flex flex-wrap gap-2">

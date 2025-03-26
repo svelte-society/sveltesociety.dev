@@ -2,9 +2,9 @@
 	import { CaretUpDown, Check } from 'phosphor-svelte'
 	import { Select } from 'bits-ui'
 	type Option = {
-        label: string
-        value: string
-    }
+		label: string
+		value: string
+	}
 
 	type Props = {
 		options: Option[]
@@ -17,19 +17,27 @@
 </script>
 
 <Select.Root type="single" bind:value {name}>
-	<Select.Trigger {...props} class="data-fs-error:border-red-300 items-center data-fs-error:bg-red-50 data-fs-error:text-red-600 focus:outline-2 focus:outline-sky-200 w-full rounded-md border-2 border-transparent bg-slate-100 py-1 pl-2 px-3  text-sm placeholder-slate-500 text-left grid grid-cols-[1fr_auto]">
+	<Select.Trigger
+		{...props}
+		class="grid w-full grid-cols-[1fr_auto] items-center rounded-md border-2 border-transparent bg-slate-100 px-3 py-1 pl-2 text-left text-sm placeholder-slate-500  focus:outline-2 focus:outline-sky-200 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600"
+	>
 		{selected}
-		<CaretUpDown class="text-gray-500 ml-auto size-4" />
+		<CaretUpDown class="ml-auto size-4 text-gray-500" />
 	</Select.Trigger>
 	<Select.Portal>
-		<Select.Content class="focus-override bg-white shadow-2xl outline-hidden z-50 w-[var(--bits-select-anchor-width)] min-w-[var(--bits-select-anchor-width)] select-none rounded-xl px-1 py-3 data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1">
+		<Select.Content
+			class="focus-override z-50 w-[var(--bits-select-anchor-width)] min-w-[var(--bits-select-anchor-width)] rounded-xl bg-white px-1 py-3 shadow-2xl outline-hidden select-none data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1"
+		>
 			{#each options as option}
-				<Select.Item value={option.value} class="rounded-sm data-highlighted:bg-gray-100 outline-hidden data-disabled:opacity-50 flex h-8 w-full select-none items-center py-3 pl-3 pr-1.5 text-sm capitalize">
+				<Select.Item
+					value={option.value}
+					class="flex h-8 w-full items-center rounded-sm py-3 pr-1.5 pl-3 text-sm capitalize outline-hidden select-none data-disabled:opacity-50 data-highlighted:bg-gray-100"
+				>
 					{#snippet children({ selected })}
 						{option.label}
 						{#if selected}
 							<div class="ml-auto">
-							<Check />
+								<Check />
 							</div>
 						{/if}
 					{/snippet}

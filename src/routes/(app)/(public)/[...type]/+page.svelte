@@ -1,19 +1,17 @@
 <script lang="ts">
 	import ContentCard from '$lib/ui/ContentCard.svelte'
 	import Pagination from '$lib/ui/Pagination.svelte'
-	import { convertTags } from '$lib/types/content';
-	import Filters from './Filters.svelte';
+	import { convertTags } from '$lib/types/content'
+	import Filters from './Filters.svelte'
 
 	let { data } = $props()
-
 </script>
-
 
 <div class="grid gap-6">
 	<Filters categories={data.categories} tags={data.tags} sort={data.sort} />
 	{#if data.count > 0}
 		{#each data.content as item}
-			<ContentCard 
+			<ContentCard
 				id={item.id}
 				title={item.title}
 				description={item.description}
@@ -31,7 +29,7 @@
 			/>
 		{/each}
 	{:else}
-		<div class="text-center py-10">
+		<div class="py-10 text-center">
 			<h2 class="text-2xl font-bold">No content found</h2>
 			<p class="text-gray-500">Try adjusting your filters or check back later.</p>
 		</div>

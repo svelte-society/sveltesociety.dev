@@ -1,5 +1,5 @@
 <script lang="ts">
-import Button from '$lib/ui/Button.svelte'
+	import Button from '$lib/ui/Button.svelte'
 </script>
 
 <div class="container mx-auto px-4 py-8">

@@ -1,12 +1,12 @@
 import type Database from 'bun:sqlite'
 
 type Provider = {
-	name: string;
-	description: string;
-	active: boolean;
-};
+	name: string
+	description: string
+	active: boolean
+}
 
-export function seedOAuthProviders(db: Database.Database) {
+export function seedOAuthProviders(db: Database) {
 	const insertProviderStmt = db.prepare(`
       INSERT OR IGNORE INTO oauth_providers (name, description, active)
       VALUES (?, ?, ?)
@@ -42,4 +42,4 @@ export function seedOAuthProviders(db: Database.Database) {
 	} catch (error) {
 		console.error('Error seeding OAuth providers:', error)
 	}
-} 
+}

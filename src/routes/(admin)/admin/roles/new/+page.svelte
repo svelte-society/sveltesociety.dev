@@ -1,33 +1,28 @@
 <script lang="ts">
-import Input from '$lib/ui/form/Input.svelte'
-import Button from '$lib/ui/Button.svelte'
-import Form from '$lib/ui/form/Form.svelte'
-import { superForm } from 'sveltekit-superforms/client'
-import { zodClient } from 'sveltekit-superforms/adapters'
-import { schema } from './schema'
+	import Input from '$lib/ui/form/Input.svelte'
+	import Button from '$lib/ui/Button.svelte'
+	import Form from '$lib/ui/form/Form.svelte'
+	import { superForm } from 'sveltekit-superforms/client'
+	import { zodClient } from 'sveltekit-superforms/adapters'
+	import { schema } from './schema'
 
-let { data } = $props()
+	let { data } = $props()
 
-const form = superForm(data.form, {
-	resetForm: false,
-	delayMs: 500,
-	timeoutMs: 8000,
-	dataType: 'json',
-	validators: zodClient(schema)
-})
+	const form = superForm(data.form, {
+		resetForm: false,
+		delayMs: 500,
+		timeoutMs: 8000,
+		dataType: 'json',
+		validators: zodClient(schema)
+	})
 
-const { form: formData, submitting } = form
+	const { form: formData, submitting } = form
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
 	<h1 class="mb-6 text-3xl font-bold text-gray-800">Create New Role</h1>
 	<Form {form} method="POST">
-		<Input
-			name="name"
-			label="Name"
-			placeholder="Admin"
-			description="Enter the name of the role"
-		/>
+		<Input name="name" label="Name" placeholder="Admin" description="Enter the name of the role" />
 		<Input
 			name="value"
 			label="Value"

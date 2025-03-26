@@ -13,4 +13,3 @@ export const filter_content_schema = z
 	.refine((data) => !!data.type || !!data.tags || !!data.search, 'No value was provided')
 
 export type filter_content_schema = z.infer<typeof filter_content_schema>
-

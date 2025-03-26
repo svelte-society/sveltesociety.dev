@@ -1,30 +1,30 @@
 <script module>
-export interface Header {
-	key: string
-	label: string
-	sticky?: 'left' | 'right'
-}
+	export interface Header {
+		key: string
+		label: string
+		sticky?: 'left' | 'right'
+	}
 
-export interface TableProps<T> {
-	headers: Header[]
-	items: T[]
-	itemKey: keyof T
-	renderCell?: Snippet<[item: T, header: Header]>
-	renderActions?: Snippet<[item: T]>
-}
+	export interface TableProps<T> {
+		headers: Header[]
+		items: T[]
+		itemKey: keyof T
+		renderCell?: Snippet<[item: T, header: Header]>
+		renderActions?: Snippet<[item: T]>
+	}
 </script>
 
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import type { Snippet } from 'svelte';
+	import { enhance } from '$app/forms'
+	import type { Snippet } from 'svelte'
 
-	let { headers, items, itemKey, renderCell, renderActions }: TableProps<any> = $props();
+	let { headers, items, itemKey, renderCell, renderActions }: TableProps<any> = $props()
 </script>
 
 <div class="overflow-hidden rounded-lg bg-white shadow-sm">
 	<div class="w-full overflow-x-auto">
 		<table class="w-full text-left text-xs text-gray-500">
-			<thead class="bg-gray-50 text-xs uppercase text-gray-700">
+			<thead class="bg-gray-50 text-xs text-gray-700 uppercase">
 				<tr>
 					{#each headers as header}
 						<th

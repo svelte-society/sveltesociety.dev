@@ -8,7 +8,7 @@ import { schema } from './schema.js'
 export const load: PageServerLoad = async ({ locals }) => {
 	const tags = locals.tagService.getTags()
 	const content = locals.contentService.getFilteredContent({})
-	
+
 	// Initialize form with empty data
 	const formData = {
 		title: '',
@@ -16,8 +16,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 		children: [],
 		slug: '',
 		tags: []
-	};
-	
+	}
+
 	const form = await superValidate(formData, zod(schema))
 
 	return {
@@ -41,15 +41,15 @@ export const actions: Actions = {
 			INSERT INTO content (title, slug, description, type, content, status)
 			VALUES (?, ?, ?, 'collection', ?, 'published')
 			RETURNING id
-		`);
+		`)
 
-		const collectionContent = JSON.stringify({ children: form.data.children });
+		const collectionContent = JSON.stringify({ children: form.data.children })
 		const result = insertStmt.get(
 			form.data.title,
 			form.data.slug,
 			form.data.description,
 			collectionContent
-		) as { id: string } | undefined;
+		) as { id: string } | undefined
 
 		if (result?.id) {
 			redirect(303, '/admin/collections')

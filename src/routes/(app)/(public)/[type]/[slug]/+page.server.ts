@@ -2,11 +2,13 @@ import { error } from '@sveltejs/kit'
 
 export const load = async ({ locals, params }) => {
 	const start = performance.now()
-	
-	const content = locals.contentService.getFilteredContent({
-		type: params.type,
-		status: 'published'
-	}).find(item => item.slug === params.slug)
+
+	const content = locals.contentService
+		.getFilteredContent({
+			type: params.type,
+			status: 'published'
+		})
+		.find((item) => item.slug === params.slug)
 
 	if (!content) {
 		throw error(404, { message: 'Content not found' })
@@ -24,6 +26,6 @@ export const load = async ({ locals, params }) => {
 
 	const stop = performance.now()
 	console.log('Loading content took: ', stop - start)
-	
+
 	return { content }
 }

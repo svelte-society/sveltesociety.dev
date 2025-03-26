@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	if (!userFromDb) {
 		redirect(302, '/admin/users')
 	}
-	
+
 	// Convert null values to undefined to match schema expectations
 	const user = {
 		...userFromDb,

@@ -1,18 +1,18 @@
 <script lang="ts">
-import { formatRelativeDate } from '$lib/utils/date'
-import Button from '$lib/ui/Button.svelte'
-import Table from '$lib/ui/admin/Table.svelte'
-import type { Collection } from '$lib/server/db/collections'
-import Actions from '$lib/ui/admin/Actions.svelte'
-import Badge from '$lib/ui/admin/Badge.svelte'
-import Pagination from '$lib/ui/Pagination.svelte'
-let { data } = $props()
+	import { formatRelativeDate } from '$lib/utils/date'
+	import Button from '$lib/ui/Button.svelte'
+	import Table from '$lib/ui/admin/Table.svelte'
+	import type { Collection } from '$lib/server/db/collections'
+	import Actions from '$lib/ui/admin/Actions.svelte'
+	import Badge from '$lib/ui/admin/Badge.svelte'
+	import Pagination from '$lib/ui/Pagination.svelte'
+	let { data } = $props()
 
-let colorMap = new Map([
-	['draft', 'warning'],
-	['published', 'success'],
-	['archived', 'danger']
-])
+	let colorMap = new Map([
+		['draft', 'warning'],
+		['published', 'success'],
+		['archived', 'danger']
+	])
 </script>
 
 <div class="container mx-auto px-2 py-4">
@@ -39,13 +39,15 @@ let colorMap = new Map([
 			</td>
 		{/snippet}
 		{#snippet actionCell(item: Collection)}
-			<Actions route="collections" id={String(item.id)} canDelete={true} canEdit={true} type={item.title} />
+			<Actions
+				route="collections"
+				id={String(item.id)}
+				canDelete={true}
+				canEdit={true}
+				type={item.title}
+			/>
 		{/snippet}
 	</Table>
-	
-	<Pagination 
-		count={data.totalCollections} 
-		perPage={data.perPage} 
-		preserveParams={true}
-	/>
+
+	<Pagination count={data.totalCollections} perPage={data.perPage} preserveParams={true} />
 </div>

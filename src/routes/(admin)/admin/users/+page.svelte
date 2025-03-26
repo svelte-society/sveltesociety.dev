@@ -1,24 +1,24 @@
 <script lang="ts">
-import { formatRelativeDate } from '$lib/utils/date'
-import Button from '$lib/ui/Button.svelte'
-import { enhance } from '$app/forms'
-import Avatar from '$lib/ui/Avatar.svelte'
-import Table from '$lib/ui/admin/Table.svelte'
-import Actions from '$lib/ui/admin/Actions.svelte'
-import Pagination from '$lib/ui/Pagination.svelte'
-import type { User } from '$lib/server/db/user'
+	import { formatRelativeDate } from '$lib/utils/date'
+	import Button from '$lib/ui/Button.svelte'
+	import { enhance } from '$app/forms'
+	import Avatar from '$lib/ui/Avatar.svelte'
+	import Table from '$lib/ui/admin/Table.svelte'
+	import Actions from '$lib/ui/admin/Actions.svelte'
+	import Pagination from '$lib/ui/Pagination.svelte'
+	import type { User } from '$lib/server/db/user'
 
-// Extended User interface to include created_at
-interface ExtendedUser extends User {
-	created_at: string;
-}
+	// Extended User interface to include created_at
+	interface ExtendedUser extends User {
+		created_at: string
+	}
 
-let { data } = $props()
+	let { data } = $props()
 
-// Ensure ID is a string for Actions component
-function ensureStringId(id: string | number): string {
-	return id.toString();
-}
+	// Ensure ID is a string for Actions component
+	function ensureStringId(id: string | number): string {
+		return id.toString()
+	}
 </script>
 
 <div class="container mx-auto px-2 py-4">
@@ -47,12 +47,18 @@ function ensureStringId(id: string | number): string {
 			</td>
 		{/snippet}
 		{#snippet actionCell(item: ExtendedUser)}
-			<Actions route="users" id={ensureStringId(item.id)} canDelete={true} canEdit={true} type="this user" />
+			<Actions
+				route="users"
+				id={ensureStringId(item.id)}
+				canDelete={true}
+				canEdit={true}
+				type="this user"
+			/>
 			<form action="?/clear_sessions" method="POST" use:enhance style="line-height: 0">
 				<input type="hidden" name="id" value={item.id} />
 				<button
 					type="submit"
-					class="text-orange-600 hover:text-orange-900 relative group"
+					class="group relative text-orange-600 hover:text-orange-900"
 					aria-label="Clear user sessions"
 				>
 					<svg
@@ -69,18 +75,17 @@ function ensureStringId(id: string | number): string {
 							d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
 						></path>
 					</svg>
-					<span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity">
+					<span
+						class="absolute bottom-full left-1/2 mb-1 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100"
+					>
 						Clear sessions
 					</span>
 				</button>
 			</form>
 		{/snippet}
 	</Table>
-	
+
 	{#if data.pagination}
-		<Pagination 
-			count={data.pagination.count} 
-			perPage={data.pagination.perPage} 
-		/>
+		<Pagination count={data.pagination.count} perPage={data.pagination.perPage} />
 	{/if}
 </div>

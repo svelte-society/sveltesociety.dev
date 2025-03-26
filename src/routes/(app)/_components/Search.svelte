@@ -1,7 +1,7 @@
 <script lang="ts">
-import Button from '$lib/ui/Button.svelte'
+	import Button from '$lib/ui/Button.svelte'
 
-let value = $state('')
+	let value = $state('')
 </script>
 
 <form
@@ -31,7 +31,7 @@ let value = $state('')
 		</div>
 		<input
 			bind:value
-			class="h-8 w-full rounded-md border-none bg-slate-100 pl-8 pr-16 text-sm text-slate-800 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-300"
+			class="h-8 w-full rounded-md border-none bg-slate-100 pr-16 pl-8 text-sm text-slate-800 placeholder-slate-500 focus:ring-2 focus:ring-slate-300 focus:outline-none"
 			type="search"
 			name="search"
 			placeholder="Search by title, description or body..."

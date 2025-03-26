@@ -5,17 +5,12 @@
 		placeholder?: string
 		name: string
 	}
-	let {
-		name,
-		label,
-		description,
-		placeholder
-	}: TextInputProps = $props()
+	let { name, label, description, placeholder }: TextInputProps = $props()
 
 	import type { SuperForm } from 'sveltekit-superforms'
 
 	import { Control, Description, Field, FieldErrors, Label } from 'formsnap'
-	import { getContext } from 'svelte';
+	import { getContext } from 'svelte'
 
 	const form: SuperForm<Record<string, unknown>, any> = getContext('form')
 
@@ -29,10 +24,15 @@
 				<Label class="text-xs font-medium outline-none">
 					{label}
 				</Label>
-				<input class="data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600 focus:outline-2 focus:outline-sky-200 w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-7 text-sm placeholder-slate-500" {...props} bind:value={$formData[name]} {placeholder} />
+				<input
+					class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-7 text-sm placeholder-slate-500 focus:outline-2 focus:outline-sky-200 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600"
+					{...props}
+					bind:value={$formData[name]}
+					{placeholder}
+				/>
 			{/snippet}
 		</Control>
-		<Description class="data-fs-error:sr-only text-xs text-slate-500">{description}</Description>
+		<Description class="text-xs text-slate-500 data-fs-error:sr-only">{description}</Description>
 		<FieldErrors class="text-xs text-red-600" />
 	</div>
 </Field>

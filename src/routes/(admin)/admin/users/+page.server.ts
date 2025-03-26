@@ -36,7 +36,7 @@ export const actions = {
 
 		return { message: `User deleted.` }
 	},
-	
+
 	clear_sessions: async ({ request, locals }) => {
 		const data = await request.formData()
 		const id = data.get('id') as string

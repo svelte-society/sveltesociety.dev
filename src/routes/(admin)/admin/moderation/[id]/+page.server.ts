@@ -33,7 +33,7 @@ export const actions: Actions = {
 		if (!locals.user) {
 			throw redirect(302, '/login')
 		}
-		
+
 		const id = params.id
 		update_moderation_status(id, ModerationStatus.APPROVED, locals.user.id)
 		return await getNextItem(id)
@@ -42,7 +42,7 @@ export const actions: Actions = {
 		if (!locals.user) {
 			throw redirect(302, '/login')
 		}
-		
+
 		const id = params.id
 		update_moderation_status(id, ModerationStatus.REJECTED, locals.user.id)
 		return await getNextItem(id)

@@ -8,9 +8,9 @@ When implementing things that are not Svelte components always write tests.
 When finishing a feature, run all tests using `bun test` to make sure they all pass.
 
 The technologies used in this codebase are the following:
+
 - Bun
 - Svelte 5
 - SvelteKit
 - Zod
 - SQLite
-

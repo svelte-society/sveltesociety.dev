@@ -1,15 +1,15 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
 @theme {
-    --font-display: Inter, system-ui, sans-serif;
-    --font-sans: Inter, system-ui, sans-serif;
+	--font-display: Inter, system-ui, sans-serif;
+	--font-sans: Inter, system-ui, sans-serif;
 
-    --color-svelte-900: oklch(65.43% 0.2341 34.2);
-    --color-svelte-500: oklch(71.09% 0.1862 37.91);
-    --color-svelte-300: oklch(86.8% 0.1825 38.60);
-    --color-svelte-100: oklch(92.72% 0.0386 39.91);
-    --color-svelte-50: oklch(97.02% 0.0151 37.88);
+	--color-svelte-900: oklch(65.43% 0.2341 34.2);
+	--color-svelte-500: oklch(71.09% 0.1862 37.91);
+	--color-svelte-300: oklch(86.8% 0.1825 38.6);
+	--color-svelte-100: oklch(92.72% 0.0386 39.91);
+	--color-svelte-50: oklch(97.02% 0.0151 37.88);
 }
 
 @layer base {

@@ -8,7 +8,7 @@ export const load: PageServerLoad = async ({ url, locals }) => {
 
 	// Get roles using the role service
 	const roles = locals.roleService.getRoles()
-	
+
 	// Calculate total count from roles array
 	const count = roles.length
 

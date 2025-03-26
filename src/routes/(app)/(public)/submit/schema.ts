@@ -1,17 +1,17 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 const types = {
-	article: "Article",
-	component: "Component",
-	recipe: "Recipe",
-	tutorial: "Tutorial",
-	snippet: "Code Snippet",
-	other: "Other"
-} as const;
+	article: 'Article',
+	component: 'Component',
+	recipe: 'Recipe',
+	tutorial: 'Tutorial',
+	snippet: 'Code Snippet',
+	other: 'Other'
+} as const
 
 export const options = Object.entries(types).map(([value, label]) => ({ value, label }))
 
-type ContentType = keyof typeof types;
+type ContentType = keyof typeof types
 
 export const schema = z.object({
 	title: z.string().min(5, { message: 'Title must be at least 5 characters long' }),
@@ -23,4 +23,4 @@ export const schema = z.object({
 	author_name: z.string().min(2, { message: 'Author name must be at least 2 characters long' }),
 	author_email: z.string().email({ message: 'Please enter a valid email address' }),
 	notes: z.string().optional().or(z.literal(''))
-});
+})

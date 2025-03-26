@@ -1,70 +1,70 @@
 <script lang="ts">
-import AutoComplete from './AutoComplete.svelte'
-import Tag from './Tag.svelte'
-import type { TagType } from './Tags.svelte'
+	import AutoComplete from './AutoComplete.svelte'
+	import Tag from './Tag.svelte'
+	import type { TagType } from './Tags.svelte'
 
-let {
-	/** Array of tags to choose from */
-	tags = [],
-	/** Array of selected tag IDs */
-	selectedTags = $bindable([]),
-	/** Placeholder text for the input field */
-	placeholder = 'Type to search for a tag',
-	/** Error messages to display */
-	errors,
-	/** Description text to display below the component */
-	description,
-	/** Callback function when a tag is selected */
-	onTagSelect = undefined
-}: {
-	tags: Array<{ id: number; name: string; slug: string }>
-	selectedTags: number[]
-	placeholder: string
-	errors: any
-	description: string
-	onTagSelect?: (tagId: number) => void
-} = $props()
+	let {
+		/** Array of tags to choose from */
+		tags = [],
+		/** Array of selected tag IDs */
+		selectedTags = $bindable([]),
+		/** Placeholder text for the input field */
+		placeholder = 'Type to search for a tag',
+		/** Error messages to display */
+		errors,
+		/** Description text to display below the component */
+		description,
+		/** Callback function when a tag is selected */
+		onTagSelect = undefined
+	}: {
+		tags: Array<{ id: number; name: string; slug: string }>
+		selectedTags: number[]
+		placeholder: string
+		errors: any
+		description: string
+		onTagSelect?: (tagId: number) => void
+	} = $props()
 
-/**
- * Handle the selection from the AutoComplete component
- */
-function handleSelect(value: string, item: any) {
-	if (value) {
-		// Convert string value to number since our tags use numeric IDs
-		const tagId = Number(value)
-		addTag(tagId)
-		
-		// Call the onTagSelect callback if provided
-		if (onTagSelect) onTagSelect(tagId)
+	/**
+	 * Handle the selection from the AutoComplete component
+	 */
+	function handleSelect(value: string, item: any) {
+		if (value) {
+			// Convert string value to number since our tags use numeric IDs
+			const tagId = Number(value)
+			addTag(tagId)
+
+			// Call the onTagSelect callback if provided
+			if (onTagSelect) onTagSelect(tagId)
+		}
 	}
-}
 
-/**
- * Add a tag to the selected tags list if it's not already there
- */
-function addTag(tagId: number) {
-	if (!selectedTags.includes(tagId)) {
-		selectedTags = [...selectedTags, tagId]
+	/**
+	 * Add a tag to the selected tags list if it's not already there
+	 */
+	function addTag(tagId: number) {
+		if (!selectedTags.includes(tagId)) {
+			selectedTags = [...selectedTags, tagId]
+		}
 	}
-}
 
-/**
- * Remove a tag from the selected tags list
- */
-function removeTag(tagId: number) {
-	selectedTags = selectedTags.filter((id) => id !== tagId)
-}
+	/**
+	 * Remove a tag from the selected tags list
+	 */
+	function removeTag(tagId: number) {
+		selectedTags = selectedTags.filter((id) => id !== tagId)
+	}
 
-/**
- * Convert numeric ID tags to TagType with string IDs for the Tag component
- */
-function convertTag(tag: { id: number; name: string; slug: string }): TagType {
-	return {
-		id: String(tag.id),
-		name: tag.name,
-		slug: tag.slug
-	};
-}
+	/**
+	 * Convert numeric ID tags to TagType with string IDs for the Tag component
+	 */
+	function convertTag(tag: { id: number; name: string; slug: string }): TagType {
+		return {
+			id: String(tag.id),
+			name: tag.name,
+			slug: tag.slug
+		}
+	}
 </script>
 
 <!--

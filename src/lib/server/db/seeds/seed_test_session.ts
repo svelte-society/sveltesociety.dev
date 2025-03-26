@@ -7,9 +7,9 @@ export function seedTestSession(db: Database.Database) {
 	const getUserStmt = db.prepare(`
 		SELECT id FROM users LIMIT 1
 	`)
-	
+
 	const user = getUserStmt.get() as { id: string } | undefined
-	
+
 	if (!user) {
 		console.error('No users found. Please seed users first.')
 		return

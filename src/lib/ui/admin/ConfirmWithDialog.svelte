@@ -1,32 +1,32 @@
 <script lang="ts">
-import type { Snippet } from 'svelte'
-import { enhance, applyAction } from '$app/forms'
-import Button from '../Button.svelte'
+	import type { Snippet } from 'svelte'
+	import { enhance, applyAction } from '$app/forms'
+	import Button from '../Button.svelte'
 
-let showDialog = $state(false)
+	let showDialog = $state(false)
 
-interface BaseProps {
-	title: string
-	action: string
-	id: string
-	confirmButtonText?: string
-	cancelButtonText?: string
-}
+	interface BaseProps {
+		title: string
+		action: string
+		id: string
+		confirmButtonText?: string
+		cancelButtonText?: string
+	}
 
-interface PropsWithDescription extends BaseProps {
-	description: string
-	children?: never
-}
+	interface PropsWithDescription extends BaseProps {
+		description: string
+		children?: never
+	}
 
-interface PropsWithChildren extends BaseProps {
-	description?: never
-	children: Snippet
-}
+	interface PropsWithChildren extends BaseProps {
+		description?: never
+		children: Snippet
+	}
 
-type Props = PropsWithDescription | PropsWithChildren
+	type Props = PropsWithDescription | PropsWithChildren
 
-let { title, description, action, id, confirmButtonText, cancelButtonText, children }: Props =
-	$props()
+	let { title, description, action, id, confirmButtonText, cancelButtonText, children }: Props =
+		$props()
 </script>
 
 <button
@@ -46,7 +46,7 @@ let { title, description, action, id, confirmButtonText, cancelButtonText, child
 </button>
 
 {#if showDialog}
-	<div class="z-5000 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+	<div class="bg-opacity-50 fixed inset-0 z-5000 flex items-center justify-center bg-black">
 		<div class="rounded-lg bg-white p-6 shadow-xl">
 			<h2 class="mb-4 text-xl font-bold">{title}</h2>
 			{#if children}
@@ -62,10 +62,10 @@ let { title, description, action, id, confirmButtonText, cancelButtonText, child
 					use:enhance={() => {
 						return ({ result }) => {
 							if (result.type === 'success') {
-								showDialog = false;
+								showDialog = false
 							}
-							applyAction(result);
-						};
+							applyAction(result)
+						}
 					}}
 				>
 					<input type="hidden" name="id" value={id} />

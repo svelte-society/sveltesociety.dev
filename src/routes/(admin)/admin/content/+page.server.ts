@@ -7,8 +7,8 @@ export const load: PageServerLoad = async ({ url, locals }) => {
 	const offset = (page - 1) * perPage
 
 	// Get all content regardless of status for admin view
-	const content = locals.contentService.getFilteredContent({ 
-		limit: perPage, 
+	const content = locals.contentService.getFilteredContent({
+		limit: perPage,
 		offset,
 		status: 'all' // Explicitly request all statuses including drafts
 	})
@@ -20,7 +20,7 @@ export const load: PageServerLoad = async ({ url, locals }) => {
 	// Get total count of all content for pagination
 	const count = locals.contentService.getFilteredContentCount({ status: 'all' })
 
-	return { 
+	return {
 		content,
 		pagination: {
 			count,
