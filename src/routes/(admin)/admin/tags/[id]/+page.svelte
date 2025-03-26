@@ -1,20 +1,20 @@
 <script lang="ts">
-import Button from '$lib/ui/Button.svelte'
-import Input from '$lib/ui/form/Input.svelte'
-import { zod } from 'sveltekit-superforms/adapters'
-import { superForm } from 'sveltekit-superforms'
-import { slugify } from '$lib/utils/slug'
-import { z } from 'zod'
+	import Button from '$lib/ui/Button.svelte'
+	import Input from '$lib/ui/form/Input.svelte'
+	import { zod } from 'sveltekit-superforms/adapters'
+	import { superForm } from 'sveltekit-superforms'
+	import { slugify } from '$lib/utils/slug'
+	import { z } from 'zod'
 
-// Define the schema locally to match the server
-const schema = z.object({
-	id: z.string(),
-	name: z.string().min(1, 'Name is required'),
-	slug: z.string().min(1, 'Slug is required')
-})
+	// Define the schema locally to match the server
+	const schema = z.object({
+		id: z.string(),
+		name: z.string().min(1, 'Name is required'),
+		slug: z.string().min(1, 'Slug is required')
+	})
 
-let { data } = $props()
-const { form, errors, enhance } = superForm(data.form, zod(schema))
+	let { data } = $props()
+	const { form, errors, enhance } = superForm(data.form, zod(schema))
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">

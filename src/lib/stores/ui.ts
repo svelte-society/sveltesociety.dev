@@ -1,7 +1,7 @@
-import { writable } from 'svelte/store';
+import { writable } from 'svelte/store'
 
 // Store for controlling left sidebar visibility
-export const toggleLeftSidebar = writable(false);
+export const toggleLeftSidebar = writable(false)
 
 // Store for controlling right sidebar visibility
-export const toggleRightSidebar = writable(false); 
+export const toggleRightSidebar = writable(false)

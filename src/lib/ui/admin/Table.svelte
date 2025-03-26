@@ -1,20 +1,20 @@
 <script lang="ts">
-import type { Snippet } from 'svelte'
+	import type { Snippet } from 'svelte'
 
-interface Props<T> {
-	action: boolean
-	header: (classes: string) => ReturnType<Snippet>
-	row: (item: T, classes: string) => ReturnType<Snippet>
-	actionCell?: (item: T) => ReturnType<Snippet>
-	data: Array<T>
-}
-let { action = false, header, row, actionCell, data }: Props<any> = $props()
+	interface Props<T> {
+		action: boolean
+		header: (classes: string) => ReturnType<Snippet>
+		row: (item: T, classes: string) => ReturnType<Snippet>
+		actionCell?: (item: T) => ReturnType<Snippet>
+		data: Array<T>
+	}
+	let { action = false, header, row, actionCell, data }: Props<any> = $props()
 </script>
 
 <div class="overflow-hidden rounded-lg bg-white shadow-sm">
 	<div class="w-full overflow-x-auto">
 		<table class="w-full text-left text-xs text-gray-500">
-			<thead class="bg-gray-50 text-xs uppercase text-gray-700">
+			<thead class="bg-gray-50 text-xs text-gray-700 uppercase">
 				<tr>
 					{@render header('px-3 py-2')}
 					{#if action && actionCell}

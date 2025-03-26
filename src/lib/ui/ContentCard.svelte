@@ -1,125 +1,138 @@
 <script lang="ts">
-import { enhance } from '$app/forms'
-import type { ActionResult, SubmitFunction } from '@sveltejs/kit'
-import { page } from '$app/stores'
-import { formatRelativeDate } from '$lib/utils/date'
+	import { enhance } from '$app/forms'
+	import { page } from '$app/state'
+	import { formatRelativeDate } from '$lib/utils/date'
 
-import Tags from './Tags.svelte'
-import type { TagType } from './Tags.svelte'
+	import Tags from './Tags.svelte'
+	import type { TagType } from './Tags.svelte'
 
-import Recipe from '$lib/ui/content/Recipe.svelte'
-import Collection from '$lib/ui/content/Collection.svelte'
-import Video from '$lib/ui/content/Video.svelte'
+	import Recipe from '$lib/ui/content/Recipe.svelte'
+	import Collection from '$lib/ui/content/Collection.svelte'
+	import Video from '$lib/ui/content/Video.svelte'
 
-interface ContentCardProps {
-	id: string | number
-	title: string
-	description?: string
-	rendered_body?: string
-	type: string
-	author: string
-	published_at: string
-	views: number
-	likes: number
-	liked: boolean
-	saves: number
-	saved: boolean
-	tags: TagType[]
-	slug: string
-	child_content: any[]
-	// For backward compatibility
-	children?: any[]
-}
+	interface ContentCardProps {
+		id: string | number
+		title: string
+		description?: string
+		rendered_body?: string
+		type: string
+		author: string
+		published_at: string
+		views: number
+		likes: number
+		liked: boolean
+		saves: number
+		saved: boolean
+		tags: TagType[]
+		slug: string
+		child_content: any[]
+		// For backward compatibility
+		children?: any[]
+	}
 
-let {
-	id,
-	title,
-	description,
-	rendered_body,
-	type,
-	author,
-	published_at,
-	views,
-	likes,
-	liked,
-	saves,
-	saved,
-	tags,
-	slug,
-	child_content = [],
-	children
-}: ContentCardProps = $props()
+	let {
+		id,
+		title,
+		description,
+		rendered_body,
+		type,
+		author,
+		published_at,
+		views,
+		likes,
+		liked,
+		saves,
+		saved,
+		tags,
+		slug,
+		child_content = [],
+		children
+	}: ContentCardProps = $props()
 
-// If children is provided but child_content is not, use children
-if (!child_content.length && children && children.length) {
-	child_content = children;
-}
+	// If children is provided but child_content is not, use children
+	if (!child_content.length && children && children.length) {
+		child_content = children
+	}
 
-// Convert string tags to TagType objects if needed
-const formattedTags: TagType[] = Array.isArray(tags) 
-	? tags.map(tag => {
-		if (typeof tag === 'string') {
-			return { 
-				id: tag, 
-				name: tag, 
-				slug: String(tag).toLowerCase().replace(/\s+/g, '-') 
-			};
+	// Ensure each child has proper properties for rendering
+	if (type === 'collection') {
+		child_content = child_content.map((child) => ({
+			...child,
+			// Set defaults for any missing properties
+			type: child.type || 'unknown',
+			title: child.title || 'Untitled',
+			slug: child.slug || '',
+			published_at: child.published_at || published_at
+		}))
+	}
+
+	// Convert string tags to TagType objects if needed
+	const formattedTags: TagType[] = Array.isArray(tags)
+		? tags.map((tag) => {
+				if (typeof tag === 'string') {
+					return {
+						id: tag,
+						name: tag,
+						slug: String(tag).toLowerCase().replace(/\s+/g, '-')
+					}
+				}
+				// Ensure tag has the correct shape
+				return {
+					id: String(tag.id),
+					name: String(tag.name),
+					slug: String(tag.slug)
+				}
+			})
+		: []
+
+	let submitting_like_toggle = $state(false)
+	let submitting_save_toggle = $state(false)
+
+	// Use any for now to avoid type errors with enhance
+	const likeSubmit = (event: any) => {
+		if (!page.data.user) {
+			event.cancel()
+			return
 		}
-		// Ensure tag has the correct shape
-		return {
-			id: String(tag.id),
-			name: String(tag.name),
-			slug: String(tag.slug)
-		};
-	})
-	: [];
+		submitting_like_toggle = true
+		likes = liked ? likes - 1 : likes + 1
+		liked = !liked
 
-let submitting_like_toggle = $state(false)
-let submitting_save_toggle = $state(false)
-
-// Use any for now to avoid type errors with enhance
-const likeSubmit = (event: any) => {
-	if (!$page.data.user) {
-		event.cancel()
-		return
-	}
-	submitting_like_toggle = true
-	likes = liked ? likes - 1 : likes + 1
-	liked = !liked
-	
-	return async (event: any) => {
-		const data = event.result?.data
-		if (!data?.success) {
-			likes = liked ? likes + 1 : likes - 1
-			liked = !liked
+		return async (event: any) => {
+			const data = event.result?.data
+			if (!data?.success) {
+				likes = liked ? likes + 1 : likes - 1
+				liked = !liked
+			}
+			submitting_like_toggle = false
 		}
-		submitting_like_toggle = false
 	}
-}
 
-// Use any for now to avoid type errors with enhance
-const saveSubmit = (event: any) => {
-	if (!$page.data.user) {
-		event.cancel()
-		return
-	}
-	submitting_save_toggle = true
-	saves = saved ? saves - 1 : saves + 1
-	saved = !saved
-	
-	return async (event: any) => {
-		const data = event.result?.data
-		if (!data?.success) {
-			saves = saved ? saves + 1 : saves - 1
-			saved = !saved
+	// Use any for now to avoid type errors with enhance
+	const saveSubmit = (event: any) => {
+		if (!page.data.user) {
+			event.cancel()
+			return
 		}
-		submitting_save_toggle = false
+		submitting_save_toggle = true
+		saves = saved ? saves - 1 : saves + 1
+		saved = !saved
+
+		return async (event: any) => {
+			const data = event.result?.data
+			if (!data?.success) {
+				saves = saved ? saves + 1 : saves - 1
+				saved = !saved
+			}
+			submitting_save_toggle = false
+		}
 	}
-}
 </script>
 
-<article class="grid gap-2 rounded-lg bg-zinc-50 px-4 sm:px-6 py-4 sm:py-5">
-	<div class="mb-2 grid grid-cols-1 sm:grid-cols-[1fr_auto] items-start justify-between gap-2 sm:gap-0 text-xs">
+<article class="grid gap-2 rounded-lg bg-zinc-50 px-4 py-4 sm:px-6 sm:py-5">
+	<div
+		class="mb-2 grid grid-cols-1 items-start justify-between gap-2 text-xs sm:grid-cols-[1fr_auto] sm:gap-0"
+	>
 		<div class="flex flex-wrap items-center">
 			<span class="font-semibold capitalize">{type}&nbsp;</span>
 			<span class="flex flex-wrap text-gray-500">
@@ -149,7 +162,7 @@ const saveSubmit = (event: any) => {
 					disabled={submitting_like_toggle}
 					aria-label="Like {type}"
 					type="submit"
-					class="-mx-2 -my-1 flex items-center gap-1 rounded-md px-2 py-1.5 sm:py-1 text-gray-600 hover:bg-gray-200 hover:text-gray-700 touch-manipulation"
+					class="-mx-2 -my-1 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 text-gray-600 hover:bg-gray-200 hover:text-gray-700 sm:py-1"
 				>
 					<svg
 						width="12"
@@ -184,7 +197,7 @@ const saveSubmit = (event: any) => {
 					disabled={submitting_save_toggle}
 					aria-label="Like {type}"
 					type="submit"
-					class="-mx-2 -my-1 flex items-center gap-1 rounded-md px-2 py-1.5 sm:py-1 text-gray-600 hover:bg-gray-200 hover:text-gray-700 touch-manipulation"
+					class="-mx-2 -my-1 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 text-gray-600 hover:bg-gray-200 hover:text-gray-700 sm:py-1"
 				>
 					<svg
 						width="12"
@@ -214,7 +227,7 @@ const saveSubmit = (event: any) => {
 		</div>
 	</div>
 
-	<h2 class="mb-2 text-lg sm:text-xl font-bold"><a href="/{type}/{slug}">{title}</a></h2>
+	<h2 class="mb-2 text-lg font-bold sm:text-xl"><a href="/{type}/{slug}">{title}</a></h2>
 	<div class="text-sm sm:text-base">{description}</div>
 
 	<div>
@@ -227,7 +240,9 @@ const saveSubmit = (event: any) => {
 		{/if}
 	</div>
 
-	<div class="mt-4 grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 sm:gap-0 items-start justify-between">
+	<div
+		class="mt-4 grid grid-cols-1 items-start justify-between gap-2 sm:grid-cols-[1fr_auto] sm:gap-0"
+	>
 		<div class="flex flex-wrap gap-2">
 			<Tags tags={formattedTags} />
 		</div>

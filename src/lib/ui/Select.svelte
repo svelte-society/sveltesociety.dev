@@ -1,84 +1,48 @@
 <script lang="ts">
-type SelectOption = {
-	value: string | number
-	label: string
-}
-
-type ChangeEventHandler = (event: Event) => void;
-
-interface SelectProps {
-	options: SelectOption[]
-	value?: string | number
-	placeholder?: string
-	name?: string
-	disabled?: boolean
-	onchange?: ChangeEventHandler
-	label?: string
-	description?: string
-	errors?: string | string[] | any
-}
-
-let {
-	options = [],
-	placeholder = 'Select an option',
-	name = '',
-	value = $bindable(''),
-	disabled = false,
-	onchange,
-	label,
-	description,
-	errors
-}: SelectProps = $props()
-
-function handleChange(event: Event) {
-	if (onchange) {
-		onchange(event);
+	import { CaretUpDown, Check } from 'phosphor-svelte'
+	import { Select } from 'bits-ui'
+	type Option = {
+		label: string
+		value: string
 	}
-}
+
+	type Props = {
+		options: Option[]
+		value?: Option
+		name: string
+		selected?: string
+		props?: any
+	}
+	let { options, value = $bindable(), name, selected, props }: Props = $props()
 </script>
 
-<div class="relative inline-block w-full">
-	{#if label}
-		<label for={name} class="block text-sm font-medium text-gray-700">{label}</label>
-	{/if}
-	
-	{#if description}
-		<p class="mt-1 text-sm text-gray-500">{description}</p>
-	{/if}
-	
-	<select
-		{name}
-		bind:value
-		{disabled}
-		onchange={handleChange}
-		class="
-      focus:shadow-outline block w-full appearance-none rounded border border-gray-300
-      bg-white px-4 py-2 pr-8 leading-tight shadow hover:border-gray-400 focus:outline-none
-      {disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
-    "
+<Select.Root type="single" bind:value {name}>
+	<Select.Trigger
+		{...props}
+		class="grid w-full grid-cols-[1fr_auto] items-center rounded-md border-2 border-transparent bg-slate-100 px-3 py-1 pl-2 text-left text-sm placeholder-slate-500  focus:outline-2 focus:outline-sky-200 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600"
 	>
-		{#if placeholder}
-			<option value="" disabled selected hidden>{placeholder}</option>
-		{/if}
-		{#each options as option}
-			<option value={option.value}>{option.label}</option>
-		{/each}
-	</select>
-	<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-		<svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-			<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-		</svg>
-	</div>
-	
-	{#if errors}
-		<div class="mt-1 text-sm text-red-600">
-			{#if Array.isArray(errors)}
-				{#each errors as error}
-					<p>{error}</p>
-				{/each}
-			{:else}
-				<p>{errors}</p>
-			{/if}
-		</div>
-	{/if}
-</div>
+		{selected}
+		<CaretUpDown class="ml-auto size-4 text-gray-500" />
+	</Select.Trigger>
+	<Select.Portal>
+		<Select.Content
+			class="focus-override z-50 w-[var(--bits-select-anchor-width)] min-w-[var(--bits-select-anchor-width)] rounded-xl bg-white px-1 py-3 shadow-2xl outline-hidden select-none data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1"
+		>
+			{#each options as option}
+				<Select.Item
+					value={option.value}
+					class="flex h-8 w-full items-center rounded-sm py-3 pr-1.5 pl-3 text-sm capitalize outline-hidden select-none data-disabled:opacity-50 data-highlighted:bg-gray-100"
+				>
+					{#snippet children({ selected })}
+						{option.label}
+						{#if selected}
+							<div class="ml-auto">
+								<Check />
+							</div>
+						{/if}
+					{/snippet}
+				</Select.Item>
+			{/each}
+		</Select.Content>
+	</Select.Portal>
+</Select.Root>

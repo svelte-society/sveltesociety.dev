@@ -1,18 +1,17 @@
 import { superValidate } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
 import { fail, redirect } from '@sveltejs/kit'
-import { get_active_roles } from '$lib/server/db/role.js'
-import { get_user, update_user } from '$lib/server/db/user.js'
+import type { Actions, PageServerLoad } from './$types'
 import { schema } from './schema'
 
-export const load = async ({ params }) => {
-	const userFromDb = get_user(params.id)
-	const roles = get_active_roles()
+export const load: PageServerLoad = async ({ params, locals }) => {
+	const userFromDb = locals.userService.getUser(params.id)
+	const roles = locals.roleService.getActiveRoles()
 
 	if (!userFromDb) {
 		redirect(302, '/admin/users')
 	}
-	
+
 	// Convert null values to undefined to match schema expectations
 	const user = {
 		...userFromDb,
@@ -31,17 +30,16 @@ export const load = async ({ params }) => {
 		form
 	}
 }
-export const actions = {
-	default: async ({ request }) => {
-		const form = await superValidate(request, zod(schema))
 
-		console.log(form)
+export const actions: Actions = {
+	default: async ({ request, locals }) => {
+		const form = await superValidate(request, zod(schema))
 
 		if (!form.valid) {
 			return fail(400, { form })
 		}
 
-		const updated_user = await update_user(form.data.id, form.data)
+		const updated_user = await locals.userService.updateUser(form.data.id, form.data)
 
 		redirect(302, '/admin/users')
 	}

@@ -1,11 +1,8 @@
-import { redirect } from '@sveltejs/kit'
 import {
 	GITHUB_AUTHORIZATION_CALLBACK_URL,
 	GITHUB_CLIENT_ID,
 	GITHUB_CLIENT_SECRET
 } from '$env/static/private'
-
-const scope = 'user:email'
 
 export const GITHUB_AUTH_URL = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${GITHUB_AUTHORIZATION_CALLBACK_URL}`
 

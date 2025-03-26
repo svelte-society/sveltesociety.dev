@@ -1,7 +1,6 @@
 import { superValidate, message } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
 import { fail, redirect } from '@sveltejs/kit'
-import { create_role } from '$lib/server/db/role'
 import { schema } from './schema'
 
 export const load = async () => {
@@ -11,14 +10,14 @@ export const load = async () => {
 	}
 }
 export const actions = {
-	default: async ({ request }) => {
+	default: async ({ request, locals }) => {
 		const form = await superValidate(request, zod(schema))
 
 		if (!form.valid) {
 			return fail(400, { form })
 		}
 
-		const created_role_id = create_role(form.data)
+		const created_role_id = locals.roleService.createRole(form.data)
 
 		if (!created_role_id) {
 			return message(form, 'Something went wrong.')

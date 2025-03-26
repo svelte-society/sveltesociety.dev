@@ -1,9 +1,8 @@
-import { validate_session_id } from '$lib/server/db/session'
-import { get_user } from '$lib/server/db/user'
 import type { Handle } from '@sveltejs/kit'
 
 export const add_user_data: Handle = async ({ event, resolve }) => {
 	const { cookies } = event
+	const { sessionService, userService } = event.locals
 
 	const session_id = cookies.get('session_id')
 
@@ -11,7 +10,7 @@ export const add_user_data: Handle = async ({ event, resolve }) => {
 		return await resolve(event)
 	}
 
-	const sessionResult = validate_session_id(session_id)
+	const sessionResult = sessionService.validateSessionId(session_id)
 
 	if (!sessionResult.valid || !sessionResult.user_id) {
 		// Remove invalid session cookie
@@ -19,7 +18,7 @@ export const add_user_data: Handle = async ({ event, resolve }) => {
 		return await resolve(event)
 	}
 
-	const user = get_user(sessionResult.user_id)
+	const user = userService.getUser(sessionResult.user_id)
 
 	if (user) {
 		event.locals.user = user

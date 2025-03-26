@@ -1,19 +1,19 @@
 <script lang="ts">
-import Button from '$lib/ui/Button.svelte'
+	import Button from '$lib/ui/Button.svelte'
 
-let { data } = $props()
+	let { data } = $props()
 
-$inspect(data)
+	const statCards = [
+		{ title: 'Posts', color: 'bg-blue-100', count: 0, icon: 'post' },
+		{ title: 'Likes', color: 'bg-green-100', count: data.counts.like, icon: 'thumb-up' },
+		{ title: 'Saves', color: 'bg-yellow-100', count: data.counts.save, icon: 'bookmark' },
+		{ title: 'Collections', color: 'bg-purple-100', count: 0, icon: 'collection' },
+		{ title: 'Users', color: 'bg-red-100', count: data.counts.signup, icon: 'user' }
+	]
 
-const statCards = [
-	{ title: 'Posts', color: 'bg-blue-100', count: 0, icon: 'post' },
-	{ title: 'Likes', color: 'bg-green-100', count: data.counts.like, icon: 'thumb-up' },
-	{ title: 'Saves', color: 'bg-yellow-100', count: data.counts.save, icon: 'bookmark' },
-	{ title: 'Collections', color: 'bg-purple-100', count: 0, icon: 'collection' },
-	{ title: 'Users', color: 'bg-red-100', count: data.counts.signup, icon: 'user' }
-]
-
-const chartCards = [{ title: 'Activity Over Time', color: 'bg-indigo-50', data: data.time_series }]
+	const chartCards = [
+		{ title: 'Activity Over Time', color: 'bg-indigo-50', data: data.time_series }
+	]
 </script>
 
 <div class="container mx-auto px-2 py-4">

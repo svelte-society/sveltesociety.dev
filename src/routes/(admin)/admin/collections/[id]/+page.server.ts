@@ -1,4 +1,3 @@
-import { get_content, get_content_by_id, update_content } from '$lib/server/db/content'
 import { error, fail, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 import { superValidate } from 'sveltekit-superforms'
@@ -13,12 +12,40 @@ const schema = z.object({
 	slug: z.string().min(1, 'Slug is required')
 })
 
-export const load: PageServerLoad = async ({ params }) => {
-	const id = parseInt(params.id)
-	const collection = get_content_by_id(id)
+// Define an interface for the collection from the database
+interface CollectionFromDB {
+	id: string
+	title: string
+	slug: string
+	description: string
+	content: string
+	type: string
+	status: string
+	created_at: string
+	updated_at: string
+}
+
+export const load: PageServerLoad = async ({ params, locals }) => {
+	// Directly query the database for the collection
+	const collectionStmt = locals.db.prepare(`
+		SELECT * FROM content
+		WHERE id = ? AND type = 'collection'
+	`)
+	const collection = collectionStmt.get(params.id) as CollectionFromDB | undefined
 
 	if (!collection) {
 		throw error(404, 'Collection not found')
+	}
+
+	// Parse content field which contains the collection children
+	let children: number[] = []
+	try {
+		if (collection.content) {
+			const contentObj = JSON.parse(collection.content)
+			children = contentObj.children || []
+		}
+	} catch (e) {
+		children = []
 	}
 
 	// Create a form data object with the correct types
@@ -27,43 +54,77 @@ export const load: PageServerLoad = async ({ params }) => {
 		title: collection.title,
 		description: collection.description,
 		slug: collection.slug,
-		// Parse children from string to array if needed
-		children: typeof collection.children === 'string' 
-			? JSON.parse(collection.children || '[]') 
-			: (collection.children || [])
-	};
+		children: children
+	}
 
 	const form = await superValidate(formData, zod(schema))
-	
+
 	// Get all content for the selector
-	const allContent = get_content({})
-	
+	const allContent = locals.contentService.getFilteredContent({})
+
 	return {
 		form,
-		content: allContent
+		content: allContent,
+		searchResults: [] // Initial empty search results
 	}
 }
 
 export const actions: Actions = {
-	default: async ({ request }) => {
+	update: async ({ request, locals }) => {
 		const form = await superValidate(request, zod(schema))
 		if (!form.valid) {
 			return fail(400, { form })
 		}
 
-		const result = update_content({
-			id: form.data.id,
-			title: form.data.title,
-			description: form.data.description,
-			children: form.data.children,
-			slug: form.data.slug,
-			type: 'collection'
-		})
+		// Update the collection using locals.db since ContentService doesn't have an update method yet
+		const updateStmt = locals.db.prepare(`
+			UPDATE content
+			SET title = ?, 
+			    description = ?, 
+			    slug = ?,
+			    content = ?
+			WHERE id = ?
+			RETURNING id
+		`)
+
+		const collectionContent = JSON.stringify({ children: form.data.children })
+		const result = updateStmt.get(
+			form.data.title,
+			form.data.description,
+			form.data.slug,
+			collectionContent,
+			form.data.id
+		) as { id: string } | undefined
 
 		if (result) {
 			throw redirect(303, '/admin/collections')
 		} else {
 			throw error(500, 'Failed to update collection')
+		}
+	},
+
+	search: async ({ request, locals, params }) => {
+		const data = await request.formData()
+		const query = data.get('search')?.toString() || ''
+
+		if (!query) {
+			return {
+				results: locals.contentService.getFilteredContent({ limit: 10 })
+			}
+		}
+
+		const contentIds = locals.searchService.search({
+			query,
+			searchFields: ['title', 'description']
+		})
+
+		// Get the full content objects for the search results
+		const results = contentIds.map((id) => locals.contentService.getContentById(id)).filter(Boolean)
+
+		return {
+			form: {
+				results
+			}
 		}
 	}
 }

@@ -5,6 +5,7 @@ This branch contains the upcoming Svelte Society website featuring a new design 
 ## Developing
 
 Steps to get running:
+
 - Run `bun i`
 - Run `bun run --bun db:init`
 - Run `bun run --bun db:seed`

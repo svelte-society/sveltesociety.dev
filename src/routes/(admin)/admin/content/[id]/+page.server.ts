@@ -1,74 +1,57 @@
 import { superValidate, message } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
 import { fail, redirect } from '@sveltejs/kit'
-import {
-	type Content,
-	create_content,
-	get_content_by_id,
-	get_tags_for_content,
-	update_content
-} from '$lib/server/db/content'
-import { get_tags } from '$lib/server/db/tags'
+import type { Actions, PageServerLoad } from './$types'
+import type { Content } from '$lib/server/db/content'
 import { Status } from '$lib/server/db/common'
 
 import { schema } from './schema'
+import { contentSchema } from '$lib/schema/content'
 
-export const load = async ({ params }) => {
-	const all_tags = get_tags()
-	if (!all_tags) {
-		fail(400, { message: 'Error getting tags' })
-	}
-	
-	// Initialize with undefined for new content
-	let formData = undefined;
+export const load: PageServerLoad = async ({ params, locals }) => {
+	// Load existing content for editing
+	const content = await locals.contentService.getContentById(params.id)
 
-	const contentId = params.id
-
-	if (contentId !== 'new') {
-		const [res_content, res_content_tags] = await Promise.all([
-			get_content_by_id(Number(params.id)),
-			get_tags_for_content([Number(params.id)])
-		])
-		if (!res_content || !res_content_tags || res_content_tags.length !== 1) {
-			redirect(302, '/admin/content')
-		}
-
-		// Create a properly typed form data object
-		formData = {
-			title: res_content.title,
-			type: res_content.type as "recipe" | "video" | "library" | "announcement" | "showcase",
-			body: res_content.body,
-			slug: res_content.slug,
-			description: res_content.description,
-			tags: res_content_tags[0].map((i) => i.id),
-			status: res_content.status === Status.PUBLISHED ? 'published' as const : 'draft' as const,
-			metadata: res_content.metadata || { videoId: '', npm: '' }
-		};
+	if (!content) {
+		throw redirect(303, '/admin/content')
 	}
 
-	const form = await superValidate(formData, zod(schema), {})
+	// Pre-populate form with existing content
+	const form = await superValidate(content, zod(contentSchema))
+
+	// Get all tags for the tag selector
+	const tags = await locals.tagService.getTags()
+
 	return {
 		form,
-		tags: all_tags
+		tags,
+		contentId: params.id
 	}
 }
 
-export const actions = {
-	default: async ({ params, request }) => {
-		const form = await superValidate(request, zod(schema))
+export const actions: Actions = {
+	default: async ({ request, params, locals }) => {
+		// Get form data and validate
+		const form = await superValidate(request, zod(contentSchema))
+
 		if (!form.valid) {
 			return fail(400, { form })
 		}
 
 		try {
-			if (params.id === 'new') {
-				create_content(form.data)
-			} else {
-				update_content({ ...form.data, id: Number(params.id) })
-			}
-			redirect(302, '/admin/content')
+			// Update existing content
+			await locals.contentService.updateContent(params.id, form.data)
+
+			// Redirect to content listing after successful save
+			throw redirect(303, '/admin/content')
 		} catch (error) {
-			return message(form, 'Failed to save content.')
+			if (error instanceof Response) throw error
+
+			console.error('Error updating content:', error)
+			return fail(500, {
+				form,
+				error: 'Failed to update content. Please try again.'
+			})
 		}
 	}
 }

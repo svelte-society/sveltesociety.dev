@@ -1,18 +1,17 @@
 <script lang="ts">
-import Button from '$lib/ui/Button.svelte'
-import type { PreviewContent } from '$lib/server/db/content'
-import Table from '$lib/ui/admin/Table.svelte'
-import Actions from '$lib/ui/admin/Actions.svelte'
-import type { Role } from '$lib/server/db/role'
-import Badge from '$lib/ui/admin/Badge.svelte'
-import Pagination from '$lib/ui/Pagination.svelte'
+	import Button from '$lib/ui/Button.svelte'
+	import Table from '$lib/ui/admin/Table.svelte'
+	import Actions from '$lib/ui/admin/Actions.svelte'
+	import type { Role } from '$lib/server/db/role'
+	import Badge from '$lib/ui/admin/Badge.svelte'
+	import Pagination from '$lib/ui/Pagination.svelte'
 
-let { data } = $props()
+	let { data } = $props()
 
-let colorMap = new Map([
-	['active', 'success'],
-	['inactive', 'danger']
-])
+	let colorMap = new Map([
+		['active', 'success'],
+		['inactive', 'danger']
+	])
 </script>
 
 <div class="container mx-auto px-2 py-4">
@@ -38,21 +37,18 @@ let colorMap = new Map([
 				/></td
 			>
 		{/snippet}
-		{#snippet actionCell(item: PreviewContent)}
+		{#snippet actionCell(item: Role)}
 			<Actions
 				route="roles"
-				id={item.id}
+				id={String(item.id)}
 				canDelete={true}
 				canEdit={true}
-				type="{item.title} role"
+				type="{item.name} role"
 			/>
 		{/snippet}
 	</Table>
-	
+
 	{#if data.pagination}
-		<Pagination 
-			count={data.pagination.count} 
-			perPage={data.pagination.perPage} 
-		/>
+		<Pagination count={data.pagination.count} perPage={data.pagination.perPage} />
 	{/if}
 </div>

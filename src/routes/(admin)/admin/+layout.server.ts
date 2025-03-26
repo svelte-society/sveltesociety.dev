@@ -1,9 +1,10 @@
 import type { LayoutServerLoad } from './$types'
-import { get_moderation_queue_count_filtered } from '$lib/server/db/moderation'
-import { ModerationStatus } from '$lib/server/db/moderation'
+import { ModerationStatus } from '$lib/server/services/moderation'
 
-export const load: LayoutServerLoad = async () => {
-	const moderation_count = get_moderation_queue_count_filtered({ status: ModerationStatus.PENDING })
+export const load: LayoutServerLoad = async ({ locals }) => {
+	const moderation_count = locals.moderationService.getModerationQueueCount(
+		ModerationStatus.PENDING
+	)
 
 	return {
 		moderation_count

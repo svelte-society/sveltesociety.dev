@@ -1,12 +1,12 @@
-import { get_user_count } from '$lib/server/db/user'
-import { get_published_content_count } from '$lib/server/db/content'
-import { get_moderation_queue_count } from '$lib/server/db/moderation'
 import type { PageServerLoad } from './$types'
+import { ModerationStatus } from '$lib/server/services/moderation'
 
-export const load = (async () => {
-	const users = get_user_count()
-	const content = get_published_content_count()
-	const moderation_queue = get_moderation_queue_count()
+export const load = (async ({ locals }) => {
+	const users = locals.userService.getUserCount()
+	const content = locals.contentService.getFilteredContentCount({ status: 'published' })
+	const moderation_queue = locals.moderationService.getModerationQueueCount(
+		ModerationStatus.PENDING
+	)
 
 	return {
 		users,
