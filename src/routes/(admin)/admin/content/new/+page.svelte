@@ -184,8 +184,8 @@
 		{/if}
 
 		<div class="space-y-2">
-			<label for="body" class="font-medi block text-sm">Content Body</label>
-			<div class="w-full rounded-md">
+			<label for="body" class="block text-sm font-medium text-gray-700">Content Body</label>
+			<div class="w-full rounded-md border border-gray-300 bg-white">
 				<MarkdownEditor name="body" />
 			</div>
 		</div>
