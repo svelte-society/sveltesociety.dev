@@ -1,7 +1,14 @@
-<script>
+<script lang="ts">
+	import type { Snippet } from 'svelte'
 	import { setContext } from 'svelte'
+	import type { SuperForm } from 'sveltekit-superforms'
 
-	let { form, action = false, children } = $props()
+	interface Props {
+		form: SuperForm<any>
+		action?: string
+		children: Snippet
+	}
+	let { form, action, children }: Props = $props()
 
 	const { enhance } = form
 
