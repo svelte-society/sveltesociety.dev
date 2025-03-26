@@ -1,7 +1,7 @@
 <script>
 	import { setContext } from "svelte";
 
-    let { form, action, children } = $props();
+    let { form, action = false, children } = $props();
 
     const { enhance } = form
 

@@ -85,7 +85,7 @@ function getNpmPackage(): string {
     Create New Content
   </h1>
   
-  <Form {form} method="POST">
+  <Form {form}>
     <Input
       name="title"
       label="Title"
