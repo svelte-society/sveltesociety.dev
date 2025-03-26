@@ -15,7 +15,7 @@
    
   <Avatar.Root
 	delayMs={200}
-	class="data-[status=loaded]:border-svelte-900 bg-svelte-500 text-white h-10 w-10 rounded-full border text-sm font-medium uppercase data-[status=loading]:border-transparent hover:opacity-80"
+	class="data-[status=loaded]:border-svelte-900 bg-svelte-100 text-slate-700 h-10 w-10 rounded-full border text-sm font-medium uppercase data-[status=loading]:border-transparent hover:opacity-80"
   >
 	<div
 	  class="flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-transparent"

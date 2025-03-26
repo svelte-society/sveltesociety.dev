@@ -6,14 +6,15 @@
    
     let { user } = $props();
 
-    let formSubmitButton: HTMLButtonElement = undefined
+    let formSubmitButton: HTMLButtonElement
   </script>
    
   <DropdownMenu.Root>
     <DropdownMenu.Trigger
-      class="border-input inline-flex h-10 w-10 select-none items-center justify-center border border-transparent rounded-full text-sm font-medium active:scale-[0.98]"
+      class="border-input grid grid-cols-[1fr_auto] items-center gap-2 h-10 w-10 select-none border border-transparent rounded-full text-sm font-medium active:scale-[0.98]"
     >
-      <Avatar src={user.avatar_url} name={user.name} size="sm" />
+        <Avatar src={user.avatar_url} name={user.name} size="sm" />
+        <div class="whitespace-nowrap">{user.name}</div>
     </DropdownMenu.Trigger>
     <DropdownMenu.Portal>
       <DropdownMenu.Content
