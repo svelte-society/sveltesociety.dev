@@ -166,11 +166,11 @@
 								</dl>
 
 								<div class="mt-3 flex justify-end gap-2">
-									<Button on:click={() => formData.update((f) => ({ ...f, title: info.name }))}>
+									<Button onclick={() => formData.update((f) => ({ ...f, title: info.name }))}>
 										Use as Title
 									</Button>
 									<Button
-										on:click={() =>
+										onclick={() =>
 											formData.update((f) => ({ ...f, description: info.description }))}
 									>
 										Use as Description
@@ -184,8 +184,8 @@
 		{/if}
 
 		<div class="space-y-2">
-			<label for="body" class="block text-sm font-medium text-gray-700">Content Body</label>
-			<div class="w-full rounded-md border border-gray-300 bg-white">
+			<label for="body" class="font-medi block text-sm">Content Body</label>
+			<div class="w-full rounded-md">
 				<MarkdownEditor name="body" />
 			</div>
 		</div>
@@ -197,7 +197,7 @@
 				placeholder="url-friendly-name"
 				description="The slug used in the URL (auto-generated from title)"
 			/>
-			<Button on:click={generateSlug} style="margin-bottom: 0.5rem;">Generate</Button>
+			<Button onclick={generateSlug}>Generate</Button>
 		</div>
 
 		<Textarea
@@ -208,11 +208,11 @@
 		/>
 
 		<div class="space-y-2">
-			<label class="block text-sm font-medium text-gray-700">Tags</label>
+			<label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
 			<div class="text-sm text-gray-500">
 				<!-- Tag selection placeholder - implement with proper component -->
 				<p>Tag selection component needed</p>
-				<Input type="hidden" name="tags" value={['placeholder']} />
+				<input type="hidden" name="tags" value={['placeholder']} />
 			</div>
 		</div>
 
