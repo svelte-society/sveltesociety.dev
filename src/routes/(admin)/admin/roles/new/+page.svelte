@@ -16,12 +16,12 @@
 		validators: zodClient(schema)
 	})
 
-	const { form: formData, submitting } = form
+	const { submitting } = form
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
 	<h1 class="mb-6 text-3xl font-bold text-gray-800">Create New Role</h1>
-	<Form {form} method="POST">
+	<Form {form}>
 		<Input name="name" label="Name" placeholder="Admin" description="Enter the name of the role" />
 		<Input
 			name="value"

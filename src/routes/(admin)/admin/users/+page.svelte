@@ -6,7 +6,7 @@
 	import Table from '$lib/ui/admin/Table.svelte'
 	import Actions from '$lib/ui/admin/Actions.svelte'
 	import Pagination from '$lib/ui/Pagination.svelte'
-	import type { User } from '$lib/server/db/user'
+	import type { User } from '$lib/server/services/user'
 
 	// Extended User interface to include created_at
 	interface ExtendedUser extends User {
@@ -22,9 +22,8 @@
 </script>
 
 <div class="container mx-auto px-2 py-4">
-	<div class="mb-4 grid grid-cols-[1fr_auto] content-start gap-2">
+	<div class="mb-4 content-start gap-2">
 		<h1 class="text-xl font-bold">Users Management</h1>
-		<Button small primary icon_left="plus" href="/admin/users/new">New User</Button>
 	</div>
 	<Table action={true} data={data.users}>
 		{#snippet header(classes)}
@@ -36,7 +35,7 @@
 		{/snippet}
 		{#snippet row(item: ExtendedUser, classes)}
 			<td class="whitespace-nowrap {classes} flex items-center font-medium text-gray-900">
-				<Avatar src={item.avatar_url} name={item.username} size="sm" />
+				<Avatar src={item.avatar_url} name={item.username} />
 				<span class="ml-2">{item.username}</span>
 			</td>
 			<td class="{classes} truncate">{item.email ?? '-'}</td>

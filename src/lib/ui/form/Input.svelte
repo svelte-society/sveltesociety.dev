@@ -4,8 +4,9 @@
 		description?: string
 		placeholder?: string
 		name: string
+		type?: string
 	}
-	let { name, label, description, placeholder }: TextInputProps = $props()
+	let { name, label, description, placeholder, type }: TextInputProps = $props()
 
 	import type { SuperForm } from 'sveltekit-superforms'
 
@@ -25,6 +26,7 @@
 					{label}
 				</Label>
 				<input
+					{type}
 					class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-7 text-sm placeholder-slate-500 focus:outline-2 focus:outline-sky-200 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600"
 					{...props}
 					bind:value={$formData[name]}

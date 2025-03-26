@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Avatar } from 'bits-ui'
 
-	let { src, name, size } = $props()
+	let { src, name } = $props()
 
 	function getInitials(name: string): string {
 		return name

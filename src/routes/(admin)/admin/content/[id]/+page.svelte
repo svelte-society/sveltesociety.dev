@@ -21,7 +21,7 @@
 		dataType: 'json'
 	})
 
-	const { form: formData, errors, submitting } = form
+	const { form: formData, submitting } = form
 
 	// Helper for video preview
 	async function fetchVideoInfo(id: string) {
@@ -64,7 +64,7 @@
 	// Helper to generate slug from title
 	function generateSlug() {
 		if ($formData.title) {
-			formData.update((f) => ({ ...f, slug: slugify(f.title as string) }))
+			$formData.slug = slugify($formData.title)
 		}
 	}
 
@@ -83,7 +83,7 @@
 <div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
 	<h1 class="mb-6 text-3xl font-bold text-gray-800">Edit Content</h1>
 
-	<Form {form} method="POST">
+	<Form {form}>
 		<Input
 			name="title"
 			label="Title"
@@ -166,11 +166,11 @@
 								</dl>
 
 								<div class="mt-3 flex justify-end gap-2">
-									<Button on:click={() => formData.update((f) => ({ ...f, title: info.name }))}>
+									<Button onclick={() => formData.update((f) => ({ ...f, title: info.name }))}>
 										Use as Title
 									</Button>
 									<Button
-										on:click={() =>
+										onclick={() =>
 											formData.update((f) => ({ ...f, description: info.description }))}
 									>
 										Use as Description
@@ -190,14 +190,14 @@
 			</div>
 		</div>
 
-		<div class="flex items-end gap-2">
+		<div class="flex w-full items-center gap-2">
 			<Input
 				name="slug"
 				label="URL Slug"
 				placeholder="url-friendly-name"
 				description="The slug used in the URL (auto-generated from title)"
 			/>
-			<Button on:click={generateSlug} style="margin-bottom: 0.5rem;">Generate</Button>
+			<Button small secondary onclick={generateSlug}>Generate</Button>
 		</div>
 
 		<Textarea
@@ -208,7 +208,7 @@
 		/>
 
 		<div class="space-y-2">
-			<label class="block text-sm font-medium text-gray-700">Tags</label>
+			<label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
 			<div class="text-sm text-gray-500">
 				<!-- Tag selection placeholder - implement with proper component -->
 				<p>Tag selection component needed</p>
