@@ -1,6 +1,7 @@
 <script>
-    import Search from './Search.svelte';
     import { page } from '$app/state';
+    import Search from './Search.svelte';
+	import Dropdown from './Dropdown.svelte';
 
     let { user } = $props();
 </script>
@@ -59,7 +60,7 @@
         </div>
         
         <nav class="hidden md:flex items-center ml-auto space-x-4">
-            <ul class="flex space-x-4">
+            <ul class="flex space-x-4 border-r border-gray-200 pr-4">
                 <li>
                     <a
                         href="/about"
@@ -77,20 +78,7 @@
             </ul>
             
             {#if user}
-                <!-- User avatar only -->
-                <div class="relative ml-2">
-                    <a 
-                        href="/account" 
-                        class="flex items-center gap-2 hover:opacity-80 transition-opacity"
-                        title="View profile"
-                    >
-                        <img 
-                            src={user.avatar_url || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User')} 
-                            alt="User avatar" 
-                            class="w-8 h-8 rounded-full border-2 border-svelte-900"
-                        />
-                    </a>
-                </div>
+                <Dropdown {user} />
             {:else}
                 <!-- Separator + Login link -->
                 <a data-sveltekit-preload-data={false} href="/auth/github" class="hover:underline border-l border-slate-200 borderd-1 mx-2 pl-4">
