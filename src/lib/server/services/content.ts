@@ -317,7 +317,7 @@ export class ContentService {
 		description: string
 		type: string
 		status: string
-		content: string
+		body: string
 		tags: string[]
 		metadata?: {
 			videoId?: string
@@ -332,7 +332,7 @@ export class ContentService {
 				`
 			INSERT INTO content (
 				id, title, slug, description, type, status, 
-				content, created_at, updated_at, published_at,
+				body, created_at, updated_at, published_at,
 				likes, saves
 			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)
 		`
@@ -344,7 +344,7 @@ export class ContentService {
 				data.description,
 				data.type,
 				data.status,
-				data.content,
+				data.body,
 				now,
 				now,
 				data.status === 'published' ? now : null
@@ -362,5 +362,69 @@ export class ContentService {
 		}
 
 		return id
+	}
+
+	updateContent(id: string, data: {
+		title: string
+		slug: string
+		description: string
+		type: string
+		status: string
+		body: string
+		tags: string[]
+		metadata?: {
+			videoId?: string
+			npm?: string
+		}
+	}) {
+		const now = new Date().toISOString()
+
+		// Update the content record
+		this.db
+			.prepare(
+				`
+				UPDATE content 
+				SET title = ?,
+					slug = ?,
+					description = ?,
+					type = ?,
+					status = ?,
+					body = ?,
+					updated_at = ?,
+					published_at = CASE 
+						WHEN status != 'published' AND ? = 'published' THEN ?
+						WHEN status = 'published' AND ? != 'published' THEN NULL
+						ELSE published_at
+					END
+				WHERE id = ?
+				`
+			)
+			.run(
+				data.title,
+				data.slug,
+				data.description,
+				data.type,
+				data.status,
+				data.body,
+				now,
+				data.status,
+				now,
+				data.status,
+				id
+			)
+
+		// Delete existing tag associations
+		this.db.prepare('DELETE FROM content_to_tags WHERE content_id = ?').run(id)
+
+		// Add new tag associations if present
+		if (data.tags && data.tags.length > 0) {
+			const insertTagStmt = this.db.prepare(
+				`INSERT INTO content_to_tags (content_id, tag_id) VALUES (?, ?)`
+			)
+
+			for (const tag of data.tags) {
+				insertTagStmt.run(id, tag)
+			}
+		}
 	}
 }

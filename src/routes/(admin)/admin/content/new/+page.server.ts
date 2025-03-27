@@ -1,12 +1,13 @@
-import { fail, redirect } from '@sveltejs/kit'
-import { superValidate } from 'sveltekit-superforms/server'
-import { contentSchema } from '$lib/schema/content'
-import type { PageServerLoad, Actions } from './$types'
+import { superValidate, message } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
+import { fail, redirect } from '@sveltejs/kit'
+import type { Actions, PageServerLoad } from './$types'
+
+import { schema } from './schema'
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// Create a new form with default values
-	const form = await superValidate(zod(contentSchema))
+	const form = await superValidate(zod(schema))
 
 	// Get all tags for the tag selector
 	const tags = await locals.tagService.getTags()
@@ -20,7 +21,9 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
 		// Get form data and validate
-		const form = await superValidate(request, zod(contentSchema))
+		const form = await superValidate(request, zod(schema))
+
+		console.log(form)
 
 		if (!form.valid) {
 			return fail(400, { form })
@@ -28,7 +31,11 @@ export const actions: Actions = {
 
 		try {
 			// Create new content using service
-			const contentId = locals.contentService.addContent(form.data)
+			locals.contentService.addContent({
+				...form.data,
+				body: form.data.body,
+				tags: form.data.tags.map(tag => tag.id)
+			})
 
 			// Redirect to content listing after successful save
 			throw redirect(303, '/admin/content')

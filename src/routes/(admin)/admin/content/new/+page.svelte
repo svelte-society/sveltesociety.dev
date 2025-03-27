@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client'
 	import { zodClient } from 'sveltekit-superforms/adapters'
-	import { contentSchema } from '$lib/schema/content'
 	import Input from '$lib/ui/form/Input.svelte'
 	import Select from '$lib/ui/form/Select.svelte'
 	import Textarea from '$lib/ui/form/Textarea.svelte'
@@ -11,17 +10,19 @@
 	import { slide } from 'svelte/transition'
 	import { slugify } from '$lib/utils/slug'
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
+	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
+	import { schema } from './schema'
 
 	// Get data passed from server
 	let { data } = $props()
 
 	// Setup form with client-side validation
 	const form = superForm(data.form, {
-		validators: zodClient(contentSchema),
+		validators: zodClient(schema),
 		dataType: 'json'
 	})
 
-	const { form: formData, errors, submitting } = form
+	const { form: formData, submitting } = form
 
 	// Helper for video preview
 	async function fetchVideoInfo(id: string) {
@@ -64,7 +65,7 @@
 	// Helper to generate slug from title
 	function generateSlug() {
 		if ($formData.title) {
-			formData.update((f) => ({ ...f, slug: slugify(f.title as string) }))
+			$formData.slug = slugify($formData.title)
 		}
 	}
 
@@ -190,14 +191,14 @@
 			</div>
 		</div>
 
-		<div class="flex items-end gap-2">
+		<div class="flex w-full items-center gap-2">
 			<Input
 				name="slug"
 				label="URL Slug"
 				placeholder="url-friendly-name"
 				description="The slug used in the URL (auto-generated from title)"
 			/>
-			<Button onclick={generateSlug}>Generate</Button>
+			<Button small secondary onclick={generateSlug}>Generate</Button>
 		</div>
 
 		<Textarea
@@ -207,18 +208,27 @@
 			description="A short summary that appears in listings and search results"
 		/>
 
-		<div class="space-y-2">
-			<label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
-			<div class="text-sm text-gray-500">
-				<!-- Tag selection placeholder - implement with proper component -->
-				<p>Tag selection component needed</p>
-				<input type="hidden" name="tags" value={['placeholder']} />
-			</div>
-		</div>
+		<DynamicInput
+			name="tags"
+			label="Tags"
+			description="Enter tags for this content"
+			type="text"
+			options={data.tags.map((tag) => ({ label: tag.name, value: tag.slug }))}
+			bind:value={
+				() => $formData.tags.map((tag) => tag.slug),
+				(slugs) =>
+					($formData.tags = data.tags.filter((tag) =>
+						slugs.find((slug: string) => slug === tag.slug)
+					))
+			}
+		/>
 
-		<Button type="submit" primary fullWidth disabled={$submitting}>
-			{$submitting ? 'Creating...' : 'Create Content'}
-		</Button>
+		<div class="mt-6 flex gap-4">
+			<Button type="submit" primary fullWidth disabled={$submitting}>
+				{$submitting ? 'Creating...' : 'Create Content'}
+			</Button>
+			<Button href="/admin/content" secondary>Cancel</Button>
+		</div>
 	</Form>
 </div>
 

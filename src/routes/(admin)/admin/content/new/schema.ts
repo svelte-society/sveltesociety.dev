@@ -8,7 +8,7 @@ export const schema = z.object({
 	slug: z.string().min(1, 'Slug is required'),
 	description: z.string().min(1, 'Description is required'),
 	tags: z.array(z.object({ id: z.string(), slug: z.string(), name: z.string(), color: z.string().optional().nullable() })).min(1, 'At least one tag is required'),
-	status: z.enum(['draft', 'published']).default('draft'),
+	status: z.enum(['draft', 'published', 'archived']).default('draft'),
 	metadata: z.union([
 		z.object({
 			videoId: z
@@ -19,4 +19,4 @@ export const schema = z.object({
 		}),
 		z.record(z.string().regex(/^[a-z0-9]+$/i), z.string())
 	])
-})
+}) 
