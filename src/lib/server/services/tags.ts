@@ -19,7 +19,7 @@ export class TagService {
 
 	constructor(private db: Database) {
 		this.getTagsStatement = this.db.prepare(
-			'SELECT * FROM tags ORDER BY created_at DESC LIMIT $limit OFFSET $offset'
+			'SELECT id, name, slug, color FROM tags ORDER BY created_at DESC LIMIT $limit OFFSET $offset'
 		)
 
 		this.getTagsCountStatement = this.db.prepare('SELECT COUNT(*) as count FROM tags')
