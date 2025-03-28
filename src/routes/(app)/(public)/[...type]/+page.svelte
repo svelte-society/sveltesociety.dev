@@ -25,7 +25,7 @@
 				saved={item.saved || false}
 				tags={convertTags(item.tags)}
 				slug={item.slug}
-				child_content={item.children}
+				children={item.children || []}
 			/>
 		{/each}
 	{:else}

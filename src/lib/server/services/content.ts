@@ -9,12 +9,21 @@ export interface Content {
 	type: string
 	status: string
 	content: string
+	author?: string
 	tags?: Array<{ id: string; name: string; slug: string; color: string }>
 	created_at: string
 	updated_at: string
 	published_at: string | null
 	likes: number
 	saves: number
+	liked?: boolean
+	saved?: boolean
+	children?: Content[]
+}
+
+export interface CollectionContent extends Content {
+	type: 'collection'
+	children: Content[]
 }
 
 export type PreviewContent = Omit<Content, 'content'>
@@ -36,7 +45,7 @@ export class ContentService {
 		this.searchService = new SearchService(db)
 	}
 
-	getContentById(id: string) {
+	getContentById(id: string): Content | null {
 		const content = this.db
 			.prepare(
 				`
@@ -62,59 +71,82 @@ export class ContentService {
       GROUP BY c.id
     `
 			)
-			.get(id) as any
+			.get(id) as Content | null
 
-		if (content) {
-			content.tags = JSON.parse(content.tags)
-			// Remove null entries from tags array
-			content.tags = content.tags.filter(Boolean)
+		if (!content) {
+			return null
+		}
 
-			// Process collection children if this is a collection
-			if (content.type === 'collection') {
-				this.populateContentChildren(content)
-			}
+		try {
+			content.tags = JSON.parse(content.tags as unknown as string).filter(Boolean)
+		} catch (e) {
+			console.error('Error parsing tags:', e)
+			content.tags = []
+		}
+
+		if (content.type === 'collection') {
+			return this.populateContentChildren(content)
 		}
 
 		return content
 	}
 
-	// Helper method to populate children for collections
-	private populateContentChildren(collectionContent: any) {
+	private populateContentChildren(collectionContent: Content): CollectionContent {
+		if (collectionContent.type !== 'collection') {
+			throw new Error('Cannot populate children for non-collection content')
+		}
+
 		try {
-			// Parse the content field which contains children IDs
-			const childrenIds = []
+			let childrenIds: string[] = []
+
 			if (collectionContent.content) {
-				const contentObj = JSON.parse(collectionContent.content)
-				if (contentObj && Array.isArray(contentObj.children)) {
-					childrenIds.push(...contentObj.children)
+				try {
+					const contentObj = typeof collectionContent.content === 'string'
+						? JSON.parse(collectionContent.content)
+						: collectionContent.content
+
+					if (contentObj && Array.isArray(contentObj.children)) {
+						childrenIds = contentObj.children
+					}
+				} catch (e) {
+					console.error('Error parsing collection content:', e)
+					childrenIds = []
 				}
 			}
 
-			// Fetch each child content item and add to the collection
-			const children = childrenIds.map((id) => this.getContentById(id)).filter(Boolean)
+			const children = childrenIds
+				.map(id => {
+					try {
+						return this.getContentById(id)
+					} catch (e) {
+						console.error(`Error fetching child content ${id}:`, e)
+						return null
+					}
+				})
+				.filter((child): child is Content => child !== null)
 
-			// Ensure the child_content property is set and is an array
-			collectionContent.child_content = children
-
-			// For backwards compatibility, also set children property
-			collectionContent.children = children
+			return {
+				...collectionContent,
+				type: 'collection' as const,
+				children
+			}
 		} catch (e) {
 			console.error('Error populating collection children:', e)
-			// Ensure we always have arrays even if there was an error
-			collectionContent.child_content = []
-			collectionContent.children = []
+			return {
+				...collectionContent,
+				type: 'collection' as const,
+				children: []
+			}
 		}
 	}
 
 	getFilteredContent(filters: ContentFilters = {}) {
 		let contentIds: string[] = []
 
-		// Handle search first if present
 		if (filters.search?.trim()) {
 			contentIds = this.searchService.search({ query: filters.search.trim() })
 		}
 
-		// Build the base query
 		let query = `
       SELECT DISTINCT c.id
       FROM content c
@@ -123,30 +155,24 @@ export class ContentService {
 		const whereConditions: string[] = []
 		const havingConditions: string[] = []
 
-		// Add search filter if we have results
 		if (filters.search?.trim()) {
 			if (contentIds.length === 0) {
-				return [] // No search results found
+				return []
 			}
 			whereConditions.push(`c.id IN (${contentIds.map(() => '?').join(',')})`)
 			params.push(...contentIds)
 		}
 
-		// Status filter
-		if (filters.status === 'all') {
-			// Don't add any status condition when requesting all content
-		} else {
+		if (filters.status !== 'all') {
 			whereConditions.push(filters.status ? 'c.status = ?' : "c.status = 'published'")
 			if (filters.status) params.push(filters.status)
 		}
 
-		// Type filter
 		if (filters.type) {
 			whereConditions.push('c.type = ?')
 			params.push(filters.type)
 		}
 
-		// Tags filter
 		if (filters.tags) {
 			const tags = Array.isArray(filters.tags) ? filters.tags : [filters.tags]
 			if (tags.length > 0) {
@@ -164,12 +190,10 @@ export class ContentService {
 			}
 		}
 
-		// Add WHERE conditions
 		if (whereConditions.length > 0) {
 			query += ' WHERE ' + whereConditions.join(' AND ')
 		}
 
-		// Add GROUP BY and HAVING if needed
 		if (filters.tags && Array.isArray(filters.tags) && filters.tags.length > 1) {
 			query += ' GROUP BY c.id'
 			if (havingConditions.length > 0) {
@@ -177,7 +201,6 @@ export class ContentService {
 			}
 		}
 
-		// Add sorting
 		query += ' ORDER BY '
 		if (filters.sort === 'latest') {
 			query += 'c.published_at DESC, c.created_at DESC'
@@ -189,7 +212,6 @@ export class ContentService {
 			query += 'c.published_at DESC, c.created_at DESC'
 		}
 
-		// Add pagination
 		if (filters.limit) {
 			query += ' LIMIT ?'
 			params.push(filters.limit)
@@ -199,16 +221,17 @@ export class ContentService {
 			}
 		}
 
-		// Get IDs first
 		const ids = this.db.prepare(query).all(...params) as { id: string }[]
 
-		// Then get full content with tags for each ID
-		const contents = ids.map(({ id }) => this.getContentById(id)).filter(Boolean)
 
-		// Process collections to populate their children property
+		const contents = ids
+			.map(({ id }) => this.getContentById(id))
+			.filter((content): content is Content => content !== null)
+
+
 		return contents.map((content) => {
-			if (content.type === 'collection' && !content.child_content) {
-				this.populateContentChildren(content)
+			if (content.type === 'collection') {
+				return this.populateContentChildren(content)
 			}
 			return content
 		})
@@ -217,7 +240,7 @@ export class ContentService {
 	getFilteredContentCount(filters: Omit<ContentFilters, 'limit' | 'offset' | 'sort'> = {}) {
 		let contentIds: string[] = []
 
-		// Handle search first if present
+
 		if (filters.search?.trim()) {
 			contentIds = this.searchService.search({ query: filters.search.trim() })
 			if (contentIds.length === 0) return 0
@@ -228,13 +251,13 @@ export class ContentService {
 		const whereConditions: string[] = []
 		const havingConditions: string[] = []
 
-		// Add search filter if we have results
+
 		if (filters.search?.trim()) {
 			whereConditions.push(`c.id IN (${contentIds.map(() => '?').join(',')})`)
 			params.push(...contentIds)
 		}
 
-		// Status filter
+
 		if (filters.status === 'all') {
 			// Don't add any status condition when requesting all content
 		} else {
@@ -242,13 +265,13 @@ export class ContentService {
 			if (filters.status) params.push(filters.status)
 		}
 
-		// Type filter
+
 		if (filters.type) {
 			whereConditions.push('c.type = ?')
 			params.push(filters.type)
 		}
 
-		// Tags filter
+
 		if (filters.tags) {
 			const tags = Array.isArray(filters.tags) ? filters.tags : [filters.tags]
 			if (tags.length > 0) {
@@ -266,18 +289,18 @@ export class ContentService {
 			}
 		}
 
-		// Add WHERE conditions
+
 		if (whereConditions.length > 0) {
 			query += ' WHERE ' + whereConditions.join(' AND ')
 		}
 
-		// Add GROUP BY and HAVING if needed
+
 		if (filters.tags && Array.isArray(filters.tags) && filters.tags.length > 1) {
 			query += ' GROUP BY c.id'
 			if (havingConditions.length > 0) {
 				query += ' HAVING ' + havingConditions.join(' AND ')
 			}
-			// Wrap in subquery for correct count with GROUP BY
+
 			query = `SELECT COUNT(*) as total FROM (${query})`
 		}
 
@@ -285,7 +308,6 @@ export class ContentService {
 		return result?.total || 0
 	}
 
-	// Helper methods remain unchanged
 	searchBlogPosts(searchTerm: string, tags: string[] = []) {
 		return this.getFilteredContent({
 			type: 'blog',

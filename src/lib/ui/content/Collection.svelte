@@ -1,24 +1,21 @@
 <script lang="ts">
-	import type { Content } from '$lib/server/db/content'
+	import type { Content } from '$lib/server/services/content'
 	import Button from '$lib/ui/Button.svelte'
 	import { formatRelativeDate } from '$lib/utils/date'
 
-	// Create a partial content interface for child items that might have missing fields
-	type PartialContent = Partial<Content> & {
-		id: string
-		author?: string // Add author which isn't in the original Content interface
-	}
-
 	interface Props {
-		child_content: PartialContent[]
+		child_content: Content[]
 		slug: string
 		type: string
 	}
 
 	let { slug, type, child_content = [] }: Props = $props()
 
+	// Ensure child_content is always an array
+	child_content = Array.isArray(child_content) ? child_content : []
+
 	// Add default author for content items that don't have one
-	function getAuthor(content: PartialContent): string {
+	function getAuthor(content: Content): string {
 		return content?.author || 'Anonymous'
 	}
 </script>

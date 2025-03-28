@@ -25,9 +25,7 @@
 		saved: boolean
 		tags: TagType[]
 		slug: string
-		child_content: any[]
-		// For backward compatibility
-		children?: any[]
+		children: any[]
 	}
 
 	let {
@@ -45,18 +43,15 @@
 		saved,
 		tags,
 		slug,
-		child_content = [],
-		children
+		children = []
 	}: ContentCardProps = $props()
 
-	// If children is provided but child_content is not, use children
-	if (!child_content.length && children && children.length) {
-		child_content = children
-	}
+	// Ensure children is always an array
+	children = Array.isArray(children) ? children : []
 
 	// Ensure each child has proper properties for rendering
 	if (type === 'collection') {
-		child_content = child_content.map((child) => ({
+		children = children.map((child) => ({
 			...child,
 			// Set defaults for any missing properties
 			type: child.type || 'unknown',
@@ -234,7 +229,7 @@
 		{#if type === 'recipe'}
 			<Recipe />
 		{:else if type === 'collection'}
-			<Collection {type} {slug} {child_content} />
+			<Collection {type} {slug} child_content={children} />
 		{:else if type === 'video'}
 			<Video />
 		{/if}
