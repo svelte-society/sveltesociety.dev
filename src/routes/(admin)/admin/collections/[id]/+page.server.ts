@@ -7,8 +7,6 @@ import { schema } from '../new/schema'
 export const load: PageServerLoad = async ({ params, locals }) => {
 	// Get the collection using ContentService
 	const content = locals.contentService.getContentById(params.id)
-
-	console.log(content)
 	
 	if (!content || content.type !== 'collection') {
 		throw error(404, 'Collection not found')
@@ -19,8 +17,8 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		title: content.title,
 		description: content.description || '',
 		slug: content.slug,
-		children: content.children.map(child => child.id),
-		tags: content.tags.map(tag => tag.id)
+		children: content.children?.map(child => child.id),
+		tags: content.tags?.map(tag => tag.id)
 	}
 
 	const form = await superValidate(formData, zod(schema))

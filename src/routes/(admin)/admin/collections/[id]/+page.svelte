@@ -8,6 +8,7 @@
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
 	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
 	import { schema } from '../new/schema'
+	import ContentSelector from '../new/ContentSelector.svelte'
 
 	// Get data passed from server
 	let { data } = $props()
@@ -57,17 +58,26 @@
 			description="Enter a description for this collection"
 		/>
 
-		<DynamicInput
-			name="children"
-			label="Content"
-			description="Select content to add to the collection"
-			type="text"
-			options={data.content.map((item) => ({
-				label: `${item.title} (${item.type})`,
-				value: item.id.toString()
-			}))}
-			bind:value={$formData.children}
-		/>
+		<div>
+			<DynamicInput
+				name="children"
+				label="Content"
+				description="Select content to add to the collection"
+				type="text"
+				options={data.content.map((item) => ({
+					label: `${item.title} (${item.type})`,
+					value: item.id
+				}))}
+				bind:value={$formData.children}
+			/>
+
+			<div>
+				<ContentSelector
+					bind:selectedContent={$formData.children}
+					content={data.content.filter((c) => $formData.children.includes(c.id))}
+				/>
+			</div>
+		</div>
 
 		<DynamicInput
 			name="tags"
