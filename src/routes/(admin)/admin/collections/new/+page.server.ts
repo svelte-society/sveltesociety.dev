@@ -35,7 +35,6 @@ export const actions: Actions = {
 				return fail(400, { form })
 			}
 
-			// Create the collection using the CollectionService
 			locals.collectionService.createCollection({
 				title: form.data.title,
 				slug: form.data.slug,

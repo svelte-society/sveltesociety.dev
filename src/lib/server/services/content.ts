@@ -19,9 +19,9 @@ export class ContentService {
 			// 1. First, get the basic content item
 			const contentQuery = this.db.prepare(`
 				SELECT * FROM content
-				WHERE id = ?
+				WHERE id = $id
 			`);
-			const content = contentQuery.get(id) as Content | null;
+			const content = contentQuery.get({ id }) as Content | null;
 
 			if (!content) {
 				return null;
@@ -46,6 +46,7 @@ export class ContentService {
 
 			// 3. Handle collection children if needed
 			if (content.type === 'collection') {
+				console.log('Populating children for collection:', content.id)
 				return this.populateContentChildren(content);
 			}
 
@@ -64,18 +65,42 @@ export class ContentService {
 		}
 
 		try {
-			// Extract child IDs from the collection
-			let childrenIds: string[] = [];
+			// Initialize empty array for child IDs
+			let childIds: string[] = [];
             
-			// Check if we have a 'children' field
+			// Handle different formats of children data
 			if (collectionContent.children) {
-				// If children is already a string array, use it directly
-				if (typeof collectionContent.children === 'string') {
+				// Case 1: children is already an array of Content objects
+				if (Array.isArray(collectionContent.children) && 
+					collectionContent.children.length > 0 && 
+					typeof collectionContent.children[0] === 'object') {
+					return {
+						...collectionContent,
+						type: 'collection' as const,
+						children: collectionContent.children as Content[]
+					};
+				}
+				
+				// Case 2: children is an array of IDs
+				else if (Array.isArray(collectionContent.children)) {
+					childIds = collectionContent.children.map(id => String(id));
+				}
+				
+				// Case 3: children is a JSON string
+				else if (typeof collectionContent.children === 'string') {
 					try {
 						const parsed = JSON.parse(collectionContent.children);
-						if (parsed) {
-							console.log(parsed)
-							childrenIds = parsed.map((id: any) => String(id));
+						
+						// Case 3a: JSON is an array of IDs
+						if (Array.isArray(parsed)) {
+							childIds = parsed.map(id => String(id));
+						} 
+						// Case 3b: JSON is an object with a children property
+						else if (parsed && typeof parsed === 'object' && 'children' in parsed) {
+							const children = parsed.children;
+							if (Array.isArray(children)) {
+								childIds = children.map(id => String(id));
+							}
 						}
 					} catch (e) {
 						console.error('Failed to parse children JSON:', e);
@@ -83,7 +108,17 @@ export class ContentService {
 				}
 			}
 
-			const children = childrenIds.map(this.getContentById).filter((child): child is Content => child !== null)
+			
+			// Fetch each child content by ID
+			const children: Content[] = [];
+			for (let i = 0; i < childIds.length; i++) {
+				const child = this.getContentById(childIds[i]);
+				if (child !== null) {
+					children.push(child);
+				}
+			}
+			
+			console.log('Populated children count:', children.length);
 
 			return {
 				...collectionContent,
@@ -420,6 +455,69 @@ export class ContentService {
 			for (const tag of data.tags) {
 				insertTagStmt.run(id, tag)
 			}
+		}
+	}
+
+	getContentBySlug(slug: string, type?: string): Content | null {
+		if (!slug) {
+			console.error('Invalid slug:', slug);
+			return null;
+		}
+
+		try {
+			// Build the query based on whether type is provided
+			let query = `
+				SELECT * FROM content
+				WHERE slug = ? AND status = 'published'
+			`;
+			
+			const params: any[] = [slug];
+			
+			if (type) {
+				query = `
+					SELECT * FROM content
+					WHERE slug = ? AND type = ? AND status = 'published'
+				`;
+				params.push(type);
+			}
+			
+			// Get the basic content item
+			const contentQuery = this.db.prepare(query);
+			const content = contentQuery.get(...params) as Content | null;
+
+			if (!content) {
+				return null;
+			}
+
+			// Then, get the tags for this content
+			const tagsQuery = this.db.prepare(`
+				SELECT t.id, t.name, t.slug, t.color
+				FROM tags t
+				JOIN content_to_tags ctt ON t.id = ctt.tag_id
+				WHERE ctt.content_id = ?
+			`);
+			const tags = tagsQuery.all(content.id) as Array<{ 
+				id: string; 
+				name: string; 
+				slug: string; 
+				color: string 
+			}>;
+			
+			// Assign the tags to the content
+			content.tags = tags || [];
+
+			// Handle collection children if needed
+			if (content.type === 'collection') {
+				console.log('Populating children for collection by slug:', content.id);
+				return this.populateContentChildren(content);
+			}
+
+			// Ensure non-collection content types have an empty children array
+			content.children = [];
+			return content;
+		} catch (e) {
+			console.error(`Error fetching content with slug ${slug}:`, e);
+			return null;
 		}
 	}
 }

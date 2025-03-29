@@ -3,12 +3,8 @@ import { error } from '@sveltejs/kit'
 export const load = async ({ locals, params }) => {
 	const start = performance.now()
 
-	const content = locals.contentService
-		.getFilteredContent({
-			type: params.type,
-			status: 'published'
-		})
-		.find((item) => item.slug === params.slug)
+	// Get content directly by slug and type
+	const content = locals.contentService.getContentBySlug(params.slug, params.type)
 
 	if (!content) {
 		throw error(404, { message: 'Content not found' })
