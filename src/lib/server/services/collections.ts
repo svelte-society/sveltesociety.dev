@@ -19,6 +19,8 @@ export class CollectionService {
 	private getCollectionsCountStatement
 	private createCollectionStatement
 	private addTagStatement
+	private updateCollectionStatement
+	private deleteTagsStatement
 
 	constructor(private db: Database) {
 		this.getCollectionsStatement = this.db.prepare(`
@@ -38,6 +40,21 @@ export class CollectionService {
 				$title, $slug, $description, 'collection', $children, 'draft',
 				CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
 			) RETURNING id
+		`)
+
+		this.updateCollectionStatement = this.db.prepare(`
+			UPDATE content 
+			SET title = ?,
+				slug = ?,
+				description = ?,
+				children = ?,
+				updated_at = CURRENT_TIMESTAMP
+			WHERE id = ?
+			RETURNING id
+		`)
+
+		this.deleteTagsStatement = this.db.prepare(`
+			DELETE FROM content_to_tags WHERE content_id = ?
 		`)
 
 		this.addTagStatement = this.db.prepare(`
@@ -120,6 +137,56 @@ export class CollectionService {
 		} catch (error) {
 			console.error('Error creating collection:', error)
 			console.error(error)
+			throw error
+		}
+	}
+
+	/**
+	 * Update an existing collection
+	 * @param id Collection ID to update
+	 * @param data Collection data including title, slug, description, children IDs, and tag IDs
+	 * @returns The ID of the updated collection or undefined if update failed
+	 */
+	updateCollection(id: string, data: {
+		title: string
+		slug: string
+		description: string
+		children: string[]
+		tags: string[]
+	}): string | undefined {
+		try {
+			// Format children array for storage
+			const collectionContent = JSON.stringify({ children: data.children })
+			
+			// Update collection record
+			const result = this.updateCollectionStatement.get(
+				data.title,
+				data.slug,
+				data.description,
+				collectionContent,
+				id
+			) as { id: string } | undefined
+
+			if (!result?.id) {
+				throw new Error('Failed to update collection')
+			}
+
+			// Delete existing tag associations
+			this.deleteTagsStatement.run(id)
+
+			// Add new tag associations
+			if (data.tags.length > 0) {
+				for (const tagId of data.tags) {
+					this.addTagStatement.run({
+						content_id: id,
+						tag_id: tagId
+					})
+				}
+			}
+
+			return result.id
+		} catch (error) {
+			console.error('Error updating collection:', error)
 			throw error
 		}
 	}

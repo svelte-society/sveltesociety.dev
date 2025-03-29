@@ -1,208 +1,93 @@
 <script lang="ts">
+	import { superForm } from 'sveltekit-superforms/client'
+	import { zodClient } from 'sveltekit-superforms/adapters'
 	import Input from '$lib/ui/form/Input.svelte'
-	import Dialog from '$lib/ui/Dialog.svelte'
-	import { zod } from 'sveltekit-superforms/adapters'
-	import { schema } from '../new/schema'
-	import { superForm } from 'sveltekit-superforms'
+	import Form from '$lib/ui/form/Form.svelte'
+	import Button from '$lib/ui/Button.svelte'
 	import { slugify } from '$lib/utils/slug'
+	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
+	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
+	import { schema } from '../new/schema'
+
+	// Get data passed from server
 	let { data } = $props()
-	const { form, errors, enhance } = superForm(data.form, zod(schema))
 
-	// Content fetching and selection logic
-	interface ContentItem {
-		id: string | number
-		title: string
-		description?: string
-		type?: string
-		status?: string
-	}
+	// Setup form with client-side validation
+	const form = superForm(data.form, {
+		validators: zodClient(schema),
+		dataType: 'json'
+	})
 
-	let isLoading = $state(false)
-	let contentItems: ContentItem[] = $state(data.searchResults || [])
-	let searchQuery = $state('')
-	let errorMessage = $state('')
+	const { form: formData, submitting } = form
 
-	function toggleSelection(id: string | number) {
-		// Convert to number since our schema requires numbers in the children array
-		const numId = typeof id === 'string' ? parseInt(id, 10) : id
-
-		if ($form.children.includes(numId)) {
-			$form.children = $form.children.filter((i) => i !== numId)
-		} else {
-			$form.children = [...$form.children, numId]
+	// Helper to generate slug from title
+	function generateSlug() {
+		if ($formData.title) {
+			$formData.slug = slugify($formData.title)
 		}
 	}
-
-	let dialogOpen = $state(false)
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
 	<h1 class="mb-6 text-3xl font-bold text-gray-800">Edit Collection</h1>
-	<form method="POST" action="?/update" use:enhance class="space-y-6">
-		<input type="hidden" name="id" bind:value={$form.id} />
+
+	<Form {form}>
 		<Input
 			name="title"
 			label="Title"
-			type="text"
-			placeholder="Best Rune Tutorials"
-			description="Enter the title of the collection"
-			bind:value={$form.title}
-			errors={$errors.title}
+			placeholder="Best Svelte Tutorials"
+			description="Enter a descriptive title for the collection"
 		/>
-		<Input
-			name="slug"
-			label="Slug"
-			placeholder="best-rune-tutorials"
-			description="Enter the slug of the collection"
-			type="text"
-			magic={() => slugify($form.title)}
-			bind:value={$form.slug}
-			errors={$errors.slug}
-		/>
+
+		<div class="flex w-full items-center gap-2">
+			<Input
+				name="slug"
+				label="URL Slug"
+				placeholder="best-svelte-tutorials"
+				description="The slug used in the URL (auto-generated from title)"
+			/>
+			<Button small secondary onclick={generateSlug}>Generate</Button>
+		</div>
+
 		<Input
 			name="description"
 			label="Description"
-			type="textarea"
-			placeholder="Learn how to use the best runes in Svelte"
-			description="Enter the description of the collection"
-			bind:value={$form.description}
-			errors={$errors.description}
+			type="text"
+			placeholder="A curated collection of the best Svelte tutorials"
+			description="Enter a description for this collection"
 		/>
-		<div>
-			<Dialog
-				bind:open={dialogOpen}
-				triggerText="Select Content"
-				title="Add Content to Collection"
-				description="Select items to include in this collection"
-				confirmText="Apply"
-				contentClass="sm:max-w-[700px]"
-				triggerClass="bg-svelte-500 hover:bg-svelte-900 focus-visible:ring-svelte-900 text-white"
-				confirmClass="bg-svelte-500 hover:bg-svelte-900 focus-visible:ring-svelte-900 text-white"
-			>
-				{#snippet content()}
-					<div class="py-2">
-						<form method="POST" action="?/search" use:enhance class="mb-4 flex gap-2">
-							<input
-								type="text"
-								name="search"
-								placeholder="Search content..."
-								class="focus:border-svelte-500 focus:ring-svelte-500 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-1 focus:outline-none"
-								bind:value={searchQuery}
-							/>
-							<button
-								type="submit"
-								class="rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:outline-none"
-							>
-								Search
-							</button>
-						</form>
 
-						<div class="max-h-[400px] overflow-y-auto">
-							{#if isLoading}
-								<div class="flex h-40 items-center justify-center">
-									<div
-										class="border-svelte-500 h-6 w-6 animate-spin rounded-full border-t-2 border-b-2"
-									></div>
-									<span class="ml-2">Loading content...</span>
-								</div>
-							{:else if errorMessage}
-								<div class="flex h-40 items-center justify-center">
-									<p class="text-red-500">{errorMessage}</p>
-								</div>
-							{:else if contentItems.length === 0}
-								<div class="flex h-40 items-center justify-center">
-									<p class="text-gray-500">No content found</p>
-								</div>
-							{:else}
-								<ul class="divide-y divide-gray-200">
-									{#each contentItems as item}
-										<li class="py-3">
-											<label
-												class="hover:bg-svelte-100 flex cursor-pointer items-start rounded-md p-2"
-											>
-												<input
-													type="checkbox"
-													class="text-svelte-500 focus:ring-svelte-500 mt-1 h-4 w-4 rounded border-gray-300"
-													checked={$form.children.includes(
-														typeof item.id === 'string' ? parseInt(item.id, 10) : item.id
-													)}
-													onchange={() => toggleSelection(item.id)}
-												/>
-												<div class="ml-3">
-													<div class="font-medium">{item.title}</div>
-													{#if item.description}
-														<div class="line-clamp-2 text-sm text-gray-500">{item.description}</div>
-													{/if}
-													<div class="mt-1 flex items-center">
-														{#if item.type}
-															<span
-																class="mr-2 inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800"
-															>
-																{item.type}
-															</span>
-														{/if}
-														{#if item.status}
-															<span
-																class={`mr-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${item.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}
-															>
-																{item.status}
-															</span>
-														{/if}
-													</div>
-												</div>
-											</label>
-										</li>
-									{/each}
-								</ul>
-							{/if}
-						</div>
-					</div>
-				{/snippet}
-			</Dialog>
+		<DynamicInput
+			name="children"
+			label="Content"
+			description="Select content to add to the collection"
+			type="text"
+			options={data.content.map((item) => ({
+				label: `${item.title} (${item.type})`,
+				value: item.id.toString()
+			}))}
+			bind:value={$formData.children}
+		/>
 
-			{#if $form.children && $form.children.length > 0}
-				<div class="mt-3">
-					<p class="text-sm font-medium text-gray-700">Selected Items: {$form.children.length}</p>
-					<div class="mt-2 flex flex-wrap gap-2">
-						{#each $form.children as id}
-							{#if data.content.find((item) => {
-								const itemId = typeof item.id === 'string' ? parseInt(item.id, 10) : item.id
-								return itemId === id
-							})}
-								<div class="bg-svelte-100 flex items-center rounded-md px-3 py-1 text-sm">
-									{data.content.find((item) => {
-										const itemId = typeof item.id === 'string' ? parseInt(item.id, 10) : item.id
-										return itemId === id
-									})?.title}
-									<button
-										type="button"
-										class="text-svelte-500 hover:text-svelte-900 ml-2"
-										onclick={() => {
-											$form.children = $form.children.filter((i) => i !== id)
-										}}
-									>
-										&times;
-									</button>
-								</div>
-							{/if}
-						{/each}
-					</div>
-				</div>
-			{:else}
-				<p class="mt-3 text-sm text-gray-500">
-					No content selected. Click "Select Content" to add items.
-				</p>
-			{/if}
+		<DynamicInput
+			name="tags"
+			label="Tags"
+			description="Select tags for this collection"
+			type="text"
+			options={data.tags.map((tag) => ({
+				label: tag.name,
+				value: tag.id
+			}))}
+			bind:value={$formData.tags}
+		/>
 
-			{#if $errors.children}
-				<p class="mt-1 text-sm text-red-500">{$errors.children?._errors}</p>
-			{/if}
-		</div>
-		<button
-			type="submit"
-			class="bg-svelte-500 hover:bg-svelte-900 focus:ring-svelte-500 w-full rounded-md px-4 py-2 text-white transition duration-150 ease-in-out focus:ring-2 focus:ring-offset-2 focus:outline-none"
-		>
-			Update Collection
-		</button>
-	</form>
+		<Button type="submit" primary fullWidth disabled={$submitting}>
+			{$submitting ? 'Updating...' : 'Update Collection'}
+		</Button>
+	</Form>
 </div>
+
+<!-- Debug only in development -->
+{#if import.meta.env?.DEV}
+	<SuperDebug data={$formData} />
+{/if}
