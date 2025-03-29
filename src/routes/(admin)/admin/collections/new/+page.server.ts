@@ -3,58 +3,57 @@ import type { Actions, PageServerLoad } from './$types'
 import { superValidate } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
 
-import { schema } from './schema.js'
+import { schema } from './schema'
 
 export const load: PageServerLoad = async ({ locals }) => {
-	const tags = locals.tagService.getTags()
-	const content = locals.contentService.getFilteredContent({})
+	try {
+		// Create a new form with default values
+		const form = await superValidate(zod(schema))
 
-	// Initialize form with empty data
-	const formData = {
-		title: '',
-		description: '',
-		children: [],
-		slug: '',
-		tags: []
-	}
+		// Get all content and tags for the selectors
+		const content = locals.contentService.getFilteredContent({})
+		const tags = locals.tagService.getTags()
 
-	const form = await superValidate(formData, zod(schema))
-
-	return {
-		form,
-		content,
-		tags
+		return {
+			form,
+			content,
+			tags
+		}
+	} catch (err) {
+		console.error('Error in collections/new load function:', err)
+		throw error(500, 'Failed to load form data')
 	}
 }
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
+		// Initialize form outside try block so it's available in catch
 		const form = await superValidate(request, zod(schema))
 
-		if (!form.valid) {
-			return fail(400, { form })
-		}
+		try {
+			if (!form.valid) {
+				return fail(400, { form })
+			}
 
-		// Create the collection using the database directly since we need specific functionality
-		// This will be refactored once we fully migrate to service methods
-		const insertStmt = locals.db.prepare(`
-			INSERT INTO content (title, slug, description, type, content, status)
-			VALUES (?, ?, ?, 'collection', ?, 'published')
-			RETURNING id
-		`)
+			// Create the collection using the CollectionService
+			locals.collectionService.createCollection({
+				title: form.data.title,
+				slug: form.data.slug,
+				description: form.data.description,
+				children: form.data.children,
+				tags: form.data.tags
+			})
 
-		const collectionContent = JSON.stringify({ children: form.data.children })
-		const result = insertStmt.get(
-			form.data.title,
-			form.data.slug,
-			form.data.description,
-			collectionContent
-		) as { id: string } | undefined
-
-		if (result?.id) {
+			// Redirect to collections listing after successful save
 			redirect(303, '/admin/collections')
-		} else {
-			error(500, 'Failed to create collection')
+		} catch (err) {
+			if (err instanceof Response) throw err
+
+			console.error('Error creating collection:', err)
+			return fail(500, {
+				form,
+				error: 'Failed to create collection. Please try again.'
+			})
 		}
 	}
 }

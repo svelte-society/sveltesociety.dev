@@ -1,42 +1,6 @@
 import { Database } from 'bun:sqlite'
 import { SearchService } from './search'
-
-export interface Content {
-	id: string
-	title: string
-	slug: string
-	description: string
-	type: string
-	status: string
-	content: string
-	author?: string
-	tags?: Array<{ id: string; name: string; slug: string; color: string }>
-	created_at: string
-	updated_at: string
-	published_at: string | null
-	likes: number
-	saves: number
-	liked?: boolean
-	saved?: boolean
-	children?: Content[]
-}
-
-export interface CollectionContent extends Content {
-	type: 'collection'
-	children: Content[]
-}
-
-export type PreviewContent = Omit<Content, 'content'>
-
-interface ContentFilters {
-	type?: string
-	tags?: string | string[]
-	search?: string
-	status?: string
-	limit?: number
-	offset?: number
-	sort?: 'latest' | 'oldest' | 'popular'
-}
+import type { Content, CollectionContent, ContentFilters } from '$lib/types/content'
 
 export class ContentService {
 	private searchService: SearchService
@@ -46,49 +10,52 @@ export class ContentService {
 	}
 
 	getContentById(id: string): Content | null {
-		const content = this.db
-			.prepare(
-				`
-      SELECT c.*, 
-        COALESCE(
-          json_group_array(
-            CASE 
-              WHEN t.id IS NULL THEN NULL 
-              ELSE json_object(
-                'id', t.id,
-                'name', t.name,
-                'slug', t.slug,
-                'color', t.color
-              )
-            END
-          ),
-          '[]'
-        ) as tags
-      FROM content c
-      LEFT JOIN content_to_tags ctt ON c.id = ctt.content_id
-      LEFT JOIN tags t ON ctt.tag_id = t.id
-      WHERE c.id = ?
-      GROUP BY c.id
-    `
-			)
-			.get(id) as Content | null
-
-		if (!content) {
-			return null
+		if (!id) {
+			console.error('Invalid content ID:', id);
+			return null;
 		}
 
 		try {
-			content.tags = JSON.parse(content.tags as unknown as string).filter(Boolean)
+			// 1. First, get the basic content item
+			const contentQuery = this.db.prepare(`
+				SELECT * FROM content
+				WHERE id = ?
+			`);
+			const content = contentQuery.get(id) as Content | null;
+
+			if (!content) {
+				return null;
+			}
+
+			// 2. Then, get the tags for this content
+			const tagsQuery = this.db.prepare(`
+				SELECT t.id, t.name, t.slug, t.color
+				FROM tags t
+				JOIN content_to_tags ctt ON t.id = ctt.tag_id
+				WHERE ctt.content_id = ?
+			`);
+			const tags = tagsQuery.all(id) as Array<{ 
+				id: string; 
+				name: string; 
+				slug: string; 
+				color: string 
+			}>;
+			
+			// Assign the tags to the content
+			content.tags = tags || [];
+
+			// 3. Handle collection children if needed
+			if (content.type === 'collection') {
+				return this.populateContentChildren(content);
+			}
+
+			// Ensure non-collection content types have an empty children array
+			content.children = [];
+			return content;
 		} catch (e) {
-			console.error('Error parsing tags:', e)
-			content.tags = []
+			console.error(`Error fetching content with ID ${id}:`, e);
+			return null;
 		}
-
-		if (content.type === 'collection') {
-			return this.populateContentChildren(content)
-		}
-
-		return content
 	}
 
 	private populateContentChildren(collectionContent: Content): CollectionContent {
@@ -97,46 +64,39 @@ export class ContentService {
 		}
 
 		try {
-			let childrenIds: string[] = []
-
-			if (collectionContent.content) {
-				try {
-					const contentObj = typeof collectionContent.content === 'string'
-						? JSON.parse(collectionContent.content)
-						: collectionContent.content
-
-					if (contentObj && Array.isArray(contentObj.children)) {
-						childrenIds = contentObj.children
+			// Extract child IDs from the collection
+			let childrenIds: string[] = [];
+            
+			// Check if we have a 'children' field
+			if (collectionContent.children) {
+				// If children is already a string array, use it directly
+				if (typeof collectionContent.children === 'string') {
+					try {
+						const parsed = JSON.parse(collectionContent.children);
+						if (parsed) {
+							console.log(parsed)
+							childrenIds = parsed.map((id: any) => String(id));
+						}
+					} catch (e) {
+						console.error('Failed to parse children JSON:', e);
 					}
-				} catch (e) {
-					console.error('Error parsing collection content:', e)
-					childrenIds = []
 				}
 			}
 
-			const children = childrenIds
-				.map(id => {
-					try {
-						return this.getContentById(id)
-					} catch (e) {
-						console.error(`Error fetching child content ${id}:`, e)
-						return null
-					}
-				})
-				.filter((child): child is Content => child !== null)
+			const children = childrenIds.map(this.getContentById).filter((child): child is Content => child !== null)
 
 			return {
 				...collectionContent,
 				type: 'collection' as const,
 				children
-			}
+			};
 		} catch (e) {
-			console.error('Error populating collection children:', e)
+			console.error('Error populating collection children:', e);
 			return {
 				...collectionContent,
 				type: 'collection' as const,
 				children: []
-			}
+			};
 		}
 	}
 
@@ -228,11 +188,12 @@ export class ContentService {
 			.map(({ id }) => this.getContentById(id))
 			.filter((content): content is Content => content !== null)
 
-
 		return contents.map((content) => {
 			if (content.type === 'collection') {
 				return this.populateContentChildren(content)
 			}
+			// Ensure non-collection content types also have an empty children array
+			content.children = content.children || [];
 			return content
 		})
 	}
@@ -318,19 +279,31 @@ export class ContentService {
 	}
 
 	getContentByTag(tagSlug: string, limit = 10, offset = 0) {
-		return this.getFilteredContent({
+		const results = this.getFilteredContent({
 			tags: tagSlug,
 			limit,
 			offset
-		})
+		});
+		
+		// Ensure every item has a children array
+		return results.map(item => ({
+			...item,
+			children: item.children || []
+		}));
 	}
 
 	getContentByType(type: string, limit = 10, offset = 0) {
-		return this.getFilteredContent({
+		const results = this.getFilteredContent({
 			type,
 			limit,
 			offset
-		})
+		});
+		
+		// Ensure every item has a children array
+		return results.map(item => ({
+			...item,
+			children: item.children || []
+		}));
 	}
 
 	addContent(data: {

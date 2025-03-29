@@ -17,6 +17,8 @@ export interface Collection {
 export class CollectionService {
 	private getCollectionsStatement
 	private getCollectionsCountStatement
+	private createCollectionStatement
+	private addTagStatement
 
 	constructor(private db: Database) {
 		this.getCollectionsStatement = this.db.prepare(`
@@ -26,6 +28,21 @@ export class CollectionService {
 
 		this.getCollectionsCountStatement = this.db.prepare(`
 			SELECT COUNT(*) as count FROM collections_view
+		`)
+
+		this.createCollectionStatement = this.db.prepare(`
+			INSERT INTO content (
+				title, slug, description, type, children, status,
+				created_at, updated_at, published_at
+			) VALUES (
+				$title, $slug, $description, 'collection', $children, 'published',
+				CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+			) RETURNING id
+		`)
+
+		this.addTagStatement = this.db.prepare(`
+			INSERT INTO content_to_tags (content_id, tag_id)
+			VALUES ($content_id, $tag_id)
 		`)
 	}
 
@@ -59,6 +76,52 @@ export class CollectionService {
 		} catch (error) {
 			console.error('Error getting collections count:', error)
 			return 0
+		}
+	}
+
+	/**
+	 * Create a new collection
+	 * @param data Collection data including title, slug, description, children IDs, and tag IDs
+	 * @returns The ID of the created collection
+	 */
+	createCollection(data: {
+		title: string
+		slug: string
+		description: string
+		children: string[]
+		tags: string[]
+	}): string {
+		try {
+			// Create the collection
+			// Ensure children IDs are all strings and store as JSON array
+			const sanitizedChildren = data.children.map(id => String(id));
+			const collectionChildren = JSON.stringify(sanitizedChildren);
+			
+			const result = this.createCollectionStatement.get({
+				title: data.title,
+				slug: data.slug,
+				description: data.description,
+				children: collectionChildren
+			}) as { id: string }
+
+			if (!result?.id) {
+				throw new Error('Failed to create collection')
+			}
+
+			// Add tags if present
+			if (data.tags.length > 0) {
+				for (const tagId of data.tags) {
+					this.addTagStatement.run({
+						content_id: result.id,
+						tag_id: tagId
+					})
+				}
+			}
+
+			return result.id
+		} catch (error) {
+			console.error('Error creating collection:', error)
+			throw error
 		}
 	}
 }

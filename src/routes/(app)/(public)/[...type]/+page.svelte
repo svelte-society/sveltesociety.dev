@@ -23,7 +23,7 @@
 				liked={item.liked || false}
 				saves={item.saves || 0}
 				saved={item.saved || false}
-				tags={convertTags(item.tags)}
+				tags={convertTags(item.tags || [])}
 				slug={item.slug}
 				children={item.children || []}
 			/>

@@ -21,9 +21,9 @@
 				liked={item.liked || false}
 				saves={item.saves || 0}
 				saved={item.saved || false}
-				tags={convertTags(item.tags)}
+				tags={convertTags(item.tags || [])}
 				slug={item.slug}
-				child_content={item.children}
+				children={item.children}
 			/>
 		{/each}
 

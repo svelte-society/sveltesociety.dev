@@ -5,28 +5,11 @@
 
 	import Tags from './Tags.svelte'
 	import type { TagType } from './Tags.svelte'
+	import type { ContentCardProps, Content } from '$lib/types/content'
 
 	import Recipe from '$lib/ui/content/Recipe.svelte'
 	import Collection from '$lib/ui/content/Collection.svelte'
 	import Video from '$lib/ui/content/Video.svelte'
-
-	interface ContentCardProps {
-		id: string | number
-		title: string
-		description?: string
-		rendered_body?: string
-		type: string
-		author: string
-		published_at: string
-		views: number
-		likes: number
-		liked: boolean
-		saves: number
-		saved: boolean
-		tags: TagType[]
-		slug: string
-		children: any[]
-	}
 
 	let {
 		id,
@@ -229,7 +212,7 @@
 		{#if type === 'recipe'}
 			<Recipe />
 		{:else if type === 'collection'}
-			<Collection {type} {slug} child_content={children} />
+			<Collection {type} {slug} {children} />
 		{:else if type === 'video'}
 			<Video />
 		{/if}

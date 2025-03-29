@@ -1,70 +1,94 @@
 <script lang="ts">
-	import AutoCompleteTags from '$lib/ui/AutoComplete-Tags.svelte'
-	import ContentSelector from './ContentSelector.svelte'
-	import Button from '$lib/ui/Button.svelte'
+	import { superForm } from 'sveltekit-superforms/client'
+	import { zodClient } from 'sveltekit-superforms/adapters'
 	import Input from '$lib/ui/form/Input.svelte'
-	import { zod } from 'sveltekit-superforms/adapters'
+	import Form from '$lib/ui/form/Form.svelte'
+	import Button from '$lib/ui/Button.svelte'
+	import { slugify } from '$lib/utils/slug'
+	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
+	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
+	import AutoCompleteTags from '$lib/ui/AutoComplete-Tags.svelte'
 	import { schema } from './schema'
 
-	import SuperDebug, { superForm } from 'sveltekit-superforms'
-	import { slugify } from '$lib/utils/slug'
+	// Get data passed from server
 	let { data } = $props()
-	const { form, errors, enhance } = superForm(data.form, zod(schema))
+
+	// Setup form with client-side validation
+	const form = superForm(data.form, {
+		validators: zodClient(schema),
+		dataType: 'json'
+	})
+
+	const { form: formData, submitting } = form
+
+	// Helper to generate slug from title
+	function generateSlug() {
+		if ($formData.title) {
+			$formData.slug = slugify($formData.title)
+		}
+	}
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
 	<h1 class="mb-6 text-3xl font-bold text-gray-800">Create New Collection</h1>
-	<form method="POST" use:enhance class="space-y-6">
+
+	<Form {form}>
 		<Input
 			name="title"
 			label="Title"
-			type="text"
-			placeholder="Best Rune Tutorials"
-			description="Enter the title of the collection"
-			bind:value={$form.title}
-			errors={$errors.title}
+			placeholder="Best Svelte Tutorials"
+			description="Enter a descriptive title for the collection"
 		/>
-		<Input
-			name="slug"
-			label="Slug"
-			placeholder="best-rune-tutorials"
-			description="Enter the slug of the collection"
-			type="text"
-			magic={() => slugify($form.title)}
-			bind:value={$form.slug}
-			errors={$errors.slug}
-		/>
+
+		<div class="flex w-full items-center gap-2">
+			<Input
+				name="slug"
+				label="URL Slug"
+				placeholder="best-svelte-tutorials"
+				description="The slug used in the URL (auto-generated from title)"
+			/>
+			<Button small secondary onclick={generateSlug}>Generate</Button>
+		</div>
+
 		<Input
 			name="description"
 			label="Description"
 			type="text"
-			placeholder="Learn how to use the best runes in Svelte"
-			description="Enter the description of the collection"
-			bind:value={$form.description}
-			errors={$errors.description}
+			placeholder="A curated collection of the best Svelte tutorials"
+			description="Enter a description for this collection"
 		/>
-		<div>
-			<ContentSelector
-				name="children"
-				bind:selectedIds={$form.children}
-				errors={$errors.children}
-				content={data.content}
-				description="Select content to add to the collection"
-			/>
-		</div>
-		<div>
-			<label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
-			<AutoCompleteTags
-				tags={data.tags}
-				selectedTags={$form.tags}
-				placeholder="Type to search or create a tag"
-				description="Select tags for this collection"
-				errors={$errors.tags}
-			/>
-		</div>
 
-		<Button primary fullWidth>Create Collection</Button>
-	</form>
+		<DynamicInput
+			name="children"
+			label="Content"
+			description="Select content to add to the collection"
+			type="text"
+			options={data.content.map((item) => ({
+				label: `${item.title} (${item.type})`,
+				value: item.id
+			}))}
+			bind:value={$formData.children}
+		/>
+
+		<DynamicInput
+			name="tags"
+			label="Tags"
+			description="Select tags for this collection"
+			type="text"
+			options={data.tags.map((tag) => ({
+				label: tag.name,
+				value: tag.id
+			}))}
+			bind:value={$formData.tags}
+		/>
+
+		<Button type="submit" primary fullWidth disabled={$submitting}>
+			{$submitting ? 'Creating...' : 'Create Collection'}
+		</Button>
+	</Form>
 </div>
 
-<SuperDebug data={$form} />
+<!-- Debug only in development -->
+{#if import.meta.env?.DEV}
+	<SuperDebug data={$formData} />
+{/if}

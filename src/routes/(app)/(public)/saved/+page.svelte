@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ContentCard from '$lib/ui/ContentCard.svelte'
-	import type { ContentItem } from '$lib/types/content'
+	import type { Content } from '$lib/types/content'
 	import { convertTags } from '$lib/types/content'
 
 	let { data } = $props()
@@ -21,9 +21,9 @@
 				liked={item.liked || false}
 				saves={item.saves || 0}
 				saved={item.saved || false}
-				tags={convertTags(item.tags)}
+				tags={convertTags(item.tags || [])}
 				slug={item.slug}
-				child_content={item.children}
+				children={item.children}
 			/>
 		{/each}
 	{:else}
