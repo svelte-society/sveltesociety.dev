@@ -12,7 +12,7 @@
 	<Header user={data.user} />
 
 	<main
-		class="relative mx-auto grid w-full max-w-7xl grid-cols-[1.5fr_5fr_2.5fr] gap-2 px-4 py-8 md:gap-4 lg:gap-6"
+		class="relative mx-auto grid w-full max-w-[1440px] grid-cols-[1.5fr_5fr_2.5fr] gap-2 px-4 py-8 md:gap-4 lg:gap-6"
 	>
 		<LeftSidebar />
 

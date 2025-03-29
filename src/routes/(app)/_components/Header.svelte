@@ -7,7 +7,9 @@
 </script>
 
 <header class="border-svelte-900 border-b-4 py-4">
-	<div class="mx-auto grid w-full max-w-7xl grid-cols-[1.5fr_5fr_2.5fr] items-center gap-4 px-4">
+	<div
+		class="mx-auto grid w-full max-w-[1440px] grid-cols-[1.5fr_5fr_2.5fr] items-center gap-4 px-4"
+	>
 		<a href="/" class="flex items-center gap-2">
 			<svg
 				class="h-auto w-24"
