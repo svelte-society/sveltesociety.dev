@@ -92,15 +92,6 @@ export class CollectionService {
 		tags: string[]
 	}): string {
 		try {
-			// Debug logs
-			console.log('Create collection called with data:', JSON.stringify(data))
-			console.log('Children type:', typeof data.children)
-			console.log('Children is array:', Array.isArray(data.children))
-			console.log('Tags type:', typeof data.tags)
-			console.log('Tags is array:', Array.isArray(data.tags))
-
-			// Create the collection
-			// Ensure children IDs are all strings and store as JSON array
 			const sanitizedChildren = data.children.map(id => String(id));
 			const collectionChildren = JSON.stringify(sanitizedChildren);
 			
@@ -110,8 +101,6 @@ export class CollectionService {
 				description: data.description,
 				children: collectionChildren
 			}) as { id: string }
-
-			console.log('Result: ', result)
 
 			if (!result?.id) {
 				throw new Error('Failed to create collection')

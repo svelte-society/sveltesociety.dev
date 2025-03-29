@@ -59,6 +59,4 @@
 			<p class="mt-2 text-sm text-gray-400">Items added to this collection will appear here</p>
 		</div>
 	{/if}
-
-	<Button href="/{type}/{slug}" tertiary fullWidth>View full collection</Button>
 </div>

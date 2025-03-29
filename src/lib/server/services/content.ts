@@ -46,7 +46,6 @@ export class ContentService {
 
 			// 3. Handle collection children if needed
 			if (content.type === 'collection') {
-				console.log('Populating children for collection:', content.id)
 				return this.populateContentChildren(content);
 			}
 
@@ -117,8 +116,6 @@ export class ContentService {
 					children.push(child);
 				}
 			}
-			
-			console.log('Populated children count:', children.length);
 
 			return {
 				...collectionContent,
@@ -508,7 +505,6 @@ export class ContentService {
 
 			// Handle collection children if needed
 			if (content.type === 'collection') {
-				console.log('Populating children for collection by slug:', content.id);
 				return this.populateContentChildren(content);
 			}
 
