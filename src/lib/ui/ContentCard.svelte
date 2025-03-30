@@ -6,13 +6,12 @@
 	import Tags from './Tags.svelte'
 	import type { TagType } from './Tags.svelte'
 	import type { Content } from '$lib/types/content'
-	import type { Collection as CollectionType } from '$lib/types/collections'
 
 	import Recipe from '$lib/ui/content/Recipe.svelte'
 	import Collection from '$lib/ui/content/Collection.svelte'
 	import Video from '$lib/ui/content/Video.svelte'
 
-	let { content }: { content: Content | CollectionType } = $props()
+	let { content }: { content: Content } = $props()
 
 	// Ensure each child has proper properties for rendering
 	if (content.type === 'collection') {
@@ -196,7 +195,7 @@
 		{#if content.type === 'recipe'}
 			<Recipe />
 		{:else if content.type === 'collection'}
-			<Collection type={content.type} slug={content.slug} children={content.children} />
+			<Collection children={content.children} />
 		{:else if content.type === 'video'}
 			<Video />
 		{/if}

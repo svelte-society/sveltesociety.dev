@@ -3,15 +3,14 @@ import { tagSchema } from './tags'
 
 export const typeSchema = z.enum(['recipe', 'video', 'library', 'announcement', 'showcase', 'collection'])
 
-export const contentSchema = z.object({
+const baseContentSchema = z.object({
 	id: z.string(),
 	title: z.string(),
 	slug: z.string(),
 	description: z.string(),
 	type: typeSchema,
 	status: z.string(),
-	content: z.string(),
-	body: z.string(),
+	body: z.string().optional(),
 	rendered_body: z.string(),
 	author: z.string(),
 	tags: z.array(tagSchema),
@@ -22,12 +21,15 @@ export const contentSchema = z.object({
 	saves: z.number(),
 	liked: z.boolean(),
 	saved: z.boolean(),
-	children: z.array(z.string()),
 	views: z.number(),
 	metadata: z.object({
 		videoId: z.string().optional(),
 		npm: z.string().optional()
 	}).optional()
+})
+
+export const contentSchema = baseContentSchema.extend({
+	children: baseContentSchema.array()
 })
 
 export const updateContentSchema = contentSchema.omit({
@@ -44,4 +46,12 @@ export const updateContentSchema = contentSchema.omit({
 
 export const createContentSchema = updateContentSchema.omit({
 	id: true,
+})
+
+export const updateCollectionSchema = updateContentSchema.extend({
+	children: z.array(z.string())
+})
+
+export const createCollectionSchema = createContentSchema.extend({
+	children: z.array(z.string())
 })

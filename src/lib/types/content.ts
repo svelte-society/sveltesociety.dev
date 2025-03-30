@@ -7,28 +7,6 @@ export type Type = z.infer<typeof typeSchema>
 export type Content = z.infer<typeof contentSchema>
 export type UpdateContent = z.infer<typeof updateContentSchema>
 
-// Props for the ContentCard component
-export interface ContentCardProps {
-	id: string
-	title: string
-	description?: string
-	rendered_body?: string
-	type: string
-	author: string
-	published_at: string
-	views: number
-	likes: number
-	liked: boolean
-	saves: number
-	saved: boolean
-	tags: TagType[]
-	slug: string
-	children: Content[]
-}
-
-// Reduced version of Content for previews
-export type PreviewContent = Omit<Content, 'content' | 'body'>;
-
 // Content filtering options
 export interface ContentFilters {
 	type?: string

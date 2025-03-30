@@ -4,14 +4,9 @@
 
 	interface Props {
 		children: Content[]
-		slug: string
-		type: string
 	}
 
 	let { children = [] }: Props = $props()
-
-	// Ensure children is always an array
-	children = Array.isArray(children) ? children : []
 
 	// Add default author for content items that don't have one
 	function getAuthor(content: Content): string {

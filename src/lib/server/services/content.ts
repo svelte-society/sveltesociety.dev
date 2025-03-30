@@ -1,7 +1,8 @@
+import { z } from 'zod'
 import { Database } from 'bun:sqlite'
 import { SearchService } from './search'
+import { contentSchema } from '$lib/schema/content'
 import type { Content, ContentFilters } from '$lib/types/content'
-import type { Collection } from '$lib/types/collections'
 import type { Tag } from '$lib/types/tags'
 
 export class ContentService {
@@ -11,121 +12,106 @@ export class ContentService {
 		this.searchService = new SearchService(db)
 	}
 
-	getContentById(id: string): Content | Collection | null {
+	getContentById(id: string): Content | null {
 		if (!id) {
 			console.error('Invalid content ID:', id);
 			return null;
 		}
 
 		try {
+			// Begin transaction
+			this.db.exec('BEGIN TRANSACTION');
+
+			// Get the main content
 			const contentQuery = this.db.prepare(`
 				SELECT * FROM content
-				WHERE id = $id
+				WHERE id = ?
 			`);
-			const content = contentQuery.get({ id }) as Content | null;
+			const content = contentQuery.get(id) as Content | null;
 
 			if (!content) {
+				this.db.exec('ROLLBACK');
 				return null;
 			}
 
+			// Get tags for the main content
 			const tagsQuery = this.db.prepare(`
-				SELECT t.id, t.name, t.slug, t.color
+				SELECT t.id, t.name, t.slug, t.created_at, t.updated_at
 				FROM tags t
 				JOIN content_to_tags ctt ON t.id = ctt.tag_id
 				WHERE ctt.content_id = ?
 			`);
-			const tags = tagsQuery.all(id) as Tag[]
-			
+			const tags = tagsQuery.all(id) as Tag[];
 			content.tags = tags || [];
-
-			if (content.type === 'collection') {
-				return this.populateContentChildren(content);
+			
+			// If it's a collection and has children stored as JSON
+			if (content.type === 'collection' && typeof content.children === 'string') {
+				try {
+					// Parse the JSON to get child IDs
+					const childrenIds = JSON.parse(content.children);
+					
+					if (Array.isArray(childrenIds) && childrenIds.length > 0) {
+						// Process each child individually instead of using IN clause
+						const childrenContent: Content[] = [];
+						
+						// Prepare statements for reuse
+						const childContentQuery = this.db.prepare(`
+							SELECT c.* 
+							FROM content c
+							WHERE c.id = ?
+						`);
+						
+						const childTagsQuery = this.db.prepare(`
+							SELECT t.id, t.name, t.slug, t.created_at, t.updated_at
+							FROM tags t
+							JOIN content_to_tags ctt ON t.id = ctt.tag_id
+							WHERE ctt.content_id = ?
+						`);
+						
+						// Process each child ID individually
+						for (const childId of childrenIds) {
+							// Get the child content
+							const childContent = childContentQuery.get(childId) as Content | null;
+							
+							if (childContent) {
+								// Get tags for this child
+								const childTags = childTagsQuery.all(childId) as Tag[];
+								
+								// Assign tags and empty children array
+								childContent.tags = childTags || [];
+								childContent.children = [];
+								
+								// Add to the children collection
+								childrenContent.push(childContent);
+							}
+						}
+						
+						// Set the children on the parent content
+						content.children = childrenContent
+					}
+				} catch (e) {
+					console.error('Error processing collection children:', e);
+					content.children = [];
+				}
 			}
-
-			// Ensure non-collection content types have an empty children array
-			content.children = [];
+			
+			// Commit transaction
+			this.db.exec('COMMIT');
 			return content;
 		} catch (e) {
+			// Rollback transaction on error
+			try {
+				this.db.exec('ROLLBACK');
+			} catch (rollbackError) {
+				console.error('Error during transaction rollback:', rollbackError);
+			}
+			
 			console.error(`Error fetching content with ID ${id}:`, e);
 			return null;
 		}
 	}
 
-	private populateContentChildren(collectionContent: Collection): Collection {
-		if (collectionContent.type !== 'collection') {
-			throw new Error('Cannot populate children for non-collection content')
-		}
-
-		try {
-			// Initialize empty array for child IDs
-			let childIds: string[] = [];
-            
-			// Handle different formats of children data
-			if (collectionContent.children) {
-				// Case 1: children is already an array of Content objects
-				if (Array.isArray(collectionContent.children) && 
-					collectionContent.children.length > 0 && 
-					typeof collectionContent.children[0] === 'object') {
-					return {
-						...collectionContent,
-						type: 'collection' as const,
-						children: collectionContent.children as Content[]
-					};
-				}
-				
-				// Case 2: children is an array of IDs
-				else if (Array.isArray(collectionContent.children)) {
-					childIds = collectionContent.children.map(id => String(id));
-				}
-				
-				// Case 3: children is a JSON string
-				else if (typeof collectionContent.children === 'string') {
-					try {
-						const parsed = JSON.parse(collectionContent.children);
-						
-						// Case 3a: JSON is an array of IDs
-						if (Array.isArray(parsed)) {
-							childIds = parsed.map(id => String(id));
-						} 
-						// Case 3b: JSON is an object with a children property
-						else if (parsed && typeof parsed === 'object' && 'children' in parsed) {
-							const children = parsed.children;
-							if (Array.isArray(children)) {
-								childIds = children.map(id => String(id));
-							}
-						}
-					} catch (e) {
-						console.error('Failed to parse children JSON:', e);
-					}
-				}
-			}
-
-			
-			// Fetch each child content by ID
-			const children: Content[] = [];
-			for (let i = 0; i < childIds.length; i++) {
-				const child = this.getContentById(childIds[i]);
-				if (child !== null) {
-					children.push(child);
-				}
-			}
-
-			return {
-				...collectionContent,
-				type: 'collection' as const,
-				children
-			};
-		} catch (e) {
-			console.error('Error populating collection children:', e);
-			return {
-				...collectionContent,
-				type: 'collection' as const,
-				children: []
-			};
-		}
-	}
-
-	getFilteredContent(filters: ContentFilters = {}) : Content[] | Collection[] {
+	getFilteredContent(filters: ContentFilters = {}) : Content[] {
 		let contentIds: string[] = []
 
 		if (filters.search?.trim()) {
@@ -133,9 +119,10 @@ export class ContentService {
 		}
 
 		let query = `
-      SELECT DISTINCT c.id
-      FROM content c
-    `
+			SELECT DISTINCT c.id
+			FROM content c
+		`
+
 		const params: any[] = []
 		const whereConditions: string[] = []
 		const havingConditions: string[] = []
@@ -208,19 +195,9 @@ export class ContentService {
 
 		const ids = this.db.prepare(query).all(...params) as { id: string }[]
 
-
-		const contents = ids
+		return ids
 			.map(({ id }) => this.getContentById(id))
 			.filter((content): content is Content => content !== null)
-
-		return contents.map((content) => {
-			if (content.type === 'collection') {
-				return this.populateContentChildren(content)
-			}
-			// Ensure non-collection content types also have an empty children array
-			content.children = content.children || [];
-			return content
-		})
 	}
 
 	getFilteredContentCount(filters: Omit<ContentFilters, 'limit' | 'offset' | 'sort'> = {}) {
@@ -479,31 +456,8 @@ export class ContentService {
 				return null;
 			}
 
-			// Then, get the tags for this content
-			const tagsQuery = this.db.prepare(`
-				SELECT t.id, t.name, t.slug, t.color
-				FROM tags t
-				JOIN content_to_tags ctt ON t.id = ctt.tag_id
-				WHERE ctt.content_id = ?
-			`);
-			const tags = tagsQuery.all(content.id) as Array<{ 
-				id: string; 
-				name: string; 
-				slug: string; 
-				color: string 
-			}>;
-			
-			// Assign the tags to the content
-			content.tags = tags || [];
-
-			// Handle collection children if needed
-			if (content.type === 'collection') {
-				return this.populateContentChildren(content);
-			}
-
-			// Ensure non-collection content types have an empty children array
-			content.children = [];
-			return content;
+			// Return the content with children populated
+			return this.getContentById(content.id);
 		} catch (e) {
 			console.error(`Error fetching content with slug ${slug}:`, e);
 			return null;
