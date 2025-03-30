@@ -3,7 +3,7 @@ import { zod } from 'sveltekit-superforms/adapters'
 import { fail, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 
-import { schema } from './schema'
+import { updateContentSchema } from '$lib/schema/content'
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	// Load existing content for editing
@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	}
 
 	// Pre-populate form with existing content
-	const form = await superValidate(content, zod(schema))
+	const form = await superValidate(content, zod(updateContentSchema))
 
 	// Get all tags for the tag selector
 	const tags = await locals.tagService.getTags()
@@ -29,7 +29,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 export const actions: Actions = {
 	default: async ({ request, params, locals }) => {
 		// Get form data and validate
-		const form = await superValidate(request, zod(schema))
+		const form = await superValidate(request, zod(updateContentSchema))
 
 		if (!form.valid) {
 			return fail(400, { form })

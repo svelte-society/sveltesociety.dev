@@ -1,41 +1,15 @@
-// Type definitions for content data
+import { typeSchema, contentSchema, updateContentSchema } from '$lib/schema/content'
 import type { TagType } from '$lib/ui/Tags.svelte'
 import { z } from 'zod'
-import { TagSchema } from './tags'
 
+export type Type = z.infer<typeof typeSchema>
 
-const TypeSchema = z.enum(['recipe', 'video', 'library', 'announcement', 'showcase', 'collection'])
+export type Content = z.infer<typeof contentSchema>
+export type UpdateContent = z.infer<typeof updateContentSchema>
 
-export type Type = z.infer<typeof TypeSchema>
-
-const ContentSchema = z.object({
-	id: z.string(),
-	title: z.string(),
-	slug: z.string(),
-	description: z.string(),
-	type: TypeSchema,
-	status: z.string(),
-	content: z.string(),
-	body: z.string(),
-	rendered_body: z.string(),
-	author: z.string(),
-	tags: z.array(TagSchema),
-	created_at: z.string(),
-	updated_at: z.string(),
-	published_at: z.string().nullable(),
-	likes: z.number(),
-	saves: z.number(),
-	liked: z.boolean(),
-	saved: z.boolean(),
-	children: z.array(z.string()),
-	views: z.number()
-})
-
-export type Content = z.infer<typeof ContentSchema>
-
-const CollectionSchema = ContentSchema.extend({
+const CollectionSchema = contentSchema.extend({
 	type: z.literal('collection'),
-	children: z.array(ContentSchema)
+	children: z.array(contentSchema)
 })
 
 export type Collection = z.infer<typeof CollectionSchema>

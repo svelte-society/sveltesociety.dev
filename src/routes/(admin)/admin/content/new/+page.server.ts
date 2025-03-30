@@ -3,11 +3,11 @@ import { zod } from 'sveltekit-superforms/adapters'
 import { fail, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 
-import { schema } from './schema'
+import { createContentSchema } from '$lib/schema/content'
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// Create a new form with default values
-	const form = await superValidate(zod(schema))
+	const form = await superValidate(zod(createContentSchema))
 
 	// Get all tags for the tag selector
 	const tags = await locals.tagService.getTags()
@@ -21,7 +21,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
 		// Get form data and validate
-		const form = await superValidate(request, zod(schema))
+		const form = await superValidate(request, zod(createContentSchema))
 
 		if (!form.valid) {
 			return fail(400, { form })
