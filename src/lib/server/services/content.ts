@@ -1,6 +1,8 @@
 import { Database } from 'bun:sqlite'
 import { SearchService } from './search'
-import type { Content, CollectionContent, ContentFilters } from '$lib/types/content'
+import type { Content, ContentFilters } from '$lib/types/content'
+import type { Collection } from '$lib/types/collections'
+import type { Tag } from '$lib/types/tags'
 
 export class ContentService {
 	private searchService: SearchService
@@ -9,14 +11,13 @@ export class ContentService {
 		this.searchService = new SearchService(db)
 	}
 
-	getContentById(id: string): Content | null {
+	getContentById(id: string): Content | Collection | null {
 		if (!id) {
 			console.error('Invalid content ID:', id);
 			return null;
 		}
 
 		try {
-			// 1. First, get the basic content item
 			const contentQuery = this.db.prepare(`
 				SELECT * FROM content
 				WHERE id = $id
@@ -27,24 +28,16 @@ export class ContentService {
 				return null;
 			}
 
-			// 2. Then, get the tags for this content
 			const tagsQuery = this.db.prepare(`
 				SELECT t.id, t.name, t.slug, t.color
 				FROM tags t
 				JOIN content_to_tags ctt ON t.id = ctt.tag_id
 				WHERE ctt.content_id = ?
 			`);
-			const tags = tagsQuery.all(id) as Array<{ 
-				id: string; 
-				name: string; 
-				slug: string; 
-				color: string 
-			}>;
+			const tags = tagsQuery.all(id) as Tag[]
 			
-			// Assign the tags to the content
 			content.tags = tags || [];
 
-			// 3. Handle collection children if needed
 			if (content.type === 'collection') {
 				return this.populateContentChildren(content);
 			}
@@ -58,7 +51,7 @@ export class ContentService {
 		}
 	}
 
-	private populateContentChildren(collectionContent: Content): CollectionContent {
+	private populateContentChildren(collectionContent: Collection): Collection {
 		if (collectionContent.type !== 'collection') {
 			throw new Error('Cannot populate children for non-collection content')
 		}
@@ -132,7 +125,7 @@ export class ContentService {
 		}
 	}
 
-	getFilteredContent(filters: ContentFilters = {}) {
+	getFilteredContent(filters: ContentFilters = {}) : Content[] | Collection[] {
 		let contentIds: string[] = []
 
 		if (filters.search?.trim()) {

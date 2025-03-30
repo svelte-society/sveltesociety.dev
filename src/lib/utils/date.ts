@@ -1,4 +1,8 @@
-export function formatRelativeDate(date: Date | number | string): string {
+export function formatRelativeDate(date: string | null): string {
+	if (!date) {
+		return 'Unknown date'
+	}
+
 	const now = new Date()
 	const inputDate = new Date(date)
 	const diffTime = now.getTime() - inputDate.getTime()

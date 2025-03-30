@@ -3,7 +3,7 @@ import { contentSchema } from './content'
 
 export const collectionSchema = contentSchema.extend({
 	type: z.literal('collection'),
-	children: z.array(z.string())
+	children: z.array(contentSchema)
 }).omit({
 	body: true,
 	metadata: true

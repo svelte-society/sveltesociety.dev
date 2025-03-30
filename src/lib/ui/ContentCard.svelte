@@ -5,48 +5,30 @@
 
 	import Tags from './Tags.svelte'
 	import type { TagType } from './Tags.svelte'
-	import type { ContentCardProps, Content } from '$lib/types/content'
+	import type { Content } from '$lib/types/content'
+	import type { Collection as CollectionType } from '$lib/types/collections'
 
 	import Recipe from '$lib/ui/content/Recipe.svelte'
 	import Collection from '$lib/ui/content/Collection.svelte'
 	import Video from '$lib/ui/content/Video.svelte'
 
-	let {
-		id,
-		title,
-		description,
-		rendered_body,
-		type,
-		author,
-		published_at,
-		views,
-		likes,
-		liked,
-		saves,
-		saved,
-		tags,
-		slug,
-		children = []
-	}: ContentCardProps = $props()
-
-	// Ensure children is always an array
-	children = Array.isArray(children) ? children : []
+	let { content }: { content: Content | CollectionType } = $props()
 
 	// Ensure each child has proper properties for rendering
-	if (type === 'collection') {
-		children = children.map((child) => ({
+	if (content.type === 'collection') {
+		content.children = content.children.map((child) => ({
 			...child,
 			// Set defaults for any missing properties
 			type: child.type || 'unknown',
 			title: child.title || 'Untitled',
 			slug: child.slug || '',
-			published_at: child.published_at || published_at
+			published_at: child.published_at || content.published_at
 		}))
 	}
 
 	// Convert string tags to TagType objects if needed
-	const formattedTags: TagType[] = Array.isArray(tags)
-		? tags.map((tag) => {
+	const formattedTags: TagType[] = Array.isArray(content.tags)
+		? content.tags.map((tag) => {
 				if (typeof tag === 'string') {
 					return {
 						id: tag,
@@ -73,14 +55,14 @@
 			return
 		}
 		submitting_like_toggle = true
-		likes = liked ? likes - 1 : likes + 1
-		liked = !liked
+		content.likes = content.liked ? content.likes - 1 : content.likes + 1
+		content.liked = !content.liked
 
 		return async (event: any) => {
 			const data = event.result?.data
 			if (!data?.success) {
-				likes = liked ? likes + 1 : likes - 1
-				liked = !liked
+				content.likes = content.liked ? content.likes + 1 : content.likes - 1
+				content.liked = !content.liked
 			}
 			submitting_like_toggle = false
 		}
@@ -93,14 +75,14 @@
 			return
 		}
 		submitting_save_toggle = true
-		saves = saved ? saves - 1 : saves + 1
-		saved = !saved
+		content.saves = content.saved ? content.saves - 1 : content.saves + 1
+		content.saved = !content.saved
 
 		return async (event: any) => {
 			const data = event.result?.data
 			if (!data?.success) {
-				saves = saved ? saves + 1 : saves - 1
-				saved = !saved
+				content.saves = content.saved ? content.saves + 1 : content.saves - 1
+				content.saved = !content.saved
 			}
 			submitting_save_toggle = false
 		}
@@ -112,11 +94,11 @@
 		class="mb-2 grid grid-cols-1 items-start justify-between gap-2 text-xs sm:grid-cols-[1fr_auto] sm:gap-0"
 	>
 		<div class="flex flex-wrap items-center">
-			<span class="font-semibold capitalize">{type}&nbsp;</span>
+			<span class="font-semibold capitalize">{content.type}&nbsp;</span>
 			<span class="flex flex-wrap text-gray-500">
-				<span>by {author} • {formatRelativeDate(published_at)} •&nbsp;</span>
+				<span>by {content.author} • {formatRelativeDate(content.published_at)} •&nbsp;</span>
 				<span class="flex items-center gap-1">
-					{views}
+					{content.views}
 					<svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
 						<title>views</title>
 						<path
@@ -131,14 +113,14 @@
 		</div>
 		<div class="flex items-center space-x-3 sm:space-x-4">
 			<form method="POST" action="/?/interact" use:enhance={likeSubmit}>
-				<input type="hidden" name="id" value={id} />
-				<input type="hidden" name="action" value={liked ? 'remove' : 'add'} />
+				<input type="hidden" name="id" value={content.id} />
+				<input type="hidden" name="action" value={content.liked ? 'remove' : 'add'} />
 				<input type="hidden" id="type" name="type" value="like" />
 
 				<button
 					data-sveltekit-keepfocus
 					disabled={submitting_like_toggle}
-					aria-label="Like {type}"
+					aria-label="Like {content.type}"
 					type="submit"
 					class="-mx-2 -my-1 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 text-gray-600 hover:bg-gray-200 hover:text-gray-700 sm:py-1"
 				>
@@ -149,8 +131,8 @@
 						xmlns="http://www.w3.org/2000/svg"
 						class="mr-0.5"
 					>
-						<title>{liked ? 'Remove like' : 'Like'}</title>
-						{#if liked}
+						<title>{content.liked ? 'Remove like' : 'Like'}</title>
+						{#if content.liked}
 							<path
 								d="M6.62532 0.049567C5.62075 -0.0649162 4.87498 0.78591 4.87498 1.68679V2.06223C4.87498 3.05844 4.38994 3.6545 3.88685 4.02214C3.64068 4.20203 3.39161 4.32474 3.19794 4.40354C2.97064 4.01263 2.54726 3.74982 2.0625 3.74982H1.3125C0.587626 3.74982 0 4.33745 0 5.06232V10.6874C0 11.4122 0.587626 11.9999 1.3125 11.9999H2.0625C2.64352 11.9999 3.13637 11.6223 3.3091 11.0991C3.70246 11.1553 4.10958 11.2706 4.60301 11.4104L4.60316 11.4104C4.71683 11.4426 4.83508 11.4761 4.95881 11.5105C5.82428 11.7509 6.86444 11.9997 8.25 11.9997C9.52927 11.9997 10.4772 11.8855 11.0411 11.1453C11.306 10.7978 11.4439 10.3638 11.5427 9.89123C11.6307 9.47055 11.6986 8.95845 11.7771 8.3661L11.8075 8.1366C11.9944 6.73531 12.0063 5.64813 11.6661 4.89976C11.4831 4.49729 11.1996 4.1928 10.8137 3.99965C10.443 3.81409 10.0148 3.74973 9.5625 3.74973H8.49578L8.50702 3.66548V3.66547C8.5593 3.2768 8.625 2.78842 8.625 2.43723C8.625 1.74608 8.51153 1.14827 8.1333 0.71266C7.74983 0.270907 7.1979 0.114819 6.62532 0.049567Z"
 								fill="currentColor"
@@ -164,16 +146,16 @@
 							/>
 						{/if}
 					</svg>
-					{likes}
+					{content.likes}
 				</button>
 			</form>
 			<form use:enhance={saveSubmit} method="POST" action="/?/interact">
-				<input type="hidden" name="id" value={id} />
-				<input type="hidden" name="action" value={saved ? 'remove' : 'add'} />
+				<input type="hidden" name="id" value={content.id} />
+				<input type="hidden" name="action" value={content.saved ? 'remove' : 'add'} />
 				<input type="hidden" id="type" name="type" value="save" />
 				<button
 					disabled={submitting_save_toggle}
-					aria-label="Like {type}"
+					aria-label="Like {content.type}"
 					type="submit"
 					class="-mx-2 -my-1 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 text-gray-600 hover:bg-gray-200 hover:text-gray-700 sm:py-1"
 				>
@@ -184,8 +166,8 @@
 						xmlns="http://www.w3.org/2000/svg"
 						class="mr-0.5"
 					>
-						<title>{saved ? 'Unsave' : 'Save'}</title>
-						{#if saved}
+						<title>{content.saved ? 'Unsave' : 'Save'}</title>
+						{#if content.saved}
 							<path
 								d="M3.5625 0.75C2.83763 0.75 2.25 1.33763 2.25 2.0625V10.6875C2.25 10.9052 2.37558 11.1033 2.57243 11.1962C2.76928 11.2891 3.00206 11.26 3.17008 11.1217L6 8.7912L8.8299 11.1217C8.99797 11.26 9.2307 11.2891 9.42758 11.1962C9.62445 11.1033 9.75 10.9052 9.75 10.6875V2.0625C9.75 1.33763 9.16237 0.75 8.4375 0.75H3.5625Z"
 								fill="currentColor"
@@ -199,21 +181,23 @@
 							/>
 						{/if}
 					</svg>
-					{saves}
+					{content.saves}
 				</button>
 			</form>
 		</div>
 	</div>
 
-	<h2 class="mb-2 text-lg font-bold sm:text-xl"><a href="/{type}/{slug}">{title}</a></h2>
-	<div class="text-sm sm:text-base">{description}</div>
+	<h2 class="mb-2 text-lg font-bold sm:text-xl">
+		<a href="/{content.type}/{content.slug}">{content.title}</a>
+	</h2>
+	<div class="text-sm sm:text-base">{content.description}</div>
 
 	<div>
-		{#if type === 'recipe'}
+		{#if content.type === 'recipe'}
 			<Recipe />
-		{:else if type === 'collection'}
-			<Collection {type} {slug} {children} />
-		{:else if type === 'video'}
+		{:else if content.type === 'collection'}
+			<Collection type={content.type} slug={content.slug} children={content.children} />
+		{:else if content.type === 'video'}
 			<Video />
 		{/if}
 	</div>
@@ -225,6 +209,6 @@
 			<Tags tags={formattedTags} />
 		</div>
 
-		<div class="text-xs text-gray-500">{formatRelativeDate(published_at)}</div>
+		<div class="text-xs text-gray-500">{formatRelativeDate(content.published_at)}</div>
 	</div>
 </article>
