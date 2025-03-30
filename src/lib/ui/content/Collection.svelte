@@ -2,14 +2,17 @@
 	import type { Content } from '$lib/types/content'
 	import { formatRelativeDate } from '$lib/utils/date'
 
+	// Create a partial Content type for children that doesn't require the children property
+	type ContentChild = Omit<Content, 'children'> & { children?: any[] }
+
 	interface Props {
-		children: Content[]
+		children: ContentChild[]
 	}
 
 	let { children = [] }: Props = $props()
 
 	// Add default author for content items that don't have one
-	function getAuthor(content: Content): string {
+	function getAuthor(content: ContentChild): string {
 		return content?.author || 'Unknown'
 	}
 </script>

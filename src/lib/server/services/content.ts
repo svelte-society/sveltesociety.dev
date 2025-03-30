@@ -77,9 +77,9 @@ export class ContentService {
 								// Get tags for this child
 								const childTags = childTagsQuery.all(childId) as Tag[];
 								
-								// Assign tags and empty children array
+								// Assign tags to each child content
 								childContent.tags = childTags || [];
-								childContent.children = [];
+								childContent.children = []; // Ensure all children have empty children arrays
 								
 								// Add to the children collection
 								childrenContent.push(childContent);
