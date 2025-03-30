@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { TagSchema } from './tags'
+import { tagSchema } from './tags'
 
 export const typeSchema = z.enum(['recipe', 'video', 'library', 'announcement', 'showcase', 'collection'])
 
@@ -14,7 +14,7 @@ export const contentSchema = z.object({
 	body: z.string(),
 	rendered_body: z.string(),
 	author: z.string(),
-	tags: z.array(TagSchema),
+	tags: z.array(tagSchema),
 	created_at: z.string(),
 	updated_at: z.string(),
 	published_at: z.string().nullable(),

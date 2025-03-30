@@ -7,13 +7,6 @@ export type Type = z.infer<typeof typeSchema>
 export type Content = z.infer<typeof contentSchema>
 export type UpdateContent = z.infer<typeof updateContentSchema>
 
-const CollectionSchema = contentSchema.extend({
-	type: z.literal('collection'),
-	children: z.array(contentSchema)
-})
-
-export type Collection = z.infer<typeof CollectionSchema>
-
 // Props for the ContentCard component
 export interface ContentCardProps {
 	id: string

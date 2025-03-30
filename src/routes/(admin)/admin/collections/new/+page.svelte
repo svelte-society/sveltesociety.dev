@@ -7,7 +7,7 @@
 	import { slugify } from '$lib/utils/slug'
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
 	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
-	import { schema } from './schema'
+	import { createCollectionSchema } from '$lib/schema/collections'
 	import ContentSelector from './ContentSelector.svelte'
 
 	// Get data passed from server
@@ -15,7 +15,7 @@
 
 	// Setup form with client-side validation
 	const form = superForm(data.form, {
-		validators: zodClient(schema),
+		validators: zodClient(createCollectionSchema),
 		dataType: 'json'
 	})
 

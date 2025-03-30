@@ -2,13 +2,12 @@ import { error, fail, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 import { superValidate } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
-
-import { schema } from './schema'
+import { createCollectionSchema } from '$lib/schema/collections'
 
 export const load: PageServerLoad = async ({ locals }) => {
 	try {
 		// Create a new form with default values
-		const form = await superValidate(zod(schema))
+		const form = await superValidate(zod(createCollectionSchema))
 
 		// Get all content and tags for the selectors
 		const content = locals.contentService.getFilteredContent({})
@@ -28,7 +27,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
 		// Initialize form outside try block so it's available in catch
-		const form = await superValidate(request, zod(schema))
+		const form = await superValidate(request, zod(createCollectionSchema))
 
 		try {
 			if (!form.valid) {
