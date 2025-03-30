@@ -25,67 +25,35 @@
 		}))
 	}
 
-	// Convert string tags to TagType objects if needed
-	const formattedTags: TagType[] = Array.isArray(content.tags)
-		? content.tags.map((tag) => {
-				if (typeof tag === 'string') {
-					return {
-						id: tag,
-						name: tag,
-						slug: String(tag).toLowerCase().replace(/\s+/g, '-')
-					}
-				}
-				// Ensure tag has the correct shape
-				return {
-					id: String(tag.id),
-					name: String(tag.name),
-					slug: String(tag.slug)
-				}
-			})
-		: []
-
-	let submitting_like_toggle = $state(false)
-	let submitting_save_toggle = $state(false)
+	let submitting = $state(false)
 
 	// Use any for now to avoid type errors with enhance
-	const likeSubmit = (event: any) => {
+	const handleInteraction = (type: 'like' | 'save') => (event: any) => {
 		if (!page.data.user) {
 			event.cancel()
 			return
 		}
-		submitting_like_toggle = true
-		content.likes = content.liked ? content.likes - 1 : content.likes + 1
-		content.liked = !content.liked
+		submitting = true
+
+		const isLike = type === 'like'
+		const property = isLike ? 'likes' : 'saves'
+		const flag = isLike ? 'liked' : 'saved'
+
+		content[property] = content[flag] ? content[property] - 1 : content[property] + 1
+		content[flag] = !content[flag]
 
 		return async (event: any) => {
 			const data = event.result?.data
 			if (!data?.success) {
-				content.likes = content.liked ? content.likes + 1 : content.likes - 1
-				content.liked = !content.liked
+				content[property] = content[flag] ? content[property] + 1 : content[property] - 1
+				content[flag] = !content[flag]
 			}
-			submitting_like_toggle = false
+			submitting = false
 		}
 	}
 
-	// Use any for now to avoid type errors with enhance
-	const saveSubmit = (event: any) => {
-		if (!page.data.user) {
-			event.cancel()
-			return
-		}
-		submitting_save_toggle = true
-		content.saves = content.saved ? content.saves - 1 : content.saves + 1
-		content.saved = !content.saved
-
-		return async (event: any) => {
-			const data = event.result?.data
-			if (!data?.success) {
-				content.saves = content.saved ? content.saves + 1 : content.saves - 1
-				content.saved = !content.saved
-			}
-			submitting_save_toggle = false
-		}
-	}
+	const likeSubmit = handleInteraction('like')
+	const saveSubmit = handleInteraction('save')
 </script>
 
 <article class="grid gap-2 rounded-lg bg-zinc-50 px-4 py-4 sm:px-6 sm:py-5">
@@ -118,7 +86,7 @@
 
 				<button
 					data-sveltekit-keepfocus
-					disabled={submitting_like_toggle}
+					disabled={submitting}
 					aria-label="Like {content.type}"
 					type="submit"
 					class="-mx-2 -my-1 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 text-gray-600 hover:bg-gray-200 hover:text-gray-700 sm:py-1"
@@ -153,7 +121,7 @@
 				<input type="hidden" name="action" value={content.saved ? 'remove' : 'add'} />
 				<input type="hidden" id="type" name="type" value="save" />
 				<button
-					disabled={submitting_save_toggle}
+					disabled={submitting}
 					aria-label="Like {content.type}"
 					type="submit"
 					class="-mx-2 -my-1 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 text-gray-600 hover:bg-gray-200 hover:text-gray-700 sm:py-1"
@@ -205,7 +173,7 @@
 		class="mt-4 grid grid-cols-1 items-start justify-between gap-2 sm:grid-cols-[1fr_auto] sm:gap-0"
 	>
 		<div class="flex flex-wrap gap-2">
-			<Tags tags={formattedTags} />
+			<Tags tags={content.tags} />
 		</div>
 
 		<div class="text-xs text-gray-500">{formatRelativeDate(content.published_at)}</div>
