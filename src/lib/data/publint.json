@@ -338,7 +338,7 @@
 	"svelte-legos": { "valid": false },
 	"@supabase/auth-helpers-sveltekit": { "valid": true },
 	"svelte-markdown": { "valid": false },
-	"svelte-exmarkdown": { "valid": true },
+	"svelte-exmarkdown": { "valid": false },
 	"@sentry/svelte": { "valid": false },
 	"@sentry/sveltekit": { "valid": false },
 	"svelte-french-toast": { "valid": true },
