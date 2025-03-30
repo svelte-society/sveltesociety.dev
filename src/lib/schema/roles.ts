@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const roleSchema = z.object({
-	id: z.string(),
+	id: z.number(),
 	name: z.string(),
 	value: z.string(),
 	description: z.string(),
@@ -15,6 +15,5 @@ export const createRoleSchema = roleSchema.omit({
 })
 
 export const updateRoleSchema = roleSchema.omit({
-	id: true,
 	created_at: true
 })

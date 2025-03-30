@@ -1,9 +1,7 @@
-import { z } from 'zod'
 import { superValidate, message } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
 import { fail, redirect } from '@sveltejs/kit'
 import { updateRoleSchema } from '$lib/schema/roles'
-import type { UpdateRole } from '$lib/types/roles'
 
 export const load = async ({ params, locals }) => {
 	const role = locals.roleService.getRoleById(parseInt(params.id))
