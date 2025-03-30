@@ -1,13 +1,6 @@
+import type { Tag } from '$lib/types/tags'
+import { z } from 'zod'
 import { Database } from 'bun:sqlite'
-
-export type Tag = {
-	id: string
-	name: string
-	slug: string
-	color?: string | null
-	created_at: string
-	updated_at: string
-}
 
 export class TagService {
 	private getTagsStatement
@@ -19,7 +12,7 @@ export class TagService {
 
 	constructor(private db: Database) {
 		this.getTagsStatement = this.db.prepare(
-			'SELECT id, name, slug, color FROM tags ORDER BY created_at DESC LIMIT $limit OFFSET $offset'
+			'SELECT * FROM tags ORDER BY created_at DESC LIMIT $limit OFFSET $offset'
 		)
 
 		this.getTagsCountStatement = this.db.prepare('SELECT COUNT(*) as count FROM tags')
@@ -41,10 +34,11 @@ export class TagService {
 		try {
 			const limit = options?.limit ?? 10
 			const offset = options?.offset ?? 0
-			return this.getTagsStatement.all({
+			const result = this.getTagsStatement.all({
 				limit: limit,
 				offset: offset
 			}) as Tag[]
+			return result
 		} catch (error) {
 			console.error('Error getting tags:', error)
 			return []

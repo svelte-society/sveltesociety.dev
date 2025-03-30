@@ -1,7 +1,21 @@
 import { z } from 'zod'
 
-export const TagSchema = z.object({
+export const tagSchema = z.object({
 	id: z.string(),
-	name: z.string(),
-	slug: z.string(),
+	name: z.string().min(1, 'Name is required'),
+	slug: z.string().min(1, 'Slug is required'),
+	created_at: z.string(),
+	updated_at: z.string()
 })
+
+export const createTagSchema = tagSchema.omit({
+	id: true,
+	created_at: true,
+	updated_at: true
+})
+
+export const updateTagSchema = tagSchema.omit({
+	created_at: true,
+	updated_at: true
+})
+
