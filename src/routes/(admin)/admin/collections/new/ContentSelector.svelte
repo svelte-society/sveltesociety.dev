@@ -55,7 +55,7 @@
 			out:fade={{ duration: 150 }}
 		>
 			<div class="flex items-center gap-2">
-				{#if contentItem?.type && ['recipe', 'video', 'library', 'announcement', 'showcase'].includes(contentItem.type)}
+				{#if contentItem?.type.includes(contentItem.type)}
 					<TypeIcon
 						type={contentItem.type as 'recipe' | 'video' | 'library' | 'announcement' | 'showcase'}
 					/>

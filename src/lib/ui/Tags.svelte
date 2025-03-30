@@ -3,6 +3,7 @@
 		id: string
 		name: string
 		slug: string
+		color?: string
 	}
 </script>
 

@@ -1,37 +1,44 @@
 // Type definitions for content data
 import type { TagType } from '$lib/ui/Tags.svelte'
+import { z } from 'zod'
+import { TagSchema } from './tags'
 
-export type Type = 'recipe' | 'video' | 'library' | 'announcement' | 'showcase' | 'collection'
 
-// Base Content interface used throughout the application
-export interface Content {
-	id: string
-	title: string
-	slug: string
-	description: string
-	type: Type
-	status: string
-	content?: string
-	body?: string
-	rendered_body?: string
-	author?: string
-	tags?: Array<{ id: string; name: string; slug: string; color: string }> | TagType[]
-	created_at?: string
-	updated_at?: string
-	published_at: string | null
-	likes?: number
-	saves?: number
-	liked?: boolean
-	saved?: boolean
-	children?: Content[]
-	views?: number
-}
+const TypeSchema = z.enum(['recipe', 'video', 'library', 'announcement', 'showcase', 'collection'])
 
-// Collection-specific content interface
-export interface CollectionContent extends Content {
-	type: 'collection'
-	children: Content[]
-}
+export type Type = z.infer<typeof TypeSchema>
+
+const ContentSchema = z.object({
+	id: z.string(),
+	title: z.string(),
+	slug: z.string(),
+	description: z.string(),
+	type: TypeSchema,
+	status: z.string(),
+	content: z.string(),
+	body: z.string(),
+	rendered_body: z.string(),
+	author: z.string(),
+	tags: z.array(TagSchema),
+	created_at: z.string(),
+	updated_at: z.string(),
+	published_at: z.string().nullable(),
+	likes: z.number(),
+	saves: z.number(),
+	liked: z.boolean(),
+	saved: z.boolean(),
+	children: z.array(z.string()),
+	views: z.number()
+})
+
+export type Content = z.infer<typeof ContentSchema>
+
+const CollectionSchema = ContentSchema.extend({
+	type: z.literal('collection'),
+	children: z.array(ContentSchema)
+})
+
+export type Collection = z.infer<typeof CollectionSchema>
 
 // Props for the ContentCard component
 export interface ContentCardProps {
