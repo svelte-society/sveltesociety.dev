@@ -87,7 +87,7 @@
 				<button
 					data-sveltekit-keepfocus
 					disabled={submitting}
-					aria-label="Like {content.type}"
+					aria-label="Like {content.title}"
 					type="submit"
 					class="-mx-2 -my-1 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 text-gray-600 hover:bg-gray-200 hover:text-gray-700 sm:py-1"
 				>
@@ -122,7 +122,7 @@
 				<input type="hidden" id="type" name="type" value="save" />
 				<button
 					disabled={submitting}
-					aria-label="Like {content.type}"
+					aria-label="Save {content.title}"
 					type="submit"
 					class="-mx-2 -my-1 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 text-gray-600 hover:bg-gray-200 hover:text-gray-700 sm:py-1"
 				>
