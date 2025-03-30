@@ -4,7 +4,7 @@
 	import Table from '$lib/ui/admin/Table.svelte'
 	import Actions from '$lib/ui/admin/Actions.svelte'
 	import Pagination from '$lib/ui/Pagination.svelte'
-	import type { Tag } from '$lib/server/db/tags'
+	import type { Tag } from '$lib/types/tags'
 	let { data } = $props()
 </script>
 

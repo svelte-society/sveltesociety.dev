@@ -2,11 +2,11 @@
 	import Form from '$lib/ui/form/Form.svelte'
 	import Input from '$lib/ui/form/Input.svelte'
 	import { zod } from 'sveltekit-superforms/adapters'
-	import { schema } from './schema'
 	import { superForm } from 'sveltekit-superforms'
 	import Button from '$lib/ui/Button.svelte'
+	import { tagSchema } from '$lib/schema/tags.js'
 	let { data } = $props()
-	const form = superForm(data.form, zod(schema))
+	const form = superForm(data.form, zod(tagSchema))
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
