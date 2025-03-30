@@ -4,7 +4,7 @@
 	import Form from '$lib/ui/form/Form.svelte'
 	import { superForm } from 'sveltekit-superforms/client'
 	import { zodClient } from 'sveltekit-superforms/adapters'
-	import { schema } from './schema'
+	import { createRoleSchema } from '$lib/schema/roles.js'
 
 	let { data } = $props()
 
@@ -13,7 +13,7 @@
 		delayMs: 500,
 		timeoutMs: 8000,
 		dataType: 'json',
-		validators: zodClient(schema)
+		validators: zodClient(createRoleSchema)
 	})
 
 	const { submitting } = form

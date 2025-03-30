@@ -2,7 +2,7 @@
 	import Button from '$lib/ui/Button.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
 	import Actions from '$lib/ui/admin/Actions.svelte'
-	import type { Role } from '$lib/server/db/role'
+	import type { Role } from '$lib/types/roles'
 	import Badge from '$lib/ui/admin/Badge.svelte'
 	import Pagination from '$lib/ui/Pagination.svelte'
 
