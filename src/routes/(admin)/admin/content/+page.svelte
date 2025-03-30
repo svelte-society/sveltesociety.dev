@@ -2,10 +2,11 @@
 	import { formatRelativeDate } from '$lib/utils/date'
 	import Button from '$lib/ui/Button.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
-	import type { PreviewContent } from '$lib/server/services/content'
+	import type { Content } from '$lib/types/content'
 	import Actions from '$lib/ui/admin/Actions.svelte'
 	import Badge from '$lib/ui/admin/Badge.svelte'
 	import Pagination from '$lib/ui/Pagination.svelte'
+	import TypeIcon from '$lib/ui/TypeIcon.svelte'
 
 	let { data } = $props()
 
@@ -34,19 +35,30 @@
 			<th scope="col" class={classes}>Description</th>
 			<th scope="col" class={classes}>Created</th>
 		{/snippet}
-		{#snippet row(item: PreviewContent, classes)}
+		{#snippet row(item: Content, classes)}
 			<td class="whitespace-nowrap {classes} font-medium text-gray-900">
 				<div>{item.title}</div>
 				<div class="mt-1 text-xs text-gray-400">{item.slug}</div>
 			</td>
 			<td class={classes}><Badge color={getStatusColor(item.status)} text={item.status} /></td>
-			<td class={classes}>{item.type}</td>
+			<td class={classes}>
+				<div class="group relative flex items-center justify-center">
+					<div class="type-icon-wrapper text-gray-600">
+						<TypeIcon type={item.type} scale={1.5} />
+					</div>
+					<div
+						class="pointer-events-none absolute bottom-full mb-2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white capitalize opacity-0 transition-opacity group-hover:opacity-100"
+					>
+						{item.type}
+					</div>
+				</div>
+			</td>
 			<td class={classes}>{item.description}</td>
 			<td class={classes}>
-				{formatRelativeDate(item.created_at)}
+				{formatRelativeDate(item.created_at || '')}
 			</td>
 		{/snippet}
-		{#snippet actionCell(item: PreviewContent)}
+		{#snippet actionCell(item: Content)}
 			<Actions route="content" id={item.id} canDelete={true} canEdit={true} type={item.title} />
 		{/snippet}
 	</Table>
@@ -55,3 +67,10 @@
 		<Pagination count={data.pagination.count} perPage={data.pagination.perPage} />
 	{/if}
 </div>
+
+<style>
+	.type-icon-wrapper :global(svg) {
+		width: 24px;
+		height: 24px;
+	}
+</style>

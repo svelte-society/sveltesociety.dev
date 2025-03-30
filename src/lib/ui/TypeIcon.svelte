@@ -1,11 +1,13 @@
 <script lang="ts">
+	import type { Type } from '$lib/types/content'
 	import { ReadCvLogo, Video, Package, Megaphone, Image, Files } from 'phosphor-svelte'
 
 	type Props = {
-		type: 'recipe' | 'video' | 'library' | 'announcement' | 'showcase'
+		type: Type
+		scale?: number
 	}
 
-	let { type }: Props = $props()
+	let { type, scale = 1 }: Props = $props()
 
 	const IconMap = $state({
 		recipe: ReadCvLogo,
@@ -19,4 +21,4 @@
 	const Icon = $derived(IconMap[type])
 </script>
 
-<Icon />
+<Icon {scale} />

@@ -1,13 +1,15 @@
 // Type definitions for content data
 import type { TagType } from '$lib/ui/Tags.svelte'
 
+export type Type = 'recipe' | 'video' | 'library' | 'announcement' | 'showcase' | 'collection'
+
 // Base Content interface used throughout the application
 export interface Content {
 	id: string
 	title: string
 	slug: string
 	description: string
-	type: string
+	type: Type
 	status: string
 	content?: string
 	body?: string
