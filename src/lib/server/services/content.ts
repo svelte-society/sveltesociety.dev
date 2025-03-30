@@ -463,4 +463,48 @@ export class ContentService {
 			return null;
 		}
 	}
+
+	getSavedContent(userId: string, page: number = 1, limit: number = 20) {
+		try {
+			// Calculate offset
+			const offset = (page - 1) * limit
+
+			// Get total count of saved content
+			const countQuery = this.db.prepare(`
+				SELECT COUNT(1) as count 
+				FROM saves s
+				JOIN content c ON s.target_id = c.id
+				WHERE s.user_id = ? AND c.status = 'published'
+			`)
+			const { count } = countQuery.get(userId) as { count: number }
+
+			// If no saved content, return early with empty array
+			if (count === 0) {
+				return { content: [], count: 0 }
+			}
+
+			// Get paginated saved content IDs
+			const savedContentQuery = this.db.prepare(`
+				SELECT s.target_id 
+				FROM saves s
+				JOIN content c ON s.target_id = c.id
+				WHERE s.user_id = ? AND c.status = 'published'
+				ORDER BY s.created_at DESC
+				LIMIT ? OFFSET ?
+			`)
+			const savedContentIds = savedContentQuery
+				.all(userId, limit, offset)
+				.map((row) => (row as { target_id: string }).target_id)
+
+			// Get content details for the paginated IDs
+			const content = savedContentIds
+				.map((id) => this.getContentById(id))
+				.filter(Boolean) as Content[]
+
+			return { content, count }
+		} catch (e) {
+			console.error('Error fetching saved content:', e)
+			return { content: [], count: 0 }
+		}
+	}
 }
