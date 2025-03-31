@@ -156,7 +156,7 @@ export class CollectionService {
 	}): string | undefined {
 		try {
 			// Format children array for storage
-			const collectionContent = JSON.stringify({ children: data.children })
+			const collectionContent = JSON.stringify(data.children)
 			
 			// Update collection record
 			const result = this.updateCollectionStatement.get(
