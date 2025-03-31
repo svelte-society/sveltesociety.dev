@@ -109,8 +109,9 @@ export class CollectionService {
 		tags: string[]
 	}): string {
 		try {
-			const sanitizedChildren = data.children.map(id => String(id));
-			const collectionChildren = JSON.stringify(sanitizedChildren);
+			const collectionChildren = JSON.stringify(data.children);
+
+			console.log(data)
 			
 			const result = this.createCollectionStatement.get({
 				title: data.title,

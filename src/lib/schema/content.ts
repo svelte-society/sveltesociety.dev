@@ -54,5 +54,6 @@ export const updateCollectionSchema = updateContentSchema.extend({
 })
 
 export const createCollectionSchema = createContentSchema.extend({
-	children: z.array(z.string())
+	children: z.array(z.string()),
+	tags: z.array(z.string())
 })

@@ -6,9 +6,10 @@
 	import Button from '$lib/ui/Button.svelte'
 	import { slugify } from '$lib/utils/slug'
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
-	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
-	import { createCollectionSchema } from '$lib/schema/collections'
-	import ContentSelector from './DynamicSelector.svelte'
+	import { createCollectionSchema } from '$lib/schema/content'
+	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
+	import { toast } from 'svelte-sonner'
+	import { Files, Tag } from 'phosphor-svelte'
 
 	// Get data passed from server
 	let { data } = $props()
@@ -16,10 +17,17 @@
 	// Setup form with client-side validation
 	const form = superForm(data.form, {
 		validators: zodClient(createCollectionSchema),
-		dataType: 'json'
+		dataType: 'json',
+		onUpdated: ({ form }) => {
+			if (form.message) {
+				console.log('Is this working?', form.message)
+
+				toast.success(form.message)
+			}
+		}
 	})
 
-	const { form: formData, submitting } = form
+	const { form: formData, errors, message, submitting } = form
 
 	// Helper to generate slug from title
 	function generateSlug() {
@@ -47,7 +55,7 @@
 				placeholder="best-svelte-tutorials"
 				description="The slug used in the URL (auto-generated from title)"
 			/>
-			<Button small secondary onclick={generateSlug}>Generate</Button>
+			<Button type="button" small secondary onclick={generateSlug}>Generate</Button>
 		</div>
 
 		<Input
@@ -58,37 +66,26 @@
 			description="Enter a description for this collection"
 		/>
 
-		<div>
-			<DynamicInput
-				name="children"
-				label="Content"
-				description="Select content to add to the collection"
-				type="text"
-				options={data.content.map((item) => ({
-					label: `${item.title} (${item.type})`,
-					value: item.id
-				}))}
-				bind:value={$formData.children}
-			/>
+		<DynamicSelector
+			name="children"
+			label="Content"
+			description="Select content to add to the collection"
+			Icon={Files}
+			options={data.content.map((item) => ({
+				label: `${item.title} (${item.type})`,
+				value: item.id
+			}))}
+		/>
 
-			<div>
-				<ContentSelector
-					bind:selectedContent={$formData.children}
-					content={data.content.filter((c) => $formData.children.includes(c.id))}
-				/>
-			</div>
-		</div>
-
-		<DynamicInput
+		<DynamicSelector
 			name="tags"
 			label="Tags"
 			description="Select tags for this collection"
-			type="text"
+			Icon={Tag}
 			options={data.tags.map((tag) => ({
 				label: tag.name,
 				value: tag.id
 			}))}
-			bind:value={$formData.tags}
 		/>
 
 		<Button type="submit" primary fullWidth disabled={$submitting}>
@@ -100,4 +97,5 @@
 <!-- Debug only in development -->
 {#if import.meta.env?.DEV}
 	<SuperDebug data={$formData} />
+	<SuperDebug data={$errors} />
 {/if}

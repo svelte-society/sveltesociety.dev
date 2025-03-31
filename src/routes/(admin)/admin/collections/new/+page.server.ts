@@ -1,8 +1,8 @@
-import { error, fail, redirect } from '@sveltejs/kit'
+import { error, fail } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
-import { superValidate } from 'sveltekit-superforms'
+import { superValidate, message } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
-import { createCollectionSchema } from '$lib/schema/collections'
+import { createCollectionSchema } from '$lib/schema/content'
 
 export const load: PageServerLoad = async ({ locals }) => {
 	try {
@@ -31,7 +31,7 @@ export const actions: Actions = {
 
 		try {
 			if (!form.valid) {
-				return fail(400, { form })
+				return fail(400, { form, message: 'Something went wrong. Please try again.' })
 			}
 
 			locals.collectionService.createCollection({
@@ -42,8 +42,7 @@ export const actions: Actions = {
 				tags: form.data.tags
 			})
 
-			// Redirect to collections listing after successful save
-			redirect(303, '/admin/collections')
+			return message(form, 'Collection created successfully')
 		} catch (err) {
 			if (err instanceof Response) throw err
 
