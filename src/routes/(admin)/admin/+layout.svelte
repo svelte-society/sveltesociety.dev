@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Toaster } from 'svelte-sonner'
 	import Breadcrumb from './Breadcrumb.svelte'
 	import Sidebar from './Sidebar.svelte'
 	import type { Link } from './types'
@@ -62,3 +63,5 @@
 		</div>
 	</div>
 </div>
+
+<Toaster richColors />
