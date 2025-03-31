@@ -7,7 +7,7 @@
 	import { slugify } from '$lib/utils/slug'
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
 	import { updateCollectionSchema } from '$lib/schema/content'
-	import DynamicSelector from '../new/DynamicSelector.svelte'
+	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
 
 	// Get data passed from server
 	let { data } = $props()
