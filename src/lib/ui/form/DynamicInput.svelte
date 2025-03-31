@@ -8,14 +8,7 @@
 		options: { label: string; value: string }[]
 		value?: string[]
 	}
-	let {
-		name,
-		label,
-		description,
-		placeholder,
-		options,
-		value = $bindable()
-	}: TextInputProps = $props()
+	let { name, label, description, placeholder, options }: TextInputProps = $props()
 
 	import type { SuperForm } from 'sveltekit-superforms'
 
@@ -24,12 +17,10 @@
 	import { getContext } from 'svelte'
 	import { CaretUpDown, Check, Tag as TagIcon } from 'phosphor-svelte'
 
-	const form: SuperForm<Record<string, unknown>, any> = getContext('form')
+	const form: SuperForm<Record<string, any>, any> = getContext('form')
 
 	const { form: formData } = form
-	const removeByIndex = (index: number) => {
-		$formData[name] = ($formData[name] as unknown[]).filter((_: unknown, i: number) => i !== index)
-	}
+
 	let searchValue = $state('')
 
 	const filteredOptions = $derived(
@@ -47,7 +38,7 @@
 					{label}
 				</Label>
 				<Combobox.Root
-					bind:value
+					bind:value={$formData[name]}
 					{name}
 					type="multiple"
 					onValueChange={(o) => {
@@ -73,7 +64,7 @@
 						<Combobox.Content
 							class="focus-override z-50 w-[var(--bits-combobox-anchor-width)] min-w-[var(--bits-select-anchor-width)] rounded-xl bg-white px-1 py-3 shadow-2xl outline-hidden select-none data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1"
 						>
-							{#each filteredOptions as option, i}
+							{#each filteredOptions as option, index (option.value)}
 								<Combobox.Item
 									value={option.value}
 									label={option.label}

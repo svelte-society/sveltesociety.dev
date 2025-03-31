@@ -6,16 +6,15 @@
 	import Button from '$lib/ui/Button.svelte'
 	import { slugify } from '$lib/utils/slug'
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
-	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
-	import { schema } from '../new/schema'
-	import ContentSelector from '../new/ContentSelector.svelte'
+	import { updateCollectionSchema } from '$lib/schema/content'
+	import DynamicSelector from '../new/DynamicSelector.svelte'
 
 	// Get data passed from server
 	let { data } = $props()
 
 	// Setup form with client-side validation
 	const form = superForm(data.form, {
-		validators: zodClient(schema),
+		validators: zodClient(updateCollectionSchema),
 		dataType: 'json'
 	})
 
@@ -58,37 +57,24 @@
 			description="Enter a description for this collection"
 		/>
 
-		<div>
-			<DynamicInput
-				name="children"
-				label="Content"
-				description="Select content to add to the collection"
-				type="text"
-				options={data.content.map((item) => ({
-					label: `${item.title} (${item.type})`,
-					value: item.id
-				}))}
-				bind:value={$formData.children}
-			/>
+		<DynamicSelector
+			name="children"
+			label="Content"
+			description="Select content to add to the collection"
+			options={data.content.map((item) => ({
+				label: `${item.title} (${item.type})`,
+				value: item.id
+			}))}
+		/>
 
-			<div>
-				<ContentSelector
-					bind:selectedContent={$formData.children}
-					content={data.content.filter((c) => $formData.children.includes(c.id))}
-				/>
-			</div>
-		</div>
-
-		<DynamicInput
+		<DynamicSelector
 			name="tags"
 			label="Tags"
 			description="Select tags for this collection"
-			type="text"
 			options={data.tags.map((tag) => ({
 				label: tag.name,
 				value: tag.id
 			}))}
-			bind:value={$formData.tags}
 		/>
 
 		<Button type="submit" primary fullWidth disabled={$submitting}>

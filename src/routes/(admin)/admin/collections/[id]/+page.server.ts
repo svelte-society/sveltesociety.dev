@@ -2,7 +2,7 @@ import { error, fail, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 import { superValidate } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
-import { schema } from '../new/schema'
+import { updateCollectionSchema } from '$lib/schema/content'
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	// Get the collection using ContentService
@@ -21,7 +21,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		tags: content.tags?.map(tag => tag.id)
 	}
 
-	const form = await superValidate(formData, zod(schema))
+	const form = await superValidate(formData, zod(updateCollectionSchema))
 
 	// Get all content for the selector
 	const allContent = locals.contentService.getFilteredContent({})
@@ -39,7 +39,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 export const actions: Actions = {
 	default: async ({ request, locals, params }) => {
 		// Validate form data
-		const form = await superValidate(request, zod(schema))
+		const form = await superValidate(request, zod(updateCollectionSchema))
 		if (!form.valid) {
 			return fail(400, { form })
 		}

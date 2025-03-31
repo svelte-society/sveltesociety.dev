@@ -8,7 +8,7 @@
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
 	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
 	import { createCollectionSchema } from '$lib/schema/collections'
-	import ContentSelector from './ContentSelector.svelte'
+	import ContentSelector from './DynamicSelector.svelte'
 
 	// Get data passed from server
 	let { data } = $props()

@@ -49,7 +49,8 @@ export const createContentSchema = updateContentSchema.omit({
 })
 
 export const updateCollectionSchema = updateContentSchema.extend({
-	children: z.array(z.string())
+	children: z.array(z.string()),
+	tags: z.array(z.string())
 })
 
 export const createCollectionSchema = createContentSchema.extend({
