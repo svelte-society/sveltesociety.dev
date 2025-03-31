@@ -1,20 +1,21 @@
 <script lang="ts">
-	import TypeIcon from '$lib/ui/TypeIcon.svelte'
 	import { draggable, droppable, type DragDropState } from '@thisux/sveltednd'
-	import { DotsNine } from 'phosphor-svelte'
+	import { DotsNine, Empty, ReadCvLogo, Trash } from 'phosphor-svelte'
 	import { fade } from 'svelte/transition'
 	import { flip } from 'svelte/animate'
 	import type { SuperForm } from 'sveltekit-superforms'
 	import { getContext } from 'svelte'
+	import type { Component } from 'svelte'
 	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
 	type Props = {
 		name: string
 		options: { label: string; value: string }[]
 		label: string
 		description: string
+		Icon?: Component
 	}
 
-	let { name, options, label, description }: Props = $props()
+	let { name, options, label, description, Icon }: Props = $props()
 
 	const form: SuperForm<Record<string, any>, any> = getContext('form')
 
@@ -43,12 +44,20 @@
 	}
 </script>
 
-<DynamicInput {name} {label} {description} type="text" {options} placeholder="Select {name}" />
+<DynamicInput
+	{name}
+	{label}
+	{description}
+	type="text"
+	{options}
+	placeholder="Select {name}"
+	{Icon}
+/>
 
-<div class="space-y-2 rounded-md bg-gray-100 p-4">
+<ul class="space-y-2 rounded-md bg-slate-100 p-4">
 	{#each $formData[name] as item, index (item)}
 		{@const optionItem = options.find((c) => c.value === item)}
-		<div
+		<li
 			class="flex cursor-grab items-center justify-between gap-2 rounded-md border-2 border-gray-100 bg-white p-2 transition-all duration-300"
 			use:draggable={{
 				container: index.toString(),
@@ -63,10 +72,27 @@
 			out:fade={{ duration: 150 }}
 		>
 			<div class="flex items-center gap-2">
-				<TypeIcon type="recipe" />
+				<ReadCvLogo />
 				{optionItem?.label}
 			</div>
-			<DotsNine />
-		</div>
+			<div class="flex items-center gap-2">
+				<DotsNine />
+				<button
+					type="button"
+					class="cursor-pointer"
+					title="Remove {optionItem?.label}"
+					onclick={() => {
+						$formData[name] = $formData[name].filter((i: string) => i !== item)
+					}}
+				>
+					<Trash class="text-red-600" />
+				</button>
+			</div>
+		</li>
+	{:else}
+		<p class="flex items-center gap-2 text-sm text-gray-500">
+			<Empty />
+			<span>No {name} selected</span>
+		</p>
 	{/each}
-</div>
+</ul>

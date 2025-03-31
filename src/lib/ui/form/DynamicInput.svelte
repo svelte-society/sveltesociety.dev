@@ -1,4 +1,13 @@
 <script lang="ts">
+	import type { SuperForm } from 'sveltekit-superforms'
+
+	import { Control, Description, Field, FieldErrors, Label } from 'formsnap'
+	import { Combobox } from 'bits-ui'
+	import { getContext } from 'svelte'
+	import { CaretUpDown, Check, Tag as TagIcon } from 'phosphor-svelte'
+
+	import type { Component } from 'svelte'
+
 	interface TextInputProps {
 		label?: string
 		description?: string
@@ -7,16 +16,9 @@
 		type?: string
 		options: { label: string; value: string }[]
 		value?: string[]
+		Icon?: Component
 	}
-	let { name, label, description, placeholder, options }: TextInputProps = $props()
-
-	import type { SuperForm } from 'sveltekit-superforms'
-
-	import { Control, Description, Field, FieldErrors, Label } from 'formsnap'
-	import { Combobox } from 'bits-ui'
-	import { getContext } from 'svelte'
-	import { CaretUpDown, Check, Tag as TagIcon } from 'phosphor-svelte'
-
+	let { name, label, description, placeholder, options, Icon = TagIcon }: TextInputProps = $props()
 	const form: SuperForm<Record<string, any>, any> = getContext('form')
 
 	const { form: formData } = form
@@ -47,7 +49,7 @@
 				>
 					<Combobox.Trigger>
 						<div class="relative">
-							<TagIcon class="absolute top-1/2 left-2 size-4 -translate-y-1/2 text-slate-500" />
+							<Icon class="absolute top-1/2 left-2 size-4 -translate-y-1/2 text-slate-500" />
 							<Combobox.Input
 								clearOnDeselect
 								oninput={(e) => (searchValue = e.currentTarget.value)}
