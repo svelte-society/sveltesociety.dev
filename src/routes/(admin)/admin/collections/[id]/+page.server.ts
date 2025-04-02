@@ -1,6 +1,6 @@
-import { error, fail, redirect } from '@sveltejs/kit'
+import { error } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
-import { superValidate } from 'sveltekit-superforms'
+import { message, superValidate } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
 import { updateCollectionSchema } from '$lib/schema/content'
 
@@ -25,7 +25,6 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	// Get all content for the selector
 	const allContent = locals.contentService.getFilteredContent({})
-
 	// Get all tags for the selector
 	const allTags = locals.tagService.getTags({ limit: 100 })
 
@@ -41,7 +40,10 @@ export const actions: Actions = {
 		// Validate form data
 		const form = await superValidate(request, zod(updateCollectionSchema))
 		if (!form.valid) {
-			return fail(400, { form })
+			return message(form, {
+				success: false,
+				text: 'Invalid form data. Please check the form and try again.'
+			})
 		}
 
 		try {
@@ -54,13 +56,13 @@ export const actions: Actions = {
 				tags: form.data.tags
 			})
 
-			throw redirect(303, '/admin/collections')
+			return message(form, { success: true, text: 'Successfully updated collection.'})
 		} catch (e) {
 			if (e instanceof Response) throw e
 			console.error('Failed to update collection:', e)
-			return fail(500, { 
-				form,
-				error: 'Failed to update collection. Please try again.'
+			return message(form, {
+				success: false,
+				text: 'Something went wrong, please try again.'
 			})
 		}
 	}

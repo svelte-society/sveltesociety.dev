@@ -7,7 +7,7 @@ const baseContentSchema = z.object({
 	id: z.string(),
 	title: z.string(),
 	slug: z.string(),
-	description: z.string(),
+	description: z.string().min(10),
 	type: typeSchema,
 	status: z.string(),
 	body: z.string().optional(),

@@ -6,16 +6,21 @@
 	import Button from '$lib/ui/Button.svelte'
 	import { slugify } from '$lib/utils/slug'
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
-	import { updateCollectionSchema } from '$lib/schema/content'
 	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
+	import { toast } from 'svelte-sonner'
+	import { updateCollectionSchema } from '$lib/schema/content'
 
 	// Get data passed from server
 	let { data } = $props()
 
 	// Setup form with client-side validation
-	const form = superForm(data.form, {
+	let form = superForm(data.form, {
+		invalidateAll: 'force',
 		validators: zodClient(updateCollectionSchema),
-		dataType: 'json'
+		dataType: 'json',
+		onUpdated: ({ form }) => {
+			form?.message?.success ? toast.success(form.message.text) : toast.error(form.message.text)
+		}
 	})
 
 	const { form: formData, submitting } = form
@@ -46,7 +51,7 @@
 				placeholder="best-svelte-tutorials"
 				description="The slug used in the URL (auto-generated from title)"
 			/>
-			<Button small secondary onclick={generateSlug}>Generate</Button>
+			<Button type="button" small secondary onclick={generateSlug}>Generate</Button>
 		</div>
 
 		<Input

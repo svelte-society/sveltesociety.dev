@@ -31,7 +31,10 @@ export const actions: Actions = {
 
 		try {
 			if (!form.valid) {
-				return fail(400, { form, message: 'Something went wrong. Please try again.' })
+				return message(form, {
+					success: false,
+					text: 'Invalid form data. Please check the form and try again.'
+				})
 			}
 
 			locals.collectionService.createCollection({
@@ -42,14 +45,14 @@ export const actions: Actions = {
 				tags: form.data.tags
 			})
 
-			return message(form, 'Collection created successfully')
+			return message(form, { success: true, text: 'Successfully created collection.'})
 		} catch (err) {
 			if (err instanceof Response) throw err
 
 			console.error('Error creating collection:', err)
-			return fail(500, {
-				form,
-				error: 'Failed to create collection. Please try again.'
+			return message(form, {
+				success: false,
+				text: 'Something went wrong, please try again.'
 			})
 		}
 	}
