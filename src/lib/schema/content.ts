@@ -33,6 +33,7 @@ export const contentSchema = baseContentSchema.extend({
 })
 
 export const updateContentSchema = contentSchema.omit({
+	
 	created_at: true,
 	updated_at: true,
 	published_at: true,
@@ -42,6 +43,8 @@ export const updateContentSchema = contentSchema.omit({
 	saved: true,
 	views: true,
 	children: true,
+}).extend({
+	tags: z.array(z.string())
 })
 
 export const createContentSchema = updateContentSchema.omit({

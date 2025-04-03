@@ -16,8 +16,6 @@
 	// Setup form with client-side validation
 	let form = superForm(data.form, {
 		invalidateAll: 'force',
-		validators: zodClient(updateCollectionSchema),
-		dataType: 'json',
 		onUpdated: ({ form }) => {
 			form?.message?.success ? toast.success(form.message.text) : toast.error(form.message.text)
 		}

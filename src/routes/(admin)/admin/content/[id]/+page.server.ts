@@ -1,20 +1,28 @@
 import { superValidate, message } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
-import { fail, redirect } from '@sveltejs/kit'
+import {  redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 
 import { updateContentSchema } from '$lib/schema/content'
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	// Load existing content for editing
-	const content = await locals.contentService.getContentById(params.id)
+	const content = locals.contentService.getContentById(params.id)
 
 	if (!content) {
 		throw redirect(303, '/admin/content')
 	}
 
+	const formData = {
+		title: content.title,
+		description: content.description || '',
+		slug: content.slug,
+		body: content.body,
+		tags: content.tags?.map(tag => tag.id)
+	}
+
 	// Pre-populate form with existing content
-	const form = await superValidate(content, zod(updateContentSchema))
+	const form = await superValidate(formData, zod(updateContentSchema))
 
 	// Get all tags for the tag selector
 	const tags = await locals.tagService.getTags()
@@ -32,7 +40,10 @@ export const actions: Actions = {
 		const form = await superValidate(request, zod(updateContentSchema))
 
 		if (!form.valid) {
-			return fail(400, { form })
+			return message(form, {
+				success: false,
+				text: 'Invalid form data. Please check the form and try again.'
+			})
 		}
 
 		try {
@@ -43,14 +54,18 @@ export const actions: Actions = {
 				tags: form.data.tags.map(tag => tag.id)
 			})
 
-			return { success: true }
+			// Return with success message
+			return message(form, {
+				success: true,
+				text: 'Content updated successfully.'
+			})
 		} catch (error) {
 			if (error instanceof Response) throw error
 
 			console.error('Error updating content:', error)
-			return fail(500, {
-				form,
-				error: 'Failed to update content. Please try again.'
+			return message(form, {
+				success: false,
+				text: 'Failed to update content. Please try again.'
 			})
 		}
 	}

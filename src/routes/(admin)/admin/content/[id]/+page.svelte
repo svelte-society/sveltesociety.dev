@@ -10,16 +10,18 @@
 	import { slide } from 'svelte/transition'
 	import { slugify } from '$lib/utils/slug'
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
-	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
-	import { schema } from './schema.js'
+	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
+	import { toast } from 'svelte-sonner'
 
 	// Get data passed from server
 	let { data } = $props()
 
 	// Setup form with client-side validation
-	const form = superForm(data.form, {
-		validators: zodClient(schema),
-		dataType: 'json'
+	let form = superForm(data.form, {
+		invalidateAll: 'force',
+		onUpdated: ({ form }) => {
+			form?.message?.success ? toast.success(form.message.text) : toast.error(form.message.text)
+		}
 	})
 
 	const { form: formData, submitting } = form
@@ -203,19 +205,14 @@
 			description="A short summary that appears in listings and search results"
 		/>
 
-		<DynamicInput
+		<DynamicSelector
 			name="tags"
 			label="Tags"
-			description="Enter tags for this content"
-			type="text"
-			options={data.tags.map((tag) => ({ label: tag.name, value: tag.slug }))}
-			bind:value={
-				() => $formData.tags.map((tag) => tag.slug),
-				(slugs) =>
-					($formData.tags = data.tags.filter((tag) =>
-						slugs.find((slug: string) => slug === tag.slug)
-					))
-			}
+			description="Select tags for this content"
+			options={data.tags.map((tag) => ({
+				label: tag.name,
+				value: tag.id
+			}))}
 		/>
 
 		<div class="mt-6 flex gap-4">
