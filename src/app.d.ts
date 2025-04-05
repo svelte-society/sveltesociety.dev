@@ -9,6 +9,7 @@ import type { TagService } from '$lib/server/services/tags'
 import type { ModerationService } from '$lib/server/services/moderation'
 import type { UserService } from '$lib/server/services/user'
 import type { CollectionService } from '$lib/server/services/collections'
+import type { search } from '$lib/server/services/new_search'
 
 declare global {
 	namespace App {
@@ -25,6 +26,7 @@ declare global {
 			moderationService: ModerationService
 			userService: UserService
 			collectionService: CollectionService
+			search: typeof search
 		}
 		// interface PageData {}
 		// interface PageState {}

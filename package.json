@@ -18,6 +18,7 @@
 		"test": "vitest"
 	},
 	"devDependencies": {
+		"@orama/orama": "^3.1.4",
 		"@playwright/test": "^1.51.1",
 		"@sveltejs/adapter-node": "^5.2.12",
 		"@sveltejs/enhanced-img": "^0.4.4",
