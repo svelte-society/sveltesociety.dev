@@ -14,24 +14,24 @@ export class ContentService {
 
 	getContentById(id: string): Content | null {
 		if (!id) {
-			console.error('Invalid content ID:', id);
-			return null;
+			console.error('Invalid content ID:', id)
+			return null
 		}
 
 		try {
 			// Begin transaction
-			this.db.exec('BEGIN TRANSACTION');
+			this.db.exec('BEGIN TRANSACTION')
 
 			// Get the main content
 			const contentQuery = this.db.prepare(`
 				SELECT * FROM content
 				WHERE id = ?
-			`);
-			const content = contentQuery.get(id) as Content | null;
+			`)
+			const content = contentQuery.get(id) as Content | null
 
 			if (!content) {
-				this.db.exec('ROLLBACK');
-				return null;
+				this.db.exec('ROLLBACK')
+				return null
 			}
 
 			// Get tags for the main content
@@ -40,78 +40,78 @@ export class ContentService {
 				FROM tags t
 				JOIN content_to_tags ctt ON t.id = ctt.tag_id
 				WHERE ctt.content_id = ?
-			`);
-			const tags = tagsQuery.all(id) as Tag[];
-			content.tags = tags || [];
-			
+			`)
+			const tags = tagsQuery.all(id) as Tag[]
+			content.tags = tags || []
+
 			// If it's a collection and has children stored as JSON
 			if (content.type === 'collection' && typeof content.children === 'string') {
 				try {
 					// Parse the JSON to get child IDs
-					const childrenIds = JSON.parse(content.children);
-					
+					const childrenIds = JSON.parse(content.children)
+
 					if (Array.isArray(childrenIds) && childrenIds.length > 0) {
 						// Process each child individually instead of using IN clause
-						const childrenContent: Content[] = [];
-						
+						const childrenContent: Content[] = []
+
 						// Prepare statements for reuse
 						const childContentQuery = this.db.prepare(`
 							SELECT c.* 
 							FROM content c
 							WHERE c.id = ?
-						`);
-						
+						`)
+
 						const childTagsQuery = this.db.prepare(`
 							SELECT t.id, t.name, t.slug, t.created_at, t.updated_at
 							FROM tags t
 							JOIN content_to_tags ctt ON t.id = ctt.tag_id
 							WHERE ctt.content_id = ?
-						`);
-						
+						`)
+
 						// Process each child ID individually
 						for (const childId of childrenIds) {
 							// Get the child content
-							const childContent = childContentQuery.get(childId) as Content | null;
-							
+							const childContent = childContentQuery.get(childId) as Content | null
+
 							if (childContent) {
 								// Get tags for this child
-								const childTags = childTagsQuery.all(childId) as Tag[];
-								
+								const childTags = childTagsQuery.all(childId) as Tag[]
+
 								// Assign tags to each child content
-								childContent.tags = childTags || [];
-								childContent.children = []; // Ensure all children have empty children arrays
-								
+								childContent.tags = childTags || []
+								childContent.children = [] // Ensure all children have empty children arrays
+
 								// Add to the children collection
-								childrenContent.push(childContent);
+								childrenContent.push(childContent)
 							}
 						}
-						
+
 						// Set the children on the parent content
 						content.children = childrenContent
 					}
 				} catch (e) {
-					console.error('Error processing collection children:', e);
-					content.children = [];
+					console.error('Error processing collection children:', e)
+					content.children = []
 				}
 			}
-			
+
 			// Commit transaction
-			this.db.exec('COMMIT');
-			return content;
+			this.db.exec('COMMIT')
+			return content
 		} catch (e) {
 			// Rollback transaction on error
 			try {
-				this.db.exec('ROLLBACK');
+				this.db.exec('ROLLBACK')
 			} catch (rollbackError) {
-				console.error('Error during transaction rollback:', rollbackError);
+				console.error('Error during transaction rollback:', rollbackError)
 			}
-			
-			console.error(`Error fetching content with ID ${id}:`, e);
-			return null;
+
+			console.error(`Error fetching content with ID ${id}:`, e)
+			return null
 		}
 	}
 
-	getFilteredContent(filters: ContentFilters = {}) : Content[] {
+	getFilteredContent(filters: ContentFilters = {}): Content[] {
 		let contentIds: string[] = []
 
 		if (filters.search?.trim()) {
@@ -203,7 +203,6 @@ export class ContentService {
 	getFilteredContentCount(filters: Omit<ContentFilters, 'limit' | 'offset' | 'sort'> = {}) {
 		let contentIds: string[] = []
 
-
 		if (filters.search?.trim()) {
 			contentIds = this.searchService.search({ query: filters.search.trim() })
 			if (contentIds.length === 0) return 0
@@ -214,12 +213,10 @@ export class ContentService {
 		const whereConditions: string[] = []
 		const havingConditions: string[] = []
 
-
 		if (filters.search?.trim()) {
 			whereConditions.push(`c.id IN (${contentIds.map(() => '?').join(',')})`)
 			params.push(...contentIds)
 		}
-
 
 		if (filters.status === 'all') {
 			// Don't add any status condition when requesting all content
@@ -228,12 +225,10 @@ export class ContentService {
 			if (filters.status) params.push(filters.status)
 		}
 
-
 		if (filters.type) {
 			whereConditions.push('c.type = ?')
 			params.push(filters.type)
 		}
-
 
 		if (filters.tags) {
 			const tags = Array.isArray(filters.tags) ? filters.tags : [filters.tags]
@@ -252,11 +247,9 @@ export class ContentService {
 			}
 		}
 
-
 		if (whereConditions.length > 0) {
 			query += ' WHERE ' + whereConditions.join(' AND ')
 		}
-
 
 		if (filters.tags && Array.isArray(filters.tags) && filters.tags.length > 1) {
 			query += ' GROUP BY c.id'
@@ -285,13 +278,13 @@ export class ContentService {
 			tags: tagSlug,
 			limit,
 			offset
-		});
-		
+		})
+
 		// Ensure every item has a children array
-		return results.map(item => ({
+		return results.map((item) => ({
 			...item,
 			children: item.children || []
-		}));
+		}))
 	}
 
 	getContentByType(type: string, limit = 10, offset = 0) {
@@ -299,13 +292,13 @@ export class ContentService {
 			type,
 			limit,
 			offset
-		});
-		
+		})
+
 		// Ensure every item has a children array
-		return results.map(item => ({
+		return results.map((item) => ({
 			...item,
 			children: item.children || []
-		}));
+		}))
 	}
 
 	addContent(data: {
@@ -361,19 +354,22 @@ export class ContentService {
 		return id
 	}
 
-	updateContent(id: string, data: {
-		title: string
-		slug: string
-		description: string
-		type: string
-		status: string
-		body: string
-		tags: string[]
-		metadata?: {
-			videoId?: string
-			npm?: string
+	updateContent(
+		id: string,
+		data: {
+			title: string
+			slug: string
+			description: string
+			type: string
+			status: string
+			body: string
+			tags: string[]
+			metadata?: {
+				videoId?: string
+				npm?: string
+			}
 		}
-	}) {
+	) {
 		const now = new Date().toISOString()
 
 		// Update the content record
@@ -427,8 +423,8 @@ export class ContentService {
 
 	getContentBySlug(slug: string, type?: string): Content | null {
 		if (!slug) {
-			console.error('Invalid slug:', slug);
-			return null;
+			console.error('Invalid slug:', slug)
+			return null
 		}
 
 		try {
@@ -436,31 +432,31 @@ export class ContentService {
 			let query = `
 				SELECT * FROM content
 				WHERE slug = ? AND status = 'published'
-			`;
-			
-			const params: any[] = [slug];
-			
+			`
+
+			const params: any[] = [slug]
+
 			if (type) {
 				query = `
 					SELECT * FROM content
 					WHERE slug = ? AND type = ? AND status = 'published'
-				`;
-				params.push(type);
+				`
+				params.push(type)
 			}
-			
+
 			// Get the basic content item
-			const contentQuery = this.db.prepare(query);
-			const content = contentQuery.get(...params) as Content | null;
+			const contentQuery = this.db.prepare(query)
+			const content = contentQuery.get(...params) as Content | null
 
 			if (!content) {
-				return null;
+				return null
 			}
 
 			// Return the content with children populated
-			return this.getContentById(content.id);
+			return this.getContentById(content.id)
 		} catch (e) {
-			console.error(`Error fetching content with slug ${slug}:`, e);
-			return null;
+			console.error(`Error fetching content with slug ${slug}:`, e)
+			return null
 		}
 	}
 

@@ -109,10 +109,10 @@ export class CollectionService {
 		tags: string[]
 	}): string {
 		try {
-			const collectionChildren = JSON.stringify(data.children);
+			const collectionChildren = JSON.stringify(data.children)
 
 			console.log(data)
-			
+
 			const result = this.createCollectionStatement.get({
 				title: data.title,
 				slug: data.slug,
@@ -148,17 +148,20 @@ export class CollectionService {
 	 * @param data Collection data including title, slug, description, children IDs, and tag IDs
 	 * @returns The ID of the updated collection or undefined if update failed
 	 */
-	updateCollection(id: string, data: {
-		title: string
-		slug: string
-		description: string
-		children: string[]
-		tags: string[]
-	}): string | undefined {
+	updateCollection(
+		id: string,
+		data: {
+			title: string
+			slug: string
+			description: string
+			children: string[]
+			tags: string[]
+		}
+	): string | undefined {
 		try {
 			// Format children array for storage
 			const collectionContent = JSON.stringify(data.children)
-			
+
 			// Update collection record
 			const result = this.updateCollectionStatement.get(
 				data.title,

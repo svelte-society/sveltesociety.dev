@@ -18,4 +18,3 @@ export const updateTagSchema = tagSchema.omit({
 	created_at: true,
 	updated_at: true
 })
-

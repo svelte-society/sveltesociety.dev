@@ -1,7 +1,14 @@
 import { z } from 'zod'
 import { tagSchema } from './tags'
 
-export const typeSchema = z.enum(['recipe', 'video', 'library', 'announcement', 'showcase', 'collection'])
+export const typeSchema = z.enum([
+	'recipe',
+	'video',
+	'library',
+	'announcement',
+	'showcase',
+	'collection'
+])
 
 const baseContentSchema = z.object({
 	id: z.string(),
@@ -22,33 +29,36 @@ const baseContentSchema = z.object({
 	liked: z.boolean(),
 	saved: z.boolean(),
 	views: z.number(),
-	metadata: z.object({
-		videoId: z.string().optional(),
-		npm: z.string().optional()
-	}).optional()
+	metadata: z
+		.object({
+			videoId: z.string().optional(),
+			npm: z.string().optional()
+		})
+		.optional()
 })
 
 export const contentSchema = baseContentSchema.extend({
 	children: baseContentSchema.array()
 })
 
-export const updateContentSchema = contentSchema.omit({
-	
-	created_at: true,
-	updated_at: true,
-	published_at: true,
-	likes: true,
-	saves: true,
-	liked: true,
-	saved: true,
-	views: true,
-	children: true,
-}).extend({
-	tags: z.array(z.string())
-})
+export const updateContentSchema = contentSchema
+	.omit({
+		created_at: true,
+		updated_at: true,
+		published_at: true,
+		likes: true,
+		saves: true,
+		liked: true,
+		saved: true,
+		views: true,
+		children: true
+	})
+	.extend({
+		tags: z.array(z.string())
+	})
 
 export const createContentSchema = updateContentSchema.omit({
-	id: true,
+	id: true
 })
 
 export const updateCollectionSchema = updateContentSchema.extend({

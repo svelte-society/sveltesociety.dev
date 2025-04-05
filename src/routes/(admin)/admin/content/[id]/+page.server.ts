@@ -1,6 +1,6 @@
 import { superValidate, message } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
-import {  redirect } from '@sveltejs/kit'
+import { redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 
 import { updateContentSchema } from '$lib/schema/content'
@@ -18,7 +18,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		description: content.description || '',
 		slug: content.slug,
 		body: content.body,
-		tags: content.tags?.map(tag => tag.id)
+		tags: content.tags?.map((tag) => tag.id)
 	}
 
 	// Pre-populate form with existing content
@@ -51,7 +51,7 @@ export const actions: Actions = {
 			locals.contentService.updateContent(params.id, {
 				...form.data,
 				body: form.data.body,
-				tags: form.data.tags.map(tag => tag.id)
+				tags: form.data.tags.map((tag) => tag.id)
 			})
 
 			// Return with success message

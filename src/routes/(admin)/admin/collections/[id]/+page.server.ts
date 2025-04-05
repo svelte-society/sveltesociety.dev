@@ -7,7 +7,7 @@ import { updateCollectionSchema } from '$lib/schema/content'
 export const load: PageServerLoad = async ({ params, locals }) => {
 	// Get the collection using ContentService
 	const content = locals.contentService.getContentById(params.id)
-	
+
 	if (!content || content.type !== 'collection') {
 		throw error(404, 'Collection not found')
 	}
@@ -17,8 +17,8 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		title: content.title,
 		description: content.description || '',
 		slug: content.slug,
-		children: content.children?.map(child => child.id),
-		tags: content.tags?.map(tag => tag.id)
+		children: content.children?.map((child) => child.id),
+		tags: content.tags?.map((tag) => tag.id)
 	}
 
 	const form = await superValidate(formData, zod(updateCollectionSchema))
@@ -56,7 +56,7 @@ export const actions: Actions = {
 				tags: form.data.tags
 			})
 
-			return message(form, { success: true, text: 'Successfully updated collection.'})
+			return message(form, { success: true, text: 'Successfully updated collection.' })
 		} catch (e) {
 			if (e instanceof Response) throw e
 			console.error('Failed to update collection:', e)

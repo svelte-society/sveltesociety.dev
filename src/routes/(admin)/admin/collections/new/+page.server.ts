@@ -45,7 +45,7 @@ export const actions: Actions = {
 				tags: form.data.tags
 			})
 
-			return message(form, { success: true, text: 'Successfully created collection.'})
+			return message(form, { success: true, text: 'Successfully created collection.' })
 		} catch (err) {
 			if (err instanceof Response) throw err
 
