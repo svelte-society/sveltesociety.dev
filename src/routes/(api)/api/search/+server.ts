@@ -19,7 +19,7 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 			params.tags = params.tags.split(',')
 		}
 
-		const searchResults = locals.search(params)
+		const searchResults = locals.searchService.search(params)
 
 		return json({
 			success: true,

@@ -264,43 +264,6 @@ export class ContentService {
 		return result?.total || 0
 	}
 
-	searchBlogPosts(searchTerm: string, tags: string[] = []) {
-		return this.getFilteredContent({
-			type: 'blog',
-			search: searchTerm,
-			tags: tags.length > 0 ? tags : undefined,
-			sort: 'latest'
-		})
-	}
-
-	getContentByTag(tagSlug: string, limit = 10, offset = 0) {
-		const results = this.getFilteredContent({
-			tags: tagSlug,
-			limit,
-			offset
-		})
-
-		// Ensure every item has a children array
-		return results.map((item) => ({
-			...item,
-			children: item.children || []
-		}))
-	}
-
-	getContentByType(type: string, limit = 10, offset = 0) {
-		const results = this.getFilteredContent({
-			type,
-			limit,
-			offset
-		})
-
-		// Ensure every item has a children array
-		return results.map((item) => ({
-			...item,
-			children: item.children || []
-		}))
-	}
-
 	addContent(data: {
 		title: string
 		slug: string

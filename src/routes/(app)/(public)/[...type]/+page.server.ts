@@ -3,6 +3,7 @@ import { superValidate } from 'sveltekit-superforms'
 import { schema } from './schema'
 import { zod } from 'sveltekit-superforms/adapters'
 import type { PageServerLoad } from './$types'
+import type { Content } from '$lib/types/content'
 
 const categories = [
 	{
@@ -61,35 +62,13 @@ const sortOptions = [
 export const load: PageServerLoad = async ({ url, locals, params }) => {
 	const filters = await superValidate(url, zod(schema))
 
-	const { data } = filters
-	const { category, tags } = data
-
 	let content = []
-	let count = 0
 
-	if (filters.valid) {
-		content = locals.contentService.getFilteredContent({
-			...filters.data,
-			...(category && { category }),
-			...(tags && { tags }),
-			limit: 50
-		})
-		count = locals.contentService.getFilteredContentCount({
-			...filters.data,
-			...(category && { category }),
-			...(tags && { tags })
-		})
-	} else {
-		content = locals.contentService.getFilteredContent({
-			...(category && { category }),
-			...(tags && { tags }),
-			limit: 50
-		})
-		count = locals.contentService.getFilteredContentCount({
-			...(category && { category }),
-			...(tags && { tags })
-		})
-	}
+	const { data } = filters
+
+	const searchResults = locals.searchService.search({...data, type: params.type})
+
+	content = searchResults.hits.map((hit) => locals.contentService.getContentById(hit.id)) as Content[]
 
 	const allTags = locals.tagService.getTags().map((t) => ({ label: t.name, value: t.slug }))
 
@@ -110,7 +89,7 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 
 	return {
 		content: mappedContent,
-		count,
+		count: searchResults.count,
 		tags: allTags,
 		sort: sortOptions,
 		categories

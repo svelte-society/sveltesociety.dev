@@ -1,81 +1,119 @@
+import type { TypedDocument, Orama, Results, SearchParams } from "@orama/orama";
+import { create, insertMultiple, search, update, remove } from '@orama/orama'
+import { z } from 'zod'
 import { Database } from 'bun:sqlite'
 
-interface SearchResult {
-	content_id: string
-	rank: number
-}
+// Create a Zod schema for query parameters
+const querySchema = z.object({
+	type: z.string().optional(),
+	tags: z.union([z.string(), z.array(z.string())]).optional(),
+	query: z.string().optional(),
+	sort: z.string().optional(),
+	order: z.enum(['ASC', 'DESC']).optional(),
+	limit: z.number().optional(),
+	offset: z.number().optional()
+})
 
-interface SearchOptions {
-	query: string
-	limit?: number
-	searchFields?: ('title' | 'body' | 'description')[]
-}
+type QuerySchema = z.infer<typeof querySchema>
+
+const contentSchema = {
+  id: 'string',
+  title: 'string',
+  description: 'string',
+  tags: 'string[]',
+  type: 'string',
+  created_at: 'string',
+  likes: 'number',
+  saves: 'number',
+} as const
+
+type ContentDocument = TypedDocument<Orama<typeof contentSchema>>;
 
 export class SearchService {
-	constructor(private db: Database) {}
+  private searchDB: Orama<typeof contentSchema>
 
-	/**
-	 * Escapes special characters in a search query
-	 */
-	private escapeSearchQuery(query: string): string {
-		// Replace any special characters that could break the FTS query
-		return query.replace(/['"\\]/g, '')
-	}
+  constructor(private db: Database) {
+    // Create Orama instance
+    this.searchDB = create({
+      schema: contentSchema,
+      components: {
+        tokenizer: {
+          stemming: true,
+          stemmerSkipProperties: ['tag', 'type']
+        }
+      }
+    })
 
-	/**
-	 * Searches for content using the FTS index
-	 */
-	search({
-		query,
-		limit = 20,
-		searchFields = ['title', 'body', 'description']
-	}: SearchOptions): string[] {
-		try {
-			const escapedQuery = this.escapeSearchQuery(query)
+    // Fetch all content from the database and insert it into the orama index
+    const content = this.db
+      .query(
+        `
+        SELECT 
+          c.id, c.title, c.description, c.type, c.created_at, c.likes, c.saves,
+          json_group_array(t.slug) as tags
+        FROM content c
+        LEFT JOIN content_to_tags ct ON c.id = ct.content_id
+        LEFT JOIN tags t ON ct.tag_id = t.id
+        WHERE c.status = "published"
+        GROUP BY c.id
+        `
+      )
+      .all()
+      .map((c) => ({ ...c, tags: JSON.parse(c.tags) as string[] }))
 
-			// Build the search query for specified fields
-			const searchQuery = searchFields.map((field) => `${field}:${escapedQuery}*`).join(' OR ')
+    insertMultiple(this.searchDB, content)
+  }
 
-			// Prepare and execute the search statement
-			const stmt = this.db.prepare(`
-				SELECT content_id, rank
-				FROM content_fts
-				WHERE content_fts MATCH ?
-				ORDER BY rank
-				LIMIT ?
-			`)
+  search(filters?: QuerySchema) {
+    let query = ''
+    let type = ''
+    let tags: string[] = []
+    let sort = filters?.sort || 'created_at'
+    let order = filters?.order || 'DESC'
+    let limit = filters?.limit || 15
+    let offset = filters?.offset || 0
 
-			const results = stmt.all(searchQuery, limit) as SearchResult[]
-			return results.map((result) => result.content_id)
-		} catch (error) {
-			console.error('Error performing full-text search:', error)
-			return []
-		}
-	}
+    const result = querySchema.safeParse(filters)
 
-	/**
-	 * Returns the total count of matches for a search query
-	 */
-	count({
-		query,
-		searchFields = ['title', 'body', 'description']
-	}: Omit<SearchOptions, 'limit'>): number {
-		try {
-			const escapedQuery = this.escapeSearchQuery(query)
+    if (result?.data?.query) {
+      query = result.data.query
+    }
 
-			const searchQuery = searchFields.map((field) => `${field}:${escapedQuery}*`).join(' OR ')
+    if (result?.data?.type) {
+      type = result.data.type
+    }
 
-			const stmt = this.db.prepare(`
-				SELECT COUNT(*) as count
-				FROM content_fts
-				WHERE content_fts MATCH ?
-			`)
+    if (result?.data?.tags) {
+      if (Array.isArray(result.data.tags)) {
+        tags = result.data.tags
+      } else {
+        tags = [result.data.tags]
+      }
+    }
 
-			const result = stmt.get(searchQuery) as { count: number }
-			return result.count
-		} catch (error) {
-			console.error('Error counting search results:', error)
-			return 0
-		}
-	}
+    const searchParams: SearchParams<Orama<typeof contentSchema>> = {
+      term: query,
+      where: {
+        // conditionally add tags and type to the search, we need to add them using spreading
+        ...(tags.length > 0 && { tags }),
+        ...(type && { type })
+      },
+      offset,
+      limit,
+      sortBy: {
+        property: sort,
+        order: order
+      }
+    }
+
+    return search(this.searchDB, searchParams) as Results<ContentDocument>
+  }
+
+  update(id: string, data: any) {
+    update(this.searchDB, id, data)
+  }
+
+  remove(id: string) {
+    remove(this.searchDB, id)
+  }
 }
