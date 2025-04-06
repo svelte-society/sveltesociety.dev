@@ -32,7 +32,7 @@
 	"svelte-form-validation": { "valid": true },
 	"date-picker-svelte": { "valid": true },
 	"use-vest": { "valid": true },
-	"svelte-virtual-table": { "valid": false },
+	"svelte-virtual-table": { "valid": true },
 	"svelte-number-spinner": { "valid": false },
 	"svelte-remixicon": { "valid": true },
 	"svelte-fast-marquee": { "valid": true },
