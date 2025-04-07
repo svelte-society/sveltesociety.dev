@@ -39,24 +39,16 @@ const categories = [
 const sortOptions = [
 	{
 		label: 'Newest',
-		value: 'newest'
-	},
-	{
-		label: 'Oldest',
-		value: 'oldest'
+		value: 'created_at'
 	},
 	{
 		label: 'Most Likes',
-		value: 'most_likes'
+		value: 'likes'
 	},
 	{
 		label: 'Most Saved',
-		value: 'most_saved'
+		value: 'saves'
 	},
-	{
-		label: 'Most Popular',
-		value: 'most_popular'
-	}
 ]
 
 export const load: PageServerLoad = async ({ url, locals, params }) => {
@@ -109,10 +101,19 @@ export const actions = {
 		}
 
 		try {
+			const currentContentData = locals.searchService.getContentById(contentId)
 			if (action === 'add') {
 				locals.interactionsService.addInteraction(type, locals.user.id, contentId)
+				locals.searchService.update(contentId, {
+					...currentContentData,
+					...{ [type]: currentContentData[type] + 1 }
+				})
 			} else {
 				locals.interactionsService.removeInteraction(type, locals.user.id, contentId)
+				locals.searchService.update(contentId, {
+					...currentContentData,
+					...{ [type]: currentContentData[type] - 1 }
+				})
 			}
 			return { success: true }
 		} catch (error) {

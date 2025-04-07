@@ -1,5 +1,5 @@
 import type { TypedDocument, Orama, Results, SearchParams } from "@orama/orama";
-import { create, insertMultiple, search, update, remove } from '@orama/orama'
+import { create, insertMultiple, search, update, remove, getByID } from '@orama/orama'
 import { z } from 'zod'
 import { Database } from 'bun:sqlite'
 
@@ -107,6 +107,10 @@ export class SearchService {
     }
 
     return search(this.searchDB, searchParams) as Results<ContentDocument>
+  }
+
+  getContentById(id: string) {
+    return getByID(this.searchDB, id)
   }
 
   update(id: string, data: any) {
