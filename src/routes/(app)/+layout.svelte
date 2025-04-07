@@ -20,9 +20,8 @@
 			{@render children()}
 		</div>
 
-		<RightSidebar tags={data.tags} user={data.user} />
+		<RightSidebar tags={data.tags} />
 
-		<!-- Admin link - only visible for admin users -->
 		{#if isAdmin}
 			<a
 				href="/admin"
