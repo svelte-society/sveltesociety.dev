@@ -4,6 +4,7 @@ import { redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 
 import { updateContentSchema } from '$lib/schema/content'
+import type { Content } from '$lib/types/content'
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	// Load existing content for editing
@@ -50,9 +51,28 @@ export const actions: Actions = {
 			// Update existing content
 			locals.contentService.updateContent(params.id, {
 				...form.data,
-				body: form.data.body,
-				tags: form.data.tags.map((tag) => tag.id)
+				body: form.data.body || '',
+				tags: form.data.tags
 			})
+
+			const content = locals.contentService.getContentById(params.id) as Content
+			
+			if (content.status === 'draft') {
+				locals.searchService.remove(params.id)
+			}
+
+			if (content.status === 'published') {
+				locals.searchService.update(params.id, {
+					id: content.id,
+					title: content.title,
+					description: content.description,
+					tags: content.tags?.map((tag) => tag.slug),
+					type: content.type,
+					created_at: content.created_at,
+					likes: content.likes,
+					saves: content.saves
+				})
+			}
 
 			// Return with success message
 			return message(form, {
