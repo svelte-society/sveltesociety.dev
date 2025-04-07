@@ -101,7 +101,7 @@ export const actions = {
 		}
 
 		try {
-			const currentContentData = locals.searchService.getContentById(contentId)
+			const currentContentData = locals.searchService.getContentById(contentId)!
 			if (action === 'add') {
 				locals.interactionsService.addInteraction(type, locals.user.id, contentId)
 				locals.searchService.update(contentId, {
