@@ -1,0 +1,21 @@
+meta {
+  name: Search API
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:5173/api/search?sort=likes&tags=runes
+  body: none
+  auth: inherit
+}
+
+params:query {
+  sort: likes
+  tags: runes
+  ~query: wooo
+  ~order: ASC
+  ~type: collection
+  ~limit: 100
+  ~offset: 1
+}
