@@ -3256,5 +3256,20 @@
 		"description": "A client-side router for Svelte v5 powered by reactivity that can simultaneously route with multiple paths.",
 		"npm": "@wjfe/n-savant",
 		"categories": ["routers"]
+	},
+	{
+		"title": "svelte-relative-time-card",
+		"url": "https://svelte-relative-time-card.vercel.app",
+		"repository": "https://github.com/itsmingjie/svelte-relative-time-card",
+		"description": "A hover card that displays relative time relative to local time with timezone information.",
+		"npm": "svelte-relative-time-card",
+		"categories": ["ui-components"]
+	},
+	{
+		"title": "svelte-proximity-prefetch",
+		"repository": "https://github.com/itsmingjie/svelte-proximity-prefetch",
+		"description": "A Svelte wrapper that automatically prefetches pages based on the user's cursor position.",
+		"npm": "svelte-proximity-prefetch",
+		"categories": ["data-fetching"]
 	}
 ]
