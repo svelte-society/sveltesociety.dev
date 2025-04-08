@@ -3271,5 +3271,12 @@
 		"description": "A Svelte wrapper that automatically prefetches pages based on the user's cursor position.",
 		"npm": "svelte-proximity-prefetch",
 		"categories": ["data-fetching"]
+	},
+	{
+		"title": "svelte-adapter-bun-next",
+		"repository": "https://github.com/TheOrdinaryWow/svelte-adapter-bun-next",
+		"description": "Adapter for SvelteKit apps that generates a standalone Bun.js server.",
+		"npm": "svelte-adapter-bun-next",
+		"categories": ["sveltekit-adapters"]
 	}
 ]
