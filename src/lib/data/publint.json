@@ -452,5 +452,8 @@
 	"svelte-clerk": { "valid": true },
 	"svelte-inspect-value": { "valid": true },
 	"@macfja/svelte-persistent-runes": { "valid": true },
-	"@wjfe/n-savant": { "valid": true }
+	"@wjfe/n-savant": { "valid": true },
+	"svelte-relative-time-card": { "valid": true },
+	"svelte-proximity-prefetch": { "valid": true },
+	"svelte-adapter-bun-next": { "valid": true }
 }
