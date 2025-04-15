@@ -3278,5 +3278,13 @@
 		"description": "Adapter for SvelteKit apps that generates a standalone Bun.js server.",
 		"npm": "svelte-adapter-bun-next",
 		"categories": ["sveltekit-adapters"]
+	},
+	{
+		"title": "SvelTeX",
+		"url": "https://sveltex.dev/",
+		"repository": "https://github.com/nvlang/sveltex",
+		"description": "Svelte + Markdown + LaTeX",
+		"npm": "@nvl/sveltex",
+		"categories": ["build-plugins", "markdown"]
 	}
 ]
