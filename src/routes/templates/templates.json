@@ -681,4 +681,11 @@
 		"description": "Sveltx – a modern, feature-rich template for building scalable and high-performance web applications with the SvelteKit framework and the DaisyUI library.",
 		"categories": ["blog", "sveltekit"]
 	}
+	{
+	        "title": "svelte-minimal-site",
+	        "url": "https://sahil.zerops.xyz",
+	        "repository": "https://github.com/nermalcat69/svelte-minimal-site",
+	        "description": "Minimal personal website template with tailwindcss",
+	        "categories": ["sveltekit"]
+	}
 ]
