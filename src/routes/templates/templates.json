@@ -680,5 +680,12 @@
 		"repository": "https://github.com/SmrtMrktX/Sveltx",
 		"description": "Sveltx – a modern, feature-rich template for building scalable and high-performance web applications with the SvelteKit framework and the DaisyUI library.",
 		"categories": ["blog", "sveltekit"]
-	}
+	},
+	{
+		"title": "Terminal Style Website",
+		"url": "https://wiscaksono.com/",
+		"repository": "https://github.com/wiscaksono/wiscaksono-site",
+		"description": "Portfolio website with terminal style",
+		"categories": ["blog", "mdsvex", "seo", "sveltekit", "typescript", "ssr", "database", "integrations"]
+	},
 ]
