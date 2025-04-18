@@ -686,6 +686,15 @@
 		"url": "https://wiscaksono.com/",
 		"repository": "https://github.com/wiscaksono/wiscaksono-site",
 		"description": "Portfolio website with terminal style",
-		"categories": ["blog", "mdsvex", "seo", "sveltekit", "typescript", "ssr", "database", "integrations"]
-	},
+		"categories": [
+			"blog",
+			"mdsvex",
+			"seo",
+			"sveltekit",
+			"typescript",
+			"ssr",
+			"database",
+			"integrations"
+		]
+	}
 ]
