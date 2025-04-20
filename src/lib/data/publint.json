@@ -455,5 +455,6 @@
 	"@wjfe/n-savant": { "valid": true },
 	"svelte-relative-time-card": { "valid": true },
 	"svelte-proximity-prefetch": { "valid": true },
-	"svelte-adapter-bun-next": { "valid": true }
+	"svelte-adapter-bun-next": { "valid": true },
+	"@nvl/sveltex": { "valid": true }
 }
