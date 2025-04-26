@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/state'
 
 	const links = [
@@ -15,6 +15,12 @@
 		{ name: 'Recipes', href: '/recipe' },
 		{ name: 'Showcase', href: '/showcase' }
 	]
+
+	function preserveSearchParams(href: string) {
+		const searchParams = page.url.searchParams.toString()
+		if (!searchParams) return href
+		return `${href}${href.includes('?') ? '&' : '?'}${searchParams}`
+	}
 </script>
 
 <aside>
@@ -28,7 +34,7 @@
 							'w-full rounded-sm px-2 py-0.5'
 						]}
 					>
-						<a class="block w-full" href={link.href}>{link.name}</a>
+						<a class="block w-full" href={preserveSearchParams(link.href)}>{link.name}</a>
 					</li>
 				{:else}
 					<li class="mt-2 px-2 py-0.5 text-xs font-thin">
