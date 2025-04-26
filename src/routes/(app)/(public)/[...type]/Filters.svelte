@@ -1,8 +1,9 @@
 <script lang="ts">
 	import Select from '$lib/ui/Select.svelte'
 	import Button from '$lib/ui/Button.svelte'
-	import { X } from 'phosphor-svelte'
 	import Combobox from '$lib/ui/Combobox.svelte'
+	import { goto } from '$app/navigation'
+	import { page } from '$app/state'
 
 	type Option = {
 		label: string
@@ -12,46 +13,32 @@
 	let { categories, tags, sort }: { categories: Option[]; tags: Option[]; sort: Option[] } =
 		$props()
 
-	let selectedCategory = $state()
-	const selectedCategoryLabel = $derived(
-		selectedCategory
-			? categories.find((opt) => opt.value === selectedCategory)?.label
-			: categories[0].label
-	)
+	let Filters = $derived(page.url)
 
-	let selectedTag = $state()
-	const selectedTagLabel = $derived(
-		selectedTag ? tags.find((opt) => opt.value === selectedTag)?.label : 'Select a tag'
-	)
+	const getTags = (name: string) => {
+		const filter = Filters.searchParams.get(name)
+		return filter ? filter.split(',') : []
+	}
 
-	let selectedSort = $state()
-	const selectedSortLabel = $derived(
-		selectedSort ? sort.find((opt) => opt.value === selectedSort)?.label : sort[0].label
-	)
+	const updateTags = (name: string, value: string) => {
+		Filters.searchParams.set(name, value)
+		goto(Filters.pathname + Filters.search, { replaceState: true })
+	}
 
-	let selectedFilters = $state<Option[]>(tags)
+	const updateCategory = (value: string) => {
+		const url = new URL(Filters)
+		if (value !== '') url.searchParams.set('category', value)
+		else url.searchParams.delete('category')
 
-	$effect(() => {
-		if (selectedTag) {
-			// add tag from tags to selectedTags if it's not already in there
-			if (!selectedFilters.find((opt) => opt.value === selectedTag)) {
-				selectedFilters.push(tags.find((opt) => opt.value === selectedTag))
-			}
-			selectedTag = undefined
-		}
-	})
+		goto(url, { keepFocus: true })
+	}
 
-	const removeFilter = (filter: Option) => {
-		selectedFilters = selectedFilters.filter((f) => f.value !== filter.value)
+	const updateSort = (value: string) => {
+		const url = new URL(Filters)
+		if (value !== '') url.searchParams.set('sort', value)
+		else url.searchParams.delete('sort')
 
-		// Focus management - move to next tag or previous if it was the last
-		setTimeout(() => {
-			const tagElements = document.querySelectorAll('[data-tag-button]')
-			if (tagElements.length > 0) {
-				const nextIndex = Math.min(index, tagElements.length - 1)
-				tagElements[nextIndex].focus()
-			}
-		}, 0)
+		goto(url, { keepFocus: true })
 	}
 </script>
 
@@ -60,20 +47,26 @@
 		<div class="flex w-full flex-col gap-2">
 			<label for="category" class="text-xs font-medium outline-none">Category</label>
 			<Select
+				value={Filters.searchParams.get('category') || categories[0].value}
 				name="category"
-				bind:value={selectedCategory}
-				selected={selectedCategoryLabel}
+				onchange={updateCategory}
 				options={categories}
+				selected={Filters.searchParams.get('category') || ''}
 			/>
 		</div>
 		<div class="flex w-full flex-col gap-2">
 			<label for="sort" class="text-xs font-medium outline-none">Sort</label>
-			<Select name="sort" bind:value={selectedSort} selected={selectedSortLabel} options={sort} />
+			<Select
+				value={Filters.searchParams.get('sort') || sort[0].value}
+				name="sort"
+				onchange={updateSort}
+				options={sort}
+			/>
 		</div>
 	</div>
 	<div class="flex w-full flex-col gap-2">
 		<label for="sort" class="text-xs font-medium outline-none">Tags</label>
-		<Combobox {tags} />
+		<Combobox {tags} label="Tags" />
 	</div>
 	<div class="sr-only">
 		<Button type="submit">Filter</Button>
