@@ -10,8 +10,12 @@
 		value: string
 	}
 
-	let { categories, tags, sort }: { categories: Option[]; tags: Option[]; sort: Option[] } =
-		$props()
+	type Props = {
+		categories: Option[]
+		sort: Option[]
+	}
+
+	let { categories, sort }: Props = $props()
 
 	let Filters = $derived(page.url)
 
