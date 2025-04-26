@@ -57,16 +57,21 @@ export class InteractionsService {
 		return { userLikes, userSaves }
 	}
 
-	addInteraction(type: 'like' | 'save', userId: string, contentId: string): void {
-		const query = this.db.prepare(
-			`INSERT OR IGNORE INTO ${type}s (user_id, target_id, created_at) VALUES ($user_id, $target_id, CURRENT_TIMESTAMP)`
-		)
-		query.run({ user_id: userId, target_id: contentId })
-	}
+	toggleInteraction(type: 'like' | 'save', userId: string, contentId: string) {
+		const interactionQuery = this.db.prepare(`SELECT * FROM ${type}s WHERE user_id = $user_id AND target_id = $target_id`)
 
-	removeInteraction(type: 'like' | 'save', userId: string, contentId: string): void {
-		const table = `${type}s`
-		const query = `DELETE FROM ${table} WHERE user_id = $user_id AND target_id = $target_id`
-		this.db.prepare(query).run({ user_id: userId, target_id: contentId })
+		const interaction = interactionQuery.get({ user_id: userId, target_id: contentId })
+
+		if (interaction) {
+			const query = `DELETE FROM ${type}s WHERE user_id = $user_id AND target_id = $target_id`
+			this.db.prepare(query).run({ user_id: userId, target_id: contentId })
+			return { success: true, type, action: 'remove' }
+		} else {
+			const query = this.db.prepare(
+				`INSERT OR IGNORE INTO ${type}s (user_id, target_id, created_at) VALUES ($user_id, $target_id, CURRENT_TIMESTAMP)`
+			)
+			query.run({ user_id: userId, target_id: contentId })
+			return { success: true, type, action: 'add' }
+		}
 	}
 }

@@ -93,26 +93,21 @@ export const actions = {
 		if (!locals.user) return
 		const data = await request.formData()
 		const type = data.get('type') as 'like' | 'save'
-		const contentId = (data.get('id') as string) || null
-		const action = data.get('action') as 'add' | 'remove'
-
-		if (!['like', 'save'].includes(type) || !['add', 'remove'].includes(action) || !contentId) {
-			return fail(400, { message: 'Invalid input' })
-		}
+		const contentId = data.get('id') as string
 
 		try {
+			const result = locals.interactionsService.toggleInteraction(type, locals.user.id, contentId)
+
 			const currentContentData = locals.searchService.getContentById(contentId)!
-			if (action === 'add') {
-				locals.interactionsService.addInteraction(type, locals.user.id, contentId)
+			if (result.action === 'add') {
 				locals.searchService.update(contentId, {
 					...currentContentData,
-					...{ [type]: currentContentData[type] + 1 }
+					...{ [type + 's']: currentContentData[type + 's'] + 1 }
 				})
 			} else {
-				locals.interactionsService.removeInteraction(type, locals.user.id, contentId)
 				locals.searchService.update(contentId, {
 					...currentContentData,
-					...{ [type]: currentContentData[type] - 1 }
+					...{ [type + 's']: currentContentData[type + 's'] - 1 }
 				})
 			}
 			return { success: true }

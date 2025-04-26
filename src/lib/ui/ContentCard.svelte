@@ -13,47 +13,29 @@
 
 	let { content }: { content: Content } = $props()
 
-	// Ensure each child has proper properties for rendering
-	if (content.type === 'collection') {
-		content.children = content.children.map((child) => ({
-			...child,
-			// Set defaults for any missing properties
-			type: child.type || 'unknown',
-			title: child.title || 'Untitled',
-			slug: child.slug || '',
-			published_at: child.published_at || content.published_at
-		}))
-	}
-
 	let submitting = $state(false)
 
 	// Use any for now to avoid type errors with enhance
-	const handleInteraction = (type: 'like' | 'save') => (event: any) => {
-		if (!page.data.user) {
-			event.cancel()
-			return
-		}
+	const optimisticUpdate = ({ formData }: { formData: FormData }) => {
 		submitting = true
+		const type = formData.get('type')
+		console.log('Type: ', type)
 
-		const isLike = type === 'like'
-		const property = isLike ? 'likes' : 'saves'
-		const flag = isLike ? 'liked' : 'saved'
-
-		content[property] = content[flag] ? content[property] - 1 : content[property] + 1
-		content[flag] = !content[flag]
+		switch (type) {
+			case 'like':
+				content.likes = content.liked ? content.likes - 1 : content.likes + 1
+				content.liked = !content.liked
+				break
+			case 'save':
+				content.saves = content.saved ? content.saves - 1 : content.saves + 1
+				content.saved = !content.saved
+				break
+		}
 
 		return async (event: any) => {
-			const data = event.result?.data
-			if (!data?.success) {
-				content[property] = content[flag] ? content[property] + 1 : content[property] - 1
-				content[flag] = !content[flag]
-			}
 			submitting = false
 		}
 	}
-
-	const likeSubmit = handleInteraction('like')
-	const saveSubmit = handleInteraction('save')
 </script>
 
 <article class="grid gap-2 rounded-lg bg-zinc-50 px-4 py-4 sm:px-6 sm:py-5">
@@ -79,15 +61,16 @@
 			</span>
 		</div>
 		<div class="flex items-center space-x-3 sm:space-x-4">
-			<form method="POST" action="/?/interact" use:enhance={likeSubmit}>
+			<form method="POST" action="/?/interact" use:enhance={optimisticUpdate}>
 				<input type="hidden" name="id" value={content.id} />
-				<input type="hidden" name="action" value={content.liked ? 'remove' : 'add'} />
-				<input type="hidden" id="type" name="type" value="like" />
 
 				<button
+					title={content.liked ? 'Remove like' : 'Like'}
 					data-sveltekit-keepfocus
-					disabled={submitting}
+					disabled={!page.data.user || submitting}
 					aria-label="Like {content.title}"
+					name="type"
+					value="like"
 					type="submit"
 					class="-mx-2 -my-1 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 text-gray-600 hover:bg-gray-200 hover:text-gray-700 sm:py-1"
 				>
@@ -113,16 +96,14 @@
 							/>
 						{/if}
 					</svg>
-					{content.likes}
+					{content.likes} <span class="sr-only">likes</span>
 				</button>
-			</form>
-			<form use:enhance={saveSubmit} method="POST" action="/?/interact">
-				<input type="hidden" name="id" value={content.id} />
-				<input type="hidden" name="action" value={content.saved ? 'remove' : 'add'} />
-				<input type="hidden" id="type" name="type" value="save" />
 				<button
-					disabled={submitting}
+					title={content.saved ? 'Unsave' : 'Save'}
+					disabled={!page.data.user || submitting}
 					aria-label="Save {content.title}"
+					name="type"
+					value="save"
 					type="submit"
 					class="-mx-2 -my-1 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 text-gray-600 hover:bg-gray-200 hover:text-gray-700 sm:py-1"
 				>
