@@ -74,7 +74,6 @@
 <svelte:element
 	this={href ? 'a' : 'button'}
 	role={href ? '' : 'button'}
-	tabindex="0"
 	{value}
 	{name}
 	{type}
