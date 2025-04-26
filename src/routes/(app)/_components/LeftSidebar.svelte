@@ -25,10 +25,10 @@
 					<li
 						class={[
 							{ 'bg-svelte-500 text-white': page.url.pathname === link.href },
-							'rounded-sm px-2 py-0.5'
+							'w-full rounded-sm px-2 py-0.5'
 						]}
 					>
-						<a href={link.href}>{link.name}</a>
+						<a class="block w-full" href={link.href}>{link.name}</a>
 					</li>
 				{:else}
 					<li class="mt-2 px-2 py-0.5 text-xs font-thin">
