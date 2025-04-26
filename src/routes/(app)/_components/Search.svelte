@@ -1,12 +1,18 @@
 <script lang="ts">
 	import Button from '$lib/ui/Button.svelte'
+	import { page } from '$app/state'
 
 	let value = $state('')
+
+	// Get all search params except 'query' to preserve them
+	const otherParams = $derived(
+		Array.from(page.url.searchParams.entries()).filter(([key]) => key !== 'query')
+	)
 </script>
 
 <form
 	method="GET"
-	action="/"
+	action={page.url.pathname}
 	data-sveltekit-keepfocus
 	data-sveltekit-replacestate
 	data-sveltekit-noscroll
@@ -36,6 +42,9 @@
 			name="query"
 			placeholder="Search by title, description or body..."
 		/>
+		{#each otherParams as [key, value]}
+			<input type="hidden" name={key} {value} />
+		{/each}
 		<div class="sr-only">
 			<Button type="submit">Search</Button>
 		</div>
