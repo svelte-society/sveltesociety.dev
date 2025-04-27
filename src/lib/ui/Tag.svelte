@@ -20,11 +20,33 @@
 			onclick()
 		}
 	}
+
+	function getTagHref() {
+		const url = new URL(page.url)
+		const tagParam = url.searchParams.get('tags')
+		let tagList = tagParam ? tagParam.split(',') : []
+
+		if (tagList.includes(tag.slug)) {
+			// Remove this tag if it's already selected
+			tagList = tagList.filter((t) => t !== tag.slug)
+		} else {
+			// Add this tag if it's not already selected
+			tagList.push(tag.slug)
+		}
+
+		if (tagList.length > 0) {
+			url.searchParams.set('tags', tagList.join(','))
+		} else {
+			url.searchParams.delete('tags')
+		}
+
+		return url.pathname + url.search
+	}
 </script>
 
 <svelte:element
 	this={onclick ? 'button' : 'a'}
-	href={page.url.pathname === `/tags/${tag.slug}` ? '/' : `/tags/${tag.slug}`}
+	href={onclick ? undefined : getTagHref()}
 	class={[
 		'flex items-center gap-0.5 rounded border-1 border-slate-200 bg-slate-100 px-1.5 py-1 text-xs text-zinc-800',
 		{ 'border-svelte-300 bg-svelte-100 text-svelte-900': $params?.tags?.includes(tag.slug) }
