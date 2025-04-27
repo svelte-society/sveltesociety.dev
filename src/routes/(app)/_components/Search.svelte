@@ -2,7 +2,7 @@
 	import Button from '$lib/ui/Button.svelte'
 	import { page } from '$app/state'
 
-	let value = $state('')
+	let value = $state(page.url.searchParams.get('query') || '')
 
 	// Get all search params except 'query' to preserve them
 	const otherParams = $derived(
