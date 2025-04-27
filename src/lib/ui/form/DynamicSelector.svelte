@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { draggable, droppable, type DragDropState } from '@thisux/sveltednd'
-	import { DotsNine, Empty, ReadCvLogo, Trash } from 'phosphor-svelte'
+	import DotsNine from 'phosphor-svelte/lib/DotsNine'
+	import Empty from 'phosphor-svelte/lib/Empty'
+	import ReadCvLogo from 'phosphor-svelte/lib/ReadCvLogo'
+	import Trash from 'phosphor-svelte/lib/Trash'
+
 	import { fade } from 'svelte/transition'
 	import { flip } from 'svelte/animate'
 	import type { SuperForm } from 'sveltekit-superforms'

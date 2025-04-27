@@ -2,8 +2,9 @@
 	import { goto } from '$app/navigation'
 	import Avatar from '$lib/ui/Avatar.svelte'
 	import { DropdownMenu } from 'bits-ui'
-	import { SignOut, GearSix } from 'phosphor-svelte'
 
+	import SignOut from 'phosphor-svelte/lib/SignOut'
+	import GearSix from 'phosphor-svelte/lib/GearSix'
 	let { user } = $props()
 
 	let formSubmitButton: HTMLButtonElement

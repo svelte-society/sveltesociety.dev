@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { CaretUpDown, Check } from 'phosphor-svelte'
+	import CaretUpDown from 'phosphor-svelte/lib/CaretUpDown'
+	import Check from 'phosphor-svelte/lib/Check'
 	import { Select } from 'bits-ui'
 	type Option = {
 		label: string

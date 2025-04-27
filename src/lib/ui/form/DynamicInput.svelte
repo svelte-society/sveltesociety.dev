@@ -4,7 +4,9 @@
 	import { Control, Description, Field, FieldErrors, Label } from 'formsnap'
 	import { Combobox } from 'bits-ui'
 	import { getContext } from 'svelte'
-	import { CaretUpDown, Check, Tag as TagIcon } from 'phosphor-svelte'
+	import CaretUpDown from 'phosphor-svelte/lib/CaretUpDown'
+	import Check from 'phosphor-svelte/lib/Check'
+	import TagIcon from 'phosphor-svelte/lib/Tag'
 
 	import type { Component } from 'svelte'
 

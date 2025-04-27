@@ -9,7 +9,8 @@
 	import { createCollectionSchema } from '$lib/schema/content'
 	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
 	import { toast } from 'svelte-sonner'
-	import { Files, Tag } from 'phosphor-svelte'
+	import Files from 'phosphor-svelte/lib/Files'
+	import Tag from 'phosphor-svelte/lib/Tag'
 
 	// Get data passed from server
 	let { data } = $props()
