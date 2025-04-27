@@ -11,14 +11,14 @@
 	import { slugify } from '$lib/utils/slug'
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
 	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
-	import { schema } from './schema'
+	import { createContentSchema } from '$lib/schema/content'
 
 	// Get data passed from server
 	let { data } = $props()
 
 	// Setup form with client-side validation
 	const form = superForm(data.form, {
-		validators: zodClient(schema),
+		validators: zodClient(createContentSchema),
 		dataType: 'json'
 	})
 
@@ -187,7 +187,7 @@
 		<div class="space-y-2">
 			<label for="body" class="block text-sm font-medium text-gray-700">Content Body</label>
 			<div class="w-full rounded-md border border-gray-300 bg-white">
-				<MarkdownEditor name="body" />
+				<MarkdownEditor name="body" value={$formData.body} />
 			</div>
 		</div>
 
