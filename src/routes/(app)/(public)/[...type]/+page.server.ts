@@ -62,7 +62,7 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 
 	content = searchResults.hits.map((hit) => locals.contentService.getContentById(hit.id)) as Content[]
 
-	const allTags = locals.tagService.getTags().map((t) => ({ label: t.name, value: t.slug }))
+	const allTags = locals.tagService.getTags()
 
 	let mappedContent = content
 	if (locals.user?.id) {

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Select from '$lib/ui/Select.svelte'
 	import Button from '$lib/ui/Button.svelte'
-	import Combobox from '$lib/ui/Combobox.svelte'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/state'
+	import Tags, { type TagType } from '$lib/ui/Tags.svelte'
 
 	type Option = {
 		label: string
@@ -13,9 +13,10 @@
 	type Props = {
 		categories: Option[]
 		sort: Option[]
+		tags: TagType[]
 	}
 
-	let { categories, sort }: Props = $props()
+	let { categories, sort, tags }: Props = $props()
 
 	let Filters = $derived(page.url)
 
@@ -70,7 +71,7 @@
 	</div>
 	<div class="flex w-full flex-col gap-2">
 		<label for="sort" class="text-xs font-medium outline-none">Tags</label>
-		<Combobox {tags} label="Tags" />
+		<Tags {tags} />
 	</div>
 	<div class="sr-only">
 		<Button type="submit">Filter</Button>
