@@ -20,22 +20,20 @@
 
 	let Filters = $derived(page.url)
 
-	const getTags = (name: string) => {
-		const filter = Filters.searchParams.get(name)
-		return filter ? filter.split(',') : []
-	}
-
-	const updateTags = (name: string, value: string) => {
-		Filters.searchParams.set(name, value)
-		goto(Filters.pathname + Filters.search, { replaceState: true })
-	}
-
 	const updateCategory = (value: string) => {
 		const url = new URL(Filters)
-		if (value !== '') url.searchParams.set('category', value)
-		else url.searchParams.delete('category')
 
-		goto(url, { keepFocus: true })
+		const newPath = value !== '' ? `/${value}` : '/'
+
+		const newUrl = new URL(newPath, url.origin)
+
+		url.searchParams.forEach((paramValue, paramKey) => {
+			if (paramKey !== 'category') {
+				newUrl.searchParams.set(paramKey, paramValue)
+			}
+		})
+
+		goto(newUrl, { keepFocus: true })
 	}
 
 	const updateSort = (value: string) => {
@@ -52,11 +50,10 @@
 		<div class="flex w-full flex-col gap-2">
 			<label for="category" class="text-xs font-medium outline-none">Category</label>
 			<Select
-				value={Filters.searchParams.get('category') || categories[0].value}
+				value={page.params.type || categories[0].value}
 				name="category"
 				onchange={updateCategory}
 				options={categories}
-				selected={Filters.searchParams.get('category') || ''}
 			/>
 		</div>
 		<div class="flex w-full flex-col gap-2">

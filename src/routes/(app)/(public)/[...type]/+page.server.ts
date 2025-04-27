@@ -8,7 +8,7 @@ import type { Content } from '$lib/types/content'
 const categories = [
 	{
 		label: 'All',
-		value: 'all'
+		value: ''
 	},
 	{
 		label: 'Recipe',
