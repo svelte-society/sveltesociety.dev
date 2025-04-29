@@ -14,11 +14,18 @@ RUN bun run build
 # Step 2: Create a smaller image for running the application
 FROM oven/bun
 
-# Copy only the necessary files from the builder image to the final image
-COPY --from=builder /app/build .
+# Set working directory for the second stage
+WORKDIR /app
+
+# Copy package.json and built files
+COPY --from=builder /app/package.json .
+COPY --from=builder /app/build ./build
+
+# Install production dependencies only
+RUN bun install --production
 
 # Expose the port the application will run on
 EXPOSE 3000
 
-#Start the BUN server
-CMD ["bun", "run", "--bun", "start"]
+# Define start command
+CMD ["bun", "start"]

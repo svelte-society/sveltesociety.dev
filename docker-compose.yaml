@@ -11,8 +11,8 @@ services:
       - .:/app
       - /app/node_modules
     environment:
-      - NODE_ENV=production
-    command: sh -c "npm run build && npm run start"
+      - NODE_ENV=development
+    command: sh -c "bun install && bun run dev"
 
 volumes:
   node_modules:
