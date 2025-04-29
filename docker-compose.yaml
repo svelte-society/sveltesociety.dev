@@ -17,7 +17,3 @@ services:
       - DB_PATH=${DB_PATH}
       - EVENT_DB_PATH=${EVENT_DB_PATH}
       - PUBLIC_PLAUSIBLE_SHARED_LINK_AUTH=${PUBLIC_PLAUSIBLE_SHARED_LINK_AUTH}
-    command: sh -c "bun ./build"
-
-volumes:
-  node_modules:
