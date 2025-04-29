@@ -1,10 +1,3 @@
-CREATE VIRTUAL TABLE content_fts USING fts5(
-  content_id UNINDEXED,
-  title,
-  body,
-  description
-);
-
 -- Users table
 CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),

@@ -3,8 +3,17 @@ import fs from 'fs'
 import path from 'path'
 import { config } from './seeds/utils'
 
-const TRIGGERS_FOLDER = './src/lib/server/db/triggers'
-const VIEWS_FOLDER = './src/lib/server/db/views'
+// Static import for schema
+import schemaSQL from './schema/schema.sql?raw'
+
+// Static imports for views
+import viewCollectionsSQL from './views/collections.sql?raw'
+import viewContentSQL from './views/content.sql?raw'
+
+// Static imports for triggers
+import triggerInteractionsSQL from './triggers/interactions.sql?raw'
+import triggerModerationQueueSQL from './triggers/move_from_moderation_queue.sql?raw'
+import triggerContentSQL from './triggers/content.sql?raw'
 
 // Create database directory if it doesn't exist
 const dbDir = path.dirname(config.DB_PATH)
@@ -16,45 +25,29 @@ export const db = new Database(config.DB_PATH)
 db.exec('PRAGMA journal_mode = WAL')
 db.exec('PRAGMA foreign_keys = ON')
 
-
-const read_and_import_dir = (folder: string, db: Database) => {
+const execute_sql = (sql: string, source: string, db: Database) => {
 	try {
-		const files = fs.readdirSync(folder)
-		files.forEach((file) => {
-			const filePath = path.join(folder, file)
-			read_and_import_file(filePath, db)
-		})
-	} catch (error) {
-		console.error(`Error reading directory ${folder}:`, error)
+		db.exec(sql)
+		console.log(`Successfully executed SQL from ${source}`)
+	} catch (sqlError) {
+		console.error(`Error executing SQL from ${source}:`, sqlError)
 	}
 }
 
-const read_and_import_file = (filePath: string, db: Database) => {
-	try {
-		const content = fs.readFileSync(filePath, 'utf8')
-		try {
-			db.exec(content)
-			console.log(`Successfully executed SQL from ${filePath}`)
-		} catch (sqlError) {
-			console.error(`Error executing SQL from ${filePath}:`, sqlError)
-		}
-	} catch (fileError) {
-		console.error(`Error reading file ${filePath}:`, fileError)
-	}
-}
-
-const initiate_db = async () => {
+export const initiate_db = async () => {
 	console.log('Initiating database...')
 
-	// Read schema.sql file, should probably split this up into multiple files eventually
-	read_and_import_file('./src/lib/server/db/schema/schema.sql', db)
+	// Execute schema SQL
+	execute_sql(schemaSQL, 'schema.sql', db)
 
-	// Read triggers and insert them into the database
-	read_and_import_dir(TRIGGERS_FOLDER, db)
-	// Read views and insert them into the database
-	read_and_import_dir(VIEWS_FOLDER, db)
+	// Execute view SQLs
+	execute_sql(viewCollectionsSQL, 'views/collections.sql', db)
+	execute_sql(viewContentSQL, 'views/content.sql', db)
+
+	// Execute trigger SQLs
+	execute_sql(triggerInteractionsSQL, 'triggers/interactions.sql', db)
+	execute_sql(triggerModerationQueueSQL, 'triggers/move_from_moderation_queue.sql', db)
+	execute_sql(triggerContentSQL, 'triggers/content.sql', db)
 
 	console.log('Database initialization completed.')
 }
-
-initiate_db()

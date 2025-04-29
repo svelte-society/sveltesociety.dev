@@ -11,28 +11,44 @@ import { ModerationService } from '$lib/server/services/moderation'
 import { UserService } from '$lib/server/services/user'
 import { CollectionService } from '$lib/server/services/collections'
 
-// Initialize database with optimal settings
-const db = new Database(DB_PATH, { strict: true })
-db.exec('PRAGMA journal_mode = WAL')
-db.exec('PRAGMA busy_timeout = 5000')
-db.exec('PRAGMA synchronous = NORMAL')
-db.exec('PRAGMA cache_size = 300000')
-db.exec('PRAGMA temp_store = MEMORY')
-db.exec('PRAGMA mmap_size = 3000000')
-db.exec('PRAGMA foreign_keys = ON')
+let db: Database
+let contentService: ContentService
+let searchService: SearchService
+let interactionsService: InteractionsService
+let roleService: RoleService
+let sessionService: SessionService
+let tagService: TagService
+let moderationService: ModerationService
+let userService: UserService
+let collectionService: CollectionService
 
-// Initialize services
-const contentService = new ContentService(db)
-const searchService = new SearchService(db)
-const interactionsService = new InteractionsService(db)
-const roleService = new RoleService(db)
-const sessionService = new SessionService(db)
-const tagService = new TagService(db)
-const moderationService = new ModerationService(db)
-const userService = new UserService(db)
-const collectionService = new CollectionService(db)
+const initialize_db = () => {
+	if (!db) {
+		db = new Database(DB_PATH, { strict: true })
+		db.exec('PRAGMA journal_mode = WAL')
+		db.exec('PRAGMA busy_timeout = 5000')
+		db.exec('PRAGMA synchronous = NORMAL')
+		db.exec('PRAGMA cache_size = 300000')
+		db.exec('PRAGMA temp_store = MEMORY')
+		db.exec('PRAGMA mmap_size = 3000000')
+		db.exec('PRAGMA foreign_keys = ON')
+
+		contentService = new ContentService(db)
+		searchService = new SearchService(db)
+		interactionsService = new InteractionsService(db)
+		roleService = new RoleService(db)
+		sessionService = new SessionService(db)
+		tagService = new TagService(db)
+		moderationService = new ModerationService(db)
+		userService = new UserService(db)
+		collectionService = new CollectionService(db)
+	}
+
+	return db
+}
 
 export const attach_services: Handle = async ({ event, resolve }) => {
+	const db = initialize_db()
 	event.locals.db = db
 	event.locals.contentService = contentService
 	event.locals.searchService = searchService
