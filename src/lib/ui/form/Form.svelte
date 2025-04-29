@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte'
 	import { setContext } from 'svelte'
-	import { fromStore } from 'svelte/store'
 	import type { SuperForm } from 'sveltekit-superforms'
 
 	interface Props {
