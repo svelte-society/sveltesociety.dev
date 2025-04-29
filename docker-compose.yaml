@@ -7,9 +7,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - '3000:3000'
-    volumes:
-      - .:/app
-      - /app/node_modules
     environment:
       - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
       - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
