@@ -9,7 +9,7 @@ COPY . .
 
 # Run your build process
 RUN bun i
-RUN bun run build
+RUN bun run --bun build
 
 # Step 2: Create a smaller image for running the application
 FROM oven/bun
@@ -26,6 +26,3 @@ RUN bun install --production
 
 # Expose the port the application will run on
 EXPOSE 3000
-
-# Define start command
-CMD ["bun", "start"]

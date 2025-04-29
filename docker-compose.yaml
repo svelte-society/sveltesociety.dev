@@ -11,8 +11,13 @@ services:
       - .:/app
       - /app/node_modules
     environment:
-      - NODE_ENV=development
-    command: sh -c "bun install && bun run dev"
+      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
+      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
+      - GITHUB_AUTHORIZATION_CALLBACK_URL=${GITHUB_AUTHORIZATION_CALLBACK_URL}
+      - DB_PATH=${DB_PATH}
+      - EVENT_DB_PATH=${EVENT_DB_PATH}
+      - PUBLIC_PLAUSIBLE_SHARED_LINK_AUTH=${PUBLIC_PLAUSIBLE_SHARED_LINK_AUTH}
+    command: sh -c "bun ./build"
 
 volumes:
   node_modules:
