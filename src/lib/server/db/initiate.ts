@@ -1,7 +1,6 @@
 import { Database } from 'bun:sqlite'
 import fs from 'fs'
 import path from 'path'
-import { config } from './seeds/utils'
 
 // Static import for schema
 import schemaSQL from './schema/schema.sql?raw'
@@ -15,13 +14,15 @@ import triggerInteractionsSQL from './triggers/interactions.sql?raw'
 import triggerModerationQueueSQL from './triggers/move_from_moderation_queue.sql?raw'
 import triggerContentSQL from './triggers/content.sql?raw'
 
+import { DB_PATH } from '$env/static/private'
+
 // Create database directory if it doesn't exist
-const dbDir = path.dirname(config.DB_PATH)
+const dbDir = path.dirname(DB_PATH)
 if (!fs.existsSync(dbDir)) {
 	fs.mkdirSync(dbDir, { recursive: true })
 }
 
-export const db = new Database(config.DB_PATH)
+export const db = new Database(DB_PATH)
 db.exec('PRAGMA journal_mode = WAL')
 db.exec('PRAGMA foreign_keys = ON')
 

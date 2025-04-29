@@ -6,10 +6,9 @@ import { seedRoles } from './seed_roles'
 import { seedTags } from './seed_tags'
 import { seedUsers } from './seed_users'
 import { seedOAuthProviders } from './seed_oauth_providers'
+import { DB_PATH } from '$env/static/private'
 
-import { config } from './utils'
-
-export const db = new Database(config.DB_PATH)
+export const db = new Database(DB_PATH)
 db.exec('PRAGMA journal_mode = WAL')
 db.exec('PRAGMA foreign_keys = ON')
 
