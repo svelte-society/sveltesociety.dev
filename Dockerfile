@@ -26,3 +26,6 @@ RUN bun install --production
 
 # Expose the port the application will run on
 EXPOSE 3000
+
+# Define start command
+CMD ["bun", "./build"]
