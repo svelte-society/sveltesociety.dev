@@ -21,5 +21,4 @@ GITHUB_CLIENT_SECRET=
 GITHUB_AUTHORIZATION_CALLBACK_URL=http://localhost:5173/auth/callback
 
 DB_PATH=local.db
-EVENT_DB_PATH=local_event.db
 ```

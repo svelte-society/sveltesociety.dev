@@ -1,5 +1,4 @@
 import { Database } from 'bun:sqlite'
-import { Database as DuckDB } from 'duckdb-async'
 import { seedContent } from './seed_content'
 import { seedInteractions } from './seed_interactions'
 // import { seedContent } from './seed_large_amounts_of_content'
@@ -11,13 +10,10 @@ import { seedUsers } from './seed_users'
 import { seedOAuthProviders } from './seed_oauth_providers'
 
 import { config } from './utils'
-import { seedEventUserEvents } from './seed_event_db'
 
 const db = new Database(config.DB_PATH)
 db.exec('PRAGMA journal_mode = WAL')
 db.exec('PRAGMA foreign_keys = ON')
-
-// export const event_db = await DuckDB.create(config.EVENT_DB_PATH)
 
 export function run_seeds() {
 	try {

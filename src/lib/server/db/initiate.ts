@@ -2,7 +2,6 @@ import { Database } from 'bun:sqlite'
 import fs from 'fs'
 import path from 'path'
 import { config } from './seeds/utils'
-import { Database as DuckDB } from 'duckdb-async'
 
 const TRIGGERS_FOLDER = './src/lib/server/db/triggers'
 const VIEWS_FOLDER = './src/lib/server/db/views'
@@ -17,9 +16,8 @@ export const db = new Database(config.DB_PATH)
 db.exec('PRAGMA journal_mode = WAL')
 db.exec('PRAGMA foreign_keys = ON')
 
-export const event_db = await DuckDB.create(config.EVENT_DB_PATH)
 
-const read_and_import_dir = (folder: string, db: Database | DuckDB) => {
+const read_and_import_dir = (folder: string, db: Database) => {
 	try {
 		const files = fs.readdirSync(folder)
 		files.forEach((file) => {
@@ -31,7 +29,7 @@ const read_and_import_dir = (folder: string, db: Database | DuckDB) => {
 	}
 }
 
-const read_and_import_file = (filePath: string, db: Database | DuckDB) => {
+const read_and_import_file = (filePath: string, db: Database) => {
 	try {
 		const content = fs.readFileSync(filePath, 'utf8')
 		try {
@@ -59,11 +57,4 @@ const initiate_db = async () => {
 	console.log('Database initialization completed.')
 }
 
-const initiate_events_db = async () => {
-	console.log('Initiating events database...')
-	read_and_import_file('./src/lib/server/event_db/schema/schema.sql', event_db)
-	console.log('Events database initialization completed.')
-}
-
 initiate_db()
-// initiate_events_db()
