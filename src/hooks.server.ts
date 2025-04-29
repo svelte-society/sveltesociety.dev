@@ -12,10 +12,9 @@ export const init: ServerInit = async () => {
     // Initialize the database structure
     initiate_db();
     
-    if (dev === true) {
-      console.log('Running seeds in development environment...');
-      run_seeds();
-    }
+    // TODO: Remove this once we have a production environment
+    console.log('Running seeds in development environment...');
+    run_seeds();
 };
 
 export const handle = sequence(attach_services, add_user_data, protect_routes)
