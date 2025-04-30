@@ -37,7 +37,7 @@
 		</div>
 		<input
 			bind:value
-			class="h-8 w-full rounded-md border-none bg-slate-100 pr-16 pl-8 text-sm text-slate-800 placeholder-slate-500 focus:ring-2 focus:ring-slate-300 focus:outline-none"
+			class="h-8 w-full overflow-hidden rounded-md border-none bg-slate-100 pr-2 pl-8 text-sm text-nowrap overflow-ellipsis text-slate-800 placeholder-slate-500 focus:ring-2 focus:ring-slate-300 focus:outline-none"
 			type="query"
 			name="query"
 			placeholder="Search by title, description or body..."
