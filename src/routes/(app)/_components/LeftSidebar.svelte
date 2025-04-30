@@ -23,7 +23,7 @@
 	}
 </script>
 
-<aside>
+<aside class="hidden sm:block">
 	<nav>
 		<ul class="text-sm font-bold">
 			{#each links as link}

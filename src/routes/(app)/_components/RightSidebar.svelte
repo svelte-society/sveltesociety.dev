@@ -11,7 +11,7 @@
 	const { tags }: { tags: Tag[] } = $props()
 </script>
 
-<div class="@container space-y-4">
+<div class="@container hidden space-y-4 sm:block">
 	<div class="mb-4 grid grid-cols-1 items-start gap-1 @xs:grid-cols-[1fr_auto]">
 		<h3 class="text-lg font-semibold">Interested in contributing?</h3>
 		<Button href="/submit" primary small icon_left="plus">Submit Post</Button>
