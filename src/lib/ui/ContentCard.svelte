@@ -37,25 +37,11 @@
 </script>
 
 <article class="grid gap-2 rounded-lg bg-zinc-50 px-4 py-4 sm:px-6 sm:py-5">
-	<div
-		class="mb-2 grid grid-cols-1 items-start justify-between gap-2 text-xs sm:grid-cols-[1fr_auto] sm:gap-0"
-	>
+	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between gap-2 text-xs sm:gap-0">
 		<div class="flex flex-wrap items-center">
 			<span class="font-semibold capitalize">{content.type}&nbsp;</span>
 			<span class="flex flex-wrap text-gray-500">
-				<span>by {content.author} • {formatRelativeDate(content.published_at)} •&nbsp;</span>
-				<span class="flex items-center gap-1">
-					{content.views}
-					<svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-						<title>views</title>
-						<path
-							fill-rule="evenodd"
-							clip-rule="evenodd"
-							d="M1.25937 5.94874C1.56882 5.48321 2.19069 4.63614 3.03377 3.91108C3.882 3.18157 4.89578 2.625 6.00025 2.625C7.10472 2.625 8.11854 3.18157 8.96672 3.91108C9.80979 4.63614 10.4317 5.48321 10.7411 5.94874C10.7627 5.98125 10.7627 6.01875 10.7411 6.05126C10.4317 6.51679 9.80979 7.36386 8.96672 8.0889C8.11854 8.81843 7.10472 9.375 6.00025 9.375C4.89578 9.375 3.882 8.81843 3.03377 8.0889C2.19069 7.36386 1.56882 6.51679 1.25937 6.05126C1.23776 6.01875 1.23776 5.98125 1.25937 5.94874ZM6.00025 1.5C4.51423 1.5 3.24714 2.24375 2.30021 3.05813C1.34813 3.87695 0.660585 4.8173 0.32247 5.32597C0.0500614 5.73578 0.0500625 6.26422 0.32247 6.67403C0.660585 7.1827 1.34813 8.12302 2.30021 8.94187C3.24714 9.75622 4.51423 10.5 6.00025 10.5C7.48627 10.5 8.75334 9.75622 9.70029 8.94187C10.6523 8.12302 11.3399 7.1827 11.678 6.67403C11.9504 6.26422 11.9504 5.73578 11.678 5.32597C11.3399 4.8173 10.6523 3.87695 9.70029 3.05813C8.75334 2.24375 7.48627 1.5 6.00025 1.5ZM6.00024 7.5C6.82867 7.5 7.50024 6.82843 7.50024 6C7.50024 5.17157 6.82867 4.5 6.00024 4.5C5.17182 4.5 4.50024 5.17157 4.50024 6C4.50024 6.82843 5.17182 7.5 6.00024 7.5Z"
-							fill="#64748B"
-						/>
-					</svg>
-				</span>
+				<span>by {content.author}</span>
 			</span>
 		</div>
 		<form
