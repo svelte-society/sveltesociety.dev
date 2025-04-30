@@ -12,16 +12,16 @@ export const init: ServerInit = async () => {
     console.log('Database initializing...');
     // Initialize the database structure
     initiate_db();
-    
-    // Only seed data in development mode and if no data exists
-    if (dev && !hasData()) {
-        console.log('No data found in development environment. Running seeds...');
-        run_seeds();
-    } else if (dev) {
-        console.log('Data already exists. Skipping seed process.');
-    } else {
-        console.log('Production environment detected. Skipping seed process.');
+
+    if (!hasData()) {
+        if (dev) {
+            console.log('No data found in development environment. Running seeds...');
+            run_seeds();
+        } else {
+            console.log('Production environment detected. Skipping seed process.');
+        }
     }
+
 };
 
 export const handle = sequence(attach_services, add_user_data, protect_routes)
