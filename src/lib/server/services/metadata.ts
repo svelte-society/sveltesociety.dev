@@ -17,12 +17,6 @@ export class MetadataService {
     }
   }
 
-  async updateContentWithNpmMetadata(contentId: string, packageName: string) {
-    const metadata = await this.fetchNpmMetadata(packageName)
-    // TODO: Update content with npm metadata
-    return metadata
-  }
-
   // GitHub metadata methods
   async fetchGithubMetadata(repoUrl: string) {
     // TODO: Implement fetch from GitHub API
@@ -37,9 +31,34 @@ export class MetadataService {
     }
   }
 
-  async updateContentWithGithubMetadata(contentId: string, repoUrl: string) {
-    const metadata = await this.fetchGithubMetadata(repoUrl)
-    // TODO: Update content with GitHub metadata
+  // Combined library metadata method
+  async fetchLibraryMetadata(packageName?: string, repoUrl?: string) {
+    const result: any = { type: 'library' }
+    
+    // Run both fetches in parallel if provided
+    const [npmData, githubData] = await Promise.all([
+      packageName ? this.fetchNpmMetadata(packageName) : Promise.resolve(null),
+      repoUrl ? this.fetchGithubMetadata(repoUrl) : Promise.resolve(null)
+    ]);
+    
+    if (npmData) result.npm = npmData;
+    if (githubData) result.github = githubData;
+    
+    return result;
+  }
+
+  async updateContentWithLibraryMetadata(contentId: string, packageName?: string, repoUrl?: string) {
+    const metadata = await this.fetchLibraryMetadata(packageName, repoUrl)
+    
+    // Update content with combined metadata
+    const stmt = this.db.prepare(`
+      UPDATE content
+      SET metadata = ?
+      WHERE id = ?
+    `)
+    
+    stmt.run(JSON.stringify(metadata), contentId)
+    
     return metadata
   }
 
@@ -59,7 +78,16 @@ export class MetadataService {
 
   async updateContentWithYoutubeMetadata(contentId: string, videoId: string) {
     const metadata = await this.fetchYoutubeMetadata(videoId)
-    // TODO: Update content with YouTube metadata
+    
+    // Update content with YouTube metadata
+    const stmt = this.db.prepare(`
+      UPDATE content
+      SET metadata = ?
+      WHERE id = ?
+    `)
+    
+    stmt.run(JSON.stringify({ type: 'video', youtube: metadata }), contentId)
+    
     return metadata
   }
 
@@ -80,12 +108,11 @@ export class MetadataService {
     // Update metadata based on content type
     switch (content.type) {
       case 'library':
-        if (metadata.npm) {
-          await this.updateContentWithNpmMetadata(contentId, metadata.npm)
-        }
-        if (metadata.github) {
-          await this.updateContentWithGithubMetadata(contentId, metadata.github)
-        }
+        await this.updateContentWithLibraryMetadata(
+          contentId, 
+          metadata.npm, 
+          metadata.github
+        )
         break
       case 'video':
         if (metadata.videoId) {

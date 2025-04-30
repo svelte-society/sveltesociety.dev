@@ -32,6 +32,30 @@ describe('MetadataService', () => {
       expect(result).toBeDefined()
     })
   })
+  
+  describe('fetchLibraryMetadata', () => {
+    it('should fetch metadata from both npm and github', async () => {
+      const result = await service.fetchLibraryMetadata('svelte', 'sveltejs/svelte')
+      expect(result).toBeDefined()
+      expect(result.npm).toBeDefined()
+      expect(result.github).toBeDefined()
+      expect(result.type).toBe('library')
+    })
+    
+    it('should handle npm metadata only', async () => {
+      const result = await service.fetchLibraryMetadata('svelte')
+      expect(result).toBeDefined()
+      expect(result.npm).toBeDefined()
+      expect(result.github).toBeUndefined()
+    })
+    
+    it('should handle github metadata only', async () => {
+      const result = await service.fetchLibraryMetadata(undefined, 'sveltejs/svelte')
+      expect(result).toBeDefined()
+      expect(result.npm).toBeUndefined()
+      expect(result.github).toBeDefined()
+    })
+  })
 
   describe('fetchYoutubeMetadata', () => {
     it('should fetch metadata for a YouTube video', async () => {
@@ -41,23 +65,34 @@ describe('MetadataService', () => {
   })
 
   describe('updateContentMetadata', () => {
-    it('should update library content with npm metadata', async () => {
+    it('should update library content with npm and github metadata', async () => {
       // Insert test content
       const stmt = db.prepare(`
         INSERT INTO content (id, type, metadata) VALUES (?, ?, ?)
       `)
-      stmt.run('test-id', 'library', JSON.stringify({ npm: 'svelte' }))
+      stmt.run('test-id', 'library', JSON.stringify({ npm: 'svelte', github: 'sveltejs/svelte' }))
       
       // Mock the methods with appropriate return types
-      const originalMethod = service.updateContentWithNpmMetadata
-      service.updateContentWithNpmMetadata = mock(() => {
+      const originalMethod = service.updateContentWithLibraryMetadata
+      service.updateContentWithLibraryMetadata = mock(() => {
         return Promise.resolve({
-          name: 'svelte',
-          version: '1.0.0',
-          description: 'Test description',
-          downloads: 0,
-          stars: 0,
-          lastUpdated: ''
+          type: 'library',
+          npm: {
+            name: 'svelte',
+            version: '1.0.0',
+            description: 'Test description',
+            downloads: 0,
+            stars: 0,
+            lastUpdated: ''
+          },
+          github: {
+            owner: 'sveltejs',
+            repo: 'svelte',
+            stars: 0,
+            forks: 0,
+            issues: 0,
+            lastUpdated: ''
+          }
         })
       })
       
@@ -65,7 +100,7 @@ describe('MetadataService', () => {
       expect(result.success).toBe(true)
       
       // Restore original method
-      service.updateContentWithNpmMetadata = originalMethod
+      service.updateContentWithLibraryMetadata = originalMethod
     })
     
     it('should update video content with youtube metadata', async () => {
