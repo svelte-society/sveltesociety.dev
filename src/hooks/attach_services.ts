@@ -10,6 +10,7 @@ import { TagService } from '$lib/server/services/tags'
 import { ModerationService } from '$lib/server/services/moderation'
 import { UserService } from '$lib/server/services/user'
 import { CollectionService } from '$lib/server/services/collections'
+import { MetadataService } from '$lib/server/services/metadata'
 
 let db: Database
 let contentService: ContentService
@@ -21,6 +22,7 @@ let tagService: TagService
 let moderationService: ModerationService
 let userService: UserService
 let collectionService: CollectionService
+let metadataService: MetadataService
 
 const initialize_db = () => {
 	if (!db) {
@@ -42,6 +44,7 @@ const initialize_db = () => {
 		moderationService = new ModerationService(db)
 		userService = new UserService(db)
 		collectionService = new CollectionService(db)
+		metadataService = new MetadataService(db)
 	}
 
 	return db
@@ -59,5 +62,6 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.moderationService = moderationService
 	event.locals.userService = userService
 	event.locals.collectionService = collectionService
+	event.locals.metadataService = metadataService
 	return resolve(event)
 }
