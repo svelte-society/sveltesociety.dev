@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit'
 
-export const load = async ({ locals, params }) => {
+export const load = async ({ locals, params, url }) => {
 	const start = performance.now()
 
 	// Get content directly by slug and type
@@ -23,5 +23,12 @@ export const load = async ({ locals, params }) => {
 	const stop = performance.now()
 	console.log('Loading content took: ', stop - start)
 
-	return { content }
+	return { 
+		content,
+		meta: {
+			title: `${content.title} - Svelte Society`,
+			description: content.description || `View ${content.title} on Svelte Society`,
+			url: url.toString()
+		}
+	}
 }

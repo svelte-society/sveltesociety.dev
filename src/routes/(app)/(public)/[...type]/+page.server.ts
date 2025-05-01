@@ -79,12 +79,22 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 		}))
 	}
 
+	// Format the type for display (e.g., "blog-posts" -> "Blog Posts")
+	const typeForDisplay = params.type
+		? params.type.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+		: 'Content'
+
 	return {
 		content: mappedContent,
 		count: searchResults.count,
 		tags: allTags,
 		sort: sortOptions,
-		categories
+		categories,
+		meta: {
+			title: `${typeForDisplay} - Svelte Society`,
+			description: `Browse ${typeForDisplay.toLowerCase()} from the Svelte Society community`,
+			url: url.toString()
+		}
 	}
 }
 

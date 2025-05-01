@@ -3,14 +3,22 @@ import { fail } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 import { zod } from 'sveltekit-superforms/adapters'
 import { schema } from './schema'
-export const load = (async ({ locals }) => {
+export const load = (async ({ locals, url }) => {
 	// Get all available tags for the form
 	const tags = locals.tagService.getTags({ limit: 50 })
 
 	// Create the form using Superforms with the zod adapter
 	const form = await superValidate(zod(schema))
 
-	return { form, tags }
+	return { 
+		form, 
+		tags,
+		meta: {
+			title: 'Submit Content - Svelte Society',
+			description: 'Submit your Svelte content to the Svelte Society community',
+			url: url.toString()
+		}
+	}
 }) satisfies PageServerLoad
 
 export const actions = {

@@ -15,7 +15,15 @@ export const load = (async ({ locals, url }) => {
 
 		// If no saved content, return early with empty array
 		if (count === 0) {
-			return { content: [], count: 0 }
+			return { 
+				content: [], 
+				count: 0,
+				meta: {
+					title: 'Saved Content - Svelte Society',
+					description: 'Your saved content from Svelte Society',
+					url: url.toString()
+				}
+			}
 		}
 
 		// Get user interactions
@@ -30,7 +38,12 @@ export const load = (async ({ locals, url }) => {
 				liked: userLikes.has(c.id.toString()),
 				saved: userSaves.has(c.id.toString())
 			})),
-			count
+			count,
+			meta: {
+				title: 'Saved Content - Svelte Society',
+				description: 'Your saved content from Svelte Society',
+				url: url.toString()
+			}
 		}
 	} catch (err) {
 		console.error('Error fetching saved content:', err)
