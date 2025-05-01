@@ -80,10 +80,7 @@
 			{#if user}
 				<Dropdown {user} />
 			{:else}
-				<!-- Separator + Login link -->
-				<a data-sveltekit-preload-data={false} href="/auth/github" class="hover:underline">
-					Login
-				</a>
+				<a data-sveltekit-preload-data={false} href="/login" class="hover:underline"> Login </a>
 			{/if}
 		</nav>
 	</div>
