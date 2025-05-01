@@ -1,6 +1,10 @@
 import type { Database } from 'bun:sqlite'
+import type { Content } from '$lib/types/content'
 
 export class MetadataService {
+  // Default staleness threshold (24 hours in milliseconds)
+  private readonly STALE_THRESHOLD = 24 * 60 * 60 * 1000
+
   constructor(private db: Database) {}
 
   // NPM metadata methods
@@ -31,37 +35,6 @@ export class MetadataService {
     }
   }
 
-  // Combined library metadata method
-  async fetchLibraryMetadata(packageName?: string, repoUrl?: string) {
-    const result: any = { type: 'library' }
-    
-    // Run both fetches in parallel if provided
-    const [npmData, githubData] = await Promise.all([
-      packageName ? this.fetchNpmMetadata(packageName) : Promise.resolve(null),
-      repoUrl ? this.fetchGithubMetadata(repoUrl) : Promise.resolve(null)
-    ]);
-    
-    if (npmData) result.npm = npmData;
-    if (githubData) result.github = githubData;
-    
-    return result;
-  }
-
-  async updateContentWithLibraryMetadata(contentId: string, packageName?: string, repoUrl?: string) {
-    const metadata = await this.fetchLibraryMetadata(packageName, repoUrl)
-    
-    // Update content with combined metadata
-    const stmt = this.db.prepare(`
-      UPDATE content
-      SET metadata = ?
-      WHERE id = ?
-    `)
-    
-    stmt.run(JSON.stringify(metadata), contentId)
-    
-    return metadata
-  }
-
   // YouTube metadata methods
   async fetchYoutubeMetadata(videoId: string) {
     // TODO: Implement fetch from YouTube API
@@ -76,52 +49,127 @@ export class MetadataService {
     }
   }
 
-  async updateContentWithYoutubeMetadata(contentId: string, videoId: string) {
-    const metadata = await this.fetchYoutubeMetadata(videoId)
+  /**
+   * Get metadata for a content piece with stale-while-revalidate strategy
+   * Returns current metadata immediately and updates if stale
+   */
+  getMetadata(content: Content): any {
+    // Parse existing metadata
+    let metadata = this.parseMetadata(content)
     
-    // Update content with YouTube metadata
+    // If metadata is stale, trigger a background refresh
+    if (this.isMetadataStale(metadata)) {
+      // Return current metadata immediately
+      const currentMetadata = { ...metadata }
+      
+      // Refresh in background
+      this.refreshMetadata(content.id, content.type, metadata)
+        .catch(err => console.error(`Error refreshing metadata for content ${content.id}:`, err))
+      
+      return currentMetadata
+    }
+    
+    return metadata
+  }
+
+  /**
+   * Force refresh metadata for a content piece
+   */
+  async refreshMetadataForContent(content: Content): Promise<any> {
+    const metadata = this.parseMetadata(content)
+    const updatedMetadata = await this.refreshMetadata(content.id, content.type, metadata)
+    return updatedMetadata
+  }
+
+  // Private helper methods
+  
+  /**
+   * Parse metadata from content
+   */
+  private parseMetadata(content: Content): any {
+    if (!content.metadata) return {}
+    
+    // If it's already an object, return it
+    if (typeof content.metadata === 'object') {
+      return content.metadata
+    }
+    
+    // If it's a string, try to parse it
+    if (typeof content.metadata === 'string') {
+      try {
+        return JSON.parse(content.metadata)
+      } catch (err) {
+        console.error('Error parsing metadata string:', err)
+        return {}
+      }
+    }
+    
+    return {}
+  }
+
+  /**
+   * Check if metadata is stale
+   */
+  private isMetadataStale(metadata: any): boolean {
+    if (!metadata.updated_at) return true
+    
+    const updatedAt = new Date(metadata.updated_at).getTime()
+    const now = Date.now()
+    
+    return (now - updatedAt) > this.STALE_THRESHOLD
+  }
+
+  /**
+   * Update content with new metadata
+   */
+  private updateContentMetadata(contentId: string, metadata: any): void {
     const stmt = this.db.prepare(`
       UPDATE content
       SET metadata = ?
       WHERE id = ?
     `)
     
-    stmt.run(JSON.stringify({ type: 'video', youtube: metadata }), contentId)
-    
-    return metadata
+    stmt.run(JSON.stringify(metadata), contentId)
   }
 
-  // General method to update content metadata based on content type
-  async updateContentMetadata(contentId: string) {
-    // Fetch content to determine type and existing metadata
-    const stmt = this.db.prepare(`
-      SELECT type, metadata FROM content WHERE id = ?
-    `)
-    const content = stmt.get(contentId) as { type: string; metadata: string } | undefined
-    
-    if (!content) {
-      throw new Error(`Content with id ${contentId} not found`)
+  /**
+   * Refresh metadata based on content type
+   */
+  private async refreshMetadata(contentId: string, contentType: string, currentMetadata: any): Promise<any> {
+    // Create new metadata object with updated timestamp
+    const newMetadata = { 
+      ...currentMetadata,
+      updated_at: new Date().toISOString()
     }
     
-    const metadata = content.metadata ? JSON.parse(content.metadata) : {}
-    
-    // Update metadata based on content type
-    switch (content.type) {
+    switch (contentType) {
       case 'library':
-        await this.updateContentWithLibraryMetadata(
-          contentId, 
-          metadata.npm, 
-          metadata.github
-        )
+        // Handle library content
+        if (currentMetadata.npm) {
+          newMetadata.npm = await this.fetchNpmMetadata(currentMetadata.npm)
+        }
+        
+        if (currentMetadata.github?.repoUrl) {
+          newMetadata.github = await this.fetchGithubMetadata(currentMetadata.github.repoUrl)
+        }
+        
+        newMetadata.type = 'library'
         break
+        
       case 'video':
-        if (metadata.videoId) {
-          await this.updateContentWithYoutubeMetadata(contentId, metadata.videoId)
+        // Handle video content
+        if (currentMetadata.videoId) {
+          newMetadata.youtube = await this.fetchYoutubeMetadata(currentMetadata.videoId)
+          newMetadata.type = 'video'
         }
         break
-      // Handle other content types as needed
+        
+      // Add other content types as needed
     }
     
-    return { success: true }
+    // Update content with new metadata
+    this.updateContentMetadata(contentId, newMetadata)
+    
+    return newMetadata
   }
 } 
