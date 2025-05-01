@@ -9,6 +9,8 @@ export class MetadataService {
 
   // NPM metadata methods
   async fetchNpmMetadata(packageName: string) {
+
+    
     // TODO: Implement fetch from NPM API
     return {
       name: packageName,
@@ -37,15 +39,52 @@ export class MetadataService {
 
   // YouTube metadata methods
   async fetchYoutubeMetadata(videoId: string) {
-    // TODO: Implement fetch from YouTube API
-    return {
-      title: '',
-      description: '',
-      channelName: '',
-      publishedAt: '',
-      views: 0,
-      likes: 0,
-      // Other relevant YouTube metadata
+    // YouTube API key should be stored in environment variables
+    const apiKey = process.env.YOUTUBE_API_KEY;
+
+    try {
+
+      const response = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,contentDetails&key=${apiKey}`
+      );
+      
+      if (!response.ok) {
+        throw new Error(`YouTube API request failed with status ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (!data.items || data.items.length === 0) {
+        console.error(`No video found with ID: ${videoId}`);
+        return {
+          title: '',
+          description: '',
+          duration: '',
+          thumbnail: '',
+          publishedAt: '',
+        };
+      }
+      
+      const videoData = data.items[0];
+      const snippet = videoData.snippet || {};
+      const contentDetails = videoData.contentDetails || {};
+      
+      return {
+        title: snippet.title || '',
+        description: snippet.description || '',
+        duration: contentDetails.duration || '', // ISO 8601 duration format
+        thumbnail: snippet.thumbnails?.high?.url || snippet.thumbnails?.default?.url || '',
+        publishedAt: snippet.publishedAt || '',
+      };
+    } catch (error) {
+      console.error(`Error fetching YouTube metadata for video ${videoId}:`, error);
+      return {
+        title: '',
+        description: '',
+        duration: '',
+        thumbnail: '',
+        publishedAt: '',
+      };
     }
   }
 
