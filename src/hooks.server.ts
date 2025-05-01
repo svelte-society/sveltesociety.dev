@@ -12,11 +12,11 @@ export const init: ServerInit = async () => {
     console.log('Database initializing...');
     // Initialize the database structure
     initiate_db();
-
+    
     if (!hasData()) {
+        run_seeds();
         if (dev) {
             console.log('No data found in development environment. Running seeds...');
-            run_seeds();
         } else {
             console.log('Production environment detected. Skipping seed process.');
         }
