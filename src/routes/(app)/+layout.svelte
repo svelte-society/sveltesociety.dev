@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/state'
+	import { Head } from 'svead'
 	import Header from './_components/Header.svelte'
 	import LeftSidebar from './_components/LeftSidebar.svelte'
 	import RightSidebar from './_components/RightSidebar.svelte'
@@ -6,7 +8,16 @@
 	let { data, children } = $props()
 
 	const isAdmin = data.isAdmin
+
+	const fallbackMeta = {
+		title: 'Svelte Society',
+		description:
+			'The Svelte Society is a community of developers who use Svelte to build web applications.',
+		url: page.url.toString()
+	}
 </script>
+
+<Head seo_config={page.data.meta || fallbackMeta} />
 
 <div class="flex min-h-screen flex-col">
 	<Header user={data.user} />
