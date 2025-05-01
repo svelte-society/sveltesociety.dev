@@ -8,12 +8,17 @@
 	import { prefersReducedMotion } from 'svelte/motion'
 
 	let { data } = $props()
+
+	let contentList = $derived.by(() => {
+		const content = $state(data.content)
+		return content
+	})
 </script>
 
 <div class="grid gap-6">
 	<Filters categories={data.categories} tags={data.tags} sort={data.sort} />
 	{#if data.count > 0}
-		{#each data.content as content (content.id)}
+		{#each contentList as content (content.id)}
 			<div
 				animate:flip={{ duration: prefersReducedMotion.current ? 0 : 250, easing: cubicOut }}
 				transition:fade={{ duration: prefersReducedMotion.current ? 0 : 150 }}
