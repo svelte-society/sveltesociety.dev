@@ -31,7 +31,7 @@
 			{@render children()}
 		</div>
 
-		<RightSidebar tags={data.tags} />
+		<RightSidebar />
 
 		{#if isAdmin}
 			<a
