@@ -60,23 +60,6 @@
 		</div>
 
 		<nav class="ml-auto items-center space-x-4 md:flex">
-			<ul class="hidden space-x-4 border-r border-gray-200 pr-4 sm:flex">
-				<li>
-					<a
-						href="/about"
-						class:font-bold={page.url.pathname === '/about'}
-						class="hover:text-slate-600">About</a
-					>
-				</li>
-				<li>
-					<a
-						href="/events"
-						class:font-bold={page.url.pathname === '/events'}
-						class="hover:text-slate-600">Events</a
-					>
-				</li>
-			</ul>
-
 			{#if user}
 				<Dropdown {user} />
 			{:else}
