@@ -59,7 +59,10 @@ export class SearchService {
         `
       )
       .all()
-      .map((c) => ({ ...c, tags: JSON.parse(c.tags) as string[] }))
+      .map((c: any) => ({ 
+        ...c, 
+        tags: c.tags ? JSON.parse(c.tags).filter((tag: unknown) => tag !== null) as string[] : [] 
+      }))
 
     insertMultiple(this.searchDB, content)
   }
