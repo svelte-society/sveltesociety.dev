@@ -285,7 +285,7 @@
 	"sveltekit-view-transition": { "valid": false },
 	"@geoffcox/sterling-svelte": { "valid": true },
 	"@perfectthings/ui": { "valid": true },
-	"@tanstack/svelte-query": { "valid": true },
+	"@tanstack/svelte-query": { "valid": false },
 	"@tanstack/svelte-virtual": { "valid": true },
 	"@tanstack/svelte-store": { "valid": true },
 	"@pragmatic-engineering/svelte-form-builder-community": { "valid": true },
