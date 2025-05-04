@@ -688,4 +688,11 @@
 		"description": "Portfolio website with terminal style",
 		"categories": ["blog", "mdsvex", "seo", "sveltekit", "ssr", "database"]
 	}
+	{
+	        "title": "svelte-minimal-site",
+	        "url": "https://sahil.zerops.xyz",
+	        "repository": "https://github.com/nermalcat69/svelte-minimal-site",
+	        "description": "Minimal personal website template with tailwindcss",
+	        "categories": ["sveltekit"]
+	}
 ]
