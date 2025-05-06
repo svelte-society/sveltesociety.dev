@@ -3286,5 +3286,16 @@
 		"description": "Svelte + Markdown + LaTeX",
 		"npm": "@nvl/sveltex",
 		"categories": ["build-plugins", "markdown"]
+	},
+	{
+		"title": "Svelte Scroll Tracker",
+		"url": "https://svelte-scroll-tracker.vercel.app/",
+		"repository": "https://github.com/AsafAgranat/svelte-scroll-tracker",
+		"description": "A lightweight, dependency-free, and performant Svelte 5 component for tracking scroll progress of an element within the viewport",
+		"npm": "svelte-scroll-tracker",
+		"categories": [
+			"user-interaction",
+			"ui-components"
+		]
 	}
 ]
