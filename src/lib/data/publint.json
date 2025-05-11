@@ -280,7 +280,6 @@
 	"@prgm/sveltekit-progress-bar": { "valid": true },
 	"svelte-unicons": { "valid": false },
 	"svelte-google-auth": { "valid": true },
-	"sveltekit-adapter-firebase": { "valid": true },
 	"sveltekit-search-params": { "valid": false },
 	"sveltekit-view-transition": { "valid": false },
 	"@geoffcox/sterling-svelte": { "valid": true },
