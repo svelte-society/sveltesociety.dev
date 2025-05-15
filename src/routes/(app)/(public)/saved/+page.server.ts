@@ -1,9 +1,8 @@
 import { error, redirect } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
-import type { Content } from '$lib/types/content'
 
 export const load = (async ({ locals, url }) => {
-	if (!locals?.user?.id) redirect(302, '/')
+	if (!locals?.user?.id) redirect(302, '/auth/github')
 
 	try {
 		// Get pagination parameters
