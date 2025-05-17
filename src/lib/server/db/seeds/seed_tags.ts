@@ -12,14 +12,15 @@ export function seedTags(db: Database) {
 		{ name: 'State', slug: 'state' },
 		{ name: 'Official', slug: 'official' },
 		{ name: 'Snippet', slug: 'snippet' },
-		{ name: 'Components', slug: 'components' },
 		{ name: 'DevTools', slug: 'devtools' },
 		{ name: 'i18n', slug: 'i18n' },
 		{ name: 'Svelte 5', slug: 'svelte-5' },
 		{ name: 'SvelteKit', slug: 'sveltekit' },
 		{ name: 'Adapter', slug: 'adapter' },
 		{ name: 'Testing', slug: 'testing' },
-		{ name: 'Tutorial', slug: 'tutorial' }
+		{ name: 'Tutorial', slug: 'tutorial' },
+		{ name: 'DataViz', slug: 'dataviz' },
+		{ name: 'Svelte 5', slug: 'svelte-5' },
 	]
 
 	type Tag = { name: string; slug: string }
