@@ -7,34 +7,67 @@ export class MetadataService {
 
   constructor(private db: Database) {}
 
-  // NPM metadata methods
-  async fetchNpmMetadata(packageName: string) {
-
-    
-    // TODO: Implement fetch from NPM API
-    return {
-      name: packageName,
-      version: '',
-      description: '',
-      downloads: 0,
-      stars: 0,
-      lastUpdated: '',
-      // Other relevant npm metadata
-    }
-  }
-
-  // GitHub metadata methods
+  // GitHub metadata method
   async fetchGithubMetadata(repoUrl: string) {
-    // TODO: Implement fetch from GitHub API
-    return {
-      owner: '',
-      repo: '',
-      stars: 0,
-      forks: 0,
-      issues: 0,
-      lastUpdated: '',
-      // Other relevant GitHub metadata
+    const result: any = {
+      updated_at: new Date().toISOString()
+    };
+
+    if (!repoUrl) {
+      return {
+        github: {
+          owner: '',
+          repo: '',
+          stars: 0,
+          forks: 0,
+          issues: 0,
+          lastUpdated: '',
+        }
+      };
     }
+
+    try {
+      // Extract owner and repo from the GitHub URL
+      // Format could be: https://github.com/owner/repo
+      const urlMatch = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/i);
+      if (urlMatch) {
+        const [, owner, repo] = urlMatch;
+        
+        // GitHub API requires a User-Agent header
+        const githubResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+          headers: {
+            'User-Agent': 'SvelteSociety-Metadata-Service',
+            'Accept': 'application/vnd.github.v3+json',
+            ...(process.env.GITHUB_TOKEN ? { 'Authorization': `token ${process.env.GITHUB_TOKEN}` } : {})
+          }
+        });
+        
+        if (githubResponse.ok) {
+          const repoData = await githubResponse.json();
+          
+          result.github = {
+            owner,
+            repo,
+            stars: repoData.stargazers_count || 0,
+            forks: repoData.forks_count || 0,
+            issues: repoData.open_issues_count || 0,
+            lastUpdated: repoData.updated_at || '',
+          };
+        }
+      }
+    } catch (error) {
+      console.error(`Error fetching GitHub metadata for ${repoUrl}:`, error);
+      result.github = {
+        owner: '',
+        repo: '',
+        stars: 0,
+        forks: 0,
+        issues: 0,
+        lastUpdated: '',
+      };
+    }
+
+    return result;
   }
 
   // YouTube metadata methods
@@ -184,12 +217,11 @@ export class MetadataService {
     switch (contentType) {
       case 'library':
         // Handle library content
-        if (currentMetadata.npm) {
-          newMetadata.npm = await this.fetchNpmMetadata(currentMetadata.npm)
-        }
-        
         if (currentMetadata.github?.repoUrl) {
-          newMetadata.github = await this.fetchGithubMetadata(currentMetadata.github.repoUrl)
+          const githubMetadata = await this.fetchGithubMetadata(currentMetadata.github.repoUrl);
+          
+          // Merge the new metadata
+          Object.assign(newMetadata, githubMetadata);
         }
         
         newMetadata.type = 'library'

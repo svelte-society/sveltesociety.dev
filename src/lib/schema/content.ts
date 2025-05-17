@@ -19,7 +19,7 @@ const baseContentSchema = z.object({
 	status: z.string(),
 	body: z.string().optional(),
 	rendered_body: z.string(),
-	author: z.string(),
+	author: z.string().optional(),
 	tags: z.array(tagSchema),
 	created_at: z.string(),
 	updated_at: z.string(),
