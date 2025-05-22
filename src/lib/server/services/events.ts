@@ -2,6 +2,29 @@ import { Database } from 'bun:sqlite'
 import type { Content } from '$lib/types/content'
 import { ContentService } from './content'
 
+interface Presenter {
+	id: string
+	firstName: string
+	lastName: string
+}
+
+interface Presentation {
+	id: string
+	slug: string
+	prettyUrl: string
+	presenter?: Presenter | string | null
+	presenterFirstName?: string | null
+	presenterLastName?: string | null
+	title: string
+	description: string
+	videoSourceUrl?: string
+}
+
+interface PresentationEdge {
+	node: Presentation
+	cursor: string
+}
+
 interface GuildEvent {
 	id: string
 	slug: string
@@ -24,6 +47,9 @@ interface GuildEvent {
 	owner?: {
 		name: string
 		__typename?: string
+	}
+	presentations?: {
+		edges: PresentationEdge[]
 	}
 }
 

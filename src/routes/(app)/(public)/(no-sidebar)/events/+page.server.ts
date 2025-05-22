@@ -51,6 +51,32 @@ export const load: PageServerLoad = async ({ locals }) => {
 					location = 'See event details'
 				}
 				
+				// Extract presentations
+				const presentations = event.presentations?.edges?.map(edge => {
+					let presenterName = 'Unknown'
+					
+					// Handle different presenter formats
+					if (edge.node.presenter) {
+						if (typeof edge.node.presenter === 'object' && edge.node.presenter.firstName) {
+							// Presenter is an object with firstName/lastName
+							presenterName = `${edge.node.presenter.firstName} ${edge.node.presenter.lastName || ''}`.trim()
+						} else if (typeof edge.node.presenter === 'string') {
+							// Presenter is a string
+							presenterName = edge.node.presenter
+						}
+					} else if (edge.node.presenterFirstName || edge.node.presenterLastName) {
+						// Fall back to separate first/last name fields
+						presenterName = `${edge.node.presenterFirstName || ''} ${edge.node.presenterLastName || ''}`.trim()
+					}
+					
+					return {
+						title: edge.node.title,
+						presenter: presenterName,
+						description: edge.node.description,
+						videoUrl: edge.node.videoSourceUrl
+					}
+				}) || []
+				
 				eventMap.set(event.slug, {
 					id: event.id,
 					slug: event.slug,
@@ -61,7 +87,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 					location: location,
 					url: event.fullUrl || event.shortUrl,
 					source: 'api',
-					owner: event.owner?.name || 'Svelte Society'
+					owner: event.owner?.name || 'Svelte Society',
+					presentations
 				})
 			}
 			

@@ -12,8 +12,10 @@
 	import Calendar from 'phosphor-svelte/lib/Calendar'
 	import MapPin from 'phosphor-svelte/lib/MapPin'
 	import Link from 'phosphor-svelte/lib/Link'
+	import User from 'phosphor-svelte/lib/User'
+	import VideoCamera from 'phosphor-svelte/lib/VideoCamera'
 
-	let { content, compact = false }: { content: Content; compact?: boolean } = $props()
+	let { content, compact = false, eventData }: { content: Content; compact?: boolean; eventData?: any } = $props()
 
 	let submitting = $state(false)
 
@@ -168,6 +170,31 @@
 						>
 							Event Details
 						</a>
+					</div>
+				{/if}
+				
+				{#if eventData?.presentations && eventData.presentations.length > 0}
+					<div class="mt-3 border-t pt-3">
+						<h4 class="mb-2 font-semibold text-gray-700">Presentations:</h4>
+						<div class="space-y-2">
+							{#each eventData.presentations as presentation}
+								<div class="rounded bg-gray-50 p-2">
+									<div class="flex items-start gap-2">
+										<User size={14} class="mt-0.5 text-gray-500" />
+										<div class="flex-1">
+											<p class="font-medium text-gray-800">{presentation.title}</p>
+											<p class="text-xs text-gray-600">by {presentation.presenter}</p>
+											{#if presentation.videoUrl}
+												<div class="mt-1 flex items-center gap-1">
+													<VideoCamera size={12} class="text-gray-500" />
+													<span class="text-xs text-gray-500">Video available</span>
+												</div>
+											{/if}
+										</div>
+									</div>
+								</div>
+							{/each}
+						</div>
 					</div>
 				{/if}
 			</div>

@@ -61,7 +61,7 @@
 		{:else}
 			<div class="grid gap-4">
 				{#each data.upcomingEvents as event}
-					<ContentCard content={eventToContent(event)} />
+					<ContentCard content={eventToContent(event)} eventData={event} />
 				{/each}
 			</div>
 		{/if}
@@ -86,7 +86,7 @@
 			<div class="grid gap-4">
 				{#each data.pastEvents as event}
 					<div class="opacity-75">
-						<ContentCard content={eventToContent(event)} />
+						<ContentCard content={eventToContent(event)} eventData={event} />
 					</div>
 				{/each}
 			</div>
