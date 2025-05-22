@@ -37,15 +37,31 @@ export const load: PageServerLoad = async ({ locals }) => {
 					endTime: metadata.endTime,
 					location: metadata.location,
 					url: metadata.url,
-					source: 'local'
+					source: 'local',
+					owner: event.author || 'Svelte Society'
 				})
 			}
 			
 			// Add API events (will override local if same slug)
 			for (const event of apiEvents) {
+				// Extract location from venue coordinates
+				let location = undefined
+				if (event.venue?.address?.location?.geojson?.coordinates) {
+					// You could reverse geocode this, but for now just indicate it has a venue
+					location = 'See event details'
+				}
+				
 				eventMap.set(event.slug, {
-					...event,
-					source: 'api'
+					id: event.id,
+					slug: event.slug,
+					title: event.name,
+					description: event.description,
+					startTime: event.startAt,
+					endTime: event.endAt,
+					location: location,
+					url: event.fullUrl || event.shortUrl,
+					source: 'api',
+					owner: event.owner?.name || 'Svelte Society'
 				})
 			}
 			

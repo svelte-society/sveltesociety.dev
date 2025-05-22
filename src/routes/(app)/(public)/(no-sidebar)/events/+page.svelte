@@ -1,107 +1,44 @@
 <script lang="ts">
-	import Button from '$lib/ui/Button.svelte'
+	import ContentCard from '$lib/ui/ContentCard.svelte'
 	import Calendar from 'phosphor-svelte/lib/Calendar'
-	import MapPin from 'phosphor-svelte/lib/MapPin'
-	import Link from 'phosphor-svelte/lib/Link'
 	import ClockCounterClockwise from 'phosphor-svelte/lib/ClockCounterClockwise'
+	import type { Content } from '$lib/types/content'
 	
 	let { data } = $props()
 	
-	function formatDate(dateString: string) {
-		const date = new Date(dateString)
-		const options: Intl.DateTimeFormatOptions = {
-			weekday: 'long',
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric',
-			hour: '2-digit',
-			minute: '2-digit'
+	// Convert event data to Content format for ContentCard
+	function eventToContent(event: any): Content {
+		const metadata = typeof event.metadata === 'string' 
+			? JSON.parse(event.metadata) 
+			: event.metadata || {}
+			
+		return {
+			id: event.id,
+			title: event.title,
+			slug: event.slug,
+			description: event.description,
+			type: 'event',
+			status: 'published',
+			body: event.body || event.description,
+			rendered_body: event.rendered_body || event.description,
+			author: event.owner || event.author || 'Svelte Society',
+			tags: event.tags || [],
+			created_at: event.created_at || new Date().toISOString(),
+			updated_at: event.updated_at || new Date().toISOString(),
+			published_at: event.published_at || event.startTime,
+			likes: event.likes || 0,
+			saves: event.saves || 0,
+			liked: false,
+			saved: false,
+			views: event.views || 0,
+			metadata: {
+				startTime: event.startTime || metadata.startTime,
+				endTime: event.endTime || metadata.endTime,
+				location: event.location || metadata.location,
+				url: event.url || metadata.url
+			},
+			children: []
 		}
-		return date.toLocaleDateString('en-US', options)
-	}
-	
-	function formatTime(startTime: string, endTime?: string) {
-		const start = new Date(startTime)
-		const timeOptions: Intl.DateTimeFormatOptions = {
-			hour: '2-digit',
-			minute: '2-digit'
-		}
-		
-		let timeStr = start.toLocaleTimeString('en-US', timeOptions)
-		
-		if (endTime) {
-			const end = new Date(endTime)
-			timeStr += ' - ' + end.toLocaleTimeString('en-US', timeOptions)
-		}
-		
-		return timeStr
-	}
-	
-	function renderEvent(event: any) {
-		return `
-			<div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-				<div class="mb-4 flex items-start justify-between">
-					<div>
-						<h2 class="text-xl font-bold text-gray-900">{event.title}</h2>
-						{#if event.source === 'api'}
-							<span class="mt-1 inline-block rounded-full bg-svelte-500 px-2 py-1 text-xs text-white">
-								From Guild.host
-							</span>
-						{/if}
-					</div>
-					<Calendar size={24} class="text-gray-400" />
-				</div>
-				
-				<p class="mb-4 text-gray-700">{event.description}</p>
-				
-				<div class="space-y-2 text-sm">
-					<div class="flex items-center gap-2 text-gray-600">
-						<Calendar size={16} />
-						<span>{formatDate(event.startTime)}</span>
-					</div>
-					
-					{#if event.endTime}
-						<div class="flex items-center gap-2 text-gray-600">
-							<Calendar size={16} />
-							<span>Ends: {formatTime(event.startTime, event.endTime)}</span>
-						</div>
-					{/if}
-					
-					{#if event.location}
-						<div class="flex items-center gap-2 text-gray-600">
-							<MapPin size={16} />
-							<span>{event.location}</span>
-						</div>
-					{/if}
-					
-					{#if event.url}
-						<div class="flex items-center gap-2">
-							<Link size={16} class="text-gray-600" />
-							<a 
-								href={event.url} 
-								target="_blank" 
-								rel="noopener noreferrer"
-								class="text-svelte-500 hover:underline"
-							>
-								Event Details
-							</a>
-						</div>
-					{/if}
-				</div>
-				
-				<div class="mt-6">
-					{#if event.url}
-						<a href={event.url} target="_blank" rel="noopener noreferrer">
-							<Button primary small>Learn More</Button>
-						</a>
-					{:else if event.source === 'local'}
-						<a href="/event/{event.slug}">
-							<Button primary small>View Details</Button>
-						</a>
-					{/if}
-				</div>
-			</div>
-		`
 	}
 </script>
 
@@ -124,68 +61,7 @@
 		{:else}
 			<div class="grid gap-4">
 				{#each data.upcomingEvents as event}
-					<div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-						<div class="mb-4 flex items-start justify-between">
-							<div>
-								<h2 class="text-xl font-bold text-gray-900">{event.title}</h2>
-								{#if event.source === 'api'}
-									<span class="mt-1 inline-block rounded-full bg-svelte-500 px-2 py-1 text-xs text-white">
-										From Guild.host
-									</span>
-								{/if}
-							</div>
-							<Calendar size={24} class="text-gray-400" />
-						</div>
-						
-						<p class="mb-4 text-gray-700">{event.description}</p>
-						
-						<div class="space-y-2 text-sm">
-							<div class="flex items-center gap-2 text-gray-600">
-								<Calendar size={16} />
-								<span>{formatDate(event.startTime)}</span>
-							</div>
-							
-							{#if event.endTime}
-								<div class="flex items-center gap-2 text-gray-600">
-									<Calendar size={16} />
-									<span>Ends: {formatTime(event.startTime, event.endTime)}</span>
-								</div>
-							{/if}
-							
-							{#if event.location}
-								<div class="flex items-center gap-2 text-gray-600">
-									<MapPin size={16} />
-									<span>{event.location}</span>
-								</div>
-							{/if}
-							
-							{#if event.url}
-								<div class="flex items-center gap-2">
-									<Link size={16} class="text-gray-600" />
-									<a 
-										href={event.url} 
-										target="_blank" 
-										rel="noopener noreferrer"
-										class="text-svelte-500 hover:underline"
-									>
-										Event Details
-									</a>
-								</div>
-							{/if}
-						</div>
-						
-						<div class="mt-6">
-							{#if event.url}
-								<a href={event.url} target="_blank" rel="noopener noreferrer">
-									<Button primary small>Learn More</Button>
-								</a>
-							{:else if event.source === 'local'}
-								<a href="/event/{event.slug}">
-									<Button primary small>View Details</Button>
-								</a>
-							{/if}
-						</div>
-					</div>
+					<ContentCard content={eventToContent(event)} />
 				{/each}
 			</div>
 		{/if}
@@ -209,62 +85,8 @@
 		{:else}
 			<div class="grid gap-4">
 				{#each data.pastEvents as event}
-					<div class="rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-sm">
-						<div class="mb-4 flex items-start justify-between">
-							<div>
-								<h3 class="text-lg font-bold text-gray-800">{event.title}</h3>
-								{#if event.source === 'api'}
-									<span class="mt-1 inline-block rounded-full bg-gray-500 px-2 py-1 text-xs text-white">
-										From Guild.host
-									</span>
-								{/if}
-							</div>
-							<ClockCounterClockwise size={20} class="text-gray-400" />
-						</div>
-						
-						<p class="mb-4 text-gray-600">{event.description}</p>
-						
-						<div class="space-y-2 text-sm">
-							<div class="flex items-center gap-2 text-gray-500">
-								<Calendar size={16} />
-								<span>{formatDate(event.startTime)}</span>
-							</div>
-							
-							{#if event.location}
-								<div class="flex items-center gap-2 text-gray-500">
-									<MapPin size={16} />
-									<span>{event.location}</span>
-								</div>
-							{/if}
-							
-							{#if event.url}
-								<div class="flex items-center gap-2">
-									<Link size={16} class="text-gray-500" />
-									<a 
-										href={event.url} 
-										target="_blank" 
-										rel="noopener noreferrer"
-										class="text-gray-600 hover:underline"
-									>
-										Event Details
-									</a>
-								</div>
-							{/if}
-						</div>
-						
-						{#if event.url || event.source === 'local'}
-							<div class="mt-4">
-								{#if event.url}
-									<a href={event.url} target="_blank" rel="noopener noreferrer">
-										<Button secondary small>View Archive</Button>
-									</a>
-								{:else if event.source === 'local'}
-									<a href="/event/{event.slug}">
-										<Button secondary small>View Details</Button>
-									</a>
-								{/if}
-							</div>
-						{/if}
+					<div class="opacity-75">
+						<ContentCard content={eventToContent(event)} />
 					</div>
 				{/each}
 			</div>

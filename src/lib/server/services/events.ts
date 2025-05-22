@@ -5,22 +5,42 @@ import { ContentService } from './content'
 interface GuildEvent {
 	id: string
 	slug: string
-	title: string
+	name: string
 	description: string
-	startTime: string
-	endTime?: string
-	location?: string
-	url?: string
-	guildSlug?: string
+	startAt: string
+	endAt?: string
+	venue?: {
+		address?: {
+			location?: {
+				geojson?: {
+					coordinates?: number[]
+				}
+			}
+		}
+	}
+	fullUrl?: string
+	shortUrl?: string
+	prettyUrl?: string
+	owner?: {
+		name: string
+		__typename?: string
+	}
+}
+
+interface EventEdge {
+	node: GuildEvent
+	cursor: string
 }
 
 interface EventsResponse {
-	events: GuildEvent[]
-	pageInfo?: {
-		hasNextPage: boolean
-		hasPreviousPage: boolean
-		endCursor?: string
-		startCursor?: string
+	events: {
+		edges: EventEdge[]
+		pageInfo?: {
+			hasNextPage: boolean
+			hasPreviousPage: boolean
+			endCursor?: string
+			startCursor?: string
+		}
 	}
 }
 
@@ -195,7 +215,7 @@ export class EventsService {
 			}
 
 			const data: EventsResponse = await response.json()
-			return data.events || []
+			return data.events?.edges?.map(edge => edge.node) || []
 		} catch (error) {
 			console.error('Error fetching events from API:', error)
 			return []
@@ -214,7 +234,7 @@ export class EventsService {
 			}
 
 			const data: EventsResponse = await response.json()
-			return data.events || []
+			return data.events?.edges?.map(edge => edge.node) || []
 		} catch (error) {
 			console.error('Error fetching events from API:', error)
 			return []
@@ -253,16 +273,22 @@ export class EventsService {
 				const existing = this.contentService.getContentBySlug(event.slug, 'event')
 				
 				if (!existing) {
+					// Extract location from venue if available
+					let location = undefined
+					if (event.venue?.address?.location?.geojson?.coordinates) {
+						location = 'See event details'
+					}
+					
 					this.createEvent({
-						title: event.title,
+						title: event.name,
 						slug: event.slug,
 						description: event.description,
 						body: event.description, // Use description as body for now
 						tags: [], // No tags from API
-						startTime: event.startTime,
-						endTime: event.endTime,
-						location: event.location,
-						url: event.url,
+						startTime: event.startAt,
+						endTime: event.endAt,
+						location: location,
+						url: event.fullUrl || event.shortUrl,
 						status: 'published'
 					})
 					imported++

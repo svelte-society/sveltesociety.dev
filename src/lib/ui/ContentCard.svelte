@@ -9,8 +9,11 @@
 	import Recipe from '$lib/ui/content/Recipe.svelte'
 	import Collection from '$lib/ui/content/Collection.svelte'
 	import Video from '$lib/ui/content/Video.svelte'
+	import Calendar from 'phosphor-svelte/lib/Calendar'
+	import MapPin from 'phosphor-svelte/lib/MapPin'
+	import Link from 'phosphor-svelte/lib/Link'
 
-	let { content }: { content: Content } = $props()
+	let { content, compact = false }: { content: Content; compact?: boolean } = $props()
 
 	let submitting = $state(false)
 
@@ -36,7 +39,7 @@
 	}
 </script>
 
-<article class="grid gap-2 rounded-lg bg-zinc-50 px-4 py-4 sm:px-6 sm:py-5">
+<article class="grid gap-2 rounded-lg bg-zinc-50 {compact ? 'px-3 py-3 sm:px-4 sm:py-3' : 'px-4 py-4 sm:px-6 sm:py-5'}">
 	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between gap-2 text-xs sm:gap-0">
 		<div class="flex flex-wrap items-center">
 			<span class="font-semibold capitalize">{content.type}&nbsp;</span>
@@ -120,10 +123,10 @@
 		</form>
 	</div>
 
-	<h2 class="mb-2 text-lg font-bold sm:text-xl">
+	<h2 class="{compact ? 'mb-1 text-base font-bold sm:text-lg' : 'mb-2 text-lg font-bold sm:text-xl'}">
 		<a href="/{content.type}/{content.slug}">{content.title}</a>
 	</h2>
-	<div class="text-sm sm:text-base">{content.description}</div>
+	<div class="{compact ? 'text-sm line-clamp-2' : 'text-sm sm:text-base'}">{content.description}</div>
 
 	<div>
 		{#if content.type === 'recipe'}
@@ -132,6 +135,42 @@
 			<Collection children={content.children} />
 		{:else if content.type === 'video'}
 			<Video />
+		{:else if content.type === 'event'}
+			<div class="space-y-2 text-sm">
+				{#if content.metadata?.startTime}
+					<div class="flex items-center gap-2 text-gray-600">
+						<Calendar size={16} />
+						<span>{new Date(content.metadata.startTime).toLocaleDateString('en-US', {
+							weekday: 'short',
+							month: 'short',
+							day: 'numeric',
+							hour: '2-digit',
+							minute: '2-digit'
+						})}</span>
+					</div>
+				{/if}
+				
+				{#if content.metadata?.location}
+					<div class="flex items-center gap-2 text-gray-600">
+						<MapPin size={16} />
+						<span>{content.metadata.location}</span>
+					</div>
+				{/if}
+				
+				{#if content.metadata?.url}
+					<div class="flex items-center gap-2">
+						<Link size={16} class="text-gray-600" />
+						<a 
+							href={content.metadata.url} 
+							target="_blank" 
+							rel="noopener noreferrer"
+							class="text-svelte-500 hover:underline"
+						>
+							Event Details
+						</a>
+					</div>
+				{/if}
+			</div>
 		{/if}
 	</div>
 
