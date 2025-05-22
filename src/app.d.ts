@@ -10,6 +10,7 @@ import type { ModerationService } from '$lib/server/services/moderation'
 import type { UserService } from '$lib/server/services/user'
 import type { CollectionService } from '$lib/server/services/collections'
 import type { MetadataService } from '$lib/server/services/metadata'
+import type { EventsService } from '$lib/server/services/events'
 
 declare global {
 	namespace App {
@@ -27,6 +28,7 @@ declare global {
 			userService: UserService
 			collectionService: CollectionService
 			metadataService: MetadataService
+			eventsService: EventsService
 		}
 		// interface PageData {}
 		// interface PageState {}
