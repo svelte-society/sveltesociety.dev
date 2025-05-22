@@ -230,7 +230,7 @@ export class EventsService {
 	}
 
 	// Fetch upcoming events from the remote API
-	async fetchUpcomingEventsFromAPI(guildSlug: string = this.GUILD_SLUG): Promise<GuildEvent[]> {
+	async fetchUpcomingEventsFromAPI(guildSlug: string = this.GUILD_SLUG, autoStore: boolean = true): Promise<GuildEvent[]> {
 		try {
 			const url = `${this.apiBaseUrl}/${guildSlug}/events/upcoming`
 
@@ -241,7 +241,42 @@ export class EventsService {
 			}
 
 			const data: EventsResponse = await response.json()
-			return data.events?.edges?.map(edge => edge.node) || []
+			const events = data.events?.edges?.map(edge => edge.node) || []
+			
+			// Automatically store events in database if autoStore is true
+			if (autoStore && events.length > 0) {
+				for (const event of events) {
+					try {
+						// Check if event already exists
+						const existing = this.contentService.getContentBySlug(event.slug, 'event')
+						
+						if (!existing) {
+							// Extract location from venue if available
+							let location = undefined
+							if (event.venue?.address?.location?.geojson?.coordinates) {
+								location = 'See event details'
+							}
+							
+							this.createEvent({
+								title: event.name,
+								slug: event.slug,
+								description: event.description,
+								body: event.description, // Use description as body for now
+								tags: [], // No tags from API
+								startTime: event.startAt,
+								endTime: event.endAt,
+								location: location,
+								url: event.fullUrl || event.shortUrl,
+								status: 'published'
+							})
+						}
+					} catch (error) {
+						console.error(`Error storing event ${event.slug}:`, error)
+					}
+				}
+			}
+			
+			return events
 		} catch (error) {
 			console.error('Error fetching events from API:', error)
 			return []
@@ -249,7 +284,7 @@ export class EventsService {
 	}
 
 	// Fetch past events from the remote API
-	async fetchPastEventsFromAPI(guildSlug: string = this.GUILD_SLUG): Promise<GuildEvent[]> {
+	async fetchPastEventsFromAPI(guildSlug: string = this.GUILD_SLUG, autoStore: boolean = true): Promise<GuildEvent[]> {
 		try {
 			const url = `${this.apiBaseUrl}/${guildSlug}/events/past`
 
@@ -260,7 +295,42 @@ export class EventsService {
 			}
 
 			const data: EventsResponse = await response.json()
-			return data.events?.edges?.map(edge => edge.node) || []
+			const events = data.events?.edges?.map(edge => edge.node) || []
+			
+			// Automatically store events in database if autoStore is true
+			if (autoStore && events.length > 0) {
+				for (const event of events) {
+					try {
+						// Check if event already exists
+						const existing = this.contentService.getContentBySlug(event.slug, 'event')
+						
+						if (!existing) {
+							// Extract location from venue if available
+							let location = undefined
+							if (event.venue?.address?.location?.geojson?.coordinates) {
+								location = 'See event details'
+							}
+							
+							this.createEvent({
+								title: event.name,
+								slug: event.slug,
+								description: event.description,
+								body: event.description, // Use description as body for now
+								tags: [], // No tags from API
+								startTime: event.startAt,
+								endTime: event.endAt,
+								location: location,
+								url: event.fullUrl || event.shortUrl,
+								status: 'published'
+							})
+						}
+					} catch (error) {
+						console.error(`Error storing event ${event.slug}:`, error)
+					}
+				}
+			}
+			
+			return events
 		} catch (error) {
 			console.error('Error fetching events from API:', error)
 			return []
