@@ -1,9 +1,20 @@
 <script lang="ts">
 	import { page } from '$app/state'
 
-	const links = [
+	type Props = {
+		user?: {
+			id: string
+			username: string
+			name: string
+			avatar_url: string
+		} | null
+	}
+
+	let { user }: Props = $props()
+
+	const links = $derived([
 		{ name: 'Home', href: '/' },
-		{ name: 'Saved', href: '/saved' },
+		...(user ? [{ name: 'Saved', href: '/saved' }] : []),
 		{ name: 'CURATED', href: null },
 		{ name: 'Announcements', href: '/announcement' },
 		{ name: 'Collections', href: '/collection' },
@@ -13,7 +24,7 @@
 		{ name: 'LEARNING', href: null },
 		{ name: 'Videos', href: '/video' },
 		{ name: 'Recipes', href: '/recipe' }
-	]
+	])
 
 	function preserveSearchParams(href: string) {
 		const searchParams = page.url.searchParams.toString()

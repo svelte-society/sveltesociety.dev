@@ -25,7 +25,7 @@
 	<main
 		class="relative mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-2 px-4 py-8 sm:grid-cols-[1.5fr_5fr_2.5fr] md:gap-4 lg:gap-6"
 	>
-		<LeftSidebar />
+		<LeftSidebar user={data.user} />
 
 		<div>
 			{@render children()}
