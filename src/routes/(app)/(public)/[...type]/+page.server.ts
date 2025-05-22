@@ -33,6 +33,10 @@ const categories = [
 	{
 		label: 'Collection',
 		value: 'collection'
+	},
+	{
+		label: 'Event',
+		value: 'event'
 	}
 ]
 

@@ -753,7 +753,9 @@ export function seedContent(db: Database.Database) {
 		const contentId = info.id
 
 		for (const tagId of item.tags) {
-			insertContentTagStmt.run(contentId, tagId)
+			if (tagId) {
+				insertContentTagStmt.run(contentId, tagId)
+			}
 		}
 
 		return contentId

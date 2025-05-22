@@ -7,7 +7,8 @@ export const typeSchema = z.enum([
 	'library',
 	'announcement',
 	'showcase',
-	'collection'
+	'collection',
+	'event'
 ])
 
 const baseContentSchema = z.object({

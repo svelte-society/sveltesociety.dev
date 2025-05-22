@@ -20,7 +20,6 @@ export function seedTags(db: Database) {
 		{ name: 'Testing', slug: 'testing' },
 		{ name: 'Tutorial', slug: 'tutorial' },
 		{ name: 'DataViz', slug: 'dataviz' },
-		{ name: 'Svelte 5', slug: 'svelte-5' },
 	]
 
 	type Tag = { name: string; slug: string }
