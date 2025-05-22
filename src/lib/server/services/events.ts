@@ -27,6 +27,7 @@ interface EventsResponse {
 export class EventsService {
 	private contentService: ContentService
 	private apiBaseUrl = 'https://guild.host/api/next'
+	private readonly GUILD_SLUG = 'svelte-society'
 
 	constructor(private db: Database) {
 		this.contentService = new ContentService(db)
@@ -168,11 +169,9 @@ export class EventsService {
 	}
 
 	// Fetch upcoming events from the remote API
-	async fetchUpcomingEventsFromAPI(guildSlug?: string): Promise<GuildEvent[]> {
+	async fetchUpcomingEventsFromAPI(guildSlug: string = this.GUILD_SLUG): Promise<GuildEvent[]> {
 		try {
-			const url = guildSlug 
-				? `${this.apiBaseUrl}/${guildSlug}/events/upcoming`
-				: `${this.apiBaseUrl}/events/upcoming`
+			const url = `${this.apiBaseUrl}/${guildSlug}/events/upcoming`
 
 			const response = await fetch(url)
 			
@@ -189,11 +188,9 @@ export class EventsService {
 	}
 
 	// Fetch past events from the remote API
-	async fetchPastEventsFromAPI(guildSlug?: string): Promise<GuildEvent[]> {
+	async fetchPastEventsFromAPI(guildSlug: string = this.GUILD_SLUG): Promise<GuildEvent[]> {
 		try {
-			const url = guildSlug 
-				? `${this.apiBaseUrl}/${guildSlug}/events/past`
-				: `${this.apiBaseUrl}/events/past`
+			const url = `${this.apiBaseUrl}/${guildSlug}/events/past`
 
 			const response = await fetch(url)
 			
@@ -231,7 +228,7 @@ export class EventsService {
 	}
 
 	// Import events from the remote API into the database
-	async importEventsFromAPI(guildSlug?: string): Promise<number> {
+	async importEventsFromAPI(guildSlug: string = this.GUILD_SLUG): Promise<number> {
 		const events = await this.fetchUpcomingEventsFromAPI(guildSlug)
 		let imported = 0
 

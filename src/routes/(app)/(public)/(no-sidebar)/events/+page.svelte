@@ -1,60 +1,122 @@
 <script lang="ts">
 	import Button from '$lib/ui/Button.svelte'
-
-	// Mock data for events and meetups
-	const meetups = [
-		{ id: 1, name: 'Svelte NYC', location: 'New York City', members: 500 },
-		{ id: 2, name: 'Svelte London', location: 'London', members: 450 },
-		{ id: 3, name: 'Svelte Berlin', location: 'Berlin', members: 300 }
-	]
-
-	const events = [
-		{ id: 1, title: 'Introduction to Svelte 5', date: '2024-09-15', meetupId: 1 },
-		{ id: 2, title: 'Advanced State Management in Svelte', date: '2024-09-20', meetupId: 2 },
-		{ id: 3, title: 'Building Accessible Svelte Apps', date: '2024-09-25', meetupId: 3 },
-		{ id: 4, title: 'Svelte and TypeScript Workshop', date: '2024-10-01', meetupId: 1 }
-	]
+	import Calendar from 'phosphor-svelte/lib/Calendar'
+	import MapPin from 'phosphor-svelte/lib/MapPin'
+	import Link from 'phosphor-svelte/lib/Link'
+	
+	let { data } = $props()
+	
+	function formatDate(dateString: string) {
+		const date = new Date(dateString)
+		const options: Intl.DateTimeFormatOptions = {
+			weekday: 'long',
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+			hour: '2-digit',
+			minute: '2-digit'
+		}
+		return date.toLocaleDateString('en-US', options)
+	}
+	
+	function formatTime(startTime: string, endTime?: string) {
+		const start = new Date(startTime)
+		const timeOptions: Intl.DateTimeFormatOptions = {
+			hour: '2-digit',
+			minute: '2-digit'
+		}
+		
+		let timeStr = start.toLocaleTimeString('en-US', timeOptions)
+		
+		if (endTime) {
+			const end = new Date(endTime)
+			timeStr += ' - ' + end.toLocaleTimeString('en-US', timeOptions)
+		}
+		
+		return timeStr
+	}
 </script>
 
 <div class="grid gap-6">
-	<h1 class="text-2xl font-bold">Svelte Events and Meetups</h1>
-
-	<p>
-		Join Svelte enthusiasts around the world for exciting events and meetups. Learn, share, and
-		connect with the Svelte community!
-	</p>
-
 	<div>
-		<h2 class="mb-4 text-xl font-semibold">Upcoming Events</h2>
-		<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-			{#each events as event}
-				<div class="rounded-lg bg-zinc-50 p-5">
-					<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between text-xs">
-						<span class="font-semibold capitalize">Event</span>
-						<span class="text-gray-500">{event.date}</span>
+		<h1 class="text-3xl font-bold">Upcoming Events</h1>
+		<p class="mt-2 text-gray-600">
+			Join the Svelte Society community at our upcoming events, workshops, and meetups.
+		</p>
+	</div>
+
+	{#if data.events.length === 0}
+		<div class="rounded-lg bg-zinc-50 p-8 text-center">
+			<Calendar size={48} class="mx-auto mb-4 text-gray-400" />
+			<p class="text-lg text-gray-600">No upcoming events at the moment.</p>
+			<p class="mt-2 text-sm text-gray-500">Check back soon for new events!</p>
+		</div>
+	{:else}
+		<div class="grid gap-4">
+			{#each data.events as event}
+				<div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+					<div class="mb-4 flex items-start justify-between">
+						<div>
+							<h2 class="text-xl font-bold text-gray-900">{event.title}</h2>
+							{#if event.source === 'api'}
+								<span class="mt-1 inline-block rounded-full bg-svelte-500 px-2 py-1 text-xs text-white">
+									From Guild.host
+								</span>
+							{/if}
+						</div>
+						<Calendar size={24} class="text-gray-400" />
 					</div>
-					<h3 class="mb-2 text-xl font-bold">{event.title}</h3>
-					<p class="mb-4">Hosted by: {meetups.find((m) => m.id === event.meetupId)?.name}</p>
-					<Button primary small>Register</Button>
+					
+					<p class="mb-4 text-gray-700">{event.description}</p>
+					
+					<div class="space-y-2 text-sm">
+						<div class="flex items-center gap-2 text-gray-600">
+							<Calendar size={16} />
+							<span>{formatDate(event.startTime)}</span>
+						</div>
+						
+						{#if event.endTime}
+							<div class="flex items-center gap-2 text-gray-600">
+								<Calendar size={16} />
+								<span>Ends: {formatTime(event.startTime, event.endTime)}</span>
+							</div>
+						{/if}
+						
+						{#if event.location}
+							<div class="flex items-center gap-2 text-gray-600">
+								<MapPin size={16} />
+								<span>{event.location}</span>
+							</div>
+						{/if}
+						
+						{#if event.url}
+							<div class="flex items-center gap-2">
+								<Link size={16} class="text-gray-600" />
+								<a 
+									href={event.url} 
+									target="_blank" 
+									rel="noopener noreferrer"
+									class="text-svelte-500 hover:underline"
+								>
+									Event Details
+								</a>
+							</div>
+						{/if}
+					</div>
+					
+					<div class="mt-6">
+						{#if event.url}
+							<a href={event.url} target="_blank" rel="noopener noreferrer">
+								<Button primary small>Learn More</Button>
+							</a>
+						{:else if event.source === 'local'}
+							<a href="/event/{event.slug}">
+								<Button primary small>View Details</Button>
+							</a>
+						{/if}
+					</div>
 				</div>
 			{/each}
 		</div>
-	</div>
-
-	<div>
-		<h2 class="mb-4 text-xl font-semibold">Svelte Meetups</h2>
-		<div class="grid gap-6">
-			{#each meetups as meetup}
-				<div class="rounded-lg bg-zinc-50 p-5">
-					<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between text-xs">
-						<span class="font-semibold capitalize">Meetup</span>
-						<span class="text-gray-500">{meetup.location}</span>
-					</div>
-					<h3 class="mb-2 text-xl font-bold">{meetup.name}</h3>
-					<p class="mb-4">Members: {meetup.members}</p>
-					<Button secondary small>Join Group</Button>
-				</div>
-			{/each}
-		</div>
-	</div>
+	{/if}
 </div>
