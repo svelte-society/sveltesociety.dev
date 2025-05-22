@@ -67,21 +67,36 @@ export class EventsService {
 	}
 
 	// Get past events from the database
-	getPastEvents(limit?: number): Content[] {
-		const now = new Date().toISOString()
+	getPastEvents(limit?: number, withinDays?: number): Content[] {
+		const now = new Date()
+		const nowStr = now.toISOString()
 		
-		const query = this.db.prepare(`
+		let query = `
 			SELECT DISTINCT c.id
 			FROM content c
 			WHERE c.type = 'event' 
 			AND c.status = 'published'
 			AND json_extract(c.metadata, '$.startTime') <= ?
-			ORDER BY json_extract(c.metadata, '$.startTime') DESC
-			${limit ? 'LIMIT ?' : ''}
-		`)
-
-		const params = limit ? [now, limit] : [now]
-		const ids = query.all(...params) as { id: string }[]
+		`
+		
+		const params: any[] = [nowStr]
+		
+		// If withinDays is specified, only get events from within that time range
+		if (withinDays) {
+			const cutoffDate = new Date(now.getTime() - withinDays * 24 * 60 * 60 * 1000)
+			query += ` AND json_extract(c.metadata, '$.startTime') >= ?`
+			params.push(cutoffDate.toISOString())
+		}
+		
+		query += ` ORDER BY json_extract(c.metadata, '$.startTime') DESC`
+		
+		if (limit) {
+			query += ` LIMIT ?`
+			params.push(limit)
+		}
+		
+		const preparedQuery = this.db.prepare(query)
+		const ids = preparedQuery.all(...params) as { id: string }[]
 
 		return ids
 			.map(({ id }) => this.contentService.getContentById(id))

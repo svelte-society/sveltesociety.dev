@@ -3,6 +3,7 @@
 	import Calendar from 'phosphor-svelte/lib/Calendar'
 	import MapPin from 'phosphor-svelte/lib/MapPin'
 	import Link from 'phosphor-svelte/lib/Link'
+	import ClockCounterClockwise from 'phosphor-svelte/lib/ClockCounterClockwise'
 	
 	let { data } = $props()
 	
@@ -35,88 +36,238 @@
 		
 		return timeStr
 	}
-</script>
-
-<div class="grid gap-6">
-	<div>
-		<h1 class="text-3xl font-bold">Upcoming Events</h1>
-		<p class="mt-2 text-gray-600">
-			Join the Svelte Society community at our upcoming events, workshops, and meetups.
-		</p>
-	</div>
-
-	{#if data.events.length === 0}
-		<div class="rounded-lg bg-zinc-50 p-8 text-center">
-			<Calendar size={48} class="mx-auto mb-4 text-gray-400" />
-			<p class="text-lg text-gray-600">No upcoming events at the moment.</p>
-			<p class="mt-2 text-sm text-gray-500">Check back soon for new events!</p>
-		</div>
-	{:else}
-		<div class="grid gap-4">
-			{#each data.events as event}
-				<div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-					<div class="mb-4 flex items-start justify-between">
-						<div>
-							<h2 class="text-xl font-bold text-gray-900">{event.title}</h2>
-							{#if event.source === 'api'}
-								<span class="mt-1 inline-block rounded-full bg-svelte-500 px-2 py-1 text-xs text-white">
-									From Guild.host
-								</span>
-							{/if}
-						</div>
-						<Calendar size={24} class="text-gray-400" />
+	
+	function renderEvent(event: any) {
+		return `
+			<div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+				<div class="mb-4 flex items-start justify-between">
+					<div>
+						<h2 class="text-xl font-bold text-gray-900">{event.title}</h2>
+						{#if event.source === 'api'}
+							<span class="mt-1 inline-block rounded-full bg-svelte-500 px-2 py-1 text-xs text-white">
+								From Guild.host
+							</span>
+						{/if}
+					</div>
+					<Calendar size={24} class="text-gray-400" />
+				</div>
+				
+				<p class="mb-4 text-gray-700">{event.description}</p>
+				
+				<div class="space-y-2 text-sm">
+					<div class="flex items-center gap-2 text-gray-600">
+						<Calendar size={16} />
+						<span>{formatDate(event.startTime)}</span>
 					</div>
 					
-					<p class="mb-4 text-gray-700">{event.description}</p>
-					
-					<div class="space-y-2 text-sm">
+					{#if event.endTime}
 						<div class="flex items-center gap-2 text-gray-600">
 							<Calendar size={16} />
-							<span>{formatDate(event.startTime)}</span>
+							<span>Ends: {formatTime(event.startTime, event.endTime)}</span>
+						</div>
+					{/if}
+					
+					{#if event.location}
+						<div class="flex items-center gap-2 text-gray-600">
+							<MapPin size={16} />
+							<span>{event.location}</span>
+						</div>
+					{/if}
+					
+					{#if event.url}
+						<div class="flex items-center gap-2">
+							<Link size={16} class="text-gray-600" />
+							<a 
+								href={event.url} 
+								target="_blank" 
+								rel="noopener noreferrer"
+								class="text-svelte-500 hover:underline"
+							>
+								Event Details
+							</a>
+						</div>
+					{/if}
+				</div>
+				
+				<div class="mt-6">
+					{#if event.url}
+						<a href={event.url} target="_blank" rel="noopener noreferrer">
+							<Button primary small>Learn More</Button>
+						</a>
+					{:else if event.source === 'local'}
+						<a href="/event/{event.slug}">
+							<Button primary small>View Details</Button>
+						</a>
+					{/if}
+				</div>
+			</div>
+		`
+	}
+</script>
+
+<div class="grid gap-8">
+	<!-- Upcoming Events Section -->
+	<section>
+		<div class="mb-6">
+			<h1 class="text-3xl font-bold">Upcoming Events</h1>
+			<p class="mt-2 text-gray-600">
+				Join the Svelte Society community at our upcoming events, workshops, and meetups.
+			</p>
+		</div>
+
+		{#if data.upcomingEvents.length === 0}
+			<div class="rounded-lg bg-zinc-50 p-8 text-center">
+				<Calendar size={48} class="mx-auto mb-4 text-gray-400" />
+				<p class="text-lg text-gray-600">No upcoming events at the moment.</p>
+				<p class="mt-2 text-sm text-gray-500">Check back soon for new events!</p>
+			</div>
+		{:else}
+			<div class="grid gap-4">
+				{#each data.upcomingEvents as event}
+					<div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+						<div class="mb-4 flex items-start justify-between">
+							<div>
+								<h2 class="text-xl font-bold text-gray-900">{event.title}</h2>
+								{#if event.source === 'api'}
+									<span class="mt-1 inline-block rounded-full bg-svelte-500 px-2 py-1 text-xs text-white">
+										From Guild.host
+									</span>
+								{/if}
+							</div>
+							<Calendar size={24} class="text-gray-400" />
 						</div>
 						
-						{#if event.endTime}
+						<p class="mb-4 text-gray-700">{event.description}</p>
+						
+						<div class="space-y-2 text-sm">
 							<div class="flex items-center gap-2 text-gray-600">
 								<Calendar size={16} />
-								<span>Ends: {formatTime(event.startTime, event.endTime)}</span>
+								<span>{formatDate(event.startTime)}</span>
 							</div>
-						{/if}
+							
+							{#if event.endTime}
+								<div class="flex items-center gap-2 text-gray-600">
+									<Calendar size={16} />
+									<span>Ends: {formatTime(event.startTime, event.endTime)}</span>
+								</div>
+							{/if}
+							
+							{#if event.location}
+								<div class="flex items-center gap-2 text-gray-600">
+									<MapPin size={16} />
+									<span>{event.location}</span>
+								</div>
+							{/if}
+							
+							{#if event.url}
+								<div class="flex items-center gap-2">
+									<Link size={16} class="text-gray-600" />
+									<a 
+										href={event.url} 
+										target="_blank" 
+										rel="noopener noreferrer"
+										class="text-svelte-500 hover:underline"
+									>
+										Event Details
+									</a>
+								</div>
+							{/if}
+						</div>
 						
-						{#if event.location}
-							<div class="flex items-center gap-2 text-gray-600">
-								<MapPin size={16} />
-								<span>{event.location}</span>
-							</div>
-						{/if}
-						
-						{#if event.url}
-							<div class="flex items-center gap-2">
-								<Link size={16} class="text-gray-600" />
-								<a 
-									href={event.url} 
-									target="_blank" 
-									rel="noopener noreferrer"
-									class="text-svelte-500 hover:underline"
-								>
-									Event Details
+						<div class="mt-6">
+							{#if event.url}
+								<a href={event.url} target="_blank" rel="noopener noreferrer">
+									<Button primary small>Learn More</Button>
 								</a>
+							{:else if event.source === 'local'}
+								<a href="/event/{event.slug}">
+									<Button primary small>View Details</Button>
+								</a>
+							{/if}
+						</div>
+					</div>
+				{/each}
+			</div>
+		{/if}
+	</section>
+
+	<!-- Past Events Section -->
+	<section>
+		<div class="mb-6 flex items-center gap-2">
+			<ClockCounterClockwise size={32} class="text-gray-600" />
+			<div>
+				<h2 class="text-2xl font-bold">Past Events</h2>
+				<p class="text-gray-600">Events from the past year</p>
+			</div>
+		</div>
+
+		{#if data.pastEvents.length === 0}
+			<div class="rounded-lg bg-zinc-50 p-8 text-center">
+				<ClockCounterClockwise size={48} class="mx-auto mb-4 text-gray-400" />
+				<p class="text-lg text-gray-600">No past events to show.</p>
+			</div>
+		{:else}
+			<div class="grid gap-4">
+				{#each data.pastEvents as event}
+					<div class="rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-sm">
+						<div class="mb-4 flex items-start justify-between">
+							<div>
+								<h3 class="text-lg font-bold text-gray-800">{event.title}</h3>
+								{#if event.source === 'api'}
+									<span class="mt-1 inline-block rounded-full bg-gray-500 px-2 py-1 text-xs text-white">
+										From Guild.host
+									</span>
+								{/if}
+							</div>
+							<ClockCounterClockwise size={20} class="text-gray-400" />
+						</div>
+						
+						<p class="mb-4 text-gray-600">{event.description}</p>
+						
+						<div class="space-y-2 text-sm">
+							<div class="flex items-center gap-2 text-gray-500">
+								<Calendar size={16} />
+								<span>{formatDate(event.startTime)}</span>
+							</div>
+							
+							{#if event.location}
+								<div class="flex items-center gap-2 text-gray-500">
+									<MapPin size={16} />
+									<span>{event.location}</span>
+								</div>
+							{/if}
+							
+							{#if event.url}
+								<div class="flex items-center gap-2">
+									<Link size={16} class="text-gray-500" />
+									<a 
+										href={event.url} 
+										target="_blank" 
+										rel="noopener noreferrer"
+										class="text-gray-600 hover:underline"
+									>
+										Event Details
+									</a>
+								</div>
+							{/if}
+						</div>
+						
+						{#if event.url || event.source === 'local'}
+							<div class="mt-4">
+								{#if event.url}
+									<a href={event.url} target="_blank" rel="noopener noreferrer">
+										<Button secondary small>View Archive</Button>
+									</a>
+								{:else if event.source === 'local'}
+									<a href="/event/{event.slug}">
+										<Button secondary small>View Details</Button>
+									</a>
+								{/if}
 							</div>
 						{/if}
 					</div>
-					
-					<div class="mt-6">
-						{#if event.url}
-							<a href={event.url} target="_blank" rel="noopener noreferrer">
-								<Button primary small>Learn More</Button>
-							</a>
-						{:else if event.source === 'local'}
-							<a href="/event/{event.slug}">
-								<Button primary small>View Details</Button>
-							</a>
-						{/if}
-					</div>
-				</div>
-			{/each}
-		</div>
-	{/if}
+				{/each}
+			</div>
+		{/if}
+	</section>
 </div>
