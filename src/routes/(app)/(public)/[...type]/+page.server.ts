@@ -27,10 +27,6 @@ const categories = [
 		value: 'announcement'
 	},
 	{
-		label: 'Showcase',
-		value: 'showcase'
-	},
-	{
 		label: 'Collection',
 		value: 'collection'
 	},

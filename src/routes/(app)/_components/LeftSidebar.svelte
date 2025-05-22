@@ -8,12 +8,11 @@
 		{ name: 'Announcements', href: '/announcement' },
 		{ name: 'Collections', href: '/collection' },
 		{ name: 'CODE / RESOURCES', href: null },
-		{ name: 'Templates', href: '/template' },
+		{ name: 'Events', href: '/event' },
 		{ name: 'Libraries', href: '/library' },
 		{ name: 'LEARNING', href: null },
 		{ name: 'Videos', href: '/video' },
-		{ name: 'Recipes', href: '/recipe' },
-		{ name: 'Showcase', href: '/showcase' }
+		{ name: 'Recipes', href: '/recipe' }
 	]
 
 	function preserveSearchParams(href: string) {

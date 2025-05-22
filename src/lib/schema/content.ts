@@ -6,7 +6,6 @@ export const typeSchema = z.enum([
 	'video',
 	'library',
 	'announcement',
-	'showcase',
 	'collection',
 	'event'
 ])

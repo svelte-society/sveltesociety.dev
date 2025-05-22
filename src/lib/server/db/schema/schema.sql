@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS roles (
 CREATE TABLE IF NOT EXISTS content (
     id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
     title TEXT NOT NULL UNIQUE,
-    type TEXT NOT NULL CHECK(type IN ('recipe', 'video', 'library', 'announcement', 'showcase', 'link', 'blog', 'collection', 'event')),
+    type TEXT NOT NULL CHECK(type IN ('recipe', 'video', 'library', 'announcement', 'link', 'blog', 'collection', 'event')),
     status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft', 'published', 'archived', 'pending_review')),
     body TEXT,
     rendered_body TEXT,
