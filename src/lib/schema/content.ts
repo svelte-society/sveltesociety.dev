@@ -68,6 +68,7 @@ export const libraryMetadataSchema = z
 		createdAt: z.string().optional(),
 		updatedAt: z.string().optional(),
 		pushedAt: z.string().optional(),
+		ogImage: z.string().optional(),
 		externalSource: z.object({
 			type: z.string(),
 			source: z.string(),

@@ -232,6 +232,11 @@ export class GitHubImporter {
 		// Extract package name from package.json if possible (would need additional API call)
 		// For now, use repository name
 		const npmPackage = this.guessNpmPackage(repo)
+		
+		// Generate a hash based on the last update time for cache busting
+		// This ensures we get a fresh OG image when the repo is updated
+		const ogImageHash = this.generateOGImageHash(repo.updated_at)
+		const ogImageUrl = `https://opengraph.githubassets.com/${ogImageHash}/${repo.owner.login}/${repo.name}`
 
 		return {
 			title: repo.name,
@@ -258,7 +263,8 @@ export class GitHubImporter {
 				defaultBranch: repo.default_branch,
 				createdAt: repo.created_at,
 				updatedAt: repo.updated_at,
-				pushedAt: repo.pushed_at
+				pushedAt: repo.pushed_at,
+				ogImage: ogImageUrl
 			},
 			tags: repo.topics || [],
 			source: {
@@ -271,6 +277,18 @@ export class GitHubImporter {
 			},
 			publishedAt: repo.created_at
 		}
+	}
+
+	/**
+	 * Generate a hash for the OG image URL based on the update time
+	 * This ensures cache busting when the repository is updated
+	 */
+	private generateOGImageHash(updatedAt: string): string {
+		// Convert the updated timestamp to a hash-like string
+		// Using a simple approach: convert timestamp to base36 and pad
+		const timestamp = new Date(updatedAt).getTime()
+		const hash = timestamp.toString(36).padStart(12, '0')
+		return hash
 	}
 
 	/**

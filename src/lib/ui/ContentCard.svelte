@@ -9,6 +9,7 @@
 	import Recipe from '$lib/ui/content/Recipe.svelte'
 	import Collection from '$lib/ui/content/Collection.svelte'
 	import Video from '$lib/ui/content/Video.svelte'
+	import Library from '$lib/ui/content/Library.svelte'
 	import Calendar from 'phosphor-svelte/lib/Calendar'
 	import MapPin from 'phosphor-svelte/lib/MapPin'
 	import Link from 'phosphor-svelte/lib/Link'
@@ -139,7 +140,7 @@
 			<a href="/{content.type}/{content.slug}">{content.title}</a>
 		{/if}
 	</h2>
-	{#if content.type !== 'event' && content.type !== 'video'}
+	{#if content.type !== 'event' && content.type !== 'video' && content.type !== 'library'}
 		<div class={compact ? 'line-clamp-2 text-sm' : 'text-sm sm:text-base'}>{content.description}</div>
 	{/if}
 
@@ -150,6 +151,8 @@
 			<Collection children={content.children} />
 		{:else if content.type === 'video'}
 			<Video {content} />
+		{:else if content.type === 'library'}
+			<Library {content} />
 		{:else if content.type === 'event'}
 			<div class="flex gap-4">
 				{#if content.metadata?.socialCardUrl}
