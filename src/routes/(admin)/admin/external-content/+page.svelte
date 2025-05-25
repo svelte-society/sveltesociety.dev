@@ -16,14 +16,27 @@
 	const youtubeSchema = z.object({
 		videoId: z.string().min(1, 'Video ID or URL is required')
 	})
+	
+	// Schema for GitHub repository import
+	const githubSchema = z.object({
+		repository: z.string().min(1, 'Repository is required').regex(/^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/, 'Must be in format: owner/repo')
+	})
 
 	// Initialize superForm for YouTube import
-	const form = superForm(data.youtubeForm || { videoId: '' }, {
+	const youtubeFormInstance = superForm(data.youtubeForm || { videoId: '' }, {
 		validators: zodClient(youtubeSchema),
 		resetForm: true
 	})
 
-	const { form: youtubeForm, submitting } = form
+	const { form: youtubeForm, submitting: submittingYouTube } = youtubeFormInstance
+	
+	// Initialize superForm for GitHub import
+	const githubFormInstance = superForm(data.githubForm || { repository: '' }, {
+		validators: zodClient(githubSchema),
+		resetForm: true
+	})
+	
+	const { form: githubForm, submitting: submittingGitHub } = githubFormInstance
 </script>
 
 <div class="space-y-8">
@@ -74,15 +87,15 @@
 	<section>
 		<h2 class="mb-4 text-xl font-semibold">Import YouTube Video</h2>
 		<div class="max-w-lg rounded-lg border border-gray-200 bg-white p-6">
-			<Form {form} action="?/importYouTubeVideo">
+			<Form form={youtubeFormInstance} action="?/importYouTubeVideo">
 				<Input
 					name="videoId"
 					label="Video ID or URL"
 					placeholder="dQw4w9WgXcQ or https://youtube.com/watch?v=dQw4w9WgXcQ"
 					description="The video ID from the YouTube URL (after v=)"
 				/>
-				<Button type="submit" primary small disabled={$submitting}>
-					{$submitting ? 'Importing...' : 'Import Video'}
+				<Button type="submit" primary small disabled={$submittingYouTube}>
+					{$submittingYouTube ? 'Importing...' : 'Import Video'}
 				</Button>
 			</Form>
 		</div>
@@ -91,6 +104,32 @@
 			<p class="text-sm text-yellow-800">
 				<strong>Note:</strong> YouTube imports require a valid API key to be set in the
 				<code class="rounded bg-yellow-100 px-1 py-0.5">YOUTUBE_API_KEY</code> environment variable.
+			</p>
+		</div>
+	</section>
+
+	<!-- GitHub Import -->
+	<section>
+		<h2 class="mb-4 text-xl font-semibold">Import GitHub Repository</h2>
+		<div class="max-w-lg rounded-lg border border-gray-200 bg-white p-6">
+			<Form form={githubFormInstance} action="?/importGitHubRepository">
+				<Input
+					name="repository"
+					label="Repository"
+					placeholder="sveltejs/svelte or username/repo-name"
+					description="Enter the GitHub repository in format: owner/repo"
+				/>
+				<Button type="submit" primary small disabled={$submittingGitHub}>
+					{$submittingGitHub ? 'Importing...' : 'Import Repository'}
+				</Button>
+			</Form>
+		</div>
+
+		<div class="mt-4 rounded-lg bg-blue-50 p-4">
+			<p class="text-sm text-blue-800">
+				<strong>Note:</strong> For better rate limits, set a GitHub token in the
+				<code class="rounded bg-blue-100 px-1 py-0.5">GITHUB_TOKEN</code> environment variable.
+				Public repositories can be imported without a token.
 			</p>
 		</div>
 	</section>

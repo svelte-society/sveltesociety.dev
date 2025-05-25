@@ -160,7 +160,46 @@
 			</div>
 		{/if}
 
-		{#if ($formData.type === 'library' || $formData.type === 'showcase') && !isImported}
+		{#if $formData.type === 'library' && isImported && data.content?.metadata?.externalSource?.source === 'github'}
+			<div transition:slide class="space-y-2">
+				<!-- Display GitHub metadata for imported repositories -->
+				<div class="rounded-md bg-blue-50 border border-blue-200 p-4">
+					<p class="text-sm font-medium text-blue-800 mb-2">GitHub Repository Information</p>
+					<div class="flex gap-4">
+						{#if data.content?.metadata?.owner?.avatar}
+							<img src={data.content.metadata.owner.avatar} alt="{data.content.metadata.owner.name}" class="w-16 h-16 rounded" />
+						{/if}
+						<div class="text-sm space-y-1 flex-1">
+							<div class="flex gap-4">
+								<div><span class="font-medium">Owner:</span> <a href={data.content.metadata.owner?.url} target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">{data.content.metadata.owner?.name}</a></div>
+								<div><span class="font-medium">Language:</span> {data.content.metadata.language || 'Unknown'}</div>
+							</div>
+							<div class="flex gap-4">
+								<div><span class="font-medium">⭐ Stars:</span> {data.content.metadata.stars?.toLocaleString() || 0}</div>
+								<div><span class="font-medium">🍴 Forks:</span> {data.content.metadata.forks?.toLocaleString() || 0}</div>
+								<div><span class="font-medium">🐛 Issues:</span> {data.content.metadata.issues?.toLocaleString() || 0}</div>
+							</div>
+							{#if data.content.metadata.topics && data.content.metadata.topics.length > 0}
+								<div><span class="font-medium">Topics:</span> {data.content.metadata.topics.join(', ')}</div>
+							{/if}
+							<div class="flex gap-4">
+								{#if data.content.metadata.github}
+									<a href={data.content.metadata.github} target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">
+										View on GitHub
+									</a>
+								{/if}
+								{#if data.content.metadata.homepage && data.content.metadata.homepage !== data.content.metadata.github}
+									<a href={data.content.metadata.homepage} target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">
+										Homepage
+									</a>
+								{/if}
+							</div>
+						</div>
+					</div>
+				</div>
+				<p class="text-sm text-gray-500 italic">Repository metadata is read-only for imported content.</p>
+			</div>
+		{:else if ($formData.type === 'library' || $formData.type === 'showcase') && !isImported}
 			<div transition:slide class="space-y-2">
 				<Input
 					name="metadata.npm"

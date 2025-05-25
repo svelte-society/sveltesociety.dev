@@ -49,10 +49,33 @@ export const videoMetadataSchema = z
 
 export const libraryMetadataSchema = z
 	.object({
-		npm: z.string(),
+		npm: z.string().optional(),
 		github: z.string().optional(),
 		homepage: z.string().optional(),
-		version: z.string().optional()
+		version: z.string().optional(),
+		// GitHub-specific fields
+		stars: z.number().optional(),
+		forks: z.number().optional(),
+		issues: z.number().optional(),
+		language: z.string().optional(),
+		topics: z.array(z.string()).optional(),
+		owner: z.object({
+			name: z.string(),
+			url: z.string(),
+			avatar: z.string()
+		}).optional(),
+		defaultBranch: z.string().optional(),
+		createdAt: z.string().optional(),
+		updatedAt: z.string().optional(),
+		pushedAt: z.string().optional(),
+		externalSource: z.object({
+			type: z.string(),
+			source: z.string(),
+			externalId: z.string(),
+			url: z.string(),
+			lastFetched: z.string(),
+			lastModified: z.string().optional()
+		}).optional()
 	})
 	.optional()
 
