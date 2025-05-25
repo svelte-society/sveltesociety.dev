@@ -6,8 +6,8 @@ export function seedContent(db: Database.Database) {
   `)
 
 	const insertContentStmt = db.prepare(`
-    INSERT INTO content (title, type, body, rendered_body, slug, description, children, status, created_at, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO content (title, type, body, rendered_body, slug, description, children, status, created_at, updated_at, published_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     RETURNING id
   `)
 
@@ -746,13 +746,16 @@ export function seedContent(db: Database.Database) {
 			children,
 			'published',
 			now,
-			now
+			now,
+      now
 		) as { id: string }
 
 		const contentId = info.id
 
 		for (const tagId of item.tags) {
-			insertContentTagStmt.run(contentId, tagId)
+			if (tagId) {
+				insertContentTagStmt.run(contentId, tagId)
+			}
 		}
 
 		return contentId

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/state'
+	import { Head } from 'svead'
 	import Header from './_components/Header.svelte'
 	import LeftSidebar from './_components/LeftSidebar.svelte'
 	import RightSidebar from './_components/RightSidebar.svelte'
@@ -6,21 +8,30 @@
 	let { data, children } = $props()
 
 	const isAdmin = data.isAdmin
+
+	const fallbackMeta = {
+		title: 'Svelte Society',
+		description:
+			'The Svelte Society is a community of developers who use Svelte to build web applications.',
+		url: page.url.toString()
+	}
 </script>
+
+<Head seo_config={page.data.meta || fallbackMeta} />
 
 <div class="flex min-h-screen flex-col">
 	<Header user={data.user} />
 
 	<main
-		class="relative mx-auto grid w-full max-w-[1440px] grid-cols-[1.5fr_5fr_2.5fr] gap-2 px-4 py-8 md:gap-4 lg:gap-6"
+		class="relative mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-2 px-4 py-8 sm:grid-cols-[1.5fr_5fr_2.5fr] md:gap-4 lg:gap-6"
 	>
-		<LeftSidebar />
+		<LeftSidebar user={data.user} />
 
 		<div>
 			{@render children()}
 		</div>
 
-		<RightSidebar tags={data.tags} />
+		<RightSidebar upcomingEvents={data.upcomingEvents} />
 
 		{#if isAdmin}
 			<a

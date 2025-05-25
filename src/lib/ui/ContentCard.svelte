@@ -9,8 +9,16 @@
 	import Recipe from '$lib/ui/content/Recipe.svelte'
 	import Collection from '$lib/ui/content/Collection.svelte'
 	import Video from '$lib/ui/content/Video.svelte'
+	import Calendar from 'phosphor-svelte/lib/Calendar'
+	import MapPin from 'phosphor-svelte/lib/MapPin'
+	import Link from 'phosphor-svelte/lib/Link'
+	import User from 'phosphor-svelte/lib/User'
+	import VideoCamera from 'phosphor-svelte/lib/VideoCamera'
 
-	let { content }: { content: Content } = $props()
+	let {
+		content,
+		compact = false
+	}: { content: Content; compact?: boolean } = $props()
 
 	let submitting = $state(false)
 
@@ -36,26 +44,16 @@
 	}
 </script>
 
-<article class="grid gap-2 rounded-lg bg-zinc-50 px-4 py-4 sm:px-6 sm:py-5">
-	<div
-		class="mb-2 grid grid-cols-1 items-start justify-between gap-2 text-xs sm:grid-cols-[1fr_auto] sm:gap-0"
-	>
+<article
+	class="grid gap-2 rounded-lg bg-zinc-50 {compact
+		? 'px-3 py-3 sm:px-4 sm:py-3'
+		: 'px-4 py-4 sm:px-6 sm:py-5'}"
+>
+	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between gap-2 text-xs sm:gap-0">
 		<div class="flex flex-wrap items-center">
 			<span class="font-semibold capitalize">{content.type}&nbsp;</span>
 			<span class="flex flex-wrap text-gray-500">
-				<span>by {content.author} • {formatRelativeDate(content.published_at)} •&nbsp;</span>
-				<span class="flex items-center gap-1">
-					{content.views}
-					<svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-						<title>views</title>
-						<path
-							fill-rule="evenodd"
-							clip-rule="evenodd"
-							d="M1.25937 5.94874C1.56882 5.48321 2.19069 4.63614 3.03377 3.91108C3.882 3.18157 4.89578 2.625 6.00025 2.625C7.10472 2.625 8.11854 3.18157 8.96672 3.91108C9.80979 4.63614 10.4317 5.48321 10.7411 5.94874C10.7627 5.98125 10.7627 6.01875 10.7411 6.05126C10.4317 6.51679 9.80979 7.36386 8.96672 8.0889C8.11854 8.81843 7.10472 9.375 6.00025 9.375C4.89578 9.375 3.882 8.81843 3.03377 8.0889C2.19069 7.36386 1.56882 6.51679 1.25937 6.05126C1.23776 6.01875 1.23776 5.98125 1.25937 5.94874ZM6.00025 1.5C4.51423 1.5 3.24714 2.24375 2.30021 3.05813C1.34813 3.87695 0.660585 4.8173 0.32247 5.32597C0.0500614 5.73578 0.0500625 6.26422 0.32247 6.67403C0.660585 7.1827 1.34813 8.12302 2.30021 8.94187C3.24714 9.75622 4.51423 10.5 6.00025 10.5C7.48627 10.5 8.75334 9.75622 9.70029 8.94187C10.6523 8.12302 11.3399 7.1827 11.678 6.67403C11.9504 6.26422 11.9504 5.73578 11.678 5.32597C11.3399 4.8173 10.6523 3.87695 9.70029 3.05813C8.75334 2.24375 7.48627 1.5 6.00025 1.5ZM6.00024 7.5C6.82867 7.5 7.50024 6.82843 7.50024 6C7.50024 5.17157 6.82867 4.5 6.00024 4.5C5.17182 4.5 4.50024 5.17157 4.50024 6C4.50024 6.82843 5.17182 7.5 6.00024 7.5Z"
-							fill="#64748B"
-						/>
-					</svg>
-				</span>
+				<span>by {content.author}</span>
 			</span>
 		</div>
 		<form
@@ -83,7 +81,6 @@
 					xmlns="http://www.w3.org/2000/svg"
 					class="mr-0.5"
 				>
-					<title>{content.liked ? 'Remove like' : 'Like'}</title>
 					{#if content.liked}
 						<path
 							d="M6.62532 0.049567C5.62075 -0.0649162 4.87498 0.78591 4.87498 1.68679V2.06223C4.87498 3.05844 4.38994 3.6545 3.88685 4.02214C3.64068 4.20203 3.39161 4.32474 3.19794 4.40354C2.97064 4.01263 2.54726 3.74982 2.0625 3.74982H1.3125C0.587626 3.74982 0 4.33745 0 5.06232V10.6874C0 11.4122 0.587626 11.9999 1.3125 11.9999H2.0625C2.64352 11.9999 3.13637 11.6223 3.3091 11.0991C3.70246 11.1553 4.10958 11.2706 4.60301 11.4104L4.60316 11.4104C4.71683 11.4426 4.83508 11.4761 4.95881 11.5105C5.82428 11.7509 6.86444 11.9997 8.25 11.9997C9.52927 11.9997 10.4772 11.8855 11.0411 11.1453C11.306 10.7978 11.4439 10.3638 11.5427 9.89123C11.6307 9.47055 11.6986 8.95845 11.7771 8.3661L11.8075 8.1366C11.9944 6.73531 12.0063 5.64813 11.6661 4.89976C11.4831 4.49729 11.1996 4.1928 10.8137 3.99965C10.443 3.81409 10.0148 3.74973 9.5625 3.74973H8.49578L8.50702 3.66548V3.66547C8.5593 3.2768 8.625 2.78842 8.625 2.43723C8.625 1.74608 8.51153 1.14827 8.1333 0.71266C7.74983 0.270907 7.1979 0.114819 6.62532 0.049567Z"
@@ -116,7 +113,6 @@
 					xmlns="http://www.w3.org/2000/svg"
 					class="mr-0.5"
 				>
-					<title>{content.saved ? 'Unsave' : 'Save'}</title>
 					{#if content.saved}
 						<path
 							d="M3.5625 0.75C2.83763 0.75 2.25 1.33763 2.25 2.0625V10.6875C2.25 10.9052 2.37558 11.1033 2.57243 11.1962C2.76928 11.2891 3.00206 11.26 3.17008 11.1217L6 8.7912L8.8299 11.1217C8.99797 11.26 9.2307 11.2891 9.42758 11.1962C9.62445 11.1033 9.75 10.9052 9.75 10.6875V2.0625C9.75 1.33763 9.16237 0.75 8.4375 0.75H3.5625Z"
@@ -136,10 +132,16 @@
 		</form>
 	</div>
 
-	<h2 class="mb-2 text-lg font-bold sm:text-xl">
-		<a href="/{content.type}/{content.slug}">{content.title}</a>
+	<h2 class={compact ? 'mb-1 text-base font-bold sm:text-lg' : 'mb-2 text-lg font-bold sm:text-xl'}>
+		{#if content.type === 'event' && content.metadata?.url}
+			<a href={content.metadata.url} target="_blank" rel="noopener noreferrer">{content.title}</a>
+		{:else}
+			<a href="/{content.type}/{content.slug}">{content.title}</a>
+		{/if}
 	</h2>
-	<div class="text-sm sm:text-base">{content.description}</div>
+	{#if content.type !== 'event'}
+		<div class={compact ? 'line-clamp-2 text-sm' : 'text-sm sm:text-base'}>{content.description}</div>
+	{/if}
 
 	<div>
 		{#if content.type === 'recipe'}
@@ -148,7 +150,72 @@
 			<Collection children={content.children} />
 		{:else if content.type === 'video'}
 			<Video />
-		{/if}
+		{:else if content.type === 'event'}
+			<div class="flex gap-4">
+				{#if content.metadata?.socialCardUrl}
+					<div class={content.metadata?.presentations && content.metadata.presentations.length > 0 ? 'w-1/3 flex-shrink-0' : 'w-1/2 flex-shrink-0'}>
+						<img 
+							src={content.metadata.socialCardUrl} 
+							alt={content.title} 
+							class="w-full h-full object-cover rounded-lg"
+						/>
+					</div>
+				{/if}
+				
+				<div class="flex-1 space-y-2 text-sm">
+					{#if content.metadata?.presentations && content.metadata.presentations.length > 0}
+						<div class="mb-3 space-y-2 border-b pb-3">
+							{#each content.metadata.presentations as presentation}
+								<div class="rounded bg-gray-50 p-2">
+									<div class="flex items-start gap-2">
+										<User size={14} class="mt-0.5 text-gray-500" />
+										<div class="flex-1">
+											<p class="font-medium text-gray-800">{presentation.title}</p>
+											<p class="text-xs text-gray-600">by {presentation.presenter}</p>
+											{#if presentation.videoUrl}
+												<div class="mt-1 flex items-center gap-1">
+													<VideoCamera size={12} class="text-gray-500" />
+													<span class="text-xs text-gray-500">Video available</span>
+												</div>
+											{/if}
+										</div>
+									</div>
+								</div>
+							{/each}
+						</div>
+					{/if}
+
+				{#if content.metadata?.startTime}
+					<div class="flex items-center gap-2 text-gray-600">
+						<Calendar size={16} />
+						<span
+							>{new Date(content.metadata.startTime).toLocaleDateString('en-US', {
+								weekday: 'short',
+								month: 'short',
+								day: 'numeric',
+								hour: '2-digit',
+								minute: '2-digit'
+							})}</span
+						>
+					</div>
+				{/if}
+
+				{#if content.metadata?.location}
+					<div class="flex items-center gap-2 text-gray-600">
+						<MapPin size={16} />
+						<span>{content.metadata.location}</span>
+					</div>
+				{/if}
+
+				{#if content.metadata?.presentations && content.metadata.presentations.length > 0}
+					<div class="flex items-center gap-2 text-gray-600">
+						<User size={16} />
+						<span>{content.metadata.presentations.length} presentation{content.metadata.presentations.length !== 1 ? 's' : ''}</span>
+					</div>
+				{/if}
+			</div>
+		</div>
+	{/if}
 	</div>
 
 	<div

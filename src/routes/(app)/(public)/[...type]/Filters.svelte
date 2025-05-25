@@ -46,7 +46,7 @@
 </script>
 
 <form class="@container grid gap-0.5">
-	<div class="mb-4 grid w-full grid-cols-1 gap-2 @md:grid-cols-2">
+	<div class="mb-4 grid w-full grid-cols-1 gap-2 @xs:grid-cols-2">
 		<div class="flex w-full flex-col gap-2">
 			<label for="category" class="text-xs font-medium outline-none">Category</label>
 			<Select

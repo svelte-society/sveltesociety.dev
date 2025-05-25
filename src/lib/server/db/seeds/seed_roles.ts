@@ -1,16 +1,35 @@
 import type Database from 'bun:sqlite'
 
-export function seedRoles(db: Database.Database) {
+interface Role {
+	name: string;
+	value: string;
+	description: string;
+	active: boolean;
+}
+
+export function seedRoles(db: Database) {
 	const insertRoleStmt = db.prepare(`
       INSERT INTO roles (name, value, description, active, created_at)
       VALUES (?, ?, ?, ?, ?)
     `)
 
-	const roles = [
+	const roles: Role[] = [
 		{
 			name: 'Admin',
 			value: 'admin',
 			description: 'Administrator role with full access',
+			active: true
+		},
+		{
+			name: 'Moderator',
+			value: 'moderator',
+			description: 'Moderator role with content management access',
+			active: true
+		},
+		{
+			name: 'Editor',
+			value: 'editor',
+			description: 'Editor role with content creation access',
 			active: true
 		},
 		{
@@ -21,8 +40,8 @@ export function seedRoles(db: Database.Database) {
 		}
 	]
 
-	const insertRolesTransaction = db.transaction((roles) => {
-		for (const role of roles) {
+	const insertRolesTransaction = db.transaction((rolesToInsert: Role[]) => {
+		for (const role of rolesToInsert) {
 			const now = new Date().toISOString()
 			insertRoleStmt.run(role.name, role.value, role.description, role.active ? 1 : 0, now)
 		}

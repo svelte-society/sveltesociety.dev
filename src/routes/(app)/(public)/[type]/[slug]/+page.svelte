@@ -4,5 +4,3 @@
 </script>
 
 <ContentCard content={data.content} />
-
-AuthorCard goes here

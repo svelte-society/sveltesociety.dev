@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS roles (
 CREATE TABLE IF NOT EXISTS content (
     id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
     title TEXT NOT NULL UNIQUE,
-    type TEXT NOT NULL CHECK(type IN ('recipe', 'video', 'library', 'announcement', 'showcase', 'link', 'blog', 'collection')),
+    type TEXT NOT NULL CHECK(type IN ('recipe', 'video', 'library', 'announcement', 'link', 'blog', 'collection', 'event')),
     status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft', 'published', 'archived', 'pending_review')),
     body TEXT,
     rendered_body TEXT,
@@ -151,6 +151,16 @@ CREATE TABLE IF NOT EXISTS moderation_queue (
     FOREIGN KEY (submitted_by) REFERENCES users(id) ON DELETE SET NULL,
     FOREIGN KEY (moderated_by) REFERENCES users(id) ON DELETE SET NULL
 );
+
+-- Cache table for API responses
+CREATE TABLE IF NOT EXISTS cache (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL,
+    metadata TEXT,
+    created_at INTEGER NOT NULL,
+    ttl INTEGER
+);
+CREATE INDEX IF NOT EXISTS idx_cache_created_at ON cache(created_at);
 
 -- Insert default OAuth providers
 INSERT OR IGNORE INTO oauth_providers (name, description, active) 

@@ -6,11 +6,7 @@ import type { Content, ContentFilters } from '$lib/types/content'
 import type { Tag } from '$lib/types/tags'
 
 export class ContentService {
-	private searchService: SearchService
-
-	constructor(private db: Database) {
-		this.searchService = new SearchService(db)
-	}
+	constructor(private db: Database, private searchService?: SearchService) {}
 
 	getContentById(id: string): Content | null {
 		if (!id) {
@@ -272,10 +268,10 @@ export class ContentService {
 		status: string
 		body: string
 		tags: string[]
-		metadata?: {
-			videoId?: string
-			npm?: string
-		}
+		metadata?: any
+		created_at?: string
+		updated_at?: string
+		published_at?: string
 	}) {
 		const id = crypto.randomUUID()
 		const now = new Date().toISOString()
@@ -285,9 +281,9 @@ export class ContentService {
 				`
 			INSERT INTO content (
 				id, title, slug, description, type, status, 
-				body, created_at, updated_at, published_at,
+				body, metadata, created_at, updated_at, published_at,
 				likes, saves
-			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)
+			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)
 		`
 			)
 			.run(
@@ -298,9 +294,10 @@ export class ContentService {
 				data.type,
 				data.status,
 				data.body,
-				now,
-				now,
-				data.status === 'published' ? now : null
+				data.metadata ? JSON.stringify(data.metadata) : null,
+				data.created_at || now,
+				data.updated_at || now,
+				data.published_at || (data.status === 'published' ? now : null)
 			)
 
 		// Add tags if present
@@ -311,6 +308,34 @@ export class ContentService {
 
 			for (const tag of data.tags) {
 				insertTagStmt.run(id, tag)
+			}
+		}
+
+		// Add to search index if published
+		if (data.status === 'published') {
+			// Get tag slugs for search index
+			let tagSlugs: string[] = []
+			if (data.tags && data.tags.length > 0) {
+				const tagQuery = this.db.prepare(`
+					SELECT slug FROM tags WHERE id = ?
+				`)
+				tagSlugs = data.tags.map(tagId => {
+					const tag = tagQuery.get(tagId) as { slug: string } | null
+					return tag?.slug || ''
+				}).filter(Boolean)
+			}
+
+			if (this.searchService) {
+				this.searchService.add({
+					id,
+					title: data.title,
+					description: data.description,
+					tags: tagSlugs,
+					type: data.type,
+					created_at: data.created_at || now,
+					likes: 0,
+					saves: 0
+				})
 			}
 		}
 
@@ -327,10 +352,7 @@ export class ContentService {
 			status: string
 			body: string
 			tags: string[]
-			metadata?: {
-				videoId?: string
-				npm?: string
-			}
+			metadata?: any
 		}
 	) {
 		const now = new Date().toISOString()
@@ -346,6 +368,7 @@ export class ContentService {
 					type = ?,
 					status = ?,
 					body = ?,
+					metadata = ?,
 					updated_at = ?,
 					published_at = CASE 
 						WHEN status != 'published' AND ? = 'published' THEN ?
@@ -362,6 +385,7 @@ export class ContentService {
 				data.type,
 				data.status,
 				data.body,
+				data.metadata ? JSON.stringify(data.metadata) : null,
 				now,
 				data.status,
 				now,
