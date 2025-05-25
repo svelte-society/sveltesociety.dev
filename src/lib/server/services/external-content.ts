@@ -75,6 +75,9 @@ export class ExternalContentService {
 					body: data.body,
 					metadata,
 					status: 'published',
+					// Use the original published date for both created_at and published_at
+					// This ensures proper chronological ordering
+					created_at: data.publishedAt || new Date().toISOString(),
 					published_at: data.publishedAt || new Date().toISOString()
 				})
 				
