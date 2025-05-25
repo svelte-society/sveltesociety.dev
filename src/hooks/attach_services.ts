@@ -13,6 +13,7 @@ import { CollectionService } from '$lib/server/services/collections'
 import { MetadataService } from '$lib/server/services/metadata'
 import { EventsService } from '$lib/server/services/events'
 import { CacheService } from '$lib/server/services/cache'
+import { ExternalContentService } from '$lib/server/services/external-content'
 
 let db: Database
 let contentService: ContentService
@@ -27,6 +28,7 @@ let collectionService: CollectionService
 let metadataService: MetadataService
 let eventsService: EventsService
 let cacheService: CacheService
+let externalContentService: ExternalContentService
 
 const initialize_db = () => {
 	if (!db) {
@@ -42,6 +44,7 @@ const initialize_db = () => {
 		cacheService = new CacheService(db)
 		searchService = new SearchService(db)
 		contentService = new ContentService(db, searchService)
+		externalContentService = new ExternalContentService(db, contentService, cacheService)
 		interactionsService = new InteractionsService(db)
 		roleService = new RoleService(db)
 		sessionService = new SessionService(db)
@@ -71,5 +74,6 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.metadataService = metadataService
 	event.locals.eventsService = eventsService
 	event.locals.cacheService = cacheService
+	event.locals.externalContentService = externalContentService
 	return resolve(event)
 }
