@@ -10,6 +10,95 @@ export const typeSchema = z.enum([
 	'event'
 ])
 
+// Type-specific metadata schemas
+export const videoMetadataSchema = z
+	.object({
+		channelTitle: z.string().optional(),
+		publishedAt: z.string().optional(),
+		thumbnail: z.string().optional(),
+		thumbnails: z.object({
+			default: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional(),
+			medium: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional(),
+			high: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional(),
+			standard: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional(),
+			maxres: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional()
+		}).optional(),
+		tags: z.array(z.string()).optional(),
+		statistics: z.object({
+			viewCount: z.number().optional(),
+			likeCount: z.number().optional(),
+			commentCount: z.number().optional()
+		}).optional(),
+		contentDetails: z.object({
+			duration: z.string().optional(),
+			dimension: z.string().optional(),
+			definition: z.string().optional()
+		}).optional(),
+		embedUrl: z.string().optional(),
+		watchUrl: z.string().optional(),
+		externalSource: z.object({
+			type: z.string(),
+			source: z.string(),
+			externalId: z.string(),
+			url: z.string(),
+			lastFetched: z.string(),
+			lastModified: z.string().optional()
+		}).optional()
+	})
+	.optional()
+
+export const libraryMetadataSchema = z
+	.object({
+		npm: z.string(),
+		github: z.string().optional(),
+		homepage: z.string().optional(),
+		version: z.string().optional()
+	})
+	.optional()
+
+export const eventMetadataSchema = z
+	.object({
+		startTime: z.string(),
+		endTime: z.string().optional(),
+		location: z.string().optional(),
+		guildId: z.string().optional(),
+		guildName: z.string().optional(),
+		eventUrl: z.string().optional()
+	})
+	.optional()
+
+export const recipeMetadataSchema = z
+	.object({
+		difficulty: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
+		estimatedTime: z.string().optional(),
+		prerequisites: z.array(z.string()).optional()
+	})
+	.optional()
+
+export const announcementMetadataSchema = z
+	.object({
+		priority: z.enum(['low', 'medium', 'high']).optional(),
+		expiresAt: z.string().optional()
+	})
+	.optional()
+
+export const collectionMetadataSchema = z
+	.object({
+		itemCount: z.number().optional(),
+		isPublic: z.boolean().optional()
+	})
+	.optional()
+
+// Union of all metadata types
+const metadataSchema = z.union([
+	videoMetadataSchema,
+	libraryMetadataSchema,
+	eventMetadataSchema,
+	recipeMetadataSchema,
+	announcementMetadataSchema,
+	collectionMetadataSchema
+])
+
 const baseContentSchema = z.object({
 	id: z.string(),
 	title: z.string(),
@@ -29,12 +118,7 @@ const baseContentSchema = z.object({
 	liked: z.boolean(),
 	saved: z.boolean(),
 	views: z.number(),
-	metadata: z
-		.object({
-			videoId: z.string().optional(),
-			npm: z.string().optional()
-		})
-		.optional()
+	metadata: metadataSchema
 })
 
 export const contentSchema = baseContentSchema.extend({
