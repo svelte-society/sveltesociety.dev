@@ -152,6 +152,16 @@ CREATE TABLE IF NOT EXISTS moderation_queue (
     FOREIGN KEY (moderated_by) REFERENCES users(id) ON DELETE SET NULL
 );
 
+-- Cache table for API responses
+CREATE TABLE IF NOT EXISTS cache (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL,
+    metadata TEXT,
+    created_at INTEGER NOT NULL,
+    ttl INTEGER
+);
+CREATE INDEX IF NOT EXISTS idx_cache_created_at ON cache(created_at);
+
 -- Insert default OAuth providers
 INSERT OR IGNORE INTO oauth_providers (name, description, active) 
 VALUES ('github', 'GitHub OAuth Provider', 1);

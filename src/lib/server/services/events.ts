@@ -1,4 +1,5 @@
 import { Database } from 'bun:sqlite'
+import type { CacheService } from './cache'
 
 interface Presenter {
 	id: string
@@ -75,10 +76,26 @@ export class EventsService {
 	private apiBaseUrl = 'https://guild.host/api/next'
 	private readonly GUILD_SLUG = 'svelte-society'
 
-	constructor(private db: Database) {}
+	constructor(
+		private db: Database,
+		private cacheService?: CacheService
+	) {}
 
 	// Fetch upcoming events from the remote API
 	async fetchUpcomingEventsFromAPI(guildSlug: string = this.GUILD_SLUG): Promise<GuildEvent[]> {
+		if (!this.cacheService) {
+			return this._fetchUpcomingEventsDirectly(guildSlug)
+		}
+
+		return this.cacheService.cachify({
+			key: `events:upcoming:${guildSlug}`,
+			getFreshValue: () => this._fetchUpcomingEventsDirectly(guildSlug),
+			ttl: 5 * 60 * 1000, // 5 minutes
+			swr: 60 * 60 * 1000 // 1 hour stale-while-revalidate
+		})
+	}
+
+	private async _fetchUpcomingEventsDirectly(guildSlug: string): Promise<GuildEvent[]> {
 		try {
 			const url = `${this.apiBaseUrl}/${guildSlug}/events/upcoming`
 
@@ -98,6 +115,19 @@ export class EventsService {
 
 	// Fetch past events from the remote API
 	async fetchPastEventsFromAPI(guildSlug: string = this.GUILD_SLUG): Promise<GuildEvent[]> {
+		if (!this.cacheService) {
+			return this._fetchPastEventsDirectly(guildSlug)
+		}
+
+		return this.cacheService.cachify({
+			key: `events:past:${guildSlug}`,
+			getFreshValue: () => this._fetchPastEventsDirectly(guildSlug),
+			ttl: 30 * 60 * 1000, // 30 minutes (past events change less frequently)
+			swr: 4 * 60 * 60 * 1000 // 4 hours stale-while-revalidate
+		})
+	}
+
+	private async _fetchPastEventsDirectly(guildSlug: string): Promise<GuildEvent[]> {
 		try {
 			const url = `${this.apiBaseUrl}/${guildSlug}/events/past`
 
@@ -117,6 +147,19 @@ export class EventsService {
 
 	// Fetch a specific event from the remote API
 	async fetchEventFromAPI(eventSlug: string): Promise<GuildEvent | null> {
+		if (!this.cacheService) {
+			return this._fetchEventDirectly(eventSlug)
+		}
+
+		return this.cacheService.cachify({
+			key: `events:single:${eventSlug}`,
+			getFreshValue: () => this._fetchEventDirectly(eventSlug),
+			ttl: 10 * 60 * 1000, // 10 minutes
+			swr: 2 * 60 * 60 * 1000 // 2 hours stale-while-revalidate
+		})
+	}
+
+	private async _fetchEventDirectly(eventSlug: string): Promise<GuildEvent | null> {
 		try {
 			const url = `${this.apiBaseUrl}/events/${eventSlug}`
 			const response = await fetch(url)

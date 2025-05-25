@@ -12,6 +12,7 @@ import { UserService } from '$lib/server/services/user'
 import { CollectionService } from '$lib/server/services/collections'
 import { MetadataService } from '$lib/server/services/metadata'
 import { EventsService } from '$lib/server/services/events'
+import { CacheService } from '$lib/server/services/cache'
 
 let db: Database
 let contentService: ContentService
@@ -25,6 +26,7 @@ let userService: UserService
 let collectionService: CollectionService
 let metadataService: MetadataService
 let eventsService: EventsService
+let cacheService: CacheService
 
 const initialize_db = () => {
 	if (!db) {
@@ -37,6 +39,7 @@ const initialize_db = () => {
 		db.exec('PRAGMA mmap_size = 3000000')
 		db.exec('PRAGMA foreign_keys = ON')
 
+		cacheService = new CacheService(db)
 		searchService = new SearchService(db)
 		contentService = new ContentService(db, searchService)
 		interactionsService = new InteractionsService(db)
@@ -47,7 +50,7 @@ const initialize_db = () => {
 		userService = new UserService(db)
 		collectionService = new CollectionService(db)
 		metadataService = new MetadataService(db)
-		eventsService = new EventsService(db)
+		eventsService = new EventsService(db, cacheService)
 	}
 
 	return db
@@ -67,5 +70,6 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.collectionService = collectionService
 	event.locals.metadataService = metadataService
 	event.locals.eventsService = eventsService
+	event.locals.cacheService = cacheService
 	return resolve(event)
 }
