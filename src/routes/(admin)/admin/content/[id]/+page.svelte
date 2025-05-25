@@ -19,6 +19,7 @@
 	// Setup form with client-side validation
 	let form = superForm(data.form, {
 		invalidateAll: 'force',
+		dataType: 'json', // Enable JSON data type for nested objects like metadata
 		onUpdated: ({ form }) => {
 			form?.message?.success ? toast.success(form.message.text) : toast.error(form.message.text)
 		}
@@ -26,24 +27,6 @@
 
 	const { form: formData, submitting } = form
 
-	// Helper for video preview
-	async function fetchVideoInfo(id: string) {
-		if (!id) return undefined
-
-		try {
-			const response = await fetch(
-				`https://www.youtube.com/oembed?url=https%3A//youtube.com/watch%3Fv%3D${id}&format=json`
-			)
-			const data = await response.json()
-			return {
-				preview: data.thumbnail_url,
-				title: data.title,
-				author: data.author_name
-			}
-		} catch (error) {
-			return undefined
-		}
-	}
 
 	// Helper for npm package info
 	async function fetchNpmInfo(packageName: string) {
@@ -71,20 +54,48 @@
 		}
 	}
 
-	// Safe getters for metadata
-	function getVideoId(): string {
-		const metadata = ($formData.metadata as { videoId?: string }) || {}
-		return metadata.videoId || ''
-	}
 
 	function getNpmPackage(): string {
 		const metadata = ($formData.metadata as { npm?: string }) || {}
 		return metadata.npm || ''
 	}
+	
+	// Check if content is imported
+	const isImported = $derived(
+		data.content?.metadata?.externalSource !== undefined
+	)
 </script>
 
 <div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
 	<h1 class="mb-6 text-3xl font-bold text-gray-800">Edit Content</h1>
+
+	{#if isImported}
+		<div class="mb-6 rounded-lg bg-blue-50 border border-blue-200 p-4">
+			<h2 class="text-sm font-semibold text-blue-800 mb-2">External Source Information</h2>
+			<dl class="text-sm text-blue-700 space-y-1">
+				<div class="flex gap-2">
+					<dt class="font-medium">Source:</dt>
+					<dd class="capitalize">{data.content?.metadata?.externalSource?.source}</dd>
+				</div>
+				<div class="flex gap-2">
+					<dt class="font-medium">External ID:</dt>
+					<dd>{data.content?.metadata?.externalSource?.externalId}</dd>
+				</div>
+				<div class="flex gap-2">
+					<dt class="font-medium">URL:</dt>
+					<dd>
+						<a href={data.content?.metadata?.externalSource?.url} target="_blank" rel="noopener noreferrer" class="underline">
+							{data.content?.metadata?.externalSource?.url}
+						</a>
+					</dd>
+				</div>
+				<div class="flex gap-2">
+					<dt class="font-medium">Last Fetched:</dt>
+					<dd>{new Date(data.content?.metadata?.externalSource?.lastFetched || '').toLocaleString()}</dd>
+				</div>
+			</dl>
+		</div>
+	{/if}
 
 	<Form {form}>
 		<Input
@@ -97,7 +108,8 @@
 		<Select
 			name="type"
 			label="Content Type"
-			description="Select the type of content"
+			description={isImported ? "Content type cannot be changed for imported content" : "Select the type of content"}
+			disabled={isImported}
 			options={[
 				{ value: 'recipe', label: 'Recipe' },
 				{ value: 'video', label: 'Video' },
@@ -118,32 +130,37 @@
 			]}
 		/>
 
-		{#if $formData.type === 'video'}
+		{#if $formData.type === 'video' && isImported && data.content?.metadata?.externalSource?.source === 'youtube'}
 			<div transition:slide class="space-y-2">
-				<Input
-					name="metadata.videoId"
-					label="YouTube Video ID"
-					placeholder="e.g. dQw4w9WgXcQ"
-					description="Enter the YouTube video ID"
-				/>
-
-				{#if getVideoId()}
-					{#await fetchVideoInfo(getVideoId()) then info}
-						{#if info}
-							<div class="mx-4 flex gap-4 rounded-md bg-slate-100 p-4 text-sm">
-								<img src={info.preview} alt="Video preview" class="max-w-xs rounded" />
-								<div>
-									<strong>{info.title}</strong>
-									<div><i>by</i> {info.author}</div>
-								</div>
+				<!-- Display YouTube metadata for imported videos -->
+				<div class="rounded-md bg-yellow-50 border border-yellow-200 p-4">
+					<p class="text-sm font-medium text-yellow-800 mb-2">YouTube Video Information</p>
+					{#if data.content?.metadata?.thumbnail}
+						<div class="flex gap-4">
+							<img src={data.content.metadata.thumbnail} alt="Video thumbnail" class="w-48 rounded" />
+							<div class="text-sm space-y-1">
+								<div><span class="font-medium">Channel:</span> {data.content.metadata.channelTitle || 'Unknown'}</div>
+								<div><span class="font-medium">Published:</span> {new Date(data.content.metadata.publishedAt || '').toLocaleDateString()}</div>
+								{#if data.content.metadata.statistics}
+									<div><span class="font-medium">Views:</span> {data.content.metadata.statistics.viewCount?.toLocaleString() || 0}</div>
+									<div><span class="font-medium">Likes:</span> {data.content.metadata.statistics.likeCount?.toLocaleString() || 0}</div>
+								{/if}
+								{#if data.content.metadata.watchUrl}
+									<div>
+										<a href={data.content.metadata.watchUrl} target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">
+											Watch on YouTube
+										</a>
+									</div>
+								{/if}
 							</div>
-						{/if}
-					{/await}
-				{/if}
+						</div>
+					{/if}
+				</div>
+				<p class="text-sm text-gray-500 italic">Video metadata is read-only for imported content.</p>
 			</div>
 		{/if}
 
-		{#if $formData.type === 'library' || $formData.type === 'showcase'}
+		{#if ($formData.type === 'library' || $formData.type === 'showcase') && !isImported}
 			<div transition:slide class="space-y-2">
 				<Input
 					name="metadata.npm"
@@ -186,6 +203,13 @@
 			</div>
 		{/if}
 
+		{#if isImported && !$formData.body}
+			<div class="rounded-md bg-gray-50 border border-gray-200 p-4 mb-4">
+				<p class="text-sm text-gray-600">
+					This imported content doesn't have body text. You can add additional content below if needed.
+				</p>
+			</div>
+		{/if}
 		<MarkdownEditor value={$formData.body} name="body" />
 
 		<div class="flex w-full items-center gap-2">

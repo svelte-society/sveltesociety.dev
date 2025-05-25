@@ -18,8 +18,11 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		title: content.title,
 		description: content.description || '',
 		slug: content.slug,
-		body: content.body,
-		tags: content.tags?.map((tag) => tag.id)
+		body: content.body || '',
+		type: content.type,
+		status: content.status,
+		metadata: content.metadata || {},
+		tags: content.tags?.map((tag) => tag.id) || []
 	}
 
 	// Pre-populate form with existing content
@@ -31,7 +34,8 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	return {
 		form,
 		tags,
-		contentId: params.id
+		contentId: params.id,
+		content // Pass full content for additional metadata display
 	}
 }
 
@@ -48,10 +52,23 @@ export const actions: Actions = {
 		}
 
 		try {
+			// Get existing content to preserve metadata for imported content
+			const existingContent = locals.contentService.getContentById(params.id)
+			
+			// Merge metadata - preserve external source info for imported content
+			let metadata = form.data.metadata || {}
+			if (existingContent?.metadata?.externalSource) {
+				metadata = {
+					...existingContent.metadata,
+					...metadata
+				}
+			}
+			
 			// Update existing content
 			locals.contentService.updateContent(params.id, {
 				...form.data,
 				body: form.data.body || '',
+				metadata,
 				tags: form.data.tags
 			})
 

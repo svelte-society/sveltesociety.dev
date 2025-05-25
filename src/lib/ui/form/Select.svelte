@@ -9,12 +9,13 @@
 		description?: string
 		placeholder?: string
 		name: string
+		disabled?: boolean
 		options: {
 			label: string
 			value: string
 		}[]
 	}
-	let { name, label, description, placeholder, options }: TextInputProps = $props()
+	let { name, label, description, placeholder, options, disabled = false }: TextInputProps = $props()
 
 	const form: SuperForm<Record<string, string>, any> = getContext('form')
 
@@ -37,6 +38,7 @@
 					{name}
 					bind:value={$formData[name]}
 					{props}
+					{disabled}
 					selected={selectedOptionLabel}
 				/>
 			{/snippet}

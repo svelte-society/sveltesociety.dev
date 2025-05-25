@@ -13,17 +13,19 @@
 		name: string
 		selected?: string
 		props?: any
+		disabled?: boolean
 		onchange?: (value: string) => void
 	}
-	let { options, value = $bindable(), name, props, onchange }: Props = $props()
+	let { options, value = $bindable(), name, props, disabled = false, onchange }: Props = $props()
 
 	const selectedLabel = $derived(options.find((option) => option.value === value)?.label)
 </script>
 
-<Select.Root type="single" bind:value onValueChange={onchange} {name}>
+<Select.Root type="single" bind:value onValueChange={onchange} {name} {disabled}>
 	<Select.Trigger
 		{...props}
-		class="grid w-full grid-cols-[1fr_auto] items-center rounded-md border-2 border-transparent bg-slate-100 px-3 py-1 pl-2 text-left text-sm placeholder-slate-500  focus:outline-2 focus:outline-sky-200 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600"
+		class="grid w-full grid-cols-[1fr_auto] items-center rounded-md border-2 border-transparent bg-slate-100 px-3 py-1 pl-2 text-left text-sm placeholder-slate-500 focus:outline-2 focus:outline-sky-200 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600 disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed"
+		{disabled}
 	>
 		{selectedLabel}
 		<CaretUpDown class="ml-auto size-4 text-gray-500" />
