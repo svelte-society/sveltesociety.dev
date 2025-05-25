@@ -52,6 +52,12 @@
 								{/if}
 							</h3>
 							
+							{#if event.owner}
+								<div class="text-sm text-gray-500 mt-0.5">
+									{event.owner}
+								</div>
+							{/if}
+							
 							<div class="mt-2 space-y-1">
 								{#if event.startTime}
 									<div class="flex items-center gap-2 text-sm text-gray-600">
@@ -145,6 +151,12 @@
 									{event.title}
 								{/if}
 							</h3>
+							
+							{#if event.owner}
+								<div class="text-sm text-gray-500 mt-0.5">
+									{event.owner}
+								</div>
+							{/if}
 							
 							<div class="mt-2 space-y-1">
 								{#if event.startTime}
