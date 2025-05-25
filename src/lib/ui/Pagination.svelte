@@ -27,6 +27,10 @@
 
 	// Get the current page from the URL
 	let currentPage = $derived(parseInt($page.url.searchParams.get('page') || '1', 10))
+	
+	// Calculate the actual range for display
+	let rangeStart = $derived((currentPage - 1) * perPage + 1)
+	let rangeEnd = $derived(Math.min(currentPage * perPage, count))
 
 	// Function to handle page change
 	function handlePageChange(pageNum: number) {
@@ -116,7 +120,11 @@ Usage:
 			</Pagination.NextButton>
 		</div>
 		<p class="text-center text-sm text-gray-500">
-			Showing {range.start + 1} - {range.end} of {count}
+			{#if count > 0}
+				Showing {rangeStart} - {rangeEnd} of {count}
+			{:else}
+				No items to display
+			{/if}
 		</p>
 	{/snippet}
 </Pagination.Root>
