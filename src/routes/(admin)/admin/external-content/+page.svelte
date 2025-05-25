@@ -10,7 +10,7 @@
 
 	let { data, form: actionForm } = $props()
 
-	let deletingSource = $state('')
+	let deletingId = $state('')
 
 	// Schema for YouTube video import
 	const youtubeSchema = z.object({
@@ -65,28 +65,6 @@
 							Last sync: {formatRelativeDate(source.lastSync)}
 						</p>
 					{/if}
-
-					<div class="mt-4 flex gap-2">
-						<form
-							method="POST"
-							action="?/deleteSource"
-							use:enhance={() => {
-								if (!confirm(`Are you sure you want to delete all ${source.name}?`)) {
-									return ({ cancel }) => cancel()
-								}
-								deletingSource = source.source
-								return async ({ update }) => {
-									await update()
-									deletingSource = ''
-								}
-							}}
-						>
-							<input type="hidden" name="source" value={source.source} />
-							<Button type="submit" secondary small disabled={deletingSource === source.source}>
-								{deletingSource === source.source ? 'Deleting...' : 'Delete All'}
-							</Button>
-						</form>
-					</div>
 				</div>
 			{/each}
 		</div>
@@ -140,9 +118,34 @@
 								<td class="px-4 py-3">{item.metadata?.externalSource?.source || 'Unknown'}</td>
 								<td class="px-4 py-3">{formatRelativeDate(item.created_at)}</td>
 								<td class="px-4 py-3">
-									<a href="/admin/content/{item.id}" class="text-svelte-500 hover:underline">
-										Edit
-									</a>
+									<div class="flex items-center gap-3">
+										<a href="/admin/content/{item.id}" class="text-svelte-500 hover:underline">
+											Edit
+										</a>
+										<form
+											method="POST"
+											action="?/deleteContent"
+											use:enhance={() => {
+												if (!confirm(`Are you sure you want to delete "${item.title}"?`)) {
+													return ({ cancel }) => cancel()
+												}
+												deletingId = item.id
+												return async ({ update }) => {
+													await update()
+													deletingId = ''
+												}
+											}}
+										>
+											<input type="hidden" name="contentId" value={item.id} />
+											<button
+												type="submit"
+												class="text-red-600 hover:underline text-sm"
+												disabled={deletingId === item.id}
+											>
+												{deletingId === item.id ? 'Deleting...' : 'Delete'}
+											</button>
+										</form>
+									</div>
 								</td>
 							</tr>
 						{/each}

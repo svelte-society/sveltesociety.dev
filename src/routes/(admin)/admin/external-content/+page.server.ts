@@ -78,27 +78,31 @@ export const actions = {
 		}
 	},
 
-	deleteSource: async ({ request, locals }) => {
+	deleteContent: async ({ request, locals }) => {
 		try {
 			const data = await request.formData()
-			const source = data.get('source') as string
+			const contentId = data.get('contentId') as string
 
-			if (!source) {
+			if (!contentId) {
 				return fail(400, {
-					error: 'Source is required'
+					error: 'Content ID is required'
 				})
 			}
 
-			const deleted = locals.externalContentService.deleteBySource(source)
+			locals.contentService.deleteContent(contentId)
 
 			return {
 				success: true,
-				deleted
+				stats: {
+					created: 0,
+					updated: 0,
+					deleted: 1
+				}
 			}
 		} catch (error) {
-			console.error('Error deleting source content:', error)
+			console.error('Error deleting content:', error)
 			return fail(500, {
-				error: 'Failed to delete source content'
+				error: 'Failed to delete content'
 			})
 		}
 	}
