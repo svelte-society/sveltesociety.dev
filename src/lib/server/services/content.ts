@@ -1,12 +1,13 @@
-import { z } from 'zod'
 import { Database } from 'bun:sqlite'
 import { SearchService } from './search'
-import { contentSchema } from '$lib/schema/content'
 import type { Content, ContentFilters } from '$lib/types/content'
 import type { Tag } from '$lib/types/tags'
 
 export class ContentService {
-	constructor(private db: Database, private searchService?: SearchService) {}
+	constructor(
+		private db: Database,
+		private searchService?: SearchService
+	) {}
 
 	getContentById(id: string): Content | null {
 		if (!id) {
@@ -28,6 +29,16 @@ export class ContentService {
 			if (!content) {
 				this.db.exec('ROLLBACK')
 				return null
+			}
+
+			// Parse metadata if it's a string
+			if (typeof content.metadata === 'string') {
+				try {
+					content.metadata = JSON.parse(content.metadata)
+				} catch (e) {
+					console.error('Error parsing metadata:', e)
+					content.metadata = {}
+				}
 			}
 
 			// Get tags for the main content
@@ -52,7 +63,7 @@ export class ContentService {
 
 						// Prepare statements for reuse
 						const childContentQuery = this.db.prepare(`
-							SELECT c.* 
+							SELECT c.*
 							FROM content c
 							WHERE c.id = ?
 						`)
@@ -280,7 +291,7 @@ export class ContentService {
 			.prepare(
 				`
 			INSERT INTO content (
-				id, title, slug, description, type, status, 
+				id, title, slug, description, type, status,
 				body, metadata, created_at, updated_at, published_at,
 				likes, saves
 			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)
@@ -319,10 +330,12 @@ export class ContentService {
 				const tagQuery = this.db.prepare(`
 					SELECT slug FROM tags WHERE id = ?
 				`)
-				tagSlugs = data.tags.map(tagId => {
-					const tag = tagQuery.get(tagId) as { slug: string } | null
-					return tag?.slug || ''
-				}).filter(Boolean)
+				tagSlugs = data.tags
+					.map((tagId) => {
+						const tag = tagQuery.get(tagId) as { slug: string } | null
+						return tag?.slug || ''
+					})
+					.filter(Boolean)
 			}
 
 			if (this.searchService) {
@@ -361,7 +374,7 @@ export class ContentService {
 		this.db
 			.prepare(
 				`
-				UPDATE content 
+				UPDATE content
 				SET title = ?,
 					slug = ?,
 					description = ?,
@@ -370,7 +383,7 @@ export class ContentService {
 					body = ?,
 					metadata = ?,
 					updated_at = ?,
-					published_at = CASE 
+					published_at = CASE
 						WHEN status != 'published' AND ? = 'published' THEN ?
 						WHEN status = 'published' AND ? != 'published' THEN NULL
 						ELSE published_at
@@ -454,7 +467,7 @@ export class ContentService {
 
 			// Get total count of saved content
 			const countQuery = this.db.prepare(`
-				SELECT COUNT(1) as count 
+				SELECT COUNT(1) as count
 				FROM saves s
 				JOIN content c ON s.target_id = c.id
 				WHERE s.user_id = ? AND c.status = 'published'
@@ -468,7 +481,7 @@ export class ContentService {
 
 			// Get paginated saved content IDs
 			const savedContentQuery = this.db.prepare(`
-				SELECT s.target_id 
+				SELECT s.target_id
 				FROM saves s
 				JOIN content c ON s.target_id = c.id
 				WHERE s.user_id = ? AND c.status = 'published'
@@ -488,6 +501,42 @@ export class ContentService {
 		} catch (e) {
 			console.error('Error fetching saved content:', e)
 			return { content: [], count: 0 }
+		}
+	}
+
+	deleteContent(id: string): boolean {
+		try {
+			// Begin transaction
+			this.db.exec('BEGIN TRANSACTION')
+
+			// Delete tag associations
+			this.db.prepare('DELETE FROM content_to_tags WHERE content_id = ?').run(id)
+
+			// Delete user associations
+			this.db.prepare('DELETE FROM content_to_users WHERE content_id = ?').run(id)
+
+			// Delete likes
+			this.db.prepare('DELETE FROM likes WHERE target_id = ?').run(id)
+
+			// Delete saves
+			this.db.prepare('DELETE FROM saves WHERE target_id = ?').run(id)
+
+			// Delete the content itself
+			const result = this.db.prepare('DELETE FROM content WHERE id = ?').run(id)
+
+			// If content was deleted, remove from search index
+			if (result.changes > 0 && this.searchService) {
+				this.searchService.remove(id)
+			}
+
+			// Commit transaction
+			this.db.exec('COMMIT')
+
+			return result.changes > 0
+		} catch (e) {
+			console.error('Error deleting content:', e)
+			this.db.exec('ROLLBACK')
+			return false
 		}
 	}
 }
