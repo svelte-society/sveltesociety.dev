@@ -12,6 +12,7 @@ import type { CollectionService } from '$lib/server/services/collections'
 import type { MetadataService } from '$lib/server/services/metadata'
 import type { EventsService } from '$lib/server/services/events'
 import type { CacheService } from '$lib/server/services/cache'
+import type { ExternalContentService } from '$lib/server/services/external-content'
 
 declare global {
 	namespace App {
@@ -31,6 +32,7 @@ declare global {
 			metadataService: MetadataService
 			eventsService: EventsService
 			cacheService: CacheService
+			externalContentService: ExternalContentService
 		}
 		// interface PageData {}
 		// interface PageState {}
