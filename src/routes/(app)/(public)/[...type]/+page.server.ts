@@ -53,8 +53,18 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 	let content = []
 
 	const { data } = filters
+	
+	// Handle pagination
+	const page = parseInt(url.searchParams.get('page') || '1', 10)
+	const perPage = 15 // Should match the default limit in search service
+	const offset = (page - 1) * perPage
 
-	const searchResults = locals.searchService.search({ ...data, type: params.type })
+	const searchResults = locals.searchService.search({ 
+		...data, 
+		type: params.type,
+		limit: perPage,
+		offset: offset
+	})
 
 	content = searchResults.hits.map((hit) => {
 		const piece = locals.contentService.getContentById(hit.id)

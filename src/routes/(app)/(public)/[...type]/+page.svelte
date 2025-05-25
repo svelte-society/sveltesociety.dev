@@ -33,6 +33,6 @@
 		</div>
 	{/if}
 	{#if data.count > 0}
-		<Pagination count={data.count} />
+		<Pagination count={data.count} perPage={15} />
 	{/if}
 </div>
