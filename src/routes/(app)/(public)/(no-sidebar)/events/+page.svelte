@@ -1,45 +1,10 @@
 <script lang="ts">
-	import ContentCard from '$lib/ui/ContentCard.svelte'
 	import Calendar from 'phosphor-svelte/lib/Calendar'
 	import ClockCounterClockwise from 'phosphor-svelte/lib/ClockCounterClockwise'
-	import type { Content } from '$lib/types/content'
+	import MapPin from 'phosphor-svelte/lib/MapPin'
+	import User from 'phosphor-svelte/lib/User'
 	
 	let { data } = $props()
-	
-	// Convert event data to Content format for ContentCard
-	function eventToContent(event: any): Content {
-		const metadata = typeof event.metadata === 'string' 
-			? JSON.parse(event.metadata) 
-			: event.metadata || {}
-			
-		return {
-			id: event.id,
-			title: event.title,
-			slug: event.slug,
-			description: event.description,
-			type: 'event',
-			status: 'published',
-			body: event.body || event.description,
-			rendered_body: event.rendered_body || event.description,
-			author: event.owner || event.author || 'Svelte Society',
-			tags: event.tags || [],
-			created_at: event.created_at || new Date().toISOString(),
-			updated_at: event.updated_at || new Date().toISOString(),
-			published_at: event.published_at || event.startTime,
-			likes: event.likes || 0,
-			saves: event.saves || 0,
-			liked: false,
-			saved: false,
-			views: event.views || 0,
-			metadata: {
-				startTime: event.startTime || metadata.startTime,
-				endTime: event.endTime || metadata.endTime,
-				location: event.location || metadata.location,
-				url: event.url || metadata.url
-			},
-			children: []
-		}
-	}
 </script>
 
 <div class="grid gap-8">
@@ -59,16 +24,86 @@
 				<p class="mt-2 text-sm text-gray-500">Check back soon for new events!</p>
 			</div>
 		{:else}
-			<div class="grid gap-4">
+			<div class="grid gap-3">
 				{#each data.upcomingEvents as event}
-					<ContentCard content={eventToContent(event)} eventData={event} />
+					<div class="flex gap-4 rounded-lg border border-gray-200 bg-white p-4 hover:border-svelte-300 transition-colors">
+						<div class="flex-shrink-0">
+							{#if event.socialCardUrl}
+								<img 
+									src={event.socialCardUrl} 
+									alt={event.title}
+									class="h-24 w-24 rounded-lg object-cover"
+								/>
+							{:else}
+								<div class="h-24 w-24 rounded-lg bg-gray-100 flex items-center justify-center">
+									<Calendar size={40} class="text-gray-400" />
+								</div>
+							{/if}
+						</div>
+						
+						<div class="flex-1 min-w-0">
+							<h3 class="text-lg font-semibold">
+								{#if event.url}
+									<a href={event.url} target="_blank" rel="noopener noreferrer" class="hover:text-svelte-500">
+										{event.title}
+									</a>
+								{:else}
+									{event.title}
+								{/if}
+							</h3>
+							
+							<div class="mt-2 space-y-1">
+								{#if event.startTime}
+									<div class="flex items-center gap-2 text-sm text-gray-600">
+										<Calendar size={16} />
+										<span>{new Date(event.startTime).toLocaleDateString('en-US', {
+											weekday: 'short',
+											month: 'short',
+											day: 'numeric',
+											hour: '2-digit',
+											minute: '2-digit'
+										})}</span>
+									</div>
+								{/if}
+								
+								{#if event.location}
+									<div class="flex items-center gap-2 text-sm text-gray-600">
+										<MapPin size={16} />
+										<span>{event.location}</span>
+									</div>
+								{/if}
+								
+								{#if event.presentations && event.presentations.length > 0}
+									<div class="flex items-center gap-2 text-sm text-gray-600">
+										<User size={16} />
+										<span>{event.presentations.length} presentation{event.presentations.length !== 1 ? 's' : ''}</span>
+									</div>
+								{/if}
+							</div>
+							
+							{#if event.presentations && event.presentations.length > 0}
+								<div class="mt-3 flex flex-wrap gap-2">
+									{#each event.presentations.slice(0, 3) as presentation}
+										<span class="text-xs bg-gray-100 px-2 py-1 rounded">
+											{presentation.presenter}
+										</span>
+									{/each}
+									{#if event.presentations.length > 3}
+										<span class="text-xs text-gray-500">
+											+{event.presentations.length - 3} more
+										</span>
+									{/if}
+								</div>
+							{/if}
+						</div>
+					</div>
 				{/each}
 			</div>
 		{/if}
 	</section>
 
 	<!-- Past Events Section -->
-	<section>
+	<section class="bg-gray-50 rounded-lg p-6">
 		<div class="mb-6 flex items-center gap-2">
 			<ClockCounterClockwise size={32} class="text-gray-600" />
 			<div>
@@ -83,10 +118,78 @@
 				<p class="text-lg text-gray-600">No past events to show.</p>
 			</div>
 		{:else}
-			<div class="grid gap-4">
+			<div class="grid gap-3">
 				{#each data.pastEvents as event}
-					<div class="opacity-75">
-						<ContentCard content={eventToContent(event)} eventData={event} />
+					<div class="flex gap-4 rounded-lg border border-gray-200 bg-white p-4 hover:border-gray-300 transition-colors">
+						<div class="flex-shrink-0">
+							{#if event.socialCardUrl}
+								<img 
+									src={event.socialCardUrl} 
+									alt={event.title}
+									class="h-24 w-24 rounded-lg object-cover"
+								/>
+							{:else}
+								<div class="h-24 w-24 rounded-lg bg-gray-200 flex items-center justify-center">
+									<Calendar size={40} class="text-gray-500" />
+								</div>
+							{/if}
+						</div>
+						
+						<div class="flex-1 min-w-0">
+							<h3 class="text-lg font-semibold">
+								{#if event.url}
+									<a href={event.url} target="_blank" rel="noopener noreferrer" class="hover:text-svelte-500">
+										{event.title}
+									</a>
+								{:else}
+									{event.title}
+								{/if}
+							</h3>
+							
+							<div class="mt-2 space-y-1">
+								{#if event.startTime}
+									<div class="flex items-center gap-2 text-sm text-gray-600">
+										<Calendar size={16} />
+										<span>{new Date(event.startTime).toLocaleDateString('en-US', {
+											weekday: 'short',
+											month: 'short',
+											day: 'numeric',
+											hour: '2-digit',
+											minute: '2-digit'
+										})}</span>
+									</div>
+								{/if}
+								
+								{#if event.location}
+									<div class="flex items-center gap-2 text-sm text-gray-600">
+										<MapPin size={16} />
+										<span>{event.location}</span>
+									</div>
+								{/if}
+								
+								{#if event.presentations && event.presentations.length > 0}
+									<div class="flex items-center gap-2 text-sm text-gray-600">
+										<User size={16} />
+										<span>{event.presentations.length} presentation{event.presentations.length !== 1 ? 's' : ''}</span>
+									</div>
+								{/if}
+							</div>
+							
+							{#if event.presentations && event.presentations.length > 0}
+								<div class="mt-3 flex flex-wrap gap-2">
+									{#each event.presentations.slice(0, 3) as presentation}
+										<span class="text-xs bg-gray-100 px-2 py-1 rounded">
+											{presentation.presenter}
+										</span>
+									{/each}
+									{#if event.presentations.length > 3}
+										<span class="text-xs text-gray-500">
+											+{event.presentations.length - 3} more
+										</span>
+									{/if}
+								</div>
+							{/if}
+						</div>
 					</div>
 				{/each}
 			</div>

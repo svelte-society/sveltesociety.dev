@@ -15,7 +15,10 @@
 	import User from 'phosphor-svelte/lib/User'
 	import VideoCamera from 'phosphor-svelte/lib/VideoCamera'
 
-	let { content, compact = false, eventData }: { content: Content; compact?: boolean; eventData?: any } = $props()
+	let {
+		content,
+		compact = false
+	}: { content: Content; compact?: boolean } = $props()
 
 	let submitting = $state(false)
 
@@ -41,7 +44,11 @@
 	}
 </script>
 
-<article class="grid gap-2 rounded-lg bg-zinc-50 {compact ? 'px-3 py-3 sm:px-4 sm:py-3' : 'px-4 py-4 sm:px-6 sm:py-5'}">
+<article
+	class="grid gap-2 rounded-lg bg-zinc-50 {compact
+		? 'px-3 py-3 sm:px-4 sm:py-3'
+		: 'px-4 py-4 sm:px-6 sm:py-5'}"
+>
 	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between gap-2 text-xs sm:gap-0">
 		<div class="flex flex-wrap items-center">
 			<span class="font-semibold capitalize">{content.type}&nbsp;</span>
@@ -125,10 +132,16 @@
 		</form>
 	</div>
 
-	<h2 class="{compact ? 'mb-1 text-base font-bold sm:text-lg' : 'mb-2 text-lg font-bold sm:text-xl'}">
-		<a href="/{content.type}/{content.slug}">{content.title}</a>
+	<h2 class={compact ? 'mb-1 text-base font-bold sm:text-lg' : 'mb-2 text-lg font-bold sm:text-xl'}>
+		{#if content.type === 'event' && content.metadata?.url}
+			<a href={content.metadata.url} target="_blank" rel="noopener noreferrer">{content.title}</a>
+		{:else}
+			<a href="/{content.type}/{content.slug}">{content.title}</a>
+		{/if}
 	</h2>
-	<div class="{compact ? 'text-sm line-clamp-2' : 'text-sm sm:text-base'}">{content.description}</div>
+	{#if content.type !== 'event'}
+		<div class={compact ? 'line-clamp-2 text-sm' : 'text-sm sm:text-base'}>{content.description}</div>
+	{/if}
 
 	<div>
 		{#if content.type === 'recipe'}
@@ -138,64 +151,71 @@
 		{:else if content.type === 'video'}
 			<Video />
 		{:else if content.type === 'event'}
-			<div class="space-y-2 text-sm">
-				{#if eventData?.presentations && eventData.presentations.length > 0}
-					<div class="mb-3 space-y-2 border-b pb-3">
-						{#each eventData.presentations as presentation}
-							<div class="rounded bg-gray-50 p-2">
-								<div class="flex items-start gap-2">
-									<User size={14} class="mt-0.5 text-gray-500" />
-									<div class="flex-1">
-										<p class="font-medium text-gray-800">{presentation.title}</p>
-										<p class="text-xs text-gray-600">by {presentation.presenter}</p>
-										{#if presentation.videoUrl}
-											<div class="mt-1 flex items-center gap-1">
-												<VideoCamera size={12} class="text-gray-500" />
-												<span class="text-xs text-gray-500">Video available</span>
-											</div>
-										{/if}
-									</div>
-								</div>
-							</div>
-						{/each}
+			<div class="flex gap-4">
+				{#if content.metadata?.socialCardUrl}
+					<div class={content.metadata?.presentations && content.metadata.presentations.length > 0 ? 'w-1/3 flex-shrink-0' : 'w-1/2 flex-shrink-0'}>
+						<img 
+							src={content.metadata.socialCardUrl} 
+							alt={content.title} 
+							class="w-full h-full object-cover rounded-lg"
+						/>
 					</div>
 				{/if}
 				
+				<div class="flex-1 space-y-2 text-sm">
+					{#if content.metadata?.presentations && content.metadata.presentations.length > 0}
+						<div class="mb-3 space-y-2 border-b pb-3">
+							{#each content.metadata.presentations as presentation}
+								<div class="rounded bg-gray-50 p-2">
+									<div class="flex items-start gap-2">
+										<User size={14} class="mt-0.5 text-gray-500" />
+										<div class="flex-1">
+											<p class="font-medium text-gray-800">{presentation.title}</p>
+											<p class="text-xs text-gray-600">by {presentation.presenter}</p>
+											{#if presentation.videoUrl}
+												<div class="mt-1 flex items-center gap-1">
+													<VideoCamera size={12} class="text-gray-500" />
+													<span class="text-xs text-gray-500">Video available</span>
+												</div>
+											{/if}
+										</div>
+									</div>
+								</div>
+							{/each}
+						</div>
+					{/if}
+
 				{#if content.metadata?.startTime}
 					<div class="flex items-center gap-2 text-gray-600">
 						<Calendar size={16} />
-						<span>{new Date(content.metadata.startTime).toLocaleDateString('en-US', {
-							weekday: 'short',
-							month: 'short',
-							day: 'numeric',
-							hour: '2-digit',
-							minute: '2-digit'
-						})}</span>
+						<span
+							>{new Date(content.metadata.startTime).toLocaleDateString('en-US', {
+								weekday: 'short',
+								month: 'short',
+								day: 'numeric',
+								hour: '2-digit',
+								minute: '2-digit'
+							})}</span
+						>
 					</div>
 				{/if}
-				
+
 				{#if content.metadata?.location}
 					<div class="flex items-center gap-2 text-gray-600">
 						<MapPin size={16} />
 						<span>{content.metadata.location}</span>
 					</div>
 				{/if}
-				
-				{#if content.metadata?.url}
-					<div class="flex items-center gap-2">
-						<Link size={16} class="text-gray-600" />
-						<a 
-							href={content.metadata.url} 
-							target="_blank" 
-							rel="noopener noreferrer"
-							class="text-svelte-500 hover:underline"
-						>
-							Event Details
-						</a>
+
+				{#if content.metadata?.presentations && content.metadata.presentations.length > 0}
+					<div class="flex items-center gap-2 text-gray-600">
+						<User size={16} />
+						<span>{content.metadata.presentations.length} presentation{content.metadata.presentations.length !== 1 ? 's' : ''}</span>
 					</div>
 				{/if}
 			</div>
-		{/if}
+		</div>
+	{/if}
 	</div>
 
 	<div

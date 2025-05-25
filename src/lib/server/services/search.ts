@@ -1,5 +1,5 @@
 import type { TypedDocument, Orama, Results, SearchParams } from "@orama/orama";
-import { create, insertMultiple, search, update, remove, getByID } from '@orama/orama'
+import { create, insertMultiple, search, update, remove, getByID, insert } from '@orama/orama'
 import { z } from 'zod'
 import { Database } from 'bun:sqlite'
 
@@ -122,5 +122,44 @@ export class SearchService {
 
   remove(id: string) {
     remove(this.searchDB, id)
+  }
+
+  add(content: ContentDocument) {
+    insert(this.searchDB, content)
+  }
+
+  reindex() {
+    // Clear existing index
+    this.searchDB = create({
+      schema: contentSchema,
+      components: {
+        tokenizer: {
+          stemming: true,
+          stemmerSkipProperties: ['tag', 'type']
+        }
+      }
+    })
+
+    // Fetch all content from the database and reindex
+    const content = this.db
+      .query(
+        `
+        SELECT 
+          c.id, c.title, c.description, c.type, c.created_at, c.likes, c.saves,
+          json_group_array(t.slug) as tags
+        FROM content c
+        LEFT JOIN content_to_tags ct ON c.id = ct.content_id
+        LEFT JOIN tags t ON ct.tag_id = t.id
+        WHERE c.status = "published"
+        GROUP BY c.id
+        `
+      )
+      .all()
+      .map((c: any) => ({ 
+        ...c, 
+        tags: c.tags ? JSON.parse(c.tags).filter((tag: unknown) => tag !== null) as string[] : [] 
+      }))
+
+    insertMultiple(this.searchDB, content)
   }
 }

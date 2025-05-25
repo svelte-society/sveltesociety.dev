@@ -31,7 +31,7 @@
 			{@render children()}
 		</div>
 
-		<RightSidebar />
+		<RightSidebar upcomingEvents={data.upcomingEvents} />
 
 		{#if isAdmin}
 			<a

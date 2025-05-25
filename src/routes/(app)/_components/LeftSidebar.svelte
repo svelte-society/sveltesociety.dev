@@ -19,7 +19,6 @@
 		{ name: 'Announcements', href: '/announcement' },
 		{ name: 'Collections', href: '/collection' },
 		{ name: 'CODE / RESOURCES', href: null },
-		{ name: 'Events', href: '/event' },
 		{ name: 'Libraries', href: '/library' },
 		{ name: 'LEARNING', href: null },
 		{ name: 'Videos', href: '/video' },

@@ -29,10 +29,6 @@ const categories = [
 	{
 		label: 'Collection',
 		value: 'collection'
-	},
-	{
-		label: 'Event',
-		value: 'event'
 	}
 ]
 
@@ -48,7 +44,7 @@ const sortOptions = [
 	{
 		label: 'Most Saved',
 		value: 'saves'
-	},
+	}
 ]
 
 export const load: PageServerLoad = async ({ url, locals, params }) => {
@@ -58,9 +54,16 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 
 	const { data } = filters
 
-	const searchResults = locals.searchService.search({...data, type: params.type})
+	const searchResults = locals.searchService.search({ ...data, type: params.type })
 
-	content = searchResults.hits.map((hit) => locals.contentService.getContentById(hit.id)) as Content[]
+	content = searchResults.hits.map((hit) => {
+		const piece = locals.contentService.getContentById(hit.id)
+		// Parse metadata if it's a string (for events)
+		if (piece && piece.type === 'event' && typeof piece.metadata === 'string') {
+			piece.metadata = JSON.parse(piece.metadata)
+		}
+		return piece
+	}).filter((piece) => piece && piece.type !== 'event') as Content[]
 
 	const allTags = locals.tagService.getTags()
 
@@ -81,7 +84,10 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 
 	// Format the type for display (e.g., "blog-posts" -> "Blog Posts")
 	const typeForDisplay = params.type
-		? params.type.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+		? params.type
+				.split('-')
+				.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+				.join(' ')
 		: 'Content'
 
 	return {

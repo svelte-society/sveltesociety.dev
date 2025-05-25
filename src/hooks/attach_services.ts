@@ -37,8 +37,8 @@ const initialize_db = () => {
 		db.exec('PRAGMA mmap_size = 3000000')
 		db.exec('PRAGMA foreign_keys = ON')
 
-		contentService = new ContentService(db)
 		searchService = new SearchService(db)
+		contentService = new ContentService(db, searchService)
 		interactionsService = new InteractionsService(db)
 		roleService = new RoleService(db)
 		sessionService = new SessionService(db)

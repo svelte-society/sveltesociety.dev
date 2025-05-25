@@ -1,5 +1,9 @@
 <script lang="ts">
 	import Button from '$lib/ui/Button.svelte'
+	import UpcomingEvents from './UpcomingEvents.svelte'
+	import type { Content } from '$lib/types/content'
+	
+	let { upcomingEvents = [] }: { upcomingEvents?: Content[] } = $props()
 </script>
 
 <div class="@container hidden space-y-4 sm:block">
@@ -23,4 +27,6 @@
 			<li>John Doe Inc.</li>
 		</ul>
 	</div>
+
+	<UpcomingEvents events={upcomingEvents} />
 </div>
