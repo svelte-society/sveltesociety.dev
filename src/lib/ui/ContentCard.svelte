@@ -139,17 +139,17 @@
 			<a href="/{content.type}/{content.slug}">{content.title}</a>
 		{/if}
 	</h2>
-	{#if content.type !== 'event'}
+	{#if content.type !== 'event' && content.type !== 'video'}
 		<div class={compact ? 'line-clamp-2 text-sm' : 'text-sm sm:text-base'}>{content.description}</div>
 	{/if}
 
 	<div>
 		{#if content.type === 'recipe'}
-			<Recipe />
+			<Recipe {content} />
 		{:else if content.type === 'collection'}
 			<Collection children={content.children} />
 		{:else if content.type === 'video'}
-			<Video />
+			<Video {content} />
 		{:else if content.type === 'event'}
 			<div class="flex gap-4">
 				{#if content.metadata?.socialCardUrl}
