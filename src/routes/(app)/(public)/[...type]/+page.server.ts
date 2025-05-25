@@ -75,7 +75,7 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 		return piece
 	}).filter((piece) => piece && piece.type !== 'event') as Content[]
 
-	const allTags = locals.tagService.getTags()
+	const allTags = locals.tagService.getAllTags()
 
 	let mappedContent = content
 	if (locals.user?.id) {

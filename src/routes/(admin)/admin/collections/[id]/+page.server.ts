@@ -26,7 +26,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	// Get all content for the selector
 	const allContent = locals.contentService.getFilteredContent({})
 	// Get all tags for the selector
-	const allTags = locals.tagService.getTags({ limit: 100 })
+	const allTags = locals.tagService.getAllTags()
 
 	return {
 		form,

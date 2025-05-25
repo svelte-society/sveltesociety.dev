@@ -4,6 +4,7 @@ import { Database } from 'bun:sqlite'
 
 export class TagService {
 	private getTagsStatement
+	private getAllTagsStatement
 	private getTagsCountStatement
 	private getTagStatement
 	private deleteTagStatement
@@ -13,6 +14,10 @@ export class TagService {
 	constructor(private db: Database) {
 		this.getTagsStatement = this.db.prepare(
 			'SELECT * FROM tags ORDER BY created_at DESC LIMIT $limit OFFSET $offset'
+		)
+		
+		this.getAllTagsStatement = this.db.prepare(
+			'SELECT * FROM tags ORDER BY name ASC'
 		)
 
 		this.getTagsCountStatement = this.db.prepare('SELECT COUNT(*) as count FROM tags')
@@ -41,6 +46,16 @@ export class TagService {
 			return result
 		} catch (error) {
 			console.error('Error getting tags:', error)
+			return []
+		}
+	}
+	
+	getAllTags(): Tag[] {
+		try {
+			const result = this.getAllTagsStatement.all() as Tag[]
+			return result
+		} catch (error) {
+			console.error('Error getting all tags:', error)
 			return []
 		}
 	}

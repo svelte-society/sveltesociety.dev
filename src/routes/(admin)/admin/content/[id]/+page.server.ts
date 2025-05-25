@@ -29,7 +29,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	const form = await superValidate(formData, zod(updateContentSchema))
 
 	// Get all tags for the tag selector
-	const tags = await locals.tagService.getTags()
+	const tags = locals.tagService.getAllTags()
 
 	return {
 		form,
