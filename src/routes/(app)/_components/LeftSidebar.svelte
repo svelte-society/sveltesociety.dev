@@ -46,7 +46,7 @@
 						<a class="block w-full" href={preserveSearchParams(link.href)}>{link.name}</a>
 					</li>
 				{:else}
-					<li class="mt-2 px-2 py-0.5 text-xs font-thin">
+					<li class="mt-2 px-2 py-0.5 text-xs font-extralight">
 						{link.name}
 					</li>
 				{/if}
