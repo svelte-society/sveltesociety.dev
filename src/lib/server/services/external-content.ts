@@ -236,12 +236,9 @@ export class ExternalContentService {
 	 * Generate a unique slug for external content
 	 */
 	private generateSlug(data: ExternalContentData): string {
-		const sourcePrefix = data.source.source.toLowerCase()
-		const typePrefix = data.type.toLowerCase()
-
 		// For events, use the external ID directly as it's usually already a slug
 		if (data.type === 'event' && data.source.externalId.match(/^[a-z0-9-]+$/)) {
-			return `${sourcePrefix}-${data.source.externalId}`
+			return data.source.externalId
 		}
 
 		// For other content, generate from title
@@ -249,9 +246,13 @@ export class ExternalContentService {
 			.toLowerCase()
 			.replace(/[^a-z0-9]+/g, '-')
 			.replace(/^-|-$/g, '')
-			.substring(0, 50)
 
-		return `${sourcePrefix}-${typePrefix}-${titleSlug}-${data.source.externalId.substring(0, 8)}`
+		// If we end up with an empty slug, use the external ID
+		if (!titleSlug) {
+			return data.source.externalId.substring(0, 50).toLowerCase().replace(/[^a-z0-9]+/g, '-')
+		}
+
+		return titleSlug
 	}
 
 	/**
