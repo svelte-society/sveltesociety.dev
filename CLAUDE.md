@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ### Development
+
 ```bash
 bun dev                  # Start development server
 bun build                # Build for production
@@ -13,12 +14,14 @@ bun start                # Start production server
 ```
 
 ### Code Quality
+
 ```bash
 bun lint                 # Format code with Prettier
 bun check                # Type-check with svelte-check
 ```
 
 ### Testing
+
 ```bash
 bun test                 # Run unit tests (Vitest)
 bun test:integration     # Run Playwright integration tests
@@ -26,6 +29,7 @@ bun test -- path/to/file # Run specific test file
 ```
 
 ### Database
+
 ```bash
 bun db:init              # Initialize database schema
 bun db:seed              # Seed database with sample data
@@ -36,6 +40,7 @@ bun db:test:seed         # Seed test database
 ## Architecture
 
 ### Service Layer Pattern
+
 The application uses a service-based architecture where all database operations go through service classes:
 
 - Services are instantiated in `hooks.server.ts` and attached to `locals` via the `attach_services` hook
@@ -43,34 +48,41 @@ The application uses a service-based architecture where all database operations 
 - Key services: `ContentService`, `SearchService`, `UserService`, `SessionService`, `RoleService`, `TagsService`, `CollectionsService`, `EventsService`, `ExternalContentService`
 
 ### Hook System
+
 Three main hooks process requests in order:
+
 1. `add_user_data` - Attaches user session data to locals
 2. `attach_services` - Instantiates and attaches all services
 3. `protect_routes` - Guards admin routes
 
 ### Content Management
+
 - Content types: `recipe`, `video`, `library`, `announcement`, `link`, `blog`, `collection`, `event`
 - Status workflow: `draft` → `pending_review` → `published` → `archived`
 - Moderation queue for content review
 - External content importing from YouTube and GitHub APIs
 
 ### Database Schema
+
 - SQLite with WAL mode for concurrency
 - Views for aggregated data (collections, content)
 - Triggers for automatic updates (interactions, moderation)
 - Schema files in `/src/lib/server/db/schema/`, views in `/views/`, triggers in `/triggers/`
 
 ### Search Implementation
+
 - Uses Orama for full-text search indexing
 - Search service builds index from content
 - API endpoint at `/api/search`
 
 ### Authentication
+
 - OAuth-based authentication (GitHub provider)
 - Session tokens stored in database
 - User roles and permissions system
 
 ### External Content Integration
+
 - `ExternalContentService` manages imported content
 - Importers for YouTube videos and GitHub repositories
 - Caching with stale-while-revalidate using cachified
@@ -79,6 +91,7 @@ Three main hooks process requests in order:
 ## Environment Setup
 
 Required environment variables in `.env.development`:
+
 ```
 GITHUB_CLIENT_ID=
 GITHUB_CLIENT_SECRET=
@@ -87,6 +100,7 @@ DB_PATH=local.db
 ```
 
 Optional environment variables:
+
 ```
 ANTHROPIC_API_KEY=         # For AI-powered description generation in admin
 YOUTUBE_API_KEY=          # For importing YouTube videos
@@ -96,21 +110,25 @@ GITHUB_TOKEN=             # For better rate limits when importing GitHub repos
 ## Key Patterns
 
 ### Svelte 5 Reactivity
+
 - Use `$state()` for reactive state
 - Use `$derived()` for computed values
 - Use `$effect()` sparingly for side effects
 
 ### Form Handling
+
 - SuperForms for form validation and handling
 - Zod schemas for validation
 - Use `dataType: 'json'` for complex nested data
 - Specifically follow the pattern in the /submit route.
 
 ### Type-Specific Components
+
 - Content display components in `/src/lib/ui/content/`
 - Each content type has its own display component (Video.svelte, Library.svelte, etc.)
 
 ### Testing Approach
+
 - Unit tests for services with mocked database
 - Integration tests for full user flows
 - Test database isolation with `NODE_ENV=test`
