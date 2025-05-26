@@ -27,7 +27,6 @@
 
 	const { form: formData, submitting } = form
 
-
 	// Helper for npm package info
 	async function fetchNpmInfo(packageName: string) {
 		if (!packageName) return undefined
@@ -54,25 +53,62 @@
 		}
 	}
 
+	// Generate description using AI
+	let generatingDescription = $state(false)
+
+	async function generateDescription() {
+		if (!$formData.body || $formData.body.trim() === '') {
+			toast.error('Please add some content to the body first')
+			return
+		}
+
+		generatingDescription = true
+
+		try {
+			const response = await fetch('/api/generate-description', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					body: $formData.body,
+					title: $formData.title,
+					type: $formData.type
+				})
+			})
+
+			if (!response.ok) {
+				const error = await response.text()
+				throw new Error(error || 'Failed to generate description')
+			}
+
+			const { description } = await response.json()
+			$formData.description = description
+			toast.success('Description generated successfully')
+		} catch (error) {
+			console.error('Error generating description:', error)
+			toast.error(error instanceof Error ? error.message : 'Failed to generate description')
+		} finally {
+			generatingDescription = false
+		}
+	}
 
 	function getNpmPackage(): string {
 		const metadata = ($formData.metadata as { npm?: string }) || {}
 		return metadata.npm || ''
 	}
-	
+
 	// Check if content is imported
-	const isImported = $derived(
-		data.content?.metadata?.externalSource !== undefined
-	)
+	const isImported = $derived(data.content?.metadata?.externalSource !== undefined)
 </script>
 
 <div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
 	<h1 class="mb-6 text-3xl font-bold text-gray-800">Edit Content</h1>
 
 	{#if isImported}
-		<div class="mb-6 rounded-lg bg-blue-50 border border-blue-200 p-4">
-			<h2 class="text-sm font-semibold text-blue-800 mb-2">External Source Information</h2>
-			<dl class="text-sm text-blue-700 space-y-1">
+		<div class="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
+			<h2 class="mb-2 text-sm font-semibold text-blue-800">External Source Information</h2>
+			<dl class="space-y-1 text-sm text-blue-700">
 				<div class="flex gap-2">
 					<dt class="font-medium">Source:</dt>
 					<dd class="capitalize">{data.content?.metadata?.externalSource?.source}</dd>
@@ -84,14 +120,21 @@
 				<div class="flex gap-2">
 					<dt class="font-medium">URL:</dt>
 					<dd>
-						<a href={data.content?.metadata?.externalSource?.url} target="_blank" rel="noopener noreferrer" class="underline">
+						<a
+							href={data.content?.metadata?.externalSource?.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="underline"
+						>
 							{data.content?.metadata?.externalSource?.url}
 						</a>
 					</dd>
 				</div>
 				<div class="flex gap-2">
 					<dt class="font-medium">Last Fetched:</dt>
-					<dd>{new Date(data.content?.metadata?.externalSource?.lastFetched || '').toLocaleString()}</dd>
+					<dd>
+						{new Date(data.content?.metadata?.externalSource?.lastFetched || '').toLocaleString()}
+					</dd>
 				</div>
 			</dl>
 		</div>
@@ -108,7 +151,9 @@
 		<Select
 			name="type"
 			label="Content Type"
-			description={isImported ? "Content type cannot be changed for imported content" : "Select the type of content"}
+			description={isImported
+				? 'Content type cannot be changed for imported content'
+				: 'Select the type of content'}
 			disabled={isImported}
 			options={[
 				{ value: 'recipe', label: 'Recipe' },
@@ -133,21 +178,42 @@
 		{#if $formData.type === 'video' && isImported && data.content?.metadata?.externalSource?.source === 'youtube'}
 			<div transition:slide class="space-y-2">
 				<!-- Display YouTube metadata for imported videos -->
-				<div class="rounded-md bg-yellow-50 border border-yellow-200 p-4">
-					<p class="text-sm font-medium text-yellow-800 mb-2">YouTube Video Information</p>
+				<div class="rounded-md border border-yellow-200 bg-yellow-50 p-4">
+					<p class="mb-2 text-sm font-medium text-yellow-800">YouTube Video Information</p>
 					{#if data.content?.metadata?.thumbnail}
 						<div class="flex gap-4">
-							<img src={data.content.metadata.thumbnail} alt="Video thumbnail" class="w-48 rounded" />
-							<div class="text-sm space-y-1">
-								<div><span class="font-medium">Channel:</span> {data.content.metadata.channelTitle || 'Unknown'}</div>
-								<div><span class="font-medium">Published:</span> {new Date(data.content.metadata.publishedAt || '').toLocaleDateString()}</div>
+							<img
+								src={data.content.metadata.thumbnail}
+								alt="Video thumbnail"
+								class="w-48 rounded"
+							/>
+							<div class="space-y-1 text-sm">
+								<div>
+									<span class="font-medium">Channel:</span>
+									{data.content.metadata.channelTitle || 'Unknown'}
+								</div>
+								<div>
+									<span class="font-medium">Published:</span>
+									{new Date(data.content.metadata.publishedAt || '').toLocaleDateString()}
+								</div>
 								{#if data.content.metadata.statistics}
-									<div><span class="font-medium">Views:</span> {data.content.metadata.statistics.viewCount?.toLocaleString() || 0}</div>
-									<div><span class="font-medium">Likes:</span> {data.content.metadata.statistics.likeCount?.toLocaleString() || 0}</div>
+									<div>
+										<span class="font-medium">Views:</span>
+										{data.content.metadata.statistics.viewCount?.toLocaleString() || 0}
+									</div>
+									<div>
+										<span class="font-medium">Likes:</span>
+										{data.content.metadata.statistics.likeCount?.toLocaleString() || 0}
+									</div>
 								{/if}
 								{#if data.content.metadata.watchUrl}
 									<div>
-										<a href={data.content.metadata.watchUrl} target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">
+										<a
+											href={data.content.metadata.watchUrl}
+											target="_blank"
+											rel="noopener noreferrer"
+											class="text-blue-600 underline"
+										>
 											Watch on YouTube
 										</a>
 									</div>
@@ -156,40 +222,79 @@
 						</div>
 					{/if}
 				</div>
-				<p class="text-sm text-gray-500 italic">Video metadata is read-only for imported content.</p>
+				<p class="text-sm text-gray-500 italic">
+					Video metadata is read-only for imported content.
+				</p>
 			</div>
 		{/if}
 
 		{#if $formData.type === 'library' && isImported && data.content?.metadata?.externalSource?.source === 'github'}
 			<div transition:slide class="space-y-2">
 				<!-- Display GitHub metadata for imported repositories -->
-				<div class="rounded-md bg-blue-50 border border-blue-200 p-4">
-					<p class="text-sm font-medium text-blue-800 mb-2">GitHub Repository Information</p>
+				<div class="rounded-md border border-blue-200 bg-blue-50 p-4">
+					<p class="mb-2 text-sm font-medium text-blue-800">GitHub Repository Information</p>
 					<div class="flex gap-4">
 						{#if data.content?.metadata?.owner?.avatar}
-							<img src={data.content.metadata.owner.avatar} alt="{data.content.metadata.owner.name}" class="w-16 h-16 rounded" />
+							<img
+								src={data.content.metadata.owner.avatar}
+								alt={data.content.metadata.owner.name}
+								class="h-16 w-16 rounded"
+							/>
 						{/if}
-						<div class="text-sm space-y-1 flex-1">
+						<div class="flex-1 space-y-1 text-sm">
 							<div class="flex gap-4">
-								<div><span class="font-medium">Owner:</span> <a href={data.content.metadata.owner?.url} target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">{data.content.metadata.owner?.name}</a></div>
-								<div><span class="font-medium">Language:</span> {data.content.metadata.language || 'Unknown'}</div>
+								<div>
+									<span class="font-medium">Owner:</span>
+									<a
+										href={data.content.metadata.owner?.url}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="text-blue-600 underline">{data.content.metadata.owner?.name}</a
+									>
+								</div>
+								<div>
+									<span class="font-medium">Language:</span>
+									{data.content.metadata.language || 'Unknown'}
+								</div>
 							</div>
 							<div class="flex gap-4">
-								<div><span class="font-medium">⭐ Stars:</span> {data.content.metadata.stars?.toLocaleString() || 0}</div>
-								<div><span class="font-medium">🍴 Forks:</span> {data.content.metadata.forks?.toLocaleString() || 0}</div>
-								<div><span class="font-medium">🐛 Issues:</span> {data.content.metadata.issues?.toLocaleString() || 0}</div>
+								<div>
+									<span class="font-medium">⭐ Stars:</span>
+									{data.content.metadata.stars?.toLocaleString() || 0}
+								</div>
+								<div>
+									<span class="font-medium">🍴 Forks:</span>
+									{data.content.metadata.forks?.toLocaleString() || 0}
+								</div>
+								<div>
+									<span class="font-medium">🐛 Issues:</span>
+									{data.content.metadata.issues?.toLocaleString() || 0}
+								</div>
 							</div>
 							{#if data.content.metadata.topics && data.content.metadata.topics.length > 0}
-								<div><span class="font-medium">Topics:</span> {data.content.metadata.topics.join(', ')}</div>
+								<div>
+									<span class="font-medium">Topics:</span>
+									{data.content.metadata.topics.join(', ')}
+								</div>
 							{/if}
 							<div class="flex gap-4">
 								{#if data.content.metadata.github}
-									<a href={data.content.metadata.github} target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">
+									<a
+										href={data.content.metadata.github}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="text-blue-600 underline"
+									>
 										View on GitHub
 									</a>
 								{/if}
 								{#if data.content.metadata.homepage && data.content.metadata.homepage !== data.content.metadata.github}
-									<a href={data.content.metadata.homepage} target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">
+									<a
+										href={data.content.metadata.homepage}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="text-blue-600 underline"
+									>
 										Homepage
 									</a>
 								{/if}
@@ -197,7 +302,9 @@
 						</div>
 					</div>
 				</div>
-				<p class="text-sm text-gray-500 italic">Repository metadata is read-only for imported content.</p>
+				<p class="text-sm text-gray-500 italic">
+					Repository metadata is read-only for imported content.
+				</p>
 			</div>
 		{:else if ($formData.type === 'library' || $formData.type === 'showcase') && !isImported}
 			<div transition:slide class="space-y-2">
@@ -243,9 +350,10 @@
 		{/if}
 
 		{#if isImported && !$formData.body}
-			<div class="rounded-md bg-gray-50 border border-gray-200 p-4 mb-4">
+			<div class="mb-4 rounded-md border border-gray-200 bg-gray-50 p-4">
 				<p class="text-sm text-gray-600">
-					This imported content doesn't have body text. You can add additional content below if needed.
+					This imported content doesn't have body text. You can add additional content below if
+					needed.
 				</p>
 			</div>
 		{/if}
@@ -261,12 +369,24 @@
 			<Button small secondary onclick={generateSlug}>Generate</Button>
 		</div>
 
-		<Textarea
-			name="description"
-			label="Description"
-			placeholder="Brief description of this content"
-			description="A short summary that appears in listings and search results"
-		/>
+		<div class="space-y-2">
+			<Textarea
+				name="description"
+				label="Description"
+				placeholder="Brief description of this content"
+				description="A short summary that appears in listings and search results"
+			/>
+			<div class="flex justify-end">
+				<Button
+					small
+					secondary
+					onclick={generateDescription}
+					disabled={generatingDescription || !$formData.body}
+				>
+					{generatingDescription ? 'Generating...' : 'Generate with AI'}
+				</Button>
+			</div>
+		</div>
 
 		<DynamicSelector
 			name="tags"

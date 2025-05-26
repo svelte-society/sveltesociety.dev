@@ -12,6 +12,7 @@
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
 	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
 	import { createContentSchema } from '$lib/schema/content'
+	import { toast } from 'svelte-sonner'
 
 	// Get data passed from server
 	let { data } = $props()
@@ -66,6 +67,46 @@
 	function generateSlug() {
 		if ($formData.title) {
 			$formData.slug = slugify($formData.title)
+		}
+	}
+
+	// Generate description using AI
+	let generatingDescription = $state(false)
+
+	async function generateDescription() {
+		if (!$formData.body || $formData.body.trim() === '') {
+			toast.error('Please add some content to the body first')
+			return
+		}
+
+		generatingDescription = true
+
+		try {
+			const response = await fetch('/api/generate-description', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					body: $formData.body,
+					title: $formData.title,
+					type: $formData.type
+				})
+			})
+
+			if (!response.ok) {
+				const error = await response.text()
+				throw new Error(error || 'Failed to generate description')
+			}
+
+			const { description } = await response.json()
+			$formData.description = description
+			toast.success('Description generated successfully')
+		} catch (error) {
+			console.error('Error generating description:', error)
+			toast.error(error instanceof Error ? error.message : 'Failed to generate description')
+		} finally {
+			generatingDescription = false
 		}
 	}
 
@@ -201,12 +242,24 @@
 			<Button small secondary onclick={generateSlug}>Generate</Button>
 		</div>
 
-		<Textarea
-			name="description"
-			label="Description"
-			placeholder="Brief description of this content"
-			description="A short summary that appears in listings and search results"
-		/>
+		<div class="space-y-2">
+			<Textarea
+				name="description"
+				label="Description"
+				placeholder="Brief description of this content"
+				description="A short summary that appears in listings and search results"
+			/>
+			<div class="flex justify-end">
+				<Button
+					small
+					secondary
+					onclick={generateDescription}
+					disabled={generatingDescription || !$formData.body}
+				>
+					{generatingDescription ? 'Generating...' : 'Generate with AI'}
+				</Button>
+			</div>
+		</div>
 
 		<DynamicInput
 			name="tags"
