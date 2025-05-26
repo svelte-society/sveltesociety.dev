@@ -86,6 +86,13 @@ GITHUB_AUTHORIZATION_CALLBACK_URL=http://localhost:5173/auth/callback
 DB_PATH=local.db
 ```
 
+Optional environment variables:
+```
+ANTHROPIC_API_KEY=         # For AI-powered description generation in admin
+YOUTUBE_API_KEY=          # For importing YouTube videos
+GITHUB_TOKEN=             # For better rate limits when importing GitHub repos
+```
+
 ## Key Patterns
 
 ### Svelte 5 Reactivity
