@@ -83,54 +83,57 @@
 		</div>
 	</section>
 
-	<!-- YouTube Import -->
+	<!-- Import Forms -->
 	<section>
-		<h2 class="mb-4 text-xl font-semibold">Import YouTube Video</h2>
-		<div class="max-w-lg rounded-lg border border-gray-200 bg-white p-6">
-			<Form form={youtubeFormInstance} action="?/importYouTubeVideo">
-				<Input
-					name="videoId"
-					label="Video ID or URL"
-					placeholder="dQw4w9WgXcQ or https://youtube.com/watch?v=dQw4w9WgXcQ"
-					description="The video ID from the YouTube URL (after v=)"
-				/>
-				<Button type="submit" primary small disabled={$submittingYouTube}>
-					{$submittingYouTube ? 'Importing...' : 'Import Video'}
-				</Button>
-			</Form>
-		</div>
+		<h2 class="mb-4 text-xl font-semibold">Import Content</h2>
+		<div class="grid gap-6 md:grid-cols-2">
+			<!-- YouTube Import -->
+			<div>
+				<div class="rounded-lg border border-gray-200 bg-white p-6 h-full">
+					<h3 class="text-lg font-semibold mb-4">Import YouTube Video</h3>
+					<Form form={youtubeFormInstance} action="?/importYouTubeVideo">
+						<Input
+							name="videoId"
+							label="Video ID or URL"
+							placeholder="dQw4w9WgXcQ or https://youtube.com/watch?v=dQw4w9WgXcQ"
+							description="The video ID from the YouTube URL (after v=)"
+						/>
+						<Button type="submit" primary small disabled={$submittingYouTube}>
+							{$submittingYouTube ? 'Importing...' : 'Import Video'}
+						</Button>
+					</Form>
+					
+					<div class="mt-4 rounded-lg bg-yellow-50 p-3">
+						<p class="text-xs text-yellow-800">
+							<strong>Note:</strong> Requires <code class="rounded bg-yellow-100 px-1 py-0.5">YOUTUBE_API_KEY</code> environment variable.
+						</p>
+					</div>
+				</div>
+			</div>
 
-		<div class="mt-4 rounded-lg bg-yellow-50 p-4">
-			<p class="text-sm text-yellow-800">
-				<strong>Note:</strong> YouTube imports require a valid API key to be set in the
-				<code class="rounded bg-yellow-100 px-1 py-0.5">YOUTUBE_API_KEY</code> environment variable.
-			</p>
-		</div>
-	</section>
-
-	<!-- GitHub Import -->
-	<section>
-		<h2 class="mb-4 text-xl font-semibold">Import GitHub Repository</h2>
-		<div class="max-w-lg rounded-lg border border-gray-200 bg-white p-6">
-			<Form form={githubFormInstance} action="?/importGitHubRepository">
-				<Input
-					name="repository"
-					label="Repository"
-					placeholder="sveltejs/svelte or username/repo-name"
-					description="Enter the GitHub repository in format: owner/repo"
-				/>
-				<Button type="submit" primary small disabled={$submittingGitHub}>
-					{$submittingGitHub ? 'Importing...' : 'Import Repository'}
-				</Button>
-			</Form>
-		</div>
-
-		<div class="mt-4 rounded-lg bg-blue-50 p-4">
-			<p class="text-sm text-blue-800">
-				<strong>Note:</strong> For better rate limits, set a GitHub token in the
-				<code class="rounded bg-blue-100 px-1 py-0.5">GITHUB_TOKEN</code> environment variable.
-				Public repositories can be imported without a token.
-			</p>
+			<!-- GitHub Import -->
+			<div>
+				<div class="rounded-lg border border-gray-200 bg-white p-6 h-full">
+					<h3 class="text-lg font-semibold mb-4">Import GitHub Repository</h3>
+					<Form form={githubFormInstance} action="?/importGitHubRepository">
+						<Input
+							name="repository"
+							label="Repository"
+							placeholder="sveltejs/svelte or username/repo-name"
+							description="Enter the GitHub repository in format: owner/repo"
+						/>
+						<Button type="submit" primary small disabled={$submittingGitHub}>
+							{$submittingGitHub ? 'Importing...' : 'Import Repository'}
+						</Button>
+					</Form>
+					
+					<div class="mt-4 rounded-lg bg-blue-50 p-3">
+						<p class="text-xs text-blue-800">
+							<strong>Note:</strong> Set <code class="rounded bg-blue-100 px-1 py-0.5">GITHUB_TOKEN</code> for better rate limits.
+						</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 
