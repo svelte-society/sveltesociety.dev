@@ -110,15 +110,17 @@ export const actions = {
 
 		try {
 			let owner: string, repo: string
-			
+
 			// Extract owner and repo from URL or direct format
-			const urlMatch = form.data.repository.match(/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/)
+			const urlMatch = form.data.repository.match(
+				/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
+			)
 			if (urlMatch) {
 				owner = urlMatch[1]
 				repo = urlMatch[2].replace(/\.git$/, '') // Remove .git suffix if present
 			} else {
 				// Assume owner/repo format
-				[owner, repo] = form.data.repository.split('/')
+				;[owner, repo] = form.data.repository.split('/')
 			}
 
 			const importer = new GitHubImporter(locals.externalContentService, locals.cacheService)

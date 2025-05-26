@@ -12,6 +12,7 @@
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
 	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
 	import { toast } from 'svelte-sonner'
+	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 
 	// Get data passed from server
 	let { data } = $props()
@@ -183,7 +184,7 @@
 					{#if data.content?.metadata?.thumbnail}
 						<div class="flex gap-4">
 							<img
-								src={data.content.metadata.thumbnail}
+								src={getCachedImageWithPreset(data.content.metadata.thumbnail, 'thumbnail')}
 								alt="Video thumbnail"
 								class="w-48 rounded"
 							/>
@@ -236,7 +237,7 @@
 					<div class="flex gap-4">
 						{#if data.content?.metadata?.owner?.avatar}
 							<img
-								src={data.content.metadata.owner.avatar}
+								src={getCachedImageWithPreset(data.content.metadata.owner.avatar, 'avatar')}
 								alt={data.content.metadata.owner.name}
 								class="h-16 w-16 rounded"
 							/>

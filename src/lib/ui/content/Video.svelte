@@ -1,6 +1,7 @@
 <script lang="ts">
 	import VideoCamera from 'phosphor-svelte/lib/VideoCamera'
 	import type { Content } from '$lib/types/content'
+	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 
 	let { content }: { content: Content } = $props()
 </script>
@@ -12,9 +13,13 @@
 				class="relative cursor-pointer overflow-hidden rounded-lg transition-opacity hover:opacity-90"
 			>
 				<img
-					src={content.metadata.thumbnail}
+					src={getCachedImageWithPreset(content.metadata.thumbnail, 'content', {
+						w: 800,
+						fit: 'inside',
+						we: true
+					})}
 					alt={content.title}
-					class="aspect-video w-full object-cover"
+					class="aspect-video w-full object-contain"
 				/>
 				<div
 					class="absolute inset-0 flex items-center justify-center transition-all hover:bg-black/10"
@@ -30,9 +35,13 @@
 	{:else if content.metadata?.thumbnail}
 		<div class="relative overflow-hidden rounded-lg">
 			<img
-				src={content.metadata.thumbnail}
+				src={getCachedImageWithPreset(content.metadata.thumbnail, 'content', {
+					w: 400,
+					fit: 'inside',
+					we: true
+				})}
 				alt={content.title}
-				class="h-48 w-full bg-gray-200 object-cover"
+				class="h-48 w-full bg-gray-200 object-contain"
 			/>
 		</div>
 	{:else if content.metadata?.watchUrl}

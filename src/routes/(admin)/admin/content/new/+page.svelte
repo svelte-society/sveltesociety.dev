@@ -13,6 +13,7 @@
 	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
 	import { createContentSchema } from '$lib/schema/content'
 	import { toast } from 'svelte-sonner'
+	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 
 	// Get data passed from server
 	let { data } = $props()
@@ -170,7 +171,11 @@
 					{#await fetchVideoInfo(getVideoId()) then info}
 						{#if info}
 							<div class="mx-4 flex gap-4 rounded-md bg-slate-100 p-4 text-sm">
-								<img src={info.preview} alt="Video preview" class="max-w-xs rounded" />
+								<img
+									src={getCachedImageWithPreset(info.preview, 'thumbnail')}
+									alt="Video preview"
+									class="max-w-xs rounded"
+								/>
 								<div>
 									<strong>{info.title}</strong>
 									<div><i>by</i> {info.author}</div>

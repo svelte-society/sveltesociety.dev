@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Content } from '$lib/types/content'
+	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 
 	interface Props {
 		content: Content
@@ -35,7 +36,7 @@
 		{#if isGitHub && content.metadata?.ogImage}
 			<div class="">
 				<img
-					src={content.metadata.ogImage}
+					src={getCachedImageWithPreset(content.metadata.ogImage, 'content', { h: 400 })}
 					alt="{content.title} repository preview"
 					class="w-full rounded-t-lg object-cover"
 					loading="lazy"

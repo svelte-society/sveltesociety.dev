@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms'
 	import { page } from '$app/state'
 	import { formatRelativeDate } from '$lib/utils/date'
+	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 
 	import Tags from './Tags.svelte'
 	import type { Content } from '$lib/types/content'
@@ -161,7 +162,7 @@
 							: 'w-1/2 flex-shrink-0'}
 					>
 						<img
-							src={content.metadata.socialCardUrl}
+							src={getCachedImageWithPreset(content.metadata.socialCardUrl, 'thumbnail')}
 							alt={content.title}
 							class="h-full w-full rounded-lg object-cover"
 						/>

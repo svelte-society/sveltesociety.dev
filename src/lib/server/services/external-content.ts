@@ -249,7 +249,10 @@ export class ExternalContentService {
 
 		// If we end up with an empty slug, use the external ID
 		if (!titleSlug) {
-			return data.source.externalId.substring(0, 50).toLowerCase().replace(/[^a-z0-9]+/g, '-')
+			return data.source.externalId
+				.substring(0, 50)
+				.toLowerCase()
+				.replace(/[^a-z0-9]+/g, '-')
 		}
 
 		return titleSlug
