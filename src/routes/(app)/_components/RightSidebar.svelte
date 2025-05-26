@@ -2,7 +2,7 @@
 	import Button from '$lib/ui/Button.svelte'
 	import UpcomingEvents from './UpcomingEvents.svelte'
 	import type { Content } from '$lib/types/content'
-	
+
 	let { upcomingEvents = [] }: { upcomingEvents?: Content[] } = $props()
 </script>
 

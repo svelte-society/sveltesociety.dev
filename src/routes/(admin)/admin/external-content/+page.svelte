@@ -16,10 +16,13 @@
 	const youtubeSchema = z.object({
 		videoId: z.string().min(1, 'Video ID or URL is required')
 	})
-	
+
 	// Schema for GitHub repository import
 	const githubSchema = z.object({
-		repository: z.string().min(1, 'Repository is required').regex(/^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/, 'Must be in format: owner/repo')
+		repository: z
+			.string()
+			.min(1, 'Repository is required')
+			.regex(/^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/, 'Must be in format: owner/repo')
 	})
 
 	// Initialize superForm for YouTube import
@@ -29,13 +32,13 @@
 	})
 
 	const { form: youtubeForm, submitting: submittingYouTube } = youtubeFormInstance
-	
+
 	// Initialize superForm for GitHub import
 	const githubFormInstance = superForm(data.githubForm || { repository: '' }, {
 		validators: zodClient(githubSchema),
 		resetForm: true
 	})
-	
+
 	const { form: githubForm, submitting: submittingGitHub } = githubFormInstance
 </script>
 
@@ -89,8 +92,8 @@
 		<div class="grid gap-6 md:grid-cols-2">
 			<!-- YouTube Import -->
 			<div>
-				<div class="rounded-lg border border-gray-200 bg-white p-6 h-full">
-					<h3 class="text-lg font-semibold mb-4">Import YouTube Video</h3>
+				<div class="h-full rounded-lg border border-gray-200 bg-white p-6">
+					<h3 class="mb-4 text-lg font-semibold">Import YouTube Video</h3>
 					<Form form={youtubeFormInstance} action="?/importYouTubeVideo">
 						<Input
 							name="videoId"
@@ -102,10 +105,11 @@
 							{$submittingYouTube ? 'Importing...' : 'Import Video'}
 						</Button>
 					</Form>
-					
+
 					<div class="mt-4 rounded-lg bg-yellow-50 p-3">
 						<p class="text-xs text-yellow-800">
-							<strong>Note:</strong> Requires <code class="rounded bg-yellow-100 px-1 py-0.5">YOUTUBE_API_KEY</code> environment variable.
+							<strong>Note:</strong> Requires
+							<code class="rounded bg-yellow-100 px-1 py-0.5">YOUTUBE_API_KEY</code> environment variable.
 						</p>
 					</div>
 				</div>
@@ -113,8 +117,8 @@
 
 			<!-- GitHub Import -->
 			<div>
-				<div class="rounded-lg border border-gray-200 bg-white p-6 h-full">
-					<h3 class="text-lg font-semibold mb-4">Import GitHub Repository</h3>
+				<div class="h-full rounded-lg border border-gray-200 bg-white p-6">
+					<h3 class="mb-4 text-lg font-semibold">Import GitHub Repository</h3>
 					<Form form={githubFormInstance} action="?/importGitHubRepository">
 						<Input
 							name="repository"
@@ -126,10 +130,11 @@
 							{$submittingGitHub ? 'Importing...' : 'Import Repository'}
 						</Button>
 					</Form>
-					
+
 					<div class="mt-4 rounded-lg bg-blue-50 p-3">
 						<p class="text-xs text-blue-800">
-							<strong>Note:</strong> Set <code class="rounded bg-blue-100 px-1 py-0.5">GITHUB_TOKEN</code> for better rate limits.
+							<strong>Note:</strong> Set
+							<code class="rounded bg-blue-100 px-1 py-0.5">GITHUB_TOKEN</code> for better rate limits.
 						</p>
 					</div>
 				</div>
@@ -181,7 +186,7 @@
 											<input type="hidden" name="contentId" value={item.id} />
 											<button
 												type="submit"
-												class="text-red-600 hover:underline text-sm"
+												class="text-sm text-red-600 hover:underline"
 												disabled={deletingId === item.id}
 											>
 												{deletingId === item.id ? 'Deleting...' : 'Delete'}

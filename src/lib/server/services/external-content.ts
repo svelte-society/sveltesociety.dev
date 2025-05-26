@@ -37,10 +37,10 @@ export class ExternalContentService {
 		try {
 			// Check if content already exists by external ID
 			const existing = this.getContentByExternalId(data.source.source, data.source.externalId)
-			
+
 			// Generate a unique slug based on source and external ID
 			const slug = existing?.slug || this.generateSlug(data)
-			
+
 			// Prepare metadata with source information
 			const metadata = {
 				...(existing?.metadata || {}),
@@ -50,7 +50,7 @@ export class ExternalContentService {
 					lastFetched: new Date().toISOString()
 				}
 			}
-			
+
 			if (existing) {
 				// Update existing content
 				this.contentService.updateContent(existing.id, {
@@ -63,7 +63,7 @@ export class ExternalContentService {
 					metadata: JSON.stringify(metadata),
 					tags: data.tags || []
 				})
-				
+
 				return existing.id
 			} else {
 				// Create new content
@@ -80,13 +80,13 @@ export class ExternalContentService {
 					created_at: data.publishedAt || new Date().toISOString(),
 					published_at: data.publishedAt || new Date().toISOString()
 				})
-				
+
 				// Add tags if provided
 				if (data.tags && data.tags.length > 0) {
 					// Note: You'll need to implement tag association in ContentService
 					// For now, tags are stored in metadata
 				}
-				
+
 				return contentId
 			}
 		} catch (error) {
@@ -102,13 +102,13 @@ export class ExternalContentService {
 		const query = type
 			? `SELECT * FROM content WHERE json_extract(metadata, '$.externalSource.source') = ? AND json_extract(metadata, '$.externalSource.type') = ? ORDER BY published_at DESC`
 			: `SELECT * FROM content WHERE json_extract(metadata, '$.externalSource.source') = ? ORDER BY published_at DESC`
-		
+
 		const stmt = this.db.prepare(query)
 		const results = type ? stmt.all(source, type) : stmt.all(source)
-		
-		return results.map(row => ({
+
+		return results.map((row) => ({
 			...row,
-			metadata: typeof row.metadata === 'string' ? JSON.parse(row.metadata) : (row.metadata || {})
+			metadata: typeof row.metadata === 'string' ? JSON.parse(row.metadata) : row.metadata || {}
 		})) as Content[]
 	}
 
@@ -122,14 +122,15 @@ export class ExternalContentService {
 			AND json_extract(metadata, '$.externalSource.externalId') = ?
 			LIMIT 1
 		`)
-		
+
 		const result = stmt.get(source, externalId)
-		
+
 		if (!result) return null
-		
+
 		return {
 			...result,
-			metadata: typeof result.metadata === 'string' ? JSON.parse(result.metadata) : (result.metadata || {})
+			metadata:
+				typeof result.metadata === 'string' ? JSON.parse(result.metadata) : result.metadata || {}
 		} as Content
 	}
 
@@ -140,16 +141,16 @@ export class ExternalContentService {
 		if (!content.metadata?.externalSource?.lastFetched) {
 			return true
 		}
-		
+
 		// If we have a lastModified date from the source, compare it
 		if (lastModified && content.metadata.externalSource.lastModified) {
 			return new Date(lastModified) > new Date(content.metadata.externalSource.lastModified)
 		}
-		
+
 		// Otherwise, check if it's been more than 24 hours since last fetch
 		const lastFetched = new Date(content.metadata.externalSource.lastFetched)
 		const dayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000)
-		
+
 		return lastFetched < dayAgo
 	}
 
@@ -159,7 +160,7 @@ export class ExternalContentService {
 	deleteBySource(source: string, type?: string): number {
 		const content = this.getContentBySource(source, type)
 		let deleted = 0
-		
+
 		for (const item of content) {
 			try {
 				this.contentService.deleteContent(item.id)
@@ -168,7 +169,7 @@ export class ExternalContentService {
 				console.error(`Error deleting content ${item.id}:`, error)
 			}
 		}
-		
+
 		return deleted
 	}
 
@@ -185,22 +186,22 @@ export class ExternalContentService {
 		}
 	): Promise<{ created: number; updated: number; deleted: number }> {
 		const stats = { created: 0, updated: 0, deleted: 0 }
-		
+
 		try {
 			// Fetch fresh data
 			const externalData = await fetchFunction()
-			const externalIds = new Set(externalData.map(item => item.source.externalId))
-			
+			const externalIds = new Set(externalData.map((item) => item.source.externalId))
+
 			// Get existing content from this source
 			const existing = this.getContentBySource(source, options?.type)
 			const existingMap = new Map(
-				existing.map(item => [item.metadata?.externalSource?.externalId, item])
+				existing.map((item) => [item.metadata?.externalSource?.externalId, item])
 			)
-			
+
 			// Upsert each item
 			for (const data of externalData) {
 				const existingContent = existingMap.get(data.source.externalId)
-				
+
 				if (existingContent) {
 					// Update if needed
 					if (this.needsUpdate(existingContent, data.source.lastModified)) {
@@ -213,7 +214,7 @@ export class ExternalContentService {
 					stats.created++
 				}
 			}
-			
+
 			// Delete orphaned content if requested
 			if (options?.deleteOrphaned) {
 				for (const [externalId, content] of existingMap) {
@@ -223,7 +224,7 @@ export class ExternalContentService {
 					}
 				}
 			}
-			
+
 			return stats
 		} catch (error) {
 			console.error('Error syncing from source:', error)
@@ -237,19 +238,19 @@ export class ExternalContentService {
 	private generateSlug(data: ExternalContentData): string {
 		const sourcePrefix = data.source.source.toLowerCase()
 		const typePrefix = data.type.toLowerCase()
-		
+
 		// For events, use the external ID directly as it's usually already a slug
 		if (data.type === 'event' && data.source.externalId.match(/^[a-z0-9-]+$/)) {
 			return `${sourcePrefix}-${data.source.externalId}`
 		}
-		
+
 		// For other content, generate from title
 		const titleSlug = data.title
 			.toLowerCase()
 			.replace(/[^a-z0-9]+/g, '-')
 			.replace(/^-|-$/g, '')
 			.substring(0, 50)
-		
+
 		return `${sourcePrefix}-${typePrefix}-${titleSlug}-${data.source.externalId.substring(0, 8)}`
 	}
 

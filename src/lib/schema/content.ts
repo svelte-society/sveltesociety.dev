@@ -16,34 +16,42 @@ export const videoMetadataSchema = z
 		channelTitle: z.string().optional(),
 		publishedAt: z.string().optional(),
 		thumbnail: z.string().optional(),
-		thumbnails: z.object({
-			default: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional(),
-			medium: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional(),
-			high: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional(),
-			standard: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional(),
-			maxres: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional()
-		}).optional(),
+		thumbnails: z
+			.object({
+				default: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional(),
+				medium: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional(),
+				high: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional(),
+				standard: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional(),
+				maxres: z.object({ url: z.string(), width: z.number(), height: z.number() }).optional()
+			})
+			.optional(),
 		tags: z.array(z.string()).optional(),
-		statistics: z.object({
-			viewCount: z.number().optional(),
-			likeCount: z.number().optional(),
-			commentCount: z.number().optional()
-		}).optional(),
-		contentDetails: z.object({
-			duration: z.string().optional(),
-			dimension: z.string().optional(),
-			definition: z.string().optional()
-		}).optional(),
+		statistics: z
+			.object({
+				viewCount: z.number().optional(),
+				likeCount: z.number().optional(),
+				commentCount: z.number().optional()
+			})
+			.optional(),
+		contentDetails: z
+			.object({
+				duration: z.string().optional(),
+				dimension: z.string().optional(),
+				definition: z.string().optional()
+			})
+			.optional(),
 		embedUrl: z.string().optional(),
 		watchUrl: z.string().optional(),
-		externalSource: z.object({
-			type: z.string(),
-			source: z.string(),
-			externalId: z.string(),
-			url: z.string(),
-			lastFetched: z.string(),
-			lastModified: z.string().optional()
-		}).optional()
+		externalSource: z
+			.object({
+				type: z.string(),
+				source: z.string(),
+				externalId: z.string(),
+				url: z.string(),
+				lastFetched: z.string(),
+				lastModified: z.string().optional()
+			})
+			.optional()
 	})
 	.optional()
 
@@ -59,24 +67,28 @@ export const libraryMetadataSchema = z
 		issues: z.number().optional(),
 		language: z.string().optional(),
 		topics: z.array(z.string()).optional(),
-		owner: z.object({
-			name: z.string(),
-			url: z.string(),
-			avatar: z.string()
-		}).optional(),
+		owner: z
+			.object({
+				name: z.string(),
+				url: z.string(),
+				avatar: z.string()
+			})
+			.optional(),
 		defaultBranch: z.string().optional(),
 		createdAt: z.string().optional(),
 		updatedAt: z.string().optional(),
 		pushedAt: z.string().optional(),
 		ogImage: z.string().optional(),
-		externalSource: z.object({
-			type: z.string(),
-			source: z.string(),
-			externalId: z.string(),
-			url: z.string(),
-			lastFetched: z.string(),
-			lastModified: z.string().optional()
-		}).optional()
+		externalSource: z
+			.object({
+				type: z.string(),
+				source: z.string(),
+				externalId: z.string(),
+				url: z.string(),
+				lastFetched: z.string(),
+				lastModified: z.string().optional()
+			})
+			.optional()
 	})
 	.optional()
 

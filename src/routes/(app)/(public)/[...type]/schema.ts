@@ -7,5 +7,5 @@ export const schema = z.object({
 	limit: z.number().optional(),
 	offset: z.number().optional(),
 	sort: z.string().optional(),
-	order: z.enum(['ASC', 'DESC']).optional(),
+	order: z.enum(['ASC', 'DESC']).optional()
 })

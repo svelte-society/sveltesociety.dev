@@ -747,7 +747,7 @@ export function seedContent(db: Database.Database) {
 			'published',
 			now,
 			now,
-      now
+			now
 		) as { id: string }
 
 		const contentId = info.id

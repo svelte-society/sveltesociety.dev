@@ -27,7 +27,7 @@
 
 	// Get the current page from the URL
 	let currentPage = $derived(parseInt($page.url.searchParams.get('page') || '1', 10))
-	
+
 	// Calculate the actual range for display
 	let rangeStart = $derived((currentPage - 1) * perPage + 1)
 	let rangeEnd = $derived(Math.min(currentPage * perPage, count))

@@ -12,7 +12,7 @@ describe('ExternalContentService', () => {
 
 	beforeEach(() => {
 		db = new Database(':memory:')
-		
+
 		// Create necessary tables
 		db.exec(`
 			CREATE TABLE IF NOT EXISTS content (
@@ -91,7 +91,7 @@ describe('ExternalContentService', () => {
 				FOREIGN KEY (target_id) REFERENCES content(id) ON DELETE CASCADE
 			);
 		`)
-		
+
 		searchService = new SearchService(db)
 		contentService = new ContentService(db, searchService)
 		externalContentService = new ExternalContentService(db, contentService)
@@ -169,7 +169,7 @@ describe('ExternalContentService', () => {
 				metadata: {},
 				source: { type: 'video', source: 'youtube', externalId: '1', url: 'url1' }
 			})
-			
+
 			await externalContentService.upsertExternalContent({
 				title: 'YouTube Video 2',
 				type: 'video',
@@ -181,7 +181,7 @@ describe('ExternalContentService', () => {
 		it('should get all content from a specific source', () => {
 			const youtubeContent = externalContentService.getContentBySource('youtube')
 			expect(youtubeContent).toHaveLength(2)
-			expect(youtubeContent.every(c => c.metadata.externalSource.source === 'youtube')).toBe(true)
+			expect(youtubeContent.every((c) => c.metadata.externalSource.source === 'youtube')).toBe(true)
 		})
 
 		it('should filter by type if provided', () => {

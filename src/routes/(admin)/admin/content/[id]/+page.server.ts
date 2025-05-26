@@ -54,7 +54,7 @@ export const actions: Actions = {
 		try {
 			// Get existing content to preserve metadata for imported content
 			const existingContent = locals.contentService.getContentById(params.id)
-			
+
 			// Merge metadata - preserve external source info for imported content
 			let metadata = form.data.metadata || {}
 			if (existingContent?.metadata?.externalSource) {
@@ -63,7 +63,7 @@ export const actions: Actions = {
 					...metadata
 				}
 			}
-			
+
 			// Update existing content
 			locals.contentService.updateContent(params.id, {
 				...form.data,
@@ -73,7 +73,7 @@ export const actions: Actions = {
 			})
 
 			const content = locals.contentService.getContentById(params.id) as Content
-			
+
 			if (content.status === 'draft') {
 				locals.searchService.remove(params.id)
 			}

@@ -100,13 +100,13 @@ export class EventsService {
 			const url = `${this.apiBaseUrl}/${guildSlug}/events/upcoming`
 
 			const response = await fetch(url)
-			
+
 			if (!response.ok) {
 				throw new Error(`Failed to fetch events: ${response.statusText}`)
 			}
 
 			const data: EventsResponse = await response.json()
-			return data.events?.edges?.map(edge => edge.node) || []
+			return data.events?.edges?.map((edge) => edge.node) || []
 		} catch (error) {
 			console.error('Error fetching events from API:', error)
 			return []
@@ -132,13 +132,13 @@ export class EventsService {
 			const url = `${this.apiBaseUrl}/${guildSlug}/events/past`
 
 			const response = await fetch(url)
-			
+
 			if (!response.ok) {
 				throw new Error(`Failed to fetch events: ${response.statusText}`)
 			}
 
 			const data: EventsResponse = await response.json()
-			return data.events?.edges?.map(edge => edge.node) || []
+			return data.events?.edges?.map((edge) => edge.node) || []
 		} catch (error) {
 			console.error('Error fetching events from API:', error)
 			return []
@@ -163,7 +163,7 @@ export class EventsService {
 		try {
 			const url = `${this.apiBaseUrl}/events/${eventSlug}`
 			const response = await fetch(url)
-			
+
 			if (!response.ok) {
 				if (response.status === 404) {
 					return null

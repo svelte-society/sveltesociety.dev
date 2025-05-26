@@ -14,8 +14,8 @@ export const load = (async ({ locals, url }) => {
 
 		// If no saved content, return early with empty array
 		if (count === 0) {
-			return { 
-				content: [], 
+			return {
+				content: [],
 				count: 0,
 				meta: {
 					title: 'Saved Content - Svelte Society',

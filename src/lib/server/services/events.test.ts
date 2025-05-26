@@ -45,8 +45,16 @@ describe('EventsService', () => {
 				('event4', 'Non-event Content', 'recipe', 'published', 'Recipe content', '<p>Recipe content</p>', 'recipe-content', 'Recipe description', '2025-01-01', null)
 		`
 		).run(
-			JSON.stringify({ startTime: futureDate.toISOString(), location: 'Online', url: 'https://example.com/meetup' }),
-			JSON.stringify({ startTime: pastDate.toISOString(), endTime: pastDate.toISOString(), location: 'NYC' }),
+			JSON.stringify({
+				startTime: futureDate.toISOString(),
+				location: 'Online',
+				url: 'https://example.com/meetup'
+			}),
+			JSON.stringify({
+				startTime: pastDate.toISOString(),
+				endTime: pastDate.toISOString(),
+				location: 'NYC'
+			}),
 			JSON.stringify({ startTime: futureDate.toISOString() })
 		)
 
@@ -67,8 +75,8 @@ describe('EventsService', () => {
 		it('should return all published events', () => {
 			const events = eventsService.getAllEvents()
 			expect(events).toHaveLength(2)
-			expect(events.every(e => e.type === 'event')).toBe(true)
-			expect(events.every(e => e.status === 'published')).toBe(true)
+			expect(events.every((e) => e.type === 'event')).toBe(true)
+			expect(events.every((e) => e.status === 'published')).toBe(true)
 		})
 
 		it('should respect limit parameter', () => {
@@ -200,7 +208,9 @@ describe('EventsService', () => {
 			})
 
 			await eventsService.fetchUpcomingEventsFromAPI('svelte-society')
-			expect(global.fetch).toHaveBeenCalledWith('https://guild.host/api/next/svelte-society/events/upcoming')
+			expect(global.fetch).toHaveBeenCalledWith(
+				'https://guild.host/api/next/svelte-society/events/upcoming'
+			)
 		})
 
 		it('should handle API errors gracefully', async () => {

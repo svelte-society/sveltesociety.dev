@@ -10,8 +10,8 @@ export const load = (async ({ locals, url }) => {
 	// Create the form using Superforms with the zod adapter
 	const form = await superValidate(zod(schema))
 
-	return { 
-		form, 
+	return {
+		form,
 		tags,
 		meta: {
 			title: 'Submit Content - Svelte Society',

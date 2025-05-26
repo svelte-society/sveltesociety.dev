@@ -15,10 +15,8 @@ export class TagService {
 		this.getTagsStatement = this.db.prepare(
 			'SELECT * FROM tags ORDER BY created_at DESC LIMIT $limit OFFSET $offset'
 		)
-		
-		this.getAllTagsStatement = this.db.prepare(
-			'SELECT * FROM tags ORDER BY name ASC'
-		)
+
+		this.getAllTagsStatement = this.db.prepare('SELECT * FROM tags ORDER BY name ASC')
 
 		this.getTagsCountStatement = this.db.prepare('SELECT COUNT(*) as count FROM tags')
 
@@ -49,7 +47,7 @@ export class TagService {
 			return []
 		}
 	}
-	
+
 	getAllTags(): Tag[] {
 		try {
 			const result = this.getAllTagsStatement.all() as Tag[]

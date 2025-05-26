@@ -16,10 +16,7 @@
 	import User from 'phosphor-svelte/lib/User'
 	import VideoCamera from 'phosphor-svelte/lib/VideoCamera'
 
-	let {
-		content,
-		compact = false
-	}: { content: Content; compact?: boolean } = $props()
+	let { content, compact = false }: { content: Content; compact?: boolean } = $props()
 
 	let submitting = $state(false)
 
@@ -141,7 +138,9 @@
 		{/if}
 	</h2>
 	{#if content.type !== 'event' && content.type !== 'video' && content.type !== 'library'}
-		<div class={compact ? 'line-clamp-2 text-sm' : 'text-sm sm:text-base'}>{content.description}</div>
+		<div class={compact ? 'line-clamp-2 text-sm' : 'text-sm sm:text-base'}>
+			{content.description}
+		</div>
 	{/if}
 
 	<div>
@@ -156,15 +155,19 @@
 		{:else if content.type === 'event'}
 			<div class="flex gap-4">
 				{#if content.metadata?.socialCardUrl}
-					<div class={content.metadata?.presentations && content.metadata.presentations.length > 0 ? 'w-1/3 flex-shrink-0' : 'w-1/2 flex-shrink-0'}>
-						<img 
-							src={content.metadata.socialCardUrl} 
-							alt={content.title} 
-							class="w-full h-full object-cover rounded-lg"
+					<div
+						class={content.metadata?.presentations && content.metadata.presentations.length > 0
+							? 'w-1/3 flex-shrink-0'
+							: 'w-1/2 flex-shrink-0'}
+					>
+						<img
+							src={content.metadata.socialCardUrl}
+							alt={content.title}
+							class="h-full w-full rounded-lg object-cover"
 						/>
 					</div>
 				{/if}
-				
+
 				<div class="flex-1 space-y-2 text-sm">
 					{#if content.metadata?.presentations && content.metadata.presentations.length > 0}
 						<div class="mb-3 space-y-2 border-b pb-3">
@@ -188,37 +191,42 @@
 						</div>
 					{/if}
 
-				{#if content.metadata?.startTime}
-					<div class="flex items-center gap-2 text-gray-600">
-						<Calendar size={16} />
-						<span
-							>{new Date(content.metadata.startTime).toLocaleDateString('en-US', {
-								weekday: 'short',
-								month: 'short',
-								day: 'numeric',
-								hour: '2-digit',
-								minute: '2-digit'
-							})}</span
-						>
-					</div>
-				{/if}
+					{#if content.metadata?.startTime}
+						<div class="flex items-center gap-2 text-gray-600">
+							<Calendar size={16} />
+							<span
+								>{new Date(content.metadata.startTime).toLocaleDateString('en-US', {
+									weekday: 'short',
+									month: 'short',
+									day: 'numeric',
+									hour: '2-digit',
+									minute: '2-digit'
+								})}</span
+							>
+						</div>
+					{/if}
 
-				{#if content.metadata?.location}
-					<div class="flex items-center gap-2 text-gray-600">
-						<MapPin size={16} />
-						<span>{content.metadata.location}</span>
-					</div>
-				{/if}
+					{#if content.metadata?.location}
+						<div class="flex items-center gap-2 text-gray-600">
+							<MapPin size={16} />
+							<span>{content.metadata.location}</span>
+						</div>
+					{/if}
 
-				{#if content.metadata?.presentations && content.metadata.presentations.length > 0}
-					<div class="flex items-center gap-2 text-gray-600">
-						<User size={16} />
-						<span>{content.metadata.presentations.length} presentation{content.metadata.presentations.length !== 1 ? 's' : ''}</span>
-					</div>
-				{/if}
+					{#if content.metadata?.presentations && content.metadata.presentations.length > 0}
+						<div class="flex items-center gap-2 text-gray-600">
+							<User size={16} />
+							<span
+								>{content.metadata.presentations.length} presentation{content.metadata.presentations
+									.length !== 1
+									? 's'
+									: ''}</span
+							>
+						</div>
+					{/if}
+				</div>
 			</div>
-		</div>
-	{/if}
+		{/if}
 	</div>
 
 	<div

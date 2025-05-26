@@ -4,6 +4,4 @@
 	let { content }: { content: Content } = $props()
 </script>
 
-<div class="text-sm text-gray-600">
-	Recipe content
-</div>
+<div class="text-sm text-gray-600">Recipe content</div>

@@ -23,7 +23,7 @@ export const load = async ({ locals, params, url }) => {
 	const stop = performance.now()
 	console.log('Loading content took: ', stop - start)
 
-	return { 
+	return {
 		content,
 		meta: {
 			title: `${content.title} - Svelte Society`,

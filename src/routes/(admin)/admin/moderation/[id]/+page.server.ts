@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	}
 
 	const submitter = locals.userService.getUser(item.submitted_by)
-	
+
 	if (!submitter) {
 		throw error(404, 'Submitter not found')
 	}

@@ -53,27 +53,29 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 	let content = []
 
 	const { data } = filters
-	
+
 	// Handle pagination
 	const page = parseInt(url.searchParams.get('page') || '1', 10)
 	const perPage = 15 // Should match the default limit in search service
 	const offset = (page - 1) * perPage
 
-	const searchResults = locals.searchService.search({ 
-		...data, 
+	const searchResults = locals.searchService.search({
+		...data,
 		type: params.type,
 		limit: perPage,
 		offset: offset
 	})
 
-	content = searchResults.hits.map((hit) => {
-		const piece = locals.contentService.getContentById(hit.id)
-		// Parse metadata if it's a string (for events)
-		if (piece && piece.type === 'event' && typeof piece.metadata === 'string') {
-			piece.metadata = JSON.parse(piece.metadata)
-		}
-		return piece
-	}).filter((piece) => piece && piece.type !== 'event') as Content[]
+	content = searchResults.hits
+		.map((hit) => {
+			const piece = locals.contentService.getContentById(hit.id)
+			// Parse metadata if it's a string (for events)
+			if (piece && piece.type === 'event' && typeof piece.metadata === 'string') {
+				piece.metadata = JSON.parse(piece.metadata)
+			}
+			return piece
+		})
+		.filter((piece) => piece && piece.type !== 'event') as Content[]
 
 	const allTags = locals.tagService.getAllTags()
 

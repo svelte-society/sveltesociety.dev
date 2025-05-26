@@ -15,7 +15,14 @@
 			value: string
 		}[]
 	}
-	let { name, label, description, placeholder, options, disabled = false }: TextInputProps = $props()
+	let {
+		name,
+		label,
+		description,
+		placeholder,
+		options,
+		disabled = false
+	}: TextInputProps = $props()
 
 	const form: SuperForm<Record<string, string>, any> = getContext('form')
 

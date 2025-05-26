@@ -3,7 +3,7 @@
 	import MapPin from 'phosphor-svelte/lib/MapPin'
 	import User from 'phosphor-svelte/lib/User'
 	import type { Content } from '$lib/types/content'
-	
+
 	let { events = [] }: { events?: Content[] } = $props()
 </script>
 
@@ -11,14 +11,19 @@
 	<div class="grid gap-3 rounded border-1 border-slate-200 bg-gray-50 p-4">
 		<div class="flex items-center justify-between">
 			<h3 class="text-md font-bold">Upcoming Events</h3>
-			<a href="/events" class="text-xs text-svelte-500 hover:underline">View all</a>
+			<a href="/events" class="text-svelte-500 text-xs hover:underline">View all</a>
 		</div>
 		<div class="space-y-3">
 			{#each events as event}
-				<div class="border-l-2 border-svelte-300 pl-3">
+				<div class="border-svelte-300 border-l-2 pl-3">
 					<h4 class="text-sm font-semibold">
 						{#if event.metadata?.url}
-							<a href={event.metadata.url} target="_blank" rel="noopener noreferrer" class="hover:text-svelte-500">
+							<a
+								href={event.metadata.url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="hover:text-svelte-500"
+							>
 								{event.title}
 							</a>
 						{:else}
@@ -30,12 +35,14 @@
 					{#if event.metadata?.startTime}
 						<div class="mt-1 flex items-center gap-1 text-xs text-gray-600">
 							<Calendar size={12} />
-							<span>{new Date(event.metadata.startTime).toLocaleDateString('en-US', {
-								month: 'short',
-								day: 'numeric',
-								hour: '2-digit',
-								minute: '2-digit'
-							})}</span>
+							<span
+								>{new Date(event.metadata.startTime).toLocaleDateString('en-US', {
+									month: 'short',
+									day: 'numeric',
+									hour: '2-digit',
+									minute: '2-digit'
+								})}</span
+							>
 						</div>
 					{/if}
 					{#if event.metadata?.location}
@@ -47,7 +54,12 @@
 					{#if event.metadata?.presentations && event.metadata.presentations.length > 0}
 						<div class="mt-0.5 flex items-center gap-1 text-xs text-gray-500">
 							<User size={10} />
-							<span>{event.metadata.presentations.length} presentation{event.metadata.presentations.length !== 1 ? 's' : ''}</span>
+							<span
+								>{event.metadata.presentations.length} presentation{event.metadata.presentations
+									.length !== 1
+									? 's'
+									: ''}</span
+							>
 						</div>
 					{/if}
 				</div>

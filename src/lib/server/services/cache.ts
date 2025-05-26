@@ -5,9 +5,7 @@ export class CacheService {
 	constructor(private db: Database) {}
 
 	private get(key: string): CacheEntry<unknown> | undefined {
-		const stmt = this.db.prepare(
-			'SELECT value, metadata, created_at FROM cache WHERE key = ?'
-		)
+		const stmt = this.db.prepare('SELECT value, metadata, created_at FROM cache WHERE key = ?')
 		const row = stmt.get(key) as
 			| { value: string; metadata: string | null; created_at: number }
 			| undefined
@@ -28,17 +26,11 @@ export class CacheService {
 		const stmt = this.db.prepare(
 			'INSERT OR REPLACE INTO cache (key, value, metadata, created_at, ttl) VALUES (?, ?, ?, ?, ?)'
 		)
-		
+
 		const metadata = entry.metadata || {}
 		const ttl = metadata.ttl || metadata.swr || null
-		
-		stmt.run(
-			key,
-			JSON.stringify(entry.value),
-			JSON.stringify(metadata),
-			Date.now(),
-			ttl
-		)
+
+		stmt.run(key, JSON.stringify(entry.value), JSON.stringify(metadata), Date.now(), ttl)
 	}
 
 	private delete(key: string): void {
@@ -49,9 +41,7 @@ export class CacheService {
 	// Clean up expired entries
 	cleanup(): void {
 		const now = Date.now()
-		const stmt = this.db.prepare(
-			'DELETE FROM cache WHERE ttl IS NOT NULL AND created_at + ttl < ?'
-		)
+		const stmt = this.db.prepare('DELETE FROM cache WHERE ttl IS NOT NULL AND created_at + ttl < ?')
 		stmt.run(now)
 	}
 

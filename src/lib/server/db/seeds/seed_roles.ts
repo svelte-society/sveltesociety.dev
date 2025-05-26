@@ -1,10 +1,10 @@
 import type Database from 'bun:sqlite'
 
 interface Role {
-	name: string;
-	value: string;
-	description: string;
-	active: boolean;
+	name: string
+	value: string
+	description: string
+	active: boolean
 }
 
 export function seedRoles(db: Database) {

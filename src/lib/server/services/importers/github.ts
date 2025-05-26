@@ -58,25 +58,26 @@ export class GitHubImporter {
 	/**
 	 * Import multiple repositories from a user or organization
 	 */
-	async importUserRepositories(username: string, options?: { 
-		maxRepos?: number 
-		filterTopics?: string[]
-		minStars?: number
-	}): Promise<string[]> {
+	async importUserRepositories(
+		username: string,
+		options?: {
+			maxRepos?: number
+			filterTopics?: string[]
+			minStars?: number
+		}
+	): Promise<string[]> {
 		const repositories = await this.fetchUserRepositories(username)
 		let filteredRepos = repositories
 
 		// Apply filters
 		if (options?.filterTopics && options.filterTopics.length > 0) {
-			filteredRepos = filteredRepos.filter(repo => 
-				repo.topics.some(topic => options.filterTopics!.includes(topic))
+			filteredRepos = filteredRepos.filter((repo) =>
+				repo.topics.some((topic) => options.filterTopics!.includes(topic))
 			)
 		}
 
 		if (options?.minStars) {
-			filteredRepos = filteredRepos.filter(repo => 
-				repo.stargazers_count >= options.minStars!
-			)
+			filteredRepos = filteredRepos.filter((repo) => repo.stargazers_count >= options.minStars!)
 		}
 
 		if (options?.maxRepos) {
@@ -109,10 +110,13 @@ export class GitHubImporter {
 		return this._fetchRepositoryDirectly(owner, repo)
 	}
 
-	private async _fetchRepositoryDirectly(owner: string, repo: string): Promise<GitHubRepository | null> {
+	private async _fetchRepositoryDirectly(
+		owner: string,
+		repo: string
+	): Promise<GitHubRepository | null> {
 		try {
 			const headers: HeadersInit = {
-				'Accept': 'application/vnd.github.v3+json',
+				Accept: 'application/vnd.github.v3+json',
 				'User-Agent': 'SvelteSociety-Importer'
 			}
 
@@ -120,10 +124,7 @@ export class GitHubImporter {
 				headers['Authorization'] = `Bearer ${this.token}`
 			}
 
-			const response = await fetch(
-				`${this.apiBaseUrl}/repos/${owner}/${repo}`,
-				{ headers }
-			)
+			const response = await fetch(`${this.apiBaseUrl}/repos/${owner}/${repo}`, { headers })
 
 			if (!response.ok) {
 				console.error(`Failed to fetch repository ${owner}/${repo}: ${response.statusText}`)
@@ -155,7 +156,7 @@ export class GitHubImporter {
 	private async _fetchUserRepositoriesDirectly(username: string): Promise<GitHubRepository[]> {
 		try {
 			const headers: HeadersInit = {
-				'Accept': 'application/vnd.github.v3+json',
+				Accept: 'application/vnd.github.v3+json',
 				'User-Agent': 'SvelteSociety-Importer'
 			}
 
@@ -194,7 +195,7 @@ export class GitHubImporter {
 	private async fetchReadme(owner: string, repo: string): Promise<string | null> {
 		try {
 			const headers: HeadersInit = {
-				'Accept': 'application/vnd.github.v3+json',
+				Accept: 'application/vnd.github.v3+json',
 				'User-Agent': 'SvelteSociety-Importer'
 			}
 
@@ -202,17 +203,14 @@ export class GitHubImporter {
 				headers['Authorization'] = `Bearer ${this.token}`
 			}
 
-			const response = await fetch(
-				`${this.apiBaseUrl}/repos/${owner}/${repo}/readme`,
-				{ headers }
-			)
+			const response = await fetch(`${this.apiBaseUrl}/repos/${owner}/${repo}/readme`, { headers })
 
 			if (!response.ok) {
 				return null
 			}
 
 			const data: GitHubReadme = await response.json()
-			
+
 			// Decode base64 content
 			if (data.encoding === 'base64') {
 				return atob(data.content)
@@ -228,11 +226,14 @@ export class GitHubImporter {
 	/**
 	 * Transform GitHub repository to external content data
 	 */
-	private transformRepositoryToContent(repo: GitHubRepository, readme: string | null): ExternalContentData {
+	private transformRepositoryToContent(
+		repo: GitHubRepository,
+		readme: string | null
+	): ExternalContentData {
 		// Extract package name from package.json if possible (would need additional API call)
 		// For now, use repository name
 		const npmPackage = this.guessNpmPackage(repo)
-		
+
 		// Generate a hash based on the last update time for cache busting
 		// This ensures we get a fresh OG image when the repo is updated
 		const ogImageHash = this.generateOGImageHash(repo.updated_at)
@@ -248,7 +249,7 @@ export class GitHubImporter {
 				npm: npmPackage,
 				github: repo.html_url,
 				homepage: repo.homepage || repo.html_url,
-				
+
 				// GitHub-specific metadata
 				stars: repo.stargazers_count,
 				forks: repo.forks_count,

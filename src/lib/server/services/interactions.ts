@@ -58,7 +58,9 @@ export class InteractionsService {
 	}
 
 	toggleInteraction(type: 'like' | 'save', userId: string, contentId: string) {
-		const interactionQuery = this.db.prepare(`SELECT * FROM ${type}s WHERE user_id = $user_id AND target_id = $target_id`)
+		const interactionQuery = this.db.prepare(
+			`SELECT * FROM ${type}s WHERE user_id = $user_id AND target_id = $target_id`
+		)
 
 		const interaction = interactionQuery.get({ user_id: userId, target_id: contentId })
 

@@ -13,7 +13,10 @@ const youtubeSchema = z.object({
 
 // Schema for GitHub repository import
 const githubSchema = z.object({
-	repository: z.string().min(1, 'Repository is required').regex(/^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/, 'Must be in format: owner/repo')
+	repository: z
+		.string()
+		.min(1, 'Repository is required')
+		.regex(/^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/, 'Must be in format: owner/repo')
 })
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -37,7 +40,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 			},
 			{
 				name: 'GitHub Repositories',
-				source: 'github', 
+				source: 'github',
 				count: githubContent.length,
 				lastSync: githubContent[0]?.metadata?.externalSource?.lastFetched
 			}
@@ -102,11 +105,8 @@ export const actions = {
 
 		try {
 			const [owner, repo] = form.data.repository.split('/')
-			
-			const importer = new GitHubImporter(
-				locals.externalContentService,
-				locals.cacheService
-			)
+
+			const importer = new GitHubImporter(locals.externalContentService, locals.cacheService)
 
 			const contentId = await importer.importRepository(owner, repo)
 
