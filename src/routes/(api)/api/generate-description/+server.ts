@@ -2,6 +2,7 @@ import { json, error } from '@sveltejs/kit'
 import { generateText } from 'ai'
 import { anthropic } from '@ai-sdk/anthropic'
 import type { RequestHandler } from './$types'
+import { ANTHROPIC_API_KEY } from '$env/static/private'
 
 export const POST: RequestHandler = async ({ request, locals }) => {
 	// Check if user is authenticated
@@ -9,17 +10,19 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		throw error(401, 'Unauthorized')
 	}
 
+	// Get user's role
+	const userRole = locals.roleService.getRoleById(locals.user.role)
+
 	// Check if user has admin or moderator role
 	const isAuthorized =
-		locals.roleService.hasRole(locals.user.id, 'admin') ||
-		locals.roleService.hasRole(locals.user.id, 'moderator')
+		userRole && userRole.active && (userRole.value === 'admin' || userRole.value === 'moderator')
 
 	if (!isAuthorized) {
 		throw error(403, 'Forbidden')
 	}
 
 	// Check if API key is configured
-	const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY
+	const apiKey = ANTHROPIC_API_KEY
 	if (!apiKey) {
 		throw error(500, 'AI service not configured')
 	}
