@@ -22,7 +22,12 @@
 		repository: z
 			.string()
 			.min(1, 'Repository is required')
-			.regex(/^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/, 'Must be in format: owner/repo')
+			.refine((val) => {
+				// Check if it's a full URL or owner/repo format
+				const urlPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
+				const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/
+				return urlPattern.test(val) || repoPattern.test(val)
+			}, 'Must be a GitHub URL or in format: owner/repo')
 	})
 
 	// Initialize superForm for YouTube import
@@ -123,8 +128,8 @@
 						<Input
 							name="repository"
 							label="Repository"
-							placeholder="sveltejs/svelte or username/repo-name"
-							description="Enter the GitHub repository in format: owner/repo"
+							placeholder="https://github.com/sveltejs/svelte or sveltejs/svelte"
+							description="Enter a GitHub URL or owner/repo format"
 						/>
 						<Button type="submit" primary small disabled={$submittingGitHub}>
 							{$submittingGitHub ? 'Importing...' : 'Import Repository'}

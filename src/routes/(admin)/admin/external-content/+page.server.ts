@@ -16,7 +16,12 @@ const githubSchema = z.object({
 	repository: z
 		.string()
 		.min(1, 'Repository is required')
-		.regex(/^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/, 'Must be in format: owner/repo')
+		.refine((val) => {
+			// Check if it's a full URL or owner/repo format
+			const urlPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
+			const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/
+			return urlPattern.test(val) || repoPattern.test(val)
+		}, 'Must be a GitHub URL or in format: owner/repo')
 })
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -104,7 +109,17 @@ export const actions = {
 		}
 
 		try {
-			const [owner, repo] = form.data.repository.split('/')
+			let owner: string, repo: string
+			
+			// Extract owner and repo from URL or direct format
+			const urlMatch = form.data.repository.match(/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/)
+			if (urlMatch) {
+				owner = urlMatch[1]
+				repo = urlMatch[2].replace(/\.git$/, '') // Remove .git suffix if present
+			} else {
+				// Assume owner/repo format
+				[owner, repo] = form.data.repository.split('/')
+			}
 
 			const importer = new GitHubImporter(locals.externalContentService, locals.cacheService)
 
