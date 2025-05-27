@@ -5,10 +5,9 @@
 		item: Link
 		isActive: (href: string) => boolean
 		moderationCount?: number
-		isCollapsed: boolean
 	}
 
-	let { item, isActive, moderationCount = 0, isCollapsed }: Props = $props()
+	let { item, isActive, moderationCount = 0 }: Props = $props()
 </script>
 
 <li>
@@ -28,16 +27,10 @@
 		>
 			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon}></path>
 		</svg>
-		<span class={[{ 'sr-only': isCollapsed }, 'ml-2']}>{item.label}</span>
+		<span class="ml-2">{item.label}</span>
 		{#if moderationCount && moderationCount > 0}
 			<span
-				class={[
-					{
-						'-right-1 bottom-1 h-4 min-w-4 px-1': isCollapsed,
-						'top-2.5 right-2.5 bottom-0 h-5 min-w-5 px-1': !isCollapsed
-					},
-					'absolute flex items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white'
-				]}
+				class="absolute top-2.5 right-2.5 bottom-0 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-xs font-bold text-white"
 			>
 				{moderationCount > 99 ? '99+' : moderationCount}
 			</span>
