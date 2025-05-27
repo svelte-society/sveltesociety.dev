@@ -23,6 +23,7 @@
 	<Table action={true} data={data.collections}>
 		{#snippet header(classes)}
 			<th scope="col" class={classes}>Title</th>
+			<th scope="col" class={classes}>Description</th>
 			<th scope="col" class={classes}>Status</th>
 			<th scope="col" class={classes}>Created</th>
 		{/snippet}
@@ -30,6 +31,11 @@
 			<td class="{classes} font-medium text-gray-900">
 				<div>{item.title}</div>
 				<div class="mt-1 text-xs text-gray-500">{item.slug}</div>
+			</td>
+			<td class={classes}>
+				<div class="line-clamp-2">
+					{item.description || ''}
+				</div>
 			</td>
 			<td class={classes}>
 				<Badge color={colorMap.get(item.status)} text={item.status} />

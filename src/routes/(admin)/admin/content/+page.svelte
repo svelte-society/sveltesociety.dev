@@ -53,7 +53,11 @@
 					</div>
 				</div>
 			</td>
-			<td class={classes}>{item.description}</td>
+			<td class={classes}>
+				<div class="line-clamp-2">
+					{item.description || ''}
+				</div>
+			</td>
 			<td class={classes}>
 				{formatRelativeDate(item.created_at || '')}
 			</td>
