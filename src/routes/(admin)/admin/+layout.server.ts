@@ -6,7 +6,11 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 		ModerationStatus.PENDING
 	)
 
+	// Get user role
+	const userRole = locals.user ? locals.roleService.getRoleById(locals.user.role) : null
+
 	return {
-		moderation_count
+		moderation_count,
+		userRole: userRole?.value || null
 	}
 }
