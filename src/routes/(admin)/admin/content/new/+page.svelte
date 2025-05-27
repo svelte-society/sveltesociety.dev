@@ -11,6 +11,7 @@
 	import { slugify } from '$lib/utils/slug'
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
 	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
+	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
 	import { createContentSchema } from '$lib/schema/content'
 	import { toast } from 'svelte-sonner'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
@@ -108,6 +109,55 @@
 			toast.error(error instanceof Error ? error.message : 'Failed to generate description')
 		} finally {
 			generatingDescription = false
+		}
+	}
+
+	// Suggest tags using AI
+	let suggestingTags = $state(false)
+
+	async function suggestTags() {
+		if (!$formData.title && !$formData.body && !$formData.description) {
+			toast.error('Please add a title, description, or body content first')
+			return
+		}
+
+		suggestingTags = true
+
+		try {
+			const response = await fetch('/api/suggest-tags', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					title: $formData.title,
+					body: $formData.body,
+					description: $formData.description,
+					type: $formData.type,
+					existingTags: data.tags
+						.filter(tag => ($formData.tags || []).includes(tag.id))
+						.map(tag => tag.name)
+				})
+			})
+
+			if (!response.ok) {
+				const error = await response.text()
+				throw new Error(error || 'Failed to suggest tags')
+			}
+
+			const { tags } = await response.json()
+			
+			// Add suggested tags to the current selection
+			const newTagIds = tags.map((tag: any) => tag.id)
+			const currentTags = $formData.tags || []
+			$formData.tags = [...new Set([...currentTags, ...newTagIds])]
+			
+			toast.success(`Added ${newTagIds.length} suggested tags`)
+		} catch (error) {
+			console.error('Error suggesting tags:', error)
+			toast.error(error instanceof Error ? error.message : 'Failed to suggest tags')
+		} finally {
+			suggestingTags = false
 		}
 	}
 
@@ -266,20 +316,27 @@
 			</div>
 		</div>
 
-		<DynamicInput
-			name="tags"
-			label="Tags"
-			description="Enter tags for this content"
-			type="text"
-			options={data.tags.map((tag) => ({ label: tag.name, value: tag.slug }))}
-			bind:value={
-				() => $formData.tags.map((tag) => tag.slug),
-				(slugs) =>
-					($formData.tags = data.tags.filter((tag) =>
-						slugs.find((slug: string) => slug === tag.slug)
-					))
-			}
-		/>
+		<div>
+			<DynamicSelector
+				name="tags"
+				label="Tags"
+				description="Select tags for this content"
+				options={data.tags.map((tag) => ({
+					label: tag.name,
+					value: tag.id
+				}))}
+			/>
+			<div class="flex justify-end mt-2">
+				<Button
+					small
+					secondary
+					onclick={suggestTags}
+					disabled={suggestingTags || (!$formData.title && !$formData.body && !$formData.description)}
+				>
+					{suggestingTags ? 'Suggesting...' : 'Suggest Tags with AI'}
+				</Button>
+			</div>
+		</div>
 
 		<div class="mt-6 flex gap-4">
 			<Button type="submit" primary fullWidth disabled={$submitting}>

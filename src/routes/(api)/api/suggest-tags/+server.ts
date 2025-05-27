@@ -26,27 +26,38 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	}
 
 	try {
-		const { body, title, type } = await request.json()
+		const { title, body, description, type, existingTags } = await request.json()
 
-		if (!body || body.trim() === '') {
-			throw error(400, 'Body content is required')
+		if (!title && !body && !description) {
+			throw error(400, 'At least one of title, body, or description is required')
 		}
 
-		// Use the LLM service to generate description
-		const description = await locals.llmService.generateDescription({
-			title: title || '(No title provided)',
-			body,
-			type: type || 'content'
+		// Use the LLM service to suggest tags
+		const suggestedTags = await locals.llmService.suggestTags({
+			title: title || '',
+			body: body || '',
+			description: description || '',
+			type: type || 'content',
+			existingTags: existingTags || []
 		})
 
-		return json({ description })
+		// Get full tag objects for the suggested tags
+		const allTags = locals.tagService.getAllTags()
+		const tagObjects = suggestedTags
+			.map(tagName => allTags.find(tag => tag.name === tagName))
+			.filter(Boolean)
+
+		return json({ 
+			tags: tagObjects,
+			tagNames: suggestedTags 
+		})
 	} catch (err) {
-		console.error('Error generating description:', err)
+		console.error('Error suggesting tags:', err)
 
 		if (err instanceof Error && err.message.includes('API key')) {
 			throw error(500, 'AI service authentication failed')
 		}
 
-		throw error(500, 'Failed to generate description')
+		throw error(500, 'Failed to suggest tags')
 	}
 }
