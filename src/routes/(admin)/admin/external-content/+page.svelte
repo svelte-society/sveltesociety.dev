@@ -12,46 +12,73 @@
 
 	let deletingId = $state('')
 
-	// Schema for YouTube video import
-	const youtubeSchema = z.object({
-		videoId: z.string().min(1, 'Video ID or URL is required')
-	})
-
-	// Schema for GitHub repository import
-	const githubSchema = z.object({
-		repository: z
+	// Unified schema for importing content
+	const importSchema = z.object({
+		url: z
 			.string()
-			.min(1, 'Repository is required')
+			.min(1, 'URL is required')
 			.refine((val) => {
-				// Check if it's a full URL or owner/repo format
-				const urlPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
+				// Check if it's a YouTube URL
+				const youtubePattern =
+					/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
+				// Check if it's a GitHub URL
+				const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
+				// Check if it's a YouTube video ID
+				const videoIdPattern = /^[a-zA-Z0-9_-]{11}$/
+				// Check if it's a GitHub owner/repo format
 				const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/
-				return urlPattern.test(val) || repoPattern.test(val)
-			}, 'Must be a GitHub URL or in format: owner/repo')
+
+				return (
+					youtubePattern.test(val) ||
+					githubPattern.test(val) ||
+					videoIdPattern.test(val) ||
+					repoPattern.test(val)
+				)
+			}, 'Must be a YouTube URL, GitHub URL, YouTube video ID, or GitHub owner/repo format')
 	})
 
-	// Initialize superForm for YouTube import
-	const youtubeFormInstance = superForm(data.youtubeForm || { videoId: '' }, {
-		validators: zodClient(youtubeSchema),
+	// Initialize unified import form
+	const importFormInstance = superForm(data.importForm || { url: '' }, {
+		validators: zodClient(importSchema),
 		resetForm: true
 	})
 
-	const { form: youtubeForm, submitting: submittingYouTube } = youtubeFormInstance
+	const { form: importForm, submitting } = importFormInstance
 
-	// Initialize superForm for GitHub import
-	const githubFormInstance = superForm(data.githubForm || { repository: '' }, {
-		validators: zodClient(githubSchema),
-		resetForm: true
+	// Helper to detect content type from URL
+	function detectContentType(url: string): 'youtube' | 'github' | null {
+		const youtubePattern =
+			/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
+		const videoIdPattern = /^[a-zA-Z0-9_-]{11}$/
+		const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
+		const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/
+
+		if (youtubePattern.test(url) || videoIdPattern.test(url)) {
+			return 'youtube'
+		}
+		if (githubPattern.test(url) || repoPattern.test(url)) {
+			return 'github'
+		}
+		return null
+	}
+
+	// Dynamic placeholder based on input
+	const placeholder = $derived(() => {
+		const type = detectContentType($importForm.url)
+		if (type === 'youtube') {
+			return 'Detected: YouTube video'
+		} else if (type === 'github') {
+			return 'Detected: GitHub repository'
+		}
+		return ''
 	})
-
-	const { form: githubForm, submitting: submittingGitHub } = githubFormInstance
 </script>
 
 <div class="space-y-8">
 	<div>
 		<h1 class="text-2xl font-bold">External Content Management</h1>
 		<p class="mt-2 text-gray-600">
-			Import and manage content from external sources like Guild events and YouTube videos.
+			Import and manage content from external sources like YouTube videos and GitHub repositories.
 		</p>
 	</div>
 
@@ -63,7 +90,7 @@
 
 	{#if actionForm?.success}
 		<div class="rounded border border-green-200 bg-green-50 px-4 py-3 text-green-700">
-			<p class="font-semibold">Sync completed successfully!</p>
+			<p class="font-semibold">Import completed successfully!</p>
 			{#if actionForm.stats}
 				<p class="mt-1 text-sm">
 					Created: {actionForm.stats.created} | Updated: {actionForm.stats.updated} | Deleted: {actionForm
@@ -91,55 +118,75 @@
 		</div>
 	</section>
 
-	<!-- Import Forms -->
+	<!-- Import Form -->
 	<section>
 		<h2 class="mb-4 text-xl font-semibold">Import Content</h2>
-		<div class="grid gap-6 md:grid-cols-2">
-			<!-- YouTube Import -->
-			<div>
-				<div class="h-full rounded-lg border border-gray-200 bg-white p-6">
-					<h3 class="mb-4 text-lg font-semibold">Import YouTube Video</h3>
-					<Form form={youtubeFormInstance} action="?/importYouTubeVideo">
+		<div class="max-w-2xl">
+			<div class="rounded-lg border border-gray-200 bg-white p-6">
+				<h3 class="mb-4 text-lg font-semibold">Import from External Source</h3>
+				<Form form={importFormInstance} action="?/import">
+					<div class="space-y-4">
 						<Input
-							name="videoId"
-							label="Video ID or URL"
-							placeholder="dQw4w9WgXcQ or https://youtube.com/watch?v=dQw4w9WgXcQ"
-							description="The video ID from the YouTube URL (after v=)"
+							name="url"
+							label="Content URL"
+							placeholder="https://youtube.com/watch?v=... or https://github.com/owner/repo"
+							description={placeholder() || 'Paste a YouTube video URL or GitHub repository URL'}
 						/>
-						<Button type="submit" primary small disabled={$submittingYouTube}>
-							{$submittingYouTube ? 'Importing...' : 'Import Video'}
-						</Button>
-					</Form>
 
-					<div class="mt-4 rounded-lg bg-yellow-50 p-3">
+						{#if detectContentType($importForm.url)}
+							<div class="rounded-lg bg-gray-50 p-3">
+								<p class="text-sm font-medium text-gray-700">
+									{#if detectContentType($importForm.url) === 'youtube'}
+										<span class="flex items-center gap-2">
+											<svg class="h-5 w-5 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+												<path
+													d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+												/>
+											</svg>
+											YouTube Video Detected
+										</span>
+									{:else if detectContentType($importForm.url) === 'github'}
+										<span class="flex items-center gap-2">
+											<svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+												<path
+													d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+												/>
+											</svg>
+											GitHub Repository Detected
+										</span>
+									{/if}
+								</p>
+							</div>
+						{/if}
+
+						<Button
+							type="submit"
+							primary
+							disabled={$submitting || !detectContentType($importForm.url)}
+						>
+							{$submitting ? 'Importing...' : 'Import Content'}
+						</Button>
+					</div>
+				</Form>
+
+				<div class="mt-6 space-y-3">
+					<div class="rounded-lg bg-yellow-50 p-3">
 						<p class="text-xs text-yellow-800">
-							<strong>Note:</strong> Requires
-							<code class="rounded bg-yellow-100 px-1 py-0.5">YOUTUBE_API_KEY</code> environment variable.
+							<strong>YouTube:</strong> Requires
+							<code class="rounded bg-yellow-100 px-1 py-0.5">YOUTUBE_API_KEY</code> environment variable
 						</p>
 					</div>
-				</div>
-			</div>
-
-			<!-- GitHub Import -->
-			<div>
-				<div class="h-full rounded-lg border border-gray-200 bg-white p-6">
-					<h3 class="mb-4 text-lg font-semibold">Import GitHub Repository</h3>
-					<Form form={githubFormInstance} action="?/importGitHubRepository">
-						<Input
-							name="repository"
-							label="Repository"
-							placeholder="https://github.com/sveltejs/svelte or sveltejs/svelte"
-							description="Enter a GitHub URL or owner/repo format"
-						/>
-						<Button type="submit" primary small disabled={$submittingGitHub}>
-							{$submittingGitHub ? 'Importing...' : 'Import Repository'}
-						</Button>
-					</Form>
-
-					<div class="mt-4 rounded-lg bg-blue-50 p-3">
+					<div class="rounded-lg bg-blue-50 p-3">
 						<p class="text-xs text-blue-800">
-							<strong>Note:</strong> Set
-							<code class="rounded bg-blue-100 px-1 py-0.5">GITHUB_TOKEN</code> for better rate limits.
+							<strong>GitHub:</strong> Set
+							<code class="rounded bg-blue-100 px-1 py-0.5">GITHUB_TOKEN</code> for better rate limits
+						</p>
+					</div>
+					<div class="rounded-lg bg-gray-50 p-3">
+						<p class="text-xs text-gray-700">
+							<strong>Supported formats:</strong>
+							<br />• YouTube: Full URLs, short URLs (youtu.be), or video IDs
+							<br />• GitHub: Full URLs or owner/repo format
 						</p>
 					</div>
 				</div>

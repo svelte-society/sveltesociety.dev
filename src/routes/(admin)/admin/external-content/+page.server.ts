@@ -6,22 +6,29 @@ import { z } from 'zod'
 import { YouTubeImporter } from '$lib/server/services/importers/youtube'
 import { GitHubImporter } from '$lib/server/services/importers/github'
 
-// Schema for YouTube video import
-const youtubeSchema = z.object({
-	videoId: z.string().min(1, 'Video ID or URL is required')
-})
-
-// Schema for GitHub repository import
-const githubSchema = z.object({
-	repository: z
+// Unified schema for importing content
+const importSchema = z.object({
+	url: z
 		.string()
-		.min(1, 'Repository is required')
+		.min(1, 'URL is required')
 		.refine((val) => {
-			// Check if it's a full URL or owner/repo format
-			const urlPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
+			// Check if it's a YouTube URL
+			const youtubePattern =
+				/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
+			// Check if it's a GitHub URL
+			const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
+			// Check if it's a YouTube video ID
+			const videoIdPattern = /^[a-zA-Z0-9_-]{11}$/
+			// Check if it's a GitHub owner/repo format
 			const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/
-			return urlPattern.test(val) || repoPattern.test(val)
-		}, 'Must be a GitHub URL or in format: owner/repo')
+
+			return (
+				youtubePattern.test(val) ||
+				githubPattern.test(val) ||
+				videoIdPattern.test(val) ||
+				repoPattern.test(val)
+			)
+		}, 'Must be a YouTube URL, GitHub URL, YouTube video ID, or GitHub owner/repo format')
 })
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -29,13 +36,11 @@ export const load: PageServerLoad = async ({ locals }) => {
 	const youtubeContent = locals.externalContentService.getContentBySource('youtube')
 	const githubContent = locals.externalContentService.getContentBySource('github')
 
-	// Initialize forms
-	const youtubeForm = await superValidate(zod(youtubeSchema))
-	const githubForm = await superValidate(zod(githubSchema))
+	// Initialize unified form
+	const importForm = await superValidate(zod(importSchema))
 
 	return {
-		youtubeForm,
-		githubForm,
+		importForm,
 		sources: [
 			{
 				name: 'YouTube Videos',
@@ -61,88 +66,95 @@ export const load: PageServerLoad = async ({ locals }) => {
 }
 
 export const actions = {
-	importYouTubeVideo: async ({ request, locals }) => {
-		const form = await superValidate(request, zod(youtubeSchema))
+	import: async ({ request, locals }) => {
+		const form = await superValidate(request, zod(importSchema))
 
 		if (!form.valid) {
 			return fail(400, { form })
 		}
 
-		try {
-			let videoId = form.data.videoId
+		const url = form.data.url
 
-			// Extract video ID from URL if a full URL was provided
-			const urlMatch = videoId.match(
-				/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
-			)
-			if (urlMatch) {
-				videoId = urlMatch[1]
-			}
+		// Detect content type
+		const youtubePattern =
+			/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
+		const videoIdPattern = /^[a-zA-Z0-9_-]{11}$/
+		const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
+		const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/
 
-			const importer = new YouTubeImporter(locals.externalContentService, locals.cacheService)
+		// Handle YouTube import
+		if (youtubePattern.test(url) || videoIdPattern.test(url)) {
+			try {
+				let videoId = url
 
-			const contentId = await importer.importVideo(videoId)
-
-			return {
-				form,
-				success: true,
-				contentId,
-				stats: {
-					created: contentId ? 1 : 0,
-					updated: 0,
-					deleted: 0
+				// Extract video ID from URL if needed
+				const urlMatch = url.match(youtubePattern)
+				if (urlMatch) {
+					videoId = urlMatch[1]
 				}
-			}
-		} catch (error) {
-			console.error('Error importing YouTube video:', error)
-			return fail(500, {
-				error: 'Failed to import YouTube video. Make sure you have a valid API key.'
-			})
-		}
-	},
 
-	importGitHubRepository: async ({ request, locals }) => {
-		const form = await superValidate(request, zod(githubSchema))
+				const importer = new YouTubeImporter(locals.externalContentService, locals.cacheService)
+				const contentId = await importer.importVideo(videoId)
 
-		if (!form.valid) {
-			return fail(400, { form })
-		}
-
-		try {
-			let owner: string, repo: string
-
-			// Extract owner and repo from URL or direct format
-			const urlMatch = form.data.repository.match(
-				/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
-			)
-			if (urlMatch) {
-				owner = urlMatch[1]
-				repo = urlMatch[2].replace(/\.git$/, '') // Remove .git suffix if present
-			} else {
-				// Assume owner/repo format
-				;[owner, repo] = form.data.repository.split('/')
-			}
-
-			const importer = new GitHubImporter(locals.externalContentService, locals.cacheService)
-
-			const contentId = await importer.importRepository(owner, repo)
-
-			return {
-				form,
-				success: true,
-				contentId,
-				stats: {
-					created: contentId ? 1 : 0,
-					updated: 0,
-					deleted: 0
+				return {
+					form,
+					success: true,
+					contentId,
+					stats: {
+						created: contentId ? 1 : 0,
+						updated: 0,
+						deleted: 0
+					}
 				}
+			} catch (error) {
+				console.error('Error importing YouTube video:', error)
+				return fail(500, {
+					error: 'Failed to import YouTube video. Make sure you have a valid API key.'
+				})
 			}
-		} catch (error) {
-			console.error('Error importing GitHub repository:', error)
-			return fail(500, {
-				error: 'Failed to import GitHub repository. The repository may not exist or may be private.'
-			})
 		}
+
+		// Handle GitHub import
+		if (githubPattern.test(url) || repoPattern.test(url)) {
+			try {
+				let owner: string, repo: string
+
+				// Extract owner and repo from URL or direct format
+				const urlMatch = url.match(githubPattern)
+				if (urlMatch) {
+					owner = urlMatch[1]
+					repo = urlMatch[2].replace(/\.git$/, '') // Remove .git suffix if present
+				} else {
+					// Assume owner/repo format
+					;[owner, repo] = url.split('/')
+				}
+
+				const importer = new GitHubImporter(locals.externalContentService, locals.cacheService)
+				const contentId = await importer.importRepository(owner, repo)
+
+				return {
+					form,
+					success: true,
+					contentId,
+					stats: {
+						created: contentId ? 1 : 0,
+						updated: 0,
+						deleted: 0
+					}
+				}
+			} catch (error) {
+				console.error('Error importing GitHub repository:', error)
+				return fail(500, {
+					error:
+						'Failed to import GitHub repository. The repository may not exist or may be private.'
+				})
+			}
+		}
+
+		// Should not reach here due to validation
+		return fail(400, {
+			error: 'Invalid URL format'
+		})
 	},
 
 	deleteContent: async ({ request, locals }) => {

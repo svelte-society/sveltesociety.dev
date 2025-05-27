@@ -74,7 +74,7 @@ export class ExternalContentService {
 					description: data.description,
 					body: data.body,
 					metadata,
-					status: 'published',
+					status: 'draft',
 					// Use the original published date for both created_at and published_at
 					// This ensures proper chronological ordering
 					created_at: data.publishedAt || new Date().toISOString(),
@@ -117,8 +117,8 @@ export class ExternalContentService {
 	 */
 	getContentByExternalId(source: string, externalId: string): Content | null {
 		const stmt = this.db.prepare(`
-			SELECT * FROM content 
-			WHERE json_extract(metadata, '$.externalSource.source') = ? 
+			SELECT * FROM content
+			WHERE json_extract(metadata, '$.externalSource.source') = ?
 			AND json_extract(metadata, '$.externalSource.externalId') = ?
 			LIMIT 1
 		`)
