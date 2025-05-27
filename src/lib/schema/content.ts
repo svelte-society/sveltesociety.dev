@@ -181,12 +181,18 @@ export const createContentSchema = updateContentSchema.omit({
 	id: true
 })
 
-export const updateCollectionSchema = updateContentSchema.extend({
+export const updateCollectionSchema = z.object({
+	title: z.string().min(1, 'Title is required'),
+	slug: z.string().min(1, 'Slug is required'),
+	description: z.string().optional(),
 	children: z.array(z.string()),
 	tags: z.array(z.string())
 })
 
-export const createCollectionSchema = createContentSchema.extend({
+export const createCollectionSchema = z.object({
+	title: z.string().min(1, 'Title is required'),
+	slug: z.string().min(1, 'Slug is required'),
+	description: z.string().optional(),
 	children: z.array(z.string()),
 	tags: z.array(z.string())
 })

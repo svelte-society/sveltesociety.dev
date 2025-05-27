@@ -15,9 +15,12 @@
 
 	// Setup form with client-side validation
 	let form = superForm(data.form, {
+		validators: zodClient(updateCollectionSchema),
 		invalidateAll: 'force',
 		onUpdated: ({ form }) => {
-			form?.message?.success ? toast.success(form.message.text) : toast.error(form.message.text)
+			if (form?.message) {
+				form.message.success ? toast.success(form.message.text) : toast.error(form.message.text)
+			}
 		}
 	})
 
@@ -88,5 +91,10 @@
 
 <!-- Debug only in development -->
 {#if import.meta.env?.DEV}
-	<SuperDebug data={$formData} />
+	<div class="mt-8">
+		<h3 class="text-sm font-medium text-gray-700">Form Data Debug:</h3>
+		<SuperDebug data={$formData} />
+		<h3 class="text-sm font-medium text-gray-700 mt-4">Collection Debug:</h3>
+		<pre class="text-xs bg-gray-100 p-2 rounded overflow-auto">{JSON.stringify(data.collection, null, 2)}</pre>
+	</div>
 {/if}

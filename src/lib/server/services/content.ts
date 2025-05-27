@@ -51,13 +51,14 @@ export class ContentService {
 			const tags = tagsQuery.all(id) as Tag[]
 			content.tags = tags || []
 
-			// If it's a collection and has children stored as JSON
-			if (content.type === 'collection' && typeof content.children === 'string') {
-				try {
-					// Parse the JSON to get child IDs
-					const childrenIds = JSON.parse(content.children)
+			// If it's a collection, ensure children is properly handled
+			if (content.type === 'collection') {
+				if (typeof content.children === 'string') {
+					try {
+						// Parse the JSON to get child IDs
+						const childrenIds = JSON.parse(content.children)
 
-					if (Array.isArray(childrenIds) && childrenIds.length > 0) {
+						if (Array.isArray(childrenIds) && childrenIds.length > 0) {
 						// Process each child individually instead of using IN clause
 						const childrenContent: Content[] = []
 
@@ -81,6 +82,16 @@ export class ContentService {
 							const childContent = childContentQuery.get(childId) as Content | null
 
 							if (childContent) {
+								// Parse metadata if it's a string
+								if (typeof childContent.metadata === 'string') {
+									try {
+										childContent.metadata = JSON.parse(childContent.metadata)
+									} catch (e) {
+										console.error('Error parsing child metadata:', e)
+										childContent.metadata = {}
+									}
+								}
+
 								// Get tags for this child
 								const childTags = childTagsQuery.all(childId) as Tag[]
 
@@ -95,12 +106,19 @@ export class ContentService {
 
 						// Set the children on the parent content
 						content.children = childrenContent
+					} else {
+						// Empty children array
+						content.children = []
 					}
 				} catch (e) {
 					console.error('Error processing collection children:', e)
 					content.children = []
 				}
+			} else {
+				// No children string, ensure empty array
+				content.children = []
 			}
+		}
 
 			// Commit transaction
 			this.db.exec('COMMIT')
