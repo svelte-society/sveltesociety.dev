@@ -8,6 +8,7 @@
 	import Textarea from '$lib/ui/form/Textarea.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import { zodClient } from 'sveltekit-superforms/adapters'
+	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
 	let { data } = $props()
 
 	const form = superForm(data.form, {
@@ -15,7 +16,8 @@
 		delayMs: 500,
 		timeoutMs: 8000,
 		dataType: 'json',
-		validators: zodClient(schema)
+		validators: zodClient(schema),
+		validationMethod: 'onsubmit'
 	})
 
 	const { form: formData, submitting } = form
@@ -28,6 +30,15 @@
 		listed on the site. Use the search bar to check if the resource is already listed.
 	</p>
 	<Form {form} action="?/submit">
+		<!-- Content type selection first -->
+		<Select
+			name="type"
+			label="Type"
+			description="Select the type of content you are submitting"
+			{options}
+		/>
+
+		<!-- Common fields for all types -->
 		<Input
 			placeholder="Enter a title..."
 			name="title"
@@ -40,33 +51,60 @@
 			label="Description"
 			description="Enter the description of your content submission."
 		/>
-		<Select
-			name="type"
-			label="Type"
-			description="Select the type of content you are submitting"
-			{options}
+
+		<!-- Tags field using DynamicSelector -->
+		<DynamicSelector
+			name="tags"
+			label="Tags"
+			description="Select relevant tags for your submission"
+			options={data.tags.map((tag) => ({
+				label: tag.name,
+				value: tag.id
+			}))}
 		/>
-		<Input
-			placeholder="Enter the URL"
-			name="url"
-			label="Url"
-			description="The URL for the resource you are submitting."
-		/>
-		<Input
-			placeholder="Enter the GitHub repo"
-			name="github_repo"
-			label="GitHub Repository"
-			description="Enter the GitHub repo for the resource you are submitting."
-		/>
+
+		<!-- Type-specific fields -->
+		{#if $formData.type === 'recipe'}
+			<Textarea
+				placeholder="Enter the recipe content, instructions, and code examples..."
+				name="body"
+				label="Recipe Content"
+				description="Provide the full recipe content including instructions and code"
+			/>
+		{:else if $formData.type === 'video'}
+			<Input
+				placeholder="https://youtube.com/watch?v=..."
+				name="url"
+				label="Video URL"
+				description="Enter the YouTube URL for the video"
+			/>
+		{:else if $formData.type === 'library'}
+			<Input
+				placeholder="username/repository"
+				name="github_repo"
+				label="GitHub Repository"
+				description="GitHub repository (required for libraries)"
+			/>
+		{:else if $formData.type === 'link'}
+			<Input
+				placeholder="https://example.com"
+				name="url"
+				label="URL"
+				description="The URL you want to share"
+			/>
+		{/if}
+
+		<!-- Notes field (always shown) -->
 		<Textarea
-			placeholder="Enter notes"
+			placeholder="Any additional notes or context..."
 			name="notes"
-			label="Notes"
-			description="Enter the notes for the resource you are submitting."
+			label="Notes (optional)"
+			description="Any additional information about your submission"
 		/>
-		<Button type="submit" primary disabled={$submitting}
-			>{$submitting ? 'Submitting...' : 'Submit'}</Button
-		>
+
+		<Button type="submit" primary disabled={$submitting}>
+			{$submitting ? 'Submitting...' : 'Submit'}
+		</Button>
 	</Form>
 </div>
 
