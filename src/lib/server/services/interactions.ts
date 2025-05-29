@@ -57,6 +57,35 @@ export class InteractionsService {
 		return { userLikes, userSaves }
 	}
 
+	getUserContentStats(authorId: string): {
+		totalLikes: number
+		totalSaves: number
+		totalContent: number
+	} {
+		// Get total likes and saves received on content authored by the user
+		const statsQuery = this.db.prepare(`
+			SELECT 
+				SUM(c.likes) as totalLikes,
+				SUM(c.saves) as totalSaves,
+				COUNT(c.id) as totalContent
+			FROM content c
+			JOIN content_to_users cu ON c.id = cu.content_id
+			WHERE cu.user_id = $authorId AND c.status = 'published'
+		`)
+
+		const stats = statsQuery.get({ authorId }) as {
+			totalLikes: number | null
+			totalSaves: number | null
+			totalContent: number
+		}
+
+		return {
+			totalLikes: stats.totalLikes || 0,
+			totalSaves: stats.totalSaves || 0,
+			totalContent: stats.totalContent || 0
+		}
+	}
+
 	toggleInteraction(type: 'like' | 'save', userId: string, contentId: string) {
 		const interactionQuery = this.db.prepare(
 			`SELECT * FROM ${type}s WHERE user_id = $user_id AND target_id = $target_id`
