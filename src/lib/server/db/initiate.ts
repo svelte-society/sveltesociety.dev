@@ -16,6 +16,7 @@ import triggerModerationQueueSQL from './triggers/move_from_moderation_queue.sql
 import triggerContentSQL from './triggers/content.sql?raw'
 
 import { DB_PATH } from '$env/static/private'
+import { MigrationRunner } from './migrations'
 
 // Create database directory if it doesn't exist
 const dbDir = path.dirname(DB_PATH)
@@ -51,6 +52,10 @@ export const initiate_db = async () => {
 	execute_sql(triggerInteractionsSQL, 'triggers/interactions.sql', db)
 	execute_sql(triggerModerationQueueSQL, 'triggers/move_from_moderation_queue.sql', db)
 	execute_sql(triggerContentSQL, 'triggers/content.sql', db)
+
+	// Run database migrations
+	const migrationRunner = new MigrationRunner(db)
+	await migrationRunner.runMigrations()
 
 	console.log('Database initialization completed.')
 }

@@ -10,6 +10,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "bun --run prettier --write .",
+		"db:migrate": "bun run src/lib/server/db/scripts/migrate.ts",
 		"test:integration": "NODE_ENV=test pnpm run db:test:init && pnpm run db:test:seed && pnpm run build && playwright test",
 		"test": "vitest"
 	},

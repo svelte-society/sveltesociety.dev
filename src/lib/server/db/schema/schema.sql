@@ -162,6 +162,13 @@ CREATE TABLE IF NOT EXISTS cache (
 );
 CREATE INDEX IF NOT EXISTS idx_cache_created_at ON cache(created_at);
 
+-- Migrations table to track applied database migrations
+CREATE TABLE IF NOT EXISTS migrations (
+    version INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Insert default OAuth providers
 INSERT OR IGNORE INTO oauth_providers (name, description, active) 
 VALUES ('github', 'GitHub OAuth Provider', 1);
