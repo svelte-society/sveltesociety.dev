@@ -28,6 +28,12 @@ bun test:integration     # Run Playwright integration tests
 bun test -- path/to/file # Run specific test file
 ```
 
+### Database
+
+```bash
+bun db:migrate           # Run database migrations
+```
+
 ## Architecture
 
 ### Service Layer Pattern
@@ -59,6 +65,14 @@ Three main hooks process requests in order:
 - Views for aggregated data (collections, content)
 - Triggers for automatic updates (interactions, moderation)
 - Schema files in `/src/lib/server/db/schema/`, views in `/views/`, triggers in `/triggers/`
+
+### Database Migrations
+
+- Version-based migration system tracks applied migrations in `migrations` table
+- Migration files stored in `/src/lib/server/db/migrations/` with format `001_description.sql`
+- Migrations run automatically on server start after schema initialization
+- Manual migration command: `bun db:migrate` shows status and applies pending migrations
+- Create new migrations as numbered SQL files (e.g., `002_add_user_preferences.sql`)
 
 ### Search Implementation
 
