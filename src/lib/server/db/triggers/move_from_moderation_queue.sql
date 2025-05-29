@@ -16,8 +16,7 @@ BEGIN
 
   -- Link author to content
   INSERT INTO content_to_users (content_id, user_id)
-  SELECT last_insert_rowid(), NEW.submitted_by
-  WHERE NEW.submitted_by IS NOT NULL;
+  SELECT last_insert_rowid(), NEW.submitted_by;
 
   -- Handle tags
   INSERT OR IGNORE INTO content_to_tags (content_id, tag_id)

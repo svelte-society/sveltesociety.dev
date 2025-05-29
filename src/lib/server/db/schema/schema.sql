@@ -144,11 +144,11 @@ CREATE TABLE IF NOT EXISTS moderation_queue (
     type TEXT NOT NULL,
     status TEXT NOT NULL DEFAULT 'pending' CHECK(status IN ('pending', 'approved', 'rejected')),
     data JSON NOT NULL,
-    submitted_by TEXT,
+    submitted_by TEXT NOT NULL,
     submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     moderated_by TEXT,
     moderated_at TIMESTAMP,
-    FOREIGN KEY (submitted_by) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (submitted_by) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (moderated_by) REFERENCES users(id) ON DELETE SET NULL
 );
 
