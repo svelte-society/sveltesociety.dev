@@ -2,9 +2,10 @@
 	import { Avatar } from 'bits-ui'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 
-	let { src, name } = $props()
+	let { src, name = '' } = $props()
 
 	function getInitials(name: string): string {
+		if (!name) return '?'
 		return name
 			.split(' ')
 			.map((word) => word[0])

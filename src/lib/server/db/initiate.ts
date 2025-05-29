@@ -8,6 +8,7 @@ import schemaSQL from './schema/schema.sql?raw'
 // Static imports for views
 import viewCollectionsSQL from './views/collections.sql?raw'
 import viewContentSQL from './views/content.sql?raw'
+import viewContentWithAuthorsSQL from './views/content_with_authors.sql?raw'
 
 // Static imports for triggers
 import triggerInteractionsSQL from './triggers/interactions.sql?raw'
@@ -44,6 +45,7 @@ export const initiate_db = async () => {
 	// Execute view SQLs
 	execute_sql(viewCollectionsSQL, 'views/collections.sql', db)
 	execute_sql(viewContentSQL, 'views/content.sql', db)
+	execute_sql(viewContentWithAuthorsSQL, 'views/content_with_authors.sql', db)
 
 	// Execute trigger SQLs
 	execute_sql(triggerInteractionsSQL, 'triggers/interactions.sql', db)

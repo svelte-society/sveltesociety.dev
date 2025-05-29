@@ -5,7 +5,7 @@
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 
 	import Tags from './Tags.svelte'
-	import type { Content } from '$lib/types/content'
+	import type { ContentWithAuthor } from '$lib/types/content'
 
 	import Recipe from '$lib/ui/content/Recipe.svelte'
 	import Collection from '$lib/ui/content/Collection.svelte'
@@ -17,7 +17,7 @@
 	import User from 'phosphor-svelte/lib/User'
 	import VideoCamera from 'phosphor-svelte/lib/VideoCamera'
 
-	let { content, compact = false }: { content: Content; compact?: boolean } = $props()
+	let { content, compact = false }: { content: ContentWithAuthor; compact?: boolean } = $props()
 
 	let submitting = $state(false)
 
@@ -51,9 +51,14 @@
 	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between gap-2 text-xs sm:gap-0">
 		<div class="flex flex-wrap items-center">
 			<span class="font-semibold capitalize">{content.type}&nbsp;</span>
-			<span class="flex flex-wrap text-gray-500">
-				<span>by {content.author}</span>
-			</span>
+			{#if content.author_username}
+				<span class="flex flex-wrap text-gray-500">
+					<span>posted by&nbsp;</span>
+					<a href="/user/{content.author_username}" class="hover:underline">
+						{content.author_name || content.author_username}
+					</a>
+				</span>
+			{/if}
 		</div>
 		<form
 			method="POST"

@@ -7,6 +7,13 @@ export type Type = z.infer<typeof typeSchema>
 export type Content = z.infer<typeof contentSchema>
 export type UpdateContent = z.infer<typeof updateContentSchema>
 
+// Extended content type with author information
+export interface ContentWithAuthor extends Content {
+	author_id?: string
+	author_username?: string
+	author_name?: string
+}
+
 // Content filtering options
 export interface ContentFilters {
 	type?: string

@@ -5,6 +5,10 @@ export function seedContent(db: Database.Database) {
     SELECT id, slug FROM tags
   `)
 
+	const getUserStmt = db.prepare(`
+    SELECT id FROM users WHERE username = ?
+  `)
+
 	const insertContentStmt = db.prepare(`
     INSERT INTO content (title, type, body, rendered_body, slug, description, children, status, created_at, updated_at, published_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -15,9 +19,20 @@ export function seedContent(db: Database.Database) {
     INSERT INTO content_to_tags (content_id, tag_id)
     VALUES (?, ?)
   `)
+
+	const insertContentAuthorStmt = db.prepare(`
+    INSERT INTO content_to_users (content_id, user_id)
+    VALUES (?, ?)
+  `)
 	const tagIds = getAllTagsStmt.all() as Array<{ slug: string; id: string }>
 
 	const tagMap = new Map(tagIds.map((tag) => [tag.slug, tag.id]))
+
+	// Get the seeded user to link as author
+	const author = getUserStmt.get('kevmodrome') as { id: string } | null
+	if (!author) {
+		console.warn('Warning: No user found for content authorship. Make sure to run seedUsers first.')
+	}
 
 	const contentItems = [
 		{
@@ -751,6 +766,11 @@ export function seedContent(db: Database.Database) {
 		) as { id: string }
 
 		const contentId = info.id
+
+		// Link author to content
+		if (author) {
+			insertContentAuthorStmt.run(contentId, author.id)
+		}
 
 		for (const tagId of item.tags) {
 			if (tagId) {

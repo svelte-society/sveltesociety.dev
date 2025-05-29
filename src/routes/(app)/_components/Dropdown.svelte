@@ -22,7 +22,7 @@
 			sideOffset={8}
 		>
 			<DropdownMenu.Item
-				onSelect={() => goto('/account')}
+				onSelect={() => goto(`/user/${user.username}`)}
 				class="flex h-10 cursor-pointer items-center rounded-sm py-3 pr-1.5 pl-3 text-sm font-medium ring-0! ring-transparent! select-none focus-visible:outline-none data-highlighted:bg-gray-100"
 			>
 				<div class="flex items-center">

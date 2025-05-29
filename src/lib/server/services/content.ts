@@ -1,6 +1,6 @@
 import { Database } from 'bun:sqlite'
 import { SearchService } from './search'
-import type { Content, ContentFilters } from '$lib/types/content'
+import type { Content, ContentFilters, ContentWithAuthor } from '$lib/types/content'
 import type { Tag } from '$lib/types/tags'
 
 export class ContentService {
@@ -9,7 +9,7 @@ export class ContentService {
 		private searchService?: SearchService
 	) {}
 
-	getContentById(id: string): Content | null {
+	getContentById(id: string): ContentWithAuthor | null {
 		if (!id) {
 			console.error('Invalid content ID:', id)
 			return null
@@ -19,12 +19,19 @@ export class ContentService {
 			// Begin transaction
 			this.db.exec('BEGIN TRANSACTION')
 
-			// Get the main content
+			// Get the main content with author info
 			const contentQuery = this.db.prepare(`
-				SELECT * FROM content
-				WHERE id = ?
+				SELECT 
+					c.*,
+					u.id as author_id,
+					u.username as author_username,
+					u.name as author_name
+				FROM content c
+				LEFT JOIN content_to_users cu ON c.id = cu.content_id
+				LEFT JOIN users u ON cu.user_id = u.id
+				WHERE c.id = ?
 			`)
-			const content = contentQuery.get(id) as Content | null
+			const content = contentQuery.get(id) as ContentWithAuthor | null
 
 			if (!content) {
 				this.db.exec('ROLLBACK')
@@ -136,7 +143,7 @@ export class ContentService {
 		}
 	}
 
-	getFilteredContent(filters: ContentFilters = {}): Content[] {
+	getFilteredContent(filters: ContentFilters = {}): ContentWithAuthor[] {
 		let contentIds: string[] = []
 
 		if (filters.search?.trim()) {
@@ -222,7 +229,7 @@ export class ContentService {
 
 		return ids
 			.map(({ id }) => this.getContentById(id))
-			.filter((content): content is Content => content !== null)
+			.filter((content): content is ContentWithAuthor => content !== null)
 	}
 
 	getFilteredContentCount(filters: Omit<ContentFilters, 'limit' | 'offset' | 'sort'> = {}) {
@@ -301,6 +308,7 @@ export class ContentService {
 		created_at?: string
 		updated_at?: string
 		published_at?: string
+		author_id?: string
 	}) {
 		const id = crypto.randomUUID()
 		const now = new Date().toISOString()
@@ -328,6 +336,13 @@ export class ContentService {
 				data.updated_at || now,
 				data.published_at || (data.status === 'published' ? now : null)
 			)
+
+		// Add author if present
+		if (data.author_id) {
+			this.db
+				.prepare(`INSERT INTO content_to_users (content_id, user_id) VALUES (?, ?)`)
+				.run(id, data.author_id)
+		}
 
 		// Add tags if present
 		if (data.tags && data.tags.length > 0) {

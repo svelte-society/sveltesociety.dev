@@ -49,6 +49,7 @@ export interface UserOAuth {
 export class UserService {
 	private getUserStatement
 	private getUserByOAuthStatement
+	private getUserByUsernameStatement
 	private getUsersStatement
 	private getUserCountStatement
 	private getProviderStatement
@@ -71,6 +72,11 @@ export class UserService {
 			JOIN user_oauth uo ON u.id = uo.user_id
 			JOIN oauth_providers op ON uo.provider_id = op.id
 			WHERE op.name = $provider AND uo.provider_user_id = $providerUserId
+		`)
+
+		this.getUserByUsernameStatement = this.db.prepare(`
+			SELECT * FROM users
+			WHERE username = $username
 		`)
 
 		this.getUsersStatement = this.db.prepare(`
@@ -186,6 +192,16 @@ export class UserService {
 			return result ? (result as User) : undefined
 		} catch (error) {
 			console.error('Error getting user by OAuth:', error)
+			return undefined
+		}
+	}
+
+	getUserByUsername(username: string): User | undefined {
+		try {
+			const result = this.getUserByUsernameStatement.get({ username })
+			return result ? (result as User) : undefined
+		} catch (error) {
+			console.error('Error getting user by username:', error)
 			return undefined
 		}
 	}

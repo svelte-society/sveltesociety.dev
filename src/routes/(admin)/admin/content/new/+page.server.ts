@@ -32,7 +32,8 @@ export const actions: Actions = {
 			locals.contentService.addContent({
 				...form.data,
 				body: form.data.body,
-				tags: form.data.tags.map((tag) => tag.id)
+				tags: form.data.tags.map((tag) => tag.id),
+				author_id: locals.user?.id
 			})
 
 			// Redirect to content listing after successful save
