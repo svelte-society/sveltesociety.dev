@@ -28,15 +28,6 @@ bun test:integration     # Run Playwright integration tests
 bun test -- path/to/file # Run specific test file
 ```
 
-### Database
-
-```bash
-bun db:init              # Initialize database schema
-bun db:seed              # Seed database with sample data
-bun db:test:init         # Initialize test database
-bun db:test:seed         # Seed test database
-```
-
 ## Architecture
 
 ### Service Layer Pattern
