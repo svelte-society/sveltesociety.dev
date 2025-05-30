@@ -94,7 +94,11 @@
 	<div class="mt-8">
 		<h3 class="text-sm font-medium text-gray-700">Form Data Debug:</h3>
 		<SuperDebug data={$formData} />
-		<h3 class="text-sm font-medium text-gray-700 mt-4">Collection Debug:</h3>
-		<pre class="text-xs bg-gray-100 p-2 rounded overflow-auto">{JSON.stringify(data.collection, null, 2)}</pre>
+		<h3 class="mt-4 text-sm font-medium text-gray-700">Collection Debug:</h3>
+		<pre class="overflow-auto rounded bg-gray-100 p-2 text-xs">{JSON.stringify(
+				data.collection,
+				null,
+				2
+			)}</pre>
 	</div>
 {/if}

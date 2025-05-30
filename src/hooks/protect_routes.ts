@@ -12,21 +12,21 @@ const routePermissions: RoutePermission[] = [
 	{ path: '/admin/users', allowedRoles: ['admin'] },
 	{ path: '/admin/roles', allowedRoles: ['admin'] },
 	{ path: '/admin/statistics', allowedRoles: ['admin'] },
-	
+
 	// Admin and Moderator routes
 	{ path: '/admin/moderation', allowedRoles: ['admin', 'moderator'] },
 	{ path: '/admin/tags', allowedRoles: ['admin', 'moderator'] },
 	{ path: '/admin/external-content', allowedRoles: ['admin', 'moderator'] },
 	{ path: '/admin/bulk-import', allowedRoles: ['admin', 'moderator'] },
-	
+
 	// Admin, Moderator, and Editor routes
 	{ path: '/admin/content', allowedRoles: ['admin', 'moderator', 'editor'] },
 	{ path: '/admin/collections', allowedRoles: ['admin', 'moderator', 'editor'] },
 	{ path: '/admin/analytics', allowedRoles: ['admin', 'moderator', 'editor'] },
-	
+
 	// General admin access (catch-all for admin dashboard)
 	{ path: '/admin', allowedRoles: ['admin', 'moderator', 'editor'] },
-	
+
 	// Account pages - all logged in users
 	{ path: '/account', allowedRoles: ['admin', 'moderator', 'editor', 'user'] }
 ]
@@ -35,7 +35,7 @@ export const protect_routes: Handle = async ({ event, resolve }) => {
 	const { user, roleService } = event.locals
 
 	const currentPath = event.url.pathname
-	
+
 	// Sort routes by specificity (longer paths first) to match most specific route
 	const sortedPermissions = [...routePermissions].sort((a, b) => b.path.length - a.path.length)
 	const restrictedRoute = sortedPermissions.find((route) => currentPath.startsWith(route.path))

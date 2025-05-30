@@ -7,7 +7,7 @@
 	import { options, schema } from './schema'
 	import Textarea from '$lib/ui/form/Textarea.svelte'
 	import Button from '$lib/ui/Button.svelte'
-	import { zodClient } from 'sveltekit-superforms/adapters'
+	import { zod } from 'sveltekit-superforms/adapters'
 	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
 	let { data } = $props()
 
@@ -16,7 +16,7 @@
 		delayMs: 500,
 		timeoutMs: 8000,
 		dataType: 'json',
-		validators: zodClient(schema),
+		validators: zod(schema),
 		validationMethod: 'onsubmit'
 	})
 

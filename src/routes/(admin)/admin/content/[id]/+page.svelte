@@ -117,8 +117,8 @@
 					description: $formData.description,
 					type: $formData.type,
 					existingTags: data.tags
-						.filter(tag => $formData.tags.includes(tag.id))
-						.map(tag => tag.name)
+						.filter((tag) => $formData.tags.includes(tag.id))
+						.map((tag) => tag.name)
 				})
 			})
 
@@ -128,12 +128,12 @@
 			}
 
 			const { tags } = await response.json()
-			
+
 			// Add suggested tags to the current selection
 			const newTagIds = tags.map((tag: any) => tag.id)
 			const currentTags = $formData.tags || []
 			$formData.tags = [...new Set([...currentTags, ...newTagIds])]
-			
+
 			toast.success(`Added ${newTagIds.length} suggested tags`)
 		} catch (error) {
 			console.error('Error suggesting tags:', error)
@@ -448,12 +448,13 @@
 					value: tag.id
 				}))}
 			/>
-			<div class="flex justify-end mt-2">
+			<div class="mt-2 flex justify-end">
 				<Button
 					small
 					secondary
 					onclick={suggestTags}
-					disabled={suggestingTags || (!$formData.title && !$formData.body && !$formData.description)}
+					disabled={suggestingTags ||
+						(!$formData.title && !$formData.body && !$formData.description)}
 				>
 					{suggestingTags ? 'Suggesting...' : 'Suggest Tags with AI'}
 				</Button>

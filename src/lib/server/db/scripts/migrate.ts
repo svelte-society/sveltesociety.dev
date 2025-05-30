@@ -19,18 +19,20 @@ async function runMigrations() {
 		db.exec('PRAGMA foreign_keys = ON')
 
 		const migrationRunner = new MigrationRunner(db)
-		
+
 		// Show current status
 		console.log('\n=== Migration Status ===')
 		const status = migrationRunner.getMigrationStatus()
-		status.forEach(migration => {
+		status.forEach((migration) => {
 			const statusIcon = migration.applied ? '✓' : '○'
-			console.log(`${statusIcon} ${migration.version.toString().padStart(3, '0')}: ${migration.name}`)
+			console.log(
+				`${statusIcon} ${migration.version.toString().padStart(3, '0')}: ${migration.name}`
+			)
 		})
 
 		// Run migrations
 		await migrationRunner.runMigrations()
-		
+
 		db.close()
 		console.log('\nMigration script completed successfully')
 	} catch (error) {

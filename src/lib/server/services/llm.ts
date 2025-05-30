@@ -4,7 +4,7 @@ import type { TagsService } from './tags'
 
 export class LLMService {
 	private model = anthropic('claude-3-5-sonnet-latest')
-	
+
 	constructor(private tagsService?: TagsService) {}
 
 	/**
@@ -44,8 +44,8 @@ Write only the description, no additional text.`
 	}): Promise<string[]> {
 		// Get all available tags from the database
 		const availableTags = this.tagsService?.getAllTags() || []
-		const tagNames = availableTags.map(tag => tag.name)
-		
+		const tagNames = availableTags.map((tag) => tag.name)
+
 		if (tagNames.length === 0) {
 			return []
 		}
@@ -79,13 +79,13 @@ Return only a comma-separated list of tag names, nothing else.`
 			// Parse the response and validate against available tags
 			const suggestedTags = text
 				.split(',')
-				.map(tag => tag.trim())
-				.filter(tag => tag && tagNames.includes(tag))
+				.map((tag) => tag.trim())
+				.filter((tag) => tag && tagNames.includes(tag))
 				.filter((tag, index, self) => self.indexOf(tag) === index) // Remove duplicates
 
 			// If we already have existing tags, filter them out from suggestions
 			if (content.existingTags?.length) {
-				return suggestedTags.filter(tag => !content.existingTags!.includes(tag))
+				return suggestedTags.filter((tag) => !content.existingTags!.includes(tag))
 			}
 
 			return suggestedTags
@@ -117,7 +117,10 @@ Return only the slug, nothing else.`
 			maxTokens: 50
 		})
 
-		return text.trim().toLowerCase().replace(/[^a-z0-9-]/g, '')
+		return text
+			.trim()
+			.toLowerCase()
+			.replace(/[^a-z0-9-]/g, '')
 	}
 
 	/**
@@ -130,7 +133,7 @@ Return only the slug, nothing else.`
 	}): Promise<string> {
 		const toneDescriptions = {
 			professional: 'professional and formal',
-			casual: 'casual and conversational', 
+			casual: 'casual and conversational',
 			technical: 'technical and detailed',
 			'beginner-friendly': 'beginner-friendly and accessible'
 		}

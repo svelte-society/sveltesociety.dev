@@ -1,4 +1,4 @@
-import { error, fail } from '@sveltejs/kit'
+import { error } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 import { superValidate, message } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'

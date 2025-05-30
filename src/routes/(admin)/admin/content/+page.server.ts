@@ -47,7 +47,7 @@ export const actions = {
 				return { success: true }
 			}
 			return fail(404, { message: 'Content not found' })
-		} catch (err) {
+		} catch () {
 			return fail(500, { message: 'Failed to delete content' })
 		}
 	}

@@ -3,6 +3,28 @@ import type { ContentService } from './content'
 import type { CacheService } from './cache'
 import type { Content } from '$lib/types/content'
 
+interface DatabaseContentRow {
+	id: string
+	title: string
+	slug: string
+	description: string
+	type: string
+	status: string
+	body?: string
+	rendered_body: string
+	author?: string
+	created_at: string
+	updated_at: string
+	published_at: string | null
+	likes: number
+	saves: number
+	liked: boolean
+	saved: boolean
+	views: number
+	metadata: string | object
+	tags?: unknown[]
+}
+
 export interface ExternalContentSource {
 	type: 'event' | 'video' | 'blog' | 'library'
 	source: string // e.g., 'guild', 'youtube', 'github', etc.
@@ -43,7 +65,7 @@ export class ExternalContentService {
 
 			// Prepare metadata with source information
 			const metadata = {
-				...(existing?.metadata || {}),
+				...existing.metadata,
 				...data.metadata,
 				externalSource: {
 					...data.source,
@@ -59,7 +81,7 @@ export class ExternalContentService {
 					description: data.description || existing.description,
 					type: data.type,
 					status: existing.status,
-					body: data.body || existing.body,
+					body: data.body || existing.body || '',
 					metadata: JSON.stringify(metadata),
 					tags: data.tags || []
 				})
@@ -71,10 +93,11 @@ export class ExternalContentService {
 					title: this.generateUniqueTitle(data),
 					type: data.type,
 					slug,
-					description: data.description,
-					body: data.body,
+					description: data.description || '',
+					body: data.body || '',
 					metadata,
 					status: 'draft',
+					tags: data.tags || [],
 					// Use the original published date for both created_at and published_at
 					// This ensures proper chronological ordering
 					created_at: data.publishedAt || new Date().toISOString(),
@@ -106,7 +129,7 @@ export class ExternalContentService {
 		const stmt = this.db.prepare(query)
 		const results = type ? stmt.all(source, type) : stmt.all(source)
 
-		return results.map((row) => ({
+		return (results as DatabaseContentRow[]).map((row) => ({
 			...row,
 			metadata: typeof row.metadata === 'string' ? JSON.parse(row.metadata) : row.metadata || {}
 		})) as Content[]
@@ -123,7 +146,7 @@ export class ExternalContentService {
 			LIMIT 1
 		`)
 
-		const result = stmt.get(source, externalId)
+		const result = stmt.get(source, externalId) as DatabaseContentRow | undefined
 
 		if (!result) return null
 
@@ -138,17 +161,20 @@ export class ExternalContentService {
 	 * Check if external content needs update
 	 */
 	needsUpdate(content: Content, lastModified?: string): boolean {
-		if (!content.metadata?.externalSource?.lastFetched) {
+		const metadata = content.metadata as {
+			externalSource?: { lastFetched?: string; lastModified?: string }
+		}
+		if (!metadata?.externalSource?.lastFetched) {
 			return true
 		}
 
 		// If we have a lastModified date from the source, compare it
-		if (lastModified && content.metadata.externalSource.lastModified) {
-			return new Date(lastModified) > new Date(content.metadata.externalSource.lastModified)
+		if (lastModified && metadata.externalSource.lastModified) {
+			return new Date(lastModified) > new Date(metadata.externalSource.lastModified)
 		}
 
 		// Otherwise, check if it's been more than 24 hours since last fetch
-		const lastFetched = new Date(content.metadata.externalSource.lastFetched)
+		const lastFetched = new Date(metadata.externalSource.lastFetched)
 		const dayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000)
 
 		return lastFetched < dayAgo
@@ -195,7 +221,10 @@ export class ExternalContentService {
 			// Get existing content from this source
 			const existing = this.getContentBySource(source, options?.type)
 			const existingMap = new Map(
-				existing.map((item) => [item.metadata?.externalSource?.externalId, item])
+				existing.map((item) => {
+					const metadata = item.metadata as { externalSource?: { externalId?: string } }
+					return [metadata?.externalSource?.externalId, item]
+				})
 			)
 
 			// Upsert each item

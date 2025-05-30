@@ -30,7 +30,9 @@
 		{#snippet row(item: Collection, classes)}
 			<td class="{classes} font-medium text-gray-900">
 				<div>{item.title.length > 50 ? item.title.slice(0, 50) + '...' : item.title}</div>
-				<div class="mt-1 text-xs text-gray-500">{item.slug.length > 50 ? item.slug.slice(0, 50) + '...' : item.slug}</div>
+				<div class="mt-1 text-xs text-gray-500">
+					{item.slug.length > 50 ? item.slug.slice(0, 50) + '...' : item.slug}
+				</div>
 			</td>
 			<td class={classes}>
 				<div class="line-clamp-2">

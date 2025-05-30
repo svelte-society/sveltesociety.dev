@@ -1,9 +1,27 @@
 <script lang="ts">
 	import Button from '$lib/ui/Button.svelte'
 	import UpcomingEvents from './UpcomingEvents.svelte'
-	import type { Content } from '$lib/types/content'
 
-	let { upcomingEvents = [] }: { upcomingEvents?: Content[] } = $props()
+	interface UpcomingEvent {
+		type: string
+		slug: string
+		title: string
+		metadata: {
+			startTime: string
+			endTime?: string
+			location?: string
+			url?: string
+			presentations: Array<{
+				title: string
+				presenter: string
+				description: string
+				videoUrl?: string
+			}>
+			socialCardUrl?: string
+		}
+	}
+
+	let { upcomingEvents = [] }: { upcomingEvents?: UpcomingEvent[] } = $props()
 </script>
 
 <div class="@container hidden space-y-4 sm:block">

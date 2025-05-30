@@ -66,66 +66,66 @@ export class ContentService {
 						const childrenIds = JSON.parse(content.children)
 
 						if (Array.isArray(childrenIds) && childrenIds.length > 0) {
-						// Process each child individually instead of using IN clause
-						const childrenContent: Content[] = []
+							// Process each child individually instead of using IN clause
+							const childrenContent: Content[] = []
 
-						// Prepare statements for reuse
-						const childContentQuery = this.db.prepare(`
+							// Prepare statements for reuse
+							const childContentQuery = this.db.prepare(`
 							SELECT c.*
 							FROM content c
 							WHERE c.id = ?
 						`)
 
-						const childTagsQuery = this.db.prepare(`
+							const childTagsQuery = this.db.prepare(`
 							SELECT t.id, t.name, t.slug, t.created_at, t.updated_at
 							FROM tags t
 							JOIN content_to_tags ctt ON t.id = ctt.tag_id
 							WHERE ctt.content_id = ?
 						`)
 
-						// Process each child ID individually
-						for (const childId of childrenIds) {
-							// Get the child content
-							const childContent = childContentQuery.get(childId) as Content | null
+							// Process each child ID individually
+							for (const childId of childrenIds) {
+								// Get the child content
+								const childContent = childContentQuery.get(childId) as Content | null
 
-							if (childContent) {
-								// Parse metadata if it's a string
-								if (typeof childContent.metadata === 'string') {
-									try {
-										childContent.metadata = JSON.parse(childContent.metadata)
-									} catch (e) {
-										console.error('Error parsing child metadata:', e)
-										childContent.metadata = {}
+								if (childContent) {
+									// Parse metadata if it's a string
+									if (typeof childContent.metadata === 'string') {
+										try {
+											childContent.metadata = JSON.parse(childContent.metadata)
+										} catch (e) {
+											console.error('Error parsing child metadata:', e)
+											childContent.metadata = {}
+										}
 									}
+
+									// Get tags for this child
+									const childTags = childTagsQuery.all(childId) as Tag[]
+
+									// Assign tags to each child content
+									childContent.tags = childTags || []
+									childContent.children = [] // Ensure all children have empty children arrays
+
+									// Add to the children collection
+									childrenContent.push(childContent)
 								}
-
-								// Get tags for this child
-								const childTags = childTagsQuery.all(childId) as Tag[]
-
-								// Assign tags to each child content
-								childContent.tags = childTags || []
-								childContent.children = [] // Ensure all children have empty children arrays
-
-								// Add to the children collection
-								childrenContent.push(childContent)
 							}
-						}
 
-						// Set the children on the parent content
-						content.children = childrenContent
-					} else {
-						// Empty children array
+							// Set the children on the parent content
+							content.children = childrenContent
+						} else {
+							// Empty children array
+							content.children = []
+						}
+					} catch (e) {
+						console.error('Error processing collection children:', e)
 						content.children = []
 					}
-				} catch (e) {
-					console.error('Error processing collection children:', e)
+				} else {
+					// No children string, ensure empty array
 					content.children = []
 				}
-			} else {
-				// No children string, ensure empty array
-				content.children = []
 			}
-		}
 
 			// Commit transaction
 			this.db.exec('COMMIT')
@@ -147,7 +147,8 @@ export class ContentService {
 		let contentIds: string[] = []
 
 		if (filters.search?.trim()) {
-			contentIds = this.searchService.search({ query: filters.search.trim() })
+			const searchResults = this.searchService.search({ query: filters.search.trim()! })
+			contentIds = searchResults.hits.map(hit => hit.id)
 		}
 
 		let query = `
@@ -236,7 +237,8 @@ export class ContentService {
 		let contentIds: string[] = []
 
 		if (filters.search?.trim()) {
-			contentIds = this.searchService.search({ query: filters.search.trim() })
+			const searchResults = this.searchService.search({ query: filters.search.trim()! })
+			contentIds = searchResults.hits.map(hit => hit.id)
 			if (contentIds.length === 0) return 0
 		}
 

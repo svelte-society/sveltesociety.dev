@@ -23,6 +23,7 @@ export interface User {
 	location: string | null
 	twitter: string | null
 	role: number
+	created_at: string
 }
 
 export interface OAuthProvider {

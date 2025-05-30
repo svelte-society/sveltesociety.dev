@@ -26,8 +26,6 @@
 
 	const { form: formData, submitting } = form
 
-
-
 	// Helper to generate slug from title
 	function generateSlug() {
 		if ($formData.title) {
@@ -98,8 +96,8 @@
 					description: $formData.description,
 					type: $formData.type,
 					existingTags: data.tags
-						.filter(tag => ($formData.tags || []).includes(tag.id))
-						.map(tag => tag.name)
+						.filter((tag) => ($formData.tags || []).includes(tag.id))
+						.map((tag) => tag.name)
 				})
 			})
 
@@ -109,12 +107,12 @@
 			}
 
 			const { tags } = await response.json()
-			
+
 			// Add suggested tags to the current selection
 			const newTagIds = tags.map((tag: any) => tag.id)
 			const currentTags = $formData.tags || []
 			$formData.tags = [...new Set([...currentTags, ...newTagIds])]
-			
+
 			toast.success(`Added ${newTagIds.length} suggested tags`)
 		} catch (error) {
 			console.error('Error suggesting tags:', error)
@@ -123,7 +121,6 @@
 			suggestingTags = false
 		}
 	}
-
 </script>
 
 <div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
@@ -132,10 +129,12 @@
 	<div class="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
 		<h2 class="mb-2 font-semibold text-blue-900">Looking to add a video or library?</h2>
 		<p class="text-sm text-blue-800">
-			Videos and libraries should be imported from their external sources. Use the 
-			<a href="/admin/external-content" class="font-medium underline hover:text-blue-700">External Content</a> 
-			page to import from YouTube or GitHub, or use the 
-			<a href="/admin/bulk-import" class="font-medium underline hover:text-blue-700">Bulk Import</a> 
+			Videos and libraries should be imported from their external sources. Use the
+			<a href="/admin/external-content" class="font-medium underline hover:text-blue-700"
+				>External Content</a
+			>
+			page to import from YouTube or GitHub, or use the
+			<a href="/admin/bulk-import" class="font-medium underline hover:text-blue-700">Bulk Import</a>
 			feature for multiple items at once.
 		</p>
 	</div>
@@ -168,7 +167,6 @@
 				{ value: 'archived', label: 'Archived' }
 			]}
 		/>
-
 
 		<div class="space-y-2">
 			<label for="body" class="block text-sm font-medium text-gray-700">Content Body</label>
@@ -216,12 +214,13 @@
 					value: tag.id
 				}))}
 			/>
-			<div class="flex justify-end mt-2">
+			<div class="mt-2 flex justify-end">
 				<Button
 					small
 					secondary
 					onclick={suggestTags}
-					disabled={suggestingTags || (!$formData.title && !$formData.body && !$formData.description)}
+					disabled={suggestingTags ||
+						(!$formData.title && !$formData.body && !$formData.description)}
 				>
 					{suggestingTags ? 'Suggesting...' : 'Suggest Tags with AI'}
 				</Button>

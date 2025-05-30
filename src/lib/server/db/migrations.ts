@@ -79,13 +79,13 @@ export class MigrationRunner {
 		for (const migration of pendingMigrations) {
 			try {
 				console.log(`Applying migration ${migration.version}: ${migration.name}`)
-				
+
 				// Execute the migration SQL
 				this.db.exec(migration.sql)
-				
+
 				// Mark as applied
 				this.markMigrationAsApplied(migration)
-				
+
 				console.log(`✓ Migration ${migration.version} applied successfully`)
 			} catch (error) {
 				console.error(`✗ Failed to apply migration ${migration.version}:`, error)

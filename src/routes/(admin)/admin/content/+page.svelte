@@ -38,7 +38,9 @@
 		{#snippet row(item: Content, classes)}
 			<td class="whitespace-nowrap {classes} font-medium text-gray-900">
 				<div>{item.title.length > 50 ? item.title.slice(0, 50) + '...' : item.title}</div>
-				<div class="mt-1 text-xs text-gray-400">{item.slug.length > 50 ? item.slug.slice(0, 50) + '...' : item.slug}</div>
+				<div class="mt-1 text-xs text-gray-400">
+					{item.slug.length > 50 ? item.slug.slice(0, 50) + '...' : item.slug}
+				</div>
 			</td>
 			<td class={classes}><Badge color={getStatusColor(item.status)} text={item.status} /></td>
 			<td class={classes}>

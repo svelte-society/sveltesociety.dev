@@ -81,9 +81,7 @@
 
 	// Filter links based on user role
 	const links = $derived(
-		data.userRole 
-			? allLinks.filter(link => link.allowedRoles.includes(data.userRole))
-			: []
+		data.userRole ? allLinks.filter((link) => link.allowedRoles.includes(data.userRole)) : []
 	)
 </script>
 
