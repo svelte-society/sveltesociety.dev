@@ -15,10 +15,10 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	// Convert null values to undefined to match schema expectations
 	const user = {
 		...userFromDb,
-		email: userFromDb.email || undefined,
-		bio: userFromDb.bio || undefined,
-		location: userFromDb.location || undefined,
-		twitter: userFromDb.twitter || undefined,
+		email: userFromDb.email || '',
+		bio: userFromDb.bio || '',
+		location: userFromDb.location || '',
+		twitter: userFromDb.twitter || '',
 		avatar_url: userFromDb.avatar_url || ''
 	}
 
@@ -26,7 +26,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	return {
 		user: userFromDb,
-		roles: roles.map((r) => ({ ...r, label: r.name, value: r.id })),
+		roles,
 		form
 	}
 }

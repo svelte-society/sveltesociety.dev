@@ -17,13 +17,13 @@
 	const { form: formData } = form
 
 	const roleOptions = data.roles.map((role) => ({
-		value: String(role.id),
+		value: role.id,
 		label: role.name
 	}))
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
-	<h1 class="mb-6 text-3xl font-bold text-gray-800">Create New Role</h1>
+	<h1 class="mb-6 text-3xl font-bold text-gray-800">Edit User</h1>
 
 	<Form {form}>
 		<div class="hidden">
