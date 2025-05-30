@@ -14,7 +14,6 @@
 	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
 	import { createContentSchema } from '$lib/schema/content'
 	import { toast } from 'svelte-sonner'
-	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 
 	// Get data passed from server
 	let { data } = $props()
@@ -27,43 +26,7 @@
 
 	const { form: formData, submitting } = form
 
-	// Helper for video preview
-	async function fetchVideoInfo(id: string) {
-		if (!id) return undefined
 
-		try {
-			const response = await fetch(
-				`https://www.youtube.com/oembed?url=https%3A//youtube.com/watch%3Fv%3D${id}&format=json`
-			)
-			const data = await response.json()
-			return {
-				preview: data.thumbnail_url,
-				title: data.title,
-				author: data.author_name
-			}
-		} catch (error) {
-			return undefined
-		}
-	}
-
-	// Helper for npm package info
-	async function fetchNpmInfo(packageName: string) {
-		if (!packageName) return undefined
-
-		try {
-			const response = await fetch(`https://registry.npmjs.org/${packageName}`)
-			const data = await response.json()
-			return {
-				name: data.name,
-				description: data.description,
-				keywords: data.keywords || [],
-				maintainers: (data.maintainers || []).map((m: { name: string }) => m.name),
-				versions: Object.keys(data.versions || {})
-			}
-		} catch (error) {
-			return undefined
-		}
-	}
 
 	// Helper to generate slug from title
 	function generateSlug() {
@@ -161,20 +124,21 @@
 		}
 	}
 
-	// Safe getters for metadata
-	function getVideoId(): string {
-		const metadata = ($formData.metadata as { videoId?: string }) || {}
-		return metadata.videoId || ''
-	}
-
-	function getNpmPackage(): string {
-		const metadata = ($formData.metadata as { npm?: string }) || {}
-		return metadata.npm || ''
-	}
 </script>
 
 <div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
 	<h1 class="mb-6 text-3xl font-bold text-gray-800">Create New Content</h1>
+
+	<div class="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
+		<h2 class="mb-2 font-semibold text-blue-900">Looking to add a video or library?</h2>
+		<p class="text-sm text-blue-800">
+			Videos and libraries should be imported from their external sources. Use the 
+			<a href="/admin/external-content" class="font-medium underline hover:text-blue-700">External Content</a> 
+			page to import from YouTube or GitHub, or use the 
+			<a href="/admin/bulk-import" class="font-medium underline hover:text-blue-700">Bulk Import</a> 
+			feature for multiple items at once.
+		</p>
+	</div>
 
 	<Form {form}>
 		<Input
@@ -190,10 +154,7 @@
 			description="Select the type of content"
 			options={[
 				{ value: 'recipe', label: 'Recipe' },
-				{ value: 'video', label: 'Video' },
-				{ value: 'library', label: 'Library' },
-				{ value: 'announcement', label: 'Announcement' },
-				{ value: 'showcase', label: 'Showcase' }
+				{ value: 'announcement', label: 'Announcement' }
 			]}
 		/>
 
@@ -208,77 +169,6 @@
 			]}
 		/>
 
-		{#if $formData.type === 'video'}
-			<div transition:slide class="space-y-2">
-				<Input
-					name="metadata.videoId"
-					label="YouTube Video ID"
-					placeholder="e.g. dQw4w9WgXcQ"
-					description="Enter the YouTube video ID"
-				/>
-
-				{#if getVideoId()}
-					{#await fetchVideoInfo(getVideoId()) then info}
-						{#if info}
-							<div class="mx-4 flex gap-4 rounded-md bg-slate-100 p-4 text-sm">
-								<img
-									src={getCachedImageWithPreset(info.preview, 'thumbnail')}
-									alt="Video preview"
-									class="max-w-xs rounded"
-								/>
-								<div>
-									<strong>{info.title}</strong>
-									<div><i>by</i> {info.author}</div>
-								</div>
-							</div>
-						{/if}
-					{/await}
-				{/if}
-			</div>
-		{/if}
-
-		{#if $formData.type === 'library' || $formData.type === 'showcase'}
-			<div transition:slide class="space-y-2">
-				<Input
-					name="metadata.npm"
-					label="NPM Package"
-					placeholder="e.g. svelte or @sveltejs/kit"
-					description="Enter the NPM package name"
-				/>
-
-				{#if getNpmPackage()}
-					{#await fetchNpmInfo(getNpmPackage()) then info}
-						{#if info}
-							<div class="mx-4 rounded-md bg-slate-100 p-4 text-sm">
-								<div class="flex items-center gap-4">
-									<strong class="text-lg">{info.name}</strong>
-									<p>{info.description}</p>
-								</div>
-								<dl class="mt-4">
-									<dt class="font-semibold text-slate-600">Maintainers</dt>
-									<dd class="pl-4">{info.maintainers.join(', ')}</dd>
-
-									<dt class="font-semibold text-slate-600">Keywords</dt>
-									<dd class="pl-4">{info.keywords.join(', ')}</dd>
-								</dl>
-
-								<div class="mt-3 flex justify-end gap-2">
-									<Button onclick={() => formData.update((f) => ({ ...f, title: info.name }))}>
-										Use as Title
-									</Button>
-									<Button
-										onclick={() =>
-											formData.update((f) => ({ ...f, description: info.description }))}
-									>
-										Use as Description
-									</Button>
-								</div>
-							</div>
-						{/if}
-					{/await}
-				{/if}
-			</div>
-		{/if}
 
 		<div class="space-y-2">
 			<label for="body" class="block text-sm font-medium text-gray-700">Content Body</label>

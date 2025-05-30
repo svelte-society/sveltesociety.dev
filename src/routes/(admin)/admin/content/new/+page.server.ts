@@ -7,7 +7,10 @@ import { createContentSchema } from '$lib/schema/content'
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// Create a new form with default values
-	const form = await superValidate(zod(createContentSchema))
+	const defaultData = {
+		status: 'draft' // Default to draft status
+	}
+	const form = await superValidate(defaultData, zod(createContentSchema))
 
 	// Get all tags for the tag selector
 	const tags = locals.tagService.getAllTags()
