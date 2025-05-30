@@ -31,7 +31,7 @@ export const actions = {
 	submit: async ({ request, locals }) => {
 		// Require authentication for form submission
 		if (!locals.user) {
-			return fail(401, { 
+			return fail(401, {
 				error: 'Authentication required',
 				message: 'You must be logged in to submit content.'
 			})

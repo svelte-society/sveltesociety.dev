@@ -30,7 +30,9 @@ const typeSpecificFields = {
 		url: z.string().url({ message: 'Please enter a valid YouTube URL' })
 	}),
 	library: z.object({
-		github_repo: z.string().min(1, { message: 'GitHub repository is required for library submissions' })
+		github_repo: z
+			.string()
+			.min(1, { message: 'GitHub repository is required for library submissions' })
 	}),
 	link: z.object({
 		url: z.string().url({ message: 'Please enter a valid URL' })

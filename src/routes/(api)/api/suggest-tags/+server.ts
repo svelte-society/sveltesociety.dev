@@ -44,12 +44,12 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		// Get full tag objects for the suggested tags
 		const allTags = locals.tagService.getAllTags()
 		const tagObjects = suggestedTags
-			.map(tagName => allTags.find(tag => tag.name === tagName))
+			.map((tagName) => allTags.find((tag) => tag.name === tagName))
 			.filter(Boolean)
 
-		return json({ 
+		return json({
 			tags: tagObjects,
-			tagNames: suggestedTags 
+			tagNames: suggestedTags
 		})
 	} catch (err) {
 		console.error('Error suggesting tags:', err)

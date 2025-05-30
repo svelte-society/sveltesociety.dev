@@ -7,10 +7,12 @@ The bulk import endpoint allows you to import multiple YouTube videos or GitHub 
 The endpoint supports two authentication methods:
 
 ### 1. User Authentication (via web session)
+
 - Requires logged-in user with admin or moderator role
 - Used when accessing via the web interface
 
 ### 2. API Key Authentication
+
 - Set `BULK_IMPORT_API_KEY` environment variable
 - Include key in `Authorization` header as Bearer token
 - Useful for automated scripts and CI/CD pipelines
@@ -18,54 +20,58 @@ The endpoint supports two authentication methods:
 ## Usage
 
 ### Endpoint
+
 ```
 POST /api/bulk-import
 ```
 
 ### Headers (for API key auth)
+
 ```
 Authorization: Bearer YOUR_API_KEY
 Content-Type: application/json
 ```
 
 ### Request Body
+
 ```json
 {
-  "urls": [
-    "https://www.youtube.com/watch?v=VIDEO_ID",
-    "https://github.com/owner/repo",
-    "VIDEO_ID",
-    "owner/repo"
-  ],
-  "options": {
-    "skipExisting": true,
-    "batchSize": 5
-  }
+	"urls": [
+		"https://www.youtube.com/watch?v=VIDEO_ID",
+		"https://github.com/owner/repo",
+		"VIDEO_ID",
+		"owner/repo"
+	],
+	"options": {
+		"skipExisting": true,
+		"batchSize": 5
+	}
 }
 ```
 
 ### Response
+
 ```json
 {
-  "success": true,
-  "summary": {
-    "total": 4,
-    "successful": 3,
-    "failed": 0,
-    "skipped": 1,
-    "byType": {
-      "youtube": 2,
-      "github": 2
-    }
-  },
-  "results": [
-    {
-      "url": "https://www.youtube.com/watch?v=VIDEO_ID",
-      "success": true,
-      "contentId": "abc123",
-      "type": "youtube"
-    }
-  ]
+	"success": true,
+	"summary": {
+		"total": 4,
+		"successful": 3,
+		"failed": 0,
+		"skipped": 1,
+		"byType": {
+			"youtube": 2,
+			"github": 2
+		}
+	},
+	"results": [
+		{
+			"url": "https://www.youtube.com/watch?v=VIDEO_ID",
+			"success": true,
+			"contentId": "abc123",
+			"type": "youtube"
+		}
+	]
 }
 ```
 
