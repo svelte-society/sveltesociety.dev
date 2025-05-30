@@ -110,6 +110,7 @@ Optional environment variables:
 ANTHROPIC_API_KEY=         # For AI-powered description generation in admin
 YOUTUBE_API_KEY=          # For importing YouTube videos
 GITHUB_TOKEN=             # For better rate limits when importing GitHub repos
+BULK_IMPORT_API_KEY=      # Secret key for bulk import API endpoint
 ```
 
 ## Key Patterns

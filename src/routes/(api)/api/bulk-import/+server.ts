@@ -29,18 +29,28 @@ interface ImportResult {
 }
 
 export const POST: RequestHandler = async ({ request, locals }) => {
-	// Check if user is authenticated
-	if (!locals.user) {
-		throw error(401, 'Unauthorized')
-	}
+	// Check for API key in Authorization header
+	const authHeader = request.headers.get('Authorization')
+	const apiKey = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : null
+	
+	// Check if API key matches the environment variable
+	const validApiKey = import.meta.env.VITE_BULK_IMPORT_API_KEY || process.env.BULK_IMPORT_API_KEY
+	const isApiKeyValid = validApiKey && apiKey === validApiKey
 
-	// Check if user has admin or moderator role
-	const userRole = locals.roleService.getRoleById(locals.user.role)
-	const isAuthorized =
-		userRole && userRole.active && (userRole.value === 'admin' || userRole.value === 'moderator')
+	// If API key is not valid, check if user is authenticated
+	if (!isApiKeyValid) {
+		if (!locals.user) {
+			throw error(401, 'Unauthorized - API key or authentication required')
+		}
 
-	if (!isAuthorized) {
-		throw error(403, 'Forbidden')
+		// Check if user has admin or moderator role
+		const userRole = locals.roleService.getRoleById(locals.user.role)
+		const isAuthorized =
+			userRole && userRole.active && (userRole.value === 'admin' || userRole.value === 'moderator')
+
+		if (!isAuthorized) {
+			throw error(403, 'Forbidden')
+		}
 	}
 
 	try {
