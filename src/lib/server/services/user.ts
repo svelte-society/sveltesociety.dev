@@ -106,8 +106,8 @@ export class UserService {
 				avatar_url = COALESCE($avatar_url, avatar_url),
 				bio = COALESCE($bio, bio),
 				location = COALESCE($location, location),
-				twitter = COALESCE($twitter, twitter)
-				${dev ? ', role = 1' : ''}
+				twitter = COALESCE($twitter, twitter),
+				role = COALESCE($role, role)
 			WHERE id = $id
 			RETURNING *
 		`)
@@ -311,7 +311,8 @@ export class UserService {
 				avatar_url: updates.avatar_url || null,
 				bio: updates.bio || null,
 				location: updates.location || null,
-				twitter: updates.twitter || null
+				twitter: updates.twitter || null,
+				role: updates.role || null
 			}
 
 			const result = this.updateUserStatement.get(params)

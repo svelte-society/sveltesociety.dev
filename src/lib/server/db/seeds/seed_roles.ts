@@ -33,9 +33,9 @@ export function seedRoles(db: Database) {
 			active: true
 		},
 		{
-			name: 'User',
-			value: 'user',
-			description: 'Standard user role with limited access',
+			name: 'Member',
+			value: 'member',
+			description: 'Standard member role with limited access',
 			active: true
 		}
 	]
