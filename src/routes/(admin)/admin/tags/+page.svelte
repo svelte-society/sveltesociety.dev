@@ -1,18 +1,16 @@
 <script lang="ts">
 	import { formatRelativeDate } from '$lib/utils/date'
-	import Button from '$lib/ui/Button.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
 	import Actions from '$lib/ui/admin/Actions.svelte'
 	import Pagination from '$lib/ui/Pagination.svelte'
+	import AdminList from '$lib/ui/admin/AdminList.svelte'
 	import type { Tag } from '$lib/types/tags'
+	import { ADMIN_ROUTES } from '$lib/admin'
+
 	let { data } = $props()
 </script>
 
-<div class="container mx-auto px-2 py-4">
-	<div class="mb-4 grid grid-cols-[1fr_auto] content-start gap-2">
-		<h1 class="text-xl font-bold">Tags Management</h1>
-		<Button small primary icon_left="plus" href="/admin/tags/new">New Tag</Button>
-	</div>
+<AdminList title="Tags Management" newHref={ADMIN_ROUTES.tags.new} newLabel="New Tag">
 	<Table action={true} data={data.tags ?? []}>
 		{#snippet header(classes)}
 			<th scope="col" class={classes}>Name</th>
@@ -35,4 +33,4 @@
 	{#if data.count && data.count > 0}
 		<Pagination count={data.count} perPage={data.perPage} />
 	{/if}
-</div>
+</AdminList>

@@ -1,19 +1,54 @@
 <script lang="ts">
-	import Form from '$lib/ui/form/Form.svelte'
 	import Input from '$lib/ui/form/Input.svelte'
 	import { zod } from 'sveltekit-superforms/adapters'
 	import { superForm } from 'sveltekit-superforms'
-	import Button from '$lib/ui/Button.svelte'
+	import AdminForm from '$lib/ui/admin/AdminForm.svelte'
 	import { tagSchema } from '$lib/schema/tags.js'
+	import { ADMIN_ROUTES, generateSlug } from '$lib/admin'
+	import Button from '$lib/ui/Button.svelte'
+
 	let { data } = $props()
-	const form = superForm(data.form, zod(tagSchema))
+	const form = superForm(data.form, {
+		dataType: 'json',
+		validators: zod(tagSchema)
+	})
+
+	const { form: formData } = form
+
+	function handleGenerateSlug() {
+		if ($formData.name && !$formData.slug) {
+			$formData.slug = generateSlug($formData.name)
+		}
+	}
 </script>
 
-<div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
-	<h1 class="mb-6 text-3xl font-bold text-gray-800">Create New Tag</h1>
-	<Form {form}>
-		<Input name="name" label="Name" placeholder="Svelte" description="Enter the name of the tag" />
-		<Input name="slug" label="Slug" placeholder="svelte" description="Enter the slug of the tag" />
-		<Button type="submit" primary fullWidth>Create</Button>
-	</Form>
-</div>
+<AdminForm
+	title="Create New Tag"
+	{form}
+	cancelHref={ADMIN_ROUTES.tags.list}
+	submitLabel="Create Tag"
+>
+	<Input
+		name="name"
+		label="Name"
+		placeholder="Svelte"
+		description="Enter the name of the tag"
+		on:blur={handleGenerateSlug}
+	/>
+
+	<div class="flex gap-2">
+		<div class="flex-1">
+			<Input
+				name="slug"
+				label="Slug"
+				placeholder="svelte"
+				description="URL-friendly version of the name"
+			/>
+		</div>
+		<div class="flex items-end pb-0.5">
+			<Button type="button" small secondary onclick={handleGenerateSlug} disabled={!$formData.name}>
+				Generate
+			</Button>
+		</div>
+	</div>
+</AdminForm>

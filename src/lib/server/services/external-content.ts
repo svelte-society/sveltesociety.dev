@@ -65,7 +65,7 @@ export class ExternalContentService {
 
 			// Prepare metadata with source information
 			const metadata = {
-				...existing.metadata,
+				...(existing?.metadata || {}),
 				...data.metadata,
 				externalSource: {
 					...data.source,
@@ -247,7 +247,7 @@ export class ExternalContentService {
 			// Delete orphaned content if requested
 			if (options?.deleteOrphaned) {
 				for (const [externalId, content] of existingMap) {
-					if (!externalIds.has(externalId)) {
+					if (!externalIds.has(externalId) && content?.id) {
 						this.contentService.deleteContent(content.id)
 						stats.deleted++
 					}

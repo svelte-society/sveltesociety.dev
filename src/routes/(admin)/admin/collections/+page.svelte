@@ -1,25 +1,35 @@
 <script lang="ts">
 	import { formatRelativeDate } from '$lib/utils/date'
-	import Button from '$lib/ui/Button.svelte'
+	import AdminList from '$lib/ui/admin/AdminList.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
-	import type { Collection } from '$lib/server/db/collections'
 	import Actions from '$lib/ui/admin/Actions.svelte'
 	import Badge from '$lib/ui/admin/Badge.svelte'
 	import Pagination from '$lib/ui/Pagination.svelte'
-	let { data } = $props()
+	import { ADMIN_ROUTES, STATUS_BADGE_VARIANTS } from '$lib/admin'
+	import { truncate } from '$lib/admin'
 
-	let colorMap = new Map([
-		['draft', 'warning'],
-		['published', 'success'],
-		['archived', 'danger']
-	])
+	// Collection type - matches what the server returns
+	interface Collection {
+		id: string
+		title: string
+		slug: string
+		description: string | null
+		status: string
+		created_at: string
+		type?: string
+		published_at?: string | null
+		updated_at?: string
+	}
+
+	let { data }: { data: { collections: Collection[]; totalCollections: number; perPage: number } } =
+		$props()
 </script>
 
-<div class="container mx-auto px-2 py-4">
-	<div class="mb-4 grid grid-cols-[1fr_auto] content-start gap-2">
-		<h1 class="text-xl font-bold">Collections Management</h1>
-		<Button small primary icon_left="plus" href="/admin/collections/new">New Collection</Button>
-	</div>
+<AdminList
+	title="Collections Management"
+	newHref={ADMIN_ROUTES.collections.new}
+	newLabel="New Collection"
+>
 	<Table action={true} data={data.collections}>
 		{#snippet header(classes)}
 			<th scope="col" class={classes}>Title</th>
@@ -29,10 +39,8 @@
 		{/snippet}
 		{#snippet row(item: Collection, classes)}
 			<td class="{classes} font-medium text-gray-900">
-				<div>{item.title.length > 50 ? item.title.slice(0, 50) + '...' : item.title}</div>
-				<div class="mt-1 text-xs text-gray-500">
-					{item.slug.length > 50 ? item.slug.slice(0, 50) + '...' : item.slug}
-				</div>
+				<div>{truncate(item.title, 50)}</div>
+				<div class="mt-1 text-xs text-gray-500">{truncate(item.slug, 50)}</div>
 			</td>
 			<td class={classes}>
 				<div class="line-clamp-2">
@@ -40,7 +48,12 @@
 				</div>
 			</td>
 			<td class={classes}>
-				<Badge color={colorMap.get(item.status)} text={item.status} />
+				<Badge
+					variant={STATUS_BADGE_VARIANTS[item.status as keyof typeof STATUS_BADGE_VARIANTS] ||
+						'default'}
+				>
+					{item.status}
+				</Badge>
 			</td>
 			<td class={classes}>
 				{formatRelativeDate(item.created_at)}
@@ -58,4 +71,4 @@
 	</Table>
 
 	<Pagination count={data.totalCollections} perPage={data.perPage} preserveParams={true} />
-</div>
+</AdminList>

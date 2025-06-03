@@ -1,11 +1,11 @@
 import { anthropic } from '@ai-sdk/anthropic'
 import { generateText } from 'ai'
-import type { TagsService } from './tags'
+import type { TagService } from './tags'
 
 export class LLMService {
 	private model = anthropic('claude-3-5-sonnet-latest')
 
-	constructor(private tagsService?: TagsService) {}
+	constructor(private tagsService?: TagService) {}
 
 	/**
 	 * Generate a description for content based on its body
@@ -44,7 +44,7 @@ Write only the description, no additional text.`
 	}): Promise<string[]> {
 		// Get all available tags from the database
 		const availableTags = this.tagsService?.getAllTags() || []
-		const tagNames = availableTags.map((tag) => tag.name)
+		const tagNames = availableTags.map((tag: any) => tag.name)
 
 		if (tagNames.length === 0) {
 			return []

@@ -147,8 +147,9 @@ export class ContentService {
 		let contentIds: string[] = []
 
 		if (filters.search?.trim()) {
-			const searchResults = this.searchService.search({ query: filters.search.trim()! })
-			contentIds = searchResults.hits.map(hit => hit.id)
+			const searchQuery = filters.search.trim()
+			const searchResults = this.searchService.search({ query: searchQuery })
+			contentIds = searchResults.hits.map((hit) => hit.id)
 		}
 
 		let query = `
@@ -237,8 +238,9 @@ export class ContentService {
 		let contentIds: string[] = []
 
 		if (filters.search?.trim()) {
-			const searchResults = this.searchService.search({ query: filters.search.trim()! })
-			contentIds = searchResults.hits.map(hit => hit.id)
+			const searchQuery = filters.search.trim()
+			const searchResults = this.searchService.search({ query: searchQuery })
+			contentIds = searchResults.hits.map((hit) => hit.id)
 			if (contentIds.length === 0) return 0
 		}
 

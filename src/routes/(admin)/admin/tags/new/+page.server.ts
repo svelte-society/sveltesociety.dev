@@ -1,8 +1,8 @@
-import { superValidate, message } from 'sveltekit-superforms'
+import { superValidate } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
-import { fail, redirect } from '@sveltejs/kit'
 import type { PageServerLoad, Actions } from './$types'
 import { tagSchema } from '$lib/schema/tags'
+import { handleFormAction, ADMIN_ROUTES } from '$lib/admin'
 
 export const load: PageServerLoad = async () => {
 	const form = await superValidate(zod(tagSchema))
@@ -11,11 +11,13 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
-		const form = await superValidate(request, zod(tagSchema))
-		if (!form.valid) {
-			return fail(400, { form })
-		}
-		locals.tagService.createTag(form.data)
-		redirect(302, '/admin/tags')
+		return handleFormAction({
+			request,
+			schema: tagSchema,
+			onSuccess: (data) => {
+				locals.tagService.createTag(data)
+			},
+			redirectTo: ADMIN_ROUTES.tags.list
+		})
 	}
 }
