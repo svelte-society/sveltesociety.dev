@@ -1,6 +1,6 @@
-import type Database from 'bun:sqlite'
+import { Database } from 'bun:sqlite'
 
-export function seedUsers(db: Database.Database) {
+export function seedUsers(db: Database) {
 	const findRoleStmt = db.prepare(`
       SELECT id FROM roles WHERE name = ?
     `)

@@ -1,5 +1,5 @@
-import type Database from 'bun:sqlite'
-export function seedInteractions(db: Database.Database) {
+import { Database } from 'bun:sqlite'
+export function seedInteractions(db: Database) {
 	// Prepare statements
 	const insertLikeStmt = db.prepare(
 		'INSERT INTO likes (user_id, target_id, created_at) VALUES (?, ?, ?)'

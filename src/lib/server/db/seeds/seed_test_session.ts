@@ -1,8 +1,8 @@
-import type Database from 'bun:sqlite'
+import { Database } from 'bun:sqlite'
 
 const SEVEN_DAYS = 7 * 24 * 60 * 60 // 7 days in seconds
 
-export function seedTestSession(db: Database.Database) {
+export function seedTestSession(db: Database) {
 	// Get the first user's ID
 	const getUserStmt = db.prepare(`
 		SELECT id FROM users LIMIT 1

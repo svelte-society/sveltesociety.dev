@@ -1,6 +1,6 @@
-import type Database from 'bun:sqlite'
+import { Database } from 'bun:sqlite'
 
-export function seedContent(db: Database.Database) {
+export function seedContent(db: Database) {
 	const getAllTagsStmt = db.prepare(`
     SELECT id, slug FROM tags
   `)
@@ -747,7 +747,7 @@ export function seedContent(db: Database.Database) {
 		}
 	]
 
-	const insertContentAndTags = db.transaction((item) => {
+	const insertContentAndTags = db.transaction((item: any) => {
 		const children = JSON.stringify(item.children || [])
 		const now = new Date().toISOString()
 

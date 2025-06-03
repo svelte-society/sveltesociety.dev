@@ -1,6 +1,6 @@
-import type Database from 'bun:sqlite'
+import { Database } from 'bun:sqlite'
 
-export function seedModerationQueue(db: Database.Database) {
+export function seedModerationQueue(db: Database) {
 	// Get the first user's ID (assuming we have at least one user)
 	const user = db.prepare('SELECT id FROM users LIMIT 1').get() as { id: string }
 
