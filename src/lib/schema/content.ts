@@ -141,7 +141,7 @@ const baseContentSchema = z.object({
 	slug: z.string(),
 	description: z.string().min(10),
 	type: typeSchema,
-	status: z.string(),
+	status: z.string().default('draft'),
 	body: z.string().optional(),
 	rendered_body: z.string(),
 	author: z.string().optional(),
