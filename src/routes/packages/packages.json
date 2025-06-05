@@ -3279,5 +3279,13 @@
 		"description": "Svelte + Markdown + LaTeX",
 		"npm": "@nvl/sveltex",
 		"categories": ["build-plugins", "markdown"]
+	},
+	{
+		"title": "SveltePlot",
+		"url": "https://svelteplot.dev",
+		"repository": "https://github.com/svelteplot/svelteplot",
+		"description": "A Svelte-native visualization framework based on the layered grammar of graphics principles.",
+		"npm": "svelteplot",
+		"categories": ["data-visualisation"]
 	}
 ]
