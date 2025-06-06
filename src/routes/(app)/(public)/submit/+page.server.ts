@@ -14,7 +14,7 @@ export const load = (async ({ locals, url }) => {
 	const tags = locals.tagService.getTags({ limit: 50 })
 
 	// Create the form using Superforms with the zod adapter and default to recipe type
-	const form = await superValidate({ type: 'recipe' }, zod(schema))
+	const form = await superValidate(zod(schema))
 
 	return {
 		form,

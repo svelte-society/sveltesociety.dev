@@ -4,10 +4,9 @@
 	import Input from '$lib/ui/form/Input.svelte'
 	import SuperDebug from 'sveltekit-superforms'
 	import Select from '$lib/ui/form/Select.svelte'
-	import { options, schema } from './schema'
+	import { options } from './schema'
 	import Textarea from '$lib/ui/form/Textarea.svelte'
 	import Button from '$lib/ui/Button.svelte'
-	import { zod } from 'sveltekit-superforms/adapters'
 	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
 	let { data } = $props()
 
@@ -16,7 +15,6 @@
 		delayMs: 500,
 		timeoutMs: 8000,
 		dataType: 'json',
-		validators: zod(schema),
 		validationMethod: 'onsubmit'
 	})
 
