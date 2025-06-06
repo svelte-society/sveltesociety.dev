@@ -33,7 +33,6 @@
 		"formsnap": "^2.0.1",
 		"magnitude-test": "^0.1.4",
 		"marked": "^15.0.12",
-		"package-name-regex": "^4.0.1",
 		"phosphor-svelte": "^3.0.1",
 		"prettier": "^3.5.3",
 		"prettier-plugin-svelte": "^3.4.0",
@@ -43,16 +42,16 @@
 		"svelte-check": "^4.2.1",
 		"svelte-sonner": "^1.0.4",
 		"sveltekit-search-params": "^3.0.0",
-		"sveltekit-superforms": "^2.25.0",
+		"sveltekit-superforms": "^2.26.1",
 		"tailwindcss": "^4.1.8",
 		"tslib": "^2.8.1",
 		"typescript": "^5.8.3",
 		"vite": "^6.3.5",
-		"vitest": "^3.2.1",
+		"vitest": "^3.2.2",
 		"@ai-sdk/anthropic": "^1.2.12",
 		"ai": "^4.3.16",
 		"@epic-web/cachified": "^5.5.2",
-		"zod": "^3.25.49"
+		"zod": "^3.25.55"
 	},
 	"dependencies": {
 		"duckdb-async": "^1.2.1"
