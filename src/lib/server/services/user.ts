@@ -267,7 +267,8 @@ export class UserService {
 					avatar_url: githubInfo.avatar_url || null,
 					bio: githubInfo.bio || null,
 					location: githubInfo.location || null,
-					twitter: githubInfo.twitter_username || null
+					twitter: githubInfo.twitter_username || null,
+					role: existingUser.role
 				}) as User
 
 				this.updateOAuthStatement.run({
