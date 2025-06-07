@@ -41,8 +41,10 @@ export const actions: Actions = {
 				title: form.data.title,
 				slug: form.data.slug,
 				description: form.data.description,
+				status: form.data.status,
 				children: form.data.children,
-				tags: form.data.tags
+				tags: form.data.tags,
+				author_id: locals.user?.id
 			})
 
 			return message(form, { success: true, text: 'Successfully created collection.' })

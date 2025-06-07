@@ -53,7 +53,7 @@ const initialize_db = () => {
 		tagService = new TagService(db)
 		moderationService = new ModerationService(db)
 		userService = new UserService(db)
-		collectionService = new CollectionService(db)
+		collectionService = new CollectionService(db, searchService)
 		metadataService = new MetadataService(db)
 		eventsService = new EventsService(db, cacheService)
 		llmService = new LLMService(tagService)

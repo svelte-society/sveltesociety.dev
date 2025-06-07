@@ -53,7 +53,7 @@
 			<span class="font-semibold capitalize">{content.type}&nbsp;</span>
 			{#if content.author_username}
 				<span class="flex flex-wrap text-gray-500">
-					<span>posted by&nbsp;</span>
+					<span>{content.type === 'video' || content.type === 'library' ? 'submitted' : 'posted'} by&nbsp;</span>
 					<a href="/user/{content.author_username}" class="hover:underline">
 						{content.author_name || content.author_username}
 					</a>
