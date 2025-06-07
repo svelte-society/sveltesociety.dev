@@ -50,7 +50,7 @@ export class YouTubeImporter {
 	/**
 	 * Import a single video by ID
 	 */
-	async importVideo(videoId: string): Promise<string | null> {
+	async importVideo(videoId: string, authorId?: string): Promise<string | null> {
 		if (!this.apiKey) {
 			throw new Error('YouTube API key is required')
 		}
@@ -59,6 +59,9 @@ export class YouTubeImporter {
 		if (!video) return null
 
 		const contentData = this.transformVideoToContent(video)
+		if (authorId) {
+			contentData.author_id = authorId
+		}
 		return this.externalContentService.upsertExternalContent(contentData)
 	}
 

@@ -46,12 +46,15 @@ export class GitHubImporter {
 	/**
 	 * Import a single repository by owner/repo
 	 */
-	async importRepository(owner: string, repo: string): Promise<string | null> {
+	async importRepository(owner: string, repo: string, authorId?: string): Promise<string | null> {
 		const repository = await this.fetchRepository(owner, repo)
 		if (!repository) return null
 
 		const readme = await this.fetchReadme(owner, repo)
 		const contentData = this.transformRepositoryToContent(repository, readme)
+		if (authorId) {
+			contentData.author_id = authorId
+		}
 		return this.externalContentService.upsertExternalContent(contentData)
 	}
 

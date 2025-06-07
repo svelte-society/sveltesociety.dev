@@ -43,6 +43,7 @@ export interface ExternalContentData {
 	tags?: string[]
 	source: ExternalContentSource
 	publishedAt?: string
+	author_id?: string
 }
 
 export class ExternalContentService {
@@ -101,7 +102,8 @@ export class ExternalContentService {
 					// Use the original published date for both created_at and published_at
 					// This ensures proper chronological ordering
 					created_at: data.publishedAt || new Date().toISOString(),
-					published_at: data.publishedAt || new Date().toISOString()
+					published_at: data.publishedAt || new Date().toISOString(),
+					author_id: data.author_id
 				})
 
 				// Add tags if provided

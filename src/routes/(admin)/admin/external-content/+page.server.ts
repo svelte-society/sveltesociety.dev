@@ -94,7 +94,7 @@ export const actions = {
 				}
 
 				const importer = new YouTubeImporter(locals.externalContentService, locals.cacheService)
-				const contentId = await importer.importVideo(videoId)
+				const contentId = await importer.importVideo(videoId, locals.user?.id)
 
 				return {
 					form,
@@ -130,7 +130,7 @@ export const actions = {
 				}
 
 				const importer = new GitHubImporter(locals.externalContentService, locals.cacheService)
-				const contentId = await importer.importRepository(owner, repo)
+				const contentId = await importer.importRepository(owner, repo, locals.user?.id)
 
 				return {
 					form,
