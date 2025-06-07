@@ -3,4 +3,4 @@
 	let { data } = $props()
 </script>
 
-<ContentCard content={data.content} />
+<ContentCard content={data.content} fullDescription={true} />

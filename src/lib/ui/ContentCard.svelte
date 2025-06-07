@@ -17,7 +17,11 @@
 	import User from 'phosphor-svelte/lib/User'
 	import VideoCamera from 'phosphor-svelte/lib/VideoCamera'
 
-	let { content, compact = false }: { content: ContentWithAuthor; compact?: boolean } = $props()
+	let {
+		content,
+		compact = false,
+		fullDescription = false
+	}: { content: ContentWithAuthor; compact?: boolean; fullDescription?: boolean } = $props()
 
 	let submitting = $state(false)
 
@@ -53,7 +57,9 @@
 			<span class="font-semibold capitalize">{content.type}&nbsp;</span>
 			{#if content.author_username}
 				<span class="flex flex-wrap text-gray-500">
-					<span>{content.type === 'video' || content.type === 'library' ? 'submitted' : 'posted'} by&nbsp;</span>
+					<span
+						>{content.type === 'video' || content.type === 'library' ? 'submitted' : 'posted'} by&nbsp;</span
+					>
 					<a href="/user/{content.author_username}" class="hover:underline">
 						{content.author_name || content.author_username}
 					</a>
@@ -143,13 +149,19 @@
 			<a href="/{content.type}/{content.slug}">{content.title}</a>
 		{/if}
 	</h2>
-	{#if content.type !== 'event' && content.type !== 'video' && content.type !== 'library'}
-		<div class={compact ? 'line-clamp-2 text-sm' : 'text-sm sm:text-base'}>
+	{#if content.description && content.type !== 'event'}
+		<div
+			class={fullDescription
+				? 'text-sm sm:text-base'
+				: compact
+					? 'line-clamp-2 text-sm'
+					: 'line-clamp-2 text-sm sm:text-base'}
+		>
 			{content.description}
 		</div>
 	{/if}
 
-	<div>
+	<div class="mt-2">
 		{#if content.type === 'recipe'}
 			<Recipe {content} />
 		{:else if content.type === 'collection'}
