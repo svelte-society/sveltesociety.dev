@@ -6,13 +6,15 @@
 	import Megaphone from 'phosphor-svelte/lib/Megaphone'
 	import Files from 'phosphor-svelte/lib/Files'
 	import Calendar from 'phosphor-svelte/lib/Calendar'
+	import Link from 'phosphor-svelte/lib/Link'
 
 	type Props = {
 		type: Type
-		scale?: number
+		size?: number | string
+		color?: string
 	}
 
-	let { type, scale = 1 }: Props = $props()
+	let { type, size = 24, color }: Props = $props()
 
 	const IconMap = $state({
 		recipe: ReadCvLogo,
@@ -20,10 +22,11 @@
 		library: Package,
 		announcement: Megaphone,
 		collection: Files,
-		event: Calendar
+		event: Calendar,
+		link: Link
 	})
 
 	const Icon = $derived(IconMap[type])
 </script>
 
-<Icon {scale} />
+<Icon {size} {color} />

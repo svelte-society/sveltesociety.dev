@@ -3,11 +3,11 @@
 	import Form from '$lib/ui/form/Form.svelte'
 	import Input from '$lib/ui/form/Input.svelte'
 	import SuperDebug from 'sveltekit-superforms'
-	import Select from '$lib/ui/form/Select.svelte'
 	import { options } from './schema'
 	import Textarea from '$lib/ui/form/Textarea.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
+	import CategorySelector from '$lib/ui/form/CategorySelector.svelte'
 	let { data } = $props()
 
 	const form = superForm(data.form, {
@@ -29,7 +29,7 @@
 	</p>
 	<Form {form} action="?/submit">
 		<!-- Content type selection first -->
-		<Select
+		<CategorySelector
 			name="type"
 			label="Type"
 			description="Select the type of content you are submitting"

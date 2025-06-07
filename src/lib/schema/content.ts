@@ -7,7 +7,8 @@ export const typeSchema = z.enum([
 	'library',
 	'announcement',
 	'collection',
-	'event'
+	'event',
+	'link'
 ])
 
 // Type-specific metadata schemas
@@ -125,6 +126,13 @@ export const collectionMetadataSchema = z
 	})
 	.optional()
 
+export const linkMetadataSchema = z
+	.object({
+		url: z.string().url().optional(),
+		domain: z.string().optional()
+	})
+	.optional()
+
 // Union of all metadata types
 const metadataSchema = z.union([
 	videoMetadataSchema,
@@ -132,7 +140,8 @@ const metadataSchema = z.union([
 	eventMetadataSchema,
 	recipeMetadataSchema,
 	announcementMetadataSchema,
-	collectionMetadataSchema
+	collectionMetadataSchema,
+	linkMetadataSchema
 ])
 
 const baseContentSchema = z.object({
