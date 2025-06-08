@@ -40,13 +40,18 @@ export const actions = {
 		}
 
 		try {
-			// Use content service method to delete content
-			const deleted = locals.contentService.getContentById(id)
+			// Check if content exists first
+			const content = locals.contentService.getContentById(id)
+			if (!content) {
+				return fail(404, { message: 'Content not found' })
+			}
+
+			// Delete the content
+			const deleted = locals.contentService.deleteContent(id)
 			if (deleted) {
-				// Implement deletion logic
 				return { success: true }
 			}
-			return fail(404, { message: 'Content not found' })
+			return fail(500, { message: 'Failed to delete content' })
 		} catch (_error) {
 			return fail(500, { message: 'Failed to delete content' })
 		}

@@ -46,7 +46,7 @@
 			<td class={classes}>
 				<div class="group relative flex items-center justify-center">
 					<div class="type-icon-wrapper text-gray-600">
-						<TypeIcon type={item.type} scale={1.5} />
+						<TypeIcon type={item.type} />
 					</div>
 					<div
 						class="pointer-events-none absolute bottom-full mb-2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white capitalize opacity-0 transition-opacity group-hover:opacity-100"
