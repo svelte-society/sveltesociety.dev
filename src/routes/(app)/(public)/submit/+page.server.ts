@@ -123,7 +123,6 @@ export const actions = {
 				}
 			}
 
-			// Prepare submission data with authenticated user
 			const submissionData = {
 				type: form.data.type,
 				title: form.data.title,
@@ -131,8 +130,7 @@ export const actions = {
 				submitted_by: locals.user.id
 			}
 
-			// Add to moderation queue
-			const submissionId = locals.moderationService.addToModerationQueue(submissionData)
+			locals.moderationService.addToModerationQueue(submissionData)
 		} catch (error) {
 			console.error('Error adding content to moderation queue:', error)
 		}

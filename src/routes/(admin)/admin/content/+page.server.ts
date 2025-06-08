@@ -38,8 +38,6 @@ export const actions = {
 		if (!id) {
 			return
 		}
-
-		try {
 			// Check if content exists first
 			const content = locals.contentService.getContentById(id)
 			if (!content) {
@@ -51,8 +49,6 @@ export const actions = {
 			if (deleted) {
 				return { success: true }
 			}
-			return fail(500, { message: 'Failed to delete content' })
-		} catch (_error) {
 			return fail(500, { message: 'Failed to delete content' })
 		}
 	}
