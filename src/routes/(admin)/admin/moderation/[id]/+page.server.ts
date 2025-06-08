@@ -21,8 +21,26 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	}
 
 	const role = locals.roleService.getRoleById(submitter.role)
+	
+	// Parse submission data to get tag IDs
+	const submissionData = JSON.parse(item.data)
+	
+	// Fetch all tags and create a map of ID to name
+	const allTags = locals.tagService.getTags({ limit: 100 })
+	const tagMap = new Map(allTags.map(tag => [tag.id, tag.name]))
+	
+	// Map tag IDs to names
+	if (submissionData.tags && Array.isArray(submissionData.tags)) {
+		submissionData.tagNames = submissionData.tags.map(tagId => tagMap.get(tagId) || tagId)
+	}
 
-	return { item, submitter: { ...submitter, role: role?.name } }
+	return { 
+		item: {
+			...item,
+			parsedData: submissionData
+		}, 
+		submitter: { ...submitter, role: role?.name } 
+	}
 }
 
 export const actions: Actions = {

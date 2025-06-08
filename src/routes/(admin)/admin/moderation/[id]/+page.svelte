@@ -22,7 +22,7 @@
 		['user', 'danger']
 	])
 
-	const submissionData = JSON.parse(data.item.data)
+	const submissionData = data.item.parsedData || JSON.parse(data.item.data)
 	let showRawJSON = $state(false)
 
 	// Extract video ID for YouTube embeds
@@ -91,15 +91,15 @@
 						</div>
 					{/if}
 
-					{#if submissionData.tags && submissionData.tags.length > 0}
+					{#if submissionData.tagNames && submissionData.tagNames.length > 0}
 						<div>
 							<h3 class="text-sm font-medium text-gray-700">Tags</h3>
 							<div class="mt-2 flex flex-wrap gap-2">
-								{#each submissionData.tags as tag}
+								{#each submissionData.tagNames as tagName}
 									<span
 										class="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800"
 									>
-										{tag}
+										{tagName}
 									</span>
 								{/each}
 							</div>
