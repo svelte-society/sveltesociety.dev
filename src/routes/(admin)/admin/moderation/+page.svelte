@@ -5,25 +5,9 @@
 	import Button from '$lib/ui/Button.svelte'
 	import AdminList from '$lib/ui/admin/AdminList.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
-	import Badge from '$lib/ui/admin/Badge.svelte'
 	import type { PreviewModerationQueueItem } from '$lib/server/services/moderation'
-	import type { BadgeVariant } from '$lib/admin'
 
 	let { data } = $props()
-
-	function renderBadge(value: any): { text: string; variant: BadgeVariant } | null {
-		if (typeof value === 'string') {
-			switch (value) {
-				case 'pending':
-					return { text: 'Pending', variant: 'warning' }
-				case 'approved':
-					return { text: 'Approved', variant: 'success' }
-				case 'rejected':
-					return { text: 'Rejected', variant: 'error' }
-			}
-		}
-		return null
-	}
 
 	let selectedIds: string[] = $state([])
 
@@ -56,12 +40,10 @@
 				<span class="sr-only">Select</span>
 			</th>
 			<th scope="col" class={classes}>Title</th>
-			<th scope="col" class={classes}>Type</th>
-			<th scope="col" class={classes}>Status</th>
+			<th scope="col" class={[classes, 'text-center']}>Type</th>
 			<th scope="col" class={classes}>Submitted</th>
 		{/snippet}
 		{#snippet row(item: PreviewModerationQueueItem, classes)}
-			{@const badgeVariant = renderBadge(item.status)}
 			<td class={classes}>
 				<input
 					type="checkbox"
@@ -74,8 +56,7 @@
 			<td class={classes}>
 				<div class="group relative flex items-center justify-center">
 					<div class="type-icon-wrapper text-gray-600">
-					
-						<TypeIcon type={'video'} size={24} />
+						<TypeIcon type={item.type} size={24} />
 					</div>
 					<div
 						class="pointer-events-none absolute bottom-full mb-2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white capitalize opacity-0 transition-opacity group-hover:opacity-100"
@@ -83,13 +64,6 @@
 						{item.type}
 					</div>
 				</div>
-			</td>
-			<td class={classes}>
-				{#if badgeVariant}
-					<Badge color={badgeVariant.variant}>{badgeVariant.text}</Badge>
-				{:else}
-					<span class="capitalize">{item.status}</span>
-				{/if}
 			</td>
 			<td class={classes}>{formatRelativeDate(item.submitted_at)}</td>
 		{/snippet}
