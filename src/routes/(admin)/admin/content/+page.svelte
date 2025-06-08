@@ -30,7 +30,7 @@
 	<Table action={true} data={data.content}>
 		{#snippet header(classes)}
 			<th scope="col" class={classes}>Title</th>
-			<th scope="col" class={classes}>Status</th>
+			<th scope="col" class={[classes, 'text-center']}>Status</th>
 			<th scope="col" class={classes}>Type</th>
 			<th scope="col" class={classes}>Description</th>
 			<th scope="col" class={classes}>Created</th>
