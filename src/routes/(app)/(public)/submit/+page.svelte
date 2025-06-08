@@ -15,7 +15,16 @@
 		delayMs: 500,
 		timeoutMs: 8000,
 		dataType: 'json',
-		validationMethod: 'onsubmit'
+		invalidateAll: 'force',
+		onUpdated: ({ form }) => {
+			if (form?.message) {
+				if (form.message.success) {
+					console.log('Success:', form.message.text)
+				} else {
+					console.error('Error:', form.message.text)
+				}
+			}
+		}
 	})
 
 	const { form: formData, submitting } = form

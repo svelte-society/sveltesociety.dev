@@ -8,7 +8,11 @@ const types = {
 	link: 'Link'
 } as const
 
-export const options = Object.entries(types).map(([value, label]) => ({ value, label, type: value }))
+export const options = Object.entries(types).map(([value, label]) => ({
+	value,
+	label,
+	type: value
+}))
 
 type ContentType = keyof typeof types
 

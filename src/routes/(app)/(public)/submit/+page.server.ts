@@ -4,6 +4,50 @@ import type { Actions, PageServerLoad } from './$types'
 import { zod } from 'sveltekit-superforms/adapters'
 import { schema } from './schema'
 
+// Helper function to extract YouTube video ID from URL
+function extractYouTubeVideoId(url: string): string | null {
+	const patterns = [
+		/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+		/^([a-zA-Z0-9_-]{11})$/ // Direct video ID
+	]
+
+	for (const pattern of patterns) {
+		const match = url.match(pattern)
+		if (match) {
+			return match[1]
+		}
+	}
+
+	return null
+}
+
+// Helper function to parse GitHub repository information
+function parseGitHubRepo(
+	input: string
+): { owner: string; repo: string } | { owner: null; repo: null } {
+	// Handle GitHub URL format
+	const urlPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
+	const urlMatch = input.match(urlPattern)
+	if (urlMatch) {
+		return {
+			owner: urlMatch[1],
+			repo: urlMatch[2].replace(/\.git$/, '') // Remove .git suffix if present
+		}
+	}
+
+	// Handle owner/repo format
+	const repoPattern = /^([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)$/
+	const repoMatch = input.match(repoPattern)
+	if (repoMatch) {
+		return {
+			owner: repoMatch[1],
+			repo: repoMatch[2]
+		}
+	}
+
+	return { owner: null, repo: null }
+}
+
 export const load = (async ({ locals, url }) => {
 	// Require authentication to access submit page
 	if (!locals.user) {
@@ -45,9 +89,43 @@ export const actions = {
 		}
 
 		try {
+			// Check for duplicates based on content type
+			if (form.data.type === 'video' && 'url' in form.data) {
+				const videoId = extractYouTubeVideoId(form.data.url)
+				if (videoId) {
+					const existingContent = locals.externalContentService.getContentByExternalId(
+						'youtube',
+						videoId
+					)
+					if (existingContent) {
+						return message(form, {
+							success: false,
+							text: `This video has already been submitted. You can find it <a href="/${existingContent.type}/${existingContent.slug}" class="underline text-blue-600 hover:text-blue-800">here</a>.`
+						})
+					}
+				}
+			}
+
+			if (form.data.type === 'library' && 'github_repo' in form.data) {
+				const { owner, repo } = parseGitHubRepo(form.data.github_repo)
+				if (owner && repo) {
+					const repoId = `${owner}/${repo}`
+					const existingContent = locals.externalContentService.getContentByExternalId(
+						'github',
+						repoId
+					)
+					if (existingContent) {
+						return message(form, {
+							success: false,
+							text: `This repository has already been submitted. You can find it <a href="/${existingContent.type}/${existingContent.slug}" class="underline text-blue-600 hover:text-blue-800">here</a>.`
+						})
+					}
+				}
+			}
+
 			// Prepare submission data with authenticated user
 			const submissionData = {
-				type: 'content',
+				type: form.data.type,
 				title: form.data.title,
 				data: JSON.stringify(form.data),
 				submitted_by: locals.user.id
@@ -57,15 +135,14 @@ export const actions = {
 			const submissionId = locals.moderationService.addToModerationQueue(submissionData)
 
 			// Return success message
-			return {
-				form,
+			return message(form, {
 				success: true,
-				message: 'Your submission has been received and is pending moderation.'
-			}
+				text: 'Your submission has been received and is pending moderation.'
+			})
 		} catch (error) {
 			console.error('Error adding content to moderation queue:', error)
 			return message(form, {
-				type: 'error',
+				success: false,
 				text: 'There was an error processing your submission. Please try again.'
 			})
 		}
