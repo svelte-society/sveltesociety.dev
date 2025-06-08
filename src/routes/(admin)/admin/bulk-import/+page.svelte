@@ -5,8 +5,6 @@
 	import Form from '$lib/ui/form/Form.svelte'
 	import Textarea from '$lib/ui/form/Textarea.svelte'
 	import Button from '$lib/ui/Button.svelte'
-	import Switch from '$lib/ui/Switch.svelte'
-	import { toast } from 'svelte-sonner'
 
 	let { data } = $props()
 

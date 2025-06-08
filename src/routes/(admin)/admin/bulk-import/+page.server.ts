@@ -1,16 +1,17 @@
-import type { PageServerLoad } from './$types'
+import type { PageServerLoad, Actions } from './$types'
 import { superValidate } from 'sveltekit-superforms/server'
+import { fail } from '@sveltejs/kit'
 import { zod } from 'sveltekit-superforms/adapters'
+import { message } from 'sveltekit-superforms/server'
 import { z } from 'zod'
 
-// Schema for bulk import form
 const bulkImportSchema = z.object({
 	urls: z.string().min(1, 'At least one URL is required'),
-	skipExisting: z.boolean().default(true)
+	skipExisting: z.boolean().default(true),
+	batchSize: z.number().min(1).max(10).default(5)
 })
 
 export const load: PageServerLoad = async () => {
-	// Initialize form
 	const form = await superValidate(zod(bulkImportSchema))
 
 	return {
@@ -18,18 +19,15 @@ export const load: PageServerLoad = async () => {
 	}
 }
 
-export const actions = {
+export const actions: Actions = {
 	import: async ({ request, fetch }) => {
 		const form = await superValidate(request, zod(bulkImportSchema))
 
-		console.log(form)
-
 		form.data.urls = form.data.urls
 			.split('\n')
-			.map((url) => url.trim())
-			.filter((url) => url.length > 0)
+			.map((url: string) => url.trim())
+			.filter((url: string) => url.length > 0)
 
-		// Validate the form data
 		if (!form.valid) {
 			return fail(400, { form })
 		}
@@ -45,7 +43,6 @@ export const actions = {
 
 			const result = await res.json()
 
-			// Return success message
 			return message(form, {
 				type: 'success',
 				text: `Successfully imported ${result.length} item(s).`
