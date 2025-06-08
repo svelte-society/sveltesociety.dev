@@ -44,7 +44,8 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 			content: {
 				id: existingContent.id,
 				title: existingContent.title,
-				url: `/${existingContent.type}/${existingContent.slug}`
+				status: existingContent.status,
+				url: existingContent.status === 'published' ? `/${existingContent.type}/${existingContent.slug}` : null
 			}
 		})
 	}
