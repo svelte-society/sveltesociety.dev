@@ -2,7 +2,12 @@ import { Database } from 'bun:sqlite'
 
 export function seedModerationQueue(db: Database) {
 	// Get the first user's ID (assuming we have at least one user)
-	const user = db.prepare('SELECT id FROM users LIMIT 1').get() as { id: string }
+	const user = db.prepare('SELECT id FROM users LIMIT 1').get() as { id: string } | undefined
+	
+	if (!user) {
+		console.log('No users found in database, skipping moderation queue seeding')
+		return
+	}
 
 	// Get tag IDs to use in the moderation queue data
 	const tags = db.prepare('SELECT id, slug FROM tags').all() as Array<{ id: string; slug: string }>

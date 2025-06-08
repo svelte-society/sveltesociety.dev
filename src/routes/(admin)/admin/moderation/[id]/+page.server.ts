@@ -11,49 +11,49 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	const item = locals.moderationService.getModerationQueueItem(id)
 
 	if (!item) {
-		throw redirect(302, '/admin/moderation')
+		redirect(302, '/admin/moderation')
 	}
 
 	const submitter = locals.userService.getUser(item.submitted_by)
 
 	if (!submitter) {
-		throw error(404, 'Submitter not found')
+		error(404, 'Submitter not found')
 	}
 
 	const role = locals.roleService.getRoleById(submitter.role)
-	
+
 	// Parse submission data to get tag IDs
 	const submissionData = JSON.parse(item.data)
-	
+
 	// Fetch all tags and create a map of ID to name
 	const allTags = locals.tagService.getTags({ limit: 100 })
-	const tagMap = new Map(allTags.map(tag => [tag.id, tag.name]))
-	
+	const tagMap = new Map(allTags.map((tag) => [tag.id, tag.name]))
+
 	// Map tag IDs to names
 	if (submissionData.tags && Array.isArray(submissionData.tags)) {
-		submissionData.tagNames = submissionData.tags.map(tagId => tagMap.get(tagId) || tagId)
+		submissionData.tagNames = submissionData.tags.map((tagId) => tagMap.get(tagId) || tagId)
 	}
 
-	return { 
+	return {
 		item: {
 			...item,
 			parsedData: submissionData
-		}, 
-		submitter: { ...submitter, role: role?.name } 
+		},
+		submitter: { ...submitter, role: role?.name }
 	}
 }
 
 export const actions: Actions = {
 	approve: async ({ params, locals }) => {
 		if (!locals.user) {
-			throw redirect(302, '/login')
+			redirect(302, '/login')
 		}
 
 		const id = params.id
 		const item = locals.moderationService.getModerationQueueItem(id)
 
 		if (!item) {
-			throw error(404, 'Moderation item not found')
+			error(404, 'Moderation item not found')
 		}
 
 		// Parse the submission data
@@ -81,10 +81,18 @@ export const actions: Actions = {
 				console.log('Processing video approval:', {
 					url: submissionData.url,
 					videoId,
-					hasApiKey: !!process.env.YOUTUBE_API_KEY
+					hasApiKey: !!process.env.YOUTUBE_API_KEY,
+					submittedBy: item.submitted_by
 				})
 
 				if (videoId) {
+					// Verify the user exists before importing
+					const submitter = locals.userService.getUser(item.submitted_by)
+					if (!submitter) {
+						console.error('Submitter not found:', item.submitted_by)
+						throw new Error('Submitter user not found in database')
+					}
+
 					// Use YouTube importer for rich metadata
 					const youtubeImporter = new YouTubeImporter(
 						locals.externalContentService,
@@ -140,6 +148,13 @@ export const actions: Actions = {
 					} else {
 						throw new Error('Invalid GitHub repository format')
 					}
+				}
+
+				// Verify the user exists before importing
+				const submitter = locals.userService.getUser(item.submitted_by)
+				if (!submitter) {
+					console.error('Submitter not found:', item.submitted_by)
+					throw new Error('Submitter user not found in database')
 				}
 
 				// Use GitHub importer for rich metadata
@@ -215,11 +230,20 @@ export const actions: Actions = {
 				contentId = locals.contentService.addContent(contentData)
 			}
 
-			// Update moderation status to approved and then delete from queue
-			locals.moderationService.updateModerationStatus(id, ModerationStatus.APPROVED, locals.user.id)
-			locals.moderationService.deleteModerationQueueItem(id)
-
-			console.log(`Created content ${contentId} from moderation item ${id} and removed from queue`)
+			// Only update moderation status and delete from queue if content was created successfully
+			if (contentId) {
+				locals.moderationService.updateModerationStatus(
+					id,
+					ModerationStatus.APPROVED,
+					locals.user.id
+				)
+				locals.moderationService.deleteModerationQueueItem(id)
+				console.log(
+					`Created content ${contentId} from moderation item ${id} and removed from queue`
+				)
+			} else {
+				throw new Error('Failed to create content - no content ID returned')
+			}
 		} catch (error) {
 			console.error('Error creating content from moderation item:', {
 				itemId: id,
@@ -231,21 +255,21 @@ export const actions: Actions = {
 			throw error
 		}
 
-		return await getNextItem(locals.moderationService, id)
+		return getNextItem(locals.moderationService, id)
 	},
 	reject: async ({ params, locals }) => {
 		if (!locals.user) {
-			throw redirect(302, '/login')
+			redirect(302, '/login')
 		}
 
 		const id = params.id
 		locals.moderationService.updateModerationStatus(id, ModerationStatus.REJECTED, locals.user.id)
 		locals.moderationService.deleteModerationQueueItem(id)
-		return await getNextItem(locals.moderationService, id)
+		return getNextItem(locals.moderationService, id)
 	}
 }
 
-async function getNextItem(moderationService: ModerationService, currentId: string) {
+function getNextItem(moderationService: ModerationService, currentId: string) {
 	const nextItems = moderationService.getModerationQueuePaginated({
 		status: ModerationStatus.PENDING,
 		limit: 1,
@@ -253,8 +277,8 @@ async function getNextItem(moderationService: ModerationService, currentId: stri
 	})
 
 	if (nextItems.length > 0 && nextItems[0].id !== currentId) {
-		throw redirect(302, `/admin/moderation/${nextItems[0].id}`)
+		redirect(302, `/admin/moderation/${nextItems[0].id}`)
 	}
 
-	throw redirect(302, '/admin/moderation')
+	redirect(302, '/admin/moderation')
 }
