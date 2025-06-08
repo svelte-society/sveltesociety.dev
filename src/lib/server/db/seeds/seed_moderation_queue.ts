@@ -52,8 +52,6 @@ This tutorial will walk you through each concept with practical examples.`,
 			type: 'video',
 			status: 'pending',
 			data: JSON.stringify({
-				title: 'Building a SvelteKit App from Scratch',
-				description: 'Complete walkthrough of building a modern web app with SvelteKit',
 				url: 'https://www.youtube.com/watch?v=MnpuK0Sl_88',
 				type: 'video',
 				tags: [getTagId('sveltekit'), getTagId('tutorial')].filter(Boolean),
@@ -65,9 +63,6 @@ This tutorial will walk you through each concept with practical examples.`,
 			type: 'library',
 			status: 'pending',
 			data: JSON.stringify({
-				title: 'Shadcn Svelte Components',
-				description:
-					'Beautiful and accessible component library for Svelte built on top of Tailwind CSS',
 				github_repo: 'huntabyte/shadcn-svelte',
 				type: 'library',
 				tags: [getTagId('utility')].filter(Boolean),
