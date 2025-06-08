@@ -20,7 +20,7 @@ type ContentType = keyof typeof types
 const baseSchema = z.object({
 	type: z.enum(Object.keys(types) as [ContentType, ...ContentType[]]),
 	tags: z.array(z.string()).min(1, { message: 'Please select at least one tag' }),
-	notes: z.string().optional().or(z.literal(''))
+	notes: z.string().optional()
 })
 
 // Type-specific fields
@@ -46,10 +46,10 @@ const typeSpecificFields = {
 }
 
 export const schema = z.discriminatedUnion('type', [
-	baseSchema.merge(typeSpecificFields.recipe).extend({ type: z.literal('recipe') }),
 	baseSchema.merge(typeSpecificFields.video).extend({ type: z.literal('video') }),
 	baseSchema.merge(typeSpecificFields.library).extend({ type: z.literal('library') }),
-	baseSchema.merge(typeSpecificFields.link).extend({ type: z.literal('link') })
+	baseSchema.merge(typeSpecificFields.link).extend({ type: z.literal('link') }),
+	baseSchema.merge(typeSpecificFields.recipe).extend({ type: z.literal('recipe') })
 ])
 
 export type SubmissionData = z.infer<typeof schema>
