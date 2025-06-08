@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte'
 	import { enhance, applyAction } from '$app/forms'
+	import { invalidateAll } from '$app/navigation'
 	import Button from '../Button.svelte'
 
 	let showDialog = $state(false)
@@ -60,11 +61,12 @@
 					{action}
 					method="POST"
 					use:enhance={() => {
-						return ({ result }) => {
+						return async ({ result }) => {
 							if (result.type === 'success') {
 								showDialog = false
+								await invalidateAll()
 							}
-							applyAction(result)
+							await applyAction(result)
 						}
 					}}
 				>
