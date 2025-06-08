@@ -1,4 +1,5 @@
 import { Database } from 'bun:sqlite'
+import type { Type } from '$lib/types/content'
 
 export const ModerationStatus = {
 	PENDING: 'pending',
@@ -10,7 +11,7 @@ export type ModerationStatus = (typeof ModerationStatus)[keyof typeof Moderation
 
 export interface ModerationQueueItem {
 	id: string
-	type: string
+	type: Type
 	title?: string
 	status: ModerationStatus
 	data: string
@@ -37,17 +38,18 @@ export class ModerationService {
 	private getModerationQueueCountStatement
 	private getModerationQueuePaginatedStatement
 	private getModerationQueueCountFilteredStatement
+	private deleteModerationQueueItemStatement
 
 	constructor(private db: Database) {
 		this.getModerationQueueStatement = this.db.prepare(`
-			SELECT 
-				id, 
+			SELECT
+				id,
 				type,
-				title, 
-				status, 
-				submitted_by, 
-				submitted_at, 
-				moderated_by, 
+				title,
+				status,
+				submitted_by,
+				submitted_at,
+				moderated_by,
 				moderated_at
 			FROM moderation_queue
 			WHERE status = $status
@@ -67,27 +69,27 @@ export class ModerationService {
 		`)
 
 		this.updateModerationStatusStatement = this.db.prepare(`
-			UPDATE moderation_queue 
+			UPDATE moderation_queue
 			SET status = $status, moderated_by = $moderated_by, moderated_at = $moderated_at
 			WHERE id = $id
 			RETURNING *
 		`)
 
 		this.getModerationQueueCountStatement = this.db.prepare(`
-			SELECT COUNT(*) as count 
-			FROM moderation_queue 
+			SELECT COUNT(*) as count
+			FROM moderation_queue
 			WHERE status = ?
 		`)
 
 		this.getModerationQueuePaginatedStatement = this.db.prepare(`
-			SELECT 
-				id, 
+			SELECT
+				id,
 				title,
-				type, 
-				status, 
-				submitted_by, 
-				submitted_at, 
-				moderated_by, 
+				type,
+				status,
+				submitted_by,
+				submitted_at,
+				moderated_by,
 				moderated_at
 			FROM moderation_queue
 			WHERE status = $status
@@ -100,6 +102,11 @@ export class ModerationService {
 			SELECT COUNT(*) as count
 			FROM moderation_queue
 			WHERE status = $status
+		`)
+
+		this.deleteModerationQueueItemStatement = this.db.prepare(`
+			DELETE FROM moderation_queue
+			WHERE id = $id
 		`)
 	}
 
@@ -166,5 +173,10 @@ export class ModerationService {
 			status: params.status ?? ModerationStatus.PENDING
 		}) as { count: number }
 		return result.count
+	}
+
+	deleteModerationQueueItem(id: string): boolean {
+		const result = this.deleteModerationQueueItemStatement.run({ id: id })
+		return result.changes > 0
 	}
 }
