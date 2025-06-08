@@ -8,19 +8,27 @@ export const load: PageServerLoad = async ({ url, locals }) => {
 		const itemsPerPage = 10
 		const offset = (page - 1) * itemsPerPage
 
-		const totalItems = await locals.moderationService.getModerationQueueCount(
-			ModerationStatus.PENDING
-		)
+		const totalItems = locals.moderationService.getModerationQueueCount(ModerationStatus.PENDING)
 		const totalPages = Math.ceil(totalItems / itemsPerPage)
 
-		const items = await locals.moderationService.getModerationQueuePaginated({
+		const items = locals.moderationService.getModerationQueuePaginated({
 			status: ModerationStatus.PENDING,
 			limit: itemsPerPage,
 			offset
 		})
 
+		// Fetch submitter information for each item
+		const itemsWithSubmitters = items.map((item) => {
+			const submitter = locals.userService.getUser(item.submitted_by)
+			return {
+				...item,
+				submitter_name: submitter?.name || 'Unknown',
+				submitter_username: submitter?.username || null
+			}
+		})
+
 		return {
-			items,
+			items: itemsWithSubmitters,
 			page,
 			totalPages,
 			totalItems
