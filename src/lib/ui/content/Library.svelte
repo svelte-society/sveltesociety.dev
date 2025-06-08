@@ -35,12 +35,29 @@
 		<!-- OG Image for GitHub repos -->
 		{#if isGitHub && content.metadata?.ogImage}
 			<div class="">
-				<img
-					src={getCachedImageWithPreset(content.metadata.ogImage, 'content', { h: 400 })}
-					alt="{content.title} repository preview"
-					class="w-full rounded-t-lg object-cover"
-					loading="lazy"
-				/>
+				{#if content.metadata?.github}
+					<a
+						href={content.metadata.github}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="relative z-20 block"
+						onclick={(e) => e.stopPropagation()}
+					>
+						<img
+							src={getCachedImageWithPreset(content.metadata.ogImage, 'content', { h: 400 })}
+							alt="{content.title} repository preview"
+							class="w-full rounded-t-lg object-cover transition-opacity hover:opacity-90"
+							loading="lazy"
+						/>
+					</a>
+				{:else}
+					<img
+						src={getCachedImageWithPreset(content.metadata.ogImage, 'content', { h: 400 })}
+						alt="{content.title} repository preview"
+						class="w-full rounded-t-lg object-cover"
+						loading="lazy"
+					/>
+				{/if}
 			</div>
 		{/if}
 
