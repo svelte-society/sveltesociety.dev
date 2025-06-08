@@ -11,20 +11,9 @@
 	let { data } = $props()
 
 	const form = superForm(data.form, {
-		resetForm: true,
 		delayMs: 500,
 		timeoutMs: 8000,
-		dataType: 'json',
-		invalidateAll: 'force',
-		onUpdated: ({ form }) => {
-			if (form?.message) {
-				if (form.message.success) {
-					console.log('Success:', form.message.text)
-				} else {
-					console.error('Error:', form.message.text)
-				}
-			}
-		}
+		dataType: 'json'
 	})
 
 	const { form: formData, submitting } = form
@@ -45,30 +34,25 @@
 			{options}
 		/>
 
-		<!-- Common fields for all types -->
-		<Input
-			placeholder="Enter a title..."
-			name="title"
-			label="Title"
-			description="Enter the title of your content submission"
-		/>
-		<Textarea
-			placeholder="Enter a description..."
-			name="description"
-			label="Description"
-			description="Enter the description of your content submission."
-		/>
+		<!-- Title field only for recipe and link types -->
+		{#if $formData.type === 'recipe' || $formData.type === 'link'}
+			<Input
+				placeholder="Enter a title..."
+				name="title"
+				label="Title"
+				description="Enter the title of your content submission"
+			/>
+		{/if}
 
-		<!-- Tags field using DynamicSelector -->
-		<DynamicSelector
-			name="tags"
-			label="Tags"
-			description="Select relevant tags for your submission"
-			options={data.tags.map((tag) => ({
-				label: tag.name,
-				value: tag.id
-			}))}
-		/>
+		<!-- Description field only for recipe and link types -->
+		{#if $formData.type === 'recipe' || $formData.type === 'link'}
+			<Textarea
+				placeholder="Enter a description..."
+				name="description"
+				label="Description"
+				description="Enter the description of your content submission."
+			/>
+		{/if}
 
 		<!-- Type-specific fields -->
 		{#if $formData.type === 'recipe'}
@@ -100,6 +84,17 @@
 				description="The URL you want to share"
 			/>
 		{/if}
+
+		<!-- Tags field using DynamicSelector -->
+		<DynamicSelector
+			name="tags"
+			label="Tags"
+			description="Select relevant tags for your submission"
+			options={data.tags.map((tag) => ({
+				label: tag.name,
+				value: tag.id
+			}))}
+		/>
 
 		<!-- Notes field (always shown) -->
 		<Textarea

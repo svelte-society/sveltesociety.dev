@@ -133,18 +133,9 @@ export const actions = {
 
 			// Add to moderation queue
 			const submissionId = locals.moderationService.addToModerationQueue(submissionData)
-
-			// Return success message
-			return message(form, {
-				success: true,
-				text: 'Your submission has been received and is pending moderation.'
-			})
 		} catch (error) {
 			console.error('Error adding content to moderation queue:', error)
-			return message(form, {
-				success: false,
-				text: 'There was an error processing your submission. Please try again.'
-			})
 		}
+		redirect(302, '/submit/thankyou')
 	}
 } satisfies Actions

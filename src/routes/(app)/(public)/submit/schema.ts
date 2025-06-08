@@ -18,8 +18,6 @@ type ContentType = keyof typeof types
 
 // Base schema with common fields
 const baseSchema = z.object({
-	title: z.string().min(5, { message: 'Title must be at least 5 characters long' }),
-	description: z.string().min(10, { message: 'Description must be at least 10 characters long' }),
 	type: z.enum(Object.keys(types) as [ContentType, ...ContentType[]]),
 	tags: z.array(z.string()).min(1, { message: 'Please select at least one tag' }),
 	notes: z.string().optional().or(z.literal(''))
@@ -28,6 +26,8 @@ const baseSchema = z.object({
 // Type-specific fields
 const typeSpecificFields = {
 	recipe: z.object({
+		title: z.string().min(5, { message: 'Title must be at least 5 characters long' }),
+		description: z.string().min(10, { message: 'Description must be at least 10 characters long' }),
 		body: z.string().min(10, { message: 'Recipe content must be at least 10 characters long' })
 	}),
 	video: z.object({
@@ -39,6 +39,8 @@ const typeSpecificFields = {
 			.min(1, { message: 'GitHub repository is required for library submissions' })
 	}),
 	link: z.object({
+		title: z.string().min(5, { message: 'Title must be at least 5 characters long' }),
+		description: z.string().min(10, { message: 'Description must be at least 10 characters long' }),
 		url: z.string().url({ message: 'Please enter a valid URL' })
 	})
 }
