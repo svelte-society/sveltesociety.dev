@@ -343,9 +343,14 @@ export class ContentService {
 
 		// Add author if present
 		if (data.author_id) {
-			this.db
-				.prepare(`INSERT INTO content_to_users (content_id, user_id) VALUES (?, ?)`)
-				.run(id, data.author_id)
+			try {
+				this.db
+					.prepare(`INSERT INTO content_to_users (content_id, user_id) VALUES (?, ?)`)
+					.run(id, data.author_id)
+			} catch (error) {
+				console.error('Failed to add author relationship:', { contentId: id, authorId: data.author_id, error })
+				throw error
+			}
 		}
 
 		// Add tags if present
@@ -355,7 +360,12 @@ export class ContentService {
 			)
 
 			for (const tag of data.tags) {
-				insertTagStmt.run(id, tag)
+				try {
+					insertTagStmt.run(id, tag)
+				} catch (error) {
+					console.error('Failed to add tag relationship:', { contentId: id, tagId: tag, error })
+					throw error
+				}
 			}
 		}
 

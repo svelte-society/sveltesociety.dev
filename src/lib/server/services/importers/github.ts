@@ -270,11 +270,11 @@ export class GitHubImporter {
 				pushedAt: repo.pushed_at,
 				ogImage: ogImageUrl
 			},
-			tags: repo.topics || [],
+			tags: [], // Don't auto-assign GitHub topics as tags - they need to be mapped to tag IDs
 			source: {
 				type: 'library',
 				source: 'github',
-				externalId: repo.node_id,
+				externalId: repo.full_name, // Use full_name (owner/repo) as external ID for consistency
 				url: repo.html_url,
 				lastFetched: new Date().toISOString(),
 				lastModified: repo.updated_at
