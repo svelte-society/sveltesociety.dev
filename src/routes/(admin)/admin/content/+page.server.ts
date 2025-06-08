@@ -38,18 +38,17 @@ export const actions = {
 		if (!id) {
 			return
 		}
-			// Check if content exists first
-			const content = locals.contentService.getContentById(id)
-			if (!content) {
-				return fail(404, { message: 'Content not found' })
-			}
-
-			// Delete the content
-			const deleted = locals.contentService.deleteContent(id)
-			if (deleted) {
-				return { success: true }
-			}
-			return fail(500, { message: 'Failed to delete content' })
+		// Check if content exists first
+		const content = locals.contentService.getContentById(id)
+		if (!content) {
+			return fail(404, { message: 'Content not found' })
 		}
+
+		// Delete the content
+		const deleted = locals.contentService.deleteContent(id)
+		if (deleted) {
+			return { success: true }
+		}
+		return fail(500, { message: 'Failed to delete content' })
 	}
 }
