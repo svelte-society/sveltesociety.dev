@@ -24,7 +24,10 @@ export class CollectionService {
 	private deleteTagsStatement
 	private addAuthorStatement
 
-	constructor(private db: Database, private searchService?: SearchService) {
+	constructor(
+		private db: Database,
+		private searchService?: SearchService
+	) {
 		this.getCollectionsStatement = this.db.prepare(`
 			SELECT * FROM collections_view
 			LIMIT $limit OFFSET $offset
