@@ -3287,5 +3287,15 @@
 		"description": "A Svelte-native visualization framework based on the layered grammar of graphics principles.",
 		"npm": "svelteplot",
 		"categories": ["data-visualisation"]
+	},
+	{
+		"title": "Heroicons",
+		"url": "https://www.npmjs.com/package/@fvilers/heroicons-svelte",
+		"repository": "https://github.com/fvilers/heroicons-svelte",
+		"description": "Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS.",
+		"npm": "@fvilers/heroicons-svelte",
+		"categories": [
+			"icons"
+		]
 	}
 ]
