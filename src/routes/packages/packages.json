@@ -3294,8 +3294,6 @@
 		"repository": "https://github.com/fvilers/heroicons-svelte",
 		"description": "Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS.",
 		"npm": "@fvilers/heroicons-svelte",
-		"categories": [
-			"icons"
-		]
+		"categories": ["icons"]
 	}
 ]
