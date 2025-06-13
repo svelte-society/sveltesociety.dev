@@ -1,11 +1,7 @@
 <script lang="ts">
 	import ContentCard from '$lib/ui/ContentCard.svelte'
 	import Pagination from '$lib/ui/Pagination.svelte'
-	import { flip } from 'svelte/animate'
-	import { cubicOut } from 'svelte/easing'
 	import Filters from './Filters.svelte'
-	import { fade } from 'svelte/transition'
-	import { prefersReducedMotion } from 'svelte/motion'
 
 	let { data } = $props()
 
@@ -19,10 +15,7 @@
 	<Filters categories={data.categories} tags={data.tags} sort={data.sort} />
 	{#if data.count > 0}
 		{#each contentList as content (content.id)}
-			<div
-				animate:flip={{ duration: prefersReducedMotion.current ? 0 : 250, easing: cubicOut }}
-				transition:fade={{ duration: prefersReducedMotion.current ? 0 : 150 }}
-			>
+			<div>
 				<ContentCard {content} />
 			</div>
 		{/each}

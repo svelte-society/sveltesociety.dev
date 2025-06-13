@@ -13,7 +13,6 @@
 	import Library from '$lib/ui/content/Library.svelte'
 	import Calendar from 'phosphor-svelte/lib/Calendar'
 	import MapPin from 'phosphor-svelte/lib/MapPin'
-	import Link from 'phosphor-svelte/lib/Link'
 	import User from 'phosphor-svelte/lib/User'
 	import VideoCamera from 'phosphor-svelte/lib/VideoCamera'
 
@@ -48,6 +47,7 @@
 </script>
 
 <article
+	style="view-transition-name: post-card-{content.id};"
 	class="grid gap-2 rounded-lg bg-zinc-50 {compact
 		? 'px-3 py-3 sm:px-4 sm:py-3'
 		: 'px-4 py-4 sm:px-6 sm:py-5'}"
@@ -142,7 +142,10 @@
 		</form>
 	</div>
 
-	<h2 class={compact ? 'mb-1 text-base font-bold sm:text-lg' : 'mb-2 text-lg font-bold sm:text-xl'}>
+	<h2
+		id="title"
+		class={compact ? 'mb-1 text-base font-bold sm:text-lg' : 'mb-2 text-lg font-bold sm:text-xl'}
+	>
 		{#if content.type === 'event' && content.metadata?.url}
 			<a href={content.metadata.url} target="_blank" rel="noopener noreferrer">{content.title}</a>
 		{:else}
