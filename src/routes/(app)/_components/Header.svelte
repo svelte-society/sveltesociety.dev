@@ -1,9 +1,8 @@
 <script>
-	import { page } from '$app/state'
 	import Search from './Search.svelte'
 	import Dropdown from './Dropdown.svelte'
 
-	let { user } = $props()
+	let { user, announcement } = $props()
 </script>
 
 <header class="border-svelte-900 border-b-4 py-4">
@@ -68,3 +67,10 @@
 		</nav>
 	</div>
 </header>
+{#if announcement}
+	<div class="bg-svelte-900 flex w-full place-content-center p-2">
+		<a href={announcement.href} class="mx-auto text-white">
+			{announcement.text}
+		</a>
+	</div>
+{/if}
