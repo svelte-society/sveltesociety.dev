@@ -65,8 +65,6 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 				}
 			: null
 
-	console.log(activeHeaderAnnouncement)
-
 	return {
 		user,
 		isAdmin,
