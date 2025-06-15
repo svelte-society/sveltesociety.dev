@@ -20,6 +20,8 @@ WORKDIR /app
 # Copy package.json and built files
 COPY --from=builder /app/package.json .
 COPY --from=builder /app/build ./build
+# Copy migration files that are needed at runtime
+COPY --from=builder /app/src/lib/server/db/migrations ./src/lib/server/db/migrations
 
 # Install production dependencies only
 RUN bun install --production
