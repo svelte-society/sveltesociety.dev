@@ -173,6 +173,13 @@
 			<Video {content} />
 		{:else if content.type === 'library'}
 			<Library {content} />
+		{:else if content.type === 'announcement'}
+			<!-- Announcements display their body content -->
+			{#if content.body}
+				<div class="prose prose-sm max-w-none text-gray-700">
+					{@html content.body}
+				</div>
+			{/if}
 		{:else if content.type === 'event'}
 			<div class="flex gap-4">
 				{#if content.metadata?.socialCardUrl}

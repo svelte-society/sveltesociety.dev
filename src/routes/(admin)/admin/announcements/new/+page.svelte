@@ -31,7 +31,7 @@
 <div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
 	<h1 class="mb-6 text-3xl font-bold text-gray-800">Add Announcement Placement</h1>
 
-	<Form {form} action="?/">
+	<Form {form}>
 		<!-- Announcement Selection -->
 		<Select
 			name="content_id"

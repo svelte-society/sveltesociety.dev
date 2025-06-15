@@ -44,16 +44,13 @@ export const actions = {
 			const placement = locals.announcementService.updatePlacement(params.id, form.data)
 
 			if (!placement) {
-				return message(form, {
-					success: false,
-					text: 'Failed to update announcement placement. Please try again.'
+				return fail(500, {
+					form,
+					error: 'Failed to update announcement placement. Please try again.'
 				})
 			}
 
-			return message(form, {
-				success: true,
-				text: 'Announcement placement updated successfully!'
-			})
+			redirect(303, '/admin/announcements')
 		} catch (error) {
 			console.error('Error updating announcement placement:', error)
 			return message(form, {

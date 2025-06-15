@@ -40,16 +40,13 @@ export const actions = {
 			})
 
 			if (!placement) {
-				return message(form, {
-					success: false,
-					text: 'Failed to create announcement placement. Please try again.'
+				return fail(500, {
+					form,
+					error: 'Failed to create announcement placement. Please try again.'
 				})
 			}
 
-			return message(form, {
-				success: true,
-				text: 'Announcement placement created successfully!'
-			})
+			redirect(303, '/admin/announcements')
 		} catch (error) {
 			console.error('Error creating announcement placement:', error)
 			return message(form, {
