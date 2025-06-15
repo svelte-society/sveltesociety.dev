@@ -69,7 +69,7 @@
 </header>
 {#if announcement}
 	<div class="bg-svelte-900 flex w-full place-content-center p-2">
-		<a href={announcement.href} class="mx-auto text-white">
+		<a href={announcement.href} class="text-semibold mx-auto text-white underline">
 			{announcement.text}
 		</a>
 	</div>
