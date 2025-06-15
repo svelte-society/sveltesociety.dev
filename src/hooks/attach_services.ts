@@ -15,6 +15,7 @@ import { EventsService } from '$lib/server/services/events'
 import { CacheService } from '$lib/server/services/cache'
 import { ExternalContentService } from '$lib/server/services/external-content'
 import { LLMService } from '$lib/server/services/llm'
+import { AnnouncementService } from '$lib/server/services/AnnouncementService'
 
 let db: Database
 let contentService: ContentService
@@ -31,6 +32,7 @@ let eventsService: EventsService
 let cacheService: CacheService
 let externalContentService: ExternalContentService
 let llmService: LLMService
+let announcementService: AnnouncementService
 
 const initialize_db = () => {
 	if (!db) {
@@ -57,6 +59,7 @@ const initialize_db = () => {
 		metadataService = new MetadataService(db)
 		eventsService = new EventsService(db, cacheService)
 		llmService = new LLMService(tagService)
+		announcementService = new AnnouncementService(db)
 	}
 
 	return db
@@ -79,5 +82,6 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.cacheService = cacheService
 	event.locals.externalContentService = externalContentService
 	event.locals.llmService = llmService
+	event.locals.announcementService = announcementService
 	return resolve(event)
 }

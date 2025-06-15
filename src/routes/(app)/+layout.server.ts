@@ -53,9 +53,24 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 		}
 	})
 
+	// Get active header announcements
+	const headerAnnouncements = locals.announcementService.getActivePlacementsByLocationKey('header')
+	const activeHeaderAnnouncement =
+		headerAnnouncements.length > 0
+			? {
+					href: headerAnnouncements[0].slug
+						? `/${headerAnnouncements[0].metadata?.type || 'announcement'}/${headerAnnouncements[0].slug}`
+						: '#',
+					text: headerAnnouncements[0].title
+				}
+			: null
+
+	console.log(activeHeaderAnnouncement)
+
 	return {
 		user,
 		isAdmin,
-		upcomingEvents
+		upcomingEvents,
+		announcement: activeHeaderAnnouncement
 	}
 }

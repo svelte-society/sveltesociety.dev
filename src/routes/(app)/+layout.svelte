@@ -20,7 +20,7 @@
 <Head seo_config={page.data.meta || fallbackMeta} />
 
 <div class="flex min-h-screen flex-col">
-	<Header user={data.user} />
+	<Header user={data.user} announcement={data.announcement} />
 
 	<main
 		class="relative mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-2 px-4 py-8 sm:grid-cols-[1.5fr_5fr_2.5fr] md:gap-4 lg:gap-6"
