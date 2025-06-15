@@ -174,10 +174,10 @@
 		{:else if content.type === 'library'}
 			<Library {content} />
 		{:else if content.type === 'announcement'}
-			<!-- Announcements display their body content -->
-			{#if content.body}
+			<!-- Announcements show rendered body on detail pages -->
+			{#if fullDescription && content.rendered_body}
 				<div class="prose prose-sm max-w-none text-gray-700">
-					{@html content.body}
+					{@html content.rendered_body}
 				</div>
 			{/if}
 		{:else if content.type === 'event'}

@@ -2,6 +2,7 @@ import { Database } from 'bun:sqlite'
 import { SearchService } from './search'
 import type { Content, ContentFilters, ContentWithAuthor } from '$lib/types/content'
 import type { Tag } from '$lib/types/tags'
+import { marked } from 'marked'
 
 export class ContentService {
 	constructor(
@@ -317,14 +318,17 @@ export class ContentService {
 		const id = crypto.randomUUID()
 		const now = new Date().toISOString()
 
+		// Convert markdown body to HTML
+		const renderedBody = data.body ? marked(data.body) : null
+
 		this.db
 			.prepare(
 				`
 			INSERT INTO content (
 				id, title, slug, description, type, status,
-				body, metadata, created_at, updated_at, published_at,
+				body, rendered_body, metadata, created_at, updated_at, published_at,
 				likes, saves
-			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)
+			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)
 		`
 			)
 			.run(
@@ -335,6 +339,7 @@ export class ContentService {
 				data.type,
 				data.status,
 				data.body,
+				renderedBody,
 				data.metadata ? JSON.stringify(data.metadata) : null,
 				data.created_at || now,
 				data.updated_at || now,
@@ -417,6 +422,9 @@ export class ContentService {
 	) {
 		const now = new Date().toISOString()
 
+		// Convert markdown body to HTML
+		const renderedBody = data.body ? marked(data.body) : null
+
 		// Update the content record
 		this.db
 			.prepare(
@@ -428,6 +436,7 @@ export class ContentService {
 					type = ?,
 					status = ?,
 					body = ?,
+					rendered_body = ?,
 					metadata = ?,
 					updated_at = ?,
 					published_at = CASE
@@ -445,6 +454,7 @@ export class ContentService {
 				data.type,
 				data.status,
 				data.body,
+				renderedBody,
 				data.metadata ? JSON.stringify(data.metadata) : null,
 				now,
 				data.status,
