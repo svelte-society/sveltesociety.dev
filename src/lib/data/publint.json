@@ -456,5 +456,6 @@
 	"svelte-proximity-prefetch": { "valid": true },
 	"svelte-adapter-bun-next": { "valid": true },
 	"@nvl/sveltex": { "valid": true },
-	"svelteplot": { "valid": true }
+	"svelteplot": { "valid": true },
+	"@fvilers/heroicons-svelte": { "valid": true }
 }
