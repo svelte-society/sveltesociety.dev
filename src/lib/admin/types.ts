@@ -25,11 +25,6 @@ export const ADMIN_ROUTES = {
 		new: '/admin/content/new',
 		edit: (id: string) => `/admin/content/${id}`
 	},
-	collections: {
-		list: '/admin/collections',
-		new: '/admin/collections/new',
-		edit: (id: string) => `/admin/collections/${id}`
-	},
 	tags: {
 		list: '/admin/tags',
 		new: '/admin/tags/new',

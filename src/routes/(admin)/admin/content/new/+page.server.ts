@@ -15,9 +15,15 @@ export const load: PageServerLoad = async ({ locals }) => {
 	// Get all tags for the tag selector
 	const tags = locals.tagService.getAllTags()
 
+	// Get available content for collection children selector (exclude collections to prevent nesting)
+	const availableContent = locals.contentService.getFilteredContent({
+		status: 'all'
+	}).filter(content => content.type !== 'collection')
+
 	return {
 		form,
-		tags
+		tags,
+		availableContent
 	}
 }
 
@@ -31,13 +37,21 @@ export const actions: Actions = {
 		}
 
 		try {
-			// Create new content using service
-			locals.contentService.addContent({
+			// Prepare content data
+			const contentData = {
 				...form.data,
 				body: form.data.body,
 				tags: form.data.tags.map((tag) => tag.id),
 				author_id: locals.user?.id
-			})
+			}
+
+			// For collections, add children data  
+			if (form.data.type === 'collection' && form.data.children) {
+				contentData.children = JSON.stringify(form.data.children)
+			}
+
+			// Create new content using service
+			locals.contentService.addContent(contentData)
 
 			// Redirect to content listing after successful save
 			throw redirect(303, '/admin/content')

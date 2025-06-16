@@ -22,7 +22,10 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		type: content.type,
 		status: content.status,
 		metadata: content.metadata || {},
-		tags: content.tags?.map((tag) => tag.id) || []
+		tags: content.tags?.map((tag) => tag.id) || [],
+		children: content.type === 'collection' && content.children ? 
+			(Array.isArray(content.children) ? content.children.map(child => child.id) : []) : 
+			undefined
 	}
 
 	// Pre-populate form with existing content
@@ -31,9 +34,15 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	// Get all tags for the tag selector
 	const tags = locals.tagService.getAllTags()
 
+	// Get available content for collection children selector (exclude collections and current item)
+	const availableContent = locals.contentService.getFilteredContent({
+		status: 'all'
+	}).filter(item => item.type !== 'collection' && item.id !== params.id)
+
 	return {
 		form,
 		tags,
+		availableContent,
 		contentId: params.id,
 		content // Pass full content for additional metadata display
 	}
@@ -64,13 +73,21 @@ export const actions: Actions = {
 				}
 			}
 
-			// Update existing content
-			locals.contentService.updateContent(params.id, {
+			// Prepare update data
+			const updateData = {
 				...form.data,
 				body: form.data.body || '',
 				metadata,
 				tags: form.data.tags
-			})
+			}
+
+			// For collections, add children data
+			if (form.data.type === 'collection' && form.data.children) {
+				updateData.children = JSON.stringify(form.data.children)
+			}
+
+			// Update existing content
+			locals.contentService.updateContent(params.id, updateData)
 
 			const content = locals.contentService.getContentById(params.id) as Content
 

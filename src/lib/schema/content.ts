@@ -183,11 +183,14 @@ export const updateContentSchema = contentSchema
 		children: true
 	})
 	.extend({
-		tags: z.array(z.string())
+		tags: z.array(z.string()),
+		children: z.array(z.string()).optional()
 	})
 
 export const createContentSchema = updateContentSchema.omit({
 	id: true
+}).extend({
+	children: z.array(z.string()).optional()
 })
 
 export const updateCollectionSchema = z.object({

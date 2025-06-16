@@ -153,7 +153,8 @@
 			description="Select the type of content"
 			options={[
 				{ value: 'recipe', label: 'Recipe' },
-				{ value: 'announcement', label: 'Announcement' }
+				{ value: 'announcement', label: 'Announcement' },
+				{ value: 'collection', label: 'Collection' }
 			]}
 		/>
 
@@ -203,6 +204,20 @@
 				</Button>
 			</div>
 		</div>
+
+		{#if $formData.type === 'collection'}
+			<div transition:slide class="space-y-2">
+				<DynamicSelector
+					name="children"
+					label="Content"
+					description="Select content to add to the collection"
+					options={data.availableContent.map((item) => ({
+						label: `${item.title} (${item.type})`,
+						value: item.id
+					}))}
+				/>
+			</div>
+		{/if}
 
 		<div>
 			<DynamicSelector

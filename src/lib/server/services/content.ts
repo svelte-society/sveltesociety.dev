@@ -316,6 +316,7 @@ export class ContentService {
 		body: string
 		tags: string[]
 		metadata?: any
+		children?: string
 		created_at?: string
 		updated_at?: string
 		published_at?: string
@@ -332,9 +333,9 @@ export class ContentService {
 				`
 			INSERT INTO content (
 				id, title, slug, description, type, status,
-				body, rendered_body, metadata, created_at, updated_at, published_at,
+				body, rendered_body, metadata, children, created_at, updated_at, published_at,
 				likes, saves
-			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)
+			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)
 		`
 			)
 			.run(
@@ -347,6 +348,7 @@ export class ContentService {
 				data.body,
 				renderedBody,
 				data.metadata ? JSON.stringify(data.metadata) : null,
+				data.children || null,
 				data.created_at || now,
 				data.updated_at || now,
 				data.published_at || (data.status === 'published' ? now : null)
@@ -424,6 +426,7 @@ export class ContentService {
 			body: string
 			tags: string[]
 			metadata?: any
+			children?: string
 		}
 	) {
 		const now = new Date().toISOString()
@@ -444,6 +447,7 @@ export class ContentService {
 					body = ?,
 					rendered_body = ?,
 					metadata = ?,
+					children = ?,
 					updated_at = ?,
 					published_at = CASE
 						WHEN status != 'published' AND ? = 'published' THEN ?
@@ -462,6 +466,7 @@ export class ContentService {
 				data.body,
 				renderedBody,
 				data.metadata ? JSON.stringify(data.metadata) : null,
+				data.children || null,
 				now,
 				data.status,
 				now,
