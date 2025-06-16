@@ -1,19 +1,46 @@
 import { z } from 'zod'
-import { tagSchema } from './tags'
 
-export const typeSchema = z.enum([
-	'recipe',
-	'video',
-	'library',
-	'announcement',
-	'collection',
-	'event',
-	'link'
-])
+export const typeSchema = z.enum(['recipe', 'video', 'library', 'announcement', 'collection'])
+export const statusSchema = z.enum(['draft', 'published', 'archived'])
 
-// Type-specific metadata schemas
-export const videoMetadataSchema = z
-	.object({
+const baseContentSchema = z.object({
+	id: z.string(),
+	title: z.string(),
+	slug: z.string(),
+	description: z.string().min(10),
+	status: statusSchema,
+	author: z.string().optional(),
+	tags: z.array(z.string()).min(1, 'At least one tag is required'),
+	created_at: z.string(),
+	updated_at: z.string(),
+	published_at: z.string().nullable(),
+	likes: z.number(),
+	saves: z.number(),
+	liked: z.boolean(),
+	saved: z.boolean(),
+	views: z.number()
+})
+
+const updateKeysToOmit = {
+	created_at: true,
+	updated_at: true,
+	published_at: true,
+	likes: true,
+	saves: true,
+	liked: true,
+	saved: true,
+	views: true
+} as const
+
+const createKeysToOmit = {
+	...updateKeysToOmit,
+	id: true
+} as const
+
+const videoContentSchema = z.object({
+	...baseContentSchema.shape,
+	type: z.literal('video'),
+	metadata: z.object({
 		channelTitle: z.string().optional(),
 		publishedAt: z.string().optional(),
 		thumbnail: z.string().optional(),
@@ -54,10 +81,15 @@ export const videoMetadataSchema = z
 			})
 			.optional()
 	})
-	.optional()
+})
 
-export const libraryMetadataSchema = z
-	.object({
+const updateVideoContentSchema = videoContentSchema.omit(updateKeysToOmit)
+const createVideoContentSchema = videoContentSchema.omit(createKeysToOmit)
+
+const libraryContentSchema = z.object({
+	...baseContentSchema.shape,
+	type: z.literal('library'),
+	metadata: z.object({
 		npm: z.string().optional(),
 		github: z.string().optional(),
 		homepage: z.string().optional(),
@@ -91,121 +123,61 @@ export const libraryMetadataSchema = z
 			})
 			.optional()
 	})
-	.optional()
+})
 
-export const eventMetadataSchema = z
-	.object({
-		startTime: z.string(),
-		endTime: z.string().optional(),
-		location: z.string().optional(),
-		guildId: z.string().optional(),
-		guildName: z.string().optional(),
-		eventUrl: z.string().optional()
-	})
-	.optional()
+const updateLibraryContentSchema = libraryContentSchema.omit(updateKeysToOmit)
+const createLibraryContentSchema = libraryContentSchema.omit(createKeysToOmit)
 
-export const recipeMetadataSchema = z
-	.object({
-		difficulty: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
-		estimatedTime: z.string().optional(),
-		prerequisites: z.array(z.string()).optional()
-	})
-	.optional()
+const recipeContentSchema = z.object({
+	...baseContentSchema.shape,
+	body: z.string(),
+	rendered_body: z.string(),
+	type: z.literal('recipe')
+})
 
-export const announcementMetadataSchema = z
-	.object({
-		priority: z.enum(['low', 'medium', 'high']).optional(),
-		expiresAt: z.string().optional()
-	})
-	.optional()
+const updateRecipeContentSchema = recipeContentSchema.omit(updateKeysToOmit)
+const createRecipeContentSchema = recipeContentSchema.omit(createKeysToOmit)
 
-export const collectionMetadataSchema = z
-	.object({
-		itemCount: z.number().optional(),
-		isPublic: z.boolean().optional()
-	})
-	.optional()
+const announcementContentSchema = z.object({
+	...baseContentSchema.shape,
+	type: z.literal('announcement')
+})
 
-export const linkMetadataSchema = z
-	.object({
-		url: z.string().url().optional(),
-		domain: z.string().optional()
-	})
-	.optional()
+const updateAnnouncementContentSchema = announcementContentSchema.omit(updateKeysToOmit)
+const createAnnouncementContentSchema = announcementContentSchema.omit(createKeysToOmit)
+
+const collectionContentSchema = z.object({
+	...baseContentSchema.shape,
+	body: z.string(),
+	rendered_body: z.string(),
+	type: z.literal('collection'),
+	children: z.array(z.string())
+})
+
+const updateCollectionContentSchema = collectionContentSchema.omit(updateKeysToOmit)
+const createCollectionContentSchema = collectionContentSchema.omit(createKeysToOmit)
 
 // Union of all metadata types
-const metadataSchema = z.union([
-	videoMetadataSchema,
-	libraryMetadataSchema,
-	eventMetadataSchema,
-	recipeMetadataSchema,
-	announcementMetadataSchema,
-	collectionMetadataSchema,
-	linkMetadataSchema
+export const contentSchema = z.discriminatedUnion('type', [
+	videoContentSchema,
+	libraryContentSchema,
+	recipeContentSchema,
+	announcementContentSchema,
+	collectionContentSchema
 ])
 
-const baseContentSchema = z.object({
-	id: z.string(),
-	title: z.string(),
-	slug: z.string(),
-	description: z.string().min(10),
-	type: typeSchema,
-	status: z.string().default('draft'),
-	body: z.string().optional(),
-	rendered_body: z.string(),
-	author: z.string().optional(),
-	tags: z.array(tagSchema),
-	created_at: z.string(),
-	updated_at: z.string(),
-	published_at: z.string().nullable(),
-	likes: z.number(),
-	saves: z.number(),
-	liked: z.boolean(),
-	saved: z.boolean(),
-	views: z.number(),
-	metadata: metadataSchema
-})
+export const updateContentSchema = z.discriminatedUnion('type', [
+	updateVideoContentSchema,
+	updateLibraryContentSchema,
+	updateRecipeContentSchema,
+	updateAnnouncementContentSchema,
+	updateCollectionContentSchema
+])
 
-export const contentSchema = baseContentSchema.extend({
-	children: baseContentSchema.array()
-})
-
-export const updateContentSchema = contentSchema
-	.omit({
-		created_at: true,
-		updated_at: true,
-		published_at: true,
-		likes: true,
-		saves: true,
-		liked: true,
-		saved: true,
-		views: true,
-		children: true
-	})
-	.extend({
-		tags: z.array(z.string()),
-		children: z.array(z.string()).optional()
-	})
-
-export const createContentSchema = updateContentSchema.omit({
-	id: true
-}).extend({
-	children: z.array(z.string()).optional()
-})
-
-export const updateCollectionSchema = z.object({
-	title: z.string().min(1, 'Title is required'),
-	slug: z.string().min(1, 'Slug is required'),
-	description: z.string().optional(),
-	children: z.array(z.string()),
-	tags: z.array(z.string())
-})
-
-export const createCollectionSchema = z.object({
-	title: z.string().min(1, 'Title is required'),
-	slug: z.string().min(1, 'Slug is required'),
-	description: z.string().optional(),
-	status: z.enum(['draft', 'pending_review', 'published', 'archived']).default('draft'),
-	children: z.array(z.string()),
-	tags: z.array(z.string())
-})
+export const createContentSchema = z.discriminatedUnion('type', [
+	createVideoContentSchema,
+	createLibraryContentSchema,
+	createRecipeContentSchema,
+	createAnnouncementContentSchema,
+	createCollectionContentSchema
+])
