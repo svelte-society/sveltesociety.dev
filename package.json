@@ -28,7 +28,7 @@
 		"@thisux/sveltednd": "^0.0.20",
 		"@types/bun": "^1.2.16",
 		"autoprefixer": "^10.4.21",
-		"bits-ui": "^2.7.0",
+		"bits-ui": "^2.8.0",
 		"dotenv": "^16.5.0",
 		"formsnap": "^2.0.1",
 		"magnitude-test": "^0.1.4",
@@ -38,11 +38,11 @@
 		"prettier-plugin-svelte": "^3.4.0",
 		"prettier-plugin-tailwindcss": "^0.6.12",
 		"svead": "^0.0.13",
-		"svelte": "^5.34.1",
+		"svelte": "^5.34.3",
 		"svelte-check": "^4.2.1",
 		"svelte-sonner": "^1.0.5",
 		"sveltekit-search-params": "^3.0.0",
-		"sveltekit-superforms": "^2.26.1",
+		"sveltekit-superforms": "^2.27.0",
 		"tailwindcss": "^4.1.10",
 		"tslib": "^2.8.1",
 		"typescript": "^5.8.3",
@@ -51,7 +51,7 @@
 		"@ai-sdk/anthropic": "^1.2.12",
 		"ai": "^4.3.16",
 		"@epic-web/cachified": "^5.5.2",
-		"zod": "^3.25.64"
+		"zod": "^3.25.65"
 	},
 	"dependencies": {
 		"duckdb-async": "^1.3.0"
