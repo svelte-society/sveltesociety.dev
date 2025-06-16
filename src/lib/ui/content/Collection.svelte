@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Content } from '$lib/types/content'
+	import type { ContentWithAuthor } from '$lib/types/content'
 	import { formatRelativeDate } from '$lib/utils/date'
 
 	// Create a partial Content type for children that doesn't require the children property
-	type ContentChild = Omit<Content, 'children'> & { children?: any[] }
+	type ContentChild = Omit<ContentWithAuthor, 'children'> & { children?: any[] }
 
 	interface Props {
 		children: ContentChild[]
@@ -13,7 +13,7 @@
 
 	// Add default author for content items that don't have one
 	function getAuthor(content: ContentChild): string {
-		return content?.author || 'Unknown'
+		return content?.author_name || content?.author_username || 'Unknown'
 	}
 </script>
 

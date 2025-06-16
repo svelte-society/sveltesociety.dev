@@ -68,12 +68,18 @@ export class ContentService {
 
 						if (Array.isArray(childrenIds) && childrenIds.length > 0) {
 							// Process each child individually instead of using IN clause
-							const childrenContent: Content[] = []
+							const childrenContent: ContentWithAuthor[] = []
 
 							// Prepare statements for reuse
 							const childContentQuery = this.db.prepare(`
-							SELECT c.*
+							SELECT 
+								c.*,
+								u.id as author_id,
+								u.username as author_username,
+								u.name as author_name
 							FROM content c
+							LEFT JOIN content_to_users cu ON c.id = cu.content_id
+							LEFT JOIN users u ON cu.user_id = u.id
 							WHERE c.id = ?
 						`)
 
@@ -87,7 +93,7 @@ export class ContentService {
 							// Process each child ID individually
 							for (const childId of childrenIds) {
 								// Get the child content
-								const childContent = childContentQuery.get(childId) as Content | null
+								const childContent = childContentQuery.get(childId) as ContentWithAuthor | null
 
 								if (childContent) {
 									// Parse metadata if it's a string
