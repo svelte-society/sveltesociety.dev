@@ -4,13 +4,12 @@
 	import Input from '$lib/ui/form/Input.svelte'
 	import Select from '$lib/ui/form/Select.svelte'
 	import Textarea from '$lib/ui/form/Textarea.svelte'
-	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte'
+	import MarkdownEditor from '$lib/ui/form/MarkdownEditor.svelte'
 	import Form from '$lib/ui/form/Form.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import { slide } from 'svelte/transition'
 	import { slugify } from '$lib/utils/slug'
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
-	import DynamicInput from '$lib/ui/form/DynamicInput.svelte'
 	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
 	import { createContentSchema } from '$lib/schema/content'
 	import { toast } from 'svelte-sonner'
@@ -21,7 +20,13 @@
 	// Setup form with client-side validation
 	const form = superForm(data.form, {
 		validators: zodClient(createContentSchema),
-		dataType: 'json'
+		dataType: 'json',
+		invalidateAll: 'force',
+		onUpdated: ({ form }) => {
+			if (form?.message) {
+				form.message.success ? toast.success(form.message.text) : toast.error(form.message.text)
+			}
+		}
 	})
 
 	const { form: formData, submitting } = form
@@ -169,12 +174,7 @@
 			]}
 		/>
 
-		<div class="space-y-2">
-			<label for="body" class="block text-sm font-medium text-gray-700">Content Body</label>
-			<div class="w-full rounded-md border border-gray-300 bg-white">
-				<MarkdownEditor name="body" value={$formData.body} />
-			</div>
-		</div>
+		<MarkdownEditor name="body" label="Content Body" />
 
 		<div class="flex w-full items-center gap-2">
 			<Input
