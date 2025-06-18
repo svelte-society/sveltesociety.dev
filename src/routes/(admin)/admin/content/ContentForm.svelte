@@ -9,7 +9,7 @@
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 	import { slide } from 'svelte/transition'
 
-	let { form, isImported, isEditing, data } = $props()
+	let { form, isImported = false, isEditing = false, data } = $props()
 
 	const { form: formData, submitting } = form
 </script>
@@ -185,8 +185,9 @@
 				needed.
 			</p>
 		</div>
+	{:else}
+		<MarkdownEditor name="body" />
 	{/if}
-	<MarkdownEditor name="body" />
 
 	<Input
 		name="slug"

@@ -40,7 +40,7 @@
 		</p>
 	</div>
 
-	<ContentForm {form} {data} isImported={false} />
+	<ContentForm {form} {data} />
 </div>
 
 <!-- Debug only in development -->

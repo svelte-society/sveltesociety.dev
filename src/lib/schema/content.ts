@@ -42,8 +42,6 @@ const createKeysToOmit = {
 const videoContentSchema = z.object({
 	...baseContentSchema.shape,
 	type: z.literal('video'),
-	body: z.string(),
-	rendered_body: z.string(),
 	metadata: z.object({
 		channelTitle: z.string().optional(),
 		publishedAt: z.string().optional(),
