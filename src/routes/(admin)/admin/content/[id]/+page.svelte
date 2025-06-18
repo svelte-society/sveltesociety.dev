@@ -4,7 +4,7 @@
 	import Input from '$lib/ui/form/Input.svelte'
 	import Select from '$lib/ui/form/Select.svelte'
 	import Textarea from '$lib/ui/form/Textarea.svelte'
-	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte'
+	import MarkdownEditor from '$lib/ui/form/MarkdownEditor.svelte'
 	import Form from '$lib/ui/form/Form.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import { slide } from 'svelte/transition'
