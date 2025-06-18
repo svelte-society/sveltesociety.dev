@@ -47,7 +47,7 @@
 			<div
 				class="prose absolute top-6 right-0 bottom-4 left-0 max-w-none overflow-y-auto rounded-md border bg-white p-4"
 			>
-				{@html marked($formData[name])}
+				{@html marked($formData[name] as string)}
 			</div>
 		{/if}
 	</div>
