@@ -307,12 +307,9 @@ export class ContentService {
 		return result?.total || 0
 	}
 
-	async addContent(data: CreateContent) {
-		const id = crypto.randomUUID()
-
+	async addContent(data: CreateContent, author_id?: string) {
 		// Build params object with all required fields
 		const params = {
-			id,
 			title: data.title,
 			type: data.type,
 			status: data.status,
@@ -327,27 +324,31 @@ export class ContentService {
 
 		const stmt = this.db.prepare(`
         INSERT INTO content (
-            id, title, type, status, body, rendered_body,
+            title, type, status, body, rendered_body,
             slug, description, metadata, children, published_at
         ) VALUES (
-            $id, $title, $type, $status, $body, $rendered_body,
+            $title, $type, $status, $body, $rendered_body,
             $slug, $description, $metadata, $children, $published_at
         )
     `)
 
 		// Cast to any to bypass TypeScript's strict checking
-		const res = stmt.run(params)
+		const { lastInsertRowid } = stmt.run(params)
+
+		const { id } = this.db
+			.prepare('SELECT id FROM content WHERE rowid = ?')
+			.get(lastInsertRowid) as { id: string }
 
 		// Add author if present
-		if (data.author_id) {
+		if (author_id) {
 			try {
 				this.db
 					.prepare(`INSERT INTO content_to_users (content_id, user_id) VALUES (?, ?)`)
-					.run(id, data.author_id)
+					.run(id, author_id)
 			} catch (error) {
 				console.error('Failed to add author relationship:', {
 					contentId: id,
-					authorId: data.author_id,
+					authorId: author_id,
 					error
 				})
 				throw error

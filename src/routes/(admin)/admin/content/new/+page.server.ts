@@ -1,5 +1,5 @@
 import { superValidate } from 'sveltekit-superforms'
-import { fail } from '@sveltejs/kit'
+import { fail, redirect } from '@sveltejs/kit'
 import { zod } from 'sveltekit-superforms/adapters'
 import type { Actions, PageServerLoad } from './$types'
 
@@ -35,6 +35,8 @@ export const actions: Actions = {
 		}
 
 		// Create new content using service
-		const contentId = locals.contentService.addContent(form.data)
+		const contentId = locals.contentService.addContent(form.data, locals.user?.id)
+
+		redirect(302, `/admin/content/${contentId}`)
 	}
 }
