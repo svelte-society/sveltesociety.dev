@@ -1,6 +1,6 @@
 import { Database } from 'bun:sqlite'
 import { SearchService } from './search'
-import type { Content, ContentFilters, ContentWithAuthor } from '$lib/types/content'
+import type { Content, CreateContent, ContentFilters, ContentWithAuthor } from '$lib/types/content'
 import type { Tag } from '$lib/types/tags'
 import { marked } from 'marked'
 
@@ -22,7 +22,7 @@ export class ContentService {
 
 			// Get the main content with author info
 			const contentQuery = this.db.prepare(`
-				SELECT 
+				SELECT
 					c.*,
 					u.id as author_id,
 					u.username as author_username,
@@ -72,7 +72,7 @@ export class ContentService {
 
 							// Prepare statements for reuse
 							const childContentQuery = this.db.prepare(`
-							SELECT 
+							SELECT
 								c.*,
 								u.id as author_id,
 								u.username as author_username,
@@ -307,52 +307,36 @@ export class ContentService {
 		return result?.total || 0
 	}
 
-	addContent(data: {
-		title: string
-		slug: string
-		description: string
-		type: string
-		status: string
-		body: string
-		tags: string[]
-		metadata?: any
-		children?: string
-		created_at?: string
-		updated_at?: string
-		published_at?: string
-		author_id?: string
-	}) {
+	async addContent(data: CreateContent) {
 		const id = crypto.randomUUID()
-		const now = new Date().toISOString()
 
-		// Convert markdown body to HTML
-		const renderedBody = data.body ? marked(data.body) : null
+		// Build params object with all required fields
+		const params = {
+			id,
+			title: data.title,
+			type: data.type,
+			status: data.status,
+			body: 'body' in data ? data.body : null,
+			rendered_body: 'rendered_body' in data ? data.rendered_body : null,
+			slug: data.slug,
+			description: data.description,
+			metadata: data.metadata ? JSON.stringify(data.metadata) : null,
+			children: 'children' in data ? JSON.stringify(data.children) : null,
+			published_at: null
+		}
 
-		this.db
-			.prepare(
-				`
-			INSERT INTO content (
-				id, title, slug, description, type, status,
-				body, rendered_body, metadata, children, created_at, updated_at, published_at,
-				likes, saves
-			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)
-		`
-			)
-			.run(
-				id,
-				data.title,
-				data.slug,
-				data.description,
-				data.type,
-				data.status,
-				data.body,
-				renderedBody,
-				data.metadata ? JSON.stringify(data.metadata) : null,
-				data.children || null,
-				data.created_at || now,
-				data.updated_at || now,
-				data.published_at || (data.status === 'published' ? now : null)
-			)
+		const stmt = this.db.prepare(`
+        INSERT INTO content (
+            id, title, type, status, body, rendered_body,
+            slug, description, metadata, children, published_at
+        ) VALUES (
+            $id, $title, $type, $status, $body, $rendered_body,
+            $slug, $description, $metadata, $children, $published_at
+        )
+    `)
+
+		// Cast to any to bypass TypeScript's strict checking
+		const res = stmt.run(params)
 
 		// Add author if present
 		if (data.author_id) {
@@ -361,7 +345,11 @@ export class ContentService {
 					.prepare(`INSERT INTO content_to_users (content_id, user_id) VALUES (?, ?)`)
 					.run(id, data.author_id)
 			} catch (error) {
-				console.error('Failed to add author relationship:', { contentId: id, authorId: data.author_id, error })
+				console.error('Failed to add author relationship:', {
+					contentId: id,
+					authorId: data.author_id,
+					error
+				})
 				throw error
 			}
 		}
