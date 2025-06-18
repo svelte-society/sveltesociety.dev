@@ -48,7 +48,7 @@
 	}
 </script>
 
-<div class="rounded-md border-2 border-slate-200 p-4">
+<div class="space-y-2 rounded-md border-2 border-slate-200 p-4">
 	<DynamicInput
 		{name}
 		{label}
