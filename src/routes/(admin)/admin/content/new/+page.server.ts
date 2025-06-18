@@ -1,5 +1,5 @@
 import { superValidate } from 'sveltekit-superforms'
-import { fail, redirect } from '@sveltejs/kit'
+import { fail } from '@sveltejs/kit'
 import { zod } from 'sveltekit-superforms/adapters'
 import type { Actions, PageServerLoad } from './$types'
 
