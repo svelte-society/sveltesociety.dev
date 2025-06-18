@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const typeSchema = z.enum(['recipe', 'video', 'library', 'announcement', 'collection'])
+export const typeSchema = z.enum(['video', 'library', 'announcement', 'collection', 'recipe'])
 export const statusSchema = z.enum(['draft', 'published', 'archived'])
 
 const baseContentSchema = z.object({
@@ -9,11 +9,13 @@ const baseContentSchema = z.object({
 	slug: z.string(),
 	description: z.string().min(10),
 	status: statusSchema,
+	type: typeSchema,
 	author: z.string().optional(),
 	tags: z.array(z.string()).min(1, 'At least one tag is required'),
 	created_at: z.string(),
 	updated_at: z.string(),
 	published_at: z.string().nullable(),
+	metadata: z.any().optional(),
 	likes: z.number(),
 	saves: z.number(),
 	liked: z.boolean(),
@@ -40,6 +42,8 @@ const createKeysToOmit = {
 const videoContentSchema = z.object({
 	...baseContentSchema.shape,
 	type: z.literal('video'),
+	body: z.string(),
+	rendered_body: z.string(),
 	metadata: z.object({
 		channelTitle: z.string().optional(),
 		publishedAt: z.string().optional(),
@@ -140,6 +144,8 @@ const createRecipeContentSchema = recipeContentSchema.omit(createKeysToOmit)
 
 const announcementContentSchema = z.object({
 	...baseContentSchema.shape,
+	body: z.string(),
+	rendered_body: z.string(),
 	type: z.literal('announcement')
 })
 
