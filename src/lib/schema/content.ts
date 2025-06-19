@@ -5,12 +5,11 @@ export const statusSchema = z.enum(['draft', 'published', 'archived'])
 
 const baseContentSchema = z.object({
 	id: z.string(),
-	title: z.string(),
-	slug: z.string(),
-	description: z.string().min(10),
+	title: z.string().min(1, 'Title is required'),
+	slug: z.string().min(1, 'Slug is required'),
+	description: z.string().min(1, 'Description is required'),
 	status: statusSchema,
 	type: typeSchema,
-	author: z.string().optional(),
 	tags: z.array(z.string()).min(1, 'At least one tag is required'),
 	created_at: z.string(),
 	updated_at: z.string(),
@@ -132,7 +131,7 @@ const createLibraryContentSchema = libraryContentSchema.omit(createKeysToOmit)
 
 const recipeContentSchema = z.object({
 	...baseContentSchema.shape,
-	body: z.string(),
+	body: z.string().min(1, 'Body is required'),
 	rendered_body: z.string(),
 	type: z.literal('recipe')
 })
@@ -142,7 +141,7 @@ const createRecipeContentSchema = recipeContentSchema.omit(createKeysToOmit)
 
 const announcementContentSchema = z.object({
 	...baseContentSchema.shape,
-	body: z.string(),
+	body: z.string().min(1, 'Body is required'),
 	rendered_body: z.string(),
 	type: z.literal('announcement')
 })
@@ -152,10 +151,10 @@ const createAnnouncementContentSchema = announcementContentSchema.omit(createKey
 
 const collectionContentSchema = z.object({
 	...baseContentSchema.shape,
-	body: z.string(),
+	body: z.string().min(1, 'Body is required'),
 	rendered_body: z.string(),
 	type: z.literal('collection'),
-	children: z.array(z.string())
+	children: z.array(z.string()).min(1, 'At least one child is required')
 })
 
 const updateCollectionContentSchema = collectionContentSchema.omit(updateKeysToOmit)
