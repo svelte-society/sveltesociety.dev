@@ -1,7 +1,5 @@
 import type { z } from 'zod'
 import type { Type as ContentType } from '$lib/types/content'
-import type { Tag } from '$lib/types/tags'
-import type { Role } from '$lib/types/roles'
 
 // Content status type
 export type ContentStatus = 'draft' | 'pending_review' | 'published' | 'archived'

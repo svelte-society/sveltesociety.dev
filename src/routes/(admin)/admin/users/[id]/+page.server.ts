@@ -1,5 +1,5 @@
 import { superValidate } from 'sveltekit-superforms'
-import { zod } from 'sveltekit-superforms/adapters'
+import { zod4 } from 'sveltekit-superforms/adapters'
 import { fail, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 import { schema } from './schema'
@@ -22,7 +22,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		avatar_url: userFromDb.avatar_url || ''
 	}
 
-	const form = await superValidate(user, zod(schema))
+	const form = await superValidate(user, zod4(schema))
 
 	return {
 		user: userFromDb,
@@ -33,7 +33,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
-		const form = await superValidate(request, zod(schema))
+		const form = await superValidate(request, zod4(schema))
 
 		if (!form.valid) {
 			return fail(400, { form })

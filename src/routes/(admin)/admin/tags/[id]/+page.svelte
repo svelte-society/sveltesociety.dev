@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/ui/Button.svelte'
 	import Input from '$lib/ui/form/Input.svelte'
-	import { zod } from 'sveltekit-superforms/adapters'
+	import { zod4 } from 'sveltekit-superforms/adapters'
 	import { superForm } from 'sveltekit-superforms'
 	import { slugify } from '$lib/utils/slug'
 	import { z } from 'zod'
@@ -14,7 +14,7 @@
 	})
 
 	let { data } = $props()
-	const { form, errors, enhance } = superForm(data.form, zod(schema))
+	const { form, errors, enhance } = superForm(data.form)
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">

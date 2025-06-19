@@ -1,7 +1,7 @@
 import { fail } from '@sveltejs/kit'
 import { superValidate } from 'sveltekit-superforms'
 import { schema } from './schema'
-import { zod } from 'sveltekit-superforms/adapters'
+import { zod4 } from 'sveltekit-superforms/adapters'
 import type { PageServerLoad } from './$types'
 import type { Content } from '$lib/types/content'
 
@@ -48,7 +48,7 @@ const sortOptions = [
 ]
 
 export const load: PageServerLoad = async ({ url, locals, params }) => {
-	const filters = await superValidate(url, zod(schema))
+	const filters = await superValidate(url, zod4(schema))
 
 	let content = []
 

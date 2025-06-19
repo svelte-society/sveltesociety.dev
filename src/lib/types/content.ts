@@ -1,4 +1,9 @@
-import { typeSchema, contentSchema, updateContentSchema } from '$lib/schema/content'
+import {
+	typeSchema,
+	contentSchema,
+	updateContentSchema,
+	createContentSchema
+} from '$lib/schema/content'
 import type { TagType } from '$lib/ui/Tags.svelte'
 import { z } from 'zod'
 
@@ -6,13 +11,7 @@ export type Type = z.infer<typeof typeSchema>
 
 export type Content = z.infer<typeof contentSchema>
 export type UpdateContent = z.infer<typeof updateContentSchema>
-
-// Extended content type with author information
-export interface ContentWithAuthor extends Content {
-	author_id?: string
-	author_username?: string
-	author_name?: string
-}
+export type CreateContent = z.infer<typeof createContentSchema>
 
 // Content filtering options
 export interface ContentFilters {

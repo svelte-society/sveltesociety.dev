@@ -1,8 +1,8 @@
 import { superValidate, message } from 'sveltekit-superforms/server'
 import { fail } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
-import { zod } from 'sveltekit-superforms/adapters'
-import { z } from 'zod'
+import { zod4 } from 'sveltekit-superforms/adapters'
+import { z } from 'zod/v4'
 
 const toggleSchema = z.object({
 	id: z.string().min(1, 'Placement ID is required')
@@ -20,8 +20,8 @@ export const load = (async ({ locals }) => {
 
 	const placements = locals.announcementService.getAllPlacements()
 
-	const toggleForm = await superValidate(zod(toggleSchema))
-	const deleteForm = await superValidate(zod(deleteSchema))
+	const toggleForm = await superValidate(zod4(toggleSchema))
+	const deleteForm = await superValidate(zod4(deleteSchema))
 
 	return {
 		announcements,
@@ -37,7 +37,7 @@ export const load = (async ({ locals }) => {
 
 export const actions = {
 	toggle: async ({ request, locals }) => {
-		const form = await superValidate(request, zod(toggleSchema))
+		const form = await superValidate(request, zod4(toggleSchema))
 
 		if (!form.valid) {
 			return fail(400, { form })
@@ -66,7 +66,7 @@ export const actions = {
 	},
 
 	delete: async ({ request, locals }) => {
-		const form = await superValidate(request, zod(deleteSchema))
+		const form = await superValidate(request, zod4(deleteSchema))
 
 		if (!form.valid) {
 			return fail(400, { form })

@@ -1,11 +1,11 @@
 import { superValidate } from 'sveltekit-superforms'
-import { zod } from 'sveltekit-superforms/adapters'
+import { zod4 } from 'sveltekit-superforms/adapters'
 import type { PageServerLoad, Actions } from './$types'
 import { tagSchema } from '$lib/schema/tags'
 import { handleFormAction, ADMIN_ROUTES } from '$lib/admin'
 
 export const load: PageServerLoad = async () => {
-	const form = await superValidate(zod(tagSchema))
+	const form = await superValidate(zod4(tagSchema))
 	return { form }
 }
 

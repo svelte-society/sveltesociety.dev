@@ -1,8 +1,8 @@
 import type { PageServerLoad, Actions } from './$types'
 import { fail } from '@sveltejs/kit'
 import { superValidate } from 'sveltekit-superforms/server'
-import { zod } from 'sveltekit-superforms/adapters'
-import { z } from 'zod'
+import { zod4 } from 'sveltekit-superforms/adapters'
+import { z } from 'zod/v4'
 import { YouTubeImporter } from '$lib/server/services/importers/youtube'
 import { GitHubImporter } from '$lib/server/services/importers/github'
 
@@ -37,7 +37,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	const githubContent = locals.externalContentService.getContentBySource('github')
 
 	// Initialize unified form
-	const importForm = await superValidate(zod(importSchema))
+	const importForm = await superValidate(zod4(importSchema))
 
 	return {
 		importForm,
@@ -67,7 +67,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 export const actions = {
 	import: async ({ request, locals }) => {
-		const form = await superValidate(request, zod(importSchema))
+		const form = await superValidate(request, zod4(importSchema))
 
 		if (!form.valid) {
 			return fail(400, { form })

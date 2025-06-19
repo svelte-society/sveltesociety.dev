@@ -1,8 +1,8 @@
 import { error, fail, redirect } from '@sveltejs/kit'
 import { superValidate } from 'sveltekit-superforms/server'
-import { zod } from 'sveltekit-superforms/adapters'
+import { zod4 } from 'sveltekit-superforms/adapters'
 import type { PageServerLoad, Actions } from './$types'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
 const schema = z.object({
 	id: z.string(),
@@ -17,14 +17,14 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		throw error(404, 'Tag not found')
 	}
 
-	const form = await superValidate(tag, zod(schema))
+	const form = await superValidate(tag, zod4(schema))
 
 	return { form }
 }
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
-		const form = await superValidate(request, zod(schema))
+		const form = await superValidate(request, zod4(schema))
 
 		if (!form.valid) {
 			return fail(400, { form })

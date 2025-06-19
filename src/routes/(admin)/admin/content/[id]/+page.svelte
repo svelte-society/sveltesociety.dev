@@ -10,7 +10,7 @@
 	// Setup form with client-side validation
 	let form = superForm(data.form, {
 		invalidateAll: 'force',
-		dataType: 'json', // Enable JSON data type for nested objects like metadata
+		dataType: 'json',
 		onUpdated: ({ form }) => {
 			form?.message?.success ? toast.success(form.message.text) : toast.error(form.message.text)
 		}

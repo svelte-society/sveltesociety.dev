@@ -1,9 +1,9 @@
 import type { PageServerLoad, Actions } from './$types'
 import { superValidate } from 'sveltekit-superforms/server'
 import { fail } from '@sveltejs/kit'
-import { zod } from 'sveltekit-superforms/adapters'
+import { zod4 } from 'sveltekit-superforms/adapters'
 import { message } from 'sveltekit-superforms/server'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
 const bulkImportSchema = z.object({
 	urls: z.string().min(1, 'At least one URL is required'),
@@ -12,7 +12,7 @@ const bulkImportSchema = z.object({
 })
 
 export const load: PageServerLoad = async () => {
-	const form = await superValidate(zod(bulkImportSchema))
+	const form = await superValidate(zod4(bulkImportSchema))
 
 	return {
 		form
@@ -21,7 +21,7 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 	import: async ({ request, fetch }) => {
-		const form = await superValidate(request, zod(bulkImportSchema))
+		const form = await superValidate(request, zod4(bulkImportSchema))
 
 		form.data.urls = form.data.urls
 			.split('\n')

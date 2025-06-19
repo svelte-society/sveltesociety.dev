@@ -1,7 +1,7 @@
 import { superValidate, message } from 'sveltekit-superforms/server'
 import { fail, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
-import { zod } from 'sveltekit-superforms/adapters'
+import { zod4 } from 'sveltekit-superforms/adapters'
 import { schema } from './schema'
 
 // Helper function to extract YouTube video ID from URL
@@ -25,7 +25,6 @@ function extractYouTubeVideoId(url: string): string | null {
 function parseGitHubRepo(
 	input: string
 ): { owner: string; repo: string } | { owner: null; repo: null } {
-	// Handle GitHub URL format
 	const urlPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
 	const urlMatch = input.match(urlPattern)
 	if (urlMatch) {
@@ -35,7 +34,6 @@ function parseGitHubRepo(
 		}
 	}
 
-	// Handle owner/repo format
 	const repoPattern = /^([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)$/
 	const repoMatch = input.match(repoPattern)
 	if (repoMatch) {
@@ -49,16 +47,13 @@ function parseGitHubRepo(
 }
 
 export const load = (async ({ locals, url }) => {
-	// Require authentication to access submit page
 	if (!locals.user) {
 		throw redirect(302, '/login?redirectTo=' + encodeURIComponent(url.pathname))
 	}
 
-	// Get all available tags for the form
 	const tags = locals.tagService.getTags({ limit: 50 })
 
-	// Create the form using Superforms with the zod adapter and default to recipe type
-	const form = await superValidate(zod(schema))
+	const form = await superValidate(zod4(schema))
 
 	return {
 		form,
@@ -81,7 +76,7 @@ export const actions = {
 			})
 		}
 
-		const form = await superValidate(request, zod(schema))
+		const form = await superValidate(request, zod4(schema))
 
 		// Validate the form data
 		if (!form.valid) {

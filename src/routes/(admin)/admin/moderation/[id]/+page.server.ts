@@ -212,13 +212,7 @@ export const actions: Actions = {
 					}
 				}
 
-				if (item.type === 'link' && submissionData.url) {
-					contentData.body = submissionData.url
-					contentData.metadata = {
-						...contentData.metadata,
-						url: submissionData.url
-					}
-				} else if (item.type === 'recipe' && submissionData.body) {
+				if (item.type === 'recipe' && submissionData.body) {
 					contentData.body = submissionData.body
 				} else {
 					// Fallback

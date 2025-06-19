@@ -1,18 +1,18 @@
 import { superValidate, message } from 'sveltekit-superforms/server'
 import { fail, redirect, error } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
-import { zod } from 'sveltekit-superforms/adapters'
+import { zod4 } from 'sveltekit-superforms/adapters'
 import { placementSchema } from '../schema'
 
 export const load = (async ({ params, locals }) => {
 	const placement = locals.announcementService.getPlacementById(params.id)
-	
+
 	if (!placement) {
 		error(404, 'Placement not found')
 	}
 
-	const form = await superValidate(placement, zod(placementSchema))
-	
+	const form = await superValidate(placement, zod4(placementSchema))
+
 	const announcements = locals.contentService.getFilteredContent({
 		type: 'announcement',
 		status: 'published'
@@ -34,7 +34,7 @@ export const load = (async ({ params, locals }) => {
 
 export const actions = {
 	default: async ({ request, params, locals }) => {
-		const form = await superValidate(request, zod(placementSchema))
+		const form = await superValidate(request, zod4(placementSchema))
 
 		if (!form.valid) {
 			return fail(400, { form })

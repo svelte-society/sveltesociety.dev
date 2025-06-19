@@ -1,17 +1,17 @@
 import { superValidate, message } from 'sveltekit-superforms'
-import { zod } from 'sveltekit-superforms/adapters'
+import { zod4 } from 'sveltekit-superforms/adapters'
 import { fail, redirect } from '@sveltejs/kit'
 import { createRoleSchema } from '$lib/schema/roles'
 
 export const load = async () => {
-	const form = await superValidate(zod(createRoleSchema))
+	const form = await superValidate(zod4(createRoleSchema))
 	return {
 		form
 	}
 }
 export const actions = {
 	default: async ({ request, locals }) => {
-		const form = await superValidate(request, zod(createRoleSchema))
+		const form = await superValidate(request, zod4(createRoleSchema))
 
 		if (!form.valid) {
 			return fail(400, { form })

@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
 export const typeSchema = z.enum(['video', 'library', 'announcement', 'collection', 'recipe'])
 export const statusSchema = z.enum(['draft', 'published', 'archived'])
@@ -38,8 +38,7 @@ const createKeysToOmit = {
 	id: true
 } as const
 
-const videoContentSchema = z.object({
-	...baseContentSchema.shape,
+const videoContentSchema = baseContentSchema.extend({
 	type: z.literal('video'),
 	metadata: z.object({
 		channelTitle: z.string().optional(),
@@ -87,8 +86,7 @@ const videoContentSchema = z.object({
 const updateVideoContentSchema = videoContentSchema.omit(updateKeysToOmit)
 const createVideoContentSchema = videoContentSchema.omit(createKeysToOmit)
 
-const libraryContentSchema = z.object({
-	...baseContentSchema.shape,
+const libraryContentSchema = baseContentSchema.extend({
 	type: z.literal('library'),
 	metadata: z.object({
 		npm: z.string().optional(),
@@ -129,8 +127,7 @@ const libraryContentSchema = z.object({
 const updateLibraryContentSchema = libraryContentSchema.omit(updateKeysToOmit)
 const createLibraryContentSchema = libraryContentSchema.omit(createKeysToOmit)
 
-const recipeContentSchema = z.object({
-	...baseContentSchema.shape,
+const recipeContentSchema = baseContentSchema.extend({
 	body: z.string().min(1, 'Body is required'),
 	rendered_body: z.string(),
 	type: z.literal('recipe')
@@ -139,8 +136,7 @@ const recipeContentSchema = z.object({
 const updateRecipeContentSchema = recipeContentSchema.omit(updateKeysToOmit)
 const createRecipeContentSchema = recipeContentSchema.omit(createKeysToOmit)
 
-const announcementContentSchema = z.object({
-	...baseContentSchema.shape,
+const announcementContentSchema = baseContentSchema.extend({
 	body: z.string().min(1, 'Body is required'),
 	rendered_body: z.string(),
 	type: z.literal('announcement')
@@ -149,8 +145,7 @@ const announcementContentSchema = z.object({
 const updateAnnouncementContentSchema = announcementContentSchema.omit(updateKeysToOmit)
 const createAnnouncementContentSchema = announcementContentSchema.omit(createKeysToOmit)
 
-const collectionContentSchema = z.object({
-	...baseContentSchema.shape,
+const collectionContentSchema = baseContentSchema.extend({
 	body: z.string().min(1, 'Body is required'),
 	rendered_body: z.string(),
 	type: z.literal('collection'),
@@ -184,3 +179,38 @@ export const createContentSchema = z.discriminatedUnion('type', [
 	createAnnouncementContentSchema,
 	createCollectionContentSchema
 ])
+
+export const contentFilterSchema = z.object({
+	status: statusSchema.optional(),
+	type: typeSchema.optional(),
+	search: z.string().optional(),
+	tags: z.array(z.string()).optional(),
+	page: z.number().min(1).default(1),
+	limit: z.number().min(1).max(100).default(20)
+})
+
+// External content import schemas
+export const importYouTubeSchema = z.object({
+	channelId: z.string().min(1, 'Channel ID is required'),
+	maxResults: z.number().min(1).max(50).default(10)
+})
+
+export const importGitHubSchema = z.object({
+	username: z.string().min(1, 'Username is required'),
+	includeForked: z.boolean().default(false),
+	maxResults: z.number().min(1).max(100).default(20)
+})
+
+export const bulkImportSchema = z.object({
+	items: z.array(
+		z.object({
+			type: typeSchema,
+			title: z.string().min(1),
+			description: z.string().min(1),
+			body: z.string().optional(),
+			metadata: z.record(z.any(), z.any()).optional(),
+			tags: z.array(z.string()).optional(),
+			status: statusSchema.default('draft')
+		})
+	)
+})

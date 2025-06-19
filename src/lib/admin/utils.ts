@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit'
 import { superValidate, message } from 'sveltekit-superforms'
-import { zod } from 'sveltekit-superforms/adapters'
-import type { z } from 'zod'
+import { zod4 } from 'sveltekit-superforms/adapters'
+import type { z } from 'zod/v4'
 
 /**
  * Common pattern for handling form submissions in admin pages
@@ -21,7 +21,7 @@ export async function handleFormAction<T extends z.ZodSchema>({
 	redirectTo?: string
 	errorMessage?: string
 }) {
-	const form = await superValidate(request, zod(schema))
+	const form = await superValidate(request, zod4(schema))
 
 	if (!form.valid) {
 		return fail(400, { form })
@@ -33,26 +33,24 @@ export async function handleFormAction<T extends z.ZodSchema>({
 		if (successMessage) {
 			message(form, { type: 'success', text: successMessage })
 		}
-
-		if (redirectTo) {
-			redirect(303, redirectTo)
-		}
-
-		return { form }
 	} catch (error) {
 		console.error('Form action error:', error)
 
 		const errorText = error instanceof Error ? error.message : errorMessage
 
+		message(form, { type: 'error', text: errorText })
 		if (successMessage) {
-			// If using message, return with error message
-			message(form, { type: 'error', text: errorText })
 			return fail(500, { form })
 		} else {
-			// Otherwise just fail with form
 			return fail(500, { form, error: errorText })
 		}
 	}
+
+	if (redirectTo) {
+		redirect(303, redirectTo)
+	}
+
+	return { form }
 }
 
 /**
