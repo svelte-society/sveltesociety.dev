@@ -3295,5 +3295,13 @@
 		"description": "Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS.",
 		"npm": "@fvilers/heroicons-svelte",
 		"categories": ["icons"]
+	},
+	{
+		"title": "Svelte Vega",
+		"url": "https://vega.github.io/",
+		"repository": "https://github.com/vega/svelte-vega",
+		"description": "Use Vega and Vega-lite charts in your Svelte application",
+		"npm": "svelte-vega",
+		"categories": ["data-visualisation"]
 	}
 ]
