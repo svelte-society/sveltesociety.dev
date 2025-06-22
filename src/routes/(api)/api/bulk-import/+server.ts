@@ -4,22 +4,19 @@ import { z } from 'zod'
 import { YouTubeImporter } from '$lib/server/services/importers/youtube'
 import { GitHubImporter } from '$lib/server/services/importers/github'
 
-// Schema for bulk import request
 const bulkImportSchema = z.object({
 	urls: z
 		.array(z.string())
 		.min(1, 'At least one URL is required')
 		.max(50, 'Maximum 50 URLs allowed'),
-	// Optional settings
 	options: z
 		.object({
-			skipExisting: z.boolean().default(true), // Skip URLs that are already imported
-			batchSize: z.number().min(1).max(10).default(5) // Process in batches to avoid rate limits
+			skipExisting: z.boolean().default(true),
+			batchSize: z.number().min(1).max(10).default(5)
 		})
 		.optional()
 })
 
-// Type for import results
 interface ImportResult {
 	url: string
 	success: boolean
@@ -29,21 +26,17 @@ interface ImportResult {
 }
 
 export const POST: RequestHandler = async ({ request, locals }) => {
-	// Check for API key in Authorization header
 	const authHeader = request.headers.get('Authorization')
 	const apiKey = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : null
 
-	// Check if API key matches the environment variable
 	const validApiKey = import.meta.env.VITE_BULK_IMPORT_API_KEY || process.env.BULK_IMPORT_API_KEY
 	const isApiKeyValid = validApiKey && apiKey === validApiKey
 
-	// If API key is not valid, check if user is authenticated
 	if (!isApiKeyValid) {
 		if (!locals.user) {
 			throw error(401, 'Unauthorized - API key or authentication required')
 		}
 
-		// Check if user has admin or moderator role
 		const userRole = locals.roleService.getRoleById(locals.user.role)
 		const isAuthorized =
 			userRole && userRole.active && (userRole.value === 'admin' || userRole.value === 'moderator')
@@ -64,24 +57,20 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		const { urls, options = { skipExisting: true, batchSize: 5 } } = validation.data
 		const results: ImportResult[] = []
 
-		// Patterns for detecting content type
 		const youtubePattern =
 			/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
 		const videoIdPattern = /^[a-zA-Z0-9_-]{11}$/
 		const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
 		const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/
 
-		// Process URLs in batches
 		for (let i = 0; i < urls.length; i += options.batchSize) {
 			const batch = urls.slice(i, i + options.batchSize)
 
-			// Process batch concurrently
 			const batchResults = await Promise.all(
 				batch.map(async (url) => {
 					const result: ImportResult = { url, success: false }
 
 					try {
-						// Detect content type
 						let contentType: 'youtube' | 'github' | null = null
 
 						if (youtubePattern.test(url) || videoIdPattern.test(url)) {
@@ -97,17 +86,14 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
 						result.type = contentType
 
-						// Handle YouTube import
 						if (contentType === 'youtube') {
 							let videoId = url
 
-							// Extract video ID from URL if needed
 							const urlMatch = url.match(youtubePattern)
 							if (urlMatch) {
 								videoId = urlMatch[1]
 							}
 
-							// Check if already exists
 							if (options.skipExisting) {
 								const existing = locals.externalContentService.getContentByExternalId(
 									'youtube',
@@ -135,21 +121,17 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 							}
 						}
 
-						// Handle GitHub import
 						if (contentType === 'github') {
 							let owner: string, repo: string
 
-							// Extract owner and repo from URL or direct format
 							const urlMatch = url.match(githubPattern)
 							if (urlMatch) {
 								owner = urlMatch[1]
-								repo = urlMatch[2].replace(/\.git$/, '') // Remove .git suffix if present
+								repo = urlMatch[2].replace(/\.git$/, '')
 							} else {
-								// Assume owner/repo format
 								;[owner, repo] = url.split('/')
 							}
 
-							// Check if already exists
 							if (options.skipExisting) {
 								const externalId = `${owner}/${repo}`
 								const existing = locals.externalContentService.getContentByExternalId(

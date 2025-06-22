@@ -23,7 +23,7 @@ export const actions: Actions = {
 	import: async ({ request, fetch }) => {
 		const form = await superValidate(request, zod4(bulkImportSchema))
 
-		form.data.urls = form.data.urls
+		const urls = form.data.urls
 			.split('\n')
 			.map((url: string) => url.trim())
 			.filter((url: string) => url.length > 0)
@@ -38,14 +38,16 @@ export const actions: Actions = {
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify(form.data)
+				body: JSON.stringify({ ...form.data, urls })
 			})
 
 			const result = await res.json()
 
+			console.log(result)
+
 			return message(form, {
 				type: 'success',
-				text: `Successfully imported ${result.length} item(s).`
+				text: `Successfully imported ${result.results.length} item(s).`
 			})
 		} catch (error) {
 			console.error('Error bulk importing content:', error)
