@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client'
-	import { zodClient } from 'sveltekit-superforms/adapters'
-	import { z } from 'zod'
+	import { zod4 } from 'sveltekit-superforms/adapters'
+	import { z } from 'zod/v4'
 	import Form from '$lib/ui/form/Form.svelte'
 	import Input from '$lib/ui/form/Input.svelte'
 	import Button from '$lib/ui/Button.svelte'
@@ -39,7 +39,7 @@
 
 	// Initialize unified import form
 	const importFormInstance = superForm(data.importForm || { url: '' }, {
-		validators: zodClient(importSchema),
+		validators: zod4(importSchema),
 		resetForm: true
 	})
 

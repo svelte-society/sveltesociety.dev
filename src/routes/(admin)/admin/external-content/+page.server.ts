@@ -6,20 +6,15 @@ import { z } from 'zod/v4'
 import { YouTubeImporter } from '$lib/server/services/importers/youtube'
 import { GitHubImporter } from '$lib/server/services/importers/github'
 
-// Unified schema for importing content
 const importSchema = z.object({
 	url: z
 		.string()
 		.min(1, 'URL is required')
 		.refine((val) => {
-			// Check if it's a YouTube URL
 			const youtubePattern =
 				/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
-			// Check if it's a GitHub URL
 			const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
-			// Check if it's a YouTube video ID
 			const videoIdPattern = /^[a-zA-Z0-9_-]{11}$/
-			// Check if it's a GitHub owner/repo format
 			const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/
 
 			return (
@@ -32,11 +27,9 @@ const importSchema = z.object({
 })
 
 export const load: PageServerLoad = async ({ locals }) => {
-	// Get content from various external sources
 	const youtubeContent = locals.externalContentService.getContentBySource('youtube')
 	const githubContent = locals.externalContentService.getContentBySource('github')
 
-	// Initialize unified form
 	const importForm = await superValidate(zod4(importSchema))
 
 	return {
@@ -75,19 +68,16 @@ export const actions = {
 
 		const url = form.data.url
 
-		// Detect content type
 		const youtubePattern =
 			/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
 		const videoIdPattern = /^[a-zA-Z0-9_-]{11}$/
 		const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
 		const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/
 
-		// Handle YouTube import
 		if (youtubePattern.test(url) || videoIdPattern.test(url)) {
 			try {
 				let videoId = url
 
-				// Extract video ID from URL if needed
 				const urlMatch = url.match(youtubePattern)
 				if (urlMatch) {
 					videoId = urlMatch[1]
@@ -114,18 +104,15 @@ export const actions = {
 			}
 		}
 
-		// Handle GitHub import
 		if (githubPattern.test(url) || repoPattern.test(url)) {
 			try {
 				let owner: string, repo: string
 
-				// Extract owner and repo from URL or direct format
 				const urlMatch = url.match(githubPattern)
 				if (urlMatch) {
 					owner = urlMatch[1]
-					repo = urlMatch[2].replace(/\.git$/, '') // Remove .git suffix if present
+					repo = urlMatch[2].replace(/\.git$/, '')
 				} else {
-					// Assume owner/repo format
 					;[owner, repo] = url.split('/')
 				}
 
@@ -151,7 +138,6 @@ export const actions = {
 			}
 		}
 
-		// Should not reach here due to validation
 		return fail(400, {
 			error: 'Invalid URL format'
 		})
