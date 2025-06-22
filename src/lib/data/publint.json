@@ -316,7 +316,6 @@
 	"supasveltekit": { "valid": true },
 	"@jill64/sveltekit-adapter-aws": { "valid": true },
 	"@jill64/sentry-sveltekit-cloudflare": { "valid": true },
-	"@jill64/sentry-sveltekit-edge": { "valid": true },
 	"sveltekit-adapter-versioned-worker": { "valid": true },
 	"layerchart": { "valid": true },
 	"@egjs/svelte-flicking": { "valid": false },
@@ -457,5 +456,6 @@
 	"svelte-adapter-bun-next": { "valid": true },
 	"@nvl/sveltex": { "valid": true },
 	"svelteplot": { "valid": true },
-	"@fvilers/heroicons-svelte": { "valid": true }
+	"@fvilers/heroicons-svelte": { "valid": true },
+	"svelte-vega": { "valid": true }
 }
