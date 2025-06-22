@@ -33,7 +33,7 @@
 <button
 	type="button"
 	onclick={() => (showDialog = !showDialog)}
-	class="text-red-600 hover:text-red-900"
+	class="cursor-pointer text-red-600 hover:text-red-900"
 	aria-label="Delete item"
 >
 	<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -47,7 +47,7 @@
 </button>
 
 {#if showDialog}
-	<div class="bg-opacity-50 fixed inset-0 z-5000 flex items-center justify-center bg-black">
+	<div class="fixed inset-0 z-5000 flex items-center justify-center bg-black/30">
 		<div class="rounded-lg bg-white p-6 shadow-xl">
 			<h2 class="mb-4 text-xl font-bold">{title}</h2>
 			{#if children}
