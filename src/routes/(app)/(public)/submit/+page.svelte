@@ -2,6 +2,7 @@
 	import { superForm } from 'sveltekit-superforms/client'
 	import Form from '$lib/ui/form/Form.svelte'
 	import Input from '$lib/ui/form/Input.svelte'
+	import MarkdownEditor from '$lib/ui/form/MarkdownEditor.svelte'
 	import SuperDebug from 'sveltekit-superforms'
 	import { options } from './schema'
 	import Textarea from '$lib/ui/form/Textarea.svelte'
@@ -104,19 +105,28 @@
 			{options}
 		/>
 
+		{#if $formData.type === 'recipe'}
+			<Input
+				placeholder="This is a really cool recipe"
+				name="title"
+				label="Title"
+				description="Enter the title of your recipe"
+			/>
+		{/if}
+
 		<Textarea
 			placeholder="Enter a description..."
 			name="description"
 			label="Description"
-			description="Enter the description of your content submission."
+			description="Enter the description of your content submission. This should be a short and succinct version of the body that gives the reader an idea of what the content is about. Not more than a few sentences."
 		/>
 
 		{#if $formData.type === 'recipe'}
-			<Textarea
+			<MarkdownEditor
 				placeholder="Enter the recipe content, instructions, and code examples..."
 				name="body"
 				label="Recipe Content"
-				description="Provide the full recipe content including instructions and code"
+				description="Provide the full recipe content including instructions and code. Use markdown to format your content."
 			/>
 		{:else if $formData.type === 'video'}
 			<Input

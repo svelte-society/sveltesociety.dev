@@ -38,7 +38,7 @@ export interface ExternalContentData {
 	title: string
 	description?: string
 	body?: string
-	type: 'event' | 'video' | 'blog' | 'library' | 'link'
+	type: 'recipe' | 'video' | 'library'
 	metadata: any
 	tags?: string[]
 	source: ExternalContentSource
@@ -58,15 +58,11 @@ export class ExternalContentService {
 	 */
 	async upsertExternalContent(data: ExternalContentData): Promise<string | null> {
 		try {
-			// Check if content already exists by external ID
 			const existing = this.getContentByExternalId(data.source.source, data.source.externalId)
 
-			// Generate a unique slug based on source and external ID
 			const slug = existing?.slug || this.generateSlug(data)
 
-			// Prepare metadata with source information
 			const metadata = {
-				...(existing?.metadata || {}),
 				...data.metadata,
 				externalSource: {
 					...data.source,
@@ -75,8 +71,8 @@ export class ExternalContentService {
 			}
 
 			if (existing) {
-				// Update existing content
-				this.contentService.updateContent(existing.id, {
+				this.contentService.updateContent({
+					id: existing.id,
 					title: data.title,
 					slug: existing.slug,
 					description: data.description || existing.description,
@@ -89,9 +85,8 @@ export class ExternalContentService {
 
 				return existing.id
 			} else {
-				// Create new content
 				const contentId = this.contentService.addContent({
-					title: this.generateUniqueTitle(data),
+					title: data.title,
 					type: data.type,
 					slug,
 					description: data.description || '',
@@ -105,12 +100,6 @@ export class ExternalContentService {
 					published_at: data.publishedAt || new Date().toISOString(),
 					author_id: data.author_id
 				})
-
-				// Add tags if provided
-				if (data.tags && data.tags.length > 0) {
-					// Note: You'll need to implement tag association in ContentService
-					// For now, tags are stored in metadata
-				}
 
 				return contentId
 			}
@@ -287,13 +276,5 @@ export class ExternalContentService {
 		}
 
 		return titleSlug
-	}
-
-	/**
-	 * Generate a unique title for external content
-	 */
-	private generateUniqueTitle(data: ExternalContentData): string {
-		// Return the title as-is without any prefix
-		return data.title
 	}
 }

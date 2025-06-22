@@ -313,7 +313,7 @@ export class ContentService {
 		return result?.total || 0
 	}
 
-	async addContent(data: CreateContent, author_id?: string) {
+	addContent(data: CreateContent, author_id?: string) {
 		const params = {
 			title: data.title,
 			type: data.type,
@@ -418,7 +418,8 @@ export class ContentService {
 			metadata: data.metadata ? JSON.stringify(data.metadata) : null,
 			children: 'children' in data ? JSON.stringify(data.children) : null,
 			published_at:
-				data.published_at || data.status === 'published' ? new Date().toISOString() : null
+				data.published_at || data.status === 'published' ? new Date().toISOString() : null,
+			author_id: data.author_id || null
 		}
 
 		this.db

@@ -56,10 +56,8 @@ export const actions: Actions = {
 			error(404, 'Moderation item not found')
 		}
 
-		// Parse the submission data
 		const submissionData = JSON.parse(item.data)
 
-		// Generate slug from title (or fallback for imported content)
 		const slug = (submissionData.title || `${item.type}-${Date.now()}`)
 			.toLowerCase()
 			.replace(/[^a-z0-9\s-]/g, '')
@@ -70,30 +68,19 @@ export const actions: Actions = {
 		try {
 			let contentId: string
 
-			// Handle type-specific imports using external content services
 			if (item.type === 'video' && submissionData.url) {
-				// Extract YouTube video ID from URL
 				const videoIdMatch = submissionData.url.match(
 					/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
 				)
 				const videoId = videoIdMatch ? videoIdMatch[1] : null
 
-				console.log('Processing video approval:', {
-					url: submissionData.url,
-					videoId,
-					hasApiKey: !!process.env.YOUTUBE_API_KEY,
-					submittedBy: item.submitted_by
-				})
-
 				if (videoId) {
-					// Verify the user exists before importing
 					const submitter = locals.userService.getUser(item.submitted_by)
 					if (!submitter) {
 						console.error('Submitter not found:', item.submitted_by)
 						throw new Error('Submitter user not found in database')
 					}
 
-					// Use YouTube importer for rich metadata
 					const youtubeImporter = new YouTubeImporter(
 						locals.externalContentService,
 						locals.cacheService
@@ -103,8 +90,8 @@ export const actions: Actions = {
 					if (importedContentId) {
 						contentId = importedContentId
 
-						// Update the imported content with moderation metadata
 						const importedContent = locals.contentService.getContentById(importedContentId)
+						console.log('Imported content: ', importedContent)
 						if (importedContent) {
 							const updatedMetadata = {
 								...importedContent.metadata,
@@ -114,13 +101,15 @@ export const actions: Actions = {
 								notes: submissionData.notes || ''
 							}
 
-							locals.contentService.updateContent(importedContentId, {
+							locals.contentService.updateContent({
 								...importedContent,
-								title: submissionData.title || importedContent.title, // Use submitted title or keep imported title
+								id: importedContentId,
+								title: submissionData.title || importedContent.title,
 								description: submissionData.description || importedContent.description,
 								status: 'draft',
 								tags: submissionData.tags || [],
-								metadata: updatedMetadata
+								metadata: updatedMetadata,
+								author_id: item.submitted_by
 							})
 						}
 					} else {
@@ -130,7 +119,6 @@ export const actions: Actions = {
 					throw new Error('Invalid YouTube video URL')
 				}
 			} else if (item.type === 'library' && submissionData.github_repo) {
-				// Parse GitHub repository
 				const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
 				const repoPattern = /^([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)$/
 
@@ -150,14 +138,12 @@ export const actions: Actions = {
 					}
 				}
 
-				// Verify the user exists before importing
 				const submitter = locals.userService.getUser(item.submitted_by)
 				if (!submitter) {
 					console.error('Submitter not found:', item.submitted_by)
 					throw new Error('Submitter user not found in database')
 				}
 
-				// Use GitHub importer for rich metadata
 				const githubImporter = new GitHubImporter(
 					locals.externalContentService,
 					locals.cacheService
@@ -171,7 +157,6 @@ export const actions: Actions = {
 				if (importedContentId) {
 					contentId = importedContentId
 
-					// Update the imported content with moderation metadata
 					const importedContent = locals.contentService.getContentById(importedContentId)
 					if (importedContent) {
 						const updatedMetadata = {
@@ -182,26 +167,28 @@ export const actions: Actions = {
 							notes: submissionData.notes || ''
 						}
 
-						locals.contentService.updateContent(importedContentId, {
+						locals.contentService.updateContent({
 							...importedContent,
+							id: importedContentId,
 							title: submissionData.title || importedContent.title, // Use submitted title or keep imported title
 							description: submissionData.description || importedContent.description,
 							status: 'draft',
 							tags: submissionData.tags || [],
-							metadata: updatedMetadata
+							metadata: updatedMetadata,
+							author_id: item.submitted_by
 						})
 					}
 				} else {
 					throw new Error('Failed to import repository from GitHub')
 				}
 			} else {
-				// Handle other content types (recipe, link) with standard content creation
 				const contentData = {
 					title: submissionData.title || 'Untitled',
 					slug: slug,
 					description: submissionData.description || '',
+					body: submissionData.body,
 					type: item.type,
-					status: 'draft', // Set as draft when approved
+					status: 'draft',
 					tags: submissionData.tags || [],
 					author_id: item.submitted_by,
 					metadata: {
@@ -212,19 +199,11 @@ export const actions: Actions = {
 					}
 				}
 
-				if (item.type === 'recipe' && submissionData.body) {
-					contentData.body = submissionData.body
-				} else {
-					// Fallback
-					contentData.body =
-						submissionData.body || submissionData.url || submissionData.github_repo || ''
-				}
-
-				// Create the content using standard content service
-				contentId = locals.contentService.addContent(contentData)
+				contentId = locals.contentService.addContent(contentData, item.submitted_by)
 			}
 
 			// Only update moderation status and delete from queue if content was created successfully
+			console.log('Content ID: ', contentId)
 			if (contentId) {
 				locals.moderationService.updateModerationStatus(
 					id,
