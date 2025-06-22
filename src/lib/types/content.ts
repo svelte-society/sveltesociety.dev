@@ -5,7 +5,7 @@ import {
 	createContentSchema
 } from '$lib/schema/content'
 import type { TagType } from '$lib/ui/Tags.svelte'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
 export type Type = z.infer<typeof typeSchema>
 
