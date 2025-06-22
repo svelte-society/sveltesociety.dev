@@ -4,10 +4,8 @@
 	import { toast } from 'svelte-sonner'
 	import ContentForm from '../ContentForm.svelte'
 
-	// Get data passed from server
 	let { data } = $props()
 
-	// Setup form with client-side validation
 	let form = superForm(data.form, {
 		invalidateAll: 'force',
 		dataType: 'json',
@@ -16,7 +14,7 @@
 		}
 	})
 
-	const { form: formData, submitting } = form
+	const { form: formData } = form
 
 	const isImported = $derived(data.content?.metadata?.externalSource !== undefined)
 </script>

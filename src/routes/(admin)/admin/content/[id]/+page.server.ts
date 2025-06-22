@@ -15,6 +15,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	}
 
 	const formData = {
+		id: params.id,
 		title: content.title,
 		description: content.description || '',
 		slug: content.slug,
@@ -31,13 +32,10 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 				: undefined
 	}
 
-	// Pre-populate form with existing content
 	const form = await superValidate(formData, zod4(updateContentSchema))
 
-	// Get all tags for the tag selector
 	const tags = locals.tagService.getAllTags()
 
-	// Get available content for collection children selector (exclude collections and current item)
 	const availableContent = locals.contentService
 		.getFilteredContent({
 			status: 'all'
@@ -66,42 +64,16 @@ export const actions: Actions = {
 		}
 
 		try {
-			// Get existing content to preserve metadata for imported content
-			const existingContent = locals.contentService.getContentById(params.id)
+			locals.contentService.updateContent(form.data)
 
-			// Merge metadata - preserve external source info for imported content
-			let metadata = form.data.metadata || {}
-			if (existingContent?.metadata?.externalSource) {
-				metadata = {
-					...existingContent.metadata,
-					...metadata
-				}
-			}
-
-			// Prepare update data
-			const updateData = {
-				...form.data,
-				body: form.data.body || '',
-				metadata,
-				tags: form.data.tags
-			}
-
-			// For collections, add children data
-			if (form.data.type === 'collection' && form.data.children) {
-				updateData.children = JSON.stringify(form.data.children)
-			}
-
-			// Update existing content
-			locals.contentService.updateContent(params.id, updateData)
-
-			const content = locals.contentService.getContentById(params.id) as Content
+			const content = locals.contentService.getContentById(form.data.id) as Content
 
 			if (content.status === 'draft') {
 				locals.searchService.remove(params.id)
 			}
 
 			if (content.status === 'published') {
-				locals.searchService.update(params.id, {
+				locals.searchService.update(form.data.id, {
 					id: content.id,
 					title: content.title,
 					description: content.description,
