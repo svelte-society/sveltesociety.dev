@@ -68,7 +68,6 @@ export const load = (async ({ locals, url }) => {
 
 export const actions = {
 	submit: async ({ request, locals }) => {
-		// Require authentication for form submission
 		if (!locals.user) {
 			return fail(401, {
 				error: 'Authentication required',
@@ -78,13 +77,11 @@ export const actions = {
 
 		const form = await superValidate(request, zod4(schema))
 
-		// Validate the form data
 		if (!form.valid) {
 			return fail(400, { form })
 		}
 
 		try {
-			// Check for duplicates based on content type
 			if (form.data.type === 'video' && 'url' in form.data) {
 				const videoId = extractYouTubeVideoId(form.data.url)
 				if (videoId) {

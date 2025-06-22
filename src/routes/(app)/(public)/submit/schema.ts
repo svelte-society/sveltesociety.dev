@@ -1,26 +1,25 @@
 import { z } from 'zod/v4'
 
-// Available content types for submission
 const types = {
 	recipe: 'Recipe',
 	video: 'Video',
-	library: 'Library',
-	link: 'Link'
+	library: 'Library'
 } as const
+
+export type ContentType = keyof typeof types
 
 export const options = Object.entries(types).map(([value, label]) => ({
 	value,
 	label,
-	type: value
+	type: value as ContentType
 }))
-
-type ContentType = keyof typeof types
 
 // Base schema with common fields
 const baseSchema = z.object({
 	title: z.string().optional(),
 	type: z.enum(Object.keys(types) as [ContentType, ...ContentType[]]),
 	tags: z.array(z.string()).min(1, { message: 'Please select at least one tag' }),
+	description: z.string().min(10, { message: 'Description must be at least 10 characters long' }),
 	notes: z.string().optional()
 })
 
@@ -39,7 +38,6 @@ const librarySchema = baseSchema.extend({
 const recipeSchema = baseSchema.extend({
 	type: z.literal('recipe'),
 	title: z.string().min(5, { message: 'Title must be at least 5 characters long' }),
-	description: z.string().min(10, { message: 'Description must be at least 10 characters long' }),
 	body: z.string().min(10, { message: 'Recipe content must be at least 10 characters long' })
 })
 

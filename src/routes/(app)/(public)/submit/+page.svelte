@@ -20,13 +20,11 @@
 
 	const { form: formData, submitting } = form
 
-	// Preview state
 	let videoPreview = $state<any>(null)
 	let libraryPreview = $state<any>(null)
 	let previewLoading = $state(false)
 	let previewError = $state<string | null>(null)
 
-	// Fetch YouTube preview
 	const fetchYouTubePreview = debounce(async (url: string) => {
 		if (!url) {
 			videoPreview = null
@@ -53,7 +51,6 @@
 		}
 	}, 1000)
 
-	// Fetch GitHub preview
 	const fetchGitHubPreview = debounce(async (repo: string) => {
 		if (!repo) {
 			libraryPreview = null
@@ -80,7 +77,6 @@
 		}
 	}, 1000)
 
-	// Watch for URL changes
 	$effect(() => {
 		if ($formData.type === 'video' && 'url' in $formData) {
 			fetchYouTubePreview($formData.url)
@@ -101,7 +97,6 @@
 		listed on the site. Use the search bar to check if the resource is already listed.
 	</p>
 	<Form {form} action="?/submit">
-		<!-- Content type selection first -->
 		<CategorySelector
 			name="type"
 			label="Type"
@@ -109,27 +104,13 @@
 			{options}
 		/>
 
-		<!-- Title field only for recipe and link types -->
-		{#if $formData.type === 'recipe' || $formData.type === 'link'}
-			<Input
-				placeholder="Enter a title..."
-				name="title"
-				label="Title"
-				description="Enter the title of your content submission"
-			/>
-		{/if}
+		<Textarea
+			placeholder="Enter a description..."
+			name="description"
+			label="Description"
+			description="Enter the description of your content submission."
+		/>
 
-		<!-- Description field only for recipe and link types -->
-		{#if $formData.type === 'recipe' || $formData.type === 'link'}
-			<Textarea
-				placeholder="Enter a description..."
-				name="description"
-				label="Description"
-				description="Enter the description of your content submission."
-			/>
-		{/if}
-
-		<!-- Type-specific fields -->
 		{#if $formData.type === 'recipe'}
 			<Textarea
 				placeholder="Enter the recipe content, instructions, and code examples..."
@@ -145,7 +126,6 @@
 				description="Enter the YouTube URL for the video"
 			/>
 
-			<!-- Video Preview -->
 			{#if previewLoading && $formData.type === 'video'}
 				<div class="rounded-lg border border-gray-200 bg-gray-50 p-4">
 					<p class="text-sm text-gray-600">Loading preview...</p>
@@ -196,7 +176,6 @@
 				description="GitHub repository (required for libraries)"
 			/>
 
-			<!-- Library Preview -->
 			{#if previewLoading && $formData.type === 'library'}
 				<div class="rounded-lg border border-gray-200 bg-gray-50 p-4">
 					<p class="text-sm text-gray-600">Loading preview...</p>
@@ -245,16 +224,8 @@
 					</div>
 				</div>
 			{/if}
-		{:else if $formData.type === 'link'}
-			<Input
-				placeholder="https://example.com"
-				name="url"
-				label="URL"
-				description="The URL you want to share"
-			/>
 		{/if}
 
-		<!-- Tags field using DynamicSelector -->
 		<DynamicSelector
 			name="tags"
 			label="Tags"
@@ -265,7 +236,6 @@
 			}))}
 		/>
 
-		<!-- Notes field (always shown) -->
 		<Textarea
 			placeholder="Any additional notes or context..."
 			name="notes"

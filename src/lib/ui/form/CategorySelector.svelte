@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" generics="T">
 	import type { Type } from '$lib/types/content'
 
 	interface TextInputProps {

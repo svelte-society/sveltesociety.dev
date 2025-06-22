@@ -124,8 +124,6 @@
 						Library Details
 					{:else if data.item.type === 'recipe'}
 						Recipe Content
-					{:else if data.item.type === 'link'}
-						Link Details
 					{:else}
 						Content Details
 					{/if}
