@@ -25,7 +25,6 @@ const baseContentSchema = z.object({
 const updateKeysToOmit = {
 	created_at: true,
 	updated_at: true,
-	published_at: true,
 	likes: true,
 	saves: true,
 	liked: true,

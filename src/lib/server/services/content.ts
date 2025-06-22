@@ -424,11 +424,6 @@ export class ContentService {
 			published_at:
 				data.published_at || data.status === 'published' ? new Date().toISOString() : null
 		}
-	) {
-		const now = new Date().toISOString()
-
-		// Convert markdown body to HTML
-		const renderedBody = data.body ? marked(data.body) : null
 
 		this.db
 			.prepare(
@@ -454,10 +449,8 @@ export class ContentService {
 			)
 			.run(params)
 
-		// Delete existing tag associations
 		this.db.prepare('DELETE FROM content_to_tags WHERE content_id = ?').run(data.id)
 
-		// Add new tag associations if present
 		if (data.tags && data.tags.length > 0) {
 			const insertTagStmt = this.db.prepare(
 				`INSERT INTO content_to_tags (content_id, tag_id) VALUES (?, ?)`
