@@ -11,6 +11,7 @@ const baseContentSchema = z.object({
 	status: statusSchema,
 	type: typeSchema,
 	tags: z.array(z.string()).min(1, 'At least one tag is required'),
+	author_id: z.string().optional(),
 	created_at: z.string(),
 	updated_at: z.string(),
 	published_at: z.string().nullable(),

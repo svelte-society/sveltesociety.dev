@@ -456,6 +456,17 @@ export class ContentService {
 				insertTagStmt.run(data.id, tag)
 			}
 		}
+
+		// Update author if provided (only allow setting/changing, not removing)
+		if (data.author_id) {
+			// Delete existing author relationship
+			this.db.prepare('DELETE FROM content_to_users WHERE content_id = ?').run(data.id)
+
+			// Add new author relationship
+			this.db
+				.prepare(`INSERT INTO content_to_users (content_id, user_id) VALUES (?, ?)`)
+				.run(data.id, data.author_id)
+		}
 	}
 
 	getContentBySlug(slug: string, type?: string): Content | null {

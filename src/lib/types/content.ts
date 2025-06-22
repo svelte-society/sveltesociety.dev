@@ -13,6 +13,13 @@ export type Content = z.infer<typeof contentSchema>
 export type UpdateContent = z.infer<typeof updateContentSchema>
 export type CreateContent = z.infer<typeof createContentSchema>
 
+// Content with author information
+export type ContentWithAuthor = Content & {
+	author_id?: string
+	author_username?: string
+	author_name?: string
+}
+
 // Content filtering options
 export interface ContentFilters {
 	type?: string

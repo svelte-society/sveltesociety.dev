@@ -24,6 +24,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		status: content.status,
 		metadata: content.metadata || {},
 		tags: content.tags?.map((tag) => tag.id) || [],
+		author_id: content.author_id || '',
 		children:
 			content.type === 'collection' && content.children
 				? Array.isArray(content.children)
@@ -35,6 +36,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	const form = await superValidate(formData, zod4(updateContentSchema))
 
 	const tags = locals.tagService.getAllTags()
+	const users = locals.userService.getUsers()
 
 	const availableContent = locals.contentService
 		.getFilteredContent({
@@ -45,6 +47,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	return {
 		form,
 		tags,
+		users,
 		availableContent,
 		contentId: params.id,
 		content // Pass full content for additional metadata display

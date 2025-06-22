@@ -22,30 +22,84 @@
 		description="Enter a descriptive title"
 	/>
 
-	<Select
-		name="type"
-		label="Content Type"
-		description={isImported
-			? 'Content type cannot be changed for imported content'
-			: 'Select the type of content'}
-		disabled={isImported || isEditing}
-		options={[
-			{ value: 'recipe', label: 'Recipe' },
-			{ value: 'announcement', label: 'Announcement' },
-			{ value: 'collection', label: 'Collection' }
-		]}
+	<Input
+		name="slug"
+		label="URL Slug"
+		placeholder="url-friendly-name"
+		description="The slug used in the URL (auto-generated from title)"
 	/>
 
-	<Select
-		name="status"
-		label="Status"
-		description="Select the publication status"
-		options={[
-			{ value: 'draft', label: 'Draft' },
-			{ value: 'published', label: 'Published' },
-			{ value: 'archived', label: 'Archived' }
-		]}
-	/>
+	<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+		<Select
+			name="type"
+			label="Content Type"
+			description={isImported
+				? 'Content type cannot be changed for imported content'
+				: 'Select the type of content'}
+			disabled={isImported || isEditing}
+			options={[
+				{ value: 'recipe', label: 'Recipe' },
+				{ value: 'announcement', label: 'Announcement' },
+				{ value: 'collection', label: 'Collection' }
+			]}
+		/>
+
+		<Select
+			name="status"
+			label="Status"
+			description="Select the publication status"
+			options={[
+				{ value: 'draft', label: 'Draft' },
+				{ value: 'published', label: 'Published' },
+				{ value: 'archived', label: 'Archived' }
+			]}
+		/>
+	</div>
+
+	{#if data.users}
+		<div class="grid grid-cols-1 gap-2 space-y-2 rounded-md border-2 border-slate-200 p-4">
+			<Select
+				name="author_id"
+				label="Author"
+				description={$formData.author_id
+					? 'Change the author or submitter of this content'
+					: 'Select the author or submitter of this content'}
+				options={data.users.map((user) => ({
+					value: user.id,
+					label: `${user.name || user.username} (@${user.username})`
+				}))}
+			/>
+			<div>
+				{#if $formData.author_id && data.users.find((u) => u.id === $formData.author_id)}
+					{@const currentAuthor = data.users.find((u) => u.id === $formData.author_id)}
+					<a 
+						href="/user/{currentAuthor.username}"
+						class="flex items-center gap-3 rounded-md border border-gray-200 bg-gray-50 p-3 transition-colors hover:bg-gray-100"
+					>
+						{#if currentAuthor.avatar_url}
+							<img
+								src={currentAuthor.avatar_url}
+								alt={currentAuthor.name || currentAuthor.username}
+								class="h-10 w-10 rounded-full"
+							/>
+						{:else}
+							<div
+								class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-300 text-gray-700"
+							>
+								{(currentAuthor.name || currentAuthor.username).charAt(0).toUpperCase()}
+							</div>
+						{/if}
+						<div>
+							<p class="font-medium text-gray-900">
+								{currentAuthor.name || currentAuthor.username}
+							</p>
+							<p class="text-sm text-gray-500">@{currentAuthor.username}</p>
+						</div>
+					</a>
+				{/if}
+			</div>
+		</div>
+	{/if}
 
 	{#if $formData.type === 'video' && isImported && data.content?.metadata?.externalSource?.source === 'youtube'}
 		<div transition:slide class="space-y-2">
@@ -188,13 +242,6 @@
 	{:else}
 		<MarkdownEditor name="body" />
 	{/if}
-
-	<Input
-		name="slug"
-		label="URL Slug"
-		placeholder="url-friendly-name"
-		description="The slug used in the URL (auto-generated from title)"
-	/>
 
 	<Textarea
 		name="description"
