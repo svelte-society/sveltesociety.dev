@@ -35,7 +35,7 @@ export interface AnnouncementPlacementWithContent extends AnnouncementPlacement 
 
 export class AnnouncementService {
 	private db: Database
-	
+
 	// Placement location statements
 	private createLocationStatement: any
 	private updateLocationStatement: any
@@ -44,7 +44,7 @@ export class AnnouncementService {
 	private getLocationByKeyStatement: any
 	private getAllLocationsStatement: any
 	private getActiveLocationsStatement: any
-	
+
 	// Announcement placement statements
 	private createPlacementStatement: any
 	private updatePlacementStatement: any
@@ -339,7 +339,9 @@ export class AnnouncementService {
 
 	getPlacementsByLocationKey(key: string): AnnouncementPlacementWithContent[] {
 		try {
-			return this.getPlacementsByLocationKeyStatement.all({ key }) as AnnouncementPlacementWithContent[]
+			return this.getPlacementsByLocationKeyStatement.all({
+				key
+			}) as AnnouncementPlacementWithContent[]
 		} catch (error) {
 			console.error('Error getting placements by location key:', error)
 			return []
@@ -348,7 +350,9 @@ export class AnnouncementService {
 
 	getActivePlacementsByLocationKey(key: string): AnnouncementPlacementWithContent[] {
 		try {
-			return this.getActivePlacementsByLocationKeyStatement.all({ key }) as AnnouncementPlacementWithContent[]
+			return this.getActivePlacementsByLocationKeyStatement.all({
+				key
+			}) as AnnouncementPlacementWithContent[]
 		} catch (error) {
 			console.error('Error getting active placements by location key:', error)
 			return []
@@ -364,9 +368,13 @@ export class AnnouncementService {
 		}
 	}
 
-	getPlacementsByContentId(content_id: string): (AnnouncementPlacement & { placement_key: string; placement_name: string })[] {
+	getPlacementsByContentId(
+		content_id: string
+	): (AnnouncementPlacement & { placement_key: string; placement_name: string })[] {
 		try {
-			return this.getPlacementsByContentIdStatement.all({ content_id }) as (AnnouncementPlacement & { placement_key: string; placement_name: string })[]
+			return this.getPlacementsByContentIdStatement.all({
+				content_id
+			}) as (AnnouncementPlacement & { placement_key: string; placement_name: string })[]
 		} catch (error) {
 			console.error('Error getting placements by content id:', error)
 			return []

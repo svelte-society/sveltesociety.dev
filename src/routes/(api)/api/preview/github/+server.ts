@@ -6,16 +6,16 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 	if (!locals.user) {
 		return json({ error: 'Authentication required' }, { status: 401 })
 	}
-	
+
 	const repoInput = url.searchParams.get('repo')
-	
+
 	if (!repoInput) {
 		return json({ error: 'Repo parameter is required' }, { status: 400 })
 	}
 
 	// Parse GitHub repository info
 	let owner: string, repo: string
-	
+
 	// Handle GitHub URL format
 	const urlPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
 	const urlMatch = repoInput.match(urlPattern)
@@ -33,55 +33,54 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 			return json({ error: 'Invalid GitHub repository format' }, { status: 400 })
 		}
 	}
-	
+
 	const repoId = `${owner}/${repo}`
-	
+
 	// Check if already exists
 	const existingContent = locals.externalContentService.getContentByExternalId('github', repoId)
 	if (existingContent) {
-		return json({ 
+		return json({
 			exists: true,
 			content: {
 				id: existingContent.id,
 				title: existingContent.title,
 				status: existingContent.status,
-				url: existingContent.status === 'published' ? `/${existingContent.type}/${existingContent.slug}` : null
+				url:
+					existingContent.status === 'published'
+						? `/${existingContent.type}/${existingContent.slug}`
+						: null
 			}
 		})
 	}
-	
+
 	// Fetch metadata from GitHub API
 	try {
 		const headers: HeadersInit = {
-			'Accept': 'application/vnd.github.v3+json',
+			Accept: 'application/vnd.github.v3+json',
 			'User-Agent': 'SvelteSociety'
 		}
-		
+
 		if (process.env.GITHUB_TOKEN) {
 			headers['Authorization'] = `token ${process.env.GITHUB_TOKEN}`
 		}
-		
-		const response = await fetch(
-			`https://api.github.com/repos/${owner}/${repo}`,
-			{ headers }
-		)
-		
+
+		const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`, { headers })
+
 		if (!response.ok) {
 			if (response.status === 404) {
 				return json({ error: 'Repository not found' }, { status: 404 })
 			}
 			throw new Error('Failed to fetch repository data')
 		}
-		
+
 		const repoData = await response.json()
-		
+
 		// Fetch README
 		let readme = ''
 		try {
-			const readmeResponse = await fetch(
-				`https://api.github.com/repos/${owner}/${repo}/readme`,
-				{ headers: { ...headers, 'Accept': 'application/vnd.github.v3.raw' } }
-			)
+			const readmeResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/readme`, {
+				headers: { ...headers, Accept: 'application/vnd.github.v3.raw' }
+			})
 			if (readmeResponse.ok) {
 				readme = await readmeResponse.text()
 				// Truncate for preview
@@ -90,7 +89,7 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 		} catch (e) {
 			// README is optional
 		}
-		
+
 		return json({
 			exists: false,
 			preview: {

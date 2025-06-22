@@ -15,6 +15,6 @@ services:
       - PUBLIC_PLAUSIBLE_SHARED_LINK_AUTH=${PUBLIC_PLAUSIBLE_SHARED_LINK_AUTH}
     volumes:
       - db_data:/app/data
-    
+
 volumes:
   db_data:
