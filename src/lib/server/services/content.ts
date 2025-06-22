@@ -1,6 +1,12 @@
 import { Database } from 'bun:sqlite'
 import { SearchService } from './search'
-import type { Content, CreateContent, ContentFilters, ContentWithAuthor } from '$lib/types/content'
+import type {
+	Content,
+	CreateContent,
+	UpdateContent,
+	ContentFilters,
+	ContentWithAuthor
+} from '$lib/types/content'
 import type { Tag } from '$lib/types/tags'
 import { marked } from 'marked'
 
@@ -308,7 +314,6 @@ export class ContentService {
 	}
 
 	async addContent(data: CreateContent, author_id?: string) {
-		// Build params object with all required fields
 		const params = {
 			title: data.title,
 			type: data.type,
@@ -319,7 +324,7 @@ export class ContentService {
 			description: data.description,
 			metadata: data.metadata ? JSON.stringify(data.metadata) : null,
 			children: 'children' in data ? JSON.stringify(data.children) : null,
-			published_at: null
+			published_at: data.status === 'published' ? new Date().toISOString() : null
 		}
 
 		const stmt = this.db.prepare(`
@@ -404,18 +409,20 @@ export class ContentService {
 		return id
 	}
 
-	updateContent(
-		id: string,
-		data: {
-			title: string
-			slug: string
-			description: string
-			type: string
-			status: string
-			body: string
-			tags: string[]
-			metadata?: any
-			children?: string
+	updateContent(data: UpdateContent) {
+		const params = {
+			id: data.id,
+			title: data.title,
+			type: data.type,
+			status: data.status,
+			body: 'body' in data ? data.body : null,
+			rendered_body: 'rendered_body' in data ? data.rendered_body : null,
+			slug: data.slug,
+			description: data.description,
+			metadata: data.metadata ? JSON.stringify(data.metadata) : null,
+			children: 'children' in data ? JSON.stringify(data.children) : null,
+			published_at:
+				data.published_at || data.status === 'published' ? new Date().toISOString() : null
 		}
 	) {
 		const now = new Date().toISOString()
@@ -423,48 +430,32 @@ export class ContentService {
 		// Convert markdown body to HTML
 		const renderedBody = data.body ? marked(data.body) : null
 
-		// Update the content record
 		this.db
 			.prepare(
 				`
 				UPDATE content
-				SET title = ?,
-					slug = ?,
-					description = ?,
-					type = ?,
-					status = ?,
-					body = ?,
-					rendered_body = ?,
-					metadata = ?,
-					children = ?,
-					updated_at = ?,
-					published_at = CASE
-						WHEN status != 'published' AND ? = 'published' THEN ?
-						WHEN status = 'published' AND ? != 'published' THEN NULL
-						ELSE published_at
-					END
-				WHERE id = ?
+				SET title = $title,
+  				  id = $id,
+  					slug = $slug,
+  					description = $description,
+  					type = $type,
+  					status = $status,
+  					body = $body,
+  					rendered_body = $rendered_body,
+  					metadata = $metadata,
+  					children = $children,
+  					published_at = CASE
+  						WHEN status != 'published' AND $status = 'published' THEN $published_at
+  						WHEN status = 'published' AND $status != 'published' THEN NULL
+  						ELSE published_at
+  					END
+				WHERE id = $id
 				`
 			)
-			.run(
-				data.title,
-				data.slug,
-				data.description,
-				data.type,
-				data.status,
-				data.body,
-				renderedBody,
-				data.metadata ? JSON.stringify(data.metadata) : null,
-				data.children || null,
-				now,
-				data.status,
-				now,
-				data.status,
-				id
-			)
+			.run(params)
 
 		// Delete existing tag associations
-		this.db.prepare('DELETE FROM content_to_tags WHERE content_id = ?').run(id)
+		this.db.prepare('DELETE FROM content_to_tags WHERE content_id = ?').run(data.id)
 
 		// Add new tag associations if present
 		if (data.tags && data.tags.length > 0) {
@@ -473,7 +464,7 @@ export class ContentService {
 			)
 
 			for (const tag of data.tags) {
-				insertTagStmt.run(id, tag)
+				insertTagStmt.run(data.id, tag)
 			}
 		}
 	}
