@@ -60,6 +60,10 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 export const actions = {
 	import: async ({ request, locals }) => {
+		if (!locals.user) {
+			return fail(401, { error: 'Authentication required' })
+		}
+
 		const form = await superValidate(request, zod4(importSchema))
 
 		if (!form.valid) {
@@ -84,7 +88,7 @@ export const actions = {
 				}
 
 				const importer = new YouTubeImporter(locals.externalContentService, locals.cacheService)
-				const contentId = await importer.importVideo(videoId, locals.user?.id)
+				const contentId = await importer.importVideo(videoId, locals.user.id)
 
 				return {
 					form,
@@ -117,7 +121,7 @@ export const actions = {
 				}
 
 				const importer = new GitHubImporter(locals.externalContentService, locals.cacheService)
-				const contentId = await importer.importRepository(owner, repo, locals.user?.id)
+				const contentId = await importer.importRepository(owner, repo, locals.user.id)
 
 				return {
 					form,
@@ -144,6 +148,10 @@ export const actions = {
 	},
 
 	deleteContent: async ({ request, locals }) => {
+		if (!locals.user) {
+			return fail(401, { error: 'Authentication required' })
+		}
+
 		try {
 			const data = await request.formData()
 			const contentId = data.get('contentId') as string
