@@ -12,34 +12,8 @@
 
 	let deletingId = $state('')
 
-	// Unified schema for importing content
-	const importSchema = z.object({
-		url: z
-			.string()
-			.min(1, 'URL is required')
-			.refine((val) => {
-				// Check if it's a YouTube URL
-				const youtubePattern =
-					/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
-				// Check if it's a GitHub URL
-				const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
-				// Check if it's a YouTube video ID
-				const videoIdPattern = /^[a-zA-Z0-9_-]{11}$/
-				// Check if it's a GitHub owner/repo format
-				const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/
-
-				return (
-					youtubePattern.test(val) ||
-					githubPattern.test(val) ||
-					videoIdPattern.test(val) ||
-					repoPattern.test(val)
-				)
-			}, 'Must be a YouTube URL, GitHub URL, YouTube video ID, or GitHub owner/repo format')
-	})
-
 	// Initialize unified import form
 	const importFormInstance = superForm(data.importForm || { url: '' }, {
-		validators: zod4(importSchema),
 		resetForm: true
 	})
 
@@ -62,7 +36,6 @@
 		return null
 	}
 
-	// Dynamic placeholder based on input
 	const placeholder = $derived(() => {
 		const type = detectContentType($importForm.url)
 		if (type === 'youtube') {
@@ -100,7 +73,6 @@
 		</div>
 	{/if}
 
-	<!-- External Sources -->
 	<section>
 		<h2 class="mb-4 text-xl font-semibold">External Sources</h2>
 		<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -118,7 +90,6 @@
 		</div>
 	</section>
 
-	<!-- Import Form -->
 	<section>
 		<h2 class="mb-4 text-xl font-semibold">Import Content</h2>
 		<div class="max-w-2xl">
@@ -194,7 +165,6 @@
 		</div>
 	</section>
 
-	<!-- Recent Imports -->
 	{#if data.recentImports.length > 0}
 		<section>
 			<h2 class="mb-4 text-xl font-semibold">Recent Imports</h2>
@@ -235,11 +205,12 @@
 												}
 											}}
 										>
-											<input type="hidden" name="contentId" value={item.id} />
 											<button
 												type="submit"
 												class="text-sm text-red-600 hover:underline"
 												disabled={deletingId === item.id}
+												name="contentId"
+												value={item.id}
 											>
 												{deletingId === item.id ? 'Deleting...' : 'Delete'}
 											</button>

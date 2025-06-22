@@ -129,7 +129,6 @@ export class YouTubeImporter {
 				embedUrl: `https://www.youtube.com/embed/${video.id}`,
 				watchUrl: `https://www.youtube.com/watch?v=${video.id}`
 			},
-			tags: video.snippet.tags,
 			source: {
 				type: 'video',
 				source: 'youtube',

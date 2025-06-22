@@ -337,14 +337,12 @@ export class ContentService {
         )
     `)
 
-		// Cast to any to bypass TypeScript's strict checking
 		const { lastInsertRowid } = stmt.run(params)
 
 		const { id } = this.db
 			.prepare('SELECT id FROM content WHERE rowid = ?')
 			.get(lastInsertRowid) as { id: string }
 
-		// Add author if present
 		if (author_id) {
 			try {
 				this.db
@@ -360,7 +358,6 @@ export class ContentService {
 			}
 		}
 
-		// Add tags if present
 		if (data.tags && data.tags.length > 0) {
 			const insertTagStmt = this.db.prepare(
 				`INSERT INTO content_to_tags (content_id, tag_id) VALUES (?, ?)`
@@ -376,7 +373,6 @@ export class ContentService {
 			}
 		}
 
-		// Add to search index if published
 		if (data.status === 'published') {
 			// Get tag slugs for search index
 			let tagSlugs: string[] = []
@@ -399,7 +395,7 @@ export class ContentService {
 					description: data.description,
 					tags: tagSlugs,
 					type: data.type,
-					created_at: data.created_at || now,
+					created_at: data.created_at || new Date().toISOString(),
 					likes: 0,
 					saves: 0
 				})
