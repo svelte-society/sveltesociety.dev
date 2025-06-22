@@ -16,9 +16,8 @@
 		['archived', 'danger']
 	])
 
-	// Helper function to get color with fallback
 	function getStatusColor(status: string): string {
-		return colorMap.get(status) || 'default' // Default to 'default' for unknown statuses
+		return colorMap.get(status) || 'default'
 	}
 </script>
 

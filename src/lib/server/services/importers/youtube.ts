@@ -111,8 +111,6 @@ export class YouTubeImporter {
 
 		return {
 			title: video.snippet.title,
-			description: '', // Keep description empty for video type
-			body: video.snippet.description, // Save YouTube description to body field
 			type: 'video',
 			metadata: {
 				channelTitle: video.snippet.channelTitle,
