@@ -24,7 +24,7 @@
 		>
 			<a href="/{child.type}/{child.slug}" class="text-svelte-800 hover:text-svelte-600 block">
 				<h2
-					class="text-svelte-800 hover:text-svelte-600 text-md block max-w-xl truncate overflow-hidden font-bold text-ellipsis"
+					class="text-svelte-800 hover:text-svelte-600 text-md block font-bold break-words"
 				>
 					{child?.title || 'Untitled'}
 				</h2>
