@@ -87,6 +87,17 @@ export const actions = {
 					videoId = urlMatch[1]
 				}
 
+				const existingContent = locals.externalContentService.getContentByExternalId(
+					'youtube',
+					videoId
+				)
+				if (existingContent) {
+					return fail(400, {
+						form,
+						error: `This YouTube video has already been imported. Content ID: ${existingContent.id}`
+					})
+				}
+
 				const importer = new YouTubeImporter(locals.externalContentService, locals.cacheService)
 				const contentId = await importer.importVideo(videoId, locals.user.id)
 
@@ -118,6 +129,18 @@ export const actions = {
 					repo = urlMatch[2].replace(/\.git$/, '')
 				} else {
 					;[owner, repo] = url.split('/')
+				}
+
+				const repoId = `${owner}/${repo}`
+				const existingContent = locals.externalContentService.getContentByExternalId(
+					'github',
+					repoId
+				)
+				if (existingContent) {
+					return fail(400, {
+						form,
+						error: `This GitHub repository has already been imported. Content ID: ${existingContent.id}`
+					})
 				}
 
 				const importer = new GitHubImporter(locals.externalContentService, locals.cacheService)
