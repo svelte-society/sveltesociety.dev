@@ -18,6 +18,7 @@
 	}
 	let { options, value = $bindable(), name, props, disabled = false, onchange }: Props = $props()
 
+	const placeholder = $derived(props?.placeholder || 'Select...')
 	const selectedLabel = $derived(options.find((option) => option.value === value)?.label)
 </script>
 
@@ -26,8 +27,10 @@
 		{...props}
 		class="grid w-full grid-cols-[1fr_auto] items-center rounded-md border-2 border-transparent bg-slate-100 px-3 py-1 pl-2 text-left text-sm placeholder-slate-500 focus:outline-2 focus:outline-sky-200 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600"
 		{disabled}
+		tabindex={disabled ? -1 : 0}
+		aria-label={selectedLabel || 'Select an option'}
 	>
-		{selectedLabel}
+		{selectedLabel || placeholder}
 		<CaretUpDown class="ml-auto size-4 text-gray-500" />
 	</Select.Trigger>
 	<Select.Portal>

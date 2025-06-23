@@ -44,9 +44,8 @@
 					{options}
 					{name}
 					bind:value={$formData[name]}
-					{props}
+					props={{ ...props, placeholder }}
 					{disabled}
-					selected={selectedOptionLabel}
 				/>
 			{/snippet}
 		</Control>
