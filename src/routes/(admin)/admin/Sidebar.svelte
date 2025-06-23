@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state'
-	import type { Link } from './types'
+	import type { Link } from './MobileAdminMenu.svelte'
 	import NavigationLink from './NavigationLink.svelte'
 
 	let isCollapsed = $state(true)
@@ -22,12 +22,13 @@
 	const homeLink: Link = {
 		href: '/',
 		label: 'Back to Home',
-		icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'
+		icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+		allowedRoles: ['admin', 'moderator', 'editor']
 	}
 </script>
 
 <aside
-	class="flex h-full w-52 flex-col bg-white shadow-md transition-all duration-300"
+	class="hidden h-full w-52 flex-col bg-white shadow-md transition-all duration-300 md:flex"
 	aria-label="Admin sidebar"
 >
 	<div class="flex flex-grow flex-col gap-2 p-4">

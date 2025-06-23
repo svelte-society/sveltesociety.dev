@@ -1,15 +1,10 @@
 <script lang="ts">
+	import type { Link } from './MobileAdminMenu.svelte'
 	import { Toaster } from 'svelte-sonner'
 	import Breadcrumb from './Breadcrumb.svelte'
 	import Sidebar from './Sidebar.svelte'
+	import MobileAdminMenu from './MobileAdminMenu.svelte'
 	let { data, children } = $props()
-
-	interface Link {
-		href: string
-		label: string
-		icon: string
-		allowedRoles: string[]
-	}
 
 	const allLinks: Link[] = [
 		{
@@ -82,14 +77,18 @@
 
 	// Filter links based on user role
 	const links = $derived(
-		data.userRole ? allLinks.filter((link) => link.allowedRoles.includes(data.userRole)) : []
+		data.userRole ? allLinks.filter((link) => link.allowedRoles.includes(data.userRole!)) : []
 	)
 </script>
 
 <div class="flex h-screen bg-gray-100">
 	<Sidebar {links} moderationCount={data.moderation_count} />
 	<div class="flex-1 overflow-y-auto">
-		<div class="mx-auto max-w-6xl p-8">
+		<div class="mx-auto max-w-6xl p-4 md:p-8">
+			<div class="mb-6 md:hidden">
+				<MobileAdminMenu {links} moderationCount={data.moderation_count} />
+			</div>
+
 			<Breadcrumb />
 			{@render children()}
 		</div>
