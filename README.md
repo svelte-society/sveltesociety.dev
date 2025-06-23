@@ -1,6 +1,6 @@
 # sveltesociety.dev
 
-This branch contains the upcoming Svelte Society website featuring a new design and data that lives in a database.
+This branch contains the upcoming Svelte Society website featuring a new design and data that lives in a database. Currently being deployed to https://beta.sveltesociety.dev
 
 ## Developing
 
