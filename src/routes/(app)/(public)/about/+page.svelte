@@ -2,7 +2,7 @@
 	import Button from '$lib/ui/Button.svelte'
 </script>
 
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4">
 	<h1 class="mb-6 text-3xl font-bold">About Svelte Society</h1>
 
 	<div class="mb-8">

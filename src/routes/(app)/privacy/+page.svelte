@@ -2,7 +2,7 @@
 	let { data } = $props()
 </script>
 
-<div class="container mx-auto max-w-4xl px-4 py-8">
+<div class="container mx-auto max-w-4xl px-4">
 	<h1 class="text-svelte-900 mb-8 text-3xl font-bold">Privacy Policy</h1>
 
 	<div class="prose prose-slate max-w-none">
