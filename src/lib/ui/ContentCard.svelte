@@ -11,10 +11,6 @@
 	import Collection from '$lib/ui/content/Collection.svelte'
 	import Video from '$lib/ui/content/Video.svelte'
 	import Library from '$lib/ui/content/Library.svelte'
-	import Calendar from 'phosphor-svelte/lib/Calendar'
-	import MapPin from 'phosphor-svelte/lib/MapPin'
-	import User from 'phosphor-svelte/lib/User'
-	import VideoCamera from 'phosphor-svelte/lib/VideoCamera'
 
 	let {
 		content,
@@ -24,7 +20,6 @@
 
 	let submitting = $state(false)
 
-	// Use any for now to avoid type errors with enhance
 	const optimisticUpdate = ({ formData }: { formData: FormData }) => {
 		submitting = true
 		const type = formData.get('type')
@@ -60,7 +55,11 @@
 					<span
 						>{content.type === 'video' || content.type === 'library' ? 'submitted' : 'posted'} by&nbsp;</span
 					>
-					<a href="/user/{content.author_username}" class="hover:underline">
+					<a
+						href="/user/{content.author_username}"
+						class="focus:outline-svelte-300 rounded-sm hover:underline focus:outline-2 focus:outline-offset-2"
+						tabindex="0"
+					>
 						{content.author_name || content.author_username}
 					</a>
 				</span>
@@ -82,7 +81,8 @@
 				name="type"
 				value="like"
 				type="submit"
-				class="flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 font-mono text-gray-600 hover:bg-gray-200 hover:text-gray-700 sm:py-1"
+				tabindex={!page.data.user || submitting ? -1 : 0}
+				class="focus:outline-svelte-300 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 font-mono text-gray-600 transition-[background-color,color] hover:bg-gray-200 hover:text-gray-700 focus:outline-2 focus:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:py-1"
 			>
 				<svg
 					width="12"
@@ -114,7 +114,8 @@
 				name="type"
 				value="save"
 				type="submit"
-				class="flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 font-mono text-gray-600 hover:bg-gray-200 hover:text-gray-700 sm:py-1"
+				tabindex={!page.data.user || submitting ? -1 : 0}
+				class="focus:outline-svelte-300 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 font-mono text-gray-600 transition-[background-color,color] hover:bg-gray-200 hover:text-gray-700 focus:outline-2 focus:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:py-1"
 			>
 				<svg
 					width="12"
@@ -146,13 +147,13 @@
 		id="title"
 		class={compact ? 'mb-1 text-base font-bold sm:text-lg' : 'mb-2 text-lg font-bold sm:text-xl'}
 	>
-		{#if content.type === 'event' && content.metadata?.url}
-			<a href={content.metadata.url} target="_blank" rel="noopener noreferrer">{content.title}</a>
-		{:else}
-			<a href="/{content.type}/{content.slug}">{content.title}</a>
-		{/if}
+		<a
+			href="/{content.type}/{content.slug}"
+			class="focus:outline-svelte-300 rounded-sm hover:underline focus:outline-2 focus:outline-offset-2"
+			tabindex="0">{content.title}</a
+		>
 	</h2>
-	{#if content.description && content.type !== 'event'}
+	{#if content.description}
 		<div
 			class={fullDescription
 				? 'text-sm sm:text-base'
@@ -180,80 +181,6 @@
 					{@html content.rendered_body}
 				</div>
 			{/if}
-		{:else if content.type === 'event'}
-			<div class="flex gap-4">
-				{#if content.metadata?.socialCardUrl}
-					<div
-						class={content.metadata?.presentations && content.metadata.presentations.length > 0
-							? 'w-1/3 flex-shrink-0'
-							: 'w-1/2 flex-shrink-0'}
-					>
-						<img
-							src={getCachedImageWithPreset(content.metadata.socialCardUrl, 'thumbnail')}
-							alt={content.title}
-							class="h-full w-full rounded-lg object-cover"
-						/>
-					</div>
-				{/if}
-
-				<div class="flex-1 space-y-2 text-sm">
-					{#if content.metadata?.presentations && content.metadata.presentations.length > 0}
-						<div class="mb-3 space-y-2 border-b pb-3">
-							{#each content.metadata.presentations as presentation}
-								<div class="rounded bg-gray-50 p-2">
-									<div class="flex items-start gap-2">
-										<User size={14} class="mt-0.5 text-gray-500" />
-										<div class="flex-1">
-											<p class="font-medium text-gray-800">{presentation.title}</p>
-											<p class="text-xs text-gray-600">by {presentation.presenter}</p>
-											{#if presentation.videoUrl}
-												<div class="mt-1 flex items-center gap-1">
-													<VideoCamera size={12} class="text-gray-500" />
-													<span class="text-xs text-gray-500">Video available</span>
-												</div>
-											{/if}
-										</div>
-									</div>
-								</div>
-							{/each}
-						</div>
-					{/if}
-
-					{#if content.metadata?.startTime}
-						<div class="flex items-center gap-2 text-gray-600">
-							<Calendar size={16} />
-							<span
-								>{new Date(content.metadata.startTime).toLocaleDateString('en-US', {
-									weekday: 'short',
-									month: 'short',
-									day: 'numeric',
-									hour: '2-digit',
-									minute: '2-digit'
-								})}</span
-							>
-						</div>
-					{/if}
-
-					{#if content.metadata?.location}
-						<div class="flex items-center gap-2 text-gray-600">
-							<MapPin size={16} />
-							<span>{content.metadata.location}</span>
-						</div>
-					{/if}
-
-					{#if content.metadata?.presentations && content.metadata.presentations.length > 0}
-						<div class="flex items-center gap-2 text-gray-600">
-							<User size={16} />
-							<span
-								>{content.metadata.presentations.length} presentation{content.metadata.presentations
-									.length !== 1
-									? 's'
-									: ''}</span
-							>
-						</div>
-					{/if}
-				</div>
-			</div>
 		{/if}
 	</div>
 
