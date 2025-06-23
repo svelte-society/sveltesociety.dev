@@ -39,10 +39,11 @@
 <a
 	href={onclick ? undefined : getTagHref()}
 	class={[
-		'focus:outline-svelte-300 flex items-center gap-0.5 rounded border-1 border-slate-200 bg-slate-100 px-1.5 py-1 text-xs text-zinc-800 hover:bg-slate-200 focus:outline-2 focus:outline-offset-2',
+		'focus:outline-svelte-300 flex items-center gap-0.5 rounded border-1 border-slate-200 bg-slate-100 px-1.5 py-1 text-xs text-zinc-800 focus:outline-2 focus:outline-offset-2',
 		{
 			'border-svelte-300 bg-svelte-100 text-svelte-900 hover:bg-svelte-200':
-				$params?.tags?.includes(tag.slug)
+				$params?.tags?.includes(tag.slug),
+			'hover:bg-slate-200': !$params?.tags?.includes(tag.slug)
 		}
 	]}
 	tabindex="0"
