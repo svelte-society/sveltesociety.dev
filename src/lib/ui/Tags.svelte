@@ -13,8 +13,10 @@
 	let { tags }: { tags: TagType[] } = $props()
 </script>
 
-<div class="flex flex-wrap gap-2">
+<ul class="flex flex-wrap gap-2">
 	{#each tags as tag}
-		<Tag {tag} />
+		<li>
+			<Tag {tag} />
+		</li>
 	{/each}
-</div>
+</ul>
