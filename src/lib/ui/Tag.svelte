@@ -6,6 +6,7 @@
 
 <script lang="ts">
 	import { page } from '$app/state'
+	import { afterNavigate } from '$app/navigation'
 
 	type Tag = {
 		id: string
@@ -14,10 +15,31 @@
 	}
 	let { tag, onclick }: { tag: Tag; onclick?: () => void } = $props()
 
+	let tagElement: HTMLElement
+	let shouldRestoreFocus = false
+
+	afterNavigate(() => {
+		if (shouldRestoreFocus && tagElement) {
+			tagElement.focus()
+			shouldRestoreFocus = false
+		}
+	})
+
 	const handleClick = (e: MouseEvent) => {
 		if (onclick) {
 			e.preventDefault()
 			onclick()
+		} else {
+			shouldRestoreFocus = true
+		}
+	}
+
+	const handleKeyDown = (e: KeyboardEvent) => {
+		if (onclick && (e.key === 'Enter' || e.key === ' ')) {
+			e.preventDefault()
+			onclick()
+		} else if (!onclick && e.key === 'Enter') {
+			shouldRestoreFocus = true
 		}
 	}
 
@@ -27,10 +49,8 @@
 		let tagList = tagParam ? tagParam.split(',') : []
 
 		if (tagList.includes(tag.slug)) {
-			// Remove this tag if it's already selected
 			tagList = tagList.filter((t) => t !== tag.slug)
 		} else {
-			// Add this tag if it's not already selected
 			tagList.push(tag.slug)
 		}
 
@@ -46,13 +66,21 @@
 
 <svelte:element
 	this={onclick ? 'button' : 'a'}
+	bind:this={tagElement}
 	href={onclick ? undefined : getTagHref()}
 	class={[
-		'flex items-center gap-0.5 rounded border-1 border-slate-200 bg-slate-100 px-1.5 py-1 text-xs text-zinc-800',
-		{ 'border-svelte-300 bg-svelte-100 text-svelte-900': $params?.tags?.includes(tag.slug) }
+		'focus:outline-svelte-300 flex items-center gap-0.5 rounded border-1 border-slate-200 bg-slate-100 px-1.5 py-1 text-xs text-zinc-800 hover:bg-slate-200 focus:outline-2 focus:outline-offset-2',
+		{
+			'border-svelte-300 bg-svelte-100 text-svelte-900 hover:bg-svelte-200':
+				$params?.tags?.includes(tag.slug)
+		}
 	]}
-	onclick={onclick ? handleClick : undefined}
-	role={onclick ? 'button' : 'link'}
+	onclick={handleClick}
+	onkeydown={handleKeyDown}
+	role={onclick ? 'button' : undefined}
+	tabindex="0"
+	aria-label={`${$params?.tags?.includes(tag.slug) ? 'Remove' : 'Add'} tag: ${tag.name}`}
+	aria-pressed={onclick ? $params?.tags?.includes(tag.slug) : undefined}
 >
 	<svg
 		width="16"
