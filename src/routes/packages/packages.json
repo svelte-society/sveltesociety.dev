@@ -3303,5 +3303,13 @@
 		"description": "Use Vega and Vega-lite charts in your Svelte application",
 		"npm": "svelte-vega",
 		"categories": ["data-visualisation"]
+	},
+	{
+		"title": "SvSeeds",
+		"url": "https://svseeds.dev",
+		"repository": "https://github.com/scirexs/svseeds-ui",
+		"description": "A foundational headless UI library for Svelte.",
+		"npm": "svseeds",
+		"categories": ["design-system", "ui-components"]
 	}
 ]
