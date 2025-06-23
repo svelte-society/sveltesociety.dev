@@ -2,28 +2,11 @@
 	import Collapsible from '$lib/ui/Collapsible.svelte'
 	import List from 'phosphor-svelte/lib/List'
 	import Plus from 'phosphor-svelte/lib/Plus'
-
-	interface UpcomingEvent {
-		type: string
-		slug: string
-		title: string
-		metadata: {
-			startTime: string
-			endTime?: string
-			location?: string
-			url?: string
-			presentations: Array<{
-				title: string
-				presenter: string
-				description: string
-				videoUrl?: string
-			}>
-			socialCardUrl?: string
-		}
-	}
+	import UpcomingEvents from './UpcomingEvents.svelte'
+	import type { Content } from '$lib/types/content'
 
 	type Props = {
-		upcomingEvents?: UpcomingEvent[]
+		upcomingEvents?: Content[]
 		links: {
 			name: string
 			href: string
@@ -34,6 +17,10 @@
 	let { upcomingEvents = [], links }: Props = $props()
 
 	let menuOpen = $state(false)
+
+	const closeMenu = () => {
+		menuOpen = false
+	}
 </script>
 
 <div class="sm:hidden">
@@ -59,6 +46,7 @@
 											href={link.href}
 											class="block w-full rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900"
 											aria-disabled={link.disabled}
+											onclick={closeMenu}
 										>
 											{link.name}
 											{link.disabled ? ' (disabled)' : ''}
@@ -76,6 +64,7 @@
 						<a
 							href="/submit"
 							class="bg-svelte-500 hover:bg-svelte-600 focus:outline-svelte-300 inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-white focus:outline-2 focus:outline-offset-2"
+							onclick={closeMenu}
 						>
 							<Plus size={16} />
 							Submit Post
@@ -101,23 +90,7 @@
 						</ul>
 					</div>
 
-					{#if upcomingEvents.length > 0}
-						<div class="space-y-2">
-							<h3 class="font-semibold">Upcoming Events</h3>
-							{#each upcomingEvents as event}
-								<div class="rounded border border-gray-200 p-2 text-sm">
-									<a href="/event/{event.slug}" class="hover:text-svelte-500 font-medium">
-										{event.title}
-									</a>
-									{#if event.metadata.startTime}
-										<p class="mt-1 text-xs text-gray-500">
-											{new Date(event.metadata.startTime).toLocaleDateString()}
-										</p>
-									{/if}
-								</div>
-							{/each}
-						</div>
-					{/if}
+					<UpcomingEvents events={upcomingEvents} onLinkClick={closeMenu} />
 				</div>
 			</div>
 		{/snippet}
