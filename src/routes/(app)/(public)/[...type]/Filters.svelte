@@ -48,8 +48,8 @@
 </script>
 
 <!-- Mobile collapsible filters -->
-<Collapsible 
-	title={filtersOpen ? 'Hide Filters' : 'Show Filters'} 
+<Collapsible
+	title={filtersOpen ? 'Hide Filters' : 'Show Filters'}
 	bind:open={filtersOpen}
 	showOnMobile={true}
 	showOnDesktop={false}
@@ -63,6 +63,8 @@
 </Collapsible>
 
 <!-- Desktop non-collapsible filters -->
-<div class="hidden rounded-lg border border-slate-200 bg-white p-4 sm:block">
+<div
+	class="sticky top-0 z-10 hidden rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:block"
+>
 	<FilterForm {categories} {sort} {tags} {filters} {updateCategory} {updateSort} />
 </div>

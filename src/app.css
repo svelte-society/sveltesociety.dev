@@ -25,8 +25,4 @@
 			local('Inter'),
 			url('/fonts/Inter.woff2') format('woff2');
 	}
-
-	body {
-		overflow-y: scroll;
-	}
 }

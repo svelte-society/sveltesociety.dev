@@ -24,7 +24,7 @@
 	}
 </script>
 
-<aside class="hidden sm:block">
+<aside class="ml-4 hidden overflow-y-auto py-8 sm:block">
 	<nav>
 		<ul class="text-sm font-bold">
 			{#each links as link}

@@ -19,10 +19,8 @@
 	/>
 </svelte:head>
 
-<div class="mx-auto max-w-4xl px-4">
-	<!-- User Profile Header -->
+<div class="mx-auto max-w-4xl px-4 pb-8">
 	<div class="mb-8 rounded-lg bg-zinc-50 p-4 sm:p-6">
-		<!-- Mobile Layout -->
 		<div class="sm:hidden">
 			<!-- Avatar and basic info -->
 			<div class="mb-4 flex items-center gap-4">
