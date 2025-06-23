@@ -4,6 +4,7 @@
 	import Header from './_components/Header.svelte'
 	import LeftSidebar from './_components/LeftSidebar.svelte'
 	import RightSidebar from './_components/RightSidebar.svelte'
+	import MobileMenu from './_components/MobileMenu.svelte'
 
 	let { data, children } = $props()
 
@@ -15,6 +16,19 @@
 			'The Svelte Society is a community of developers who use Svelte to build web applications.',
 		url: page.url.toString()
 	}
+
+	const links = $derived([
+		{ name: 'Home', href: '/' },
+		{ name: 'Saved', href: '/saved', disabled: !data.user },
+		{ name: 'CURATED', href: null },
+		{ name: 'Announcements', href: '/announcement' },
+		{ name: 'Collections', href: '/collection' },
+		{ name: 'CODE / RESOURCES', href: null },
+		{ name: 'Libraries', href: '/library' },
+		{ name: 'LEARNING', href: null },
+		{ name: 'Videos', href: '/video' },
+		{ name: 'Recipes', href: '/recipe' }
+	])
 </script>
 
 <Head seo_config={page.data.meta || fallbackMeta} />
@@ -25,9 +39,13 @@
 	<main
 		class="relative mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-2 px-4 py-8 sm:grid-cols-[1.5fr_5fr_2.5fr] md:gap-4 lg:gap-6"
 	>
-		<LeftSidebar user={data.user} />
+		<LeftSidebar {links} />
 
 		<div>
+			<div class="mb-6 sm:hidden">
+				<MobileMenu {links} upcomingEvents={data.upcomingEvents} />
+			</div>
+
 			{@render children()}
 		</div>
 

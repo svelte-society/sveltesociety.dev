@@ -8,22 +8,14 @@
 			name: string
 			avatar_url: string
 		} | null
+		links: {
+			name: string
+			href: string
+			disabled?: boolean
+		}[]
 	}
 
-	let { user }: Props = $props()
-
-	const links = $derived([
-		{ name: 'Home', href: '/' },
-		{ name: 'Saved', href: '/saved', disabled: !user },
-		{ name: 'CURATED', href: null },
-		{ name: 'Announcements', href: '/announcement' },
-		{ name: 'Collections', href: '/collection' },
-		{ name: 'CODE / RESOURCES', href: null },
-		{ name: 'Libraries', href: '/library' },
-		{ name: 'LEARNING', href: null },
-		{ name: 'Videos', href: '/video' },
-		{ name: 'Recipes', href: '/recipe' }
-	])
+	let { user, links }: Props = $props()
 
 	function preserveSearchParams(href: string) {
 		const searchParams = page.url.searchParams.toString()
