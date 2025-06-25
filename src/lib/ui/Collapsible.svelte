@@ -75,7 +75,7 @@
 					<div
 						transition:slide={{ duration: 200 }}
 						{...props}
-						class="mt-4 rounded-lg border border-slate-200 bg-white p-4 {contentClass}"
+						class="my-4 rounded-lg border border-slate-200 bg-white p-4 {contentClass}"
 					>
 						{@render children()}
 					</div>
