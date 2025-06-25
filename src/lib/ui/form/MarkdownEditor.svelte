@@ -23,32 +23,34 @@
 </script>
 
 <Field {form} {name}>
-	<div class="relative flex flex-col gap-2">
+	<div class="flex flex-col gap-2">
 		<Control>
 			{#snippet children({ props })}
-				<div class="flex justify-between">
-					<Label class="text-xs font-medium outline-none">
-						{label}
-					</Label>
-					<Toggle text="Preview" name="tab" bind:checked={preview} />
+				<div class="relative flex flex-col gap-2">
+					<div class="flex justify-between">
+						<Label class="text-xs font-medium outline-none">
+							{label}
+						</Label>
+						<Toggle text="Preview" name="tab" bind:checked={preview} />
+					</div>
+					<textarea
+						{rows}
+						class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-7 text-sm placeholder-slate-500 focus:outline-2 focus:outline-sky-200 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600"
+						{...props}
+						bind:value={$formData[name]}
+						{placeholder}
+					></textarea>
+					{#if preview}
+						<div
+							class="prose absolute top-7 right-0 bottom-0 left-0 max-w-none overflow-y-auto rounded-md border bg-white p-4"
+						>
+							{@html marked($formData[name] as string)}
+						</div>
+					{/if}
 				</div>
-				<textarea
-					{rows}
-					class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 pr-7 text-sm placeholder-slate-500 focus:outline-2 focus:outline-sky-200 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600"
-					{...props}
-					bind:value={$formData[name]}
-					{placeholder}
-				></textarea>
 			{/snippet}
 		</Control>
 		<Description class="text-xs text-slate-500 data-fs-error:sr-only">{description}</Description>
 		<FieldErrors class="text-xs text-red-600" />
-		{#if preview}
-			<div
-				class="prose absolute top-6 right-0 bottom-4 left-0 max-w-none overflow-y-auto rounded-md border bg-white p-4"
-			>
-				{@html marked($formData[name] as string)}
-			</div>
-		{/if}
 	</div>
 </Field>
