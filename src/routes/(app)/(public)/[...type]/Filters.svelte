@@ -47,24 +47,26 @@
 	}
 </script>
 
-<!-- Mobile collapsible filters -->
-<Collapsible
-	title={filtersOpen ? 'Hide Filters' : 'Show Filters'}
-	bind:open={filtersOpen}
-	showOnMobile={true}
-	showOnDesktop={false}
->
-	{#snippet icon()}
-		<FunnelSimple size={20} class="text-gray-600" />
-	{/snippet}
-	{#snippet children()}
-		<FilterForm {categories} {sort} {tags} {filters} {updateCategory} {updateSort} />
-	{/snippet}
-</Collapsible>
+<div class="mb-4">
+	<!-- Mobile collapsible filters -->
+	<Collapsible
+		title={filtersOpen ? 'Hide Filters' : 'Show Filters'}
+		bind:open={filtersOpen}
+		showOnMobile={true}
+		showOnDesktop={false}
+	>
+		{#snippet icon()}
+			<FunnelSimple size={20} class="text-gray-600" />
+		{/snippet}
+		{#snippet children()}
+			<div class="mb-4">
+				<FilterForm {categories} {sort} {tags} {filters} {updateCategory} {updateSort} />
+			</div>
+		{/snippet}
+	</Collapsible>
 
-<!-- Desktop non-collapsible filters -->
-<div
-	class="sticky top-0 z-10 hidden rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:block"
->
-	<FilterForm {categories} {sort} {tags} {filters} {updateCategory} {updateSort} />
+	<!-- Desktop non-collapsible filters -->
+	<div class="hidden p-2 sm:block">
+		<FilterForm {categories} {sort} {tags} {filters} {updateCategory} {updateSort} />
+	</div>
 </div>

@@ -11,8 +11,9 @@
 	})
 </script>
 
+<Filters categories={data.categories} tags={data.tags} sort={data.sort} />
+
 <div class="grid gap-6">
-	<Filters categories={data.categories} tags={data.tags} sort={data.sort} />
 	{#if data.count > 0}
 		{#each contentList as content (content.id)}
 			<div>
