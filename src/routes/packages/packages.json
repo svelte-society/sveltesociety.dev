@@ -3310,6 +3310,6 @@
 		"repository": "https://github.com/chakra-ui/ark",
 		"description": "Ark UI is a headless UI library with over 45+ components designed to build reusable, scalable Design Systems that works for a wide range of JS frameworks.",
 		"npm": "@ark-ui/svelte",
-		"categories": ["ui-components"]
+		"categories": ["ui-components", "design-system"]
 	}
 ]
