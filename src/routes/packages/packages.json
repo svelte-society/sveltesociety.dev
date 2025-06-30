@@ -1,5 +1,13 @@
 [
 	{
+		"title": "Svelte 5 SPA Router",
+		"url": "https://github.com/mateothegreat/svelte5-router",
+		"repository": "https://github.com/mateothegreat/svelte5-router",
+		"npm": "@mateothegreat/svelte5-router",
+		"description": "An SPA router for Svelte that allows you to divide & conquer your app with nested routers.",
+		"categories": ["routers"]
+	},
+	{
 		"title": "kampsy-ui",
 		"url": "https://ui.kampsy.xyz/",
 		"repository": "https://github.com/kampsy/ui",
