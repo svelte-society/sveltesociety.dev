@@ -7,6 +7,7 @@ import { initiate_db } from './lib/server/db/initiate'
 import { run_seeds } from './lib/server/db/seeds/index'
 import { dev } from '$app/environment'
 import { hasData } from './lib/server/db/utils'
+import { SEED_DATABASE } from '$env/static/private'
 
 export const init: ServerInit = async () => {
 	console.log('Database initializing...')
@@ -14,11 +15,14 @@ export const init: ServerInit = async () => {
 	initiate_db()
 
 	if (!hasData()) {
-		run_seeds()
-		if (dev) {
-			console.log('No data found in development environment. Running seeds...')
+		const seedMode = SEED_DATABASE || (dev ? 'full' : 'minimal')
+		console.log(`Seed mode: ${seedMode}`)
+		
+		if (seedMode !== 'none') {
+			run_seeds(seedMode)
+			console.log(`Database seeding completed with mode: ${seedMode}`)
 		} else {
-			console.log('Production environment detected. Skipping seed process.')
+			console.log('Database seeding disabled by SEED_DATABASE=none')
 		}
 	}
 }

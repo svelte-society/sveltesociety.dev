@@ -111,6 +111,8 @@ ANTHROPIC_API_KEY=         # For AI-powered description generation in admin
 YOUTUBE_API_KEY=          # For importing YouTube videos
 GITHUB_TOKEN=             # For better rate limits when importing GitHub repos
 BULK_IMPORT_API_KEY=      # Secret key for bulk import API endpoint
+SEED_DATABASE=            # Controls database seeding: 'full' (all seeds), 'minimal' (roles + kevmodrome), 'none' (no seeding)
+                          # Defaults to 'full' in development, 'minimal' in production
 ```
 
 ## Key Patterns
