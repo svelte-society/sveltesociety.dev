@@ -26,15 +26,6 @@
 
 	let isOpen = $state(open)
 
-	// Sync with external open prop
-	$effect(() => {
-		isOpen = open
-	})
-
-	$effect(() => {
-		open = isOpen
-	})
-
 	// Determine visibility classes
 	let visibilityClass = $derived(() => {
 		if (showOnMobile && showOnDesktop) return ''
