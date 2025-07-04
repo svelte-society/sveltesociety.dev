@@ -115,6 +115,12 @@ SEED_DATABASE=            # Controls database seeding: 'full' (all seeds), 'mini
                           # Defaults to 'full' in development, 'minimal' in production
 ```
 
+Docker-specific environment variables:
+
+```
+PORT=8083                 # External port for docker-compose (default: 8083)
+```
+
 ## Key Patterns
 
 ### Svelte 5 Reactivity
