@@ -37,7 +37,7 @@ async function uploadToS3(filePath: string, content: ArrayBuffer) {
 
 	const fileName = basename(filePath)
 
-	await s3.write(filePath, content)
+	await s3.write(fileName, content)
 
 	console.log(`Backup uploaded to S3: s3://${S3_BUCKET}/${fileName}`)
 }
