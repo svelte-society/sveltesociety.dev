@@ -14,6 +14,9 @@ RUN bun run --bun build
 # Step 2: Create a smaller image for running the application
 FROM oven/bun
 
+# Install sqlite3 for database operations
+RUN apt-get update && apt-get install -y sqlite3 && rm -rf /var/lib/apt/lists/*
+
 # Set working directory for the second stage
 WORKDIR /app
 
