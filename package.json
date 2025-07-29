@@ -17,20 +17,20 @@
 		"test": "vitest"
 	},
 	"devDependencies": {
-		"@orama/orama": "^3.1.10",
-		"@playwright/test": "^1.53.2",
-		"@sveltejs/adapter-node": "^5.2.12",
+		"@orama/orama": "^3.1.11",
+		"@playwright/test": "^1.54.1",
+		"@sveltejs/adapter-node": "^5.2.13",
 		"@sveltejs/enhanced-img": "^0.6.1",
-		"@sveltejs/kit": "^2.22.2",
+		"@sveltejs/kit": "^2.26.1",
 		"@sveltejs/vite-plugin-svelte": "5.1.0",
 		"@sveltejs/vite-plugin-svelte-inspector": "^4.0.1",
 		"@tailwindcss/forms": "^0.5.10",
 		"@tailwindcss/typography": "^0.5.16",
 		"@tailwindcss/vite": "^4.1.11",
 		"@thisux/sveltednd": "^0.0.20",
-		"@types/bun": "^1.2.18",
+		"@types/bun": "^1.2.19",
 		"autoprefixer": "^10.4.21",
-		"bits-ui": "^2.8.10",
+		"bits-ui": "^2.8.13",
 		"dotenv": "^16.6.1",
 		"formsnap": "^2.0.1",
 		"magnitude-test": "^0.1.4",
@@ -38,10 +38,10 @@
 		"phosphor-svelte": "^3.0.1",
 		"prettier": "^3.6.2",
 		"prettier-plugin-svelte": "^3.4.0",
-		"prettier-plugin-tailwindcss": "^0.6.13",
+		"prettier-plugin-tailwindcss": "^0.6.14",
 		"svead": "^0.0.13",
-		"svelte": "^5.35.2",
-		"svelte-check": "^4.2.2",
+		"svelte": "^5.37.1",
+		"svelte-check": "^4.3.0",
 		"svelte-sonner": "^1.0.5",
 		"sveltekit-search-params": "^3.0.0",
 		"sveltekit-superforms": "^2.27.1",
@@ -51,12 +51,12 @@
 		"vite": "^6.3.5",
 		"vitest": "^3.2.4",
 		"@ai-sdk/anthropic": "^1.2.12",
-		"ai": "^4.3.16",
+		"ai": "^4.3.19",
 		"@epic-web/cachified": "^5.6.0",
-		"zod": "^3.25.73"
+		"zod": "^3.25.76"
 	},
 	"dependencies": {
-		"duckdb-async": "^1.3.1"
+		"duckdb-async": "^1.3.2"
 	},
 	"type": "module"
 }
