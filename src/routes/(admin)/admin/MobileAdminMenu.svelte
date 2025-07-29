@@ -1,4 +1,4 @@
-<script module>
+<script module lang="ts">
 	export type Link = {
 		href: string
 		label: string
