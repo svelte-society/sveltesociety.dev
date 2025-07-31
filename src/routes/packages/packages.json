@@ -3305,11 +3305,19 @@
 		"categories": ["data-visualisation"]
 	},
 	{
-		"title": "moving icons",
+		"title": "adapter-hono",
+		"url": "https://www.npmjs.com/package/adapter-hono",
+		"repository": "https://github.com/ROBOTofficial/svelte-hono-adapter",
+		"description": "Ported the functionality of @sveltejs/adapter-node to hono.",
+		"npm": "adapter-hono",
+		"categories": ["sveltekit-adapters"]
+	},
+  {
+    "title": "moving icons",
 		"url": "https://movingicons.dev",
 		"repository": "https://github.com/jis3r/icons",
 		"description": "A collection of beautifully crafted, animated Lucide icons.",
 		"npm": "@jis3r/icons",
 		"categories": ["icons", "ui-components"]
-	}
+  }
 ]
