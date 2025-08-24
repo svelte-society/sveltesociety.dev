@@ -3311,5 +3311,12 @@
 		"description": "Ported the functionality of @sveltejs/adapter-node to hono.",
 		"npm": "adapter-hono",
 		"categories": ["sveltekit-adapters"]
+	},
+	{
+		"title": "@TheBrenny/svelte-adapter-h3",
+		"repository": "https://github.com/TheBrenny/svelte-adapter-h3",
+		"description": "Ported the functionality of adapter-hono to H3.",
+		"npm": "@thebrenny/svelte-adapter-h3",
+		"categories": ["sveltekit-adapters"]
 	}
 ]
