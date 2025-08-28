@@ -3311,5 +3311,17 @@
 		"description": "Ported the functionality of @sveltejs/adapter-node to hono.",
 		"npm": "adapter-hono",
 		"categories": ["sveltekit-adapters"]
+	},
+	{
+		"title": "pivot-svelte",
+		"url": "https://www.flexmonster.com/doc/sample-svelte-project/",
+		"repository": "https://github.com/flexmonster/pivot-svelte.git",
+		"description": "Svelte module for Flexmonster Pivot Table & Charts",
+		"npm": "svelte-flexmonster",
+		"categories": [
+			"data-visualisation",
+			"integrations",
+			"official"
+		]
 	}
 ]
