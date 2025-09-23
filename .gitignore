@@ -15,3 +15,4 @@ vite.config.ts.timestamp-*
 /local_event.db*
 /local.db*
 /test.db*
+.state_directory

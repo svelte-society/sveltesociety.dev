@@ -111,6 +111,7 @@ const libraryContentSchema = baseContentSchema.extend({
 		updatedAt: z.string().optional(),
 		pushedAt: z.string().optional(),
 		ogImage: z.string().optional(),
+		thumbnail: z.string().optional(),
 		externalSource: z
 			.object({
 				type: z.string(),

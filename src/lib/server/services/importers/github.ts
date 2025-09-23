@@ -1,5 +1,23 @@
-import type { ExternalContentService, ExternalContentData } from '../external-content'
 import type { CacheService } from '../cache'
+import type { ExternalContentService, ExternalContentData } from '../external-content'
+
+import fs from 'node:fs'
+
+const { STATE_DIRECTORY = '.state_directory' } = process.env
+
+async function get_metadata({ url, html }) {
+	if (url) {
+		html = await fetch(url).then((r) => r.text())
+	}
+
+	const head = html.split('<head>').at(1)?.split('</head>').at(0)
+
+	const match = head.match(/<meta property="og:image" content="([^"]+)" \/>/m)
+
+	if (!match) return
+
+	return match[1]
+}
 
 interface GitHubRepository {
 	id: number
@@ -50,11 +68,32 @@ export class GitHubImporter {
 		const repository = await this.fetchRepository(owner, repo)
 		if (!repository) return null
 
+		if (false) {
+		}
+
 		const readme = await this.fetchReadme(owner, repo)
 		const contentData = this.transformRepositoryToContent(repository, readme)
+
 		if (authorId) {
 			contentData.author_id = authorId
 		}
+
+		const response = await fetch(contentData.metadata.ogImage)
+
+		if (!response.ok) {
+			throw new Error()
+		}
+
+		const dir = [STATE_DIRECTORY, 'files', 'gh', repository.full_name].join('/')
+		const extension = response.headers.get('content-type')?.split('/').at(-1)
+		const file_path = dir + '/thumbnail.' + extension
+
+		fs.mkdirSync(dir, { recursive: true })
+		fs.writeFileSync(file_path, Buffer.from(await response.arrayBuffer()))
+
+		const thumbnail = ['/files', 'gh', repository.full_name, '/thumbnail.' + extension].join('/')
+		contentData.metadata.thumbnail = thumbnail
+
 		return this.externalContentService.upsertExternalContent(contentData)
 	}
 

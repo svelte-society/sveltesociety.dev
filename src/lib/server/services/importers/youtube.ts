@@ -1,5 +1,9 @@
-import type { ExternalContentService, ExternalContentData } from '../external-content'
 import type { CacheService } from '../cache'
+import type { ExternalContentService, ExternalContentData } from '../external-content'
+
+import fs from 'node:fs'
+
+const { STATE_DIRECTORY = '.state_directory' } = process.env
 
 interface YouTubeVideoSnippet {
 	title: string
@@ -58,10 +62,20 @@ export class YouTubeImporter {
 		const video = await this.fetchVideo(videoId)
 		if (!video) return null
 
+		const response = await fetch(`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`)
+
+		const dir = [STATE_DIRECTORY, 'files', 'yt', video.id].join('/')
+
+		fs.mkdirSync(dir, { recursive: true })
+
+		fs.writeFileSync(dir + '/thumbnail.jpg', Buffer.from(await response.arrayBuffer()))
+
 		const contentData = this.transformVideoToContent(video)
+
 		if (authorId) {
 			contentData.author_id = authorId
 		}
+
 		return this.externalContentService.upsertExternalContent(contentData)
 	}
 
@@ -98,24 +112,13 @@ export class YouTubeImporter {
 	 * Transform a single YouTube video to external content data
 	 */
 	private transformVideoToContent(video: YouTubeVideo): ExternalContentData {
-		const bestThumbnail =
-			video.snippet.thumbnails.maxres ||
-			video.snippet.thumbnails.standard ||
-			video.snippet.thumbnails.high ||
-			video.snippet.thumbnails.medium ||
-			video.snippet.thumbnails.default
-
-		// Fallback to direct YouTube thumbnail URL if API doesn't provide one
-		const thumbnailUrl =
-			bestThumbnail?.url || `https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`
-
 		return {
 			title: video.snippet.title,
 			type: 'video',
 			metadata: {
 				channelTitle: video.snippet.channelTitle,
 				publishedAt: video.snippet.publishedAt,
-				thumbnail: thumbnailUrl,
+				thumbnail: `/files/yt/${video.id}/thumbnail.jpg`,
 				thumbnails: video.snippet.thumbnails,
 				tags: video.snippet.tags || [],
 				statistics: video.statistics
