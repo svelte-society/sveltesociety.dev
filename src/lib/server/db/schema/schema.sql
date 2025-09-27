@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS content (
     description TEXT,
     metadata TEXT,
     children TEXT,
+    fetched_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     published_at TIMESTAMP,
@@ -170,5 +171,5 @@ CREATE TABLE IF NOT EXISTS migrations (
 );
 
 -- Insert default OAuth providers
-INSERT OR IGNORE INTO oauth_providers (name, description, active) 
+INSERT OR IGNORE INTO oauth_providers (name, description, active)
 VALUES ('github', 'GitHub OAuth Provider', 1);
