@@ -4,7 +4,7 @@ import { writeFileSync } from 'node:fs';
 import { promisify } from 'node:util';
 import { exec } from 'node:child_process';
 import { packagesSchema } from '../src/lib/schemas.js';
-import packages from '../src/routes/packages/packages.json' assert { type: 'json' };
+import packages from '../src/routes/packages/packages.json' with { type: 'json' };
 import { chunk } from './chunk.js';
 
 const execAsync = promisify(exec);

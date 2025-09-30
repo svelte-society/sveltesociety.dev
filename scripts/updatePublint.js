@@ -4,8 +4,8 @@
 import { writeFileSync } from 'node:fs';
 import getNpmTarballUrl from 'get-npm-tarball-url';
 import { packagesSchema } from '../src/lib/schemas.js';
-import packages from '../src/routes/packages/packages.json' assert { type: 'json' };
-import npm from '../src/lib/data/npm.json' assert { type: 'json' };
+import packages from '../src/routes/packages/packages.json' with { type: 'json' };
+import npm from '../src/lib/data/npm.json' with { type: 'json' };
 import { publint } from 'publint';
 import { chunk } from './chunk.js';
 

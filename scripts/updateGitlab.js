@@ -1,7 +1,7 @@
 import { writeFileSync } from 'node:fs';
 import { packagesSchema, templatesSchema } from '../src/lib/schemas.js';
-import packages from '../src/routes/packages/packages.json' assert { type: 'json' };
-import templates from '../src/routes/templates/templates.json' assert { type: 'json' };
+import packages from '../src/routes/packages/packages.json' with { type: 'json' };
+import templates from '../src/routes/templates/templates.json' with { type: 'json' };
 import { chunk } from './chunk.js';
 
 const gitlabGraphQlUrl = 'https://gitlab.com/api/graphql';
