@@ -5,20 +5,6 @@ import fs from 'node:fs'
 
 const { STATE_DIRECTORY = '.state_directory' } = process.env
 
-async function get_metadata({ url, html }) {
-	if (url) {
-		html = await fetch(url).then((r) => r.text())
-	}
-
-	const head = html.split('<head>').at(1)?.split('</head>').at(0)
-
-	const match = head.match(/<meta property="og:image" content="([^"]+)" \/>/m)
-
-	if (!match) return
-
-	return match[1]
-}
-
 interface GitHubRepository {
 	id: number
 	node_id: string
