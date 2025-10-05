@@ -76,7 +76,6 @@ CREATE TABLE IF NOT EXISTS content (
     description TEXT,
     metadata TEXT,
     children TEXT,
-    fetched_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     published_at TIMESTAMP,
