@@ -64,12 +64,14 @@
 				</a>
 			</td>
 			<td class={classes}>
-				<div class="line-clamp-2">
+				<a href={`/admin/content/${item.id}`} class="line-clamp-2">
 					{item.description || ''}
-				</div>
+				</a>
 			</td>
 			<td class={classes}>
-				{formatRelativeDate(item.created_at || '')}
+				<a href={`/admin/content/${item.id}`}>
+					{formatRelativeDate(item.created_at || '')}
+				</a>
 			</td>
 		{/snippet}
 		{#snippet actionCell(item: Content)}
