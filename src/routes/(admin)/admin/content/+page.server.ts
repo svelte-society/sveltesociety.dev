@@ -3,7 +3,7 @@ import { fail } from '@sveltejs/kit'
 
 export const load: PageServerLoad = async ({ url, locals }) => {
 	const page = parseInt(url.searchParams.get('page') || '1', 10)
-	const perPage = 10
+	const perPage = 50
 	const offset = (page - 1) * perPage
 
 	// Get all content regardless of status for admin view
