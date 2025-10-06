@@ -8,6 +8,7 @@
 	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 	import { slide } from 'svelte/transition'
+	import CategorySelector from '$lib/ui/form/CategorySelector.svelte'
 
 	let { form, isImported = false, isEditing = false, data } = $props()
 
@@ -44,14 +45,14 @@
 			]}
 		/>
 
-		<Select
+		<CategorySelector
 			name="status"
 			label="Status"
 			description="Select the publication status"
 			options={[
-				{ value: 'draft', label: 'Draft' },
-				{ value: 'published', label: 'Published' },
-				{ value: 'archived', label: 'Archived' }
+				{ value: 'draft', label: 'Draft', type: 'draft', color: 'yellow' },
+				{ value: 'published', label: 'Published', type: 'published', color: 'green' },
+				{ value: 'archived', label: 'Archived', type: 'archive', color: 'gray' }
 			]}
 		/>
 	</div>
@@ -72,7 +73,7 @@
 			<div>
 				{#if $formData.author_id && data.users.find((u) => u.id === $formData.author_id)}
 					{@const currentAuthor = data.users.find((u) => u.id === $formData.author_id)}
-					<a 
+					<a
 						href="/user/{currentAuthor.username}"
 						class="flex items-center gap-3 rounded-md border border-gray-200 bg-gray-50 p-3 transition-colors hover:bg-gray-100"
 					>

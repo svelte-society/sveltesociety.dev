@@ -7,6 +7,9 @@
 	import Files from 'phosphor-svelte/lib/Files'
 	import Calendar from 'phosphor-svelte/lib/Calendar'
 	import Link from 'phosphor-svelte/lib/Link'
+	import Draft from 'phosphor-svelte/lib/FileDashed'
+	import Archive from 'phosphor-svelte/lib/Archive'
+	import Published from 'phosphor-svelte/lib/Globe'
 
 	type Props = {
 		type: Type
@@ -23,7 +26,10 @@
 		announcement: Megaphone,
 		collection: Files,
 		event: Calendar,
-		link: Link
+		link: Link,
+		draft: Draft,
+		published: Published,
+		archive: Archive
 	})
 
 	const Icon = $derived(IconMap[type])

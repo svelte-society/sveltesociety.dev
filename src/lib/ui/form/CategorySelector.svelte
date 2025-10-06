@@ -4,7 +4,7 @@
 	interface TextInputProps {
 		label?: string
 		description?: string
-		options: { label: string; value: string; type: Type }[]
+		options: { label: string; value: string; type: string }[]
 		name: string
 	}
 	let { name, label, description, options }: TextInputProps = $props()
