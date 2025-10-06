@@ -58,6 +58,7 @@
 								{placeholder}
 								aria-label={placeholder}
 								{...props}
+								autocomplete="off"
 								class="w-full rounded-md border-2 border-transparent bg-slate-100 px-7 py-1.5 text-sm placeholder-slate-500 focus:outline-2 focus:outline-sky-200 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600"
 							/>
 							<CaretUpDown
