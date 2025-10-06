@@ -1,8 +1,10 @@
 .DS_Store
 node_modules
+/backups
 /build
 /.vercel
 /.svelte-kit
+/test-results
 /package
 .env
 .env.*
@@ -13,3 +15,4 @@ vite.config.ts.timestamp-*
 /local_event.db*
 /local.db*
 /test.db*
+.state_directory

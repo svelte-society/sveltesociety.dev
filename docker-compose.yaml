@@ -13,8 +13,11 @@ services:
       - GITHUB_AUTHORIZATION_CALLBACK_URL=${GITHUB_AUTHORIZATION_CALLBACK_URL}
       - DB_PATH=${DB_PATH}
       - PUBLIC_PLAUSIBLE_SHARED_LINK_AUTH=${PUBLIC_PLAUSIBLE_SHARED_LINK_AUTH}
+      - STATE_DIRECTORY=/var/state
     volumes:
       - db_data:/app/data
+      - state:/var/state
 
 volumes:
   db_data:
+  state:

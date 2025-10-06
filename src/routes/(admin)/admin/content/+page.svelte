@@ -36,14 +36,23 @@
 		{/snippet}
 		{#snippet row(item: Content, classes)}
 			<td class="whitespace-nowrap {classes} font-medium text-gray-900">
-				<div>{item.title.length > 50 ? item.title.slice(0, 50) + '...' : item.title}</div>
-				<div class="mt-1 text-xs text-gray-400">
-					{item.slug.length > 50 ? item.slug.slice(0, 50) + '...' : item.slug}
-				</div>
+				<a href={`/admin/content/${item.id}`}>
+					<div>{item.title.length > 50 ? item.title.slice(0, 50) + '...' : item.title}</div>
+					<div class="mt-1 text-xs text-gray-400">
+						{item.slug.length > 50 ? item.slug.slice(0, 50) + '...' : item.slug}
+					</div>
+				</a>
 			</td>
-			<td class={classes}><Badge color={getStatusColor(item.status)} text={item.status} /></td>
+			<td class={classes}
+				><a href={`/admin/content/${item.id}`}>
+					<Badge color={getStatusColor(item.status)} text={item.status} />
+				</a></td
+			>
 			<td class={classes}>
-				<div class="group relative flex items-center justify-center">
+				<a
+					href={`/admin/content/${item.id}`}
+					class="group relative flex items-center justify-center"
+				>
 					<div class="type-icon-wrapper text-gray-600">
 						<TypeIcon type={item.type} />
 					</div>
@@ -52,15 +61,17 @@
 					>
 						{item.type}
 					</div>
-				</div>
+				</a>
 			</td>
 			<td class={classes}>
-				<div class="line-clamp-2">
+				<a href={`/admin/content/${item.id}`} class="line-clamp-2">
 					{item.description || ''}
-				</div>
+				</a>
 			</td>
 			<td class={classes}>
-				{formatRelativeDate(item.created_at || '')}
+				<a href={`/admin/content/${item.id}`}>
+					{formatRelativeDate(item.created_at || '')}
+				</a>
 			</td>
 		{/snippet}
 		{#snippet actionCell(item: Content)}

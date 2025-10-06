@@ -170,5 +170,5 @@ CREATE TABLE IF NOT EXISTS migrations (
 );
 
 -- Insert default OAuth providers
-INSERT OR IGNORE INTO oauth_providers (name, description, active) 
+INSERT OR IGNORE INTO oauth_providers (name, description, active)
 VALUES ('github', 'GitHub OAuth Provider', 1);

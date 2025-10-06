@@ -44,7 +44,7 @@
 						onclick={(e) => e.stopPropagation()}
 					>
 						<img
-							src={getCachedImageWithPreset(content.metadata.ogImage, 'content', { h: 400 })}
+							src={getCachedImageWithPreset(content.metadata.thumbnail, 'content', { h: 400 })}
 							alt="{content.title} repository preview"
 							class="w-full rounded-t-lg object-cover transition-opacity hover:opacity-90"
 							loading="lazy"
@@ -52,7 +52,7 @@
 					</a>
 				{:else}
 					<img
-						src={getCachedImageWithPreset(content.metadata.ogImage, 'content', { h: 400 })}
+						src={getCachedImageWithPreset(content.metadata.thumbnail, 'content', { h: 400 })}
 						alt="{content.title} repository preview"
 						class="w-full rounded-t-lg object-cover"
 						loading="lazy"

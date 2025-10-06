@@ -3,6 +3,9 @@
  * Documentation: https://images.weserv.nl/docs/
  */
 
+import { dev } from '$app/environment'
+import { page } from '$app/state'
+
 export interface ImageCacheOptions {
 	/** Width in pixels */
 	w?: number
@@ -54,6 +57,10 @@ export function getCachedImageUrl(
 		return ''
 	}
 
+	if (dev) {
+		return originalUrl
+	}
+
 	// Skip if already a weserv URL
 	if (originalUrl.includes('wsrv.nl') || originalUrl.includes('weserv.nl')) {
 		return originalUrl
@@ -68,7 +75,7 @@ export function getCachedImageUrl(
 	const params = new URLSearchParams()
 
 	// Add the original URL
-	params.append('url', originalUrl)
+	params.append('url', originalUrl.startsWith('/') ? page.url.origin + originalUrl : originalUrl)
 
 	// Add options
 	if (options.w) params.append('w', options.w.toString())
