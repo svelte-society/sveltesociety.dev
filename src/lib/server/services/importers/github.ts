@@ -78,10 +78,16 @@ export class GitHubImporter {
 			contentData.author_id = authorId
 		}
 
-		const response = await fetch(contentData.metadata.ogImage)
+		let response
 
-		if (!response.ok) {
-			throw new Error()
+		try {
+			response = await fetch(contentData.metadata.ogImage)
+		} catch (error) {
+			console.error(error)
+		}
+
+		if (!response) {
+			throw new Error('Failed to fetch image')
 		}
 
 		const dir = [STATE_DIRECTORY, 'files', 'gh', repository.full_name].join('/')
