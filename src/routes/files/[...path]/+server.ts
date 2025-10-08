@@ -10,15 +10,61 @@ if (!fs.existsSync(STATE_DIRECTORY)) {
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ params, request }) {
-	const file_path = path.normalize(
-		path.join(STATE_DIRECTORY, 'files', decodeURIComponent(params.path))
-	)
+	const p = decodeURIComponent(params.path)
 
-	if (!fs.existsSync(file_path)) {
+	const file_path = path.normalize(path.join(STATE_DIRECTORY, 'files', p))
+
+	const exists = fs.existsSync(file_path)
+
+	let stats
+
+	if (exists) {
+		stats = fs.statSync(file_path)
+	}
+
+	const [source, ...rest] = p.split('/')
+
+	switch (source) {
+		case 'gh': {
+			const T = 1000 * 60 * 3600 * 24 * 14 // 14 days
+
+			if (!exists || Date.now() - stats?.mtime.getTime() >= T) {
+				const [owner, repo] = rest
+
+				const og_image_url = `https://opengraph.githubassets.com/${crypto.randomUUID()}/${owner}/${repo}`
+
+				let response
+
+				try {
+					response = await fetch(og_image_url)
+				} catch (error) {
+					console.error(error)
+					break
+				}
+
+				if (!response.ok) {
+					console.log('Could not refresh OG image. Rate limit exceeded: ' + og_image_url)
+					break
+				}
+
+				fs.writeFileSync(file_path, Buffer.from(await response.arrayBuffer()))
+
+				stats = fs.statSync(file_path)
+
+				console.log('Refreshed OG image: ' + og_image_url)
+			}
+
+			break
+		}
+		case 'yt': {
+			break
+		}
+	}
+
+	if (!stats) {
 		return new Response('not found', { status: 404 })
 	}
 
-	const stats = fs.statSync(file_path)
 	const etag = `W/"${stats.size}-${stats.mtime.getTime()}"`
 
 	if (request.headers.get('if-none-match') === etag) {

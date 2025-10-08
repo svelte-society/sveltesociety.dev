@@ -2,6 +2,7 @@ import type { CacheService } from '../cache'
 import type { ExternalContentService, ExternalContentData } from '../external-content'
 
 import fs from 'node:fs'
+import path from 'node:path'
 
 const { STATE_DIRECTORY = '.state_directory' } = process.env
 
@@ -64,11 +65,11 @@ export class YouTubeImporter {
 
 		const response = await fetch(`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`)
 
-		const dir = [STATE_DIRECTORY, 'files', 'yt', video.id].join('/')
+		const dir = path.join(STATE_DIRECTORY, 'files', 'yt', video.id)
 
 		fs.mkdirSync(dir, { recursive: true })
 
-		fs.writeFileSync(dir + '/thumbnail.jpg', Buffer.from(await response.arrayBuffer()))
+		fs.writeFileSync(path.join(dir, 'thumbnail.jpg'), Buffer.from(await response.arrayBuffer()))
 
 		const contentData = this.transformVideoToContent(video)
 
