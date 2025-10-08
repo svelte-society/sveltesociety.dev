@@ -8,14 +8,9 @@ if (!fs.existsSync(STATE_DIRECTORY)) {
 	fs.mkdirSync(STATE_DIRECTORY, { recursive: true })
 }
 
-const a = `update content set metadata = json_replace(metadata,'$.thumbnail', replace(metadata ->> '$.thumbnail', '//', '/'));`
-const a = `update content set metadata = json_replace(metadata,'$.thumbnail', replace(metadata ->> '$.thumbnail', '.html', '.png'));`
-
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ params, request }) {
 	const p = decodeURIComponent(params.path)
-
-	const [source, ...rest] = p.split('/')
 
 	const file_path = path.normalize(path.join(STATE_DIRECTORY, 'files', p))
 
@@ -26,6 +21,8 @@ export async function GET({ params, request }) {
 	if (exists) {
 		stats = fs.statSync(file_path)
 	}
+
+	const [source, ...rest] = p.split('/')
 
 	switch (source) {
 		case 'gh': {
