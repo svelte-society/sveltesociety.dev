@@ -26,7 +26,7 @@ export async function GET({ params, request }) {
 
 	switch (source) {
 		case 'gh': {
-			const T = 1000 * 60 * 3600 * 24 * 14 // 7 days
+			const T = 1000 * 60 * 3600 * 24 * 14 // 14 days
 
 			if (!exists || Date.now() - stats?.mtime.getTime() >= T) {
 				const [owner, repo] = rest
