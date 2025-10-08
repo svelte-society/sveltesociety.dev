@@ -86,7 +86,7 @@ export class GitHubImporter {
 			console.error(error)
 		}
 
-		if (!response) {
+		if (!response || !response.headers.get('content-type')?.includes('image')) {
 			throw new Error('Failed to fetch image')
 		}
 
