@@ -10,14 +10,12 @@ import { hasData } from './lib/server/db/utils'
 import { SEED_DATABASE } from '$env/static/private'
 
 export const init: ServerInit = async () => {
-	console.log('Database initializing...')
-	// Initialize the database structure
 	initiate_db()
 
 	if (!hasData()) {
 		const seedMode = SEED_DATABASE || (dev ? 'full' : 'minimal')
 		console.log(`Seed mode: ${seedMode}`)
-		
+
 		if (seedMode !== 'none') {
 			run_seeds(seedMode)
 			console.log(`Database seeding completed with mode: ${seedMode}`)
