@@ -72,40 +72,20 @@ export class MigrationRunner {
 		}
 		console.log(`Found ${pendingMigrations.length} pending migration(s)`)
 		for (const migration of pendingMigrations) {
-			// Execute each migration in its own transaction
-			this.db.exec('BEGIN TRANSACTION')
+			this.db.run('BEGIN TRANSACTION')
 			try {
 				console.log(`Applying migration ${migration.version}: ${migration.name}`)
 
-				// Add detailed debugging HERE
-				console.log('=== DEBUG: Checking tables before migration ===')
-				const tables = this.db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all()
-				console.log('All tables:', tables)
+				this.db.run(migration.sql)
 
-				const contentExists = this.db
-					.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='content'")
-					.get()
-				console.log('Content table exists:', contentExists)
-
-				if (contentExists) {
-					const rowCount = this.db.prepare('SELECT COUNT(*) as count FROM content').get()
-					console.log('Content table row count:', rowCount)
-				}
-				console.log('=== END DEBUG ===')
-
-				// Execute the migration SQL (without BEGIN/COMMIT in the file)
-				this.db.exec(migration.sql)
-
-				// Mark as applied
 				this.markMigrationAsApplied(migration)
 
-				// Commit the transaction
-				this.db.exec('COMMIT')
+				this.db.run('COMMIT')
 
 				console.log(`✓ Migration ${migration.version} applied successfully`)
 			} catch (error) {
 				// Rollback on error
-				this.db.exec('ROLLBACK')
+				this.db.run('ROLLBACK')
 				console.error(`✗ Failed to apply migration ${migration.version}:`, error)
 				throw error
 			}
