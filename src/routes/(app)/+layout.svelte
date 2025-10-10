@@ -31,6 +31,14 @@
 	])
 </script>
 
+<svelte:head>
+	<script
+		defer
+		src="https://umami.sveltesociety.dev/script.js"
+		data-website-id="d91db9d2-f32f-4781-a861-efba1953edea"
+	></script>
+</svelte:head>
+
 <Head seo_config={page.data.meta || fallbackMeta} />
 
 <div class="flex h-screen flex-col">
