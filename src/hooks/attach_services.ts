@@ -66,7 +66,6 @@ const initialize_db = () => {
 }
 
 export const attach_services: Handle = async ({ event, resolve }) => {
-	console.log('Attaching services...')
 	const db = initialize_db()
 	event.locals.db = db
 	event.locals.contentService = contentService
