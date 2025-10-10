@@ -275,6 +275,10 @@ export class ExternalContentService {
 				.replace(/[^a-z0-9]+/g, '-')
 		}
 
+		if (data.type === 'library') {
+			return data.metadata.owner.name + '-' + titleSlug
+		}
+
 		return titleSlug
 	}
 }

@@ -55,9 +55,6 @@ export class GitHubImporter {
 		const repository = await this.fetchRepository(owner, repo)
 		if (!repository) return null
 
-		if (false) {
-		}
-
 		const readme = await this.fetchReadme(owner, repo)
 		const contentData = this.transformRepositoryToContent(repository, readme)
 

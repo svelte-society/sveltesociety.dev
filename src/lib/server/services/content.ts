@@ -470,7 +470,7 @@ export class ContentService {
 		}
 	}
 
-	getContentBySlug(slug: string, type?: string): Content | null {
+	getContentBySlug(slug: string, any_status?: boolean): Content | null {
 		if (!slug) {
 			console.error('Invalid slug:', slug)
 			return null
@@ -483,15 +483,14 @@ export class ContentService {
 				WHERE slug = ? AND status = 'published'
 			`
 
-			const params: any[] = [slug]
-
-			if (type) {
+			if (any_status) {
 				query = `
 					SELECT * FROM content
-					WHERE slug = ? AND type = ? AND status = 'published'
+					WHERE slug = ?
 				`
-				params.push(type)
 			}
+
+			const params: any[] = [slug]
 
 			// Get the basic content item
 			const contentQuery = this.db.prepare(query)
