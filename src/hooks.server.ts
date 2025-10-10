@@ -6,7 +6,7 @@ import type { ServerInit } from '@sveltejs/kit'
 import { initiate_db } from './lib/server/db/initiate'
 
 export const init: ServerInit = async () => {
-	initiate_db()
+	await initiate_db()
 }
 
 export const handle = sequence(attach_services, add_user_data, protect_routes)
