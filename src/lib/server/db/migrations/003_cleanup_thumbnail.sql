@@ -2,4 +2,4 @@ update content set
   metadata = json_replace(metadata,'$.thumbnail', replace(metadata ->> '$.thumbnail', '//', '/'));
 
 update content set
-  metadata = json_replace(metadata,'$.thumbnail', replace(metadata ->> '$.thumbnail', '.html', '.png'));
+  metadata = json_replace(metadata,'$.thumbnail', replace(metadata ->> '$.thumbnail', '.html; charset=utf-8', '.png'));
