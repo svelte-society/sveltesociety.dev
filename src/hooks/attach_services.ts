@@ -37,13 +37,13 @@ let announcementService: AnnouncementService
 const initialize_db = () => {
 	if (!db) {
 		db = new Database(DB_PATH, { strict: true })
-		db.exec('PRAGMA journal_mode = WAL')
-		db.exec('PRAGMA busy_timeout = 5000')
-		db.exec('PRAGMA synchronous = NORMAL')
-		db.exec('PRAGMA cache_size = 300000')
-		db.exec('PRAGMA temp_store = MEMORY')
-		db.exec('PRAGMA mmap_size = 3000000')
-		db.exec('PRAGMA foreign_keys = ON')
+		db.run('PRAGMA journal_mode = WAL')
+		db.run('PRAGMA busy_timeout = 5000')
+		db.run('PRAGMA synchronous = NORMAL')
+		db.run('PRAGMA cache_size = 300000')
+		db.run('PRAGMA temp_store = MEMORY')
+		db.run('PRAGMA mmap_size = 3000000')
+		db.run('PRAGMA foreign_keys = ON')
 
 		cacheService = new CacheService(db)
 		searchService = new SearchService(db)
@@ -66,6 +66,7 @@ const initialize_db = () => {
 }
 
 export const attach_services: Handle = async ({ event, resolve }) => {
+	console.log('Attaching services...')
 	const db = initialize_db()
 	event.locals.db = db
 	event.locals.contentService = contentService
