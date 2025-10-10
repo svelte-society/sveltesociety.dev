@@ -1,6 +1,3 @@
-
-BEGIN TRANSACTION;
-
 -- Content table
 CREATE TABLE IF NOT EXISTS new_content_table (
     id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
@@ -30,5 +27,3 @@ DROP TABLE content;
 ALTER TABLE new_content_table RENAME TO content;
 
 CREATE INDEX IF NOT EXISTS statusIdx ON content(status);
-
-COMMIT;

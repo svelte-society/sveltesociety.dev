@@ -61,38 +61,39 @@ export class MigrationRunner {
 
 	public async runMigrations(): Promise<void> {
 		console.log('Running database migrations...')
-
 		const availableMigrations = this.getMigrationFiles()
 		const appliedMigrations = this.getAppliedMigrations()
-
 		const pendingMigrations = availableMigrations.filter(
 			(migration) => !appliedMigrations.includes(migration.version)
 		)
-
 		if (pendingMigrations.length === 0) {
 			console.log('No pending migrations')
 			return
 		}
-
 		console.log(`Found ${pendingMigrations.length} pending migration(s)`)
-
 		for (const migration of pendingMigrations) {
+			// Execute each migration in its own transaction
+			this.db.run('BEGIN TRANSACTION')
 			try {
 				console.log(`Applying migration ${migration.version}: ${migration.name}`)
 
-				// Execute the migration SQL
-				this.db.exec(migration.sql)
+				// Execute the migration SQL (without BEGIN/COMMIT in the file)
+				this.db.run(migration.sql)
 
 				// Mark as applied
 				this.markMigrationAsApplied(migration)
 
+				// Commit the transaction
+				this.db.run('COMMIT')
+
 				console.log(`✓ Migration ${migration.version} applied successfully`)
 			} catch (error) {
+				// Rollback on error
+				this.db.run('ROLLBACK')
 				console.error(`✗ Failed to apply migration ${migration.version}:`, error)
 				throw error
 			}
 		}
-
 		console.log('All migrations completed successfully')
 	}
 
