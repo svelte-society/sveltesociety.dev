@@ -2,12 +2,6 @@
 	import { page } from '$app/state'
 
 	type Props = {
-		user?: {
-			id: string
-			username: string
-			name: string
-			avatar_url: string
-		} | null
 		links: {
 			name: string
 			href: string
@@ -15,13 +9,7 @@
 		}[]
 	}
 
-	let { user, links }: Props = $props()
-
-	function preserveSearchParams(href: string) {
-		const searchParams = page.url.searchParams.toString()
-		if (!searchParams) return href
-		return `${href}${href.includes('?') ? '&' : '?'}${searchParams}`
-	}
+	let { links }: Props = $props()
 </script>
 
 <aside class="ml-4 hidden overflow-y-auto py-8 sm:block">
@@ -42,7 +30,7 @@
 						>
 							<a
 								class={['block w-full', { 'pointer-events-none text-gray-700': link.disabled }]}
-								href={preserveSearchParams(link.href)}
+								href={link.href}
 								aria-disabled={link.disabled}
 							>
 								{link.name}
