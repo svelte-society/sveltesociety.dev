@@ -25,13 +25,15 @@
 			tagList.push(tag.slug)
 		}
 
+		const rootUrl = new URL(url.origin)
+
 		if (tagList.length > 0) {
-			url.searchParams.set('tags', tagList.join(','))
-		} else {
-			url.searchParams.delete('tags')
+			rootUrl.searchParams.set('tags', tagList.join(','))
 		}
 
-		return url.pathname + url.search
+		rootUrl.searchParams.delete('page')
+
+		return rootUrl.pathname + rootUrl.search
 	}
 </script>
 
