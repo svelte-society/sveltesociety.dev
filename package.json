@@ -17,6 +17,8 @@
 		"test": "vitest"
 	},
 	"devDependencies": {
+		"@ai-sdk/anthropic": "^2.0.27",
+		"@epic-web/cachified": "^5.6.0",
 		"@orama/orama": "^3.1.15",
 		"@playwright/test": "^1.56.0",
 		"@sveltejs/adapter-node": "^5.3.3",
@@ -29,6 +31,7 @@
 		"@tailwindcss/vite": "^4.1.14",
 		"@thisux/sveltednd": "^0.0.20",
 		"@types/bun": "^1.3.0",
+		"ai": "^4.3.19",
 		"autoprefixer": "^10.4.21",
 		"bits-ui": "^2.11.5",
 		"dotenv": "^17.2.3",
@@ -41,6 +44,7 @@
 		"prettier-plugin-tailwindcss": "^0.6.14",
 		"svead": "^0.0.15",
 		"svelte": "^5.39.11",
+		"svelte-adapter-bun": "^1.0.0",
 		"svelte-check": "^4.3.3",
 		"svelte-sonner": "^1.0.5",
 		"sveltekit-search-params": "^3.0.0",
@@ -50,9 +54,6 @@
 		"typescript": "^5.9.3",
 		"vite": "^7.1.9",
 		"vitest": "^3.2.4",
-		"@ai-sdk/anthropic": "^2.0.27",
-		"ai": "^4.3.19",
-		"@epic-web/cachified": "^5.6.0",
 		"zod": "^4.1.12"
 	},
 	"dependencies": {
