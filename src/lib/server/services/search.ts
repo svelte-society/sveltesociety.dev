@@ -48,8 +48,8 @@ export class SearchService {
 		const content = this.db
 			.query(
 				`
-        SELECT 
-          c.id, c.title, c.description, c.type, c.created_at, c.likes, c.saves,
+        SELECT
+          c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.created_at, c.likes, c.saves,
           json_group_array(t.slug) as tags
         FROM content c
         LEFT JOIN content_to_tags ct ON c.id = ct.content_id
@@ -117,7 +117,7 @@ export class SearchService {
 	}
 
 	update(id: string, data: any) {
-		update(this.searchDB, id, data)
+		update(this.searchDB, id, { ...data, title: data.title.replace('-', ' ') })
 	}
 
 	remove(id: string) {
@@ -125,7 +125,7 @@ export class SearchService {
 	}
 
 	add(content: ContentDocument) {
-		insert(this.searchDB, content)
+		insert(this.searchDB, { ...content, title: content.title.replace('-', ' ') })
 	}
 
 	reindex() {
@@ -144,8 +144,8 @@ export class SearchService {
 		const content = this.db
 			.query(
 				`
-        SELECT 
-          c.id, c.title, c.description, c.type, c.created_at, c.likes, c.saves,
+        SELECT
+          c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.created_at, c.likes, c.saves,
           json_group_array(t.slug) as tags
         FROM content c
         LEFT JOIN content_to_tags ct ON c.id = ct.content_id
