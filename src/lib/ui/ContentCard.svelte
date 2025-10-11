@@ -3,6 +3,8 @@
 	import { page } from '$app/state'
 	import { formatRelativeDate } from '$lib/utils/date'
 
+	const isAdmin = page.data.isAdmin
+
 	import Tags from './Tags.svelte'
 	import type { ContentWithAuthor } from '$lib/types/content'
 
@@ -151,6 +153,9 @@
 			class="focus:outline-svelte-300 rounded-sm hover:underline focus:outline-2 focus:outline-offset-2"
 			tabindex="0">{content.title}</a
 		>
+		{#if isAdmin}
+			<a class="text-svelte-900 ml-4 text-sm" href="/admin/content/{content.id}">Edit</a>
+		{/if}
 	</h2>
 	{#if content.description}
 		<div
