@@ -18,6 +18,8 @@
 						fit: 'inside',
 						we: true
 					})}
+					height="450"
+					width="800"
 					alt={content.title}
 					class="aspect-video w-full object-contain"
 				/>

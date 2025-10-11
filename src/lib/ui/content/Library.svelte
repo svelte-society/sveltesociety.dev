@@ -12,16 +12,6 @@
 	// Extract metadata safely
 	const isGitHub = $derived(content.metadata?.externalSource?.source === 'github')
 	const hasStats = $derived(isGitHub && (content.metadata?.stars || content.metadata?.forks))
-
-	// Determine the primary link
-	const primaryLink = $derived(() => {
-		if (content.metadata?.homepage && content.metadata.homepage !== content.metadata?.github) {
-			return content.metadata.homepage
-		}
-		return content.metadata?.github || content.metadata?.npm
-			? `https://www.npmjs.com/package/${content.metadata.npm}`
-			: null
-	})
 </script>
 
 <div class="relative h-full">
@@ -33,33 +23,14 @@
 
 	<div class="relative flex h-full flex-col gap-2">
 		<!-- OG Image for GitHub repos -->
-		{#if isGitHub && content.metadata?.ogImage}
-			<div class="">
-				{#if content.metadata?.github}
-					<a
-						href={content.metadata.github}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="relative z-20 block"
-						onclick={(e) => e.stopPropagation()}
-					>
-						<img
-							src={getCachedImageWithPreset(content.metadata.thumbnail, 'content', { h: 400 })}
-							alt="{content.title} repository preview"
-							class="w-full rounded-t-lg object-cover transition-opacity hover:opacity-90"
-							loading="lazy"
-						/>
-					</a>
-				{:else}
-					<img
-						src={getCachedImageWithPreset(content.metadata.thumbnail, 'content', { h: 400 })}
-						alt="{content.title} repository preview"
-						class="w-full rounded-t-lg object-cover"
-						loading="lazy"
-					/>
-				{/if}
-			</div>
-		{/if}
+
+		<img
+			src={getCachedImageWithPreset(content.metadata.thumbnail, 'content', { h: 400 })}
+			width="800"
+			height="400"
+			alt="{content.title} repository preview"
+			class="w-full rounded-t-lg object-cover"
+		/>
 
 		<!-- Description -->
 		{#if content.description}
@@ -124,26 +95,6 @@
 							/>
 						</svg>
 						GitHub
-					</a>
-				{/if}
-
-				{#if primaryLink() && primaryLink() !== content.metadata?.github}
-					<a
-						href={primaryLink()}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="relative z-20 flex items-center gap-1 text-blue-600 hover:text-blue-700"
-						onclick={(e) => e.stopPropagation()}
-					>
-						<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-							/>
-						</svg>
-						{content.metadata?.homepage ? 'Homepage' : 'View'}
 					</a>
 				{/if}
 			</div>

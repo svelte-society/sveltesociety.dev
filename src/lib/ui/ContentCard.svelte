@@ -2,7 +2,6 @@
 	import { enhance } from '$app/forms'
 	import { page } from '$app/state'
 	import { formatRelativeDate } from '$lib/utils/date'
-	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 
 	import Tags from './Tags.svelte'
 	import type { ContentWithAuthor } from '$lib/types/content'
