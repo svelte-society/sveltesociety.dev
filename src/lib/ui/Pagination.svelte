@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Pagination } from 'bits-ui'
-	import { page } from '$app/stores'
+	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
 
 	let {
@@ -26,7 +26,7 @@
 	} = $props()
 
 	// Get the current page from the URL
-	let currentPage = $derived(parseInt($page.url.searchParams.get('page') || '1', 10))
+	let currentPage = $derived(parseInt(page.url.searchParams.get('page') || '1', 10))
 
 	// Calculate the actual range for display
 	let rangeStart = $derived((currentPage - 1) * perPage + 1)
@@ -35,11 +35,11 @@
 	// Function to handle page change
 	function handlePageChange(pageNum: number) {
 		if (preserveParams) {
-			const url = new URL($page.url)
+			const url = new URL(page.url)
 			url.searchParams.set('page', pageNum.toString())
-			goto(url.toString(), { replaceState: false })
+			goto(url.toString())
 		} else {
-			goto(`?page=${pageNum}`, { replaceState: false })
+			goto(`?page=${pageNum}`)
 		}
 	}
 </script>
