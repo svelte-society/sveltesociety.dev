@@ -29,7 +29,7 @@
 	<h2 class="mb-4 text-2xl font-semibold">Get Involved</h2>
 	<p class="mb-4">There are many ways to get involved with Svelte Society:</p>
 	<div class="flex space-x-4">
-		<Button primary href="/events">Attend Events</Button>
-		<Button secondary href="/submit">Submit Content</Button>
+		<Button href="/events">Attend Events</Button>
+		<Button variant="secondary" href="/submit">Submit Content</Button>
 	</div>
 </div>

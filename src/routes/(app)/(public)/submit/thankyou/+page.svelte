@@ -33,7 +33,7 @@
 	</p>
 
 	<div class="flex flex-col justify-center gap-4 sm:flex-row">
-		<Button href="/" primary>Browse Community</Button>
-		<Button href="/submit">Submit Another</Button>
+		<Button href="/">Browse Community</Button>
+		<Button variant="secondary" href="/submit">Submit Another</Button>
 	</div>
 </div>

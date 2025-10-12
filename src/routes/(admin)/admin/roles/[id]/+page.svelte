@@ -49,7 +49,7 @@
 		</div>
 
 		<div class="pt-4">
-			<Button primary type="submit" disabled={$submitting}>
+			<Button type="submit" disabled={$submitting}>
 				{$submitting ? 'Updating...' : 'Update Role'}
 			</Button>
 		</div>

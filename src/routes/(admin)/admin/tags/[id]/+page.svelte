@@ -40,6 +40,6 @@
 			bind:value={$form.slug}
 			errors={$errors.slug}
 		/>
-		<Button primary fullWidth>Update Tag</Button>
+		<Button width="full">Update Tag</Button>
 	</form>
 </div>

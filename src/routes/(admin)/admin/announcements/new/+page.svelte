@@ -88,7 +88,7 @@
 			</label>
 		</div>
 
-		<Button type="submit" primary disabled={$submitting}>
+		<Button type="submit" disabled={$submitting}>
 			{$submitting ? 'Creating...' : 'Create Placement'}
 		</Button>
 	</Form>

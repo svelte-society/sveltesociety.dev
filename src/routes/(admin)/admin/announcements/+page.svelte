@@ -149,14 +149,9 @@
 									</Button>
 								</Form>
 
-								<Form form={deleteForm} action="?/delete" class="inline" onsubmit={confirmDelete}>
+								<Form form={deleteForm} action="?/delete" onsubmit={confirmDelete}>
 									<input type="hidden" name="id" value={placement.id} />
-									<Button
-										type="submit"
-										variant="destructive"
-										size="sm"
-										disabled={$deleteSubmitting}
-									>
+									<Button type="submit" variant="error" size="sm" disabled={$deleteSubmitting}>
 										Delete
 									</Button>
 								</Form>

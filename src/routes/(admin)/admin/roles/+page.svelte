@@ -5,6 +5,7 @@
 	import type { Role } from '$lib/types/roles'
 	import Badge from '$lib/ui/admin/Badge.svelte'
 	import Pagination from '$lib/ui/Pagination.svelte'
+	import Plus from 'phosphor-svelte/lib/Plus'
 
 	let { data } = $props()
 
@@ -17,7 +18,7 @@
 <div class="container mx-auto px-2 py-4">
 	<div class="mb-4 grid grid-cols-[1fr_auto] content-start gap-2">
 		<h1 class="text-xl font-bold">Roles Management</h1>
-		<Button small primary icon_left="plus" href="/admin/roles/new">New Role</Button>
+		<Button size="sm" href="/admin/roles/new"><Plus weight="bold" />New Role</Button>
 	</div>
 	<Table action={true} data={data.roles}>
 		{#snippet header(classes)}

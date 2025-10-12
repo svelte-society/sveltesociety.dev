@@ -253,11 +253,7 @@
 			description="Any additional information about your submission"
 		/>
 
-		<Button
-			type="submit"
-			primary
-			disabled={$submitting || videoPreview?.exists || libraryPreview?.exists}
-		>
+		<Button type="submit" disabled={$submitting || videoPreview?.exists || libraryPreview?.exists}>
 			{$submitting ? 'Submitting...' : 'Submit'}
 		</Button>
 

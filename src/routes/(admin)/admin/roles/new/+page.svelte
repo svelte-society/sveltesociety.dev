@@ -36,7 +36,7 @@
 			description="Enter a description of the role"
 		/>
 		<div class="pt-4">
-			<Button primary type="submit" disabled={$submitting}>
+			<Button type="submit" disabled={$submitting}>
 				{$submitting ? 'Creating...' : 'Create Role'}
 			</Button>
 		</div>

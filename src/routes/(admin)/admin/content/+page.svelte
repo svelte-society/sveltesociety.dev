@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { formatRelativeDate } from '$lib/utils/date'
 	import Button from '$lib/ui/Button.svelte'
+	import Plus from 'phosphor-svelte/lib/Plus'
 	import Table from '$lib/ui/admin/Table.svelte'
 	import type { Content } from '$lib/types/content'
 	import Actions from '$lib/ui/admin/Actions.svelte'
@@ -24,7 +25,7 @@
 <div class="container mx-auto px-2 py-4">
 	<div class="mb-4 grid grid-cols-[1fr_auto] content-start gap-2">
 		<h1 class="text-xl font-bold">Content Management</h1>
-		<Button small primary icon_left="plus" href="/admin/content/new">New Content</Button>
+		<Button size="sm" href="/admin/content/new"><Plus weight="bold" />New Content</Button>
 	</div>
 	<Table action={true} data={data.content}>
 		{#snippet header(classes)}

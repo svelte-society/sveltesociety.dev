@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/ui/Button.svelte'
+	import Plus from 'phosphor-svelte/lib/Plus'
 	import UpcomingEvents from './UpcomingEvents.svelte'
 
 	interface UpcomingEvent {
@@ -27,7 +28,7 @@
 <div class="@container mr-4 hidden space-y-4 overflow-y-auto py-8 sm:block">
 	<div class="mb-4 grid grid-cols-1 items-start gap-1 @xs:grid-cols-[1fr_auto]">
 		<h3 class="text-lg font-semibold">Interested in contributing?</h3>
-		<Button href="/submit" primary small icon_left="plus">Submit Post</Button>
+		<Button href="/submit" size="sm"><Plus />Submit Post</Button>
 	</div>
 	<p class="mb-4 text-sm">Share with the biggest community of Svelte enthusiasts in the world</p>
 

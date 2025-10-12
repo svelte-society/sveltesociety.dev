@@ -38,7 +38,13 @@
 		/>
 	</div>
 	<div class="flex items-end pb-0.5">
-		<Button type="button" small secondary onclick={handleGenerateSlug} disabled={!nameValue}>
+		<Button
+			type="button"
+			size="sm"
+			variant="secondary"
+			onclick={handleGenerateSlug}
+			disabled={!nameValue}
+		>
 			Generate
 		</Button>
 	</div>

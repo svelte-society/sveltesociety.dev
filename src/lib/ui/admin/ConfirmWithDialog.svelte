@@ -56,7 +56,7 @@
 				<p class="mb-4">{description}</p>
 			{/if}
 			<div class="flex justify-end space-x-2">
-				<Button onclick={() => (showDialog = false)} secondary>{cancelButtonText}</Button>
+				<Button onclick={() => (showDialog = false)} variant="secondary">{cancelButtonText}</Button>
 				<form
 					{action}
 					method="POST"
@@ -71,7 +71,7 @@
 					}}
 				>
 					<input type="hidden" name="id" value={id} />
-					<Button primary>{confirmButtonText}</Button>
+					<Button>{confirmButtonText}</Button>
 				</form>
 			</div>
 		</div>

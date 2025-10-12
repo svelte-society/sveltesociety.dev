@@ -3,6 +3,9 @@
 	import Badge from '$lib/ui/admin/Badge.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import TypeIcon from '$lib/ui/TypeIcon.svelte'
+	import ArrowLeft from 'phosphor-svelte/lib/ArrowLeft'
+	import XCircle from 'phosphor-svelte/lib/XCircle'
+	import CheckCircle from 'phosphor-svelte/lib/CheckCircle'
 	import { formatRelativeDate } from '$lib/utils/date'
 	let { data } = $props()
 
@@ -46,13 +49,15 @@
 		<div class="flex items-center space-x-3">
 			{#if data.item.status === 'pending'}
 				<form method="POST" action="?/reject" use:enhance class="inline">
-					<Button type="submit" small error icon_left="x-circle">Reject</Button>
+					<Button type="submit" size="sm" variant="error"><XCircle />Reject</Button>
 				</form>
 				<form method="POST" action="?/approve" use:enhance class="inline">
-					<Button type="submit" small success icon_left="check-circle">Approve</Button>
+					<Button type="submit" size="sm" variant="success"><CheckCircle />Approve</Button>
 				</form>
 			{/if}
-			<Button small secondary href="/admin/moderation" icon_left="arrow-left">Back to Queue</Button>
+			<Button size="sm" variant="secondary" href="/admin/moderation"
+				><ArrowLeft />Back to Queue</Button
+			>
 		</div>
 	</div>
 	<!-- Status and submission info -->
@@ -188,18 +193,6 @@
 							<pre class="text-sm whitespace-pre-wrap text-gray-900">{submissionData.body}</pre>
 						</div>
 					</div>
-				{:else if data.item.type === 'link' && submissionData.url}
-					<div>
-						<h3 class="text-sm font-medium text-gray-700">Link URL</h3>
-						<a
-							href={submissionData.url}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="mt-1 block text-sm text-blue-600 hover:text-blue-800 hover:underline"
-						>
-							{submissionData.url}
-						</a>
-					</div>
 				{:else}
 					<p class="text-sm text-gray-500">No type-specific content available.</p>
 				{/if}
@@ -282,7 +275,7 @@
 			<div class="rounded-lg bg-white p-6 shadow-sm">
 				<div class="flex items-center justify-between">
 					<h2 class="text-lg font-semibold text-gray-900">Raw Data</h2>
-					<Button small secondary onclick={() => (showRawJSON = !showRawJSON)}>
+					<Button size="sm" variant="secondary" onclick={() => (showRawJSON = !showRawJSON)}>
 						{showRawJSON ? 'Hide' : 'Show'} JSON
 					</Button>
 				</div>

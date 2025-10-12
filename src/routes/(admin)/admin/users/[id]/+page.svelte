@@ -79,7 +79,7 @@
 		<Select name="role" label="Role" description="Select the user's role" options={roleOptions} />
 
 		<div class="mt-8 flex items-center justify-between">
-			<Button primary type="submit">Update User</Button>
+			<Button type="submit">Update User</Button>
 			<a href="/admin/users" class="text-sm text-gray-600 hover:text-gray-900">Back to Users</a>
 		</div>
 	</Form>

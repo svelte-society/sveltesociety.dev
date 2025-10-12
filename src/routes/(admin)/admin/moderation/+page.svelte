@@ -3,6 +3,8 @@
 	import { enhance } from '$app/forms'
 	import { formatRelativeDate } from '$lib/utils/date'
 	import Button from '$lib/ui/Button.svelte'
+	import X from 'phosphor-svelte/lib/X'
+	import Eye from 'phosphor-svelte/lib/Eye'
 	import AdminList from '$lib/ui/admin/AdminList.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
 	import type { PreviewModerationQueueItem } from '$lib/server/services/moderation'
@@ -27,8 +29,8 @@
 		{#if selectedIds.length > 0}
 			<form method="POST" action="?/bulk_reject" use:enhance>
 				<input type="hidden" name="ids" value={JSON.stringify(selectedIds)} />
-				<Button small type="submit" icon_left="x-circle">
-					Reject {selectedIds.length} item{selectedIds.length !== 1 ? 's' : ''}
+				<Button size="sm" type="submit">
+					<X weight="bold" />Reject {selectedIds.length} item{selectedIds.length !== 1 ? 's' : ''}
 				</Button>
 			</form>
 		{/if}
@@ -69,7 +71,7 @@
 		{/snippet}
 		{#snippet actionCell(item: PreviewModerationQueueItem)}
 			<div class="flex space-x-2">
-				<Button small href="/admin/moderation/{item.id}" icon_left="eye">Inspect</Button>
+				<Button size="sm" href="/admin/moderation/{item.id}"><Eye weight="bold" />Inspect</Button>
 			</div>
 		{/snippet}
 	</Table>

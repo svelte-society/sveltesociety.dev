@@ -69,7 +69,7 @@ owner/repo-name"
 				/>
 
 				<div class="flex items-center justify-end border-t pt-4">
-					<Button type="submit" primary disabled={$submitting}>
+					<Button type="submit" disabled={$submitting}>
 						{$submitting ? 'Importing...' : 'Import All'}
 					</Button>
 				</div>

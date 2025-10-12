@@ -276,9 +276,9 @@
 	/>
 
 	<div class="mt-6 flex gap-4">
-		<Button type="submit" primary fullWidth disabled={$submitting}>
+		<Button type="submit" width="full" disabled={$submitting}>
 			{$submitting ? 'Saving...' : 'Update Content'}
 		</Button>
-		<Button href="/admin/content" secondary>Cancel</Button>
+		<Button href="/admin/content" variant="secondary">Cancel</Button>
 	</div>
 </Form>
