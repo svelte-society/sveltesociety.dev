@@ -44,6 +44,10 @@ const sortOptions = [
 	{
 		label: 'Most Saved',
 		value: 'saves'
+	},
+	{
+		label: 'Most GitHub Stars',
+		value: 'stars'
 	}
 ]
 
@@ -67,15 +71,8 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 	})
 
 	content = searchResults.hits
-		.map((hit) => {
-			const piece = locals.contentService.getContentById(hit.id)
-			// Parse metadata if it's a string (for events)
-			if (piece && piece.type === 'event' && typeof piece.metadata === 'string') {
-				piece.metadata = JSON.parse(piece.metadata)
-			}
-			return piece
-		})
-		.filter((piece) => piece && piece.type !== 'event') as Content[]
+		.map((hit) => locals.contentService.getContentById(hit.id))
+		.filter((piece) => piece !== null)
 
 	const allTags = locals.tagService.getAllTags()
 

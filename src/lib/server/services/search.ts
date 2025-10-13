@@ -24,7 +24,8 @@ const contentSchema = {
 	type: 'string',
 	created_at: 'string',
 	likes: 'number',
-	saves: 'number'
+	saves: 'number',
+	stars: 'number'
 } as const
 
 type ContentDocument = TypedDocument<Orama<typeof contentSchema>>
@@ -50,6 +51,7 @@ export class SearchService {
 				`
         SELECT
           c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.created_at, c.likes, c.saves,
+          COALESCE(json_extract(c.metadata, '$.stars'), 0) as stars,
           json_group_array(t.slug) as tags
         FROM content c
         LEFT JOIN content_to_tags ct ON c.id = ct.content_id

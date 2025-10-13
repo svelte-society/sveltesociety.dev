@@ -43,13 +43,13 @@ export class CollectionService {
 				created_at, updated_at, published_at
 			) VALUES (
 				$title, $slug, $description, 'collection', $children, $status,
-				CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 
+				CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,
 				CASE WHEN $status = 'published' THEN CURRENT_TIMESTAMP ELSE NULL END
 			) RETURNING id
 		`)
 
 		this.updateCollectionStatement = this.db.prepare(`
-			UPDATE content 
+			UPDATE content
 			SET title = ?,
 				slug = ?,
 				description = ?,
@@ -178,7 +178,8 @@ export class CollectionService {
 					type: 'collection',
 					created_at: new Date().toISOString(),
 					likes: 0,
-					saves: 0
+					saves: 0,
+					stars: 0
 				})
 			}
 

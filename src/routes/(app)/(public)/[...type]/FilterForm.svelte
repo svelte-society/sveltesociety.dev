@@ -43,7 +43,7 @@
 		</div>
 	</div>
 	<div class="flex w-full flex-col gap-2">
-		<label class="text-xs font-medium outline-none">Tags</label>
+		<p class="text-xs font-medium outline-none">Tags</p>
 		<Tags {tags} />
 	</div>
 	<div class="sr-only">

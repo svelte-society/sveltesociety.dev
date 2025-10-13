@@ -397,7 +397,8 @@ export class ContentService {
 					type: data.type,
 					created_at: data.created_at || new Date().toISOString(),
 					likes: 0,
-					saves: 0
+					saves: 0,
+					stars: data?.metadata?.stars || 0
 				})
 			}
 		}
