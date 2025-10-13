@@ -86,7 +86,7 @@
 						type="button"
 						class="cursor-pointer"
 						title="Remove {optionItem?.label}"
-						onclick={() => {
+						onmousedown={(e) => {
 							$formData[name] = $formData[name].filter((i: string) => i !== item)
 						}}
 					>
