@@ -58,8 +58,5 @@
 		"vitest": "^3.2.4",
 		"zod": "^4.1.12"
 	},
-	"dependencies": {
-		"duckdb-async": "^1.4.0"
-	},
 	"type": "module"
 }
