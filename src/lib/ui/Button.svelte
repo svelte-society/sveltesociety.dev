@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { cn } from 'tailwind-variants'
 	import type { Snippet } from 'svelte'
 	import {
 		buttonVariants,
