@@ -17,6 +17,7 @@
 	},
 	"devDependencies": {
 		"@ai-sdk/anthropic": "^2.0.27",
+		"@atproto/api": "^0.17.3",
 		"@epic-web/cachified": "^5.6.0",
 		"@orama/orama": "^3.1.15",
 		"@playwright/test": "^1.56.0",

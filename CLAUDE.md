@@ -40,7 +40,7 @@ The application uses a service-based architecture where all database operations 
 
 - Services are instantiated in `hooks.server.ts` and attached to `locals` via the `attach_services` hook
 - Services depend on the database connection and often other services
-- Key services: `ContentService`, `SearchService`, `UserService`, `SessionService`, `RoleService`, `TagsService`, `CollectionsService`, `EventsService`, `ExternalContentService`
+- Key services: `ContentService`, `SearchService`, `UserService`, `SessionService`, `RoleService`, `TagsService`, `CollectionsService`, `EventsService`, `ExternalContentService`, `SocialService`
 
 ### Hook System
 
@@ -86,6 +86,38 @@ Three main hooks process requests in order:
 - Caching with stale-while-revalidate using cachified
 - GitHub OG images stored in metadata
 
+### Social Media Integration
+
+The application includes a comprehensive social media posting system for sharing content across multiple platforms:
+
+- **Platforms**: BlueSky, Nostr (planned), LinkedIn (planned)
+- **Features**:
+  - Template-based post generation with placeholder variables (`{{title}}`, `{{description}}`, `{{url}}`, etc.)
+  - Account management with encrypted credential storage
+  - Manual "Post Now" functionality
+  - Scheduled posting with background job processing
+  - Calendar view for scheduled posts
+  - Post status tracking (draft, scheduled, posted, failed)
+
+- **Services**:
+  - `SocialService`: Database operations for posts, accounts, and templates
+  - `BlueskyClient`: BlueSky API integration
+  - `processScheduledPosts`: Background job for automatic posting
+
+- **Security**:
+  - Credentials encrypted using AES-256-GCM encryption
+  - API key protection for scheduled posting endpoint
+  - Secure credential storage and retrieval
+
+- **Admin UI**:
+  - `/admin/social` - Posts management with calendar view
+  - `/admin/social/new` - Create new posts
+  - `/admin/social/[id]` - Edit existing posts
+  - `/admin/social/templates` - Template management
+  - `/admin/social/accounts` - Account management
+
+See `docs/scheduled-posting.md` for setup instructions.
+
 ## Environment Setup
 
 Required environment variables in `.env.development`:
@@ -104,6 +136,10 @@ ANTHROPIC_API_KEY=         # For AI-powered description generation in admin
 YOUTUBE_API_KEY=          # For importing YouTube videos
 GITHUB_TOKEN=             # For better rate limits when importing GitHub repos
 BULK_IMPORT_API_KEY=      # Secret key for bulk import API endpoint
+ENCRYPTION_KEY=           # Secret key for encrypting social media credentials (required for production)
+SCHEDULED_POST_API_KEY=   # Secret key for scheduled posting API endpoint
+SEED_DATABASE=            # Controls database seeding: 'full' (all seeds), 'minimal' (roles + kevmodrome), 'none' (no seeding)
+                          # Defaults to 'full' in development, 'minimal' in production
 ```
 
 Docker-specific environment variables:
