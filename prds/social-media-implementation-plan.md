@@ -5,6 +5,18 @@ This plan breaks the social media feature into simple, iterative phases. **Each 
 
 Build the simplest thing first, then iterate. We'll use **SvelteKit remote functions** for type-safe client-server communication, preferring `form` remote functions for progressive enhancement and web platform alignment.
 
+**UI Components**: Use existing components from `src/lib/ui/`:
+- `Button.svelte` - for all buttons
+- `admin/Badge.svelte` - for status badges (draft, scheduled, posted, failed)
+- `admin/Table.svelte` - for the posts list table
+- `Dialog.svelte` - for modals
+- `Icon.svelte` - for icons
+
+**Note on Forms**: The existing form components (`form/Input.svelte`, `form/Textarea.svelte`) are built for SuperForms, but remote functions have their own field API. We'll use native HTML inputs with the remote function's `.as()` method, styled to match the existing design:
+```
+class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 text-sm"
+```
+
 ---
 
 ## Phase 0: Enable Remote Functions
@@ -54,12 +66,75 @@ const config = {
    - Add link to admin sidebar
 
 3. **Main Dashboard UI**
-   - Table/list showing mock posts
+   - Use `admin/Table.svelte` component for posts table
    - Columns: Content Title, Platform, Post Text, Status, Scheduled Time, Actions
-   - Status badges: Draft (gray), Scheduled (blue), Posted (green), Failed (red)
-   - Action buttons per row: Edit, Set Time, Post Now, Delete
+   - Use `admin/Badge.svelte` for status badges (default, info, primary, success, danger)
+   - Use `Button.svelte` for action buttons
    - Filter tabs: All, Drafts, Scheduled, Posted, Failed
    - Mock data: 5-10 fake posts with different statuses
+
+```svelte
+<script>
+	import Table from '$lib/ui/admin/Table.svelte';
+	import Badge from '$lib/ui/admin/Badge.svelte';
+	import Button from '$lib/ui/Button.svelte';
+
+	const mockPosts = [/* ... */];
+	let statusFilter = 'all';
+
+	const filteredPosts = $derived(
+		statusFilter === 'all'
+			? mockPosts
+			: mockPosts.filter(p => p.status === statusFilter)
+	);
+
+	const statusColors = {
+		draft: 'default',
+		scheduled: 'info',
+		posted: 'success',
+		failed: 'danger'
+	};
+</script>
+
+<div class="flex gap-2 mb-4">
+	<Button variant={statusFilter === 'all' ? 'primary' : 'outline'} onclick={() => statusFilter = 'all'}>
+		{#snippet children()}All{/snippet}
+	</Button>
+	<Button variant={statusFilter === 'draft' ? 'primary' : 'outline'} onclick={() => statusFilter = 'draft'}>
+		{#snippet children()}Drafts{/snippet}
+	</Button>
+	<!-- ... more filter buttons -->
+</div>
+
+<Table data={filteredPosts} action={true}>
+	{#snippet header(classes)}
+		<th class={classes}>Content</th>
+		<th class={classes}>Platform</th>
+		<th class={classes}>Post Text</th>
+		<th class={classes}>Status</th>
+		<th class={classes}>Scheduled</th>
+	{/snippet}
+
+	{#snippet row(post, classes)}
+		<td class={classes}>{post.contentTitle}</td>
+		<td class={classes}>{post.platform}</td>
+		<td class={classes}>{post.postText}</td>
+		<td class={classes}>
+			<Badge text={post.status} color={statusColors[post.status]} />
+		</td>
+		<td class={classes}>{post.scheduledAt || '-'}</td>
+	{/snippet}
+
+	{#snippet actionCell(post)}
+		<Button size="sm" variant="outline">
+			{#snippet children()}Edit{/snippet}
+		</Button>
+		<Button size="sm" variant="primary">
+			{#snippet children()}Post Now{/snippet}
+		</Button>
+	{/snippet}
+</Table>
+```
 
 4. **Empty States**
    - Show message when no posts match filter
@@ -211,24 +286,46 @@ export const deletePost = form(
 <!-- +page.svelte -->
 <script>
 	import { getAllPosts, deletePost } from './data.remote';
+	import Table from '$lib/ui/admin/Table.svelte';
+	import Badge from '$lib/ui/admin/Badge.svelte';
+	import Button from '$lib/ui/Button.svelte';
+
+	const statusColors = {
+		draft: 'default',
+		scheduled: 'info',
+		posted: 'success',
+		failed: 'danger'
+	};
 </script>
 
-<div class="posts">
-	{#each await getAllPosts() as post}
-		<div class="post-row">
-			<span>{post.content_title}</span>
-			<span>{post.platform}</span>
-			<span>{post.post_text}</span>
-			<span>{post.status}</span>
+<Table data={await getAllPosts()} action={true}>
+	{#snippet header(classes)}
+		<th class={classes}>Content</th>
+		<th class={classes}>Platform</th>
+		<th class={classes}>Post Text</th>
+		<th class={classes}>Status</th>
+		<th class={classes}>Scheduled</th>
+	{/snippet}
 
-			<!-- Delete form -->
-			<form {...deletePost.for(post.id)}>
-				<input type="hidden" {...deletePost.fields.postId.as('hidden')} value={post.id} />
-				<button>Delete</button>
-			</form>
-		</div>
-	{/each}
-</div>
+	{#snippet row(post, classes)}
+		<td class={classes}>{post.content_title}</td>
+		<td class={classes}>{post.platform}</td>
+		<td class={classes}>{post.post_text}</td>
+		<td class={classes}>
+			<Badge text={post.status} color={statusColors[post.status]} />
+		</td>
+		<td class={classes}>{post.scheduled_at || '-'}</td>
+	{/snippet}
+
+	{#snippet actionCell(post)}
+		<form {...deletePost.for(post.id)}>
+			<input type="hidden" {...deletePost.fields.postId.as('hidden')} value={post.id} />
+			<Button type="submit" size="sm" variant="danger">
+				{#snippet children()}Delete{/snippet}
+			</Button>
+		</form>
+	{/snippet}
+</Table>
 ```
 
 4. **Filtering**
@@ -444,23 +541,61 @@ export const updatePost = form(
 
 2. **UI for Editing**
 ```svelte
-<!-- Inline or modal for each post -->
-<form {...updatePost.for(post.id)}>
-	<input type="hidden" {...updatePost.fields.postId.as('hidden')} value={post.id} />
+<!-- Use Dialog component for editing -->
+<script>
+	import Dialog from '$lib/ui/Dialog.svelte';
+	import Button from '$lib/ui/Button.svelte';
+	import { updatePost } from './data.remote';
 
-	<label>
-		Post Text
-		<textarea {...updatePost.fields.postText.as('text')}>{post.post_text}</textarea>
-	</label>
+	let editOpen = $state(false);
+	let editingPost = $state(null);
+</script>
 
-	<label>
-		Schedule Time
-		<input {...updatePost.fields.scheduledAt.as('datetime-local')} />
-	</label>
+<!-- In the actionCell snippet -->
+{#snippet actionCell(post)}
+	<Button
+		size="sm"
+		variant="outline"
+		onclick={() => {
+			editingPost = post;
+			editOpen = true;
+		}}
+	>
+		{#snippet children()}Edit{/snippet}
+	</Button>
+{/snippet}
 
-	<!-- Quick action buttons using buttonProps -->
-	<button>Save Changes</button>
-</form>
+<!-- Dialog for editing -->
+<Dialog bind:open={editOpen} title="Edit Social Post" showConfirm={false}>
+	{#snippet content()}
+		{#if editingPost}
+			<form {...updatePost.for(editingPost.id)} class="space-y-4">
+				<input type="hidden" {...updatePost.fields.postId.as('hidden')} value={editingPost.id} />
+
+				<div>
+					<label class="text-xs font-medium">Post Text</label>
+					<textarea
+						{...updatePost.fields.postText.as('text')}
+						rows="6"
+						class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 text-sm"
+					>{editingPost.post_text}</textarea>
+				</div>
+
+				<div>
+					<label class="text-xs font-medium">Schedule Time</label>
+					<input
+						{...updatePost.fields.scheduledAt.as('datetime-local')}
+						class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 text-sm"
+					/>
+				</div>
+
+				<Button type="submit" variant="primary">
+					{#snippet children()}Save Changes{/snippet}
+				</Button>
+			</form>
+		{/if}
+	{/snippet}
+</Dialog>
 ```
 
 ### Deliverables
@@ -548,13 +683,22 @@ export const postNow = form(
 
 4. **Update UI**
 ```svelte
-<!-- "Post Now" form in post row -->
-<form {...postNow.for(post.id)}>
-	<input type="hidden" {...postNow.fields.postId.as('hidden')} value={post.id} />
-	<button disabled={!!postNow.pending}>
-		{postNow.pending ? 'Posting...' : 'Post Now'}
-	</button>
-</form>
+<script>
+	import Button from '$lib/ui/Button.svelte';
+	import { postNow } from './data.remote';
+</script>
+
+<!-- In the actionCell snippet -->
+{#snippet actionCell(post)}
+	<form {...postNow.for(post.id)}>
+		<input type="hidden" {...postNow.fields.postId.as('hidden')} value={post.id} />
+		<Button type="submit" size="sm" variant="primary" disabled={!!postNow.pending}>
+			{#snippet children()}
+				{postNow.pending ? 'Posting...' : 'Post Now'}
+			{/snippet}
+		</Button>
+	</form>
+{/snippet}
 ```
 
 ### Deliverables
@@ -715,35 +859,82 @@ export const deleteAccount = form(
 ```svelte
 <script>
 	import { getAccounts, addAccount, deleteAccount } from './data.remote';
+	import Button from '$lib/ui/Button.svelte';
+	import Badge from '$lib/ui/admin/Badge.svelte';
 </script>
 
-<h2>Connected Accounts</h2>
+<h2 class="text-2xl font-bold mb-4">Connected Accounts</h2>
 
-{#each await getAccounts() as account}
-	<div class="account-row">
-		<span>{account.platform}</span>
-		<span>@{account.account_handle}</span>
+<div class="space-y-2 mb-8">
+	{#each await getAccounts() as account}
+		<div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
+			<div>
+				<Badge text={account.platform} color="info" />
+				<span class="ml-2">@{account.account_handle}</span>
+			</div>
 
-		<form {...deleteAccount.for(account.id)}>
-			<input type="hidden" {...deleteAccount.fields.accountId.as('hidden')} value={account.id} />
-			<button>Delete</button>
-		</form>
+			<form {...deleteAccount.for(account.id)}>
+				<input type="hidden" {...deleteAccount.fields.accountId.as('hidden')} value={account.id} />
+				<Button type="submit" size="sm" variant="danger">
+					{#snippet children()}Delete{/snippet}
+				</Button>
+			</form>
+		</div>
+	{/each}
+</div>
+
+<h2 class="text-2xl font-bold mb-4">Add Account</h2>
+
+<form {...addAccount} class="space-y-4 p-6 bg-white rounded-lg shadow-sm">
+	<div>
+		<label class="text-xs font-medium">Platform</label>
+		<select
+			{...addAccount.fields.platform.as('select')}
+			class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 text-sm"
+		>
+			<option value="bluesky">BlueSky</option>
+		</select>
 	</div>
-{/each}
 
-<h2>Add Account</h2>
+	<div>
+		<label class="text-xs font-medium">Display Name</label>
+		<input
+			{...addAccount.fields.accountName.as('text')}
+			placeholder="Display Name"
+			class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 text-sm"
+		/>
+	</div>
 
-<form {...addAccount}>
-	<select {...addAccount.fields.platform.as('select')}>
-		<option value="bluesky">BlueSky</option>
-	</select>
+	<div>
+		<label class="text-xs font-medium">Handle</label>
+		<input
+			{...addAccount.fields.accountHandle.as('text')}
+			placeholder="@handle"
+			class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 text-sm"
+		/>
+	</div>
 
-	<input {...addAccount.fields.accountName.as('text')} placeholder="Display Name" />
-	<input {...addAccount.fields.accountHandle.as('text')} placeholder="@handle" />
-	<input {...addAccount.fields.identifier.as('text')} placeholder="Identifier" />
-	<input {...addAccount.fields.password.as('password')} placeholder="App Password" />
+	<div>
+		<label class="text-xs font-medium">Identifier</label>
+		<input
+			{...addAccount.fields.identifier.as('text')}
+			placeholder="Identifier"
+			class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 text-sm"
+		/>
+	</div>
 
-	<button>Add Account</button>
+	<div>
+		<label class="text-xs font-medium">App Password</label>
+		<input
+			{...addAccount.fields.password.as('password')}
+			placeholder="App Password"
+			class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 text-sm"
+		/>
+	</div>
+
+	<Button type="submit" variant="primary">
+		{#snippet children()}Add Account{/snippet}
+	</Button>
 </form>
 ```
 
