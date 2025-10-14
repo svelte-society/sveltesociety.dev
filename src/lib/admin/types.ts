@@ -43,7 +43,12 @@ export const ADMIN_ROUTES = {
 		review: (id: string) => `/admin/moderation/${id}`
 	},
 	bulkImport: '/admin/bulk-import',
-	statistics: '/admin/statistics'
+	statistics: '/admin/statistics',
+	social: {
+		list: '/admin/social',
+		new: '/admin/social/new',
+		edit: (id: string) => `/admin/social/${id}`
+	}
 } as const
 
 // Table column definitions
