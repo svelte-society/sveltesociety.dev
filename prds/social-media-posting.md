@@ -9,12 +9,14 @@ Add a social media publishing feature to the admin dashboard that streamlines sc
 ## 2. Goals & Objectives
 
 ### Primary Goals
+
 - **Streamline Social Sharing**: Provide a centralized dashboard to schedule and publish content to connected social media platforms
 - **Increase Content Reach**: Expand distribution of Svelte Society content across multiple platforms
 - **Save Time**: Reduce manual effort required for cross-platform posting with smart scheduling
 - **Maintain Brand Consistency**: Ensure consistent messaging across all platforms with templated posts
 
 ### Success Metrics
+
 - 90%+ of published content successfully shared to enabled platforms
 - 80%+ reduction in time spent on manual social media posting
 - Increased referral traffic from social media platforms by 30%
@@ -25,12 +27,14 @@ Add a social media publishing feature to the admin dashboard that streamlines sc
 ## 3. User Personas
 
 **Primary User: Content Admin/Moderator**
+
 - Publishes and manages content on Svelte Society
 - Responsible for social media presence
 - Needs efficient workflow to share content
 - May want control over what gets posted and when
 
 **Secondary User: Content Editor**
+
 - Creates and submits content for review
 - May want to preview social posts
 - Limited social media management permissions
@@ -42,6 +46,7 @@ Add a social media publishing feature to the admin dashboard that streamlines sc
 ### 4.1 Core Features (MVP)
 
 #### 4.1.1 Social Media Account Management
+
 - **Account Connection Interface**
   - OAuth-based authentication for BlueSky and LinkedIn
   - Private key authentication for Nostr (nsec/npub)
@@ -58,6 +63,7 @@ Add a social media publishing feature to the admin dashboard that streamlines sc
   - Configure posting preferences per platform
 
 #### 4.1.2 Scheduled Publishing
+
 - **Status Trigger Integration**
   - Automatically generate draft social posts when content status changes to `published`
   - Posts are added to the scheduling queue for review (NOT auto-posted)
@@ -78,6 +84,7 @@ Add a social media publishing feature to the admin dashboard that streamlines sc
   - **LinkedIn**: Professional tone, longer descriptions, article cards, 3000 character limit
 
 #### 4.1.3 Post Templates & Customization
+
 - **Template System**
   - Pre-defined templates per content type
   - Variable substitution: `{title}`, `{description}`, `{url}`, `{tags}`
@@ -85,6 +92,7 @@ Add a social media publishing feature to the admin dashboard that streamlines sc
   - Default templates with override capability
 
 - **Template Examples**:
+
   ```
   Video:
   BlueSky: "🎥 New video: {title}\n\n{description}\n\n{url}"
@@ -98,6 +106,7 @@ Add a social media publishing feature to the admin dashboard that streamlines sc
   ```
 
 #### 4.1.4 Manual Post Preview & Editing
+
 - **Pre-Publish Preview**
   - Show generated post for each platform before publishing content
   - Inline editing of social media text
@@ -113,6 +122,7 @@ Add a social media publishing feature to the admin dashboard that streamlines sc
   - "Preview Post" button
 
 #### 4.1.5 Post Scheduling Dashboard (CORE FEATURE)
+
 - **Main Scheduling Interface** (`/admin/social-media`)
   - Primary view shows all posts in a table/list format
   - Filters: platform, status (draft/scheduled/posted/failed), date range
@@ -131,6 +141,7 @@ Add a social media publishing feature to the admin dashboard that streamlines sc
   - Admins can review, edit, schedule, or publish immediately
 
 #### 4.1.6 Post Queue & Retry Logic
+
 - **Queue System**
   - Queue posts that fail to send immediately
   - Retry logic with exponential backoff
@@ -139,6 +150,7 @@ Add a social media publishing feature to the admin dashboard that streamlines sc
   - Failed posts remain editable and can be rescheduled
 
 #### 4.1.7 Post History & Analytics
+
 - **Posting History Table** (`/admin/social-media/history`)
   - List all social media posts with:
     - Content title/link
@@ -160,16 +172,19 @@ Add a social media publishing feature to the admin dashboard that streamlines sc
 ### 4.2 Advanced Features (Post-MVP)
 
 #### 4.2.1 Bulk Social Posting
+
 - Select multiple published content items
 - Bulk post to social media (respecting rate limits)
 - Useful for re-promoting older content
 
 #### 4.2.2 Content Type Rules
+
 - Configure posting rules per content type
 - Example: "Always auto-post videos, but require manual approval for announcements"
 - Role-based posting permissions
 
 #### 4.2.3 Engagement Tracking
+
 - Fetch engagement metrics from platform APIs:
   - Likes, reposts, replies (BlueSky)
   - Reactions, zaps, replies (Nostr via relays)
@@ -178,17 +193,20 @@ Add a social media publishing feature to the admin dashboard that streamlines sc
 - Track referral traffic via UTM parameters
 
 #### 4.2.4 Thread/Multi-Post Support
+
 - Automatically create threads for long-form content
 - Support for carousel posts (multiple images)
 - Platform-specific multi-post features
 
 #### 4.2.5 AI-Powered Post Generation
+
 - Use existing LLM service (`src/lib/server/services/llm.ts`)
 - Generate optimized social media copy
 - A/B test different post variations
 - Suggest trending hashtags
 
 #### 4.2.6 Image Processing
+
 - Automatic OG image generation for content without thumbnails
 - Platform-specific image resizing/cropping
 - Add Svelte Society branding overlay
@@ -198,64 +216,70 @@ Add a social media publishing feature to the admin dashboard that streamlines sc
 ## 5. Technical Architecture
 
 ### 5.1 Service Layer
+
 **New Service: `SocialMediaService`**
 Location: `src/lib/server/services/social-media.ts`
 
 ```typescript
 class SocialMediaService {
-  // Account management
-  connectAccount(platform: Platform, credentials: Credentials): Account
-  disconnectAccount(accountId: string): boolean
-  getConnectedAccounts(): Account[]
-  testConnection(accountId: string): boolean
+	// Account management
+	connectAccount(platform: Platform, credentials: Credentials): Account
+	disconnectAccount(accountId: string): boolean
+	getConnectedAccounts(): Account[]
+	testConnection(accountId: string): boolean
 
-  // Scheduling (NEW CORE FEATURE)
-  createDraftPosts(contentId: string): DraftPost[]
-  schedulePosts(postIds: string[], scheduledAt: Date): void
-  getScheduledPosts(filters?: ScheduleFilters): ScheduledPost[]
-  updateScheduledPost(postId: string, updates: Partial<ScheduledPost>): void
-  deleteScheduledPost(postId: string): void
-  publishNow(postIds: string[]): PostResult[]
+	// Scheduling (NEW CORE FEATURE)
+	createDraftPosts(contentId: string): DraftPost[]
+	schedulePosts(postIds: string[], scheduledAt: Date): void
+	getScheduledPosts(filters?: ScheduleFilters): ScheduledPost[]
+	updateScheduledPost(postId: string, updates: Partial<ScheduledPost>): void
+	deleteScheduledPost(postId: string): void
+	publishNow(postIds: string[]): PostResult[]
 
-  // Posting
-  postToSocial(contentId: string, platforms: Platform[]): PostResult[]
-  queuePost(post: QueuedPost): void
-  retryFailedPost(postId: string): PostResult
+	// Posting
+	postToSocial(contentId: string, platforms: Platform[]): PostResult[]
+	queuePost(post: QueuedPost): void
+	retryFailedPost(postId: string): PostResult
 
-  // Templates
-  generatePost(content: Content, platform: Platform): PostData
-  getTemplate(contentType: ContentType, platform: Platform): Template
-  updateTemplate(templateId: string, template: Template): void
+	// Templates
+	generatePost(content: Content, platform: Platform): PostData
+	getTemplate(contentType: ContentType, platform: Platform): Template
+	updateTemplate(templateId: string, template: Template): void
 
-  // History
-  getPostHistory(filters?: HistoryFilters): SocialPost[]
-  getPostByContent(contentId: string): SocialPost[]
+	// History
+	getPostHistory(filters?: HistoryFilters): SocialPost[]
+	getPostByContent(contentId: string): SocialPost[]
 }
 ```
 
 ### 5.2 Platform Integrations
+
 **Platform Clients**
+
 - `BlueSkyClient` - AT Protocol API integration
 - `NostrClient` - Nostr protocol integration (NIP-01, NIP-02 for relays)
 - `LinkedInClient` - LinkedIn API integration
 
 Each client implements common interface:
+
 ```typescript
 interface SocialClient {
-  authenticate(credentials: Credentials): Promise<Token>
-  post(content: PostData): Promise<PostResponse>
-  getPostMetrics(postId: string): Promise<Metrics>
-  validateToken(): Promise<boolean>
+	authenticate(credentials: Credentials): Promise<Token>
+	post(content: PostData): Promise<PostResponse>
+	getPostMetrics(postId: string): Promise<Metrics>
+	validateToken(): Promise<boolean>
 }
 ```
 
 **Nostr-Specific Implementation Notes**:
+
 - Use `nostr-tools` library for signing and relay communication
 - Store nsec (private key) encrypted in database
 - Connect to multiple relays for redundancy
 - Support NIP-19 for key encoding/decoding
 
 ### 5.3 Database Schema
+
 **New Tables**:
 
 ```sql
@@ -310,49 +334,55 @@ CREATE INDEX idx_social_posts_status ON social_posts(status);
 ```
 
 ### 5.4 Integration Points
+
 **Hook into Content Publishing**
 Modify `src/routes/(admin)/admin/content/[id]/+page.server.ts`:
+
 ```typescript
 // After successful update to 'published'
 if (content.status === 'published' && locals.socialMediaService) {
-  // Automatically create draft social posts for all enabled accounts
-  const draftPosts = await locals.socialMediaService.createDraftPosts(content.id)
+	// Automatically create draft social posts for all enabled accounts
+	const draftPosts = await locals.socialMediaService.createDraftPosts(content.id)
 
-  // Notify admin that drafts are ready in the scheduling dashboard
-  // Posts remain in 'draft' status until admin reviews and schedules them
-  console.log(`Created ${draftPosts.length} draft social posts for content ${content.id}`)
+	// Notify admin that drafts are ready in the scheduling dashboard
+	// Posts remain in 'draft' status until admin reviews and schedules them
+	console.log(`Created ${draftPosts.length} draft social posts for content ${content.id}`)
 }
 ```
 
 **Background Job for Scheduled Posts**
 Create a background job (cron or similar) to publish scheduled posts:
+
 ```typescript
 // Run every minute
 async function processScheduledPosts() {
-  const now = new Date()
-  const duePostS = await socialMediaService.getScheduledPosts({
-    status: 'scheduled',
-    dueBefore: now
-  })
+	const now = new Date()
+	const duePostS = await socialMediaService.getScheduledPosts({
+		status: 'scheduled',
+		dueBefore: now
+	})
 
-  for (const post of duePosts) {
-    try {
-      await socialMediaService.publishNow([post.id])
-    } catch (error) {
-      // Queue for retry
-      await socialMediaService.queuePost(post)
-    }
-  }
+	for (const post of duePosts) {
+		try {
+			await socialMediaService.publishNow([post.id])
+		} catch (error) {
+			// Queue for retry
+			await socialMediaService.queuePost(post)
+		}
+	}
 }
 ```
 
 ### 5.5 Admin UI Routes
+
 **New Routes**:
+
 - `/admin/social-media` - **Post scheduling dashboard (PRIMARY VIEW)** - Shows all draft, scheduled, and posted content
 - `/admin/social-media/accounts` - Account management (connect/disconnect platforms)
 - `/admin/social-media/templates` - Manage post templates (optional, Phase 2+)
 
 **Updated Routes**:
+
 - `/admin/content/[id]` - Add social media preview section
 - `/admin/content/new` - Add social media settings
 
@@ -361,6 +391,7 @@ async function processScheduledPosts() {
 ## 6. User Workflows
 
 ### 6.1 Initial Setup
+
 1. Admin navigates to `/admin/social-media/accounts`
 2. Clicks "Connect Account" for each platform (BlueSky, Nostr, LinkedIn)
 3. Completes authentication:
@@ -369,6 +400,7 @@ async function processScheduledPosts() {
    - LinkedIn: OAuth flow
 
 ### 6.2 Publishing Content with Scheduling (PRIMARY WORKFLOW)
+
 1. Admin publishes content (changes status to "published")
 2. System automatically:
    - Generates draft posts for each enabled platform
@@ -383,6 +415,7 @@ async function processScheduledPosts() {
 7. Published posts appear in the same list with status "posted"
 
 ### 6.3 Quick Publishing from Content Form
+
 1. Admin edits content in `/admin/content/[id]`
 2. Sees "Social Media Preview" section
 3. Reviews auto-generated posts for each platform
@@ -392,6 +425,7 @@ async function processScheduledPosts() {
 7. Drafts appear in scheduling dashboard for final review
 
 ### 6.4 Handling Failed Posts
+
 1. Post fails (API error, rate limit, etc.)
 2. System queues post for retry
 3. Admin sees notification of failed post
@@ -404,24 +438,28 @@ async function processScheduledPosts() {
 ## 7. Security & Privacy Considerations
 
 ### 7.1 Credential Storage
+
 - Store platform credentials encrypted in database
 - Use environment variables for encryption keys
 - Implement token refresh mechanisms
 - Support credential rotation
 
 ### 7.2 Permissions
+
 - Role-based access control for social media features
 - Only admins can connect/disconnect accounts
 - Moderators can view history and retry posts
 - Editors can preview but not post
 
 ### 7.3 Rate Limiting
+
 - Respect platform API rate limits
 - Implement exponential backoff for retries
 - Queue posts to avoid hitting limits
 - Track API usage per platform
 
 ### 7.4 Error Handling
+
 - Graceful degradation if social posting fails
 - Don't block content publishing if social post fails
 - Log all errors for debugging
@@ -458,16 +496,18 @@ SOCIAL_MEDIA_SCHEDULER_INTERVAL=60000  # Check for scheduled posts every 60 seco
 ## 9. Dependencies
 
 ### NPM Packages
+
 ```json
 {
-  "@atproto/api": "^0.12.0",        // BlueSky
-  "nostr-tools": "^2.3.0",          // Nostr protocol
-  "linkedin-api-client": "^1.0.0",  // LinkedIn (or use fetch directly)
-  "crypto-js": "^4.2.0"             // Encryption for credentials
+	"@atproto/api": "^0.12.0", // BlueSky
+	"nostr-tools": "^2.3.0", // Nostr protocol
+	"linkedin-api-client": "^1.0.0", // LinkedIn (or use fetch directly)
+	"crypto-js": "^4.2.0" // Encryption for credentials
 }
 ```
 
 ### Platform API Documentation
+
 - **BlueSky**: https://docs.bsky.app/docs/api/
 - **Nostr**: https://github.com/nostr-protocol/nips
 - **LinkedIn**: https://learn.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/share-api
@@ -477,6 +517,7 @@ SOCIAL_MEDIA_SCHEDULER_INTERVAL=60000  # Check for scheduled posts every 60 seco
 ## 10. Testing Strategy
 
 ### Unit Tests
+
 - Template generation logic
 - Post formatting/truncation
 - Character count validation
@@ -484,12 +525,14 @@ SOCIAL_MEDIA_SCHEDULER_INTERVAL=60000  # Check for scheduled posts every 60 seco
 - Hashtag extraction
 
 ### Integration Tests
+
 - Mock API responses from platforms
 - Test retry logic
 - Test queue processing
 - Test credential validation
 
 ### E2E Tests
+
 - Connect account flow
 - Publish content and verify social post
 - Edit and retry failed post
@@ -500,6 +543,7 @@ SOCIAL_MEDIA_SCHEDULER_INTERVAL=60000  # Check for scheduled posts every 60 seco
 ## 11. Implementation Phases
 
 ### Phase 1: BlueSky + Basic Dashboard
+
 - [ ] Database schema and migrations
 - [ ] BlueSky client implementation
 - [ ] Basic `SocialMediaService`
@@ -509,26 +553,31 @@ SOCIAL_MEDIA_SCHEDULER_INTERVAL=60000  # Check for scheduled posts every 60 seco
 - [ ] Manual "Post Now" functionality
 
 ### Phase 2: Automatic Scheduling
+
 - [ ] Background job for processing scheduled posts
 - [ ] Quick schedule actions (Tomorrow, Next Week, etc.)
 - [ ] Retry logic for failed posts
 
 ### Phase 3: Account Management
+
 - [ ] Account management UI (`/admin/social-media/accounts`)
 - [ ] Add/remove accounts through UI
 - [ ] Credential encryption
 
 ### Phase 4: Nostr Support
+
 - [ ] Nostr client implementation
 - [ ] Nostr account management
 - [ ] Multi-platform draft generation
 
 ### Phase 5: LinkedIn Support
+
 - [ ] LinkedIn client implementation
 - [ ] LinkedIn account management
 - [ ] All 3 platforms working
 
 ### Phase 6: Polish & Advanced Features
+
 - [ ] Template management UI
 - [ ] Better filters and search
 - [ ] Inline editing
@@ -556,6 +605,7 @@ SOCIAL_MEDIA_SCHEDULER_INTERVAL=60000  # Check for scheduled posts every 60 seco
 ## 13. Success Criteria
 
 ### Definition of Done
+
 - Admins can connect at least one account for each platform (BlueSky, Nostr, LinkedIn)
 - Draft posts are automatically created when content is published
 - Scheduling dashboard provides clear visibility into all draft and scheduled posts
@@ -567,6 +617,7 @@ SOCIAL_MEDIA_SCHEDULER_INTERVAL=60000  # Check for scheduled posts every 60 seco
 - Documentation is complete for setup and usage
 
 ### User Acceptance
+
 - Admin feedback that social posting "just works"
 - Reduction in manual posting time by 80%+
 - No complaints about duplicate or failed posts
@@ -588,6 +639,7 @@ SOCIAL_MEDIA_SCHEDULER_INTERVAL=60000  # Check for scheduled posts every 60 seco
 This PRD provides a comprehensive roadmap for implementing a robust social media publishing system with intelligent scheduling capabilities. The system integrates seamlessly with your existing content management workflow, automatically creating draft posts for review while giving admins full control over scheduling and publishing. The phased approach allows for iterative development and early feedback, while the extensible architecture supports future enhancements.
 
 ## Key Changes from Original Concept
+
 1. **Removed X (Twitter)** - Replaced with Nostr protocol to avoid API costs
 2. **Scheduling-First Approach** - Posts are NOT automatically published; instead, drafts are created for admin review and scheduling
 3. **Scheduling Dashboard** - New core feature providing centralized view of all draft, scheduled, and published posts

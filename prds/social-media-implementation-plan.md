@@ -1,11 +1,13 @@
 # Social Media Feature - Simple Implementation Plan
 
 ## Overview
+
 This plan breaks the social media feature into simple, iterative phases. **Each phase leaves the application in a fully working state.**
 
 Build the simplest thing first, then iterate. We'll use **SvelteKit remote functions** for type-safe client-server communication, preferring `form` remote functions for progressive enhancement and web platform alignment.
 
 **UI Components**: Use existing components from `src/lib/ui/`:
+
 - `Button.svelte` - for all buttons
 - `admin/Badge.svelte` - for status badges (draft, scheduled, posted, failed)
 - `admin/Table.svelte` - for the posts list table
@@ -13,6 +15,7 @@ Build the simplest thing first, then iterate. We'll use **SvelteKit remote funct
 - `Icon.svelte` - for icons
 
 **Note on Forms**: The existing form components (`form/Input.svelte`, `form/Textarea.svelte`) are built for SuperForms, but remote functions have their own field API. We'll use native HTML inputs with the remote function's `.as()` method, styled to match the existing design:
+
 ```
 class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 text-sm"
 ```
@@ -24,10 +27,12 @@ class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 te
 **Goal**: Enable the experimental remote functions feature in SvelteKit
 
 ### Tasks
+
 1. Update `svelte.config.js` to enable remote functions
 2. Optionally enable experimental async support for `await` in components
 
 ### Implementation
+
 ```js
 // svelte.config.js
 const config = {
@@ -41,10 +46,11 @@ const config = {
 			async: true // Optional: allows using await in components
 		}
 	}
-};
+}
 ```
 
 ### Deliverables
+
 - ✅ Remote functions enabled
 - ✅ App still runs correctly
 
@@ -75,32 +81,38 @@ const config = {
 
 ```svelte
 <script>
-	import Table from '$lib/ui/admin/Table.svelte';
-	import Badge from '$lib/ui/admin/Badge.svelte';
-	import Button from '$lib/ui/Button.svelte';
+	import Table from '$lib/ui/admin/Table.svelte'
+	import Badge from '$lib/ui/admin/Badge.svelte'
+	import Button from '$lib/ui/Button.svelte'
 
-	const mockPosts = [/* ... */];
-	let statusFilter = 'all';
+	const mockPosts = [
+		/* ... */
+	]
+	let statusFilter = 'all'
 
 	const filteredPosts = $derived(
-		statusFilter === 'all'
-			? mockPosts
-			: mockPosts.filter(p => p.status === statusFilter)
-	);
+		statusFilter === 'all' ? mockPosts : mockPosts.filter((p) => p.status === statusFilter)
+	)
 
 	const statusColors = {
 		draft: 'default',
 		scheduled: 'info',
 		posted: 'success',
 		failed: 'danger'
-	};
+	}
 </script>
 
-<div class="flex gap-2 mb-4">
-	<Button variant={statusFilter === 'all' ? 'primary' : 'outline'} onclick={() => statusFilter = 'all'}>
+<div class="mb-4 flex gap-2">
+	<Button
+		variant={statusFilter === 'all' ? 'primary' : 'outline'}
+		onclick={() => (statusFilter = 'all')}
+	>
 		{#snippet children()}All{/snippet}
 	</Button>
-	<Button variant={statusFilter === 'draft' ? 'primary' : 'outline'} onclick={() => statusFilter = 'draft'}>
+	<Button
+		variant={statusFilter === 'draft' ? 'primary' : 'outline'}
+		onclick={() => (statusFilter = 'draft')}
+	>
 		{#snippet children()}Drafts{/snippet}
 	</Button>
 	<!-- ... more filter buttons -->
@@ -141,6 +153,7 @@ const config = {
    - "No draft posts yet" message
 
 ### Mock Data Example
+
 ```ts
 const mockPosts = [
 	{
@@ -158,12 +171,13 @@ const mockPosts = [
 		postText: '📦 Featured library: svelte-dnd...',
 		status: 'scheduled',
 		scheduledAt: '2025-01-20T09:00:00Z'
-	},
+	}
 	// ... more mock posts
-];
+]
 ```
 
 ### Deliverables
+
 - ✅ App runs correctly
 - ✅ Can navigate to `/admin/social-media`
 - ✅ Can see list of mock posts
@@ -184,6 +198,7 @@ const mockPosts = [
    - Tables: `social_accounts`, `social_posts`, `social_templates`
 
 2. **Schema Definition**
+
 ```sql
 -- Social media accounts
 CREATE TABLE social_accounts (
@@ -232,6 +247,7 @@ CREATE INDEX idx_social_posts_content ON social_posts(content_id);
    - Create `src/lib/schema/social-media.ts` for validation (we use Zod, not Valibot)
 
 ### Deliverables
+
 - ✅ App runs correctly
 - ✅ Migration runs successfully: `bun db:migrate`
 - ✅ Tables exist in database (can verify with SQLite viewer)
@@ -249,53 +265,59 @@ CREATE INDEX idx_social_posts_content ON social_posts(content_id);
    - Create `src/routes/(admin)/admin/social-media/data.remote.ts`
 
 2. **Basic Queries & Forms**
+
 ```ts
 // data.remote.ts
-import { query, form } from '$app/server';
-import { z } from 'zod';
-import { db } from '$lib/server/db';
+import { query, form } from '$app/server'
+import { z } from 'zod'
+import { db } from '$lib/server/db'
 
 export const getAllPosts = query(async () => {
-	const posts = db.prepare(`
+	const posts = db
+		.prepare(
+			`
 		SELECT
 			sp.*,
 			c.title as content_title
 		FROM social_posts sp
 		LEFT JOIN content c ON sp.content_id = c.id
 		ORDER BY sp.created_at DESC
-	`).all();
+	`
+		)
+		.all()
 
-	return posts;
-});
+	return posts
+})
 
 export const deletePost = form(
 	z.object({
 		postId: z.string()
 	}),
 	async ({ postId }) => {
-		db.prepare('DELETE FROM social_posts WHERE id = ?').run(postId);
+		db.prepare('DELETE FROM social_posts WHERE id = ?').run(postId)
 
 		// Refresh the posts list
-		await getAllPosts().refresh();
+		await getAllPosts().refresh()
 	}
-);
+)
 ```
 
 3. **Update UI to Use Remote Functions**
+
 ```svelte
 <!-- +page.svelte -->
 <script>
-	import { getAllPosts, deletePost } from './data.remote';
-	import Table from '$lib/ui/admin/Table.svelte';
-	import Badge from '$lib/ui/admin/Badge.svelte';
-	import Button from '$lib/ui/Button.svelte';
+	import { getAllPosts, deletePost } from './data.remote'
+	import Table from '$lib/ui/admin/Table.svelte'
+	import Badge from '$lib/ui/admin/Badge.svelte'
+	import Button from '$lib/ui/Button.svelte'
 
 	const statusColors = {
 		draft: 'default',
 		scheduled: 'info',
 		posted: 'success',
 		failed: 'danger'
-	};
+	}
 </script>
 
 <Table data={await getAllPosts()} action={true}>
@@ -333,6 +355,7 @@ export const deletePost = form(
    - Update UI to filter by status
 
 ### Deliverables
+
 - ✅ App runs correctly
 - ✅ Dashboard shows real data from database (empty at first)
 - ✅ Can delete posts
@@ -359,31 +382,32 @@ export const DEFAULT_TEMPLATES = {
 	},
 	library: {
 		bluesky: '📦 Featured library: {title}\n\n{description}\n\n{url}'
-	},
+	}
 	// ... other content types
-};
+}
 
 export function generatePostText(
 	contentType: string,
 	platform: string,
 	data: { title: string; description: string; url: string }
 ): string {
-	const template = DEFAULT_TEMPLATES[contentType]?.[platform];
-	if (!template) return `${data.title}\n\n${data.url}`;
+	const template = DEFAULT_TEMPLATES[contentType]?.[platform]
+	if (!template) return `${data.title}\n\n${data.url}`
 
 	return template
 		.replace('{title}', data.title)
 		.replace('{description}', data.description)
-		.replace('{url}', data.url);
+		.replace('{url}', data.url)
 }
 ```
 
 2. **Create Draft Form**
+
 ```ts
 // data.remote.ts
-import { z } from 'zod';
-import { form } from '$app/server';
-import { generatePostText } from '$lib/server/services/social-media/templates';
+import { z } from 'zod'
+import { form } from '$app/server'
+import { generatePostText } from '$lib/server/services/social-media/templates'
 
 export const createDraftPost = form(
 	z.object({
@@ -392,32 +416,34 @@ export const createDraftPost = form(
 	}),
 	async ({ contentId, platform }) => {
 		// Get content details
-		const content = db.prepare('SELECT * FROM content WHERE id = ?').get(contentId);
+		const content = db.prepare('SELECT * FROM content WHERE id = ?').get(contentId)
 
 		// Get active account for platform
-		const account = db.prepare(
-			'SELECT * FROM social_accounts WHERE platform = ? AND is_active = 1 LIMIT 1'
-		).get(platform);
+		const account = db
+			.prepare('SELECT * FROM social_accounts WHERE platform = ? AND is_active = 1 LIMIT 1')
+			.get(platform)
 
-		if (!account) throw new Error('No active account for platform');
+		if (!account) throw new Error('No active account for platform')
 
 		// Generate post text
 		const postText = generatePostText(content.type, platform, {
 			title: content.title,
 			description: content.description || '',
 			url: `https://sveltesociety.dev/${content.type}/${content.slug}`
-		});
+		})
 
 		// Insert into database
-		db.prepare(`
+		db.prepare(
+			`
 			INSERT INTO social_posts (id, content_id, account_id, platform, post_text, status, created_at)
 			VALUES (?, ?, ?, ?, ?, 'draft', ?)
-		`).run(crypto.randomUUID(), contentId, account.id, platform, postText, new Date().toISOString());
+		`
+		).run(crypto.randomUUID(), contentId, account.id, platform, postText, new Date().toISOString())
 
 		// Refresh posts list
-		await getAllPosts().refresh();
+		await getAllPosts().refresh()
 	}
-);
+)
 ```
 
 3. **UI to Create Drafts**
@@ -434,6 +460,7 @@ export const createDraftPost = form(
 ```
 
 ### Deliverables
+
 - ✅ App runs correctly
 - ✅ Can manually create draft posts
 - ✅ Post text is generated from templates
@@ -448,18 +475,19 @@ export const createDraftPost = form(
 ### What Gets Built
 
 1. **Create Server-Side Helper Function**
+
 ```ts
 // src/lib/server/services/social-media/drafts.ts
-import { db } from '$lib/server/db';
-import { generatePostText } from './templates';
+import { db } from '$lib/server/db'
+import { generatePostText } from './templates'
 
 export async function createDraftsForContent(contentId: string) {
 	// Get content details
-	const content = db.prepare('SELECT * FROM content WHERE id = ?').get(contentId);
-	if (!content) return;
+	const content = db.prepare('SELECT * FROM content WHERE id = ?').get(contentId)
+	if (!content) return
 
 	// Get all active accounts
-	const accounts = db.prepare('SELECT * FROM social_accounts WHERE is_active = 1').all();
+	const accounts = db.prepare('SELECT * FROM social_accounts WHERE is_active = 1').all()
 
 	// Create draft for each platform
 	for (const account of accounts) {
@@ -467,20 +495,30 @@ export async function createDraftsForContent(contentId: string) {
 			title: content.title,
 			description: content.description || '',
 			url: `https://sveltesociety.dev/${content.type}/${content.slug}`
-		});
+		})
 
-		db.prepare(`
+		db.prepare(
+			`
 			INSERT INTO social_posts (id, content_id, account_id, platform, post_text, status, created_at)
 			VALUES (?, ?, ?, ?, ?, 'draft', ?)
-		`).run(crypto.randomUUID(), contentId, account.id, account.platform, postText, new Date().toISOString());
+		`
+		).run(
+			crypto.randomUUID(),
+			contentId,
+			account.id,
+			account.platform,
+			postText,
+			new Date().toISOString()
+		)
 	}
 }
 ```
 
 2. **Update Content Publishing Hook**
+
 ```ts
 // src/routes/(admin)/admin/content/[id]/+page.server.ts
-import { createDraftsForContent } from '$lib/server/services/social-media/drafts';
+import { createDraftsForContent } from '$lib/server/services/social-media/drafts'
 
 export const actions = {
 	default: async ({ request, locals }) => {
@@ -489,19 +527,20 @@ export const actions = {
 		if (form.data.status === 'published' && wasNotPublishedBefore) {
 			// Create draft social posts
 			try {
-				await createDraftsForContent(content.id);
+				await createDraftsForContent(content.id)
 			} catch (err) {
 				// Don't block publishing if social media fails
-				console.error('Failed to create social drafts:', err);
+				console.error('Failed to create social drafts:', err)
 			}
 		}
 
-		return { success: true };
+		return { success: true }
 	}
-};
+}
 ```
 
 ### Deliverables
+
 - ✅ App runs correctly
 - ✅ Publishing content automatically creates draft posts
 - ✅ Shows toast notification
@@ -516,6 +555,7 @@ export const actions = {
 ### What Gets Built
 
 1. **Update Post Form**
+
 ```ts
 // data.remote.ts
 export const updatePost = form(
@@ -525,30 +565,33 @@ export const updatePost = form(
 		scheduledAt: z.string().nullable()
 	}),
 	async ({ postId, postText, scheduledAt }) => {
-		const status = scheduledAt ? 'scheduled' : 'draft';
+		const status = scheduledAt ? 'scheduled' : 'draft'
 
-		db.prepare(`
+		db.prepare(
+			`
 			UPDATE social_posts
 			SET post_text = ?, scheduled_at = ?, status = ?, updated_at = ?
 			WHERE id = ?
-		`).run(postText, scheduledAt, status, new Date().toISOString(), postId);
+		`
+		).run(postText, scheduledAt, status, new Date().toISOString(), postId)
 
 		// Refresh posts list
-		await getAllPosts().refresh();
+		await getAllPosts().refresh()
 	}
-);
+)
 ```
 
 2. **UI for Editing**
+
 ```svelte
 <!-- Use Dialog component for editing -->
 <script>
-	import Dialog from '$lib/ui/Dialog.svelte';
-	import Button from '$lib/ui/Button.svelte';
-	import { updatePost } from './data.remote';
+	import Dialog from '$lib/ui/Dialog.svelte'
+	import Button from '$lib/ui/Button.svelte'
+	import { updatePost } from './data.remote'
 
-	let editOpen = $state(false);
-	let editingPost = $state(null);
+	let editOpen = $state(false)
+	let editingPost = $state(null)
 </script>
 
 <!-- In the actionCell snippet -->
@@ -557,8 +600,8 @@ export const updatePost = form(
 		size="sm"
 		variant="outline"
 		onclick={() => {
-			editingPost = post;
-			editOpen = true;
+			editingPost = post
+			editOpen = true
 		}}
 	>
 		{#snippet children()}Edit{/snippet}
@@ -578,7 +621,8 @@ export const updatePost = form(
 						{...updatePost.fields.postText.as('text')}
 						rows="6"
 						class="w-full rounded-md border-2 border-transparent bg-slate-100 px-2 py-1.5 text-sm"
-					>{editingPost.post_text}</textarea>
+						>{editingPost.post_text}</textarea
+					>
 				</div>
 
 				<div>
@@ -599,6 +643,7 @@ export const updatePost = form(
 ```
 
 ### Deliverables
+
 - ✅ App runs correctly
 - ✅ Can edit post text
 - ✅ Can set scheduled time
@@ -613,47 +658,50 @@ export const updatePost = form(
 ### What Gets Built
 
 1. **Install Dependency**
+
 ```bash
 bun add @atproto/api
 ```
 
 2. **BlueSky Client**
+
 ```ts
 // src/lib/server/services/social-media/clients/bluesky.ts
-import { AtpAgent } from '@atproto/api';
+import { AtpAgent } from '@atproto/api'
 
 export class BlueSkyClient {
-	private agent: AtpAgent;
+	private agent: AtpAgent
 
 	constructor(identifier: string, password: string) {
-		this.agent = new AtpAgent({ service: 'https://bsky.social' });
+		this.agent = new AtpAgent({ service: 'https://bsky.social' })
 	}
 
 	async login() {
-		const credentials = JSON.parse(this.credentials);
+		const credentials = JSON.parse(this.credentials)
 		await this.agent.login({
 			identifier: credentials.identifier,
 			password: credentials.password
-		});
+		})
 	}
 
 	async post(text: string) {
-		await this.login();
+		await this.login()
 
 		const result = await this.agent.post({
 			text,
 			createdAt: new Date().toISOString()
-		});
+		})
 
 		return {
 			id: result.uri,
 			url: `https://bsky.app/profile/${result.uri}`
-		};
+		}
 	}
 }
 ```
 
 3. **Post Now Form**
+
 ```ts
 // data.remote.ts
 export const postNow = form(
@@ -661,31 +709,34 @@ export const postNow = form(
 		postId: z.string()
 	}),
 	async ({ postId }) => {
-		const post = db.prepare('SELECT * FROM social_posts WHERE id = ?').get(postId);
-		const account = db.prepare('SELECT * FROM social_accounts WHERE id = ?').get(post.account_id);
+		const post = db.prepare('SELECT * FROM social_posts WHERE id = ?').get(postId)
+		const account = db.prepare('SELECT * FROM social_accounts WHERE id = ?').get(post.account_id)
 
 		if (account.platform === 'bluesky') {
-			const client = new BlueSkyClient(account.credentials);
-			const result = await client.post(post.post_text);
+			const client = new BlueSkyClient(account.credentials)
+			const result = await client.post(post.post_text)
 
-			db.prepare(`
+			db.prepare(
+				`
 				UPDATE social_posts
 				SET status = 'posted', external_post_id = ?, external_url = ?, posted_at = ?
 				WHERE id = ?
-			`).run(result.id, result.url, new Date().toISOString(), postId);
+			`
+			).run(result.id, result.url, new Date().toISOString(), postId)
 		}
 
 		// Refresh posts list
-		await getAllPosts().refresh();
+		await getAllPosts().refresh()
 	}
-);
+)
 ```
 
 4. **Update UI**
+
 ```svelte
 <script>
-	import Button from '$lib/ui/Button.svelte';
-	import { postNow } from './data.remote';
+	import Button from '$lib/ui/Button.svelte'
+	import { postNow } from './data.remote'
 </script>
 
 <!-- In the actionCell snippet -->
@@ -702,6 +753,7 @@ export const postNow = form(
 ```
 
 ### Deliverables
+
 - ✅ App runs correctly
 - ✅ Can click "Post Now" to immediately post to BlueSky
 - ✅ Post status updates to "posted"
@@ -716,43 +768,52 @@ export const postNow = form(
 ### What Gets Built
 
 1. **Background Job**
+
 ```ts
 // src/lib/server/jobs/process-scheduled-posts.ts
-import { db } from '$lib/server/db';
-import { BlueSkyClient } from '../services/social-media/clients/bluesky';
+import { db } from '$lib/server/db'
+import { BlueSkyClient } from '../services/social-media/clients/bluesky'
 
 export async function processScheduledPosts() {
-	const now = new Date().toISOString();
+	const now = new Date().toISOString()
 
-	const duePosts = db.prepare(`
+	const duePosts = db
+		.prepare(
+			`
 		SELECT sp.*, sa.credentials, sa.platform
 		FROM social_posts sp
 		JOIN social_accounts sa ON sp.account_id = sa.id
 		WHERE sp.status = 'scheduled'
 		AND sp.scheduled_at <= ?
-	`).all(now);
+	`
+		)
+		.all(now)
 
 	for (const post of duePosts) {
 		try {
-			let result;
+			let result
 
 			if (post.platform === 'bluesky') {
-				const client = new BlueSkyClient(JSON.parse(post.credentials));
-				result = await client.post(post.post_text);
+				const client = new BlueSkyClient(JSON.parse(post.credentials))
+				result = await client.post(post.post_text)
 			}
 
-			db.prepare(`
+			db.prepare(
+				`
 				UPDATE social_posts
 				SET status = 'posted', external_post_id = ?, external_url = ?, posted_at = ?
 				WHERE id = ?
-			`).run(result.id, result.url, new Date().toISOString(), post.id);
+			`
+			).run(result.id, result.url, new Date().toISOString(), post.id)
 		} catch (err) {
 			// Mark as failed, will retry later
-			db.prepare(`
+			db.prepare(
+				`
 				UPDATE social_posts
 				SET status = 'failed', error_message = ?, retry_count = retry_count + 1
 				WHERE id = ?
-			`).run(err.message, post.id);
+			`
+			).run(err.message, post.id)
 		}
 	}
 }
@@ -765,12 +826,12 @@ export async function processScheduledPosts() {
 
 ```ts
 // hooks.server.ts
-import { processScheduledPosts } from '$lib/server/jobs/process-scheduled-posts';
+import { processScheduledPosts } from '$lib/server/jobs/process-scheduled-posts'
 
 // Run every minute
 setInterval(() => {
-	processScheduledPosts().catch(console.error);
-}, 60000);
+	processScheduledPosts().catch(console.error)
+}, 60000)
 ```
 
 3. **Retry Logic**
@@ -778,6 +839,7 @@ setInterval(() => {
    - If retry_count >= 3, leave as failed
 
 ### Deliverables
+
 - ✅ App runs correctly
 - ✅ Scheduled posts automatically publish at scheduled time
 - ✅ Failed posts retry up to 3 times
@@ -796,14 +858,15 @@ setInterval(() => {
    - Create `/admin/social-media/accounts/data.remote.ts`
 
 2. **Account Management Forms**
+
 ```ts
 // accounts/data.remote.ts
-import { query, form } from '$app/server';
-import { z } from 'zod';
+import { query, form } from '$app/server'
+import { z } from 'zod'
 
 export const getAccounts = query(async () => {
-	return db.prepare('SELECT * FROM social_accounts').all();
-});
+	return db.prepare('SELECT * FROM social_accounts').all()
+})
 
 export const addAccount = form(
 	z.object({
@@ -815,19 +878,21 @@ export const addAccount = form(
 	}),
 	async (data) => {
 		// Test connection first
-		const client = new BlueSkyClient(data.identifier, data.password);
-		await client.login(); // Will throw if invalid
+		const client = new BlueSkyClient(data.identifier, data.password)
+		await client.login() // Will throw if invalid
 
 		// Store credentials (plain text for now)
 		const credentials = JSON.stringify({
 			identifier: data.identifier,
 			password: data.password
-		});
+		})
 
-		db.prepare(`
+		db.prepare(
+			`
 			INSERT INTO social_accounts (id, platform, account_name, account_handle, credentials, created_at, updated_at)
 			VALUES (?, ?, ?, ?, ?, ?, ?)
-		`).run(
+		`
+		).run(
 			crypto.randomUUID(),
 			data.platform,
 			data.accountName,
@@ -835,39 +900,40 @@ export const addAccount = form(
 			credentials,
 			new Date().toISOString(),
 			new Date().toISOString()
-		);
+		)
 
 		// Refresh accounts list
-		await getAccounts().refresh();
+		await getAccounts().refresh()
 	}
-);
+)
 
 export const deleteAccount = form(
 	z.object({
 		accountId: z.string()
 	}),
 	async ({ accountId }) => {
-		db.prepare('DELETE FROM social_accounts WHERE id = ?').run(accountId);
+		db.prepare('DELETE FROM social_accounts WHERE id = ?').run(accountId)
 
 		// Refresh accounts list
-		await getAccounts().refresh();
+		await getAccounts().refresh()
 	}
-);
+)
 ```
 
 3. **UI**
+
 ```svelte
 <script>
-	import { getAccounts, addAccount, deleteAccount } from './data.remote';
-	import Button from '$lib/ui/Button.svelte';
-	import Badge from '$lib/ui/admin/Badge.svelte';
+	import { getAccounts, addAccount, deleteAccount } from './data.remote'
+	import Button from '$lib/ui/Button.svelte'
+	import Badge from '$lib/ui/admin/Badge.svelte'
 </script>
 
-<h2 class="text-2xl font-bold mb-4">Connected Accounts</h2>
+<h2 class="mb-4 text-2xl font-bold">Connected Accounts</h2>
 
-<div class="space-y-2 mb-8">
+<div class="mb-8 space-y-2">
 	{#each await getAccounts() as account}
-		<div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
+		<div class="flex items-center justify-between rounded-lg bg-white p-4 shadow-sm">
 			<div>
 				<Badge text={account.platform} color="info" />
 				<span class="ml-2">@{account.account_handle}</span>
@@ -883,9 +949,9 @@ export const deleteAccount = form(
 	{/each}
 </div>
 
-<h2 class="text-2xl font-bold mb-4">Add Account</h2>
+<h2 class="mb-4 text-2xl font-bold">Add Account</h2>
 
-<form {...addAccount} class="space-y-4 p-6 bg-white rounded-lg shadow-sm">
+<form {...addAccount} class="space-y-4 rounded-lg bg-white p-6 shadow-sm">
 	<div>
 		<label class="text-xs font-medium">Platform</label>
 		<select
@@ -939,6 +1005,7 @@ export const deleteAccount = form(
 ```
 
 ### Deliverables
+
 - ✅ App runs correctly
 - ✅ Can add BlueSky accounts through UI
 - ✅ Can delete accounts
@@ -954,26 +1021,28 @@ export const deleteAccount = form(
 ### What Gets Built
 
 1. **Install Dependency**
+
 ```bash
 bun add nostr-tools
 ```
 
 2. **Nostr Client**
+
 ```ts
 // src/lib/server/services/social-media/clients/nostr.ts
-import { SimplePool, getEventHash, signEvent } from 'nostr-tools';
-import { nip19 } from 'nostr-tools';
+import { SimplePool, getEventHash, signEvent } from 'nostr-tools'
+import { nip19 } from 'nostr-tools'
 
 export class NostrClient {
-	private pool: SimplePool;
-	private privateKey: Uint8Array;
-	private relays: string[];
+	private pool: SimplePool
+	private privateKey: Uint8Array
+	private relays: string[]
 
 	constructor(nsec: string, relays: string[]) {
-		this.pool = new SimplePool();
-		const { data } = nip19.decode(nsec);
-		this.privateKey = data as Uint8Array;
-		this.relays = relays;
+		this.pool = new SimplePool()
+		const { data } = nip19.decode(nsec)
+		this.privateKey = data as Uint8Array
+		this.relays = relays
 	}
 
 	async post(text: string) {
@@ -982,17 +1051,17 @@ export class NostrClient {
 			created_at: Math.floor(Date.now() / 1000),
 			tags: [],
 			content: text
-		};
+		}
 
-		event.id = getEventHash(event);
-		event.sig = signEvent(event, this.privateKey);
+		event.id = getEventHash(event)
+		event.sig = signEvent(event, this.privateKey)
 
-		await this.pool.publish(this.relays, event);
+		await this.pool.publish(this.relays, event)
 
 		return {
 			id: event.id,
 			url: `https://njump.me/${event.id}`
-		};
+		}
 	}
 }
 ```
@@ -1007,6 +1076,7 @@ export class NostrClient {
    - Support Nostr in `postNow` command
 
 ### Deliverables
+
 - ✅ App runs correctly
 - ✅ Can add Nostr accounts
 - ✅ Publishing content creates Nostr drafts
@@ -1031,6 +1101,7 @@ export class NostrClient {
    - Support adding LinkedIn accounts
 
 ### Deliverables
+
 - ✅ App runs correctly
 - ✅ Can add LinkedIn accounts
 - ✅ Publishing content creates LinkedIn drafts
@@ -1043,6 +1114,7 @@ export class NostrClient {
 **Goal**: Make everything better
 
 ### Optional Features (Pick any)
+
 - Better filtering and search
 - Inline editing
 - Template management UI
@@ -1056,11 +1128,13 @@ export class NostrClient {
 ## Implementation Guidelines
 
 ### Before Starting Each Phase
+
 - [ ] Read the phase description carefully
 - [ ] Make sure previous phase is complete
 - [ ] Commit previous work
 
 ### After Completing Each Phase
+
 - [ ] All features working
 - [ ] No console errors
 - [ ] Test manually
@@ -1068,6 +1142,7 @@ export class NostrClient {
 - [ ] Move to next phase
 
 ### General Rules
+
 1. **Keep it simple**: Don't over-engineer
 2. **Test as you go**: Manually test each feature
 3. **Commit frequently**: After each working feature
