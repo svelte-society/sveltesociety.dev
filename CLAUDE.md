@@ -30,9 +30,7 @@ bun test -- path/to/file # Run specific test file
 
 ### Database
 
-```bash
-bun db:migrate           # Run database migrations
-```
+Database migrations and seeding happen automatically when starting the server. No manual commands needed.
 
 ## Architecture
 
@@ -63,7 +61,10 @@ Three main hooks process requests in order:
 
 - Version-based migration system tracks applied migrations in `migrations` table
 - Migration files stored in `/src/lib/server/db/migrations/` with format `001_description.sql`
-- Migrations run automatically on server start after schema initialization
+- Migrations run automatically on server start
+- Initial schema (001_initial_schema.sql) includes roles and OAuth providers setup
+- First user to register automatically receives Admin role (role id = 1)
+- Subsequent users receive Member role (role id = 4)
 - Create new migrations as numbered SQL files (e.g., `002_add_user_preferences.sql`)
 
 ### Search Implementation
@@ -103,8 +104,6 @@ ANTHROPIC_API_KEY=         # For AI-powered description generation in admin
 YOUTUBE_API_KEY=          # For importing YouTube videos
 GITHUB_TOKEN=             # For better rate limits when importing GitHub repos
 BULK_IMPORT_API_KEY=      # Secret key for bulk import API endpoint
-SEED_DATABASE=            # Controls database seeding: 'full' (all seeds), 'minimal' (roles + kevmodrome), 'none' (no seeding)
-                          # Defaults to 'full' in development, 'minimal' in production
 ```
 
 Docker-specific environment variables:
