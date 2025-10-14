@@ -1,6 +1,4 @@
 import { Database } from 'bun:sqlite'
-// For testing purposes, we'll use a constant
-const dev = process.env.NODE_ENV === 'development'
 
 export interface GitHubUserInfo {
 	id: number
@@ -57,7 +55,6 @@ export class UserService {
 	private getExistingUserStatement
 	private updateUserStatement
 	private createUserStatement
-	private createUserAdminStatement
 	private updateOAuthStatement
 	private createOAuthStatement
 	private deleteUserStatement
@@ -115,46 +112,24 @@ export class UserService {
 
 		this.createUserStatement = this.db.prepare(`
 			INSERT INTO users (
-				email, 
-				username, 
-				name, 
-				avatar_url, 
-				bio, 
-				location, 
-				twitter
-			)
-			VALUES (
-				$email, 
-				$username, 
-				$name, 
-				$avatar_url, 
-				$bio, 
-				$location, 
-				$twitter
-			)
-			RETURNING *
-		`)
-
-		this.createUserAdminStatement = this.db.prepare(`
-			INSERT INTO users (
-				email, 
-				username, 
-				name, 
-				avatar_url, 
-				bio, 
-				location, 
+				email,
+				username,
+				name,
+				avatar_url,
+				bio,
+				location,
 				twitter,
 				role
 			)
 			VALUES (
-				$email, 
-				$username, 
-				$name, 
-				$avatar_url, 
-				$bio, 
-				$location, 
+				$email,
+				$username,
+				$name,
+				$avatar_url,
+				$bio,
+				$location,
 				$twitter,
-				1
+				$role
 			)
 			RETURNING *
 		`)
@@ -277,10 +252,19 @@ export class UserService {
 					profileData: JSON.stringify(githubInfo)
 				})
 			} else {
-				const userInfo = this.extractGithubUserInfo(githubInfo)
-				const createStmt = dev ? this.createUserAdminStatement : this.createUserStatement
+				// Check if this is the first user - if so, make them admin
+				const userCount = this.getUserCountStatement.get() as { count: number }
+				const isFirstUser = userCount.count === 0
 
-				user = createStmt.get(userInfo) as User
+				// Admin role has id = 1, Member role has id = 4
+				const roleId = isFirstUser ? 1 : 4
+
+				const userInfo = {
+					...this.extractGithubUserInfo(githubInfo),
+					role: roleId
+				}
+
+				user = this.createUserStatement.get(userInfo) as User
 
 				this.createOAuthStatement.run({
 					userId: user.id,
