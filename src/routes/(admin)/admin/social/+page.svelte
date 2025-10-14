@@ -3,6 +3,7 @@
 	import Badge from '$lib/ui/admin/Badge.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import AdminList from '$lib/ui/admin/AdminList.svelte'
+	import Calendar from '$lib/ui/Calendar.svelte'
 	import { formatRelativeDate } from '$lib/utils/date'
 
 	// Mock data for initial UI
@@ -48,6 +49,22 @@
 			status: 'failed',
 			scheduledAt: null,
 			postText: 'Learn how to handle forms effectively in Svelte 5.'
+		},
+		{
+			id: '6',
+			contentTitle: 'Server-Side Rendering Tips',
+			platform: 'linkedin',
+			status: 'scheduled',
+			scheduledAt: new Date('2025-10-18T09:00:00'),
+			postText: 'Optimize your SvelteKit app with these SSR best practices.'
+		},
+		{
+			id: '7',
+			contentTitle: 'Animation with Svelte Motion',
+			platform: 'bluesky',
+			status: 'scheduled',
+			scheduledAt: new Date('2025-10-20T15:00:00'),
+			postText: 'Create stunning animations in Svelte with ease!'
 		}
 	]
 
@@ -61,6 +78,10 @@
 			return true
 		})
 	)
+
+	function handlePostClick(post: any) {
+		console.log('Post clicked:', post)
+	}
 
 	const statusBadgeVariant = (status: string) => {
 		switch (status) {
@@ -92,11 +113,15 @@
 </script>
 
 <AdminList title="Social Media Posts" newHref="/admin/social/new" newLabel="New Post">
+	<!-- Calendar View -->
+	<div class="mb-6">
+		<Calendar posts={mockPosts} onPostClick={handlePostClick} />
+	</div>
+
+	<!-- Filters -->
 	<div class="mb-4 flex gap-4">
 		<div>
-			<label for="status-filter" class="mb-1 block text-sm font-medium text-gray-700"
-				>Status</label
-			>
+			<label for="status-filter" class="mb-1 block text-sm font-medium text-gray-700">Status</label>
 			<select
 				id="status-filter"
 				bind:value={statusFilter}
@@ -126,6 +151,8 @@
 		</div>
 	</div>
 
+	<!-- List View -->
+	<h3 class="mb-3 text-base font-semibold text-gray-800">All Posts</h3>
 	<Table action={true} data={filteredPosts}>
 		{#snippet header(classes)}
 			<th scope="col" class={classes}>Content</th>
