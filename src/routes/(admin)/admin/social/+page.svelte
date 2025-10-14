@@ -65,6 +65,16 @@
 </script>
 
 <AdminList title="Social Media Posts" newHref="/admin/social/new" newLabel="New Post">
+	<!-- Quick Actions -->
+	<div class="mb-4 flex gap-2">
+		<Button size="sm" variant="secondary" href="/admin/social/templates">
+			Manage Templates
+		</Button>
+		<Button size="sm" variant="secondary" href="/admin/social/accounts">
+			Manage Accounts
+		</Button>
+	</div>
+
 	<!-- Calendar View -->
 	<div class="mb-6">
 		<Calendar posts={calendarPosts} onPostClick={handlePostClick} />
