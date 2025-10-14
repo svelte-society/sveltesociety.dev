@@ -64,6 +64,13 @@ CREATE TABLE IF NOT EXISTS roles (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Insert default roles
+INSERT OR IGNORE INTO roles (name, value, description, active) VALUES
+('Admin', 'admin', 'Administrator role with full access', 1),
+('Moderator', 'moderator', 'Moderator role with content management access', 1),
+('Editor', 'editor', 'Editor role with content creation access', 1),
+('Member', 'member', 'Standard member role with limited access', 1);
+
 -- Content table
 CREATE TABLE IF NOT EXISTS content (
     id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
