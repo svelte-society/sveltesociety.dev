@@ -6,11 +6,18 @@
 	import Calendar from '$lib/ui/Calendar.svelte'
 	import { formatRelativeDate } from '$lib/utils/date'
 	import { getPosts, getAccounts } from './data.remote'
+	import { type PostStatus, type Platform } from '$lib/schema/social'
 
-	let statusFilter = $state('all')
-	let platformFilter = $state('all')
+	let statusFilter = $state<'all' | PostStatus>('all')
+	let platformFilter = $state<'all' | Platform>('all')
 
-	const posts = $derived(await getPosts())
+	// Build filter object for server-side filtering
+	const filters = $derived({
+		...(statusFilter !== 'all' && { status: statusFilter }),
+		...(platformFilter !== 'all' && { platform: platformFilter })
+	})
+
+	const posts = $derived(await getPosts(filters))
 	const accounts = $derived(await getAccounts())
 
 	const calendarPosts = $derived(
@@ -22,14 +29,6 @@
 				platform: post.platform,
 				scheduledAt: new Date(post.scheduled_at!)
 			}))
-	)
-
-	const filteredPosts = $derived(
-		posts.filter((post) => {
-			if (statusFilter !== 'all' && post.status !== statusFilter) return false
-			if (platformFilter !== 'all' && post.platform !== platformFilter) return false
-			return true
-		})
 	)
 
 	function handlePostClick(post: any) {
@@ -106,7 +105,7 @@
 
 	<!-- List View -->
 	<h3 class="mb-3 text-base font-semibold text-gray-800">All Posts</h3>
-	<Table action={true} data={filteredPosts}>
+	<Table action={true} data={posts}>
 		{#snippet header(classes)}
 			<th scope="col" class={classes}>Content</th>
 			<th scope="col" class={classes}>Platform</th>
