@@ -5,74 +5,27 @@
 	import AdminList from '$lib/ui/admin/AdminList.svelte'
 	import Calendar from '$lib/ui/Calendar.svelte'
 	import { formatRelativeDate } from '$lib/utils/date'
-
-	// Mock data for initial UI
-	const mockPosts = [
-		{
-			id: '1',
-			contentTitle: 'Getting Started with Svelte 5',
-			platform: 'bluesky',
-			status: 'scheduled',
-			scheduledAt: new Date('2025-10-15T10:00:00'),
-			postText:
-				'Check out this amazing guide to Svelte 5! Learn about the new runes system and how it makes reactive code even easier. https://sveltesociety.dev/recipes/getting-started'
-		},
-		{
-			id: '2',
-			contentTitle: 'Advanced State Management',
-			platform: 'nostr',
-			status: 'draft',
-			scheduledAt: null,
-			postText: 'Master state management in Svelte 5 with this comprehensive guide.'
-		},
-		{
-			id: '3',
-			contentTitle: 'Component Best Practices',
-			platform: 'linkedin',
-			status: 'posted',
-			scheduledAt: null,
-			postText:
-				'Component best practices for Svelte developers. Learn how to build reusable, maintainable components.'
-		},
-		{
-			id: '4',
-			contentTitle: 'SvelteKit Routing Guide',
-			platform: 'bluesky',
-			status: 'scheduled',
-			scheduledAt: new Date('2025-10-16T14:30:00'),
-			postText: 'Everything you need to know about routing in SvelteKit!'
-		},
-		{
-			id: '5',
-			contentTitle: 'Form Handling Tutorial',
-			platform: 'nostr',
-			status: 'failed',
-			scheduledAt: null,
-			postText: 'Learn how to handle forms effectively in Svelte 5.'
-		},
-		{
-			id: '6',
-			contentTitle: 'Server-Side Rendering Tips',
-			platform: 'linkedin',
-			status: 'scheduled',
-			scheduledAt: new Date('2025-10-18T09:00:00'),
-			postText: 'Optimize your SvelteKit app with these SSR best practices.'
-		},
-		{
-			id: '7',
-			contentTitle: 'Animation with Svelte Motion',
-			platform: 'bluesky',
-			status: 'scheduled',
-			scheduledAt: new Date('2025-10-20T15:00:00'),
-			postText: 'Create stunning animations in Svelte with ease!'
-		}
-	]
+	import { getPosts, getAccounts } from './data.remote'
 
 	let statusFilter = $state('all')
 	let platformFilter = $state('all')
 
+	const posts = $derived(await getPosts())
+	const accounts = $derived(await getAccounts())
+
+	const calendarPosts = $derived(
+		posts
+			.filter((post) => post.scheduled_at !== null)
+			.map((post) => ({
+				id: post.id,
+				contentTitle: post.content_title,
+				platform: post.platform,
+				scheduledAt: new Date(post.scheduled_at!)
+			}))
+	)
+
 	const filteredPosts = $derived(
-		mockPosts.filter((post) => {
+		posts.filter((post) => {
 			if (statusFilter !== 'all' && post.status !== statusFilter) return false
 			if (platformFilter !== 'all' && post.platform !== platformFilter) return false
 			return true
@@ -92,7 +45,7 @@
 			case 'posted':
 				return 'success'
 			case 'failed':
-				return 'error'
+				return 'danger'
 			default:
 				return 'default'
 		}
@@ -115,7 +68,7 @@
 <AdminList title="Social Media Posts" newHref="/admin/social/new" newLabel="New Post">
 	<!-- Calendar View -->
 	<div class="mb-6">
-		<Calendar posts={mockPosts} onPostClick={handlePostClick} />
+		<Calendar posts={calendarPosts} onPostClick={handlePostClick} />
 	</div>
 
 	<!-- Filters -->
@@ -162,30 +115,26 @@
 		{/snippet}
 		{#snippet row(post, classes)}
 			<td class="whitespace-nowrap {classes} font-medium text-gray-900">
-				<div>{post.contentTitle}</div>
-				<div class="mt-1 max-w-md truncate text-xs text-gray-400">{post.postText}</div>
+				<div>{post.content_title}</div>
+				<div class="mt-1 max-w-md truncate text-xs text-gray-400">{post.post_text}</div>
 			</td>
 			<td class={classes}>
-				<Badge variant={platformBadgeVariant(post.platform)}>
-					{post.platform}
-				</Badge>
+				<Badge text={post.platform} color={platformBadgeVariant(post.platform)} />
 			</td>
 			<td class={classes}>
-				<Badge variant={statusBadgeVariant(post.status)}>
-					{post.status}
-				</Badge>
+				<Badge text={post.status} color={statusBadgeVariant(post.status)} />
 			</td>
 			<td class={classes}>
-				{#if post.scheduledAt}
-					{formatRelativeDate(post.scheduledAt.toISOString())}
+				{#if post.scheduled_at}
+					{formatRelativeDate(post.scheduled_at)}
 				{:else}
 					<span class="text-gray-400">Not scheduled</span>
 				{/if}
 			</td>
 		{/snippet}
 		{#snippet actionCell(post)}
-			<Button size="sm" variant="outline">Edit</Button>
-			<Button size="sm" variant="outline">Delete</Button>
+			<Button size="sm" variant="secondary">Edit</Button>
+			<Button size="sm" variant="error">Delete</Button>
 			{#if post.status === 'scheduled' || post.status === 'draft'}
 				<Button size="sm" variant="primary">Post Now</Button>
 			{/if}
