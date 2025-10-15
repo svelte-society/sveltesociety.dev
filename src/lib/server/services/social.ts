@@ -500,6 +500,24 @@ export class SocialService {
 		}
 	}
 
+	updateTemplate(
+		id: string,
+		update: { template?: string; is_default?: boolean }
+	): SocialTemplate | undefined {
+		try {
+			// The trigger automatically handles unsetting other defaults
+			const result = this.updateTemplateStatement.get({
+				id,
+				template: update.template || null,
+				is_default: update.is_default !== undefined ? (update.is_default ? 1 : 0) : null
+			})
+			return result ? (result as SocialTemplate) : undefined
+		} catch (error) {
+			console.error('Error updating template:', error)
+			return undefined
+		}
+	}
+
 	deleteTemplate(id: string): boolean {
 		try {
 			const result = this.deleteTemplateStatement.run({ id })

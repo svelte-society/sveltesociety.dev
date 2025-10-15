@@ -104,6 +104,7 @@ export const createSocialTemplateSchema = z.object({
 })
 
 export const updateSocialTemplateSchema = z.object({
+	id: z.string(),
 	template: z.string().min(1).optional(),
 	is_default: z.boolean().optional()
 })

@@ -1,5 +1,5 @@
 import { query, form } from '$app/server'
-import { redirect } from '@sveltejs/kit'
+import { error, redirect } from '@sveltejs/kit'
 import { getRequestEvent } from '$app/server'
 import { z } from 'zod/v4'
 import {
@@ -16,11 +16,14 @@ export const getTemplates = query(async () => {
 
 export const getTemplate = query(z.string(), async (id) => {
 	const { locals } = getRequestEvent()
+	const template = locals.socialService.getTemplateById(id)
+
+	if (!template) error(404, 'Template not found')
+
 	return locals.socialService.getTemplateById(id)
 })
 
 export const createTemplate = form(createSocialTemplateSchema, async (data) => {
-	console.log('Running create tempalte function')
 	const { locals } = getRequestEvent()
 	const user = locals.user
 
@@ -31,6 +34,19 @@ export const createTemplate = form(createSocialTemplateSchema, async (data) => {
 		data.is_default,
 		user?.id
 	)
+
+	redirect(303, '/admin/social/templates')
+})
+
+export const updateTemplate = form(updateSocialTemplateSchema, async (data) => {
+	const { locals } = getRequestEvent()
+	const { id, ...updateData } = data
+
+	const result = locals.socialService.updateTemplate(id, updateData)
+
+	if (!result) {
+		throw new Error('Failed to update template')
+	}
 
 	redirect(303, '/admin/social/templates')
 })
