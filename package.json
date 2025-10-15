@@ -19,6 +19,8 @@
 		"@ai-sdk/anthropic": "^2.0.27",
 		"@atproto/api": "^0.17.3",
 		"@epic-web/cachified": "^5.6.0",
+		"@event-calendar/core": "^4.7.0",
+		"@event-calendar/day-grid": "^3.12.0",
 		"@orama/orama": "^3.1.15",
 		"@playwright/test": "^1.56.0",
 		"@sveltejs/adapter-node": "^5.3.3",
@@ -47,6 +49,7 @@
 		"svelte-adapter-bun": "^1.0.0",
 		"svelte-check": "^4.3.3",
 		"svelte-sonner": "^1.0.5",
+		"sveltekit-remote-debug": "^1.0.6",
 		"sveltekit-search-params": "^3.0.0",
 		"sveltekit-superforms": "^2.27.2",
 		"tailwind-merge": "^3.3.1",
@@ -56,9 +59,7 @@
 		"typescript": "^5.9.3",
 		"vite": "^7.1.9",
 		"vitest": "^3.2.4",
-		"zod": "^4.1.12",
-		"@event-calendar/core": "^4.7.0",
-		"@event-calendar/day-grid": "^3.12.0"
+		"zod": "^4.1.12"
 	},
 	"type": "module"
 }
