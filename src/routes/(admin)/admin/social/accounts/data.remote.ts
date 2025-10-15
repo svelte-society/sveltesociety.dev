@@ -3,7 +3,7 @@ import { redirect } from '@sveltejs/kit'
 import { getRequestEvent } from '$app/server'
 import { z } from 'zod/v4'
 import { createSocialAccountSchema, platformSchema } from '$lib/schema/social'
-import { BskyAgent } from '@atproto/api'
+import { AtpAgent } from '@atproto/api'
 
 export const getAccounts = query(async () => {
 	const { locals } = getRequestEvent()
@@ -26,7 +26,7 @@ export const addAccount = form(
 		// Test connection first
 		if (data.platform === 'bluesky') {
 			try {
-				const agent = new BskyAgent({ service: 'https://bsky.social' })
+				const agent = new AtpAgent({ service: 'https://bsky.social' })
 				await agent.login({
 					identifier: data.identifier,
 					password: data.password
