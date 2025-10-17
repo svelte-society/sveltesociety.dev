@@ -3,7 +3,7 @@
 	import Badge from '$lib/ui/admin/Badge.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
 	import AdminList from '$lib/ui/admin/AdminList.svelte'
-	import { getAccounts, deleteAccount } from './data.remote'
+	import { getAccounts, deleteAccount, toggleAccountActive } from './data.remote'
 
 	const accounts = $derived(await getAccounts())
 
@@ -68,18 +68,36 @@
 				</td>
 			{/snippet}
 			{#snippet actionCell(account)}
-				<form {...deleteAccount.for(account.id)}>
-					<Button
-						size="sm"
-						variant="error"
-						name="id"
-						value={account.id}
-						type="submit"
-						disabled={!!deleteAccount.pending}
+				<div class="flex gap-2">
+					<form {...toggleAccountActive.for(account.id)}>
+						<Button size="sm" variant="secondary" type="submit">
+							{#if toggleAccountActive.for(account.id).pending}
+								{account.is_active ? 'Deactivating...' : 'Activating...'}
+							{:else}
+								{account.is_active ? 'Deactivate' : 'Activate'}
+							{/if}
+						</Button>
+					</form>
+					<form
+						{...deleteAccount.for(account.id)}
+						onsubmit={(e) => {
+							if (!confirm(`Delete ${account.account_name}? This cannot be undone.`)) {
+								e.preventDefault()
+							}
+						}}
 					>
-						{deleteAccount.pending ? 'Deleting...' : 'Delete'}
-					</Button>
-				</form>
+						<Button
+							size="sm"
+							variant="error"
+							name="id"
+							value={account.id}
+							type="submit"
+							disabled={!!deleteAccount.pending}
+						>
+							{deleteAccount.pending ? 'Deleting...' : 'Delete'}
+						</Button>
+					</form>
+				</div>
 			{/snippet}
 		</Table>
 	{/if}

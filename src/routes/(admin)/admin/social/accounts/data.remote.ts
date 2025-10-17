@@ -69,22 +69,22 @@ export const deleteAccount = form(z.object({ id: z.string() }), async (data, inv
 	if (!success) {
 		invalid(invalid.id('Failed to delete account'))
 	}
-
-	// Refresh accounts list
 	await getAccounts().refresh()
 })
-
 export const toggleAccountActive = form(
 	z.object({
-		id: z.string(),
-		is_active: z.boolean()
+		id: z.string()
 	}),
 	async (data) => {
 		const { locals } = getRequestEvent()
 
-		// Update account (we'll need to add this method to the service)
-		// For now, we'll just refresh
-		// TODO: Add updateAccount method to SocialService
+		const account = locals.socialService.getAccountById(data.id)
+
+		if (!account) return
+
+		locals.socialService.updateAccount(data.id, {
+			is_active: !account.is_active
+		})
 
 		await getAccounts().refresh()
 	}

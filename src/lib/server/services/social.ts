@@ -435,6 +435,34 @@ export class SocialService {
 		}
 	}
 
+	updateAccount(
+		id: string,
+		update: {
+			account_name?: string
+			account_handle?: string
+			credentials?: string
+			relay_urls?: string
+			is_active?: boolean
+			is_default?: boolean
+		}
+	): SocialAccount | undefined {
+		try {
+			const result = this.updateAccountStatement.get({
+				id,
+				account_name: update.account_name || null,
+				account_handle: update.account_handle || null,
+				credentials: update.credentials || null,
+				relay_urls: update.relay_urls || null,
+				is_active: update.is_active !== undefined ? (update.is_active ? 1 : 0) : null,
+				is_default: update.is_default !== undefined ? (update.is_default ? 1 : 0) : null
+			})
+			return result ? (result as SocialAccount) : undefined
+		} catch (error) {
+			console.error('Error updating account:', error)
+			return undefined
+		}
+	}
+
 	deleteAccount(id: string): boolean {
 		try {
 			const result = this.deleteAccountStatement.run({ id })
