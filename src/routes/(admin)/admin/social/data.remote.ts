@@ -1,4 +1,4 @@
-import { query } from '$app/server'
+import { query, form } from '$app/server'
 import { getRequestEvent } from '$app/server'
 import { z } from 'zod/v4'
 import { platformSchema, postStatusSchema } from '$lib/schema/social'
@@ -38,4 +38,14 @@ export const generatePosts = query(z.string(), async (contentId) => {
 	)
 
 	return generatedPosts
+})
+
+export const deletePost = form(z.object({ id: z.string() }), async (data, invalid) => {
+	const { locals } = getRequestEvent()
+	const success = locals.socialService.deletePost(data.id)
+
+	if (!success) {
+		invalid(invalid.id('Failed to delete post'))
+	}
+	await getPosts({}).refresh()
 })

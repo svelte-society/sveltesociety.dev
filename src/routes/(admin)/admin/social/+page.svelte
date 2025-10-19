@@ -5,7 +5,7 @@
 	import AdminList from '$lib/ui/admin/AdminList.svelte'
 	import Calendar from '$lib/ui/Calendar.svelte'
 	import { formatRelativeDate } from '$lib/utils/date'
-	import { getPosts, getAccounts } from './data.remote'
+	import { getPosts, getAccounts, deletePost } from './data.remote'
 	import { type PostStatus, type Platform } from '$lib/schema/social'
 
 	let statusFilter = $state<'all' | PostStatus>('all')
@@ -137,8 +137,24 @@
 			</td>
 		{/snippet}
 		{#snippet actionCell(post)}
-			<Button size="sm" variant="secondary">Edit</Button>
-			<Button size="sm" variant="error">Delete</Button>
+			<Button size="sm" variant="secondary" href="/admin/social/{post.id}">Edit</Button>
+			<form
+				{...deletePost.for(post.id)}
+				onsubmit={(e) => {
+					if (!confirm(`Delete post for "${post.content_title}"? This cannot be undone.`)) {
+						e.preventDefault()
+					}
+				}}
+			>
+				<Button
+					size="sm"
+					variant="error"
+					type="submit"
+					disabled={!!deletePost.pending}
+				>
+					{deletePost.pending ? 'Deleting...' : 'Delete'}
+				</Button>
+			</form>
 			{#if post.status === 'scheduled' || post.status === 'draft'}
 				<Button size="sm" variant="primary">Post Now</Button>
 			{/if}
