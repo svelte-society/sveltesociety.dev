@@ -9,8 +9,17 @@ export const load = (async ({ url, locals }) => {
 	const users = locals.userService.getUsers({ limit: perPage, offset })
 	const totalUsers = locals.userService.getUserCount()
 
+	// Get role names for each user
+	const usersWithRoles = users.map((user) => {
+		const role = locals.roleService.getRoleById(user.role)
+		return {
+			...user,
+			role_name: role?.name || 'Unknown'
+		}
+	})
+
 	return {
-		users,
+		users: usersWithRoles,
 		pagination: {
 			count: totalUsers,
 			perPage,
