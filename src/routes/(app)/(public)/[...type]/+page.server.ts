@@ -66,6 +66,7 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 	const searchResults = locals.searchService.search({
 		...data,
 		type: params.type,
+		status: 'published', // Only show published content to public users
 		limit: perPage,
 		offset: offset
 	})
