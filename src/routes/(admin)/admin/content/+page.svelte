@@ -15,8 +15,6 @@
 	import { page } from '$app/state'
 	import { getFilteredContent } from './data.remote'
 
-	let { data } = $props()
-
 	// Filter state from URL
 	let searchQuery = $state(page.url.searchParams.get('search') || '')
 	let selectedStatus = $state(page.url.searchParams.get('status') || 'all')
@@ -70,7 +68,13 @@
 	const { content, pagination } = $derived(
 		await getFilteredContent({
 			search: debouncedSearch || undefined,
-			type: (selectedType || undefined) as 'video' | 'library' | 'announcement' | 'collection' | 'recipe' | undefined,
+			type: (selectedType || undefined) as
+				| 'video'
+				| 'library'
+				| 'announcement'
+				| 'collection'
+				| 'recipe'
+				| undefined,
 			status: (selectedStatus || 'all') as 'draft' | 'published' | 'archived' | 'all',
 			page: currentPage
 		})
@@ -104,7 +108,7 @@
 				value={searchQuery}
 				oninput={(e) => handleSearchInput(e.currentTarget.value)}
 				placeholder="Search content..."
-				class="block w-full rounded-lg border border-gray-300 bg-white py-2.5 pr-3 pl-10 text-gray-900 placeholder:text-gray-500 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 sm:text-sm"
+				class="block w-full rounded-lg border border-gray-300 bg-white py-2.5 pr-3 pl-10 text-gray-900 shadow-sm placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 sm:text-sm"
 			/>
 		</div>
 
