@@ -76,14 +76,14 @@
 	<div class="mb-4">
 		<div class="relative">
 			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-				<MagnifyingGlass class="h-5 w-5 text-gray-400" />
+				<MagnifyingGlass class="h-5 w-5 text-gray-500" />
 			</div>
 			<input
 				type="text"
 				value={searchQuery}
 				oninput={(e) => handleSearchInput(e.currentTarget.value)}
 				placeholder="Search content..."
-				class="block w-full rounded-md border-gray-300 py-2 pr-3 pl-10 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+				class="block w-full rounded-lg border border-gray-300 bg-white py-2.5 pr-3 pl-10 text-gray-900 placeholder:text-gray-500 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 sm:text-sm"
 			/>
 		</div>
 	</div>
