@@ -48,22 +48,22 @@ Create a new remote functions file to handle filtering operations:
 ```typescript
 import { query } from '$app/server'
 import { getRequestEvent } from '$app/server'
-import * as v from 'valibot'
+import { z } from 'zod/v4'
 
 // Schema for filter parameters
-const contentFiltersSchema = v.object({
-  type: v.optional(v.picklist(['video', 'library', 'announcement', 'collection', 'recipe'])),
-  status: v.optional(v.picklist(['draft', 'published', 'archived', 'all'])),
-  search: v.optional(v.string()),
-  page: v.optional(v.number(), 1),
-  perPage: v.optional(v.number(), 50)
+const contentFiltersSchema = z.object({
+  type: z.enum(['video', 'library', 'announcement', 'collection', 'recipe']).optional(),
+  status: z.enum(['draft', 'published', 'archived', 'all']).default('all'),
+  search: z.string().optional(),
+  page: z.number().int().positive().default(1),
+  perPage: z.number().int().positive().default(50)
 })
 
 export const getFilteredContent = query(contentFiltersSchema, async (filters) => {
   const { locals } = getRequestEvent()
   const { page, perPage, ...serviceFilters } = filters
 
-  const offset = ((page ?? 1) - 1) * (perPage ?? 50)
+  const offset = (page - 1) * perPage
 
   const content = locals.contentService.getFilteredContent({
     ...serviceFilters,
@@ -77,8 +77,8 @@ export const getFilteredContent = query(contentFiltersSchema, async (filters) =>
     content,
     pagination: {
       count,
-      perPage: perPage ?? 50,
-      currentPage: page ?? 1
+      perPage,
+      currentPage: page
     }
   }
 })
@@ -312,7 +312,7 @@ $effect(() => {
 ## Dependencies
 
 - SvelteKit 2.27+ (for remote functions)
-- Valibot (for schema validation)
+- Zod v4 (for schema validation - already in project)
 - Existing ContentService methods (already implemented)
 
 ## Implementation Phases
@@ -323,20 +323,19 @@ $effect(() => {
 **Tasks**:
 1. Enable remote functions in `svelte.config.js`
 2. Create `data.remote.ts` with basic `getFilteredContent` query
-3. Add Valibot schema for filter validation
+3. Add Zod schema for filter validation
 4. Test remote function manually in browser console
 5. Ensure progressive enhancement fallback still works
 
 **Success Criteria**:
 - Remote function can be called from client
 - Returns content and pagination data
-- Type-safe with Valibot validation
+- Type-safe with Zod validation
 - Server-side load function remains as fallback
 
 **Files Changed**:
 - `svelte.config.js`
 - `src/routes/(admin)/admin/content/data.remote.ts` (new)
-- `package.json` (if Valibot needs to be added)
 
 **Deliverable**: Working remote function that mirrors existing load behavior
 
