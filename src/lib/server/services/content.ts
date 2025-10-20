@@ -161,7 +161,12 @@ export class ContentService {
 
 		if (filters.search?.trim()) {
 			const searchQuery = filters.search.trim()
-			const searchResults = this.searchService.search({ query: searchQuery })
+			// Pass status to search service - if status is 'all' or undefined, don't filter by status in search
+			const searchStatus = filters.status && filters.status !== 'all' ? filters.status : undefined
+			const searchResults = this.searchService.search({
+				query: searchQuery,
+				status: searchStatus
+			})
 			contentIds = searchResults.hits.map((hit) => hit.id)
 		}
 
@@ -252,7 +257,12 @@ export class ContentService {
 
 		if (filters.search?.trim()) {
 			const searchQuery = filters.search.trim()
-			const searchResults = this.searchService.search({ query: searchQuery })
+			// Pass status to search service - if status is 'all' or undefined, don't filter by status in search
+			const searchStatus = filters.status && filters.status !== 'all' ? filters.status : undefined
+			const searchResults = this.searchService.search({
+				query: searchQuery,
+				status: searchStatus
+			})
 			contentIds = searchResults.hits.map((hit) => hit.id)
 			if (contentIds.length === 0) return 0
 		}

@@ -8,6 +8,7 @@ const querySchema = z.object({
 	type: z.string().optional(),
 	tags: z.union([z.string(), z.array(z.string())]).optional(),
 	query: z.string().optional(),
+	status: z.string().optional(),
 	sort: z.string().optional(),
 	order: z.enum(['ASC', 'DESC']).optional(),
 	limit: z.number().optional(),
@@ -22,6 +23,7 @@ const contentSchema = {
 	description: 'string',
 	tags: 'string[]',
 	type: 'string',
+	status: 'string',
 	created_at: 'string',
 	likes: 'number',
 	saves: 'number',
@@ -40,7 +42,7 @@ export class SearchService {
 			components: {
 				tokenizer: {
 					stemming: true,
-					stemmerSkipProperties: ['tag', 'type']
+					stemmerSkipProperties: ['tag', 'type', 'status']
 				}
 			}
 		})
@@ -50,13 +52,12 @@ export class SearchService {
 			.query(
 				`
         SELECT
-          c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.created_at, c.likes, c.saves,
+          c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.status, c.created_at, c.likes, c.saves,
           COALESCE(json_extract(c.metadata, '$.stars'), 0) as stars,
           json_group_array(t.slug) as tags
         FROM content c
         LEFT JOIN content_to_tags ct ON c.id = ct.content_id
         LEFT JOIN tags t ON ct.tag_id = t.id
-        WHERE c.status = "published"
         GROUP BY c.id
         `
 			)
@@ -72,6 +73,7 @@ export class SearchService {
 	search(filters?: QuerySchema) {
 		let query = ''
 		let type = ''
+		let status = ''
 		let tags: string[] = []
 		let sort = filters?.sort || 'created_at'
 		let order = filters?.order || 'DESC'
@@ -88,6 +90,10 @@ export class SearchService {
 			type = result.data.type
 		}
 
+		if (result?.data?.status) {
+			status = result.data.status
+		}
+
 		if (result?.data?.tags) {
 			if (Array.isArray(result.data.tags)) {
 				tags = result.data.tags
@@ -99,9 +105,10 @@ export class SearchService {
 		const searchParams: SearchParams<Orama<typeof contentSchema>> = {
 			term: query,
 			where: {
-				// conditionally add tags and type to the search, we need to add them using spreading
+				// conditionally add tags, type, and status to the search
 				...(tags.length > 0 && { tags }),
-				...(type && { type })
+				...(type && { type }),
+				...(status && { status })
 			},
 			offset,
 			limit,
@@ -137,7 +144,7 @@ export class SearchService {
 			components: {
 				tokenizer: {
 					stemming: true,
-					stemmerSkipProperties: ['tag', 'type']
+					stemmerSkipProperties: ['tag', 'type', 'status']
 				}
 			}
 		})
@@ -147,12 +154,12 @@ export class SearchService {
 			.query(
 				`
         SELECT
-          c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.created_at, c.likes, c.saves,
+          c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.status, c.created_at, c.likes, c.saves,
+          COALESCE(json_extract(c.metadata, '$.stars'), 0) as stars,
           json_group_array(t.slug) as tags
         FROM content c
         LEFT JOIN content_to_tags ct ON c.id = ct.content_id
         LEFT JOIN tags t ON ct.tag_id = t.id
-        WHERE c.status = "published"
         GROUP BY c.id
         `
 			)
