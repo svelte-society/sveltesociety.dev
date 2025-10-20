@@ -9,6 +9,8 @@
 	import Pagination from '$lib/ui/Pagination.svelte'
 	import TypeIcon from '$lib/ui/TypeIcon.svelte'
 	import MagnifyingGlass from 'phosphor-svelte/lib/MagnifyingGlass'
+	import StatusSelect from '$lib/ui/admin/StatusSelect.svelte'
+	import TypeSelect from '$lib/ui/admin/TypeSelect.svelte'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/state'
 	import { getFilteredContent } from './data.remote'
@@ -17,6 +19,8 @@
 
 	// Filter state from URL
 	let searchQuery = $state(page.url.searchParams.get('search') || '')
+	let selectedStatus = $state(page.url.searchParams.get('status') || 'all')
+	let selectedType = $state(page.url.searchParams.get('type') || '')
 	let currentPage = $state(parseInt(page.url.searchParams.get('page') || '1'))
 
 	// Debounce timer
@@ -38,10 +42,25 @@
 		}, 300)
 	}
 
+	// Handle filter changes
+	function handleStatusChange(value: string) {
+		selectedStatus = value
+		currentPage = 1
+		updateURL()
+	}
+
+	function handleTypeChange(value: string) {
+		selectedType = value
+		currentPage = 1
+		updateURL()
+	}
+
 	// Update URL with current filters
 	function updateURL() {
 		const params = new URLSearchParams()
 		if (debouncedSearch) params.set('search', debouncedSearch)
+		if (selectedStatus && selectedStatus !== 'all') params.set('status', selectedStatus)
+		if (selectedType) params.set('type', selectedType)
 		if (currentPage > 1) params.set('page', currentPage.toString())
 
 		goto(`?${params.toString()}`, { replaceState: true, noScroll: true, keepFocus: true })
@@ -51,8 +70,9 @@
 	const { content, pagination } = $derived(
 		await getFilteredContent({
 			search: debouncedSearch || undefined,
-			page: currentPage,
-			status: 'all'
+			type: (selectedType || undefined) as 'video' | 'library' | 'announcement' | 'collection' | 'recipe' | undefined,
+			status: (selectedStatus || 'all') as 'draft' | 'published' | 'archived' | 'all',
+			page: currentPage
 		})
 	)
 
@@ -73,7 +93,8 @@
 		<Button size="sm" href="/admin/content/new"><Plus weight="bold" />New Content</Button>
 	</div>
 
-	<div class="mb-4">
+	<!-- Filters -->
+	<div class="mb-4 grid gap-3 sm:grid-cols-[1fr_auto_auto]">
 		<div class="relative">
 			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 				<MagnifyingGlass class="h-5 w-5 text-gray-500" />
@@ -85,6 +106,14 @@
 				placeholder="Search content..."
 				class="block w-full rounded-lg border border-gray-300 bg-white py-2.5 pr-3 pl-10 text-gray-900 placeholder:text-gray-500 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 sm:text-sm"
 			/>
+		</div>
+
+		<div class="w-full sm:w-48">
+			<TypeSelect value={selectedType} onchange={handleTypeChange} />
+		</div>
+
+		<div class="w-full sm:w-48">
+			<StatusSelect value={selectedStatus} onchange={handleStatusChange} />
 		</div>
 	</div>
 
