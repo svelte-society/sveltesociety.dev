@@ -8,9 +8,10 @@
 	import Pagination from '$lib/ui/Pagination.svelte'
 	import type { User } from '$lib/server/services/user'
 
-	// Extended User interface to include created_at
+	// Extended User interface to include created_at and role_name
 	interface ExtendedUser extends User {
 		created_at: string
+		role_name: string
 	}
 
 	let { data } = $props()
@@ -29,6 +30,7 @@
 		{#snippet header(classes)}
 			<th scope="col" class={classes}>User</th>
 			<th scope="col" class={classes}>Email</th>
+			<th scope="col" class={classes}>Role</th>
 			<th scope="col" class={classes}>Location</th>
 			<th scope="col" class={classes}>Twitter</th>
 			<th scope="col" class={classes}>Created</th>
@@ -39,6 +41,7 @@
 				<span class="ml-2">{item.username}</span>
 			</td>
 			<td class="{classes} truncate">{item.email ?? '-'}</td>
+			<td class={classes}>{item.role_name}</td>
 			<td class={classes}>{item.location ?? '-'}</td>
 			<td class={classes}>{item.twitter ?? '-'}</td>
 			<td class={classes}>
