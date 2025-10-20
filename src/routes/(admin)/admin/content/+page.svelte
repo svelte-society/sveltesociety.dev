@@ -8,8 +8,53 @@
 	import Badge from '$lib/ui/admin/Badge.svelte'
 	import Pagination from '$lib/ui/Pagination.svelte'
 	import TypeIcon from '$lib/ui/TypeIcon.svelte'
+	import MagnifyingGlass from 'phosphor-svelte/lib/MagnifyingGlass'
+	import { goto } from '$app/navigation'
+	import { page } from '$app/state'
+	import { getFilteredContent } from './data.remote'
 
 	let { data } = $props()
+
+	// Filter state from URL
+	let searchQuery = $state(page.url.searchParams.get('search') || '')
+	let currentPage = $state(parseInt(page.url.searchParams.get('page') || '1'))
+
+	// Debounce timer
+	let debounceTimer: ReturnType<typeof setTimeout> | null = null
+	let debouncedSearch = $state(page.url.searchParams.get('search') || '')
+
+	// Handle search input with debounce
+	function handleSearchInput(value: string) {
+		searchQuery = value
+
+		if (debounceTimer) {
+			clearTimeout(debounceTimer)
+		}
+
+		debounceTimer = setTimeout(() => {
+			debouncedSearch = value
+			currentPage = 1
+			updateURL()
+		}, 300)
+	}
+
+	// Update URL with current filters
+	function updateURL() {
+		const params = new URLSearchParams()
+		if (debouncedSearch) params.set('search', debouncedSearch)
+		if (currentPage > 1) params.set('page', currentPage.toString())
+
+		goto(`?${params.toString()}`, { replaceState: true, noScroll: true, keepFocus: true })
+	}
+
+	// Use remote function
+	const { content, pagination } = $derived(
+		await getFilteredContent({
+			search: debouncedSearch || undefined,
+			page: currentPage,
+			status: 'all'
+		})
+	)
 
 	let colorMap = new Map([
 		['draft', 'warning'],
@@ -27,61 +72,85 @@
 		<h1 class="text-xl font-bold">Content Management</h1>
 		<Button size="sm" href="/admin/content/new"><Plus weight="bold" />New Content</Button>
 	</div>
-	<Table action={true} data={data.content}>
-		{#snippet header(classes)}
-			<th scope="col" class={classes}>Title</th>
-			<th scope="col" class={[classes, 'text-center']}>Status</th>
-			<th scope="col" class={classes}>Type</th>
-			<th scope="col" class={classes}>Description</th>
-			<th scope="col" class={classes}>Created</th>
-		{/snippet}
-		{#snippet row(item: Content, classes)}
-			<td class="whitespace-nowrap {classes} font-medium text-gray-900">
-				<a href={`/admin/content/${item.id}`}>
-					<div>{item.title.length > 50 ? item.title.slice(0, 50) + '...' : item.title}</div>
-					<div class="mt-1 text-xs text-gray-400">
-						{item.slug.length > 50 ? item.slug.slice(0, 50) + '...' : item.slug}
-					</div>
-				</a>
-			</td>
-			<td class={classes}
-				><a href={`/admin/content/${item.id}`}>
-					<Badge color={getStatusColor(item.status)} text={item.status} />
-				</a></td
-			>
-			<td class={classes}>
-				<a
-					href={`/admin/content/${item.id}`}
-					class="group relative flex items-center justify-center"
-				>
-					<div class="type-icon-wrapper text-gray-600">
-						<TypeIcon type={item.type} />
-					</div>
-					<div
-						class="pointer-events-none absolute bottom-full mb-2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white capitalize opacity-0 transition-opacity group-hover:opacity-100"
-					>
-						{item.type}
-					</div>
-				</a>
-			</td>
-			<td class={classes}>
-				<a href={`/admin/content/${item.id}`} class="line-clamp-2">
-					{item.description || ''}
-				</a>
-			</td>
-			<td class={classes}>
-				<a href={`/admin/content/${item.id}`}>
-					{formatRelativeDate(item.created_at || '')}
-				</a>
-			</td>
-		{/snippet}
-		{#snippet actionCell(item: Content)}
-			<Actions route="content" id={item.id} canDelete={true} canEdit={true} type={item.title} />
-		{/snippet}
-	</Table>
 
-	{#if data.pagination}
-		<Pagination count={data.pagination.count} perPage={data.pagination.perPage} />
+	<div class="mb-4">
+		<div class="relative">
+			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+				<MagnifyingGlass class="h-5 w-5 text-gray-400" />
+			</div>
+			<input
+				type="text"
+				value={searchQuery}
+				oninput={(e) => handleSearchInput(e.currentTarget.value)}
+				placeholder="Search content..."
+				class="block w-full rounded-md border-gray-300 py-2 pr-3 pl-10 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+			/>
+		</div>
+	</div>
+
+	{#if content}
+		<Table action={true} data={content}>
+			{#snippet header(classes)}
+				<th scope="col" class={classes}>Title</th>
+				<th scope="col" class={[classes, 'text-center']}>Status</th>
+				<th scope="col" class={classes}>Type</th>
+				<th scope="col" class={classes}>Description</th>
+				<th scope="col" class={classes}>Created</th>
+			{/snippet}
+			{#snippet row(item: Content, classes)}
+				<td class="whitespace-nowrap {classes} font-medium text-gray-900">
+					<a href={`/admin/content/${item.id}`}>
+						<div>{item.title.length > 50 ? item.title.slice(0, 50) + '...' : item.title}</div>
+						<div class="mt-1 text-xs text-gray-400">
+							{item.slug.length > 50 ? item.slug.slice(0, 50) + '...' : item.slug}
+						</div>
+					</a>
+				</td>
+				<td class={classes}
+					><a href={`/admin/content/${item.id}`}>
+						<Badge color={getStatusColor(item.status)} text={item.status} />
+					</a></td
+				>
+				<td class={classes}>
+					<a
+						href={`/admin/content/${item.id}`}
+						class="group relative flex items-center justify-center"
+					>
+						<div class="type-icon-wrapper text-gray-600">
+							<TypeIcon type={item.type} />
+						</div>
+						<div
+							class="pointer-events-none absolute bottom-full mb-2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white capitalize opacity-0 transition-opacity group-hover:opacity-100"
+						>
+							{item.type}
+						</div>
+					</a>
+				</td>
+				<td class={classes}>
+					<a href={`/admin/content/${item.id}`} class="line-clamp-2">
+						{item.description || ''}
+					</a>
+				</td>
+				<td class={classes}>
+					<a href={`/admin/content/${item.id}`}>
+						{formatRelativeDate(item.created_at || '')}
+					</a>
+				</td>
+			{/snippet}
+			{#snippet actionCell(item: Content)}
+				<Actions route="content" id={item.id} canDelete={true} canEdit={true} type={item.title} />
+			{/snippet}
+		</Table>
+
+		{#if content.length === 0}
+			<div class="mt-8 text-center">
+				<p class="text-gray-500">No content found matching your search.</p>
+			</div>
+		{/if}
+
+		{#if pagination}
+			<Pagination count={pagination.count} perPage={pagination.perPage} />
+		{/if}
 	{/if}
 </div>
 
