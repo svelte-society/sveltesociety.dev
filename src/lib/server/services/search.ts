@@ -24,7 +24,7 @@ const contentSchema = {
 	tags: 'string[]',
 	type: 'string',
 	status: 'string',
-	created_at: 'string',
+	published_at: 'string',
 	likes: 'number',
 	saves: 'number',
 	stars: 'number'
@@ -52,7 +52,7 @@ export class SearchService {
 			.query(
 				`
         SELECT
-          c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.status, c.created_at, c.likes, c.saves,
+          c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.status, c.published_at, c.likes, c.saves,
           COALESCE(json_extract(c.metadata, '$.stars'), 0) as stars,
           json_group_array(t.slug) as tags
         FROM content c
@@ -75,7 +75,7 @@ export class SearchService {
 		let type = ''
 		let status = ''
 		let tags: string[] = []
-		let sort = filters?.sort || 'created_at'
+		let sort = filters?.sort || 'published_at'
 		let order = filters?.order || 'DESC'
 		let limit = filters?.limit || 15
 		let offset = filters?.offset || 0
@@ -154,7 +154,7 @@ export class SearchService {
 			.query(
 				`
         SELECT
-          c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.status, c.created_at, c.likes, c.saves,
+          c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.status, c.published_at, c.likes, c.saves,
           COALESCE(json_extract(c.metadata, '$.stars'), 0) as stars,
           json_group_array(t.slug) as tags
         FROM content c

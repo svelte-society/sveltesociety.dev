@@ -35,7 +35,7 @@ const categories = [
 const sortOptions = [
 	{
 		label: 'Newest',
-		value: 'created_at'
+		value: 'published_at'
 	},
 	{
 		label: 'Most Likes',
