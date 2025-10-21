@@ -1,0 +1,1 @@
+update content set published_at = created_at;
