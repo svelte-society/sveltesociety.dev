@@ -210,16 +210,18 @@ export const TEST_MODERATION_QUEUE = [
 
 /**
  * Helper to get session expiry date (1 year from now)
+ * Format matches what SessionService expects for SQLite
  */
 export function getSessionExpiry(): string {
 	const date = new Date()
 	date.setFullYear(date.getFullYear() + 1)
-	return date.toISOString()
+	return date.toISOString().replace('T', ' ').replace('Z', '')
 }
 
 /**
  * Helper to get yesterday's date (for published content)
+ * Format matches what SessionService expects for SQLite
  */
 export function getYesterday(): string {
-	return new Date(Date.now() - 86400000).toISOString()
+	return new Date(Date.now() - 86400000).toISOString().replace('T', ' ').replace('Z', '')
 }
