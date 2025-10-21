@@ -5,6 +5,7 @@ node_modules
 /.vercel
 /.svelte-kit
 /test-results
+/playwright-report
 /package
 .env
 .env.*
