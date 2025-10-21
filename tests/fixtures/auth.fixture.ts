@@ -4,6 +4,8 @@ import { loginAs } from '../helpers/auth'
 /**
  * Authentication fixtures for different user roles.
  *
+ * Supported roles: 'admin', 'viewer', or null (unauthenticated)
+ *
  * Usage:
  * import { test } from '../fixtures/auth.fixture'
  *
@@ -17,7 +19,7 @@ import { loginAs } from '../helpers/auth'
  * })
  */
 
-type AuthRole = 'admin' | 'contributor' | 'viewer' | null
+type AuthRole = 'admin' | 'viewer' | null
 
 export const test = base.extend<{ authenticatedAs: AuthRole }>({
 	authenticatedAs: null,
