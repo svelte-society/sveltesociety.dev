@@ -24,6 +24,7 @@ const contentSchema = {
 	tags: 'string[]',
 	type: 'string',
 	status: 'string',
+	created_at: 'string',
 	published_at: 'string',
 	likes: 'number',
 	saves: 'number',
@@ -52,7 +53,7 @@ export class SearchService {
 			.query(
 				`
         SELECT
-          c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.status, c.published_at, c.likes, c.saves,
+          c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.status, c.created_at, c.published_at, c.likes, c.saves,
           COALESCE(json_extract(c.metadata, '$.stars'), 0) as stars,
           json_group_array(t.slug) as tags
         FROM content c
@@ -64,7 +65,8 @@ export class SearchService {
 			.all()
 			.map((c: any) => ({
 				...c,
-				tags: c.tags ? (JSON.parse(c.tags).filter((tag: unknown) => tag !== null) as string[]) : []
+				tags: c.tags ? (JSON.parse(c.tags).filter((tag: unknown) => tag !== null) as string[]) : [],
+				published_at: c.published_at || ''
 			}))
 
 		insertMultiple(this.searchDB, content)
@@ -126,7 +128,12 @@ export class SearchService {
 	}
 
 	update(id: string, data: any) {
-		update(this.searchDB, id, { ...data, title: data.title.replace('-', ' ') })
+		update(this.searchDB, id, {
+			...data,
+			title: data.title.replace('-', ' '),
+			status: data.status || 'draft',
+			published_at: data.published_at || ''
+		})
 	}
 
 	remove(id: string) {
@@ -134,7 +141,12 @@ export class SearchService {
 	}
 
 	add(content: ContentDocument) {
-		insert(this.searchDB, { ...content, title: content.title.replace('-', ' ') })
+		insert(this.searchDB, {
+			...content,
+			title: content.title.replace('-', ' '),
+			status: content.status || 'draft',
+			published_at: content.published_at || ''
+		})
 	}
 
 	reindex() {
@@ -154,7 +166,7 @@ export class SearchService {
 			.query(
 				`
         SELECT
-          c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.status, c.published_at, c.likes, c.saves,
+          c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.status, c.created_at, c.published_at, c.likes, c.saves,
           COALESCE(json_extract(c.metadata, '$.stars'), 0) as stars,
           json_group_array(t.slug) as tags
         FROM content c
@@ -166,7 +178,8 @@ export class SearchService {
 			.all()
 			.map((c: any) => ({
 				...c,
-				tags: c.tags ? (JSON.parse(c.tags).filter((tag: unknown) => tag !== null) as string[]) : []
+				tags: c.tags ? (JSON.parse(c.tags).filter((tag: unknown) => tag !== null) as string[]) : [],
+				published_at: c.published_at || ''
 			}))
 
 		insertMultiple(this.searchDB, content)
