@@ -407,7 +407,7 @@ export class ContentService {
 				type: data.type,
 				status: data.status,
 				created_at: data.created_at || new Date().toISOString(),
-				published_at: data.status === 'published' ? new Date().toISOString() : null,
+				published_at: data.status === 'published' ? new Date().toISOString() : '',
 				likes: 0,
 				saves: 0,
 				stars: data?.metadata?.stars || 0
@@ -496,7 +496,7 @@ export class ContentService {
 					type: updatedContent.type,
 					status: updatedContent.status,
 					created_at: updatedContent.created_at,
-					published_at: updatedContent.published_at,
+					published_at: updatedContent.published_at || '',
 					likes: updatedContent.likes,
 					saves: updatedContent.saves,
 					stars: updatedContent.metadata?.stars || 0

@@ -178,7 +178,7 @@ export class CollectionService {
 					type: 'collection',
 					status: data.status,
 					created_at: new Date().toISOString(),
-					published_at: data.status === 'published' ? new Date().toISOString() : null,
+					published_at: data.status === 'published' ? new Date().toISOString() : '',
 					likes: 0,
 					saves: 0,
 					stars: 0

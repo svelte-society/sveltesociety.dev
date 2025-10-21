@@ -80,7 +80,7 @@ export const actions: Actions = {
 				type: content.type,
 				status: content.status,
 				created_at: content.created_at,
-				published_at: content.published_at,
+				published_at: content.published_at || '',
 				likes: content.likes,
 				saves: content.saves,
 				stars: content.metadata?.stars || 0
