@@ -2,6 +2,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { Readable } from 'node:stream'
 
+import { GitHubImporter } from '$lib/server/services/importers/github'
+
 const { STATE_DIRECTORY = '.state_directory' } = process.env
 
 if (!fs.existsSync(STATE_DIRECTORY)) {
@@ -9,7 +11,7 @@ if (!fs.existsSync(STATE_DIRECTORY)) {
 }
 
 /** @type {import('./$types').RequestHandler} */
-export async function GET({ params, request }) {
+export async function GET({ params, request, locals }) {
 	const p = decodeURIComponent(params.path)
 
 	const file_path = path.normalize(path.join(STATE_DIRECTORY, 'files', p))
@@ -31,27 +33,10 @@ export async function GET({ params, request }) {
 			if (!exists || Date.now() - stats?.mtime.getTime() >= T) {
 				const [owner, repo] = rest
 
-				const og_image_url = `https://opengraph.githubassets.com/${crypto.randomUUID()}/${owner}/${repo}`
-
-				let response
-
-				try {
-					response = await fetch(og_image_url)
-				} catch (error) {
-					console.error(error)
-					break
-				}
-
-				if (!response.ok) {
-					console.log('Could not refresh OG image. Rate limit exceeded: ' + og_image_url)
-					break
-				}
-
-				fs.writeFileSync(file_path, Buffer.from(await response.arrayBuffer()))
+				const importer = new GitHubImporter(locals.externalContentService, locals.cacheService)
+				const contentId = await importer.importRepository(owner, repo)
 
 				stats = fs.statSync(file_path)
-
-				console.log('Refreshed OG image: ' + og_image_url)
 			}
 
 			break

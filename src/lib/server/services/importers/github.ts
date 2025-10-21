@@ -71,60 +71,27 @@ export class GitHubImporter {
 		}
 
 		if (!response || !response.headers.get('content-type')?.includes('image')) {
-			throw new Error('Failed to fetch image')
+			const message =
+				'Failed to download OG image. Rate limit exceeded: ' + contentData.metadata.ogImage
+
+			console.error(message)
+
+			throw new Error(message)
 		}
 
-		const dir = path.join(STATE_DIRECTORY, 'files', 'gh', repository.full_name)
+		const dir = path.join(STATE_DIRECTORY, 'files', 'gh', owner, repo)
 		const extension = response.headers.get('content-type')?.split('/').at(-1)
 		const file_path = path.join(dir, 'thumbnail.' + extension)
 
 		fs.mkdirSync(dir, { recursive: true })
 		fs.writeFileSync(file_path, Buffer.from(await response.arrayBuffer()))
 
-		const thumbnail = path.join('/files', 'gh', repository.full_name, 'thumbnail.' + extension)
+		const thumbnail = path.join('/files', 'gh', owner, repo, 'thumbnail.' + extension)
 		contentData.metadata.thumbnail = thumbnail
 
+		console.log('Successfully downloaded OG image: ' + contentData.metadata.ogImage)
+
 		return this.externalContentService.upsertExternalContent(contentData)
-	}
-
-	/**
-	 * Import multiple repositories from a user or organization
-	 */
-	async importUserRepositories(
-		username: string,
-		options?: {
-			maxRepos?: number
-			filterTopics?: string[]
-			minStars?: number
-		}
-	): Promise<string[]> {
-		const repositories = await this.fetchUserRepositories(username)
-		let filteredRepos = repositories
-
-		// Apply filters
-		if (options?.filterTopics && options.filterTopics.length > 0) {
-			filteredRepos = filteredRepos.filter((repo) =>
-				repo.topics.some((topic) => options.filterTopics!.includes(topic))
-			)
-		}
-
-		if (options?.minStars) {
-			filteredRepos = filteredRepos.filter((repo) => repo.stargazers_count >= options.minStars!)
-		}
-
-		if (options?.maxRepos) {
-			filteredRepos = filteredRepos.slice(0, options.maxRepos)
-		}
-
-		const importedIds: string[] = []
-		for (const repo of filteredRepos) {
-			const readme = await this.fetchReadme(repo.owner.login, repo.name)
-			const contentData = this.transformRepositoryToContent(repo, readme)
-			const id = await this.externalContentService.upsertExternalContent(contentData)
-			if (id) importedIds.push(id)
-		}
-
-		return importedIds
 	}
 
 	/**
@@ -134,15 +101,15 @@ export class GitHubImporter {
 		if (this.cacheService) {
 			return this.cacheService.cachify({
 				key: `github:repo:${owner}:${repo}`,
-				getFreshValue: () => this._fetchRepositoryDirectly(owner, repo),
+				getFreshValue: () => this.fetchRepositoryDirectly(owner, repo),
 				ttl: 60 * 60 * 1000, // 1 hour
 				swr: 60 * 60 * 1000 * 24 // 24 hours
 			})
 		}
-		return this._fetchRepositoryDirectly(owner, repo)
+		return this.fetchRepositoryDirectly(owner, repo)
 	}
 
-	private async _fetchRepositoryDirectly(
+	private async fetchRepositoryDirectly(
 		owner: string,
 		repo: string
 	): Promise<GitHubRepository | null> {
@@ -167,57 +134,6 @@ export class GitHubImporter {
 		} catch (error) {
 			console.error('Error fetching repository:', error)
 			return null
-		}
-	}
-
-	/**
-	 * Fetch repositories for a user or organization
-	 */
-	private async fetchUserRepositories(username: string): Promise<GitHubRepository[]> {
-		if (this.cacheService) {
-			return this.cacheService.cachify({
-				key: `github:user:${username}:repos`,
-				getFreshValue: () => this._fetchUserRepositoriesDirectly(username),
-				ttl: 60 * 60 * 1000, // 1 hour
-				swr: 60 * 60 * 1000 * 24 // 24 hours
-			})
-		}
-		return this._fetchUserRepositoriesDirectly(username)
-	}
-
-	private async _fetchUserRepositoriesDirectly(username: string): Promise<GitHubRepository[]> {
-		try {
-			const headers: HeadersInit = {
-				Accept: 'application/vnd.github.v3+json',
-				'User-Agent': 'SvelteSociety-Importer'
-			}
-
-			if (this.token) {
-				headers['Authorization'] = `Bearer ${this.token}`
-			}
-
-			// Try organization endpoint first, fall back to user endpoint
-			let response = await fetch(
-				`${this.apiBaseUrl}/orgs/${username}/repos?per_page=100&sort=updated`,
-				{ headers }
-			)
-
-			if (!response.ok) {
-				response = await fetch(
-					`${this.apiBaseUrl}/users/${username}/repos?per_page=100&sort=updated`,
-					{ headers }
-				)
-			}
-
-			if (!response.ok) {
-				console.error(`Failed to fetch repositories for ${username}: ${response.statusText}`)
-				return []
-			}
-
-			return response.json()
-		} catch (error) {
-			console.error('Error fetching user repositories:', error)
-			return []
 		}
 	}
 
