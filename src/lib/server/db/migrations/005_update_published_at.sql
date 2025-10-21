@@ -1,1 +1,1 @@
-update content set published_at = created_at;
+update content set published_at = coalesce(metadata ->> '$.publishedAt', metadata ->> '$.updatedAt');
