@@ -383,7 +383,8 @@ export class ContentService {
 			}
 		}
 
-		if (data.status === 'published') {
+		// Add to search index regardless of status
+		if (this.searchService) {
 			// Get tag slugs for search index
 			let tagSlugs: string[] = []
 			if (data.tags && data.tags.length > 0) {
@@ -398,19 +399,19 @@ export class ContentService {
 					.filter(Boolean)
 			}
 
-			if (this.searchService) {
-				this.searchService.add({
-					id,
-					title: data.title,
-					description: data.description,
-					tags: tagSlugs,
-					type: data.type,
-					created_at: data.created_at || new Date().toISOString(),
-					likes: 0,
-					saves: 0,
-					stars: data?.metadata?.stars || 0
-				})
-			}
+			this.searchService.add({
+				id,
+				title: data.title,
+				description: data.description,
+				tags: tagSlugs,
+				type: data.type,
+				status: data.status,
+				created_at: data.created_at || new Date().toISOString(),
+				published_at: data.status === 'published' ? new Date().toISOString() : null,
+				likes: 0,
+				saves: 0,
+				stars: data?.metadata?.stars || 0
+			})
 		}
 
 		return id
@@ -478,6 +479,29 @@ export class ContentService {
 			this.db
 				.prepare(`INSERT INTO content_to_users (content_id, user_id) VALUES (?, ?)`)
 				.run(data.id, data.author_id)
+		}
+
+		// Update search index regardless of status
+		if (this.searchService) {
+			const updatedContent = this.getContentById(data.id)
+			if (updatedContent) {
+				// Get tag slugs for search index
+				const tagSlugs = updatedContent.tags?.map((tag) => tag.slug) || []
+
+				this.searchService.update(data.id, {
+					id: updatedContent.id,
+					title: updatedContent.title,
+					description: updatedContent.description,
+					tags: tagSlugs,
+					type: updatedContent.type,
+					status: updatedContent.status,
+					created_at: updatedContent.created_at,
+					published_at: updatedContent.published_at,
+					likes: updatedContent.likes,
+					saves: updatedContent.saves,
+					stars: updatedContent.metadata?.stars || 0
+				})
+			}
 		}
 	}
 

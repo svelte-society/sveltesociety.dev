@@ -154,8 +154,8 @@ export class CollectionService {
 				}
 			}
 
-			// Add to search index only if published
-			if (this.searchService && data.status === 'published') {
+			// Add to search index regardless of status
+			if (this.searchService) {
 				// Get tag slugs for search index
 				let tagSlugs: string[] = []
 				if (data.tags && data.tags.length > 0) {
@@ -176,7 +176,9 @@ export class CollectionService {
 					description: data.description,
 					tags: tagSlugs,
 					type: 'collection',
+					status: data.status,
 					created_at: new Date().toISOString(),
+					published_at: data.status === 'published' ? new Date().toISOString() : null,
 					likes: 0,
 					saves: 0,
 					stars: 0

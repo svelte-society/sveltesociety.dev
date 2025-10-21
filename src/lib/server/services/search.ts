@@ -129,7 +129,7 @@ export class SearchService {
 		update(this.searchDB, id, {
 			...data,
 			title: data.title.replace('-', ' '),
-			status: data.status || 'published'
+			status: data.status || 'draft'
 		})
 	}
 
@@ -141,7 +141,7 @@ export class SearchService {
 		insert(this.searchDB, {
 			...content,
 			title: content.title.replace('-', ' '),
-			status: content.status || 'published'
+			status: content.status || 'draft'
 		})
 	}
 

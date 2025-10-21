@@ -71,25 +71,20 @@ export const actions: Actions = {
 
 			const content = locals.contentService.getContentById(form.data.id) as Content
 
-			if (content.status === 'draft') {
-				locals.searchService.remove(params.id)
-			}
-
-			if (content.status === 'published') {
-				locals.searchService.update(form.data.id, {
-					id: content.id,
-					title: content.title,
-					description: content.description,
-					tags: content.tags?.map((tag) => tag.slug),
-					type: content.type,
-					status: content.status,
-					created_at: content.created_at,
-					published_at: content.published_at,
-					likes: content.likes,
-					saves: content.saves,
-					stars: content.metadata?.stars || 0
-				})
-			}
+			// Update search index regardless of status
+			locals.searchService.update(form.data.id, {
+				id: content.id,
+				title: content.title,
+				description: content.description,
+				tags: content.tags?.map((tag) => tag.slug),
+				type: content.type,
+				status: content.status,
+				created_at: content.created_at,
+				published_at: content.published_at,
+				likes: content.likes,
+				saves: content.saves,
+				stars: content.metadata?.stars || 0
+			})
 
 			// Return with success message
 			return message(form, {
