@@ -126,7 +126,11 @@ export class SearchService {
 	}
 
 	update(id: string, data: any) {
-		update(this.searchDB, id, { ...data, title: data.title.replace('-', ' ') })
+		update(this.searchDB, id, {
+			...data,
+			title: data.title.replace('-', ' '),
+			status: data.status || 'published'
+		})
 	}
 
 	remove(id: string) {
@@ -134,7 +138,11 @@ export class SearchService {
 	}
 
 	add(content: ContentDocument) {
-		insert(this.searchDB, { ...content, title: content.title.replace('-', ' ') })
+		insert(this.searchDB, {
+			...content,
+			title: content.title.replace('-', ' '),
+			status: content.status || 'published'
+		})
 	}
 
 	reindex() {
