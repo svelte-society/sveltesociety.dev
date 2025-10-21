@@ -33,15 +33,18 @@ async function getLatestBackupFromS3(): Promise<string> {
 	})
 
 	// List all objects in the bucket
-	const files = await s3.list()
+	const result = await s3.list()
+
+	// The result has a 'contents' property containing the files array
+	const filesList = result.contents || []
 
 	// Filter for backup files (backup_*.sql.gz pattern)
-	const backupFiles = files.blobs
-		.filter((blob) => blob.key.startsWith('backup_') && blob.key.endsWith('.sql.gz'))
+	const backupFiles = filesList
+		.filter((file) => file.key.startsWith('backup_') && file.key.endsWith('.sql.gz'))
 		.sort((a, b) => {
 			// Sort by last modified date, newest first
-			const dateA = a.uploaded ? new Date(a.uploaded).getTime() : 0
-			const dateB = b.uploaded ? new Date(b.uploaded).getTime() : 0
+			const dateA = a.lastModified ? new Date(a.lastModified).getTime() : 0
+			const dateB = b.lastModified ? new Date(b.lastModified).getTime() : 0
 			return dateB - dateA
 		})
 
@@ -51,7 +54,7 @@ async function getLatestBackupFromS3(): Promise<string> {
 
 	const latestBackup = backupFiles[0]
 	console.log(`Latest backup found: ${latestBackup.key}`)
-	console.log(`Uploaded: ${latestBackup.uploaded}`)
+	console.log(`Last modified: ${latestBackup.lastModified}`)
 	console.log(`Size: ${(latestBackup.size / 1024 / 1024).toFixed(2)} MB`)
 
 	return latestBackup.key
