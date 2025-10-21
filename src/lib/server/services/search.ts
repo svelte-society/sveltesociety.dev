@@ -24,6 +24,7 @@ const contentSchema = {
 	tags: 'string[]',
 	type: 'string',
 	status: 'string',
+	created_at: 'string',
 	published_at: 'string',
 	likes: 'number',
 	saves: 'number',
