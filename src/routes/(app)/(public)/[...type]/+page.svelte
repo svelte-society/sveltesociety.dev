@@ -13,7 +13,7 @@
 
 <Filters categories={data.categories} tags={data.tags} sort={data.sort} />
 
-<div class="grid gap-6">
+<div data-testid="content-list" class="grid gap-6">
 	{#if data.count > 0}
 		{#each contentList as content (content.id)}
 			<div>
@@ -21,7 +21,7 @@
 			</div>
 		{/each}
 	{:else}
-		<div class="py-10 text-center">
+		<div data-testid="no-content-message" class="py-10 text-center">
 			<h2 class="text-2xl font-bold">No content found</h2>
 			<p class="text-gray-500">Try adjusting your filters or check back later.</p>
 		</div>

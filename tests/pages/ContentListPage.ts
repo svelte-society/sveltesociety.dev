@@ -33,7 +33,7 @@ export class ContentListPage extends BasePage {
 	 * All content cards on the page
 	 */
 	get contentCards(): Locator {
-		return this.page.locator('article')
+		return this.page.getByTestId('content-card')
 	}
 
 	/**
@@ -48,7 +48,7 @@ export class ContentListPage extends BasePage {
 	 * "No content found" message
 	 */
 	get noContentMessage(): Locator {
-		return this.page.locator('text=No content found')
+		return this.page.getByTestId('no-content-message')
 	}
 
 	/**
@@ -160,7 +160,7 @@ export class ContentListPage extends BasePage {
 		const titles: string[] = []
 
 		for (const card of cards) {
-			const titleElement = card.locator('h1, h2, h3').first()
+			const titleElement = card.getByTestId('content-title')
 			const titleText = await titleElement.textContent()
 			if (titleText) {
 				titles.push(titleText.trim())

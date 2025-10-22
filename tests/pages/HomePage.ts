@@ -37,7 +37,7 @@ export class HomePage extends BasePage {
 	 * Search input field
 	 */
 	get searchInput(): Locator {
-		return this.page.locator('input[type="search"]')
+		return this.page.getByTestId('search-input')
 	}
 
 	/**
