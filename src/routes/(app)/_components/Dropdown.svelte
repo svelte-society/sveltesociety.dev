@@ -12,6 +12,7 @@
 
 <DropdownMenu.Root>
 	<DropdownMenu.Trigger
+		data-testid="user-menu-trigger"
 		class="border-input h-10 w-10 items-center gap-2 rounded-full border border-transparent text-sm font-medium select-none active:scale-[0.98]"
 	>
 		<Avatar src={user.avatar_url} name={user.name} size="sm" />
@@ -22,6 +23,7 @@
 			sideOffset={8}
 		>
 			<DropdownMenu.Item
+				data-testid="profile-menu-item"
 				onSelect={() => goto(`/user/${user.username}`)}
 				class="flex h-10 cursor-pointer items-center rounded-sm py-3 pr-1.5 pl-3 text-sm font-medium ring-0! ring-transparent! select-none focus-visible:outline-none data-highlighted:bg-gray-100"
 			>
@@ -31,6 +33,7 @@
 				</div>
 			</DropdownMenu.Item>
 			<DropdownMenu.Item
+				data-testid="logout-menu-item"
 				onSelect={() => formSubmitButton.click()}
 				class="flex h-10 cursor-pointer items-center rounded-sm py-3 pr-1.5 pl-3 text-sm font-medium ring-0! ring-transparent! select-none focus-visible:outline-none data-highlighted:bg-gray-100"
 			>
