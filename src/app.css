@@ -26,3 +26,8 @@
 			url('/fonts/Inter.woff2') format('woff2');
 	}
 }
+
+::view-transition-group(header),
+::view-transition-group(announcement) {
+	z-index: 10;
+}

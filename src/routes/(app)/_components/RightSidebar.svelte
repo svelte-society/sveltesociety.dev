@@ -25,7 +25,9 @@
 	let { upcomingEvents = [] }: { upcomingEvents?: UpcomingEvent[] } = $props()
 </script>
 
-<div class="@container mr-4 hidden space-y-4 overflow-y-auto py-8 sm:block">
+<div
+	class="@container sticky top-[var(--header-height)] mr-4 hidden max-h-[calc(100vh_-_var(--header-height))] space-y-4 overflow-y-auto py-8 sm:block"
+>
 	<div class="mb-4 grid grid-cols-1 items-start gap-1 @xs:grid-cols-[1fr_auto]">
 		<h3 class="text-lg font-semibold">Interested in contributing?</h3>
 		<Button href="/submit" size="sm"><Plus />Submit Post</Button>
