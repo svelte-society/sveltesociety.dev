@@ -10,3 +10,4 @@
 export { BasePage } from './BasePage'
 export { HomePage } from './HomePage'
 export { ContentListPage } from './ContentListPage'
+export { ContentDetailPage } from './ContentDetailPage'
