@@ -5,13 +5,13 @@
 	let { user, announcement } = $props()
 </script>
 
-<header class="border-svelte-900 border-b-4 py-4">
+<header class="border-svelte-900 sticky top-0 z-10 border-b-4 bg-white py-4">
 	<div
 		class="mx-auto grid w-full max-w-[1440px] grid-cols-[auto_1fr_auto] items-center gap-4 px-4 sm:grid-cols-[1.5fr_5fr_2.5fr]"
 	>
-		<a href="/" class="flex items-center gap-2">
+		<a href="/" class="mr-auto flex items-center gap-2">
 			<svg
-				class="h-auto w-24"
+				class="h-11 w-auto"
 				height="55"
 				width="117"
 				viewBox="0 0 117 55"
@@ -68,7 +68,7 @@
 	</div>
 </header>
 {#if announcement}
-	<div class="bg-svelte-900 flex w-full place-content-center p-2">
+	<div class="bg-svelte-900 sticky top-20 z-10 flex w-full place-content-center p-2">
 		<a href={announcement.href} class="text-semibold mx-auto text-white underline">
 			{announcement.text}
 		</a>

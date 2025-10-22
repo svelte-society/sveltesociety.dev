@@ -12,7 +12,9 @@
 	let { links }: Props = $props()
 </script>
 
-<aside class="ml-4 hidden overflow-y-auto py-8 sm:block">
+<aside
+	class="sticky top-[var(--header-height)] ml-4 hidden max-h-[calc(100vh_-_var(--header-height))] overflow-y-auto py-8 sm:block"
+>
 	<nav>
 		<ul class="text-sm font-bold">
 			{#each links as link}
