@@ -84,7 +84,6 @@ export class HomePage extends BasePage {
 	async search(query: string): Promise<void> {
 		await this.searchInput.fill(query)
 		await this.searchInput.press('Enter')
-		await this.waitForLoad()
 	}
 
 	/**
@@ -92,7 +91,6 @@ export class HomePage extends BasePage {
 	 */
 	async navigateToRecipes(): Promise<void> {
 		await this.recipesLink.click()
-		await this.waitForLoad()
 	}
 
 	/**
@@ -100,7 +98,6 @@ export class HomePage extends BasePage {
 	 */
 	async navigateToVideos(): Promise<void> {
 		await this.videosLink.click()
-		await this.waitForLoad()
 	}
 
 	/**
@@ -108,7 +105,6 @@ export class HomePage extends BasePage {
 	 */
 	async navigateToLibraries(): Promise<void> {
 		await this.librariesLink.click()
-		await this.waitForLoad()
 	}
 
 	/**
@@ -116,7 +112,6 @@ export class HomePage extends BasePage {
 	 */
 	async navigateToEvents(): Promise<void> {
 		await this.eventsLink.click()
-		await this.waitForLoad()
 	}
 
 	/**
@@ -124,7 +119,6 @@ export class HomePage extends BasePage {
 	 */
 	async navigateToSubmit(): Promise<void> {
 		await this.submitLink.click()
-		await this.waitForLoad()
 	}
 
 	/**
