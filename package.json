@@ -16,7 +16,7 @@
 		"db:restore:latest": "bun run scripts/restore-latest-from-s3.ts",
 		"db:test:init": "NODE_ENV=test bun run scripts/test-db-init.ts",
 		"db:test:seed": "NODE_ENV=test bun run scripts/test-db-seed.ts",
-		"test:integration": "NODE_ENV=test bun run db:test:init && bun run db:test:seed && bun --bun --env-file=.env.test run build && playwright test",
+		"test:integration": "NODE_ENV=test bun run db:test:init && bun run db:test:seed && playwright test",
 		"test": "vitest"
 	},
 	"devDependencies": {

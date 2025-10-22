@@ -213,9 +213,12 @@ All current tests are **read-only** and safe to run in parallel:
 ```
 
 **Performance:**
-- Sequential (1 worker): ~13 seconds
-- Parallel (4 workers): ~10.2 seconds
-- Speed improvement: ~21% faster
+- Total test time: ~9.5 seconds
+  - DB init: ~0.03s
+  - DB seed: ~0.02s
+  - Tests (4 workers): ~9.2s
+- Build only happens once (via webServer), then reused
+- First run includes build (~6s), subsequent runs skip build
 
 **Why it's safe:**
 - All tests only read from pre-seeded database

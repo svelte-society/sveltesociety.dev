@@ -41,11 +41,16 @@
 - Cleaned up test data to only include valid content types
 
 ### ⚡ Performance Optimizations
+- **Removed Redundant Build:** Eliminated forced rebuild in test command
+  - Before: ~15.5 seconds (with redundant build)
+  - After: ~9.5 seconds (build handled by webServer)
+  - Speed improvement: ~39% faster
 - **Parallel Test Execution:** All current tests are read-only and safe to run in parallel
-  - Sequential execution: ~13 seconds
-  - Parallel execution (4 workers): ~10.2 seconds
-  - Speed improvement: ~21% faster
+  - Sequential (1 worker): ~13 seconds
+  - Parallel (4 workers): ~9.5 seconds
+  - Speed improvement: ~27% faster
 - **Auto-waiting:** Removed manual `waitForLoad()` calls, relying on Playwright's built-in auto-waiting
+- **Server Reuse:** `reuseExistingServer` enabled locally for instant subsequent runs
 
 ---
 
