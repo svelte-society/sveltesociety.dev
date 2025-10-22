@@ -27,22 +27,6 @@ export class BasePage {
 	 */
 	async goto(path: string): Promise<void> {
 		await this.page.goto(path)
-		await this.waitForLoad()
-	}
-
-	/**
-	 * Wait for the page to fully load
-	 * Uses networkidle to ensure all resources are loaded
-	 */
-	async waitForLoad(): Promise<void> {
-		await this.page.waitForLoadState('networkidle')
-	}
-
-	/**
-	 * Wait for the page to be in a stable state (DOM content loaded)
-	 */
-	async waitForDOMContent(): Promise<void> {
-		await this.page.waitForLoadState('domcontentloaded')
 	}
 
 	/**
@@ -107,20 +91,17 @@ export class BasePage {
 	async isLoggedIn(): Promise<boolean> {
 		try {
 			await this.loginLink.waitFor({ state: 'visible', timeout: 1000 })
-			return false // Login link is visible, so not logged in
+			return false
 		} catch {
-			return true // Login link not visible, so logged in
+			return true
 		}
 	}
 
 	/**
 	 * Click the login link
-	 * Note: This navigates to the login page but doesn't perform login
-	 * Use auth helpers for actual authentication in tests
 	 */
 	async clickLogin(): Promise<void> {
 		await this.loginLink.click()
-		await this.waitForLoad()
 	}
 
 	/**
@@ -128,16 +109,6 @@ export class BasePage {
 	 */
 	async goHome(): Promise<void> {
 		await this.page.locator('a[href="/"]').first().click()
-		await this.waitForLoad()
-	}
-
-	/**
-	 * Wait for a specific selector to be visible
-	 * @param selector - CSS selector to wait for
-	 * @param timeout - Optional timeout in milliseconds
-	 */
-	async waitForSelector(selector: string, timeout?: number): Promise<void> {
-		await this.page.waitForSelector(selector, { state: 'visible', timeout })
 	}
 
 	/**
@@ -145,6 +116,5 @@ export class BasePage {
 	 */
 	async reload(): Promise<void> {
 		await this.page.reload()
-		await this.waitForLoad()
 	}
 }

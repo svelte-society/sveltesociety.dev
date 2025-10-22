@@ -24,7 +24,7 @@ export class ContentListPage extends BasePage {
 	 * @param type - Content type to browse (recipe, video, library, etc.)
 	 */
 	async goto(type: 'recipe' | 'video' | 'library' | 'announcement' | 'collection'): Promise<void> {
-		await super.goto(`/${type}`)
+		await this.page.goto(`/${type}`)
 	}
 
 	// Selectors
@@ -101,7 +101,6 @@ export class ContentListPage extends BasePage {
 	 */
 	async clickContentCard(index: number): Promise<void> {
 		await this.contentCard(index).click()
-		await this.waitForLoad()
 	}
 
 	/**
@@ -118,7 +117,6 @@ export class ContentListPage extends BasePage {
 			await filter.fill(category)
 			await this.page.keyboard.press('Enter')
 		}
-		await this.waitForLoad()
 	}
 
 	/**
@@ -127,7 +125,6 @@ export class ContentListPage extends BasePage {
 	 */
 	async sortBy(sortOption: 'latest' | 'oldest' | 'popular'): Promise<void> {
 		await this.sortDropdown.selectOption(sortOption)
-		await this.waitForLoad()
 	}
 
 	/**
@@ -135,7 +132,6 @@ export class ContentListPage extends BasePage {
 	 */
 	async goToNextPage(): Promise<void> {
 		await this.nextPageButton.click()
-		await this.waitForLoad()
 	}
 
 	/**
@@ -143,7 +139,6 @@ export class ContentListPage extends BasePage {
 	 */
 	async goToPreviousPage(): Promise<void> {
 		await this.prevPageButton.click()
-		await this.waitForLoad()
 	}
 
 	// Getters
@@ -165,7 +160,6 @@ export class ContentListPage extends BasePage {
 		const titles: string[] = []
 
 		for (const card of cards) {
-			// Look for h1, h2, or h3 within the card
 			const titleElement = card.locator('h1, h2, h3').first()
 			const titleText = await titleElement.textContent()
 			if (titleText) {
