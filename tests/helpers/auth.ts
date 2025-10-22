@@ -21,16 +21,18 @@ import { TEST_USERS } from '../fixtures/test-data'
 export async function loginAs(page: Page, role: 'admin' | 'viewer'): Promise<void> {
 	const user = TEST_USERS[role]
 
+	await page.goto('/')
+
 	// Set the session cookie (cookie name is 'session_id', value is the session_token)
 	await page.context().addCookies([
 		{
 			name: 'session_id',
 			value: user.sessionToken,
-			domain: 'localhost',
+			domain: 'localhost:4173',
 			path: '/',
 			httpOnly: true,
 			sameSite: 'Lax',
-			expires: Math.floor(Date.now() / 1000) + 86400 // 24 hours from now
+			expires: -1
 		}
 	])
 }
@@ -56,5 +58,5 @@ export async function logout(page: Page): Promise<void> {
  */
 export async function isLoggedIn(page: Page): Promise<boolean> {
 	const cookies = await page.context().cookies()
-	return cookies.some(cookie => cookie.name === 'session_id')
+	return cookies.some((cookie) => cookie.name === 'session_id')
 }
