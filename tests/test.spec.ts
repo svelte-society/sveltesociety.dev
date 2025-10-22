@@ -1,6 +1,8 @@
-import { expect, test } from '@playwright/test'
+import { test } from '@playwright/test'
+import { HomePage } from './pages/HomePage'
 
 test('index page loads', async ({ page }) => {
-	await page.goto('/')
-	await expect(page.getByRole('link', { name: 'Home' })).toBeVisible()
+	const homePage = new HomePage(page)
+	await homePage.goto()
+	await homePage.expectHomeLoaded()
 })
