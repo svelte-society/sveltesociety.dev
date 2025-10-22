@@ -1,20 +1,24 @@
 import { test, expect } from '../../fixtures/auth.fixture'
+import { HomePage, AdminDashboardPage, SubmitPage } from '../../pages'
 
 test.describe('Viewer Authentication', () => {
 	test.use({ authenticatedAs: 'viewer' })
 
 	test('can view homepage when logged in', async ({ page }) => {
-		await page.goto('/')
-		await expect(page.locator('a[href="/login"]')).not.toBeVisible()
+		const homePage = new HomePage(page)
+		await homePage.goto()
+		await expect(homePage.loginLink).not.toBeVisible()
 	})
 
 	test('cannot access admin routes', async ({ page }) => {
-		await page.goto('/admin')
+		const adminPage = new AdminDashboardPage(page)
+		await adminPage.gotoDashboard()
 		await expect(page).not.toHaveURL(/\/admin/)
 	})
 
 	test('can access submit page when logged in', async ({ page }) => {
-		await page.goto('/submit')
-		await expect(page.locator('h1')).toContainText('Submit')
+		const submitPage = new SubmitPage(page)
+		await submitPage.goto()
+		await expect(submitPage.submitHeading).toContainText('Submit')
 	})
 })

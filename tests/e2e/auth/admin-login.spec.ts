@@ -1,21 +1,24 @@
 import { test, expect } from '../../fixtures/auth.fixture'
+import { AdminDashboardPage } from '../../pages'
 
 test.describe('Admin Authentication', () => {
 	test.use({ authenticatedAs: 'admin' })
 
 	test('can access admin dashboard', async ({ page }) => {
-		const cookies = await page.context().cookies()
-		await page.goto('/admin')
-		await expect(page.locator('h1')).toContainText('Dashboard')
+		const adminPage = new AdminDashboardPage(page)
+		await adminPage.gotoDashboard()
+		await adminPage.expectDashboardHeading()
 	})
 
 	test('can access content management', async ({ page }) => {
-		await page.goto('/admin/content')
-		expect(page.getByRole('heading', { name: 'Content Management' })).toBeVisible()
+		const adminPage = new AdminDashboardPage(page)
+		await adminPage.gotoContentManagement()
+		await adminPage.expectContentManagementHeading()
 	})
 
 	test('can access user management', async ({ page }) => {
-		await page.goto('/admin/users')
+		const adminPage = new AdminDashboardPage(page)
+		await adminPage.gotoUserManagement()
 		await expect(page).toHaveURL(/\/admin\/users/)
 	})
 })

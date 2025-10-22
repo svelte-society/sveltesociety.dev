@@ -1,14 +1,17 @@
 import { test, expect } from '@playwright/test'
+import { HomePage, AdminDashboardPage } from '../../pages'
 
 test.describe('Simple Auth Check', () => {
 	test('unauthenticated user sees login link', async ({ page }) => {
-		await page.goto('/')
-		await expect(page.locator('a[href="/login"]')).toBeVisible()
+		const homePage = new HomePage(page)
+		await homePage.goto()
+		await homePage.loginLink.waitFor({ state: 'visible' })
 	})
 
 	test('admin route redirects unauthenticated user', async ({ page }) => {
-		await page.goto('/admin')
-		const url = page.url()
-		expect(url).toBeTruthy()
+		const adminPage = new AdminDashboardPage(page)
+		await adminPage.gotoDashboard()
+		// Should be redirected away from /admin
+		await expect(page).not.toHaveURL(/\/admin/)
 	})
 })
