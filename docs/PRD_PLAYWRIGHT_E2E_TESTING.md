@@ -10,25 +10,27 @@
 
 ## Progress Summary
 
-### ✅ Completed Phases (Foundation - Phase 3a)
+### ✅ Completed Phases (Foundation - Phase 3b)
 - **Phase 1a-1d:** Database foundation, seeding, Playwright configuration, and first passing tests
 - **Phase 2a-2c:** Test helpers, utilities, authentication fixtures, and Page Object Models
 - **Phase 3a:** Public content browsing tests
+- **Phase 3b:** Content detail view tests
 
 ### 🎯 Current Phase
-- **Phase 3b:** Ready to implement Content Detail View Tests
+- **Phase 3c:** Ready to implement Search Functionality Tests
 
 ### 📊 Test Statistics
-- **Total Tests:** 15 passing ✅
+- **Total Tests:** 23 passing ✅
   - 1 homepage test using POM pattern (test.spec.ts)
   - 6 public content browsing tests (browse-content.spec.ts)
+  - 8 public content detail tests (content-detail.spec.ts)
   - 3 basic authentication tests (simple-auth.spec.ts)
   - 3 admin authentication tests (admin-login.spec.ts)
-  - 3 viewer authentication tests (viewer.spec.ts)
+  - 2 viewer authentication tests (viewer.spec.ts)
 - **Test Infrastructure:** ✅ Complete
 - **Authentication:** ✅ Working
 - **Database:** ✅ Isolated test environment
-- **Page Object Models:** ✅ BasePage, HomePage, ContentListPage
+- **Page Object Models:** ✅ BasePage, HomePage, ContentListPage, ContentDetailPage
 
 ### 🐛 Bug Fixes
 - Fixed critical TypeIcon component error (`TypeError: Icon is not a function`)
@@ -565,32 +567,45 @@ tests/
 
 ---
 
-### Phase 3b: Content Detail View Tests (Day 11)
+### Phase 3b: Content Detail View Tests (Day 11) ✅ COMPLETED
 
 **Goal:** Test individual content pages
 
 **Tasks:**
-1. Create `tests/e2e/public/content-detail.spec.ts`
+1. ✅ Create `tests/e2e/public/content-detail.spec.ts`
    - Test viewing recipe details
    - Test viewing video details
    - Test viewing library details
+   - Test viewing announcement details
+   - Test viewing collection details
 
-2. Create `tests/pages/ContentDetailPage.ts`
-   - Selectors for title, description, body, tags
-   - Methods: `getTitle()`, `getTags()`, `isSaved()`
+2. ✅ Create `tests/pages/ContentDetailPage.ts`
+   - Selectors for title, description, body, tags using data-testid attributes
+   - Methods: `getTitle()`, `getTags()`, `isSaved()`, `getContentType()`, `getAuthorName()`
+   - Assertion methods: `expectTitleIs()`, `expectContentTypeIs()`, `expectAuthorIs()`
 
-3. Add 3-4 tests
-   - Content title is displayed
-   - Content body is visible
-   - Tags are shown
-   - Author info is present
+3. ✅ Add 8 tests
+   - Can view recipe detail page
+   - Can view video detail page
+   - Can view library detail page
+   - Can view announcement detail page
+   - Can view collection detail page
+   - Displays content metadata correctly
+   - Author link navigates to user profile
+   - Tag links are functional
 
 **Acceptance Criteria:**
-- [ ] 3-4 tests for content detail pages pass
-- [ ] `ContentDetailPage` POM works for all content types
-- [ ] Tests verify key elements are visible
+- [x] 8 tests for content detail pages pass
+- [x] `ContentDetailPage` POM works for all content types
+- [x] Tests verify key elements are visible
+- [x] Added data-testid attributes to ContentCard component for reliable selectors
 
-**Estimated Time:** 4-5 hours
+**Completed:** 2025-10-22
+
+**Notes:**
+- Added test-id attributes to ContentCard component (content-card, content-type, author-link, content-title, content-description, content-tags, published-date, edit-link)
+- ContentDetailPage uses getByTestId() for reliable element selection
+- All 8 tests passing consistently
 
 ---
 
