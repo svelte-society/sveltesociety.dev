@@ -128,23 +128,117 @@ tests/
 Tests use the Page Object Model (POM) pattern to encapsulate page interactions:
 
 ```typescript
-// Example (will be implemented in Phase 2c)
 import { test, expect } from '@playwright/test'
-import { HomePage } from '../pages/HomePage'
+import { HomePage, ContentListPage } from '../pages'
 
 test('can navigate to recipes', async ({ page }) => {
   const homePage = new HomePage(page)
   await homePage.goto()
-  await homePage.navigateToContentType('recipes')
-  await expect(page).toHaveURL(/\/recipes/)
+  await homePage.navigateToRecipes()
+
+  const contentList = new ContentListPage(page)
+  await contentList.expectContentDisplayed()
 })
 ```
+
+**Available POMs:**
+- `BasePage` - Base class with common functionality
+- `HomePage` - Homepage navigation and search
+- `ContentListPage` - Content browsing pages (recipes, videos, etc.)
+- `ContentDetailPage` - Individual content detail pages
+
+### Using Test-ID Selectors
+
+**Always use `data-testid` attributes** for element selection:
+
+```svelte
+<!-- Component.svelte - Add test-ids -->
+<button data-testid="submit-button">Submit</button>
+<input data-testid="search-input" type="search" />
+<article data-testid="content-card">...</article>
+```
+
+```typescript
+// POM - Use getByTestId()
+get submitButton(): Locator {
+  return this.page.getByTestId('submit-button')
+}
+
+get searchInput(): Locator {
+  return this.page.getByTestId('search-input')
+}
+```
+
+**Why test-ids?**
+- ✅ Stable - don't break when CSS changes
+- ✅ Explicit - clear intent for testing
+- ✅ Fast - direct element lookup
+- ❌ Don't use CSS selectors (`.class`, `#id`)
+- ❌ Don't use text selectors (`text=Submit`)
+
+### Best Practices
+
+**✅ Do:**
+- Use POMs for all page interactions
+- Add test-ids to new components
+- Write focused tests (one assertion per test)
+- Keep tests independent
+- Use descriptive test names
+- Rely on Playwright auto-waiting
+
+**❌ Don't:**
+- Use CSS selectors or XPath
+- Add manual waits (`waitForTimeout`, `waitForLoadState`)
+- Modify database during tests
+- Make tests depend on execution order
+- Leave `test.only()` or `test.skip()` in code
 
 ### Test Isolation
 
 - Each test file should be independent
-- Tests run sequentially (workers: 1) to avoid database conflicts
-- Database is cleared and reseeded between test runs
+- Tests run in **parallel** (4 workers) for faster execution
+- Database is read-only during test execution (no writes)
+- Database is cleared and reseeded before test runs
+
+### Parallel Execution
+
+All current tests are **read-only** and safe to run in parallel:
+
+```typescript
+// playwright.config.ts
+{
+  fullyParallel: true,
+  workers: 4  // Run 4 tests in parallel
+}
+```
+
+**Performance:**
+- Sequential (1 worker): ~13 seconds
+- Parallel (4 workers): ~10.2 seconds
+- Speed improvement: ~21% faster
+
+**Why it's safe:**
+- All tests only read from pre-seeded database
+- No tests modify database during execution
+- SQLite WAL mode supports concurrent reads
+- Each worker has isolated browser context
+
+**When to use serial execution:**
+
+If you write tests that modify the database, mark them as serial:
+
+```typescript
+test.describe.serial('Content Submission', () => {
+  test('can submit new content', async ({ page }) => {
+    // This modifies the database
+  })
+})
+```
+
+Or run with sequential execution for debugging:
+```bash
+bun playwright test --workers=1
+```
 
 ## Troubleshooting
 

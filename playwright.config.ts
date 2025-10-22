@@ -10,13 +10,13 @@ const config: PlaywrightTestConfig = {
 	globalTimeout: 10 * 60 * 1000, // 10 minutes
 	expect: { timeout: 5000 },
 	// Run tests in files in parallel
-	fullyParallel: false, // Database concerns - sequential execution
+	fullyParallel: true, // Enable parallel execution where safe
 	// Fail the build on CI if you accidentally left test.only
 	forbidOnly: !!process.env.CI,
 	// Retry on CI only
 	retries: process.env.CI ? 2 : 0,
-	// Limit workers to prevent database conflicts
-	workers: process.env.CI ? 1 : 1, // Sequential for DB safety
+	// Workers - allow parallel execution for read-only tests
+	workers: process.env.CI ? 4 : 4,
 	// Reporter configuration
 	reporter: process.env.CI ? [['html'], ['github'], ['list']] : [['html'], ['list']],
 	use: {
