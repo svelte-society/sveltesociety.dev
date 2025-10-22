@@ -103,13 +103,14 @@ async function seedTestDatabase() {
 		// 5. Create sample content
 		console.log('  → Creating sample content...')
 		const contentInsert = db.prepare(`
-			INSERT INTO content (id, title, type, status, body, slug, description, metadata, published_at)
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+			INSERT INTO content (id, title, type, status, body, slug, description, metadata, children, published_at)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 		`)
 
 		const yesterday = getYesterday()
 
 		TEST_CONTENT.forEach(content => {
+			const children = 'children' in content && content.children ? JSON.stringify(content.children) : null
 			contentInsert.run(
 				content.id,
 				content.title,
@@ -119,6 +120,7 @@ async function seedTestDatabase() {
 				content.slug,
 				content.description,
 				content.metadata ? JSON.stringify(content.metadata) : null,
+				children,
 				content.published ? yesterday : null
 			)
 		})

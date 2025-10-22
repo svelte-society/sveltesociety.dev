@@ -111,74 +111,31 @@ export const TEST_CONTENT = [
 		published: true
 	},
 	{
-		id: 'content_blog_001',
-		title: 'Test Blog: Getting Started with Svelte 5',
-		type: 'blog',
+		id: 'content_announcement_001',
+		title: 'Test Announcement: Svelte 5 Released',
+		type: 'announcement',
 		status: 'published',
-		body: '# Getting Started\n\nSvelte 5 introduces powerful new features...',
-		slug: 'test-blog-getting-started',
-		description: 'A beginner-friendly guide to Svelte 5',
+		body: '# Svelte 5 is Here!\n\nWe are excited to announce the release of Svelte 5...',
+		slug: 'test-announcement-svelte-5-released',
+		description: 'Major new release of Svelte with runes and more',
 		metadata: null,
 		authorId: 'test_admin_001',
-		tags: ['tag_tutorial', 'tag_svelte'],
+		tags: ['tag_svelte'],
 		published: true
 	},
 	{
-		id: 'content_link_001',
-		title: 'Test Link: Official Svelte Documentation',
-		type: 'link',
+		id: 'content_collection_001',
+		title: 'Test Collection: Best Svelte Components',
+		type: 'collection',
 		status: 'published',
-		body: '',
-		slug: 'test-link-svelte-docs',
-		description: 'Link to official Svelte documentation',
-		metadata: { url: 'https://svelte.dev' },
-		authorId: 'test_admin_001',
-		tags: [],
-		published: true
-	},
-	{
-		id: 'content_pending_001',
-		title: 'Test Pending: New Animation Tutorial',
-		type: 'recipe',
-		status: 'pending_review',
-		body: '# Animation Tutorial\n\nLearn how to create smooth animations...',
-		slug: 'test-pending-animation-tutorial',
-		description: 'Advanced animation techniques',
+		body: '# Best Svelte Components\n\nA curated list of the best Svelte components...',
+		slug: 'test-collection-best-components',
+		description: 'Curated collection of top Svelte components',
 		metadata: null,
-		authorId: 'test_contrib_001',
-		tags: ['tag_animation', 'tag_advanced'],
-		published: false
-	},
-	{
-		id: 'content_draft_001',
-		title: 'Test Draft: Work in Progress Article',
-		type: 'blog',
-		status: 'draft',
-		body: '# WIP\n\nThis is a work in progress...',
-		slug: 'test-draft-wip-article',
-		description: 'An article being drafted',
-		metadata: null,
-		authorId: 'test_contrib_001',
-		tags: [],
-		published: false
-	},
-	{
-		id: 'content_event_001',
-		title: 'Test Event: Svelte Summit 2025',
-		type: 'event',
-		status: 'published',
-		body: 'Join us for Svelte Summit 2025!',
-		slug: 'test-event-svelte-summit-2025',
-		description: 'Annual Svelte community conference',
-		metadata: {
-			startDate: '2025-11-15T09:00:00Z',
-			endDate: '2025-11-15T18:00:00Z',
-			location: 'Virtual',
-			url: 'https://sveltesummit.test'
-		},
 		authorId: 'test_admin_001',
-		tags: [],
-		published: true
+		tags: ['tag_components'],
+		published: true,
+		children: ['content_library_001', 'content_recipe_001']
 	}
 ] as const
 
