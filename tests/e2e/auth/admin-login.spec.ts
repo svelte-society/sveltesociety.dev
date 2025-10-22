@@ -5,7 +5,6 @@ test.describe('Admin Authentication', () => {
 
 	test('can access admin dashboard', async ({ page }) => {
 		const cookies = await page.context().cookies()
-		console.log('Cookies after login:', cookies)
 		await page.goto('/admin')
 		await expect(page.locator('h1')).toContainText('Dashboard')
 	})
