@@ -65,6 +65,52 @@ export class SubmitPage extends BasePage {
 		}
 	}
 
+	async fillVideoForm(data: {
+		url: string
+		description: string
+		tags: string[]
+		notes?: string
+	}): Promise<void> {
+		await this.selectContentType('video')
+		await this.urlField.fill(data.url)
+		await this.descriptionField.fill(data.description)
+
+		// Select tags using the Combobox component
+		const tagsInput = this.page.locator('[data-testid="tags-selector"]')
+		for (const tag of data.tags) {
+			await tagsInput.click()
+			await tagsInput.fill(tag)
+			await this.page.locator(`[role="option"]:has-text("${tag}")`).first().click()
+		}
+
+		if (data.notes) {
+			await this.notesField.fill(data.notes)
+		}
+	}
+
+	async fillLibraryForm(data: {
+		githubRepo: string
+		description: string
+		tags: string[]
+		notes?: string
+	}): Promise<void> {
+		await this.selectContentType('library')
+		await this.githubRepoField.fill(data.githubRepo)
+		await this.descriptionField.fill(data.description)
+
+		// Select tags using the Combobox component
+		const tagsInput = this.page.locator('[data-testid="tags-selector"]')
+		for (const tag of data.tags) {
+			await tagsInput.click()
+			await tagsInput.fill(tag)
+			await this.page.locator(`[role="option"]:has-text("${tag}")`).first().click()
+		}
+
+		if (data.notes) {
+			await this.notesField.fill(data.notes)
+		}
+	}
+
 	async submit(): Promise<void> {
 		await this.submitButton.click()
 	}
