@@ -138,6 +138,7 @@
 				name="url"
 				label="Video URL"
 				description="Enter the YouTube URL for the video"
+				data-testid="video-url-input"
 			/>
 
 			{#if previewLoading && $formData.type === 'video'}
@@ -188,6 +189,7 @@
 				name="github_repo"
 				label="GitHub Repository"
 				description="GitHub repository (required for libraries)"
+				data-testid="library-github-input"
 			/>
 
 			{#if previewLoading && $formData.type === 'library'}
