@@ -10,7 +10,7 @@
 
 ## Progress Summary
 
-### ✅ Completed Phases (Foundation - Phase 5a)
+### ✅ Completed Phases (Foundation - Phase 5b)
 - **Phase 1a-1d:** Database foundation, seeding, Playwright configuration, and first passing tests
 - **Phase 2a-2c:** Test helpers, utilities, authentication fixtures, and Page Object Models
 - **Phase 3a:** Public content browsing tests
@@ -19,12 +19,13 @@
 - **Phase 4a:** Authentication flow tests (login/logout)
 - **Phase 4b:** Protected routes and role-based access control tests
 - **Phase 5a:** Content submission tests (recipe validation and submission)
+- **Phase 5b:** Video and library submission tests
 
 ### 🎯 Current Phase
-- **Phase 5b:** Ready to implement Video and Library Submission Tests
+- **Phase 6a:** Ready to implement Admin Content Moderation Tests
 
 ### 📊 Test Statistics
-- **Total Tests:** 46 passing ✅ (in ~11 seconds with 4 workers)
+- **Total Tests:** 52 passing ✅ (in ~12 seconds with 4 workers)
   - 1 homepage test using POM pattern (test.spec.ts)
   - 6 public content browsing tests (browse-content.spec.ts)
   - 8 public content detail tests (content-detail.spec.ts)
@@ -34,7 +35,9 @@
   - 3 viewer authentication tests (viewer.spec.ts)
   - 6 authentication flow tests (login-flow.spec.ts) - logout tests removed
   - 7 protected routes tests (protected-routes.spec.ts)
-  - 4 content submission tests (submit-recipe.spec.ts)
+  - 4 recipe submission tests (submit-recipe.spec.ts)
+  - 3 video submission tests (submit-video.spec.ts)
+  - 3 library submission tests (submit-library.spec.ts)
 - **Test Infrastructure:** ✅ Complete
 - **Authentication:** ✅ Working
 - **Database:** ✅ Isolated test environment
@@ -821,31 +824,54 @@ Created `tests/e2e/auth/protected-routes.spec.ts` with 7 comprehensive tests cov
 
 ---
 
-### Phase 5b: Content Submission Tests - All Types (Days 18-19)
+### Phase 5b: Content Submission Tests - All Types (Days 18-19) ✅ COMPLETED
 
 **Goal:** Extend submission tests to all content types
 
 **Tasks:**
-1. Create submission tests for each type
-   - `submit-video.spec.ts`
-   - `submit-library.spec.ts`
-   - `submit-blog.spec.ts`
-   - `submit-link.spec.ts`
+1. ✅ Create submission tests for supported types
+   - `submit-video.spec.ts` (3 tests)
+   - `submit-library.spec.ts` (3 tests)
+   - Note: blog and link types not supported in current schema
 
-2. Extend `SubmitPage` POM
-   - Methods for each content type form
-   - Shared validation logic
+2. ✅ Extended `SubmitPage` POM
+   - Added `fillVideoForm()` method for video submissions
+   - Added `fillLibraryForm()` method for library submissions
+   - Reused tag selection logic across all forms
 
-3. Add 8-10 tests (2 per type)
-   - Basic submission for each type
-   - Validation for each type
+3. ✅ Added 6 new tests (3 per type)
+   - Video: valid submission, url validation, description validation
+   - Library: valid submission, github_repo validation, description validation
+
+4. ✅ Infrastructure improvements
+   - Added data-testid to video url input and library github_repo input
+   - All form fields now use test-ids for stable selectors
 
 **Acceptance Criteria:**
-- [ ] 8-10 tests cover all content types
-- [ ] Each content type can be submitted
-- [ ] Form-specific validation works
+- ✅ 6 tests cover video and library content types
+- ✅ Each content type can be submitted
+- ✅ Form-specific validation works (url for video, github_repo for library)
+- ✅ Common validation tested (description field)
 
-**Estimated Time:** 8-10 hours
+**Actual Time:** ~2 hours
+
+**Test Results:**
+```
+Submit Video:
+✓ can submit a valid video (413ms)
+✓ validates required url field (345ms)
+✓ validates required description field (339ms)
+
+Submit Library:
+✓ can submit a valid library (430ms)
+✓ validates required github_repo field (372ms)
+✓ validates required description field (385ms)
+```
+
+**Notes:**
+- The submit form only supports 3 content types: recipe, video, library (per schema.ts)
+- All 52 tests passing in ~12 seconds with 4 workers
+- Forms follow consistent validation patterns
 
 ---
 
