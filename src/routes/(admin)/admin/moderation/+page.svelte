@@ -24,7 +24,7 @@
 
 <AdminList title="Moderation Queue">
 	<div class="mb-4 flex items-center justify-between">
-		<p class="text-sm text-gray-600">Total items: {data.totalItems}</p>
+		<p class="text-sm text-gray-600" data-testid="moderation-queue-count">Total items: {data.totalItems}</p>
 
 		{#if selectedIds.length > 0}
 			<form method="POST" action="?/bulk_reject" use:enhance>
@@ -52,9 +52,10 @@
 					checked={selectedIds.includes(item.id)}
 					onchange={() => toggleSelection(item.id)}
 					class="form-checkbox h-4 w-4 text-indigo-600"
+					data-testid="moderation-queue-checkbox"
 				/>
 			</td>
-			<td class="{classes} font-medium text-gray-900">{item.title || 'Untitled'}</td>
+			<td class="{classes} font-medium text-gray-900" data-testid="moderation-queue-item-title">{item.title || 'Untitled'}</td>
 			<td class={classes}>
 				<div class="group relative flex items-center justify-center">
 					<div class="type-icon-wrapper text-gray-600">
@@ -71,7 +72,7 @@
 		{/snippet}
 		{#snippet actionCell(item: PreviewModerationQueueItem)}
 			<div class="flex space-x-2">
-				<Button size="sm" href="/admin/moderation/{item.id}"><Eye weight="bold" />Inspect</Button>
+				<Button size="sm" href="/admin/moderation/{item.id}" data-testid="moderation-inspect-button"><Eye weight="bold" />Inspect</Button>
 			</div>
 		{/snippet}
 	</Table>

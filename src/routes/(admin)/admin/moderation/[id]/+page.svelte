@@ -49,10 +49,10 @@
 		<div class="flex items-center space-x-3">
 			{#if data.item.status === 'pending'}
 				<form method="POST" action="?/reject" use:enhance class="inline">
-					<Button type="submit" size="sm" variant="error"><XCircle />Reject</Button>
+					<Button type="submit" size="sm" variant="error" data-testid="moderation-reject-button"><XCircle />Reject</Button>
 				</form>
 				<form method="POST" action="?/approve" use:enhance class="inline">
-					<Button type="submit" size="sm" variant="success"><CheckCircle />Approve</Button>
+					<Button type="submit" size="sm" variant="success" data-testid="moderation-approve-button"><CheckCircle />Approve</Button>
 				</form>
 			{/if}
 			<Button size="sm" variant="secondary" href="/admin/moderation"
@@ -65,7 +65,7 @@
 		<div class="rounded-lg bg-white p-4 shadow-sm">
 			<div class="flex items-center justify-between">
 				<span class="text-sm font-medium text-gray-500">Status</span>
-				<Badge color={colorMap.get(data.item.status)} text={data.item.status} />
+				<Badge color={colorMap.get(data.item.status)} text={data.item.status} data-testid="moderation-item-status" />
 			</div>
 		</div>
 		<div class="rounded-lg bg-white p-4 shadow-sm">
