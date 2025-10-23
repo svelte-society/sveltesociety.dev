@@ -10,19 +10,20 @@
 
 ## Progress Summary
 
-### ✅ Completed Phases (Foundation - Phase 3c)
+### ✅ Completed Phases (Foundation - Phase 4b)
 - **Phase 1a-1d:** Database foundation, seeding, Playwright configuration, and first passing tests
 - **Phase 2a-2c:** Test helpers, utilities, authentication fixtures, and Page Object Models
 - **Phase 3a:** Public content browsing tests
 - **Phase 3b:** Content detail view tests
 - **Phase 3c:** Search functionality tests
 - **Phase 4a:** Authentication flow tests (login/logout)
+- **Phase 4b:** Protected routes and role-based access control tests
 
 ### 🎯 Current Phase
-- **Phase 4b:** Ready to implement Protected Routes Tests
+- **Phase 5a:** Ready to implement Content Submission Tests
 
 ### 📊 Test Statistics
-- **Total Tests:** 35 passing ✅ (in ~11.5 seconds with 4 workers)
+- **Total Tests:** 42 passing ✅ (in ~11 seconds with 4 workers)
   - 1 homepage test using POM pattern (test.spec.ts)
   - 6 public content browsing tests (browse-content.spec.ts)
   - 8 public content detail tests (content-detail.spec.ts)
@@ -31,6 +32,7 @@
   - 3 admin authentication tests (admin-login.spec.ts)
   - 3 viewer authentication tests (viewer.spec.ts)
   - 6 authentication flow tests (login-flow.spec.ts) - logout tests removed
+  - 7 protected routes tests (protected-routes.spec.ts)
 - **Test Infrastructure:** ✅ Complete
 - **Authentication:** ✅ Working
 - **Database:** ✅ Isolated test environment
@@ -733,30 +735,39 @@ Created `tests/e2e/auth/login-flow.spec.ts` with 9 comprehensive tests covering 
 
 ---
 
-### Phase 4b: Protected Routes Tests (Day 15)
+### Phase 4b: Protected Routes Tests ✅ COMPLETED
 
 **Goal:** Test role-based access control
 
-**Tasks:**
-1. Create `tests/e2e/auth/protected-routes.spec.ts`
-   - Test unauthenticated user redirected from admin routes
-   - Test contributor can't access admin-only pages
-   - Test admin can access all admin routes
+**Implementation Summary:**
+Created `tests/e2e/auth/protected-routes.spec.ts` with 7 comprehensive tests covering role-based access control.
 
-2. Use auth fixtures from Phase 2b
+**Tests Created:**
+1. ✅ Unauthenticated user is redirected from `/admin`
+2. ✅ Unauthenticated user is redirected from `/admin/users`
+3. ✅ Member role (viewer) cannot access `/admin` dashboard
+4. ✅ Member role (viewer) cannot access `/admin/users`
+5. ✅ Moderator role can access `/admin` dashboard
+6. ✅ Admin role can access `/admin/users` (admin-only route)
+7. ✅ Admin role can access `/admin/content`
 
-3. Add 4-5 tests
-   - `/admin` redirects unauthenticated users
-   - Contributor role is denied admin access
-   - Admin role can access moderation queue
-   - Viewer can't submit content
+**Key Learnings:**
+- Route protection is handled by `protect_routes.ts` hook
+- Redirects go to `/` (homepage) for unauthorized access
+- Role hierarchy:
+  - **admin**: Full access to all routes
+  - **moderator**: Access to `/admin`, `/admin/content`, `/admin/moderation`
+  - **editor**: Access to `/admin`, `/admin/content`
+  - **member**: No admin access (redirected)
+- Test users map: admin → admin role, contributor → moderator role, viewer → member role
 
-**Acceptance Criteria:**
-- [ ] 4-5 protected route tests pass
-- [ ] All user roles are tested
-- [ ] Redirects are verified
+**Test Results:**
+- All 7 protected route tests passing ✅
+- Used existing POMs (AdminDashboardPage)
+- Tests verify both redirect behavior and successful access
+- Total test count: 42 passing
 
-**Estimated Time:** 4-5 hours
+**Actual Time:** ~30 minutes
 
 ---
 
