@@ -156,18 +156,15 @@ export class ContentListPage extends BasePage {
 	 * @returns Array of content titles
 	 */
 	async getContentTitles(): Promise<string[]> {
-		const cards = await this.contentCards.all()
-		const titles: string[] = []
+		// Wait for at least one card to be present
+		await this.contentCards.first().waitFor({ state: 'visible', timeout: 10000 })
 
-		for (const card of cards) {
-			const titleElement = card.getByTestId('content-title')
-			const titleText = await titleElement.textContent()
-			if (titleText) {
-				titles.push(titleText.trim())
-			}
-		}
+		// Use allTextContents which is atomic and waits for all elements
+		const titleElements = this.page.getByTestId('content-title')
+		const titles = await titleElements.allTextContents()
 
-		return titles
+		// Filter out empty titles and trim whitespace
+		return titles.map((title) => title.trim()).filter((title) => title.length > 0)
 	}
 
 	/**
