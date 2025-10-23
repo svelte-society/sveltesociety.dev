@@ -103,6 +103,7 @@
 			label="Type"
 			description="Select the type of content you are submitting"
 			{options}
+			data-testid="content-type-selector"
 		/>
 
 		{#if $formData.type === 'recipe'}
@@ -111,6 +112,7 @@
 				name="title"
 				label="Title"
 				description="Enter the title of your recipe"
+				data-testid="recipe-title-input"
 			/>
 		{/if}
 
@@ -119,6 +121,7 @@
 			name="description"
 			label="Description"
 			description="Enter the description of your content submission. This should be a short and succinct version of the body that gives the reader an idea of what the content is about. Not more than a few sentences."
+			data-testid="description-textarea"
 		/>
 
 		{#if $formData.type === 'recipe'}
@@ -127,6 +130,7 @@
 				name="body"
 				label="Recipe Content"
 				description="Provide the full recipe content including instructions and code. Use markdown to format your content."
+				data-testid="recipe-body-editor"
 			/>
 		{:else if $formData.type === 'video'}
 			<Input
@@ -244,6 +248,7 @@
 				label: tag.name,
 				value: tag.id
 			}))}
+			data-testid="tags-selector"
 		/>
 
 		<Textarea
@@ -251,9 +256,10 @@
 			name="notes"
 			label="Notes (optional)"
 			description="Any additional information about your submission"
+			data-testid="notes-textarea"
 		/>
 
-		<Button type="submit" disabled={$submitting || videoPreview?.exists || libraryPreview?.exists}>
+		<Button type="submit" disabled={$submitting || videoPreview?.exists || libraryPreview?.exists} data-testid="submit-button">
 			{$submitting ? 'Submitting...' : 'Submit'}
 		</Button>
 

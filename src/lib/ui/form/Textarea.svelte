@@ -5,8 +5,9 @@
 		placeholder?: string
 		name: string
 		rows?: number
+		'data-testid'?: string
 	}
-	let { name, label, description, placeholder, rows = 4 }: TextInputProps = $props()
+	let { name, label, description, placeholder, rows = 4, 'data-testid': testId }: TextInputProps = $props()
 
 	import type { SuperForm } from 'sveltekit-superforms'
 
@@ -31,6 +32,7 @@
 					{...props}
 					bind:value={$formData[name]}
 					{placeholder}
+					data-testid={testId}
 				></textarea>
 			{/snippet}
 		</Control>

@@ -9,8 +9,9 @@
 		placeholder?: string
 		name: string
 		rows?: number
+		'data-testid'?: string
 	}
-	let { name, label, description, placeholder, rows = 20 }: TextInputProps = $props()
+	let { name, label, description, placeholder, rows = 20, 'data-testid': testId }: TextInputProps = $props()
 
 	import { Control, Description, Field, FieldErrors, Label } from 'formsnap'
 	import { getContext } from 'svelte'
@@ -39,6 +40,7 @@
 						{...props}
 						bind:value={$formData[name]}
 						{placeholder}
+						data-testid={testId}
 					></textarea>
 					{#if preview}
 						<div

@@ -19,8 +19,9 @@
 		options: { label: string; value: string }[]
 		value?: string[]
 		Icon?: Component
+		'data-testid'?: string
 	}
-	let { name, label, description, placeholder, options, Icon = TagIcon }: TextInputProps = $props()
+	let { name, label, description, placeholder, options, Icon = TagIcon, 'data-testid': testId }: TextInputProps = $props()
 	const form: SuperForm<Record<string, any>, any> = getContext('form')
 
 	const { form: formData } = form
@@ -60,6 +61,7 @@
 								{...props}
 								autocomplete="off"
 								class="w-full rounded-md border-2 border-transparent bg-slate-100 px-7 py-1.5 text-sm placeholder-slate-500 focus:outline-2 focus:outline-sky-200 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600"
+								data-testid={testId}
 							/>
 							<CaretUpDown
 								class="absolute top-1/2 right-2 size-4 -translate-y-1/2 text-slate-500"
