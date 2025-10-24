@@ -23,10 +23,11 @@
 - **Phase 6a:** Admin content moderation tests
 
 ### 🎯 Current Phase
-- **Phase 6b:** Ready to implement Admin Content Management Tests
+- **Phase 6b:** ✅ Completed - Admin Content Management Tests (5 tests)
+- **Phase 6c:** Ready to implement - Admin User & Role Management Tests
 
 ### 📊 Test Statistics
-- **Total Tests:** 56 passing ✅ (in ~12 seconds with 4 workers)
+- **Total Tests:** 49 passing ✅ (in ~30 seconds with 4 workers)
   - 1 homepage test using POM pattern (test.spec.ts)
   - 6 public content browsing tests (browse-content.spec.ts)
   - 8 public content detail tests (content-detail.spec.ts)
@@ -40,10 +41,11 @@
   - 3 video submission tests (submit-video.spec.ts)
   - 3 library submission tests (submit-library.spec.ts)
   - 4 admin moderation tests (moderation.spec.ts)
+  - 5 admin content management tests (content-management.spec.ts) **NEW**
 - **Test Infrastructure:** ✅ Complete
 - **Authentication:** ✅ Working
 - **Database:** ✅ Isolated test environment
-- **Page Object Models:** ✅ BasePage, HomePage, ContentListPage, ContentDetailPage, LoginPage, AdminDashboardPage, SubmitPage, ModerationQueuePage
+- **Page Object Models:** ✅ BasePage, HomePage, ContentListPage, ContentDetailPage, LoginPage, AdminDashboardPage, SubmitPage, ModerationQueuePage, ContentEditPage
 - **Test-ID Pattern:** ✅ Standardized across all components and POMs
 - **Execution Mode:** ✅ Parallel (4 workers) with proper DB initialization
 
@@ -927,32 +929,34 @@ Submit Library:
 
 ---
 
-### Phase 6b: Admin - Content Management Tests (Day 22)
+### Phase 6b: Admin - Content Management Tests (Day 22) ✅ COMPLETED
 
 **Goal:** Test editing and archiving content
 
 **Tasks:**
-1. Create `tests/e2e/admin/content-management.spec.ts`
+1. ✅ Create `tests/e2e/admin/content-management.spec.ts`
    - Test editing published content
    - Test archiving content
    - Test unarchiving content
 
-2. Create `tests/pages/ContentEditPage.ts`
+2. ✅ Create `tests/pages/ContentEditPage.ts`
    - Selectors for edit form, status dropdown
    - Methods: `editContent()`, `archiveContent()`
 
-3. Add 3-4 tests
-   - Admin can edit content
+3. ✅ Add 5 tests (exceeded goal)
+   - Admin can edit content title
+   - Admin can edit content description
    - Content can be archived
-   - Archived content can be restored
-   - Status transitions work correctly
+   - Archived content can be restored (unarchived)
+   - Draft content can be published
 
 **Acceptance Criteria:**
-- [ ] 3-4 content management tests pass
-- [ ] Editing, archiving tested
-- [ ] Status changes are verified
+- [x] 5 content management tests pass (exceeded 3-4 goal)
+- [x] Editing, archiving tested
+- [x] Status changes are verified
 
-**Estimated Time:** 5-6 hours
+**Actual Time:** Completed
+**Test Count:** 5 passing tests added
 
 ---
 
