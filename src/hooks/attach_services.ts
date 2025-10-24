@@ -105,14 +105,16 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 
 		if (testDbName) {
 			// Use test-specific database (e.g., test-content-detail.db)
+			// These databases are pre-created by globalSetup
 			dbPath = `test-${testDbName}.db`
 
-			// Create isolated database copy if it doesn't exist
-			// This happens on-demand for better reliability
+			// Fallback: Create isolated database copy if it doesn't exist
+			// This should rarely happen as databases are pre-created in globalSetup
 			if (!fs.existsSync(dbPath)) {
 				const baseTestDb = 'test.db'
 				if (fs.existsSync(baseTestDb)) {
 					fs.copyFileSync(baseTestDb, dbPath)
+					console.log(`[Test Isolation] Created on-demand: ${dbPath}`)
 				}
 			}
 		}

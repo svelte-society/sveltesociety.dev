@@ -54,6 +54,8 @@ const config: PlaywrightTestConfig = {
 		reuseExistingServer: !process.env.CI,
 		env: { DB_PATH: 'test.db', NODE_ENV: 'test' }
 	},
+	// Global setup to pre-create isolated test databases
+	globalSetup: './tests/setup/global-setup.ts',
 	// Global teardown to cleanup isolated test databases
 	globalTeardown: './tests/setup/global-teardown.ts'
 }
