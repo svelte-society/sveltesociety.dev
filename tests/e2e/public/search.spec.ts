@@ -1,7 +1,12 @@
 import { test, expect } from '@playwright/test'
 import { HomePage, ContentListPage } from '../../pages'
+import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Search Functionality', () => {
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page, 'search')
+	})
+
 	test('can search for content by title', async ({ page }) => {
 		const homePage = new HomePage(page)
 		await homePage.goto()

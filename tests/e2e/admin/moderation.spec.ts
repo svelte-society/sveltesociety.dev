@@ -1,8 +1,13 @@
 import { test, expect } from '../../fixtures/auth.fixture'
 import { ModerationQueuePage } from '../../pages'
+import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Admin - Content Moderation', () => {
 	test.use({ authenticatedAs: 'admin' })
+
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page, 'admin-moderation')
+	})
 
 	test('pending content appears in moderation queue', async ({ page }) => {
 		const moderationPage = new ModerationQueuePage(page)

@@ -53,9 +53,9 @@ const config: PlaywrightTestConfig = {
 		timeout: 120 * 1000,
 		reuseExistingServer: !process.env.CI,
 		env: { DB_PATH: 'test.db', NODE_ENV: 'test' }
-	}
-} // Global setup/teardown will be added in Phase 2b
-// globalSetup: './tests/setup/global-setup.ts',
-// globalTeardown: './tests/setup/global-teardown.ts',
+	},
+	// Global teardown to cleanup isolated test databases
+	globalTeardown: './tests/setup/global-teardown.ts'
+}
 
 export default config

@@ -1,8 +1,13 @@
 import { test, expect } from '../../fixtures/auth.fixture'
 import { SubmitPage } from '../../pages'
+import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Submit Library', () => {
 	test.use({ authenticatedAs: 'viewer' })
+
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page, 'content-submit-library')
+	})
 
 	test('can submit a valid library', async ({ page }) => {
 		const submitPage = new SubmitPage(page)

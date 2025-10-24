@@ -16,4 +16,9 @@ vite.config.ts.timestamp-*
 /local_event.db*
 /local.db*
 /test.db*
+/test-*.db*
 .state_directory
+
+# Test output files
+test-output.log
+*.log

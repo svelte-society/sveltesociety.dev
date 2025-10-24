@@ -1,9 +1,14 @@
 import { test, expect } from '../../fixtures/auth.fixture'
 import { SubmitPage } from '../../pages'
+import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Submit Recipe', () => {
 	// All submission tests require authentication
 	test.use({ authenticatedAs: 'viewer' })
+
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page, 'content-submit-recipe')
+	})
 
 	test('can submit a valid recipe', async ({ page }) => {
 		const submitPage = new SubmitPage(page)

@@ -1,8 +1,13 @@
 import { test, expect } from '../../fixtures/auth.fixture'
 import { HomePage, AdminDashboardPage, SubmitPage } from '../../pages'
+import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Viewer Authentication', () => {
 	test.use({ authenticatedAs: 'viewer' })
+
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page, 'auth-viewer')
+	})
 
 	test('can view homepage when logged in', async ({ page }) => {
 		const homePage = new HomePage(page)

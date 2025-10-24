@@ -16,72 +16,128 @@ import { CacheService } from '$lib/server/services/cache'
 import { ExternalContentService } from '$lib/server/services/external-content'
 import { LLMService } from '$lib/server/services/llm'
 import { AnnouncementService } from '$lib/server/services/AnnouncementService'
+import fs from 'fs'
+import path from 'path'
+import { dev } from '$app/environment'
 
-let db: Database
-let contentService: ContentService
-let searchService: SearchService
-let interactionsService: InteractionsService
-let roleService: RoleService
-let sessionService: SessionService
-let tagService: TagService
-let moderationService: ModerationService
-let userService: UserService
-let collectionService: CollectionService
-let metadataService: MetadataService
-let eventsService: EventsService
-let cacheService: CacheService
-let externalContentService: ExternalContentService
-let llmService: LLMService
-let announcementService: AnnouncementService
+// Cache for database connections and services per database path
+const dbCache = new Map<string, {
+	db: Database
+	contentService: ContentService
+	searchService: SearchService
+	interactionsService: InteractionsService
+	roleService: RoleService
+	sessionService: SessionService
+	tagService: TagService
+	moderationService: ModerationService
+	userService: UserService
+	collectionService: CollectionService
+	metadataService: MetadataService
+	eventsService: EventsService
+	cacheService: CacheService
+	externalContentService: ExternalContentService
+	llmService: LLMService
+	announcementService: AnnouncementService
+}>()
 
-const initialize_db = () => {
-	if (!db) {
-		db = new Database(DB_PATH, { strict: true })
-		db.run('PRAGMA journal_mode = WAL')
-		db.run('PRAGMA busy_timeout = 5000')
-		db.run('PRAGMA synchronous = NORMAL')
-		db.run('PRAGMA cache_size = 300000')
-		db.run('PRAGMA temp_store = MEMORY')
-		db.run('PRAGMA mmap_size = 3000000')
-		db.run('PRAGMA foreign_keys = ON')
-
-		cacheService = new CacheService(db)
-		searchService = new SearchService(db)
-		contentService = new ContentService(db, searchService)
-		externalContentService = new ExternalContentService(db, contentService, cacheService)
-		interactionsService = new InteractionsService(db)
-		roleService = new RoleService(db)
-		sessionService = new SessionService(db)
-		tagService = new TagService(db)
-		moderationService = new ModerationService(db)
-		userService = new UserService(db)
-		collectionService = new CollectionService(db, searchService)
-		metadataService = new MetadataService(db)
-		eventsService = new EventsService(db, cacheService)
-		llmService = new LLMService(tagService)
-		announcementService = new AnnouncementService(db)
+const initialize_db = (dbPath: string) => {
+	// Return cached instance if exists
+	if (dbCache.has(dbPath)) {
+		return dbCache.get(dbPath)!
 	}
 
-	return db
+	// Create new database connection and services
+	const db = new Database(dbPath, { strict: true })
+	db.run('PRAGMA journal_mode = WAL')
+	db.run('PRAGMA busy_timeout = 5000')
+	db.run('PRAGMA synchronous = NORMAL')
+	db.run('PRAGMA cache_size = 300000')
+	db.run('PRAGMA temp_store = MEMORY')
+	db.run('PRAGMA mmap_size = 3000000')
+	db.run('PRAGMA foreign_keys = ON')
+
+	const cacheService = new CacheService(db)
+	const searchService = new SearchService(db)
+	const contentService = new ContentService(db, searchService)
+	const externalContentService = new ExternalContentService(db, contentService, cacheService)
+	const interactionsService = new InteractionsService(db)
+	const roleService = new RoleService(db)
+	const sessionService = new SessionService(db)
+	const tagService = new TagService(db)
+	const moderationService = new ModerationService(db)
+	const userService = new UserService(db)
+	const collectionService = new CollectionService(db, searchService)
+	const metadataService = new MetadataService(db)
+	const eventsService = new EventsService(db, cacheService)
+	const llmService = new LLMService(tagService)
+	const announcementService = new AnnouncementService(db)
+
+	const services = {
+		db,
+		contentService,
+		searchService,
+		interactionsService,
+		roleService,
+		sessionService,
+		tagService,
+		moderationService,
+		userService,
+		collectionService,
+		metadataService,
+		eventsService,
+		cacheService,
+		externalContentService,
+		llmService,
+		announcementService,
+	}
+
+	dbCache.set(dbPath, services)
+	return services
 }
 
 export const attach_services: Handle = async ({ event, resolve }) => {
-	const db = initialize_db()
-	event.locals.db = db
-	event.locals.contentService = contentService
-	event.locals.searchService = searchService
-	event.locals.interactionsService = interactionsService
-	event.locals.roleService = roleService
-	event.locals.sessionService = sessionService
-	event.locals.tagService = tagService
-	event.locals.moderationService = moderationService
-	event.locals.userService = userService
-	event.locals.collectionService = collectionService
-	event.locals.metadataService = metadataService
-	event.locals.eventsService = eventsService
-	event.locals.cacheService = cacheService
-	event.locals.externalContentService = externalContentService
-	event.locals.llmService = llmService
-	event.locals.announcementService = announcementService
+	// Determine which database to use based on test cookie
+	let dbPath = DB_PATH
+
+	// In test environment, check for test_db cookie to enable per-test isolation
+	if (process.env.NODE_ENV === 'test') {
+		const testDbName = event.cookies.get('test_db')
+
+		if (testDbName) {
+			// Use test-specific database (e.g., test-content-detail.db)
+			dbPath = `test-${testDbName}.db`
+
+			// Create isolated database copy if it doesn't exist
+			// This happens on-demand for better reliability
+			if (!fs.existsSync(dbPath)) {
+				const baseTestDb = 'test.db'
+				if (fs.existsSync(baseTestDb)) {
+					fs.copyFileSync(baseTestDb, dbPath)
+				}
+			}
+		}
+	}
+
+	// Initialize database and services for this path
+	const services = initialize_db(dbPath)
+
+	// Attach all services to event.locals
+	event.locals.db = services.db
+	event.locals.contentService = services.contentService
+	event.locals.searchService = services.searchService
+	event.locals.interactionsService = services.interactionsService
+	event.locals.roleService = services.roleService
+	event.locals.sessionService = services.sessionService
+	event.locals.tagService = services.tagService
+	event.locals.moderationService = services.moderationService
+	event.locals.userService = services.userService
+	event.locals.collectionService = services.collectionService
+	event.locals.metadataService = services.metadataService
+	event.locals.eventsService = services.eventsService
+	event.locals.cacheService = services.cacheService
+	event.locals.externalContentService = services.externalContentService
+	event.locals.llmService = services.llmService
+	event.locals.announcementService = services.announcementService
+
 	return resolve(event)
 }

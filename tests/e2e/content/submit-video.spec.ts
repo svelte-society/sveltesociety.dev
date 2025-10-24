@@ -1,8 +1,13 @@
 import { test, expect } from '../../fixtures/auth.fixture'
 import { SubmitPage } from '../../pages'
+import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Submit Video', () => {
 	test.use({ authenticatedAs: 'viewer' })
+
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page, 'content-submit-video')
+	})
 
 	test('can submit a valid video', async ({ page }) => {
 		const submitPage = new SubmitPage(page)

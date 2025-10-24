@@ -1,8 +1,13 @@
 import { test, expect } from '@playwright/test'
 import { loginAs, isLoggedIn } from '../../helpers/auth'
 import { HomePage, LoginPage, AdminDashboardPage } from '../../pages'
+import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Login Flow', () => {
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page, 'auth-login-flow')
+	})
+
 	test('unauthenticated user sees login link', async ({ page }) => {
 		const homePage = new HomePage(page)
 		await homePage.goto()

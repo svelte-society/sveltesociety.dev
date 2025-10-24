@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test'
 import { ContentEditPage, AdminDashboardPage } from '../../pages'
 import { loginAs } from '../../helpers/auth'
+import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe.configure({ mode: 'serial' })
 
@@ -10,7 +11,8 @@ test.describe('Admin Content Management', () => {
 	// which could affect other tests if run in parallel
 
 	test.beforeEach(async ({ page }) => {
-		// Login as admin before each test
+		// Set up database isolation and login as admin before each test
+		await setupDatabaseIsolation(page, 'admin-z-content-management')
 		await loginAs(page, 'admin')
 	})
 

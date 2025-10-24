@@ -1,8 +1,13 @@
 import { test, expect } from '@playwright/test'
 import { loginAs } from '../../helpers/auth'
 import { AdminDashboardPage } from '../../pages'
+import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Protected Routes - Role-Based Access Control', () => {
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page, 'auth-protected-routes')
+	})
+
 	test('unauthenticated user is redirected from /admin', async ({ page }) => {
 		const adminPage = new AdminDashboardPage(page)
 		await adminPage.gotoDashboard()

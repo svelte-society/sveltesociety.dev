@@ -1,8 +1,13 @@
 import { test, expect } from '@playwright/test'
 import { ContentDetailPage } from '../../pages'
 import { TEST_CONTENT } from '../../fixtures/test-data'
+import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Content Detail Pages', () => {
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page, 'content-detail')
+	})
+
 	test('can view recipe detail page', async ({ page }) => {
 		const detailPage = new ContentDetailPage(page)
 		await detailPage.goto('recipe', 'test-recipe-counter-component')

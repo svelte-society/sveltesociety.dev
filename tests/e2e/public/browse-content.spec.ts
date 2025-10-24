@@ -1,7 +1,12 @@
 import { test, expect } from '@playwright/test'
 import { ContentListPage } from '../../pages'
+import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Public Content Browsing', () => {
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page, 'browse-content')
+	})
+
 	test('can view recipes list', async ({ page }) => {
 		const contentList = new ContentListPage(page)
 		await contentList.goto('recipe')

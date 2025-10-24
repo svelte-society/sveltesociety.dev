@@ -1,8 +1,13 @@
 import { test, expect } from '../../fixtures/auth.fixture'
 import { AdminDashboardPage } from '../../pages'
+import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Admin Authentication', () => {
 	test.use({ authenticatedAs: 'admin' })
+
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page, 'auth-admin-login')
+	})
 
 	test('can access admin dashboard', async ({ page }) => {
 		const adminPage = new AdminDashboardPage(page)
