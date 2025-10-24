@@ -4,7 +4,7 @@ import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Public Content Browsing', () => {
 	test.beforeEach(async ({ page }) => {
-		await setupDatabaseIsolation(page, 'browse-content')
+		await setupDatabaseIsolation(page)
 	})
 
 	test('can view recipes list', async ({ page }) => {

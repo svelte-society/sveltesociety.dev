@@ -12,7 +12,7 @@ test.describe('Admin Content Management', () => {
 
 	test.beforeEach(async ({ page }) => {
 		// Set up database isolation and login as admin before each test
-		await setupDatabaseIsolation(page, 'admin-z-content-management')
+		await setupDatabaseIsolation(page)
 		await loginAs(page, 'admin')
 	})
 

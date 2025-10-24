@@ -6,7 +6,7 @@ test.describe('Viewer Authentication', () => {
 	test.use({ authenticatedAs: 'viewer' })
 
 	test.beforeEach(async ({ page }) => {
-		await setupDatabaseIsolation(page, 'auth-viewer')
+		await setupDatabaseIsolation(page)
 	})
 
 	test('can view homepage when logged in', async ({ page }) => {

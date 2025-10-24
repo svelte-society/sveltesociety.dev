@@ -7,7 +7,7 @@ test.describe('Submit Recipe', () => {
 	test.use({ authenticatedAs: 'viewer' })
 
 	test.beforeEach(async ({ page }) => {
-		await setupDatabaseIsolation(page, 'content-submit-recipe')
+		await setupDatabaseIsolation(page)
 	})
 
 	test('can submit a valid recipe', async ({ page }) => {

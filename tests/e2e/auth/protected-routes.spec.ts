@@ -5,7 +5,7 @@ import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Protected Routes - Role-Based Access Control', () => {
 	test.beforeEach(async ({ page }) => {
-		await setupDatabaseIsolation(page, 'auth-protected-routes')
+		await setupDatabaseIsolation(page)
 	})
 
 	test('unauthenticated user is redirected from /admin', async ({ page }) => {

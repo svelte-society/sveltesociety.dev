@@ -5,7 +5,7 @@ import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Content Detail Pages', () => {
 	test.beforeEach(async ({ page }) => {
-		await setupDatabaseIsolation(page, 'content-detail')
+		await setupDatabaseIsolation(page)
 	})
 
 	test('can view recipe detail page', async ({ page }) => {

@@ -6,7 +6,7 @@ test.describe('Admin Authentication', () => {
 	test.use({ authenticatedAs: 'admin' })
 
 	test.beforeEach(async ({ page }) => {
-		await setupDatabaseIsolation(page, 'auth-admin-login')
+		await setupDatabaseIsolation(page)
 	})
 
 	test('can access admin dashboard', async ({ page }) => {

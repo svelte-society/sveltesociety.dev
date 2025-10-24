@@ -4,7 +4,7 @@ import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Simple Auth Check', () => {
 	test.beforeEach(async ({ page }) => {
-		await setupDatabaseIsolation(page, 'auth-simple-auth')
+		await setupDatabaseIsolation(page)
 	})
 
 	test('unauthenticated user sees login link', async ({ page }) => {

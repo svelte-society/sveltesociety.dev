@@ -6,7 +6,7 @@ test.describe('Submit Video', () => {
 	test.use({ authenticatedAs: 'viewer' })
 
 	test.beforeEach(async ({ page }) => {
-		await setupDatabaseIsolation(page, 'content-submit-video')
+		await setupDatabaseIsolation(page)
 	})
 
 	test('can submit a valid video', async ({ page }) => {

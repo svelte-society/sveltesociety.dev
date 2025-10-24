@@ -6,7 +6,7 @@ test.describe('Admin - Content Moderation', () => {
 	test.use({ authenticatedAs: 'admin' })
 
 	test.beforeEach(async ({ page }) => {
-		await setupDatabaseIsolation(page, 'admin-moderation')
+		await setupDatabaseIsolation(page)
 	})
 
 	test('pending content appears in moderation queue', async ({ page }) => {

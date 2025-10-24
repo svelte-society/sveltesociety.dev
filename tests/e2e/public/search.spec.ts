@@ -4,7 +4,7 @@ import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Search Functionality', () => {
 	test.beforeEach(async ({ page }) => {
-		await setupDatabaseIsolation(page, 'search')
+		await setupDatabaseIsolation(page)
 	})
 
 	test('can search for content by title', async ({ page }) => {

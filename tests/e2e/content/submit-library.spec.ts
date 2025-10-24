@@ -6,7 +6,7 @@ test.describe('Submit Library', () => {
 	test.use({ authenticatedAs: 'viewer' })
 
 	test.beforeEach(async ({ page }) => {
-		await setupDatabaseIsolation(page, 'content-submit-library')
+		await setupDatabaseIsolation(page)
 	})
 
 	test('can submit a valid library', async ({ page }) => {

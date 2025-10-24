@@ -5,7 +5,7 @@ import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Login Flow', () => {
 	test.beforeEach(async ({ page }) => {
-		await setupDatabaseIsolation(page, 'auth-login-flow')
+		await setupDatabaseIsolation(page)
 	})
 
 	test('unauthenticated user sees login link', async ({ page }) => {
