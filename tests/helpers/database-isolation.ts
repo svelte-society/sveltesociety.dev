@@ -114,39 +114,30 @@ export async function setupDatabaseIsolationForContext(
 
 /**
  * Extracts a test file identifier from the file path.
- * Used to automatically generate database names from test file paths.
+ * Uses the full relative path from tests/e2e with slashes replaced by hyphens.
  *
  * @param filePath - Full path to the test file
- * @returns A sanitized identifier (e.g., 'content-detail', 'admin-moderation')
+ * @returns A path-based identifier (e.g., 'public-content-detail', 'admin-moderation')
  *
  * @example
- * const id = getTestFileIdentifier(__filename)
- * // Returns: 'content-detail' for 'tests/e2e/public/content-detail.spec.ts'
+ * const id = getTestFileIdentifier('/path/to/tests/e2e/public/content-detail.spec.ts')
+ * // Returns: 'public-content-detail'
+ *
+ * const id = getTestFileIdentifier('/path/to/tests/e2e/admin/moderation.spec.ts')
+ * // Returns: 'admin-moderation'
  */
 export function getTestFileIdentifier(filePath: string): string {
-	const basename = path.basename(filePath, '.spec.ts')
-	const dir = path.basename(path.dirname(filePath))
+	// Normalize the path to use forward slashes
+	const normalized = filePath.replace(/\\/g, '/')
 
-	// For admin tests, prefix with 'admin-'
-	if (filePath.includes('/e2e/admin/')) {
-		return `admin-${basename}`
-	}
+	// Extract just the e2e path portion (e.g., 'public/content-detail.spec.ts')
+	const e2eMatch = normalized.match(/tests\/e2e\/(.+\.spec\.ts)/)
+	const relativePath = e2eMatch ? e2eMatch[1] : path.basename(filePath)
 
-	// For content tests (submit), prefix with 'content-'
-	if (filePath.includes('/e2e/content/')) {
-		return `content-${basename}`
-	}
-
-	// For auth tests, prefix with 'auth-'
-	if (filePath.includes('/e2e/auth/')) {
-		return `auth-${basename}`
-	}
-
-	// For public tests, use basename only
-	if (filePath.includes('/e2e/public/')) {
-		return basename
-	}
-
-	// Default: use directory-basename
-	return `${dir}-${basename}`
+	// Remove .spec.ts extension and replace slashes with hyphens
+	// e.g., 'public/content-detail.spec.ts' → 'public-content-detail'
+	// e.g., 'admin/moderation.spec.ts' → 'admin-moderation'
+	return relativePath
+		.replace(/\.spec\.ts$/, '')
+		.replace(/\//g, '-')
 }

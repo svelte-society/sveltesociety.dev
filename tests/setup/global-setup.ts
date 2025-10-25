@@ -63,31 +63,30 @@ export default async function globalSetup() {
 
 /**
  * Extracts a test file identifier from the file path.
+ * Uses the full relative path from tests/e2e with slashes replaced by hyphens.
  * This must match the identifier used in setupDatabaseIsolation() calls.
  *
  * @param filePath - Full path to the test file
- * @returns A sanitized identifier (e.g., 'admin-moderation', 'content-detail')
+ * @returns A path-based identifier (e.g., 'public-content-detail', 'admin-moderation')
  */
 function getTestFileIdentifier(filePath: string): string {
-	// Remove .spec.ts extension and get just the filename
-	const basename = path.basename(filePath, '.spec.ts')
+	// Normalize the path to use forward slashes
+	const normalized = filePath.replace(/\\/g, '/')
 
-	// Determine the subdirectory (admin, auth, content, public, etc.)
-	const parts = filePath.split('/')
-	const e2eIndex = parts.indexOf('e2e')
-	const subdir = e2eIndex >= 0 && parts[e2eIndex + 1] ? parts[e2eIndex + 1] : ''
+	// Extract just the e2e path portion (e.g., 'public/content-detail.spec.ts')
+	const e2eMatch = normalized.match(/tests\/e2e\/(.+\.spec\.ts)/)
+	const relativePath = e2eMatch ? e2eMatch[1] : path.basename(filePath)
 
-	// Generate identifier based on subdirectory
-	if (subdir === 'admin') {
-		return `admin-${basename}`
-	} else if (subdir === 'content') {
-		return `content-${basename}`
-	} else if (subdir === 'auth') {
-		return `auth-${basename}`
-	} else if (subdir === 'public') {
-		return basename
-	}
-
-	// Default: use directory-basename
-	return subdir ? `${subdir}-${basename}` : basename
+	// Remove .spec.ts extension and replace slashes with hyphens
+	// e.g., 'public/content-detail.spec.ts' → 'public-content-detail'
+	// e.g., 'admin/moderation.spec.ts' → 'admin-moderation'
+	return relativePath
+		.replace(/\.spec\.ts$/, '')
+		.replace(/\//g, '-')
 }
+
+// Run when executed directly
+if (import.meta.main) {
+	globalSetup().catch(console.error)
+}
+
