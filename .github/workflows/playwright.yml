@@ -39,7 +39,9 @@ jobs:
           DB_PATH: test.db
 
       - name: Run Playwright tests
-        run: bun --bun run build && bunx playwright test
+        id: playwright
+        run: bun --bun run build && bunx playwright test --reporter=json > test-results.json || echo "TESTS_FAILED=true" >> $GITHUB_ENV
+        continue-on-error: true
         env:
           NODE_ENV: test
           DB_PATH: test.db
@@ -50,6 +52,49 @@ jobs:
           ANTHROPIC_API_KEY: mock_anthropic_key
           YOUTUBE_API_KEY: mock_youtube_key
           GITHUB_TOKEN: mock_github_token
+
+      - name: Generate test summary
+        if: always()
+        run: |
+          echo "# Playwright Test Results 🎭" >> $GITHUB_STEP_SUMMARY
+          if [ -f test-results.json ]; then
+            PASSED=$(bunx playwright show-report test-results.json 2>/dev/null | grep -oP '\d+(?= passed)' || echo "0")
+            FAILED=$(bunx playwright show-report test-results.json 2>/dev/null | grep -oP '\d+(?= failed)' || echo "0")
+            echo "✅ Passed: $PASSED" >> $GITHUB_STEP_SUMMARY
+            echo "❌ Failed: $FAILED" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Comment PR with test results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let testResults = '## 🎭 Playwright Test Results\n\n';
+
+            try {
+              const output = require('child_process').execSync('bunx playwright show-report --reporter=list', {encoding: 'utf-8'});
+              const lines = output.split('\n');
+              const summary = lines.find(line => line.includes('passed') || line.includes('failed'));
+
+              if (summary) {
+                testResults += summary.includes('failed')
+                  ? '❌ **Tests Failed**\n\n'
+                  : '✅ **All Tests Passed**\n\n';
+                testResults += '```\n' + summary + '\n```\n\n';
+              }
+            } catch (error) {
+              testResults += '⚠️ Could not parse test results\n\n';
+            }
+
+            testResults += '\n📊 [View detailed test report in workflow artifacts](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})';
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: testResults
+            });
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
@@ -66,3 +111,7 @@ jobs:
           name: test-results
           path: test-results/
           retention-days: 30
+
+      - name: Fail workflow if tests failed
+        if: env.TESTS_FAILED == 'true'
+        run: exit 1
