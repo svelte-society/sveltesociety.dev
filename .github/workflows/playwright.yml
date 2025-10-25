@@ -47,6 +47,9 @@ jobs:
           GITHUB_CLIENT_SECRET: test_secret
           GITHUB_AUTHORIZATION_CALLBACK_URL: http://localhost:4173/auth/callback
           SEED_DATABASE: none
+          ANTHROPIC_API_KEY: mock_anthropic_key
+          YOUTUBE_API_KEY: mock_youtube_key
+          GITHUB_TOKEN: mock_github_token
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
