@@ -14,6 +14,7 @@
 		href="/admin/{route}/{id}"
 		class="text-indigo-600 hover:text-indigo-900"
 		aria-label="Edit {type}"
+		data-testid="edit-button"
 	>
 		<svg
 			class="h-4 w-4"

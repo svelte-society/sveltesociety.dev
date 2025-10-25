@@ -12,9 +12,13 @@
 </script>
 
 <script lang="ts">
-	export let text = ''
-	export let color: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' | string =
-		'default'
+	interface Props {
+		text?: string
+		color?: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' | string
+		'data-testid'?: string
+	}
+
+	let { text = '', color = 'default', 'data-testid': testId }: Props = $props()
 
 	// Get the color class safely
 	const getColorClass = (colorKey: string): string => {
@@ -26,6 +30,7 @@
 	class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium capitalize {getColorClass(
 		color
 	)}"
+	data-testid={testId}
 >
 	{text}
 </span>

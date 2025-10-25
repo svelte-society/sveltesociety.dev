@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Type } from '$lib/types/content'
+	import QuestionMark from 'phosphor-svelte/lib/QuestionMark'
 	import ReadCvLogo from 'phosphor-svelte/lib/ReadCvLogo'
 	import Video from 'phosphor-svelte/lib/Video'
 	import Package from 'phosphor-svelte/lib/Package'
@@ -32,7 +33,7 @@
 		archive: Archive
 	})
 
-	const Icon = $derived(IconMap[type])
+	const Icon = $derived(IconMap[type] || QuestionMark)
 </script>
 
 <Icon {size} {color} />

@@ -26,7 +26,7 @@
 	<div class="mb-4 content-start gap-2">
 		<h1 class="text-xl font-bold">Users Management</h1>
 	</div>
-	<Table action={true} data={data.users}>
+	<Table action={true} data={data.users} testId="users-table">
 		{#snippet header(classes)}
 			<th scope="col" class={classes}>User</th>
 			<th scope="col" class={classes}>Email</th>
@@ -38,10 +38,10 @@
 		{#snippet row(item: ExtendedUser, classes)}
 			<td class="whitespace-nowrap {classes} flex items-center font-medium text-gray-900">
 				<Avatar src={item.avatar_url} name={item.username} />
-				<span class="ml-2">{item.username}</span>
+				<span class="ml-2" data-testid="user-username">{item.username}</span>
 			</td>
 			<td class="{classes} truncate">{item.email ?? '-'}</td>
-			<td class={classes}>{item.role_name}</td>
+			<td class={classes} data-testid="user-role">{item.role_name}</td>
 			<td class={classes}>{item.location ?? '-'}</td>
 			<td class={classes}>{item.twitter ?? '-'}</td>
 			<td class={classes}>

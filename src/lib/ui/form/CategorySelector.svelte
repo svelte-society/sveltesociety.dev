@@ -6,8 +6,9 @@
 		description?: string
 		options: { label: string; value: string; type: string }[]
 		name: string
+		'data-testid'?: string
 	}
-	let { name, label, description, options }: TextInputProps = $props()
+	let { name, label, description, options, 'data-testid': testId }: TextInputProps = $props()
 
 	import type { SuperForm } from 'sveltekit-superforms'
 
@@ -32,6 +33,7 @@
 							$formData[name] === option.value &&
 								'border-slate-900 text-slate-900 hover:border-slate-900'
 						]}
+						data-testid={testId ? `${testId}-${option.value}` : undefined}
 					>
 						<TypeIcon type={option.type} size={64} color="currentColor" />
 						<span class="mx-auto">{option.label}</span>

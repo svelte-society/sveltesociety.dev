@@ -43,6 +43,7 @@
 </script>
 
 <article
+	data-testid="content-card"
 	style="view-transition-name: post-card-{content.id};"
 	class="grid gap-2 rounded-lg bg-zinc-50 {compact
 		? 'px-3 py-3 sm:px-4 sm:py-3'
@@ -50,13 +51,14 @@
 >
 	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between gap-2 text-xs sm:gap-0">
 		<div class="flex flex-wrap items-center">
-			<span class="font-semibold capitalize">{content.type}&nbsp;</span>
+			<span data-testid="content-type" class="font-semibold capitalize">{content.type}&nbsp;</span>
 			{#if content.author_username}
 				<span class="flex flex-wrap text-gray-500">
 					<span
 						>{content.type === 'video' || content.type === 'library' ? 'submitted' : 'posted'} by&nbsp;</span
 					>
 					<a
+						data-testid="author-link"
 						href="/user/{content.author_username}"
 						class="focus:outline-svelte-300 rounded-sm hover:underline focus:outline-2 focus:outline-offset-2"
 						tabindex="0"
@@ -146,6 +148,7 @@
 
 	<h2
 		id="title"
+		data-testid="content-title"
 		class={compact ? 'mb-1 text-base font-bold sm:text-lg' : 'mb-2 text-lg font-bold sm:text-xl'}
 	>
 		<a
@@ -154,11 +157,12 @@
 			tabindex="0">{content.title}</a
 		>
 		{#if isAdmin}
-			<a class="text-svelte-900 ml-4 text-sm" href="/admin/content/{content.id}">Edit</a>
+			<a data-testid="edit-link" class="text-svelte-900 ml-4 text-sm" href="/admin/content/{content.id}">Edit</a>
 		{/if}
 	</h2>
 	{#if content.description}
 		<div
+			data-testid="content-description"
 			class={fullDescription
 				? 'text-sm sm:text-base'
 				: compact
@@ -191,10 +195,10 @@
 	<div
 		class="mt-4 grid grid-cols-1 items-start justify-between gap-2 sm:grid-cols-[1fr_auto] sm:gap-0"
 	>
-		<div class="flex flex-wrap gap-2">
+		<div data-testid="content-tags" class="flex flex-wrap gap-2">
 			<Tags tags={content.tags} />
 		</div>
 
-		<div class="text-xs text-gray-500">{formatRelativeDate(content.published_at)}</div>
+		<div data-testid="published-date" class="text-xs text-gray-500">{formatRelativeDate(content.published_at)}</div>
 	</div>
 </article>

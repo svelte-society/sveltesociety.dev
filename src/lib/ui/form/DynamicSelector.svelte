@@ -17,9 +17,10 @@
 		label: string
 		description: string
 		Icon?: Component
+		'data-testid'?: string
 	}
 
-	let { name, options, label, description, Icon }: Props = $props()
+	let { name, options, label, description, Icon, 'data-testid': testId }: Props = $props()
 
 	const form: SuperForm<Record<string, any>, any> = getContext('form')
 
@@ -57,6 +58,7 @@
 		{options}
 		placeholder="Select {name}"
 		{Icon}
+		data-testid={testId}
 	/>
 
 	<ul class="space-y-2 rounded-md bg-slate-100 p-4">
