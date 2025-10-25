@@ -39,7 +39,7 @@ jobs:
           DB_PATH: test.db
 
       - name: Run Playwright tests
-        run: bun run build && bunx playwright test
+        run: bun --bun run build && bunx playwright test
         env:
           NODE_ENV: test
           DB_PATH: test.db
