@@ -62,7 +62,4 @@ test.describe('Login Flow', () => {
 		await adminPage.expectUserMenuVisible()
 	})
 
-	// Note: Logout tests removed because they delete sessions from the shared test database,
-	// causing other tests to fail. Logout functionality is tested manually.
-	// See: docs/PRD_PLAYWRIGHT_E2E_TESTING.md Phase 4a notes
 })

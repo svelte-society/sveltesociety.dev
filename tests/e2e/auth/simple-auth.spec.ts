@@ -16,7 +16,6 @@ test.describe('Simple Auth Check', () => {
 	test('admin route redirects unauthenticated user', async ({ page }) => {
 		const adminPage = new AdminDashboardPage(page)
 		await adminPage.gotoDashboard()
-		// Should be redirected away from /admin
 		await expect(page).not.toHaveURL(/\/admin/)
 	})
 })

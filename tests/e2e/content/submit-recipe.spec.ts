@@ -3,7 +3,6 @@ import { SubmitPage } from '../../pages'
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Submit Recipe', () => {
-	// All submission tests require authentication
 	test.use({ authenticatedAs: 'viewer' })
 
 	test.beforeEach(async ({ page }) => {
@@ -30,13 +29,11 @@ test.describe('Submit Recipe', () => {
 		await submitPage.goto()
 
 		await submitPage.selectContentType('recipe')
-		// Don't fill title - it's required
 		await submitPage.descriptionField.fill('This is a test description')
 		await submitPage.bodyField.fill('This is test body content')
 
 		await submitPage.submit()
 
-		// Should show validation error
 		await submitPage.expectValidationError('Title must be at least 5 characters long')
 	})
 
@@ -46,13 +43,11 @@ test.describe('Submit Recipe', () => {
 
 		await submitPage.selectContentType('recipe')
 		await submitPage.titleField.fill('Test Recipe Title')
-		// Description is required and must be at least 10 characters
 		await submitPage.descriptionField.fill('Short')
 		await submitPage.bodyField.fill('This is test body content')
 
 		await submitPage.submit()
 
-		// Should show validation error
 		await submitPage.expectValidationError('Description must be at least 10 characters long')
 	})
 
@@ -63,10 +58,8 @@ test.describe('Submit Recipe', () => {
 		await submitPage.selectContentType('recipe')
 		await submitPage.titleField.fill('Test Recipe Title')
 		await submitPage.descriptionField.fill('This is a test description that is long enough')
-		// Don't fill body - it's required
 		await submitPage.submit()
 
-		// Should show validation error
 		await submitPage.expectValidationError('Recipe content must be at least 10 characters long')
 	})
 })
