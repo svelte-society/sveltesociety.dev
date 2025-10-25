@@ -15,8 +15,9 @@
 		props?: any
 		disabled?: boolean
 		onchange?: (value: string) => void
+		testId?: string
 	}
-	let { options, value = $bindable(), name, props, disabled = false, onchange }: Props = $props()
+	let { options, value = $bindable(), name, props, disabled = false, onchange, testId }: Props = $props()
 
 	const placeholder = $derived(props?.placeholder || 'Select...')
 	const selectedLabel = $derived(options.find((option) => option.value === value)?.label)
@@ -29,6 +30,7 @@
 		{disabled}
 		tabindex={disabled ? -1 : 0}
 		aria-label={selectedLabel || 'Select an option'}
+		data-testid={testId}
 	>
 		{selectedLabel || placeholder}
 		<CaretUpDown class="ml-auto size-4 text-gray-500" />

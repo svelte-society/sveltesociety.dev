@@ -7,11 +7,12 @@
 		row: (item: T, classes: string) => ReturnType<Snippet>
 		actionCell?: (item: T) => ReturnType<Snippet>
 		data: Array<T>
+		testId?: string
 	}
-	let { action = false, header, row, actionCell, data }: Props<any> = $props()
+	let { action = false, header, row, actionCell, data, testId }: Props<any> = $props()
 </script>
 
-<div class="overflow-hidden rounded-lg bg-white shadow-sm">
+<div class="overflow-hidden rounded-lg bg-white shadow-sm" data-testid={testId}>
 	<div class="w-full overflow-x-auto">
 		<table class="w-full text-left text-xs text-gray-500">
 			<thead class="bg-gray-50 text-xs text-gray-700 uppercase">
@@ -46,7 +47,7 @@
 			</thead>
 			<tbody class="divide-y divide-gray-200">
 				{#each data as item}
-					<tr class="hover:bg-gray-50">
+					<tr class="hover:bg-gray-50" data-testid="{testId ? `${testId}-row` : 'table-row'}">
 						{@render row(item, 'px-3 py-2')}
 						{#if action && actionCell}
 							<td class="p-2">

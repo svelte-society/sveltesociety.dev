@@ -17,6 +17,8 @@
 	const form: SuperForm<Record<string, unknown>, any> = getContext('form')
 
 	const { form: formData } = form
+
+	const computedTestId = $derived(testId || `input-${name}`)
 </script>
 
 <Field {form} {name}>
@@ -32,7 +34,7 @@
 					{...props}
 					bind:value={$formData[name]}
 					{placeholder}
-					data-testid={testId}
+					data-testid={computedTestId}
 				/>
 			{/snippet}
 		</Control>
