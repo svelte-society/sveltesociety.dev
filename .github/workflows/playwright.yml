@@ -79,11 +79,13 @@ jobs:
           TOTAL: ${{ steps.test-results.outputs.total }}
           PASSED: ${{ steps.test-results.outputs.passed }}
           FAILED: ${{ steps.test-results.outputs.failed }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         with:
           script: |
             const total = process.env.TOTAL || '0';
             const passed = process.env.PASSED || '0';
             const failed = process.env.FAILED || '0';
+            const runUrl = process.env.RUN_URL;
 
             const passed_int = parseInt(passed);
             const failed_int = parseInt(failed);
@@ -92,15 +94,12 @@ jobs:
             const icon = success ? '✅' : '❌';
             const status = success ? 'All Tests Passed' : 'Tests Failed';
 
-            const body = `## ${icon} Playwright Test Results
-
-**Status:** ${status}
-
-- ✅ Passed: ${passed}
-- ❌ Failed: ${failed}
-- 📊 Total: ${total}
-
-[View detailed HTML report](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})`;
+            const body = `## ${icon} Playwright Test Results\n\n` +
+              `**Status:** ${status}\n\n` +
+              `- ✅ Passed: ${passed}\n` +
+              `- ❌ Failed: ${failed}\n` +
+              `- 📊 Total: ${total}\n\n` +
+              `[View detailed HTML report](${runUrl})`;
 
             github.rest.issues.createComment({
               issue_number: context.issue.number,
