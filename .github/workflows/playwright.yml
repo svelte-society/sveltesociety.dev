@@ -57,7 +57,7 @@ jobs:
         if: github.event_name == 'pull_request' && always()
         uses: daun/playwright-report-comment@v3
         with:
-          report-path: playwright-report/
+          report-file: playwright-report/index.html
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Playwright Report
