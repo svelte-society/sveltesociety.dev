@@ -5,8 +5,9 @@
 		placeholder?: string
 		name: string
 		rows?: number
+		'data-testid'?: string
 	}
-	let { name, label, description, placeholder, rows = 4 }: TextInputProps = $props()
+	let { name, label, description, placeholder, rows = 4, 'data-testid': testId }: TextInputProps = $props()
 
 	import type { SuperForm } from 'sveltekit-superforms'
 
@@ -16,6 +17,8 @@
 	const form: SuperForm<Record<string, unknown>, any> = getContext('form')
 
 	const { form: formData } = form
+
+	const computedTestId = $derived(testId || `textarea-${name}`)
 </script>
 
 <Field {form} {name}>
@@ -31,6 +34,7 @@
 					{...props}
 					bind:value={$formData[name]}
 					{placeholder}
+					data-testid={computedTestId}
 				></textarea>
 			{/snippet}
 		</Control>

@@ -36,6 +36,7 @@
 			</svg>
 		</div>
 		<input
+			data-testid="search-input"
 			bind:value
 			class="focus:outline-svelte-300 h-8 w-full overflow-hidden rounded-md border-none bg-slate-100 pr-2 pl-8 text-sm text-nowrap overflow-ellipsis text-slate-800 placeholder-slate-500 focus:outline-2"
 			type="query"

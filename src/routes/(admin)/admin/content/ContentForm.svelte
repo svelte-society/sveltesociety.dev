@@ -21,6 +21,7 @@
 		label="Title"
 		placeholder="Title of your content"
 		description="Enter a descriptive title"
+		data-testid="input-title"
 	/>
 
 	<Input
@@ -28,6 +29,7 @@
 		label="URL Slug"
 		placeholder="url-friendly-name"
 		description="The slug used in the URL (auto-generated from title)"
+		data-testid="input-slug"
 	/>
 
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -54,6 +56,7 @@
 				{ value: 'published', label: 'Published', type: 'published', color: 'green' },
 				{ value: 'archived', label: 'Archived', type: 'archive', color: 'gray' }
 			]}
+			data-testid="category-selector-status"
 		/>
 	</div>
 
@@ -249,6 +252,7 @@
 		label="Description"
 		placeholder="Brief description of this content"
 		description="A short summary that appears in listings and search results"
+		data-testid="textarea-description"
 	/>
 
 	{#if $formData.type === 'collection'}

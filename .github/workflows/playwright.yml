@@ -1,0 +1,160 @@
+name: Playwright E2E Tests
+
+# Runs on all pushes and PRs to staging branch
+# Includes browser caching for faster subsequent runs
+on:
+  push:
+    branches: [staging]
+  pull_request:
+    branches: [staging]
+
+jobs:
+  test:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Get installed Playwright version
+        id: playwright-version
+        run: |
+          PLAYWRIGHT_VERSION=$(node -p "require('./package.json').devDependencies['@playwright/test']")
+          echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.PLAYWRIGHT_VERSION }}
+
+      - name: Install Playwright Browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: bunx playwright install --with-deps chromium
+
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: bunx playwright install-deps chromium
+
+      - name: Initialize test database
+        run: bun run db:test:init
+        env:
+          NODE_ENV: test
+          DB_PATH: test.db
+
+      - name: Seed test database
+        run: bun run db:test:seed
+        env:
+          NODE_ENV: test
+          DB_PATH: test.db
+
+      - name: Build application
+        run: bun --bun run build
+        env:
+          NODE_ENV: test
+          DB_PATH: test.db
+          GITHUB_CLIENT_ID: test_client
+          GITHUB_CLIENT_SECRET: test_secret
+          GITHUB_AUTHORIZATION_CALLBACK_URL: http://localhost:4173/auth/callback
+          SEED_DATABASE: none
+          ANTHROPIC_API_KEY: mock_anthropic_key
+          YOUTUBE_API_KEY: mock_youtube_key
+          GITHUB_TOKEN: mock_github_token
+
+      - name: Run Playwright tests
+        id: playwright
+        run: bunx playwright test 2>&1 | tee test-output.log
+        continue-on-error: true
+        env:
+          NODE_ENV: test
+          DB_PATH: test.db
+          GITHUB_CLIENT_ID: test_client
+          GITHUB_CLIENT_SECRET: test_secret
+          GITHUB_AUTHORIZATION_CALLBACK_URL: http://localhost:4173/auth/callback
+          SEED_DATABASE: none
+          ANTHROPIC_API_KEY: mock_anthropic_key
+          YOUTUBE_API_KEY: mock_youtube_key
+          GITHUB_TOKEN: mock_github_token
+
+      - name: Parse test results
+        if: always()
+        id: test-results
+        run: |
+          if [ -f test-output.log ]; then
+            # Parse the summary line from Playwright output (e.g., "65 passed (12.4s)")
+            PASSED=$(grep -oP '\d+(?= passed)' test-output.log | tail -1 || echo "0")
+            FAILED=$(grep -oP '\d+(?= failed)' test-output.log | tail -1 || echo "0")
+            TOTAL=$((PASSED + FAILED))
+          else
+            PASSED="0"
+            FAILED="0"
+            TOTAL="0"
+          fi
+
+          echo "total=$TOTAL" >> $GITHUB_OUTPUT
+          echo "passed=$PASSED" >> $GITHUB_OUTPUT
+          echo "failed=$FAILED" >> $GITHUB_OUTPUT
+
+          echo "Test Results: Passed=$PASSED, Failed=$FAILED, Total=$TOTAL"
+
+      - name: Comment PR with test results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        env:
+          TOTAL: ${{ steps.test-results.outputs.total }}
+          PASSED: ${{ steps.test-results.outputs.passed }}
+          FAILED: ${{ steps.test-results.outputs.failed }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        with:
+          script: |
+            const total = process.env.TOTAL || '0';
+            const passed = process.env.PASSED || '0';
+            const failed = process.env.FAILED || '0';
+            const runUrl = process.env.RUN_URL;
+
+            const passed_int = parseInt(passed);
+            const failed_int = parseInt(failed);
+            const success = failed_int === 0 && passed_int > 0;
+
+            const icon = success ? '✅' : '❌';
+            const status = success ? 'All Tests Passed' : 'Tests Failed';
+
+            const body = `## ${icon} Playwright Test Results\n\n` +
+              `**Status:** ${status}\n\n` +
+              `- ✅ Passed: ${passed}\n` +
+              `- ❌ Failed: ${failed}\n` +
+              `- 📊 Total: ${total}\n\n` +
+              `[View detailed HTML report](${runUrl})`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-results
+          path: test-results/
+          retention-days: 30

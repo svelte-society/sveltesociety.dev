@@ -14,6 +14,7 @@
 			label: string
 			value: string
 		}[]
+		testId?: string
 	}
 	let {
 		name,
@@ -21,8 +22,11 @@
 		description,
 		placeholder,
 		options,
-		disabled = false
+		disabled = false,
+		testId
 	}: TextInputProps = $props()
+
+	const computedTestId = $derived(testId || `select-${name}`)
 
 	const form: SuperForm<Record<string, string>, any> = getContext('form')
 
@@ -46,6 +50,7 @@
 					bind:value={$formData[name]}
 					props={{ ...props, placeholder }}
 					{disabled}
+					testId={computedTestId}
 				/>
 			{/snippet}
 		</Control>
