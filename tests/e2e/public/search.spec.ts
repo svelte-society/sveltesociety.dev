@@ -77,10 +77,15 @@ test.describe('Search Functionality', () => {
 		await homePage.search('Counter')
 
 		const contentList = new ContentListPage(page)
+		await contentList.expectContentDisplayed()
 		const searchResultCount = await contentList.getContentCount()
 
 		await page.getByTestId('search-input').clear()
 		await page.getByTestId('search-input').press('Enter')
+
+		// Wait for page to reload/update with all results
+		await page.waitForLoadState('networkidle')
+		await contentList.expectContentDisplayed()
 
 		const allResultsCount = await contentList.getContentCount()
 		expect(allResultsCount).toBeGreaterThanOrEqual(searchResultCount)
