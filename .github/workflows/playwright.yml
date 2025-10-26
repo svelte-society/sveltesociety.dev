@@ -1,5 +1,7 @@
 name: Playwright E2E Tests
 
+# Runs on all pushes and PRs to staging branch
+# Includes browser caching for faster subsequent runs
 on:
   push:
     branches: [staging]
