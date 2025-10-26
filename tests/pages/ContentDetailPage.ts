@@ -1,6 +1,23 @@
 import { type Locator, type Page } from '@playwright/test'
 import { BasePage } from './BasePage'
 
+/**
+ * ContentDetailPage - Page Object Model for individual content detail pages
+ *
+ * Represents detail pages for all content types (recipes, videos, libraries, etc.)
+ * Accessible at routes like /recipe/1, /video/2, /library/3, etc.
+ *
+ * Provides methods for:
+ * - Viewing content details (title, description, metadata)
+ * - Interacting with content (save, like)
+ * - Navigating to author profiles
+ * - Clicking on tags
+ *
+ * @example
+ * const detailPage = new ContentDetailPage(page)
+ * await detailPage.goto('recipe', '1')
+ * const title = await detailPage.getTitle()
+ */
 export class ContentDetailPage extends BasePage {
 	readonly article: Locator
 	readonly titleHeading: Locator

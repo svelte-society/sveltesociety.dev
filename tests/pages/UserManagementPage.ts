@@ -1,6 +1,23 @@
 import { type Page, type Locator, expect } from '@playwright/test'
 import { BasePage } from './BasePage'
 
+/**
+ * UserManagementPage - Page Object Model for admin user management
+ *
+ * Represents pages for viewing and managing users in the admin panel
+ * Accessible at /admin/users (list) and /admin/users/:id (edit)
+ *
+ * Provides methods for:
+ * - Viewing the users list
+ * - Navigating to user edit pages
+ * - Editing user profiles
+ * - Changing user roles
+ *
+ * @example
+ * const userMgmt = new UserManagementPage(page)
+ * await userMgmt.gotoUsersList()
+ * const count = await userMgmt.getUserCount()
+ */
 export class UserManagementPage extends BasePage {
 	readonly usersTable: Locator
 	readonly userRow: Locator
