@@ -40,7 +40,7 @@ jobs:
 
       - name: Run Playwright tests
         id: playwright
-        run: bun --bun run build && bunx playwright test
+        run: bun --bun run build && bunx playwright test 2>&1 | tee test-output.log
         continue-on-error: true
         env:
           NODE_ENV: test
@@ -57,20 +57,22 @@ jobs:
         if: always()
         id: test-results
         run: |
-          if [ -f playwright-report/index.html ]; then
-            # Extract test counts from the HTML report
-            TOTAL=$(grep -oP '(?<=<span class="counter">)\d+(?=</span>)' playwright-report/index.html | head -1 || echo "0")
-            PASSED=$(grep -oP '\d+(?= passed)' playwright-report/index.html | head -1 || echo "0")
-            FAILED=$(grep -oP '\d+(?= failed)' playwright-report/index.html | head -1 || echo "0")
-
-            echo "total=$TOTAL" >> $GITHUB_OUTPUT
-            echo "passed=$PASSED" >> $GITHUB_OUTPUT
-            echo "failed=$FAILED" >> $GITHUB_OUTPUT
+          if [ -f test-output.log ]; then
+            # Parse the summary line from Playwright output (e.g., "65 passed (12.4s)")
+            PASSED=$(grep -oP '\d+(?= passed)' test-output.log | tail -1 || echo "0")
+            FAILED=$(grep -oP '\d+(?= failed)' test-output.log | tail -1 || echo "0")
+            TOTAL=$((PASSED + FAILED))
           else
-            echo "total=0" >> $GITHUB_OUTPUT
-            echo "passed=0" >> $GITHUB_OUTPUT
-            echo "failed=0" >> $GITHUB_OUTPUT
+            PASSED="0"
+            FAILED="0"
+            TOTAL="0"
           fi
+
+          echo "total=$TOTAL" >> $GITHUB_OUTPUT
+          echo "passed=$PASSED" >> $GITHUB_OUTPUT
+          echo "failed=$FAILED" >> $GITHUB_OUTPUT
+
+          echo "Test Results: Passed=$PASSED, Failed=$FAILED, Total=$TOTAL"
 
       - name: Comment PR with test results
         if: github.event_name == 'pull_request' && always()
