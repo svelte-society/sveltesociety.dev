@@ -1,17 +1,15 @@
 import { describe, test, expect, beforeAll, beforeEach } from 'bun:test'
 import { Database } from 'bun:sqlite'
 import { SessionService } from './session'
-import fs from 'node:fs'
+import { createTestDatabase } from '../db/test-helpers'
 
 describe('SessionService', () => {
 	let db: Database
 	let sessionService: SessionService
 
 	beforeAll(() => {
-		// Read and execute schema
-		const schema = fs.readFileSync('src/lib/server/db/schema/schema.sql', 'utf-8')
-		db = new Database(':memory:', { strict: true })
-		db.exec(schema)
+		// Create in-memory database with all migrations applied
+		db = createTestDatabase()
 	})
 
 	beforeEach(() => {
