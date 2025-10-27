@@ -1,0 +1,116 @@
+name: Unit Tests
+
+# Runs on all pushes and PRs to staging branch
+on:
+  push:
+    branches: [staging]
+  pull_request:
+    branches: [staging]
+
+jobs:
+  test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Run unit tests with coverage
+        id: unit-tests
+        run: bun test src/lib/server/services/*.test.ts --coverage 2>&1 | tee test-output.log
+        continue-on-error: true
+
+      - name: Parse test results
+        if: always()
+        id: test-results
+        run: |
+          if [ -f test-output.log ]; then
+            # Parse the summary line from bun test output (e.g., "161 pass")
+            PASSED=$(grep -oP '\d+(?= pass)' test-output.log | tail -1 || echo "0")
+            FAILED=$(grep -oP '\d+(?= fail)' test-output.log | tail -1 || echo "0")
+            TOTAL=$((PASSED + FAILED))
+
+            # Parse coverage percentages
+            FUNC_COV=$(grep -oP 'All files\s+\|\s+\K[\d.]+' test-output.log | head -1 || echo "0")
+            LINE_COV=$(grep -oP 'All files\s+\|\s+[\d.]+\s+\|\s+\K[\d.]+' test-output.log | head -1 || echo "0")
+          else
+            PASSED="0"
+            FAILED="0"
+            TOTAL="0"
+            FUNC_COV="0"
+            LINE_COV="0"
+          fi
+
+          echo "total=$TOTAL" >> $GITHUB_OUTPUT
+          echo "passed=$PASSED" >> $GITHUB_OUTPUT
+          echo "failed=$FAILED" >> $GITHUB_OUTPUT
+          echo "func_cov=$FUNC_COV" >> $GITHUB_OUTPUT
+          echo "line_cov=$LINE_COV" >> $GITHUB_OUTPUT
+
+          echo "Test Results: Passed=$PASSED, Failed=$FAILED, Total=$TOTAL"
+          echo "Coverage: Functions=$FUNC_COV%, Lines=$LINE_COV%"
+
+      - name: Comment PR with test results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        env:
+          TOTAL: ${{ steps.test-results.outputs.total }}
+          PASSED: ${{ steps.test-results.outputs.passed }}
+          FAILED: ${{ steps.test-results.outputs.failed }}
+          FUNC_COV: ${{ steps.test-results.outputs.func_cov }}
+          LINE_COV: ${{ steps.test-results.outputs.line_cov }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        with:
+          script: |
+            const total = process.env.TOTAL || '0';
+            const passed = process.env.PASSED || '0';
+            const failed = process.env.FAILED || '0';
+            const funcCov = process.env.FUNC_COV || '0';
+            const lineCov = process.env.LINE_COV || '0';
+            const runUrl = process.env.RUN_URL;
+
+            const passed_int = parseInt(passed);
+            const failed_int = parseInt(failed);
+            const success = failed_int === 0 && passed_int > 0;
+
+            const icon = success ? '✅' : '❌';
+            const status = success ? 'All Tests Passed' : 'Tests Failed';
+
+            const body = `## ${icon} Unit Test Results\n\n` +
+              `**Status:** ${status}\n\n` +
+              `### Test Summary\n` +
+              `- ✅ Passed: ${passed}\n` +
+              `- ❌ Failed: ${failed}\n` +
+              `- 📊 Total: ${total}\n\n` +
+              `### Coverage\n` +
+              `- 🔧 Functions: ${funcCov}%\n` +
+              `- 📝 Lines: ${lineCov}%\n\n` +
+              `[View detailed results](${runUrl})`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+
+      - name: Fail job if tests failed
+        if: steps.test-results.outputs.failed != '0'
+        run: exit 1
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 30

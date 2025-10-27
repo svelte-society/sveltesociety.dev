@@ -8,7 +8,6 @@ import type { SessionService } from '$lib/server/services/session'
 import type { TagService } from '$lib/server/services/tags'
 import type { ModerationService } from '$lib/server/services/moderation'
 import type { UserService } from '$lib/server/services/user'
-import type { CollectionService } from '$lib/server/services/collections'
 import type { MetadataService } from '$lib/server/services/metadata'
 import type { EventsService } from '$lib/server/services/events'
 import type { CacheService } from '$lib/server/services/cache'
@@ -30,7 +29,6 @@ declare global {
 			tagService: TagService
 			moderationService: ModerationService
 			userService: UserService
-			collectionService: CollectionService
 			metadataService: MetadataService
 			eventsService: EventsService
 			cacheService: CacheService

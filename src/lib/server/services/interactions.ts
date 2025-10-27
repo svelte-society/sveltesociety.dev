@@ -35,28 +35,6 @@ export class InteractionsService {
 		return { userLikes, userSaves }
 	}
 
-	getUserLikesAndSavesCount(userId: string | undefined): {
-		userLikes: number
-		userSaves: number
-	} {
-		if (!userId) {
-			return { userLikes: 0, userSaves: 0 }
-		}
-
-		let userLikes = 0
-		let userSaves = 0
-
-		const likeStmt = this.db.prepare('SELECT COUNT(1) AS count FROM likes WHERE user_id = $id')
-		const saveStmt = this.db.prepare('SELECT COUNT(1) AS count FROM saves WHERE user_id = $id')
-
-		this.db.transaction(() => {
-			userLikes = (likeStmt.get({ id: userId }) as { count: number }).count
-			userSaves = (saveStmt.get({ id: userId }) as { count: number }).count
-		})()
-
-		return { userLikes, userSaves }
-	}
-
 	getUserContentStats(authorId: string): {
 		totalLikes: number
 		totalSaves: number

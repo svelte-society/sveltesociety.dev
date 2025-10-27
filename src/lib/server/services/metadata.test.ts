@@ -1,133 +1,208 @@
-import { describe, expect, it, mock, beforeEach } from 'bun:test'
+import { describe, expect, test, beforeEach, afterEach } from 'bun:test'
 import { Database } from 'bun:sqlite'
 import { MetadataService } from './metadata'
+import { createTestDatabase } from '../db/test-helpers'
 
 describe('MetadataService', () => {
 	let db: Database
 	let service: MetadataService
 
 	beforeEach(() => {
-		db = new Database(':memory:')
-		db.exec(`
-      CREATE TABLE content (
-        id TEXT PRIMARY KEY,
-        type TEXT NOT NULL,
-        metadata TEXT
-      )
-    `)
+		db = createTestDatabase()
 		service = new MetadataService(db)
 	})
 
-	describe('fetchNpmMetadata', () => {
-		it('should fetch metadata for an npm package', async () => {
-			const result = await service.fetchNpmMetadata('svelte')
-			expect(result).toBeDefined()
-			expect(result.name).toBe('svelte')
-		})
+	afterEach(() => {
+		db.close()
 	})
 
 	describe('fetchGithubMetadata', () => {
-		it('should fetch metadata for a GitHub repository', async () => {
-			const result = await service.fetchGithubMetadata('sveltejs/svelte')
+		test('should fetch metadata for a GitHub repository', async () => {
+			const result = await service.fetchGithubMetadata('https://github.com/sveltejs/svelte')
 			expect(result).toBeDefined()
+			expect(result.updated_at).toBeDefined()
+			// GitHub API may or may not return data depending on rate limits
+			if (result.github) {
+				expect(result.github.owner).toBe('sveltejs')
+				expect(result.github.repo).toBe('svelte')
+			}
 		})
-	})
 
-	describe('fetchLibraryMetadata', () => {
-		it('should fetch metadata from both npm and github', async () => {
-			const result = await service.fetchLibraryMetadata('svelte', 'sveltejs/svelte')
+		test('should handle invalid GitHub URL', async () => {
+			const result = await service.fetchGithubMetadata('invalid-url')
 			expect(result).toBeDefined()
-			expect(result.npm).toBeDefined()
+			expect(result.updated_at).toBeDefined()
+		})
+
+		test('should handle empty URL', async () => {
+			const result = await service.fetchGithubMetadata('')
+			expect(result).toBeDefined()
 			expect(result.github).toBeDefined()
-			expect(result.type).toBe('library')
-		})
-
-		it('should handle npm metadata only', async () => {
-			const result = await service.fetchLibraryMetadata('svelte')
-			expect(result).toBeDefined()
-			expect(result.npm).toBeDefined()
-			expect(result.github).toBeUndefined()
-		})
-
-		it('should handle github metadata only', async () => {
-			const result = await service.fetchLibraryMetadata(undefined, 'sveltejs/svelte')
-			expect(result).toBeDefined()
-			expect(result.npm).toBeUndefined()
-			expect(result.github).toBeDefined()
+			expect(result.github.stars).toBe(0)
 		})
 	})
 
 	describe('fetchYoutubeMetadata', () => {
-		it('should fetch metadata for a YouTube video', async () => {
-			const result = await service.fetchYoutubeMetadata('abcdef12345')
+		test('should return empty metadata when no API key', async () => {
+			const result = await service.fetchYoutubeMetadata('dQw4w9WgXcQ')
 			expect(result).toBeDefined()
+			expect(result.title).toBeDefined()
+			expect(result.description).toBeDefined()
+			expect(result.duration).toBeDefined()
+			expect(result.thumbnail).toBeDefined()
+			expect(result.publishedAt).toBeDefined()
 		})
 	})
 
-	describe('updateContentMetadata', () => {
-		it('should update library content with npm and github metadata', async () => {
-			// Insert test content
-			const stmt = db.prepare(`
-        INSERT INTO content (id, type, metadata) VALUES (?, ?, ?)
-      `)
-			stmt.run('test-id', 'library', JSON.stringify({ npm: 'svelte', github: 'sveltejs/svelte' }))
+	describe('getMetadata', () => {
+		test('should return empty object for content with no metadata', () => {
+			const content = {
+				id: 'test-id',
+				type: 'library',
+				title: 'Test',
+				slug: 'test',
+				status: 'published' as const,
+				metadata: null
+			}
 
-			// Mock the methods with appropriate return types
-			const originalMethod = service.updateContentWithLibraryMetadata
-			service.updateContentWithLibraryMetadata = mock(() => {
-				return Promise.resolve({
-					type: 'library',
-					npm: {
-						name: 'svelte',
-						version: '1.0.0',
-						description: 'Test description',
-						downloads: 0,
-						stars: 0,
-						lastUpdated: ''
-					},
-					github: {
-						owner: 'sveltejs',
-						repo: 'svelte',
-						stars: 0,
-						forks: 0,
-						issues: 0,
-						lastUpdated: ''
-					}
-				})
-			})
-
-			const result = await service.updateContentMetadata('test-id')
-			expect(result.success).toBe(true)
-
-			// Restore original method
-			service.updateContentWithLibraryMetadata = originalMethod
+			const result = service.getMetadata(content)
+			expect(result).toEqual({})
 		})
 
-		it('should update video content with youtube metadata', async () => {
-			// Insert test content
-			const stmt = db.prepare(`
-        INSERT INTO content (id, type, metadata) VALUES (?, ?, ?)
-      `)
-			stmt.run('test-id', 'video', JSON.stringify({ videoId: 'abcdef12345' }))
+		test('should return parsed metadata from string', () => {
+			const content = {
+				id: 'test-id',
+				type: 'library',
+				title: 'Test',
+				slug: 'test',
+				status: 'published' as const,
+				metadata: JSON.stringify({ github: { stars: 100 } })
+			}
 
-			// Mock the methods with appropriate return types
-			const originalMethod = service.updateContentWithYoutubeMetadata
-			service.updateContentWithYoutubeMetadata = mock(() => {
-				return Promise.resolve({
-					title: 'Test video',
-					description: 'Test description',
-					channelName: 'Test channel',
-					publishedAt: '',
-					views: 0,
-					likes: 0
+			const result = service.getMetadata(content)
+			expect(result.github.stars).toBe(100)
+		})
+
+		test('should return metadata object directly', () => {
+			const content = {
+				id: 'test-id',
+				type: 'library',
+				title: 'Test',
+				slug: 'test',
+				status: 'published' as const,
+				metadata: { github: { stars: 200 } }
+			}
+
+			const result = service.getMetadata(content)
+			expect(result.github.stars).toBe(200)
+		})
+
+		test('should identify stale metadata', () => {
+			// Metadata from 2 days ago (stale)
+			const twoDaysAgo = new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString()
+
+			const content = {
+				id: 'test-id',
+				type: 'library',
+				title: 'Test',
+				slug: 'test',
+				status: 'published' as const,
+				metadata: {
+					updated_at: twoDaysAgo,
+					github: { stars: 100 }
+				}
+			}
+
+			// Should return current metadata immediately (stale-while-revalidate)
+			const result = service.getMetadata(content)
+			expect(result.github.stars).toBe(100)
+		})
+
+		test('should return fresh metadata immediately', () => {
+			// Metadata from 1 hour ago (fresh)
+			const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
+
+			const content = {
+				id: 'test-id',
+				type: 'library',
+				title: 'Test',
+				slug: 'test',
+				status: 'published' as const,
+				metadata: {
+					updated_at: oneHourAgo,
+					github: { stars: 100 }
+				}
+			}
+
+			const result = service.getMetadata(content)
+			expect(result.github.stars).toBe(100)
+			expect(result.updated_at).toBe(oneHourAgo)
+		})
+	})
+
+	describe('refreshMetadataForContent', () => {
+		test('should refresh library metadata with GitHub data', async () => {
+			// First insert content
+			db.prepare(`
+				INSERT INTO content (id, type, title, slug, status, description, metadata)
+				VALUES (?, ?, ?, ?, ?, ?, ?)
+			`).run(
+				'test-id',
+				'library',
+				'Test Library',
+				'test-library',
+				'published',
+				'Test description',
+				JSON.stringify({
+					github: { repoUrl: 'https://github.com/sveltejs/svelte' }
 				})
-			})
+			)
 
-			const result = await service.updateContentMetadata('test-id')
-			expect(result.success).toBe(true)
+			const content = {
+				id: 'test-id',
+				type: 'library',
+				title: 'Test Library',
+				slug: 'test-library',
+				status: 'published' as const,
+				metadata: {
+					github: { repoUrl: 'https://github.com/sveltejs/svelte' }
+				}
+			}
 
-			// Restore original method
-			service.updateContentWithYoutubeMetadata = originalMethod
+			const result = await service.refreshMetadataForContent(content)
+			expect(result).toBeDefined()
+			expect(result.updated_at).toBeDefined()
+			expect(result.type).toBe('library')
+		})
+
+		test('should refresh video metadata with YouTube data', async () => {
+			// First insert content
+			db.prepare(`
+				INSERT INTO content (id, type, title, slug, status, description, metadata)
+				VALUES (?, ?, ?, ?, ?, ?, ?)
+			`).run(
+				'test-id',
+				'video',
+				'Test Video',
+				'test-video',
+				'published',
+				'Test description',
+				JSON.stringify({ videoId: 'dQw4w9WgXcQ' })
+			)
+
+			const content = {
+				id: 'test-id',
+				type: 'video',
+				title: 'Test Video',
+				slug: 'test-video',
+				status: 'published' as const,
+				metadata: { videoId: 'dQw4w9WgXcQ' }
+			}
+
+			const result = await service.refreshMetadataForContent(content)
+			expect(result).toBeDefined()
+			expect(result.updated_at).toBeDefined()
+			expect(result.type).toBe('video')
 		})
 	})
 })

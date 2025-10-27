@@ -21,3 +21,6 @@ vite.config.ts.timestamp-*
 # Test output files
 test-output.log
 *.log
+
+# Coverage reports
+/coverage

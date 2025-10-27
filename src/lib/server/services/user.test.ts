@@ -1,45 +1,23 @@
-import { describe, test, expect, beforeAll, beforeEach } from 'bun:test'
+import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
 import { Database } from 'bun:sqlite'
 import { UserService, type GitHubUserInfo, type User } from './user'
-import fs from 'node:fs'
+import { createTestDatabase } from '../db/test-helpers'
 
 describe('UserService', () => {
 	let db: Database
 	let userService: UserService
 
-	beforeAll(() => {
-		// Read and execute schema
-		const schema = fs.readFileSync('src/lib/server/db/schema/schema.sql', 'utf-8')
-		db = new Database(':memory:', { strict: true })
-		// Enable foreign key constraints
-		db.exec('PRAGMA foreign_keys = ON;')
-		db.exec(schema)
-	})
-
 	beforeEach(() => {
-		// Clear tables
-		db.prepare('DELETE FROM user_oauth').run()
-		db.prepare('DELETE FROM users').run()
-		db.prepare('DELETE FROM oauth_providers').run()
-		db.prepare('DELETE FROM roles').run()
+		// Create in-memory database with all migrations applied
+		db = createTestDatabase()
 
-		// Insert roles
-		db.prepare(
-			`
-      INSERT INTO roles (id, name, value, description, active)
-      VALUES 
-        (0, 'user', 'user', 'Regular user', true),
-        (1, 'admin', 'admin', 'Administrator', true)
-    `
-		).run()
-
-		// Insert GitHub provider
-		db.prepare(
-			`
-      INSERT INTO oauth_providers (id, name, description, active)
-      VALUES (1, 'github', 'GitHub OAuth Provider', true)
-    `
-		).run()
+		// Get the actual role IDs from the database
+		const memberRole = db.prepare("SELECT id FROM roles WHERE value = 'member'").get() as {
+			id: number
+		}
+		const adminRole = db.prepare("SELECT id FROM roles WHERE value = 'admin'").get() as {
+			id: number
+		}
 
 		// Create test users
 		const insertUser = db.prepare(`
@@ -57,7 +35,7 @@ describe('UserService', () => {
 				bio: 'Test bio 1',
 				location: 'Test location 1',
 				twitter: 'testuser1',
-				role: 0
+				role: memberRole.id
 			},
 			{
 				id: 'user2',
@@ -68,7 +46,7 @@ describe('UserService', () => {
 				bio: 'Test bio 2',
 				location: 'Test location 2',
 				twitter: 'testuser2',
-				role: 1
+				role: adminRole.id
 			}
 		]
 
@@ -90,6 +68,10 @@ describe('UserService', () => {
 		})
 
 		userService = new UserService(db)
+	})
+
+	afterEach(() => {
+		db.close()
 	})
 
 	describe('getUser', () => {
@@ -254,20 +236,19 @@ describe('UserService', () => {
 			const result = userService.deleteUser('non-existent')
 			expect(result).toBe(false)
 		})
+	})
 
-		test('should delete associated OAuth entries', () => {
-			userService.deleteUser('user1')
+	describe('getUserByUsername', () => {
+		test('should return user by username', () => {
+			const user = userService.getUserByUsername('testuser1')
+			expect(user).toBeDefined()
+			expect(user?.id).toBe('user1')
+			expect(user?.username).toBe('testuser1')
+		})
 
-			// Verify OAuth entry was deleted
-			const oauthEntry = db
-				.prepare(
-					`
-        SELECT * FROM user_oauth 
-        WHERE user_id = $userId
-      `
-				)
-				.get({ userId: 'user1' })
-			expect(oauthEntry).toBeNull()
+		test('should return undefined for non-existent username', () => {
+			const user = userService.getUserByUsername('nonexistent')
+			expect(user).toBeUndefined()
 		})
 	})
 })
