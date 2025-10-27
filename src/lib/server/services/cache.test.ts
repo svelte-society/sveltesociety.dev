@@ -125,4 +125,26 @@ describe('CacheService', () => {
 		expect(adapter.get('expire-2')).toBeUndefined()
 		expect(adapter.get('keep')).toBeDefined()
 	})
+
+	test('should delete cache entries via adapter', async () => {
+		const key = 'delete-test'
+
+		// Add a cached value
+		await cacheService.cachify({
+			key,
+			getFreshValue: async () => ({ data: 'test' }),
+			ttl: 10000
+		})
+
+		const adapter = cacheService.getCacheAdapter()
+
+		// Verify it exists
+		expect(adapter.get(key)).toBeDefined()
+
+		// Delete it
+		adapter.delete(key)
+
+		// Verify it's gone
+		expect(adapter.get(key)).toBeUndefined()
+	})
 })

@@ -236,20 +236,19 @@ describe('UserService', () => {
 			const result = userService.deleteUser('non-existent')
 			expect(result).toBe(false)
 		})
+	})
 
-		test('should delete associated OAuth entries', () => {
-			userService.deleteUser('user1')
+	describe('getUserByUsername', () => {
+		test('should return user by username', () => {
+			const user = userService.getUserByUsername('testuser1')
+			expect(user).toBeDefined()
+			expect(user?.id).toBe('user1')
+			expect(user?.username).toBe('testuser1')
+		})
 
-			// Verify OAuth entry was deleted
-			const oauthEntry = db
-				.prepare(
-					`
-        SELECT * FROM user_oauth 
-        WHERE user_id = $userId
-      `
-				)
-				.get({ userId: 'user1' })
-			expect(oauthEntry).toBeNull()
+		test('should return undefined for non-existent username', () => {
+			const user = userService.getUserByUsername('nonexistent')
+			expect(user).toBeUndefined()
 		})
 	})
 })

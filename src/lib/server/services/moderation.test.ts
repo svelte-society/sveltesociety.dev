@@ -212,6 +212,22 @@ describe('ModerationService', () => {
 		})
 	})
 
+	describe('deleteModerationQueueItem', () => {
+		test('should delete moderation queue item', () => {
+			const result = moderationService.deleteModerationQueueItem('item1')
+			expect(result).toBe(true)
+
+			// Verify item was deleted
+			const item = moderationService.getModerationQueueItem('item1')
+			expect(item).toBeUndefined()
+		})
+
+		test('should return false for non-existent item', () => {
+			const result = moderationService.deleteModerationQueueItem('non-existent')
+			expect(result).toBe(false)
+		})
+	})
+
 	describe('getModerationQueuePaginated', () => {
 		test('should return paginated results', () => {
 			const items = moderationService.getModerationQueuePaginated({
