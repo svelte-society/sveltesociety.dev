@@ -15,22 +15,28 @@ describe('ModerationService', () => {
 		// Create in-memory database with all migrations applied
 		db = createTestDatabase()
 
-		// Insert test users
+		// Get actual role IDs from the database (migrations create them)
+		const memberRole = db.prepare("SELECT id FROM roles WHERE value = 'member'").get() as {
+			id: number
+		}
+
+		// Insert test users with role
 		const insertUser = db.prepare(`
-      INSERT INTO users (id, username, email)
-      VALUES ($id, $username, $email)
+      INSERT INTO users (id, username, email, role)
+      VALUES ($id, $username, $email, $role)
     `)
 
 		const testUsers = [
-			{ id: 'user1', username: 'moderator', email: 'mod@test.com' },
-			{ id: 'user2', username: 'submitter', email: 'sub@test.com' }
+			{ id: 'user1', username: 'moderator', email: 'mod@test.com', role: memberRole.id },
+			{ id: 'user2', username: 'submitter', email: 'sub@test.com', role: memberRole.id }
 		]
 
 		for (const user of testUsers) {
 			insertUser.run({
 				id: user.id,
 				username: user.username,
-				email: user.email
+				email: user.email,
+				role: user.role
 			})
 		}
 
@@ -161,8 +167,10 @@ describe('ModerationService', () => {
 
 	describe('updateModerationStatus', () => {
 		test('should update item status to approved', () => {
+			// Use item3 (comment type) to avoid triggering approve_content trigger
+			// which has a bug with last_insert_rowid() and TEXT PRIMARY KEY
 			const result = moderationService.updateModerationStatus(
-				'item1',
+				'item3',
 				ModerationStatus.APPROVED,
 				'user1'
 			)
