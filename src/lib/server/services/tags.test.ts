@@ -1,17 +1,15 @@
 import { describe, test, expect, beforeAll, beforeEach } from 'bun:test'
 import { Database } from 'bun:sqlite'
 import { TagService } from './tags'
-import fs from 'node:fs'
+import { createTestDatabase } from '../db/test-helpers'
 
 describe('TagService', () => {
 	let db: Database
 	let tagService: TagService
 
 	beforeAll(() => {
-		// Read and execute schema
-		const schema = fs.readFileSync('src/lib/server/db/schema/schema.sql', 'utf-8')
-		db = new Database(':memory:', { strict: true })
-		db.exec(schema)
+		// Create in-memory database with all migrations applied
+		db = createTestDatabase()
 	})
 
 	beforeEach(() => {
