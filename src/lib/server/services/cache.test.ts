@@ -1,22 +1,15 @@
-import { describe, expect, it, beforeEach, afterEach } from 'vitest'
+import { describe, expect, test, beforeEach, afterEach } from 'bun:test'
 import { Database } from 'bun:sqlite'
 import { CacheService } from './cache'
+import { createTestDatabase } from '../db/test-helpers'
 
 describe('CacheService', () => {
 	let db: Database
 	let cacheService: CacheService
 
 	beforeEach(() => {
-		db = new Database(':memory:')
-		db.exec(`
-			CREATE TABLE IF NOT EXISTS cache (
-				key TEXT PRIMARY KEY,
-				value TEXT NOT NULL,
-				metadata TEXT,
-				created_at INTEGER NOT NULL,
-				ttl INTEGER
-			)
-		`)
+		// Create a fresh database for each test since cache tests need isolation
+		db = createTestDatabase()
 		cacheService = new CacheService(db)
 	})
 
@@ -24,7 +17,7 @@ describe('CacheService', () => {
 		db.close()
 	})
 
-	it('should cache and retrieve values', async () => {
+	test('should cache and retrieve values', async () => {
 		const key = 'test-key'
 		const value = { data: 'test-value' }
 
@@ -52,7 +45,7 @@ describe('CacheService', () => {
 		expect(freshValueCalled).toBe(false)
 	})
 
-	it('should support stale-while-revalidate', async () => {
+	test('should support stale-while-revalidate', async () => {
 		const key = 'swr-test'
 		let callCount = 0
 		const getFreshValue = async () => {
@@ -99,7 +92,7 @@ describe('CacheService', () => {
 		expect(result3).toEqual({ data: 'value-2' })
 	})
 
-	it('should cleanup expired entries', async () => {
+	test('should cleanup expired entries', async () => {
 		// Add some entries with short TTL
 		await cacheService.cachify({
 			key: 'expire-1',
