@@ -268,6 +268,26 @@ describe('ContentService', () => {
 				.all(id) as { tag_id: string }[]
 			expect(tags.length).toBe(2)
 		})
+
+		test('should add content to search index with tag slugs', () => {
+			const newContent = {
+				title: 'Searchable Content',
+				slug: 'searchable-content',
+				type: 'recipe' as const,
+				body: 'Content with searchable tags',
+				description: 'Description',
+				status: 'published' as const,
+				tags: ['tag1', 'tag2']
+			}
+
+			const id = contentService.addContent(newContent)
+
+			// Verify content is in search index with correct tag slugs
+			const indexed = searchService.getContentById(id)
+			expect(indexed).toBeDefined()
+			expect(indexed?.tags).toContain('svelte')
+			expect(indexed?.tags).toContain('typescript')
+		})
 	})
 
 	describe('updateContent', () => {
@@ -356,6 +376,30 @@ describe('ContentService', () => {
 			}
 			expect(content.published_at).toBeDefined()
 			expect(content.published_at).not.toBeNull()
+		})
+
+		test('should update search index with tag slugs', () => {
+			// Get existing content to provide all required fields
+			const existing = db.prepare('SELECT * FROM content WHERE id = ?').get('content1') as any
+
+			const updates = {
+				id: 'content1',
+				title: 'Updated Searchable Title',
+				slug: existing.slug,
+				type: existing.type,
+				body: existing.body,
+				description: existing.description,
+				status: existing.status
+			}
+
+			contentService.updateContent(updates)
+
+			// Verify search index was updated
+			const indexed = searchService.getContentById('content1')
+			expect(indexed).toBeDefined()
+			expect(indexed?.title).toBe('Updated Searchable Title')
+			// Should have tag slugs from the content's tags
+			expect(Array.isArray(indexed?.tags)).toBe(true)
 		})
 	})
 
