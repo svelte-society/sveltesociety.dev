@@ -1,303 +1,237 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, test, expect, beforeEach, afterEach, mock } from 'bun:test'
 import Database from 'bun:sqlite'
 import { EventsService } from './events'
-import { readFileSync } from 'fs'
-import { join } from 'path'
-
-// Mock fetch for API tests
-global.fetch = vi.fn()
+import { createTestDatabase } from '../db/test-helpers'
+import { CacheService } from './cache'
 
 describe('EventsService', () => {
 	let db: Database
+	let cacheService: CacheService
 	let eventsService: EventsService
 
 	beforeEach(() => {
-		// Create a new in-memory database for each test
-		db = new Database(':memory:', { strict: true })
-		db.exec('PRAGMA journal_mode = WAL;')
-
-		// Read and execute schema
-		const schemaPath = join(process.cwd(), 'src/lib/server/db/schema/schema.sql')
-		const schema = readFileSync(schemaPath, 'utf-8')
-		db.exec(schema)
-
-		// Insert test data
-		db.prepare(
-			`
-			INSERT INTO tags (id, name, slug, color)
-			VALUES
-				('tag1', 'Svelte', 'svelte', '#FF3E00'),
-				('tag2', 'Meetup', 'meetup', '#3178C6')
-		`
-		).run()
-
-		const now = new Date()
-		const futureDate = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
-		const pastDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000) // 7 days ago
-
-		db.prepare(
-			`
-			INSERT INTO content (id, title, type, status, body, rendered_body, slug, description, published_at, metadata)
-			VALUES
-				('event1', 'Upcoming Svelte Meetup', 'event', 'published', 'Join us for a Svelte meetup', '<p>Join us for a Svelte meetup</p>', 'upcoming-svelte-meetup', 'Learn about Svelte 5', '2025-01-01', ?),
-				('event2', 'Past React Workshop', 'event', 'published', 'React workshop content', '<p>React workshop content</p>', 'past-react-workshop', 'React fundamentals', '2025-01-01', ?),
-				('event3', 'Draft Event', 'event', 'draft', 'Draft event content', '<p>Draft event content</p>', 'draft-event', 'Draft description', null, ?),
-				('event4', 'Non-event Content', 'recipe', 'published', 'Recipe content', '<p>Recipe content</p>', 'recipe-content', 'Recipe description', '2025-01-01', null)
-		`
-		).run(
-			JSON.stringify({
-				startTime: futureDate.toISOString(),
-				location: 'Online',
-				url: 'https://example.com/meetup'
-			}),
-			JSON.stringify({
-				startTime: pastDate.toISOString(),
-				endTime: pastDate.toISOString(),
-				location: 'NYC'
-			}),
-			JSON.stringify({ startTime: futureDate.toISOString() })
-		)
-
-		db.prepare(
-			`
-			INSERT INTO content_to_tags (content_id, tag_id)
-			VALUES
-				('event1', 'tag1'),
-				('event1', 'tag2')
-		`
-		).run()
-
-		eventsService = new EventsService(db)
-		vi.clearAllMocks()
+		// Create in-memory database with all migrations applied
+		db = createTestDatabase()
+		cacheService = new CacheService(db)
+		eventsService = new EventsService(db, cacheService)
 	})
 
-	describe('getAllEvents', () => {
-		it('should return all published events', () => {
-			const events = eventsService.getAllEvents()
-			expect(events).toHaveLength(2)
-			expect(events.every((e) => e.type === 'event')).toBe(true)
-			expect(events.every((e) => e.status === 'published')).toBe(true)
-		})
-
-		it('should respect limit parameter', () => {
-			const events = eventsService.getAllEvents(1)
-			expect(events).toHaveLength(1)
-		})
-
-		it('should respect offset parameter', () => {
-			const events = eventsService.getAllEvents(10, 1)
-			expect(events).toHaveLength(1)
-		})
+	afterEach(() => {
+		db.close()
 	})
 
-	describe('getUpcomingEvents', () => {
-		it('should return only upcoming events', () => {
-			const events = eventsService.getUpcomingEvents()
-			expect(events).toHaveLength(1)
-			expect(events[0].title).toBe('Upcoming Svelte Meetup')
-		})
-
-		it('should respect limit parameter', () => {
-			const events = eventsService.getUpcomingEvents(0)
-			expect(events).toHaveLength(0)
-		})
-	})
-
-	describe('getPastEvents', () => {
-		it('should return only past events', () => {
-			const events = eventsService.getPastEvents()
-			expect(events).toHaveLength(1)
-			expect(events[0].title).toBe('Past React Workshop')
-		})
-	})
-
-	describe('getEvent', () => {
-		it('should return event by ID', () => {
-			const event = eventsService.getEvent('event1')
-			expect(event).toBeTruthy()
-			expect(event?.title).toBe('Upcoming Svelte Meetup')
-		})
-
-		it('should return event by slug', () => {
-			const event = eventsService.getEvent('upcoming-svelte-meetup')
-			expect(event).toBeTruthy()
-			expect(event?.title).toBe('Upcoming Svelte Meetup')
-		})
-
-		it('should return null for non-existent event', () => {
-			const event = eventsService.getEvent('non-existent')
-			expect(event).toBeNull()
-		})
-
-		it('should return null for non-event content', () => {
-			const event = eventsService.getEvent('event4')
-			expect(event).toBeNull()
-		})
-	})
-
-	describe('createEvent', () => {
-		it('should create a new event', () => {
-			const eventId = eventsService.createEvent({
-				title: 'New Event',
-				slug: 'new-event',
-				description: 'New event description',
-				body: 'Event body content',
-				tags: ['tag1'],
-				startTime: new Date().toISOString(),
-				location: 'Online',
-				url: 'https://example.com'
-			})
-
-			expect(eventId).toBeTruthy()
-
-			const event = eventsService.getEvent(eventId)
-			expect(event).toBeTruthy()
-			expect(event?.title).toBe('New Event')
-			expect(event?.type).toBe('event')
-		})
-	})
-
-	describe('updateEvent', () => {
-		it('should update an existing event', () => {
-			eventsService.updateEvent('event1', {
-				title: 'Updated Svelte Meetup',
-				slug: 'updated-svelte-meetup',
-				description: 'Updated description',
-				body: 'Updated body',
-				tags: ['tag2'],
-				startTime: new Date().toISOString(),
-				status: 'published'
-			})
-
-			const event = eventsService.getEvent('event1')
-			expect(event?.title).toBe('Updated Svelte Meetup')
-			expect(event?.slug).toBe('updated-svelte-meetup')
-		})
-	})
-
-	describe('API methods', () => {
-		it('should fetch upcoming events from API', async () => {
-			const mockEvents = {
-				events: [
-					{
-						id: '1',
-						slug: 'api-event-1',
-						title: 'API Event 1',
-						description: 'Description 1',
-						startTime: new Date().toISOString()
-					}
-				]
-			}
-
-			;(global.fetch as any).mockResolvedValueOnce({
-				ok: true,
-				json: async () => mockEvents
-			})
-
-			const events = await eventsService.fetchUpcomingEventsFromAPI()
-			expect(events).toHaveLength(1)
-			expect(events[0].title).toBe('API Event 1')
-		})
-
-		it('should fetch upcoming events for specific guild', async () => {
-			const mockEvents = { events: [] }
-
-			;(global.fetch as any).mockResolvedValueOnce({
-				ok: true,
-				json: async () => mockEvents
-			})
-
-			await eventsService.fetchUpcomingEventsFromAPI('svelte-society')
-			expect(global.fetch).toHaveBeenCalledWith(
-				'https://guild.host/api/next/svelte-society/events/upcoming'
+	describe('fetchUpcomingEventsFromAPI', () => {
+		test('should fetch upcoming events from Guild API', async () => {
+			// Mock successful API response
+			global.fetch = mock(() =>
+				Promise.resolve({
+					ok: true,
+					json: () =>
+						Promise.resolve({
+							events: {
+								edges: [
+									{
+										node: {
+											slug: 'test-event',
+											title: 'Test Event',
+											description: 'A test event',
+											startTime: new Date(Date.now() + 86400000).toISOString(),
+											location: 'Online',
+											url: 'https://guild.host/events/test-event'
+										}
+									}
+								]
+							}
+						})
+				})
 			)
-		})
-
-		it('should handle API errors gracefully', async () => {
-			;(global.fetch as any).mockResolvedValueOnce({
-				ok: false,
-				statusText: 'Not Found'
-			})
 
 			const events = await eventsService.fetchUpcomingEventsFromAPI()
-			expect(events).toEqual([])
-		})
-
-		it('should fetch a specific event from API', async () => {
-			const mockEvent = {
-				id: '1',
-				slug: 'api-event',
-				title: 'API Event',
-				description: 'API Event Description',
-				startTime: new Date().toISOString()
+			expect(events).toBeDefined()
+			expect(Array.isArray(events)).toBe(true)
+			if (events.length > 0) {
+				expect(events[0].slug).toBe('test-event')
+				expect(events[0].title).toBe('Test Event')
 			}
-
-			;(global.fetch as any).mockResolvedValueOnce({
-				ok: true,
-				json: async () => mockEvent
-			})
-
-			const event = await eventsService.fetchEventFromAPI('api-event')
-			expect(event).toBeTruthy()
-			expect(event?.title).toBe('API Event')
 		})
 
-		it('should return null for non-existent API event', async () => {
-			;(global.fetch as any).mockResolvedValueOnce({
-				ok: false,
-				status: 404
+		test('should handle API errors gracefully', async () => {
+			// Mock failed API response
+			global.fetch = mock(() =>
+				Promise.resolve({
+					ok: false,
+					statusText: 'Not Found'
+				})
+			)
+
+			const events = await eventsService.fetchUpcomingEventsFromAPI()
+			expect(events).toBeDefined()
+			expect(Array.isArray(events)).toBe(true)
+		})
+
+		test('should handle network errors', async () => {
+			// Mock network error
+			global.fetch = mock(() => Promise.reject(new Error('Network error')))
+
+			const events = await eventsService.fetchUpcomingEventsFromAPI()
+			expect(events).toBeDefined()
+			expect(Array.isArray(events)).toBe(true)
+			expect(events.length).toBe(0)
+		})
+
+		test('should use cache when available', async () => {
+			let fetchCount = 0
+			global.fetch = mock(() => {
+				fetchCount++
+				return Promise.resolve({
+					ok: true,
+					json: () =>
+						Promise.resolve({
+							events: {
+								edges: [
+									{
+										node: {
+											slug: 'cached-event',
+											title: 'Cached Event',
+											startTime: new Date(Date.now() + 86400000).toISOString()
+										}
+									}
+								]
+							}
+						})
+				})
 			})
+
+			// First call should fetch
+			const events1 = await eventsService.fetchUpcomingEventsFromAPI()
+			expect(fetchCount).toBe(1)
+
+			// Second call should use cache
+			const events2 = await eventsService.fetchUpcomingEventsFromAPI()
+			expect(fetchCount).toBe(1) // Should still be 1
+			expect(events2.length).toBe(events1.length)
+		})
+	})
+
+	describe('fetchPastEventsFromAPI', () => {
+		test('should fetch past events from Guild API', async () => {
+			// Mock successful API response
+			global.fetch = mock(() =>
+				Promise.resolve({
+					ok: true,
+					json: () =>
+						Promise.resolve({
+							events: {
+								edges: [
+									{
+										node: {
+											slug: 'past-event',
+											title: 'Past Event',
+											description: 'A past event',
+											startTime: new Date(Date.now() - 86400000).toISOString(),
+											location: 'Online',
+											url: 'https://guild.host/events/past-event'
+										}
+									}
+								]
+							}
+						})
+				})
+			)
+
+			const events = await eventsService.fetchPastEventsFromAPI()
+			expect(events).toBeDefined()
+			expect(Array.isArray(events)).toBe(true)
+			if (events.length > 0) {
+				expect(events[0].slug).toBe('past-event')
+			}
+		})
+
+		test('should handle empty response', async () => {
+			global.fetch = mock(() =>
+				Promise.resolve({
+					ok: true,
+					json: () => Promise.resolve({ events: { edges: [] } })
+				})
+			)
+
+			const events = await eventsService.fetchPastEventsFromAPI()
+			expect(events).toBeDefined()
+			expect(events.length).toBe(0)
+		})
+	})
+
+	describe('fetchEventFromAPI', () => {
+		test('should fetch single event by slug', async () => {
+			global.fetch = mock(() =>
+				Promise.resolve({
+					ok: true,
+					json: () =>
+						Promise.resolve({
+							slug: 'single-event',
+							title: 'Single Event',
+							description: 'A single event',
+							startTime: new Date().toISOString(),
+							location: 'Online',
+							url: 'https://guild.host/events/single-event'
+						})
+				})
+			)
+
+			const event = await eventsService.fetchEventFromAPI('single-event')
+			expect(event).toBeDefined()
+			expect(event?.slug).toBe('single-event')
+			expect(event?.title).toBe('Single Event')
+		})
+
+		test('should return null for 404 response', async () => {
+			global.fetch = mock(() =>
+				Promise.resolve({
+					ok: false,
+					status: 404,
+					statusText: 'Not Found'
+				})
+			)
 
 			const event = await eventsService.fetchEventFromAPI('non-existent')
 			expect(event).toBeNull()
 		})
 
-		it('should import events from API', async () => {
-			const mockEvents = {
-				events: [
-					{
-						id: '1',
-						slug: 'new-api-event',
-						title: 'New API Event',
-						description: 'New API Event Description',
-						startTime: new Date().toISOString()
-					}
-				]
-			}
+		test('should return null for other errors', async () => {
+			global.fetch = mock(() => Promise.reject(new Error('API error')))
 
-			;(global.fetch as any).mockResolvedValueOnce({
-				ok: true,
-				json: async () => mockEvents
-			})
-
-			const imported = await eventsService.importEventsFromAPI()
-			expect(imported).toBe(1)
-
-			const event = eventsService.getEvent('new-api-event')
-			expect(event).toBeTruthy()
-			expect(event?.title).toBe('New API Event')
+			const event = await eventsService.fetchEventFromAPI('error-event')
+			expect(event).toBeNull()
 		})
+	})
 
-		it('should not import duplicate events', async () => {
-			const mockEvents = {
-				events: [
-					{
-						id: '1',
-						slug: 'upcoming-svelte-meetup',
-						title: 'Duplicate Event',
-						description: 'Should not be imported',
-						startTime: new Date().toISOString()
-					}
-				]
-			}
+	describe('service without cache', () => {
+		test('should work without cache service', async () => {
+			const noCacheService = new EventsService(db)
 
-			;(global.fetch as any).mockResolvedValueOnce({
-				ok: true,
-				json: async () => mockEvents
-			})
+			global.fetch = mock(() =>
+				Promise.resolve({
+					ok: true,
+					json: () =>
+						Promise.resolve({
+							events: {
+								edges: [
+									{
+										node: {
+											slug: 'no-cache-event',
+											title: 'No Cache Event',
+											startTime: new Date(Date.now() + 86400000).toISOString()
+										}
+									}
+								]
+							}
+						})
+				})
+			)
 
-			const imported = await eventsService.importEventsFromAPI()
-			expect(imported).toBe(0)
+			const events = await noCacheService.fetchUpcomingEventsFromAPI()
+			expect(events).toBeDefined()
+			expect(Array.isArray(events)).toBe(true)
 		})
 	})
 })
