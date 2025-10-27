@@ -1,27 +1,19 @@
-import { describe, test, expect, beforeAll, beforeEach } from 'bun:test'
+import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
 import { Database } from 'bun:sqlite'
 import {
 	ModerationService,
 	ModerationStatus,
 	type ModerationStatus as ModerationStatusType
 } from './moderation'
-import fs from 'node:fs'
+import { createTestDatabase } from '../db/test-helpers'
 
 describe('ModerationService', () => {
 	let db: Database
 	let moderationService: ModerationService
 
-	beforeAll(() => {
-		// Read and execute schema
-		const schema = fs.readFileSync('src/lib/server/db/schema/schema.sql', 'utf-8')
-		db = new Database(':memory:', { strict: true })
-		db.exec(schema)
-	})
-
 	beforeEach(() => {
-		// Clear moderation_queue table
-		db.prepare('DELETE FROM moderation_queue').run()
-		db.prepare('DELETE FROM users').run()
+		// Create in-memory database with all migrations applied
+		db = createTestDatabase()
 
 		// Insert test users
 		const insertUser = db.prepare(`
@@ -58,7 +50,13 @@ describe('ModerationService', () => {
 				id: 'item1',
 				type: 'content',
 				status: ModerationStatus.PENDING,
-				data: JSON.stringify({ title: 'Pending Content 1', content: 'Test content 1' }),
+				data: JSON.stringify({
+					title: 'Pending Content 1',
+					type: 'recipe',
+					body: 'Test content 1',
+					description: 'Test description 1',
+					tags: []
+				}),
 				submitted_by: 'user2',
 				moderated_by: null,
 				moderated_at: null
@@ -67,7 +65,13 @@ describe('ModerationService', () => {
 				id: 'item2',
 				type: 'content',
 				status: ModerationStatus.APPROVED,
-				data: JSON.stringify({ title: 'Approved Content', content: 'Test content 2' }),
+				data: JSON.stringify({
+					title: 'Approved Content',
+					type: 'recipe',
+					body: 'Test content 2',
+					description: 'Test description 2',
+					tags: []
+				}),
 				submitted_by: 'user2',
 				moderated_by: 'user1',
 				moderated_at: new Date().toISOString()
@@ -96,6 +100,10 @@ describe('ModerationService', () => {
 		}
 
 		moderationService = new ModerationService(db)
+	})
+
+	afterEach(() => {
+		db.close()
 	})
 
 	describe('getModerationQueue', () => {
@@ -130,7 +138,13 @@ describe('ModerationService', () => {
 		test('should add new item to queue', () => {
 			const newItem = {
 				type: 'content',
-				data: JSON.stringify({ title: 'New Content', content: 'New test content' }),
+				data: JSON.stringify({
+					title: 'New Content',
+					type: 'recipe',
+					body: 'New test content',
+					description: 'New description',
+					tags: []
+				}),
 				submitted_by: 'user2'
 			}
 
