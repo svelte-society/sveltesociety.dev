@@ -9,7 +9,6 @@ import { SessionService } from '$lib/server/services/session'
 import { TagService } from '$lib/server/services/tags'
 import { ModerationService } from '$lib/server/services/moderation'
 import { UserService } from '$lib/server/services/user'
-import { CollectionService } from '$lib/server/services/collections'
 import { MetadataService } from '$lib/server/services/metadata'
 import { EventsService } from '$lib/server/services/events'
 import { CacheService } from '$lib/server/services/cache'
@@ -31,7 +30,6 @@ const dbCache = new Map<string, {
 	tagService: TagService
 	moderationService: ModerationService
 	userService: UserService
-	collectionService: CollectionService
 	metadataService: MetadataService
 	eventsService: EventsService
 	cacheService: CacheService
@@ -66,7 +64,6 @@ const initialize_db = (dbPath: string) => {
 	const tagService = new TagService(db)
 	const moderationService = new ModerationService(db)
 	const userService = new UserService(db)
-	const collectionService = new CollectionService(db, searchService)
 	const metadataService = new MetadataService(db)
 	const eventsService = new EventsService(db, cacheService)
 	const llmService = new LLMService(tagService)
@@ -82,7 +79,6 @@ const initialize_db = (dbPath: string) => {
 		tagService,
 		moderationService,
 		userService,
-		collectionService,
 		metadataService,
 		eventsService,
 		cacheService,
@@ -133,7 +129,6 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.tagService = services.tagService
 	event.locals.moderationService = services.moderationService
 	event.locals.userService = services.userService
-	event.locals.collectionService = services.collectionService
 	event.locals.metadataService = services.metadataService
 	event.locals.eventsService = services.eventsService
 	event.locals.cacheService = services.cacheService
