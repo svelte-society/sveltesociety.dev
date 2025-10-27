@@ -64,6 +64,29 @@ describe('TagService', () => {
 		})
 	})
 
+	describe('getAllTags', () => {
+		test('should return all tags sorted by name', () => {
+			const tags = tagService.getAllTags()
+			expect(tags.length).toBe(3)
+			// Should be sorted alphabetically by name
+			expect(tags[0].name).toBe('JavaScript')
+			expect(tags[1].name).toBe('SvelteKit')
+			expect(tags[2].name).toBe('TypeScript')
+		})
+
+		test('should return empty array when table is empty', () => {
+			db.prepare('DELETE FROM tags').run()
+			const tags = tagService.getAllTags()
+			expect(tags.length).toBe(0)
+			expect(tags).toEqual([])
+		})
+
+		// Note: Error handling in getAllTags (lines 55-57) is defensive code
+		// that's difficult to test without breaking the database connection.
+		// In practice, SQLite errors would occur during prepare() in the constructor,
+		// not during .all() execution. The try-catch remains as defensive programming.
+	})
+
 	describe('getTagsCount', () => {
 		test('should return correct count of tags', () => {
 			const count = tagService.getTagsCount()
