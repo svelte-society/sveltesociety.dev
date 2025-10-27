@@ -1,25 +1,15 @@
-import { describe, test, expect, beforeAll, beforeEach } from 'bun:test'
+import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
 import { Database } from 'bun:sqlite'
 import { InteractionsService } from './interactions'
-import fs from 'node:fs'
+import { createTestDatabase } from '../db/test-helpers'
 
 describe('InteractionsService', () => {
 	let db: Database
 	let interactionsService: InteractionsService
 
-	beforeAll(() => {
-		// Read and execute schema
-		const schema = fs.readFileSync('src/lib/server/db/schema/schema.sql', 'utf-8')
-		db = new Database(':memory:', { strict: true })
-		db.exec(schema)
-	})
-
 	beforeEach(() => {
-		// Clear all tables
-		db.prepare('DELETE FROM likes').run()
-		db.prepare('DELETE FROM saves').run()
-		db.prepare('DELETE FROM content').run()
-		db.prepare('DELETE FROM users').run()
+		// Create in-memory database with all migrations applied
+		db = createTestDatabase()
 
 		// Insert test data
 		const testData = {
@@ -134,6 +124,10 @@ describe('InteractionsService', () => {
 		interactionsService = new InteractionsService(db)
 	})
 
+	afterEach(() => {
+		db.close()
+	})
+
 	describe('getUserLikesAndSaves', () => {
 		test('should return empty sets for undefined user', () => {
 			const result = interactionsService.getUserLikesAndSaves(undefined, ['content1', 'content2'])
@@ -174,75 +168,63 @@ describe('InteractionsService', () => {
 		})
 	})
 
-	describe('getUserLikesAndSavesCount', () => {
-		test('should return zero counts for undefined user', () => {
-			const result = interactionsService.getUserLikesAndSavesCount(undefined)
-			expect(result.userLikes).toBe(0)
-			expect(result.userSaves).toBe(0)
-		})
-
-		test('should return correct counts for user1', () => {
-			const result = interactionsService.getUserLikesAndSavesCount('user1')
-			expect(result.userLikes).toBe(2)
-			expect(result.userSaves).toBe(1)
-		})
-
-		test('should return correct counts for user2', () => {
-			const result = interactionsService.getUserLikesAndSavesCount('user2')
-			expect(result.userLikes).toBe(1)
-			expect(result.userSaves).toBe(2)
-		})
-	})
-
-	describe('addInteraction', () => {
+	describe('toggleInteraction', () => {
 		test('should add a new like', () => {
-			interactionsService.addInteraction('like', 'user1', 'content3')
-			const result = interactionsService.getUserLikesAndSaves('user1', ['content3'])
-			expect(result.userLikes.has('content3')).toBe(true)
+			const result = interactionsService.toggleInteraction('like', 'user1', 'content3')
+			expect(result.action).toBe('add')
+			expect(result.type).toBe('like')
+			const userResult = interactionsService.getUserLikesAndSaves('user1', ['content3'])
+			expect(userResult.userLikes.has('content3')).toBe(true)
 		})
 
 		test('should add a new save', () => {
-			interactionsService.addInteraction('save', 'user1', 'content1')
-			const result = interactionsService.getUserLikesAndSaves('user1', ['content1'])
-			expect(result.userSaves.has('content1')).toBe(true)
+			const result = interactionsService.toggleInteraction('save', 'user1', 'content1')
+			expect(result.action).toBe('add')
+			expect(result.type).toBe('save')
+			const userResult = interactionsService.getUserLikesAndSaves('user1', ['content1'])
+			expect(userResult.userSaves.has('content1')).toBe(true)
 		})
 
-		test('should not duplicate existing like', () => {
-			interactionsService.addInteraction('like', 'user1', 'content1')
-			const result = interactionsService.getUserLikesAndSavesCount('user1')
-			expect(result.userLikes).toBe(2) // Should remain the same
+		test('should remove an existing like when toggled', () => {
+			const result = interactionsService.toggleInteraction('like', 'user1', 'content1')
+			expect(result.action).toBe('remove')
+			expect(result.type).toBe('like')
+			const userResult = interactionsService.getUserLikesAndSaves('user1', ['content1'])
+			expect(userResult.userLikes.has('content1')).toBe(false)
 		})
 
-		test('should not duplicate existing save', () => {
-			interactionsService.addInteraction('save', 'user1', 'content2')
-			const result = interactionsService.getUserLikesAndSavesCount('user1')
-			expect(result.userSaves).toBe(1) // Should remain the same
+		test('should remove an existing save when toggled', () => {
+			const result = interactionsService.toggleInteraction('save', 'user2', 'content2')
+			expect(result.action).toBe('remove')
+			expect(result.type).toBe('save')
+			const userResult = interactionsService.getUserLikesAndSaves('user2', ['content2'])
+			expect(userResult.userSaves.has('content2')).toBe(false)
 		})
 	})
 
-	describe('removeInteraction', () => {
-		test('should remove an existing like', () => {
-			interactionsService.removeInteraction('like', 'user1', 'content1')
-			const result = interactionsService.getUserLikesAndSaves('user1', ['content1'])
-			expect(result.userLikes.has('content1')).toBe(false)
+	describe('getUserContentStats', () => {
+		test('should return correct stats for user with content', () => {
+			// First need to create an author relationship
+			db.prepare(
+				'INSERT INTO content_to_users (content_id, user_id) VALUES ($content_id, $user_id)'
+			).run({ content_id: 'content1', user_id: 'user1' })
+
+			// Update content stats to match the likes/saves
+			db.prepare('UPDATE content SET likes = 2, saves = 0 WHERE id = $id').run({
+				id: 'content1'
+			})
+
+			const stats = interactionsService.getUserContentStats('user1')
+			expect(stats.totalContent).toBe(1)
+			expect(stats.totalLikes).toBe(2)
+			expect(stats.totalSaves).toBe(0)
 		})
 
-		test('should remove an existing save', () => {
-			interactionsService.removeInteraction('save', 'user2', 'content2')
-			const result = interactionsService.getUserLikesAndSaves('user2', ['content2'])
-			expect(result.userSaves.has('content2')).toBe(false)
-		})
-
-		test('should not error when removing non-existent like', () => {
-			expect(() => {
-				interactionsService.removeInteraction('like', 'user1', 'content3')
-			}).not.toThrow()
-		})
-
-		test('should not error when removing non-existent save', () => {
-			expect(() => {
-				interactionsService.removeInteraction('save', 'user1', 'content3')
-			}).not.toThrow()
+		test('should return zero stats for user with no content', () => {
+			const stats = interactionsService.getUserContentStats('user_with_no_content')
+			expect(stats.totalContent).toBe(0)
+			expect(stats.totalLikes).toBe(0)
+			expect(stats.totalSaves).toBe(0)
 		})
 	})
 })
