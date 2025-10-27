@@ -8,6 +8,7 @@ import path from 'node:path'
  */
 export function createTestDatabase(): Database {
 	const db = new Database(':memory:', { strict: true })
+	db.exec('PRAGMA foreign_keys = ON')
 	applyMigrations(db)
 	return db
 }
