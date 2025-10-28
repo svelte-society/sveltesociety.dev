@@ -26,6 +26,10 @@
 	let previewLoading = $state(false)
 	let previewError = $state<string | null>(null)
 
+	// Track previous values to detect actual changes to these specific fields
+	let previousVideoUrl = $state<string>('')
+	let previousGithubRepo = $state<string>('')
+
 	const fetchYouTubePreview = debounce(async (url: string) => {
 		if (!url) {
 			videoPreview = null
@@ -78,15 +82,25 @@
 		}
 	}, 1000)
 
+	// Only trigger when video URL field specifically changes, not on any form field change
 	$effect(() => {
 		if ($formData.type === 'video' && 'url' in $formData) {
-			fetchYouTubePreview($formData.url)
+			const currentUrl = $formData.url || ''
+			if (currentUrl !== previousVideoUrl) {
+				previousVideoUrl = currentUrl
+				fetchYouTubePreview(currentUrl)
+			}
 		}
 	})
 
+	// Only trigger when github repo field specifically changes, not on any form field change
 	$effect(() => {
 		if ($formData.type === 'library' && 'github_repo' in $formData) {
-			fetchGitHubPreview($formData.github_repo)
+			const currentRepo = $formData.github_repo || ''
+			if (currentRepo !== previousGithubRepo) {
+				previousGithubRepo = currentRepo
+				fetchGitHubPreview(currentRepo)
+			}
 		}
 	})
 </script>
