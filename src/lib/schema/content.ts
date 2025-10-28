@@ -1,7 +1,14 @@
 import { z } from 'zod/v4'
+import { tagSchema } from './tags'
 
 export const typeSchema = z.enum(['video', 'library', 'announcement', 'collection', 'recipe'])
 export const statusSchema = z.enum(['draft', 'published', 'archived'])
+
+// For form submissions, we accept either tag IDs (strings) or full tag objects
+const tagInputSchema = z.union([
+	z.string(), // Tag ID
+	tagSchema   // Full tag object
+])
 
 const baseContentSchema = z.object({
 	id: z.string(),
@@ -10,7 +17,7 @@ const baseContentSchema = z.object({
 	description: z.string().min(1, 'Description is required'),
 	status: statusSchema,
 	type: typeSchema,
-	tags: z.array(z.string()).min(1, 'At least one tag is required'),
+	tags: z.array(tagInputSchema).min(1, 'At least one tag is required'),
 	author_id: z.string().optional(),
 	created_at: z.string(),
 	updated_at: z.string(),

@@ -14,10 +14,13 @@ export type UpdateContent = z.infer<typeof updateContentSchema>
 export type CreateContent = z.infer<typeof createContentSchema>
 
 // Content with author information
+// Note: Schema has tags as string[] (tag IDs for forms),
+// but runtime DB results have full Tag objects - type assertions used where needed
 export type ContentWithAuthor = Content & {
 	author_id?: string
 	author_username?: string
 	author_name?: string
+	children?: ContentWithAuthor[] // For expanded collection children
 }
 
 // Content filtering options

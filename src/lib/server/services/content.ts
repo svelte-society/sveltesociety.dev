@@ -16,6 +16,29 @@ export class ContentService {
 		private searchService?: SearchService
 	) {}
 
+	/**
+	 * Normalize tags to IDs - accepts either tag IDs (strings) or full Tag objects
+	 */
+	private normalizeTagsToIds(tags: (string | Tag)[]): string[] {
+		return tags.map(tag => typeof tag === 'string' ? tag : tag.id)
+	}
+
+	/**
+	 * Normalize tags to slugs for search - accepts either tag IDs (strings) or full Tag objects
+	 */
+	private normalizeTagsToSlugs(tags: (string | Tag)[]): string[] {
+		return tags.map(tag => {
+			if (typeof tag === 'string') {
+				// It's a tag ID, need to look up the slug
+				const result = this.db.prepare('SELECT slug FROM tags WHERE id = ?').get(tag) as { slug: string } | null
+				return result?.slug || ''
+			} else {
+				// It's a full tag object
+				return tag.slug
+			}
+		}).filter(Boolean)
+	}
+
 	getContentById(id: string): ContentWithAuthor | null {
 		if (!id) {
 			console.error('Invalid content ID:', id)
@@ -117,15 +140,14 @@ export class ContentService {
 
 									// Assign tags to each child content
 									childContent.tags = childTags || []
-									childContent.children = [] // Ensure all children have empty children arrays
 
 									// Add to the children collection
 									childrenContent.push(childContent)
 								}
 							}
 
-							// Set the children on the parent content
-							content.children = childrenContent
+							// Set the children on the parent content (expanded from IDs to full objects)
+							content.children = childrenContent as any
 						} else {
 							// Empty children array
 							content.children = []
@@ -163,7 +185,7 @@ export class ContentService {
 			const searchQuery = filters.search.trim()
 			// Pass status to search service - if status is 'all' or undefined, don't filter by status in search
 			const searchStatus = filters.status && filters.status !== 'all' ? filters.status : undefined
-			const searchResults = this.searchService.search({
+			const searchResults = this.searchService!.search({
 				query: searchQuery,
 				status: searchStatus
 			})
@@ -259,7 +281,7 @@ export class ContentService {
 			const searchQuery = filters.search.trim()
 			// Pass status to search service - if status is 'all' or undefined, don't filter by status in search
 			const searchStatus = filters.status && filters.status !== 'all' ? filters.status : undefined
-			const searchResults = this.searchService.search({
+			const searchResults = this.searchService!.search({
 				query: searchQuery,
 				status: searchStatus
 			})
@@ -369,15 +391,16 @@ export class ContentService {
 		}
 
 		if (data.tags && data.tags.length > 0) {
+			const tagIds = this.normalizeTagsToIds(data.tags)
 			const insertTagStmt = this.db.prepare(
 				`INSERT INTO content_to_tags (content_id, tag_id) VALUES (?, ?)`
 			)
 
-			for (const tag of data.tags) {
+			for (const tagId of tagIds) {
 				try {
-					insertTagStmt.run(id, tag)
+					insertTagStmt.run(id, tagId)
 				} catch (error) {
-					console.error('Failed to add tag relationship:', { contentId: id, tagId: tag, error })
+					console.error('Failed to add tag relationship:', { contentId: id, tagId, error })
 					throw error
 				}
 			}
@@ -386,18 +409,7 @@ export class ContentService {
 		// Add to search index regardless of status
 		if (this.searchService) {
 			// Get tag slugs for search index
-			let tagSlugs: string[] = []
-			if (data.tags && data.tags.length > 0) {
-				const tagQuery = this.db.prepare(`
-					SELECT slug FROM tags WHERE id = ?
-				`)
-				tagSlugs = data.tags
-					.map((tagId) => {
-						const tag = tagQuery.get(tagId) as { slug: string } | null
-						return tag?.slug || ''
-					})
-					.filter(Boolean)
-			}
+			const tagSlugs = data.tags ? this.normalizeTagsToSlugs(data.tags) : []
 
 			this.searchService.add({
 				id,
@@ -406,7 +418,7 @@ export class ContentService {
 				tags: tagSlugs,
 				type: data.type,
 				status: data.status,
-				created_at: data.created_at || new Date().toISOString(),
+				created_at: new Date().toISOString(),
 				published_at: data.status === 'published' ? new Date().toISOString() : '',
 				likes: 0,
 				saves: 0,
@@ -461,12 +473,13 @@ export class ContentService {
 		this.db.prepare('DELETE FROM content_to_tags WHERE content_id = ?').run(data.id)
 
 		if (data.tags && data.tags.length > 0) {
+			const tagIds = this.normalizeTagsToIds(data.tags)
 			const insertTagStmt = this.db.prepare(
 				`INSERT INTO content_to_tags (content_id, tag_id) VALUES (?, ?)`
 			)
 
-			for (const tag of data.tags) {
-				insertTagStmt.run(data.id, tag)
+			for (const tagId of tagIds) {
+				insertTagStmt.run(data.id, tagId)
 			}
 		}
 
@@ -485,8 +498,8 @@ export class ContentService {
 		if (this.searchService) {
 			const updatedContent = this.getContentById(data.id)
 			if (updatedContent) {
-				// Get tag slugs for search index
-				const tagSlugs = updatedContent.tags?.map((tag) => tag.slug) || []
+				// Extract slugs from tags for search index
+				const tagSlugs = updatedContent.tags ? this.normalizeTagsToSlugs(updatedContent.tags) : []
 
 				this.searchService.update(data.id, {
 					id: updatedContent.id,
