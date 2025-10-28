@@ -71,6 +71,10 @@ export class ExternalContentService {
 			}
 
 			if (existing) {
+				// Get existing body if available (only recipe type has body field)
+				const existingBody = existing.type === 'recipe' ? existing.body || '' : ''
+				const existingRenderedBody = existing.type === 'recipe' ? existing.rendered_body || '' : ''
+
 				this.contentService.updateContent({
 					id: existing.id,
 					title: data.title,
@@ -78,7 +82,8 @@ export class ExternalContentService {
 					description: data.description || existing.description,
 					type: data.type,
 					status: existing.status,
-					body: data.body || existing.body || '',
+					body: data.body || existingBody,
+					rendered_body: existingRenderedBody,
 					published_at: existing.published_at,
 					metadata: JSON.stringify(metadata),
 					tags: data.tags || []
@@ -95,9 +100,7 @@ export class ExternalContentService {
 					metadata,
 					status: 'draft',
 					tags: data.tags || [],
-					// Use the original published date for both created_at and published_at
-					// This ensures proper chronological ordering
-					created_at: data.publishedAt || new Date().toISOString(),
+					// Use the original published date
 					published_at: data.publishedAt || new Date().toISOString(),
 					author_id: data.author_id
 				})
@@ -153,12 +156,7 @@ export class ExternalContentService {
 	 * Generate a unique slug for external content
 	 */
 	private generateSlug(data: ExternalContentData): string {
-		// For events, use the external ID directly as it's usually already a slug
-		if (data.type === 'event' && data.source.externalId.match(/^[a-z0-9-]+$/)) {
-			return data.source.externalId
-		}
-
-		// For other content, generate from title
+		// Generate from title
 		const titleSlug = data.title
 			.toLowerCase()
 			.replace(/[^a-z0-9]+/g, '-')
