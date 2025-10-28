@@ -2,11 +2,12 @@ import { fail, redirect } from '@sveltejs/kit'
 import { superValidate, message } from 'sveltekit-superforms'
 import { zod4 } from 'sveltekit-superforms/adapters'
 import type { z } from 'zod/v4'
+import type { ZodTypeAny } from 'zod/v4'
 
 /**
  * Common pattern for handling form submissions in admin pages
  */
-export async function handleFormAction<T extends z.ZodSchema>({
+export async function handleFormAction<T extends ZodTypeAny>({
 	request,
 	schema,
 	onSuccess,
@@ -28,7 +29,7 @@ export async function handleFormAction<T extends z.ZodSchema>({
 	}
 
 	try {
-		await onSuccess(form.data)
+		await onSuccess(form.data as z.infer<T>)
 
 		if (successMessage) {
 			message(form, { type: 'success', text: successMessage })
