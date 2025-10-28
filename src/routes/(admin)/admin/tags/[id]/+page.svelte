@@ -27,8 +27,6 @@
 			type="text"
 			placeholder="Svelte"
 			description="Enter the name of the tag"
-			bind:value={$form.name}
-			errors={$errors.name}
 		/>
 		<Input
 			name="slug"
@@ -37,8 +35,6 @@
 			placeholder="svelte"
 			description="Enter the slug of the tag"
 			magic={() => slugify($form.name)}
-			bind:value={$form.slug}
-			errors={$errors.slug}
 		/>
 		<Button width="full">Update Tag</Button>
 	</form>
