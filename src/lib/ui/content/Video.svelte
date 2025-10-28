@@ -1,9 +1,9 @@
 <script lang="ts">
 	import VideoCamera from 'phosphor-svelte/lib/VideoCamera'
-	import type { Content } from '$lib/types/content'
+	import type { ContentWithAuthor } from '$lib/types/content'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 
-	let { content }: { content: Content } = $props()
+	let { content }: { content: ContentWithAuthor } = $props()
 </script>
 
 <div class="space-y-3">
