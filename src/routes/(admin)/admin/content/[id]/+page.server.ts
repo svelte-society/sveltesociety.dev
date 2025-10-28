@@ -19,7 +19,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		title: content.title,
 		description: content.description || '',
 		slug: content.slug,
-		body: content.body || '',
+		body: content.type === 'recipe' ? content.body || '' : '',
 		type: content.type,
 		status: content.status,
 		metadata: content.metadata || {},
@@ -28,7 +28,9 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		children:
 			content.type === 'collection' && content.children
 				? Array.isArray(content.children)
-					? content.children.map((child) => child.id)
+					? typeof content.children[0] === 'string'
+						? content.children
+						: content.children.map((child) => child.id)
 					: []
 				: undefined
 	}
