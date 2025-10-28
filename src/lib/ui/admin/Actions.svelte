@@ -1,12 +1,24 @@
 <script lang="ts">
+	import type { RemoteForm } from '@sveltejs/kit'
 	import ConfirmWithDialog from '$lib/ui/admin/ConfirmWithDialog.svelte'
+
+	interface Props {
+		route: string
+		id: string
+		type: string
+		canDelete?: boolean
+		canEdit?: boolean
+		deleteForm?: RemoteForm<any, any>
+	}
+
 	let {
 		route,
 		id,
 		type,
 		canDelete = true,
-		canEdit = true
-	}: { route: string; id: string; type: string; canDelete: boolean; canEdit: boolean } = $props()
+		canEdit = true,
+		deleteForm
+	}: Props = $props()
 </script>
 
 {#if canEdit}
@@ -33,12 +45,23 @@
 	</a>
 {/if}
 {#if canDelete}
-	<ConfirmWithDialog
-		title="Are you sure you want to delete {type}?"
-		description="This action cannot be undone."
-		action="?/delete"
-		confirmButtonText="Delete"
-		cancelButtonText="Cancel"
-		{id}
-	/>
+	{#if deleteForm}
+		<ConfirmWithDialog
+			title="Are you sure you want to delete {type}?"
+			description="This action cannot be undone."
+			remoteForm={deleteForm}
+			confirmButtonText="Delete"
+			cancelButtonText="Cancel"
+			{id}
+		/>
+	{:else}
+		<ConfirmWithDialog
+			title="Are you sure you want to delete {type}?"
+			description="This action cannot be undone."
+			action="?/delete"
+			confirmButtonText="Delete"
+			cancelButtonText="Cancel"
+			{id}
+		/>
+	{/if}
 {/if}

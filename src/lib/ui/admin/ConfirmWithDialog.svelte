@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte'
+	import type { RemoteForm } from '@sveltejs/kit'
 	import { enhance, applyAction } from '$app/forms'
 	import { invalidateAll } from '$app/navigation'
 	import Button from '../Button.svelte'
@@ -8,25 +9,28 @@
 
 	interface BaseProps {
 		title: string
-		action: string
 		id: string
 		confirmButtonText?: string
 		cancelButtonText?: string
 	}
 
-	interface PropsWithDescription extends BaseProps {
-		description: string
-		children?: never
+	interface PropsWithAction extends BaseProps {
+		action: string
+		remoteForm?: never
+		description?: string
+		children?: Snippet
 	}
 
-	interface PropsWithChildren extends BaseProps {
-		description?: never
-		children: Snippet
+	interface PropsWithRemoteForm extends BaseProps {
+		action?: never
+		remoteForm: RemoteForm<any, any>
+		description?: string
+		children?: Snippet
 	}
 
-	type Props = PropsWithDescription | PropsWithChildren
+	type Props = PropsWithAction | PropsWithRemoteForm
 
-	let { title, description, action, id, confirmButtonText, cancelButtonText, children }: Props =
+	let { title, description, action, remoteForm, id, confirmButtonText, cancelButtonText, children }: Props =
 		$props()
 </script>
 
@@ -57,22 +61,30 @@
 			{/if}
 			<div class="flex justify-end space-x-2">
 				<Button onclick={() => (showDialog = false)} variant="secondary">{cancelButtonText}</Button>
-				<form
-					{action}
-					method="POST"
-					use:enhance={() => {
-						return async ({ result }) => {
-							if (result.type === 'success') {
-								showDialog = false
-								await invalidateAll()
+				{#if remoteForm}
+					{@const form = remoteForm.for(id)}
+					<form {...form}>
+						<input type="hidden" name="id" value={id} />
+						<Button disabled={form.pending}>{confirmButtonText}</Button>
+					</form>
+				{:else}
+					<form
+						{action}
+						method="POST"
+						use:enhance={() => {
+							return async ({ result }) => {
+								if (result.type === 'success') {
+									showDialog = false
+									await invalidateAll()
+								}
+								await applyAction(result)
 							}
-							await applyAction(result)
-						}
-					}}
-				>
-					<input type="hidden" name="id" value={id} />
-					<Button>{confirmButtonText}</Button>
-				</form>
+						}}
+					>
+						<input type="hidden" name="id" value={id} />
+						<Button>{confirmButtonText}</Button>
+					</form>
+				{/if}
 			</div>
 		</div>
 	</div>

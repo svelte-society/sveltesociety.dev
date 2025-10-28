@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { formatRelativeDate } from '$lib/utils/date'
 	import Button from '$lib/ui/Button.svelte'
-	import { enhance } from '$app/forms'
 	import Avatar from '$lib/ui/Avatar.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
 	import Actions from '$lib/ui/admin/Actions.svelte'
 	import Pagination from '$lib/ui/Pagination.svelte'
 	import type { User } from '$lib/server/services/user'
+	import { page } from '$app/state'
+	import { getUsers, deleteUser, clearSessions } from './data.remote'
 
 	// Extended User interface to include created_at and role_name
 	interface ExtendedUser extends User {
@@ -14,7 +15,7 @@
 		role_name: string
 	}
 
-	let { data } = $props()
+	const currentPage = $derived(parseInt(page.url.searchParams.get('page') || '1'))
 
 	// Ensure ID is a string for Actions component
 	function ensureStringId(id: string | number): string {
@@ -26,40 +27,44 @@
 	<div class="mb-4 content-start gap-2">
 		<h1 class="text-xl font-bold">Users Management</h1>
 	</div>
-	<Table action={true} data={data.users} testId="users-table">
-		{#snippet header(classes)}
-			<th scope="col" class={classes}>User</th>
-			<th scope="col" class={classes}>Email</th>
-			<th scope="col" class={classes}>Role</th>
-			<th scope="col" class={classes}>Location</th>
-			<th scope="col" class={classes}>Twitter</th>
-			<th scope="col" class={classes}>Created</th>
-		{/snippet}
-		{#snippet row(item: ExtendedUser, classes)}
-			<td class="whitespace-nowrap {classes} flex items-center font-medium text-gray-900">
-				<Avatar src={item.avatar_url} name={item.username} />
-				<span class="ml-2" data-testid="user-username">{item.username}</span>
-			</td>
-			<td class="{classes} truncate">{item.email ?? '-'}</td>
-			<td class={classes} data-testid="user-role">{item.role_name}</td>
-			<td class={classes}>{item.location ?? '-'}</td>
-			<td class={classes}>{item.twitter ?? '-'}</td>
-			<td class={classes}>
-				{formatRelativeDate(item.created_at)}
-			</td>
-		{/snippet}
-		{#snippet actionCell(item: ExtendedUser)}
-			<Actions
-				route="users"
-				id={ensureStringId(item.id)}
-				canDelete={true}
-				canEdit={true}
-				type="this user"
-			/>
-			<form action="?/clear_sessions" method="POST" use:enhance style="line-height: 0">
-				<input type="hidden" name="id" value={item.id} />
+	{#await getUsers({ page: currentPage })}
+		<p>Loading users...</p>
+	{:then data}
+		<Table action={true} data={data.users} testId="users-table">
+			{#snippet header(classes)}
+				<th scope="col" class={classes}>User</th>
+				<th scope="col" class={classes}>Email</th>
+				<th scope="col" class={classes}>Role</th>
+				<th scope="col" class={classes}>Location</th>
+				<th scope="col" class={classes}>Twitter</th>
+				<th scope="col" class={classes}>Created</th>
+			{/snippet}
+			{#snippet row(item: ExtendedUser, classes)}
+				<td class="whitespace-nowrap {classes} flex items-center font-medium text-gray-900">
+					<Avatar src={item.avatar_url} name={item.username} />
+					<span class="ml-2" data-testid="user-username">{item.username}</span>
+				</td>
+				<td class="{classes} truncate">{item.email ?? '-'}</td>
+				<td class={classes} data-testid="user-role">{item.role_name}</td>
+				<td class={classes}>{item.location ?? '-'}</td>
+				<td class={classes}>{item.twitter ?? '-'}</td>
+				<td class={classes}>
+					{formatRelativeDate(item.created_at)}
+				</td>
+			{/snippet}
+			{#snippet actionCell(item: ExtendedUser)}
+				<Actions
+					route="users"
+					id={ensureStringId(item.id)}
+					canDelete={true}
+					canEdit={true}
+					type="this user"
+					deleteForm={deleteUser}
+				/>
 				<button
-					type="submit"
+					onclick={async () => {
+						await clearSessions(ensureStringId(item.id))
+					}}
 					class="group relative text-orange-600 hover:text-orange-900"
 					aria-label="Clear user sessions"
 				>
@@ -83,11 +88,13 @@
 						Clear sessions
 					</span>
 				</button>
-			</form>
-		{/snippet}
-	</Table>
+			{/snippet}
+		</Table>
 
-	{#if data.pagination}
-		<Pagination count={data.pagination.count} perPage={data.pagination.perPage} />
-	{/if}
+		{#if data.pagination}
+			<Pagination count={data.pagination.count} perPage={data.pagination.perPage} />
+		{/if}
+	{:catch error}
+		<p class="text-red-600">Error loading users: {error.message}</p>
+	{/await}
 </div>
