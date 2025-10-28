@@ -117,19 +117,49 @@ export class ExternalContentService {
 
 				return existing.id
 			} else {
-				const contentId = this.contentService.addContent({
-					title: data.title,
-					type: data.type,
-					slug,
-					description: data.description || '',
-					body: data.body || '',
-					metadata,
-					status: 'draft',
-					tags: data.tags || [],
-					// Use the original published date
-					published_at: data.publishedAt || new Date().toISOString(),
-					author_id: data.author_id
-				})
+				// Add new content based on type
+				let contentId: string
+
+				if (data.type === 'recipe') {
+					contentId = this.contentService.addContent({
+						type: 'recipe',
+						title: data.title,
+						slug,
+						description: data.description || '',
+						body: data.body || '',
+						rendered_body: '',
+						metadata,
+						status: 'draft',
+						tags: data.tags || [],
+						published_at: data.publishedAt || new Date().toISOString(),
+						author_id: data.author_id
+					})
+				} else if (data.type === 'video') {
+					contentId = this.contentService.addContent({
+						type: 'video',
+						title: data.title,
+						slug,
+						description: data.description || '',
+						metadata,
+						status: 'draft',
+						tags: data.tags || [],
+						published_at: data.publishedAt || new Date().toISOString(),
+						author_id: data.author_id
+					})
+				} else {
+					// library
+					contentId = this.contentService.addContent({
+						type: 'library',
+						title: data.title,
+						slug,
+						description: data.description || '',
+						metadata,
+						status: 'draft',
+						tags: data.tags || [],
+						published_at: data.publishedAt || new Date().toISOString(),
+						author_id: data.author_id
+					})
+				}
 
 				return contentId
 			}

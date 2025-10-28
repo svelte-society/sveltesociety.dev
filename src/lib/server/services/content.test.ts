@@ -107,18 +107,18 @@ describe('ContentService', () => {
 		test('should sort by latest by default', () => {
 			const content = contentService.getFilteredContent()
 			for (let i = 1; i < content.length; i++) {
-				expect(new Date(content[i].published_at) <= new Date(content[i - 1].published_at)).toBe(
-					true
-				)
+				const currentDate = content[i].published_at ? new Date(content[i].published_at) : new Date(0)
+				const previousDate = content[i - 1].published_at ? new Date(content[i - 1].published_at) : new Date(0)
+				expect(currentDate <= previousDate).toBe(true)
 			}
 		})
 
 		test('should sort by oldest when specified', () => {
 			const content = contentService.getFilteredContent({ sort: 'oldest' })
 			for (let i = 1; i < content.length; i++) {
-				expect(new Date(content[i].published_at) >= new Date(content[i - 1].published_at)).toBe(
-					true
-				)
+				const currentDate = content[i].published_at ? new Date(content[i].published_at) : new Date(0)
+				const previousDate = content[i - 1].published_at ? new Date(content[i - 1].published_at) : new Date(0)
+				expect(currentDate >= previousDate).toBe(true)
 			}
 		})
 	})
