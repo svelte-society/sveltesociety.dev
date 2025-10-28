@@ -58,9 +58,19 @@ describe('MetadataService', () => {
 		test('should return empty object for content with no metadata', () => {
 			const content = {
 				id: 'test-id',
-				type: 'library',
+				type: 'library' as const,
 				title: 'Test',
 				slug: 'test',
+				description: 'Test description',
+				tags: [],
+				published_at: new Date().toISOString(),
+				created_at: new Date().toISOString(),
+				updated_at: new Date().toISOString(),
+				likes: 0,
+				saves: 0,
+				liked: false,
+				saved: false,
+				views: 0,
 				status: 'published' as const,
 				metadata: null
 			}
@@ -72,9 +82,19 @@ describe('MetadataService', () => {
 		test('should return parsed metadata from string', () => {
 			const content = {
 				id: 'test-id',
-				type: 'library',
+				type: 'library' as const,
 				title: 'Test',
 				slug: 'test',
+				description: 'Test description',
+				tags: [],
+				published_at: new Date().toISOString(),
+				created_at: new Date().toISOString(),
+				updated_at: new Date().toISOString(),
+				likes: 0,
+				saves: 0,
+				liked: false,
+				saved: false,
+				views: 0,
 				status: 'published' as const,
 				metadata: JSON.stringify({ github: { stars: 100 } })
 			}
@@ -86,9 +106,19 @@ describe('MetadataService', () => {
 		test('should return metadata object directly', () => {
 			const content = {
 				id: 'test-id',
-				type: 'library',
+				type: 'library' as const,
 				title: 'Test',
 				slug: 'test',
+				description: 'Test description',
+				tags: [],
+				published_at: new Date().toISOString(),
+				created_at: new Date().toISOString(),
+				updated_at: new Date().toISOString(),
+				likes: 0,
+				saves: 0,
+				liked: false,
+				saved: false,
+				views: 0,
 				status: 'published' as const,
 				metadata: { github: { stars: 200 } }
 			}
@@ -103,9 +133,19 @@ describe('MetadataService', () => {
 
 			const content = {
 				id: 'test-id',
-				type: 'library',
+				type: 'library' as const,
 				title: 'Test',
 				slug: 'test',
+				description: 'Test description',
+				tags: [],
+				published_at: new Date().toISOString(),
+				created_at: new Date().toISOString(),
+				updated_at: new Date().toISOString(),
+				likes: 0,
+				saves: 0,
+				liked: false,
+				saved: false,
+				views: 0,
 				status: 'published' as const,
 				metadata: {
 					updated_at: twoDaysAgo,
@@ -124,9 +164,19 @@ describe('MetadataService', () => {
 
 			const content = {
 				id: 'test-id',
-				type: 'library',
+				type: 'library' as const,
 				title: 'Test',
 				slug: 'test',
+				description: 'Test description',
+				tags: [],
+				published_at: new Date().toISOString(),
+				created_at: new Date().toISOString(),
+				updated_at: new Date().toISOString(),
+				likes: 0,
+				saves: 0,
+				liked: false,
+				saved: false,
+				views: 0,
 				status: 'published' as const,
 				metadata: {
 					updated_at: oneHourAgo,
@@ -160,9 +210,19 @@ describe('MetadataService', () => {
 
 			const content = {
 				id: 'test-id',
-				type: 'library',
+				type: 'library' as const,
 				title: 'Test Library',
 				slug: 'test-library',
+				description: 'Test description',
+				tags: [],
+				published_at: new Date().toISOString(),
+				created_at: new Date().toISOString(),
+				updated_at: new Date().toISOString(),
+				likes: 0,
+				saves: 0,
+				liked: false,
+				saved: false,
+				views: 0,
 				status: 'published' as const,
 				metadata: {
 					github: { repoUrl: 'https://github.com/sveltejs/svelte' }
@@ -192,9 +252,19 @@ describe('MetadataService', () => {
 
 			const content = {
 				id: 'test-id',
-				type: 'video',
+				type: 'video' as const,
 				title: 'Test Video',
 				slug: 'test-video',
+				description: 'Test description',
+				tags: [],
+				published_at: new Date().toISOString(),
+				created_at: new Date().toISOString(),
+				updated_at: new Date().toISOString(),
+				likes: 0,
+				saves: 0,
+				liked: false,
+				saved: false,
+				views: 0,
 				status: 'published' as const,
 				metadata: { videoId: 'dQw4w9WgXcQ' }
 			}

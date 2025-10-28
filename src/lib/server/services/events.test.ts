@@ -44,7 +44,7 @@ describe('EventsService', () => {
 							}
 						})
 				})
-			)
+			) as any
 
 			const events = await eventsService.fetchUpcomingEventsFromAPI()
 			expect(events).toBeDefined()
@@ -62,7 +62,7 @@ describe('EventsService', () => {
 					ok: false,
 					statusText: 'Not Found'
 				})
-			)
+			) as any
 
 			const events = await eventsService.fetchUpcomingEventsFromAPI()
 			expect(events).toBeDefined()
@@ -71,7 +71,7 @@ describe('EventsService', () => {
 
 		test('should handle network errors', async () => {
 			// Mock network error
-			global.fetch = mock(() => Promise.reject(new Error('Network error')))
+			global.fetch = mock(() => Promise.reject(new Error('Network error'))) as any
 
 			const events = await eventsService.fetchUpcomingEventsFromAPI()
 			expect(events).toBeDefined()
@@ -137,7 +137,7 @@ describe('EventsService', () => {
 							}
 						})
 				})
-			)
+			) as any
 
 			const events = await eventsService.fetchPastEventsFromAPI()
 			expect(events).toBeDefined()
@@ -153,7 +153,7 @@ describe('EventsService', () => {
 					ok: true,
 					json: () => Promise.resolve({ events: { edges: [] } })
 				})
-			)
+			) as any
 
 			const events = await eventsService.fetchPastEventsFromAPI()
 			expect(events).toBeDefined()
@@ -176,7 +176,7 @@ describe('EventsService', () => {
 							url: 'https://guild.host/events/single-event'
 						})
 				})
-			)
+			) as any
 
 			const event = await eventsService.fetchEventFromAPI('single-event')
 			expect(event).toBeDefined()
@@ -191,14 +191,14 @@ describe('EventsService', () => {
 					status: 404,
 					statusText: 'Not Found'
 				})
-			)
+			) as any
 
 			const event = await eventsService.fetchEventFromAPI('non-existent')
 			expect(event).toBeNull()
 		})
 
 		test('should return null for other errors', async () => {
-			global.fetch = mock(() => Promise.reject(new Error('API error')))
+			global.fetch = mock(() => Promise.reject(new Error('API error'))) as any
 
 			const event = await eventsService.fetchEventFromAPI('error-event')
 			expect(event).toBeNull()
@@ -227,7 +227,7 @@ describe('EventsService', () => {
 							}
 						})
 				})
-			)
+			) as any
 
 			const events = await noCacheService.fetchUpcomingEventsFromAPI()
 			expect(events).toBeDefined()
