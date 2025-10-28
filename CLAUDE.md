@@ -1,3 +1,6 @@
+- In all interactions and commit messages, be extremely concise and sacrifice grammar for the sake of concision
+- When running tests, always run the one in package.json, do NOT run bunx, npx, or similar.
+
 # Claude Memory - Additional Context
 
 This file provides additional context for Claude Code beyond the main CLAUDE.md.
