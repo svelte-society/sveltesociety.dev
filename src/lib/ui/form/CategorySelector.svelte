@@ -4,7 +4,7 @@
 	interface TextInputProps {
 		label?: string
 		description?: string
-		options: { label: string; value: string; type: string; color?: string }[]
+		options: { label: string; value: string; type: string }[]
 		name: string
 		'data-testid'?: string
 	}

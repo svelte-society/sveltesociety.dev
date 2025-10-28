@@ -24,7 +24,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 				// Extract presentations
 				const presentations =
-					event.presentations?.edges?.map((edge: any) => {
+					event.presentations?.edges?.map((edge) => {
 						let presenterName = 'Unknown'
 
 						// Handle different presenter formats

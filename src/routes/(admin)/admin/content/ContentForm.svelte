@@ -68,14 +68,14 @@
 				description={$formData.author_id
 					? 'Change the author or submitter of this content'
 					: 'Select the author or submitter of this content'}
-				options={data.users.map((user: any) => ({
+				options={data.users.map((user) => ({
 					value: user.id,
 					label: `${user.name || user.username} (@${user.username})`
 				}))}
 			/>
 			<div>
-				{#if $formData.author_id && data.users.find((u: any) => u.id === $formData.author_id)}
-					{@const currentAuthor = data.users.find((u: any) => u.id === $formData.author_id)}
+				{#if $formData.author_id && data.users.find((u) => u.id === $formData.author_id)}
+					{@const currentAuthor = data.users.find((u) => u.id === $formData.author_id)}
 					<a
 						href="/user/{currentAuthor.username}"
 						class="flex items-center gap-3 rounded-md border border-gray-200 bg-gray-50 p-3 transition-colors hover:bg-gray-100"
@@ -261,7 +261,7 @@
 				name="children"
 				label="Content"
 				description="Select content to add to the collection"
-				options={data.availableContent.map((item: any) => ({
+				options={data.availableContent.map((item) => ({
 					label: `${item.title} (${item.type})`,
 					value: item.id
 				}))}
@@ -273,7 +273,7 @@
 		name="tags"
 		label="Tags"
 		description="Select tags for this content"
-		options={data.tags.map((tag: any) => ({
+		options={data.tags.map((tag) => ({
 			label: tag.name,
 			value: tag.id
 		}))}
