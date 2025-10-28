@@ -202,8 +202,10 @@ describe('ContentService', () => {
 				slug: 'new-test-content',
 				type: 'recipe' as const,
 				body: 'Test body',
+				rendered_body: '<p>Test body</p>',
 				description: 'Test description',
 				status: 'draft' as const,
+				published_at: null,
 				tags: ['tag1']
 			}
 
@@ -232,8 +234,10 @@ describe('ContentService', () => {
 				slug: 'content-with-author',
 				type: 'recipe' as const,
 				body: 'Test body',
+				rendered_body: '<p>Test body</p>',
 				description: 'Test description',
 				status: 'published' as const,
+				published_at: new Date().toISOString(),
 				tags: []
 			}
 
@@ -253,9 +257,10 @@ describe('ContentService', () => {
 				title: 'Multi-tag Content',
 				slug: 'multi-tag-content',
 				type: 'library' as const,
-				body: 'Test body',
 				description: 'Test description',
 				status: 'published' as const,
+				published_at: new Date().toISOString(),
+				metadata: {},
 				tags: ['tag1', 'tag2']
 			}
 
@@ -275,8 +280,10 @@ describe('ContentService', () => {
 				slug: 'searchable-content',
 				type: 'recipe' as const,
 				body: 'Content with searchable tags',
+				rendered_body: '<p>Content with searchable tags</p>',
 				description: 'Description',
 				status: 'published' as const,
+				published_at: new Date().toISOString(),
 				tags: ['tag1', 'tag2']
 			}
 
@@ -302,7 +309,10 @@ describe('ContentService', () => {
 				type: existing.type,
 				status: existing.status,
 				body: existing.body,
-				description: 'Updated description'
+				rendered_body: existing.rendered_body || '',
+				published_at: existing.published_at,
+				description: 'Updated description',
+				tags: []
 			}
 
 			contentService.updateContent(updates)
@@ -322,8 +332,11 @@ describe('ContentService', () => {
 				slug: existing.slug,
 				type: existing.type,
 				body: existing.body,
+				rendered_body: existing.rendered_body || '',
+				published_at: existing.published_at,
 				description: existing.description,
-				status: 'published' as const
+				status: 'published' as const,
+				tags: []
 			}
 
 			contentService.updateContent(updates)
@@ -343,6 +356,8 @@ describe('ContentService', () => {
 				type: existing.type,
 				status: existing.status,
 				body: existing.body,
+				rendered_body: existing.rendered_body || '',
+				published_at: existing.published_at,
 				description: existing.description,
 				tags: ['tag2', 'tag3']
 			}
@@ -365,8 +380,11 @@ describe('ContentService', () => {
 				slug: existing.slug,
 				type: existing.type,
 				body: existing.body,
+				rendered_body: existing.rendered_body || '',
+				published_at: existing.published_at,
 				description: existing.description,
-				status: 'published' as const
+				status: 'published' as const,
+				tags: []
 			}
 
 			contentService.updateContent(updates)
