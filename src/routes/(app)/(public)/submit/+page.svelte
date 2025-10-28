@@ -246,7 +246,7 @@
 			name="tags"
 			label="Tags"
 			description="Select relevant tags for your submission"
-			options={data.tags.map((tag) => ({
+			options={(data.tags || []).map((tag) => ({
 				label: tag.name,
 				value: tag.id
 			}))}
