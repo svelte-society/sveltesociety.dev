@@ -53,7 +53,11 @@ export const load = (async ({ locals, url }) => {
 
 	const tags = locals.tagService.getTags({ limit: 50 })
 
-	const form = await superValidate(zod4(schema))
+	const form = await superValidate(zod4(schema), {
+		defaults: {
+			tags: []
+		}
+	})
 
 	return {
 		form,
