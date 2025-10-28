@@ -14,13 +14,14 @@ When adding a new feature:
 
 ## Current Test Coverage
 
-**65 tests** across 14 test files (100% passing, 0% flaky)
+**68 tests** across 15 test files (100% passing, 0% flaky)
 - Public Tests (13) - Content browsing, search, detail pages
 - Authentication Tests (13) - Login flows, protected routes, roles
 - Content Submission (9) - Submit recipes, videos, libraries
 - Admin Moderation (4) - Approve/reject pending content
 - Admin Content Management (5) - Edit, archive, publish
 - Admin User Management (4) - View users, edit profiles, roles
+- Admin Tags Management (3) - View tags list, navigate to new tag
 
 ## Test Infrastructure
 
@@ -41,6 +42,7 @@ When adding a new feature:
 - ModerationQueuePage - Content moderation
 - ContentEditPage - Edit content
 - UserManagementPage - User management
+- TagsManagementPage - Tags management
 
 ### Helpers & Fixtures
 - `tests/helpers/database-isolation.ts` - Cookie routing
