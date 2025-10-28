@@ -1,45 +1,52 @@
 <script lang="ts">
+	import { page } from '$app/state'
 	import Button from '$lib/ui/Button.svelte'
-	import Input from '$lib/ui/form/Input.svelte'
-	import { zod4 } from 'sveltekit-superforms/adapters'
-	import { superForm } from 'sveltekit-superforms'
-	import { slugify } from '$lib/utils/slug'
-	import { z } from 'zod'
+	import { getTag, updateTag } from './data.remote'
 
-	// Define the schema locally to match the server
-	const schema = z.object({
-		id: z.string(),
-		name: z.string().min(1, 'Name is required'),
-		slug: z.string().min(1, 'Slug is required')
+	const data = $derived(await getTag({ id: page.params.id! }))
+
+	updateTag.fields.set({
+		id: data.tag.id,
+		name: data.tag.name,
+		slug: data.tag.slug
 	})
-
-	let { data } = $props()
-	const { form, errors, enhance } = superForm(data.form)
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
 	<h1 class="mb-6 text-3xl font-bold text-gray-800">Edit Tag</h1>
-	<form method="POST" use:enhance class="space-y-6">
-		<input type="hidden" name="id" bind:value={$form.id} />
-		<Input
-			name="name"
-			label="Name"
-			type="text"
-			placeholder="Svelte"
-			description="Enter the name of the tag"
-			bind:value={$form.name}
-			errors={$errors.name}
-		/>
-		<Input
-			name="slug"
-			label="Slug"
-			type="text"
-			placeholder="svelte"
-			description="Enter the slug of the tag"
-			magic={() => slugify($form.name)}
-			bind:value={$form.slug}
-			errors={$errors.slug}
-		/>
-		<Button width="full">Update Tag</Button>
+	<form {...updateTag} class="space-y-6">
+		<input {...updateTag.fields.id.as('hidden', data.tag.id)} />
+
+		<div class="flex flex-col gap-2">
+			<label for="name" class="text-xs font-medium">Name</label>
+			<input
+				{...updateTag.fields.name.as('text')}
+				id="name"
+				placeholder="Svelte"
+				class="rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+			/>
+			{#each updateTag.fields.name.issues() as issue}
+				<p class="text-xs text-red-600">{issue.message}</p>
+			{/each}
+			<p class="text-xs text-gray-500">Enter the name of the tag</p>
+		</div>
+
+		<div class="flex flex-col gap-2">
+			<label for="slug" class="text-xs font-medium">Slug</label>
+			<input
+				{...updateTag.fields.slug.as('text')}
+				id="slug"
+				placeholder="svelte"
+				class="rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+			/>
+			{#each updateTag.fields.slug.issues() as issue}
+				<p class="text-xs text-red-600">{issue.message}</p>
+			{/each}
+			<p class="text-xs text-gray-500">Enter the slug of the tag</p>
+		</div>
+
+		<Button width="full" disabled={updateTag.pending}>
+			{updateTag.pending ? 'Updating...' : 'Update Tag'}
+		</Button>
 	</form>
 </div>

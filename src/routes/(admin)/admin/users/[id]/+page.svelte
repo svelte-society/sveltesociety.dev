@@ -1,86 +1,128 @@
 <script lang="ts">
-	import { superForm } from 'sveltekit-superforms'
-	import Form from '$lib/ui/form/Form.svelte'
-	import Input from '$lib/ui/form/Input.svelte'
-	import Select from '$lib/ui/form/Select.svelte'
+	import { page } from '$app/state'
 	import Button from '$lib/ui/Button.svelte'
 	import Avatar from '$lib/ui/Avatar.svelte'
+	import { getUser, updateUser } from './data.remote'
 
-	let { data } = $props()
-	const form = superForm(data.form, {
-		dataType: 'json'
+	const data = $derived(await getUser({ id: page.params.id! }))
+
+	updateUser.fields.set({
+		id: data.user.id,
+		username: data.user.username,
+		email: data.user.email || '',
+		bio: data.user.bio || '',
+		location: data.user.location || '',
+		twitter: data.user.twitter || '',
+		avatar_url: data.user.avatar_url || '',
+		role: data.user.role
 	})
-
-	const { form: formData } = form
-
-	const roleOptions = data.roles.map((role) => ({
-		value: role.id,
-		label: role.name
-	}))
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
 	<h1 class="mb-6 text-3xl font-bold text-gray-800">Edit User</h1>
 
-	<Form {form}>
-		<div class="hidden">
-			<Input type="hidden" name="id" />
+	<form {...updateUser} class="flex flex-col gap-4">
+		<input {...updateUser.fields.id.as('hidden', data.user.id)} />
+
+		<div class="flex flex-col gap-2">
+			<label for="username" class="text-xs font-medium">Username</label>
+			<input
+				{...updateUser.fields.username.as('text')}
+				id="username"
+				data-testid="input-username"
+				placeholder="johndoe"
+				class="rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+			/>
+			{#each updateUser.fields.username.issues() as issue}
+				<p class="text-xs text-red-600">{issue.message}</p>
+			{/each}
+			<p class="text-xs text-gray-500">Enter the user's username</p>
 		</div>
 
-		<Input
-			name="username"
-			label="Username"
-			placeholder="johndoe"
-			description="Enter the user's username"
-		/>
+		<div class="flex flex-col gap-2">
+			<label for="email" class="text-xs font-medium">Email</label>
+			<input
+				{...updateUser.fields.email.as('email')}
+				id="email"
+				data-testid="input-email"
+				placeholder="john@example.com"
+				class="rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+			/>
+			{#each updateUser.fields.email.issues() as issue}
+				<p class="text-xs text-red-600">{issue.message}</p>
+			{/each}
+			<p class="text-xs text-gray-500">Enter the user's email address</p>
+		</div>
 
-		<Input
-			name="email"
-			label="Email"
-			placeholder="john@example.com"
-			description="Enter the user's email address"
-		/>
+		<div class="flex flex-col gap-2">
+			<label for="bio" class="text-xs font-medium">Bio</label>
+			<input
+				{...updateUser.fields.bio.as('text')}
+				id="bio"
+				placeholder="A short bio about the user"
+				class="rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+			/>
+			<p class="text-xs text-gray-500">Enter a brief description about the user</p>
+		</div>
 
-		<Input
-			name="bio"
-			label="Bio"
-			placeholder="A short bio about the user"
-			description="Enter a brief description about the user"
-		/>
+		<div class="flex flex-col gap-2">
+			<label for="location" class="text-xs font-medium">Location</label>
+			<input
+				{...updateUser.fields.location.as('text')}
+				id="location"
+				placeholder="New York, USA"
+				class="rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+			/>
+			<p class="text-xs text-gray-500">Enter the user's location</p>
+		</div>
 
-		<Input
-			name="location"
-			label="Location"
-			placeholder="New York, USA"
-			description="Enter the user's location"
-		/>
+		<div class="flex flex-col gap-2">
+			<label for="twitter" class="text-xs font-medium">Twitter</label>
+			<input
+				{...updateUser.fields.twitter.as('text')}
+				id="twitter"
+				placeholder="@johndoe"
+				class="rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+			/>
+			<p class="text-xs text-gray-500">Enter the user's Twitter handle</p>
+		</div>
 
-		<Input
-			name="twitter"
-			label="Twitter"
-			placeholder="@johndoe"
-			description="Enter the user's Twitter handle"
-		/>
-
-		<div class="space-y-2">
-			<label for="avatar_url" class="block text-sm font-medium text-gray-700">Avatar</label>
+		<div class="flex flex-col gap-2">
+			<label for="avatar_url" class="text-xs font-medium">Avatar</label>
 			<div class="flex items-center gap-4">
-				<Avatar src={$formData.avatar_url} name={$formData.username} />
+				<Avatar src={updateUser.fields.avatar_url.value()} name={updateUser.fields.username.value()} />
 				<div class="flex-grow">
-					<Input
-						name="avatar_url"
+					<input
+						{...updateUser.fields.avatar_url.as('text')}
+						id="avatar_url"
 						placeholder="https://example.com/avatar.jpg"
-						description="Enter the URL for the user's avatar"
+						class="rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
 					/>
 				</div>
 			</div>
+			<p class="text-xs text-gray-500">Enter the URL for the user's avatar</p>
 		</div>
 
-		<Select name="role" label="Role" description="Select the user's role" options={roleOptions} />
+		<div class="flex flex-col gap-2">
+			<label for="role" class="text-xs font-medium">Role</label>
+			<select
+				{...updateUser.fields.role.as('select')}
+				id="role"
+				data-testid="select-role"
+				class="rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+			>
+				{#each data.roles as role}
+					<option value={role.id}>{role.name}</option>
+				{/each}
+			</select>
+			<p class="text-xs text-gray-500">Select the user's role</p>
+		</div>
 
 		<div class="mt-8 flex items-center justify-between">
-			<Button type="submit">Update User</Button>
+			<Button type="submit" disabled={updateUser.pending} data-testid="update-button">
+				{updateUser.pending ? 'Updating...' : 'Update User'}
+			</Button>
 			<a href="/admin/users" class="text-sm text-gray-600 hover:text-gray-900">Back to Users</a>
 		</div>
-	</Form>
+	</form>
 </div>

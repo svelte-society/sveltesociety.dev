@@ -16,6 +16,7 @@
 	}
 
 	const currentPage = $derived(parseInt(page.url.searchParams.get('page') || '1'))
+	const data = $derived(await getUsers({ page: currentPage }))
 
 	// Ensure ID is a string for Actions component
 	function ensureStringId(id: string | number): string {
@@ -27,74 +28,68 @@
 	<div class="mb-4 content-start gap-2">
 		<h1 class="text-xl font-bold">Users Management</h1>
 	</div>
-	{#await getUsers({ page: currentPage })}
-		<p>Loading users...</p>
-	{:then data}
-		<Table action={true} data={data.users} testId="users-table">
-			{#snippet header(classes)}
-				<th scope="col" class={classes}>User</th>
-				<th scope="col" class={classes}>Email</th>
-				<th scope="col" class={classes}>Role</th>
-				<th scope="col" class={classes}>Location</th>
-				<th scope="col" class={classes}>Twitter</th>
-				<th scope="col" class={classes}>Created</th>
-			{/snippet}
-			{#snippet row(item: ExtendedUser, classes)}
-				<td class="whitespace-nowrap {classes} flex items-center font-medium text-gray-900">
-					<Avatar src={item.avatar_url} name={item.username} />
-					<span class="ml-2" data-testid="user-username">{item.username}</span>
-				</td>
-				<td class="{classes} truncate">{item.email ?? '-'}</td>
-				<td class={classes} data-testid="user-role">{item.role_name}</td>
-				<td class={classes}>{item.location ?? '-'}</td>
-				<td class={classes}>{item.twitter ?? '-'}</td>
-				<td class={classes}>
-					{formatRelativeDate(item.created_at)}
-				</td>
-			{/snippet}
-			{#snippet actionCell(item: ExtendedUser)}
-				<Actions
-					route="users"
-					id={ensureStringId(item.id)}
-					canDelete={true}
-					canEdit={true}
-					type="this user"
-					deleteForm={deleteUser}
-				/>
-				<button
-					onclick={async () => {
-						await clearSessions(ensureStringId(item.id))
-					}}
-					class="group relative text-orange-600 hover:text-orange-900"
-					aria-label="Clear user sessions"
+	<Table action={true} data={data.users} testId="users-table">
+		{#snippet header(classes)}
+			<th scope="col" class={classes}>User</th>
+			<th scope="col" class={classes}>Email</th>
+			<th scope="col" class={classes}>Role</th>
+			<th scope="col" class={classes}>Location</th>
+			<th scope="col" class={classes}>Twitter</th>
+			<th scope="col" class={classes}>Created</th>
+		{/snippet}
+		{#snippet row(item: ExtendedUser, classes)}
+			<td class="whitespace-nowrap {classes} flex items-center font-medium text-gray-900">
+				<Avatar src={item.avatar_url} name={item.username} />
+				<span class="ml-2" data-testid="user-username">{item.username}</span>
+			</td>
+			<td class="{classes} truncate">{item.email ?? '-'}</td>
+			<td class={classes} data-testid="user-role">{item.role_name}</td>
+			<td class={classes}>{item.location ?? '-'}</td>
+			<td class={classes}>{item.twitter ?? '-'}</td>
+			<td class={classes}>
+				{formatRelativeDate(item.created_at)}
+			</td>
+		{/snippet}
+		{#snippet actionCell(item: ExtendedUser)}
+			<Actions
+				route="users"
+				id={ensureStringId(item.id)}
+				canDelete={true}
+				canEdit={true}
+				type="this user"
+				deleteForm={deleteUser}
+			/>
+			<button
+				onclick={async () => {
+					await clearSessions(ensureStringId(item.id))
+				}}
+				class="group relative text-orange-600 hover:text-orange-900"
+				aria-label="Clear user sessions"
+			>
+				<svg
+					class="h-4 w-4"
+					fill="none"
+					stroke="currentColor"
+					viewBox="0 0 24 24"
+					xmlns="http://www.w3.org/2000/svg"
 				>
-					<svg
-						class="h-4 w-4"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-						></path>
-					</svg>
-					<span
-						class="absolute bottom-full left-1/2 mb-1 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100"
-					>
-						Clear sessions
-					</span>
-				</button>
-			{/snippet}
-		</Table>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+					></path>
+				</svg>
+				<span
+					class="absolute bottom-full left-1/2 mb-1 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100"
+				>
+					Clear sessions
+				</span>
+			</button>
+		{/snippet}
+	</Table>
 
-		{#if data.pagination}
-			<Pagination count={data.pagination.count} perPage={data.pagination.perPage} />
-		{/if}
-	{:catch error}
-		<p class="text-red-600">Error loading users: {error.message}</p>
-	{/await}
+	{#if data.pagination}
+		<Pagination count={data.pagination.count} perPage={data.pagination.perPage} />
+	{/if}
 </div>

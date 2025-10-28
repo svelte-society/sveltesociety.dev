@@ -2,6 +2,7 @@ import { query, form } from '$app/server'
 import { getRequestEvent } from '$app/server'
 import { error, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
+import { createTagSchema } from '$lib/schema/tags'
 
 // Query for paginated tags list
 export const getTags = query(
@@ -33,6 +34,30 @@ export const getTags = query(
 		}
 	}
 )
+
+// Form for creating a new tag
+export const createTag = form(createTagSchema, async (data, invalid) => {
+	const { locals } = getRequestEvent()
+
+	if (!locals.user || locals.user.role !== 1) {
+		throw error(403, 'Forbidden')
+	}
+
+	if (!data.name) {
+		invalid(invalid.name('Name is required'))
+	}
+
+	if (!data.slug) {
+		invalid(invalid.slug('Slug is required'))
+	}
+
+	locals.tagService.createTag(data)
+
+	// Single-flight mutation: refresh ONLY the tags query
+	await getTags({ page: 1 }).refresh()
+
+	redirect(303, '/admin/tags')
+})
 
 // Form for deleting a tag
 export const deleteTag = form(
