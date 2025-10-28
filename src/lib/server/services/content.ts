@@ -518,7 +518,7 @@ export class ContentService {
 		}
 	}
 
-	getContentBySlug(slug: string, any_status?: boolean): Content | null {
+	getContentBySlug(slug: string, any_status?: boolean): ContentWithAuthor | null {
 		if (!slug) {
 			console.error('Invalid slug:', slug)
 			return null

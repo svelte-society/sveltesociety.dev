@@ -71,23 +71,49 @@ export class ExternalContentService {
 			}
 
 			if (existing) {
-				// Get existing body if available (only recipe type has body field)
-				const existingBody = existing.type === 'recipe' ? existing.body || '' : ''
-				const existingRenderedBody = existing.type === 'recipe' ? existing.rendered_body || '' : ''
+				// Update based on content type
+				if (data.type === 'recipe') {
+					const existingBody = existing.type === 'recipe' ? existing.body || '' : ''
+					const existingRenderedBody = existing.type === 'recipe' ? existing.rendered_body || '' : ''
 
-				this.contentService.updateContent({
-					id: existing.id,
-					title: data.title,
-					slug: existing.slug,
-					description: data.description || existing.description,
-					type: data.type,
-					status: existing.status,
-					body: data.body || existingBody,
-					rendered_body: existingRenderedBody,
-					published_at: existing.published_at,
-					metadata: JSON.stringify(metadata),
-					tags: data.tags || []
-				})
+					this.contentService.updateContent({
+						id: existing.id,
+						type: 'recipe',
+						title: data.title,
+						slug: existing.slug,
+						description: data.description || existing.description,
+						status: existing.status,
+						published_at: existing.published_at,
+						body: data.body || existingBody,
+						rendered_body: existingRenderedBody,
+						metadata: metadata,
+						tags: data.tags || []
+					})
+				} else if (data.type === 'video') {
+					this.contentService.updateContent({
+						id: existing.id,
+						type: 'video',
+						title: data.title,
+						slug: existing.slug,
+						description: data.description || existing.description,
+						status: existing.status,
+						published_at: existing.published_at,
+						metadata: metadata,
+						tags: data.tags || []
+					})
+				} else if (data.type === 'library') {
+					this.contentService.updateContent({
+						id: existing.id,
+						type: 'library',
+						title: data.title,
+						slug: existing.slug,
+						description: data.description || existing.description,
+						status: existing.status,
+						published_at: existing.published_at,
+						metadata: metadata,
+						tags: data.tags || []
+					})
+				}
 
 				return existing.id
 			} else {
