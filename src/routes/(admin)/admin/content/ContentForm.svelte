@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Input from '$lib/ui/form/Input.svelte'
 	import Select from '$lib/ui/form/Select.svelte'
 	import Textarea from '$lib/ui/form/Textarea.svelte'
@@ -9,8 +9,24 @@
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 	import { slide } from 'svelte/transition'
 	import CategorySelector from '$lib/ui/form/CategorySelector.svelte'
+	import type { Tag } from '$lib/types/tags'
+	import type { User } from '$lib/server/services/user'
+	import type { ContentWithAuthor } from '$lib/types/content'
+	import type { SuperForm } from 'sveltekit-superforms'
 
-	let { form, isImported = false, isEditing = false, data } = $props()
+	interface Props {
+		form: SuperForm<any, any>
+		isImported?: boolean
+		isEditing?: boolean
+		data: {
+			tags: Tag[]
+			users?: User[]
+			availableContent?: ContentWithAuthor[]
+			content?: ContentWithAuthor
+		}
+	}
+
+	let { form, isImported = false, isEditing = false, data }: Props = $props()
 
 	const { form: formData, submitting } = form
 </script>
@@ -74,32 +90,34 @@
 				}))}
 			/>
 			<div>
-				{#if $formData.author_id && data.users.find((u) => u.id === $formData.author_id)}
+				{#if $formData.author_id}
 					{@const currentAuthor = data.users.find((u) => u.id === $formData.author_id)}
-					<a
-						href="/user/{currentAuthor.username}"
-						class="flex items-center gap-3 rounded-md border border-gray-200 bg-gray-50 p-3 transition-colors hover:bg-gray-100"
-					>
-						{#if currentAuthor.avatar_url}
-							<img
-								src={currentAuthor.avatar_url}
-								alt={currentAuthor.name || currentAuthor.username}
-								class="h-10 w-10 rounded-full"
-							/>
-						{:else}
-							<div
-								class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-300 text-gray-700"
-							>
-								{(currentAuthor.name || currentAuthor.username).charAt(0).toUpperCase()}
+					{#if currentAuthor}
+						<a
+							href="/user/{currentAuthor.username}"
+							class="flex items-center gap-3 rounded-md border border-gray-200 bg-gray-50 p-3 transition-colors hover:bg-gray-100"
+						>
+							{#if currentAuthor.avatar_url}
+								<img
+									src={currentAuthor.avatar_url}
+									alt={currentAuthor.name || currentAuthor.username}
+									class="h-10 w-10 rounded-full"
+								/>
+							{:else}
+								<div
+									class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-300 text-gray-700"
+								>
+									{(currentAuthor.name || currentAuthor.username).charAt(0).toUpperCase()}
+								</div>
+							{/if}
+							<div>
+								<p class="font-medium text-gray-900">
+									{currentAuthor.name || currentAuthor.username}
+								</p>
+								<p class="text-sm text-gray-500">@{currentAuthor.username}</p>
 							</div>
-						{/if}
-						<div>
-							<p class="font-medium text-gray-900">
-								{currentAuthor.name || currentAuthor.username}
-							</p>
-							<p class="text-sm text-gray-500">@{currentAuthor.username}</p>
-						</div>
-					</a>
+						</a>
+					{/if}
 				{/if}
 			</div>
 		</div>
@@ -255,7 +273,7 @@
 		data-testid="textarea-description"
 	/>
 
-	{#if $formData.type === 'collection'}
+	{#if $formData.type === 'collection' && data.availableContent}
 		<div transition:slide class="space-y-2">
 			<DynamicSelector
 				name="children"

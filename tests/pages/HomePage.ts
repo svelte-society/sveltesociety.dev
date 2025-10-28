@@ -143,7 +143,7 @@ export class HomePage extends BasePage {
 				break
 			default:
 				// For announcement and collection, navigate directly via URL
-				await this.goto(`/${type}`)
+				await this.page.goto(`/${type}`)
 		}
 	}
 

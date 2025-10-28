@@ -79,6 +79,7 @@ export class ExternalContentService {
 					type: data.type,
 					status: existing.status,
 					body: data.body || existing.body || '',
+					published_at: existing.published_at,
 					metadata: JSON.stringify(metadata),
 					tags: data.tags || []
 				})

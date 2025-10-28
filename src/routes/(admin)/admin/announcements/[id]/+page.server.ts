@@ -11,7 +11,14 @@ export const load = (async ({ params, locals }) => {
 		error(404, 'Placement not found')
 	}
 
-	const form = await superValidate(placement, zod4(placementSchema))
+	// Transform null dates to undefined for form schema
+	const formData = {
+		...placement,
+		start_date: placement.start_date ?? undefined,
+		end_date: placement.end_date ?? undefined
+	}
+
+	const form = await superValidate(formData, zod4(placementSchema))
 
 	const announcements = locals.contentService.getFilteredContent({
 		type: 'announcement',

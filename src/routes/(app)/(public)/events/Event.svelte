@@ -1,6 +1,7 @@
 <script>
 	import User from 'phosphor-svelte/lib/User'
 	import Calendar from 'phosphor-svelte/lib/Calendar'
+	import MapPin from 'phosphor-svelte/lib/MapPin'
 	let { event } = $props()
 </script>
 
