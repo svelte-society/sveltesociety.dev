@@ -42,4 +42,17 @@ declare global {
 	}
 }
 
+// Declare environment variables
+declare module '$env/static/private' {
+	export const DB_PATH: string
+	export const GITHUB_CLIENT_ID: string
+	export const GITHUB_CLIENT_SECRET: string
+	export const GITHUB_AUTHORIZATION_CALLBACK_URL: string
+	export const ANTHROPIC_API_KEY: string | undefined
+	export const YOUTUBE_API_KEY: string | undefined
+	export const GITHUB_TOKEN: string | undefined
+	export const BULK_IMPORT_API_KEY: string | undefined
+	export const SEED_DATABASE: string | undefined
+}
+
 export {}
