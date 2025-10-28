@@ -71,7 +71,7 @@ export class BasePage {
 	/**
 	 * Login link in navigation
 	 */
-	protected get loginLink(): Locator {
+	get loginLink(): Locator {
 		return this.page.locator('a[href="/login"]')
 	}
 
