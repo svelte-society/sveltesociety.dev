@@ -102,8 +102,8 @@ const mimes = {
 	webm: 'video/webm',
 	mp4: 'video/mp4',
 
-	lookup(string) {
+	lookup(string: string) {
 		const ext = string.toLowerCase().split('.').at(-1)
-		return (ext && this[ext]) ?? 'application/octet-stream'
+		return (ext && (this as any)[ext]) ?? 'application/octet-stream'
 	}
 }

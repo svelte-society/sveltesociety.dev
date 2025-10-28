@@ -24,7 +24,7 @@
 		<div class="sm:hidden">
 			<!-- Avatar and basic info -->
 			<div class="mb-4 flex items-center gap-4">
-				<Avatar src={data.user.avatar_url} name={data.user.name || data.user.username} size="lg" />
+				<Avatar src={data.user.avatar_url} name={data.user.name || data.user.username} />
 				<div class="min-w-0 flex-1">
 					<h1 class="truncate text-lg font-bold">{data.user.name || data.user.username}</h1>
 					{#if data.user.username}

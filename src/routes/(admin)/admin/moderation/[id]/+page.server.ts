@@ -31,7 +31,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	// Map tag IDs to names
 	if (submissionData.tags && Array.isArray(submissionData.tags)) {
-		submissionData.tagNames = submissionData.tags.map((tagId) => tagMap.get(tagId) || tagId)
+		submissionData.tagNames = submissionData.tags.map((tagId: string) => tagMap.get(tagId) || tagId)
 	}
 
 	return {
