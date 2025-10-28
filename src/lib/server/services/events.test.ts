@@ -51,7 +51,7 @@ describe('EventsService', () => {
 			expect(Array.isArray(events)).toBe(true)
 			if (events.length > 0) {
 				expect(events[0].slug).toBe('test-event')
-				expect(events[0].title).toBe('Test Event')
+				expect(events[0].name).toBe('Test Event')
 			}
 		})
 
@@ -100,7 +100,7 @@ describe('EventsService', () => {
 							}
 						})
 				})
-			})
+			}) as any
 
 			// First call should fetch
 			const events1 = await eventsService.fetchUpcomingEventsFromAPI()
@@ -181,7 +181,7 @@ describe('EventsService', () => {
 			const event = await eventsService.fetchEventFromAPI('single-event')
 			expect(event).toBeDefined()
 			expect(event?.slug).toBe('single-event')
-			expect(event?.title).toBe('Single Event')
+			expect(event?.name).toBe('Single Event')
 		})
 
 		test('should return null for 404 response', async () => {
