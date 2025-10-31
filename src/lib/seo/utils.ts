@@ -4,6 +4,7 @@
  */
 
 import { SEO_CONFIG } from './config'
+import type { SeoMetaTagConfig } from './types'
 
 /**
  * Formats a meta description to ensure it meets best practices
@@ -143,4 +144,150 @@ export function getSchemaType(contentType: string): string {
  */
 export function formatContentType(contentType: string): string {
 	return contentType.charAt(0).toUpperCase() + contentType.slice(1)
+}
+
+/**
+ * Builds a complete SEO meta configuration with all Open Graph and Twitter Card tags
+ * @param config - Basic meta config
+ * @returns Complete SEO meta configuration
+ */
+export function buildSeoConfig(config: Partial<SeoMetaTagConfig>): SeoMetaTagConfig {
+	const {
+		title = SEO_CONFIG.defaultTitle,
+		description = SEO_CONFIG.defaultDescription,
+		url,
+		image,
+		imageAlt,
+		type = 'website',
+		siteName = SEO_CONFIG.siteName,
+		locale = 'en_US',
+		author,
+		twitter,
+		article,
+		video,
+		profile
+	} = config
+
+	// Build complete configuration
+	const seoConfig: SeoMetaTagConfig = {
+		title,
+		description: formatMetaDescription(description),
+		url: url || SEO_CONFIG.siteUrl,
+		siteName,
+		locale,
+		type,
+		image: image || SEO_CONFIG.defaultOgImage,
+		imageAlt: imageAlt || `${title} - ${siteName}`,
+		imageWidth: SEO_CONFIG.ogImageWidth,
+		imageHeight: SEO_CONFIG.ogImageHeight
+	}
+
+	// Add Twitter Card configuration
+	seoConfig.twitter = {
+		card: twitter?.card || 'summary_large_image',
+		site: twitter?.site || SEO_CONFIG.twitterHandle,
+		creator: twitter?.creator,
+		image: twitter?.image || seoConfig.image,
+		imageAlt: twitter?.imageAlt || seoConfig.imageAlt
+	}
+
+	// Add optional fields
+	if (author) seoConfig.author = author
+	if (article) seoConfig.article = article
+	if (video) seoConfig.video = video
+	if (profile) seoConfig.profile = profile
+
+	return seoConfig
+}
+
+/**
+ * Builds meta configuration for homepage
+ * @returns Homepage meta configuration
+ */
+export function buildHomepageMeta(): SeoMetaTagConfig {
+	return buildSeoConfig({
+		title: SEO_CONFIG.defaultTitle,
+		description: SEO_CONFIG.defaultDescription,
+		url: SEO_CONFIG.siteUrl,
+		type: 'website'
+	})
+}
+
+/**
+ * Builds meta configuration for content detail pages
+ * @param content - Content object
+ * @param url - Full URL
+ * @returns Content meta configuration
+ */
+export function buildContentMeta(
+	content: {
+		title: string
+		description?: string
+		type: string
+		slug: string
+		published_at?: string
+		updated_at?: string
+		author?: string
+	},
+	url: string
+): SeoMetaTagConfig {
+	const ogType = getOgType(content.type)
+	const description = content.description || `View ${content.title} on Svelte Society`
+
+	const config: Partial<SeoMetaTagConfig> = {
+		title: `${content.title} - Svelte Society`,
+		description,
+		url,
+		type: ogType,
+		image: getOgImageUrl(content.slug)
+	}
+
+	// Add article metadata for article-type content
+	if (ogType === 'article') {
+		config.article = {
+			publishedTime: content.published_at ? toIso8601(content.published_at) : undefined,
+			modifiedTime: content.updated_at ? toIso8601(content.updated_at) : undefined,
+			author: content.author,
+			section: formatContentType(content.type)
+		}
+	}
+
+	return buildSeoConfig(config)
+}
+
+/**
+ * Builds meta configuration for category pages
+ * @param type - Content type
+ * @param url - Full URL
+ * @returns Category meta configuration
+ */
+export function buildCategoryMeta(type: string, url: string): SeoMetaTagConfig {
+	const typeForDisplay = formatContentType(type)
+
+	return buildSeoConfig({
+		title: `${typeForDisplay} - Svelte Society`,
+		description: `Browse ${typeForDisplay.toLowerCase()} from the Svelte Society community`,
+		url,
+		type: 'website'
+	})
+}
+
+/**
+ * Builds meta configuration for static pages
+ * @param title - Page title
+ * @param description - Page description
+ * @param url - Full URL
+ * @returns Static page meta configuration
+ */
+export function buildStaticPageMeta(
+	title: string,
+	description: string,
+	url: string
+): SeoMetaTagConfig {
+	return buildSeoConfig({
+		title: `${title} - Svelte Society`,
+		description,
+		url,
+		type: 'website'
+	})
 }

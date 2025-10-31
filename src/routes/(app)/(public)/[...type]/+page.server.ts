@@ -4,6 +4,7 @@ import { schema } from './schema'
 import { zod4 } from 'sveltekit-superforms/adapters'
 import type { PageServerLoad } from './$types'
 import type { Content } from '$lib/types/content'
+import { buildHomepageMeta, buildCategoryMeta } from '$lib/seo'
 
 const categories = [
 	{
@@ -100,17 +101,18 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 				.join(' ')
 		: 'Content'
 
+	// Build SEO meta configuration
+	const meta = params.type
+		? buildCategoryMeta(params.type, url.toString())
+		: buildHomepageMeta()
+
 	return {
 		content: mappedContent,
 		count: searchResults.count,
 		tags: allTags,
 		sort: sortOptions,
 		categories,
-		meta: {
-			title: `${typeForDisplay} - Svelte Society`,
-			description: `Browse ${typeForDisplay.toLowerCase()} from the Svelte Society community`,
-			url: url.toString()
-		}
+		meta
 	}
 }
 

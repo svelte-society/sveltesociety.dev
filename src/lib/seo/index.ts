@@ -13,5 +13,11 @@ export {
 	toIso8601,
 	getOgType,
 	getSchemaType,
-	formatContentType
+	formatContentType,
+	buildSeoConfig,
+	buildHomepageMeta,
+	buildContentMeta,
+	buildCategoryMeta,
+	buildStaticPageMeta
 } from './utils'
+export type { SeoMetaTagConfig, PageMetaReturn } from './types'

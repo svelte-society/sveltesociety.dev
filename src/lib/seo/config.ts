@@ -13,6 +13,7 @@ export const SEO_CONFIG = {
 
 	// Default Images
 	defaultImage: '/og-default.png',
+	defaultOgImage: '/og-default.png',
 	logoUrl: '/favicon.png',
 
 	// Social Media
