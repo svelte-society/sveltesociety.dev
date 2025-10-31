@@ -177,7 +177,7 @@
 		{#if content.type === 'recipe'}
 			<Recipe {content} />
 		{:else if content.type === 'collection'}
-			<Collection children={content.children} />
+			<Collection children={Array.isArray(content.children) && content.children.length > 0 && typeof content.children[0] !== 'string' ? content.children : []} />
 		{:else if content.type === 'video'}
 			<Video {content} />
 		{:else if content.type === 'library'}

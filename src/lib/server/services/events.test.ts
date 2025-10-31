@@ -44,14 +44,14 @@ describe('EventsService', () => {
 							}
 						})
 				})
-			)
+			) as any
 
 			const events = await eventsService.fetchUpcomingEventsFromAPI()
 			expect(events).toBeDefined()
 			expect(Array.isArray(events)).toBe(true)
 			if (events.length > 0) {
 				expect(events[0].slug).toBe('test-event')
-				expect(events[0].title).toBe('Test Event')
+				expect(events[0].name).toBe('Test Event')
 			}
 		})
 
@@ -62,7 +62,7 @@ describe('EventsService', () => {
 					ok: false,
 					statusText: 'Not Found'
 				})
-			)
+			) as any
 
 			const events = await eventsService.fetchUpcomingEventsFromAPI()
 			expect(events).toBeDefined()
@@ -71,7 +71,7 @@ describe('EventsService', () => {
 
 		test('should handle network errors', async () => {
 			// Mock network error
-			global.fetch = mock(() => Promise.reject(new Error('Network error')))
+			global.fetch = mock(() => Promise.reject(new Error('Network error'))) as any
 
 			const events = await eventsService.fetchUpcomingEventsFromAPI()
 			expect(events).toBeDefined()
@@ -100,7 +100,7 @@ describe('EventsService', () => {
 							}
 						})
 				})
-			})
+			}) as any
 
 			// First call should fetch
 			const events1 = await eventsService.fetchUpcomingEventsFromAPI()
@@ -137,7 +137,7 @@ describe('EventsService', () => {
 							}
 						})
 				})
-			)
+			) as any
 
 			const events = await eventsService.fetchPastEventsFromAPI()
 			expect(events).toBeDefined()
@@ -153,7 +153,7 @@ describe('EventsService', () => {
 					ok: true,
 					json: () => Promise.resolve({ events: { edges: [] } })
 				})
-			)
+			) as any
 
 			const events = await eventsService.fetchPastEventsFromAPI()
 			expect(events).toBeDefined()
@@ -176,12 +176,12 @@ describe('EventsService', () => {
 							url: 'https://guild.host/events/single-event'
 						})
 				})
-			)
+			) as any
 
 			const event = await eventsService.fetchEventFromAPI('single-event')
 			expect(event).toBeDefined()
 			expect(event?.slug).toBe('single-event')
-			expect(event?.title).toBe('Single Event')
+			expect(event?.name).toBe('Single Event')
 		})
 
 		test('should return null for 404 response', async () => {
@@ -191,14 +191,14 @@ describe('EventsService', () => {
 					status: 404,
 					statusText: 'Not Found'
 				})
-			)
+			) as any
 
 			const event = await eventsService.fetchEventFromAPI('non-existent')
 			expect(event).toBeNull()
 		})
 
 		test('should return null for other errors', async () => {
-			global.fetch = mock(() => Promise.reject(new Error('API error')))
+			global.fetch = mock(() => Promise.reject(new Error('API error'))) as any
 
 			const event = await eventsService.fetchEventFromAPI('error-event')
 			expect(event).toBeNull()
@@ -227,7 +227,7 @@ describe('EventsService', () => {
 							}
 						})
 				})
-			)
+			) as any
 
 			const events = await noCacheService.fetchUpcomingEventsFromAPI()
 			expect(events).toBeDefined()

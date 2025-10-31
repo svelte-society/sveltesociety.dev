@@ -71,35 +71,95 @@ export class ExternalContentService {
 			}
 
 			if (existing) {
-				this.contentService.updateContent({
-					id: existing.id,
-					title: data.title,
-					slug: existing.slug,
-					description: data.description || existing.description,
-					type: data.type,
-					status: existing.status,
-					body: data.body || existing.body || '',
-					metadata: JSON.stringify(metadata),
-					tags: data.tags || []
-				})
+				// Update based on content type
+				if (data.type === 'recipe') {
+					const existingBody = existing.type === 'recipe' ? existing.body || '' : ''
+					const existingRenderedBody = existing.type === 'recipe' ? existing.rendered_body || '' : ''
+
+					this.contentService.updateContent({
+						id: existing.id,
+						type: 'recipe',
+						title: data.title,
+						slug: existing.slug,
+						description: data.description || existing.description,
+						status: existing.status,
+						published_at: existing.published_at,
+						body: data.body || existingBody,
+						rendered_body: existingRenderedBody,
+						metadata: metadata,
+						tags: data.tags || []
+					})
+				} else if (data.type === 'video') {
+					this.contentService.updateContent({
+						id: existing.id,
+						type: 'video',
+						title: data.title,
+						slug: existing.slug,
+						description: data.description || existing.description,
+						status: existing.status,
+						published_at: existing.published_at,
+						metadata: metadata,
+						tags: data.tags || []
+					})
+				} else if (data.type === 'library') {
+					this.contentService.updateContent({
+						id: existing.id,
+						type: 'library',
+						title: data.title,
+						slug: existing.slug,
+						description: data.description || existing.description,
+						status: existing.status,
+						published_at: existing.published_at,
+						metadata: metadata,
+						tags: data.tags || []
+					})
+				}
 
 				return existing.id
 			} else {
-				const contentId = this.contentService.addContent({
-					title: data.title,
-					type: data.type,
-					slug,
-					description: data.description || '',
-					body: data.body || '',
-					metadata,
-					status: 'draft',
-					tags: data.tags || [],
-					// Use the original published date for both created_at and published_at
-					// This ensures proper chronological ordering
-					created_at: data.publishedAt || new Date().toISOString(),
-					published_at: data.publishedAt || new Date().toISOString(),
-					author_id: data.author_id
-				})
+				// Add new content based on type
+				let contentId: string
+
+				if (data.type === 'recipe') {
+					contentId = this.contentService.addContent({
+						type: 'recipe',
+						title: data.title,
+						slug,
+						description: data.description || '',
+						body: data.body || '',
+						rendered_body: '',
+						metadata,
+						status: 'draft',
+						tags: data.tags || [],
+						published_at: data.publishedAt || new Date().toISOString(),
+						author_id: data.author_id
+					})
+				} else if (data.type === 'video') {
+					contentId = this.contentService.addContent({
+						type: 'video',
+						title: data.title,
+						slug,
+						description: data.description || '',
+						metadata,
+						status: 'draft',
+						tags: data.tags || [],
+						published_at: data.publishedAt || new Date().toISOString(),
+						author_id: data.author_id
+					})
+				} else {
+					// library
+					contentId = this.contentService.addContent({
+						type: 'library',
+						title: data.title,
+						slug,
+						description: data.description || '',
+						metadata,
+						status: 'draft',
+						tags: data.tags || [],
+						published_at: data.publishedAt || new Date().toISOString(),
+						author_id: data.author_id
+					})
+				}
 
 				return contentId
 			}
@@ -152,12 +212,7 @@ export class ExternalContentService {
 	 * Generate a unique slug for external content
 	 */
 	private generateSlug(data: ExternalContentData): string {
-		// For events, use the external ID directly as it's usually already a slug
-		if (data.type === 'event' && data.source.externalId.match(/^[a-z0-9-]+$/)) {
-			return data.source.externalId
-		}
-
-		// For other content, generate from title
+		// Generate from title
 		const titleSlug = data.title
 			.toLowerCase()
 			.replace(/[^a-z0-9]+/g, '-')

@@ -25,8 +25,7 @@ Write only the description, no additional text.`
 		const { text } = await generateText({
 			model: this.model,
 			prompt,
-			temperature: 0.7,
-			maxTokens: 100
+			temperature: 0.7
 		})
 
 		return text.trim()
@@ -72,8 +71,7 @@ Return only a comma-separated list of tag names, nothing else.`
 			const { text } = await generateText({
 				model: this.model,
 				prompt,
-				temperature: 0.3, // Lower temperature for more consistent tag selection
-				maxTokens: 100
+				temperature: 0.3 // Lower temperature for more consistent tag selection
 			})
 
 			// Parse the response and validate against available tags
@@ -113,8 +111,7 @@ Return only the slug, nothing else.`
 		const { text } = await generateText({
 			model: this.model,
 			prompt,
-			temperature: 0.3,
-			maxTokens: 50
+			temperature: 0.3
 		})
 
 		return text
@@ -155,8 +152,7 @@ Return only the improved content in markdown format.`
 		const { text } = await generateText({
 			model: this.model,
 			prompt,
-			temperature: 0.6,
-			maxTokens: 2000
+			temperature: 0.6
 		})
 
 		return text.trim()

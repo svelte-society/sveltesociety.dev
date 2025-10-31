@@ -26,4 +26,4 @@
 	]
 </script>
 
-<Select {name} {label} {description} bind:value options={statusOptions} />
+<Select {name} {label} {description} options={statusOptions} />

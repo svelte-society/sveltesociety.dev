@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Content } from '$lib/types/content'
+	import type { ContentWithAuthor } from '$lib/types/content'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 
 	interface Props {
-		content: Content
+		content: ContentWithAuthor
 		clickable?: boolean
 	}
 

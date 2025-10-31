@@ -14,23 +14,30 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		throw redirect(303, '/admin/content')
 	}
 
+	// Extract body safely based on content type
+	const bodyValue = content.type === 'recipe' && 'body' in content ? content.body || '' : ''
+
+	// Extract children safely for collections
+	const childrenValue = content.type === 'collection' && content.children
+		? Array.isArray(content.children) && content.children.length > 0
+			? typeof content.children[0] === 'string'
+				? content.children
+				: content.children.map((child) => typeof child === 'string' ? child : child.id)
+			: []
+		: undefined
+
 	const formData = {
 		id: params.id,
 		title: content.title,
 		description: content.description || '',
 		slug: content.slug,
-		body: content.body || '',
+		body: bodyValue,
 		type: content.type,
 		status: content.status,
 		metadata: content.metadata || {},
-		tags: content.tags?.map((tag) => tag.id) || [],
+		tags: content.tags?.map((tag) => typeof tag === 'string' ? tag : tag.id) || [],
 		author_id: content.author_id || '',
-		children:
-			content.type === 'collection' && content.children
-				? Array.isArray(content.children)
-					? content.children.map((child) => child.id)
-					: []
-				: undefined
+		children: childrenValue
 	}
 
 	const form = await superValidate(formData, zod4(updateContentSchema))
@@ -76,7 +83,7 @@ export const actions: Actions = {
 				id: content.id,
 				title: content.title,
 				description: content.description,
-				tags: content.tags?.map((tag) => tag.slug),
+				tags: content.tags?.map((tag) => typeof tag === 'string' ? tag : tag.slug),
 				type: content.type,
 				status: content.status,
 				created_at: content.created_at,

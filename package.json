@@ -17,11 +17,11 @@
 		"db:test:init": "NODE_ENV=test bun run scripts/test-db-init.ts",
 		"db:test:seed": "NODE_ENV=test bun run scripts/test-db-seed.ts",
 		"test:integration": "rm -f test-*.db* && NODE_ENV=test bun run db:test:init && bun run db:test:seed && playwright test",
-		"test": "bun test src/",
-		"test:watch": "bun test src/ --watch",
-		"test:coverage": "bun test src/ --coverage",
-		"test:coverage:lcov": "bun test src/ --coverage --coverage-reporter=lcov",
-		"test:ci": "bun test src/ --coverage --coverage-reporter=lcov"
+		"test": "bun test src/ --preload ./src/test-setup.ts",
+		"test:watch": "bun test src/ --watch --preload ./src/test-setup.ts",
+		"test:coverage": "bun test src/ --coverage --preload ./src/test-setup.ts",
+		"test:coverage:lcov": "bun test src/ --coverage --coverage-reporter=lcov --preload ./src/test-setup.ts",
+		"test:ci": "bun test src/ --coverage --coverage-reporter=lcov --preload ./src/test-setup.ts"
 	},
 	"devDependencies": {
 		"@ai-sdk/anthropic": "^2.0.38",

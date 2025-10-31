@@ -54,7 +54,7 @@ describe('ModerationService', () => {
 		const testItems = [
 			{
 				id: 'item1',
-				type: 'content',
+				type: 'content' as const,
 				status: ModerationStatus.PENDING,
 				data: JSON.stringify({
 					title: 'Pending Content 1',
@@ -69,7 +69,7 @@ describe('ModerationService', () => {
 			},
 			{
 				id: 'item2',
-				type: 'content',
+				type: 'content' as const,
 				status: ModerationStatus.APPROVED,
 				data: JSON.stringify({
 					title: 'Approved Content',
@@ -143,7 +143,7 @@ describe('ModerationService', () => {
 	describe('addToModerationQueue', () => {
 		test('should add new item to queue', () => {
 			const newItem = {
-				type: 'content',
+				type: 'content' as const,
 				data: JSON.stringify({
 					title: 'New Content',
 					type: 'recipe',

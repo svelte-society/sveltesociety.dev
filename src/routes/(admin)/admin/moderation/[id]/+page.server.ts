@@ -31,7 +31,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	// Map tag IDs to names
 	if (submissionData.tags && Array.isArray(submissionData.tags)) {
-		submissionData.tagNames = submissionData.tags.map((tagId) => tagMap.get(tagId) || tagId)
+		submissionData.tagNames = submissionData.tags.map((tagId: string) => tagMap.get(tagId) || tagId)
 	}
 
 	return {
@@ -101,6 +101,7 @@ export const actions: Actions = {
 								notes: submissionData.notes || ''
 							}
 
+							// Spread includes all fields including body/rendered_body for recipes
 							locals.contentService.updateContent({
 								...importedContent,
 								id: importedContentId,
@@ -110,7 +111,7 @@ export const actions: Actions = {
 								tags: submissionData.tags || [],
 								metadata: updatedMetadata,
 								author_id: item.submitted_by
-							})
+							} as Parameters<typeof locals.contentService.updateContent>[0])
 						}
 					} else {
 						throw new Error('Failed to import video from YouTube')

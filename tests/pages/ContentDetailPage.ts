@@ -15,7 +15,7 @@ import { BasePage } from './BasePage'
  *
  * @example
  * const detailPage = new ContentDetailPage(page)
- * await detailPage.goto('recipe', '1')
+ * await detailPage.gotoContent('recipe', 'recipe-slug')
  * const title = await detailPage.getTitle()
  */
 export class ContentDetailPage extends BasePage {
@@ -46,7 +46,7 @@ export class ContentDetailPage extends BasePage {
 		this.editLink = page.getByTestId('edit-link')
 	}
 
-	async goto(type: string, slug: string) {
+	async gotoContent(type: string, slug: string) {
 		await this.page.goto(`/${type}/${slug}`)
 	}
 

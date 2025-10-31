@@ -33,7 +33,6 @@
 			label="Slug"
 			placeholder="url-friendly-name"
 			description="URL-friendly version of the {nameField}"
-			bind:value={slugValue}
 			on:change={(e) => onSlugChange(e.currentTarget.value)}
 		/>
 	</div>
