@@ -14,8 +14,8 @@ import {
 	buildContentMeta,
 	buildCategoryMeta,
 	buildStaticPageMeta
-} from '$lib/seo/utils'
-import { SEO_CONFIG } from '$lib/seo/config'
+} from './utils'
+import { SEO_CONFIG } from './config'
 
 describe('SEO Utility Functions', () => {
 	describe('formatMetaDescription', () => {
@@ -176,7 +176,7 @@ describe('SEO Utility Functions', () => {
 	})
 
 	describe('buildSeoConfig', () => {
-		test('builds complete config with defaults', () => {
+		test('builds complete config with defaults matching Svead API', () => {
 			const config = buildSeoConfig({
 				title: 'Test Page',
 				description: 'Test description',
@@ -186,60 +186,42 @@ describe('SEO Utility Functions', () => {
 			expect(config.title).toBe('Test Page')
 			expect(config.description).toBe('Test description')
 			expect(config.url).toBe('https://example.com/test')
-			expect(config.type).toBe('website')
-			expect(config.siteName).toBe('Svelte Society')
-			expect(config.locale).toBe('en_US')
-			expect(config.imageWidth).toBe(1200)
-			expect(config.imageHeight).toBe(630)
+			expect(config.site_name).toBe('Svelte Society')
+			expect(config.twitter_handle).toBe('@sveltesociety')
+			expect(config.twitter_card_type).toBe('summary_large_image')
+			expect(config.language).toBe('en')
 		})
 
-		test('includes Twitter Card configuration', () => {
+		test('uses default OG image when not provided', () => {
 			const config = buildSeoConfig({
 				title: 'Test',
 				description: 'Test',
 				url: 'https://example.com'
 			})
 
-			expect(config.twitter).toBeDefined()
-			expect(config.twitter?.card).toBe('summary_large_image')
-			expect(config.twitter?.site).toBe('@sveltesociety')
+			expect(config.open_graph_image).toBe('https://sveltesociety.dev/og-default.png')
 		})
 
-		test('uses default image when not provided', () => {
-			const config = buildSeoConfig({
-				title: 'Test',
-				description: 'Test',
-				url: 'https://example.com'
-			})
-
-			expect(config.image).toBe('/og-default.png')
-		})
-
-		test('uses custom image when provided', () => {
+		test('uses custom OG image when provided', () => {
 			const config = buildSeoConfig({
 				title: 'Test',
 				description: 'Test',
 				url: 'https://example.com',
-				image: '/custom-image.png'
+				open_graph_image: 'https://example.com/custom-image.png'
 			})
 
-			expect(config.image).toBe('/custom-image.png')
+			expect(config.open_graph_image).toBe('https://example.com/custom-image.png')
 		})
 
-		test('includes article metadata when provided', () => {
+		test('includes author_name when provided', () => {
 			const config = buildSeoConfig({
 				title: 'Test',
 				description: 'Test',
 				url: 'https://example.com',
-				article: {
-					publishedTime: '2024-01-15T10:00:00Z',
-					author: 'John Doe'
-				}
+				author_name: 'John Doe'
 			})
 
-			expect(config.article).toBeDefined()
-			expect(config.article?.publishedTime).toBe('2024-01-15T10:00:00Z')
-			expect(config.article?.author).toBe('John Doe')
+			expect(config.author_name).toBe('John Doe')
 		})
 	})
 
@@ -250,13 +232,13 @@ describe('SEO Utility Functions', () => {
 			expect(meta.title).toBe('Svelte Society - Community of Svelte Developers')
 			expect(meta.description).toContain('Discover recipes, videos, libraries')
 			expect(meta.url).toBe('https://sveltesociety.dev')
-			expect(meta.type).toBe('website')
-			expect(meta.twitter?.card).toBe('summary_large_image')
+			expect(meta.twitter_card_type).toBe('summary_large_image')
+			expect(meta.open_graph_image).toBe('https://sveltesociety.dev/og-default.png')
 		})
 	})
 
 	describe('buildContentMeta', () => {
-		test('builds recipe content meta with article type', () => {
+		test('builds recipe content meta', () => {
 			const content = {
 				title: 'My Recipe',
 				description: 'A great recipe',
@@ -270,13 +252,10 @@ describe('SEO Utility Functions', () => {
 
 			expect(meta.title).toBe('My Recipe - Svelte Society')
 			expect(meta.description).toBe('A great recipe')
-			expect(meta.type).toBe('article')
-			expect(meta.image).toBe('/og-image/my-recipe')
-			expect(meta.article).toBeDefined()
-			expect(meta.article?.section).toBe('Recipe')
+			expect(meta.open_graph_image).toBe('https://sveltesociety.dev/og-image/my-recipe')
 		})
 
-		test('builds video content meta with video type', () => {
+		test('builds video content meta', () => {
 			const content = {
 				title: 'My Video',
 				description: 'A great video',
@@ -287,7 +266,7 @@ describe('SEO Utility Functions', () => {
 			const meta = buildContentMeta(content, 'https://sveltesociety.dev/video/my-video')
 
 			expect(meta.title).toBe('My Video - Svelte Society')
-			expect(meta.type).toBe('video.other')
+			expect(meta.open_graph_image).toBe('https://sveltesociety.dev/og-image/my-video')
 		})
 
 		test('generates description when not provided', () => {
@@ -302,19 +281,17 @@ describe('SEO Utility Functions', () => {
 			expect(meta.description).toBe('View My Content on Svelte Society')
 		})
 
-		test('includes published and modified times when available', () => {
+		test('includes author when available', () => {
 			const content = {
 				title: 'My Article',
 				type: 'recipe',
 				slug: 'my-article',
-				published_at: '2024-01-15T10:00:00Z',
-				updated_at: '2024-01-20T15:30:00Z'
+				author: 'Jane Doe'
 			}
 
 			const meta = buildContentMeta(content, 'https://sveltesociety.dev/recipe/my-article')
 
-			expect(meta.article?.publishedTime).toMatch(/^\d{4}-\d{2}-\d{2}T/)
-			expect(meta.article?.modifiedTime).toMatch(/^\d{4}-\d{2}-\d{2}T/)
+			expect(meta.author_name).toBe('Jane Doe')
 		})
 	})
 
@@ -324,7 +301,6 @@ describe('SEO Utility Functions', () => {
 
 			expect(meta.title).toBe('Recipe - Svelte Society')
 			expect(meta.description).toBe('Browse recipe from the Svelte Society community')
-			expect(meta.type).toBe('website')
 			expect(meta.url).toBe('https://sveltesociety.dev/recipe')
 		})
 
@@ -346,14 +322,13 @@ describe('SEO Utility Functions', () => {
 
 			expect(meta.title).toBe('About - Svelte Society')
 			expect(meta.description).toBe('Learn about Svelte Society')
-			expect(meta.type).toBe('website')
 			expect(meta.url).toBe('https://sveltesociety.dev/about')
 		})
 	})
 })
 
 describe('SEO Config Integration', () => {
-	test('all meta builders include required OG fields', () => {
+	test('all meta builders include required Svead fields', () => {
 		const configs = [
 			buildHomepageMeta(),
 			buildContentMeta(
@@ -372,34 +347,11 @@ describe('SEO Config Integration', () => {
 			expect(config.title).toBeDefined()
 			expect(config.description).toBeDefined()
 			expect(config.url).toBeDefined()
-			expect(config.type).toBeDefined()
-			expect(config.image).toBeDefined()
-			expect(config.siteName).toBeDefined()
-			expect(config.locale).toBeDefined()
-			expect(config.imageWidth).toBeDefined()
-			expect(config.imageHeight).toBeDefined()
-		})
-	})
-
-	test('all meta builders include Twitter Card config', () => {
-		const configs = [
-			buildHomepageMeta(),
-			buildContentMeta(
-				{
-					title: 'Test',
-					type: 'recipe',
-					slug: 'test'
-				},
-				'https://example.com'
-			),
-			buildCategoryMeta('recipe', 'https://example.com'),
-			buildStaticPageMeta('Test', 'Test description', 'https://example.com')
-		]
-
-		configs.forEach((config) => {
-			expect(config.twitter).toBeDefined()
-			expect(config.twitter?.card).toBe('summary_large_image')
-			expect(config.twitter?.site).toBe('@sveltesociety')
+			expect(config.open_graph_image).toBeDefined()
+			expect(config.site_name).toBeDefined()
+			expect(config.twitter_handle).toBeDefined()
+			expect(config.twitter_card_type).toBeDefined()
+			expect(config.language).toBeDefined()
 		})
 	})
 
