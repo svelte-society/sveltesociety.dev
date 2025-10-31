@@ -104,19 +104,6 @@ async function generateImage(slug: string, locals: App.Locals): Promise<Buffer> 
 	const contentType = content?.type || 'content'
 	const typeLabel = contentType.charAt(0).toUpperCase() + contentType.slice(1)
 
-	// Map content types to emoji icons (similar to TypeIcon component)
-	const typeIconMap: Record<string, string> = {
-		recipe: '📖',
-		video: '🎥',
-		library: '📦',
-		announcement: '📢',
-		collection: '📁',
-		event: '📅',
-		link: '🔗',
-		blog: '✍️',
-		content: '📄'
-	}
-	const typeIcon = typeIconMap[contentType] || '📄'
 
 	try {
 		// Generate SVG using Satori with Svelte Society branding
@@ -161,7 +148,7 @@ async function generateImage(slug: string, locals: App.Locals): Promise<Buffer> 
 									padding: '80px'
 								},
 								children: [
-									// Type badge with icon and Svelte orange
+									// Type badge with Svelte orange
 									{
 										type: 'div',
 										props: {
@@ -182,28 +169,9 @@ async function generateImage(slug: string, locals: App.Locals): Promise<Buffer> 
 															fontWeight: '700',
 															letterSpacing: '0.5px',
 															textTransform: 'uppercase',
-															color: 'white',
-															display: 'flex',
-															alignItems: 'center',
-															gap: '12px'
+															color: 'white'
 														},
-														children: [
-															{
-																type: 'div',
-																props: {
-																	style: {
-																		fontSize: '24px'
-																	},
-																	children: typeIcon
-																}
-															},
-															{
-																type: 'div',
-																props: {
-																	children: typeLabel
-																}
-															}
-														]
+														children: typeLabel
 													}
 												}
 											]
