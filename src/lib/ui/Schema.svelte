@@ -7,10 +7,11 @@
 
 	let { schema }: Props = $props()
 
-	// Convert schema to JSON string
+	// Convert schema to JSON string and create safe HTML
 	const schemaJson = $derived(JSON.stringify(schema, null, 0))
+	const schemaHtml = $derived(`<script type="application/ld+json">${schemaJson}<` + `/script>`)
 </script>
 
 <svelte:head>
-	{@html `<script type="application/ld+json">${schemaJson}</script>`}
+	{@html schemaHtml}
 </svelte:head>
