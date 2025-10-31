@@ -2,13 +2,8 @@ import { error } from '@sveltejs/kit'
 import sharp from 'sharp'
 import satori from 'satori'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
-import { join } from 'path'
+import { join, resolve } from 'path'
 import type { RequestHandler } from './$types'
-
-// Import fonts via Vite - these will be bundled correctly and served from the build
-import fontRegularUrl from '../fonts/Inter_24pt-Regular.ttf'
-import fontBoldUrl from '../fonts/Inter_24pt-Bold.ttf'
-import fontSemiBoldUrl from '../fonts/Inter_24pt-SemiBold.ttf'
 
 /**
  * Dynamic OG Image Generation Endpoint
@@ -40,34 +35,30 @@ if (!existsSync(CACHE_DIR)) {
 // only generate once and share the result
 const inflightRequests = new Map<string, Promise<Buffer>>()
 
-// Load fonts for Satori using Vite imports
+// Load fonts for Satori
 // Note: Satori requires TTF/OTF fonts, not WOFF/WOFF2
-// Fonts are imported via Vite and loaded asynchronously
-let fontRegular: ArrayBuffer | null = null
-let fontBold: ArrayBuffer | null = null
-let fontSemiBold: ArrayBuffer | null = null
+// Fonts are loaded from the filesystem and cached in memory
+let fontRegular: Buffer | null = null
+let fontBold: Buffer | null = null
+let fontSemiBold: Buffer | null = null
 
 // Load fonts once on first request
-async function ensureFontsLoaded(): Promise<void> {
+function ensureFontsLoaded(): void {
 	if (fontRegular && fontBold && fontSemiBold) return
 
-	// Load fonts in parallel from Vite-imported URLs
-	const [regular, bold, semiBold] = await Promise.all([
-		fetch(fontRegularUrl).then(r => r.arrayBuffer()),
-		fetch(fontBoldUrl).then(r => r.arrayBuffer()),
-		fetch(fontSemiBoldUrl).then(r => r.arrayBuffer())
-	])
-
-	fontRegular = regular
-	fontBold = bold
-	fontSemiBold = semiBold
+	// Load fonts from the source directory
+	// Using resolve with import.meta.url to get the correct path in both dev and production
+	const srcDir = resolve(process.cwd(), 'src', 'routes', 'og-image', 'fonts')
+	fontRegular = readFileSync(join(srcDir, 'Inter_24pt-Regular.ttf'))
+	fontBold = readFileSync(join(srcDir, 'Inter_24pt-Bold.ttf'))
+	fontSemiBold = readFileSync(join(srcDir, 'Inter_24pt-SemiBold.ttf'))
 }
 
 export const GET: RequestHandler = async ({ params, locals, setHeaders }) => {
 	const { slug } = params
 
 	// Ensure fonts are loaded before proceeding
-	await ensureFontsLoaded()
+	ensureFontsLoaded()
 
 	// Check filesystem cache first
 	const cacheFilePath = join(CACHE_DIR, `${slug}.png`)
