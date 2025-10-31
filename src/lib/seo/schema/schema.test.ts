@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, test, expect } from 'bun:test'
 import { generateOrganizationSchema } from './organization'
 import { generateWebSiteSchema } from './website'
 import { generateVideoSchema } from './video'
@@ -9,7 +9,7 @@ import { SEO_CONFIG } from '../config'
 
 describe('Schema Generators', () => {
 	describe('generateOrganizationSchema', () => {
-		it('should generate valid Organization schema', () => {
+		test('should generate valid Organization schema', () => {
 			const schema = generateOrganizationSchema()
 
 			expect(schema['@context']).toBe('https://schema.org')
@@ -26,7 +26,7 @@ describe('Schema Generators', () => {
 	})
 
 	describe('generateWebSiteSchema', () => {
-		it('should generate valid WebSite schema with SearchAction', () => {
+		test('should generate valid WebSite schema with SearchAction', () => {
 			const schema = generateWebSiteSchema()
 
 			expect(schema['@context']).toBe('https://schema.org')
@@ -44,7 +44,7 @@ describe('Schema Generators', () => {
 	})
 
 	describe('generateVideoSchema', () => {
-		it('should generate valid VideoObject schema', () => {
+		test('should generate valid VideoObject schema', () => {
 			const input = {
 				title: 'Test Video',
 				description: 'Test video description',
@@ -75,7 +75,7 @@ describe('Schema Generators', () => {
 			expect(schema.dateModified).toBe(input.dateModified)
 		})
 
-		it('should handle optional fields', () => {
+		test('should handle optional fields', () => {
 			const input = {
 				title: 'Test Video',
 				description: 'Test video description',
@@ -93,7 +93,7 @@ describe('Schema Generators', () => {
 	})
 
 	describe('generateArticleSchema', () => {
-		it('should generate valid TechArticle schema', () => {
+		test('should generate valid TechArticle schema', () => {
 			const input = {
 				headline: 'Test Article',
 				description: 'Test article description',
@@ -122,7 +122,7 @@ describe('Schema Generators', () => {
 			expect(schema.url).toBe(input.url)
 		})
 
-		it('should handle optional fields', () => {
+		test('should handle optional fields', () => {
 			const input = {
 				headline: 'Test Article',
 				description: 'Test article description',
@@ -139,7 +139,7 @@ describe('Schema Generators', () => {
 	})
 
 	describe('generateSoftwareSchema', () => {
-		it('should generate valid SoftwareSourceCode schema', () => {
+		test('should generate valid SoftwareSourceCode schema', () => {
 			const input = {
 				name: 'Test Library',
 				description: 'Test library description',
@@ -168,7 +168,7 @@ describe('Schema Generators', () => {
 			expect(schema.dateModified).toBe(input.dateModified)
 		})
 
-		it('should default to JavaScript if no language provided', () => {
+		test('should default to JavaScript if no language provided', () => {
 			const input = {
 				name: 'Test Library',
 				description: 'Test library description'
@@ -179,7 +179,7 @@ describe('Schema Generators', () => {
 			expect(schema.programmingLanguage).toBe('JavaScript')
 		})
 
-		it('should handle optional fields', () => {
+		test('should handle optional fields', () => {
 			const input = {
 				name: 'Test Library',
 				description: 'Test library description'
@@ -195,7 +195,7 @@ describe('Schema Generators', () => {
 	})
 
 	describe('generateBreadcrumbSchema', () => {
-		it('should generate valid BreadcrumbList schema', () => {
+		test('should generate valid BreadcrumbList schema', () => {
 			const items = [
 				{ name: 'Home', url: 'https://sveltesociety.dev' },
 				{ name: 'Recipes', url: 'https://sveltesociety.dev/recipe' },
@@ -216,7 +216,7 @@ describe('Schema Generators', () => {
 			})
 		})
 
-		it('should handle single breadcrumb item', () => {
+		test('should handle single breadcrumb item', () => {
 			const items = [{ name: 'Home', url: 'https://sveltesociety.dev' }]
 
 			const schema = generateBreadcrumbSchema(items)
@@ -225,7 +225,7 @@ describe('Schema Generators', () => {
 			expect(schema.itemListElement[0].position).toBe(1)
 		})
 
-		it('should handle empty array', () => {
+		test('should handle empty array', () => {
 			const items: Array<{ name: string; url: string }> = []
 
 			const schema = generateBreadcrumbSchema(items)
@@ -235,14 +235,14 @@ describe('Schema Generators', () => {
 	})
 
 	describe('Schema validation', () => {
-		it('should generate valid JSON-LD', () => {
+		test('should generate valid JSON-LD', () => {
 			const schema = generateOrganizationSchema()
 			const json = JSON.stringify(schema)
 
 			expect(() => JSON.parse(json)).not.toThrow()
 		})
 
-		it('should not include undefined properties in JSON output', () => {
+		test('should not include undefined properties in JSON output', () => {
 			const schema = generateVideoSchema({
 				title: 'Test',
 				description: 'Test',
