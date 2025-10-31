@@ -37,10 +37,10 @@ const inflightRequests = new Map<string, Promise<Buffer>>()
 
 // Load fonts for Satori (load once at startup)
 // Note: Satori requires TTF/OTF fonts, not WOFF/WOFF2
-// Using static Inter fonts from the same directory as this endpoint
-const fontRegular = readFileSync(join(import.meta.dirname, 'Inter_24pt-Regular.ttf'))
-const fontBold = readFileSync(join(import.meta.dirname, 'Inter_24pt-Bold.ttf'))
-const fontSemiBold = readFileSync(join(import.meta.dirname, 'Inter_24pt-SemiBold.ttf'))
+// Fonts are stored in static/fonts/og directory
+const fontRegular = readFileSync(join(process.cwd(), 'static/fonts/og/Inter_24pt-Regular.ttf'))
+const fontBold = readFileSync(join(process.cwd(), 'static/fonts/og/Inter_24pt-Bold.ttf'))
+const fontSemiBold = readFileSync(join(process.cwd(), 'static/fonts/og/Inter_24pt-SemiBold.ttf'))
 
 export const GET: RequestHandler = async ({ params, locals, setHeaders }) => {
 	const { slug } = params
