@@ -107,7 +107,7 @@ async function generateImage(slug: string, locals: App.Locals): Promise<Buffer> 
 
 	try {
 		// Generate SVG using Satori with Svelte Society branding
-		// Colors from app.css theme: Svelte orange (FF3E00) and complementary colors
+		// Colors from app.css theme: Light background with Svelte orange accents
 		const svg = await satori(
 			{
 				type: 'div',
@@ -117,8 +117,8 @@ async function generateImage(slug: string, locals: App.Locals): Promise<Buffer> 
 						flexDirection: 'column',
 						width: '100%',
 						height: '100%',
-						background: '#1e293b', // Dark slate background
-						color: 'white',
+						background: '#ffffff', // Clean white background
+						color: '#1e293b', // Dark slate text
 						position: 'relative',
 						fontFamily: 'Inter'
 					},
@@ -192,7 +192,7 @@ async function generateImage(slug: string, locals: App.Locals): Promise<Buffer> 
 												display: '-webkit-box',
 												WebkitLineClamp: '3',
 												WebkitBoxOrient: 'vertical',
-												color: 'white'
+												color: '#1e293b'
 											},
 											children: title
 										}
@@ -217,7 +217,7 @@ async function generateImage(slug: string, locals: App.Locals): Promise<Buffer> 
 															display: 'flex',
 															alignItems: 'center',
 															gap: '16px',
-															color: 'white'
+															color: '#1e293b'
 														},
 														children: [
 															// Svelte Society logo as base64 SVG
