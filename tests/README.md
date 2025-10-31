@@ -26,7 +26,7 @@ bun test:integration --grep "search"
 
 ## Current Test Coverage
 
-**Total Tests:** 65 tests across 14 test files
+**Total Tests:** 83 tests across 15 test files
 **Execution Time:** ~15-20 seconds (with 4 parallel workers)
 **Success Rate:** 100% (0% flaky tests)
 
@@ -38,6 +38,7 @@ bun test:integration --grep "search"
 - **Admin Moderation** (4 tests) - Approve/reject pending content
 - **Admin Content Management** (5 tests) - Edit, archive, publish content
 - **Admin User Management** (4 tests) - View users, edit profiles, manage roles
+- **SEO Endpoints** (18 tests) - robots.txt, sitemap.xml validation and resilience
 
 ## Test Database & Isolation
 
