@@ -21,3 +21,6 @@ export {
 	buildStaticPageMeta
 } from './utils'
 export type { SeoMetaTagConfig, PageMetaReturn } from './types'
+
+// Export schema generators
+export * from './schema'

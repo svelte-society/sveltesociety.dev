@@ -87,7 +87,9 @@ export const TEST_CONTENT = [
 		metadata: {
 			url: 'https://www.youtube.com/watch?v=test123',
 			duration: 600,
-			youtubeId: 'test123'
+			youtubeId: 'test123',
+			thumbnail: 'https://i.ytimg.com/vi/test123/maxresdefault.jpg',
+			channelTitle: 'Svelte Society'
 		},
 		authorId: 'test_admin_001',
 		tags: ['tag_svelte', 'tag_sveltekit'],

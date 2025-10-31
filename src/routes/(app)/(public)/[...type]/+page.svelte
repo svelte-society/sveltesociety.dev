@@ -2,6 +2,7 @@
 	import ContentCard from '$lib/ui/ContentCard.svelte'
 	import Pagination from '$lib/ui/Pagination.svelte'
 	import Filters from './Filters.svelte'
+	import Schema from '$lib/ui/Schema.svelte'
 
 	let { data } = $props()
 
@@ -10,6 +11,10 @@
 		return content
 	})
 </script>
+
+{#if data.schemas}
+	<Schema schema={data.schemas} />
+{/if}
 
 <Filters categories={data.categories} tags={data.tags} sort={data.sort} />
 
