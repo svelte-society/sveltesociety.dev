@@ -2,8 +2,13 @@ import { error } from '@sveltejs/kit'
 import sharp from 'sharp'
 import satori from 'satori'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
-import { join, resolve } from 'path'
+import { join } from 'path'
 import type { RequestHandler } from './$types'
+import { read } from '$app/server'
+
+import fontRegularFile from './Inter_24pt-Regular.ttf'
+import fontBoldFile from './Inter_24pt-Bold.ttf'
+import fontSemiBoldFile from './Inter_24pt-SemiBold.ttf'
 
 /**
  * Dynamic OG Image Generation Endpoint
@@ -43,22 +48,30 @@ let fontBold: Buffer | null = null
 let fontSemiBold: Buffer | null = null
 
 // Load fonts once on first request
-function ensureFontsLoaded(): void {
+async function ensureFontsLoaded(origin: string): Promise<void> {
 	if (fontRegular && fontBold && fontSemiBold) return
 
-	// Load fonts from the source directory
-	// Using resolve with import.meta.url to get the correct path in both dev and production
-	const srcDir = resolve(process.cwd(), 'src', 'routes', 'og-image', 'fonts')
-	fontRegular = readFileSync(join(srcDir, 'Inter_24pt-Regular.ttf'))
-	fontBold = readFileSync(join(srcDir, 'Inter_24pt-Bold.ttf'))
-	fontSemiBold = readFileSync(join(srcDir, 'Inter_24pt-SemiBold.ttf'))
+	// Load fonts from the static directory via fetch
+	// Using the origin from the request to construct the full URL
+	const [regular, bold, semiBold] = await Promise.all([
+		read(fontRegularFile).arrayBuffer(),
+		read(fontBoldFile).arrayBuffer(),
+		read(fontSemiBoldFile).arrayBuffer()
+	])
+
+	fontRegular = await regular
+	fontBold = await bold
+	fontSemiBold = await semiBold
 }
 
-export const GET: RequestHandler = async ({ params, locals, setHeaders }) => {
+export const GET: RequestHandler = async ({ params, locals, setHeaders, url }) => {
 	const { slug } = params
 
+	// Get the origin from the request URL
+	const origin = url.origin
+
 	// Ensure fonts are loaded before proceeding
-	ensureFontsLoaded()
+	await ensureFontsLoaded(origin)
 
 	// Check filesystem cache first
 	const cacheFilePath = join(CACHE_DIR, `${slug}.png`)
@@ -118,7 +131,6 @@ async function generateImage(slug: string, locals: App.Locals): Promise<Buffer> 
 	const title = content?.title || 'Svelte Society'
 	const contentType = content?.type || 'content'
 	const typeLabel = contentType.charAt(0).toUpperCase() + contentType.slice(1)
-
 
 	try {
 		// Generate SVG using Satori with Svelte Society branding
