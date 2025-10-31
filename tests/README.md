@@ -26,11 +26,12 @@ bun test:integration --grep "search"
 
 ## Current Test Coverage
 
-**Total Tests:** 83 tests across 15 test files
-**Execution Time:** ~15-20 seconds (with 4 parallel workers)
+**Total E2E Tests:** 83 tests across 15 test files
+**Total Unit Tests:** 47 tests across 1 test file
+**Execution Time:** ~15-20 seconds E2E (with 4 parallel workers), <100ms unit tests
 **Success Rate:** 100% (0% flaky tests)
 
-### Test Categories
+### E2E Test Categories
 
 - **Public Tests** (13 tests) - Content browsing, search, detail pages
 - **Authentication Tests** (13 tests) - Login flows, protected routes, role-based access
@@ -38,7 +39,11 @@ bun test:integration --grep "search"
 - **Admin Moderation** (4 tests) - Approve/reject pending content
 - **Admin Content Management** (5 tests) - Edit, archive, publish content
 - **Admin User Management** (4 tests) - View users, edit profiles, manage roles
-- **SEO Endpoints** (18 tests) - robots.txt, sitemap.xml validation and resilience
+- **SEO Endpoints** (29 tests) - robots.txt, sitemap.xml validation and resilience
+
+### Unit Test Categories
+
+- **SEO Utils** (47 tests) - Meta tag generation, OG/Twitter Cards, helper functions
 
 ## Test Database & Isolation
 
