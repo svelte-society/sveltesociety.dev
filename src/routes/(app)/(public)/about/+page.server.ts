@@ -4,8 +4,8 @@ import { buildStaticPageMeta } from '$lib/seo'
 export const load: PageServerLoad = async ({ url }) => {
 	return {
 		meta: buildStaticPageMeta(
-			'Terms of Service',
-			'Terms of Service for the Svelte Society website and community resources',
+			'About',
+			'Learn about Svelte Society, a community-driven organization dedicated to promoting and supporting the Svelte framework',
 			url.toString()
 		)
 	}

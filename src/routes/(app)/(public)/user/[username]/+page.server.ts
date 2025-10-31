@@ -1,7 +1,8 @@
 import type { PageServerLoad } from './$types'
 import { error } from '@sveltejs/kit'
+import { buildSeoConfig } from '$lib/seo'
 
-export const load: PageServerLoad = async ({ params, locals }) => {
+export const load: PageServerLoad = async ({ params, locals, url }) => {
 	const { username } = params
 
 	// Get user by username
@@ -26,12 +27,26 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	// Get stats using the interactions service
 	const stats = locals.interactionsService.getUserContentStats(user.id)
 
+	// Build SEO meta for user profile
+	const meta = buildSeoConfig({
+		title: `${user.full_name || username} (@${username}) - Svelte Society`,
+		description: `View ${user.full_name || username}'s profile and contributions on Svelte Society`,
+		url: url.toString(),
+		type: 'profile',
+		profile: {
+			firstName: user.full_name?.split(' ')[0],
+			lastName: user.full_name?.split(' ').slice(1).join(' '),
+			username: username
+		}
+	})
+
 	return {
 		user: {
 			...user,
 			role: role?.name || 'member'
 		},
 		content: userContent,
-		stats
+		stats,
+		meta
 	}
 }

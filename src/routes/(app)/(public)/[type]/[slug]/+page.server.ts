@@ -1,4 +1,5 @@
 import { error } from '@sveltejs/kit'
+import { buildContentMeta } from '$lib/seo'
 
 export const load = async ({ locals, params, url }) => {
 	const start = performance.now()
@@ -21,12 +22,11 @@ export const load = async ({ locals, params, url }) => {
 	const stop = performance.now()
 	console.log('Loading content took: ', stop - start)
 
+	// Build comprehensive SEO meta configuration with OG and Twitter Card tags
+	const meta = buildContentMeta(content, url.toString())
+
 	return {
 		content,
-		meta: {
-			title: `${content.title} - Svelte Society`,
-			description: content.description || `View ${content.title} on Svelte Society`,
-			url: url.toString()
-		}
+		meta
 	}
 }
