@@ -147,55 +147,41 @@ export function formatContentType(contentType: string): string {
 }
 
 /**
- * Builds a complete SEO meta configuration with all Open Graph and Twitter Card tags
+ * Builds a complete SEO meta configuration matching Svead's API
  * @param config - Basic meta config
- * @returns Complete SEO meta configuration
+ * @returns Complete SEO meta configuration for Svead
  */
 export function buildSeoConfig(config: Partial<SeoMetaTagConfig>): SeoMetaTagConfig {
 	const {
 		title = SEO_CONFIG.defaultTitle,
 		description = SEO_CONFIG.defaultDescription,
 		url,
-		image,
-		imageAlt,
-		type = 'website',
-		siteName = SEO_CONFIG.siteName,
-		locale = 'en_US',
-		author,
-		twitter,
-		article,
-		video,
-		profile
+		open_graph_image,
+		author_name,
+		site_name = SEO_CONFIG.siteName,
+		twitter_handle = SEO_CONFIG.twitterHandle,
+		twitter_card_type = 'summary_large_image',
+		website,
+		language = 'en',
+		payment_pointer
 	} = config
 
-	// Build complete configuration
+	// Build complete configuration matching Svead's expected format
 	const seoConfig: SeoMetaTagConfig = {
 		title,
 		description: formatMetaDescription(description),
 		url: url || SEO_CONFIG.siteUrl,
-		siteName,
-		locale,
-		type,
-		image: image || SEO_CONFIG.defaultOgImage,
-		imageAlt: imageAlt || `${title} - ${siteName}`,
-		imageWidth: SEO_CONFIG.ogImageWidth,
-		imageHeight: SEO_CONFIG.ogImageHeight
-	}
-
-	// Add Twitter Card configuration
-	seoConfig.twitter = {
-		card: twitter?.card || 'summary_large_image',
-		site: twitter?.site || SEO_CONFIG.twitterHandle,
-		creator: twitter?.creator,
-		image: twitter?.image || seoConfig.image,
-		imageAlt: twitter?.imageAlt || seoConfig.imageAlt
+		site_name,
+		twitter_handle,
+		twitter_card_type,
+		language,
+		open_graph_image: open_graph_image || SEO_CONFIG.defaultOgImage
 	}
 
 	// Add optional fields
-	if (author) seoConfig.author = author
-	if (article) seoConfig.article = article
-	if (video) seoConfig.video = video
-	if (profile) seoConfig.profile = profile
+	if (author_name) seoConfig.author_name = author_name
+	if (website) seoConfig.website = website
+	if (payment_pointer) seoConfig.payment_pointer = payment_pointer
 
 	return seoConfig
 }
@@ -208,8 +194,7 @@ export function buildHomepageMeta(): SeoMetaTagConfig {
 	return buildSeoConfig({
 		title: SEO_CONFIG.defaultTitle,
 		description: SEO_CONFIG.defaultDescription,
-		url: SEO_CONFIG.siteUrl,
-		type: 'website'
+		url: SEO_CONFIG.siteUrl
 	})
 }
 
@@ -231,25 +216,14 @@ export function buildContentMeta(
 	},
 	url: string
 ): SeoMetaTagConfig {
-	const ogType = getOgType(content.type)
 	const description = content.description || `View ${content.title} on Svelte Society`
 
 	const config: Partial<SeoMetaTagConfig> = {
 		title: `${content.title} - Svelte Society`,
 		description,
 		url,
-		type: ogType,
-		image: getOgImageUrl(content.slug)
-	}
-
-	// Add article metadata for article-type content
-	if (ogType === 'article') {
-		config.article = {
-			publishedTime: content.published_at ? toIso8601(content.published_at) : undefined,
-			modifiedTime: content.updated_at ? toIso8601(content.updated_at) : undefined,
-			author: content.author,
-			section: formatContentType(content.type)
-		}
+		open_graph_image: getAbsoluteUrl(getOgImageUrl(content.slug)),
+		author_name: content.author
 	}
 
 	return buildSeoConfig(config)
@@ -267,8 +241,7 @@ export function buildCategoryMeta(type: string, url: string): SeoMetaTagConfig {
 	return buildSeoConfig({
 		title: `${typeForDisplay} - Svelte Society`,
 		description: `Browse ${typeForDisplay.toLowerCase()} from the Svelte Society community`,
-		url,
-		type: 'website'
+		url
 	})
 }
 
@@ -287,7 +260,6 @@ export function buildStaticPageMeta(
 	return buildSeoConfig({
 		title: `${title} - Svelte Society`,
 		description,
-		url,
-		type: 'website'
+		url
 	})
 }
