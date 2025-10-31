@@ -4,7 +4,12 @@ import { schema } from './schema'
 import { zod4 } from 'sveltekit-superforms/adapters'
 import type { PageServerLoad } from './$types'
 import type { Content } from '$lib/types/content'
-import { buildHomepageMeta, buildCategoryMeta } from '$lib/seo'
+import {
+	buildHomepageMeta,
+	buildCategoryMeta,
+	generateOrganizationSchema,
+	generateWebSiteSchema
+} from '$lib/seo'
 
 const categories = [
 	{
@@ -106,13 +111,19 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 		? buildCategoryMeta(params.type, url.toString())
 		: buildHomepageMeta()
 
+	// Build structured data schemas for homepage
+	const schemas = !params.type
+		? [generateOrganizationSchema(), generateWebSiteSchema()]
+		: undefined
+
 	return {
 		content: mappedContent,
 		count: searchResults.count,
 		tags: allTags,
 		sort: sortOptions,
 		categories,
-		meta
+		meta,
+		schemas
 	}
 }
 
