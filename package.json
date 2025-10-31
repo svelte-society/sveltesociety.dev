@@ -42,10 +42,12 @@
 		"vite": "^7.1.12",
 		"vitest": "^4.0.4",
 		"satori": "^0.18.3",
-		"sharp": "^0.34.4",
 		"zod": "^4.1.12"
 	},
 	"private": true,
+	"dependencies": {
+		"sharp": "^0.34.4"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
