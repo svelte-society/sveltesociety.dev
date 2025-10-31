@@ -86,77 +86,78 @@ test.describe('SEO Endpoints', () => {
 		})
 	})
 
-	test.describe('sitemap.xml (when implemented)', () => {
-		test('returns 200 or 404 status code', async ({ request }) => {
+	test.describe('sitemap.xml', () => {
+		test('returns 200 status code', async ({ request }) => {
 			const response = await request.get('/sitemap.xml')
-			// Will be 404 until Phase 3, then should be 200
-			expect([200, 404]).toContain(response.status())
+			expect(response.status()).toBe(200)
 		})
 
-		test.skip('has correct content-type header', async ({ request }) => {
+		test('has correct content-type header', async ({ request }) => {
 			const response = await request.get('/sitemap.xml')
-			if (response.status() === 404) {
-				test.skip()
-			}
 			const contentType = response.headers()['content-type']
 			expect(contentType).toContain('application/xml')
 		})
 
-		test.skip('has cache-control header', async ({ request }) => {
+		test('has cache-control header', async ({ request }) => {
 			const response = await request.get('/sitemap.xml')
-			if (response.status() === 404) {
-				test.skip()
-			}
 			const cacheControl = response.headers()['cache-control']
-			expect(cacheControl).toBeTruthy()
+			expect(cacheControl).toContain('max-age')
+			expect(cacheControl).toContain('3600') // 1 hour
 		})
 
-		test.skip('contains valid XML', async ({ request }) => {
+		test('contains valid XML', async ({ request }) => {
 			const response = await request.get('/sitemap.xml')
-			if (response.status() === 404) {
-				test.skip()
-			}
 			const body = await response.text()
 			expect(body).toContain('<?xml version="1.0"')
 			expect(body).toContain('<urlset')
 			expect(body).toContain('</urlset>')
 		})
 
-		test.skip('includes homepage URL', async ({ request }) => {
+		test('includes homepage URL', async ({ request }) => {
 			const response = await request.get('/sitemap.xml')
-			if (response.status() === 404) {
-				test.skip()
-			}
 			const body = await response.text()
 			expect(body).toContain('<loc>')
 			expect(body).toContain('sveltesociety.dev/')
 		})
 
-		test.skip('includes lastmod dates', async ({ request }) => {
+		test('includes category pages', async ({ request }) => {
 			const response = await request.get('/sitemap.xml')
-			if (response.status() === 404) {
-				test.skip()
-			}
+			const body = await response.text()
+			expect(body).toContain('sveltesociety.dev/recipe')
+			expect(body).toContain('sveltesociety.dev/video')
+			expect(body).toContain('sveltesociety.dev/library')
+			expect(body).toContain('sveltesociety.dev/collection')
+			expect(body).toContain('sveltesociety.dev/announcement')
+		})
+
+		test('includes static pages', async ({ request }) => {
+			const response = await request.get('/sitemap.xml')
+			const body = await response.text()
+			expect(body).toContain('sveltesociety.dev/about')
+			expect(body).toContain('sveltesociety.dev/terms')
+			expect(body).toContain('sveltesociety.dev/privacy')
+		})
+
+		test('includes lastmod dates', async ({ request }) => {
+			const response = await request.get('/sitemap.xml')
 			const body = await response.text()
 			expect(body).toContain('<lastmod>')
+			// Check ISO 8601 format
+			expect(body).toMatch(/<lastmod>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z<\/lastmod>/)
 		})
 
-		test.skip('includes priority values', async ({ request }) => {
+		test('includes priority values', async ({ request }) => {
 			const response = await request.get('/sitemap.xml')
-			if (response.status() === 404) {
-				test.skip()
-			}
 			const body = await response.text()
 			expect(body).toContain('<priority>')
+			expect(body).toContain('<priority>1</priority>') // Homepage
 		})
 
-		test.skip('includes changefreq values', async ({ request }) => {
+		test('includes changefreq values', async ({ request }) => {
 			const response = await request.get('/sitemap.xml')
-			if (response.status() === 404) {
-				test.skip()
-			}
 			const body = await response.text()
 			expect(body).toContain('<changefreq>')
+			expect(body).toContain('<changefreq>daily</changefreq>')
 		})
 	})
 
