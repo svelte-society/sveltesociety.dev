@@ -159,6 +159,29 @@ test.describe('SEO Endpoints', () => {
 			expect(body).toContain('<changefreq>')
 			expect(body).toContain('<changefreq>daily</changefreq>')
 		})
+
+		test('includes published content URLs', async ({ request }) => {
+			const response = await request.get('/sitemap.xml')
+			const body = await response.text()
+
+			// Test database should have seeded content
+			// Check that sitemap includes more than just static pages (9 URLs)
+			const urlCount = (body.match(/<url>/g) || []).length
+			expect(urlCount).toBeGreaterThan(9) // Static + published content
+		})
+
+		test('sitemap is cached on subsequent requests', async ({ request }) => {
+			// First request should be MISS
+			const response1 = await request.get('/sitemap.xml')
+			const cacheHeader1 = response1.headers()['x-cache']
+
+			// Second request should be HIT
+			const response2 = await request.get('/sitemap.xml')
+			const cacheHeader2 = response2.headers()['x-cache']
+
+			// At least one should be HIT (if first was MISS, second will be HIT)
+			expect(cacheHeader2).toBe('HIT')
+		})
 	})
 
 	test.describe('SEO Endpoint Resilience', () => {
