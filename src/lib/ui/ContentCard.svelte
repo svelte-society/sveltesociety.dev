@@ -181,7 +181,7 @@
 
 	<div class="mt-2">
 		{#if content.type === 'recipe'}
-			<Recipe {content} />
+			<Recipe {content} {fullDescription} />
 		{:else if content.type === 'collection'}
 			<Collection children={content.children} />
 		{:else if content.type === 'video'}
