@@ -16,8 +16,14 @@
 	let {
 		content,
 		compact = false,
-		fullDescription = false
-	}: { content: ContentWithAuthor; compact?: boolean; fullDescription?: boolean } = $props()
+		fullDescription = false,
+		priority = 'auto'
+	}: {
+		content: ContentWithAuthor
+		compact?: boolean
+		fullDescription?: boolean
+		priority?: 'high' | 'auto'
+	} = $props()
 
 	let submitting = $state(false)
 
@@ -179,9 +185,9 @@
 		{:else if content.type === 'collection'}
 			<Collection children={content.children} />
 		{:else if content.type === 'video'}
-			<Video {content} />
+			<Video {content} {priority} />
 		{:else if content.type === 'library'}
-			<Library {content} />
+			<Library {content} {priority} />
 		{:else if content.type === 'announcement'}
 			<!-- Announcements show rendered body on detail pages -->
 			{#if fullDescription && content.rendered_body}

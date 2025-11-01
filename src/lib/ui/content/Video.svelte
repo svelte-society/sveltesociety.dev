@@ -3,7 +3,12 @@
 	import type { Content } from '$lib/types/content'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 
-	let { content }: { content: Content } = $props()
+	let { content, priority = 'auto' }: { content: Content; priority?: 'high' | 'auto' } = $props()
+
+	// Determine loading strategy based on priority
+	const isAboveFold = priority === 'high'
+	const loadingAttr = isAboveFold ? 'eager' : 'lazy'
+	const fetchPriorityAttr = isAboveFold ? 'high' : undefined
 </script>
 
 <div class="space-y-3">
@@ -21,6 +26,9 @@
 					height="450"
 					width="800"
 					alt={content.title}
+					loading={loadingAttr}
+					fetchpriority={fetchPriorityAttr}
+					decoding="async"
 					class="aspect-video w-full object-contain"
 				/>
 				<div
@@ -43,6 +51,9 @@
 					we: true
 				})}
 				alt={content.title}
+				loading={loadingAttr}
+				fetchpriority={fetchPriorityAttr}
+				decoding="async"
 				class="h-48 w-full bg-gray-200 object-contain"
 			/>
 		</div>

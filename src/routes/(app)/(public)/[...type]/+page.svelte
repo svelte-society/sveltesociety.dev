@@ -20,9 +20,9 @@
 
 <div data-testid="content-list" class="grid gap-6">
 	{#if data.count > 0}
-		{#each contentList as content (content.id)}
+		{#each contentList as content, index (content.id)}
 			<div>
-				<ContentCard {content} />
+				<ContentCard {content} priority={index < 2 ? 'high' : 'auto'} />
 			</div>
 		{/each}
 	{:else}
