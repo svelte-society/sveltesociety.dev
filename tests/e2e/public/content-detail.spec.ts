@@ -111,6 +111,23 @@ test.describe('Content Detail Pages', () => {
 		await expect(firstTag).toBeVisible()
 
 		const href = await firstTag.getAttribute('href')
-		expect(href).toMatch(/^\/\?tags=/)
+		// Tag links now preserve the current URL path and add tags query param
+		expect(href).toMatch(/^\/recipe\/test-recipe-counter-component\?tags=/)
+	})
+
+	test('recipe displays full body content on detail page', async ({ page }) => {
+		const detailPage = new ContentDetailPage(page)
+		await detailPage.goto('recipe', 'test-recipe-counter-component')
+
+		await detailPage.expectContentLoaded()
+
+		// Check that recipe body content is visible (not just the preview card)
+		const bodyContent = page.locator('.prose')
+		await expect(bodyContent).toBeVisible()
+
+		// Verify the actual content from the test recipe is displayed
+		const content = await bodyContent.textContent()
+		expect(content).toContain('Counter Component')
+		expect(content).toContain('let count = $state(0)')
 	})
 })
