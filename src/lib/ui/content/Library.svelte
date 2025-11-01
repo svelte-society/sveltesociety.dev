@@ -5,13 +5,19 @@
 	interface Props {
 		content: Content
 		clickable?: boolean
+		priority?: 'high' | 'auto'
 	}
 
-	let { content, clickable = true }: Props = $props()
+	let { content, clickable = true, priority = 'auto' }: Props = $props()
 
 	// Extract metadata safely
 	const isGitHub = $derived(content.metadata?.externalSource?.source === 'github')
 	const hasStats = $derived(isGitHub && (content.metadata?.stars || content.metadata?.forks))
+
+	// Determine loading strategy based on priority
+	const isAboveFold = priority === 'high'
+	const loadingAttr = isAboveFold ? 'eager' : 'lazy'
+	const fetchPriorityAttr = isAboveFold ? 'high' : undefined
 </script>
 
 <div class="relative h-full">
@@ -29,6 +35,9 @@
 			width="800"
 			height="400"
 			alt="{content.title} repository preview"
+			loading={loadingAttr}
+			fetchpriority={fetchPriorityAttr}
+			decoding="async"
 			class="w-full rounded-t-lg object-cover"
 		/>
 

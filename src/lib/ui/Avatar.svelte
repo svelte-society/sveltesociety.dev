@@ -22,7 +22,7 @@
 	<div
 		class="flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-transparent"
 	>
-		<Avatar.Image src={getCachedImageWithPreset(src, 'avatar')} alt={name} />
+		<Avatar.Image src={getCachedImageWithPreset(src, 'avatar')} alt={name} loading="lazy" decoding="async" />
 		<Avatar.Fallback class="border-none">{getInitials(name)}</Avatar.Fallback>
 	</div>
 </Avatar.Root>
