@@ -25,15 +25,20 @@
 			tagList.push(tag.slug)
 		}
 
-		const rootUrl = new URL(url.origin)
+		// Clone the current URL to preserve all searchParams
+		const newUrl = new URL(url)
 
+		// Update or remove the tags parameter
 		if (tagList.length > 0) {
-			rootUrl.searchParams.set('tags', tagList.join(','))
+			newUrl.searchParams.set('tags', tagList.join(','))
+		} else {
+			newUrl.searchParams.delete('tags')
 		}
 
-		rootUrl.searchParams.delete('page')
+		// Reset pagination when filtering changes
+		newUrl.searchParams.delete('page')
 
-		return rootUrl.pathname + rootUrl.search
+		return newUrl.pathname + newUrl.search
 	}
 </script>
 
