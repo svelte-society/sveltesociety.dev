@@ -288,4 +288,7 @@
 	</Form>
 </div>
 
-<SuperDebug data={$formData} />
+<!-- Debug only in development -->
+{#if import.meta.env?.DEV}
+	<SuperDebug data={$formData} />
+{/if}
