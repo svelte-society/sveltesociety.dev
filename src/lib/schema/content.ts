@@ -130,7 +130,7 @@ const createLibraryContentSchema = libraryContentSchema.omit(createKeysToOmit)
 
 const recipeContentSchema = baseContentSchema.extend({
 	body: z.string().min(1, 'Body is required'),
-	rendered_body: z.string(),
+	rendered_body: z.string().optional(),
 	type: z.literal('recipe')
 })
 
@@ -139,7 +139,7 @@ const createRecipeContentSchema = recipeContentSchema.omit(createKeysToOmit)
 
 const announcementContentSchema = baseContentSchema.extend({
 	body: z.string().min(1, 'Body is required'),
-	rendered_body: z.string(),
+	rendered_body: z.string().optional(),
 	type: z.literal('announcement')
 })
 
@@ -148,7 +148,7 @@ const createAnnouncementContentSchema = announcementContentSchema.omit(createKey
 
 const collectionContentSchema = baseContentSchema.extend({
 	body: z.string().min(1, 'Body is required'),
-	rendered_body: z.string(),
+	rendered_body: z.string().optional(),
 	type: z.literal('collection'),
 	children: z.array(z.string()).min(1, 'At least one child is required')
 })
