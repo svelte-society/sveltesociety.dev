@@ -15,7 +15,7 @@ test.describe('Content Detail Pages', () => {
 		await detailPage.expectContentLoaded()
 		await detailPage.expectTitleIs('Test Recipe: Building a Counter Component')
 		await detailPage.expectContentTypeIs('recipe')
-		await detailPage.expectDescriptionVisible()
+		// Recipes don't show description on detail pages, only the rendered body
 		await detailPage.expectPublishedDateVisible()
 	})
 
@@ -65,18 +65,18 @@ test.describe('Content Detail Pages', () => {
 
 	test('displays content metadata correctly', async ({ page }) => {
 		const detailPage = new ContentDetailPage(page)
-		await detailPage.goto('recipe', 'test-recipe-counter-component')
+		await detailPage.goto('video', 'test-video-svelte-5-intro')
 
 		await detailPage.expectContentLoaded()
 
 		const title = await detailPage.getTitle()
-		expect(title).toBe('Test Recipe: Building a Counter Component')
+		expect(title).toBe('Test Video: Svelte 5 Introduction')
 
 		const description = await detailPage.getDescription()
-		expect(description).toContain('Learn how to build a simple counter component')
+		expect(description).toContain('A comprehensive introduction to Svelte 5')
 
 		const contentType = await detailPage.getContentType()
-		expect(contentType?.toLowerCase()).toBe('recipe')
+		expect(contentType?.toLowerCase()).toBe('video')
 
 		const author = await detailPage.getAuthorName()
 		expect(author).toBe('Test Admin')
@@ -111,6 +111,7 @@ test.describe('Content Detail Pages', () => {
 		await expect(firstTag).toBeVisible()
 
 		const href = await firstTag.getAttribute('href')
-		expect(href).toMatch(/^\/\?tags=/)
+		// Tag links now preserve the current URL path and add tags query param (from #843)
+		expect(href).toMatch(/^\/recipe\/test-recipe-counter-component\?tags=/)
 	})
 })
