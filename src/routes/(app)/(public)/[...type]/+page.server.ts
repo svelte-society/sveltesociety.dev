@@ -69,9 +69,12 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 	const perPage = 15 // Should match the default limit in search service
 	const offset = (page - 1) * perPage
 
+	// Handle rest parameter - params.type can be an array like ['recipe'] or undefined
+	const typeFilter = Array.isArray(params.type) ? params.type[0] : params.type
+
 	const searchResults = locals.searchService.search({
 		...data,
-		type: params.type,
+		type: typeFilter,
 		status: 'published', // Only show published content to public users
 		limit: perPage,
 		offset: offset
@@ -99,20 +102,20 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 	}
 
 	// Format the type for display (e.g., "blog-posts" -> "Blog Posts")
-	const typeForDisplay = params.type
-		? params.type
+	const typeForDisplay = typeFilter
+		? typeFilter
 				.split('-')
 				.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 				.join(' ')
 		: 'Content'
 
 	// Build SEO meta configuration
-	const meta = params.type
-		? buildCategoryMeta(params.type, url.toString())
+	const meta = typeFilter
+		? buildCategoryMeta(typeFilter, url.toString())
 		: buildHomepageMeta()
 
 	// Build structured data schemas for homepage
-	const schemas = !params.type
+	const schemas = !typeFilter
 		? [generateOrganizationSchema(), generateWebSiteSchema()]
 		: undefined
 

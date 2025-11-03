@@ -324,12 +324,18 @@ export class ContentService {
 	}
 
 	addContent(data: CreateContent, author_id?: string) {
+		// Convert markdown to HTML for content types that have body
+		let renderedBody = null
+		if ('body' in data && data.body) {
+			renderedBody = marked(data.body) as string
+		}
+
 		const params = {
 			title: data.title,
 			type: data.type,
 			status: data.status,
 			body: 'body' in data ? data.body : null,
-			rendered_body: 'rendered_body' in data ? data.rendered_body : null,
+			rendered_body: renderedBody,
 			slug: data.slug,
 			description: data.description,
 			metadata: data.metadata ? JSON.stringify(data.metadata) : null,
@@ -418,13 +424,19 @@ export class ContentService {
 	}
 
 	updateContent(data: UpdateContent) {
+		// Convert markdown to HTML for content types that have body
+		let renderedBody = null
+		if ('body' in data && data.body) {
+			renderedBody = marked(data.body) as string
+		}
+
 		const params = {
 			id: data.id,
 			title: data.title,
 			type: data.type,
 			status: data.status,
 			body: 'body' in data ? data.body : null,
-			rendered_body: 'rendered_body' in data ? data.rendered_body : null,
+			rendered_body: renderedBody,
 			slug: data.slug,
 			description: data.description,
 			metadata: data.metadata ? JSON.stringify(data.metadata) : null,

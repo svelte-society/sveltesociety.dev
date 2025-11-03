@@ -181,7 +181,12 @@
 
 	<div class="mt-2">
 		{#if content.type === 'recipe'}
-			<Recipe {content} />
+			<!-- Recipes show rendered body on detail pages -->
+			{#if fullDescription && content.rendered_body}
+				<div class="prose prose-sm max-w-none text-gray-700">
+					{@html content.rendered_body}
+				</div>
+			{/if}
 		{:else if content.type === 'collection'}
 			<Collection children={content.children} />
 		{:else if content.type === 'video'}
