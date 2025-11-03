@@ -166,7 +166,7 @@
 			<a data-testid="edit-link" class="text-svelte-900 ml-4 text-sm" href="/admin/content/{content.id}">Edit</a>
 		{/if}
 	</h2>
-	{#if content.description}
+	{#if content.description && !(fullDescription && content.type === 'recipe')}
 		<div
 			data-testid="content-description"
 			class={fullDescription
