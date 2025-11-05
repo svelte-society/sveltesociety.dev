@@ -37,6 +37,10 @@ describe('ContentService', () => {
     `
 		).run()
 
+		db.prepare(`update content set slug = 'svelte-tutorial' where id = 'content1';`).run()
+
+		db.prepare(`update content set slug = 'draft-post' where id = 'content3';`).run()
+
 		db.prepare(
 			`
       INSERT INTO content_to_tags (content_id, tag_id)
@@ -214,7 +218,7 @@ describe('ContentService', () => {
 			// Verify content was created
 			const content = contentService.getContentById(id)
 			expect(content?.title).toBe('New Test Content')
-			expect(content?.slug).toBe('new-test-content')
+			expect(content?.slug).toBe('new-test-content-' + id.toLocaleLowerCase())
 			expect(content?.type).toBe('recipe')
 			expect(content?.status).toBe('draft')
 		})
@@ -371,7 +375,9 @@ describe('ContentService', () => {
 
 			contentService.updateContent(updates)
 
-			const content = db.prepare('SELECT published_at FROM content WHERE id = ?').get('content3') as {
+			const content = db
+				.prepare('SELECT published_at FROM content WHERE id = ?')
+				.get('content3') as {
 				published_at: string
 			}
 			expect(content.published_at).toBeDefined()
@@ -420,9 +426,7 @@ describe('ContentService', () => {
 		test('should delete associated tags', () => {
 			contentService.deleteContent('content1')
 
-			const tags = db
-				.prepare('SELECT * FROM content_to_tags WHERE content_id = ?')
-				.all('content1')
+			const tags = db.prepare('SELECT * FROM content_to_tags WHERE content_id = ?').all('content1')
 			expect(tags.length).toBe(0)
 		})
 	})
