@@ -164,6 +164,17 @@ export const TEST_MODERATION_QUEUE = [
 			type: 'recipe'
 		},
 		submittedBy: 'test_contrib_001'
+	},
+	{
+		type: 'video',
+		status: 'pending',
+		data: {
+			// No title field - videos get title from YouTube API when approved
+			url: 'https://www.youtube.com/watch?v=test456',
+			description: 'Learn Svelte 5 fundamentals in this comprehensive tutorial',
+			type: 'video'
+		},
+		submittedBy: 'test_viewer_001'
 	}
 ] as const
 

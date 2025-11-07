@@ -71,8 +71,8 @@ test.describe('Admin - Content Moderation', () => {
 
 		const titles = await moderationPage.getItemTitles()
 
-		// Verify that we have some titles to test
-		expect(titles.length).toBeGreaterThan(0)
+		// Verify that we have some titles to test (should be 2: 1 recipe with title, 1 video without)
+		expect(titles.length).toBe(2)
 
 		// Verify that all titles are displayed correctly
 		// Titles should come directly from the database (either actual titles or "<No Title>" for items without titles)
@@ -83,6 +83,12 @@ test.describe('Admin - Content Moderation', () => {
 			// The database virtual column returns "<No Title>" for missing titles, not "Untitled"
 			expect(title).not.toBe('Untitled')
 		}
+
+		// Verify that at least one item shows "<No Title>" (the video submission without a title)
+		expect(titles).toContain('<No Title>')
+
+		// Verify that at least one item has an actual title (the recipe submission)
+		expect(titles).toContain('Test Pending: New Animation Tutorial')
 	})
 
 })

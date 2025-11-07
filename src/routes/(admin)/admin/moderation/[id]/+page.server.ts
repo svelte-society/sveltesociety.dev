@@ -104,7 +104,7 @@ export const actions: Actions = {
 							locals.contentService.updateContent({
 								...importedContent,
 								id: importedContentId,
-								title: submissionData.title || importedContent.title,
+								title: importedContent.title, // Always use the fetched title from YouTube/GitHub
 								description: submissionData.description || importedContent.description,
 								status: 'draft',
 								tags: submissionData.tags || [],
@@ -170,7 +170,7 @@ export const actions: Actions = {
 						locals.contentService.updateContent({
 							...importedContent,
 							id: importedContentId,
-							title: submissionData.title || importedContent.title, // Use submitted title or keep imported title
+							title: importedContent.title, // Always use the fetched title from YouTube/GitHub // Use submitted title or keep imported title
 							description: submissionData.description || importedContent.description,
 							status: 'draft',
 							tags: submissionData.tags || [],
