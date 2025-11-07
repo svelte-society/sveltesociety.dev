@@ -16,8 +16,6 @@ import { ExternalContentService } from '$lib/server/services/external-content'
 import { LLMService } from '$lib/server/services/llm'
 import { AnnouncementService } from '$lib/server/services/AnnouncementService'
 import fs from 'node:fs'
-import path from 'node:path'
-import { dev } from '$app/environment'
 
 // Cache for database connections and services per database path
 const dbCache = new Map<
