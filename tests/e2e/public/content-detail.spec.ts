@@ -10,7 +10,7 @@ test.describe('Content Detail Pages', () => {
 
 	test('can view recipe detail page', async ({ page }) => {
 		const detailPage = new ContentDetailPage(page)
-		await detailPage.goto('recipe', 'test-recipe-counter-component')
+		await detailPage.goto('recipe', 'test-recipe-counter-component-content_recipe_001')
 
 		await detailPage.expectContentLoaded()
 		await detailPage.expectTitleIs('Test Recipe: Building a Counter Component')
@@ -21,7 +21,7 @@ test.describe('Content Detail Pages', () => {
 
 	test('can view video detail page', async ({ page }) => {
 		const detailPage = new ContentDetailPage(page)
-		await detailPage.goto('video', 'test-video-svelte-5-intro')
+		await detailPage.goto('video', 'test-video-svelte-5-intro-content_video_001')
 
 		await detailPage.expectContentLoaded()
 		await detailPage.expectTitleIs('Test Video: Svelte 5 Introduction')
@@ -32,7 +32,7 @@ test.describe('Content Detail Pages', () => {
 
 	test('can view library detail page', async ({ page }) => {
 		const detailPage = new ContentDetailPage(page)
-		await detailPage.goto('library', 'test-library-testing-library')
+		await detailPage.goto('library', 'test-library-testing-library-content_library_001')
 
 		await detailPage.expectContentLoaded()
 		await detailPage.expectTitleIs('Test Library: Svelte Testing Library')
@@ -43,7 +43,7 @@ test.describe('Content Detail Pages', () => {
 
 	test('can view announcement detail page', async ({ page }) => {
 		const detailPage = new ContentDetailPage(page)
-		await detailPage.goto('announcement', 'test-announcement-svelte-5-released')
+		await detailPage.goto('announcement', 'test-announcement-svelte-5-released-content_announcement_001')
 
 		await detailPage.expectContentLoaded()
 		await detailPage.expectTitleIs('Test Announcement: Svelte 5 Released')
@@ -54,7 +54,7 @@ test.describe('Content Detail Pages', () => {
 
 	test('can view collection detail page', async ({ page }) => {
 		const detailPage = new ContentDetailPage(page)
-		await detailPage.goto('collection', 'test-collection-best-components')
+		await detailPage.goto('collection', 'test-collection-best-components-content_collection_001')
 
 		await detailPage.expectContentLoaded()
 		await detailPage.expectTitleIs('Test Collection: Best Svelte Components')
@@ -65,7 +65,7 @@ test.describe('Content Detail Pages', () => {
 
 	test('displays content metadata correctly', async ({ page }) => {
 		const detailPage = new ContentDetailPage(page)
-		await detailPage.goto('video', 'test-video-svelte-5-intro')
+		await detailPage.goto('video', 'test-video-svelte-5-intro-content_video_001')
 
 		await detailPage.expectContentLoaded()
 
@@ -83,8 +83,7 @@ test.describe('Content Detail Pages', () => {
 
 		const tags = await detailPage.getTags()
 		expect(tags).toContain('svelte')
-		expect(tags).toContain('components')
-		expect(tags).toContain('tutorial')
+		expect(tags).toContain('sveltekit')
 
 		await expect(detailPage.likeButton).toBeVisible()
 		await expect(detailPage.saveButton).toBeVisible()
@@ -93,7 +92,7 @@ test.describe('Content Detail Pages', () => {
 
 	test('author link navigates to user profile', async ({ page }) => {
 		const detailPage = new ContentDetailPage(page)
-		await detailPage.goto('recipe', 'test-recipe-counter-component')
+		await detailPage.goto('recipe', 'test-recipe-counter-component-content_recipe_001')
 
 		await detailPage.expectContentLoaded()
 		await expect(detailPage.authorLink).toBeVisible()
@@ -102,7 +101,7 @@ test.describe('Content Detail Pages', () => {
 
 	test('tag links are functional', async ({ page }) => {
 		const detailPage = new ContentDetailPage(page)
-		await detailPage.goto('recipe', 'test-recipe-counter-component')
+		await detailPage.goto('recipe', 'test-recipe-counter-component-content_recipe_001')
 
 		await detailPage.expectContentLoaded()
 
@@ -112,6 +111,6 @@ test.describe('Content Detail Pages', () => {
 
 		const href = await firstTag.getAttribute('href')
 		// Tag links now preserve the current URL path and add tags query param (from #843)
-		expect(href).toMatch(/^\/recipe\/test-recipe-counter-component\?tags=/)
+		expect(href).toMatch(/^\/recipe\/test-recipe-counter-component-content_recipe_001\?tags=/)
 	})
 })

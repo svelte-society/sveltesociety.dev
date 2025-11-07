@@ -30,10 +30,10 @@ test.describe('OG Image Generation', () => {
 
 	test('generates different images for different content types', async ({ request }) => {
 		// Use pre-seeded test content from fixtures
-		// These slugs correspond to TEST_CONTENT in tests/fixtures/test-data.ts
-		const recipeResponse = await request.get('/og-image/test-recipe-counter-component')
-		const videoResponse = await request.get('/og-image/test-video-svelte-5-intro')
-		const libraryResponse = await request.get('/og-image/test-library-testing-library')
+		// These slugs correspond to TEST_CONTENT in tests/fixtures/test-data.ts (with ID suffix added by trigger)
+		const recipeResponse = await request.get('/og-image/test-recipe-counter-component-content_recipe_001')
+		const videoResponse = await request.get('/og-image/test-video-svelte-5-intro-content_video_001')
+		const libraryResponse = await request.get('/og-image/test-library-testing-library-content_library_001')
 
 		expect(recipeResponse.status()).toBe(200)
 		expect(videoResponse.status()).toBe(200)
