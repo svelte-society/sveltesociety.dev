@@ -3,8 +3,8 @@
 import { Database } from 'bun:sqlite'
 import { MigrationRunner } from '../migrations'
 import { DB_PATH } from '$env/static/private'
-import path from 'path'
-import fs from 'fs'
+import path from 'node:path'
+import fs from 'node:fs'
 
 async function runMigrations() {
 	try {

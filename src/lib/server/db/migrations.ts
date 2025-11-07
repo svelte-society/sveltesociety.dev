@@ -1,6 +1,6 @@
 import { Database } from 'bun:sqlite'
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 
 interface Migration {
 	version: number
