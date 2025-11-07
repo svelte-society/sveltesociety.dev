@@ -42,11 +42,13 @@
 	</div>
 
 	<div class="grid gap-2 rounded border-1 border-slate-200 bg-gray-50 px-4 py-2 text-sm">
-		<h3 class="text-md font-bold">Our sponsors:</h3>
-		<ul class="flex flex-wrap gap-2">
-			<li>ACME Inc.</li>
-			<li>John Doe Inc.</li>
-		</ul>
+		<h3 class="text-md font-bold">Become a sponsor</h3>
+		<p class="text-xs text-gray-600">
+			Support Svelte Society and get your company featured here.
+			<a href="mailto:sponsor@sveltesociety.dev" class="text-orange-600 underline hover:text-orange-700">
+				Contact us
+			</a>
+		</p>
 	</div>
 
 	<UpcomingEvents events={upcomingEvents} />
