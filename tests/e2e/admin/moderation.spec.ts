@@ -65,4 +65,24 @@ test.describe('Admin - Content Moderation', () => {
 		}
 	})
 
+	test('moderation queue displays item titles from database', async ({ page }) => {
+		const moderationPage = new ModerationQueuePage(page)
+		await moderationPage.gotoQueue()
+
+		const titles = await moderationPage.getItemTitles()
+
+		// Verify that we have some titles to test
+		expect(titles.length).toBeGreaterThan(0)
+
+		// Verify that all titles are displayed correctly
+		// Titles should come directly from the database (either actual titles or "<No Title>" for items without titles)
+		// UI should NOT add its own fallback like "Untitled"
+		for (const title of titles) {
+			expect(title).toBeTruthy()
+			expect(title.trim().length).toBeGreaterThan(0)
+			// The database virtual column returns "<No Title>" for missing titles, not "Untitled"
+			expect(title).not.toBe('Untitled')
+		}
+	})
+
 })

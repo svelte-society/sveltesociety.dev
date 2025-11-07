@@ -41,7 +41,7 @@
 			<TypeIcon type={data.item.type} size={32} />
 			<div>
 				<h1 class="text-2xl font-bold text-gray-900">
-					{submissionData.title || 'Untitled Submission'}
+					{submissionData.title}
 				</h1>
 				<p class="text-sm text-gray-500">ID: {data.item.id}</p>
 			</div>

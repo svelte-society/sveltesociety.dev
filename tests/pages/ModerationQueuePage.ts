@@ -9,6 +9,7 @@ export class ModerationQueuePage extends BasePage {
 	// List view selectors
 	readonly queueCountText: Locator
 	readonly inspectButtons: Locator
+	readonly itemTitles: Locator
 
 	// Detail view selectors
 	readonly approveButton: Locator
@@ -21,6 +22,7 @@ export class ModerationQueuePage extends BasePage {
 		// List view
 		this.queueCountText = page.getByTestId('moderation-queue-count')
 		this.inspectButtons = page.getByTestId('moderation-inspect-button')
+		this.itemTitles = page.getByTestId('moderation-queue-item-title')
 
 		// Detail view
 		this.approveButton = page.getByTestId('moderation-approve-button')
@@ -85,5 +87,13 @@ export class ModerationQueuePage extends BasePage {
 	 */
 	async expectQueuePage(): Promise<void> {
 		await this.page.waitForURL('/admin/moderation')
+	}
+
+	/**
+	 * Get all item titles from the queue
+	 */
+	async getItemTitles(): Promise<string[]> {
+		const titles = await this.itemTitles.allTextContents()
+		return titles
 	}
 }
