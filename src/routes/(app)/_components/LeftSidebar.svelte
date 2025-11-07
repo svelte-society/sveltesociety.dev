@@ -40,7 +40,7 @@
 							</a>
 						</li>
 					{:else}
-						<li class="mt-2 px-2 py-0.5 text-xs font-thin">
+						<li class="mt-4 px-2 pb-1 pt-2 text-xs font-semibold uppercase tracking-wider text-gray-500">
 							{link.name}
 						</li>
 					{/if}
