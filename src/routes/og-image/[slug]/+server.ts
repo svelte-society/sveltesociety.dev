@@ -1,8 +1,8 @@
 import { error } from '@sveltejs/kit'
 import sharp from 'sharp'
 import satori from 'satori'
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
-import { join } from 'path'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
 import type { RequestHandler } from './$types'
 import { read } from '$app/server'
 
