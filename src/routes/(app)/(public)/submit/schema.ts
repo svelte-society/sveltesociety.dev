@@ -14,9 +14,8 @@ export const options = Object.entries(types).map(([value, label]) => ({
 	type: value as ContentType
 }))
 
-// Base schema with common fields
+// Base schema with common fields (no title - videos/libraries get title from API, recipes define their own)
 const baseSchema = z.object({
-	title: z.string().optional(),
 	type: z.enum(Object.keys(types) as [ContentType, ...ContentType[]]),
 	tags: z.array(z.string()).min(1, { message: 'Please select at least one tag' }),
 	description: z.string().min(10, { message: 'Description must be at least 10 characters long' }),

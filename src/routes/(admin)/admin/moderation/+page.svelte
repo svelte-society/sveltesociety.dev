@@ -55,7 +55,7 @@
 					data-testid="moderation-queue-checkbox"
 				/>
 			</td>
-			<td class="{classes} font-medium text-gray-900" data-testid="moderation-queue-item-title">{item.title || 'Untitled'}</td>
+			<td class="{classes} font-medium text-gray-900" data-testid="moderation-queue-item-title">{item.title}</td>
 			<td class={classes}>
 				<div class="group relative flex items-center justify-center">
 					<div class="type-icon-wrapper text-gray-600">

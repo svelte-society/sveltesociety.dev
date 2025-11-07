@@ -86,6 +86,8 @@ export const actions = {
 		}
 
 		try {
+			let title: string | undefined = undefined
+
 			if (form.data.type === 'video' && 'url' in form.data) {
 				const videoId = extractYouTubeVideoId(form.data.url)
 				if (videoId) {
@@ -98,6 +100,15 @@ export const actions = {
 							success: false,
 							text: `This video has already been submitted. You can find it <a href="/${existingContent.type}/${existingContent.slug}" class="underline text-blue-600 hover:text-blue-800">here</a>.`
 						})
+					}
+
+					// Fetch video title from YouTube API
+					try {
+						const metadata = await locals.metadataService.fetchYoutubeMetadata(videoId)
+						title = metadata.title
+					} catch (error) {
+						console.error('Error fetching YouTube metadata:', error)
+						// Continue without title - will show "<No Title>" in moderation queue
 					}
 				}
 			}
@@ -116,13 +127,37 @@ export const actions = {
 							text: `This repository has already been submitted. You can find it <a href="/${existingContent.type}/${existingContent.slug}" class="underline text-blue-600 hover:text-blue-800">here</a>.`
 						})
 					}
+
+					// Fetch repository title from GitHub API
+					try {
+						const headers: HeadersInit = {
+							Accept: 'application/vnd.github.v3+json',
+							'User-Agent': 'SvelteSociety'
+						}
+						if (process.env.GITHUB_TOKEN) {
+							headers['Authorization'] = `token ${process.env.GITHUB_TOKEN}`
+						}
+						const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+							headers
+						})
+						if (response.ok) {
+							const repoData = await response.json()
+							title = repoData.name
+						}
+					} catch (error) {
+						console.error('Error fetching GitHub metadata:', error)
+						// Continue without title - will show "<No Title>" in moderation queue
+					}
 				}
 			}
 
+			// Merge the fetched title into form data
 			const submissionData = {
 				type: form.data.type,
-				title: form.data.title,
-				data: JSON.stringify(form.data),
+				data: JSON.stringify({
+					...form.data,
+					title: title || form.data.title // Use fetched title, fallback to user-provided title (recipes)
+				}),
 				submitted_by: locals.user.id
 			}
 

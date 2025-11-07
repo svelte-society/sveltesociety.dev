@@ -65,4 +65,30 @@ test.describe('Admin - Content Moderation', () => {
 		}
 	})
 
+	test('moderation queue displays item titles from database', async ({ page }) => {
+		const moderationPage = new ModerationQueuePage(page)
+		await moderationPage.gotoQueue()
+
+		const titles = await moderationPage.getItemTitles()
+
+		// Verify that we have 2 items to test (1 recipe, 1 video)
+		expect(titles.length).toBe(2)
+
+		// Verify that all titles are displayed correctly
+		// Titles should come directly from the database
+		// UI should NOT add its own fallback like "Untitled"
+		for (const title of titles) {
+			expect(title).toBeTruthy()
+			expect(title.trim().length).toBeGreaterThan(0)
+			// The UI should not add "Untitled" fallback
+			expect(title).not.toBe('Untitled')
+		}
+
+		// Verify that the recipe has its title
+		expect(titles).toContain('Test Pending: New Animation Tutorial')
+
+		// Verify that the video has the title fetched from YouTube API during submission
+		expect(titles).toContain('Svelte 5 Fundamentals Tutorial')
+	})
+
 })

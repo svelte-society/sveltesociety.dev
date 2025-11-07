@@ -183,7 +183,7 @@ async function seedTestDatabase() {
 		console.log(`   Tags: ${TEST_TAGS.length}`)
 		console.log(`   Content: ${TEST_CONTENT.length} items`)
 		console.log(`   Sessions: ${Object.keys(TEST_USERS).length} (one per user)`)
-		console.log(`   Moderation queue: ${TEST_MODERATION_QUEUE.length} item`)
+		console.log(`   Moderation queue: ${TEST_MODERATION_QUEUE.length} items`)
 		console.log('\n🔑 Test User Credentials:')
 		Object.entries(TEST_USERS).forEach(([key, user]) => {
 			console.log(`   ${key.charAt(0).toUpperCase() + key.slice(1).padEnd(12)} ${user.username} / ${user.email}`)
