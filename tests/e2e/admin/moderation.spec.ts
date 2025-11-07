@@ -71,24 +71,24 @@ test.describe('Admin - Content Moderation', () => {
 
 		const titles = await moderationPage.getItemTitles()
 
-		// Verify that we have some titles to test (should be 2: 1 recipe with title, 1 video without)
+		// Verify that we have 2 items to test (1 recipe, 1 video)
 		expect(titles.length).toBe(2)
 
 		// Verify that all titles are displayed correctly
-		// Titles should come directly from the database (either actual titles or "<No Title>" for items without titles)
+		// Titles should come directly from the database
 		// UI should NOT add its own fallback like "Untitled"
 		for (const title of titles) {
 			expect(title).toBeTruthy()
 			expect(title.trim().length).toBeGreaterThan(0)
-			// The database virtual column returns "<No Title>" for missing titles, not "Untitled"
+			// The UI should not add "Untitled" fallback
 			expect(title).not.toBe('Untitled')
 		}
 
-		// Verify that at least one item shows "<No Title>" (the video submission without a title)
-		expect(titles).toContain('<No Title>')
-
-		// Verify that at least one item has an actual title (the recipe submission)
+		// Verify that the recipe has its title
 		expect(titles).toContain('Test Pending: New Animation Tutorial')
+
+		// Verify that the video has the title fetched from YouTube API during submission
+		expect(titles).toContain('Svelte 5 Fundamentals Tutorial')
 	})
 
 })

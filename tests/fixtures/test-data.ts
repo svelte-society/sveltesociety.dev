@@ -169,7 +169,7 @@ export const TEST_MODERATION_QUEUE = [
 		type: 'video',
 		status: 'pending',
 		data: {
-			// No title field - videos get title from YouTube API when approved
+			title: 'Svelte 5 Fundamentals Tutorial', // Title fetched from YouTube API during submission
 			url: 'https://www.youtube.com/watch?v=test456',
 			description: 'Learn Svelte 5 fundamentals in this comprehensive tutorial',
 			type: 'video'
