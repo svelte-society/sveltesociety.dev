@@ -1,42 +1,43 @@
-import type { Handle } from '@sveltejs/kit'
-import { Database } from 'bun:sqlite'
 import { DB_PATH } from '$env/static/private'
+import { AnnouncementService } from '$lib/server/services/AnnouncementService'
+import { CacheService } from '$lib/server/services/cache'
 import { ContentService } from '$lib/server/services/content'
-import { SearchService } from '$lib/server/services/search'
+import { EventsService } from '$lib/server/services/events'
+import { ExternalContentService } from '$lib/server/services/external-content'
 import { InteractionsService } from '$lib/server/services/interactions'
+import { LLMService } from '$lib/server/services/llm'
+import { MetadataService } from '$lib/server/services/metadata'
+import { ModerationService } from '$lib/server/services/moderation'
 import { RoleService } from '$lib/server/services/role'
+import { SearchService } from '$lib/server/services/search'
 import { SessionService } from '$lib/server/services/session'
 import { TagService } from '$lib/server/services/tags'
-import { ModerationService } from '$lib/server/services/moderation'
 import { UserService } from '$lib/server/services/user'
-import { MetadataService } from '$lib/server/services/metadata'
-import { EventsService } from '$lib/server/services/events'
-import { CacheService } from '$lib/server/services/cache'
-import { ExternalContentService } from '$lib/server/services/external-content'
-import { LLMService } from '$lib/server/services/llm'
-import { AnnouncementService } from '$lib/server/services/AnnouncementService'
-import fs from 'fs'
-import path from 'path'
-import { dev } from '$app/environment'
+import type { Handle } from '@sveltejs/kit'
+import { Database } from 'bun:sqlite'
+import fs from 'node:fs'
 
 // Cache for database connections and services per database path
-const dbCache = new Map<string, {
-	db: Database
-	contentService: ContentService
-	searchService: SearchService
-	interactionsService: InteractionsService
-	roleService: RoleService
-	sessionService: SessionService
-	tagService: TagService
-	moderationService: ModerationService
-	userService: UserService
-	metadataService: MetadataService
-	eventsService: EventsService
-	cacheService: CacheService
-	externalContentService: ExternalContentService
-	llmService: LLMService
-	announcementService: AnnouncementService
-}>()
+const dbCache = new Map<
+	string,
+	{
+		db: Database
+		contentService: ContentService
+		searchService: SearchService
+		interactionsService: InteractionsService
+		roleService: RoleService
+		sessionService: SessionService
+		tagService: TagService
+		moderationService: ModerationService
+		userService: UserService
+		metadataService: MetadataService
+		eventsService: EventsService
+		cacheService: CacheService
+		externalContentService: ExternalContentService
+		llmService: LLMService
+		announcementService: AnnouncementService
+	}
+>()
 
 const initialize_db = (dbPath: string) => {
 	// Return cached instance if exists
@@ -84,7 +85,7 @@ const initialize_db = (dbPath: string) => {
 		cacheService,
 		externalContentService,
 		llmService,
-		announcementService,
+		announcementService
 	}
 
 	dbCache.set(dbPath, services)
