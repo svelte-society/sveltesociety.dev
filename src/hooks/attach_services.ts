@@ -15,28 +15,31 @@ import { CacheService } from '$lib/server/services/cache'
 import { ExternalContentService } from '$lib/server/services/external-content'
 import { LLMService } from '$lib/server/services/llm'
 import { AnnouncementService } from '$lib/server/services/AnnouncementService'
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import { dev } from '$app/environment'
 
 // Cache for database connections and services per database path
-const dbCache = new Map<string, {
-	db: Database
-	contentService: ContentService
-	searchService: SearchService
-	interactionsService: InteractionsService
-	roleService: RoleService
-	sessionService: SessionService
-	tagService: TagService
-	moderationService: ModerationService
-	userService: UserService
-	metadataService: MetadataService
-	eventsService: EventsService
-	cacheService: CacheService
-	externalContentService: ExternalContentService
-	llmService: LLMService
-	announcementService: AnnouncementService
-}>()
+const dbCache = new Map<
+	string,
+	{
+		db: Database
+		contentService: ContentService
+		searchService: SearchService
+		interactionsService: InteractionsService
+		roleService: RoleService
+		sessionService: SessionService
+		tagService: TagService
+		moderationService: ModerationService
+		userService: UserService
+		metadataService: MetadataService
+		eventsService: EventsService
+		cacheService: CacheService
+		externalContentService: ExternalContentService
+		llmService: LLMService
+		announcementService: AnnouncementService
+	}
+>()
 
 const initialize_db = (dbPath: string) => {
 	// Return cached instance if exists
@@ -84,7 +87,7 @@ const initialize_db = (dbPath: string) => {
 		cacheService,
 		externalContentService,
 		llmService,
-		announcementService,
+		announcementService
 	}
 
 	dbCache.set(dbPath, services)
