@@ -10,6 +10,13 @@
 	}
 
 	let { links }: Props = $props()
+
+	function isLinkActive(linkHref: string): boolean {
+		const pathname = page.url.pathname
+		if (pathname === linkHref) return true
+		if (linkHref !== '/' && pathname.startsWith(linkHref + '/')) return true
+		return false
+	}
 </script>
 
 <aside
@@ -24,7 +31,7 @@
 							title={link.disabled ? 'Please login to view saved content' : ''}
 							class={[
 								{
-									'bg-svelte-500 text-white': page.url.pathname === link.href,
+									'bg-svelte-500 text-white': isLinkActive(link.href),
 									'cursor-not-allowed': link.disabled
 								},
 								'w-full rounded-sm px-2 py-0.5'
