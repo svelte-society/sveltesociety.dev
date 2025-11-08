@@ -6,7 +6,7 @@
 import type { SatoriNode, LibraryContentData } from '../types'
 import { OG_IMAGE_COLORS } from '../constants'
 import {
-	createAccentBar,
+	createStandardLayout,
 	createTypeBadge,
 	createBrandingFooter,
 	createTitle,
@@ -170,86 +170,57 @@ export async function createLibraryLayout(content: LibraryContentData): Promise<
 		})
 	}
 
-	return {
-		type: 'div',
-		props: {
-			style: {
-				display: 'flex',
-				flexDirection: 'column',
-				width: '100%',
-				height: '100%',
-				background: OG_IMAGE_COLORS.background,
-				color: OG_IMAGE_COLORS.text,
-				position: 'relative',
-				fontFamily: 'Inter'
-			},
-			children: [
-				createAccentBar(),
-				{
-					type: 'div',
-					props: {
-						style: {
-							display: 'flex',
-							flexDirection: 'column',
-							height: '100%',
-							padding: '40px'
-						},
-						children: [
-							createTypeBadge('Library'),
-							createTitle(content.title, 2),
-							// Owner and stats section
-							{
-								type: 'div',
-								props: {
-									style: {
-										display: 'flex',
-										flexDirection: 'column',
-										gap: '20px',
-										marginTop: '32px',
-										marginBottom: 'auto'
-									},
-									children: [
-										// Owner info
-										...(ownerNodes.length > 0
-											? [
-													{
-														type: 'div',
-														props: {
-															style: {
-																display: 'flex',
-																alignItems: 'center',
-																gap: '16px'
-															},
-															children: ownerNodes
-														}
-													}
-												]
-											: []),
-										// Stats
-										...(statsNodes.length > 0
-											? [
-													{
-														type: 'div',
-														props: {
-															style: {
-																display: 'flex',
-																alignItems: 'center',
-																gap: '32px',
-																flexWrap: 'wrap'
-															},
-															children: statsNodes
-														}
-													}
-												]
-											: [])
-									]
+	return createStandardLayout([
+		createTypeBadge('Library'),
+		createTitle(content.title, 2),
+		// Owner and stats section
+		{
+			type: 'div',
+			props: {
+				style: {
+					display: 'flex',
+					flexDirection: 'column',
+					gap: '20px',
+					marginTop: '32px',
+					marginBottom: 'auto'
+				},
+				children: [
+					// Owner info
+					...(ownerNodes.length > 0
+						? [
+								{
+									type: 'div',
+									props: {
+										style: {
+											display: 'flex',
+											alignItems: 'center',
+											gap: '16px'
+										},
+										children: ownerNodes
+									}
 								}
-							},
-							createBrandingFooter()
-						]
-					}
-				}
-			]
-		}
-	}
+							]
+						: []),
+					// Stats
+					...(statsNodes.length > 0
+						? [
+								{
+									type: 'div',
+									props: {
+										style: {
+											display: 'flex',
+											alignItems: 'center',
+											gap: '32px',
+											flexWrap: 'wrap'
+										},
+										children: statsNodes
+									}
+								}
+							]
+						: [])
+				]
+			}
+		},
+		createBrandingFooter()
+	])
 }

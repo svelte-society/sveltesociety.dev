@@ -5,7 +5,13 @@
 
 import type { SatoriNode, VideoContentData } from '../types'
 import { OG_IMAGE_COLORS } from '../constants'
-import { createTypeBadge, createBrandingFooter, imageUrlToBase64 } from '../utils'
+import {
+	createStandardLayout,
+	createTypeBadge,
+	createBrandingFooter,
+	createTitle,
+	imageUrlToBase64
+} from '../utils'
 
 export async function createVideoLayout(content: VideoContentData): Promise<SatoriNode> {
 	// Try to get the best thumbnail quality
@@ -169,69 +175,9 @@ export async function createVideoLayout(content: VideoContentData): Promise<Sato
 	}
 
 	// Fallback layout without thumbnail
-	return {
-		type: 'div',
-		props: {
-			style: {
-				display: 'flex',
-				flexDirection: 'column',
-				width: '100%',
-				height: '100%',
-				background: OG_IMAGE_COLORS.background,
-				color: OG_IMAGE_COLORS.text,
-				position: 'relative',
-				fontFamily: 'Inter'
-			},
-			children: [
-				// Orange accent bar
-				{
-					type: 'div',
-					props: {
-						style: {
-							position: 'absolute',
-							top: 0,
-							left: 0,
-							right: 0,
-							height: '8px',
-							background: OG_IMAGE_COLORS.accentGradient
-						}
-					}
-				},
-				{
-					type: 'div',
-					props: {
-						style: {
-							display: 'flex',
-							flexDirection: 'column',
-							height: '100%',
-							padding: '40px'
-						},
-						children: [
-							createTypeBadge('Video'),
-							{
-								type: 'div',
-								props: {
-									style: {
-										fontSize: '72px',
-										fontWeight: '800',
-										lineHeight: '1.1',
-										marginBottom: 'auto',
-										maxWidth: '100%',
-										overflow: 'hidden',
-										textOverflow: 'ellipsis',
-										display: '-webkit-box',
-										WebkitLineClamp: '3',
-										WebkitBoxOrient: 'vertical',
-										color: OG_IMAGE_COLORS.text
-									},
-									children: content.title
-								}
-							},
-							createBrandingFooter()
-						]
-					}
-				}
-			]
-		}
-	}
+	return createStandardLayout([
+		createTypeBadge('Video'),
+		createTitle(content.title),
+		createBrandingFooter()
+	])
 }

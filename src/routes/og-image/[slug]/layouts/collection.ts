@@ -5,12 +5,7 @@
 
 import type { SatoriNode, CollectionContentData } from '../types'
 import { OG_IMAGE_COLORS } from '../constants'
-import {
-	createAccentBar,
-	createTypeBadge,
-	createBrandingFooter,
-	createTitle
-} from '../utils'
+import { createStandardLayout, createTypeBadge, createBrandingFooter, createTitle } from '../utils'
 import { getTypeIcon } from '../icons'
 
 export function createCollectionLayout(content: CollectionContentData): SatoriNode {
@@ -122,52 +117,23 @@ export function createCollectionLayout(content: CollectionContentData): SatoriNo
 		})
 	}
 
-	return {
-		type: 'div',
-		props: {
-			style: {
-				display: 'flex',
-				flexDirection: 'column',
-				width: '100%',
-				height: '100%',
-				background: OG_IMAGE_COLORS.background,
-				color: OG_IMAGE_COLORS.text,
-				position: 'relative',
-				fontFamily: 'Inter'
-			},
-			children: [
-				createAccentBar(),
-				{
-					type: 'div',
-					props: {
-						style: {
-							display: 'flex',
-							flexDirection: 'column',
-							height: '100%',
-							padding: '40px'
-						},
-						children: [
-							createTypeBadge('Collection'),
-							createTitle(content.title, 2),
-							// Item preview section
-							{
-								type: 'div',
-								props: {
-									style: {
-										display: 'flex',
-										gap: '20px',
-										marginTop: '32px',
-										marginBottom: 'auto',
-										flexWrap: 'wrap'
-									},
-									children: itemCards
-								}
-							},
-							createBrandingFooter()
-						]
-					}
-				}
-			]
-		}
-	}
+	return createStandardLayout([
+		createTypeBadge('Collection'),
+		createTitle(content.title, 2),
+		// Item preview section
+		{
+			type: 'div',
+			props: {
+				style: {
+					display: 'flex',
+					gap: '20px',
+					marginTop: '32px',
+					marginBottom: 'auto',
+					flexWrap: 'wrap'
+				},
+				children: itemCards
+			}
+		},
+		createBrandingFooter()
+	])
 }

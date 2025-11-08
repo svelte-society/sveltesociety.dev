@@ -206,3 +206,40 @@ export async function imageUrlToBase64(url: string): Promise<string | null> {
 		return null
 	}
 }
+
+/**
+ * Creates a standard OG image layout with accent bar and content container
+ * This centralizes the common structure shared across all content types
+ */
+export function createStandardLayout(children: SatoriNode[]): SatoriNode {
+	return {
+		type: 'div',
+		props: {
+			style: {
+				display: 'flex',
+				flexDirection: 'column',
+				width: '100%',
+				height: '100%',
+				background: OG_IMAGE_COLORS.background,
+				color: OG_IMAGE_COLORS.text,
+				position: 'relative',
+				fontFamily: 'Inter'
+			},
+			children: [
+				createAccentBar(),
+				{
+					type: 'div',
+					props: {
+						style: {
+							display: 'flex',
+							flexDirection: 'column',
+							height: '100%',
+							padding: '40px'
+						},
+						children
+					}
+				}
+			]
+		}
+	}
+}
