@@ -113,4 +113,23 @@ test.describe('Content Detail Pages', () => {
 		// Tag links now preserve the current URL path and add tags query param (from #843)
 		expect(href).toMatch(/^\/recipe\/test-recipe-counter-component-content_recipe_001\?tags=/)
 	})
+
+	test('library displays NPM package link when available', async ({ page }) => {
+		const detailPage = new ContentDetailPage(page)
+		await detailPage.goto('library', 'test-library-testing-library-content_library_001')
+
+		await detailPage.expectContentLoaded()
+
+		// Check that NPM link is visible
+		const npmLink = page.locator('a[href*="npmjs.com/package"]')
+		await expect(npmLink).toBeVisible()
+
+		// Verify the link points to the correct package
+		const href = await npmLink.getAttribute('href')
+		expect(href).toBe('https://www.npmjs.com/package/@testing-library/svelte')
+
+		// Verify link has correct attributes for external links
+		await expect(npmLink).toHaveAttribute('target', '_blank')
+		await expect(npmLink).toHaveAttribute('rel', 'noopener noreferrer')
+	})
 })

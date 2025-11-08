@@ -104,9 +104,10 @@ export const TEST_CONTENT = [
 		slug: 'test-library-testing-library',
 		description: 'Utilities for testing Svelte components',
 		metadata: {
-			npmPackage: '@testing-library/svelte',
-			githubUrl: 'https://github.com/testing-library/svelte-testing-library',
-			stars: 1500
+			npm: '@testing-library/svelte',
+			github: 'https://github.com/testing-library/svelte-testing-library',
+			stars: 1500,
+			thumbnail: 'https://opengraph.githubassets.com/test/testing-library/svelte-testing-library'
 		},
 		authorId: 'test_admin_001',
 		tags: ['tag_testing', 'tag_svelte'],

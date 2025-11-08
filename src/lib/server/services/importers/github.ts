@@ -36,6 +36,14 @@ interface GitHubReadme {
 	encoding: string
 }
 
+interface PackageJson {
+	name?: string
+	version?: string
+	description?: string
+	private?: boolean
+	[key: string]: unknown
+}
+
 export class GitHubImporter {
 	private apiBaseUrl = 'https://api.github.com'
 	private token?: string
@@ -56,7 +64,8 @@ export class GitHubImporter {
 		if (!repository) return null
 
 		const readme = await this.fetchReadme(owner, repo)
-		const contentData = this.transformRepositoryToContent(repository, readme)
+		const packageJson = await this.fetchPackageJson(owner, repo)
+		const contentData = this.transformRepositoryToContent(repository, readme, packageJson)
 
 		if (authorId) {
 			contentData.author_id = authorId
@@ -119,7 +128,8 @@ export class GitHubImporter {
 		const importedIds: string[] = []
 		for (const repo of filteredRepos) {
 			const readme = await this.fetchReadme(repo.owner.login, repo.name)
-			const contentData = this.transformRepositoryToContent(repo, readme)
+			const packageJson = await this.fetchPackageJson(repo.owner.login, repo.name)
+			const contentData = this.transformRepositoryToContent(repo, readme, packageJson)
 			const id = await this.externalContentService.upsertExternalContent(contentData)
 			if (id) importedIds.push(id)
 		}
@@ -256,15 +266,60 @@ export class GitHubImporter {
 	}
 
 	/**
+	 * Fetch package.json content to extract NPM package name
+	 */
+	private async fetchPackageJson(owner: string, repo: string): Promise<PackageJson | null> {
+		if (this.cacheService) {
+			return this.cacheService.cachify({
+				key: `github:package:${owner}:${repo}`,
+				getFreshValue: () => this._fetchPackageJsonDirectly(owner, repo),
+				ttl: 60 * 60 * 1000, // 1 hour
+				swr: 60 * 60 * 1000 * 24 // 24 hours
+			})
+		}
+		return this._fetchPackageJsonDirectly(owner, repo)
+	}
+
+	private async _fetchPackageJsonDirectly(owner: string, repo: string): Promise<PackageJson | null> {
+		try {
+			const headers: HeadersInit = {
+				Accept: 'application/vnd.github.v3.raw',
+				'User-Agent': 'SvelteSociety-Importer'
+			}
+
+			if (this.token) {
+				headers['Authorization'] = `Bearer ${this.token}`
+			}
+
+			const response = await fetch(
+				`${this.apiBaseUrl}/repos/${owner}/${repo}/contents/package.json`,
+				{ headers }
+			)
+
+			if (!response.ok) {
+				// Not all repositories have package.json, this is normal
+				return null
+			}
+
+			const packageJson: PackageJson = await response.json()
+			return packageJson
+		} catch (error) {
+			console.error('Error fetching package.json:', error)
+			return null
+		}
+	}
+
+	/**
 	 * Transform GitHub repository to external content data
 	 */
 	private transformRepositoryToContent(
 		repo: GitHubRepository,
-		readme: string | null
+		readme: string | null,
+		packageJson: PackageJson | null
 	): ExternalContentData {
-		// Extract package name from package.json if possible (would need additional API call)
-		// For now, use repository name
-		const npmPackage = this.guessNpmPackage(repo)
+		// Extract package name from package.json if available and publishable
+		// Skip if package is private or has an invalid/placeholder name
+		const npmPackage = this.extractNpmPackageName(packageJson)
 
 		// Generate a hash based on the last update time for cache busting
 		// This ensures we get a fresh OG image when the repo is updated
@@ -313,6 +368,49 @@ export class GitHubImporter {
 	}
 
 	/**
+	 * Extract NPM package name from package.json
+	 * Returns undefined if the package is private or has an invalid/placeholder name
+	 */
+	private extractNpmPackageName(packageJson: PackageJson | null): string | undefined {
+		if (!packageJson?.name) {
+			return undefined
+		}
+
+		// Skip private packages (not published to npm)
+		if (packageJson.private === true) {
+			return undefined
+		}
+
+		const name = packageJson.name
+
+		// Filter out common placeholder/invalid names
+		const invalidNames = ['www', 'app', 'web', 'site', 'website', 'monorepo', 'workspace']
+		const lowerName = name.toLowerCase()
+
+		// Check if it's a simple invalid name
+		if (invalidNames.includes(lowerName)) {
+			return undefined
+		}
+
+		// Check if it ends with common suffixes that indicate it's not a real package
+		if (lowerName.endsWith('-monorepo') || lowerName.endsWith('-workspace')) {
+			return undefined
+		}
+
+		// Valid NPM package name pattern (simplified):
+		// - Can start with @ for scoped packages
+		// - Contains lowercase letters, numbers, hyphens, underscores, dots
+		// - Scoped packages: @scope/name
+		const validPackagePattern = /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/
+
+		if (!validPackagePattern.test(name)) {
+			return undefined
+		}
+
+		return name
+	}
+
+	/**
 	 * Generate a hash for the OG image URL based on the update time
 	 * This ensures cache busting when the repository is updated
 	 */
@@ -322,22 +420,5 @@ export class GitHubImporter {
 		const timestamp = new Date(updatedAt).getTime()
 		const hash = timestamp.toString(36).padStart(12, '0')
 		return hash
-	}
-
-	/**
-	 * Try to guess the npm package name from repository info
-	 */
-	private guessNpmPackage(repo: GitHubRepository): string | undefined {
-		// Common patterns for Svelte-related packages
-		if (repo.full_name.startsWith('sveltejs/')) {
-			// Official Svelte packages
-			if (repo.name === 'svelte') return 'svelte'
-			if (repo.name === 'kit') return '@sveltejs/kit'
-			return `@sveltejs/${repo.name}`
-		}
-
-		// For now, return undefined for other repos
-		// Could be enhanced to fetch package.json and extract the name
-		return undefined
 	}
 }
