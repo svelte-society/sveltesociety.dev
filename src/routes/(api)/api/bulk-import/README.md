@@ -1,6 +1,6 @@
 # Bulk Import API
 
-The bulk import endpoint allows you to import multiple YouTube videos or GitHub repositories in a single request.
+The bulk import endpoint allows you to import multiple YouTube videos or GitHub repositories (including monorepo packages) in a single request.
 
 ## Authentication
 
