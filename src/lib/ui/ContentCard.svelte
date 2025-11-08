@@ -192,7 +192,7 @@
 		{:else if content.type === 'video'}
 			<Video {content} {priority} />
 		{:else if content.type === 'library'}
-			<Library {content} {priority} />
+			<Library {content} {priority} fullInfo={fullDescription} />
 		{:else if content.type === 'announcement'}
 			<!-- Announcements show rendered body on detail pages -->
 			{#if fullDescription && content.rendered_body}
