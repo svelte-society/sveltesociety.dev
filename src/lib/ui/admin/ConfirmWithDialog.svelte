@@ -71,7 +71,7 @@
 					}}
 				>
 					<input type="hidden" name="id" value={id} />
-					<Button>{confirmButtonText}</Button>
+					<Button data-testid="confirm-delete-button">{confirmButtonText}</Button>
 				</form>
 			</div>
 		</div>

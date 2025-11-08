@@ -15,7 +15,7 @@
 	const { form: formData, submitting } = form
 </script>
 
-<Form {form}>
+<Form {form} action={isEditing ? '?/update' : undefined}>
 	<Input
 		name="title"
 		label="Title"

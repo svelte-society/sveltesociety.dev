@@ -154,4 +154,32 @@ export class ContentEditPage extends BasePage {
 		await expect(this.titleInput).toBeVisible({ timeout: 10000 })
 		await expect(this.submitButton).toBeVisible()
 	}
+
+	/**
+	 * Delete content (clicks delete button and confirms in dialog)
+	 */
+	async deleteContent(): Promise<void> {
+		// Find and click the delete button (trash icon in Actions component)
+		const deleteButton = this.page.getByRole('button', { name: /delete/i })
+		await expect(deleteButton).toBeVisible()
+		await deleteButton.click()
+
+		// Wait for confirmation dialog to appear
+		const confirmDialog = this.page.getByRole('heading', { name: /are you sure/i })
+		await expect(confirmDialog).toBeVisible()
+
+		// Click the confirm delete button in the dialog
+		const confirmButton = this.page.getByRole('button', { name: 'Delete' })
+		await expect(confirmButton).toBeVisible()
+		await confirmButton.click()
+	}
+
+	/**
+	 * Expect to be redirected to content list after deletion
+	 */
+	async expectRedirectToContentList(): Promise<void> {
+		await this.page.waitForURL('/admin/content', { timeout: 10000 })
+		const contentListHeading = this.page.getByRole('heading', { name: 'Content Management' })
+		await expect(contentListHeading).toBeVisible()
+	}
 }

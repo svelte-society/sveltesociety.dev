@@ -133,4 +133,52 @@ test.describe('Admin Content Management', () => {
 		const publishedRadio = page.getByTestId('category-selector-status-published').locator('input')
 		await expect(publishedRadio).toBeChecked()
 	})
+
+	test('admin can delete content from list page', async ({ page }) => {
+		const dashboardPage = new AdminDashboardPage(page)
+
+		// Navigate to content management
+		await dashboardPage.gotoContentManagement()
+		await dashboardPage.expectContentManagementHeading()
+
+		// Get the title of the content we're going to delete
+		const contentTitleElement = page.getByTestId('content-title-text').first()
+		await contentTitleElement.waitFor({ state: 'visible' })
+		const contentTitle = await contentTitleElement.textContent()
+
+		// Get the initial count of content items
+		const initialCount = await page.getByTestId('content-title-text').count()
+
+		// Find and click the delete button for the first item (trash icon in Actions component)
+		const deleteButtons = page.getByRole('button', { name: /delete/i })
+		await deleteButtons.first().waitFor({ state: 'visible' })
+		await deleteButtons.first().click()
+
+		// Wait for confirmation dialog to appear
+		const confirmDialog = page.getByRole('heading', { name: /are you sure/i })
+		await expect(confirmDialog).toBeVisible()
+
+		// Click the confirm delete button in the dialog
+		const confirmButton = page.getByTestId('confirm-delete-button')
+		await expect(confirmButton).toBeVisible()
+		await confirmButton.click()
+
+		// Wait for the page to reload after deletion
+		await page.waitForLoadState('networkidle')
+
+		// Verify the content no longer appears in the list
+		const allContentTitles = page.getByTestId('content-title-text')
+		const newCount = await allContentTitles.count()
+
+		// Count should be reduced by 1
+		expect(newCount).toBe(initialCount - 1)
+
+		// Check that the deleted content is not in the list
+		if (newCount > 0) {
+			for (let i = 0; i < newCount; i++) {
+				const title = await allContentTitles.nth(i).textContent()
+				expect(title).not.toBe(contentTitle)
+			}
+		}
+	})
 })
