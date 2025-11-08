@@ -55,7 +55,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 }
 
 export const actions: Actions = {
-	default: async ({ request, params, locals }) => {
+	update: async ({ request, params, locals }) => {
 		// Get form data and validate
 		const form = await superValidate(request, zod4(updateContentSchema))
 
@@ -99,6 +99,30 @@ export const actions: Actions = {
 				success: false,
 				text: 'Failed to update content. Please try again.'
 			})
+		}
+	},
+
+	delete: async ({ params, locals }) => {
+		try {
+			const success = locals.contentService.deleteContent(params.id)
+
+			if (success) {
+				// Redirect to content list after successful deletion
+				throw redirect(303, '/admin/content')
+			}
+
+			return {
+				success: false,
+				error: 'Failed to delete content'
+			}
+		} catch (error) {
+			if (error instanceof Response) throw error
+
+			console.error('Error deleting content:', error)
+			return {
+				success: false,
+				error: 'An error occurred while deleting content'
+			}
 		}
 	}
 }
