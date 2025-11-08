@@ -33,6 +33,16 @@
 		submissionData.type === 'video' && submissionData.url
 			? submissionData.url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/)?.[1]
 			: null
+
+	// Extract GitHub owner/repo from various formats
+	function getGitHubUrl(githubRepo: string): string {
+		// If it's already a full URL, return as-is
+		if (githubRepo.startsWith('http://') || githubRepo.startsWith('https://')) {
+			return githubRepo
+		}
+		// Otherwise, construct URL from owner/repo format
+		return `https://github.com/${githubRepo}`
+	}
 </script>
 
 <div class="container mx-auto px-2 py-4">
@@ -170,7 +180,7 @@
 						</div>
 						<div>
 							<a
-								href="https://github.com/{submissionData.github_repo}"
+								href={getGitHubUrl(submissionData.github_repo)}
 								target="_blank"
 								rel="noopener noreferrer"
 								class="inline-flex items-center space-x-2 text-sm text-blue-600 hover:text-blue-800 hover:underline"
