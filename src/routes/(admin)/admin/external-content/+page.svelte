@@ -98,8 +98,8 @@
 						<Input
 							name="url"
 							label="Content URL"
-							placeholder="https://youtube.com/watch?v=... or https://github.com/owner/repo"
-							description={placeholder() || 'Paste a YouTube video URL or GitHub repository URL'}
+							placeholder="https://youtube.com/watch?v=... or https://github.com/owner/repo or owner/repo/packages/kit"
+							description={placeholder() || 'Paste a YouTube video URL, GitHub repository URL, or monorepo package path'}
 						/>
 
 						{#if detectContentType($importForm.url)}
@@ -155,7 +155,7 @@
 						<p class="text-xs text-gray-700">
 							<strong>Supported formats:</strong>
 							<br />• YouTube: Full URLs, short URLs (youtu.be), or video IDs
-							<br />• GitHub: Full URLs or owner/repo format
+							<br />• GitHub: Full URLs, owner/repo, or owner/repo/path for monorepo packages
 						</p>
 					</div>
 				</div>

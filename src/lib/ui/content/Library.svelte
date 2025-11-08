@@ -37,12 +37,15 @@
 	const isAboveFold = priority === 'high'
 	const loadingAttr = isAboveFold ? 'eager' : 'lazy'
 	const fetchPriorityAttr = isAboveFold ? 'high' : undefined
+
+	// Use packageUrl for monorepo packages, otherwise use github URL
+	const githubUrl = $derived(content.metadata.packageUrl || content.metadata.github)
 </script>
 
 <div class="relative flex h-full flex-col gap-2">
 	<!-- OG Image for GitHub repos -->
 	<a
-		href={content.metadata.github}
+		href={githubUrl}
 		target="_blank"
 		rel="noopener noreferrer"
 		data-testid="library-thumbnail-link"

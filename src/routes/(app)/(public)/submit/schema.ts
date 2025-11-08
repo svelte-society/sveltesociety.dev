@@ -32,6 +32,15 @@ const librarySchema = baseSchema.extend({
 	github_repo: z
 		.string()
 		.min(1, { message: 'GitHub repository is required for library submissions' })
+		.refine(
+			(val) => {
+				// Accept: owner/repo, owner/repo/path, or full GitHub URLs
+				const urlPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)(?:\/tree\/[^/]+\/(.+))?/
+				const repoPattern = /^([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)(?:\/(.+))?$/
+				return urlPattern.test(val) || repoPattern.test(val)
+			},
+			{ message: 'Must be a valid GitHub repository (owner/repo or owner/repo/path for monorepos)' }
+		)
 })
 
 const recipeSchema = baseSchema.extend({
