@@ -1,7 +1,26 @@
 import { test, expect } from '@playwright/test'
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
+import { existsSync, rmSync, mkdirSync } from 'node:fs'
+import { join } from 'node:path'
 
 test.describe('OG Image Generation', () => {
+	test.beforeAll(() => {
+		// Clear OG image cache once before all tests to ensure fresh generation
+		const stateDir = process.env.STATE_DIRECTORY || '.state_directory'
+		const ogCacheDir = join(stateDir, 'files', 'og')
+
+		if (existsSync(ogCacheDir)) {
+			try {
+				rmSync(ogCacheDir, { recursive: true, force: true })
+			} catch (err) {
+				console.warn('Failed to clear OG cache:', err)
+			}
+		}
+
+		// Recreate the directory for fresh cache writes
+		mkdirSync(ogCacheDir, { recursive: true })
+	})
+
 	test.beforeEach(async ({ page }) => {
 		await setupDatabaseIsolation(page)
 	})
@@ -28,25 +47,74 @@ test.describe('OG Image Generation', () => {
 		expect(buffer[3]).toBe(0x47) // G
 	})
 
-	test('generates different images for different content types', async ({ request }) => {
-		// Use pre-seeded test content from fixtures
-		// These slugs correspond to TEST_CONTENT in tests/fixtures/test-data.ts (with ID suffix added by trigger)
-		const recipeResponse = await request.get('/og-image/test-recipe-counter-component-content_recipe_001')
-		const videoResponse = await request.get('/og-image/test-video-svelte-5-intro-content_video_001')
-		const libraryResponse = await request.get('/og-image/test-library-testing-library-content_library_001')
+	test('generates recipe OG image with description', async ({ request }) => {
+		const response = await request.get(
+			'/og-image/test-recipe-counter-component-content_recipe_001'
+		)
 
-		expect(recipeResponse.status()).toBe(200)
-		expect(videoResponse.status()).toBe(200)
-		expect(libraryResponse.status()).toBe(200)
+		expect(response.status()).toBe(200)
+		expect(response.headers()['content-type']).toBe('image/png')
 
-		// Get image buffers
-		const recipeBuffer = await recipeResponse.body()
-		const videoBuffer = await videoResponse.body()
-		const libraryBuffer = await libraryResponse.body()
+		const buffer = await response.body()
+		expect(buffer.length).toBeGreaterThan(1000)
 
-		// Images should have different sizes (different content = different file size)
-		expect(recipeBuffer.length).not.toBe(videoBuffer.length)
-		expect(videoBuffer.length).not.toBe(libraryBuffer.length)
+		// Verify it's a valid PNG
+		expect(buffer[0]).toBe(0x89) // PNG magic bytes
+		expect(buffer[1]).toBe(0x50) // P
+		expect(buffer[2]).toBe(0x4e) // N
+		expect(buffer[3]).toBe(0x47) // G
+	})
+
+	test('generates video OG image with thumbnail', async ({ request }) => {
+		const response = await request.get('/og-image/test-video-svelte-5-intro-content_video_001')
+
+		expect(response.status()).toBe(200)
+		expect(response.headers()['content-type']).toBe('image/png')
+
+		const buffer = await response.body()
+		expect(buffer.length).toBeGreaterThan(1000)
+
+		// Verify it's a valid PNG
+		expect(buffer[0]).toBe(0x89)
+		expect(buffer[1]).toBe(0x50)
+		expect(buffer[2]).toBe(0x4e)
+		expect(buffer[3]).toBe(0x47)
+	})
+
+	test('generates library OG image with GitHub stats', async ({ request }) => {
+		const response = await request.get(
+			'/og-image/test-library-testing-library-content_library_001'
+		)
+
+		expect(response.status()).toBe(200)
+		expect(response.headers()['content-type']).toBe('image/png')
+
+		const buffer = await response.body()
+		expect(buffer.length).toBeGreaterThan(1000)
+
+		// Verify it's a valid PNG
+		expect(buffer[0]).toBe(0x89)
+		expect(buffer[1]).toBe(0x50)
+		expect(buffer[2]).toBe(0x4e)
+		expect(buffer[3]).toBe(0x47)
+	})
+
+	test('generates announcement OG image with description', async ({ request }) => {
+		const response = await request.get(
+			'/og-image/test-announcement-svelte-5-released-content_announcement_001'
+		)
+
+		expect(response.status()).toBe(200)
+		expect(response.headers()['content-type']).toBe('image/png')
+
+		const buffer = await response.body()
+		expect(buffer.length).toBeGreaterThan(1000)
+
+		// Verify it's a valid PNG
+		expect(buffer[0]).toBe(0x89)
+		expect(buffer[1]).toBe(0x50)
+		expect(buffer[2]).toBe(0x4e)
+		expect(buffer[3]).toBe(0x47)
 	})
 
 	test('caches generated images for faster subsequent requests', async ({ request }) => {
@@ -81,5 +149,49 @@ test.describe('OG Image Generation', () => {
 		const buffer = await response.body()
 		expect(buffer.length).toBeGreaterThan(1000)
 		expect(buffer[0]).toBe(0x89) // PNG magic bytes
+	})
+
+	test('generates collection OG image with child item previews', async ({ request }) => {
+		// Collection has children: content_library_001 and content_recipe_001
+		const response = await request.get(
+			'/og-image/test-collection-best-components-content_collection_001'
+		)
+
+		expect(response.status()).toBe(200)
+		expect(response.headers()['content-type']).toBe('image/png')
+
+		const buffer = await response.body()
+
+		// Collection images should be larger than simple content types
+		// because they include preview cards for child items
+		expect(buffer.length).toBeGreaterThan(10000)
+
+		// Verify it's a valid PNG
+		expect(buffer[0]).toBe(0x89) // PNG magic bytes
+		expect(buffer[1]).toBe(0x50) // P
+		expect(buffer[2]).toBe(0x4e) // N
+		expect(buffer[3]).toBe(0x47) // G
+	})
+
+	test('collection images differ from their child content images', async ({ request }) => {
+		// Get collection image
+		const collectionResponse = await request.get(
+			'/og-image/test-collection-best-components-content_collection_001'
+		)
+
+		// Get one of its child content images
+		const childLibraryResponse = await request.get(
+			'/og-image/test-library-testing-library-content_library_001'
+		)
+
+		expect(collectionResponse.status()).toBe(200)
+		expect(childLibraryResponse.status()).toBe(200)
+
+		const collectionBuffer = await collectionResponse.body()
+		const childBuffer = await childLibraryResponse.body()
+
+		// Collection image should be different from its child's image
+		expect(collectionBuffer.length).not.toBe(childBuffer.length)
+		expect(collectionBuffer.equals(childBuffer)).toBe(false)
 	})
 })
