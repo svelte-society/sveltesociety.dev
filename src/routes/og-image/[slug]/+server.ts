@@ -88,7 +88,7 @@ export const GET: RequestHandler = async ({ params, locals, setHeaders, url }) =
 			const cachedImage = readFileSync(cacheFilePath)
 			setHeaders({
 				'Content-Type': 'image/png',
-				'Cache-Control': 'public, max-age=31536000, immutable'
+				'Cache-Control': 'public, max-age=604800, immutable'
 			})
 			return new Response(cachedImage)
 		} catch (err) {
@@ -117,7 +117,7 @@ export const GET: RequestHandler = async ({ params, locals, setHeaders, url }) =
 
 		setHeaders({
 			'Content-Type': 'image/png',
-			'Cache-Control': 'public, max-age=31536000, immutable'
+			'Cache-Control': 'public, max-age=604800, immutable'
 		})
 
 		return new Response(pngBuffer)
