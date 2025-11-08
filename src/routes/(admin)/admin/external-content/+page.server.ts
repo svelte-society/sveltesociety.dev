@@ -13,9 +13,9 @@ const importSchema = z.object({
 		.refine((val) => {
 			const youtubePattern =
 				/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
-			const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
+			const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)(?:\/tree\/[^/]+\/(.+))?/
 			const videoIdPattern = /^[a-zA-Z0-9_-]{11}$/
-			const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/
+			const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+(?:\/(.+))?$/
 
 			return (
 				youtubePattern.test(val) ||
@@ -23,7 +23,7 @@ const importSchema = z.object({
 				videoIdPattern.test(val) ||
 				repoPattern.test(val)
 			)
-		}, 'Must be a YouTube URL, GitHub URL, YouTube video ID, or GitHub owner/repo format')
+		}, 'Must be a YouTube URL, GitHub URL, YouTube video ID, or GitHub owner/repo(/path) format')
 })
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -75,8 +75,8 @@ export const actions = {
 		const youtubePattern =
 			/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
 		const videoIdPattern = /^[a-zA-Z0-9_-]{11}$/
-		const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
-		const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/
+		const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)(?:\/tree\/[^/]+\/(.+))?/
+		const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+(?:\/(.+))?$/
 
 		if (youtubePattern.test(url) || videoIdPattern.test(url)) {
 			try {
@@ -121,30 +121,46 @@ export const actions = {
 
 		if (githubPattern.test(url) || repoPattern.test(url)) {
 			try {
-				let owner: string, repo: string
+				let owner: string, repo: string, packagePath: string | undefined
 
 				const urlMatch = url.match(githubPattern)
 				if (urlMatch) {
 					owner = urlMatch[1]
 					repo = urlMatch[2].replace(/\.git$/, '')
+					packagePath = urlMatch[3] // Extract package path from URL
 				} else {
-					;[owner, repo] = url.split('/')
+					const repoMatch = url.match(repoPattern)
+					if (repoMatch) {
+						const parts = url.split('/')
+						owner = parts[0]
+						repo = parts[1]
+						// Everything after owner/repo is the package path
+						packagePath = parts.slice(2).join('/')
+						if (packagePath === '') packagePath = undefined
+					} else {
+						return fail(400, {
+							form,
+							error: 'Invalid GitHub repository format'
+						})
+					}
 				}
 
-				const repoId = `${owner}/${repo}`
+				// Build external ID including package path if present
+				const externalId = packagePath ? `${owner}/${repo}/${packagePath}` : `${owner}/${repo}`
+
 				const existingContent = locals.externalContentService.getContentByExternalId(
 					'github',
-					repoId
+					externalId
 				)
 				if (existingContent) {
 					return fail(400, {
 						form,
-						error: `This GitHub repository has already been imported. Content ID: ${existingContent.id}`
+						error: `This GitHub ${packagePath ? 'package' : 'repository'} has already been imported. Content ID: ${existingContent.id}`
 					})
 				}
 
 				const importer = new GitHubImporter(locals.externalContentService, locals.cacheService)
-				const contentId = await importer.importRepository(owner, repo, locals.user.id)
+				const contentId = await importer.importRepository(owner, repo, locals.user.id, packagePath)
 
 				return {
 					form,

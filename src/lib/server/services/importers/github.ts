@@ -57,15 +57,25 @@ export class GitHubImporter {
 	}
 
 	/**
-	 * Import a single repository by owner/repo
+	 * Import a single repository by owner/repo or owner/repo/path/to/package
 	 */
-	async importRepository(owner: string, repo: string, authorId?: string): Promise<string | null> {
+	async importRepository(
+		owner: string,
+		repo: string,
+		authorId?: string,
+		packagePath?: string
+	): Promise<string | null> {
 		const repository = await this.fetchRepository(owner, repo)
 		if (!repository) return null
 
-		const readme = await this.fetchReadme(owner, repo)
-		const packageJson = await this.fetchPackageJson(owner, repo)
-		const contentData = this.transformRepositoryToContent(repository, readme, packageJson)
+		const readme = await this.fetchReadme(owner, repo, packagePath)
+		const packageJson = await this.fetchPackageJson(owner, repo, packagePath)
+		const contentData = this.transformRepositoryToContent(
+			repository,
+			readme,
+			packageJson,
+			packagePath
+		)
 
 		if (authorId) {
 			contentData.author_id = authorId
@@ -83,14 +93,17 @@ export class GitHubImporter {
 			throw new Error('Failed to fetch image')
 		}
 
-		const dir = path.join(STATE_DIRECTORY, 'files', 'gh', repository.full_name)
+		const storagePath = packagePath
+			? `${repository.full_name}/${packagePath}`
+			: repository.full_name
+		const dir = path.join(STATE_DIRECTORY, 'files', 'gh', storagePath)
 		const extension = response.headers.get('content-type')?.split('/').at(-1)
 		const file_path = path.join(dir, 'thumbnail.' + extension)
 
 		fs.mkdirSync(dir, { recursive: true })
 		fs.writeFileSync(file_path, Buffer.from(await response.arrayBuffer()))
 
-		const thumbnail = path.join('/files', 'gh', repository.full_name, 'thumbnail.' + extension)
+		const thumbnail = path.join('/files', 'gh', storagePath, 'thumbnail.' + extension)
 		contentData.metadata.thumbnail = thumbnail
 
 		return this.externalContentService.upsertExternalContent(contentData)
@@ -232,9 +245,13 @@ export class GitHubImporter {
 	}
 
 	/**
-	 * Fetch README content
+	 * Fetch README content from root or specific package path
 	 */
-	private async fetchReadme(owner: string, repo: string): Promise<string | null> {
+	private async fetchReadme(
+		owner: string,
+		repo: string,
+		packagePath?: string
+	): Promise<string | null> {
 		try {
 			const headers: HeadersInit = {
 				Accept: 'application/vnd.github.v3+json',
@@ -245,20 +262,64 @@ export class GitHubImporter {
 				headers['Authorization'] = `Bearer ${this.token}`
 			}
 
-			const response = await fetch(`${this.apiBaseUrl}/repos/${owner}/${repo}/readme`, { headers })
+			let response: Response
 
-			if (!response.ok) {
-				return null
+			if (packagePath) {
+				// Try to fetch README from the package directory
+				// Common README names: README.md, readme.md, README.MD, Readme.md
+				const readmeNames = ['README.md', 'readme.md', 'README.MD', 'Readme.md', 'README']
+				let readmeContent: string | null = null
+
+				for (const readmeName of readmeNames) {
+					try {
+						response = await fetch(
+							`${this.apiBaseUrl}/repos/${owner}/${repo}/contents/${packagePath}/${readmeName}`,
+							{ headers }
+						)
+
+						if (response.ok) {
+							const data: GitHubReadme = await response.json()
+							if (data.encoding === 'base64') {
+								readmeContent = atob(data.content)
+							} else {
+								readmeContent = data.content
+							}
+							break
+						}
+					} catch (error) {
+						// Continue to next README name
+						continue
+					}
+				}
+
+				// If no package README found, fall back to root README
+				if (!readmeContent) {
+					response = await fetch(`${this.apiBaseUrl}/repos/${owner}/${repo}/readme`, { headers })
+					if (response.ok) {
+						const data: GitHubReadme = await response.json()
+						readmeContent =
+							data.encoding === 'base64' ? atob(data.content) : data.content
+					}
+				}
+
+				return readmeContent
+			} else {
+				// Fetch root README
+				response = await fetch(`${this.apiBaseUrl}/repos/${owner}/${repo}/readme`, { headers })
+
+				if (!response.ok) {
+					return null
+				}
+
+				const data: GitHubReadme = await response.json()
+
+				// Decode base64 content
+				if (data.encoding === 'base64') {
+					return atob(data.content)
+				}
+
+				return data.content
 			}
-
-			const data: GitHubReadme = await response.json()
-
-			// Decode base64 content
-			if (data.encoding === 'base64') {
-				return atob(data.content)
-			}
-
-			return data.content
 		} catch (error) {
 			console.error('Error fetching README:', error)
 			return null
@@ -268,19 +329,31 @@ export class GitHubImporter {
 	/**
 	 * Fetch package.json content to extract NPM package name
 	 */
-	private async fetchPackageJson(owner: string, repo: string): Promise<PackageJson | null> {
+	private async fetchPackageJson(
+		owner: string,
+		repo: string,
+		packagePath?: string
+	): Promise<PackageJson | null> {
+		const cacheKey = packagePath
+			? `github:package:${owner}:${repo}:${packagePath}`
+			: `github:package:${owner}:${repo}`
+
 		if (this.cacheService) {
 			return this.cacheService.cachify({
-				key: `github:package:${owner}:${repo}`,
-				getFreshValue: () => this._fetchPackageJsonDirectly(owner, repo),
+				key: cacheKey,
+				getFreshValue: () => this._fetchPackageJsonDirectly(owner, repo, packagePath),
 				ttl: 60 * 60 * 1000, // 1 hour
 				swr: 60 * 60 * 1000 * 24 // 24 hours
 			})
 		}
-		return this._fetchPackageJsonDirectly(owner, repo)
+		return this._fetchPackageJsonDirectly(owner, repo, packagePath)
 	}
 
-	private async _fetchPackageJsonDirectly(owner: string, repo: string): Promise<PackageJson | null> {
+	private async _fetchPackageJsonDirectly(
+		owner: string,
+		repo: string,
+		packagePath?: string
+	): Promise<PackageJson | null> {
 		try {
 			const headers: HeadersInit = {
 				Accept: 'application/vnd.github.v3.raw',
@@ -291,8 +364,12 @@ export class GitHubImporter {
 				headers['Authorization'] = `Bearer ${this.token}`
 			}
 
+			const contentPath = packagePath
+				? `${packagePath}/package.json`
+				: 'package.json'
+
 			const response = await fetch(
-				`${this.apiBaseUrl}/repos/${owner}/${repo}/contents/package.json`,
+				`${this.apiBaseUrl}/repos/${owner}/${repo}/contents/${contentPath}`,
 				{ headers }
 			)
 
@@ -315,7 +392,8 @@ export class GitHubImporter {
 	private transformRepositoryToContent(
 		repo: GitHubRepository,
 		readme: string | null,
-		packageJson: PackageJson | null
+		packageJson: PackageJson | null,
+		packagePath?: string
 	): ExternalContentData {
 		// Extract package name from package.json if available and publishable
 		// Skip if package is private or has an invalid/placeholder name
@@ -326,9 +404,30 @@ export class GitHubImporter {
 		const ogImageHash = this.generateOGImageHash(repo.updated_at)
 		const ogImageUrl = `https://opengraph.githubassets.com/${ogImageHash}/${repo.owner.login}/${repo.name}`
 
+		// Determine title and description based on package.json or repo
+		let title = repo.name
+		let description = repo.description || `GitHub repository: ${repo.full_name}`
+
+		if (packagePath) {
+			// For monorepo packages, prefer package.json name, fall back to directory name
+			if (packageJson) {
+				title = packageJson.name || packagePath.split('/').pop() || repo.name
+				description = packageJson.description || description
+			} else {
+				// If package.json couldn't be fetched, use the directory name
+				title = packagePath.split('/').pop() || repo.name
+			}
+		}
+
+		// Build external ID and URL
+		const externalId = packagePath ? `${repo.full_name}/${packagePath}` : repo.full_name
+		const packageUrl = packagePath
+			? `${repo.html_url}/tree/${repo.default_branch}/${packagePath}`
+			: repo.html_url
+
 		return {
-			title: repo.name,
-			description: repo.description || `GitHub repository: ${repo.full_name}`,
+			title,
+			description,
 			body: readme || '',
 			type: 'library',
 			metadata: {
@@ -352,14 +451,20 @@ export class GitHubImporter {
 				createdAt: repo.created_at,
 				updatedAt: repo.updated_at,
 				pushedAt: repo.pushed_at,
-				ogImage: ogImageUrl
+				ogImage: ogImageUrl,
+				// Monorepo metadata
+				...(packagePath && {
+					packagePath,
+					packageUrl,
+					isMonorepoPackage: true
+				})
 			},
 			tags: [], // Don't auto-assign GitHub topics as tags - they need to be mapped to tag IDs
 			source: {
 				type: 'library',
 				source: 'github',
-				externalId: repo.full_name, // Use full_name (owner/repo) as external ID for consistency
-				url: repo.html_url,
+				externalId, // Use full_name/path for monorepo packages
+				url: packageUrl,
 				lastFetched: new Date().toISOString(),
 				lastModified: repo.updated_at
 			},

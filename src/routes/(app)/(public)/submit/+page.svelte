@@ -199,10 +199,10 @@
 			{/if}
 		{:else if $formData.type === 'library'}
 			<Input
-				placeholder="username/repository"
+				placeholder="username/repository or username/repository/packages/name"
 				name="github_repo"
 				label="GitHub Repository"
-				description="GitHub repository (required for libraries)"
+				description="GitHub repository or monorepo package path (required for libraries)"
 				data-testid="library-github-input"
 			/>
 

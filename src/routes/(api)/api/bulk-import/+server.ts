@@ -60,8 +60,8 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		const youtubePattern =
 			/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
 		const videoIdPattern = /^[a-zA-Z0-9_-]{11}$/
-		const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
-		const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/
+		const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)(?:\/tree\/[^/]+\/(.+))?/
+		const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+(?:\/(.+))?$/
 
 		for (let i = 0; i < urls.length; i += options.batchSize) {
 			const batch = urls.slice(i, i + options.batchSize)
@@ -122,18 +122,32 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 						}
 
 						if (contentType === 'github') {
-							let owner: string, repo: string
+							let owner: string, repo: string, packagePath: string | undefined
 
 							const urlMatch = url.match(githubPattern)
 							if (urlMatch) {
 								owner = urlMatch[1]
 								repo = urlMatch[2].replace(/\.git$/, '')
+								packagePath = urlMatch[3] // Extract path from URL (e.g., /tree/main/packages/kit)
 							} else {
-								;[owner, repo] = url.split('/')
+								const repoMatch = url.match(repoPattern)
+								if (repoMatch) {
+									const parts = url.split('/')
+									owner = parts[0]
+									repo = parts[1]
+									// Everything after owner/repo is the package path
+									packagePath = parts.slice(2).join('/')
+									if (packagePath === '') packagePath = undefined
+								} else {
+									result.error = 'Invalid GitHub repository format'
+									return result
+								}
 							}
 
+							// Build external ID including package path if present
+							const externalId = packagePath ? `${owner}/${repo}/${packagePath}` : `${owner}/${repo}`
+
 							if (options.skipExisting) {
-								const externalId = `${owner}/${repo}`
 								const existing = locals.externalContentService.getContentByExternalId(
 									'github',
 									externalId
@@ -150,7 +164,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 								locals.externalContentService,
 								locals.cacheService
 							)
-							const contentId = await importer.importRepository(owner, repo)
+							const contentId = await importer.importRepository(owner, repo, undefined, packagePath)
 
 							if (contentId) {
 								result.success = true

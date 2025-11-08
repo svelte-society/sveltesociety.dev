@@ -24,22 +24,26 @@ function extractYouTubeVideoId(url: string): string | null {
 // Helper function to parse GitHub repository information
 function parseGitHubRepo(
 	input: string
-): { owner: string; repo: string } | { owner: null; repo: null } {
-	const urlPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
+): { owner: string; repo: string; packagePath?: string } | { owner: null; repo: null; packagePath?: undefined } {
+	// Pattern for full GitHub URL with optional package path
+	const urlPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)(?:\/tree\/[^/]+\/(.+))?/
 	const urlMatch = input.match(urlPattern)
 	if (urlMatch) {
 		return {
 			owner: urlMatch[1],
-			repo: urlMatch[2].replace(/\.git$/, '') // Remove .git suffix if present
+			repo: urlMatch[2].replace(/\.git$/, ''), // Remove .git suffix if present
+			packagePath: urlMatch[3] // Optional package path
 		}
 	}
 
-	const repoPattern = /^([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)$/
+	// Pattern for short format with optional package path: owner/repo or owner/repo/path
+	const repoPattern = /^([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)(?:\/(.+))?$/
 	const repoMatch = input.match(repoPattern)
 	if (repoMatch) {
 		return {
 			owner: repoMatch[1],
-			repo: repoMatch[2]
+			repo: repoMatch[2],
+			packagePath: repoMatch[3] // Optional package path
 		}
 	}
 
@@ -114,21 +118,23 @@ export const actions = {
 			}
 
 			if (form.data.type === 'library' && 'github_repo' in form.data) {
-				const { owner, repo } = parseGitHubRepo(form.data.github_repo)
+				const { owner, repo, packagePath } = parseGitHubRepo(form.data.github_repo)
 				if (owner && repo) {
-					const repoId = `${owner}/${repo}`
+					// Build external ID including package path if present
+					const externalId = packagePath ? `${owner}/${repo}/${packagePath}` : `${owner}/${repo}`
+
 					const existingContent = locals.externalContentService.getContentByExternalId(
 						'github',
-						repoId
+						externalId
 					)
 					if (existingContent) {
 						return message(form, {
 							success: false,
-							text: `This repository has already been submitted. You can find it <a href="/${existingContent.type}/${existingContent.slug}" class="underline text-blue-600 hover:text-blue-800">here</a>.`
+							text: `This ${packagePath ? 'package' : 'repository'} has already been submitted. You can find it <a href="/${existingContent.type}/${existingContent.slug}" class="underline text-blue-600 hover:text-blue-800">here</a>.`
 						})
 					}
 
-					// Fetch repository title from GitHub API
+					// Fetch repository/package title from GitHub API
 					try {
 						const headers: HeadersInit = {
 							Accept: 'application/vnd.github.v3+json',
@@ -137,12 +143,31 @@ export const actions = {
 						if (process.env.GITHUB_TOKEN) {
 							headers['Authorization'] = `token ${process.env.GITHUB_TOKEN}`
 						}
-						const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
-							headers
-						})
-						if (response.ok) {
-							const repoData = await response.json()
-							title = repoData.name
+
+						// If package path provided, try to get package.json name
+						if (packagePath) {
+							try {
+								const pkgResponse = await fetch(
+									`https://api.github.com/repos/${owner}/${repo}/contents/${packagePath}/package.json`,
+									{ headers: { ...headers, Accept: 'application/vnd.github.v3.raw' } }
+								)
+								if (pkgResponse.ok) {
+									const packageJson = await pkgResponse.json()
+									title = packageJson.name || packagePath.split('/').pop()
+								}
+							} catch (pkgError) {
+								// Fall back to repo name
+								title = packagePath.split('/').pop()
+							}
+						} else {
+							// Get repo name
+							const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+								headers
+							})
+							if (response.ok) {
+								const repoData = await response.json()
+								title = repoData.name
+							}
 						}
 					} catch (error) {
 						console.error('Error fetching GitHub metadata:', error)
