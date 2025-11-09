@@ -1,4 +1,5 @@
 import { Database } from 'bun:sqlite'
+
 import { SearchService } from './search'
 import type {
 	Content,
@@ -9,12 +10,13 @@ import type {
 } from '$lib/types/content'
 import type { Tag } from '$lib/types/tags'
 import { marked } from 'marked'
+import { generateBlurhashDataUri } from '$lib/utils/generate-blurhash'
 
 export class ContentService {
 	constructor(
 		private db: Database,
 		private searchService?: SearchService
-	) {}
+	) { }
 
 	getContentById(id: string): ContentWithAuthor | null {
 		if (!id) {
@@ -53,6 +55,16 @@ export class ContentService {
 					console.error('Error parsing metadata:', e)
 					content.metadata = {}
 				}
+			}
+
+			if (content.metadata.thumbnail && !content.metadata.blurhash) {
+				generateBlurhashDataUri(content.metadata.thumbnail).then(blurhash => {
+					content.metadata.blurhash = blurhash;
+					this.db.query("UPDATE content SET metadata = ? WHERE id = ?")
+						.run(JSON.stringify(content.metadata), id);
+
+					console.log('Generated blurhash: ' + blurhash)
+				}).catch(err => console.error(`Failed to generate blurhash for ${id}:`, err));
 			}
 
 			// Get tags for the main content
