@@ -31,7 +31,7 @@
 
 				<div class="mb-1 flex text-xs text-gray-500">
 					<span class="mr-0.5 font-semibold capitalize">{child?.type || 'content'}</span>
-					by {getAuthor(child)} •
+					submitted by {getAuthor(child)} •
 					{child?.published_at ? formatRelativeDate(child.published_at) : 'Unknown date'}
 				</div>
 			</a>
