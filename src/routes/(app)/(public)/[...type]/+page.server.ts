@@ -66,7 +66,7 @@ export const load: PageServerLoad = async ({ url, locals, params }) => {
 
 	// Handle pagination
 	const page = parseInt(url.searchParams.get('page') || '1', 10)
-	const perPage = 15 // Should match the default limit in search service
+	const perPage = 30 // Should match the default limit in search service
 	const offset = (page - 1) * perPage
 
 	// Handle rest parameter - params.type can be an array like ['recipe'] or undefined
