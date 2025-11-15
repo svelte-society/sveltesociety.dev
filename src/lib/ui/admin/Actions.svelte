@@ -12,7 +12,7 @@
 {#if canEdit}
 	<a
 		href="/admin/{route}/{id}"
-		class="text-indigo-600 hover:text-indigo-900"
+		class="group relative text-svelte-500 hover:text-svelte-900 transition-colors"
 		aria-label="Edit {type}"
 		data-testid="edit-button"
 	>
