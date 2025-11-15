@@ -5,9 +5,9 @@
 	import Button from '$lib/ui/Button.svelte'
 	import X from 'phosphor-svelte/lib/X'
 	import Eye from 'phosphor-svelte/lib/Eye'
-	import AdminList from '$lib/ui/admin/AdminList.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
 	import type { PreviewModerationQueueItem } from '$lib/server/services/moderation'
+	import ClockClockwise from 'phosphor-svelte/lib/ClockClockwise'
 
 	let { data } = $props()
 
@@ -22,10 +22,27 @@
 	}
 </script>
 
-<AdminList title="Moderation Queue">
+<div class="container mx-auto space-y-8 px-2 py-6">
+	<!-- Hero Header -->
+	<div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-svelte-500 via-svelte-300 to-svelte-100 p-8 shadow-lg">
+		<div class="relative z-10">
+			<div class="flex items-center gap-3">
+				<div class="flex h-14 w-14 items-center justify-center rounded-xl bg-white/90 shadow-lg backdrop-blur-sm">
+					<ClockClockwise class="h-7 w-7 text-svelte-500" weight="duotone" />
+				</div>
+				<div>
+					<h1 class="text-3xl font-bold text-white">Moderation Queue</h1>
+					<p class="mt-1 text-sm text-white/90">
+						Review and approve pending content submissions
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-white/10 to-transparent"></div>
+	</div>
+
 	<div class="mb-6">
-		<p class="text-sm text-gray-600">Review and approve pending content submissions</p>
-		<p class="mt-2 text-sm font-medium text-gray-900" data-testid="moderation-queue-count">
+		<p class="text-sm font-medium text-gray-900" data-testid="moderation-queue-count">
 			Total items: {data.totalItems}
 		</p>
 	</div>
@@ -113,4 +130,4 @@
 			</span>
 		{/if}
 	</div>
-</AdminList>
+</div>

@@ -1,7 +1,7 @@
 <script>
 	import StatCard from '$lib/ui/admin/StatCard.svelte'
 	import QuickAction from '$lib/ui/admin/QuickAction.svelte'
-	import { Users, FileText, ClockClockwise, CheckCircle, Plus, MagnifyingGlass, Tag, Megaphone } from 'phosphor-svelte'
+	import { Users, FileText, ClockClockwise, CheckCircle, Plus, MagnifyingGlass, Tag, Megaphone, ChartLine } from 'phosphor-svelte'
 
 	let { data } = $props()
 
@@ -10,14 +10,27 @@
 	const moderationPending = data.moderation_queue > 0
 </script>
 
-<!-- Welcome Header -->
-<div class="mb-8">
-	<h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
-	<p class="mt-2 text-gray-600">Welcome back! Here's what's happening with your community.</p>
-</div>
+<div class="container mx-auto space-y-8 px-2 py-6">
+	<!-- Hero Header -->
+	<div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-svelte-500 via-svelte-300 to-svelte-100 p-8 shadow-lg">
+		<div class="relative z-10">
+			<div class="flex items-center gap-3">
+				<div class="flex h-14 w-14 items-center justify-center rounded-xl bg-white/90 shadow-lg backdrop-blur-sm">
+					<ChartLine class="h-7 w-7 text-svelte-500" weight="duotone" />
+				</div>
+				<div>
+					<h1 class="text-3xl font-bold text-white">Dashboard</h1>
+					<p class="mt-1 text-sm text-white/90">
+						Welcome back! Here's what's happening with your community.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-white/10 to-transparent"></div>
+	</div>
 
-<!-- Key Statistics -->
-<div class="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+	<!-- Key Statistics -->
+	<div class="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 	<StatCard
 		title="Total Users"
 		value={data.users.toLocaleString()}
@@ -54,12 +67,12 @@
 		href="/admin/content?status=published"
 		testid="stat-published"
 	/>
-</div>
+	</div>
 
-<!-- Quick Actions -->
-<div class="mb-8">
-	<h2 class="mb-4 text-xl font-semibold text-gray-900">Quick Actions</h2>
-	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+	<!-- Quick Actions -->
+	<div class="mb-8">
+		<h2 class="mb-4 text-xl font-semibold text-gray-900">Quick Actions</h2>
+		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
 		<QuickAction
 			title="Add Content"
 			description="Create new content item"
@@ -96,58 +109,59 @@
 			bgColor="bg-svelte-100"
 			testid="quick-action-announcements"
 		/>
-	</div>
-</div>
-
-<!-- Recent Activity / Additional Metrics -->
-<div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-	<!-- Content Overview -->
-	<div class="rounded-xl bg-white p-6 shadow-sm">
-		<div class="mb-4 flex items-center justify-between">
-			<h3 class="text-lg font-semibold text-gray-900">Content Overview</h3>
-			<a href="/admin/content" class="text-sm font-medium text-svelte-500 hover:text-svelte-900">
-				View all →
-			</a>
-		</div>
-		<div class="space-y-3">
-			<div class="flex items-center justify-between rounded-lg bg-gray-50 p-3">
-				<span class="text-sm text-gray-600">Published</span>
-				<span class="font-semibold text-svelte-500">{data.content - data.moderation_queue}</span>
-			</div>
-			<div class="flex items-center justify-between rounded-lg bg-gray-50 p-3">
-				<span class="text-sm text-gray-600">Pending Review</span>
-				<span class="font-semibold text-orange-600">{data.moderation_queue}</span>
-			</div>
-			<div class="flex items-center justify-between rounded-lg bg-gray-50 p-3">
-				<span class="text-sm text-gray-600">Total Items</span>
-				<span class="font-semibold text-gray-900">{data.content}</span>
-			</div>
 		</div>
 	</div>
 
-	<!-- System Health -->
-	<div class="rounded-xl bg-white p-6 shadow-sm">
-		<div class="mb-4 flex items-center justify-between">
-			<h3 class="text-lg font-semibold text-gray-900">System Status</h3>
-			<span class="inline-flex items-center rounded-full bg-svelte-100 px-3 py-1 text-xs font-medium text-svelte-900">
-				<span class="mr-1.5 h-2 w-2 rounded-full bg-svelte-500"></span>
-				All systems operational
-			</span>
+	<!-- Recent Activity / Additional Metrics -->
+	<div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+		<!-- Content Overview -->
+		<div class="rounded-xl bg-white p-6 shadow-sm">
+			<div class="mb-4 flex items-center justify-between">
+				<h3 class="text-lg font-semibold text-gray-900">Content Overview</h3>
+				<a href="/admin/content" class="text-sm font-medium text-svelte-500 hover:text-svelte-900">
+					View all →
+				</a>
+			</div>
+			<div class="space-y-3">
+				<div class="flex items-center justify-between rounded-lg bg-gray-50 p-3">
+					<span class="text-sm text-gray-600">Published</span>
+					<span class="font-semibold text-svelte-500">{data.content - data.moderation_queue}</span>
+				</div>
+				<div class="flex items-center justify-between rounded-lg bg-gray-50 p-3">
+					<span class="text-sm text-gray-600">Pending Review</span>
+					<span class="font-semibold text-orange-600">{data.moderation_queue}</span>
+				</div>
+				<div class="flex items-center justify-between rounded-lg bg-gray-50 p-3">
+					<span class="text-sm text-gray-600">Total Items</span>
+					<span class="font-semibold text-gray-900">{data.content}</span>
+				</div>
+			</div>
 		</div>
-		<div class="space-y-3">
-			<div class="flex items-center justify-between rounded-lg bg-gray-50 p-3">
-				<span class="text-sm text-gray-600">Active Users</span>
-				<span class="font-semibold text-gray-900">{data.users}</span>
-			</div>
-			<div class="flex items-center justify-between rounded-lg bg-gray-50 p-3">
-				<span class="text-sm text-gray-600">Avg. Content per User</span>
-				<span class="font-semibold text-gray-900">{contentPerUser}</span>
-			</div>
-			<div class="flex items-center justify-between rounded-lg bg-gray-50 p-3">
-				<span class="text-sm text-gray-600">Moderation Rate</span>
-				<span class="font-semibold text-gray-900">
-					{data.content > 0 ? Math.round((1 - data.moderation_queue / data.content) * 100) : 100}%
+
+		<!-- System Health -->
+		<div class="rounded-xl bg-white p-6 shadow-sm">
+			<div class="mb-4 flex items-center justify-between">
+				<h3 class="text-lg font-semibold text-gray-900">System Status</h3>
+				<span class="inline-flex items-center rounded-full bg-svelte-100 px-3 py-1 text-xs font-medium text-svelte-900">
+					<span class="mr-1.5 h-2 w-2 rounded-full bg-svelte-500"></span>
+					All systems operational
 				</span>
+			</div>
+			<div class="space-y-3">
+				<div class="flex items-center justify-between rounded-lg bg-gray-50 p-3">
+					<span class="text-sm text-gray-600">Active Users</span>
+					<span class="font-semibold text-gray-900">{data.users}</span>
+				</div>
+				<div class="flex items-center justify-between rounded-lg bg-gray-50 p-3">
+					<span class="text-sm text-gray-600">Avg. Content per User</span>
+					<span class="font-semibold text-gray-900">{contentPerUser}</span>
+				</div>
+				<div class="flex items-center justify-between rounded-lg bg-gray-50 p-3">
+					<span class="text-sm text-gray-600">Moderation Rate</span>
+					<span class="font-semibold text-gray-900">
+						{data.content > 0 ? Math.round((1 - data.moderation_queue / data.content) * 100) : 100}%
+					</span>
+				</div>
 			</div>
 		</div>
 	</div>
