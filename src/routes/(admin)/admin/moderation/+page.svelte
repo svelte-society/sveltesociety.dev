@@ -23,8 +23,13 @@
 </script>
 
 <AdminList title="Moderation Queue">
-	<div class="mb-4 flex items-center justify-between">
-		<p class="text-sm text-gray-600" data-testid="moderation-queue-count">Total items: {data.totalItems}</p>
+	<div class="mb-6">
+		<p class="text-sm text-gray-600">Review and approve pending content submissions</p>
+		<p class="mt-2 text-sm font-medium text-gray-900" data-testid="moderation-queue-count">
+			Total items: {data.totalItems}
+		</p>
+	</div>
+	<div class="mb-4 flex items-center justify-end">
 
 		{#if selectedIds.length > 0}
 			<form method="POST" action="?/bulk_reject" use:enhance>
@@ -51,7 +56,7 @@
 					type="checkbox"
 					checked={selectedIds.includes(item.id)}
 					onchange={() => toggleSelection(item.id)}
-					class="form-checkbox h-4 w-4 text-indigo-600"
+					class="form-checkbox h-4 w-4 text-svelte-500 focus:ring-svelte-500"
 					data-testid="moderation-queue-checkbox"
 				/>
 			</td>
@@ -81,28 +86,28 @@
 		{#if data.page > 1}
 			<a
 				href="?page={data.page - 1}"
-				class="rounded bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
+				class="rounded-lg bg-svelte-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-svelte-600 transition-colors"
 			>
 				Previous
 			</a>
 		{:else}
 			<span
-				class="cursor-not-allowed rounded bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-500"
+				class="cursor-not-allowed rounded-lg bg-gray-300 px-4 py-2 text-sm font-semibold text-gray-500"
 			>
 				Previous
 			</span>
 		{/if}
-		<span class="text-sm text-gray-700">Page {data.page} of {Math.max(1, data.totalPages)}</span>
+		<span class="text-sm font-medium text-gray-700">Page {data.page} of {Math.max(1, data.totalPages)}</span>
 		{#if data.page < data.totalPages}
 			<a
 				href="?page={data.page + 1}"
-				class="rounded bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
+				class="rounded-lg bg-svelte-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-svelte-600 transition-colors"
 			>
 				Next
 			</a>
 		{:else}
 			<span
-				class="cursor-not-allowed rounded bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-500"
+				class="cursor-not-allowed rounded-lg bg-gray-300 px-4 py-2 text-sm font-semibold text-gray-500"
 			>
 				Next
 			</span>

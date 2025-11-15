@@ -92,8 +92,11 @@
 </script>
 
 <div class="container mx-auto px-2 py-4">
-	<div class="mb-4 grid grid-cols-[1fr_auto] content-start gap-2">
-		<h1 class="text-xl font-bold">Content Management</h1>
+	<div class="mb-6 flex items-start justify-between">
+		<div>
+			<h1 class="text-2xl font-bold text-gray-900">Content Management</h1>
+			<p class="mt-1 text-sm text-gray-600">Create, edit, and manage all content items</p>
+		</div>
 		<Button size="sm" href="/admin/content/new"><Plus weight="bold" />New Content</Button>
 	</div>
 
@@ -108,7 +111,7 @@
 				value={searchQuery}
 				oninput={(e) => handleSearchInput(e.currentTarget.value)}
 				placeholder="Search content..."
-				class="block w-full rounded-lg border border-gray-300 bg-white py-2.5 pr-3 pl-10 text-gray-900 shadow-sm placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 sm:text-sm"
+				class="block w-full rounded-lg border border-gray-300 bg-white py-2.5 pr-3 pl-10 text-gray-900 shadow-sm placeholder:text-gray-500 focus:border-svelte-500 focus:ring-2 focus:ring-svelte-500 focus:ring-offset-0 sm:text-sm"
 			/>
 		</div>
 

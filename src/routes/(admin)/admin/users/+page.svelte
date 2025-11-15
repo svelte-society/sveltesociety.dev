@@ -23,8 +23,9 @@
 </script>
 
 <div class="container mx-auto px-2 py-4">
-	<div class="mb-4 content-start gap-2">
-		<h1 class="text-xl font-bold">Users Management</h1>
+	<div class="mb-6">
+		<h1 class="text-2xl font-bold text-gray-900">Users Management</h1>
+		<p class="mt-1 text-sm text-gray-600">Manage user accounts, roles, and permissions</p>
 	</div>
 	<Table action={true} data={data.users} testId="users-table">
 		{#snippet header(classes)}
@@ -60,7 +61,7 @@
 				<input type="hidden" name="id" value={item.id} />
 				<button
 					type="submit"
-					class="group relative text-orange-600 hover:text-orange-900"
+					class="group relative text-svelte-500 hover:text-svelte-900"
 					aria-label="Clear user sessions"
 				>
 					<svg
