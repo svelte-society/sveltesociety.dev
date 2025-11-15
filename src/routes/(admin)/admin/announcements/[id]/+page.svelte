@@ -37,8 +37,17 @@
 		icon={Megaphone}
 	/>
 
-	<div class="mx-auto max-w-4xl rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-		<Form {form}>
+	<div class="rounded-2xl border border-gray-200 bg-white shadow-sm">
+		<div class="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white px-8 py-6">
+			<div class="flex items-center gap-3">
+				<div class="h-1 w-12 rounded-full bg-gradient-to-r from-svelte-500 to-svelte-300"></div>
+				<p class="text-sm font-medium text-gray-600">Placement Configuration</p>
+			</div>
+		</div>
+
+		<div class="p-8">
+			<Form {form}>
+			<div class="grid gap-6 lg:grid-cols-2">
 		<!-- Announcement Selection -->
 		<Select
 			name="content_id"
@@ -82,25 +91,27 @@
 			placeholder="0"
 		/>
 
-		<!-- Active Status -->
-		<div>
-			<label class="flex items-center">
-				<input
-					type="checkbox"
-					name="is_active"
-					bind:checked={$formData.is_active}
-					class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-				/>
-				<span class="ml-2 text-sm text-gray-700">Active</span>
-			</label>
-		</div>
-
-			<div class="mt-8 flex gap-4 border-t border-gray-200 pt-6">
-				<Button type="submit" width="full" disabled={$submitting}>
-					{$submitting ? 'Updating...' : 'Update Placement'}
-				</Button>
-				<Button href="/admin/announcements" variant="secondary">Cancel</Button>
+			<!-- Active Status -->
+			<div class="lg:col-span-2">
+				<label class="flex items-center">
+					<input
+						type="checkbox"
+						name="is_active"
+						bind:checked={$formData.is_active}
+						class="h-4 w-4 rounded border-gray-300 text-svelte-600 focus:ring-svelte-500"
+					/>
+					<span class="ml-2 text-sm text-gray-700">Active</span>
+				</label>
 			</div>
-		</Form>
+			</div>
+
+				<div class="mt-8 flex gap-4 border-t border-gray-200 pt-6">
+					<Button type="submit" width="full" disabled={$submitting}>
+						{$submitting ? 'Updating...' : 'Update Placement'}
+					</Button>
+					<Button href="/admin/announcements" variant="secondary">Cancel</Button>
+				</div>
+			</Form>
+		</div>
 	</div>
 </div>

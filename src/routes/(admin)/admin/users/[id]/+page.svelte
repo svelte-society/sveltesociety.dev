@@ -28,67 +28,82 @@
 		icon={User}
 	/>
 
-	<div class="mx-auto max-w-4xl rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-		<Form {form}>
-		<div class="hidden">
-			<Input type="hidden" name="id" />
+	<div class="rounded-2xl border border-gray-200 bg-white shadow-sm">
+		<div class="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white px-8 py-6">
+			<div class="flex items-center gap-3">
+				<div class="h-1 w-12 rounded-full bg-gradient-to-r from-svelte-500 to-svelte-300"></div>
+				<p class="text-sm font-medium text-gray-600">User Profile</p>
+			</div>
 		</div>
 
-		<Input
-			name="username"
-			label="Username"
-			placeholder="johndoe"
-			description="Enter the user's username"
-		/>
+		<div class="p-8">
+			<Form {form}>
+			<div class="hidden">
+				<Input type="hidden" name="id" />
+			</div>
 
-		<Input
-			name="email"
-			label="Email"
-			placeholder="john@example.com"
-			description="Enter the user's email address"
-		/>
+			<div class="grid gap-6 lg:grid-cols-2">
+				<Input
+					name="username"
+					label="Username"
+					placeholder="johndoe"
+					description="Enter the user's username"
+				/>
 
-		<Input
-			name="bio"
-			label="Bio"
-			placeholder="A short bio about the user"
-			description="Enter a brief description about the user"
-		/>
+				<Input
+					name="email"
+					label="Email"
+					placeholder="john@example.com"
+					description="Enter the user's email address"
+				/>
 
-		<Input
-			name="location"
-			label="Location"
-			placeholder="New York, USA"
-			description="Enter the user's location"
-		/>
+				<Input
+					name="location"
+					label="Location"
+					placeholder="New York, USA"
+					description="Enter the user's location"
+				/>
 
-		<Input
-			name="twitter"
-			label="Twitter"
-			placeholder="@johndoe"
-			description="Enter the user's Twitter handle"
-		/>
+				<Input
+					name="twitter"
+					label="Twitter"
+					placeholder="@johndoe"
+					description="Enter the user's Twitter handle"
+				/>
 
-		<div class="space-y-2">
-			<label for="avatar_url" class="block text-sm font-medium text-gray-700">Avatar</label>
-			<div class="flex items-center gap-4">
-				<Avatar src={$formData.avatar_url} name={$formData.username} />
-				<div class="flex-grow">
+				<div class="lg:col-span-2">
 					<Input
-						name="avatar_url"
-						placeholder="https://example.com/avatar.jpg"
-						description="Enter the URL for the user's avatar"
+						name="bio"
+						label="Bio"
+						placeholder="A short bio about the user"
+						description="Enter a brief description about the user"
 					/>
 				</div>
+
+				<div class="space-y-2 lg:col-span-2">
+					<label for="avatar_url" class="block text-sm font-medium text-gray-700">Avatar</label>
+					<div class="flex items-center gap-4">
+						<Avatar src={$formData.avatar_url} name={$formData.username} />
+						<div class="flex-grow">
+							<Input
+								name="avatar_url"
+								placeholder="https://example.com/avatar.jpg"
+								description="Enter the URL for the user's avatar"
+							/>
+						</div>
+					</div>
+				</div>
+
+				<div class="lg:col-span-2">
+					<Select name="role" label="Role" description="Select the user's role" options={roleOptions} />
+				</div>
 			</div>
+
+				<div class="mt-8 flex gap-4 border-t border-gray-200 pt-6">
+					<Button type="submit" width="full">Update User</Button>
+					<Button href="/admin/users" variant="secondary">Cancel</Button>
+				</div>
+			</Form>
 		</div>
-
-			<Select name="role" label="Role" description="Select the user's role" options={roleOptions} />
-
-			<div class="mt-8 flex gap-4 border-t border-gray-200 pt-6">
-				<Button type="submit" width="full">Update User</Button>
-				<Button href="/admin/users" variant="secondary">Cancel</Button>
-			</div>
-		</Form>
 	</div>
 </div>

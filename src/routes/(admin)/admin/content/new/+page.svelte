@@ -34,29 +34,27 @@
 		icon={FileText}
 	/>
 
-	<div class="rounded-xl border border-svelte-200 bg-gradient-to-br from-svelte-50 to-white p-6 shadow-sm">
+	<div class="rounded-2xl border-2 border-svelte-200 bg-gradient-to-br from-svelte-50 via-white to-svelte-50/50 p-6 shadow-sm">
 		<div class="flex items-start gap-4">
-			<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-svelte-100">
-				<Info class="h-5 w-5 text-svelte-700" weight="duotone" />
+			<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-svelte-500 to-svelte-300 shadow-lg">
+				<Info class="h-6 w-6 text-white" weight="duotone" />
 			</div>
-			<div>
-				<h3 class="font-semibold text-gray-900">Looking to add a video or library?</h3>
-				<p class="mt-1 text-sm text-gray-700">
+			<div class="flex-1">
+				<h3 class="text-lg font-bold text-gray-900">Looking to add a video or library?</h3>
+				<p class="mt-2 text-sm leading-relaxed text-gray-700">
 					Videos and libraries should be imported from their external sources. Use the
-					<a href="/admin/external-content" class="font-medium text-svelte-600 underline hover:text-svelte-700"
+					<a href="/admin/external-content" class="font-semibold text-svelte-600 underline decoration-2 underline-offset-2 transition-colors hover:text-svelte-700"
 						>External Content</a
 					>
 					page to import from YouTube or GitHub, or use the
-					<a href="/admin/bulk-import" class="font-medium text-svelte-600 underline hover:text-svelte-700">Bulk Import</a>
+					<a href="/admin/bulk-import" class="font-semibold text-svelte-600 underline decoration-2 underline-offset-2 transition-colors hover:text-svelte-700">Bulk Import</a>
 					feature for multiple items at once.
 				</p>
 			</div>
 		</div>
 	</div>
 
-	<div class="mx-auto max-w-4xl">
-		<ContentForm {form} {data} />
-	</div>
+	<ContentForm {form} {data} />
 </div>
 
 <!-- Debug only in development -->
