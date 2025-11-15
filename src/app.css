@@ -15,6 +15,7 @@
 @layer base {
 	html {
 		@apply text-slate-800;
+		scrollbar-gutter: stable;
 	}
 	@font-face {
 		font-family: 'Inter';
