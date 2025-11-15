@@ -2,6 +2,7 @@
 	import type { Content } from '$lib/types/content'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 	import { formatRelativeDate } from '$lib/utils/date'
+	import Image from '$lib/ui/Image.svelte'
 
 	interface Props {
 		content: Content
@@ -50,17 +51,15 @@
 		rel="noopener noreferrer"
 		data-testid="library-thumbnail-link"
 	>
-			<img
-				src={getCachedImageWithPreset(content.metadata.thumbnail, 'content', { h: 400 })}
-				width="800"
-				height="400"
-				alt="{content.title} repository preview"
-				loading={loadingAttr}
-				fetchpriority={fetchPriorityAttr}
-				decoding="async"
-				class="w-full rounded-t-lg object-cover"
-			/>
-		</a>
+		<Image
+			src={content.metadata.thumbnail}
+			blurhash={content.metadata.blurhash}
+			width="800"
+			height="400"
+			alt="{content.title} repository preview"
+			class="w-full rounded-t-lg object-cover"
+		/>
+	</a>
 
 	{#if fullInfo}
 		<!-- Owner Info & Stats -->
@@ -111,7 +110,9 @@
 		</div>
 
 		<!-- Dates -->
-		<div class="flex flex-wrap items-center justify-between gap-4 rounded-md bg-gray-100 px-3 py-2 text-sm">
+		<div
+			class="flex flex-wrap items-center justify-between gap-4 rounded-md bg-gray-100 px-3 py-2 text-sm"
+		>
 			{#if content.metadata?.updatedAt}
 				<div class="flex items-center gap-2">
 					<span class="font-medium text-gray-600">Last Updated:</span>
@@ -140,12 +141,14 @@
 					onclick={(e) => e.stopPropagation()}
 				>
 					<svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-						<path d="M0 0h24v24H0V0z" fill="none"/>
-						<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+						<path d="M0 0h24v24H0V0z" fill="none" />
+						<path
+							d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+						/>
 					</svg>
 					{content.metadata.npm}
 				</a>
 			</div>
 		</div>
 	{/if}
-	</div>
+</div>
