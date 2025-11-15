@@ -57,7 +57,7 @@ export class ContentService {
 				}
 			}
 
-			if (content.metadata.thumbnail && !content.metadata.blurhash) {
+			if (content.metadata?.thumbnail && !content.metadata?.blurhash) {
 				generateBlurhashDataUri(content.metadata.thumbnail).then(blurhash => {
 					content.metadata.blurhash = blurhash;
 					this.db.query("UPDATE content SET metadata = ? WHERE id = ?")
