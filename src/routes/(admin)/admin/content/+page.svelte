@@ -98,12 +98,17 @@
 		title="Content Management"
 		description="Create, edit, and manage all content items"
 		icon={FileText}
-	/>
-
-	<!-- Action Bar -->
-	<div class="flex items-center justify-end">
-		<Button size="sm" href="/admin/content/new"><Plus weight="bold" />New Content</Button>
-	</div>
+	>
+		{#snippet actions()}
+			<a
+				href="/admin/content/new"
+				class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-svelte-500 shadow-lg transition-all hover:bg-white/90 hover:shadow-xl"
+			>
+				<Plus class="h-4 w-4" weight="bold" />
+				New Content
+			</a>
+		{/snippet}
+	</PageHeader>
 
 	<!-- Filters -->
 	<div class="mb-4 grid gap-3 sm:grid-cols-[1fr_auto_auto]">
