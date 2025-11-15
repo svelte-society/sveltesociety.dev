@@ -1,19 +1,11 @@
-<script module lang="ts">
-	export type Link = {
-		href: string
-		label: string
-		icon: string
-		allowedRoles: string[]
-	}
-</script>
-
 <script lang="ts">
 	import Collapsible from '$lib/ui/Collapsible.svelte'
-	import List from 'phosphor-svelte/lib/List'
+	import { List, ArrowLeft } from 'phosphor-svelte'
 	import { page } from '$app/state'
+	import type { NavLink } from './+layout.svelte'
 
 	type Props = {
-		links: Link[]
+		links: NavLink[]
 		moderationCount?: number
 	}
 
@@ -32,10 +24,10 @@
 		return page.url.pathname.startsWith(href)
 	}
 
-	const homeLink: Link = {
+	const homeLink: NavLink = {
 		href: '/',
 		label: 'Back to Home',
-		icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+		icon: ArrowLeft,
 		allowedRoles: []
 	}
 </script>
@@ -51,41 +43,36 @@
 			<List size={20} class="text-gray-600" />
 		{/snippet}
 		{#snippet children()}
+			{@const HomeIconComponent = homeLink.icon}
 			<div class="space-y-4">
 				<div>
 					<h3 class="mb-3 text-sm font-semibold tracking-wide text-gray-900 uppercase">
 						Admin Menu
 					</h3>
 					<nav>
-						<ul class="space-y-2">
+						<ul class="space-y-1">
 							{#each links as item}
+								{@const IconComponent = item.icon}
 								<li>
 									<a
 										href={item.href}
 										class={[
-											{ 'bg-slate-100 text-gray-800': isActive(item.href) },
-											'relative flex items-center rounded-lg p-3 text-gray-600 transition-colors hover:bg-slate-100 hover:text-gray-800'
+											{
+												'bg-svelte-50 text-svelte-900 font-medium': isActive(item.href),
+												'text-gray-600 hover:bg-gray-50': !isActive(item.href)
+											},
+											'relative flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:text-gray-900'
 										]}
 										onclick={closeMenu}
 									>
-										<svg
-											class="h-5 w-5 flex-shrink-0"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												stroke-width="2"
-												d={item.icon}
-											></path>
-										</svg>
-										<span class="ml-3 font-medium">{item.label}</span>
+										<IconComponent
+											class="h-5 w-5 shrink-0"
+											weight={isActive(item.href) ? 'fill' : 'regular'}
+										/>
+										<span class="text-sm">{item.label}</span>
 										{#if item.href === '/admin/moderation' && moderationCount && moderationCount > 0}
 											<span
-												class="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white"
+												class="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white shadow-sm"
 											>
 												{moderationCount > 99 ? '99+' : moderationCount}
 											</span>
@@ -100,24 +87,11 @@
 				<div class="border-t border-gray-200 pt-4">
 					<a
 						href={homeLink.href}
-						class="flex items-center rounded-lg p-3 text-gray-600 transition-colors hover:bg-slate-100 hover:text-gray-800"
+						class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900"
 						onclick={closeMenu}
 					>
-						<svg
-							class="h-5 w-5 flex-shrink-0"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d={homeLink.icon}
-							></path>
-						</svg>
-						<span class="ml-3 font-medium">{homeLink.label}</span>
+						<HomeIconComponent class="h-5 w-5 shrink-0" weight="regular" />
+						<span class="text-sm font-medium">{homeLink.label}</span>
 					</a>
 				</div>
 			</div>
