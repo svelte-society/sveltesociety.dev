@@ -54,246 +54,229 @@
 	}
 </script>
 
-<!-- Full Screen Split View -->
-<div class="fixed inset-0 bg-gray-50 flex flex-col">
-	<!-- Top Action Bar -->
-	<div class="shrink-0 border-b border-gray-200 bg-white px-6 py-3 shadow-sm">
-		<div class="flex items-center justify-between">
-			<div class="flex items-center gap-4">
-				<Button size="sm" variant="secondary" href="/admin/moderation">
-					<ArrowLeft class="h-4 w-4" weight="bold" />
-				</Button>
+<!-- BRUTALIST FULL SCREEN -->
+<div class="fixed inset-0 bg-black flex flex-col font-mono">
+	<!-- STARK TOP BAR -->
+	<div class="shrink-0 border-b-4 border-white bg-black px-4 py-2">
+		<div class="flex items-center justify-between text-white">
+			<div class="flex items-center gap-6">
+				<a href="/admin/moderation" class="border-2 border-white px-3 py-1 uppercase hover:bg-white hover:text-black transition-colors">
+					← BACK
+				</a>
 
-				<div class="flex items-center gap-3">
-					<Badge color={colorMap.get(data.item.status)} text={data.item.status} data-testid="moderation-item-status" />
-					<span class="text-sm text-gray-400">•</span>
-					<span class="text-sm font-medium capitalize text-gray-700">{data.item.type}</span>
-					<span class="text-sm text-gray-400">•</span>
-					<div class="flex items-center gap-1.5">
-						<Clock class="h-3.5 w-3.5 text-gray-400" weight="bold" />
-						<span class="text-sm text-gray-600">{formatRelativeDate(data.item.submitted_at)}</span>
-					</div>
+				<div class="flex items-center gap-4 text-xs uppercase">
+					<span class="border-2 border-white px-2 py-1 {data.item.status === 'approved' ? 'bg-green-500 text-black' : data.item.status === 'rejected' ? 'bg-red-500 text-white' : 'bg-yellow-300 text-black'}" data-testid="moderation-item-status">
+						{data.item.status}
+					</span>
+					<span class="border-2 border-white px-2 py-1">{data.item.type}</span>
+					<span class="opacity-50">{formatRelativeDate(data.item.submitted_at)}</span>
 				</div>
 			</div>
 
 			{#if data.item.status === 'pending'}
-				<div class="flex gap-2">
+				<div class="flex gap-3">
 					<form method="POST" action="?/reject" use:enhance class="inline">
-						<Button type="submit" variant="error" data-testid="moderation-reject-button">
-							<XCircle class="h-5 w-5" weight="bold" />
-							Reject
-						</Button>
+						<button type="submit" class="border-4 border-red-500 bg-red-500 px-6 py-2 text-sm font-bold uppercase text-white hover:bg-transparent transition-colors" data-testid="moderation-reject-button">
+							✕ REJECT
+						</button>
 					</form>
 					<form method="POST" action="?/approve" use:enhance class="inline">
-						<Button type="submit" variant="success" data-testid="moderation-approve-button">
-							<CheckCircle class="h-5 w-5" weight="bold" />
-							Approve
-						</Button>
+						<button type="submit" class="border-4 border-green-500 bg-green-500 px-6 py-2 text-sm font-bold uppercase text-black hover:bg-transparent hover:text-green-500 transition-colors" data-testid="moderation-approve-button">
+							✓ APPROVE
+						</button>
 					</form>
 				</div>
 			{:else}
-				<div class="flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2">
-					{#if data.item.status === 'approved'}
-						<CheckCircle class="h-5 w-5 text-green-600" weight="bold" />
-					{:else}
-						<XCircle class="h-5 w-5 text-red-600" weight="bold" />
-					{/if}
-					<span class="font-semibold capitalize text-gray-700">{data.item.status}</span>
+				<div class="border-2 border-white px-4 py-2 text-sm uppercase">
+					STATUS: {data.item.status}
 				</div>
 			{/if}
 		</div>
 	</div>
 
-	<!-- Split Screen Content -->
+	<!-- SPLIT PANELS -->
 	<div class="flex flex-1 overflow-hidden">
-		<!-- LEFT: Content Preview (60%) -->
-		<div class="flex w-[60%] flex-col border-r border-gray-200 bg-white">
-			<!-- Title Card -->
-			<div class="shrink-0 border-b border-gray-100 bg-gradient-to-br from-svelte-50 to-white p-6">
-				<h1 class="text-2xl font-bold text-gray-900 mb-3">{submissionData.title}</h1>
+		<!-- LEFT: CONTENT (70%) -->
+		<div class="flex w-[70%] flex-col border-r-4 border-white bg-white text-black">
+			<!-- TITLE BLOCK -->
+			<div class="shrink-0 border-b-4 border-black bg-white p-4">
+				<h1 class="text-2xl font-bold uppercase mb-3">{submissionData.title}</h1>
 
 				{#if submissionData.tagNames && submissionData.tagNames.length > 0}
 					<div class="flex flex-wrap gap-2">
 						{#each submissionData.tagNames as tagName}
-							<span class="inline-flex items-center gap-1.5 rounded-full bg-svelte-500 px-3 py-1 text-sm font-semibold text-white shadow-sm">
-								<Tag class="h-3.5 w-3.5" weight="bold" />
-								{tagName}
+							<span class="border-2 border-black bg-black px-2 py-1 text-xs font-bold uppercase text-white">
+								#{tagName}
 							</span>
 						{/each}
 					</div>
 				{/if}
 			</div>
 
-			<!-- Tabbed Content -->
-			<div class="shrink-0 border-b border-gray-200 bg-white">
-				<div class="flex gap-1 px-4 pt-2">
+			<!-- TABS -->
+			<div class="shrink-0 border-b-4 border-black bg-white">
+				<div class="flex">
 					<button
 						onclick={() => activeTab = 'preview'}
-						class="relative px-4 py-2 text-sm font-semibold transition-colors {activeTab === 'preview' ? 'text-svelte-600' : 'text-gray-500 hover:text-gray-700'}"
+						class="border-r-2 border-black px-6 py-2 text-xs font-bold uppercase transition-colors {activeTab === 'preview' ? 'bg-black text-white' : 'hover:bg-gray-200'}"
 					>
-						Preview
-						{#if activeTab === 'preview'}
-							<div class="absolute bottom-0 left-0 right-0 h-0.5 bg-svelte-500"></div>
-						{/if}
+						[PREVIEW]
 					</button>
 					<button
 						onclick={() => activeTab = 'details'}
-						class="relative px-4 py-2 text-sm font-semibold transition-colors {activeTab === 'details' ? 'text-svelte-600' : 'text-gray-500 hover:text-gray-700'}"
+						class="border-r-2 border-black px-6 py-2 text-xs font-bold uppercase transition-colors {activeTab === 'details' ? 'bg-black text-white' : 'hover:bg-gray-200'}"
 					>
-						Details
-						{#if activeTab === 'details'}
-							<div class="absolute bottom-0 left-0 right-0 h-0.5 bg-svelte-500"></div>
-						{/if}
+						[DETAILS]
 					</button>
 					<button
 						onclick={() => activeTab = 'json'}
-						class="relative px-4 py-2 text-sm font-semibold transition-colors {activeTab === 'json' ? 'text-svelte-600' : 'text-gray-500 hover:text-gray-700'}"
+						class="px-6 py-2 text-xs font-bold uppercase transition-colors {activeTab === 'json' ? 'bg-black text-white' : 'hover:bg-gray-200'}"
 					>
-						Raw Data
-						{#if activeTab === 'json'}
-							<div class="absolute bottom-0 left-0 right-0 h-0.5 bg-svelte-500"></div>
-						{/if}
+						[RAW_DATA]
 					</button>
 				</div>
 			</div>
 
-			<!-- Tab Content -->
-			<div class="flex-1 overflow-y-auto bg-gray-50">
+			<!-- CONTENT AREA -->
+			<div class="flex-1 overflow-y-auto bg-white">
 				{#if activeTab === 'preview'}
 					{#if data.item.type === 'video' && videoId}
-						<div class="aspect-video w-full bg-black">
-							<iframe
-								src="https://www.youtube.com/embed/{videoId}"
-								title="YouTube video player"
-								class="h-full w-full"
-								allowfullscreen
-							></iframe>
-						</div>
-						{#if submissionData.url}
-							<div class="border-b border-gray-200 bg-white p-4">
-								<div class="flex items-center gap-2">
-									<YoutubeLogo class="h-5 w-5 text-red-500" weight="fill" />
+						<div class="border-b-4 border-black">
+							<div class="aspect-video w-full bg-black border-4 border-black">
+								<iframe
+									src="https://www.youtube.com/embed/{videoId}"
+									title="YouTube video player"
+									class="h-full w-full"
+									allowfullscreen
+								></iframe>
+							</div>
+							{#if submissionData.url}
+								<div class="bg-yellow-300 p-3 border-b-2 border-black">
+									<p class="text-xs font-bold uppercase">VIDEO_SOURCE:</p>
 									<a
 										href={submissionData.url}
 										target="_blank"
 										rel="noopener noreferrer"
-										class="text-sm font-medium text-svelte-600 hover:text-svelte-700 underline decoration-2 underline-offset-2 truncate"
+										class="text-sm font-mono underline decoration-2 hover:bg-black hover:text-yellow-300 transition-colors break-all"
 									>
 										{submissionData.url}
 									</a>
 								</div>
-							</div>
-						{/if}
+							{/if}
+						</div>
 					{:else if data.item.type === 'library' && submissionData.github_repo}
-						<div class="flex items-center justify-center p-12">
-							<div class="max-w-lg w-full rounded-2xl border-2 border-gray-200 bg-gradient-to-br from-gray-50 to-white p-8 shadow-lg text-center">
-								<div class="flex justify-center mb-6">
-									<div class="flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-gray-900 to-gray-700 shadow-xl">
-										<GithubLogo class="h-10 w-10 text-white" weight="fill" />
-									</div>
+						<div class="flex items-center justify-center p-8">
+							<div class="w-full max-w-2xl border-4 border-black bg-white p-8">
+								<div class="border-b-4 border-black pb-4 mb-4">
+									<h2 class="text-3xl font-bold uppercase">GITHUB_REPOSITORY</h2>
 								</div>
-								<h2 class="text-2xl font-bold text-gray-900 mb-2">GitHub Repository</h2>
-								<p class="font-mono text-lg text-gray-700 mb-6">{submissionData.github_repo}</p>
+								<p class="font-mono text-xl mb-6 bg-black text-green-400 p-3 break-all">{submissionData.github_repo}</p>
 								<a
 									href={getGitHubUrl(submissionData.github_repo)}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-6 py-3 text-sm font-bold text-white shadow-lg transition-all hover:bg-gray-800 hover:shadow-xl hover:scale-105"
+									class="block w-full border-4 border-black bg-black px-6 py-4 text-center text-sm font-bold uppercase text-white hover:bg-white hover:text-black transition-colors"
 								>
-									<GithubLogo class="h-5 w-5" weight="bold" />
-									View on GitHub
+									→ OPEN_REPOSITORY
 								</a>
 							</div>
 						</div>
 					{:else if data.item.type === 'recipe' && submissionData.body}
-						<div class="p-6">
-							<div class="rounded-xl bg-white border border-gray-200 shadow-sm">
-								<div class="border-b border-gray-100 bg-gradient-to-r from-svelte-50 to-white px-4 py-3">
-									<div class="flex items-center gap-2">
-										<FileText class="h-5 w-5 text-svelte-500" weight="duotone" />
-										<h3 class="font-bold text-gray-900">Recipe Content</h3>
-									</div>
+						<div class="p-4">
+							<div class="border-4 border-black">
+								<div class="border-b-4 border-black bg-black px-4 py-2">
+									<h3 class="font-bold uppercase text-white text-sm">RECIPE_CONTENT:</h3>
 								</div>
-								<div class="p-6">
-									<pre class="text-sm leading-relaxed whitespace-pre-wrap text-gray-900">{submissionData.body}</pre>
+								<div class="bg-gray-100 p-6">
+									<pre class="text-sm font-mono whitespace-pre-wrap">{submissionData.body}</pre>
 								</div>
 							</div>
 						</div>
 					{/if}
 
 				{:else if activeTab === 'details'}
-					<div class="p-6 space-y-4">
+					<div class="p-4 space-y-4">
 						{#if submissionData.description}
-							<div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-								<h3 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">Description</h3>
-								<p class="text-base leading-relaxed text-gray-900">{submissionData.description}</p>
+							<div class="border-4 border-black bg-white">
+								<div class="border-b-4 border-black bg-black px-4 py-2">
+									<h3 class="text-xs font-bold uppercase text-white">DESCRIPTION:</h3>
+								</div>
+								<div class="p-4">
+									<p class="text-base leading-relaxed">{submissionData.description}</p>
+								</div>
 							</div>
 						{/if}
 
 						{#if submissionData.notes}
-							<div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-								<h3 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">Submitter Notes</h3>
-								<p class="text-base leading-relaxed text-gray-700">{submissionData.notes}</p>
+							<div class="border-4 border-black bg-white">
+								<div class="border-b-4 border-black bg-yellow-300 px-4 py-2">
+									<h3 class="text-xs font-bold uppercase">SUBMITTER_NOTES:</h3>
+								</div>
+								<div class="p-4 bg-yellow-50">
+									<p class="text-base leading-relaxed">{submissionData.notes}</p>
+								</div>
 							</div>
 						{/if}
 
 						{#if !submissionData.description && !submissionData.notes}
-							<div class="flex flex-col items-center justify-center py-20 text-center">
-								<Info class="h-12 w-12 text-gray-300 mb-4" weight="duotone" />
-								<p class="text-lg font-medium text-gray-500">No additional details provided</p>
+							<div class="flex items-center justify-center py-20 border-4 border-dashed border-black">
+								<p class="text-lg font-bold uppercase opacity-30">NO_DATA_AVAILABLE</p>
 							</div>
 						{/if}
 					</div>
 
 				{:else if activeTab === 'json'}
-					<div class="h-full bg-gray-900 p-6">
-						<pre class="text-sm text-green-400 font-mono">{formatJSON(submissionData)}</pre>
+					<div class="h-full bg-black p-4">
+						<pre class="text-xs text-green-400 font-mono">{formatJSON(submissionData)}</pre>
 					</div>
 				{/if}
 			</div>
 		</div>
 
-		<!-- RIGHT: Submitter Card (40%) -->
-		<div class="flex w-[40%] flex-col bg-gradient-to-br from-gray-50 to-white overflow-y-auto">
-			<div class="p-8 space-y-6">
-				<!-- Submitter Profile Card -->
-				<div class="rounded-2xl border-2 border-svelte-200 bg-white shadow-lg overflow-hidden">
-					<div class="bg-gradient-to-r from-svelte-500 to-svelte-300 px-6 py-8 text-center">
-						{#if data.submitter.avatar_url}
-							<img
-								src={data.submitter.avatar_url}
-								alt={data.submitter.name}
-								class="mx-auto h-24 w-24 rounded-full border-4 border-white shadow-xl ring-4 ring-svelte-100"
-							/>
-						{:else}
-							<div class="mx-auto flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-white shadow-xl">
-								<User class="h-12 w-12 text-gray-600" weight="bold" />
-							</div>
-						{/if}
+		<!-- RIGHT: SUBMITTER (30%) -->
+		<div class="flex w-[30%] flex-col bg-black text-white overflow-y-auto">
+			<div class="p-4 space-y-4">
+				<!-- SUBMITTER BLOCK -->
+				<div class="border-4 border-white bg-black">
+					<div class="border-b-4 border-white bg-white px-4 py-2">
+						<h3 class="text-xs font-bold uppercase text-black">SUBMITTER_INFO:</h3>
 					</div>
 
-					<div class="p-6">
-						<h3 class="text-2xl font-bold text-gray-900 text-center mb-2">{data.submitter.name}</h3>
-						<p class="text-sm text-gray-600 text-center mb-4">{data.submitter.email}</p>
+					<div class="p-4">
+						<div class="mb-4 flex items-center gap-3">
+							{#if data.submitter.avatar_url}
+								<img
+									src={data.submitter.avatar_url}
+									alt={data.submitter.name}
+									class="h-16 w-16 border-2 border-white"
+								/>
+							{:else}
+								<div class="flex h-16 w-16 items-center justify-center border-2 border-white bg-white">
+									<User class="h-8 w-8 text-black" weight="bold" />
+								</div>
+							{/if}
+							<div class="flex-1">
+								<h4 class="font-bold uppercase text-sm">{data.submitter.name}</h4>
+								<p class="text-xs font-mono opacity-70">{data.submitter.email}</p>
+							</div>
+						</div>
 
-						<div class="flex justify-center mb-6">
-							<Badge
-								color={roleColorMap.get(data.submitter.role || 'user')}
-								text={data.submitter.role || 'user'}
-							/>
+						<div class="mb-4">
+							<span class="border-2 border-white px-2 py-1 text-xs font-bold uppercase">
+								ROLE: {data.submitter.role || 'user'}
+							</span>
 						</div>
 
 						{#if data.submitter.username || data.submitter.twitter}
-							<div class="flex flex-col gap-3 pt-6 border-t border-gray-100">
+							<div class="space-y-2 border-t-2 border-white pt-4">
 								{#if data.submitter.username}
 									<a
 										href="https://github.com/{data.submitter.username}"
 										target="_blank"
 										rel="noopener noreferrer"
-										class="flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-3 font-semibold text-white shadow-md transition-all hover:bg-gray-800 hover:shadow-lg hover:scale-105"
+										class="block border-2 border-white bg-white px-3 py-2 text-center text-xs font-bold uppercase text-black hover:bg-black hover:text-white transition-colors"
 									>
-										<GithubLogo class="h-5 w-5" weight="bold" />
-										@{data.submitter.username}
+										GITHUB: @{data.submitter.username}
 									</a>
 								{/if}
 								{#if data.submitter.twitter}
@@ -301,10 +284,9 @@
 										href="https://twitter.com/{data.submitter.twitter}"
 										target="_blank"
 										rel="noopener noreferrer"
-										class="flex items-center justify-center gap-2 rounded-lg bg-blue-500 px-4 py-3 font-semibold text-white shadow-md transition-all hover:bg-blue-600 hover:shadow-lg hover:scale-105"
+										class="block border-2 border-white bg-white px-3 py-2 text-center text-xs font-bold uppercase text-black hover:bg-black hover:text-white transition-colors"
 									>
-										<TwitterLogo class="h-5 w-5" weight="bold" />
-										@{data.submitter.twitter}
+										TWITTER: @{data.submitter.twitter}
 									</a>
 								{/if}
 							</div>
@@ -312,15 +294,17 @@
 					</div>
 				</div>
 
-				<!-- Quick Info Cards -->
-				<div class="grid grid-cols-2 gap-4">
-					<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm text-center">
-						<div class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Type</div>
-						<div class="text-lg font-bold capitalize text-svelte-600">{data.item.type}</div>
-					</div>
-					<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm text-center">
-						<div class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Submitted</div>
-						<div class="text-sm font-semibold text-gray-900">{formatRelativeDate(data.item.submitted_at)}</div>
+				<!-- META DATA -->
+				<div class="border-4 border-white bg-black p-4">
+					<div class="space-y-3">
+						<div class="border-b-2 border-white pb-2">
+							<p class="text-xs font-bold uppercase opacity-50">TYPE:</p>
+							<p class="text-lg font-bold uppercase">{data.item.type}</p>
+						</div>
+						<div>
+							<p class="text-xs font-bold uppercase opacity-50">SUBMITTED:</p>
+							<p class="text-sm font-mono">{formatRelativeDate(data.item.submitted_at)}</p>
+						</div>
 					</div>
 				</div>
 			</div>
