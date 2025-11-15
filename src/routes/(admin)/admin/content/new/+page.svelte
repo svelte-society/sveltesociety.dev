@@ -34,27 +34,45 @@
 		icon={FileText}
 	/>
 
-	<div class="rounded-2xl border-2 border-svelte-200 bg-gradient-to-br from-svelte-50 via-white to-svelte-50/50 p-6 shadow-sm">
-		<div class="flex items-start gap-4">
-			<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-svelte-500 to-svelte-300 shadow-lg">
-				<Info class="h-6 w-6 text-white" weight="duotone" />
+	<div class="rounded-2xl border-2 border-svelte-200 bg-gradient-to-br from-svelte-50 via-white to-svelte-50/50 shadow-sm">
+		<div class="border-b border-svelte-100 bg-gradient-to-r from-svelte-100/50 to-white px-6 py-4">
+			<div class="flex items-center gap-3">
+				<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-svelte-500 to-svelte-300 shadow-md">
+					<Info class="h-5 w-5 text-white" weight="duotone" />
+				</div>
+				<h3 class="text-lg font-bold text-gray-900">Important Information</h3>
 			</div>
-			<div class="flex-1">
-				<h3 class="text-lg font-bold text-gray-900">Looking to add a video or library?</h3>
-				<p class="mt-2 text-sm leading-relaxed text-gray-700">
-					Videos and libraries should be imported from their external sources. Use the
-					<a href="/admin/external-content" class="font-semibold text-svelte-600 underline decoration-2 underline-offset-2 transition-colors hover:text-svelte-700"
-						>External Content</a
-					>
-					page to import from YouTube or GitHub, or use the
-					<a href="/admin/bulk-import" class="font-semibold text-svelte-600 underline decoration-2 underline-offset-2 transition-colors hover:text-svelte-700">Bulk Import</a>
-					feature for multiple items at once.
-				</p>
+		</div>
+		<div class="p-6">
+			<div class="flex items-start gap-4">
+				<div class="flex-1">
+					<h4 class="font-semibold text-gray-900">Looking to add a video or library?</h4>
+					<p class="mt-2 text-sm leading-relaxed text-gray-700">
+						Videos and libraries should be imported from their external sources. Use the
+						<a href="/admin/external-content" class="font-semibold text-svelte-600 underline decoration-2 underline-offset-2 transition-colors hover:text-svelte-700"
+							>External Content</a
+						>
+						page to import from YouTube or GitHub, or use the
+						<a href="/admin/bulk-import" class="font-semibold text-svelte-600 underline decoration-2 underline-offset-2 transition-colors hover:text-svelte-700">Bulk Import</a>
+						feature for multiple items at once.
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<ContentForm {form} {data} />
+	<div class="rounded-2xl border border-gray-200 bg-white shadow-sm">
+		<div class="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white px-8 py-6">
+			<div class="flex items-center gap-3">
+				<div class="h-1 w-12 rounded-full bg-gradient-to-r from-svelte-500 to-svelte-300"></div>
+				<p class="text-sm font-medium text-gray-600">Content Details</p>
+			</div>
+		</div>
+
+		<div class="p-8">
+			<ContentForm {form} {data} />
+		</div>
+	</div>
 </div>
 
 <!-- Debug only in development -->
