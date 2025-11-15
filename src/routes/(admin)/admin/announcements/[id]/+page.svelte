@@ -4,6 +4,8 @@
 	import Input from '$lib/ui/form/Input.svelte'
 	import Select from '$lib/ui/form/Select.svelte'
 	import Button from '$lib/ui/Button.svelte'
+	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
+	import Megaphone from 'phosphor-svelte/lib/Megaphone'
 
 	let { data } = $props()
 
@@ -28,10 +30,15 @@
 	}))
 </script>
 
-<div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
-	<h1 class="mb-6 text-3xl font-bold text-gray-800">Edit Announcement Placement</h1>
+<div class="container mx-auto space-y-8 px-2 py-6">
+	<PageHeader
+		title="Edit Announcement Placement"
+		description="Update announcement placement settings"
+		icon={Megaphone}
+	/>
 
-	<Form {form}>
+	<div class="mx-auto max-w-4xl rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+		<Form {form}>
 		<!-- Announcement Selection -->
 		<Select
 			name="content_id"
@@ -88,8 +95,12 @@
 			</label>
 		</div>
 
-		<Button type="submit" disabled={$submitting}>
-			{$submitting ? 'Updating...' : 'Update Placement'}
-		</Button>
-	</Form>
+			<div class="mt-8 flex gap-4 border-t border-gray-200 pt-6">
+				<Button type="submit" width="full" disabled={$submitting}>
+					{$submitting ? 'Updating...' : 'Update Placement'}
+				</Button>
+				<Button href="/admin/announcements" variant="secondary">Cancel</Button>
+			</div>
+		</Form>
+	</div>
 </div>

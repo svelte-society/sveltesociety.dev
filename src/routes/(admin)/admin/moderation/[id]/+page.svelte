@@ -3,9 +3,11 @@
 	import Badge from '$lib/ui/admin/Badge.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import TypeIcon from '$lib/ui/TypeIcon.svelte'
+	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import ArrowLeft from 'phosphor-svelte/lib/ArrowLeft'
 	import XCircle from 'phosphor-svelte/lib/XCircle'
 	import CheckCircle from 'phosphor-svelte/lib/CheckCircle'
+	import ClipboardText from 'phosphor-svelte/lib/ClipboardText'
 	import { formatRelativeDate } from '$lib/utils/date'
 	let { data } = $props()
 
@@ -45,46 +47,50 @@
 	}
 </script>
 
-<div class="container mx-auto px-2 py-4">
-	<div class="mb-6 flex items-start justify-between">
-		<div class="flex items-center space-x-3">
-			<TypeIcon type={data.item.type} size={32} />
-			<div>
-				<h1 class="text-2xl font-bold text-gray-900">
-					{submissionData.title}
-				</h1>
-				<p class="text-sm text-gray-500">ID: {data.item.id}</p>
+<div class="container mx-auto space-y-8 px-2 py-6">
+	<PageHeader
+		title={submissionData.title}
+		description="Review submission details and approve or reject"
+		icon={ClipboardText}
+	>
+		{#snippet actions()}
+			<div class="flex items-center gap-2">
+				{#if data.item.status === 'pending'}
+					<form method="POST" action="?/reject" use:enhance class="inline">
+						<Button type="submit" size="sm" variant="error" data-testid="moderation-reject-button">
+							<XCircle class="h-4 w-4" weight="bold" />
+							Reject
+						</Button>
+					</form>
+					<form method="POST" action="?/approve" use:enhance class="inline">
+						<Button type="submit" size="sm" variant="success" data-testid="moderation-approve-button">
+							<CheckCircle class="h-4 w-4" weight="bold" />
+							Approve
+						</Button>
+					</form>
+				{/if}
+				<Button size="sm" variant="secondary" href="/admin/moderation">
+					<ArrowLeft class="h-4 w-4" weight="bold" />
+					Back to Queue
+				</Button>
 			</div>
-		</div>
-		<div class="flex items-center space-x-3">
-			{#if data.item.status === 'pending'}
-				<form method="POST" action="?/reject" use:enhance class="inline">
-					<Button type="submit" size="sm" variant="error" data-testid="moderation-reject-button"><XCircle />Reject</Button>
-				</form>
-				<form method="POST" action="?/approve" use:enhance class="inline">
-					<Button type="submit" size="sm" variant="success" data-testid="moderation-approve-button"><CheckCircle />Approve</Button>
-				</form>
-			{/if}
-			<Button size="sm" variant="secondary" href="/admin/moderation"
-				><ArrowLeft />Back to Queue</Button
-			>
-		</div>
-	</div>
+		{/snippet}
+	</PageHeader>
 	<!-- Status and submission info -->
 	<div class="mb-6 grid gap-4 md:grid-cols-3">
-		<div class="rounded-lg bg-white p-4 shadow-sm">
+		<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
 			<div class="flex items-center justify-between">
 				<span class="text-sm font-medium text-gray-500">Status</span>
 				<Badge color={colorMap.get(data.item.status)} text={data.item.status} data-testid="moderation-item-status" />
 			</div>
 		</div>
-		<div class="rounded-lg bg-white p-4 shadow-sm">
+		<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
 			<div class="flex items-center justify-between">
 				<span class="text-sm font-medium text-gray-500">Type</span>
 				<span class="text-sm font-semibold text-gray-900 capitalize">{data.item.type}</span>
 			</div>
 		</div>
-		<div class="rounded-lg bg-white p-4 shadow-sm">
+		<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
 			<div class="flex items-center justify-between">
 				<span class="text-sm font-medium text-gray-500">Submitted</span>
 				<span class="text-sm text-gray-900">{formatRelativeDate(data.item.submitted_at)}</span>
@@ -96,7 +102,7 @@
 		<!-- Main content -->
 		<div class="space-y-6">
 			<!-- Basic Information -->
-			<div class="rounded-lg bg-white p-6 shadow-sm">
+			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
 				<h2 class="mb-4 text-lg font-semibold text-gray-900">Content Details</h2>
 				<div class="space-y-4">
 					{#if submissionData.description}
@@ -131,7 +137,7 @@
 			</div>
 
 			<!-- Type-specific content -->
-			<div class="rounded-lg bg-white p-6 shadow-sm">
+			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
 				<h2 class="mb-4 text-lg font-semibold text-gray-900">
 					{#if data.item.type === 'video'}
 						Video Details
@@ -210,7 +216,7 @@
 		</div>
 		<!-- Submitter Information -->
 		<div class="space-y-6">
-			<div class="rounded-lg bg-white p-6 shadow-sm">
+			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
 				<h2 class="mb-4 text-lg font-semibold text-gray-900">Submitter</h2>
 				<div class="flex items-start space-x-4">
 					{#if data.submitter.avatar_url}
@@ -282,7 +288,7 @@
 			</div>
 
 			<!-- Debug Information -->
-			<div class="rounded-lg bg-white p-6 shadow-sm">
+			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
 				<div class="flex items-center justify-between">
 					<h2 class="text-lg font-semibold text-gray-900">Raw Data</h2>
 					<Button size="sm" variant="secondary" onclick={() => (showRawJSON = !showRawJSON)}>
@@ -299,7 +305,7 @@
 		</div>
 	</div>
 	{#if data.item.status !== 'pending'}
-		<div class="rounded-lg bg-gray-50 p-4 text-center">
+		<div class="rounded-xl border border-gray-200 bg-gray-50 p-4 text-center">
 			<p class="text-sm text-gray-600">
 				This submission has already been <span class="font-medium capitalize"
 					>{data.item.status}</span

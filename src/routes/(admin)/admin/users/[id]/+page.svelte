@@ -5,6 +5,8 @@
 	import Select from '$lib/ui/form/Select.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import Avatar from '$lib/ui/Avatar.svelte'
+	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
+	import User from 'phosphor-svelte/lib/User'
 
 	let { data } = $props()
 	const form = superForm(data.form, {
@@ -19,10 +21,15 @@
 	}))
 </script>
 
-<div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
-	<h1 class="mb-6 text-3xl font-bold text-gray-800">Edit User</h1>
+<div class="container mx-auto space-y-8 px-2 py-6">
+	<PageHeader
+		title="Edit User"
+		description="Update user information and permissions"
+		icon={User}
+	/>
 
-	<Form {form}>
+	<div class="mx-auto max-w-4xl rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+		<Form {form}>
 		<div class="hidden">
 			<Input type="hidden" name="id" />
 		</div>
@@ -76,11 +83,12 @@
 			</div>
 		</div>
 
-		<Select name="role" label="Role" description="Select the user's role" options={roleOptions} />
+			<Select name="role" label="Role" description="Select the user's role" options={roleOptions} />
 
-		<div class="mt-8 flex items-center justify-between">
-			<Button type="submit">Update User</Button>
-			<a href="/admin/users" class="text-sm text-gray-600 hover:text-gray-900">Back to Users</a>
-		</div>
-	</Form>
+			<div class="mt-8 flex gap-4 border-t border-gray-200 pt-6">
+				<Button type="submit" width="full">Update User</Button>
+				<Button href="/admin/users" variant="secondary">Cancel</Button>
+			</div>
+		</Form>
+	</div>
 </div>
