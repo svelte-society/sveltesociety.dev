@@ -48,24 +48,25 @@
 	} | null>(data.result || null)
 </script>
 
-<div class="space-y-8">
-	<div>
-		<h1 class="text-2xl font-bold">Bulk Import</h1>
-		<p class="mt-2 text-gray-600">Import multiple YouTube videos or GitHub repositories at once</p>
-		<div class="mt-4 rounded-md bg-blue-50 p-4">
-			<h3 class="text-sm font-semibold text-blue-900">Monorepo Support</h3>
-			<p class="mt-1 text-sm text-blue-700">
+<div class="container mx-auto space-y-8 px-2 py-4">
+	<div class="mb-6">
+		<h1 class="text-2xl font-bold text-gray-900">Bulk Import</h1>
+		<p class="mt-1 text-sm text-gray-600">Import multiple YouTube videos or GitHub repositories at once</p>
+		<div class="mt-4 rounded-lg border border-svelte-200 bg-svelte-50 p-4 shadow-sm">
+			<h3 class="text-sm font-semibold text-svelte-900">Monorepo Support</h3>
+			<p class="mt-1 text-sm text-gray-700">
 				You can now import individual packages from monorepos by specifying a path:
 			</p>
-			<ul class="mt-2 space-y-1 text-sm text-blue-700">
-				<li><code class="rounded bg-blue-100 px-1 py-0.5">owner/repo/packages/kit</code> - Short format</li>
-				<li><code class="rounded bg-blue-100 px-1 py-0.5">https://github.com/owner/repo/tree/main/packages/kit</code> - Full URL</li>
+			<ul class="mt-2 space-y-1 text-sm text-gray-700">
+				<li><code class="rounded bg-svelte-100 px-1 py-0.5">owner/repo/packages/kit</code> - Short format</li>
+				<li><code class="rounded bg-svelte-100 px-1 py-0.5">https://github.com/owner/repo/tree/main/packages/kit</code> - Full URL</li>
 			</ul>
 		</div>
 	</div>
 
 	<div class="max-w-4xl">
-		<div class="rounded-lg bg-white p-6">
+		<div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+			<h3 class="mb-4 text-lg font-semibold text-gray-900">Bulk Import URLs</h3>
 			<Form {form} action="?/import">
 				<Textarea
 					name="urls"
@@ -79,7 +80,7 @@ owner/repo-name"
 					rows={10}
 				/>
 
-				<div class="flex items-center justify-end border-t pt-4">
+				<div class="flex items-center justify-end border-t border-gray-200 pt-4">
 					<Button type="submit" disabled={$submitting}>
 						{$submitting ? 'Importing...' : 'Import All'}
 					</Button>

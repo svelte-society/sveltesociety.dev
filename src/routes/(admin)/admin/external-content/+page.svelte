@@ -45,22 +45,22 @@
 	})
 </script>
 
-<div class="space-y-8">
-	<div>
-		<h1 class="text-2xl font-bold">External Content Management</h1>
-		<p class="mt-2 text-gray-600">
+<div class="container mx-auto space-y-8 px-2 py-4">
+	<div class="mb-6">
+		<h1 class="text-2xl font-bold text-gray-900">External Content Management</h1>
+		<p class="mt-1 text-sm text-gray-600">
 			Import and manage content from external sources like YouTube videos and GitHub repositories.
 		</p>
 	</div>
 
 	{#if actionForm?.error}
-		<div class="rounded border border-red-200 bg-red-50 px-4 py-3 text-red-700">
+		<div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700 shadow-sm">
 			{actionForm.error}
 		</div>
 	{/if}
 
 	{#if actionForm?.success}
-		<div class="rounded border border-green-200 bg-green-50 px-4 py-3 text-green-700">
+		<div class="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-green-700 shadow-sm">
 			<p class="font-semibold">Import completed successfully!</p>
 			{#if actionForm.stats}
 				<p class="mt-1 text-sm">
@@ -72,11 +72,11 @@
 	{/if}
 
 	<section>
-		<h2 class="mb-4 text-xl font-semibold">External Sources</h2>
+		<h2 class="mb-4 text-xl font-semibold text-gray-900">External Sources</h2>
 		<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 			{#each data.sources as source}
-				<div class="rounded-lg border border-gray-200 bg-white p-6">
-					<h3 class="text-lg font-semibold">{source.name}</h3>
+				<div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+					<h3 class="text-lg font-semibold text-gray-900">{source.name}</h3>
 					<p class="mt-1 text-sm text-gray-600">{source.count} items</p>
 					{#if source.lastSync}
 						<p class="mt-2 text-xs text-gray-500">
@@ -89,10 +89,10 @@
 	</section>
 
 	<section>
-		<h2 class="mb-4 text-xl font-semibold">Import Content</h2>
+		<h2 class="mb-4 text-xl font-semibold text-gray-900">Import Content</h2>
 		<div class="max-w-2xl">
-			<div class="rounded-lg border border-gray-200 bg-white p-6">
-				<h3 class="mb-4 text-lg font-semibold">Import from External Source</h3>
+			<div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+				<h3 class="mb-4 text-lg font-semibold text-gray-900">Import from External Source</h3>
 				<Form form={importFormInstance} action="?/import">
 					<div class="space-y-4">
 						<Input
@@ -139,19 +139,19 @@
 				</Form>
 
 				<div class="mt-6 space-y-3">
-					<div class="rounded-lg bg-yellow-50 p-3">
+					<div class="rounded-lg border border-yellow-200 bg-yellow-50 p-3">
 						<p class="text-xs text-yellow-800">
 							<strong>YouTube:</strong> Requires
 							<code class="rounded bg-yellow-100 px-1 py-0.5">YOUTUBE_API_KEY</code> environment variable
 						</p>
 					</div>
-					<div class="rounded-lg bg-blue-50 p-3">
-						<p class="text-xs text-blue-800">
+					<div class="rounded-lg border border-svelte-200 bg-svelte-50 p-3">
+						<p class="text-xs text-svelte-900">
 							<strong>GitHub:</strong> Set
-							<code class="rounded bg-blue-100 px-1 py-0.5">GITHUB_TOKEN</code> for better rate limits
+							<code class="rounded bg-svelte-100 px-1 py-0.5">GITHUB_TOKEN</code> for better rate limits
 						</p>
 					</div>
-					<div class="rounded-lg bg-gray-50 p-3">
+					<div class="rounded-lg border border-gray-200 bg-gray-50 p-3">
 						<p class="text-xs text-gray-700">
 							<strong>Supported formats:</strong>
 							<br />• YouTube: Full URLs, short URLs (youtu.be), or video IDs
@@ -165,28 +165,28 @@
 
 	{#if data.recentImports.length > 0}
 		<section>
-			<h2 class="mb-4 text-xl font-semibold">Recent Imports</h2>
-			<div class="overflow-hidden rounded-lg bg-white shadow-sm">
+			<h2 class="mb-4 text-xl font-semibold text-gray-900">Recent Imports</h2>
+			<div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
 				<table class="w-full text-left text-sm">
-					<thead class="bg-gray-50 text-xs text-gray-700 uppercase">
+					<thead class="border-b border-gray-200 bg-gray-50/50">
 						<tr>
-							<th scope="col" class="px-4 py-3">Title</th>
-							<th scope="col" class="px-4 py-3">Type</th>
-							<th scope="col" class="px-4 py-3">Source</th>
-							<th scope="col" class="px-4 py-3">Imported</th>
-							<th scope="col" class="px-4 py-3">Actions</th>
+							<th scope="col" class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wider text-gray-700">Title</th>
+							<th scope="col" class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wider text-gray-700">Type</th>
+							<th scope="col" class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wider text-gray-700">Source</th>
+							<th scope="col" class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wider text-gray-700">Imported</th>
+							<th scope="col" class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wider text-gray-700">Actions</th>
 						</tr>
 					</thead>
-					<tbody class="divide-y divide-gray-200">
+					<tbody class="divide-y divide-gray-100 bg-white">
 						{#each data.recentImports as item}
-							<tr class="hover:bg-gray-50">
-								<td class="px-4 py-3 font-medium">{item.title}</td>
-								<td class="px-4 py-3">{item.type}</td>
-								<td class="px-4 py-3">{item.metadata?.externalSource?.source || 'Unknown'}</td>
-								<td class="px-4 py-3">{formatRelativeDate(item.created_at)}</td>
-								<td class="px-4 py-3">
+							<tr class="transition-colors hover:bg-gray-50/50">
+								<td class="px-4 py-4 font-medium text-gray-900">{item.title}</td>
+								<td class="px-4 py-4 text-gray-900">{item.type}</td>
+								<td class="px-4 py-4 text-gray-900">{item.metadata?.externalSource?.source || 'Unknown'}</td>
+								<td class="px-4 py-4 text-gray-900">{formatRelativeDate(item.created_at)}</td>
+								<td class="px-4 py-4">
 									<div class="flex items-center gap-3">
-										<a href="/admin/content/{item.id}" class="text-svelte-500 hover:underline">
+										<a href="/admin/content/{item.id}" class="text-svelte-500 transition-colors hover:text-svelte-900 hover:underline">
 											Edit
 										</a>
 										<form
