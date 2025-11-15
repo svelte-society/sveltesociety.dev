@@ -11,6 +11,7 @@
 	import MagnifyingGlass from 'phosphor-svelte/lib/MagnifyingGlass'
 	import StatusSelect from '$lib/ui/admin/StatusSelect.svelte'
 	import TypeSelect from '$lib/ui/admin/TypeSelect.svelte'
+	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/state'
 	import { getFilteredContent } from './data.remote'
@@ -93,25 +94,15 @@
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
-	<!-- Hero Header -->
-	<div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-svelte-500 via-svelte-300 to-svelte-100 p-8 shadow-lg">
-		<div class="relative z-10">
-			<div class="flex items-center justify-between">
-				<div class="flex items-center gap-3">
-					<div class="flex h-14 w-14 items-center justify-center rounded-xl bg-white/90 shadow-lg backdrop-blur-sm">
-						<FileText class="h-7 w-7 text-svelte-500" weight="duotone" />
-					</div>
-					<div>
-						<h1 class="text-3xl font-bold text-white">Content Management</h1>
-						<p class="mt-1 text-sm text-white/90">
-							Create, edit, and manage all content items
-						</p>
-					</div>
-				</div>
-				<Button size="sm" href="/admin/content/new"><Plus weight="bold" />New Content</Button>
-			</div>
-		</div>
-		<div class="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-white/10 to-transparent"></div>
+	<PageHeader
+		title="Content Management"
+		description="Create, edit, and manage all content items"
+		icon={FileText}
+	/>
+
+	<!-- Action Bar -->
+	<div class="flex items-center justify-end">
+		<Button size="sm" href="/admin/content/new"><Plus weight="bold" />New Content</Button>
 	</div>
 
 	<!-- Filters -->

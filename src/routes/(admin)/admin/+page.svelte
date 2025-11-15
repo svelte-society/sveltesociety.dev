@@ -1,7 +1,8 @@
 <script>
 	import StatCard from '$lib/ui/admin/StatCard.svelte'
 	import QuickAction from '$lib/ui/admin/QuickAction.svelte'
-	import { Users, FileText, ClockClockwise, CheckCircle, Plus, MagnifyingGlass, Tag, Megaphone, ChartLine } from 'phosphor-svelte'
+	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
+	import { Users, FileText, ClockClockwise, CheckCircle, Plus, Tag, Megaphone, ChartLine } from 'phosphor-svelte'
 
 	let { data } = $props()
 
@@ -11,23 +12,11 @@
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
-	<!-- Hero Header -->
-	<div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-svelte-500 via-svelte-300 to-svelte-100 p-8 shadow-lg">
-		<div class="relative z-10">
-			<div class="flex items-center gap-3">
-				<div class="flex h-14 w-14 items-center justify-center rounded-xl bg-white/90 shadow-lg backdrop-blur-sm">
-					<ChartLine class="h-7 w-7 text-svelte-500" weight="duotone" />
-				</div>
-				<div>
-					<h1 class="text-3xl font-bold text-white">Dashboard</h1>
-					<p class="mt-1 text-sm text-white/90">
-						Welcome back! Here's what's happening with your community.
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-white/10 to-transparent"></div>
-	</div>
+	<PageHeader
+		title="Dashboard"
+		description="Welcome back! Here's what's happening with your community."
+		icon={ChartLine}
+	/>
 
 	<!-- Key Statistics -->
 	<div class="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
