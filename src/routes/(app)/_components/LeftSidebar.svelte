@@ -4,7 +4,7 @@
 	type Props = {
 		links: {
 			name: string
-			href: string
+			href: string | null
 			disabled?: boolean
 		}[]
 	}
@@ -47,7 +47,9 @@
 							</a>
 						</li>
 					{:else}
-						<li class="mt-4 px-2 pb-1 pt-2 text-xs font-semibold uppercase tracking-wider text-gray-500">
+						<li
+							class="mt-4 px-2 pt-2 pb-1 text-xs font-semibold tracking-wider text-gray-500 uppercase"
+						>
 							{link.name}
 						</li>
 					{/if}
