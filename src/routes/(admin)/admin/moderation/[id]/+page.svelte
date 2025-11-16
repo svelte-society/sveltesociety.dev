@@ -4,6 +4,7 @@
 	import Button from '$lib/ui/Button.svelte'
 	import TypeIcon from '$lib/ui/TypeIcon.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
+	import Tags from '$lib/ui/Tags.svelte'
 	import XCircle from 'phosphor-svelte/lib/XCircle'
 	import CheckCircle from 'phosphor-svelte/lib/CheckCircle'
 	import ClipboardText from 'phosphor-svelte/lib/ClipboardText'
@@ -28,6 +29,15 @@
 
 	const submissionData = data.item.parsedData || JSON.parse(data.item.data)
 	let showRawJSON = $state(false)
+
+	// Transform tagNames to Tags component format
+	const tags = submissionData.tagNames
+		? submissionData.tagNames.map((name: string) => ({
+				id: name.toLowerCase(),
+				name: name,
+				slug: name.toLowerCase()
+			}))
+		: []
 
 	// Extract video ID for YouTube embeds
 	const videoId =
@@ -80,23 +90,21 @@
 		{/snippet}
 	</PageHeader>
 	<!-- Status and submission info -->
-	<div class="mb-6 grid gap-4 md:grid-cols-3">
+	<div class="mb-6">
 		<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-			<div class="flex items-center justify-between">
-				<span class="text-sm font-medium text-gray-500">Status</span>
-				<Badge color={colorMap.get(data.item.status)} text={data.item.status} data-testid="moderation-item-status" />
-			</div>
-		</div>
-		<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-			<div class="flex items-center justify-between">
-				<span class="text-sm font-medium text-gray-500">Type</span>
-				<span class="text-sm font-semibold text-gray-900 capitalize">{data.item.type}</span>
-			</div>
-		</div>
-		<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-			<div class="flex items-center justify-between">
-				<span class="text-sm font-medium text-gray-500">Submitted</span>
-				<span class="text-sm text-gray-900">{formatRelativeDate(data.item.submitted_at)}</span>
+			<div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+				<div class="flex items-center gap-2">
+					<span class="text-sm font-medium text-gray-500">Status:</span>
+					<Badge color={colorMap.get(data.item.status)} text={data.item.status} data-testid="moderation-item-status" />
+				</div>
+				<div class="flex items-center gap-2">
+					<span class="text-sm font-medium text-gray-500">Type:</span>
+					<span class="text-sm font-semibold capitalize text-gray-900">{data.item.type}</span>
+				</div>
+				<div class="flex items-center gap-2">
+					<span class="text-sm font-medium text-gray-500">Submitted:</span>
+					<span class="text-sm text-gray-900">{formatRelativeDate(data.item.submitted_at)}</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -115,17 +123,11 @@
 						</div>
 					{/if}
 
-					{#if submissionData.tagNames && submissionData.tagNames.length > 0}
+					{#if tags.length > 0}
 						<div>
 							<h3 class="text-sm font-medium text-gray-700">Tags</h3>
-							<div class="mt-2 flex flex-wrap gap-2">
-								{#each submissionData.tagNames as tagName}
-									<span
-										class="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800"
-									>
-										{tagName}
-									</span>
-								{/each}
+							<div class="mt-2">
+								<Tags {tags} />
 							</div>
 						</div>
 					{/if}
