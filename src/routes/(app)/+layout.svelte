@@ -5,7 +5,7 @@
 	import LeftSidebar from './_components/LeftSidebar.svelte'
 	import RightSidebar from './_components/RightSidebar.svelte'
 	import MobileMenu from './_components/MobileMenu.svelte'
-	import { getTags, getUpcomingEvents } from './data.remote'
+	import { getTags, getUpcomingEvents, getHeaderAnnouncement } from './data.remote'
 
 	let { data, children } = $props()
 
@@ -43,11 +43,11 @@
 <Head seo_config={page.data.meta || fallbackMeta} />
 
 <div class="flex min-h-screen flex-col">
-	<Header user={data.user} announcement={data.announcement} />
+	<Header user={data.user} announcement={await getHeaderAnnouncement()} />
 
 	<main
 		class="relative mx-auto grid w-full max-w-[1440px] flex-1 grid-cols-1 gap-2 sm:grid-cols-[1.5fr_5fr_2.5fr] md:gap-4 lg:gap-6"
-		style:--header-height={data.announcement ? '7.5rem' : '5rem'}
+		style:--header-height={(await getHeaderAnnouncement()) ? '7.5rem' : '5rem'}
 	>
 		<LeftSidebar {links} />
 

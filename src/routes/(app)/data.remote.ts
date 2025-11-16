@@ -55,3 +55,16 @@ export const getUpcomingEvents = query(async () => {
 		}
 	})
 })
+
+export const getHeaderAnnouncement = query(() => {
+	const { locals } = getRequestEvent()
+	const headerAnnouncements = locals.announcementService.getActivePlacementsByLocationKey('header')
+	return headerAnnouncements.length > 0
+		? {
+			href: headerAnnouncements[0].slug
+				? `/${headerAnnouncements[0].metadata?.type || 'announcement'}/${headerAnnouncements[0].slug}`
+				: '#',
+			text: headerAnnouncements[0].title
+		}
+		: null
+})
