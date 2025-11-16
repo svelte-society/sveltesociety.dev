@@ -4,7 +4,6 @@
 	import Button from '$lib/ui/Button.svelte'
 	import TypeIcon from '$lib/ui/TypeIcon.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
-	import ArrowLeft from 'phosphor-svelte/lib/ArrowLeft'
 	import XCircle from 'phosphor-svelte/lib/XCircle'
 	import CheckCircle from 'phosphor-svelte/lib/CheckCircle'
 	import ClipboardText from 'phosphor-svelte/lib/ClipboardText'
@@ -54,26 +53,30 @@
 		icon={ClipboardText}
 	>
 		{#snippet actions()}
-			<div class="flex items-center gap-2">
-				{#if data.item.status === 'pending'}
+			{#if data.item.status === 'pending'}
+				<div class="flex items-center gap-3">
 					<form method="POST" action="?/reject" use:enhance class="inline">
-						<Button type="submit" size="sm" variant="error" data-testid="moderation-reject-button">
-							<XCircle class="h-4 w-4" weight="bold" />
+						<button
+							type="submit"
+							class="flex items-center gap-2 rounded-lg border-2 border-white bg-white px-4 py-2 text-sm font-semibold text-red-600 shadow-lg transition-all hover:bg-red-50 hover:shadow-xl"
+							data-testid="moderation-reject-button"
+						>
+							<XCircle class="h-5 w-5" weight="bold" />
 							Reject
-						</Button>
+						</button>
 					</form>
 					<form method="POST" action="?/approve" use:enhance class="inline">
-						<Button type="submit" size="sm" variant="success" data-testid="moderation-approve-button">
-							<CheckCircle class="h-4 w-4" weight="bold" />
+						<button
+							type="submit"
+							class="flex items-center gap-2 rounded-lg border-2 border-white bg-white px-4 py-2 text-sm font-semibold text-green-600 shadow-lg transition-all hover:bg-green-50 hover:shadow-xl"
+							data-testid="moderation-approve-button"
+						>
+							<CheckCircle class="h-5 w-5" weight="bold" />
 							Approve
-						</Button>
+						</button>
 					</form>
-				{/if}
-				<Button size="sm" variant="secondary" href="/admin/moderation">
-					<ArrowLeft class="h-4 w-4" weight="bold" />
-					Back to Queue
-				</Button>
-			</div>
+				</div>
+			{/if}
 		{/snippet}
 	</PageHeader>
 	<!-- Status and submission info -->
