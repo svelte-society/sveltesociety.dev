@@ -68,3 +68,9 @@ export const getHeaderAnnouncement = query(() => {
 		}
 		: null
 })
+
+export const getUser = query(() => {
+	const { locals } = getRequestEvent()
+
+	return locals.user
+})
