@@ -110,8 +110,8 @@ test.describe('Content Detail Pages', () => {
 		await expect(firstTag).toBeVisible()
 
 		const href = await firstTag.getAttribute('href')
-		// Tag links now preserve the current URL path and add tags query param (from #843)
-		expect(href).toMatch(/^\/recipe\/test-recipe-counter-component-content_recipe_001\?tags=/)
+		// Tag links redirect to homepage with tags query param when not on content listing route
+		expect(href).toMatch(/^\/\?tags=/)
 	})
 
 	test('library displays NPM package link when available', async ({ page }) => {

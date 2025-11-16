@@ -15,7 +15,7 @@
 		data-testid="user-menu-trigger"
 		class="border-input h-10 w-10 items-center gap-2 rounded-full border border-transparent text-sm font-medium select-none active:scale-[0.98]"
 	>
-		<Avatar src={user.avatar_url} name={user.name} size="sm" />
+		<Avatar src={user.avatar_url} name={user.name} />
 	</DropdownMenu.Trigger>
 	<DropdownMenu.Portal>
 		<DropdownMenu.Content

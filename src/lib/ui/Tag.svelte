@@ -25,17 +25,17 @@
 			tagList.push(tag.slug)
 		}
 
-		// Clone the current URL to preserve all searchParams
-		const newUrl = new URL(url)
+		const isContentRoute =
+			page.route.id === '/(app)/(public)/[...type]' || page.route.id === '/(app)/(public)'
 
-		// Update or remove the tags parameter
+		const newUrl = isContentRoute ? new URL(url) : new URL('/', url.origin)
+
 		if (tagList.length > 0) {
 			newUrl.searchParams.set('tags', tagList.join(','))
 		} else {
 			newUrl.searchParams.delete('tags')
 		}
 
-		// Reset pagination when filtering changes
 		newUrl.searchParams.delete('page')
 
 		return newUrl.pathname + newUrl.search
@@ -45,7 +45,7 @@
 <a
 	href={onclick ? undefined : getTagHref()}
 	class={[
-		'focus:outline-svelte-300 flex items-center gap-0.5 rounded border-1 border-slate-200 bg-slate-100 px-1.5 py-1 text-xs text-zinc-800 focus:outline-2 focus:outline-offset-2',
+		'focus:outline-svelte-300 flex items-center gap-0.5 rounded border border-slate-200 bg-slate-100 px-1.5 py-1 text-xs text-zinc-800 focus:outline-2 focus:outline-offset-2',
 		{
 			'border-svelte-300 bg-svelte-100 text-svelte-900 hover:bg-svelte-200':
 				$params?.tags?.includes(tag.slug),

@@ -4,12 +4,13 @@
 	import Plus from 'phosphor-svelte/lib/Plus'
 	import UpcomingEvents from './UpcomingEvents.svelte'
 	import type { Content } from '$lib/types/content'
+	import { type UpcomingEvent } from './types'
 
 	type Props = {
-		upcomingEvents?: Content[]
+		upcomingEvents?: UpcomingEvent[]
 		links: {
 			name: string
-			href: string
+			href: string | null
 			disabled?: boolean
 		}[]
 	}
@@ -85,7 +86,10 @@
 					<h3 class="text-md font-bold">Become a sponsor</h3>
 					<p class="text-xs text-gray-600">
 						Support Svelte Society and get your company featured here.
-						<a href="mailto:sponsor@sveltesociety.dev" class="text-orange-600 underline hover:text-orange-700">
+						<a
+							href="mailto:sponsor@sveltesociety.dev"
+							class="text-orange-600 underline hover:text-orange-700"
+						>
 							Contact us
 						</a>
 					</p>

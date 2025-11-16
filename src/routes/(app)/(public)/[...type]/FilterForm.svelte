@@ -42,7 +42,8 @@
 			/>
 		</div>
 	</div>
-	<div class="flex w-full flex-col gap-2">
+	<!-- Tags only shown on mobile, hidden on desktop (lg and up) -->
+	<div class="flex w-full flex-col gap-2 lg:hidden">
 		<p class="text-xs font-medium outline-none">Tags</p>
 		<Tags {tags} />
 	</div>
