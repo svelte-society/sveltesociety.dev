@@ -35,7 +35,6 @@
 	<!-- Sidebar Header -->
 	<div class="border-b border-gray-200 p-6">
 		<h2 class="text-lg font-bold text-gray-900">Admin Panel</h2>
-		<p class="mt-1 text-xs text-gray-500">Manage your community</p>
 	</div>
 
 	<!-- Navigation -->

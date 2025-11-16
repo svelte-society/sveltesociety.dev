@@ -14,7 +14,7 @@
 <div class="container mx-auto space-y-8 px-2 py-6">
 	<PageHeader
 		title="Dashboard"
-		description="Welcome back! Here's what's happening with your community."
+		description="Welcome back! Here's what's happening with our community."
 		icon={ChartLine}
 	/>
 
