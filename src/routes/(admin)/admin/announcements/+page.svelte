@@ -7,6 +7,9 @@
 	import type { PageData } from './$types'
 	import Megaphone from 'phosphor-svelte/lib/Megaphone'
 	import Plus from 'phosphor-svelte/lib/Plus'
+	import PencilSimple from 'phosphor-svelte/lib/PencilSimple'
+	import Power from 'phosphor-svelte/lib/Power'
+	import Trash from 'phosphor-svelte/lib/Trash'
 
 	let { data }: { data: PageData } = $props()
 
@@ -152,22 +155,36 @@
 						</td>
 						<td class="px-6 py-4 text-right text-sm font-medium whitespace-nowrap">
 							<div class="flex items-center justify-end gap-2">
-								<Button href="/admin/announcements/{placement.id}" variant="secondary" size="sm">
-									Edit
-								</Button>
+								<a
+									href="/admin/announcements/{placement.id}"
+									class="inline-flex items-center justify-center rounded-lg bg-svelte-50 p-2 text-svelte-500 transition-all hover:bg-svelte-100 hover:text-svelte-900 hover:shadow-sm"
+									aria-label="Edit {placement.title}"
+								>
+									<PencilSimple class="h-5 w-5" weight="bold" />
+								</a>
 
 								<Form form={toggleForm} action="?/toggle" class="inline">
 									<input type="hidden" name="id" value={placement.id} />
-									<Button type="submit" variant="secondary" size="sm" disabled={$toggleSubmitting}>
-										{placement.is_active ? 'Deactivate' : 'Activate'}
-									</Button>
+									<button
+										type="submit"
+										disabled={$toggleSubmitting}
+										class="inline-flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition-all hover:bg-blue-100 hover:text-blue-900 hover:shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+										aria-label="{placement.is_active ? 'Deactivate' : 'Activate'} {placement.title}"
+									>
+										<Power class="h-5 w-5" weight="bold" />
+									</button>
 								</Form>
 
 								<Form form={deleteForm} action="?/delete" onsubmit={confirmDelete}>
 									<input type="hidden" name="id" value={placement.id} />
-									<Button type="submit" variant="error" size="sm" disabled={$deleteSubmitting}>
-										Delete
-									</Button>
+									<button
+										type="submit"
+										disabled={$deleteSubmitting}
+										class="inline-flex items-center justify-center rounded-lg bg-red-50 p-2 text-red-600 transition-all hover:bg-red-100 hover:text-red-900 hover:shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+										aria-label="Delete {placement.title}"
+									>
+										<Trash class="h-5 w-5" weight="bold" />
+									</button>
 								</Form>
 							</div>
 						</td>
