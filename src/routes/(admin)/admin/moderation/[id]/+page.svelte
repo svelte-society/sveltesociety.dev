@@ -2,18 +2,12 @@
 	import { enhance } from '$app/forms'
 	import Badge from '$lib/ui/admin/Badge.svelte'
 	import Button from '$lib/ui/Button.svelte'
+	import TypeIcon from '$lib/ui/TypeIcon.svelte'
+	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import ArrowLeft from 'phosphor-svelte/lib/ArrowLeft'
 	import XCircle from 'phosphor-svelte/lib/XCircle'
 	import CheckCircle from 'phosphor-svelte/lib/CheckCircle'
-	import User from 'phosphor-svelte/lib/User'
-	import Clock from 'phosphor-svelte/lib/Clock'
-	import Tag from 'phosphor-svelte/lib/Tag'
-	import GithubLogo from 'phosphor-svelte/lib/GithubLogo'
-	import YoutubeLogo from 'phosphor-svelte/lib/YoutubeLogo'
-	import FileText from 'phosphor-svelte/lib/FileText'
-	import Code from 'phosphor-svelte/lib/Code'
-	import TwitterLogo from 'phosphor-svelte/lib/TwitterLogo'
-	import Info from 'phosphor-svelte/lib/Info'
+	import ClipboardText from 'phosphor-svelte/lib/ClipboardText'
 	import { formatRelativeDate } from '$lib/utils/date'
 	let { data } = $props()
 
@@ -35,7 +29,6 @@
 
 	const submissionData = data.item.parsedData || JSON.parse(data.item.data)
 	let showRawJSON = $state(false)
-	let activeTab = $state<'preview' | 'details' | 'json'>('preview')
 
 	// Extract video ID for YouTube embeds
 	const videoId =
@@ -54,260 +47,270 @@
 	}
 </script>
 
-<!-- BRUTALIST FULL SCREEN -->
-<div class="fixed inset-0 bg-black flex flex-col font-mono">
-	<!-- STARK TOP BAR -->
-	<div class="shrink-0 border-b-4 border-white bg-black px-4 py-2">
-		<div class="flex items-center justify-between text-white">
-			<div class="flex items-center gap-6">
-				<a href="/admin/moderation" class="border-2 border-white px-3 py-1 uppercase hover:bg-white hover:text-black transition-colors">
-					← BACK
-				</a>
-
-				<div class="flex items-center gap-4 text-xs uppercase">
-					<span class="border-2 border-white px-2 py-1 {data.item.status === 'approved' ? 'bg-green-500 text-black' : data.item.status === 'rejected' ? 'bg-red-500 text-white' : 'bg-yellow-300 text-black'}" data-testid="moderation-item-status">
-						{data.item.status}
-					</span>
-					<span class="border-2 border-white px-2 py-1">{data.item.type}</span>
-					<span class="opacity-50">{formatRelativeDate(data.item.submitted_at)}</span>
-				</div>
-			</div>
-
-			{#if data.item.status === 'pending'}
-				<div class="flex gap-3">
+<div class="container mx-auto space-y-8 px-2 py-6">
+	<PageHeader
+		title={submissionData.title}
+		description="Review submission details and approve or reject"
+		icon={ClipboardText}
+	>
+		{#snippet actions()}
+			<div class="flex items-center gap-2">
+				{#if data.item.status === 'pending'}
 					<form method="POST" action="?/reject" use:enhance class="inline">
-						<button type="submit" class="border-4 border-red-500 bg-red-500 px-6 py-2 text-sm font-bold uppercase text-white hover:bg-transparent transition-colors" data-testid="moderation-reject-button">
-							✕ REJECT
-						</button>
+						<Button type="submit" size="sm" variant="error" data-testid="moderation-reject-button">
+							<XCircle class="h-4 w-4" weight="bold" />
+							Reject
+						</Button>
 					</form>
 					<form method="POST" action="?/approve" use:enhance class="inline">
-						<button type="submit" class="border-4 border-green-500 bg-green-500 px-6 py-2 text-sm font-bold uppercase text-black hover:bg-transparent hover:text-green-500 transition-colors" data-testid="moderation-approve-button">
-							✓ APPROVE
-						</button>
+						<Button type="submit" size="sm" variant="success" data-testid="moderation-approve-button">
+							<CheckCircle class="h-4 w-4" weight="bold" />
+							Approve
+						</Button>
 					</form>
-				</div>
-			{:else}
-				<div class="border-2 border-white px-4 py-2 text-sm uppercase">
-					STATUS: {data.item.status}
-				</div>
-			{/if}
+				{/if}
+				<Button size="sm" variant="secondary" href="/admin/moderation">
+					<ArrowLeft class="h-4 w-4" weight="bold" />
+					Back to Queue
+				</Button>
+			</div>
+		{/snippet}
+	</PageHeader>
+	<!-- Status and submission info -->
+	<div class="mb-6 grid gap-4 md:grid-cols-3">
+		<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+			<div class="flex items-center justify-between">
+				<span class="text-sm font-medium text-gray-500">Status</span>
+				<Badge color={colorMap.get(data.item.status)} text={data.item.status} data-testid="moderation-item-status" />
+			</div>
+		</div>
+		<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+			<div class="flex items-center justify-between">
+				<span class="text-sm font-medium text-gray-500">Type</span>
+				<span class="text-sm font-semibold text-gray-900 capitalize">{data.item.type}</span>
+			</div>
+		</div>
+		<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+			<div class="flex items-center justify-between">
+				<span class="text-sm font-medium text-gray-500">Submitted</span>
+				<span class="text-sm text-gray-900">{formatRelativeDate(data.item.submitted_at)}</span>
+			</div>
 		</div>
 	</div>
 
-	<!-- SPLIT PANELS -->
-	<div class="flex flex-1 overflow-hidden">
-		<!-- LEFT: CONTENT (70%) -->
-		<div class="flex w-[70%] flex-col border-r-4 border-white bg-white text-black">
-			<!-- TITLE BLOCK -->
-			<div class="shrink-0 border-b-4 border-black bg-white p-4">
-				<h1 class="text-2xl font-bold uppercase mb-3">{submissionData.title}</h1>
+	<div class="mb-6 grid gap-6 lg:grid-cols-2">
+		<!-- Main content -->
+		<div class="space-y-6">
+			<!-- Basic Information -->
+			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+				<h2 class="mb-4 text-lg font-semibold text-gray-900">Content Details</h2>
+				<div class="space-y-4">
+					{#if submissionData.description}
+						<div>
+							<h3 class="text-sm font-medium text-gray-700">Description</h3>
+							<p class="mt-1 text-sm text-gray-900">{submissionData.description}</p>
+						</div>
+					{/if}
 
-				{#if submissionData.tagNames && submissionData.tagNames.length > 0}
-					<div class="flex flex-wrap gap-2">
-						{#each submissionData.tagNames as tagName}
-							<span class="border-2 border-black bg-black px-2 py-1 text-xs font-bold uppercase text-white">
-								#{tagName}
-							</span>
-						{/each}
-					</div>
-				{/if}
-			</div>
-
-			<!-- TABS -->
-			<div class="shrink-0 border-b-4 border-black bg-white">
-				<div class="flex">
-					<button
-						onclick={() => activeTab = 'preview'}
-						class="border-r-2 border-black px-6 py-2 text-xs font-bold uppercase transition-colors {activeTab === 'preview' ? 'bg-black text-white' : 'hover:bg-gray-200'}"
-					>
-						[PREVIEW]
-					</button>
-					<button
-						onclick={() => activeTab = 'details'}
-						class="border-r-2 border-black px-6 py-2 text-xs font-bold uppercase transition-colors {activeTab === 'details' ? 'bg-black text-white' : 'hover:bg-gray-200'}"
-					>
-						[DETAILS]
-					</button>
-					<button
-						onclick={() => activeTab = 'json'}
-						class="px-6 py-2 text-xs font-bold uppercase transition-colors {activeTab === 'json' ? 'bg-black text-white' : 'hover:bg-gray-200'}"
-					>
-						[RAW_DATA]
-					</button>
-				</div>
-			</div>
-
-			<!-- CONTENT AREA -->
-			<div class="flex-1 overflow-y-auto bg-white">
-				{#if activeTab === 'preview'}
-					{#if data.item.type === 'video' && videoId}
-						<div class="border-b-4 border-black">
-							<div class="aspect-video w-full bg-black border-4 border-black">
-								<iframe
-									src="https://www.youtube.com/embed/{videoId}"
-									title="YouTube video player"
-									class="h-full w-full"
-									allowfullscreen
-								></iframe>
-							</div>
-							{#if submissionData.url}
-								<div class="bg-yellow-300 p-3 border-b-2 border-black">
-									<p class="text-xs font-bold uppercase">VIDEO_SOURCE:</p>
-									<a
-										href={submissionData.url}
-										target="_blank"
-										rel="noopener noreferrer"
-										class="text-sm font-mono underline decoration-2 hover:bg-black hover:text-yellow-300 transition-colors break-all"
+					{#if submissionData.tagNames && submissionData.tagNames.length > 0}
+						<div>
+							<h3 class="text-sm font-medium text-gray-700">Tags</h3>
+							<div class="mt-2 flex flex-wrap gap-2">
+								{#each submissionData.tagNames as tagName}
+									<span
+										class="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800"
 									>
-										{submissionData.url}
-									</a>
-								</div>
-							{/if}
-						</div>
-					{:else if data.item.type === 'library' && submissionData.github_repo}
-						<div class="flex items-center justify-center p-8">
-							<div class="w-full max-w-2xl border-4 border-black bg-white p-8">
-								<div class="border-b-4 border-black pb-4 mb-4">
-									<h2 class="text-3xl font-bold uppercase">GITHUB_REPOSITORY</h2>
-								</div>
-								<p class="font-mono text-xl mb-6 bg-black text-green-400 p-3 break-all">{submissionData.github_repo}</p>
-								<a
-									href={getGitHubUrl(submissionData.github_repo)}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="block w-full border-4 border-black bg-black px-6 py-4 text-center text-sm font-bold uppercase text-white hover:bg-white hover:text-black transition-colors"
-								>
-									→ OPEN_REPOSITORY
-								</a>
-							</div>
-						</div>
-					{:else if data.item.type === 'recipe' && submissionData.body}
-						<div class="p-4">
-							<div class="border-4 border-black">
-								<div class="border-b-4 border-black bg-black px-4 py-2">
-									<h3 class="font-bold uppercase text-white text-sm">RECIPE_CONTENT:</h3>
-								</div>
-								<div class="bg-gray-100 p-6">
-									<pre class="text-sm font-mono whitespace-pre-wrap">{submissionData.body}</pre>
-								</div>
+										{tagName}
+									</span>
+								{/each}
 							</div>
 						</div>
 					{/if}
 
-				{:else if activeTab === 'details'}
-					<div class="p-4 space-y-4">
-						{#if submissionData.description}
-							<div class="border-4 border-black bg-white">
-								<div class="border-b-4 border-black bg-black px-4 py-2">
-									<h3 class="text-xs font-bold uppercase text-white">DESCRIPTION:</h3>
-								</div>
-								<div class="p-4">
-									<p class="text-base leading-relaxed">{submissionData.description}</p>
-								</div>
-							</div>
-						{/if}
+					{#if submissionData.notes}
+						<div>
+							<h3 class="text-sm font-medium text-gray-700">Notes</h3>
+							<p class="mt-1 text-sm text-gray-600">{submissionData.notes}</p>
+						</div>
+					{/if}
+				</div>
+			</div>
 
-						{#if submissionData.notes}
-							<div class="border-4 border-black bg-white">
-								<div class="border-b-4 border-black bg-yellow-300 px-4 py-2">
-									<h3 class="text-xs font-bold uppercase">SUBMITTER_NOTES:</h3>
-								</div>
-								<div class="p-4 bg-yellow-50">
-									<p class="text-base leading-relaxed">{submissionData.notes}</p>
-								</div>
-							</div>
-						{/if}
+			<!-- Type-specific content -->
+			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+				<h2 class="mb-4 text-lg font-semibold text-gray-900">
+					{#if data.item.type === 'video'}
+						Video Details
+					{:else if data.item.type === 'library'}
+						Library Details
+					{:else if data.item.type === 'recipe'}
+						Recipe Content
+					{:else}
+						Content Details
+					{/if}
+				</h2>
 
-						{#if !submissionData.description && !submissionData.notes}
-							<div class="flex items-center justify-center py-20 border-4 border-dashed border-black">
-								<p class="text-lg font-bold uppercase opacity-30">NO_DATA_AVAILABLE</p>
+				{#if data.item.type === 'video' && submissionData.url}
+					<div class="space-y-3">
+						<div>
+							<h3 class="text-sm font-medium text-gray-700">YouTube URL</h3>
+							<a
+								href={submissionData.url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="mt-1 block text-sm text-blue-600 hover:text-blue-800 hover:underline"
+							>
+								{submissionData.url}
+							</a>
+						</div>
+						<!-- YouTube embed preview -->
+						{#if videoId}
+							<div>
+								<h3 class="text-sm font-medium text-gray-700">Preview</h3>
+								<div class="mt-2 aspect-video max-w-md overflow-hidden rounded-lg">
+									<iframe
+										src="https://www.youtube.com/embed/{videoId}"
+										title="YouTube video player"
+										class="h-full w-full"
+										allowfullscreen
+									></iframe>
+								</div>
 							</div>
 						{/if}
 					</div>
-
-				{:else if activeTab === 'json'}
-					<div class="h-full bg-black p-4">
-						<pre class="text-xs text-green-400 font-mono">{formatJSON(submissionData)}</pre>
+				{:else if data.item.type === 'library' && submissionData.github_repo}
+					<div class="space-y-3">
+						<div>
+							<h3 class="text-sm font-medium text-gray-700">GitHub Repository</h3>
+							<p class="mt-1 font-mono text-sm text-gray-900">{submissionData.github_repo}</p>
+						</div>
+						<div>
+							<a
+								href={getGitHubUrl(submissionData.github_repo)}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex items-center space-x-2 text-sm text-blue-600 hover:text-blue-800 hover:underline"
+							>
+								<svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+									<path
+										fill-rule="evenodd"
+										d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+								<span>View on GitHub</span>
+							</a>
+						</div>
 					</div>
+				{:else if data.item.type === 'recipe' && submissionData.body}
+					<div>
+						<h3 class="text-sm font-medium text-gray-700">Recipe Content</h3>
+						<div class="mt-2 max-h-96 overflow-y-auto rounded-lg bg-gray-50 p-4">
+							<pre class="text-sm whitespace-pre-wrap text-gray-900">{submissionData.body}</pre>
+						</div>
+					</div>
+				{:else}
+					<p class="text-sm text-gray-500">No type-specific content available.</p>
 				{/if}
 			</div>
 		</div>
-
-		<!-- RIGHT: SUBMITTER (30%) -->
-		<div class="flex w-[30%] flex-col bg-black text-white overflow-y-auto">
-			<div class="p-4 space-y-4">
-				<!-- SUBMITTER BLOCK -->
-				<div class="border-4 border-white bg-black">
-					<div class="border-b-4 border-white bg-white px-4 py-2">
-						<h3 class="text-xs font-bold uppercase text-black">SUBMITTER_INFO:</h3>
-					</div>
-
-					<div class="p-4">
-						<div class="mb-4 flex items-center gap-3">
-							{#if data.submitter.avatar_url}
-								<img
-									src={data.submitter.avatar_url}
-									alt={data.submitter.name}
-									class="h-16 w-16 border-2 border-white"
+		<!-- Submitter Information -->
+		<div class="space-y-6">
+			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+				<h2 class="mb-4 text-lg font-semibold text-gray-900">Submitter</h2>
+				<div class="flex items-start space-x-4">
+					{#if data.submitter.avatar_url}
+						<img
+							src={data.submitter.avatar_url}
+							alt={data.submitter.name}
+							class="h-12 w-12 rounded-full"
+						/>
+					{:else}
+						<div
+							class="flex h-12 w-12 items-center justify-center rounded-full bg-gray-300 text-gray-600"
+						>
+							<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+								<path
+									fill-rule="evenodd"
+									d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+									clip-rule="evenodd"
 								/>
-							{:else}
-								<div class="flex h-16 w-16 items-center justify-center border-2 border-white bg-white">
-									<User class="h-8 w-8 text-black" weight="bold" />
-								</div>
-							{/if}
-							<div class="flex-1">
-								<h4 class="font-bold uppercase text-sm">{data.submitter.name}</h4>
-								<p class="text-xs font-mono opacity-70">{data.submitter.email}</p>
-							</div>
+							</svg>
 						</div>
-
-						<div class="mb-4">
-							<span class="border-2 border-white px-2 py-1 text-xs font-bold uppercase">
-								ROLE: {data.submitter.role || 'user'}
-							</span>
+					{/if}
+					<div class="flex-1 space-y-2">
+						<div>
+							<h3 class="font-medium text-gray-900">{data.submitter.name}</h3>
+							<p class="text-sm text-gray-500">{data.submitter.email}</p>
 						</div>
-
-						{#if data.submitter.username || data.submitter.twitter}
-							<div class="space-y-2 border-t-2 border-white pt-4">
-								{#if data.submitter.username}
-									<a
-										href="https://github.com/{data.submitter.username}"
-										target="_blank"
-										rel="noopener noreferrer"
-										class="block border-2 border-white bg-white px-3 py-2 text-center text-xs font-bold uppercase text-black hover:bg-black hover:text-white transition-colors"
-									>
-										GITHUB: @{data.submitter.username}
-									</a>
-								{/if}
+						<div class="flex items-center space-x-4">
+							<Badge
+								color={roleColorMap.get(data.submitter.role || 'user')}
+								text={data.submitter.role || 'user'}
+							/>
+						</div>
+						{#if data.submitter.username}
+							<div class="flex items-center space-x-3 text-sm">
+								<a
+									href="https://github.com/{data.submitter.username}"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="flex items-center text-gray-600 hover:text-gray-800"
+								>
+									<svg class="mr-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+										<path
+											fill-rule="evenodd"
+											d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
+											clip-rule="evenodd"
+										/>
+									</svg>
+									@{data.submitter.username}
+								</a>
 								{#if data.submitter.twitter}
 									<a
 										href="https://twitter.com/{data.submitter.twitter}"
 										target="_blank"
 										rel="noopener noreferrer"
-										class="block border-2 border-white bg-white px-3 py-2 text-center text-xs font-bold uppercase text-black hover:bg-black hover:text-white transition-colors"
+										class="flex items-center text-gray-600 hover:text-gray-800"
 									>
-										TWITTER: @{data.submitter.twitter}
+										<svg class="mr-1 h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+											<path
+												d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+											/>
+										</svg>
+										@{data.submitter.twitter}
 									</a>
 								{/if}
 							</div>
 						{/if}
 					</div>
 				</div>
+			</div>
 
-				<!-- META DATA -->
-				<div class="border-4 border-white bg-black p-4">
-					<div class="space-y-3">
-						<div class="border-b-2 border-white pb-2">
-							<p class="text-xs font-bold uppercase opacity-50">TYPE:</p>
-							<p class="text-lg font-bold uppercase">{data.item.type}</p>
-						</div>
-						<div>
-							<p class="text-xs font-bold uppercase opacity-50">SUBMITTED:</p>
-							<p class="text-sm font-mono">{formatRelativeDate(data.item.submitted_at)}</p>
-						</div>
-					</div>
+			<!-- Debug Information -->
+			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+				<div class="flex items-center justify-between">
+					<h2 class="text-lg font-semibold text-gray-900">Raw Data</h2>
+					<Button size="sm" variant="secondary" onclick={() => (showRawJSON = !showRawJSON)}>
+						{showRawJSON ? 'Hide' : 'Show'} JSON
+					</Button>
 				</div>
+				{#if showRawJSON}
+					<pre
+						class="mt-4 max-h-64 overflow-auto rounded-lg bg-gray-50 p-4 text-xs text-gray-800">{formatJSON(
+							submissionData
+						)}</pre>
+				{/if}
 			</div>
 		</div>
 	</div>
+	{#if data.item.status !== 'pending'}
+		<div class="rounded-xl border border-gray-200 bg-gray-50 p-4 text-center">
+			<p class="text-sm text-gray-600">
+				This submission has already been <span class="font-medium capitalize"
+					>{data.item.status}</span
+				>.
+			</p>
+		</div>
+	{/if}
 </div>
