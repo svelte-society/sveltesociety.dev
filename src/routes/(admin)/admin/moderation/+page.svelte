@@ -83,7 +83,19 @@
 		{/snippet}
 		{#snippet actionCell(item: PreviewModerationQueueItem)}
 			<div class="flex space-x-2">
-				<Button size="sm" href="/admin/moderation/{item.id}" data-testid="moderation-inspect-button"><Eye weight="bold" />Inspect</Button>
+				<a
+					href="/admin/moderation/{item.id}"
+					class="group relative inline-flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition-all hover:bg-blue-100 hover:text-blue-900 hover:shadow-sm"
+					aria-label="Inspect submission"
+					data-testid="moderation-inspect-button"
+				>
+					<Eye class="h-5 w-5" weight="bold" />
+					<span
+						class="absolute bottom-full left-1/2 mb-1 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100"
+					>
+						Inspect
+					</span>
+				</a>
 			</div>
 		{/snippet}
 	</Table>
