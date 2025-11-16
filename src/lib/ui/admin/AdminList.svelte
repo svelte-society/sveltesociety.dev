@@ -13,8 +13,8 @@
 </script>
 
 <div class="container mx-auto px-2 py-4">
-	<div class="mb-4 grid grid-cols-[1fr_auto] content-start gap-2">
-		<h1 class="text-xl font-bold">{title}</h1>
+	<div class="mb-6 flex items-center justify-between">
+		<h1 class="text-2xl font-bold text-gray-900">{title}</h1>
 		{#if newHref}
 			<Button size="sm" href={newHref}><Plus weight="bold" />{newLabel}</Button>
 		{/if}

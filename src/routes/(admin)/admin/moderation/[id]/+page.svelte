@@ -3,9 +3,11 @@
 	import Badge from '$lib/ui/admin/Badge.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import TypeIcon from '$lib/ui/TypeIcon.svelte'
-	import ArrowLeft from 'phosphor-svelte/lib/ArrowLeft'
+	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
+	import Tags from '$lib/ui/Tags.svelte'
 	import XCircle from 'phosphor-svelte/lib/XCircle'
 	import CheckCircle from 'phosphor-svelte/lib/CheckCircle'
+	import ClipboardText from 'phosphor-svelte/lib/ClipboardText'
 	import { formatRelativeDate } from '$lib/utils/date'
 	let { data } = $props()
 
@@ -28,6 +30,15 @@
 	const submissionData = data.item.parsedData || JSON.parse(data.item.data)
 	let showRawJSON = $state(false)
 
+	// Transform tagNames to Tags component format
+	const tags = submissionData.tagNames
+		? submissionData.tagNames.map((name: string) => ({
+				id: name.toLowerCase(),
+				name: name,
+				slug: name.toLowerCase()
+			}))
+		: []
+
 	// Extract video ID for YouTube embeds
 	const videoId =
 		submissionData.type === 'video' && submissionData.url
@@ -45,58 +56,45 @@
 	}
 </script>
 
-<div class="container mx-auto px-2 py-4">
-	<div class="mb-6 flex items-start justify-between">
-		<div class="flex items-center space-x-3">
-			<TypeIcon type={data.item.type} size={32} />
-			<div>
-				<h1 class="text-2xl font-bold text-gray-900">
-					{submissionData.title}
-				</h1>
-				<p class="text-sm text-gray-500">ID: {data.item.id}</p>
-			</div>
-		</div>
-		<div class="flex items-center space-x-3">
+<div class="container mx-auto space-y-8 px-2 py-6">
+	<PageHeader
+		title={submissionData.title}
+		description="Review submission details and approve or reject"
+		icon={ClipboardText}
+	>
+		{#snippet actions()}
 			{#if data.item.status === 'pending'}
-				<form method="POST" action="?/reject" use:enhance class="inline">
-					<Button type="submit" size="sm" variant="error" data-testid="moderation-reject-button"><XCircle />Reject</Button>
-				</form>
-				<form method="POST" action="?/approve" use:enhance class="inline">
-					<Button type="submit" size="sm" variant="success" data-testid="moderation-approve-button"><CheckCircle />Approve</Button>
-				</form>
+				<div class="flex items-center gap-3">
+					<form method="POST" action="?/reject" use:enhance class="inline">
+						<button
+							type="submit"
+							class="flex items-center gap-2 rounded-lg border-2 border-white bg-white px-4 py-2 text-sm font-semibold text-red-600 shadow-lg transition-all hover:bg-red-50 hover:shadow-xl"
+							data-testid="moderation-reject-button"
+						>
+							<XCircle class="h-5 w-5" weight="bold" />
+							Reject
+						</button>
+					</form>
+					<form method="POST" action="?/approve" use:enhance class="inline">
+						<button
+							type="submit"
+							class="flex items-center gap-2 rounded-lg border-2 border-white bg-white px-4 py-2 text-sm font-semibold text-green-600 shadow-lg transition-all hover:bg-green-50 hover:shadow-xl"
+							data-testid="moderation-approve-button"
+						>
+							<CheckCircle class="h-5 w-5" weight="bold" />
+							Approve
+						</button>
+					</form>
+				</div>
 			{/if}
-			<Button size="sm" variant="secondary" href="/admin/moderation"
-				><ArrowLeft />Back to Queue</Button
-			>
-		</div>
-	</div>
-	<!-- Status and submission info -->
-	<div class="mb-6 grid gap-4 md:grid-cols-3">
-		<div class="rounded-lg bg-white p-4 shadow-sm">
-			<div class="flex items-center justify-between">
-				<span class="text-sm font-medium text-gray-500">Status</span>
-				<Badge color={colorMap.get(data.item.status)} text={data.item.status} data-testid="moderation-item-status" />
-			</div>
-		</div>
-		<div class="rounded-lg bg-white p-4 shadow-sm">
-			<div class="flex items-center justify-between">
-				<span class="text-sm font-medium text-gray-500">Type</span>
-				<span class="text-sm font-semibold text-gray-900 capitalize">{data.item.type}</span>
-			</div>
-		</div>
-		<div class="rounded-lg bg-white p-4 shadow-sm">
-			<div class="flex items-center justify-between">
-				<span class="text-sm font-medium text-gray-500">Submitted</span>
-				<span class="text-sm text-gray-900">{formatRelativeDate(data.item.submitted_at)}</span>
-			</div>
-		</div>
-	</div>
+		{/snippet}
+	</PageHeader>
 
-	<div class="mb-6 grid gap-6 lg:grid-cols-2">
+	<div class="grid gap-6 lg:grid-cols-2">
 		<!-- Main content -->
 		<div class="space-y-6">
 			<!-- Basic Information -->
-			<div class="rounded-lg bg-white p-6 shadow-sm">
+			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
 				<h2 class="mb-4 text-lg font-semibold text-gray-900">Content Details</h2>
 				<div class="space-y-4">
 					{#if submissionData.description}
@@ -106,17 +104,11 @@
 						</div>
 					{/if}
 
-					{#if submissionData.tagNames && submissionData.tagNames.length > 0}
+					{#if tags.length > 0}
 						<div>
 							<h3 class="text-sm font-medium text-gray-700">Tags</h3>
-							<div class="mt-2 flex flex-wrap gap-2">
-								{#each submissionData.tagNames as tagName}
-									<span
-										class="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800"
-									>
-										{tagName}
-									</span>
-								{/each}
+							<div class="mt-2">
+								<Tags {tags} />
 							</div>
 						</div>
 					{/if}
@@ -131,7 +123,7 @@
 			</div>
 
 			<!-- Type-specific content -->
-			<div class="rounded-lg bg-white p-6 shadow-sm">
+			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
 				<h2 class="mb-4 text-lg font-semibold text-gray-900">
 					{#if data.item.type === 'video'}
 						Video Details
@@ -210,7 +202,26 @@
 		</div>
 		<!-- Submitter Information -->
 		<div class="space-y-6">
-			<div class="rounded-lg bg-white p-6 shadow-sm">
+			<!-- Status and submission info -->
+			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+				<h2 class="mb-4 text-lg font-semibold text-gray-900">Submission Info</h2>
+				<div class="space-y-3">
+					<div class="flex items-center justify-between">
+						<span class="text-sm font-medium text-gray-500">Status</span>
+						<Badge color={colorMap.get(data.item.status)} text={data.item.status} data-testid="moderation-item-status" />
+					</div>
+					<div class="flex items-center justify-between border-t border-gray-100 pt-3">
+						<span class="text-sm font-medium text-gray-500">Type</span>
+						<span class="text-sm font-semibold capitalize text-gray-900">{data.item.type}</span>
+					</div>
+					<div class="flex items-center justify-between border-t border-gray-100 pt-3">
+						<span class="text-sm font-medium text-gray-500">Submitted</span>
+						<span class="text-sm text-gray-900">{formatRelativeDate(data.item.submitted_at)}</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
 				<h2 class="mb-4 text-lg font-semibold text-gray-900">Submitter</h2>
 				<div class="flex items-start space-x-4">
 					{#if data.submitter.avatar_url}
@@ -282,7 +293,7 @@
 			</div>
 
 			<!-- Debug Information -->
-			<div class="rounded-lg bg-white p-6 shadow-sm">
+			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
 				<div class="flex items-center justify-between">
 					<h2 class="text-lg font-semibold text-gray-900">Raw Data</h2>
 					<Button size="sm" variant="secondary" onclick={() => (showRawJSON = !showRawJSON)}>
@@ -299,7 +310,7 @@
 		</div>
 	</div>
 	{#if data.item.status !== 'pending'}
-		<div class="rounded-lg bg-gray-50 p-4 text-center">
+		<div class="rounded-xl border border-gray-200 bg-gray-50 p-4 text-center">
 			<p class="text-sm text-gray-600">
 				This submission has already been <span class="font-medium capitalize"
 					>{data.item.status}</span

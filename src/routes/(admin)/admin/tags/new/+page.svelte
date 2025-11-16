@@ -4,6 +4,7 @@
 	import AdminForm from '$lib/ui/admin/AdminForm.svelte'
 	import { ADMIN_ROUTES, generateSlug } from '$lib/admin'
 	import Button from '$lib/ui/Button.svelte'
+	import Tag from 'phosphor-svelte/lib/Tag'
 
 	let { data } = $props()
 	const form = superForm(data.form, {
@@ -21,6 +22,8 @@
 
 <AdminForm
 	title="Create New Tag"
+	description="Add a new category tag to organize your content"
+	icon={Tag}
 	{form}
 	cancelHref={ADMIN_ROUTES.tags.list}
 	submitLabel="Create Tag"
