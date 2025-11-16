@@ -5,6 +5,7 @@
 	import LeftSidebar from './_components/LeftSidebar.svelte'
 	import RightSidebar from './_components/RightSidebar.svelte'
 	import MobileMenu from './_components/MobileMenu.svelte'
+	import { getTags } from './data.remote'
 
 	let { data, children } = $props()
 
@@ -60,7 +61,7 @@
 			</div>
 		</div>
 
-		<RightSidebar upcomingEvents={data.upcomingEvents} />
+		<RightSidebar upcomingEvents={data.upcomingEvents} tags={await getTags()} />
 
 		{#if isAdmin}
 			<a

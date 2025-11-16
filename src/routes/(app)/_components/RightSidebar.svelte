@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { page } from '$app/state'
 	import Button from '$lib/ui/Button.svelte'
 	import Plus from 'phosphor-svelte/lib/Plus'
+	import Tags, { type TagType } from '$lib/ui/Tags.svelte'
 	import UpcomingEvents from './UpcomingEvents.svelte'
 
 	interface UpcomingEvent {
@@ -22,12 +24,25 @@
 		}
 	}
 
-	let { upcomingEvents = [] }: { upcomingEvents?: UpcomingEvent[] } = $props()
+	let { upcomingEvents = [], tags }: { upcomingEvents?: UpcomingEvent[]; tags?: TagType[] } =
+		$props()
+
+	// Check if we're on a route that should show tags (content listing pages)
+	const isContentRoute = $derived(
+		page.route.id === '/(app)/(public)/[...type]' || page.route.id === '/(app)/(public)'
+	)
 </script>
 
 <div
-	class="@container sticky top-[var(--header-height)] mr-4 hidden max-h-[calc(100vh_-_var(--header-height))] space-y-4 overflow-y-auto py-8 sm:block"
+	class="@container sticky top-[--header-height] mr-4 hidden max-h-[calc(100vh-var(--header-height))] space-y-4 overflow-y-auto py-8 sm:block"
 >
+	{#if tags}
+		<div class="rounded-lg border border-gray-200 bg-white p-4">
+			<h3 class="mb-3 text-sm font-medium text-gray-900">Filter by Tags</h3>
+			<Tags {tags} />
+		</div>
+	{/if}
+
 	<div class="mb-4 grid grid-cols-1 items-start gap-1 @xs:grid-cols-[1fr_auto]">
 		<h3 class="text-lg font-semibold">Interested in contributing?</h3>
 		<Button href="/submit" size="sm"><Plus />Submit Post</Button>
@@ -45,7 +60,10 @@
 		<h3 class="text-md font-bold">Become a sponsor</h3>
 		<p class="text-xs text-gray-600">
 			Support Svelte Society and get your company featured here.
-			<a href="mailto:sponsor@sveltesociety.dev" class="text-orange-600 underline hover:text-orange-700">
+			<a
+				href="mailto:sponsor@sveltesociety.dev"
+				class="text-orange-600 underline hover:text-orange-700"
+			>
 				Contact us
 			</a>
 		</p>
