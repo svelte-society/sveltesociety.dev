@@ -1,36 +1,36 @@
 <script lang="ts">
-	import type { Link } from './types'
+	import type { NavLink } from './+layout.svelte'
 
 	interface Props {
-		item: Link
+		item: NavLink
 		isActive: (href: string) => boolean
 		moderationCount?: number
 	}
 
 	let { item, isActive, moderationCount = 0 }: Props = $props()
+
+	const IconComponent = $derived(item.icon)
 </script>
 
 <li>
 	<a
 		href={item.href}
 		class={[
-			{ 'bg-slate-100 text-gray-800': isActive(item.href) },
-			'relative flex items-center rounded-lg p-2 text-gray-600 hover:bg-slate-100 hover:text-gray-800'
+			{
+				'bg-svelte-50 text-svelte-900 font-medium shadow-sm': isActive(item.href),
+				'text-gray-600 hover:bg-gray-50': !isActive(item.href)
+			},
+			'group relative flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all duration-200 hover:text-gray-900'
 		]}
 	>
-		<svg
-			class="h-6 w-6"
-			fill="none"
-			stroke="currentColor"
-			viewBox="0 0 24 24"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon}></path>
-		</svg>
-		<span class="ml-2">{item.label}</span>
+		<IconComponent
+			class="h-5 w-5 shrink-0 transition-transform group-hover:scale-110"
+			weight={isActive(item.href) ? 'fill' : 'regular'}
+		/>
+		<span class="text-sm">{item.label}</span>
 		{#if moderationCount && moderationCount > 0}
 			<span
-				class="absolute top-2.5 right-2.5 bottom-0 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-xs font-bold text-white"
+				class="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white shadow-sm"
 			>
 				{moderationCount > 99 ? '99+' : moderationCount}
 			</span>

@@ -12,17 +12,17 @@
 	let { action = false, header, row, actionCell, data, testId }: Props<any> = $props()
 </script>
 
-<div class="overflow-hidden rounded-lg bg-white shadow-sm" data-testid={testId}>
+<div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm" data-testid={testId}>
 	<div class="w-full overflow-x-auto">
-		<table class="w-full text-left text-xs text-gray-500">
-			<thead class="bg-gray-50 text-xs text-gray-700 uppercase">
+		<table class="w-full text-left text-sm">
+			<thead class="border-b border-gray-200 bg-gray-50/50">
 				<tr>
-					{@render header('px-3 py-2')}
+					{@render header('px-4 py-3.5 text-xs font-semibold text-gray-700 uppercase tracking-wider')}
 					{#if action && actionCell}
-						<th scope="col" class="px-3 py-2">
+						<th scope="col" class="px-4 py-3.5 text-center">
 							<span class="sr-only">Actions</span>
 							<svg
-								class="mx-auto h-4 w-4"
+								class="mx-auto h-4 w-4 text-gray-400"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
@@ -45,13 +45,13 @@
 					{/if}
 				</tr>
 			</thead>
-			<tbody class="divide-y divide-gray-200">
+			<tbody class="divide-y divide-gray-100 bg-white">
 				{#each data as item}
-					<tr class="hover:bg-gray-50" data-testid="{testId ? `${testId}-row` : 'table-row'}">
-						{@render row(item, 'px-3 py-2')}
+					<tr class="transition-colors hover:bg-gray-50/50" data-testid="{testId ? `${testId}-row` : 'table-row'}">
+						{@render row(item, 'px-4 py-4 text-gray-900')}
 						{#if action && actionCell}
-							<td class="p-2">
-								<div class="flex items-center justify-center space-x-1">
+							<td class="px-4 py-4">
+								<div class="flex items-center justify-center gap-1.5">
 									{@render actionCell(item)}
 								</div>
 							</td>

@@ -11,9 +11,11 @@
 	import MagnifyingGlass from 'phosphor-svelte/lib/MagnifyingGlass'
 	import StatusSelect from '$lib/ui/admin/StatusSelect.svelte'
 	import TypeSelect from '$lib/ui/admin/TypeSelect.svelte'
+	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/state'
 	import { getFilteredContent } from './data.remote'
+	import FileText from 'phosphor-svelte/lib/FileText'
 
 	// Filter state from URL
 	let searchQuery = $state(page.url.searchParams.get('search') || '')
@@ -91,11 +93,22 @@
 	}
 </script>
 
-<div class="container mx-auto px-2 py-4">
-	<div class="mb-4 grid grid-cols-[1fr_auto] content-start gap-2">
-		<h1 class="text-xl font-bold">Content Management</h1>
-		<Button size="sm" href="/admin/content/new"><Plus weight="bold" />New Content</Button>
-	</div>
+<div class="container mx-auto space-y-8 px-2 py-6">
+	<PageHeader
+		title="Content Management"
+		description="Create, edit, and manage all content items"
+		icon={FileText}
+	>
+		{#snippet actions()}
+			<a
+				href="/admin/content/new"
+				class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-svelte-500 shadow-lg transition-all hover:bg-white/90 hover:shadow-xl"
+			>
+				<Plus class="h-4 w-4" weight="bold" />
+				New Content
+			</a>
+		{/snippet}
+	</PageHeader>
 
 	<!-- Filters -->
 	<div class="mb-4 grid gap-3 sm:grid-cols-[1fr_auto_auto]">
@@ -108,7 +121,7 @@
 				value={searchQuery}
 				oninput={(e) => handleSearchInput(e.currentTarget.value)}
 				placeholder="Search content..."
-				class="block w-full rounded-lg border border-gray-300 bg-white py-2.5 pr-3 pl-10 text-gray-900 shadow-sm placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 sm:text-sm"
+				class="block w-full rounded-lg border border-gray-300 bg-white py-2.5 pr-3 pl-10 text-gray-900 shadow-sm placeholder:text-gray-500 focus:border-svelte-500 focus:ring-2 focus:ring-svelte-500 focus:ring-offset-0 sm:text-sm"
 			/>
 		</div>
 

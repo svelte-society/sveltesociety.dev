@@ -2,8 +2,11 @@
 	import { superForm } from 'sveltekit-superforms/client'
 	import Form from '$lib/ui/form/Form.svelte'
 	import Button from '$lib/ui/Button.svelte'
+	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import { invalidateAll } from '$app/navigation'
 	import type { PageData } from './$types'
+	import Megaphone from 'phosphor-svelte/lib/Megaphone'
+	import Plus from 'phosphor-svelte/lib/Plus'
 
 	let { data }: { data: PageData } = $props()
 
@@ -40,11 +43,22 @@
 	}
 </script>
 
-<div class="space-y-6">
-	<div class="flex items-center justify-between">
-		<h1 class="text-3xl font-bold text-gray-900">Announcement Placements</h1>
-		<Button href="/admin/announcements/new">Add Placement</Button>
-	</div>
+<div class="container mx-auto space-y-8 px-2 py-6">
+	<PageHeader
+		title="Announcement Placements"
+		description="Manage and schedule community announcements"
+		icon={Megaphone}
+	>
+		{#snippet actions()}
+			<a
+				href="/admin/announcements/new"
+				class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-svelte-500 shadow-lg transition-all hover:bg-white/90 hover:shadow-xl"
+			>
+				<Plus class="h-4 w-4" weight="bold" />
+				Add Placement
+			</a>
+		{/snippet}
+	</PageHeader>
 
 	{#if $toggleMessage || $deleteMessage}
 		{@const message = $toggleMessage || $deleteMessage}
