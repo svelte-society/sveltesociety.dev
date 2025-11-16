@@ -89,27 +89,8 @@
 			{/if}
 		{/snippet}
 	</PageHeader>
-	<!-- Status and submission info -->
-	<div class="mb-6">
-		<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-			<div class="flex flex-wrap items-center gap-x-6 gap-y-2">
-				<div class="flex items-center gap-2">
-					<span class="text-sm font-medium text-gray-500">Status:</span>
-					<Badge color={colorMap.get(data.item.status)} text={data.item.status} data-testid="moderation-item-status" />
-				</div>
-				<div class="flex items-center gap-2">
-					<span class="text-sm font-medium text-gray-500">Type:</span>
-					<span class="text-sm font-semibold capitalize text-gray-900">{data.item.type}</span>
-				</div>
-				<div class="flex items-center gap-2">
-					<span class="text-sm font-medium text-gray-500">Submitted:</span>
-					<span class="text-sm text-gray-900">{formatRelativeDate(data.item.submitted_at)}</span>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<div class="mb-6 grid gap-6 lg:grid-cols-2">
+	<div class="grid gap-6 lg:grid-cols-2">
 		<!-- Main content -->
 		<div class="space-y-6">
 			<!-- Basic Information -->
@@ -221,6 +202,25 @@
 		</div>
 		<!-- Submitter Information -->
 		<div class="space-y-6">
+			<!-- Status and submission info -->
+			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+				<h2 class="mb-4 text-lg font-semibold text-gray-900">Submission Info</h2>
+				<div class="space-y-3">
+					<div class="flex items-center justify-between">
+						<span class="text-sm font-medium text-gray-500">Status</span>
+						<Badge color={colorMap.get(data.item.status)} text={data.item.status} data-testid="moderation-item-status" />
+					</div>
+					<div class="flex items-center justify-between border-t border-gray-100 pt-3">
+						<span class="text-sm font-medium text-gray-500">Type</span>
+						<span class="text-sm font-semibold capitalize text-gray-900">{data.item.type}</span>
+					</div>
+					<div class="flex items-center justify-between border-t border-gray-100 pt-3">
+						<span class="text-sm font-medium text-gray-500">Submitted</span>
+						<span class="text-sm text-gray-900">{formatRelativeDate(data.item.submitted_at)}</span>
+					</div>
+				</div>
+			</div>
+
 			<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
 				<h2 class="mb-4 text-lg font-semibold text-gray-900">Submitter</h2>
 				<div class="flex items-start space-x-4">
