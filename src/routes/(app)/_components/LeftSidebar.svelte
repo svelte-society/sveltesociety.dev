@@ -20,7 +20,7 @@
 </script>
 
 <aside
-	class="sticky top-[var(--header-height)] ml-4 hidden max-h-[calc(100vh_-_var(--header-height))] overflow-y-auto py-8 sm:block"
+	class="sticky top-(--header-height) ml-4 hidden max-h-[calc(100vh-var(--header-height))] overflow-y-auto py-8 sm:block"
 >
 	<nav>
 		<ul class="text-sm font-bold">
