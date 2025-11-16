@@ -9,6 +9,7 @@
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import type { User } from '$lib/server/services/user'
 	import Users from 'phosphor-svelte/lib/Users'
+	import SignOut from 'phosphor-svelte/lib/SignOut'
 
 	// Extended User interface to include created_at and role_name
 	interface ExtendedUser extends User {
@@ -64,23 +65,10 @@
 				<input type="hidden" name="id" value={item.id} />
 				<button
 					type="submit"
-					class="group relative text-svelte-500 hover:text-svelte-900"
+					class="group relative inline-flex items-center justify-center rounded-lg bg-orange-50 p-2 text-orange-600 transition-all hover:bg-orange-100 hover:text-orange-900 hover:shadow-sm"
 					aria-label="Clear user sessions"
 				>
-					<svg
-						class="h-4 w-4"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-						></path>
-					</svg>
+					<SignOut class="h-5 w-5" weight="bold" />
 					<span
 						class="absolute bottom-full left-1/2 mb-1 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100"
 					>
