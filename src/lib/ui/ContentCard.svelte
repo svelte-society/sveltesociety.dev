@@ -118,6 +118,7 @@
 			</button>
 			<button
 				title={content.saved ? 'Unsave' : 'Save'}
+				data-sveltekit-keepfocus
 				disabled={!page.data.user || submitting}
 				aria-label="Save {content.title}"
 				name="type"
