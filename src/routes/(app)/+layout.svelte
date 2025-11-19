@@ -5,10 +5,11 @@
 	import LeftSidebar from './_components/LeftSidebar.svelte'
 	import RightSidebar from './_components/RightSidebar.svelte'
 	import MobileMenu from './_components/MobileMenu.svelte'
+	import { getTags, getUpcomingEvents, getHeaderAnnouncement, getUser } from './data.remote'
 
-	let { data, children } = $props()
+	let { children } = $props()
 
-	const isAdmin = data.isAdmin
+	let user = $derived(await getUser())
 
 	const fallbackMeta = {
 		title: 'Svelte Society',
@@ -19,7 +20,7 @@
 
 	const links = $derived([
 		{ name: 'Home', href: '/' },
-		{ name: 'Saved', href: '/saved', disabled: !data.user },
+		{ name: 'Saved', href: '/saved', disabled: !user },
 		{ name: 'CURATED', href: null },
 		{ name: 'Announcements', href: '/announcement' },
 		{ name: 'Collections', href: '/collection' },
@@ -42,17 +43,17 @@
 <Head seo_config={page.data.meta || fallbackMeta} />
 
 <div class="flex min-h-screen flex-col">
-	<Header user={data.user} announcement={data.announcement} />
+	<Header {user} announcement={await getHeaderAnnouncement()} />
 
 	<main
 		class="relative mx-auto grid w-full max-w-[1440px] flex-1 grid-cols-1 gap-2 sm:grid-cols-[1.5fr_5fr_2.5fr] md:gap-4 lg:gap-6"
-		style:--header-height={data.announcement ? '7.5rem' : '5rem'}
+		style:--header-height={(await getHeaderAnnouncement()) ? '7.5rem' : '5rem'}
 	>
 		<LeftSidebar {links} />
 
 		<div class="flex flex-col px-4 pt-8">
-			<div class="mb-6 flex-shrink-0 sm:hidden">
-				<MobileMenu {links} upcomingEvents={data.upcomingEvents} />
+			<div class="mb-6 shrink-0 sm:hidden">
+				<MobileMenu {links} upcomingEvents={await getUpcomingEvents()} />
 			</div>
 
 			<div class="flex-1 pb-8">
@@ -60,9 +61,9 @@
 			</div>
 		</div>
 
-		<RightSidebar upcomingEvents={data.upcomingEvents} />
+		<RightSidebar upcomingEvents={await getUpcomingEvents()} tags={await getTags()} />
 
-		{#if isAdmin}
+		{#if user?.role === 1}
 			<a
 				href="/admin"
 				class="bg-svelte-900 hover:bg-svelte-500 focus:ring-svelte-500 fixed bottom-4 left-4 z-50 rounded-full p-3 text-white shadow-lg transition-all duration-200 hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:outline-none"

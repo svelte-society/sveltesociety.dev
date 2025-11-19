@@ -1,17 +1,19 @@
-import type { LayoutServerLoad } from './$types'
+import { query } from '$app/server'
+import { getRequestEvent } from '$app/server'
 
-export const load: LayoutServerLoad = async ({ locals }) => {
-	// Get current user from locals if available
-	const user = locals.user
+export const getTags = query(async () => {
+	const { locals } = getRequestEvent()
+	const tags = locals.tagService.getAllTags()
+	return tags
+})
 
-	// Check if user is an admin (role === 1 based on schema.sql)
-	const isAdmin = user?.role === 1
-
+export const getUpcomingEvents = query(async () => {
+	const { locals } = getRequestEvent()
 	// Get upcoming events for sidebar from API
 	const upcomingEventsApi = await locals.eventsService.fetchUpcomingEventsFromAPI()
 
 	// Process and limit to 5 events
-	const upcomingEvents = upcomingEventsApi.slice(0, 5).map((event) => {
+	return upcomingEventsApi.slice(0, 5).map((event) => {
 		// Extract presentations
 		const presentations =
 			event.presentations?.edges?.map((edge) => {
@@ -52,23 +54,23 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 			}
 		}
 	})
+})
 
-	// Get active header announcements
+export const getHeaderAnnouncement = query(() => {
+	const { locals } = getRequestEvent()
 	const headerAnnouncements = locals.announcementService.getActivePlacementsByLocationKey('header')
-	const activeHeaderAnnouncement =
-		headerAnnouncements.length > 0
-			? {
-					href: headerAnnouncements[0].slug
-						? `/${headerAnnouncements[0].metadata?.type || 'announcement'}/${headerAnnouncements[0].slug}`
-						: '#',
-					text: headerAnnouncements[0].title
-				}
-			: null
+	return headerAnnouncements.length > 0
+		? {
+			href: headerAnnouncements[0].slug
+				? `/${headerAnnouncements[0].metadata?.type || 'announcement'}/${headerAnnouncements[0].slug}`
+				: '#',
+			text: headerAnnouncements[0].title
+		}
+		: null
+})
 
-	return {
-		user,
-		isAdmin,
-		upcomingEvents,
-		announcement: activeHeaderAnnouncement
-	}
-}
+export const getUser = query(() => {
+	const { locals } = getRequestEvent()
+
+	return locals.user
+})

@@ -60,4 +60,31 @@ test.describe('Public Content Browsing', () => {
 		expect(titles.length).toBe(count)
 		expect(titles.every((title) => title.length > 0)).toBe(true)
 	})
+
+	test('tags in sidebar redirect correctly from content listing pages', async ({ page }) => {
+		const contentList = new ContentListPage(page)
+		await contentList.goto('recipe')
+
+		// Wait for sidebar tags to load
+		const sidebarTags = page.locator('aside').locator('a')
+		await expect(sidebarTags.first()).toBeVisible()
+
+		const firstTagHref = await sidebarTags.first().getAttribute('href')
+		// When on content listing route, tags should preserve the current path
+		expect(firstTagHref).toMatch(/^\/recipe\?tags=/)
+	})
+
+	test('tags in sidebar appear on desktop', async ({ page }) => {
+		const contentList = new ContentListPage(page)
+		await contentList.goto('recipe')
+
+		// Check that tags are in the sidebar on desktop
+		const sidebar = page.locator('aside')
+		await expect(sidebar).toBeVisible()
+
+		// Tags should be visible in sidebar (hidden class is sm:block)
+		const sidebarTags = sidebar.locator('a')
+		const tagCount = await sidebarTags.count()
+		expect(tagCount).toBeGreaterThan(0)
+	})
 })
