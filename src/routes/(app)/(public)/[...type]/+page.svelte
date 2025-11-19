@@ -1,26 +1,71 @@
 <script lang="ts">
 	import ContentCard from '$lib/ui/ContentCard.svelte'
-	import Pagination from '$lib/ui/Pagination.svelte'
 	import Filters from './Filters.svelte'
 	import Schema from '$lib/ui/Schema.svelte'
+	import { getData } from './data.remote'
+	import { page } from '$app/state'
+	import Pagination from '$lib/ui/Pagination.svelte'
 
-	let { data } = $props()
+	const categories = [
+		{
+			label: 'All',
+			value: ''
+		},
+		{
+			label: 'Recipe',
+			value: 'recipe'
+		},
+		{
+			label: 'Video',
+			value: 'video'
+		},
+		{
+			label: 'Library',
+			value: 'library'
+		},
+		{
+			label: 'Announcement',
+			value: 'announcement'
+		},
+		{
+			label: 'Collection',
+			value: 'collection'
+		}
+	]
 
-	let contentList = $derived.by(() => {
-		const content = $state(data.content)
-		return content
-	})
+	const sort = [
+		{
+			label: 'Newest',
+			value: 'published_at'
+		},
+		{
+			label: 'Most Likes',
+			value: 'likes'
+		},
+		{
+			label: 'Most Saved',
+			value: 'saves'
+		},
+		{
+			label: 'Most GitHub Stars',
+			value: 'stars'
+		}
+	]
+
+	let { content, count, tags, meta, schemas } = $derived(
+		await getData({ url: page.url, type: page.params.type })
+	)
 </script>
 
-{#if data.schemas}
-	<Schema schema={data.schemas} />
+{#if schemas}
+	<Schema schema={schemas} />
 {/if}
 
-<Filters categories={data.categories} tags={data.tags} sort={data.sort} />
+<Filters {categories} {tags} {sort} />
 
 <div data-testid="content-list" class="grid gap-6">
-	{#if data.count > 0}
-		{#each contentList as content, index (content.id)}
+	{#if count > 0}
+		{#each content as content, index (content.id)}
 			<div>
 				<ContentCard {content} priority={index < 2 ? 'high' : 'auto'} />
 			</div>
@@ -31,7 +76,7 @@
 			<p class="text-gray-500">Try adjusting your filters or check back later.</p>
 		</div>
 	{/if}
-	{#if data.count > 0}
-		<Pagination count={data.count} perPage={15} />
+	{#if count > 0}
+		<Pagination {count} perPage={30} />
 	{/if}
 </div>
