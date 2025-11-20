@@ -47,6 +47,13 @@ export async function GET({ params, request }) {
 					break
 				}
 
+				const array = file_path.split('/')
+				array.pop()
+
+				const dir_path = array.join('/')
+
+				fs.mkdirSync(dir_path, { recursive: true })
+
 				fs.writeFileSync(file_path, Buffer.from(await response.arrayBuffer()))
 
 				stats = fs.statSync(file_path)
