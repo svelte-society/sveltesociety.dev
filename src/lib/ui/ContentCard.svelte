@@ -25,9 +25,9 @@
 		priority?: 'high' | 'auto'
 	} = $props()
 
-	// Create form instances for this specific content item
-	const likeForm = toggleLike.for(content.id)
-	const saveForm = toggleSave.for(content.id)
+	// Create form instances
+	const likeForm = toggleLike
+	const saveForm = toggleSave
 </script>
 
 <article
@@ -75,7 +75,7 @@
 					}
 				})}
 			>
-				<input {...likeForm.fields.id.as('hidden', content.id)} />
+				<input type="hidden" name="id" value={content.id} />
 				<button
 					title={content.liked ? 'Remove like' : 'Like'}
 					data-sveltekit-keepfocus
@@ -128,7 +128,7 @@
 					}
 				})}
 			>
-				<input {...saveForm.fields.id.as('hidden', content.id)} />
+				<input type="hidden" name="id" value={content.id} />
 				<button
 					title={content.saved ? 'Unsave' : 'Save'}
 					data-sveltekit-keepfocus
