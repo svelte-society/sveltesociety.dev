@@ -40,8 +40,8 @@ export class ContentDetailPage extends BasePage {
 		this.contentTypeLabel = page.getByTestId('content-type')
 		this.authorLink = page.getByTestId('author-link')
 		this.tagsContainer = page.getByTestId('content-tags')
-		this.likeButton = page.locator('button[name="type"][value="like"]')
-		this.saveButton = page.locator('button[name="type"][value="save"]')
+		this.likeButton = page.locator('form:has(input[name="id"]) button[type="submit"]').first()
+		this.saveButton = page.locator('form:has(input[name="id"]) button[type="submit"]').last()
 		this.publishedDate = page.getByTestId('published-date')
 		this.editLink = page.getByTestId('edit-link')
 	}
