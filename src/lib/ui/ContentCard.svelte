@@ -8,7 +8,6 @@
 	import Tags from './Tags.svelte'
 	import type { ContentWithAuthor } from '$lib/types/content'
 
-	import Recipe from '$lib/ui/content/Recipe.svelte'
 	import Collection from '$lib/ui/content/Collection.svelte'
 	import Video from '$lib/ui/content/Video.svelte'
 	import Library from '$lib/ui/content/Library.svelte'
@@ -26,8 +25,8 @@
 	} = $props()
 
 	// Create form instances
-	const likeForm = toggleLike
-	const saveForm = toggleSave
+	const likeForm = toggleLike.for(content.id)
+	const saveForm = toggleSave.for(content.id)
 </script>
 
 <article
