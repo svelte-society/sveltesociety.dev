@@ -17,7 +17,7 @@ export interface SatoriNode {
 	}
 }
 
-export interface BaseContentData {
+interface BaseContentData {
 	title: string
 	type: string
 	description?: string

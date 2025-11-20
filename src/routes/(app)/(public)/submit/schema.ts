@@ -6,7 +6,7 @@ const types = {
 	library: 'Library'
 } as const
 
-export type ContentType = keyof typeof types
+type ContentType = keyof typeof types
 
 export const options = Object.entries(types).map(([value, label]) => ({
 	value,
@@ -50,5 +50,3 @@ const recipeSchema = baseSchema.extend({
 })
 
 export const schema = z.discriminatedUnion('type', [videoSchema, librarySchema, recipeSchema])
-
-export type SubmissionData = z.infer<typeof schema>

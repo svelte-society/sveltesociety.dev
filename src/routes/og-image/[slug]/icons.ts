@@ -49,7 +49,7 @@ export const BUG_ICON = `data:image/svg+xml;base64,${Buffer.from(
  */
 
 // Video icon
-export const VIDEO_ICON = `data:image/svg+xml;base64,${Buffer.from(
+const VIDEO_ICON = `data:image/svg+xml;base64,${Buffer.from(
 	`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 		<path d="m22 8-6 4 6 4V8Z"></path>
 		<rect width="14" height="12" x="2" y="6" rx="2" ry="2"></rect>
@@ -57,7 +57,7 @@ export const VIDEO_ICON = `data:image/svg+xml;base64,${Buffer.from(
 ).toString('base64')}`
 
 // Library/Package icon
-export const LIBRARY_ICON = `data:image/svg+xml;base64,${Buffer.from(
+const LIBRARY_ICON = `data:image/svg+xml;base64,${Buffer.from(
 	`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 		<path d="M16.5 9.4 7.55 4.24"></path>
 		<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
@@ -67,7 +67,7 @@ export const LIBRARY_ICON = `data:image/svg+xml;base64,${Buffer.from(
 ).toString('base64')}`
 
 // Recipe/Document icon
-export const RECIPE_ICON = `data:image/svg+xml;base64,${Buffer.from(
+const RECIPE_ICON = `data:image/svg+xml;base64,${Buffer.from(
 	`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 		<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
 		<polyline points="14 2 14 8 20 8"></polyline>
@@ -78,7 +78,7 @@ export const RECIPE_ICON = `data:image/svg+xml;base64,${Buffer.from(
 ).toString('base64')}`
 
 // Announcement/Megaphone icon
-export const ANNOUNCEMENT_ICON = `data:image/svg+xml;base64,${Buffer.from(
+const ANNOUNCEMENT_ICON = `data:image/svg+xml;base64,${Buffer.from(
 	`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 		<path d="m3 11 18-5v12L3 14v-3z"></path>
 		<path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path>
@@ -86,7 +86,7 @@ export const ANNOUNCEMENT_ICON = `data:image/svg+xml;base64,${Buffer.from(
 ).toString('base64')}`
 
 // Collection/Book icon
-export const COLLECTION_ICON = `data:image/svg+xml;base64,${Buffer.from(
+const COLLECTION_ICON = `data:image/svg+xml;base64,${Buffer.from(
 	`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 		<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
 		<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
