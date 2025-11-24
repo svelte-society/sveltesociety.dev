@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { Readable } from 'node:stream'
+import { uploadThumbnail, getPublicUrl, isS3Enabled } from '$lib/server/services/s3-storage'
 
 const { STATE_DIRECTORY = '.state_directory' } = process.env
 
@@ -47,11 +48,34 @@ export async function GET({ params, request }) {
 					break
 				}
 
-				fs.writeFileSync(file_path, Buffer.from(await response.arrayBuffer()))
+				const thumbnailBuffer = Buffer.from(await response.arrayBuffer())
+
+				// Ensure directory exists before writing
+				const dir = path.dirname(file_path)
+				if (!fs.existsSync(dir)) {
+					fs.mkdirSync(dir, { recursive: true })
+				}
+
+				// Write to local filesystem for caching
+				fs.writeFileSync(file_path, thumbnailBuffer)
+
+				// Also upload to S3 if enabled
+				if (isS3Enabled) {
+					try {
+						const extension = response.headers.get('content-type')?.split('/').at(-1) || 'png'
+						const s3Key = `gh/${rest.join('/')}`
+						await uploadThumbnail(s3Key, thumbnailBuffer, {
+							contentType: response.headers.get('content-type') || 'image/png'
+						})
+						console.log('Refreshed and uploaded to S3: ' + og_image_url)
+					} catch (error) {
+						console.error('Failed to upload refreshed thumbnail to S3:', error)
+					}
+				} else {
+					console.log('Refreshed OG image: ' + og_image_url)
+				}
 
 				stats = fs.statSync(file_path)
-
-				console.log('Refreshed OG image: ' + og_image_url)
 			}
 
 			break

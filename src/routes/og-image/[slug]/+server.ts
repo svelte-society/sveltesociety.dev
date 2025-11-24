@@ -5,6 +5,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import type { RequestHandler } from './$types'
 import { read } from '$app/server'
+import { uploadThumbnail, getPublicUrl, isS3Enabled } from '$lib/server/services/s3-storage'
 
 import fontRegularFile from './Inter_24pt-Regular.ttf'
 import fontBoldFile from './Inter_24pt-Bold.ttf'
@@ -239,6 +240,20 @@ async function generateImage(slug: string, locals: App.Locals): Promise<Buffer> 
 		} catch (err) {
 			console.error(`Error writing OG image cache for ${slug}:`, err)
 			// Continue even if cache write fails - we can still return the image
+		}
+
+		// Also upload to S3 if enabled
+		if (isS3Enabled) {
+			try {
+				const s3Key = `og/${slug}.png`
+				await uploadThumbnail(s3Key, pngBuffer, {
+					contentType: 'image/png'
+				})
+				console.log(`Uploaded OG image to S3: ${s3Key}`)
+			} catch (err) {
+				console.error(`Error uploading OG image to S3 for ${slug}:`, err)
+				// Continue even if S3 upload fails - we have local cache
+			}
 		}
 
 		return pngBuffer

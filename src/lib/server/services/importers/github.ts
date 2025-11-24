@@ -3,6 +3,7 @@ import type { ExternalContentService, ExternalContentData } from '../external-co
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { uploadThumbnail, getPublicUrl, isS3Enabled } from '../s3-storage'
 
 const { STATE_DIRECTORY = '.state_directory' } = process.env
 
@@ -96,15 +97,27 @@ export class GitHubImporter {
 		const storagePath = packagePath
 			? `${repository.full_name}/${packagePath}`
 			: repository.full_name
-		const dir = path.join(STATE_DIRECTORY, 'files', 'gh', storagePath)
-		const extension = response.headers.get('content-type')?.split('/').at(-1)
-		const file_path = path.join(dir, 'thumbnail.' + extension)
+		const extension = response.headers.get('content-type')?.split('/').at(-1) || 'png'
+		const thumbnailBuffer = Buffer.from(await response.arrayBuffer())
 
-		fs.mkdirSync(dir, { recursive: true })
-		fs.writeFileSync(file_path, Buffer.from(await response.arrayBuffer()))
+		let thumbnailUrl: string
 
-		const thumbnail = path.join('/files', 'gh', storagePath, 'thumbnail.' + extension)
-		contentData.metadata.thumbnail = thumbnail
+		if (isS3Enabled) {
+			// Upload to S3 and get public URL
+			const key = `gh/${storagePath}/thumbnail.${extension}`
+			thumbnailUrl = await uploadThumbnail(key, thumbnailBuffer, {
+				contentType: response.headers.get('content-type') || 'image/png'
+			})
+		} else {
+			// Fallback to local filesystem storage
+			const dir = path.join(STATE_DIRECTORY, 'files', 'gh', storagePath)
+			const file_path = path.join(dir, 'thumbnail.' + extension)
+			fs.mkdirSync(dir, { recursive: true })
+			fs.writeFileSync(file_path, thumbnailBuffer)
+			thumbnailUrl = path.join('/files', 'gh', storagePath, 'thumbnail.' + extension)
+		}
+
+		contentData.metadata.thumbnail = thumbnailUrl
 
 		return this.externalContentService.upsertExternalContent(contentData)
 	}

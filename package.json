@@ -59,6 +59,8 @@
 		"db:backup": "bun run scripts/backup-db.ts",
 		"db:restore": "bun run scripts/restore-db.ts",
 		"db:restore:latest": "bun run scripts/restore-latest-from-s3.ts",
+		"s3:migrate": "bun run scripts/migrate-thumbnails-to-s3.ts",
+		"s3:migrate:dry-run": "bun run scripts/migrate-thumbnails-to-s3.ts --dry-run",
 		"db:test:init": "NODE_ENV=test bun run scripts/test-db-init.ts",
 		"db:test:seed": "NODE_ENV=test bun run scripts/test-db-seed.ts",
 		"test:integration": "rm -f test-*.db* && NODE_ENV=test bun run db:test:init && bun run db:test:seed && playwright test",
