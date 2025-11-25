@@ -79,38 +79,6 @@ function getCallerTestFileIdentifier(): string {
 	throw new Error('Unable to find .spec.ts file in stack trace. Please provide testFileName manually.')
 }
 
-/**
- * Sets up database isolation at the context level (recommended).
- * This ensures all pages in the context use the same isolated database.
- *
- * @param context - Playwright browser context
- * @param testFileName - Name of the test file (e.g., 'content-detail', 'browse-content')
- *
- * @example
- * test.use({
- *   storageState: async ({ browser }, use) => {
- *     const context = await browser.newContext()
- *     await setupDatabaseIsolationForContext(context, 'content-detail')
- *     // ... rest of test
- *   }
- * })
- */
-export async function setupDatabaseIsolationForContext(
-	context: BrowserContext,
-	testFileName: string
-): Promise<void> {
-	await context.addCookies([
-		{
-			name: 'test_db',
-			value: testFileName,
-			domain: 'localhost',
-			path: '/',
-			httpOnly: false,
-			secure: false,
-			sameSite: 'Lax'
-		}
-	])
-}
 
 /**
  * Extracts a test file identifier from the file path.

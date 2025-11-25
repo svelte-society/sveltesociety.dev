@@ -35,17 +35,6 @@ export async function loginAs(page: Page, role: 'admin' | 'viewer'): Promise<voi
 }
 
 /**
- * Logs out the current user by clearing the session cookie.
- *
- * @param page - Playwright page object
- * @example
- * await logout(page)
- */
-export async function logout(page: Page): Promise<void> {
-	await page.context().clearCookies()
-}
-
-/**
  * Checks if a user is currently logged in by looking for the session cookie.
  *
  * @param page - Playwright page object

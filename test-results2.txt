@@ -1,0 +1,500 @@
+$ rm -f test-*.db* && NODE_ENV=test bun run db:test:init && bun run db:test:seed && playwright test
+$ NODE_ENV=test bun run scripts/test-db-init.ts
+🧪 Initializing test database...
+  → Removing existing test.db
+  → Creating new test.db
+  → Running migrations...
+Running database migrations...
+Found 6 pending migration(s)
+Applying migration 1: initial schema
+✓ Migration 1 applied successfully
+Applying migration 2: add announcement placements
+✓ Migration 2 applied successfully
+Applying migration 3: cleanup thumbnail
+✓ Migration 3 applied successfully
+Applying migration 4: remove title unique constraint
+✓ Migration 4 applied successfully
+Applying migration 5: update published at
+✓ Migration 5 applied successfully
+Applying migration 6: update slugs
+✓ Migration 6 applied successfully
+All migrations completed successfully
+✅ Test database initialized successfully
+   Database: /Users/kevin/conductor/repo/sveltesociety.dev/managua/test.db
+$ NODE_ENV=test bun run scripts/test-db-seed.ts
+🌱 Seeding test database...
+  → Clearing existing test data...
+  → Creating test users...
+  → Creating OAuth entries...
+  → Creating user sessions...
+  → Creating tags...
+  → Creating sample content...
+  → Linking content to authors...
+  → Linking content to tags...
+  → Creating bookmarks...
+  → Creating moderation queue entries...
+
+✅ Test database seeded successfully!
+
+📊 Summary:
+   Users: 3 (admin, contributor, viewer)
+   Tags: 10
+   Content: 5 items
+   Sessions: 3 (one per user)
+   Moderation queue: 2 items
+
+🔑 Test User Credentials:
+   Admin         test_admin / admin@test.local
+   Contributor   test_contributor / contributor@test.local
+   Viewer        test_viewer / viewer@test.local
+
+🎫 Session Tokens (for auth fixtures):
+   Admin         test_session_admin_token
+   Contributor   test_session_contributor_token
+   Viewer        test_session_viewer_token
+[WebServer] [0m[2m[35m$[0m [2m[1mvite build[0m
+[WebServer] 
+[WebServer] [2m[237.43ms][22m [@tailwindcss/vite] Generate CSS (build)
+[WebServer] [2m[185.29ms][22m  [2m ↳ [22mSetup compiler
+[WebServer] [2m[  0.73ms][22m  [2m ↳ [22mSetup scanner
+[WebServer] [2m[ 21.06ms][22m  [2m ↳ [22mScan for candidates
+[WebServer] [2m[ 17.10ms][22m  [2m ↳ [22mBuild CSS
+[WebServer] [2m[  0.00ms][22m  [2m ↳ [22mBuild Source Map
+[WebServer] [2m[  5.18ms][22m [@tailwindcss/vite] Optimize CSS
+[WebServer] 
+[WebServer] 
+[WebServer] [2m[0.72ms][22m [@tailwindcss/vite] Generate CSS (build)
+[WebServer] [2m[0.58ms][22m  [2m ↳ [22mSetup compiler
+[WebServer] [2m[0.07ms][22m  [2m ↳ [22mSetup scanner
+[WebServer] 
+[WebServer] 
+[WebServer] [2m[0.71ms][22m [@tailwindcss/vite] Generate CSS (build)
+[WebServer] [2m[0.62ms][22m  [2m ↳ [22mSetup compiler
+[WebServer] [2m[0.05ms][22m  [2m ↳ [22mSetup scanner
+[WebServer] 
+[WebServer] 
+[WebServer] [2m[0.51ms][22m [@tailwindcss/vite] Generate CSS (build)
+[WebServer] [2m[0.39ms][22m  [2m ↳ [22mSetup compiler
+[WebServer] [2m[0.04ms][22m  [2m ↳ [22mSetup scanner
+[WebServer] 
+[WebServer] 
+[WebServer] [2m[0.47ms][22m [@tailwindcss/vite] Generate CSS (build)
+[WebServer] [2m[0.41ms][22m  [2m ↳ [22mSetup compiler
+[WebServer] [2m[0.03ms][22m  [2m ↳ [22mSetup scanner
+[WebServer] 
+[WebServer] 
+[WebServer] [2m[1.32ms][22m [@tailwindcss/vite] Generate CSS (build)
+[WebServer] [2m[1.23ms][22m  [2m ↳ [22mSetup compiler
+[WebServer] [2m[0.05ms][22m  [2m ↳ [22mSetup scanner
+[WebServer] 
+[WebServer] 
+[WebServer] [2m[0.61ms][22m [@tailwindcss/vite] Generate CSS (build)
+[WebServer] [2m[0.50ms][22m  [2m ↳ [22mSetup compiler
+[WebServer] [2m[0.06ms][22m  [2m ↳ [22mSetup scanner
+[WebServer] 
+[WebServer] 
+[WebServer] [2m[0.57ms][22m [@tailwindcss/vite] Generate CSS (build)
+[WebServer] [2m[0.44ms][22m  [2m ↳ [22mSetup compiler
+[WebServer] [2m[0.07ms][22m  [2m ↳ [22mSetup scanner
+[WebServer] 
+[WebServer] 
+[WebServer] [2m[0.45ms][22m [@tailwindcss/vite] Generate CSS (build)
+[WebServer] [2m[0.37ms][22m  [2m ↳ [22mSetup compiler
+[WebServer] [2m[0.04ms][22m  [2m ↳ [22mSetup scanner
+[WebServer] 
+[WebServer] 
+[WebServer] [2m[294.84ms][22m [@tailwindcss/vite] Generate CSS (build)
+[WebServer] [2m[260.26ms][22m  [2m ↳ [22mSetup compiler
+[WebServer] [2m[  0.07ms][22m  [2m ↳ [22mSetup scanner
+[WebServer] [2m[ 12.66ms][22m  [2m ↳ [22mScan for candidates
+[WebServer] [2m[  9.61ms][22m  [2m ↳ [22mBuild CSS
+[WebServer] [2m[  0.00ms][22m  [2m ↳ [22mBuild Source Map
+[WebServer] [2m[  4.54ms][22m [@tailwindcss/vite] Optimize CSS
+[WebServer] 
+[WebServer] 
+[WebServer] [2m[1.35ms][22m [@tailwindcss/vite] Generate CSS (build)
+[WebServer] [2m[1.13ms][22m  [2m ↳ [22mSetup compiler
+[WebServer] [2m[0.08ms][22m  [2m ↳ [22mSetup scanner
+[WebServer] 
+[WebServer] 
+[WebServer] [2m[0.55ms][22m [@tailwindcss/vite] Generate CSS (build)
+[WebServer] [2m[0.43ms][22m  [2m ↳ [22mSetup compiler
+[WebServer] [2m[0.06ms][22m  [2m ↳ [22mSetup scanner
+[WebServer] 
+[WebServer] 
+[WebServer] [2m[0.45ms][22m [@tailwindcss/vite] Generate CSS (build)
+[WebServer] [2m[0.36ms][22m  [2m ↳ [22mSetup compiler
+[WebServer] [2m[0.05ms][22m  [2m ↳ [22mSetup scanner
+[WebServer] 
+[WebServer] 
+[WebServer] [2m[0.62ms][22m [@tailwindcss/vite] Generate CSS (build)
+[WebServer] [2m[0.48ms][22m  [2m ↳ [22mSetup compiler
+[WebServer] [2m[0.08ms][22m  [2m ↳ [22mSetup scanner
+[WebServer] 
+[WebServer] [33m[UNRESOLVED_IMPORT] Warning:[0m Could not resolve 'bun:sqlite' in .svelte-kit/adapter-bun/chunks/hooks.server.js
+[WebServer]    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m .svelte-kit/adapter-bun/chunks/hooks.server.js:3:26 [38;5;246m][0m
+[WebServer]    [38;5;246m│[0m
+[WebServer]  [38;5;246m3 │[0m [38;5;249mi[0m[38;5;249mm[0m[38;5;249mp[0m[38;5;249mo[0m[38;5;249mr[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249m{[0m[38;5;249m [0m[38;5;249mD[0m[38;5;249ma[0m[38;5;249mt[0m[38;5;249ma[0m[38;5;249mb[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249m [0m[38;5;249m}[0m[38;5;249m [0m[38;5;249mf[0m[38;5;249mr[0m[38;5;249mo[0m[38;5;249mm[0m[38;5;249m [0m"bun:sqlite"[38;5;249m;[0m
+[WebServer]  [38;5;240m  │[0m                          ──────┬─────  
+[WebServer]  [38;5;240m  │[0m                                ╰─────── Module not found, treating it as an external dependency
+[WebServer] [38;5;246m───╯[0m
+[WebServer] 
+[WebServer] [0m[2m[35m$[0m [2m[1mvite preview[0m
+🚀 Global test setup starting...
+
+📋 Found 19 test file(s)
+🗂️  Pre-creating isolated test databases...
+
+  ✓ Created test-seo-structured-data.db
+  ✓ Created test-seo-seo-endpoints.db
+  ✓ Created test-public-search.db
+  ✓ Created test-public-content-interactions.db
+  ✓ Created test-public-content-detail.db
+  ✓ Created test-public-browse-content.db
+  ✓ Created test-og-images-test-og-image-generation.db
+  ✓ Created test-content-submit-video.db
+  ✓ Created test-content-submit-recipe.db
+  ✓ Created test-content-submit-library.db
+  ✓ Created test-auth-viewer.db
+  ✓ Created test-auth-simple-auth.db
+  ✓ Created test-auth-protected-routes.db
+  ✓ Created test-auth-login-flow.db
+  ✓ Created test-auth-admin-login.db
+  ✓ Created test-admin-z-content-management.db
+  ✓ Created test-admin-user-management.db
+  ✓ Created test-admin-moderation.db
+  ✓ Created test-admin-bulk-import.db
+
+✅ Pre-created 19 isolated test database(s)
+   Each test file will use its own database copy for perfect isolation
+
+
+Running 132 tests using 4 workers
+
+  ✓    2 [chromium] › tests/e2e/admin/bulk-import.spec.ts:19:2 › Bulk Import › accepts standard GitHub repository format (354ms)
+[WebServer] [0m[31mFailed to fetch repository sveltejs/kit: Unauthorized[0m
+[WebServer] [0m[31mFailed to fetch repository sveltejs/kit: Unauthorized[0m
+  ✓    4 [chromium] › tests/e2e/admin/bulk-import.spec.ts:56:2 › Bulk Import › API accepts monorepo package path in URL format (487ms)
+  ✓    3 [chromium] › tests/e2e/admin/bulk-import.spec.ts:30:2 › Bulk Import › API accepts monorepo package path in short format (497ms)
+  ✓    5 [chromium] › tests/e2e/admin/bulk-import.spec.ts:81:2 › Bulk Import › creates unique entries for different packages from same repo (163ms)
+  ✓    8 [chromium] › tests/e2e/admin/bulk-import.spec.ts:202:2 › Bulk Import › requires authentication for bulk import (104ms)
+  -    6 [chromium] › tests/e2e/admin/bulk-import.spec.ts:120:2 › Bulk Import › handles skipExisting for monorepo packages
+[WebServer] [0m[31mFailed to fetch repository sveltejs/svelte: Unauthorized[0m
+  ✓    7 [chromium] › tests/e2e/admin/bulk-import.spec.ts:169:2 › Bulk Import › can import both regular repo and monorepo packages in same request (305ms)
+  ✓    9 [chromium] › tests/e2e/admin/moderation.spec.ts:12:2 › Admin - Content Moderation › pending content appears in moderation queue (186ms)
+  ✓   10 [chromium] › tests/e2e/admin/moderation.spec.ts:20:2 › Admin - Content Moderation › admin can inspect pending content (349ms)
+  ✓   13 [chromium] › tests/e2e/admin/moderation.spec.ts:68:2 › Admin - Content Moderation › moderation queue displays item titles from database (180ms)
+  ✓   14 [chromium] › tests/e2e/admin/user-management.spec.ts:12:2 › Admin - User Management › can view users list (205ms)
+  ✓   11 [chromium] › tests/e2e/admin/moderation.spec.ts:32:2 › Admin - Content Moderation › admin can approve pending content (673ms)
+  ✓   12 [chromium] › tests/e2e/admin/moderation.spec.ts:50:2 › Admin - Content Moderation › admin can reject pending content (674ms)
+  ✓   15 [chromium] › tests/e2e/admin/user-management.spec.ts:24:2 › Admin - User Management › user table displays role information (217ms)
+  ✓   16 [chromium] › tests/e2e/admin/user-management.spec.ts:36:2 › Admin - User Management › can navigate to edit user page (361ms)
+  ✓   17 [chromium] › tests/e2e/admin/user-management.spec.ts:46:2 › Admin - User Management › can access user edit form (356ms)
+  ✓   19 [chromium] › tests/e2e/auth/admin-login.spec.ts:12:2 › Admin Authentication › can access admin dashboard (204ms)
+  ✓   20 [chromium] › tests/e2e/auth/admin-login.spec.ts:18:2 › Admin Authentication › can access content management (214ms)
+  ✓   21 [chromium] › tests/e2e/auth/admin-login.spec.ts:24:2 › Admin Authentication › can access user management (175ms)
+  ✓   22 [chromium] › tests/e2e/auth/login-flow.spec.ts:11:2 › Login Flow › unauthenticated user sees login link (268ms)
+  ✓   18 [chromium] › tests/e2e/admin/z-content-management.spec.ts:15:2 › Admin Content Management › admin can edit published content title (821ms)
+  ✓   24 [chromium] › tests/e2e/auth/login-flow.spec.ts:27:2 › Login Flow › login page shows GitHub OAuth button (164ms)
+  ✓   23 [chromium] › tests/e2e/auth/login-flow.spec.ts:20:2 › Login Flow › clicking login navigates to login page (351ms)
+  ✓   26 [chromium] › tests/e2e/auth/login-flow.spec.ts:33:2 › Login Flow › can authenticate as admin (284ms)
+  ✓   27 [chromium] › tests/e2e/auth/login-flow.spec.ts:44:2 › Login Flow › can authenticate as viewer (275ms)
+  ✓   28 [chromium] › tests/e2e/auth/login-flow.spec.ts:55:2 › Login Flow › authenticated user sees user menu (191ms)
+  ✓   29 [chromium] › tests/e2e/auth/protected-routes.spec.ts:11:2 › Protected Routes - Role-Based Access Control › unauthenticated user is redirected from /admin (222ms)
+  ✓   25 [chromium] › tests/e2e/admin/z-content-management.spec.ts:42:2 › Admin Content Management › admin can edit content description (688ms)
+  ✓   30 [chromium] › tests/e2e/auth/protected-routes.spec.ts:18:2 › Protected Routes - Role-Based Access Control › unauthenticated user is redirected from /admin/users (194ms)
+  ✓   31 [chromium] › tests/e2e/auth/protected-routes.spec.ts:24:2 › Protected Routes - Role-Based Access Control › member role (viewer) cannot access /admin dashboard (194ms)
+  ✓   33 [chromium] › tests/e2e/auth/protected-routes.spec.ts:33:2 › Protected Routes - Role-Based Access Control › member role (viewer) cannot access /admin/users (266ms)
+  ✓   34 [chromium] › tests/e2e/auth/protected-routes.spec.ts:40:2 › Protected Routes - Role-Based Access Control › moderator role can access /admin dashboard (249ms)
+  ✓   35 [chromium] › tests/e2e/auth/protected-routes.spec.ts:51:2 › Protected Routes - Role-Based Access Control › admin role can access /admin/users (admin-only route) (176ms)
+  ✓   36 [chromium] › tests/e2e/auth/protected-routes.spec.ts:60:2 › Protected Routes - Role-Based Access Control › admin role can access /admin/content (187ms)
+  ✓   37 [chromium] › tests/e2e/auth/simple-auth.spec.ts:10:2 › Simple Auth Check › unauthenticated user sees login link (222ms)
+  ✓   32 [chromium] › tests/e2e/admin/z-content-management.spec.ts:62:2 › Admin Content Management › admin can archive published content (745ms)
+  ✓   38 [chromium] › tests/e2e/auth/simple-auth.spec.ts:16:2 › Simple Auth Check › admin route redirects unauthenticated user (186ms)
+  ✓   39 [chromium] › tests/e2e/auth/viewer.spec.ts:12:2 › Viewer Authentication › can view homepage when logged in (225ms)
+  ✓   41 [chromium] › tests/e2e/auth/viewer.spec.ts:18:2 › Viewer Authentication › cannot access admin routes (212ms)
+  ✓   42 [chromium] › tests/e2e/auth/viewer.spec.ts:24:2 › Viewer Authentication › can access submit page when logged in (214ms)
+  ✓   44 [chromium] › tests/e2e/content/submit-library.spec.ts:26:2 › Submit Library › validates required github_repo field (317ms)
+  ✓   43 [chromium] › tests/e2e/content/submit-library.spec.ts:12:2 › Submit Library › can submit a valid library (541ms)
+  ✓   40 [chromium] › tests/e2e/admin/z-content-management.spec.ts:82:2 › Admin Content Management › admin can unarchive content (834ms)
+  ✓   45 [chromium] › tests/e2e/content/submit-library.spec.ts:37:2 › Submit Library › validates required description field (345ms)
+  ✓   46 [chromium] › tests/e2e/content/submit-library.spec.ts:49:2 › Submit Library › can submit a monorepo package with path (511ms)
+  ✘    1 [chromium] › tests/e2e/admin/bulk-import.spec.ts:11:2 › Bulk Import › displays monorepo support information (5.5s)
+  ✓   48 [chromium] › tests/e2e/content/submit-library.spec.ts:63:2 › Submit Library › can submit a monorepo package with full GitHub URL (521ms)
+  ✓   47 [chromium] › tests/e2e/admin/z-content-management.spec.ts:109:2 › Admin Content Management › admin can publish draft content (830ms)
+  ✓   49 [chromium] › tests/e2e/content/submit-recipe.spec.ts:12:2 › Submit Recipe › can submit a valid recipe (446ms)
+  ✓   50 [chromium] › tests/e2e/content/submit-recipe.spec.ts:40:2 › Submit Recipe › validates required description field (368ms)
+  ✓   52 [chromium] › tests/e2e/content/submit-recipe.spec.ts:54:2 › Submit Recipe › validates required body field (356ms)
+  ✓   53 [chromium] › tests/e2e/content/submit-recipe.spec.ts:27:2 › Submit Recipe › validates required title field (377ms)
+  ✓   55 [chromium] › tests/e2e/content/submit-video.spec.ts:26:2 › Submit Video › validates required url field (335ms)
+  ✓   54 [chromium] › tests/e2e/content/submit-video.spec.ts:12:2 › Submit Video › can submit a valid video (498ms)
+  ✓   51 [chromium] › tests/e2e/admin/z-content-management.spec.ts:137:2 › Admin Content Management › admin can delete content from list page (851ms)
+  ✓   59 [chromium] › tests/e2e/og-images/test-og-image-generation.spec.ts:141:2 › OG Image Generation › handles non-existent content with fallback image (156ms)
+  ✓   58 [chromium] › tests/e2e/og-images/test-og-image-generation.spec.ts:84:2 › OG Image Generation › generates library OG image with GitHub stats (194ms)
+  ✘   57 [chromium] › tests/e2e/og-images/test-og-image-generation.spec.ts:28:2 › OG Image Generation › generates OG image with correct dimensions and content type (213ms)
+  ✓   56 [chromium] › tests/e2e/content/submit-video.spec.ts:37:2 › Submit Video › validates required description field (359ms)
+  ✓   60 [chromium] › tests/e2e/og-images/test-og-image-generation.spec.ts:154:2 › OG Image Generation › generates collection OG image with child item previews (110ms)
+  ✓   61 [chromium] › tests/e2e/og-images/test-og-image-generation.spec.ts:102:2 › OG Image Generation › generates announcement OG image with description (102ms)
+  ✓   63 [chromium] › tests/e2e/og-images/test-og-image-generation.spec.ts:176:2 › OG Image Generation › collection images differ from their child content images (94ms)
+  ✓   64 [chromium] › tests/e2e/og-images/test-og-image-generation.spec.ts:120:2 › OG Image Generation › caches generated images for faster subsequent requests (99ms)
+  ✓   62 [chromium] › tests/e2e/public/browse-content.spec.ts:10:2 › Public Content Browsing › can view recipes list (255ms)
+  ✓   65 [chromium] › tests/e2e/public/browse-content.spec.ts:20:2 › Public Content Browsing › can view videos list (218ms)
+  ✓   66 [chromium] › tests/e2e/public/browse-content.spec.ts:28:2 › Public Content Browsing › can view libraries list (222ms)
+  ✓   67 [chromium] › tests/e2e/public/browse-content.spec.ts:36:2 › Public Content Browsing › can view announcements list (218ms)
+  ✓   68 [chromium] › tests/e2e/public/browse-content.spec.ts:44:2 › Public Content Browsing › can view collections list (224ms)
+  ✓   69 [chromium] › tests/e2e/public/browse-content.spec.ts:52:2 › Public Content Browsing › content cards display correctly (213ms)
+  ✓   70 [chromium] › tests/e2e/og-images/test-og-image-generation.spec.ts:50:2 › OG Image Generation › generates recipe OG image with description (147ms)
+  ✓   72 [chromium] › tests/e2e/public/browse-content.spec.ts:77:2 › Public Content Browsing › tags in sidebar appear on desktop (194ms)
+  ✘   71 [chromium] › tests/e2e/public/browse-content.spec.ts:64:2 › Public Content Browsing › tags in sidebar redirect correctly from content listing pages (262ms)
+  ✓   74 [chromium] › tests/e2e/og-images/test-og-image-generation.spec.ts:68:2 › OG Image Generation › generates video OG image with thumbnail (133ms)
+  ✓   73 [chromium] › tests/e2e/public/content-detail.spec.ts:11:2 › Content Detail Pages › can view recipe detail page (226ms)
+  ✓   75 [chromium] › tests/e2e/public/content-detail.spec.ts:22:2 › Content Detail Pages › can view video detail page (227ms)
+  ✓   76 [chromium] › tests/e2e/public/content-detail.spec.ts:55:2 › Content Detail Pages › can view collection detail page (198ms)
+  ✓   77 [chromium] › tests/e2e/public/content-detail.spec.ts:44:2 › Content Detail Pages › can view announcement detail page (225ms)
+  ✓   79 [chromium] › tests/e2e/public/content-detail.spec.ts:93:2 › Content Detail Pages › author link navigates to user profile (196ms)
+  ✓   78 [chromium] › tests/e2e/public/content-detail.spec.ts:66:2 › Content Detail Pages › displays content metadata correctly (212ms)
+  ✓   80 [chromium] › tests/e2e/public/content-detail.spec.ts:102:2 › Content Detail Pages › tag links are functional (192ms)
+  ✓   82 [chromium] › tests/e2e/public/content-detail.spec.ts:117:2 › Content Detail Pages › library displays NPM package link when available (231ms)
+  ✓   83 [chromium] › tests/e2e/public/content-interactions.spec.ts:12:3 › Content Interactions (Like/Save) › Unauthenticated Users › like and save buttons are disabled when not logged in (256ms)
+  ✓   84 [chromium] › tests/e2e/public/content-interactions.spec.ts:25:3 › Content Interactions (Like/Save) › Unauthenticated Users › like and save buttons have correct initial counts (238ms)
+  ✓   81 [chromium] › tests/e2e/public/content-detail.spec.ts:33:2 › Content Detail Pages › can view library detail page (268ms)
+  ✓   87 [chromium] › tests/e2e/public/content-interactions.spec.ts:97:3 › Content Interactions (Like/Save) › Authenticated Users - Like Functionality › like button has data-sveltekit-keepfocus attribute (200ms)
+  ✘   85 [chromium] › tests/e2e/public/content-interactions.spec.ts:41:3 › Content Interactions (Like/Save) › Authenticated Users - Like Functionality › can like content (753ms)
+  ✘   86 [chromium] › tests/e2e/public/content-interactions.spec.ts:69:3 › Content Interactions (Like/Save) › Authenticated Users - Like Functionality › can unlike content (745ms)
+  ✓   88 [chromium] › tests/e2e/public/content-interactions.spec.ts:110:3 › Content Interactions (Like/Save) › Authenticated Users - Save Functionality › can save content (786ms)
+  ✓   91 [chromium] › tests/e2e/public/content-interactions.spec.ts:166:3 › Content Interactions (Like/Save) › Authenticated Users - Save Functionality › save button has data-sveltekit-keepfocus attribute (260ms)
+  ✓   89 [chromium] › tests/e2e/public/content-interactions.spec.ts:138:3 › Content Interactions (Like/Save) › Authenticated Users - Save Functionality › can unsave content (1.3s)
+  ✓   93 [chromium] › tests/e2e/public/search.spec.ts:10:2 › Search Functionality › can search for content by title (274ms)
+  ✓   94 [chromium] › tests/e2e/public/search.spec.ts:23:2 › Search Functionality › can search for content by description (307ms)
+  ✓   95 [chromium] › tests/e2e/public/search.spec.ts:36:2 › Search Functionality › search returns no results for non-existent content (288ms)
+  ✓   96 [chromium] › tests/e2e/public/search.spec.ts:47:2 › Search Functionality › can search from content list page (243ms)
+  ✓   90 [chromium] › tests/e2e/public/content-interactions.spec.ts:196:3 › Content Interactions (Like/Save) › Cross-Content Type Interactions › can interact with announcement content (1.3s)
+  ✓   97 [chromium] › tests/e2e/public/search.spec.ts:60:2 › Search Functionality › search preserves content type filter (212ms)
+  ✓   99 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:10:3 › SEO Endpoints › robots.txt › returns 200 status code (90ms)
+  ✓  100 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:21:3 › SEO Endpoints › robots.txt › has cache-control header (75ms)
+  ✓  101 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:15:3 › SEO Endpoints › robots.txt › has correct content-type header (85ms)
+  ✓  102 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:28:3 › SEO Endpoints › robots.txt › contains user-agent directive (80ms)
+  ✓  103 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:34:3 › SEO Endpoints › robots.txt › contains allow directive (79ms)
+  ✓  104 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:40:3 › SEO Endpoints › robots.txt › disallows admin routes (79ms)
+  ✓  105 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:46:3 › SEO Endpoints › robots.txt › disallows api routes (78ms)
+  ✓   92 [chromium] › tests/e2e/public/content-interactions.spec.ts:179:3 › Content Interactions (Like/Save) › Cross-Content Type Interactions › can interact with library content (1.3s)
+  ✓  106 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:52:3 › SEO Endpoints › robots.txt › disallows saved route (78ms)
+  ✓  107 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:58:3 › SEO Endpoints › robots.txt › disallows login route (79ms)
+  ✓  108 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:64:3 › SEO Endpoints › robots.txt › disallows auth routes (85ms)
+  ✓  109 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:70:3 › SEO Endpoints › robots.txt › includes sitemap reference (79ms)
+  ✓  110 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:77:3 › SEO Endpoints › robots.txt › has valid format (95ms)
+  ✓  111 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:90:3 › SEO Endpoints › sitemap.xml › returns 200 status code (76ms)
+  ✓  112 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:95:3 › SEO Endpoints › sitemap.xml › has correct content-type header (78ms)
+  ✓  113 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:101:3 › SEO Endpoints › sitemap.xml › has cache-control header (79ms)
+  ✓  114 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:108:3 › SEO Endpoints › sitemap.xml › contains valid XML (78ms)
+  ✓  115 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:116:3 › SEO Endpoints › sitemap.xml › includes homepage URL (78ms)
+  ✓  116 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:123:3 › SEO Endpoints › sitemap.xml › includes category pages (80ms)
+  ✓  117 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:133:3 › SEO Endpoints › sitemap.xml › includes static pages (80ms)
+  ✓  118 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:141:3 › SEO Endpoints › sitemap.xml › includes lastmod dates (80ms)
+  ✓  119 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:149:3 › SEO Endpoints › sitemap.xml › includes priority values (78ms)
+  ✓  120 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:156:3 › SEO Endpoints › sitemap.xml › includes changefreq values (79ms)
+  ✓  121 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:163:3 › SEO Endpoints › sitemap.xml › includes published content URLs (79ms)
+  ✓  122 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:173:3 › SEO Endpoints › sitemap.xml › sitemap is cached on subsequent requests (80ms)
+  ✓  123 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:188:3 › SEO Endpoints › SEO Endpoint Resilience › robots.txt works without database (79ms)
+  ✓  124 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:194:3 › SEO Endpoints › SEO Endpoint Resilience › robots.txt returns consistent content (78ms)
+  ✓  125 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:205:3 › SEO Endpoints › SEO Endpoint Resilience › robots.txt has no trailing whitespace issues (78ms)
+  ✓  126 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:215:3 › SEO Endpoints › SEO Endpoint Performance › robots.txt responds quickly (78ms)
+  ✓  127 [chromium] › tests/e2e/seo/seo-endpoints.spec.ts:224:3 › SEO Endpoints › SEO Endpoint Performance › robots.txt can handle concurrent requests (80ms)
+  ✓  128 [chromium] › tests/e2e/seo/structured-data.spec.ts:9:2 › Structured Data (Schema.org) › homepage has Organization and WebSite schemas (222ms)
+  ✓  129 [chromium] › tests/e2e/seo/structured-data.spec.ts:47:2 › Structured Data (Schema.org) › video detail page has VideoObject and Breadcrumb schemas (754ms)
+  ✓  130 [chromium] › tests/e2e/seo/structured-data.spec.ts:93:2 › Structured Data (Schema.org) › recipe detail page has TechArticle and Breadcrumb schemas (729ms)
+  ✓  131 [chromium] › tests/e2e/seo/structured-data.spec.ts:135:2 › Structured Data (Schema.org) › library detail page has SoftwareSourceCode and Breadcrumb schemas (735ms)
+  ✓  132 [chromium] › tests/test.spec.ts:4:1 › index page loads (212ms)
+  ✓   98 [chromium] › tests/e2e/public/search.spec.ts:73:2 › Search Functionality › can clear search and see all results (4.3s)
+
+🧹 Cleaning up isolated test databases...
+  ✓ Removed 53 isolated test database file(s)
+✅ Teardown complete
+
+
+
+  1) [chromium] › tests/e2e/admin/bulk-import.spec.ts:11:2 › Bulk Import › displays monorepo support information 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Monorepo Support')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('Monorepo Support')[22m
+
+
+      13 |
+      14 | 		// Check for monorepo support section
+    > 15 | 		await expect(page.getByText('Monorepo Support')).toBeVisible()
+         | 		                                                 ^
+      16 | 		await expect(page.getByText('owner/repo/packages/kit')).toBeVisible()
+      17 | 	})
+      18 |
+        at /Users/kevin/conductor/repo/sveltesociety.dev/managua/tests/e2e/admin/bulk-import.spec.ts:15:52
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/e2e-admin-bulk-import-Bulk-ed65e-onorepo-support-information-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/e2e-admin-bulk-import-Bulk-ed65e-onorepo-support-information-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/e2e-admin-bulk-import-Bulk-ed65e-onorepo-support-information-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/e2e-admin-bulk-import-Bulk-ed65e-onorepo-support-information-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/e2e-admin-bulk-import-Bulk-ed65e-onorepo-support-information-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/e2e/og-images/test-og-image-generation.spec.ts:28:2 › OG Image Generation › generates OG image with correct dimensions and content type 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoContain[2m([22m[32mexpected[39m[2m) // indexOf[22m
+
+    Expected substring: [32m"max-age=31536000"[39m
+    Received string:    [31m"public, max-age=604800, immutable"[39m
+
+      37 | 		// Should have immutable cache headers
+      38 | 		expect(response.headers()['cache-control']).toContain('immutable')
+    > 39 | 		expect(response.headers()['cache-control']).toContain('max-age=31536000')
+         | 		                                            ^
+      40 |
+      41 | 		// Verify it's a valid PNG by checking magic bytes
+      42 | 		const buffer = await response.body()
+        at /Users/kevin/conductor/repo/sveltesociety.dev/managua/tests/e2e/og-images/test-og-image-generation.spec.ts:39:47
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/e2e-og-images-test-og-imag-e027f-dimensions-and-content-type-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/e2e-og-images-test-og-imag-e027f-dimensions-and-content-type-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/e2e-og-images-test-og-imag-e027f-dimensions-and-content-type-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/e2e-og-images-test-og-imag-e027f-dimensions-and-content-type-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › tests/e2e/public/browse-content.spec.ts:64:2 › Public Content Browsing › tags in sidebar redirect correctly from content listing pages 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoMatch[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected pattern: [32m/^\/recipe\?tags=/[39m
+    Received string:  [31m"/"[39m
+
+      72 | 		const firstTagHref = await sidebarTags.first().getAttribute('href')
+      73 | 		// When on content listing route, tags should preserve the current path
+    > 74 | 		expect(firstTagHref).toMatch(/^\/recipe\?tags=/)
+         | 		                     ^
+      75 | 	})
+      76 |
+      77 | 	test('tags in sidebar appear on desktop', async ({ page }) => {
+        at /Users/kevin/conductor/repo/sveltesociety.dev/managua/tests/e2e/public/browse-content.spec.ts:74:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/e2e-public-browse-content--bbebd--from-content-listing-pages-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/e2e-public-browse-content--bbebd--from-content-listing-pages-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/e2e-public-browse-content--bbebd--from-content-listing-pages-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/e2e-public-browse-content--bbebd--from-content-listing-pages-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/e2e-public-browse-content--bbebd--from-content-listing-pages-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › tests/e2e/public/content-interactions.spec.ts:41:3 › Content Interactions (Like/Save) › Authenticated Users - Like Functionality › can like content 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m1[39m
+    Received: [31m0[39m
+
+      59 | 			const newLikeCount = await detailPage.getLikeCount()
+      60 | 			if (!initiallyLiked) {
+    > 61 | 				expect(newLikeCount).toBe(initialLikeCount + 1)
+         | 				                     ^
+      62 | 			}
+      63 |
+      64 | 			// Verify button state changed
+        at /Users/kevin/conductor/repo/sveltesociety.dev/managua/tests/e2e/public/content-interactions.spec.ts:61:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/e2e-public-content-interac-9b6c2-ctionality-can-like-content-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/e2e-public-content-interac-9b6c2-ctionality-can-like-content-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/e2e-public-content-interac-9b6c2-ctionality-can-like-content-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/e2e-public-content-interac-9b6c2-ctionality-can-like-content-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/e2e-public-content-interac-9b6c2-ctionality-can-like-content-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chromium] › tests/e2e/public/content-interactions.spec.ts:69:3 › Content Interactions (Like/Save) › Authenticated Users - Like Functionality › can unlike content 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32mtrue[39m
+    Received: [31mfalse[39m
+
+      80 | 			const likeCountAfterLike = await detailPage.getLikeCount()
+      81 | 			const likedState = await detailPage.isLiked()
+    > 82 | 			expect(likedState).toBe(true)
+         | 			                   ^
+      83 |
+      84 | 			// Now unlike it
+      85 | 			await detailPage.like()
+        at /Users/kevin/conductor/repo/sveltesociety.dev/managua/tests/e2e/public/content-interactions.spec.ts:82:23
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/e2e-public-content-interac-c14c7-ionality-can-unlike-content-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/e2e-public-content-interac-c14c7-ionality-can-unlike-content-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/e2e-public-content-interac-c14c7-ionality-can-unlike-content-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/e2e-public-content-interac-c14c7-ionality-can-unlike-content-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/e2e-public-content-interac-c14c7-ionality-can-unlike-content-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5 failed
+    [chromium] › tests/e2e/admin/bulk-import.spec.ts:11:2 › Bulk Import › displays monorepo support information 
+    [chromium] › tests/e2e/og-images/test-og-image-generation.spec.ts:28:2 › OG Image Generation › generates OG image with correct dimensions and content type 
+    [chromium] › tests/e2e/public/browse-content.spec.ts:64:2 › Public Content Browsing › tags in sidebar redirect correctly from content listing pages 
+    [chromium] › tests/e2e/public/content-interactions.spec.ts:41:3 › Content Interactions (Like/Save) › Authenticated Users - Like Functionality › can like content 
+    [chromium] › tests/e2e/public/content-interactions.spec.ts:69:3 › Content Interactions (Like/Save) › Authenticated Users - Like Functionality › can unlike content 
+  1 skipped
+  126 passed (30.1s)
+
+  Serving HTML report at http://localhost:9323. Press Ctrl+C to quit.

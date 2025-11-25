@@ -8,5 +8,3 @@ export const placementSchema = z.object({
 	priority: z.number().int().min(0).default(0),
 	is_active: z.boolean().default(true)
 })
-
-export type PlacementFormData = z.infer<typeof placementSchema>

@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { enhance } from '$app/forms'
 	import { page } from '$app/state'
 	import { formatRelativeDate } from '$lib/utils/date'
+	import { toggleLike, toggleSave } from '$lib/remote/interact.remote'
 
 	const isAdmin = page.data.isAdmin
 
 	import Tags from './Tags.svelte'
 	import type { ContentWithAuthor } from '$lib/types/content'
 
-	import Recipe from '$lib/ui/content/Recipe.svelte'
 	import Collection from '$lib/ui/content/Collection.svelte'
 	import Video from '$lib/ui/content/Video.svelte'
 	import Library from '$lib/ui/content/Library.svelte'
@@ -24,28 +23,6 @@
 		fullDescription?: boolean
 		priority?: 'high' | 'auto'
 	} = $props()
-
-	let submitting = $state(false)
-
-	const optimisticUpdate = ({ formData }: { formData: FormData }) => {
-		submitting = true
-		const type = formData.get('type')
-
-		switch (type) {
-			case 'like':
-				content.likes = content.liked ? content.likes - 1 : content.likes + 1
-				content.liked = !content.liked
-				break
-			case 'save':
-				content.saves = content.saved ? content.saves - 1 : content.saves + 1
-				content.saved = !content.saved
-				break
-		}
-
-		return async ({}) => {
-			submitting = false
-		}
-	}
 </script>
 
 <article
@@ -74,23 +51,30 @@
 				</span>
 			{/if}
 		</div>
-		<form
-			method="POST"
-			action="/?/interact"
-			use:enhance={optimisticUpdate}
-			class="flex items-center space-x-0.5"
-		>
-			<input type="hidden" name="id" value={content.id} />
-
+		<div class="flex items-center space-x-0.5">
 			<button
+				{...toggleLike.for(content.id).enhance(async ({ submit, form }) => {
+					// Optimistic update
+					const previousLikes = content.likes
+					const previousLiked = content.liked
+					content.likes = content.liked ? content.likes - 1 : content.likes + 1
+					content.liked = !content.liked
+
+					try {
+						await submit()
+						form.reset()
+					} catch (error) {
+						// Revert on error
+						content.likes = previousLikes
+						content.liked = previousLiked
+					}
+				})}
 				title={content.liked ? 'Remove like' : 'Like'}
 				data-sveltekit-keepfocus
-				disabled={!page.data.user || submitting}
+				disabled={!page.data.user || !!toggleLike.for(content.id).pending}
 				aria-label="Like {content.title}"
-				name="type"
-				value="like"
 				type="submit"
-				tabindex={!page.data.user || submitting ? -1 : 0}
+				tabindex={!page.data.user || !!toggleLike.for(content.id).pending ? -1 : 0}
 				class="focus:outline-svelte-300 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 font-mono text-gray-600 transition-[background-color,color] hover:bg-gray-200 hover:text-gray-700 focus:outline-2 focus:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:py-1"
 			>
 				<svg
@@ -117,14 +101,28 @@
 				{content.likes} <span class="sr-only">likes</span>
 			</button>
 			<button
+				{...toggleSave.for(content.id).enhance(async ({ submit, form }) => {
+					// Optimistic update
+					const previousSaves = content.saves
+					const previousSaved = content.saved
+					content.saves = content.saved ? content.saves - 1 : content.saves + 1
+					content.saved = !content.saved
+
+					try {
+						await submit()
+						form.reset()
+					} catch (error) {
+						// Revert on error
+						content.saves = previousSaves
+						content.saved = previousSaved
+					}
+				})}
 				title={content.saved ? 'Unsave' : 'Save'}
 				data-sveltekit-keepfocus
-				disabled={!page.data.user || submitting}
+				disabled={!page.data.user || !!toggleSave.for(content.id).pending}
 				aria-label="Save {content.title}"
-				name="type"
-				value="save"
 				type="submit"
-				tabindex={!page.data.user || submitting ? -1 : 0}
+				tabindex={!page.data.user || !!toggleSave.for(content.id).pending ? -1 : 0}
 				class="focus:outline-svelte-300 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 font-mono text-gray-600 transition-[background-color,color] hover:bg-gray-200 hover:text-gray-700 focus:outline-2 focus:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:py-1"
 			>
 				<svg
@@ -150,7 +148,7 @@
 				</svg>
 				{content.saves} <span class="sr-only">saves</span>
 			</button>
-		</form>
+		</div>
 	</div>
 
 	<h2
@@ -164,7 +162,11 @@
 			tabindex="0">{content.title}</a
 		>
 		{#if isAdmin}
-			<a data-testid="edit-link" class="text-svelte-900 ml-4 text-sm" href="/admin/content/{content.id}">Edit</a>
+			<a
+				data-testid="edit-link"
+				class="text-svelte-900 ml-4 text-sm"
+				href="/admin/content/{content.id}">Edit</a
+			>
 		{/if}
 	</h2>
 	{#if content.description && !(fullDescription && content.type === 'recipe')}
@@ -211,6 +213,8 @@
 			<Tags tags={content.tags} />
 		</div>
 
-		<div data-testid="published-date" class="text-xs text-gray-500">{formatRelativeDate(content.published_at)}</div>
+		<div data-testid="published-date" class="text-xs text-gray-500">
+			{formatRelativeDate(content.published_at)}
+		</div>
 	</div>
 </article>

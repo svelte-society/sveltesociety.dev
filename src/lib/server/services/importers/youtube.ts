@@ -3,6 +3,7 @@ import type { ExternalContentService, ExternalContentData } from '../external-co
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { uploadThumbnail, getPublicUrl, isS3Enabled } from '../s3-storage'
 
 const { STATE_DIRECTORY = '.state_directory' } = process.env
 
@@ -64,14 +65,25 @@ export class YouTubeImporter {
 		if (!video) return null
 
 		const response = await fetch(`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`)
+		const thumbnailBuffer = Buffer.from(await response.arrayBuffer())
 
-		const dir = path.join(STATE_DIRECTORY, 'files', 'yt', video.id)
+		let thumbnailUrl: string
 
-		fs.mkdirSync(dir, { recursive: true })
+		if (isS3Enabled) {
+			// Upload to S3 and get public URL
+			const key = `yt/${video.id}/thumbnail.jpg`
+			thumbnailUrl = await uploadThumbnail(key, thumbnailBuffer, {
+				contentType: 'image/jpeg'
+			})
+		} else {
+			// Fallback to local filesystem storage
+			const dir = path.join(STATE_DIRECTORY, 'files', 'yt', video.id)
+			fs.mkdirSync(dir, { recursive: true })
+			fs.writeFileSync(path.join(dir, 'thumbnail.jpg'), thumbnailBuffer)
+			thumbnailUrl = `/files/yt/${video.id}/thumbnail.jpg`
+		}
 
-		fs.writeFileSync(path.join(dir, 'thumbnail.jpg'), Buffer.from(await response.arrayBuffer()))
-
-		const contentData = this.transformVideoToContent(video)
+		const contentData = this.transformVideoToContent(video, thumbnailUrl)
 
 		if (authorId) {
 			contentData.author_id = authorId
@@ -112,14 +124,14 @@ export class YouTubeImporter {
 	/**
 	 * Transform a single YouTube video to external content data
 	 */
-	private transformVideoToContent(video: YouTubeVideo): ExternalContentData {
+	private transformVideoToContent(video: YouTubeVideo, thumbnailUrl: string): ExternalContentData {
 		return {
 			title: video.snippet.title,
 			type: 'video',
 			metadata: {
 				channelTitle: video.snippet.channelTitle,
 				publishedAt: video.snippet.publishedAt,
-				thumbnail: `/files/yt/${video.id}/thumbnail.jpg`,
+				thumbnail: thumbnailUrl,
 				thumbnails: video.snippet.thumbnails,
 				tags: video.snippet.tags || [],
 				statistics: video.statistics

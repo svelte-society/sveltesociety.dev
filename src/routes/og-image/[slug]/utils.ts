@@ -8,7 +8,7 @@ import { OG_IMAGE_COLORS, SVELTE_SOCIETY_LOGO_BASE64 } from './constants'
 /**
  * Creates the orange accent bar at the top of the image
  */
-export function createAccentBar(): SatoriNode {
+function createAccentBar(): SatoriNode {
 	return {
 		type: 'div',
 		props: {

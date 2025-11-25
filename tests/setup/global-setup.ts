@@ -4,8 +4,8 @@
  */
 
 import fs from 'fs'
-import path from 'path'
 import { globSync } from 'glob'
+import { getTestFileIdentifier } from '../helpers/database-isolation'
 
 export default async function globalSetup() {
 	console.log('🚀 Global test setup starting...\n')
@@ -59,30 +59,6 @@ export default async function globalSetup() {
 
 	console.log(`\n✅ Pre-created ${created} isolated test database(s)`)
 	console.log('   Each test file will use its own database copy for perfect isolation\n')
-}
-
-/**
- * Extracts a test file identifier from the file path.
- * Uses the full relative path from tests/e2e with slashes replaced by hyphens.
- * This must match the identifier used in setupDatabaseIsolation() calls.
- *
- * @param filePath - Full path to the test file
- * @returns A path-based identifier (e.g., 'public-content-detail', 'admin-moderation')
- */
-function getTestFileIdentifier(filePath: string): string {
-	// Normalize the path to use forward slashes
-	const normalized = filePath.replace(/\\/g, '/')
-
-	// Extract just the e2e path portion (e.g., 'public/content-detail.spec.ts')
-	const e2eMatch = normalized.match(/tests\/e2e\/(.+\.spec\.ts)/)
-	const relativePath = e2eMatch ? e2eMatch[1] : path.basename(filePath)
-
-	// Remove .spec.ts extension and replace slashes with hyphens
-	// e.g., 'public/content-detail.spec.ts' → 'public-content-detail'
-	// e.g., 'admin/moderation.spec.ts' → 'admin-moderation'
-	return relativePath
-		.replace(/\.spec\.ts$/, '')
-		.replace(/\//g, '-')
 }
 
 // Run when executed directly
