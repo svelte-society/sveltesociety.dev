@@ -24,7 +24,7 @@ const baseSchema = z.object({
 
 const videoSchema = baseSchema.extend({
 	type: z.literal('video'),
-	url: z.url({ message: 'Please enter a valid YouTube URL' })
+	url: z.string().url({ message: 'Please enter a valid YouTube URL' })
 })
 
 const librarySchema = baseSchema.extend({
