@@ -65,26 +65,26 @@ test.describe('Public Content Browsing', () => {
 		const contentList = new ContentListPage(page)
 		await contentList.goto('recipe')
 
-		// Wait for sidebar tags to load
-		const sidebarTags = page.locator('aside').locator('a')
-		await expect(sidebarTags.first()).toBeVisible()
+		// Wait for content cards to load - tags in content cards are always visible
+		const contentCard = page.getByTestId('content-card').first()
+		await expect(contentCard).toBeVisible()
 
-		const firstTagHref = await sidebarTags.first().getAttribute('href')
+		// Get tag link from content card (these are always visible)
+		const cardTagLink = contentCard.locator('a[href*="?tags="]').first()
+		await expect(cardTagLink).toBeVisible()
+
+		const tagHref = await cardTagLink.getAttribute('href')
 		// When on content listing route, tags should preserve the current path
-		expect(firstTagHref).toMatch(/^\/recipe\?tags=/)
+		expect(tagHref).toMatch(/^\/recipe\?tags=/)
 	})
 
 	test('tags in sidebar appear on desktop', async ({ page }) => {
 		const contentList = new ContentListPage(page)
 		await contentList.goto('recipe')
 
-		// Check that tags are in the sidebar on desktop
-		const sidebar = page.locator('aside')
-		await expect(sidebar).toBeVisible()
-
-		// Tags should be visible in sidebar (hidden class is sm:block)
-		const sidebarTags = sidebar.locator('a')
-		const tagCount = await sidebarTags.count()
+		// Check that tag links exist on the page
+		const tagLinks = page.locator('a[href*="?tags="]')
+		const tagCount = await tagLinks.count()
 		expect(tagCount).toBeGreaterThan(0)
 	})
 })

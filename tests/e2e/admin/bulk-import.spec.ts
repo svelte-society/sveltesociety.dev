@@ -12,8 +12,8 @@ test.describe('Bulk Import', () => {
 		await page.goto('/admin/bulk-import')
 
 		// Check for monorepo support section
-		await expect(page.getByText('Monorepo Support')).toBeVisible()
-		await expect(page.getByText('owner/repo/packages/kit')).toBeVisible()
+		await expect(page.getByText('Monorepo Package Support')).toBeVisible()
+		await expect(page.getByText('owner/repo/packages/kit', { exact: true })).toBeVisible()
 	})
 
 	test('accepts standard GitHub repository format', async ({ page }) => {
