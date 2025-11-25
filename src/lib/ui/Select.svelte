@@ -17,7 +17,15 @@
 		onchange?: (value: string) => void
 		testId?: string
 	}
-	let { options, value = $bindable(), name, props, disabled = false, onchange, testId }: Props = $props()
+	let {
+		options,
+		value = $bindable(),
+		name,
+		props,
+		disabled = false,
+		onchange,
+		testId
+	}: Props = $props()
 
 	const placeholder = $derived(props?.placeholder || 'Select...')
 	const selectedLabel = $derived(options.find((option) => option.value === value)?.label)
@@ -37,7 +45,7 @@
 	</Select.Trigger>
 	<Select.Portal>
 		<Select.Content
-			class="focus-override z-50 w-[var(--bits-select-anchor-width)] min-w-[var(--bits-select-anchor-width)] rounded-xl bg-white px-1 py-3 shadow-2xl outline-hidden select-none data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1"
+			class="focus-override z-50 w-(--bits-select-anchor-width) min-w-(--bits-select-anchor-width) rounded-xl bg-white px-1 py-3 shadow-2xl outline-hidden select-none data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1"
 		>
 			{#each options as option}
 				<Select.Item
