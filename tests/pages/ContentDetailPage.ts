@@ -40,8 +40,9 @@ export class ContentDetailPage extends BasePage {
 		this.contentTypeLabel = page.getByTestId('content-type')
 		this.authorLink = page.getByTestId('author-link')
 		this.tagsContainer = page.getByTestId('content-tags')
-		this.likeButton = page.locator('form:has(input[name="id"]) button[type="submit"]').first()
-		this.saveButton = page.locator('form:has(input[name="id"]) button[type="submit"]').last()
+		// Like/save buttons use aria-label for accessibility
+		this.likeButton = page.locator('button[aria-label^="Like"]').first()
+		this.saveButton = page.locator('button[aria-label^="Save"]').first()
 		this.publishedDate = page.getByTestId('published-date')
 		this.editLink = page.getByTestId('edit-link')
 	}
@@ -109,6 +110,36 @@ export class ContentDetailPage extends BasePage {
 
 	async save() {
 		await this.saveButton.click()
+	}
+
+	async likeAndWait() {
+		const wasLiked = await this.isLiked()
+		await this.likeButton.click()
+		// Wait for title to change
+		const expectedTitle = wasLiked ? 'Like' : 'Remove like'
+		await this.page.waitForFunction(
+			({ selector, expected }) => {
+				const button = document.querySelector(selector) as HTMLButtonElement
+				return button?.getAttribute('title') === expected
+			},
+			{ selector: 'button[aria-label^="Like"]', expected: expectedTitle },
+			{ timeout: 5000 }
+		)
+	}
+
+	async saveAndWait() {
+		const wasSaved = await this.isSaved()
+		await this.saveButton.click()
+		// Wait for title to change
+		const expectedTitle = wasSaved ? 'Save' : 'Unsave'
+		await this.page.waitForFunction(
+			({ selector, expected }) => {
+				const button = document.querySelector(selector) as HTMLButtonElement
+				return button?.getAttribute('title') === expected
+			},
+			{ selector: 'button[aria-label^="Save"]', expected: expectedTitle },
+			{ timeout: 5000 }
+		)
 	}
 
 	async hasEditLink() {

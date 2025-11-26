@@ -23,6 +23,51 @@
 		fullDescription?: boolean
 		priority?: 'high' | 'auto'
 	} = $props()
+
+	let likePending = $state(false)
+	let savePending = $state(false)
+
+	async function handleLike() {
+		if (likePending || !page.data.user) return
+
+		// Optimistic update
+		const previousLikes = content.likes
+		const previousLiked = content.liked
+		content.likes = content.liked ? content.likes - 1 : content.likes + 1
+		content.liked = !content.liked
+		likePending = true
+
+		try {
+			await toggleLike(content.id)
+		} catch (error) {
+			// Revert on error
+			content.likes = previousLikes
+			content.liked = previousLiked
+		} finally {
+			likePending = false
+		}
+	}
+
+	async function handleSave() {
+		if (savePending || !page.data.user) return
+
+		// Optimistic update
+		const previousSaves = content.saves
+		const previousSaved = content.saved
+		content.saves = content.saved ? content.saves - 1 : content.saves + 1
+		content.saved = !content.saved
+		savePending = true
+
+		try {
+			await toggleSave(content.id)
+		} catch (error) {
+			// Revert on error
+			content.saves = previousSaves
+			content.saved = previousSaved
+		} finally {
+			savePending = false
+		}
+	}
 </script>
 
 <article
@@ -53,28 +98,12 @@
 		</div>
 		<div class="flex items-center space-x-0.5">
 			<button
-				{...toggleLike.for(content.id).enhance(async ({ submit, form }) => {
-					// Optimistic update
-					const previousLikes = content.likes
-					const previousLiked = content.liked
-					content.likes = content.liked ? content.likes - 1 : content.likes + 1
-					content.liked = !content.liked
-
-					try {
-						await submit()
-						form.reset()
-					} catch (error) {
-						// Revert on error
-						content.likes = previousLikes
-						content.liked = previousLiked
-					}
-				})}
+				onclick={handleLike}
 				title={content.liked ? 'Remove like' : 'Like'}
-				data-sveltekit-keepfocus
-				disabled={!page.data.user || !!toggleLike.for(content.id).pending}
+				disabled={!page.data.user || likePending}
 				aria-label="Like {content.title}"
-				type="submit"
-				tabindex={!page.data.user || !!toggleLike.for(content.id).pending ? -1 : 0}
+				type="button"
+				tabindex={!page.data.user || likePending ? -1 : 0}
 				class="focus:outline-svelte-300 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 font-mono text-gray-600 transition-[background-color,color] hover:bg-gray-200 hover:text-gray-700 focus:outline-2 focus:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:py-1"
 			>
 				<svg
@@ -101,28 +130,12 @@
 				{content.likes} <span class="sr-only">likes</span>
 			</button>
 			<button
-				{...toggleSave.for(content.id).enhance(async ({ submit, form }) => {
-					// Optimistic update
-					const previousSaves = content.saves
-					const previousSaved = content.saved
-					content.saves = content.saved ? content.saves - 1 : content.saves + 1
-					content.saved = !content.saved
-
-					try {
-						await submit()
-						form.reset()
-					} catch (error) {
-						// Revert on error
-						content.saves = previousSaves
-						content.saved = previousSaved
-					}
-				})}
+				onclick={handleSave}
 				title={content.saved ? 'Unsave' : 'Save'}
-				data-sveltekit-keepfocus
-				disabled={!page.data.user || !!toggleSave.for(content.id).pending}
+				disabled={!page.data.user || savePending}
 				aria-label="Save {content.title}"
-				type="submit"
-				tabindex={!page.data.user || !!toggleSave.for(content.id).pending ? -1 : 0}
+				type="button"
+				tabindex={!page.data.user || savePending ? -1 : 0}
 				class="focus:outline-svelte-300 flex touch-manipulation items-center gap-1 rounded-md px-2 py-1.5 font-mono text-gray-600 transition-[background-color,color] hover:bg-gray-200 hover:text-gray-700 focus:outline-2 focus:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:py-1"
 			>
 				<svg
