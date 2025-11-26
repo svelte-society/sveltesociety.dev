@@ -49,4 +49,4 @@ const recipeSchema = baseSchema.extend({
 	body: z.string().min(10, { message: 'Recipe content must be at least 10 characters long' })
 })
 
-export const schema = z.discriminatedUnion('type', [videoSchema, librarySchema, recipeSchema])
+export const schema = z.union([videoSchema, librarySchema, recipeSchema])

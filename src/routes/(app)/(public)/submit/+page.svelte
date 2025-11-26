@@ -8,7 +8,7 @@
 	import Textarea from '$lib/ui/form/Textarea.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
-	import CategorySelector from '$lib/ui/form/CategorySelector.svelte'
+	import Select from '$lib/ui/form/Select.svelte'
 	import { debounce } from '$lib/utils/debounce'
 
 	let { data } = $props()
@@ -112,12 +112,12 @@
 		listed on the site. Use the search bar to check if the resource is already listed.
 	</p>
 	<Form {form} action="?/submit">
-		<CategorySelector
+		<Select
 			name="type"
 			label="Type"
 			description="Select the type of content you are submitting"
 			{options}
-			data-testid="content-type-selector"
+			testId="content-type-selector"
 		/>
 
 		{#if $formData.type === 'recipe'}
@@ -275,7 +275,11 @@
 			data-testid="notes-textarea"
 		/>
 
-		<Button type="submit" disabled={$submitting || videoPreview?.exists || libraryPreview?.exists} data-testid="submit-button">
+		<Button
+			type="submit"
+			disabled={$submitting || videoPreview?.exists || libraryPreview?.exists}
+			data-testid="submit-button"
+		>
 			{$submitting ? 'Submitting...' : 'Submit'}
 		</Button>
 

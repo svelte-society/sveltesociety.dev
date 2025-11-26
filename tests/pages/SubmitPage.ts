@@ -37,7 +37,10 @@ export class SubmitPage extends BasePage {
 	}
 
 	async selectContentType(type: 'recipe' | 'video' | 'library'): Promise<void> {
-		await this.page.locator(`[data-testid="content-type-selector-${type}"]`).click()
+		// Click the Select dropdown trigger
+		await this.page.locator('[data-testid="content-type-selector"]').click()
+		// Wait for dropdown to appear and click the option
+		await this.page.locator(`[role="option"]:has-text("${type}")`).first().click()
 	}
 
 	async fillRecipeForm(data: {

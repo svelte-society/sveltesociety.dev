@@ -157,7 +157,7 @@ const updateCollectionContentSchema = collectionContentSchema.omit(updateKeysToO
 const createCollectionContentSchema = collectionContentSchema.omit(createKeysToOmit)
 
 // Union of all metadata types
-export const contentSchema = z.discriminatedUnion('type', [
+export const contentSchema = z.union([
 	videoContentSchema,
 	libraryContentSchema,
 	recipeContentSchema,
@@ -165,7 +165,7 @@ export const contentSchema = z.discriminatedUnion('type', [
 	collectionContentSchema
 ])
 
-export const updateContentSchema = z.discriminatedUnion('type', [
+export const updateContentSchema = z.union([
 	updateVideoContentSchema,
 	updateLibraryContentSchema,
 	updateRecipeContentSchema,
@@ -173,7 +173,7 @@ export const updateContentSchema = z.discriminatedUnion('type', [
 	updateCollectionContentSchema
 ])
 
-export const createContentSchema = z.discriminatedUnion('type', [
+export const createContentSchema = z.union([
 	createVideoContentSchema,
 	createLibraryContentSchema,
 	createRecipeContentSchema,
