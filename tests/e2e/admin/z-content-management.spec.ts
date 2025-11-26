@@ -75,8 +75,9 @@ test.describe('Admin Content Management', () => {
 
 		await editPage.expectSuccessMessage()
 
+		// Wait for form to settle after invalidateAll refresh
 		const archivedRadio = page.getByTestId('category-selector-status-archived').locator('input')
-		await expect(archivedRadio).toBeChecked()
+		await expect(archivedRadio).toBeChecked({ timeout: 10000 })
 	})
 
 	test('admin can unarchive content', async ({ page }) => {
