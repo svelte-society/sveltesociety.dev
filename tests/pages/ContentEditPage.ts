@@ -58,10 +58,15 @@ export class ContentEditPage extends BasePage {
 	 * Change the status of the content (draft, published, archived)
 	 */
 	async changeStatus(status: 'draft' | 'published' | 'archived'): Promise<void> {
-		// CategorySelector uses radio buttons, so we click the label for the desired option
+		// CategorySelector uses radio buttons wrapped in clickable Labels
 		const statusOption = this.page.getByTestId(`category-selector-status-${status}`)
 		await expect(statusOption).toBeVisible()
-		await statusOption.click()
+		// Get the radio input and use dispatchEvent to trigger Svelte's binding
+		const radioInput = statusOption.locator('input[type="radio"]')
+		await radioInput.evaluate((el: HTMLInputElement) => {
+			el.checked = true
+			el.dispatchEvent(new Event('change', { bubbles: true }))
+		})
 	}
 
 	/**

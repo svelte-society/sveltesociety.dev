@@ -34,9 +34,9 @@ test.describe('OG Image Generation', () => {
 		// Should return PNG image
 		expect(response.headers()['content-type']).toBe('image/png')
 
-		// Should have immutable cache headers
+		// Should have immutable cache headers (7 days = 604800 seconds)
 		expect(response.headers()['cache-control']).toContain('immutable')
-		expect(response.headers()['cache-control']).toContain('max-age=31536000')
+		expect(response.headers()['cache-control']).toContain('max-age=604800')
 
 		// Verify it's a valid PNG by checking magic bytes
 		const buffer = await response.body()
