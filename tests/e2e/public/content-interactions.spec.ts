@@ -45,15 +45,21 @@ test.describe('Content Interactions (Like/Save)', () => {
 
 			await detailPage.expectContentLoaded()
 
+			// Wait for button to be enabled (user is authenticated)
+			await expect(detailPage.likeButton).toBeEnabled()
+
 			// Get initial like count and state
 			const initialLikeCount = await detailPage.getLikeCount()
 			const initiallyLiked = await detailPage.isLiked()
 
-			// Like the content
+			// Like the content and wait for UI to update
 			await detailPage.like()
 
-			// Wait for the interaction to complete
-			await page.waitForTimeout(500)
+			// Wait for button title to change (this indicates the action completed)
+			await expect(detailPage.likeButton).toHaveAttribute(
+				'title',
+				initiallyLiked ? 'Like' : 'Remove like'
+			)
 
 			// Verify like count increased by 1
 			const newLikeCount = await detailPage.getLikeCount()
@@ -73,9 +79,14 @@ test.describe('Content Interactions (Like/Save)', () => {
 
 			await detailPage.expectContentLoaded()
 
+			// Wait for button to be enabled
+			await expect(detailPage.likeButton).toBeEnabled()
+
 			// First, like the content
 			await detailPage.like()
-			await page.waitForTimeout(500)
+
+			// Wait for title to change to "Remove like"
+			await expect(detailPage.likeButton).toHaveAttribute('title', 'Remove like')
 
 			const likeCountAfterLike = await detailPage.getLikeCount()
 			const likedState = await detailPage.isLiked()
@@ -83,7 +94,9 @@ test.describe('Content Interactions (Like/Save)', () => {
 
 			// Now unlike it
 			await detailPage.like()
-			await page.waitForTimeout(500)
+
+			// Wait for title to change back to "Like"
+			await expect(detailPage.likeButton).toHaveAttribute('title', 'Like')
 
 			// Verify like count decreased by 1
 			const finalLikeCount = await detailPage.getLikeCount()
@@ -94,15 +107,15 @@ test.describe('Content Interactions (Like/Save)', () => {
 			expect(finalLikedState).toBe(false)
 		})
 
-		test('like button has data-sveltekit-keepfocus attribute', async ({ page }) => {
+		test('like button is a clickable button', async ({ page }) => {
 			await loginAs(page, 'viewer')
 			const detailPage = new ContentDetailPage(page)
 			await detailPage.goto('recipe', 'test-recipe-counter-component-content_recipe_001')
 
 			await detailPage.expectContentLoaded()
 
-			// Verify like button has the data-sveltekit-keepfocus attribute to prevent focus loss
-			await expect(detailPage.likeButton).toHaveAttribute('data-sveltekit-keepfocus')
+			// Verify like button is a regular button type (not submit)
+			await expect(detailPage.likeButton).toHaveAttribute('type', 'button')
 		})
 	})
 
@@ -114,6 +127,9 @@ test.describe('Content Interactions (Like/Save)', () => {
 
 			await detailPage.expectContentLoaded()
 
+			// Wait for button to be enabled
+			await expect(detailPage.saveButton).toBeEnabled()
+
 			// Get initial save count and state
 			const initialSaveCount = await detailPage.getSaveCount()
 			const initiallySaved = await detailPage.isSaved()
@@ -121,8 +137,11 @@ test.describe('Content Interactions (Like/Save)', () => {
 			// Save the content
 			await detailPage.save()
 
-			// Wait for the interaction to complete
-			await page.waitForTimeout(500)
+			// Wait for UI to update - button title should change
+			await expect(detailPage.saveButton).toHaveAttribute(
+				'title',
+				initiallySaved ? 'Save' : 'Unsave'
+			)
 
 			// Verify save count increased by 1
 			const newSaveCount = await detailPage.getSaveCount()
@@ -142,36 +161,46 @@ test.describe('Content Interactions (Like/Save)', () => {
 
 			await detailPage.expectContentLoaded()
 
-			// First, save the content
-			await detailPage.save()
-			await page.waitForTimeout(500)
+			// Wait for button to be enabled
+			await expect(detailPage.saveButton).toBeEnabled()
 
-			const saveCountAfterSave = await detailPage.getSaveCount()
-			const savedState = await detailPage.isSaved()
-			expect(savedState).toBe(true)
+			// Check initial state - ensure content is saved first
+			const isSavedInitially = await detailPage.isSaved()
+			if (!isSavedInitially) {
+				// Save the content first
+				await detailPage.save()
+				// Wait for title to change to "Unsave"
+				await expect(detailPage.saveButton).toHaveAttribute('title', 'Unsave')
+			}
+
+			// Content should now be saved
+			expect(await detailPage.isSaved()).toBe(true)
+			const saveCountBeforeUnsave = await detailPage.getSaveCount()
 
 			// Now unsave it
 			await detailPage.save()
-			await page.waitForTimeout(500)
+
+			// Wait for title to change back to "Save"
+			await expect(detailPage.saveButton).toHaveAttribute('title', 'Save')
 
 			// Verify save count decreased by 1
 			const finalSaveCount = await detailPage.getSaveCount()
-			expect(finalSaveCount).toBe(saveCountAfterSave - 1)
+			expect(finalSaveCount).toBe(saveCountBeforeUnsave - 1)
 
 			// Verify button state changed
 			const finalSavedState = await detailPage.isSaved()
 			expect(finalSavedState).toBe(false)
 		})
 
-		test('save button has data-sveltekit-keepfocus attribute', async ({ page }) => {
+		test('save button is a clickable button', async ({ page }) => {
 			await loginAs(page, 'viewer')
 			const detailPage = new ContentDetailPage(page)
 			await detailPage.goto('video', 'test-video-svelte-5-intro-content_video_001')
 
 			await detailPage.expectContentLoaded()
 
-			// Verify save button has the data-sveltekit-keepfocus attribute to prevent focus loss
-			await expect(detailPage.saveButton).toHaveAttribute('data-sveltekit-keepfocus')
+			// Verify save button is a regular button type (not submit)
+			await expect(detailPage.saveButton).toHaveAttribute('type', 'button')
 		})
 	})
 
@@ -183,13 +212,18 @@ test.describe('Content Interactions (Like/Save)', () => {
 
 			await detailPage.expectContentLoaded()
 
-			// Test both like and save
+			// Wait for buttons to be enabled
+			await expect(detailPage.likeButton).toBeEnabled()
+			await expect(detailPage.saveButton).toBeEnabled()
+
+			// Test like
 			await detailPage.like()
-			await page.waitForTimeout(500)
+			await expect(detailPage.likeButton).toHaveAttribute('title', 'Remove like')
 			expect(await detailPage.isLiked()).toBe(true)
 
+			// Test save
 			await detailPage.save()
-			await page.waitForTimeout(500)
+			await expect(detailPage.saveButton).toHaveAttribute('title', 'Unsave')
 			expect(await detailPage.isSaved()).toBe(true)
 		})
 
@@ -200,13 +234,18 @@ test.describe('Content Interactions (Like/Save)', () => {
 
 			await detailPage.expectContentLoaded()
 
-			// Test both like and save
+			// Wait for buttons to be enabled
+			await expect(detailPage.likeButton).toBeEnabled()
+			await expect(detailPage.saveButton).toBeEnabled()
+
+			// Test like
 			await detailPage.like()
-			await page.waitForTimeout(500)
+			await expect(detailPage.likeButton).toHaveAttribute('title', 'Remove like')
 			expect(await detailPage.isLiked()).toBe(true)
 
+			// Test save
 			await detailPage.save()
-			await page.waitForTimeout(500)
+			await expect(detailPage.saveButton).toHaveAttribute('title', 'Unsave')
 			expect(await detailPage.isSaved()).toBe(true)
 		})
 	})
