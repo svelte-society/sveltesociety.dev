@@ -2,7 +2,6 @@
 	import { page } from '$app/state'
 	import { formatRelativeDate } from '$lib/utils/date'
 	import { toggleLike, toggleSave } from '$lib/remote/interact.remote'
-	import { getData } from '../../routes/(app)/(public)/[...type]/data.remote'
 
 	const isAdmin = page.data.isAdmin
 
@@ -40,12 +39,6 @@
 
 		try {
 			await toggleLike(content.id)
-			// Refresh the query cache to ensure data stays in sync (only works on list pages)
-			try {
-				getData({ url: page.url, type: page.params.type }).refresh()
-			} catch {
-				// Ignore refresh errors on pages where getData isn't used
-			}
 		} catch (error) {
 			// Revert on error
 			content.likes = previousLikes
@@ -67,12 +60,6 @@
 
 		try {
 			await toggleSave(content.id)
-			// Refresh the query cache to ensure data stays in sync (only works on list pages)
-			try {
-				getData({ url: page.url, type: page.params.type }).refresh()
-			} catch {
-				// Ignore refresh errors on pages where getData isn't used
-			}
 		} catch (error) {
 			// Revert on error
 			content.saves = previousSaves
