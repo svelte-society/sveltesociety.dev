@@ -2,7 +2,7 @@
 	import ContentCard from '$lib/ui/ContentCard.svelte'
 	import Filters from './Filters.svelte'
 	import Schema from '$lib/ui/Schema.svelte'
-	import { getData } from './data.remote'
+	import { getData, getTags } from './data.remote'
 	import { page } from '$app/state'
 	import Pagination from '$lib/ui/Pagination.svelte'
 
@@ -61,7 +61,7 @@
 	<Schema schema={schemas} />
 {/if}
 
-<Filters {categories} {tags} {sort} />
+<Filters {categories} {sort} />
 
 <div data-testid="content-list" class="grid gap-6">
 	{#if count > 0}
