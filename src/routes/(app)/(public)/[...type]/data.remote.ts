@@ -9,6 +9,11 @@ import {
     generateWebSiteSchema
 } from '$lib/seo'
 
+export const getTags = query(() => {
+    const { locals } = getRequestEvent()
+    return locals.tagService.getAllTags()
+})
+
 export const getData = query("unchecked", async ({ url, type }) => {
     const { locals } = getRequestEvent()
     const filters = await superValidate(url, zod4(schema))
@@ -36,8 +41,6 @@ export const getData = query("unchecked", async ({ url, type }) => {
     content = searchResults.hits
         .map((hit) => locals.contentService.getContentById(hit.id))
         .filter((piece) => piece !== null)
-
-    const allTags = locals.tagService.getAllTags()
 
     let mappedContent = content
     if (locals.user?.id) {
@@ -67,7 +70,6 @@ export const getData = query("unchecked", async ({ url, type }) => {
     return {
         content: mappedContent,
         count: searchResults.count,
-        tags: allTags,
         meta,
         schemas
     }
