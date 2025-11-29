@@ -16,6 +16,7 @@ export class ContentEditPage extends BasePage {
 	readonly statusSelect: Locator
 	readonly submitButton: Locator
 	readonly cancelButton: Locator
+	readonly authorAutocomplete: Locator
 
 	constructor(page: Page) {
 		super(page)
@@ -28,6 +29,7 @@ export class ContentEditPage extends BasePage {
 		this.statusSelect = page.getByTestId('category-selector-status')
 		this.submitButton = page.getByRole('button', { name: 'Update Content' })
 		this.cancelButton = page.getByRole('link', { name: 'Cancel' })
+		this.authorAutocomplete = page.getByTestId('autocomplete-author_id')
 	}
 
 	/**
@@ -186,5 +188,52 @@ export class ContentEditPage extends BasePage {
 		await this.page.waitForURL('/admin/content', { timeout: 10000 })
 		const contentListHeading = this.page.getByRole('heading', { name: 'Content Management' })
 		await expect(contentListHeading).toBeVisible()
+	}
+
+	/**
+	 * Search for an author using the autocomplete
+	 */
+	async searchAuthor(searchText: string): Promise<void> {
+		await this.authorAutocomplete.click()
+		// Wait for the dropdown to open
+		await this.page.waitForSelector('[role="listbox"]', { state: 'visible' })
+		await this.authorAutocomplete.fill(searchText)
+	}
+
+	/**
+	 * Select an author from the autocomplete dropdown
+	 */
+	async selectAuthor(authorLabel: string): Promise<void> {
+		// Click on the matching option in the dropdown (using ARIA role)
+		const option = this.page.locator(`[role="option"]:has-text("${authorLabel}")`).first()
+		await option.click()
+	}
+
+	/**
+	 * Search and select an author in one action
+	 */
+	async changeAuthor(searchText: string, authorLabel: string): Promise<void> {
+		await this.searchAuthor(searchText)
+		await this.selectAuthor(authorLabel)
+	}
+
+	/**
+	 * Expect the author autocomplete dropdown to have results
+	 */
+	async expectAuthorResults(expectedCount?: number): Promise<void> {
+		const items = this.page.locator('[role="option"]')
+		if (expectedCount !== undefined) {
+			await expect(items).toHaveCount(expectedCount)
+		} else {
+			await expect(items.first()).toBeVisible()
+		}
+	}
+
+	/**
+	 * Expect no author results in the dropdown
+	 */
+	async expectNoAuthorResults(): Promise<void> {
+		const noResults = this.page.getByText('No results found')
+		await expect(noResults).toBeVisible()
 	}
 }
