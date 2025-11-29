@@ -6,6 +6,7 @@
 	import Form from '$lib/ui/form/Form.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
+	import AutoComplete from '$lib/ui/form/AutoComplete.svelte'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 	import { slide } from 'svelte/transition'
 	import CategorySelector from '$lib/ui/form/CategorySelector.svelte'
@@ -62,15 +63,17 @@
 
 	{#if data.users}
 		<div class="grid grid-cols-1 gap-2 space-y-2 rounded-md border-2 border-slate-200 p-4">
-			<Select
+			<AutoComplete
 				name="author_id"
 				label="Author"
+				placeholder="Search for a user..."
 				description={$formData.author_id
 					? 'Change the author or submitter of this content'
 					: 'Select the author or submitter of this content'}
 				options={data.users.map((user) => ({
 					value: user.id,
-					label: `${user.name || user.username} (@${user.username})`
+					label: `${user.name || user.username} (@${user.username})`,
+					avatar: user.avatar_url
 				}))}
 			/>
 			<div>
