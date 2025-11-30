@@ -182,4 +182,46 @@ test.describe('Admin Content Management', () => {
 			}
 		}
 	})
+
+	test('admin can search and filter authors in autocomplete', async ({ page }) => {
+		const dashboardPage = new AdminDashboardPage(page)
+		const editPage = new ContentEditPage(page)
+
+		await dashboardPage.gotoContentManagement()
+		await dashboardPage.expectContentManagementHeading()
+
+		const firstLink = page.getByTestId('content-edit-link').first()
+		await firstLink.waitFor({ state: 'visible' })
+		await firstLink.click()
+		await editPage.expectEditPageLoaded()
+
+		// Verify the author autocomplete is visible
+		await expect(editPage.authorAutocomplete).toBeVisible()
+
+		// Search for a user and verify results appear
+		await editPage.searchAuthor('test')
+		await editPage.expectAuthorResults()
+	})
+
+	test('admin can change content author using autocomplete', async ({ page }) => {
+		const dashboardPage = new AdminDashboardPage(page)
+		const editPage = new ContentEditPage(page)
+
+		await dashboardPage.gotoContentManagement()
+		await dashboardPage.expectContentManagementHeading()
+
+		const firstLink = page.getByTestId('content-edit-link').first()
+		await firstLink.waitFor({ state: 'visible' })
+		await firstLink.click()
+		await editPage.expectEditPageLoaded()
+
+		// Search and select a different author
+		await editPage.searchAuthor('admin')
+		await editPage.expectAuthorResults()
+		await editPage.selectAuthor('admin')
+
+		// Submit the form
+		await editPage.submit()
+		await editPage.expectSuccessMessage()
+	})
 })
