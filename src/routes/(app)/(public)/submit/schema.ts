@@ -3,7 +3,8 @@ import { z } from 'zod/v4'
 const types = {
 	recipe: 'Recipe',
 	video: 'Video',
-	library: 'Library'
+	library: 'Library',
+	resource: 'Resource'
 } as const
 
 type ContentType = keyof typeof types
@@ -49,4 +50,15 @@ const recipeSchema = baseSchema.extend({
 	body: z.string().min(10, { message: 'Recipe content must be at least 10 characters long' })
 })
 
-export const schema = z.union([videoSchema, librarySchema, recipeSchema])
+const resourceSchema = baseSchema.extend({
+	type: z.literal('resource'),
+	title: z.string().min(5, { message: 'Title must be at least 5 characters long' }),
+	link: z.string().url({ message: 'Please enter a valid URL' }),
+	image: z
+		.string()
+		.url({ message: 'Please enter a valid image URL' })
+		.optional()
+		.or(z.literal(''))
+})
+
+export const schema = z.union([videoSchema, librarySchema, recipeSchema, resourceSchema])

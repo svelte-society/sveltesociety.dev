@@ -1,6 +1,6 @@
 import { z } from 'zod/v4'
 
-export const typeSchema = z.enum(['video', 'library', 'announcement', 'collection', 'recipe'])
+export const typeSchema = z.enum(['video', 'library', 'announcement', 'collection', 'recipe', 'resource'])
 export const statusSchema = z.enum(['draft', 'published', 'archived'])
 
 const baseContentSchema = z.object({
@@ -156,13 +156,25 @@ const collectionContentSchema = baseContentSchema.extend({
 const updateCollectionContentSchema = collectionContentSchema.omit(updateKeysToOmit)
 const createCollectionContentSchema = collectionContentSchema.omit(createKeysToOmit)
 
+const resourceContentSchema = baseContentSchema.extend({
+	type: z.literal('resource'),
+	metadata: z.object({
+		link: z.string().url(),
+		image: z.string().url().optional()
+	})
+})
+
+const updateResourceContentSchema = resourceContentSchema.omit(updateKeysToOmit)
+const createResourceContentSchema = resourceContentSchema.omit(createKeysToOmit)
+
 // Union of all metadata types
 export const contentSchema = z.union([
 	videoContentSchema,
 	libraryContentSchema,
 	recipeContentSchema,
 	announcementContentSchema,
-	collectionContentSchema
+	collectionContentSchema,
+	resourceContentSchema
 ])
 
 export const updateContentSchema = z.union([
@@ -170,7 +182,8 @@ export const updateContentSchema = z.union([
 	updateLibraryContentSchema,
 	updateRecipeContentSchema,
 	updateAnnouncementContentSchema,
-	updateCollectionContentSchema
+	updateCollectionContentSchema,
+	updateResourceContentSchema
 ])
 
 export const createContentSchema = z.union([
@@ -178,7 +191,8 @@ export const createContentSchema = z.union([
 	createLibraryContentSchema,
 	createRecipeContentSchema,
 	createAnnouncementContentSchema,
-	createCollectionContentSchema
+	createCollectionContentSchema,
+	createResourceContentSchema
 ])
 
 export const contentFilterSchema = z.object({

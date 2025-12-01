@@ -26,6 +26,7 @@
 		{ name: 'Collections', href: '/collection' },
 		{ name: 'CODE / RESOURCES', href: null },
 		{ name: 'Libraries', href: '/library' },
+		{ name: 'Resources', href: '/resource' },
 		{ name: 'LEARNING', href: null },
 		{ name: 'Videos', href: '/video' },
 		{ name: 'Recipes', href: '/recipe' }

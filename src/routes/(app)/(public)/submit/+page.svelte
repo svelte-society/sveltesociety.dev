@@ -254,6 +254,30 @@
 					</div>
 				</div>
 			{/if}
+		{:else if $formData.type === 'resource'}
+			<Input
+				placeholder="A useful Svelte resource"
+				name="title"
+				label="Title"
+				description="Enter the title of your resource"
+				data-testid="resource-title-input"
+			/>
+
+			<Input
+				placeholder="https://example.com/resource"
+				name="link"
+				label="Link"
+				description="Enter the URL to the resource"
+				data-testid="resource-link-input"
+			/>
+
+			<Input
+				placeholder="https://example.com/image.png (optional)"
+				name="image"
+				label="Image URL (optional)"
+				description="Enter a URL to an image for the resource preview"
+				data-testid="resource-image-input"
+			/>
 		{/if}
 
 		<DynamicSelector

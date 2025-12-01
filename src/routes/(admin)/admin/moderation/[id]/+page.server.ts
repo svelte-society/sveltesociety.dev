@@ -181,6 +181,23 @@ export const actions: Actions = {
 				} else {
 					throw new Error('Failed to import repository from GitHub')
 				}
+			} else if (item.type === 'resource') {
+				const contentData = {
+					title: submissionData.title || 'Untitled',
+					slug: slug,
+					description: submissionData.description || '',
+					type: 'resource' as const,
+					status: 'draft' as const,
+					tags: submissionData.tags || [],
+					author_id: item.submitted_by,
+					published_at: null,
+					metadata: {
+						link: submissionData.link || '',
+						image: submissionData.image || undefined
+					}
+				}
+
+				contentId = locals.contentService.addContent(contentData, item.submitted_by)
 			} else {
 				const contentData = {
 					title: submissionData.title || 'Untitled',

@@ -97,7 +97,7 @@ export const CONTENT_TYPE_ICONS: Record<ContentType, string> = {
 	library: 'package',
 	announcement: 'megaphone',
 	collection: 'folder',
-	event: 'calendar'
+	resource: 'link'
 } as const
 
 // Common action types
