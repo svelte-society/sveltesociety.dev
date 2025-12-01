@@ -12,6 +12,7 @@ DROP TRIGGER IF EXISTS delete_content_likes;
 DROP TRIGGER IF EXISTS delete_content_saves;
 DROP TRIGGER IF EXISTS update_published_at;
 DROP TRIGGER IF EXISTS approve_content;
+DROP TRIGGER IF EXISTS content___set_slug;
 
 -- Drop all views that reference content table
 DROP VIEW IF EXISTS collections_view;
@@ -115,4 +116,9 @@ BEGIN
   SELECT last_insert_rowid(), tags.id
   FROM json_each(json_extract(NEW.data, '$.tags')) as t
   JOIN tags ON tags.slug = t.value;
+END;
+
+-- Recreate slug trigger from migration 006
+CREATE TRIGGER content___set_slug AFTER INSERT ON content BEGIN
+  UPDATE content SET slug = slug || '-' || lower(new.id) WHERE id = new.id;
 END;
