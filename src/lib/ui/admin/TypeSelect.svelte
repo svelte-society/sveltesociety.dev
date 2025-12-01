@@ -12,6 +12,7 @@
 		{ value: '', label: 'All Types' },
 		{ value: 'video', label: 'Video' },
 		{ value: 'library', label: 'Library' },
+		{ value: 'resource', label: 'Resource' },
 		{ value: 'announcement', label: 'Announcement' },
 		{ value: 'collection', label: 'Collection' },
 		{ value: 'recipe', label: 'Recipe' }

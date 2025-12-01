@@ -44,7 +44,8 @@
 			options={[
 				{ value: 'recipe', label: 'Recipe' },
 				{ value: 'announcement', label: 'Announcement' },
-				{ value: 'collection', label: 'Collection' }
+				{ value: 'collection', label: 'Collection' },
+				{ value: 'resource', label: 'Resource' }
 			]}
 		/>
 
@@ -268,6 +269,25 @@
 					label: `${item.title} (${item.type})`,
 					value: item.id
 				}))}
+			/>
+		</div>
+	{/if}
+
+	{#if $formData.type === 'resource'}
+		<div transition:slide class="space-y-4">
+			<Input
+				name="metadata.link"
+				label="Resource Link"
+				placeholder="https://example.com/resource"
+				description="The URL to the external resource (required)"
+				data-testid="input-resource-link"
+			/>
+			<Input
+				name="metadata.image"
+				label="Image URL (optional)"
+				placeholder="https://example.com/image.png"
+				description="An optional image URL for the resource preview"
+				data-testid="input-resource-image"
 			/>
 		</div>
 	{/if}

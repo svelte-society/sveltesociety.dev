@@ -11,6 +11,7 @@
 	import Collection from '$lib/ui/content/Collection.svelte'
 	import Video from '$lib/ui/content/Video.svelte'
 	import Library from '$lib/ui/content/Library.svelte'
+	import Resource from '$lib/ui/content/Resource.svelte'
 
 	let {
 		content,
@@ -216,6 +217,8 @@
 					{@html content.rendered_body}
 				</div>
 			{/if}
+		{:else if content.type === 'resource'}
+			<Resource {content} {priority} />
 		{/if}
 	</div>
 

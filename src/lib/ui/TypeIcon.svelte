@@ -27,6 +27,7 @@
 		announcement: Megaphone,
 		collection: Files,
 		event: Calendar,
+		resource: Link,
 		link: Link,
 		draft: Draft,
 		published: Published,

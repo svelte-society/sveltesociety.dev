@@ -24,6 +24,10 @@
 			value: 'library'
 		},
 		{
+			label: 'Resource',
+			value: 'resource'
+		},
+		{
 			label: 'Announcement',
 			value: 'announcement'
 		},
