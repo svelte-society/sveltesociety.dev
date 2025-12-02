@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { HTMLTextareaAttributes } from 'svelte/elements'
-	import type { z } from 'zod/v4'
+	import type { RemoteFormIssue } from '@sveltejs/kit'
 
 	interface TextInputProps {
 		label?: string
@@ -10,7 +10,7 @@
 		'data-testid'?: string
 		rest?: HTMLTextareaAttributes
 		id?: string
-		issues?: z.core.$ZodIssue[]
+		issues?: RemoteFormIssue[]
 	}
 	let {
 		label,

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { z } from 'zod/v4'
+	import type { RemoteFormIssue } from '@sveltejs/kit'
 
 	interface TextInputProps {
 		label?: string
@@ -8,7 +8,7 @@
 		name: string
 		type?: string
 		'data-testid'?: string
-		issues?: z.core.$ZodIssue[]
+		issues?: RemoteFormIssue[]
 	}
 	let {
 		label,

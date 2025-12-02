@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { HTMLTextareaAttributes } from 'svelte/elements'
-	import type { z } from 'zod/v4'
+	import type { RemoteFormIssue } from '@sveltejs/kit'
 	import Toggle from '$lib/ui/Toggle.svelte'
 	import { marked } from 'marked'
 
@@ -12,7 +12,7 @@
 		'data-testid'?: string
 		value?: string
 		rest?: HTMLTextareaAttributes
-		issues?: z.core.$ZodIssue[]
+		issues?: RemoteFormIssue[]
 	}
 
 	let {
