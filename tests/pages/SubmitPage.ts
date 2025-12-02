@@ -107,9 +107,30 @@ export class SubmitPage extends BasePage {
 		return this.page.locator('[data-testid="resource-notes-input"]')
 	}
 
-	// Legacy aliases for backward compatibility
+	// Legacy aliases for backward compatibility - used by individual tests
+	// Video
+	get urlField(): Locator {
+		return this.videoUrlField
+	}
+
+	// Library
+	get githubRepoField(): Locator {
+		return this.libraryGithubField
+	}
+
+	// Recipe
+	get titleField(): Locator {
+		return this.recipeTitleField
+	}
+
+	get bodyField(): Locator {
+		return this.recipeBodyField
+	}
+
+	// Generic description field - context-dependent based on current page
 	get descriptionField(): Locator {
-		return this.resourceDescriptionField
+		// Try each type's description field - the visible one will match
+		return this.page.locator('[data-testid$="-description-input"], [data-testid="description-textarea"]')
 	}
 
 	// Tags selector (common to all forms)
@@ -125,6 +146,11 @@ export class SubmitPage extends BasePage {
 		tags?: string[]
 		notes?: string
 	}): Promise<void> {
+		// Navigate to recipe page if not already there
+		if (!this.page.url().includes('/submit/recipe')) {
+			await this.goto('recipe')
+		}
+
 		await this.recipeTitleField.fill(data.title)
 		await this.recipeDescriptionField.fill(data.description)
 		await this.recipeBodyField.fill(data.body)
@@ -144,6 +170,11 @@ export class SubmitPage extends BasePage {
 		tags?: string[]
 		notes?: string
 	}): Promise<void> {
+		// Navigate to video page if not already there
+		if (!this.page.url().includes('/submit/video')) {
+			await this.goto('video')
+		}
+
 		await this.videoDescriptionField.fill(data.description)
 		await this.videoUrlField.fill(data.url)
 
@@ -162,6 +193,11 @@ export class SubmitPage extends BasePage {
 		tags?: string[]
 		notes?: string
 	}): Promise<void> {
+		// Navigate to library page if not already there
+		if (!this.page.url().includes('/submit/library')) {
+			await this.goto('library')
+		}
+
 		await this.libraryDescriptionField.fill(data.description)
 		await this.libraryGithubField.fill(data.githubRepo)
 
@@ -182,6 +218,11 @@ export class SubmitPage extends BasePage {
 		tags?: string[]
 		notes?: string
 	}): Promise<void> {
+		// Navigate to resource page if not already there
+		if (!this.page.url().includes('/submit/resource')) {
+			await this.goto('resource')
+		}
+
 		await this.resourceTitleField.fill(data.title)
 		await this.resourceDescriptionField.fill(data.description)
 		await this.resourceLinkField.fill(data.link)

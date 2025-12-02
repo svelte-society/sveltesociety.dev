@@ -58,20 +58,21 @@ export const submitVideo = form(videoSchema, async (data) => {
     try {
       const metadata = await locals.metadataService.fetchYoutubeMetadata(videoId)
       title = metadata.title
-
-      locals.moderationService.addToModerationQueue({
-        type: data.type,
-        data: JSON.stringify({
-          ...data,
-          title
-        }),
-        submitted_by: locals.user.id
-      })
-      redirect(302, '/submit/thankyou')
     } catch (error) {
       console.error('Error fetching YouTube metadata:', error)
+      // Continue without title - will show "<No Title>" in moderation queue
     }
   }
+
+  locals.moderationService.addToModerationQueue({
+    type: data.type,
+    data: JSON.stringify({
+      ...data,
+      title
+    }),
+    submitted_by: locals.user.id
+  })
+  redirect(302, '/submit/thankyou')
 })
 
 export const submitLibrary = form(librarySchema, async (data) => {
@@ -83,7 +84,7 @@ export const submitLibrary = form(librarySchema, async (data) => {
     })
   }
 
-
+  let title: string | undefined = undefined
   const { owner, repo, packagePath } = parseGitHubRepo(data.github_repo)
 
   if (owner && repo) {
@@ -101,22 +102,24 @@ export const submitLibrary = form(librarySchema, async (data) => {
     }
 
     try {
-      const title = await locals.externalContentService.getGithubMetadata(owner, repo, packagePath || undefined)
-
-      locals.moderationService.addToModerationQueue({
-        type: data.type,
-        data: JSON.stringify({
-          ...data,
-          title: title ? title : repo
-        }),
-        submitted_by: locals.user.id
-      })
+      title = await locals.externalContentService.getGithubMetadata(owner, repo, packagePath || undefined)
     } catch (error) {
       console.error('Error fetching GitHub metadata:', error)
+      // Continue without title - will use repo name as fallback
     }
-    redirect(302, '/submit/thankyou')
+
+    title = title || repo
   }
 
+  locals.moderationService.addToModerationQueue({
+    type: data.type,
+    data: JSON.stringify({
+      ...data,
+      title
+    }),
+    submitted_by: locals.user.id
+  })
+  redirect(302, '/submit/thankyou')
 })
 
 export const submitRecipe = form(recipeSchema, async (data) => {
