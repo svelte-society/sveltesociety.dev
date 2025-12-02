@@ -14,9 +14,9 @@
 	const link = $derived(content.metadata?.link || '#')
 
 	// Determine loading strategy based on priority
-	const isAboveFold = priority === 'high'
-	const loadingAttr = isAboveFold ? 'eager' : 'lazy'
-	const fetchPriorityAttr = isAboveFold ? 'high' : undefined
+	const isAboveFold = $derived(priority === 'high')
+	const loadingAttr = $derived(isAboveFold ? 'eager' : 'lazy')
+	const fetchPriorityAttr = $derived(isAboveFold ? 'high' : undefined)
 </script>
 
 <div class="relative flex h-full flex-col gap-2">
