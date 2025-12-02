@@ -3,29 +3,23 @@
  *
  * Handles uploading and retrieving thumbnails from S3-compatible storage.
  * Supports feature flag to enable/disable S3 storage.
+ *
+ * Uses process.env for compatibility with both SvelteKit and bun test environments.
  */
 
-const {
-	S3_THUMBNAILS_ENDPOINT,
-	S3_THUMBNAILS_BUCKET,
-	S3_THUMBNAILS_ACCESS_KEY,
-	S3_THUMBNAILS_SECRET_KEY,
-	S3_THUMBNAILS_PUBLIC_URL,
-	USE_S3_THUMBNAILS = 'false'
-} = process.env
-
-export const isS3Enabled = USE_S3_THUMBNAILS === 'true'
+// Use process.env for compatibility with both SvelteKit builds and bun tests
+export const isS3Enabled = process.env.USE_S3_THUMBNAILS === 'true'
 
 /**
  * Check if S3 storage is properly configured
  */
 export function isS3Configured(): boolean {
-	return !!(
-		S3_THUMBNAILS_BUCKET &&
-		S3_THUMBNAILS_ACCESS_KEY &&
-		S3_THUMBNAILS_SECRET_KEY &&
-		S3_THUMBNAILS_PUBLIC_URL
-	)
+  return !!(
+    process.env.S3_THUMBNAILS_BUCKET &&
+    process.env.S3_THUMBNAILS_ACCESS_KEY &&
+    process.env.S3_THUMBNAILS_SECRET_KEY &&
+    process.env.S3_THUMBNAILS_PUBLIC_URL
+  )
 }
 
 /**
@@ -33,26 +27,26 @@ export function isS3Configured(): boolean {
  * @throws Error if S3 is not configured
  */
 function getS3Client() {
-	if (!isS3Configured()) {
-		throw new Error(
-			'S3 storage is not configured. Please set S3_THUMBNAILS_BUCKET, S3_THUMBNAILS_ACCESS_KEY, S3_THUMBNAILS_SECRET_KEY, and S3_THUMBNAILS_PUBLIC_URL environment variables.'
-		)
-	}
+  if (!isS3Configured()) {
+    throw new Error(
+      'S3 storage is not configured. Please set S3_THUMBNAILS_BUCKET, S3_THUMBNAILS_ACCESS_KEY, S3_THUMBNAILS_SECRET_KEY, and S3_THUMBNAILS_PUBLIC_URL environment variables.'
+    )
+  }
 
-	return new Bun.S3Client({
-		accessKeyId: S3_THUMBNAILS_ACCESS_KEY!,
-		secretAccessKey: S3_THUMBNAILS_SECRET_KEY!,
-		bucket: S3_THUMBNAILS_BUCKET!,
-		endpoint: S3_THUMBNAILS_ENDPOINT,
-		region: 'auto'
-	})
+  return new Bun.S3Client({
+    accessKeyId: process.env.S3_THUMBNAILS_ACCESS_KEY!,
+    secretAccessKey: process.env.S3_THUMBNAILS_SECRET_KEY!,
+    bucket: process.env.S3_THUMBNAILS_BUCKET!,
+    endpoint: process.env.S3_THUMBNAILS_ENDPOINT,
+    region: 'auto'
+  })
 }
 
 export interface UploadOptions {
-	/** Content type of the file (e.g., 'image/jpeg', 'image/png') */
-	contentType?: string
-	/** Cache control header (default: 'public, max-age=31536000') */
-	cacheControl?: string
+  /** Content type of the file (e.g., 'image/jpeg', 'image/png') */
+  contentType?: string
+  /** Cache control header (default: 'public, max-age=31536000') */
+  cacheControl?: string
 }
 
 /**
@@ -71,35 +65,27 @@ export interface UploadOptions {
  * )
  */
 export async function uploadThumbnail(
-	key: string,
-	content: ArrayBuffer,
-	options: UploadOptions = {}
+  key: string,
+  content: ArrayBuffer,
 ): Promise<string> {
-	if (!isS3Enabled) {
-		throw new Error('S3 storage is not enabled. Set USE_S3_THUMBNAILS=true to enable.')
-	}
+  if (!isS3Enabled) {
+    throw new Error('S3 storage is not enabled. Set USE_S3_THUMBNAILS=true to enable.')
+  }
 
-	if (!isS3Configured()) {
-		throw new Error('S3 storage is not configured.')
-	}
+  if (!isS3Configured()) {
+    throw new Error('S3 storage is not configured.')
+  }
 
-	const s3 = getS3Client()
+  const s3 = getS3Client()
 
-	const { contentType = 'image/jpeg', cacheControl = 'public, max-age=31536000' } = options
+  try {
+    await s3.write(key, content)
 
-	try {
-		await s3.write(key, content, {
-			headers: {
-				'Content-Type': contentType,
-				'Cache-Control': cacheControl
-			}
-		})
-
-		return getPublicUrl(key)
-	} catch (error) {
-		console.error(`Failed to upload thumbnail to S3: ${key}`, error)
-		throw new Error(`Failed to upload thumbnail to S3: ${error}`)
-	}
+    return getPublicUrl(key)
+  } catch (error) {
+    console.error(`Failed to upload thumbnail to S3: ${key}`, error)
+    throw new Error(`Failed to upload thumbnail to S3: ${error}`)
+  }
 }
 
 /**
@@ -113,19 +99,19 @@ export async function uploadThumbnail(
  * // Returns: 'https://thumbnails.yourdomain.com/yt/abc123/thumbnail.jpg'
  */
 export function getPublicUrl(key: string): string {
-	if (!S3_THUMBNAILS_PUBLIC_URL) {
-		throw new Error('S3_THUMBNAILS_PUBLIC_URL is not configured.')
-	}
+  if (!process.env.S3_THUMBNAILS_PUBLIC_URL) {
+    throw new Error('S3_THUMBNAILS_PUBLIC_URL is not configured.')
+  }
 
-	// Ensure key doesn't start with a slash
-	const cleanKey = key.startsWith('/') ? key.slice(1) : key
+  // Ensure key doesn't start with a slash
+  const cleanKey = key.startsWith('/') ? key.slice(1) : key
 
-	// Ensure public URL doesn't end with a slash
-	const baseUrl = S3_THUMBNAILS_PUBLIC_URL.endsWith('/')
-		? S3_THUMBNAILS_PUBLIC_URL.slice(0, -1)
-		: S3_THUMBNAILS_PUBLIC_URL
+  // Ensure public URL doesn't end with a slash
+  const baseUrl = process.env.S3_THUMBNAILS_PUBLIC_URL.endsWith('/')
+    ? process.env.S3_THUMBNAILS_PUBLIC_URL.slice(0, -1)
+    : process.env.S3_THUMBNAILS_PUBLIC_URL
 
-	return `${baseUrl}/${cleanKey}`
+  return `${baseUrl}/${cleanKey}`
 }
 
 /**
@@ -137,22 +123,22 @@ export function getPublicUrl(key: string): string {
  * await deleteThumbnail('yt/abc123/thumbnail.jpg')
  */
 export async function deleteThumbnail(key: string): Promise<void> {
-	if (!isS3Enabled) {
-		throw new Error('S3 storage is not enabled. Set USE_S3_THUMBNAILS=true to enable.')
-	}
+  if (!isS3Enabled) {
+    throw new Error('S3 storage is not enabled. Set USE_S3_THUMBNAILS=true to enable.')
+  }
 
-	if (!isS3Configured()) {
-		throw new Error('S3 storage is not configured.')
-	}
+  if (!isS3Configured()) {
+    throw new Error('S3 storage is not configured.')
+  }
 
-	const s3 = getS3Client()
+  const s3 = getS3Client()
 
-	try {
-		await s3.delete(key)
-	} catch (error) {
-		console.error(`Failed to delete thumbnail from S3: ${key}`, error)
-		throw new Error(`Failed to delete thumbnail from S3: ${error}`)
-	}
+  try {
+    await s3.delete(key)
+  } catch (error) {
+    console.error(`Failed to delete thumbnail from S3: ${key}`, error)
+    throw new Error(`Failed to delete thumbnail from S3: ${error}`)
+  }
 }
 
 /**
@@ -165,16 +151,16 @@ export async function deleteThumbnail(key: string): Promise<void> {
  * const exists = await thumbnailExists('yt/abc123/thumbnail.jpg')
  */
 export async function thumbnailExists(key: string): Promise<boolean> {
-	if (!isS3Enabled || !isS3Configured()) {
-		return false
-	}
+  if (!isS3Enabled || !isS3Configured()) {
+    return false
+  }
 
-	const s3 = getS3Client()
+  const s3 = getS3Client()
 
-	try {
-		const file = s3.file(key)
-		return file.exists()
-	} catch (error) {
-		return false
-	}
+  try {
+    const file = s3.file(key)
+    return file.exists()
+  } catch (error) {
+    return false
+  }
 }

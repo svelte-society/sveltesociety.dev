@@ -247,7 +247,7 @@
 				needed.
 			</p>
 		</div>
-	{:else}
+	{:else if $formData.type !== 'resource'}
 		<MarkdownEditor name="body" />
 	{/if}
 
@@ -282,13 +282,38 @@
 				description="The URL to the external resource (required)"
 				data-testid="input-resource-link"
 			/>
-			<Input
-				name="metadata.image"
-				label="Image URL (optional)"
-				placeholder="https://example.com/image.png"
-				description="An optional image URL for the resource preview"
-				data-testid="input-resource-image"
-			/>
+			{#if data.content?.metadata?.image}
+				<div class="rounded-md border border-gray-200 bg-gray-50 p-4">
+					<p class="mb-2 text-sm font-medium text-gray-700">Preview Image</p>
+					<div class="flex gap-4">
+						<img
+							src={getCachedImageWithPreset(data.content.metadata.image, 'thumbnail')}
+							alt="Resource preview"
+							class="w-48 rounded"
+						/>
+						<div class="flex-1 space-y-2">
+							<p class="text-sm text-gray-600">
+								Image automatically fetched from the resource URL.
+							</p>
+							<Input
+								name="metadata.image"
+								label="Image URL"
+								placeholder="https://example.com/image.png"
+								description="Override the auto-fetched image if needed"
+								data-testid="input-resource-image"
+							/>
+						</div>
+					</div>
+				</div>
+			{:else}
+				<Input
+					name="metadata.image"
+					label="Image URL (optional)"
+					placeholder="https://example.com/image.png"
+					description="An optional image URL for the resource preview"
+					data-testid="input-resource-image"
+				/>
+			{/if}
 		</div>
 	{/if}
 

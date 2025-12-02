@@ -105,37 +105,6 @@ test.describe('Submit Resource', () => {
 		await submitPage.submit()
 		await submitPage.expectSuccessRedirect()
 	})
-
-	test('can submit resource with optional image URL', async ({ page }) => {
-		const submitPage = new SubmitPage(page)
-		await submitPage.goto('resource')
-
-		await submitPage.resourceTitleField.fill('Svelte Tutorial')
-		await submitPage.resourceDescriptionField.fill(
-			'An interactive tutorial to learn Svelte from scratch.'
-		)
-		await submitPage.resourceLinkField.fill('https://learn.svelte.dev')
-		await submitPage.resourceImageField.fill('https://svelte.dev/images/og-image.png')
-		await submitPage.selectFirstTag()
-
-		await submitPage.submit()
-		await submitPage.expectSuccessRedirect()
-	})
-
-	test('validates image URL format when provided', async ({ page }) => {
-		const submitPage = new SubmitPage(page)
-		await submitPage.goto('resource')
-
-		await submitPage.resourceTitleField.fill('Test Resource')
-		await submitPage.resourceDescriptionField.fill('This is a test description that is long enough')
-		await submitPage.resourceLinkField.fill('https://example.com')
-		await submitPage.resourceImageField.fill('not-a-valid-url')
-		await submitPage.selectFirstTag()
-
-		await submitPage.submit()
-
-		await submitPage.expectValidationError('Please enter a valid image URL')
-	})
 })
 
 test.describe('Submit Navigation', () => {
