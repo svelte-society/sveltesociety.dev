@@ -131,6 +131,8 @@
 						Library Details
 					{:else if data.item.type === 'recipe'}
 						Recipe Content
+					{:else if data.item.type === 'resource'}
+						Resource Details
 					{:else}
 						Content Details
 					{/if}
@@ -194,6 +196,32 @@
 						<div class="mt-2 max-h-96 overflow-y-auto rounded-lg bg-gray-50 p-4">
 							<pre class="text-sm whitespace-pre-wrap text-gray-900">{submissionData.body}</pre>
 						</div>
+					</div>
+				{:else if data.item.type === 'resource' && submissionData.link}
+					<div class="space-y-3">
+						<div>
+							<h3 class="text-sm font-medium text-gray-700">Resource URL</h3>
+							<a
+								href={submissionData.link}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="mt-1 block text-sm text-blue-600 hover:text-blue-800 hover:underline"
+							>
+								{submissionData.link}
+							</a>
+						</div>
+						{#if submissionData.image}
+							<div>
+								<h3 class="text-sm font-medium text-gray-700">Preview Image</h3>
+								<div class="mt-2 max-w-md overflow-hidden rounded-lg border border-gray-200">
+									<img
+										src={submissionData.image}
+										alt="Resource preview"
+										class="w-full object-cover"
+									/>
+								</div>
+							</div>
+						{/if}
 					</div>
 				{:else}
 					<p class="text-sm text-gray-500">No type-specific content available.</p>
