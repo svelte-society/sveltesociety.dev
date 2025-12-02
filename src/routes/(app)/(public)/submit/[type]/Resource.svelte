@@ -6,7 +6,7 @@
 	import DynamicSelector from '$lib/ui/DynamicSelector.svelte'
 	import { submitResource, getTags } from '../submit.remote'
 
-	const { title, description, link, image, type, tags } = submitResource.fields
+	const { title, description, link, image, type, tags, notes } = submitResource.fields
 </script>
 
 <form {...submitResource} class="flex flex-col gap-4">
@@ -17,15 +17,17 @@
 		placeholder="A useful Svelte resource"
 		label="Title"
 		description="Enter the title of your resource"
+		issues={title.issues()}
 		data-testid="resource-title-input"
 	/>
 
 	<TextArea
 		{...description.as('text')}
-		placeholder="https://example.com/resource"
+		placeholder="A brief description of this resource..."
 		label="Description"
 		description="Enter a short description"
-		data-testid="resource-link-input"
+		issues={description.issues()}
+		data-testid="resource-description-input"
 	/>
 
 	<Input
@@ -33,6 +35,7 @@
 		placeholder="https://example.com/resource"
 		label="Link"
 		description="Enter the URL to the resource"
+		issues={link.issues()}
 		data-testid="resource-link-input"
 	/>
 
@@ -41,6 +44,7 @@
 		placeholder="https://example.com/image.png (optional)"
 		label="Image URL (optional)"
 		description="Enter a URL to an image for the resource preview"
+		issues={image.issues()}
 		data-testid="resource-image-input"
 	/>
 
@@ -50,7 +54,17 @@
 		description="Select relevant tags for your submission"
 		field={tags}
 		options={await getTags()}
+		data-testid="tags-selector"
 	/>
 
-	<Button>Submit {page.params.type}</Button>
+	<TextArea
+		{...notes.as('text')}
+		placeholder="Any additional notes or context..."
+		label="Notes (optional)"
+		description="Any additional information for the moderators about your submission"
+		rows={3}
+		data-testid="resource-notes-input"
+	/>
+
+	<Button data-testid="submit-button">Submit Resource</Button>
 </form>

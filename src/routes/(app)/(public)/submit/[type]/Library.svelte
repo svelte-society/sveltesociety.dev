@@ -7,7 +7,7 @@
 	import { debounce } from '$lib/utils/debounce'
 	import { submitLibrary, getTags } from '../submit.remote'
 
-	const { description, type, tags, github_repo } = submitLibrary.fields
+	const { description, type, tags, github_repo, notes } = submitLibrary.fields
 
 	let libraryPreview = $state<any>(null)
 	let previousGithubRepo = $state<string>('')
@@ -59,6 +59,7 @@
 		placeholder="A UI library with clean minimalist components"
 		label="Description"
 		description="Enter a short description"
+		issues={description.issues()}
 		data-testid="description-textarea"
 	/>
 
@@ -67,6 +68,7 @@
 		placeholder="username/repository or username/repository/packages/name"
 		label="GitHub Repository"
 		description="GitHub repository or monorepo package path (required for libraries)"
+		issues={github_repo.issues()}
 		data-testid="library-github-input"
 	/>
 
@@ -123,7 +125,17 @@
 		description="Select relevant tags for your submission"
 		field={tags}
 		options={await getTags()}
+		data-testid="tags-selector"
 	/>
 
-	<Button>Submit {page.params.type}</Button>
+	<TextArea
+		{...notes.as('text')}
+		placeholder="Any additional notes or context..."
+		label="Notes (optional)"
+		description="Any additional information for the moderators about your submission"
+		rows={3}
+		data-testid="library-notes-input"
+	/>
+
+	<Button data-testid="submit-button">Submit Library</Button>
 </form>

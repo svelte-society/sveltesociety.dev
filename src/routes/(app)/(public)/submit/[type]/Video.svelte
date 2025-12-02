@@ -7,7 +7,7 @@
 	import { debounce } from '$lib/utils/debounce'
 	import { submitVideo, getTags } from '../submit.remote'
 
-	const { description, type, tags, url } = submitVideo.fields
+	const { description, type, tags, url, notes } = submitVideo.fields
 
 	let videoPreview = $state<any>(null)
 	let previousVideoUrl = $state<string>('')
@@ -56,10 +56,11 @@
 
 	<TextArea
 		{...description.as('text')}
-		placeholder="https://example.com/resource"
+		placeholder="A brief description of this video..."
 		label="Description"
 		description="Enter a short description"
-		data-testid="resource-link-input"
+		issues={description.issues()}
+		data-testid="video-description-input"
 	/>
 
 	<Input
@@ -67,6 +68,7 @@
 		placeholder="https://youtube.com/watch?v=..."
 		label="Video URL"
 		description="Enter the YouTube URL for the video"
+		issues={url.issues()}
 		data-testid="video-url-input"
 	/>
 
@@ -119,7 +121,17 @@
 		description="Select relevant tags for your submission"
 		field={tags}
 		options={await getTags()}
+		data-testid="tags-selector"
 	/>
 
-	<Button>Submit {page.params.type}</Button>
+	<TextArea
+		{...notes.as('text')}
+		placeholder="Any additional notes or context..."
+		label="Notes (optional)"
+		description="Any additional information for the moderators about your submission"
+		rows={3}
+		data-testid="video-notes-input"
+	/>
+
+	<Button data-testid="submit-button">Submit Video</Button>
 </form>
