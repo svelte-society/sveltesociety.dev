@@ -35,7 +35,7 @@
 		options,
 		label,
 		description,
-		placeholder = `Select ${name}`,
+		placeholder,
 		Icon = TagIcon,
 		'data-testid': testId,
 		field
@@ -44,11 +44,9 @@
 	let searchValue = $state('')
 	let open = $state(false)
 
-	// Get field issues for error display
 	const issues = $derived(field.issues() ?? [])
 	const hasErrors = $derived(issues.length > 0)
 
-	// Filter options to exclude already selected items and match search
 	const filteredOptions = $derived.by(() => {
 		const selectedValues = field.value() || []
 		const available = options.filter((option) => !selectedValues.includes(option.value))
@@ -122,7 +120,7 @@
 						clearOnDeselect
 						oninput={(e) => (searchValue = e.currentTarget.value)}
 						onfocus={() => (open = true)}
-						{placeholder}
+						placeholder={placeholder || `Select ${name}`}
 						autocomplete="off"
 						class="w-full rounded-md border-2 px-8 py-1.5 text-sm text-slate-800 placeholder-slate-500 focus:outline-2 focus:outline-sky-200 {hasErrors
 							? 'border-red-300 bg-red-50 text-red-600'
@@ -135,7 +133,7 @@
 
 				<Combobox.Portal>
 					<Combobox.Content
-						class="z-50 mt-1 max-h-60 w-[var(--bits-combobox-anchor-width)] overflow-auto rounded-md border bg-white shadow-lg"
+						class="z-50 mt-1 max-h-60 w-(--bits-combobox-anchor-width) overflow-auto rounded-md border bg-white shadow-lg"
 					>
 						<Combobox.Viewport class="p-1">
 							{#if filteredOptions.length > 0}
