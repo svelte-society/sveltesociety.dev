@@ -1,7 +1,7 @@
 import { form, getRequestEvent, query } from '$app/server'
 import { fail, redirect } from '@sveltejs/kit'
 
-import { resourceSchema, videoSchema, librarySchema } from './schema'
+import { resourceSchema, videoSchema, librarySchema, recipeSchema } from './schema'
 import { extractYouTubeVideoId, parseGitHubRepo } from './helpers'
 
 export const getTags = query(() => {
@@ -117,4 +117,25 @@ export const submitLibrary = form(librarySchema, async (data) => {
     redirect(302, '/submit/thankyou')
   }
 
+})
+
+export const submitRecipe = form(recipeSchema, async (data) => {
+  const { locals } = getRequestEvent()
+  if (!locals.user) {
+    return fail(401, {
+      error: 'Authentication required',
+      message: 'You must be logged in to submit content.'
+    })
+  }
+
+  try {
+    locals.moderationService.addToModerationQueue({
+      type: data.type,
+      data: JSON.stringify(data),
+      submitted_by: locals.user.id
+    })
+  } catch (error) {
+    console.error('Error adding content to moderation queue:', error)
+  }
+  redirect(302, '/submit/thankyou')
 })
