@@ -1,130 +1,176 @@
 import type { Page, Locator } from '@playwright/test'
 import { BasePage } from './BasePage'
 
+type ContentType = 'recipe' | 'video' | 'library' | 'resource'
+
 /**
  * Page Object Model for the Submit page
+ *
+ * The submit page now uses a navigation pattern where users click links
+ * to go to /submit/recipe, /submit/video, etc.
  */
 export class SubmitPage extends BasePage {
 	readonly submitHeading: Locator
 	readonly submitButton: Locator
-	readonly titleField: Locator
-	readonly descriptionField: Locator
-	readonly bodyField: Locator
-	readonly urlField: Locator
-	readonly githubRepoField: Locator
-	readonly notesField: Locator
-	readonly resourceTitleField: Locator
-	readonly resourceLinkField: Locator
-	readonly resourceImageUpload: Locator
-	readonly resourceImageUploadSubmit: Locator
-	readonly resourceImageUploadSuccess: Locator
+	readonly contentTypeNav: Locator
 
 	constructor(page: Page) {
 		super(page)
 		this.submitHeading = page.locator('h1')
 		this.submitButton = page.locator('[data-testid="submit-button"]')
-
-		// Form fields using test-ids
-		this.titleField = page.locator('[data-testid="recipe-title-input"]')
-		this.descriptionField = page.locator('[data-testid="description-textarea"]')
-		this.bodyField = page.locator('[data-testid="recipe-body-editor"]')
-		this.urlField = page.locator('[data-testid="video-url-input"]')
-		this.githubRepoField = page.locator('[data-testid="library-github-input"]')
-		this.notesField = page.locator('[data-testid="notes-textarea"]')
-		this.resourceTitleField = page.locator('[data-testid="resource-title-input"]')
-		this.resourceLinkField = page.locator('[data-testid="resource-link-input"]')
-		this.resourceImageUpload = page.locator('[data-testid="resource-image-upload"]')
-		this.resourceImageUploadSubmit = page.locator('[data-testid="resource-image-upload-submit"]')
-		this.resourceImageUploadSuccess = page.locator('[data-testid="resource-image-upload-success"]')
+		this.contentTypeNav = page.locator('[data-testid="content-type-nav"]')
 	}
 
-	async goto(): Promise<void> {
-		await this.page.goto('/submit')
+	// Navigation
+	async goto(type?: ContentType): Promise<void> {
+		if (type) {
+			await this.page.goto(`/submit/${type}`)
+		} else {
+			await this.page.goto('/submit')
+		}
+	}
+
+	async selectContentType(type: ContentType): Promise<void> {
+		await this.page.locator(`[data-testid="submit-${type}-link"]`).click()
+		await this.page.waitForURL(`/submit/${type}`)
 	}
 
 	async expectSubmitHeading(): Promise<void> {
 		await this.submitHeading.waitFor({ state: 'visible' })
 	}
 
-	async selectContentType(type: 'recipe' | 'video' | 'library' | 'resource'): Promise<void> {
-		const typeLabels: Record<string, string> = {
-			recipe: 'Recipe',
-			video: 'Video',
-			library: 'Library',
-			resource: 'Resource'
-		}
-		// For native select, use selectOption
-		await this.page.locator('[data-testid="content-type-selector"]').selectOption(type)
+	async expectContentTypeNavVisible(): Promise<void> {
+		await this.contentTypeNav.waitFor({ state: 'visible' })
 	}
 
+	// Recipe form fields
+	get recipeTitleField(): Locator {
+		return this.page.locator('[data-testid="recipe-title-input"]')
+	}
+
+	get recipeDescriptionField(): Locator {
+		return this.page.locator('[data-testid="recipe-description-input"]')
+	}
+
+	get recipeBodyField(): Locator {
+		return this.page.locator('[data-testid="recipe-body-input"]')
+	}
+
+	get recipeNotesField(): Locator {
+		return this.page.locator('[data-testid="recipe-notes-input"]')
+	}
+
+	// Video form fields
+	get videoUrlField(): Locator {
+		return this.page.locator('[data-testid="video-url-input"]')
+	}
+
+	get videoDescriptionField(): Locator {
+		return this.page.locator('[data-testid="video-description-input"]')
+	}
+
+	get videoNotesField(): Locator {
+		return this.page.locator('[data-testid="video-notes-input"]')
+	}
+
+	// Library form fields
+	get libraryGithubField(): Locator {
+		return this.page.locator('[data-testid="library-github-input"]')
+	}
+
+	get libraryDescriptionField(): Locator {
+		return this.page.locator('[data-testid="description-textarea"]')
+	}
+
+	get libraryNotesField(): Locator {
+		return this.page.locator('[data-testid="library-notes-input"]')
+	}
+
+	// Resource form fields
+	get resourceTitleField(): Locator {
+		return this.page.locator('[data-testid="resource-title-input"]')
+	}
+
+	get resourceDescriptionField(): Locator {
+		return this.page.locator('[data-testid="resource-description-input"]')
+	}
+
+	get resourceLinkField(): Locator {
+		return this.page.locator('[data-testid="resource-link-input"]')
+	}
+
+	get resourceImageField(): Locator {
+		return this.page.locator('[data-testid="resource-image-input"]')
+	}
+
+	get resourceNotesField(): Locator {
+		return this.page.locator('[data-testid="resource-notes-input"]')
+	}
+
+	// Legacy aliases for backward compatibility
+	get descriptionField(): Locator {
+		return this.resourceDescriptionField
+	}
+
+	// Tags selector (common to all forms)
+	get tagsSelector(): Locator {
+		return this.page.locator('[data-testid="tags-selector"]')
+	}
+
+	// Form fill helpers
 	async fillRecipeForm(data: {
 		title: string
 		description: string
 		body: string
-		tags: string[]
+		tags?: string[]
 		notes?: string
 	}): Promise<void> {
-		await this.selectContentType('recipe')
-		await this.titleField.fill(data.title)
-		await this.descriptionField.fill(data.description)
-		await this.bodyField.fill(data.body)
+		await this.recipeTitleField.fill(data.title)
+		await this.recipeDescriptionField.fill(data.description)
+		await this.recipeBodyField.fill(data.body)
 
-		// Select tags using the Combobox component
-		const tagsInput = this.page.locator('[data-testid="tags-selector"]')
-		for (const tag of data.tags) {
-			await tagsInput.click()
-			await tagsInput.fill(tag)
-			await this.page.locator(`[role="option"]:has-text("${tag}")`).first().click()
+		if (data.tags?.length) {
+			await this.selectTags(data.tags)
 		}
 
 		if (data.notes) {
-			await this.notesField.fill(data.notes)
+			await this.recipeNotesField.fill(data.notes)
 		}
 	}
 
 	async fillVideoForm(data: {
 		url: string
 		description: string
-		tags: string[]
+		tags?: string[]
 		notes?: string
 	}): Promise<void> {
-		await this.selectContentType('video')
-		await this.urlField.fill(data.url)
-		await this.descriptionField.fill(data.description)
+		await this.videoDescriptionField.fill(data.description)
+		await this.videoUrlField.fill(data.url)
 
-		// Select tags using the Combobox component
-		const tagsInput = this.page.locator('[data-testid="tags-selector"]')
-		for (const tag of data.tags) {
-			await tagsInput.click()
-			await tagsInput.fill(tag)
-			await this.page.locator(`[role="option"]:has-text("${tag}")`).first().click()
+		if (data.tags?.length) {
+			await this.selectTags(data.tags)
 		}
 
 		if (data.notes) {
-			await this.notesField.fill(data.notes)
+			await this.videoNotesField.fill(data.notes)
 		}
 	}
 
 	async fillLibraryForm(data: {
 		githubRepo: string
 		description: string
-		tags: string[]
+		tags?: string[]
 		notes?: string
 	}): Promise<void> {
-		await this.selectContentType('library')
-		await this.githubRepoField.fill(data.githubRepo)
-		await this.descriptionField.fill(data.description)
+		await this.libraryDescriptionField.fill(data.description)
+		await this.libraryGithubField.fill(data.githubRepo)
 
-		// Select tags using the Combobox component
-		const tagsInput = this.page.locator('[data-testid="tags-selector"]')
-		for (const tag of data.tags) {
-			await tagsInput.click()
-			await tagsInput.fill(tag)
-			await this.page.locator(`[role="option"]:has-text("${tag}")`).first().click()
+		if (data.tags?.length) {
+			await this.selectTags(data.tags)
 		}
 
 		if (data.notes) {
-			await this.notesField.fill(data.notes)
+			await this.libraryNotesField.fill(data.notes)
 		}
 	}
 
@@ -132,50 +178,42 @@ export class SubmitPage extends BasePage {
 		title: string
 		link: string
 		description: string
-		tags: string[]
-		imagePath?: string
+		imageUrl?: string
+		tags?: string[]
 		notes?: string
 	}): Promise<void> {
-		await this.selectContentType('resource')
 		await this.resourceTitleField.fill(data.title)
+		await this.resourceDescriptionField.fill(data.description)
 		await this.resourceLinkField.fill(data.link)
-		await this.descriptionField.fill(data.description)
 
-		if (data.imagePath) {
-			await this.uploadResourceImage(data.imagePath)
+		if (data.imageUrl) {
+			await this.resourceImageField.fill(data.imageUrl)
 		}
 
-		// Select tags using the Combobox component
-		const tagsInput = this.page.locator('[data-testid="tags-selector"]')
-		for (const tag of data.tags) {
-			await tagsInput.click()
-			await tagsInput.fill(tag)
-			await this.page.locator(`[role="option"]:has-text("${tag}")`).first().click()
+		if (data.tags?.length) {
+			await this.selectTags(data.tags)
 		}
 
 		if (data.notes) {
-			await this.notesField.fill(data.notes)
+			await this.resourceNotesField.fill(data.notes)
 		}
 	}
 
-	async uploadResourceImage(filePath: string): Promise<void> {
-		// Use the input element inside the FileUpload component
-		await this.page.locator('[data-testid="resource-image-upload-input"]').setInputFiles(filePath)
+	async selectTags(tags: string[]): Promise<void> {
+		// Select tags from Combobox by clicking (one tag per iteration)
+		for (let i = 0; i < tags.length; i++) {
+			await this.selectFirstTag()
+		}
 	}
 
-	async uploadResourceImageAndSubmit(filePath: string): Promise<void> {
-		await this.uploadResourceImage(filePath)
-		await this.resourceImageUploadSubmit.click()
-		await this.resourceImageUploadSuccess.waitFor({ state: 'visible', timeout: 30000 })
-	}
-
-	async expectImagePreview(): Promise<void> {
-		// The FileUpload component shows a preview img when file is selected
-		await this.page.locator('[data-testid="resource-image-upload"]').locator('img[alt="Preview"]').waitFor({ state: 'visible' })
-	}
-
-	async expectFileUploadError(message: string): Promise<void> {
-		await this.page.locator(`[data-testid="resource-image-upload-error"]:has-text("${message}")`).waitFor({ state: 'visible' })
+	async selectFirstTag(): Promise<void> {
+		// Click the combobox input to open the dropdown
+		await this.tagsSelector.click()
+		// Wait for the dropdown to be visible and click the first item
+		// bits-ui Combobox uses [data-combobox-item] for items
+		const firstItem = this.page.locator('[data-combobox-item]').first()
+		await firstItem.waitFor({ state: 'visible' })
+		await firstItem.click()
 	}
 
 	async submit(): Promise<void> {
