@@ -247,7 +247,7 @@
 				needed.
 			</p>
 		</div>
-	{:else}
+	{:else if $formData.type !== 'resource'}
 		<MarkdownEditor name="body" />
 	{/if}
 
