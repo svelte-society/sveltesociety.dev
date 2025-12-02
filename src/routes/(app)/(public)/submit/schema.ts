@@ -41,8 +41,7 @@ export const recipeSchema = baseSchema.extend({
 export const resourceSchema = baseSchema.extend({
 	type: z.literal('resource'),
 	title: z.string().min(5, { message: 'Title must be at least 5 characters long' }),
-	link: z.url({ message: 'Please enter a valid URL' }),
-	image: z.url({ message: 'Please enter a valid image URL' }).optional().or(z.literal(''))
+	link: z.url({ message: 'Please enter a valid URL' })
 })
 
 export const schema = z.union([videoSchema, librarySchema, recipeSchema, resourceSchema])

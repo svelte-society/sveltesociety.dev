@@ -99,10 +99,6 @@ export class SubmitPage extends BasePage {
 		return this.page.locator('[data-testid="resource-link-input"]')
 	}
 
-	get resourceImageField(): Locator {
-		return this.page.locator('[data-testid="resource-image-input"]')
-	}
-
 	get resourceNotesField(): Locator {
 		return this.page.locator('[data-testid="resource-notes-input"]')
 	}
@@ -214,7 +210,6 @@ export class SubmitPage extends BasePage {
 		title: string
 		link: string
 		description: string
-		imageUrl?: string
 		tags?: string[]
 		notes?: string
 	}): Promise<void> {
@@ -226,10 +221,6 @@ export class SubmitPage extends BasePage {
 		await this.resourceTitleField.fill(data.title)
 		await this.resourceDescriptionField.fill(data.description)
 		await this.resourceLinkField.fill(data.link)
-
-		if (data.imageUrl) {
-			await this.resourceImageField.fill(data.imageUrl)
-		}
 
 		if (data.tags?.length) {
 			await this.selectTags(data.tags)
