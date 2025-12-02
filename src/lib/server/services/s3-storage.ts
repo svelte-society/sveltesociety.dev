@@ -3,21 +3,22 @@
  *
  * Handles uploading and retrieving thumbnails from S3-compatible storage.
  * Supports feature flag to enable/disable S3 storage.
+ *
+ * Uses process.env for compatibility with both SvelteKit and bun test environments.
  */
-import { env } from '$env/dynamic/private'
 
-// Use dynamic env to allow optional S3 configuration (not all environments have S3)
-export const isS3Enabled = env.USE_S3_THUMBNAILS === 'true'
+// Use process.env for compatibility with both SvelteKit builds and bun tests
+export const isS3Enabled = process.env.USE_S3_THUMBNAILS === 'true'
 
 /**
  * Check if S3 storage is properly configured
  */
 export function isS3Configured(): boolean {
   return !!(
-    env.S3_THUMBNAILS_BUCKET &&
-    env.S3_THUMBNAILS_ACCESS_KEY &&
-    env.S3_THUMBNAILS_SECRET_KEY &&
-    env.S3_THUMBNAILS_PUBLIC_URL
+    process.env.S3_THUMBNAILS_BUCKET &&
+    process.env.S3_THUMBNAILS_ACCESS_KEY &&
+    process.env.S3_THUMBNAILS_SECRET_KEY &&
+    process.env.S3_THUMBNAILS_PUBLIC_URL
   )
 }
 
@@ -33,10 +34,10 @@ function getS3Client() {
   }
 
   return new Bun.S3Client({
-    accessKeyId: env.S3_THUMBNAILS_ACCESS_KEY!,
-    secretAccessKey: env.S3_THUMBNAILS_SECRET_KEY!,
-    bucket: env.S3_THUMBNAILS_BUCKET!,
-    endpoint: env.S3_THUMBNAILS_ENDPOINT,
+    accessKeyId: process.env.S3_THUMBNAILS_ACCESS_KEY!,
+    secretAccessKey: process.env.S3_THUMBNAILS_SECRET_KEY!,
+    bucket: process.env.S3_THUMBNAILS_BUCKET!,
+    endpoint: process.env.S3_THUMBNAILS_ENDPOINT,
     region: 'auto'
   })
 }
@@ -98,7 +99,7 @@ export async function uploadThumbnail(
  * // Returns: 'https://thumbnails.yourdomain.com/yt/abc123/thumbnail.jpg'
  */
 export function getPublicUrl(key: string): string {
-  if (!env.S3_THUMBNAILS_PUBLIC_URL) {
+  if (!process.env.S3_THUMBNAILS_PUBLIC_URL) {
     throw new Error('S3_THUMBNAILS_PUBLIC_URL is not configured.')
   }
 
@@ -106,9 +107,9 @@ export function getPublicUrl(key: string): string {
   const cleanKey = key.startsWith('/') ? key.slice(1) : key
 
   // Ensure public URL doesn't end with a slash
-  const baseUrl = env.S3_THUMBNAILS_PUBLIC_URL.endsWith('/')
-    ? env.S3_THUMBNAILS_PUBLIC_URL.slice(0, -1)
-    : env.S3_THUMBNAILS_PUBLIC_URL
+  const baseUrl = process.env.S3_THUMBNAILS_PUBLIC_URL.endsWith('/')
+    ? process.env.S3_THUMBNAILS_PUBLIC_URL.slice(0, -1)
+    : process.env.S3_THUMBNAILS_PUBLIC_URL
 
   return `${baseUrl}/${cleanKey}`
 }
