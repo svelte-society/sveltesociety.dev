@@ -44,6 +44,10 @@
 	let searchValue = $state('')
 	let open = $state(false)
 
+	// Get field issues for error display
+	const issues = $derived(field.issues() ?? [])
+	const hasErrors = $derived(issues.length > 0)
+
 	// Filter options to exclude already selected items and match search
 	const filteredOptions = $derived.by(() => {
 		const selectedValues = field.value() || []
@@ -120,7 +124,9 @@
 						onfocus={() => (open = true)}
 						{placeholder}
 						autocomplete="off"
-						class="w-full rounded-md border-2 border-transparent bg-slate-100 px-8 py-1.5 text-sm text-slate-800 placeholder-slate-500 focus:outline-2 focus:outline-sky-200 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600"
+						class="w-full rounded-md border-2 px-8 py-1.5 text-sm text-slate-800 placeholder-slate-500 focus:outline-2 focus:outline-sky-200 {hasErrors
+							? 'border-red-300 bg-red-50 text-red-600'
+							: 'border-transparent bg-slate-100'}"
 					/>
 					<Combobox.Trigger class="absolute end-2 top-1/2 -translate-y-1/2 text-slate-500">
 						<CaretUpDown class="size-4" />
@@ -164,7 +170,13 @@
 				</Combobox.Portal>
 			</Combobox.Root>
 		</label>
-		<div class="text-xs text-slate-500 data-fs-error:sr-only">{description}</div>
+		{#if hasErrors}
+			{#each issues as issue}
+				<div class="text-xs text-red-600">{issue.message}</div>
+			{/each}
+		{:else}
+			<div class="text-xs text-slate-500">{description}</div>
+		{/if}
 	</div>
 
 	<ul class="space-y-2 rounded-md bg-slate-100 p-4">
