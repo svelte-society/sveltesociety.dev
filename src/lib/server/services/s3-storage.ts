@@ -4,26 +4,20 @@
  * Handles uploading and retrieving thumbnails from S3-compatible storage.
  * Supports feature flag to enable/disable S3 storage.
  */
-import {
-  S3_THUMBNAILS_ENDPOINT,
-  S3_THUMBNAILS_BUCKET,
-  S3_THUMBNAILS_ACCESS_KEY,
-  S3_THUMBNAILS_SECRET_KEY,
-  S3_THUMBNAILS_PUBLIC_URL,
-  USE_S3_THUMBNAILS
-} from '$env/static/private'
+import { env } from '$env/dynamic/private'
 
-export const isS3Enabled = USE_S3_THUMBNAILS === 'true'
+// Use dynamic env to allow optional S3 configuration (not all environments have S3)
+export const isS3Enabled = env.USE_S3_THUMBNAILS === 'true'
 
 /**
  * Check if S3 storage is properly configured
  */
 export function isS3Configured(): boolean {
   return !!(
-    S3_THUMBNAILS_BUCKET &&
-    S3_THUMBNAILS_ACCESS_KEY &&
-    S3_THUMBNAILS_SECRET_KEY &&
-    S3_THUMBNAILS_PUBLIC_URL
+    env.S3_THUMBNAILS_BUCKET &&
+    env.S3_THUMBNAILS_ACCESS_KEY &&
+    env.S3_THUMBNAILS_SECRET_KEY &&
+    env.S3_THUMBNAILS_PUBLIC_URL
   )
 }
 
@@ -39,10 +33,10 @@ function getS3Client() {
   }
 
   return new Bun.S3Client({
-    accessKeyId: S3_THUMBNAILS_ACCESS_KEY!,
-    secretAccessKey: S3_THUMBNAILS_SECRET_KEY!,
-    bucket: S3_THUMBNAILS_BUCKET!,
-    endpoint: S3_THUMBNAILS_ENDPOINT,
+    accessKeyId: env.S3_THUMBNAILS_ACCESS_KEY!,
+    secretAccessKey: env.S3_THUMBNAILS_SECRET_KEY!,
+    bucket: env.S3_THUMBNAILS_BUCKET!,
+    endpoint: env.S3_THUMBNAILS_ENDPOINT,
     region: 'auto'
   })
 }
@@ -104,7 +98,7 @@ export async function uploadThumbnail(
  * // Returns: 'https://thumbnails.yourdomain.com/yt/abc123/thumbnail.jpg'
  */
 export function getPublicUrl(key: string): string {
-  if (!S3_THUMBNAILS_PUBLIC_URL) {
+  if (!env.S3_THUMBNAILS_PUBLIC_URL) {
     throw new Error('S3_THUMBNAILS_PUBLIC_URL is not configured.')
   }
 
@@ -112,9 +106,9 @@ export function getPublicUrl(key: string): string {
   const cleanKey = key.startsWith('/') ? key.slice(1) : key
 
   // Ensure public URL doesn't end with a slash
-  const baseUrl = S3_THUMBNAILS_PUBLIC_URL.endsWith('/')
-    ? S3_THUMBNAILS_PUBLIC_URL.slice(0, -1)
-    : S3_THUMBNAILS_PUBLIC_URL
+  const baseUrl = env.S3_THUMBNAILS_PUBLIC_URL.endsWith('/')
+    ? env.S3_THUMBNAILS_PUBLIC_URL.slice(0, -1)
+    : env.S3_THUMBNAILS_PUBLIC_URL
 
   return `${baseUrl}/${cleanKey}`
 }
