@@ -15,7 +15,9 @@ export class SubmitPage extends BasePage {
 	readonly notesField: Locator
 	readonly resourceTitleField: Locator
 	readonly resourceLinkField: Locator
-	readonly resourceImageField: Locator
+	readonly resourceImageUpload: Locator
+	readonly resourceImageUploadSubmit: Locator
+	readonly resourceImageUploadSuccess: Locator
 
 	constructor(page: Page) {
 		super(page)
@@ -31,7 +33,9 @@ export class SubmitPage extends BasePage {
 		this.notesField = page.locator('[data-testid="notes-textarea"]')
 		this.resourceTitleField = page.locator('[data-testid="resource-title-input"]')
 		this.resourceLinkField = page.locator('[data-testid="resource-link-input"]')
-		this.resourceImageField = page.locator('[data-testid="resource-image-input"]')
+		this.resourceImageUpload = page.locator('[data-testid="resource-image-upload"]')
+		this.resourceImageUploadSubmit = page.locator('[data-testid="resource-image-upload-submit"]')
+		this.resourceImageUploadSuccess = page.locator('[data-testid="resource-image-upload-success"]')
 	}
 
 	async goto(): Promise<void> {
@@ -43,10 +47,14 @@ export class SubmitPage extends BasePage {
 	}
 
 	async selectContentType(type: 'recipe' | 'video' | 'library' | 'resource'): Promise<void> {
-		// Click the Select dropdown trigger
-		await this.page.locator('[data-testid="content-type-selector"]').click()
-		// Wait for dropdown to appear and click the option
-		await this.page.locator(`[role="option"]:has-text("${type}")`).first().click()
+		const typeLabels: Record<string, string> = {
+			recipe: 'Recipe',
+			video: 'Video',
+			library: 'Library',
+			resource: 'Resource'
+		}
+		// For native select, use selectOption
+		await this.page.locator('[data-testid="content-type-selector"]').selectOption(type)
 	}
 
 	async fillRecipeForm(data: {
@@ -125,7 +133,7 @@ export class SubmitPage extends BasePage {
 		link: string
 		description: string
 		tags: string[]
-		image?: string
+		imagePath?: string
 		notes?: string
 	}): Promise<void> {
 		await this.selectContentType('resource')
@@ -133,8 +141,8 @@ export class SubmitPage extends BasePage {
 		await this.resourceLinkField.fill(data.link)
 		await this.descriptionField.fill(data.description)
 
-		if (data.image) {
-			await this.resourceImageField.fill(data.image)
+		if (data.imagePath) {
+			await this.uploadResourceImage(data.imagePath)
 		}
 
 		// Select tags using the Combobox component
@@ -148,6 +156,26 @@ export class SubmitPage extends BasePage {
 		if (data.notes) {
 			await this.notesField.fill(data.notes)
 		}
+	}
+
+	async uploadResourceImage(filePath: string): Promise<void> {
+		// Use the input element inside the FileUpload component
+		await this.page.locator('[data-testid="resource-image-upload-input"]').setInputFiles(filePath)
+	}
+
+	async uploadResourceImageAndSubmit(filePath: string): Promise<void> {
+		await this.uploadResourceImage(filePath)
+		await this.resourceImageUploadSubmit.click()
+		await this.resourceImageUploadSuccess.waitFor({ state: 'visible', timeout: 30000 })
+	}
+
+	async expectImagePreview(): Promise<void> {
+		// The FileUpload component shows a preview img when file is selected
+		await this.page.locator('[data-testid="resource-image-upload"]').locator('img[alt="Preview"]').waitFor({ state: 'visible' })
+	}
+
+	async expectFileUploadError(message: string): Promise<void> {
+		await this.page.locator(`[data-testid="resource-image-upload-error"]:has-text("${message}")`).waitFor({ state: 'visible' })
 	}
 
 	async submit(): Promise<void> {
