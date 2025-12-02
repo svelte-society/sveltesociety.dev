@@ -15,10 +15,15 @@ export const initiate_db = async () => {
 	console.log('Initiating database...')
 	const db = new Database(DB_PATH)
 	db.exec('PRAGMA journal_mode = WAL')
-	db.exec('PRAGMA foreign_keys = ON')
+	// Disable foreign keys during migrations to prevent ON DELETE CASCADE
+	// from wiping junction tables when parent tables are dropped/recreated
+	db.exec('PRAGMA foreign_keys = OFF')
 
 	const migrationRunner = new MigrationRunner(db)
 	await migrationRunner.runMigrations()
+
+	// Re-enable foreign keys after migrations complete
+	db.exec('PRAGMA foreign_keys = ON')
 
 	db.close()
 	console.log('Database initialization completed.')
