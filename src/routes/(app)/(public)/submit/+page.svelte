@@ -4,11 +4,9 @@
 	import Input from '$lib/ui/form/Input.svelte'
 	import MarkdownEditor from '$lib/ui/form/MarkdownEditor.svelte'
 	import SuperDebug from 'sveltekit-superforms'
-	import { options } from './schema'
 	import Textarea from '$lib/ui/form/Textarea.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import DynamicSelector from '$lib/ui/form/DynamicSelector.svelte'
-	import Select from '$lib/ui/form/Select.svelte'
 	import { debounce } from '$lib/utils/debounce'
 
 	let { data } = $props()
@@ -112,14 +110,6 @@
 		listed on the site. Use the search bar to check if the resource is already listed.
 	</p>
 	<Form {form} action="?/submit">
-		<Select
-			name="type"
-			label="Type"
-			description="Select the type of content you are submitting"
-			{options}
-			testId="content-type-selector"
-		/>
-
 		{#if $formData.type === 'recipe'}
 			<Input
 				placeholder="This is a really cool recipe"
