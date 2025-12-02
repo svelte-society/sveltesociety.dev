@@ -2,7 +2,10 @@ import { z } from 'zod/v4'
 
 // Base schema with common fields (no title - videos/libraries get title from API, recipes define their own)
 const baseSchema = z.object({
-	tags: z.array(z.string()).min(1, { message: 'Please select at least one tag' }),
+	tags: z
+		.array(z.string())
+		.default([])
+		.refine((arr) => arr.length > 0, { message: 'Please select at least one tag' }),
 	description: z.string().min(10, { message: 'Description must be at least 10 characters long' }),
 	notes: z.string().optional()
 })
