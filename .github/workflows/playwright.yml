@@ -71,6 +71,12 @@ jobs:
           YOUTUBE_API_KEY: mock_youtube_key
           GITHUB_TOKEN: mock_github_token
 
+      - name: Run unit tests
+        run: bun test src/ tests/unit/
+        env:
+          NODE_ENV: test
+          DB_PATH: test.db
+
       - name: Run Playwright tests
         id: playwright
         run: bunx playwright test 2>&1 | tee test-output.log

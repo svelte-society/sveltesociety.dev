@@ -6,9 +6,9 @@
 	let { content, priority = 'auto' }: { content: Content; priority?: 'high' | 'auto' } = $props()
 
 	// Determine loading strategy based on priority
-	const isAboveFold = priority === 'high'
-	const loadingAttr = isAboveFold ? 'eager' : 'lazy'
-	const fetchPriorityAttr = isAboveFold ? 'high' : undefined
+	const isAboveFold = $derived(priority === 'high')
+	const loadingAttr = $derived(isAboveFold ? 'eager' : 'lazy')
+	const fetchPriorityAttr = $derived(isAboveFold ? 'high' : undefined)
 </script>
 
 <div class="space-y-3">

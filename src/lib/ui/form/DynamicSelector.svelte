@@ -36,7 +36,7 @@
 		options,
 		label,
 		description,
-		placeholder = `Select ${name}`,
+		placeholder,
 		Icon = TagIcon,
 		'data-testid': testId
 	}: Props = $props()
@@ -126,7 +126,7 @@
 								clearOnDeselect
 								oninput={(e) => (searchValue = e.currentTarget.value)}
 								onfocus={() => (open = true)}
-								{placeholder}
+								placeholder={placeholder || `Select ${name}`}
 								autocomplete="off"
 								class="w-full rounded-md border-2 border-transparent bg-slate-100 px-8 py-1.5 text-sm text-slate-800 placeholder-slate-500 focus:outline-2 focus:outline-sky-200 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600"
 							/>
