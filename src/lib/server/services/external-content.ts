@@ -2,7 +2,6 @@ import type { Database } from 'bun:sqlite'
 import type { ContentService } from './content'
 import type { CacheService } from './cache'
 import type { Content } from '$lib/types/content'
-import { env } from '$env/dynamic/private'
 
 interface DatabaseContentRow {
   id: string
@@ -154,6 +153,8 @@ export class ExternalContentService {
       Accept: 'application/vnd.github.v3+json',
       'User-Agent': 'SvelteSociety'
     }
+    // Dynamic import to avoid breaking unit tests
+    const { env } = await import('$env/dynamic/private')
     const githubToken = env.GITHUB_API_TOKEN || env.GITHUB_TOKEN
     if (githubToken) {
       headers['Authorization'] = `token ${githubToken}`
