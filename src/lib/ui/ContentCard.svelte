@@ -183,7 +183,7 @@
 			>
 		{/if}
 	</h2>
-	{#if content.description && !(fullDescription && content.type === 'recipe')}
+	{#if content.description && !(fullDescription && content.type === 'recipe') && content.type !== 'resource'}
 		<div
 			data-testid="content-description"
 			class={fullDescription
@@ -218,7 +218,7 @@
 				</div>
 			{/if}
 		{:else if content.type === 'resource'}
-			<Resource {content} {priority} />
+			<Resource {content} {priority} {fullDescription} />
 		{/if}
 	</div>
 
