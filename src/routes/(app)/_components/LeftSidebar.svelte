@@ -6,15 +6,23 @@
 			name: string
 			href: string | null
 			disabled?: boolean
+			isShortcut?: boolean
 		}[]
 	}
 
 	let { links }: Props = $props()
 
-	function isLinkActive(linkHref: string): boolean {
+	const activeShortcutHref = $derived(
+		links.find((link) => link.isShortcut && link.href === page.url.pathname)?.href
+	)
+
+	function isLinkActive(link: { href: string; isShortcut?: boolean }): boolean {
 		const pathname = page.url.pathname
-		if (pathname === linkHref) return true
-		if (linkHref !== '/' && pathname.startsWith(linkHref + '/')) return true
+		if (pathname === link.href) return true
+		if (link.href !== '/' && pathname.startsWith(link.href + '/')) {
+			if (activeShortcutHref && !link.isShortcut) return false
+			return true
+		}
 		return false
 	}
 </script>
@@ -31,7 +39,7 @@
 							title={link.disabled ? 'Please login to view saved content' : ''}
 							class={[
 								{
-									'bg-svelte-500 text-white': isLinkActive(link.href),
+									'bg-svelte-500 text-white': isLinkActive(link),
 									'cursor-not-allowed': link.disabled
 								},
 								'w-full rounded-sm px-2 py-0.5'

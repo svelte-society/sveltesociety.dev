@@ -5,7 +5,7 @@
 	import LeftSidebar from './_components/LeftSidebar.svelte'
 	import RightSidebar from './_components/RightSidebar.svelte'
 	import MobileMenu from './_components/MobileMenu.svelte'
-	import { getTags, getUpcomingEvents, getHeaderAnnouncement, getUser } from './data.remote'
+	import { getTags, getUpcomingEvents, getHeaderAnnouncement, getUser, getSidebarShortcuts } from './data.remote'
 
 	let { children } = $props()
 
@@ -18,6 +18,8 @@
 		url: page.url.toString()
 	}
 
+	let shortcuts = $derived(await getSidebarShortcuts())
+
 	const links = $derived([
 		{ name: 'Home', href: '/' },
 		{ name: 'Saved', href: '/saved', disabled: !user },
@@ -29,7 +31,10 @@
 		{ name: 'Resources', href: '/resource' },
 		{ name: 'LEARNING', href: null },
 		{ name: 'Videos', href: '/video' },
-		{ name: 'Recipes', href: '/recipe' }
+		{ name: 'Recipes', href: '/recipe' },
+		...(shortcuts.length > 0
+			? [{ name: 'SHORTCUTS', href: null }, ...shortcuts.map((s) => ({ ...s, isShortcut: true }))]
+			: [])
 	])
 </script>
 

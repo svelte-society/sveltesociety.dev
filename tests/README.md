@@ -26,7 +26,7 @@ bun test:integration --grep "search"
 
 ## Current Test Coverage
 
-**Total E2E Tests:** 83 tests across 15 test files
+**Total E2E Tests:** 89 tests across 16 test files
 **Total Unit Tests:** 47 tests across 1 test file
 **Execution Time:** ~15-20 seconds E2E (with 4 parallel workers), <100ms unit tests
 **Success Rate:** 100% (0% flaky tests)
@@ -39,6 +39,7 @@ bun test:integration --grep "search"
 - **Admin Moderation** (4 tests) - Approve/reject pending content
 - **Admin Content Management** (5 tests) - Edit, archive, publish content
 - **Admin User Management** (4 tests) - View users, edit profiles, manage roles
+- **Admin Sidebar Shortcuts** (6 tests) - Create, toggle, delete sidebar shortcuts
 - **SEO Endpoints** (29 tests) - robots.txt, sitemap.xml validation and resilience
 
 ### Unit Test Categories
@@ -146,6 +147,7 @@ tests/
 │   ├── ModerationQueuePage.ts # Content moderation
 │   ├── ContentEditPage.ts  # Content editing
 │   ├── UserManagementPage.ts # User management
+│   ├── ShortcutsPage.ts    # Sidebar shortcuts management
 │   └── index.ts            # Exports all POMs
 ├── helpers/                # Utility functions
 │   ├── auth.ts             # Authentication helpers (loginAs, logout)
