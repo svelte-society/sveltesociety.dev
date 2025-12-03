@@ -4,6 +4,7 @@
 	import MagnifyingGlass from 'phosphor-svelte/lib/MagnifyingGlass'
 	import { Combobox } from 'bits-ui'
 	import { searchAvailableContent } from './shortcuts.remote'
+	import type { ChangeEventHandler, FormEventHandler } from 'svelte/elements'
 
 	type ContentOption = {
 		id: string
@@ -54,7 +55,6 @@
 
 	function handleSearchInput(e) {
 		const query = e.target.value
-		console.log(query)
 		searchQuery = query
 		if (debounceTimer) clearTimeout(debounceTimer)
 		debounceTimer = setTimeout(() => search(query), 300)
