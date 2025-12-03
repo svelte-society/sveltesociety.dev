@@ -32,8 +32,9 @@
 		{ name: 'LEARNING', href: null },
 		{ name: 'Videos', href: '/video' },
 		{ name: 'Recipes', href: '/recipe' },
-		// Only show SHORTCUTS section if there are shortcuts
-		...(shortcuts.length > 0 ? [{ name: 'SHORTCUTS', href: null }, ...shortcuts] : [])
+		...(shortcuts.length > 0
+			? [{ name: 'SHORTCUTS', href: null }, ...shortcuts.map((s) => ({ ...s, isShortcut: true }))]
+			: [])
 	])
 </script>
 
