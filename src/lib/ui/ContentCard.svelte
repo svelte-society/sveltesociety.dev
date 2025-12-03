@@ -2,13 +2,21 @@
 	import { page } from '$app/state'
 	import { formatRelativeDate } from '$lib/utils/date'
 	import { toggleLike, toggleSave } from '$lib/remote/interact.remote'
+	import {
+		contentCardVariants,
+		titleVariants,
+		descriptionVariants,
+		type CardVariant
+	} from './contentCard.variants'
 
 	const isAdmin = page.data.isAdmin
 
 	import Tags from './Tags.svelte'
 	import type { ContentWithAuthor } from '$lib/types/content'
 
+	import Announcement from '$lib/ui/content/Announcement.svelte'
 	import Collection from '$lib/ui/content/Collection.svelte'
+	import Recipe from '$lib/ui/content/Recipe.svelte'
 	import Video from '$lib/ui/content/Video.svelte'
 	import Library from '$lib/ui/content/Library.svelte'
 	import Resource from '$lib/ui/content/Resource.svelte'
@@ -16,12 +24,12 @@
 	let {
 		content,
 		compact = false,
-		fullDescription = false,
+		variant = 'list',
 		priority = 'auto'
 	}: {
 		content: ContentWithAuthor
 		compact?: boolean
-		fullDescription?: boolean
+		variant?: CardVariant
 		priority?: 'high' | 'auto'
 	} = $props()
 
@@ -74,9 +82,7 @@
 <article
 	data-testid="content-card"
 	style="view-transition-name: post-card-{content.id};"
-	class="grid gap-2 rounded-lg bg-zinc-50 {compact
-		? 'px-3 py-3 sm:px-4 sm:py-3'
-		: 'px-4 py-4 sm:px-6 sm:py-5'}"
+	class={contentCardVariants({ variant, compact })}
 >
 	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between gap-2 text-xs sm:gap-0">
 		<div class="flex flex-wrap items-center">
@@ -165,11 +171,7 @@
 		</div>
 	</div>
 
-	<h2
-		id="title"
-		data-testid="content-title"
-		class={compact ? 'mb-1 text-base font-bold sm:text-lg' : 'mb-2 text-lg font-bold sm:text-xl'}
-	>
+	<h2 id="title" data-testid="content-title" class={titleVariants({ variant, compact })}>
 		<a
 			href="/{content.type}/{content.slug}"
 			class="focus:outline-svelte-300 rounded-sm hover:underline focus:outline-2 focus:outline-offset-2"
@@ -183,42 +185,25 @@
 			>
 		{/if}
 	</h2>
-	{#if content.description && !(fullDescription && content.type === 'recipe') && content.type !== 'resource'}
-		<div
-			data-testid="content-description"
-			class={fullDescription
-				? 'text-sm sm:text-base'
-				: compact
-					? 'line-clamp-2 text-sm'
-					: 'line-clamp-2 text-sm sm:text-base'}
-		>
+	{#if content.description && !(variant === 'detail' && content.type === 'recipe') && content.type !== 'resource'}
+		<div data-testid="content-description" class={descriptionVariants({ variant, compact })}>
 			{content.description}
 		</div>
 	{/if}
 
 	<div class="mt-2">
 		{#if content.type === 'recipe'}
-			<!-- Recipes show rendered body on detail pages -->
-			{#if fullDescription && content.rendered_body}
-				<div class="prose prose-sm max-w-none text-gray-700">
-					{@html content.rendered_body}
-				</div>
-			{/if}
+			<Recipe {content} {variant} />
 		{:else if content.type === 'collection'}
 			<Collection children={content.children} />
 		{:else if content.type === 'video'}
 			<Video {content} {priority} />
 		{:else if content.type === 'library'}
-			<Library {content} {priority} fullInfo={fullDescription} />
+			<Library {content} {priority} {variant} />
 		{:else if content.type === 'announcement'}
-			<!-- Announcements show rendered body on detail pages -->
-			{#if fullDescription && content.rendered_body}
-				<div class="prose prose-sm max-w-none text-gray-700">
-					{@html content.rendered_body}
-				</div>
-			{/if}
+			<Announcement {content} {variant} />
 		{:else if content.type === 'resource'}
-			<Resource {content} {priority} {fullDescription} />
+			<Resource {content} {priority} {variant} />
 		{/if}
 	</div>
 
