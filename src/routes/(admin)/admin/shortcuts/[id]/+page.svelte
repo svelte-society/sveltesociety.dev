@@ -1,27 +1,39 @@
 <script lang="ts">
-	import { superForm } from 'sveltekit-superforms/client'
-	import Form from '$lib/ui/form/Form.svelte'
-	import Input from '$lib/ui/form/Input.svelte'
-	import Select from '$lib/ui/form/Select.svelte'
+	import { page } from '$app/state'
+	import { error } from '@sveltejs/kit'
+	import Input from '$lib/ui/Input.svelte'
+	import Select from '$lib/ui/Select.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import LinkSimple from 'phosphor-svelte/lib/LinkSimple'
+	import { updateShortcut, getShortcutById, getAvailableContent } from '../shortcuts.remote'
 
-	let { data } = $props()
+	const shortcutId = page.params.id
 
-	const form = superForm(data.form, {
-		delayMs: 500,
-		timeoutMs: 8000,
-		dataType: 'json'
+	const shortcut = $derived(await getShortcutById(shortcutId))
+
+	if (!shortcut) {
+		error(404, 'Shortcut not found')
+	}
+
+	const contentOptions = $derived(
+		(await getAvailableContent({ excludeShortcutId: shortcutId })).map((content) => ({
+			value: content.id,
+			label: `${content.title} (${content.type})`
+		}))
+	)
+
+	$effect(() => {
+		if (shortcut) {
+			updateShortcut.fields.set({
+				id: shortcut.id,
+				content_id: shortcut.content_id,
+				label: shortcut.label || '',
+				priority: shortcut.priority,
+				is_active: Boolean(shortcut.is_active)
+			})
+		}
 	})
-
-	const { form: formData, submitting } = form
-
-	// Transform content into options format
-	const contentOptions = data.availableContent.map((content) => ({
-		value: content.id,
-		label: `${content.title} (${content.type})`
-	}))
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
@@ -40,44 +52,47 @@
 		</div>
 
 		<div class="p-8">
-			<Form {form}>
-				<div class="grid gap-6 lg:grid-cols-2">
-					<!-- Content Selection -->
-					<Select
-						name="content_id"
-						label="Content"
-						description="Select which content to link to"
-						options={contentOptions}
-						placeholder="Select content"
-						data-testid="select-content_id"
-					/>
+			<form {...updateShortcut} class="flex flex-col gap-6">
+				<input {...updateShortcut.fields.id.as('hidden', shortcutId)} />
 
-					<!-- Label Override -->
+				<div class="grid gap-6 lg:grid-cols-2">
+					<div class="flex flex-col gap-2">
+						<span class="text-xs font-medium">Content</span>
+						<Select
+							{...updateShortcut.fields.content_id.as('select')}
+							options={contentOptions}
+							props={{ placeholder: 'Select content' }}
+							testId="select-content_id"
+						/>
+						{#each updateShortcut.fields.content_id.issues() as issue}
+							<div class="text-xs text-red-600">{issue.message}</div>
+						{:else}
+							<div class="text-xs text-slate-500">Select which content to link to</div>
+						{/each}
+					</div>
+
 					<Input
-						name="label"
+						{...updateShortcut.fields.label.as('text')}
 						label="Display Label (Optional)"
 						description="Override the display name. Leave empty to use content title."
 						placeholder="Custom label"
+						issues={updateShortcut.fields.label.issues()}
 						data-testid="input-label"
 					/>
 
-					<!-- Priority -->
 					<Input
-						name="priority"
+						{...updateShortcut.fields.priority.as('number')}
 						label="Priority"
 						description="Higher priority shortcuts are shown first"
-						type="number"
 						placeholder="0"
+						issues={updateShortcut.fields.priority.issues()}
 						data-testid="input-priority"
 					/>
 
-					<!-- Active Status -->
 					<div class="lg:col-span-2">
 						<label class="flex items-center">
 							<input
-								type="checkbox"
-								name="is_active"
-								bind:checked={$formData.is_active}
+								{...updateShortcut.fields.is_active.as('checkbox')}
 								data-testid="checkbox-is_active"
 								class="h-4 w-4 rounded border-gray-300 text-svelte-600 focus:ring-svelte-500"
 							/>
@@ -87,12 +102,17 @@
 				</div>
 
 				<div class="mt-8 flex gap-4 border-t border-gray-200 pt-6">
-					<Button type="submit" width="full" disabled={$submitting} data-testid="submit-shortcut-button">
-						{$submitting ? 'Updating...' : 'Update Shortcut'}
+					<Button
+						type="submit"
+						width="full"
+						disabled={!!updateShortcut.pending}
+						data-testid="submit-shortcut-button"
+					>
+						{updateShortcut.pending ? 'Updating...' : 'Update Shortcut'}
 					</Button>
 					<Button href="/admin/shortcuts" variant="secondary">Cancel</Button>
 				</div>
-			</Form>
+			</form>
 		</div>
 	</div>
 </div>

@@ -1,44 +1,17 @@
 <script lang="ts">
-	import { superForm } from 'sveltekit-superforms/client'
-	import Form from '$lib/ui/form/Form.svelte'
-	import Button from '$lib/ui/Button.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
-	import { invalidateAll } from '$app/navigation'
-	import type { PageData } from './$types'
 	import LinkSimple from 'phosphor-svelte/lib/LinkSimple'
 	import Plus from 'phosphor-svelte/lib/Plus'
 	import PencilSimple from 'phosphor-svelte/lib/PencilSimple'
 	import Power from 'phosphor-svelte/lib/Power'
 	import Trash from 'phosphor-svelte/lib/Trash'
-
-	let { data }: { data: PageData } = $props()
-
-	const toggleForm = superForm(data.toggleForm, {
-		delayMs: 0,
-		timeoutMs: 8000,
-		onResult: async ({ result }) => {
-			if (result.type === 'success') {
-				await invalidateAll()
-			}
-		}
-	})
-
-	const deleteForm = superForm(data.deleteForm, {
-		delayMs: 0,
-		timeoutMs: 8000,
-		onResult: async ({ result }) => {
-			if (result.type === 'success') {
-				await invalidateAll()
-			}
-		}
-	})
-
-	const { submitting: toggleSubmitting, message: toggleMessage } = toggleForm
-	const { submitting: deleteSubmitting, message: deleteMessage } = deleteForm
+	import { getShortcuts, toggleShortcut, deleteShortcut } from './shortcuts.remote'
 
 	function confirmDelete() {
 		return confirm('Are you sure you want to delete this shortcut?')
 	}
+
+	const shortcuts = getShortcuts()
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
@@ -59,8 +32,8 @@
 		{/snippet}
 	</PageHeader>
 
-	{#if $toggleMessage || $deleteMessage}
-		{@const message = $toggleMessage || $deleteMessage}
+	{#if toggleShortcut.result || deleteShortcut.result}
+		{@const message = toggleShortcut.result || deleteShortcut.result}
 		<div
 			class="rounded-md {message.success
 				? 'border border-green-200 bg-green-50'
@@ -111,76 +84,99 @@
 				</tr>
 			</thead>
 			<tbody class="divide-y divide-gray-200 bg-white">
-				{#if data.shortcuts.length === 0}
+				{#await shortcuts}
 					<tr>
-						<td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500" data-testid="no-shortcuts-message">
-							No sidebar shortcuts found. Add one to get started.
+						<td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500">
+							Loading shortcuts...
 						</td>
 					</tr>
-				{/if}
-				{#each data.shortcuts as shortcut}
-					<tr data-testid="shortcut-row">
-						<td class="px-6 py-4 text-sm font-medium text-gray-900" data-testid="shortcut-title">
-							{shortcut.title}
-						</td>
-						<td class="px-6 py-4 text-sm text-gray-500">
-							{shortcut.label || '(uses title)'}
-						</td>
-						<td class="px-6 py-4 text-sm text-gray-500 capitalize">
-							{shortcut.type}
-						</td>
-						<td class="px-6 py-4 text-sm text-gray-500">
-							{shortcut.priority}
-						</td>
-						<td class="px-6 py-4 text-sm" data-testid="shortcut-status">
-							<span
-								class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold {shortcut.is_active
-									? 'bg-green-100 text-green-800'
-									: 'bg-gray-100 text-gray-800'}"
+				{:then shortcutList}
+					{#if shortcutList.length === 0}
+						<tr>
+							<td
+								colspan="6"
+								class="px-6 py-4 text-center text-sm text-gray-500"
+								data-testid="no-shortcuts-message"
 							>
-								{shortcut.is_active ? 'Active' : 'Inactive'}
-							</span>
-						</td>
-						<td class="px-6 py-4 text-right text-sm font-medium whitespace-nowrap">
-							<div class="flex items-center justify-end gap-2">
-								<a
-									href="/admin/shortcuts/{shortcut.id}"
-									data-testid="edit-shortcut-button"
-									class="inline-flex items-center justify-center rounded-lg bg-svelte-50 p-2 text-svelte-500 transition-all hover:bg-svelte-100 hover:text-svelte-900 hover:shadow-sm"
-									aria-label="Edit {shortcut.title}"
+								No sidebar shortcuts found. Add one to get started.
+							</td>
+						</tr>
+					{/if}
+					{#each shortcutList as shortcut}
+						{@const toggle = toggleShortcut.for(shortcut.id)}
+						{@const remove = deleteShortcut.for(shortcut.id)}
+						<tr data-testid="shortcut-row">
+							<td class="px-6 py-4 text-sm font-medium text-gray-900" data-testid="shortcut-title">
+								{shortcut.title}
+							</td>
+							<td class="px-6 py-4 text-sm text-gray-500">
+								{shortcut.label || '(uses title)'}
+							</td>
+							<td class="px-6 py-4 text-sm text-gray-500 capitalize">
+								{shortcut.type}
+							</td>
+							<td class="px-6 py-4 text-sm text-gray-500">
+								{shortcut.priority}
+							</td>
+							<td class="px-6 py-4 text-sm" data-testid="shortcut-status">
+								<span
+									class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold {shortcut.is_active
+										? 'bg-green-100 text-green-800'
+										: 'bg-gray-100 text-gray-800'}"
 								>
-									<PencilSimple class="h-5 w-5" weight="bold" />
-								</a>
-
-								<Form form={toggleForm} action="?/toggle" class="inline">
-									<input type="hidden" name="id" value={shortcut.id} />
-									<button
-										type="submit"
-										disabled={$toggleSubmitting}
-										data-testid="toggle-shortcut-button"
-										class="inline-flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition-all hover:bg-blue-100 hover:text-blue-900 hover:shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
-										aria-label="{shortcut.is_active ? 'Deactivate' : 'Activate'} {shortcut.title}"
+									{shortcut.is_active ? 'Active' : 'Inactive'}
+								</span>
+							</td>
+							<td class="px-6 py-4 text-right text-sm font-medium whitespace-nowrap">
+								<div class="flex items-center justify-end gap-2">
+									<a
+										href="/admin/shortcuts/{shortcut.id}"
+										data-testid="edit-shortcut-button"
+										class="inline-flex items-center justify-center rounded-lg bg-svelte-50 p-2 text-svelte-500 transition-all hover:bg-svelte-100 hover:text-svelte-900 hover:shadow-sm"
+										aria-label="Edit {shortcut.title}"
 									>
-										<Power class="h-5 w-5" weight="bold" />
-									</button>
-								</Form>
+										<PencilSimple class="h-5 w-5" weight="bold" />
+									</a>
 
-								<Form form={deleteForm} action="?/delete" onsubmit={confirmDelete}>
-									<input type="hidden" name="id" value={shortcut.id} />
-									<button
-										type="submit"
-										disabled={$deleteSubmitting}
-										data-testid="delete-shortcut-button"
-										class="inline-flex items-center justify-center rounded-lg bg-red-50 p-2 text-red-600 transition-all hover:bg-red-100 hover:text-red-900 hover:shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
-										aria-label="Delete {shortcut.title}"
+									<form
+										{...toggle.enhance(async ({ submit }) => {
+											await submit().updates(shortcuts)
+										})}
 									>
-										<Trash class="h-5 w-5" weight="bold" />
-									</button>
-								</Form>
-							</div>
-						</td>
-					</tr>
-				{/each}
+										<input {...toggle.fields.id.as('hidden', shortcut.id)} />
+										<button
+											type="submit"
+											disabled={!!toggle.pending}
+											data-testid="toggle-shortcut-button"
+											class="inline-flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition-all hover:bg-blue-100 hover:text-blue-900 hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-50"
+											aria-label="{shortcut.is_active ? 'Deactivate' : 'Activate'} {shortcut.title}"
+										>
+											<Power class="h-5 w-5" weight="bold" />
+										</button>
+									</form>
+
+									<form
+										{...remove.enhance(async ({ submit }) => {
+											if (!confirmDelete()) return
+											await submit().updates(shortcuts)
+										})}
+									>
+										<input {...remove.fields.id.as('hidden', shortcut.id)} />
+										<button
+											type="submit"
+											disabled={!!remove.pending}
+											data-testid="delete-shortcut-button"
+											class="inline-flex items-center justify-center rounded-lg bg-red-50 p-2 text-red-600 transition-all hover:bg-red-100 hover:text-red-900 hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-50"
+											aria-label="Delete {shortcut.title}"
+										>
+											<Trash class="h-5 w-5" weight="bold" />
+										</button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					{/each}
+				{/await}
 			</tbody>
 		</table>
 	</div>

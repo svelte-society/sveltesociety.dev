@@ -44,6 +44,8 @@ export class ShortcutsPage extends BasePage {
 
 	async gotoNew(): Promise<void> {
 		await this.page.goto('/admin/shortcuts/new')
+		// Wait for the form to be ready
+		await this.contentSelect.waitFor({ state: 'visible' })
 	}
 
 	async gotoEdit(id: string): Promise<void> {
@@ -77,6 +79,8 @@ export class ShortcutsPage extends BasePage {
 
 	async submitForm(): Promise<void> {
 		await this.submitButton.click()
+		// Wait for navigation to complete after form submission
+		await this.page.waitForLoadState('domcontentloaded')
 	}
 
 	async toggleFirstShortcut(): Promise<void> {
@@ -99,5 +103,7 @@ export class ShortcutsPage extends BasePage {
 
 	async expectListPage(): Promise<void> {
 		await this.page.waitForURL('/admin/shortcuts')
+		// Wait for the table to be visible
+		await this.shortcutsTable.waitFor({ state: 'visible' })
 	}
 }
