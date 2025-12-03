@@ -1,23 +1,33 @@
 <script lang="ts">
+	import { page } from '$app/state'
+	import { error } from '@sveltejs/kit'
+	import Input from '$lib/ui/Input.svelte'
 	import Button from '$lib/ui/Button.svelte'
-	import Input from '$lib/ui/form/Input.svelte'
-	import Form from '$lib/ui/form/Form.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
-	import { superForm } from 'sveltekit-superforms'
-	import { slugify } from '$lib/utils/slug'
 	import Tag from 'phosphor-svelte/lib/Tag'
+	import { getTagById, updateTag } from '../tags.remote'
 
-	let { data } = $props()
-	const superform = superForm(data.form)
-	const { form, errors } = superform
+	const tagId = page.params.id
+
+	const tag = $derived(await getTagById(tagId))
+
+	if (!tag) {
+		error(404, 'Tag not found')
+	}
+
+	$effect(() => {
+		if (tag) {
+			updateTag.fields.set({
+				id: tag.id,
+				name: tag.name,
+				slug: tag.slug
+			})
+		}
+	})
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
-	<PageHeader
-		title="Edit Tag"
-		description="Update category tag information"
-		icon={Tag}
-	/>
+	<PageHeader title="Edit Tag" description="Update category tag information" icon={Tag} />
 
 	<div class="rounded-2xl border border-gray-200 bg-white shadow-sm">
 		<div class="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white px-8 py-6">
@@ -28,36 +38,41 @@
 		</div>
 
 		<div class="p-8">
-			<Form form={superform}>
-				<input type="hidden" name="id" bind:value={$form.id} />
+			<form {...updateTag} class="flex flex-col gap-6">
+				<input {...updateTag.fields.id.as('hidden', tagId)} />
 
 				<div class="grid gap-6 lg:grid-cols-2">
 					<Input
-						name="name"
+						{...updateTag.fields.name.as('text')}
 						label="Name"
-						type="text"
 						placeholder="Svelte"
 						description="Enter the name of the tag"
-						bind:value={$form.name}
-						errors={$errors.name}
+						issues={updateTag.fields.name.issues()}
+						data-testid="input-name"
 					/>
+
 					<Input
-						name="slug"
+						{...updateTag.fields.slug.as('text')}
 						label="Slug"
-						type="text"
 						placeholder="svelte"
 						description="Enter the slug of the tag"
-						magic={() => slugify($form.name)}
-						bind:value={$form.slug}
-						errors={$errors.slug}
+						issues={updateTag.fields.slug.issues()}
+						data-testid="input-slug"
 					/>
 				</div>
 
 				<div class="mt-8 flex gap-4 border-t border-gray-200 pt-6">
-					<Button type="submit" width="full">Update Tag</Button>
+					<Button
+						type="submit"
+						width="full"
+						disabled={!!updateTag.pending}
+						data-testid="submit-button"
+					>
+						{updateTag.pending ? 'Updating...' : 'Update Tag'}
+					</Button>
 					<Button href="/admin/tags" variant="secondary">Cancel</Button>
 				</div>
-			</Form>
+			</form>
 		</div>
 	</div>
 </div>
