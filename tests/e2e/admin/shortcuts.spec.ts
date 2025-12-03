@@ -75,8 +75,11 @@ test.describe('Admin - Sidebar Shortcuts', () => {
 		// Toggle status
 		await shortcutsPage.toggleFirstShortcut()
 
-		// Wait for page to update
-		await page.waitForTimeout(500)
+		// Wait for status to change
+		await expect(async () => {
+			const newStatus = await shortcutsPage.getFirstShortcutStatus()
+			expect(newStatus).not.toBe(initialStatus)
+		}).toPass({ timeout: 5000 })
 
 		// Status should have changed
 		const newStatus = await shortcutsPage.getFirstShortcutStatus()
@@ -99,11 +102,10 @@ test.describe('Admin - Sidebar Shortcuts', () => {
 		// Delete the shortcut
 		await shortcutsPage.deleteFirstShortcut()
 
-		// Wait for page to update
-		await page.waitForTimeout(500)
-
-		// Count should decrease
-		const newCount = await shortcutsPage.getShortcutCount()
-		expect(newCount).toBeLessThan(initialCount)
+		// Wait for count to decrease
+		await expect(async () => {
+			const newCount = await shortcutsPage.getShortcutCount()
+			expect(newCount).toBeLessThan(initialCount)
+		}).toPass({ timeout: 5000 })
 	})
 })

@@ -34,20 +34,12 @@ export const actions = {
 			return fail(400, { form })
 		}
 
+		let shortcut
 		try {
-			const shortcut = locals.shortcutService.createShortcut({
+			shortcut = locals.shortcutService.createShortcut({
 				...form.data,
 				created_by: locals.user?.id || null
 			})
-
-			if (!shortcut) {
-				return fail(500, {
-					form,
-					error: 'Failed to create sidebar shortcut. Please try again.'
-				})
-			}
-
-			redirect(303, '/admin/shortcuts')
 		} catch (error) {
 			console.error('Error creating sidebar shortcut:', error)
 			return message(form, {
@@ -55,5 +47,14 @@ export const actions = {
 				text: 'An unexpected error occurred. Please try again.'
 			})
 		}
+
+		if (!shortcut) {
+			return fail(500, {
+				form,
+				error: 'Failed to create sidebar shortcut. Please try again.'
+			})
+		}
+
+		redirect(303, '/admin/shortcuts')
 	}
 } satisfies Actions

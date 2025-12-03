@@ -51,17 +51,9 @@ export const actions = {
 			return fail(400, { form })
 		}
 
+		let shortcut
 		try {
-			const shortcut = locals.shortcutService.updateShortcut(params.id, form.data)
-
-			if (!shortcut) {
-				return fail(500, {
-					form,
-					error: 'Failed to update sidebar shortcut. Please try again.'
-				})
-			}
-
-			redirect(303, '/admin/shortcuts')
+			shortcut = locals.shortcutService.updateShortcut(params.id, form.data)
 		} catch (error) {
 			console.error('Error updating sidebar shortcut:', error)
 			return message(form, {
@@ -69,5 +61,14 @@ export const actions = {
 				text: 'An unexpected error occurred. Please try again.'
 			})
 		}
+
+		if (!shortcut) {
+			return fail(500, {
+				form,
+				error: 'Failed to update sidebar shortcut. Please try again.'
+			})
+		}
+
+		redirect(303, '/admin/shortcuts')
 	}
 } satisfies Actions
