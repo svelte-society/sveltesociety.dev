@@ -10,6 +10,7 @@
 		FileText,
 		Tag,
 		Megaphone,
+		LinkSimple,
 		ArrowsLeftRight,
 		CloudArrowUp,
 		Sliders
@@ -53,6 +54,12 @@
 			href: '/admin/announcements',
 			label: 'Announcements',
 			icon: Megaphone,
+			allowedRoles: ['admin', 'moderator']
+		},
+		{
+			href: '/admin/shortcuts',
+			label: 'Shortcuts',
+			icon: LinkSimple,
 			allowedRoles: ['admin', 'moderator']
 		},
 		{
