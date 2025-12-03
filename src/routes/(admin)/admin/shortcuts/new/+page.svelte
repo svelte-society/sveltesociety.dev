@@ -1,17 +1,10 @@
 <script lang="ts">
 	import Input from '$lib/ui/Input.svelte'
-	import Select from '$lib/ui/Select.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import LinkSimple from 'phosphor-svelte/lib/LinkSimple'
-	import { createShortcut, getAvailableContent } from '../shortcuts.remote'
-
-	const contentOptions = $derived(
-		(await getAvailableContent({})).map((content) => ({
-			value: content.id,
-			label: `${content.title} (${content.type})`
-		}))
-	)
+	import ContentSelector from '../ContentSelector.svelte'
+	import { createShortcut } from '../shortcuts.remote'
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
@@ -34,16 +27,15 @@
 				<div class="grid gap-6 lg:grid-cols-2">
 					<div class="flex flex-col gap-2">
 						<span class="text-xs font-medium">Content</span>
-						<Select
-							{...createShortcut.fields.content_id.as('select')}
-							options={contentOptions}
-							props={{ placeholder: 'Select content' }}
+						<ContentSelector
+							{...createShortcut.fields.content_id.as('text')}
+							placeholder="Search for content..."
 							testId="select-content_id"
 						/>
 						{#each createShortcut.fields.content_id.issues() as issue}
 							<div class="text-xs text-red-600">{issue.message}</div>
 						{:else}
-							<div class="text-xs text-slate-500">Select which content to link to</div>
+							<div class="text-xs text-slate-500">Search and select which content to link to</div>
 						{/each}
 					</div>
 

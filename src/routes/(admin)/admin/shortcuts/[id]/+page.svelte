@@ -2,11 +2,11 @@
 	import { page } from '$app/state'
 	import { error } from '@sveltejs/kit'
 	import Input from '$lib/ui/Input.svelte'
-	import Select from '$lib/ui/Select.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import LinkSimple from 'phosphor-svelte/lib/LinkSimple'
-	import { updateShortcut, getShortcutById, getAvailableContent } from '../shortcuts.remote'
+	import ContentSelector from '../ContentSelector.svelte'
+	import { updateShortcut, getShortcutById } from '../shortcuts.remote'
 
 	const shortcutId = page.params.id
 
@@ -15,13 +15,6 @@
 	if (!shortcut) {
 		error(404, 'Shortcut not found')
 	}
-
-	const contentOptions = $derived(
-		(await getAvailableContent({ excludeShortcutId: shortcutId })).map((content) => ({
-			value: content.id,
-			label: `${content.title} (${content.type})`
-		}))
-	)
 
 	$effect(() => {
 		if (shortcut) {
@@ -58,16 +51,16 @@
 				<div class="grid gap-6 lg:grid-cols-2">
 					<div class="flex flex-col gap-2">
 						<span class="text-xs font-medium">Content</span>
-						<Select
-							{...updateShortcut.fields.content_id.as('select')}
-							options={contentOptions}
-							props={{ placeholder: 'Select content' }}
+						<ContentSelector
+							{...updateShortcut.fields.content_id.as('text')}
+							excludeShortcutId={shortcutId}
+							placeholder="Search for content..."
 							testId="select-content_id"
 						/>
 						{#each updateShortcut.fields.content_id.issues() as issue}
 							<div class="text-xs text-red-600">{issue.message}</div>
 						{:else}
-							<div class="text-xs text-slate-500">Select which content to link to</div>
+							<div class="text-xs text-slate-500">Search and select which content to link to</div>
 						{/each}
 					</div>
 

@@ -1,4 +1,4 @@
-import { form, getRequestEvent, query } from '$app/server'
+import { command, form, getRequestEvent, query } from '$app/server'
 import { redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 
@@ -17,6 +17,12 @@ const deleteSchema = z.object({
 	id: z.string().min(1, 'Shortcut ID is required')
 })
 
+const searchContentSchema = z.object({
+	search: z.string().optional(),
+	excludeShortcutId: z.string().optional(),
+	limit: z.number().int().min(1).max(50).default(20)
+})
+
 export const getShortcuts = query(() => {
 	const { locals } = getRequestEvent()
 	return locals.shortcutService.getAllShortcuts()
@@ -27,13 +33,15 @@ export const getShortcutById = query(z.string(), (id) => {
 	return locals.shortcutService.getShortcutById(id)
 })
 
-export const getAvailableContent = query(
-	z.object({ excludeShortcutId: z.string().optional() }),
-	({ excludeShortcutId }) => {
+export const searchAvailableContent = command(
+	searchContentSchema,
+	({ search, excludeShortcutId, limit }) => {
 		const { locals } = getRequestEvent()
 
-		const allContent = locals.contentService.getFilteredContent({
-			status: 'published'
+		const content = locals.contentService.getFilteredContent({
+			status: 'published',
+			search: search?.trim() || undefined,
+			limit
 		})
 
 		const existingShortcuts = locals.shortcutService.getAllShortcuts()
@@ -43,7 +51,13 @@ export const getAvailableContent = query(
 				.map((s) => s.content_id)
 		)
 
-		return allContent.filter((c) => !existingContentIds.has(c.id))
+		return content
+			.filter((c) => !existingContentIds.has(c.id))
+			.map((c) => ({
+				id: c.id,
+				title: c.title,
+				type: c.type
+			}))
 	}
 )
 
