@@ -8,4 +8,4 @@
 	<Schema schema={data.schemas} />
 {/if}
 
-<ContentCard content={data.content} fullDescription={true} />
+<ContentCard content={data.content} variant="detail" />

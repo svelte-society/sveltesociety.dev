@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Content } from '$lib/types/content'
+	import type { CardVariant } from '../contentCard.variants'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 	import { formatRelativeDate } from '$lib/utils/date'
 
@@ -7,10 +8,10 @@
 		content: Content
 		clickable?: boolean
 		priority?: 'high' | 'auto'
-		fullInfo?: boolean
+		variant?: CardVariant
 	}
 
-	let { content, clickable = true, priority = 'auto', fullInfo = false }: Props = $props()
+	let { content, clickable = true, priority = 'auto', variant = 'list' }: Props = $props()
 
 	// Extract metadata safely
 	const isGitHub = $derived(content.metadata?.externalSource?.source === 'github')
@@ -62,7 +63,7 @@
 			/>
 		</a>
 
-	{#if fullInfo}
+	{#if variant === 'detail'}
 		<!-- Owner Info & Stats -->
 		<div class="flex flex-wrap items-center justify-between gap-3 rounded-md bg-gray-100 px-3 py-2">
 			{#if content.metadata?.owner}

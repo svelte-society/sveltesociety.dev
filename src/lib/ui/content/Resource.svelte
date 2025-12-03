@@ -1,15 +1,16 @@
 <script lang="ts">
 	import type { Content } from '$lib/types/content'
+	import type { CardVariant } from '../contentCard.variants'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 	import ArrowSquareOut from 'phosphor-svelte/lib/ArrowSquareOut'
 
 	interface Props {
 		content: Content
 		priority?: 'high' | 'auto'
-		fullDescription?: boolean
+		variant?: CardVariant
 	}
 
-	let { content, priority = 'auto', fullDescription = false }: Props = $props()
+	let { content, priority = 'auto', variant = 'list' }: Props = $props()
 
 	const hasImage = $derived(!!content.metadata?.image)
 	const link = $derived(content.metadata?.link || '#')
@@ -20,7 +21,7 @@
 	const fetchPriorityAttr = $derived(isAboveFold ? 'high' : undefined)
 </script>
 
-{#if fullDescription}
+{#if variant === 'detail'}
 	<!-- Detail page: full image at top -->
 	<div class="flex flex-col gap-4">
 		{#if content.description}
