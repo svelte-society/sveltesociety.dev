@@ -14,6 +14,7 @@ import type { CacheService } from '$lib/server/services/cache'
 import type { ExternalContentService } from '$lib/server/services/external-content'
 import type { LLMService } from '$lib/server/services/llm'
 import type { AnnouncementService } from '$lib/server/services/AnnouncementService'
+import type { ShortcutService } from '$lib/server/services/ShortcutService'
 
 declare global {
 	namespace App {
@@ -35,6 +36,7 @@ declare global {
 			externalContentService: ExternalContentService
 			llmService: LLMService
 			announcementService: AnnouncementService
+			shortcutService: ShortcutService
 		}
 		// interface PageData {}
 		// interface PageState {}

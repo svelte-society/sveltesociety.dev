@@ -15,6 +15,7 @@ import { CacheService } from '$lib/server/services/cache'
 import { ExternalContentService } from '$lib/server/services/external-content'
 import { LLMService } from '$lib/server/services/llm'
 import { AnnouncementService } from '$lib/server/services/AnnouncementService'
+import { ShortcutService } from '$lib/server/services/ShortcutService'
 import fs from 'node:fs'
 
 // Cache for database connections and services per database path
@@ -36,6 +37,7 @@ const dbCache = new Map<
 		externalContentService: ExternalContentService
 		llmService: LLMService
 		announcementService: AnnouncementService
+		shortcutService: ShortcutService
 	}
 >()
 
@@ -69,6 +71,7 @@ const initialize_db = (dbPath: string) => {
 	const eventsService = new EventsService(db, cacheService)
 	const llmService = new LLMService(tagService)
 	const announcementService = new AnnouncementService(db)
+	const shortcutService = new ShortcutService(db)
 
 	const services = {
 		db,
@@ -85,7 +88,8 @@ const initialize_db = (dbPath: string) => {
 		cacheService,
 		externalContentService,
 		llmService,
-		announcementService
+		announcementService,
+		shortcutService
 	}
 
 	dbCache.set(dbPath, services)
@@ -136,6 +140,7 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.externalContentService = services.externalContentService
 	event.locals.llmService = services.llmService
 	event.locals.announcementService = services.announcementService
+	event.locals.shortcutService = services.shortcutService
 
 	return resolve(event)
 }
