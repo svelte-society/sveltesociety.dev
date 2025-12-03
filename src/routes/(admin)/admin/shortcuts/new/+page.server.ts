@@ -7,16 +7,13 @@ import { shortcutSchema } from '../schema'
 export const load = (async ({ locals }) => {
 	const form = await superValidate(zod4(shortcutSchema))
 
-	// Get all published content
 	const allContent = locals.contentService.getFilteredContent({
 		status: 'published'
 	})
 
-	// Get existing shortcut content IDs to filter them out
 	const existingShortcuts = locals.shortcutService.getAllShortcuts()
 	const existingContentIds = new Set(existingShortcuts.map((s) => s.content_id))
 
-	// Filter out content that already has shortcuts
 	const availableContent = allContent.filter((c) => !existingContentIds.has(c.id))
 
 	return {

@@ -21,7 +21,6 @@ export interface SidebarShortcutWithContent extends SidebarShortcut {
 export class ShortcutService {
 	private db: Database
 
-	// Prepared statements
 	private createShortcutStatement: any
 	private updateShortcutStatement: any
 	private deleteShortcutStatement: any

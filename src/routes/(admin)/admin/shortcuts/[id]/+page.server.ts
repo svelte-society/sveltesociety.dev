@@ -11,7 +11,6 @@ export const load = (async ({ params, locals }) => {
 		error(404, 'Shortcut not found')
 	}
 
-	// Convert label from null to undefined for form compatibility
 	const formData = {
 		content_id: shortcut.content_id,
 		label: shortcut.label || undefined,
@@ -20,18 +19,15 @@ export const load = (async ({ params, locals }) => {
 	}
 	const form = await superValidate(formData, zod4(shortcutSchema))
 
-	// Get all published content
 	const allContent = locals.contentService.getFilteredContent({
 		status: 'published'
 	})
 
-	// Get existing shortcut content IDs (excluding current shortcut)
 	const existingShortcuts = locals.shortcutService.getAllShortcuts()
 	const existingContentIds = new Set(
 		existingShortcuts.filter((s) => s.id !== params.id).map((s) => s.content_id)
 	)
 
-	// Filter to include current content + available content
 	const availableContent = allContent.filter(
 		(c) => c.id === shortcut.content_id || !existingContentIds.has(c.id)
 	)
