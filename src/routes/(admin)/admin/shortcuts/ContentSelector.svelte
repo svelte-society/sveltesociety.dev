@@ -52,30 +52,22 @@
 		}
 	}
 
-	function handleInput(query: string) {
+	function handleSearchInput(e) {
+		const query = e.target.value
+		console.log(query)
 		searchQuery = query
 		if (debounceTimer) clearTimeout(debounceTimer)
 		debounceTimer = setTimeout(() => search(query), 300)
 	}
-
-	// Load initial options
-	$effect(() => {
-		search('')
-	})
 </script>
 
-<Combobox.Root
-	type="single"
-	bind:value
-	{name}
-	{disabled}
-	onInputValueChange={handleInput}
->
+<Combobox.Root type="single" bind:value {name} {disabled}>
 	<div class="relative">
 		<Combobox.Input
 			class="focus:outline-svelte-300 w-full rounded-md border-2 border-transparent bg-slate-100 py-1.5 pr-8 pl-8 text-sm placeholder-slate-500 focus:outline-2 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500"
 			{placeholder}
 			{disabled}
+			oninput={handleSearchInput}
 			data-testid={testId}
 		/>
 		<MagnifyingGlass class="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-gray-500" />
