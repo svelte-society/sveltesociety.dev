@@ -74,3 +74,13 @@ export const getUser = query(() => {
 
 	return locals.user
 })
+
+export const getSidebarShortcuts = query(() => {
+	const { locals } = getRequestEvent()
+	const shortcuts = locals.shortcutService.getActiveShortcuts()
+
+	return shortcuts.map((shortcut) => ({
+		name: shortcut.label || shortcut.title,
+		href: `/${shortcut.type}/${shortcut.slug}`
+	}))
+})
