@@ -55,9 +55,9 @@
 			target="_blank"
 			rel="noopener noreferrer"
 			data-testid="resource-link"
-			class="flex w-fit items-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900"
+			class="flex max-w-full items-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900"
 		>
-			<ArrowSquareOut size={16} />
+			<ArrowSquareOut size={16} class="flex-shrink-0" />
 			<span class="truncate">{link}</span>
 		</a>
 	</div>
@@ -75,9 +75,9 @@
 				target="_blank"
 				rel="noopener noreferrer"
 				data-testid="resource-link"
-				class="flex w-fit items-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900"
+				class="flex max-w-full items-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900"
 			>
-				<ArrowSquareOut size={16} />
+				<ArrowSquareOut size={16} class="flex-shrink-0" />
 				<span class="truncate">{link}</span>
 			</a>
 		</div>
