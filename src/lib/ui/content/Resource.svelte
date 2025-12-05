@@ -23,7 +23,7 @@
 
 {#if variant === 'detail'}
 	<!-- Detail page: full image at top -->
-	<div class="flex flex-col gap-4">
+	<div class="flex min-w-0 flex-col gap-4">
 		{#if content.description}
 			<p data-testid="content-description" class="text-sm sm:text-base">
 				{content.description}
@@ -55,16 +55,16 @@
 			target="_blank"
 			rel="noopener noreferrer"
 			data-testid="resource-link"
-			class="flex max-w-full items-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900"
+			class="flex w-full items-center gap-2 overflow-hidden rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900"
 		>
 			<ArrowSquareOut size={16} class="flex-shrink-0" />
-			<span class="truncate">{link}</span>
+			<span class="w-0 flex-1 truncate">{link}</span>
 		</a>
 	</div>
 {:else}
 	<!-- Card view: 2-column layout with small thumbnail (stacked on mobile) -->
-	<div class="flex flex-col-reverse gap-4 sm:flex-row sm:items-start">
-		<div class="flex min-w-0 flex-1 flex-col gap-2">
+	<div class="flex flex-col-reverse gap-4 overflow-hidden sm:flex-row sm:items-start">
+		<div class="flex w-full min-w-0 flex-1 flex-col gap-2 overflow-hidden">
 			{#if content.description}
 				<p data-testid="content-description" class="line-clamp-2 text-sm sm:text-base">
 					{content.description}
@@ -75,10 +75,10 @@
 				target="_blank"
 				rel="noopener noreferrer"
 				data-testid="resource-link"
-				class="flex max-w-full items-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900"
+				class="flex w-full items-center gap-2 overflow-hidden rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900"
 			>
 				<ArrowSquareOut size={16} class="flex-shrink-0" />
-				<span class="truncate">{link}</span>
+				<span class="w-0 flex-1 truncate">{link}</span>
 			</a>
 		</div>
 
@@ -87,7 +87,7 @@
 				href={link}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="sm:flex-shrink-0"
+				class="w-full sm:w-auto sm:flex-shrink-0"
 				data-testid="resource-image-link"
 			>
 				<img

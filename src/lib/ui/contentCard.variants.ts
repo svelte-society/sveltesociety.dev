@@ -1,7 +1,7 @@
 import { tv, type VariantProps } from 'tailwind-variants'
 
 export const contentCardVariants = tv({
-	base: 'grid gap-2 rounded-lg bg-zinc-50',
+	base: 'grid min-w-0 gap-2 rounded-lg bg-zinc-50',
 	variants: {
 		variant: {
 			list: 'px-4 py-4 sm:px-6 sm:py-5',
