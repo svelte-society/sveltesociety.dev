@@ -62,8 +62,8 @@
 		</a>
 	</div>
 {:else}
-	<!-- Card view: 2-column layout with small thumbnail -->
-	<div class="flex items-start gap-4">
+	<!-- Card view: 2-column layout with small thumbnail (stacked on mobile) -->
+	<div class="flex flex-col-reverse gap-4 sm:flex-row sm:items-start">
 		<div class="flex min-w-0 flex-1 flex-col gap-2">
 			{#if content.description}
 				<p data-testid="content-description" class="line-clamp-2 text-sm sm:text-base">
@@ -87,7 +87,7 @@
 				href={link}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="flex-shrink-0"
+				class="sm:flex-shrink-0"
 				data-testid="resource-image-link"
 			>
 				<img
@@ -98,7 +98,7 @@
 					loading={loadingAttr}
 					fetchpriority={fetchPriorityAttr}
 					decoding="async"
-					class="h-[108px] w-48 rounded-lg object-cover"
+					class="h-auto w-full rounded-lg object-cover sm:h-[108px] sm:w-48"
 				/>
 			</a>
 		{/if}
