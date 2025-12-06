@@ -5,6 +5,12 @@ const baseSchema = z.object({
 	tags: z
 		.array(z.string())
 		.default([])
+		.transform((arr) =>
+			arr
+				.flatMap((tag) => (tag.includes(',') ? tag.split(',') : [tag]))
+				.map((tag) => tag.trim())
+				.filter((tag) => tag !== '')
+		)
 		.refine((arr) => arr.length > 0, { message: 'Please select at least one tag' }),
 	description: z.string().min(10, { message: 'Description must be at least 10 characters long' }),
 	notes: z.string().optional()
