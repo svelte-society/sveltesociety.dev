@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { RemoteFormIssue } from '@sveltejs/kit'
+	import type { HTMLInputAttributes } from 'svelte/elements'
 
-	interface TextInputProps {
+	type TextInputProps = {
 		label?: string
 		description?: string
 		placeholder?: string
@@ -9,7 +10,7 @@
 		type?: string
 		'data-testid'?: string
 		issues?: RemoteFormIssue[]
-	}
+	} & HTMLInputAttributes
 	let {
 		label,
 		description,

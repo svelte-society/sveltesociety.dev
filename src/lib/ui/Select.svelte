@@ -4,7 +4,7 @@
 	import { Select } from 'bits-ui'
 	type Option = {
 		label: string
-		value: string
+		value: string | number
 	}
 
 	type Props = {

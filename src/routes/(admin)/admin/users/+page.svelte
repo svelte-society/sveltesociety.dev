@@ -1,15 +1,15 @@
 <script lang="ts">
+	import { page } from '$app/state'
 	import { formatRelativeDate } from '$lib/utils/date'
-	import Button from '$lib/ui/Button.svelte'
-	import { enhance } from '$app/forms'
 	import Avatar from '$lib/ui/Avatar.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
-	import Actions from '$lib/ui/admin/Actions.svelte'
 	import Pagination from '$lib/ui/Pagination.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
+	import { Actions, Action } from '$lib/ui/admin/Actions'
 	import type { User } from '$lib/server/services/user'
 	import Users from 'phosphor-svelte/lib/Users'
 	import SignOut from 'phosphor-svelte/lib/SignOut'
+	import { getUsers, deleteUser, clearUserSessions } from './users.remote'
 
 	// Extended User interface to include created_at and role_name
 	interface ExtendedUser extends User {
@@ -17,12 +17,10 @@
 		role_name: string
 	}
 
-	let { data } = $props()
+	const currentPage = $derived(parseInt(page.url.searchParams.get('page') || '1', 10))
+	const perPage = 25
 
-	// Ensure ID is a string for Actions component
-	function ensureStringId(id: string | number): string {
-		return id.toString()
-	}
+	const data = $derived(await getUsers({ page: currentPage, perPage }))
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
@@ -31,6 +29,7 @@
 		description="Manage user accounts, roles, and permissions"
 		icon={Users}
 	/>
+
 	<Table action={true} data={data.users} testId="users-table">
 		{#snippet header(classes)}
 			<th scope="col" class={classes}>User</th>
@@ -54,28 +53,17 @@
 			</td>
 		{/snippet}
 		{#snippet actionCell(item: ExtendedUser)}
-			<Actions
-				route="users"
-				id={ensureStringId(item.id)}
-				canDelete={true}
-				canEdit={true}
-				type="this user"
-			/>
-			<form action="?/clear_sessions" method="POST" use:enhance style="line-height: 0">
-				<input type="hidden" name="id" value={item.id} />
-				<button
-					type="submit"
-					class="group relative inline-flex items-center justify-center rounded-lg bg-orange-50 p-2 text-orange-600 transition-all hover:bg-orange-100 hover:text-orange-900 hover:shadow-sm"
-					aria-label="Clear user sessions"
-				>
-					<SignOut class="h-5 w-5" weight="bold" />
-					<span
-						class="absolute bottom-full left-1/2 mb-1 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100"
-					>
-						Clear sessions
-					</span>
-				</button>
-			</form>
+			<Actions id={item.id}>
+				<Action.Edit href={`/admin/users/${item.id}`} />
+				<Action.Button
+					icon={SignOut}
+					form={clearUserSessions}
+					confirm="Clear all sessions for this user?"
+					variant="warning"
+					tooltip="Clear sessions"
+				/>
+				<Action.Delete form={deleteUser} confirm="Delete this user?" />
+			</Actions>
 		{/snippet}
 	</Table>
 
