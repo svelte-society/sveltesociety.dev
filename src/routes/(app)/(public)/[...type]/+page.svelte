@@ -70,7 +70,7 @@
 <div data-testid="content-list" class="grid gap-6">
 	{#if count > 0}
 		{#each content as content, index (content.id)}
-			<div>
+			<div class="min-w-0">
 				<ContentCard {content} priority={index < 2 ? 'high' : 'auto'} />
 			</div>
 		{/each}
