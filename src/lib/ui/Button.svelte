@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte'
+	import type { ClassValue } from 'svelte/elements'
 	import {
 		buttonVariants,
 		type ButtonSize,
@@ -13,17 +14,18 @@
 		variant?: ButtonVariant
 		size?: ButtonSize
 		width?: ButtonWidth
+		class?: ClassValue
 	} & (({ href: string } & HTMLAnchorAttributes) | ({ href?: never } & HTMLButtonAttributes))
 
-	let { children, variant, size, width, href, ...rest }: Props = $props()
+	let { children, variant, size, width, href, class: className, ...rest }: Props = $props()
 </script>
 
 {#if href}
-	<a class={buttonVariants({ variant, size })} {href} {...rest as HTMLAnchorAttributes}
+	<a class={[buttonVariants({ variant, size }), className]} {href} {...rest as HTMLAnchorAttributes}
 		>{@render children()}</a
 	>
 {:else}
-	<button class={buttonVariants({ variant, size })} {...rest as HTMLButtonAttributes}>
+	<button class={[buttonVariants({ variant, size }), className]} {...rest as HTMLButtonAttributes}>
 		{@render children()}
 	</button>
 {/if}
