@@ -97,11 +97,9 @@ async function restoreDatabase(backupPath: string) {
 		console.log(`Decompressed to: ${sqlPath}`)
 	}
 
-	// Remove existing database
-	if (existsSync(DB_PATH)) {
-		console.log(`Removing existing database at ${DB_PATH}...`)
-		await $`rm -f ${DB_PATH}`
-	}
+	// Remove existing database if it exists
+	console.log(`Removing existing database at ${DB_PATH}...`)
+	await $`rm -f ${DB_PATH}*`
 
 	// Restore the database
 	console.log(`Restoring database to ${DB_PATH}...`)
