@@ -46,6 +46,39 @@
 			{/each}
 		</div>
 
+		{#if data.showDevLogin}
+			<div class="mt-8 rounded-lg border-2 border-dashed border-amber-300 bg-amber-50 p-4">
+				<p class="mb-3 text-center text-sm font-medium text-amber-800">
+					Development Mode Login
+				</p>
+				<div class="space-y-2">
+					<a
+						href="/auth/dev-login?user=admin"
+						class="flex w-full items-center justify-center rounded-md bg-amber-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-700"
+					>
+						Login as Admin
+					</a>
+					<a
+						href="/auth/dev-login?user=contributor"
+						class="flex w-full items-center justify-center rounded-md bg-amber-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-600"
+					>
+						Login as Contributor
+					</a>
+					<a
+						href="/auth/dev-login?user=viewer"
+						class="flex w-full items-center justify-center rounded-md bg-amber-400 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-500"
+					>
+						Login as Viewer
+					</a>
+				</div>
+				{#if !data.oauthConfigured}
+					<p class="mt-3 text-center text-xs text-amber-700">
+						GitHub OAuth not configured. Set GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET to enable.
+					</p>
+				{/if}
+			</div>
+		{/if}
+
 		<div class="mt-6 text-center text-sm">
 			<p class="text-slate-600">
 				By signing in, you agree to our
