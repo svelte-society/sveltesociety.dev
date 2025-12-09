@@ -138,7 +138,6 @@
 					target="_blank"
 					rel="noopener noreferrer"
 					class="flex items-center gap-1.5 text-sm text-orange-600 hover:text-orange-700 hover:underline"
-					onclick={(e) => e.stopPropagation()}
 				>
 					<svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
 						<path d="M0 0h24v24H0V0z" fill="none"/>
