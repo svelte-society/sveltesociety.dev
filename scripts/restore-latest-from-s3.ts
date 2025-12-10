@@ -100,7 +100,7 @@ async function restoreDatabase(backupPath: string) {
 	// Remove existing database
 	if (existsSync(DB_PATH)) {
 		console.log(`Removing existing database at ${DB_PATH}...`)
-		await $`rm -f ${DB_PATH}`
+		await $`rm -f ${DB_PATH}*`
 	}
 
 	// Restore the database
