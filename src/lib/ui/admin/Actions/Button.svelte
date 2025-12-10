@@ -74,15 +74,16 @@
 		{...action.enhance(async ({ submit }) => {
 			isSubmitting = true
 			try {
-				const result = await submit()
-				if (result.success) {
-					toast.success(result.text)
+				await submit()
+				if (action.result?.success === true) {
+					toast.success(action.result.text)
 				} else {
-					toast.error(result.text)
+					toast.error(action.result?.text || 'Something  broke, please try again.')
 				}
-			} finally {
-				isSubmitting = false
+			} catch {
+				toast.error('Something broke, please try again.')
 			}
+			isSubmitting = false
 		})}
 	>
 		<input {...action.fields.id.as('hidden', ctx.id)} />
