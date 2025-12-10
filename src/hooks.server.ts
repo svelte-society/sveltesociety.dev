@@ -43,6 +43,6 @@ export const handleError: HandleServerError = async ({ error, event, status, mes
 		headers: { 'content-type': 'application/json' },
 		body: JSON.stringify({ content })
 	}).catch((error) => {
-		console.error('Failed to reach Discord Webhook')
+		console.error('Failed to contact Discord Webhook')
 	})
 }
