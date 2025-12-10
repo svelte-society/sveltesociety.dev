@@ -1,21 +1,15 @@
 <script lang="ts">
 	import { formatRelativeDate } from '$lib/utils/date'
-	import { toast } from 'svelte-sonner'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
+	import { Actions, Action } from '$lib/ui/admin/Actions'
 	import { ADMIN_ROUTES } from '$lib/admin'
 	import Tag from 'phosphor-svelte/lib/Tag'
 	import Plus from 'phosphor-svelte/lib/Plus'
-	import PencilSimple from 'phosphor-svelte/lib/PencilSimple'
-	import Trash from 'phosphor-svelte/lib/Trash'
 	import { getTags, deleteTag } from './tags.remote'
 	import type { Tag as TagType } from '$lib/schema/tags'
 
 	const tags = getTags()
-
-	function confirmDelete() {
-		return confirm('Are you sure you want to delete this tag? This action cannot be undone.')
-	}
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
@@ -48,36 +42,13 @@
 			<td class={classes}>{formatRelativeDate(tag.created_at)}</td>
 		{/snippet}
 		{#snippet actionCell(tag: TagType)}
-			{@const remove = deleteTag.for(tag.id)}
-			<a
-				href="/admin/tags/{tag.id}"
-				class="inline-flex items-center justify-center rounded-lg bg-svelte-50 p-2 text-svelte-500 transition-all hover:bg-svelte-100 hover:text-svelte-900 hover:shadow-sm"
-				aria-label="Edit {tag.name}"
-				data-testid="edit-button"
-			>
-				<PencilSimple class="h-5 w-5" weight="bold" />
-			</a>
-
-			<form
-				{...remove.enhance(async ({ submit }) => {
-					if (!confirmDelete()) return
-					const result = await submit()
-					if (result) {
-						result.success ? toast.success(result.text) : toast.error(result.text)
-					}
-				})}
-			>
-				<input {...remove.fields.id.as('hidden', tag.id)} />
-				<button
-					type="submit"
-					disabled={!!remove.pending}
-					class="inline-flex items-center justify-center rounded-lg bg-red-50 p-2 text-red-600 transition-all hover:bg-red-100 hover:text-red-900 hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-50"
-					aria-label="Delete {tag.name}"
-					data-testid="delete-button"
-				>
-					<Trash class="h-5 w-5" weight="bold" />
-				</button>
-			</form>
+			<Actions id={tag.id}>
+				<Action.Edit href={`/admin/tags/${tag.id}`} />
+				<Action.Delete
+					form={deleteTag}
+					confirm="Are you sure you want to delete this tag? This action cannot be undone."
+				/>
+			</Actions>
 		{/snippet}
 	</Table>
 </div>
