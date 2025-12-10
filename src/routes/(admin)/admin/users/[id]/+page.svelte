@@ -93,7 +93,7 @@
 							<select
 								{...roleForm.fields.role.as('number')}
 								data-testid="select-role"
-								class="focus:outline-svelte-300 grid w-full grid-cols-[1fr_auto] items-center rounded-md border-2 border-transparent bg-slate-100 px-3 py-1 pl-2 text-left text-sm placeholder-slate-500 focus:outline-2 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600"
+								class="w-full appearance-none rounded-md border-2 border-transparent bg-slate-100 bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%236b7280%22%20d%3D%22M213.66%20101.66l-80%2080a8%208%200%2001-11.32%200l-80-80a8%208%200%200111.32-11.32L128%20164.69l74.34-74.35a8%208%200%200111.32%2011.32z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1rem] bg-[right_0.5rem_center] bg-no-repeat px-2 py-1.5 pr-8 text-sm focus:outline-2 focus:outline-sky-200 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500"
 							>
 								{#each await getRoleOptions() as { label, value }}
 									<option value={value.toString()}>{label}</option>
