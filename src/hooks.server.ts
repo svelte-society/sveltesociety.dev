@@ -36,7 +36,7 @@ export const handleError: HandleServerError = async ({ error, event, status, mes
 		2
 	)
 
-	const content = '```json\n' + JSON.stringify(json, null, 2).substring(0, 2000) + '\n```'
+	const content = '```json\n' + json.substring(0, 2000) + '\n```'
 
 	fetch(env.DISCORD_WEBHOOK, {
 		method: 'POST',
