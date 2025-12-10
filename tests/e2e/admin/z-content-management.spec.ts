@@ -224,4 +224,60 @@ test.describe('Admin Content Management', () => {
 		await editPage.submit()
 		await editPage.expectSuccessMessage()
 	})
+
+	test('refresh metadata button appears for video content', async ({ page }) => {
+		await page.goto('/admin/content?type=video')
+
+		const refreshButton = page.getByTestId('refresh-metadata-button')
+		await expect(refreshButton.first()).toBeVisible()
+	})
+
+	test('refresh metadata button appears for library content', async ({ page }) => {
+		await page.goto('/admin/content?type=library')
+
+		const refreshButton = page.getByTestId('refresh-metadata-button')
+		await expect(refreshButton.first()).toBeVisible()
+	})
+
+	test('refresh metadata button appears for resource content', async ({ page }) => {
+		await page.goto('/admin/content?type=resource')
+
+		const refreshButton = page.getByTestId('refresh-metadata-button')
+		await expect(refreshButton.first()).toBeVisible()
+	})
+
+	test('refresh metadata button does NOT appear for recipe content', async ({ page }) => {
+		await page.goto('/admin/content?type=recipe')
+
+		const refreshButton = page.getByTestId('refresh-metadata-button')
+		await expect(refreshButton).toHaveCount(0)
+	})
+
+	test('refresh metadata button does NOT appear for announcement content', async ({ page }) => {
+		await page.goto('/admin/content?type=announcement')
+
+		const refreshButton = page.getByTestId('refresh-metadata-button')
+		await expect(refreshButton).toHaveCount(0)
+	})
+
+	test('refresh metadata button does NOT appear for collection content', async ({ page }) => {
+		await page.goto('/admin/content?type=collection')
+
+		const refreshButton = page.getByTestId('refresh-metadata-button')
+		await expect(refreshButton).toHaveCount(0)
+	})
+
+	test('clicking refresh metadata button triggers refresh action', async ({ page }) => {
+		await page.goto('/admin/content?type=video')
+
+		const refreshButton = page.getByTestId('refresh-metadata-button').first()
+		await refreshButton.waitFor({ state: 'visible' })
+		await refreshButton.click()
+
+		// Wait for the action to complete and check for success toast or no error
+		await page.waitForLoadState('networkidle')
+
+		// The page should still be on content management (no error redirect)
+		await expect(page).toHaveURL(/\/admin\/content/)
+	})
 })

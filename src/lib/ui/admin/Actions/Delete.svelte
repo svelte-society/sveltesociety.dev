@@ -22,6 +22,7 @@
 	const ctx = getContext<{ id: string }>('actions')
 
 	let showDialog = $state(false)
+	let isSubmitting = $state(false)
 	const remove = $derived(form.for(ctx.id))
 </script>
 
@@ -45,8 +46,18 @@
 				<Button onclick={() => (showDialog = false)} variant="secondary">Cancel</Button>
 				<form
 					{...remove.enhance(async ({ submit }) => {
-						const result = await submit()
-						showDialog = false
+						isSubmitting = true
+						try {
+							await submit()
+							if (remove.result?.success === true) {
+								toast.success(remove.result.text)
+							} else {
+								toast.error(remove.result?.text || 'Something  broke, please try again.')
+							}
+						} catch {
+							toast.error('Something broke, please try again.')
+						}
+						isSubmitting = false
 					})}
 				>
 					<input {...remove.fields.id.as('hidden', ctx.id)} />
