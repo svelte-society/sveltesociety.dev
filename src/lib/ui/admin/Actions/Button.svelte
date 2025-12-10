@@ -61,9 +61,11 @@
 
 {#snippet iconWithTooltip()}
 	<Icon
-		class="h-5 w-5 transition-all duration-300 {isSubmitting
-			? 'animate-spin'
-			: ''} {showSuccess ? 'text-green-500' : ''}"
+		class={[
+			'h-5 w-5 transition-all duration-300',
+			isSubmitting && 'animate-spin',
+			showSuccess && 'text-green-500'
+		]}
 		weight="bold"
 	/>
 	{#if tooltip}
