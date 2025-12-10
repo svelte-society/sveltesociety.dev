@@ -3,6 +3,7 @@ import { error, redirect } from '@sveltejs/kit'
 import {
   getUsersSchema,
   updateUserSchema,
+  updateUserRoleSchema,
   deleteUserSchema,
   clearSessionsSchema
 } from '$lib/schema/users'
@@ -44,7 +45,7 @@ export const getUserById = query(z.string(), (id: string) => {
   return user
 })
 
-export const getActiveRoles = query(() => {
+export const getRoleOptions = query(() => {
   checkAdminAuth()
   const { locals } = getRequestEvent()
   const roles = locals.roleService.getActiveRoles()
@@ -61,6 +62,13 @@ export const updateUser = form(updateUserSchema, async (data) => {
   const { locals } = getRequestEvent()
   locals.userService.updateUser(data.id, data)
   redirect(303, '/admin/users')
+})
+
+export const updateUserRole = form(updateUserRoleSchema, async (data) => {
+  checkAdminAuth()
+  const { locals } = getRequestEvent()
+  locals.userService.updateUser(data.id, { role: data.role })
+  return { success: true, text: 'Role updated successfully!' }
 })
 
 export const deleteUser = form(deleteUserSchema, async (data) => {
