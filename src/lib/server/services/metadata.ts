@@ -338,8 +338,11 @@ export class MetadataService {
 
 		switch (contentType) {
 			case 'library': {
-				const githubUrl = currentMetadata.github
-				if (githubUrl) {
+				const githubUrl =
+					typeof currentMetadata.github === 'string'
+						? currentMetadata.github
+						: currentMetadata.github?.repoUrl
+				if (githubUrl && typeof githubUrl === 'string') {
 					const urlMatch = githubUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/i)
 					if (urlMatch) {
 						const [, owner, repo] = urlMatch
@@ -362,6 +365,7 @@ export class MetadataService {
 
 			case 'video': {
 				const videoId =
+					currentMetadata.videoId ||
 					currentMetadata.externalSource?.externalId ||
 					currentMetadata.watchUrl?.match(/[?&]v=([^&]+)/)?.[1]
 				if (videoId) {
