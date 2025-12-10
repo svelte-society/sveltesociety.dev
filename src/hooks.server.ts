@@ -16,9 +16,9 @@ export const init: ServerInit = async () => {
 export const handle = sequence(attach_services, add_user_data, protect_routes)
 
 export const handleError: HandleServerError = async ({ error, event, status, message }) => {
-	if (!env.DISCORD_WEBHOOK) return
-
 	if (status !== 500) return
+
+	if (!env.DISCORD_WEBHOOK) return
 
 	const json = JSON.stringify(
 		{
