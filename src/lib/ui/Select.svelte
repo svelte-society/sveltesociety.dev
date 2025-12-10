@@ -4,12 +4,12 @@
 	import { Select } from 'bits-ui'
 	type Option = {
 		label: string
-		value: string | number
+		value: string
 	}
 
 	type Props = {
 		options: Option[]
-		value?: string | number
+		value?: string
 		name: string
 		selected?: string
 		props?: any
