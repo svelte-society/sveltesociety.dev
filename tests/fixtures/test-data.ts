@@ -139,6 +139,22 @@ export const TEST_CONTENT = [
 		tags: ['tag_components'],
 		published: true,
 		children: ['content_library_001', 'content_recipe_001']
+	},
+	{
+		id: 'content_resource_001',
+		title: 'Test Resource: Svelte Documentation',
+		type: 'resource',
+		status: 'published',
+		body: '',
+		slug: 'test-resource-svelte-docs',
+		description: 'Official Svelte documentation and learning resources',
+		metadata: {
+			link: 'https://svelte.dev',
+			image: 'https://svelte.dev/images/twitter-thumbnail.jpg'
+		},
+		authorId: 'test_admin_001',
+		tags: ['tag_svelte', 'tag_tutorial'],
+		published: true
 	}
 ] as const
 

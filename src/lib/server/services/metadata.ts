@@ -1,5 +1,10 @@
 import type { Database } from 'bun:sqlite'
 import type { Content } from '$lib/types/content'
+import fs from 'node:fs'
+import path from 'node:path'
+import { uploadThumbnail, isS3Enabled } from './s3-storage'
+
+const { STATE_DIRECTORY = '.state_directory' } = process.env
 
 export class MetadataService {
 	// Default staleness threshold (24 hours in milliseconds)
@@ -193,6 +198,117 @@ export class MetadataService {
 		return now - updatedAt > this.STALE_THRESHOLD
 	}
 
+	private async refreshVideoThumbnail(videoId: string): Promise<string | null> {
+		try {
+			const response = await fetch(`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`)
+			if (!response.ok) {
+				console.error(`Failed to fetch YouTube thumbnail for ${videoId}`)
+				return null
+			}
+
+			const thumbnailBuffer = Buffer.from(await response.arrayBuffer())
+
+			if (isS3Enabled) {
+				const key = `yt/${videoId}/thumbnail.jpg`
+				return await uploadThumbnail(key, thumbnailBuffer)
+			} else {
+				const dir = path.join(STATE_DIRECTORY, 'files', 'yt', videoId)
+				fs.mkdirSync(dir, { recursive: true })
+				fs.writeFileSync(path.join(dir, 'thumbnail.jpg'), thumbnailBuffer)
+				return `/files/yt/${videoId}/thumbnail.jpg`
+			}
+		} catch (error) {
+			console.error(`Error refreshing video thumbnail for ${videoId}:`, error)
+			return null
+		}
+	}
+
+	private async refreshLibraryThumbnail(owner: string, repo: string, updatedAt?: string): Promise<string | null> {
+		try {
+			const hash = updatedAt
+				? new Date(updatedAt).getTime().toString(36).padStart(12, '0')
+				: Date.now().toString(36).padStart(12, '0')
+			const ogImageUrl = `https://opengraph.githubassets.com/${hash}/${owner}/${repo}`
+
+			const response = await fetch(ogImageUrl)
+			if (!response.ok || !response.headers.get('content-type')?.includes('image')) {
+				console.error(`Failed to fetch GitHub OG image for ${owner}/${repo}`)
+				return null
+			}
+
+			const extension = response.headers.get('content-type')?.split('/').at(-1) || 'png'
+			const thumbnailBuffer = Buffer.from(await response.arrayBuffer())
+
+			if (isS3Enabled) {
+				const key = `gh/${owner}/${repo}/thumbnail.${extension}`
+				return await uploadThumbnail(key, thumbnailBuffer)
+			} else {
+				const dir = path.join(STATE_DIRECTORY, 'files', 'gh', owner, repo)
+				fs.mkdirSync(dir, { recursive: true })
+				const filePath = path.join(dir, `thumbnail.${extension}`)
+				fs.writeFileSync(filePath, thumbnailBuffer)
+				return `/files/gh/${owner}/${repo}/thumbnail.${extension}`
+			}
+		} catch (error) {
+			console.error(`Error refreshing library thumbnail for ${owner}/${repo}:`, error)
+			return null
+		}
+	}
+
+	private async refreshResourceThumbnail(contentId: string, linkUrl: string): Promise<string | null> {
+		try {
+			const pageResponse = await fetch(linkUrl, {
+				headers: {
+					'User-Agent': 'SvelteSociety-Metadata-Service'
+				}
+			})
+			if (!pageResponse.ok) {
+				console.error(`Failed to fetch page for OG image: ${linkUrl}`)
+				return null
+			}
+
+			const html = await pageResponse.text()
+			const ogImageMatch = html.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["']/i)
+				|| html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["']/i)
+
+			if (!ogImageMatch || !ogImageMatch[1]) {
+				console.error(`No OG image found for: ${linkUrl}`)
+				return null
+			}
+
+			let ogImageUrl = ogImageMatch[1]
+			if (ogImageUrl.startsWith('//')) {
+				ogImageUrl = 'https:' + ogImageUrl
+			} else if (ogImageUrl.startsWith('/')) {
+				const urlObj = new URL(linkUrl)
+				ogImageUrl = urlObj.origin + ogImageUrl
+			}
+
+			const imageResponse = await fetch(ogImageUrl)
+			if (!imageResponse.ok || !imageResponse.headers.get('content-type')?.includes('image')) {
+				console.error(`Failed to fetch OG image: ${ogImageUrl}`)
+				return null
+			}
+
+			const extension = imageResponse.headers.get('content-type')?.split('/').at(-1) || 'png'
+			const thumbnailBuffer = Buffer.from(await imageResponse.arrayBuffer())
+
+			if (isS3Enabled) {
+				const key = `resource/${contentId}/thumbnail.${extension}`
+				return await uploadThumbnail(key, thumbnailBuffer)
+			} else {
+				const dir = path.join(STATE_DIRECTORY, 'files', 'resource', contentId)
+				fs.mkdirSync(dir, { recursive: true })
+				const filePath = path.join(dir, `thumbnail.${extension}`)
+				fs.writeFileSync(filePath, thumbnailBuffer)
+				return `/files/resource/${contentId}/thumbnail.${extension}`
+			}
+		} catch (error) {
+			console.error(`Error refreshing resource thumbnail for ${linkUrl}:`, error)
+			return null
+		}
+	}
+
 	/**
 	 * Update content with new metadata
 	 */
@@ -221,27 +337,56 @@ export class MetadataService {
 		}
 
 		switch (contentType) {
-			case 'library':
-				// Handle library content
-				if (currentMetadata.github?.repoUrl) {
-					const githubMetadata = await this.fetchGithubMetadata(currentMetadata.github.repoUrl)
+			case 'library': {
+				const githubUrl = currentMetadata.github
+				if (githubUrl) {
+					const urlMatch = githubUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/i)
+					if (urlMatch) {
+						const [, owner, repo] = urlMatch
+						const githubMetadata = await this.fetchGithubMetadata(githubUrl)
+						Object.assign(newMetadata, githubMetadata)
 
-					// Merge the new metadata
-					Object.assign(newMetadata, githubMetadata)
+						const thumbnailUrl = await this.refreshLibraryThumbnail(
+							owner,
+							repo,
+							githubMetadata.github?.lastUpdated
+						)
+						if (thumbnailUrl) {
+							newMetadata.thumbnail = thumbnailUrl
+						}
+					}
 				}
-
 				newMetadata.type = 'library'
 				break
+			}
 
-			case 'video':
-				// Handle video content
-				if (currentMetadata.videoId) {
-					newMetadata.youtube = await this.fetchYoutubeMetadata(currentMetadata.videoId)
+			case 'video': {
+				const videoId =
+					currentMetadata.externalSource?.externalId ||
+					currentMetadata.watchUrl?.match(/[?&]v=([^&]+)/)?.[1]
+				if (videoId) {
+					newMetadata.youtube = await this.fetchYoutubeMetadata(videoId)
 					newMetadata.type = 'video'
+
+					const thumbnailUrl = await this.refreshVideoThumbnail(videoId)
+					if (thumbnailUrl) {
+						newMetadata.thumbnail = thumbnailUrl
+					}
 				}
 				break
+			}
 
-			// Add other content types as needed
+			case 'resource': {
+				const linkUrl = currentMetadata.link
+				if (linkUrl) {
+					const thumbnailUrl = await this.refreshResourceThumbnail(contentId, linkUrl)
+					if (thumbnailUrl) {
+						newMetadata.image = thumbnailUrl
+					}
+				}
+				newMetadata.type = 'resource'
+				break
+			}
 		}
 
 		// Update content with new metadata
