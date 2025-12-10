@@ -9,7 +9,7 @@
 
 	type Props = {
 		options: Option[]
-		value?: string | number
+		value?: string
 		name: string
 		selected?: string
 		props?: any

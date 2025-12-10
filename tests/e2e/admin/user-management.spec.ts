@@ -33,17 +33,17 @@ test.describe('Admin - User Management', () => {
 	})
 
 
-	test('can navigate to edit user page', async ({ page }) => {
+	test('can navigate to user details page', async ({ page }) => {
 		const userManagementPage = new UserManagementPage(page)
 		await userManagementPage.gotoUsersList()
 
 		await userManagementPage.clickEditForRow(0)
 
 		await expect(page).toHaveURL(/\/admin\/users\/test_/)
-		await expect(page.getByRole('heading', { name: /edit user/i })).toBeVisible()
+		await expect(page.getByRole('heading', { name: /user details/i })).toBeVisible()
 	})
 
-	test('can access user edit form', async ({ page }) => {
+	test('can access user details page with role editing', async ({ page }) => {
 		const userManagementPage = new UserManagementPage(page)
 		await userManagementPage.gotoUsersList()
 		await userManagementPage.clickEditForRow(0)

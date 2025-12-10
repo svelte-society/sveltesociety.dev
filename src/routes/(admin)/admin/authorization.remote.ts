@@ -1,7 +1,7 @@
 import { getRequestEvent, query } from '$app/server'
 import { redirect } from '@sveltejs/kit'
 
-export const checkAuth = query(() => {
+export const checkAdminAuth = query(() => {
 	const { locals } = getRequestEvent()
 	if (!locals.user) {
 		redirect(303, '/login')
