@@ -27,9 +27,9 @@ export class ShortcutsPage extends BasePage {
 		this.shortcutTitles = page.getByTestId('shortcut-title')
 		this.shortcutStatuses = page.getByTestId('shortcut-status')
 		this.noShortcutsMessage = page.getByTestId('no-shortcuts-message')
-		this.editButtons = page.getByTestId('edit-shortcut-button')
-		this.toggleButtons = page.getByTestId('toggle-shortcut-button')
-		this.deleteButtons = page.getByTestId('delete-shortcut-button')
+		this.editButtons = page.getByTestId('edit-button')
+		this.toggleButtons = page.getByTestId('toggle-button')
+		this.deleteButtons = page.getByTestId('delete-button')
 
 		this.contentSelect = page.getByTestId('select-content_id')
 		this.labelInput = page.getByTestId('input-label')
@@ -88,8 +88,9 @@ export class ShortcutsPage extends BasePage {
 	}
 
 	async deleteFirstShortcut(): Promise<void> {
-		this.page.on('dialog', (dialog) => dialog.accept())
 		await this.deleteButtons.first().click()
+		// Wait for confirmation modal and click confirm button
+		await this.page.getByTestId('confirm-delete-button').click()
 	}
 
 	async getFirstShortcutStatus(): Promise<string> {

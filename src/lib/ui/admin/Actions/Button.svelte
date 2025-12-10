@@ -15,6 +15,7 @@
 		variant?: Variant
 		tooltip?: string
 		label?: string
+		testId?: string
 	}
 
 	type FormProps = BaseProps & {
@@ -36,6 +37,7 @@
 		variant = 'secondary',
 		tooltip,
 		label,
+		testId,
 		form,
 		confirm,
 		onclick
@@ -76,6 +78,7 @@
 			size="icon"
 			class="group relative"
 			aria-label={label || tooltip}
+			data-testid={testId}
 		>
 			{@render iconWithTooltip()}
 		</Button>
@@ -88,6 +91,7 @@
 		size="icon"
 		class="group relative"
 		aria-label={label || tooltip}
+		data-testid={testId}
 	>
 		{@render iconWithTooltip()}
 	</Button>
