@@ -46,6 +46,8 @@
 	const ctx = getContext<{ id: string }>('actions')
 
 	let showDialog = $state(false)
+	let isSubmitting = $state(false)
+	let showSuccess = $state(false)
 	const action = $derived(form?.for(ctx.id))
 
 	function handleClick() {
@@ -58,7 +60,12 @@
 </script>
 
 {#snippet iconWithTooltip()}
-	<Icon class="h-5 w-5" weight="bold" />
+	<Icon
+		class="h-5 w-5 transition-all duration-300 {isSubmitting
+			? 'animate-spin'
+			: ''} {showSuccess ? 'text-green-500' : ''}"
+		weight="bold"
+	/>
 	{#if tooltip}
 		<span
 			class="absolute bottom-full left-1/2 mb-1 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100"
@@ -69,11 +76,25 @@
 {/snippet}
 
 {#if form && action && !confirm}
-	<form {...action}>
+	<form
+		{...action.enhance(async ({ submit }) => {
+			isSubmitting = true
+			showSuccess = false
+			try {
+				await submit()
+				showSuccess = true
+				setTimeout(() => {
+					showSuccess = false
+				}, 1000)
+			} finally {
+				isSubmitting = false
+			}
+		})}
+	>
 		<input {...action.fields.id.as('hidden', ctx.id)} />
 		<Button
 			type="submit"
-			disabled={!!action.pending}
+			disabled={isSubmitting}
 			variant={variant as ButtonVariant}
 			size="icon"
 			class="group relative"
