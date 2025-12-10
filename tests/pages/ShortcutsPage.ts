@@ -23,7 +23,7 @@ export class ShortcutsPage extends BasePage {
 
 		this.addShortcutButton = page.getByTestId('add-shortcut-button')
 		this.shortcutsTable = page.getByTestId('shortcuts-table')
-		this.shortcutRows = page.getByTestId('shortcut-row')
+		this.shortcutRows = page.getByTestId('shortcuts-table-row')
 		this.shortcutTitles = page.getByTestId('shortcut-title')
 		this.shortcutStatuses = page.getByTestId('shortcut-status')
 		this.noShortcutsMessage = page.getByTestId('no-shortcuts-message')
