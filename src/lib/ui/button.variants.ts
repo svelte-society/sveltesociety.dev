@@ -30,16 +30,18 @@ export const buttonVariants = tv({
 		thickness: {
 			default: 'border-2',
 			thin: 'border',
-			thick: 'border-4'
+			thick: 'border-4',
+			none: 'border-0'
 		}
 	},
 	defaultVariants: {
 		variant: 'primary',
 		size: 'default',
-		thickness: 'thin'
+		thickness: 'none'
 	}
 })
 
 export type ButtonVariant = VariantProps<typeof buttonVariants>['variant']
 export type ButtonSize = VariantProps<typeof buttonVariants>['size']
 export type ButtonWidth = VariantProps<typeof buttonVariants>['width']
+export type ButtonThickness = VariantProps<typeof buttonVariants>['thickness']
