@@ -4,14 +4,12 @@
 	import Toggle from '$lib/ui/Toggle.svelte'
 	import { marked } from 'marked'
 
-	interface Props {
+	interface Props extends HTMLTextareaAttributes {
 		label?: string
 		description?: string
 		placeholder?: string
 		rows?: number
 		'data-testid'?: string
-		value?: string | number
-		rest?: HTMLTextareaAttributes
 		issues?: RemoteFormIssue[]
 	}
 
@@ -20,17 +18,14 @@
 		description,
 		placeholder,
 		rows = 20,
-		value = '',
 		'data-testid': testId,
 		issues,
 		...rest
 	}: Props = $props()
 
-	// Track local value for preview (synced via oninput)
-	let localValue = $state(String(value ?? ''))
-
 	let preview = $state(false)
 	const hasErrors = $derived(issues && issues.length > 0)
+	const previewContent = $derived(String(rest.value ?? ''))
 </script>
 
 <div class="flex flex-col gap-2">
@@ -49,15 +44,13 @@
 				: 'border-transparent bg-slate-100'}"
 			{placeholder}
 			data-testid={testId}
-			value={String(value ?? '')}
-			oninput={(e) => (localValue = e.currentTarget.value)}
 			{...rest}
 		></textarea>
-		{#if preview && localValue}
+		{#if preview && previewContent}
 			<div
 				class="prose absolute top-7 right-0 bottom-0 left-0 max-w-none overflow-y-auto rounded-md border bg-white p-4"
 			>
-				{@html marked(localValue)}
+				{@html marked(previewContent)}
 			</div>
 		{/if}
 	</div>
