@@ -1,16 +1,12 @@
 <script lang="ts">
-	import { toast } from 'svelte-sonner'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
-	import Button from '$lib/ui/Button.svelte'
-	import Input from '$lib/ui/Input.svelte'
-	import TextArea from '$lib/ui/TextArea.svelte'
-	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte'
-	import DynamicSelector from '$lib/ui/DynamicSelector.svelte'
 	import FileText from 'phosphor-svelte/lib/FileText'
 	import Info from 'phosphor-svelte/lib/Info'
+	import ContentForm from '../ContentForm.svelte'
 	import { createContent, getTags, getAvailableChildren } from '../content.remote'
 
-	const contentType = $derived(createContent.fields.type.value() || 'recipe')
+	const tagOptions = await getTags()
+	const childrenOptions = await getAvailableChildren()
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
@@ -54,158 +50,12 @@
 		</div>
 
 		<div class="p-8">
-			<form
-				{...createContent.enhance(async ({ submit }) => {
-					try {
-						await submit()
-						toast.success('Content created successfully!')
-					} catch {
-						toast.error('Failed to create content')
-					}
-				})}
-				class="flex flex-col gap-4"
-			>
-				<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-					<div class="flex flex-col gap-4">
-						<Input
-							{...createContent.fields.title.as('text')}
-							label="Title"
-							placeholder="Title of your content"
-							description="Enter a descriptive title"
-							issues={createContent.fields.title.issues()}
-							data-testid="input-title"
-						/>
-						<Input
-							{...createContent.fields.slug.as('text')}
-							label="URL Slug"
-							placeholder="url-friendly-name"
-							description="The slug used in the URL (auto-generated from title)"
-							issues={createContent.fields.slug.issues()}
-							data-testid="input-slug"
-						/>
-					</div>
-
-					<div class="flex flex-col gap-4">
-						<div class="flex flex-col gap-2">
-							<label for="type" class="text-xs font-medium">Content Type</label>
-							<select
-								{...createContent.fields.type.as('select')}
-								id="type"
-								class={[
-									'w-full rounded-md border-2 bg-slate-100 px-3 py-1.5 text-sm',
-									'focus:outline-2 focus:outline-sky-200',
-									(createContent.fields.type.issues() ?? []).length > 0
-										? 'border-red-300 bg-red-50 text-red-600'
-										: 'border-transparent'
-								]}
-								data-testid="select-type"
-							>
-								<option value="recipe">Recipe</option>
-								<option value="announcement">Announcement</option>
-								<option value="collection">Collection</option>
-								<option value="resource">Resource</option>
-							</select>
-							<p class="text-xs text-slate-500">Select the type of content</p>
-							{#each createContent.fields.type.issues() ?? [] as issue, i (i)}
-								<p class="text-xs text-red-600">{issue.message}</p>
-							{/each}
-						</div>
-
-						<div class="flex flex-col gap-2">
-							<label for="status" class="text-xs font-medium">Status</label>
-							<select
-								{...createContent.fields.status.as('select')}
-								id="status"
-								class={[
-									'w-full rounded-md border-2 bg-slate-100 px-3 py-1.5 text-sm',
-									'focus:outline-2 focus:outline-sky-200',
-									(createContent.fields.status.issues() ?? []).length > 0
-										? 'border-red-300 bg-red-50 text-red-600'
-										: 'border-transparent'
-								]}
-								data-testid="select-status"
-							>
-								<option value="draft">Draft</option>
-								<option value="published">Published</option>
-								<option value="archived">Archived</option>
-							</select>
-							<p class="text-xs text-slate-500">Select the publication status</p>
-							{#each createContent.fields.status.issues() ?? [] as issue, i (i)}
-								<p class="text-xs text-red-600">{issue.message}</p>
-							{/each}
-						</div>
-					</div>
-				</div>
-
-				<TextArea
-					{...createContent.fields.description.as('text')}
-					label="Description"
-					placeholder="Brief description of this content"
-					description="A short summary that appears in listings and search results"
-					issues={createContent.fields.description.issues()}
-					data-testid="textarea-description"
-					rows={3}
-				/>
-
-				{#if contentType !== 'resource'}
-					<MarkdownEditor
-						{...createContent.fields.body.as('text')}
-						label="Body"
-						placeholder="Write your content in Markdown..."
-						description="Content body in Markdown format"
-						issues={createContent.fields.body?.issues()}
-						data-testid="textarea-body"
-					/>
-				{/if}
-
-				{#if contentType === 'collection'}
-					<DynamicSelector
-						name="children"
-						label="Content"
-						description="Select content to add to the collection"
-						placeholder="Search content to add..."
-						options={await getAvailableChildren()}
-						field={createContent.fields.children}
-						data-testid="dynamic-selector-children"
-					/>
-				{/if}
-
-				{#if contentType === 'resource'}
-					<Input
-						{...createContent.fields.metadata.link.as('text')}
-						label="Resource Link"
-						placeholder="https://example.com/resource"
-						description="The URL to the external resource (required)"
-						issues={createContent.fields.metadata?.link?.issues()}
-						data-testid="input-resource-link"
-					/>
-
-					<Input
-						{...createContent.fields.metadata.image.as('text')}
-						label="Image URL (optional)"
-						placeholder="https://example.com/image.png"
-						description="An optional image URL for the resource preview"
-						data-testid="input-resource-image"
-					/>
-				{/if}
-
-				<DynamicSelector
-					name="tags"
-					label="Tags"
-					description="Select tags for this content"
-					placeholder="Search tags..."
-					options={await getTags()}
-					field={createContent.fields.tags}
-					data-testid="dynamic-selector-tags"
-				/>
-
-				<div class="mt-6 flex gap-4">
-					<Button type="submit" width="full" disabled={!!createContent.pending}>
-						{createContent.pending ? 'Creating...' : 'Create Content'}
-					</Button>
-					<Button href="/admin/content" variant="secondary">Cancel</Button>
-				</div>
-			</form>
+			<ContentForm
+				mode="create"
+				form={createContent}
+				{tagOptions}
+				{childrenOptions}
+			/>
 		</div>
 	</div>
 </div>
