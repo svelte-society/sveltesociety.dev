@@ -74,8 +74,6 @@ export const createContent = form(adminCreateContentSchema, async (data) => {
 	checkAdminAuth()
 	const { locals } = getRequestEvent()
 
-	// Build the content object based on type
-	// Cast to any because the service expects a discriminated union but we validate with our own schema
 	const contentData = {
 		title: data.title,
 		slug: data.slug,
@@ -91,4 +89,132 @@ export const createContent = form(adminCreateContentSchema, async (data) => {
 
 	const contentId = locals.contentService.addContent(contentData, locals.user?.id)
 	redirect(303, `/admin/content/${contentId}`)
+})
+
+const contentIdSchema = z.object({
+	id: z.string().min(1, 'Content ID is required')
+})
+
+export const getContentById = query(contentIdSchema, ({ id }) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+	const content = locals.contentService.getContentById(id)
+	if (!content) {
+		redirect(303, '/admin/content')
+	}
+	return content
+})
+
+export const getUsers = query(() => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+	const users = locals.userService.getUsers() as {
+		id: string
+		name: string
+		username: string
+		avatar_url?: string
+	}[]
+	return users.map((user) => ({
+		value: user.id,
+		label: `${user.name || user.username} (@${user.username})`,
+		avatar: user.avatar_url,
+		name: user.name,
+		username: user.username
+	}))
+})
+
+export const getAvailableChildrenForEdit = query(contentIdSchema, ({ id }) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+	const content = locals.contentService
+		.getFilteredContent({ status: 'all' })
+		.filter((item: { type: string; id: string }) => item.type !== 'collection' && item.id !== id)
+	return content.map((item: { id: string; title: string; type: string }) => ({
+		value: item.id,
+		label: `${item.title} (${item.type})`
+	}))
+})
+
+const adminUpdateContentSchema = z
+	.object({
+		id: z.string().min(1, 'Content ID is required'),
+		title: z.string().min(1, 'Title is required'),
+		slug: z.string().min(1, 'Slug is required'),
+		description: z.string().min(1, 'Description is required'),
+		status: z.enum(['draft', 'published', 'archived']),
+		type: z.enum(['video', 'library', 'recipe', 'announcement', 'collection', 'resource']),
+		tags: z.array(z.string()).min(1, 'At least one tag is required'),
+		author_id: z.string().optional(),
+		body: z.string().optional(),
+		children: z.array(z.string()).optional(),
+		metadata: z.any().optional()
+	})
+	.superRefine((data, ctx) => {
+		if (
+			['recipe', 'announcement', 'collection'].includes(data.type) &&
+			!data.body &&
+			!['video', 'library'].includes(data.type)
+		) {
+			ctx.addIssue({
+				code: 'custom',
+				path: ['body'],
+				message: 'Body is required'
+			})
+		}
+		if (data.type === 'collection' && (!data.children || data.children.length === 0)) {
+			ctx.addIssue({
+				code: 'custom',
+				path: ['children'],
+				message: 'At least one child is required'
+			})
+		}
+		if (data.type === 'resource' && !data.metadata?.link) {
+			ctx.addIssue({
+				code: 'custom',
+				path: ['metadata', 'link'],
+				message: 'Resource link is required'
+			})
+		}
+	})
+
+export const updateContent = form(adminUpdateContentSchema, async (data) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	const contentData = {
+		id: data.id,
+		title: data.title,
+		slug: data.slug,
+		description: data.description,
+		status: data.status,
+		type: data.type,
+		tags: data.tags,
+		author_id: data.author_id,
+		published_at: data.status === 'published' ? new Date().toISOString() : null,
+		...(data.body !== undefined && { body: data.body }),
+		...(data.children && { children: data.children }),
+		...(data.metadata && { metadata: data.metadata })
+	} as any
+
+	locals.contentService.updateContent(contentData)
+
+	const content = locals.contentService.getContentById(data.id)
+	if (content) {
+		const tags = content.tags as unknown as { slug: string }[] | undefined
+		locals.searchService.update(data.id, {
+			id: content.id,
+			title: content.title,
+			description: content.description,
+			tags: tags?.map((tag) => tag.slug),
+			type: content.type,
+			status: content.status,
+			created_at: content.created_at,
+			published_at: content.published_at || '',
+			likes: content.likes,
+			saves: content.saves,
+			stars: content.metadata?.stars || 0
+		})
+	}
+
+	return { success: true }
 })
