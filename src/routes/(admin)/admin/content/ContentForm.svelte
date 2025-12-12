@@ -37,28 +37,26 @@
 	}: Props = $props()
 
 	const isEditing = $derived(mode === 'edit')
-	const contentType = $derived(form.fields.type.value() || content?.type || 'recipe')
+	const contentType = $derived(isEditing ? content?.type : form.fields.type.value() || 'recipe')
 	const isImported = $derived(content?.metadata?.externalSource !== undefined)
 	const authorId = $derived(isEditing ? form.fields.author_id?.value() : undefined)
 	const currentAuthor = $derived(users?.find((u) => u.value === authorId))
 
-	const typeOptions = $derived(
-		isEditing
-			? [
-					{ value: 'video', label: 'Video' },
-					{ value: 'library', label: 'Library' },
-					{ value: 'recipe', label: 'Recipe' },
-					{ value: 'announcement', label: 'Announcement' },
-					{ value: 'collection', label: 'Collection' },
-					{ value: 'resource', label: 'Resource' }
-				]
-			: [
-					{ value: 'recipe', label: 'Recipe' },
-					{ value: 'announcement', label: 'Announcement' },
-					{ value: 'collection', label: 'Collection' },
-					{ value: 'resource', label: 'Resource' }
-				]
-	)
+	const typeOptions = [
+		{ value: 'recipe', label: 'Recipe' },
+		{ value: 'announcement', label: 'Announcement' },
+		{ value: 'collection', label: 'Collection' },
+		{ value: 'resource', label: 'Resource' }
+	]
+
+	const typeLabels: Record<string, string> = {
+		video: 'Video',
+		library: 'Library',
+		recipe: 'Recipe',
+		announcement: 'Announcement',
+		collection: 'Collection',
+		resource: 'Resource'
+	}
 
 	const successMessage = $derived(isEditing ? 'Content updated successfully!' : 'Content created successfully!')
 	const errorMessage = $derived(isEditing ? 'Failed to update content' : 'Failed to create content')
@@ -117,30 +115,36 @@
 		<div class="flex flex-col gap-4">
 			<div class="flex flex-col gap-2">
 				<label for="type" class="text-xs font-medium">Content Type</label>
-				<select
-					{...form.fields.type.as('select')}
-					id="type"
-					disabled={isImported}
-					class={[
-						'w-full rounded-md border-2 bg-slate-100 px-3 py-1.5 text-sm',
-						'focus:outline-2 focus:outline-sky-200',
-						'disabled:cursor-not-allowed disabled:opacity-50',
-						(form.fields.type.issues() ?? []).length > 0
-							? 'border-red-300 bg-red-50 text-red-600'
-							: 'border-transparent'
-					]}
-					data-testid="select-type"
-				>
-					{#each typeOptions as option (option.value)}
-						<option value={option.value}>{option.label}</option>
+				{#if isEditing}
+					<div
+						class="w-full rounded-md border-2 border-transparent bg-slate-100 px-3 py-1.5 text-sm text-slate-600"
+						data-testid="display-type"
+					>
+						{typeLabels[contentType ?? ''] ?? contentType}
+					</div>
+					<p class="text-xs text-slate-500">Content type cannot be changed</p>
+				{:else}
+					<select
+						{...form.fields.type.as('select')}
+						id="type"
+						class={[
+							'w-full rounded-md border-2 bg-slate-100 px-3 py-1.5 text-sm',
+							'focus:outline-2 focus:outline-sky-200',
+							(form.fields.type.issues() ?? []).length > 0
+								? 'border-red-300 bg-red-50 text-red-600'
+								: 'border-transparent'
+						]}
+						data-testid="select-type"
+					>
+						{#each typeOptions as option (option.value)}
+							<option value={option.value}>{option.label}</option>
+						{/each}
+					</select>
+					<p class="text-xs text-slate-500">Select the type of content</p>
+					{#each form.fields.type.issues() ?? [] as issue, i (i)}
+						<p class="text-xs text-red-600">{issue.message}</p>
 					{/each}
-				</select>
-				<p class="text-xs text-slate-500">
-					{isImported ? 'Content type cannot be changed for imported content' : 'Select the type of content'}
-				</p>
-				{#each form.fields.type.issues() ?? [] as issue, i (i)}
-					<p class="text-xs text-red-600">{issue.message}</p>
-				{/each}
+				{/if}
 			</div>
 
 			<div class="flex flex-col gap-2">

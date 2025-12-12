@@ -135,47 +135,18 @@ export const getAvailableChildrenForEdit = query(contentIdSchema, ({ id }) => {
 	}))
 })
 
-const adminUpdateContentSchema = z
-	.object({
-		id: z.string().min(1, 'Content ID is required'),
-		title: z.string().min(1, 'Title is required'),
-		slug: z.string().min(1, 'Slug is required'),
-		description: z.string().min(1, 'Description is required'),
-		status: z.enum(['draft', 'published', 'archived']),
-		type: z.enum(['video', 'library', 'recipe', 'announcement', 'collection', 'resource']),
-		tags: z.array(z.string()).min(1, 'At least one tag is required'),
-		author_id: z.string().optional(),
-		body: z.string().optional(),
-		children: z.array(z.string()).optional(),
-		metadata: z.any().optional()
-	})
-	.superRefine((data, ctx) => {
-		if (
-			['recipe', 'announcement', 'collection'].includes(data.type) &&
-			!data.body &&
-			!['video', 'library'].includes(data.type)
-		) {
-			ctx.addIssue({
-				code: 'custom',
-				path: ['body'],
-				message: 'Body is required'
-			})
-		}
-		if (data.type === 'collection' && (!data.children || data.children.length === 0)) {
-			ctx.addIssue({
-				code: 'custom',
-				path: ['children'],
-				message: 'At least one child is required'
-			})
-		}
-		if (data.type === 'resource' && !data.metadata?.link) {
-			ctx.addIssue({
-				code: 'custom',
-				path: ['metadata', 'link'],
-				message: 'Resource link is required'
-			})
-		}
-	})
+const adminUpdateContentSchema = z.object({
+	id: z.string().min(1, 'Content ID is required'),
+	title: z.string().min(1, 'Title is required'),
+	slug: z.string().min(1, 'Slug is required'),
+	description: z.string().min(1, 'Description is required'),
+	status: z.enum(['draft', 'published', 'archived']),
+	tags: z.array(z.string()).min(1, 'At least one tag is required'),
+	author_id: z.string().optional(),
+	body: z.string().optional(),
+	children: z.array(z.string()).optional(),
+	metadata: z.any().optional()
+})
 
 export const updateContent = form(adminUpdateContentSchema, async (data) => {
 	checkAdminAuth()
@@ -187,7 +158,6 @@ export const updateContent = form(adminUpdateContentSchema, async (data) => {
 		slug: data.slug,
 		description: data.description,
 		status: data.status,
-		type: data.type,
 		tags: data.tags,
 		author_id: data.author_id,
 		published_at: data.status === 'published' ? new Date().toISOString() : null,
