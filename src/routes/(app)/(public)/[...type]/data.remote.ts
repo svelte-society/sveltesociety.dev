@@ -16,19 +16,22 @@ export const getData = query("unchecked", async ({ url, type }) => {
     const { locals } = getRequestEvent()
 
     // Parse URL search params into filter data
+    // Convert searchParams to an object, handling special cases
     const searchParams = url.searchParams
-    const tagsParam = searchParams.get('tags')
-    const limitParam = searchParams.get('limit')
-    const offsetParam = searchParams.get('offset')
+    const params = Object.fromEntries(searchParams.entries())
 
     const rawData = {
-        category: searchParams.get('category') || undefined,
-        tags: tagsParam ? tagsParam.split(',') : undefined,
-        query: searchParams.get('query') || undefined,
-        limit: limitParam ? parseInt(limitParam, 10) : undefined,
-        offset: offsetParam ? parseInt(offsetParam, 10) : undefined,
-        sort: searchParams.get('sort') || undefined,
-        order: searchParams.get('order') as 'ASC' | 'DESC' | undefined
+        ...params,
+        // Handle tags as array (split by comma if present)
+        tags: params.tags ? params.tags.split(',') : undefined,
+        // Coerce numeric fields
+        limit: params.limit ? parseInt(params.limit, 10) : undefined,
+        offset: params.offset ? parseInt(params.offset, 10) : undefined,
+        // Convert empty strings to undefined
+        query: params.query || undefined,
+        category: params.category || undefined,
+        sort: params.sort || undefined,
+        order: params.order as 'ASC' | 'DESC' | undefined
     }
 
     const result = schema.safeParse(rawData)
