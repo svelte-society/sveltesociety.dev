@@ -1,6 +1,4 @@
 import { getRequestEvent, query } from '$app/server'
-import { superValidate } from 'sveltekit-superforms'
-import { zod4 } from 'sveltekit-superforms/adapters'
 import { schema } from './schema'
 import {
     buildHomepageMeta,
@@ -16,11 +14,27 @@ export const getTags = query(() => {
 
 export const getData = query("unchecked", async ({ url, type }) => {
     const { locals } = getRequestEvent()
-    const filters = await superValidate(url, zod4(schema))
+
+    // Parse URL search params into filter data
+    const searchParams = url.searchParams
+    const tagsParam = searchParams.get('tags')
+    const limitParam = searchParams.get('limit')
+    const offsetParam = searchParams.get('offset')
+
+    const rawData = {
+        category: searchParams.get('category') || undefined,
+        tags: tagsParam ? tagsParam.split(',') : undefined,
+        query: searchParams.get('query') || undefined,
+        limit: limitParam ? parseInt(limitParam, 10) : undefined,
+        offset: offsetParam ? parseInt(offsetParam, 10) : undefined,
+        sort: searchParams.get('sort') || undefined,
+        order: searchParams.get('order') as 'ASC' | 'DESC' | undefined
+    }
+
+    const result = schema.safeParse(rawData)
+    const data = result.success ? result.data : {}
 
     let content = []
-
-    const { data } = filters
 
     // Handle pagination
     const page = parseInt(url.searchParams.get('page') || '1', 10)
