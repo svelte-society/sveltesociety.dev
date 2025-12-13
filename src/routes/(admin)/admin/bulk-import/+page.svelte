@@ -16,13 +16,14 @@
 	// State for import results
 	let importResults = $state<BulkImportResult | null>(null)
 
+	let urls = $state('')
+
 	// Count URLs in textarea
 	const urlCount = $derived(
-		bulkImport.fields.urls.value() ||
-			''
-				.trim()
-				.split('\n')
-				.filter((line) => line.trim()).length
+		urls
+			.trim()
+			.split('\n')
+			.filter((line) => line.trim()).length
 	)
 </script>
 
@@ -111,6 +112,7 @@
 						<label class="text-xs font-medium outline-none">
 							URLs (one per line)
 							<textarea
+								bind:value={urls}
 								{...bulkImport.fields.urls.as('text')}
 								placeholder="https://youtube.com/watch?v=dQw4w9WgXcQ
 https://github.com/sveltejs/svelte
@@ -183,7 +185,6 @@ owner/repo-name"
 					</div>
 				</div>
 			</div>
-
 		</div>
 
 		<!-- Right Column - Results (1/3) -->
@@ -191,7 +192,9 @@ owner/repo-name"
 			<!-- Import Results -->
 			{#if importResults?.summary}
 				<div class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-					<h3 class="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-700">
+					<h3
+						class="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-700"
+					>
 						<TrendUp class="h-5 w-5 text-svelte-500" weight="duotone" />
 						Import Results
 					</h3>
@@ -225,9 +228,7 @@ owner/repo-name"
 
 					{#if importResults.results && importResults.results.length > 0}
 						<div class="mt-4 space-y-2">
-							<p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
-								Details
-							</p>
+							<p class="text-xs font-semibold uppercase tracking-wide text-gray-500">Details</p>
 							<div
 								class="max-h-80 space-y-2 overflow-y-auto rounded-lg border border-gray-200 bg-gray-50 p-2"
 							>
