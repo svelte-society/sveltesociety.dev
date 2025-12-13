@@ -2,7 +2,7 @@ import { test, expect } from '../../fixtures/auth.fixture'
 import { ShortcutsPage } from '../../pages'
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
-test.describe('Admin - Sidebar Shortcuts', () => {
+test.describe.serial('Admin - Sidebar Shortcuts', () => {
 	test.use({ authenticatedAs: 'admin' })
 
 	test.beforeEach(async ({ page }) => {

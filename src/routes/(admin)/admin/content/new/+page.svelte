@@ -1,30 +1,12 @@
 <script lang="ts">
-	import { superForm } from 'sveltekit-superforms/client'
-	import { zodClient } from 'sveltekit-superforms/adapters'
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
-	import { createContentSchema } from '$lib/schema/content'
-	import { toast } from 'svelte-sonner'
-	import ContentForm from '../ContentForm.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import FileText from 'phosphor-svelte/lib/FileText'
 	import Info from 'phosphor-svelte/lib/Info'
+	import ContentForm from '../ContentForm.svelte'
+	import { createContent, getTags, getAvailableChildren } from '../content.remote'
 
-	// Get data passed from server
-	let { data } = $props()
-
-	// Setup form with client-side validation
-	const form = superForm(data.form, {
-		validators: zodClient(createContentSchema),
-		dataType: 'json',
-		invalidateAll: 'force',
-		onUpdated: ({ form }) => {
-			if (form?.message) {
-				form.message.success ? toast.success(form.message.text) : toast.error(form.message.text)
-			}
-		}
-	})
-
-	const { form: formData, submitting } = form
+	const tagOptions = await getTags()
+	const childrenOptions = await getAvailableChildren()
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
@@ -49,9 +31,7 @@
 					<h4 class="font-semibold text-gray-900">Looking to add a video or library?</h4>
 					<p class="mt-2 text-sm leading-relaxed text-gray-700">
 						Videos and libraries should be imported from their external sources. Use the
-						<a href="/admin/external-content" class="font-semibold text-svelte-600 underline decoration-2 underline-offset-2 transition-colors hover:text-svelte-700"
-							>External Content</a
-						>
+						<a href="/admin/external-content" class="font-semibold text-svelte-600 underline decoration-2 underline-offset-2 transition-colors hover:text-svelte-700">External Content</a>
 						page to import from YouTube or GitHub, or use the
 						<a href="/admin/bulk-import" class="font-semibold text-svelte-600 underline decoration-2 underline-offset-2 transition-colors hover:text-svelte-700">Bulk Import</a>
 						feature for multiple items at once.
@@ -70,12 +50,12 @@
 		</div>
 
 		<div class="p-8">
-			<ContentForm {form} {data} />
+			<ContentForm
+				mode="create"
+				form={createContent}
+				{tagOptions}
+				{childrenOptions}
+			/>
 		</div>
 	</div>
 </div>
-
-<!-- Debug only in development -->
-{#if import.meta.env?.DEV}
-	<SuperDebug data={$formData} />
-{/if}

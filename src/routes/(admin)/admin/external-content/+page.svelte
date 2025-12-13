@@ -1,10 +1,8 @@
 <script lang="ts">
-	import { enhance } from '$app/forms'
+	import { toast } from 'svelte-sonner'
 	import Button from '$lib/ui/Button.svelte'
-	import Form from '$lib/ui/form/Form.svelte'
-	import Input from '$lib/ui/form/Input.svelte'
+	import Input from '$lib/ui/Input.svelte'
 	import { formatRelativeDate } from '$lib/utils/date'
-	import { superForm } from 'sveltekit-superforms/client'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import CloudArrowDown from 'phosphor-svelte/lib/CloudArrowDown'
 	import VideoCamera from 'phosphor-svelte/lib/VideoCamera'
@@ -13,17 +11,15 @@
 	import Warning from 'phosphor-svelte/lib/Warning'
 	import Clock from 'phosphor-svelte/lib/Clock'
 	import Sparkle from 'phosphor-svelte/lib/Sparkle'
+	import {
+		getExternalContentData,
+		importContent,
+		deleteContent
+	} from './external-content.remote'
 
-	let { data, form: actionForm } = $props()
-
+	let data = $state(await getExternalContentData())
 	let deletingId = $state('')
-
-	// Initialize unified import form
-	const importFormInstance = superForm(data.importForm || { url: '' }, {
-		resetForm: true
-	})
-
-	const { form: importForm, submitting } = importFormInstance
+	let lastResult = $state<{ success?: boolean; error?: string; stats?: any } | null>(null)
 
 	// Helper to detect content type from URL
 	function detectContentType(url: string): 'youtube' | 'github' | null {
@@ -42,7 +38,30 @@
 		return null
 	}
 
-	const detectedType = $derived(detectContentType($importForm.url))
+	const urlValue = $derived(String(importContent.fields.url.value() ?? ''))
+	const detectedType = $derived(detectContentType(urlValue))
+
+	async function refreshData() {
+		data = await getExternalContentData()
+	}
+
+	async function handleDelete(contentId: string, title: string) {
+		if (!confirm(`Are you sure you want to delete "${title}"?`)) {
+			return
+		}
+
+		deletingId = contentId
+		try {
+			deleteContent.fields.set({ contentId })
+			// We need to submit the form manually
+			const formEl = document.querySelector(`form[data-delete-id="${contentId}"]`) as HTMLFormElement
+			if (formEl) {
+				formEl.requestSubmit()
+			}
+		} catch {
+			deletingId = ''
+		}
+	}
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
@@ -53,21 +72,23 @@
 	/>
 
 	<!-- Status Messages -->
-	{#if actionForm?.error}
+	{#if lastResult?.error}
 		<div class="flex items-start gap-3 rounded-xl border border-red-300 bg-red-50 p-4 shadow-sm">
 			<Warning class="h-5 w-5 shrink-0 text-red-600" weight="fill" />
-			<div class="text-sm text-red-800">{actionForm.error}</div>
+			<div class="text-sm text-red-800">{lastResult.error}</div>
 		</div>
 	{/if}
 
-	{#if actionForm?.success}
-		<div class="flex items-start gap-3 rounded-xl border border-green-300 bg-green-50 p-4 shadow-sm">
+	{#if lastResult?.success}
+		<div
+			class="flex items-start gap-3 rounded-xl border border-green-300 bg-green-50 p-4 shadow-sm"
+		>
 			<CheckCircle class="h-5 w-5 shrink-0 text-green-600" weight="fill" />
 			<div>
 				<p class="text-sm font-semibold text-green-800">Import completed successfully!</p>
-				{#if actionForm.stats}
+				{#if lastResult.stats}
 					<p class="mt-1 text-xs text-green-700">
-						Created: {actionForm.stats.created} • Updated: {actionForm.stats.updated} • Deleted: {actionForm.stats.deleted}
+						Created: {lastResult.stats.created} • Updated: {lastResult.stats.updated} • Deleted: {lastResult.stats.deleted}
 					</p>
 				{/if}
 			</div>
@@ -84,57 +105,78 @@
 					<h2 class="text-xl font-bold text-gray-900">Quick Import</h2>
 				</div>
 
-				<Form form={importFormInstance} action="?/import">
-					<div class="space-y-5">
-						<Input
-							name="url"
-							label="Content URL"
-							placeholder="Paste YouTube video URL, GitHub repo URL, or monorepo package path..."
-							description="Supports multiple formats - we'll auto-detect the source"
-						/>
+				<form
+					{...importContent.enhance(async ({ submit }) => {
+						lastResult = null
+						try {
+							await submit()
+							const result = importContent.result
+							if (result) {
+								lastResult = result as any
+								if (result.success) {
+									toast.success('Content imported successfully!')
+									importContent.fields.url.set('')
+									await refreshData()
+								} else if (result.error) {
+									toast.error(result.error)
+								}
+							}
+						} catch {
+							toast.error('Failed to import content')
+						}
+					})}
+					class="space-y-5"
+				>
+					<Input
+						{...importContent.fields.url.as('text')}
+						label="Content URL"
+						placeholder="Paste YouTube video URL, GitHub repo URL, or monorepo package path..."
+						description="Supports multiple formats - we'll auto-detect the source"
+						issues={importContent.fields.url.issues()}
+						data-testid="input-url"
+					/>
 
-						<!-- Detection Badge -->
-						{#if detectedType}
-							<div class="rounded-xl border-2 {detectedType === 'youtube' ? 'border-red-200 bg-red-50' : 'border-gray-800 bg-gray-50'} p-4 transition-all">
-								<div class="flex items-center gap-3">
-									{#if detectedType === 'youtube'}
-										<div class="flex h-10 w-10 items-center justify-center rounded-lg bg-red-600">
-											<VideoCamera class="h-5 w-5 text-white" weight="fill" />
-										</div>
-										<div>
-											<p class="font-semibold text-red-900">YouTube Video</p>
-											<p class="text-xs text-red-700">Ready to import video content</p>
-										</div>
-									{:else if detectedType === 'github'}
-										<div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-900">
-											<GithubLogo class="h-5 w-5 text-white" weight="fill" />
-										</div>
-										<div>
-											<p class="font-semibold text-gray-900">GitHub Repository</p>
-											<p class="text-xs text-gray-700">Ready to import repository or package</p>
-										</div>
-									{/if}
-								</div>
-							</div>
-						{/if}
-
-						<div class="flex justify-end">
-							<Button
-								type="submit"
-								primary
-								disabled={$submitting || !detectedType}
-							>
-								{#if $submitting}
-									<Clock class="h-4 w-4 animate-spin" />
-									Importing...
-								{:else}
-									<CloudArrowDown class="h-4 w-4" weight="bold" />
-									Import Content
+					<!-- Detection Badge -->
+					{#if detectedType}
+						<div
+							class="rounded-xl border-2 {detectedType === 'youtube'
+								? 'border-red-200 bg-red-50'
+								: 'border-gray-800 bg-gray-50'} p-4 transition-all"
+						>
+							<div class="flex items-center gap-3">
+								{#if detectedType === 'youtube'}
+									<div class="flex h-10 w-10 items-center justify-center rounded-lg bg-red-600">
+										<VideoCamera class="h-5 w-5 text-white" weight="fill" />
+									</div>
+									<div>
+										<p class="font-semibold text-red-900">YouTube Video</p>
+										<p class="text-xs text-red-700">Ready to import video content</p>
+									</div>
+								{:else if detectedType === 'github'}
+									<div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-900">
+										<GithubLogo class="h-5 w-5 text-white" weight="fill" />
+									</div>
+									<div>
+										<p class="font-semibold text-gray-900">GitHub Repository</p>
+										<p class="text-xs text-gray-700">Ready to import repository or package</p>
+									</div>
 								{/if}
-							</Button>
+							</div>
 						</div>
+					{/if}
+
+					<div class="flex justify-end">
+						<Button type="submit" variant="primary" disabled={!!importContent.pending || !detectedType}>
+							{#if importContent.pending}
+								<Clock class="h-4 w-4 animate-spin" />
+								Importing...
+							{:else}
+								<CloudArrowDown class="h-4 w-4" weight="bold" />
+								Import Content
+							{/if}
+						</Button>
 					</div>
-				</Form>
+				</form>
 
 				<!-- Import Tips -->
 				<div class="mt-8 grid gap-3 sm:grid-cols-2">
@@ -144,7 +186,9 @@
 							<p class="text-xs font-semibold uppercase tracking-wide text-yellow-900">YouTube</p>
 						</div>
 						<p class="text-xs text-yellow-800">
-							Requires <code class="rounded bg-yellow-200 px-1 py-0.5 font-mono text-[10px]">YOUTUBE_API_KEY</code>
+							Requires <code class="rounded bg-yellow-200 px-1 py-0.5 font-mono text-[10px]"
+								>YOUTUBE_API_KEY</code
+							>
 						</p>
 					</div>
 					<div class="rounded-lg border border-gray-300 bg-gray-50 p-3">
@@ -153,22 +197,30 @@
 							<p class="text-xs font-semibold uppercase tracking-wide text-gray-900">GitHub</p>
 						</div>
 						<p class="text-xs text-gray-700">
-							Optional <code class="rounded bg-gray-200 px-1 py-0.5 font-mono text-[10px]">GITHUB_TOKEN</code> for rate limits
+							Optional <code class="rounded bg-gray-200 px-1 py-0.5 font-mono text-[10px]"
+								>GITHUB_TOKEN</code
+							> for rate limits
 						</p>
 					</div>
 				</div>
 
 				<!-- Supported Formats -->
 				<div class="mt-4 rounded-lg border border-svelte-200 bg-svelte-50 p-4">
-					<p class="mb-2 text-xs font-semibold uppercase tracking-wide text-svelte-900">Supported Formats</p>
+					<p class="mb-2 text-xs font-semibold uppercase tracking-wide text-svelte-900">
+						Supported Formats
+					</p>
 					<ul class="space-y-1.5 text-xs text-gray-700">
 						<li class="flex items-start gap-2">
 							<span class="text-svelte-500">•</span>
-							<span><strong>YouTube:</strong> Full URLs, short URLs (youtu.be), or 11-char video IDs</span>
+							<span
+								><strong>YouTube:</strong> Full URLs, short URLs (youtu.be), or 11-char video IDs</span
+							>
 						</li>
 						<li class="flex items-start gap-2">
 							<span class="text-svelte-500">•</span>
-							<span><strong>GitHub:</strong> Full URLs, owner/repo format, or owner/repo/path for monorepos</span>
+							<span
+								><strong>GitHub:</strong> Full URLs, owner/repo format, or owner/repo/path for monorepos</span
+							>
 						</li>
 					</ul>
 				</div>
@@ -179,7 +231,9 @@
 		<div class="space-y-4">
 			<h3 class="text-sm font-semibold uppercase tracking-wide text-gray-500">Import Sources</h3>
 			{#each data.sources as source}
-				<div class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all hover:border-svelte-300 hover:shadow-md">
+				<div
+					class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all hover:border-svelte-300 hover:shadow-md"
+				>
 					<div class="relative z-10">
 						<div class="flex items-start justify-between">
 							<div>
@@ -200,7 +254,9 @@
 							</div>
 						{/if}
 					</div>
-					<div class="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-svelte-50/0 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
+					<div
+						class="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-svelte-50/0 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+					></div>
 				</div>
 			{/each}
 		</div>
@@ -218,21 +274,43 @@
 					<table class="w-full text-left text-sm">
 						<thead class="border-b border-gray-200 bg-gradient-to-b from-gray-50 to-white">
 							<tr>
-								<th scope="col" class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-700">Content</th>
-								<th scope="col" class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-700">Type</th>
-								<th scope="col" class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-700">Source</th>
-								<th scope="col" class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-700">Imported</th>
-								<th scope="col" class="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-700">Actions</th>
+								<th
+									scope="col"
+									class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-700"
+									>Content</th
+								>
+								<th
+									scope="col"
+									class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-700"
+									>Type</th
+								>
+								<th
+									scope="col"
+									class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-700"
+									>Source</th
+								>
+								<th
+									scope="col"
+									class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-700"
+									>Imported</th
+								>
+								<th
+									scope="col"
+									class="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-700"
+									>Actions</th
+								>
 							</tr>
 						</thead>
 						<tbody class="divide-y divide-gray-100 bg-white">
-							{#each data.recentImports as item}
+							{#each data.recentImports as item (item.id)}
 								<tr class="group transition-colors hover:bg-svelte-50/30">
 									<td class="px-6 py-4">
 										<div class="font-medium text-gray-900">{item.title}</div>
 									</td>
 									<td class="px-6 py-4">
-										<span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 capitalize">
+										<span
+											class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium capitalize text-gray-800"
+										>
 											{item.type}
 										</span>
 									</td>
@@ -242,29 +320,43 @@
 									<td class="px-6 py-4 text-gray-500">{formatRelativeDate(item.created_at)}</td>
 									<td class="px-6 py-4">
 										<div class="flex items-center justify-end gap-3">
-											<a href="/admin/content/{item.id}" class="text-sm font-medium text-svelte-500 transition-colors hover:text-svelte-700">
+											<a
+												href="/admin/content/{item.id}"
+												class="text-sm font-medium text-svelte-500 transition-colors hover:text-svelte-700"
+											>
 												Edit
 											</a>
 											<form
-												method="POST"
-												action="?/deleteContent"
-												use:enhance={() => {
-													if (!confirm(`Are you sure you want to delete "${item.title}"?`)) {
-														return ({ cancel }) => cancel()
-													}
-													deletingId = item.id
-													return async ({ update }) => {
-														await update()
+												{...deleteContent.enhance(async ({ submit }) => {
+													try {
+														await submit()
+														const result = deleteContent.result
+														if (result?.success) {
+															toast.success('Content deleted successfully!')
+															await refreshData()
+														} else if (result?.error) {
+															toast.error(result.error)
+														}
+													} catch {
+														toast.error('Failed to delete content')
+													} finally {
 														deletingId = ''
 													}
-												}}
+												})}
+												data-delete-id={item.id}
 											>
+												<input type="hidden" name="contentId" value={item.id} />
 												<button
 													type="submit"
 													class="text-sm font-medium text-red-600 transition-colors hover:text-red-800"
 													disabled={deletingId === item.id}
-													name="contentId"
-													value={item.id}
+													onclick={(e) => {
+														if (!confirm(`Are you sure you want to delete "${item.title}"?`)) {
+															e.preventDefault()
+														} else {
+															deletingId = item.id
+														}
+													}}
 												>
 													{deletingId === item.id ? 'Deleting...' : 'Delete'}
 												</button>

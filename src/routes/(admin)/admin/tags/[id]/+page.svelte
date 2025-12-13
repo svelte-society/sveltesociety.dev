@@ -1,38 +1,30 @@
 <script lang="ts">
 	import { page } from '$app/state'
-	import { error } from '@sveltejs/kit'
 	import Input from '$lib/ui/Input.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import Tag from 'phosphor-svelte/lib/Tag'
+	import { initForm } from '$lib/utils/form.svelte'
 	import { getTagById, updateTag } from '../tags.remote'
 
-	const tagId = page.params.id
+	const tagId = page.params.id!
 
-	const tag = $derived(await getTagById(tagId))
+	const tag = await getTagById(tagId)
 
-	if (!tag) {
-		error(404, 'Tag not found')
-	}
-
-	$effect(() => {
-		if (tag) {
-			updateTag.fields.set({
-				id: tag.id,
-				name: tag.name,
-				slug: tag.slug
-			})
-		}
-	})
+	initForm(updateTag, () => ({
+		id: tag.id,
+		name: tag.name,
+		slug: tag.slug
+	}))
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
 	<PageHeader title="Edit Tag" description="Update category tag information" icon={Tag} />
 
 	<div class="rounded-2xl border border-gray-200 bg-white shadow-sm">
-		<div class="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white px-8 py-6">
+		<div class="border-b border-gray-100 bg-linear-to-r from-gray-50 to-white px-8 py-6">
 			<div class="flex items-center gap-3">
-				<div class="h-1 w-12 rounded-full bg-gradient-to-r from-svelte-500 to-svelte-300"></div>
+				<div class="h-1 w-12 rounded-full bg-linear-to-r from-svelte-500 to-svelte-300"></div>
 				<p class="text-sm font-medium text-gray-600">Tag Configuration</p>
 			</div>
 		</div>

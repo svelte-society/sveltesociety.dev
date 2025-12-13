@@ -73,11 +73,7 @@ test.describe('Submit Resource', () => {
 		await submitPage.expectValidationError('Description must be at least 10 characters long')
 	})
 
-	// TODO: Fix tags validation with Remote Functions
-	// The hidden input for array fields doesn't properly submit empty arrays,
-	// so the server doesn't receive the field and validation is bypassed.
-	// Need to investigate proper array field handling in Remote Functions.
-	test.skip('validates required tags', async ({ page }) => {
+	test('validates required tags', async ({ page }) => {
 		const submitPage = new SubmitPage(page)
 		await submitPage.goto('resource')
 

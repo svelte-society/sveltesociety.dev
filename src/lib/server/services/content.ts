@@ -458,8 +458,8 @@ export class ContentService {
   					status = $status,
   					body = $body,
   					rendered_body = $rendered_body,
-  					metadata = $metadata,
-  					children = $children,
+  					metadata = COALESCE($metadata, metadata),
+  					children = COALESCE($children, children),
   					published_at = CASE
   						WHEN status != 'published' AND $status = 'published' THEN $published_at
   						WHEN status = 'published' AND $status != 'published' THEN NULL
