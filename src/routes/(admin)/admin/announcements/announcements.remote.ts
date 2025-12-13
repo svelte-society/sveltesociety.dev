@@ -1,5 +1,5 @@
 import { form, getRequestEvent, query } from '$app/server'
-import { redirect } from '@sveltejs/kit'
+import { isRedirect, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../authorization.remote'
 
@@ -81,6 +81,7 @@ export const createPlacement = form(placementSchema, async (data) => {
 
 		redirect(303, '/admin/announcements')
 	} catch (error) {
+		if (isRedirect(error)) throw error
 		console.error('Error creating announcement placement:', error)
 		return {
 			success: false,
@@ -124,6 +125,7 @@ export const updatePlacement = form(
 
 			redirect(303, '/admin/announcements')
 		} catch (error) {
+			if (isRedirect(error)) throw error
 			console.error('Error updating announcement placement:', error)
 			return {
 				success: false,
