@@ -16,15 +16,13 @@
 	// State for import results
 	let importResults = $state<BulkImportResult | null>(null)
 
-	// Get current URL value for counting
-	const urlsValue = $derived(String(bulkImport.fields.urls.value() ?? ''))
-
 	// Count URLs in textarea
 	const urlCount = $derived(
-		urlsValue
-			.trim()
-			.split('\n')
-			.filter((line) => line.trim()).length
+		bulkImport.fields.urls.value() ||
+			''
+				.trim()
+				.split('\n')
+				.filter((line) => line.trim()).length
 	)
 </script>
 
@@ -37,12 +35,10 @@
 
 	<!-- Info Banner -->
 	<div
-		class="rounded-xl border border-svelte-200 bg-gradient-to-br from-svelte-50 to-white p-6 shadow-sm"
+		class="rounded-xl border border-svelte-200 bg-linear-to-br from-svelte-50 to-white p-6 shadow-sm"
 	>
 		<div class="flex items-start gap-4">
-			<div
-				class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-svelte-100"
-			>
+			<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-svelte-100">
 				<Package class="h-5 w-5 text-svelte-700" weight="duotone" />
 			</div>
 			<div class="flex-1">
@@ -99,9 +95,7 @@
 							if (result) {
 								importResults = result
 								if (result.success) {
-									toast.success(
-										`Successfully imported ${result.summary?.successful || 0} item(s)`
-									)
+									toast.success(`Successfully imported ${result.summary?.successful || 0} item(s)`)
 									bulkImport.fields.urls.set('')
 								} else if (result.error) {
 									toast.error(result.error)
@@ -137,9 +131,7 @@ owner/repo-name"
 					<input type="hidden" name="batchSize" value="5" />
 					<input type="hidden" name="skipExisting" value="true" />
 
-					<div
-						class="flex items-center justify-between rounded-lg border-t border-gray-200 pt-6"
-					>
+					<div class="flex items-center justify-between rounded-lg border-t border-gray-200 pt-6">
 						<div class="flex items-center gap-2 text-sm text-gray-600">
 							<Info class="h-4 w-4" weight="duotone" />
 							<span>Processing in batches of 5</span>
@@ -192,35 +184,39 @@ owner/repo-name"
 				</div>
 			</div>
 
+		</div>
+
+		<!-- Right Column - Results (1/3) -->
+		<div class="space-y-6">
 			<!-- Import Results -->
 			{#if importResults?.summary}
-				<div class="mt-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-					<h3 class="mb-4 flex items-center gap-2 text-lg font-bold text-gray-900">
+				<div class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+					<h3 class="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-700">
 						<TrendUp class="h-5 w-5 text-svelte-500" weight="duotone" />
 						Import Results
 					</h3>
 
-					<div class="grid gap-3 sm:grid-cols-4">
-						<div class="rounded-lg bg-gray-50 p-4 text-center">
-							<p class="text-2xl font-bold text-gray-900">
+					<div class="grid grid-cols-2 gap-3">
+						<div class="rounded-lg bg-gray-50 p-3 text-center">
+							<p class="text-xl font-bold text-gray-900">
 								{importResults.summary.total}
 							</p>
 							<p class="text-xs text-gray-600">Total</p>
 						</div>
-						<div class="rounded-lg bg-green-50 p-4 text-center">
-							<p class="text-2xl font-bold text-green-700">
+						<div class="rounded-lg bg-green-50 p-3 text-center">
+							<p class="text-xl font-bold text-green-700">
 								{importResults.summary.successful}
 							</p>
 							<p class="text-xs text-green-600">Successful</p>
 						</div>
-						<div class="rounded-lg bg-red-50 p-4 text-center">
-							<p class="text-2xl font-bold text-red-700">
+						<div class="rounded-lg bg-red-50 p-3 text-center">
+							<p class="text-xl font-bold text-red-700">
 								{importResults.summary.failed}
 							</p>
 							<p class="text-xs text-red-600">Failed</p>
 						</div>
-						<div class="rounded-lg bg-yellow-50 p-4 text-center">
-							<p class="text-2xl font-bold text-yellow-700">
+						<div class="rounded-lg bg-yellow-50 p-3 text-center">
+							<p class="text-xl font-bold text-yellow-700">
 								{importResults.summary.skipped}
 							</p>
 							<p class="text-xs text-yellow-600">Skipped</p>
@@ -228,41 +224,26 @@ owner/repo-name"
 					</div>
 
 					{#if importResults.results && importResults.results.length > 0}
-						<div class="mt-6 space-y-2">
+						<div class="mt-4 space-y-2">
 							<p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
-								Detailed Results
+								Details
 							</p>
 							<div
-								class="max-h-96 space-y-2 overflow-y-auto rounded-lg border border-gray-200 bg-gray-50 p-3"
+								class="max-h-80 space-y-2 overflow-y-auto rounded-lg border border-gray-200 bg-gray-50 p-2"
 							>
 								{#each importResults.results as result}
-									<div
-										class="flex items-start gap-3 rounded-lg bg-white p-3 shadow-sm"
-									>
+									<div class="flex items-start gap-2 rounded-lg bg-white p-2 shadow-sm">
 										{#if result.success}
-											<CheckCircle
-												class="h-5 w-5 shrink-0 text-green-600"
-												weight="fill"
-											/>
+											<CheckCircle class="h-4 w-4 shrink-0 text-green-600" weight="fill" />
 										{:else}
-											<XCircle
-												class="h-5 w-5 shrink-0 text-red-600"
-												weight="fill"
-											/>
+											<XCircle class="h-4 w-4 shrink-0 text-red-600" weight="fill" />
 										{/if}
 										<div class="min-w-0 flex-1">
-											<p class="truncate text-sm font-medium text-gray-900">
+											<p class="truncate text-xs font-medium text-gray-900">
 												{result.url}
 											</p>
 											{#if result.error}
 												<p class="mt-0.5 text-xs text-red-600">{result.error}</p>
-											{/if}
-											{#if result.type}
-												<span
-													class="mt-1 inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium capitalize text-gray-700"
-												>
-													{result.type}
-												</span>
 											{/if}
 										</div>
 									</div>
@@ -272,72 +253,6 @@ owner/repo-name"
 					{/if}
 				</div>
 			{/if}
-		</div>
-
-		<!-- Right Column - Tips & Stats (1/3) -->
-		<div class="space-y-6">
-			<!-- Quick Tips -->
-			<div class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-				<h3
-					class="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-700"
-				>
-					<Info class="h-4 w-4" weight="duotone" />
-					Quick Tips
-				</h3>
-				<ul class="space-y-3 text-sm text-gray-700">
-					<li class="flex items-start gap-2">
-						<span class="mt-0.5 text-svelte-500">✓</span>
-						<span>Paste one URL per line</span>
-					</li>
-					<li class="flex items-start gap-2">
-						<span class="mt-0.5 text-svelte-500">✓</span>
-						<span>Mix YouTube and GitHub URLs</span>
-					</li>
-					<li class="flex items-start gap-2">
-						<span class="mt-0.5 text-svelte-500">✓</span>
-						<span>Maximum 50 URLs per batch</span>
-					</li>
-					<li class="flex items-start gap-2">
-						<span class="mt-0.5 text-svelte-500">✓</span>
-						<span>Duplicates are automatically skipped</span>
-					</li>
-				</ul>
-			</div>
-
-			<!-- Import Stats -->
-			<div class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-				<h3 class="mb-4 text-sm font-bold uppercase tracking-wide text-gray-700">
-					Processing Speed
-				</h3>
-				<div class="space-y-4">
-					<div>
-						<div class="mb-2 flex justify-between text-xs">
-							<span class="text-gray-600">YouTube Videos</span>
-							<span class="font-medium text-gray-900">~3-5s each</span>
-						</div>
-						<div class="h-2 overflow-hidden rounded-full bg-gray-100">
-							<div
-								class="h-full w-3/4 rounded-full bg-gradient-to-r from-red-500 to-red-600"
-							></div>
-						</div>
-					</div>
-					<div>
-						<div class="mb-2 flex justify-between text-xs">
-							<span class="text-gray-600">GitHub Repos</span>
-							<span class="font-medium text-gray-900">~2-4s each</span>
-						</div>
-						<div class="h-2 overflow-hidden rounded-full bg-gray-100">
-							<div
-								class="h-full w-2/3 rounded-full bg-gradient-to-r from-gray-700 to-gray-900"
-							></div>
-						</div>
-					</div>
-				</div>
-				<p class="mt-4 rounded-lg bg-svelte-50 p-3 text-xs text-gray-700">
-					<strong class="text-svelte-900">Tip:</strong> Larger batches are processed in
-					parallel for faster imports.
-				</p>
-			</div>
 
 			<!-- Requirements -->
 			<div class="rounded-xl border border-yellow-200 bg-yellow-50 p-5 shadow-sm">
