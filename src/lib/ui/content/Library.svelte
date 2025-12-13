@@ -40,7 +40,7 @@
 	const fetchPriorityAttr = $derived(isAboveFold ? 'high' : undefined)
 
 	// Use packageUrl for monorepo packages, otherwise use github URL
-	const githubUrl = $derived(content.metadata.packageUrl || content.metadata.github)
+	const githubUrl = $derived(content.metadata?.packageUrl || content.metadata?.github)
 </script>
 
 <div class="relative flex h-full flex-col gap-2">
@@ -52,7 +52,7 @@
 		data-testid="library-thumbnail-link"
 	>
 			<img
-				src={getCachedImageWithPreset(content.metadata.thumbnail, 'content', { h: 400 })}
+				src={getCachedImageWithPreset(content.metadata?.thumbnail, 'content', { h: 400 })}
 				width="800"
 				height="400"
 				alt="{content.title} repository preview"
