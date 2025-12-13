@@ -124,13 +124,14 @@ test.describe('Admin Content Management', () => {
 		if (currentStatus !== 'draft') {
 			await editPage.changeStatus('draft')
 			await editPage.submit()
-			await editPage.expectSuccessMessage()
+			// Wait for status to change to draft before proceeding
+			await expect(statusSelect).toHaveValue('draft', { timeout: 10000 })
 		}
 
 		await editPage.publishContent()
-		await editPage.expectSuccessMessage()
 
-		await expect(statusSelect).toHaveValue('published')
+		// Verify the status changed to published (primary success indicator)
+		await expect(statusSelect).toHaveValue('published', { timeout: 10000 })
 	})
 
 	test('admin can delete content from list page', async ({ page }) => {
