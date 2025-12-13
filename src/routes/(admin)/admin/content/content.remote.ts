@@ -3,6 +3,18 @@ import { redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../authorization.remote'
 
+// Helper to transform comma-separated array values from form submission
+// When using hidden inputs with array values, they may serialize as "a,b,c" instead of ["a","b","c"]
+const commaSeparatedArray = z.preprocess((val) => {
+	if (Array.isArray(val)) {
+		return val.flatMap((s) => (typeof s === 'string' ? s.split(',').filter(Boolean) : s))
+	}
+	if (typeof val === 'string') {
+		return val.split(',').filter(Boolean)
+	}
+	return val
+}, z.array(z.string()))
+
 // Admin create form schema - simplified for the types admins can create directly
 const adminCreateContentSchema = z
 	.object({
@@ -11,9 +23,9 @@ const adminCreateContentSchema = z
 		description: z.string().min(1, 'Description is required'),
 		status: z.enum(['draft', 'published', 'archived']),
 		type: z.enum(['recipe', 'announcement', 'collection', 'resource']),
-		tags: z.array(z.string()).min(1, 'At least one tag is required'),
+		tags: commaSeparatedArray.pipe(z.array(z.string()).min(1, 'At least one tag is required')),
 		body: z.string().optional(),
-		children: z.array(z.string()).optional(),
+		children: commaSeparatedArray.optional(),
 		metadata: z
 			.object({
 				link: z.string().url().optional(),
@@ -142,10 +154,10 @@ const adminUpdateContentSchema = z.object({
 	description: z.string().min(1, 'Description is required'),
 	status: z.enum(['draft', 'published', 'archived']),
 	type: z.enum(['video', 'library', 'recipe', 'announcement', 'collection', 'resource']),
-	tags: z.array(z.string()).min(1, 'At least one tag is required'),
+	tags: commaSeparatedArray.pipe(z.array(z.string()).min(1, 'At least one tag is required')),
 	author_id: z.string().optional(),
 	body: z.string().optional(),
-	children: z.array(z.string()).optional(),
+	children: commaSeparatedArray.optional(),
 	metadata: z.any().optional()
 })
 

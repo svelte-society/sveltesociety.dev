@@ -74,8 +74,12 @@
 <form
 	{...form.enhance(async ({ submit }) => {
 		try {
-			await submit()
-			toast.success(successMessage)
+			const result = await submit()
+			if (result?.success === true || form.result?.success === true) {
+				toast.success(successMessage)
+			} else {
+				toast.error(result?.text || form.result?.text || errorMessage)
+			}
 		} catch {
 			toast.error(errorMessage)
 		}

@@ -14,9 +14,11 @@ export class ContentEditPage extends BasePage {
 	readonly bodyTextarea: Locator
 	readonly typeSelect: Locator
 	readonly statusSelect: Locator
+	readonly statusSelectDropdown: Locator
 	readonly submitButton: Locator
 	readonly cancelButton: Locator
 	readonly authorAutocomplete: Locator
+	readonly authorSelect: Locator
 
 	constructor(page: Page) {
 		super(page)
@@ -27,9 +29,11 @@ export class ContentEditPage extends BasePage {
 		this.bodyTextarea = page.getByTestId('markdown-editor-body')
 		this.typeSelect = page.getByTestId('select-type')
 		this.statusSelect = page.getByTestId('category-selector-status')
+		this.statusSelectDropdown = page.getByTestId('select-status')
 		this.submitButton = page.getByRole('button', { name: 'Update Content' })
 		this.cancelButton = page.getByRole('link', { name: 'Cancel' })
 		this.authorAutocomplete = page.getByTestId('autocomplete-author_id')
+		this.authorSelect = page.getByTestId('select-author')
 	}
 
 	/**
@@ -60,35 +64,15 @@ export class ContentEditPage extends BasePage {
 	 * Change the status of the content (draft, published, archived)
 	 */
 	async changeStatus(status: 'draft' | 'published' | 'archived'): Promise<void> {
-		// CategorySelector uses radio buttons wrapped in clickable Labels
-		const statusOption = this.page.getByTestId(`category-selector-status-${status}`)
-		await expect(statusOption).toBeVisible()
-		// Get the radio input and use dispatchEvent to trigger Svelte's binding
-		const radioInput = statusOption.locator('input[type="radio"]')
-		await radioInput.evaluate((el: HTMLInputElement) => {
-			el.checked = true
-			el.dispatchEvent(new Event('change', { bubbles: true }))
-		})
+		await expect(this.statusSelectDropdown).toBeVisible()
+		await this.statusSelectDropdown.selectOption(status)
 	}
 
 	/**
 	 * Get the current status from the form
 	 */
 	async getCurrentStatus(): Promise<string> {
-		// Check which radio button is currently checked
-		const draftRadio = this.page.getByTestId('category-selector-status-draft').locator('input')
-		const publishedRadio = this.page
-			.getByTestId('category-selector-status-published')
-			.locator('input')
-		const archivedRadio = this.page
-			.getByTestId('category-selector-status-archived')
-			.locator('input')
-
-		if (await draftRadio.isChecked()) return 'draft'
-		if (await publishedRadio.isChecked()) return 'published'
-		if (await archivedRadio.isChecked()) return 'archived'
-
-		return ''
+		return await this.statusSelectDropdown.inputValue()
 	}
 
 	/**
@@ -191,41 +175,62 @@ export class ContentEditPage extends BasePage {
 	}
 
 	/**
-	 * Search for an author using the autocomplete
+	 * Search for an author using the autocomplete (legacy - use selectAuthorByValue instead)
 	 */
-	async searchAuthor(searchText: string): Promise<void> {
-		await this.authorAutocomplete.click()
-		// Wait for the dropdown to open
-		await this.page.waitForSelector('[role="listbox"]', { state: 'visible' })
-		await this.authorAutocomplete.fill(searchText)
+	async searchAuthor(_searchText: string): Promise<void> {
+		// The author field is now a select dropdown, not an autocomplete
+		// This method is kept for backwards compatibility but does nothing
+		await expect(this.authorSelect).toBeVisible()
 	}
 
 	/**
-	 * Select an author from the autocomplete dropdown
+	 * Select an author from the select dropdown by label text (partial match)
 	 */
 	async selectAuthor(authorLabel: string): Promise<void> {
-		// Click on the matching option in the dropdown (using ARIA role)
-		const option = this.page.locator(`[role="option"]:has-text("${authorLabel}")`).first()
-		await option.click()
+		await expect(this.authorSelect).toBeVisible()
+		// Find option that contains the search text
+		const options = this.authorSelect.locator('option')
+		const count = await options.count()
+		for (let i = 0; i < count; i++) {
+			const optionText = await options.nth(i).textContent()
+			if (optionText?.toLowerCase().includes(authorLabel.toLowerCase())) {
+				const optionValue = await options.nth(i).getAttribute('value')
+				if (optionValue) {
+					await this.authorSelect.selectOption(optionValue)
+					return
+				}
+			}
+		}
+		throw new Error(`No option found matching "${authorLabel}"`)
+	}
+
+	/**
+	 * Select an author by user ID
+	 */
+	async selectAuthorById(userId: string): Promise<void> {
+		await expect(this.authorSelect).toBeVisible()
+		await this.authorSelect.selectOption(userId)
 	}
 
 	/**
 	 * Search and select an author in one action
 	 */
-	async changeAuthor(searchText: string, authorLabel: string): Promise<void> {
-		await this.searchAuthor(searchText)
+	async changeAuthor(_searchText: string, authorLabel: string): Promise<void> {
 		await this.selectAuthor(authorLabel)
 	}
 
 	/**
-	 * Expect the author autocomplete dropdown to have results
+	 * Expect the author select dropdown to have options
 	 */
 	async expectAuthorResults(expectedCount?: number): Promise<void> {
-		const items = this.page.locator('[role="option"]')
+		await expect(this.authorSelect).toBeVisible()
+		const options = this.authorSelect.locator('option')
 		if (expectedCount !== undefined) {
-			await expect(items).toHaveCount(expectedCount)
+			await expect(options).toHaveCount(expectedCount)
 		} else {
-			await expect(items.first()).toBeVisible()
+			// Expect at least one option beyond the placeholder
+			const count = await options.count()
+			expect(count).toBeGreaterThan(1)
 		}
 	}
 
@@ -233,7 +238,15 @@ export class ContentEditPage extends BasePage {
 	 * Expect no author results in the dropdown
 	 */
 	async expectNoAuthorResults(): Promise<void> {
-		const noResults = this.page.getByText('No results found')
-		await expect(noResults).toBeVisible()
+		const options = this.authorSelect.locator('option')
+		// Only the placeholder option should exist
+		await expect(options).toHaveCount(1)
+	}
+
+	/**
+	 * Get current author value from select
+	 */
+	async getCurrentAuthor(): Promise<string> {
+		return await this.authorSelect.inputValue()
 	}
 }

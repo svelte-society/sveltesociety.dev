@@ -76,8 +76,8 @@ test.describe('Admin Content Management', () => {
 		await editPage.expectSuccessMessage()
 
 		// Wait for form to settle after invalidateAll refresh
-		const archivedRadio = page.getByTestId('category-selector-status-archived').locator('input')
-		await expect(archivedRadio).toBeChecked({ timeout: 10000 })
+		const statusSelect = page.getByTestId('select-status')
+		await expect(statusSelect).toHaveValue('archived', { timeout: 10000 })
 	})
 
 	test('admin can unarchive content', async ({ page }) => {
@@ -92,10 +92,10 @@ test.describe('Admin Content Management', () => {
 		await firstLink.click()
 		await editPage.expectEditPageLoaded()
 
-		const archivedRadio = page.getByTestId('category-selector-status-archived').locator('input')
-		const isArchived = await archivedRadio.isChecked()
+		const statusSelect = page.getByTestId('select-status')
+		const currentStatus = await statusSelect.inputValue()
 
-		if (!isArchived) {
+		if (currentStatus !== 'archived') {
 			await editPage.archiveContent()
 			await editPage.expectSuccessMessage()
 		}
@@ -103,8 +103,7 @@ test.describe('Admin Content Management', () => {
 		await editPage.unarchiveContent()
 		await editPage.expectSuccessMessage()
 
-		const draftRadio = page.getByTestId('category-selector-status-draft').locator('input')
-		await expect(draftRadio).toBeChecked()
+		await expect(statusSelect).toHaveValue('draft')
 	})
 
 	test('admin can publish draft content', async ({ page }) => {
@@ -119,10 +118,10 @@ test.describe('Admin Content Management', () => {
 		await links.nth(1).click()
 		await editPage.expectEditPageLoaded()
 
-		const draftRadio = page.getByTestId('category-selector-status-draft').locator('input')
-		const isDraft = await draftRadio.isChecked()
+		const statusSelect = page.getByTestId('select-status')
+		const currentStatus = await statusSelect.inputValue()
 
-		if (!isDraft) {
+		if (currentStatus !== 'draft') {
 			await editPage.changeStatus('draft')
 			await editPage.submit()
 			await editPage.expectSuccessMessage()
@@ -131,8 +130,7 @@ test.describe('Admin Content Management', () => {
 		await editPage.publishContent()
 		await editPage.expectSuccessMessage()
 
-		const publishedRadio = page.getByTestId('category-selector-status-published').locator('input')
-		await expect(publishedRadio).toBeChecked()
+		await expect(statusSelect).toHaveValue('published')
 	})
 
 	test('admin can delete content from list page', async ({ page }) => {
@@ -183,7 +181,7 @@ test.describe('Admin Content Management', () => {
 		}
 	})
 
-	test('admin can search and filter authors in autocomplete', async ({ page }) => {
+	test('admin can view author select options', async ({ page }) => {
 		const dashboardPage = new AdminDashboardPage(page)
 		const editPage = new ContentEditPage(page)
 
@@ -195,15 +193,14 @@ test.describe('Admin Content Management', () => {
 		await firstLink.click()
 		await editPage.expectEditPageLoaded()
 
-		// Verify the author autocomplete is visible
-		await expect(editPage.authorAutocomplete).toBeVisible()
+		// Verify the author select is visible
+		await expect(editPage.authorSelect).toBeVisible()
 
-		// Search for a user and verify results appear
-		await editPage.searchAuthor('test')
+		// Verify there are author options available
 		await editPage.expectAuthorResults()
 	})
 
-	test('admin can change content author using autocomplete', async ({ page }) => {
+	test('admin can change content author using select', async ({ page }) => {
 		const dashboardPage = new AdminDashboardPage(page)
 		const editPage = new ContentEditPage(page)
 
@@ -215,9 +212,7 @@ test.describe('Admin Content Management', () => {
 		await firstLink.click()
 		await editPage.expectEditPageLoaded()
 
-		// Search and select a different author
-		await editPage.searchAuthor('admin')
-		await editPage.expectAuthorResults()
+		// Select a different author from dropdown
 		await editPage.selectAuthor('admin')
 
 		// Submit the form
