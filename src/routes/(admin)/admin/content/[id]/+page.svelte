@@ -25,6 +25,7 @@
 		slug: content?.slug ?? '',
 		description: content?.description ?? '',
 		status: content?.status ?? 'draft',
+		type: content?.type ?? 'recipe',
 		tags: (content?.tags as unknown as { id: string }[] | undefined)?.map((tag) => tag.id) ?? [],
 		author_id: content?.author_id ?? '',
 		body: (content as unknown as { body?: string })?.body ?? '',

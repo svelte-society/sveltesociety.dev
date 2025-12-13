@@ -84,6 +84,7 @@
 >
 	{#if isEditing && contentId}
 		<input type="hidden" name="id" value={contentId} />
+		<input type="hidden" name="type" value={contentType} />
 	{/if}
 
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -107,9 +108,9 @@
 		</div>
 
 		<div class="flex flex-col gap-4">
-			<div class="flex flex-col gap-2">
-				<label for="type" class="text-xs font-medium">Content Type</label>
-				{#if !isEditing}
+			{#if !isEditing}
+				<div class="flex flex-col gap-2">
+					<label for="type" class="text-xs font-medium">Content Type</label>
 					<select
 						{...form.fields.type.as('select')}
 						id="type"
@@ -130,8 +131,8 @@
 					{#each form.fields.type.issues() ?? [] as issue, i (i)}
 						<p class="text-xs text-red-600">{issue.message}</p>
 					{/each}
-				{/if}
-			</div>
+				</div>
+			{/if}
 
 			<div class="flex flex-col gap-2">
 				<label for="status" class="text-xs font-medium">Status</label>
