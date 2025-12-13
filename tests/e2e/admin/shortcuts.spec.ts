@@ -2,7 +2,7 @@ import { test, expect } from '../../fixtures/auth.fixture'
 import { ShortcutsPage } from '../../pages'
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
-test.describe('Admin - Sidebar Shortcuts', () => {
+test.describe.serial('Admin - Sidebar Shortcuts', () => {
 	test.use({ authenticatedAs: 'admin' })
 
 	test.beforeEach(async ({ page }) => {
@@ -42,9 +42,11 @@ test.describe('Admin - Sidebar Shortcuts', () => {
 		const shortcutsPage = new ShortcutsPage(page)
 		await shortcutsPage.gotoNew()
 
-		// Select the first available content option
+		// Type to search for content (combobox requires typing to trigger oninput)
 		await shortcutsPage.contentSelect.click()
-		// Wait for options to load and click the first one
+		await shortcutsPage.contentSelect.pressSequentially('Test')
+		// Wait for options to appear (300ms debounce + API call)
+		await page.getByRole('option').first().waitFor({ state: 'visible', timeout: 5000 })
 		await page.getByRole('option').first().click()
 
 		await shortcutsPage.setPriority(10)
@@ -65,6 +67,8 @@ test.describe('Admin - Sidebar Shortcuts', () => {
 		// First create a shortcut
 		await shortcutsPage.gotoNew()
 		await shortcutsPage.contentSelect.click()
+		await shortcutsPage.contentSelect.pressSequentially('Test')
+		await page.getByRole('option').first().waitFor({ state: 'visible', timeout: 5000 })
 		await page.getByRole('option').first().click()
 		await shortcutsPage.submitForm()
 		await shortcutsPage.expectListPage()
@@ -92,6 +96,8 @@ test.describe('Admin - Sidebar Shortcuts', () => {
 		// First create a shortcut
 		await shortcutsPage.gotoNew()
 		await shortcutsPage.contentSelect.click()
+		await shortcutsPage.contentSelect.pressSequentially('Test')
+		await page.getByRole('option').first().waitFor({ state: 'visible', timeout: 5000 })
 		await page.getByRole('option').first().click()
 		await shortcutsPage.submitForm()
 		await shortcutsPage.expectListPage()

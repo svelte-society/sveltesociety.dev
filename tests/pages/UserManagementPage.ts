@@ -34,7 +34,7 @@ export class UserManagementPage extends BasePage {
 		this.usernameInput = page.getByTestId('input-username')
 		this.emailInput = page.getByTestId('input-email')
 		this.roleSelect = page.getByTestId('select-role')
-		this.updateButton = page.getByRole('button', { name: /update user/i })
+		this.updateButton = page.getByRole('button', { name: /update role/i })
 		this.backLink = page.getByRole('link', { name: /back to users/i })
 	}
 

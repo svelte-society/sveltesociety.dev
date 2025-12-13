@@ -4,30 +4,34 @@
 	import Plus from 'phosphor-svelte/lib/Plus'
 	import Table from '$lib/ui/admin/Table.svelte'
 	import type { Content } from '$lib/types/content'
-	import Actions from '$lib/ui/admin/Actions.svelte'
+	import { Actions, Action } from '$lib/ui/admin/Actions'
 	import Badge from '$lib/ui/admin/Badge.svelte'
 	import Pagination from '$lib/ui/Pagination.svelte'
 	import TypeIcon from '$lib/ui/TypeIcon.svelte'
 	import MagnifyingGlass from 'phosphor-svelte/lib/MagnifyingGlass'
+	import ArrowsClockwise from 'phosphor-svelte/lib/ArrowsClockwise'
 	import StatusSelect from '$lib/ui/admin/StatusSelect.svelte'
 	import TypeSelect from '$lib/ui/admin/TypeSelect.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/state'
-	import { getFilteredContent } from './data.remote'
+	import { getFilteredContent, refreshMetadata, deleteContent } from './data.remote'
 	import FileText from 'phosphor-svelte/lib/FileText'
 
-	// Filter state from URL
+	const REFRESHABLE_TYPES = ['video', 'library', 'resource']
+
+	function canRefreshMetadata(type: string): boolean {
+		return REFRESHABLE_TYPES.includes(type)
+	}
+
 	let searchQuery = $state(page.url.searchParams.get('search') || '')
 	let selectedStatus = $state(page.url.searchParams.get('status') || 'all')
 	let selectedType = $state(page.url.searchParams.get('type') || '')
 	let currentPage = $state(parseInt(page.url.searchParams.get('page') || '1'))
 
-	// Debounce timer
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null
 	let debouncedSearch = $state(page.url.searchParams.get('search') || '')
 
-	// Handle search input with debounce
 	function handleSearchInput(value: string) {
 		searchQuery = value
 
@@ -42,7 +46,6 @@
 		}, 300)
 	}
 
-	// Handle filter changes
 	function handleStatusChange(value: string) {
 		selectedStatus = value
 		currentPage = 1
@@ -55,7 +58,6 @@
 		updateURL()
 	}
 
-	// Update URL with current filters
 	function updateURL() {
 		const params = new URLSearchParams()
 		if (debouncedSearch) params.set('search', debouncedSearch)
@@ -66,7 +68,6 @@
 		goto(`?${params.toString()}`, { replaceState: true, noScroll: true, keepFocus: true })
 	}
 
-	// Use remote function
 	const { content, pagination } = $derived(
 		await getFilteredContent({
 			search: debouncedSearch || undefined,
@@ -76,6 +77,7 @@
 				| 'announcement'
 				| 'collection'
 				| 'recipe'
+				| 'resource'
 				| undefined,
 			status: (selectedStatus || 'all') as 'draft' | 'published' | 'archived' | 'all',
 			page: currentPage
@@ -110,7 +112,6 @@
 		{/snippet}
 	</PageHeader>
 
-	<!-- Filters -->
 	<div class="mb-4 grid gap-3 sm:grid-cols-[1fr_auto_auto]">
 		<div class="relative">
 			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -184,7 +185,22 @@
 				</td>
 			{/snippet}
 			{#snippet actionCell(item: Content)}
-				<Actions route="content" id={item.id} canDelete={true} canEdit={true} type={item.title} />
+				<Actions id={item.id}>
+					<Action.Edit href={`/admin/content/${item.id}`} />
+					{#if canRefreshMetadata(item.type)}
+						<Action.Button
+							icon={ArrowsClockwise}
+							form={refreshMetadata}
+							variant="info"
+							tooltip="Refresh metadata"
+							testId="refresh-metadata-button"
+						/>
+					{/if}
+					<Action.Delete
+						form={deleteContent}
+						confirm={`Are you sure you want to delete "${item.title}"?`}
+					/>
+				</Actions>
 			{/snippet}
 		</Table>
 
