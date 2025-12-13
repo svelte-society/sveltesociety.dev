@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/state'
-	import { error } from '@sveltejs/kit'
 	import Input from '$lib/ui/Input.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import Megaphone from 'phosphor-svelte/lib/Megaphone'
+	import { initForm } from '$lib/utils/form.svelte'
 	import {
 		updatePlacement,
 		getPlacementById,
@@ -18,23 +18,15 @@
 	const announcementOptions = await getAnnouncements()
 	const locationOptions = await getLocations()
 
-	if (!placement) {
-		error(404, 'Placement not found')
-	}
-
-	$effect(() => {
-		if (placement) {
-			updatePlacement.fields.set({
-				id: placement.id,
-				content_id: placement.content_id,
-				placement_location_id: placement.placement_location_id,
-				start_date: placement.start_date || '',
-				end_date: placement.end_date || '',
-				priority: placement.priority,
-				is_active: Boolean(placement.is_active)
-			})
-		}
-	})
+	initForm(updatePlacement, () => ({
+		id: placement.id,
+		content_id: placement.content_id,
+		placement_location_id: placement.placement_location_id,
+		start_date: placement.start_date || '',
+		end_date: placement.end_date || '',
+		priority: placement.priority,
+		is_active: Boolean(placement.is_active)
+	}))
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">

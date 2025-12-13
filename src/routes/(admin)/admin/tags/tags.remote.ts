@@ -1,5 +1,5 @@
 import { form, getRequestEvent, query } from '$app/server'
-import { redirect } from '@sveltejs/kit'
+import { error, redirect } from '@sveltejs/kit'
 import { createTagSchema, updateTagSchema, deleteTagSchema } from '$lib/schema/tags'
 import { checkAdminAuth } from '../authorization.remote'
 import z from 'zod/v4'
@@ -13,7 +13,9 @@ export const getTags = query(() => {
 export const getTagById = query(z.string(), (id: string) => {
   checkAdminAuth()
   const { locals } = getRequestEvent()
-  return locals.tagService.getTag(id)
+  const tag = locals.tagService.getTag(id)
+  if (!tag) error(404, 'Tag not found')
+  return tag
 })
 
 export const createTag = form(createTagSchema, async (data) => {

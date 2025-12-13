@@ -1,5 +1,5 @@
 import { form, query, getRequestEvent } from '$app/server'
-import { redirect } from '@sveltejs/kit'
+import { error, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../authorization.remote'
 
@@ -111,9 +111,7 @@ export const getContentById = query(contentIdSchema, ({ id }) => {
 	checkAdminAuth()
 	const { locals } = getRequestEvent()
 	const content = locals.contentService.getContentById(id)
-	if (!content) {
-		redirect(303, '/admin/content')
-	}
+	if (!content) error(404, 'Content not found')
 	return content
 })
 

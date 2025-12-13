@@ -1,5 +1,5 @@
 import { command, form, getRequestEvent, query } from '$app/server'
-import { redirect } from '@sveltejs/kit'
+import { error, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../authorization.remote'
 
@@ -33,7 +33,9 @@ export const getShortcuts = query(() => {
 export const getShortcutById = query(z.string(), (id) => {
   checkAdminAuth()
   const { locals } = getRequestEvent()
-  return locals.shortcutService.getShortcutById(id)
+  const shortcut = locals.shortcutService.getShortcutById(id)
+  if (!shortcut) error(404, 'Shortcut not found')
+  return shortcut
 })
 
 export const searchAvailableContent = command(

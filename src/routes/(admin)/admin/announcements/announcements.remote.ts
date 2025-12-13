@@ -1,5 +1,5 @@
 import { form, getRequestEvent, query } from '$app/server'
-import { isRedirect, redirect } from '@sveltejs/kit'
+import { error, isRedirect, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../authorization.remote'
 
@@ -29,7 +29,9 @@ export const getPlacements = query(() => {
 export const getPlacementById = query(z.string(), (id) => {
 	checkAdminAuth()
 	const { locals } = getRequestEvent()
-	return locals.announcementService.getPlacementById(id)
+	const placement = locals.announcementService.getPlacementById(id)
+	if (!placement) error(404, 'Placement not found')
+	return placement
 })
 
 export const getAnnouncements = query(() => {

@@ -1,32 +1,24 @@
 <script lang="ts">
 	import { page } from '$app/state'
-	import { error } from '@sveltejs/kit'
 	import Input from '$lib/ui/Input.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import LinkSimple from 'phosphor-svelte/lib/LinkSimple'
 	import ContentSelector from '../ContentSelector.svelte'
+	import { initForm } from '$lib/utils/form.svelte'
 	import { updateShortcut, getShortcutById } from '../shortcuts.remote'
 
-	const shortcutId = page.params.id
+	const shortcutId = page.params.id!
 
-	const shortcut = $derived(await getShortcutById(shortcutId))
+	const shortcut = await getShortcutById(shortcutId)
 
-	if (!shortcut) {
-		error(404, 'Shortcut not found')
-	}
-
-	$effect(() => {
-		if (shortcut) {
-			updateShortcut.fields.set({
-				id: shortcut.id,
-				content_id: shortcut.content_id,
-				label: shortcut.label || '',
-				priority: shortcut.priority,
-				is_active: Boolean(shortcut.is_active)
-			})
-		}
-	})
+	initForm(updateShortcut, () => ({
+		id: shortcut.id,
+		content_id: shortcut.content_id,
+		label: shortcut.label || '',
+		priority: shortcut.priority,
+		is_active: Boolean(shortcut.is_active)
+	}))
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">

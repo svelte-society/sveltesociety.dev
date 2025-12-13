@@ -1,19 +1,22 @@
 <script lang="ts">
 	import { page } from '$app/state'
-	import { toast } from 'svelte-sonner'
 	import Input from '$lib/ui/Input.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import Avatar from '$lib/ui/Avatar.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import User from 'phosphor-svelte/lib/User'
+	import { initForm } from '$lib/utils/form.svelte'
 	import { getUserById, getRoleOptions, updateUserRole } from '../users.remote'
 
 	const userId = page.params.id!
 
-	const user = $derived(await getUserById(userId))
-	const roleForm = $derived(updateUserRole.for(userId))
+	const user = await getUserById(userId)
 
-	roleForm.fields.role.set(user.role)
+	const roleForm = updateUserRole.for(userId)
+
+	initForm(roleForm, () => ({
+		role: user.role
+	}))
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
