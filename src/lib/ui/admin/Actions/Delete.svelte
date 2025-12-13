@@ -51,8 +51,9 @@
 							await submit()
 							if (remove.result?.success === true) {
 								toast.success(remove.result.text)
+								showDialog = false
 							} else {
-								toast.error(remove.result?.text || 'Something  broke, please try again.')
+								toast.error(remove.result?.text || 'Something broke, please try again.')
 							}
 						} catch {
 							toast.error('Something broke, please try again.')
