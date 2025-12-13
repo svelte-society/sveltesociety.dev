@@ -3,7 +3,7 @@
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import FileText from 'phosphor-svelte/lib/FileText'
 	import Info from 'phosphor-svelte/lib/Info'
-	import { initForm } from '$lib/utils/form'
+	import { initForm } from '$lib/utils/form.svelte'
 	import ContentForm from '../ContentForm.svelte'
 	import {
 		updateContent,
