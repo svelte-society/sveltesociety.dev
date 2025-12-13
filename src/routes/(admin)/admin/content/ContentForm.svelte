@@ -23,18 +23,10 @@
 		content?: any
 		users?: Option[]
 		tagOptions: Option[]
-		childrenOptions?: Option[]
+		childrenOptions: Option[]
 	}
 
-	let {
-		mode,
-		form,
-		contentId,
-		content,
-		users,
-		tagOptions,
-		childrenOptions
-	}: Props = $props()
+	let { mode, form, contentId, content, users, tagOptions, childrenOptions = [] }: Props = $props()
 
 	const isEditing = $derived(mode === 'edit')
 	const contentType = $derived(isEditing ? content?.type : form.fields.type.value() || 'recipe')
@@ -58,7 +50,9 @@
 		resource: 'Resource'
 	}
 
-	const successMessage = $derived(isEditing ? 'Content updated successfully!' : 'Content created successfully!')
+	const successMessage = $derived(
+		isEditing ? 'Content updated successfully!' : 'Content created successfully!'
+	)
 	const errorMessage = $derived(isEditing ? 'Failed to update content' : 'Failed to create content')
 	const submitLabel = $derived(
 		form.pending
@@ -115,15 +109,7 @@
 		<div class="flex flex-col gap-4">
 			<div class="flex flex-col gap-2">
 				<label for="type" class="text-xs font-medium">Content Type</label>
-				{#if isEditing}
-					<div
-						class="w-full rounded-md border-2 border-transparent bg-slate-100 px-3 py-1.5 text-sm text-slate-600"
-						data-testid="display-type"
-					>
-						{typeLabels[contentType ?? ''] ?? contentType}
-					</div>
-					<p class="text-xs text-slate-500">Content type cannot be changed</p>
-				{:else}
+				{#if !isEditing}
 					<select
 						{...form.fields.type.as('select')}
 						id="type"
@@ -189,7 +175,9 @@
 					{/each}
 				</select>
 				<p class="text-xs text-slate-500">
-					{authorId ? 'Change the author or submitter of this content' : 'Select the author or submitter of this content'}
+					{authorId
+						? 'Change the author or submitter of this content'
+						: 'Select the author or submitter of this content'}
 				</p>
 			</div>
 			{#if currentAuthor}
@@ -204,7 +192,9 @@
 							class="h-10 w-10 rounded-full"
 						/>
 					{:else}
-						<div class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-300 text-gray-700">
+						<div
+							class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-300 text-gray-700"
+						>
 							{(currentAuthor.name || currentAuthor.username || '?').charAt(0).toUpperCase()}
 						</div>
 					{/if}
@@ -300,15 +290,15 @@
 						<div class="flex gap-4">
 							<div>
 								<span class="font-medium">Stars:</span>
-								{content?.metadata?.stars?.toLocaleString() || 0}
+								{content?.metadata?.stars || 0}
 							</div>
 							<div>
 								<span class="font-medium">Forks:</span>
-								{content?.metadata?.forks?.toLocaleString() || 0}
+								{content?.metadata?.forks || 0}
 							</div>
 							<div>
 								<span class="font-medium">Issues:</span>
-								{content?.metadata?.issues?.toLocaleString() || 0}
+								{content?.metadata?.issues || 0}
 							</div>
 						</div>
 						{#if content?.metadata?.topics && content.metadata.topics.length > 0}
@@ -342,17 +332,13 @@
 					</div>
 				</div>
 			</div>
-			<p class="text-sm text-gray-500 italic">Repository metadata is read-only for imported content.</p>
+			<p class="text-sm text-gray-500 italic">
+				Repository metadata is read-only for imported content.
+			</p>
 		</div>
 	{/if}
 
-	{#if isImported}
-		<div class="mb-4 rounded-md border border-gray-200 bg-gray-50 p-4">
-			<p class="text-sm text-gray-600">
-				This imported content doesn't have body text. You can add additional content below if needed.
-			</p>
-		</div>
-	{:else if showBody}
+	{#if showBody}
 		<MarkdownEditor
 			{...form.fields.body.as('text')}
 			label="Body"
@@ -373,7 +359,7 @@
 		rows={3}
 	/>
 
-	{#if contentType === 'collection' && childrenOptions}
+	{#if contentType === 'collection'}
 		<DynamicSelector
 			name="children"
 			label="Content"
