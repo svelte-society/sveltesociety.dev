@@ -12,8 +12,7 @@
 		Megaphone,
 		LinkSimple,
 		ArrowsLeftRight,
-		CloudArrowUp,
-		Sliders
+		CloudArrowUp
 	} from 'phosphor-svelte'
 
 	let { data, children } = $props()
@@ -73,12 +72,6 @@
 			label: 'Bulk Import',
 			icon: CloudArrowUp,
 			allowedRoles: ['admin', 'moderator']
-		},
-		{
-			href: '/admin/moderation',
-			label: 'Moderation',
-			icon: Sliders,
-			allowedRoles: ['admin', 'moderator']
 		}
 	]
 
@@ -92,11 +85,11 @@
 	data-sveltekit-preload-data="false"
 	class="flex h-screen bg-linear-to-br from-gray-50 to-gray-100"
 >
-	<Sidebar {links} moderationCount={data.moderation_count} />
+	<Sidebar {links} />
 	<div class="flex-1 overflow-y-auto">
 		<div class="mx-auto max-w-7xl p-4 md:p-8">
 			<div class="mb-6 md:hidden">
-				<MobileAdminMenu {links} moderationCount={data.moderation_count} />
+				<MobileAdminMenu {links} />
 			</div>
 
 			<Breadcrumb />

@@ -36,7 +36,6 @@ bun test:integration --grep "search"
 - **Public Tests** (13 tests) - Content browsing, search, detail pages
 - **Authentication Tests** (13 tests) - Login flows, protected routes, role-based access
 - **Content Submission** (9 tests) - Submit recipes, videos, libraries with validation
-- **Admin Moderation** (4 tests) - Approve/reject pending content
 - **Admin Content Management** (5 tests) - Edit, archive, publish content
 - **Admin User Management** (4 tests) - View users, edit profiles, manage roles
 - **Admin Sidebar Shortcuts** (6 tests) - Create, toggle, delete sidebar shortcuts
@@ -115,15 +114,13 @@ test.beforeEach(async ({ page }) => {
 
 Seed data includes:
 
-**Content:** 8 items (recipes, videos, libraries, blogs, links, events)
+**Content:** 8 items (recipes, videos, libraries, announcements, collections)
 - Mix of published, pending review, and draft content
 - Variety of content types for testing different views
 
 **Tags:** 10 tags (svelte, sveltekit, testing, components, etc.)
 
 **Saved Content:** Pre-saved items for testing saved content features
-
-**Moderation Queue:** 1 pending item for testing moderation workflows
 
 See `tests/fixtures/test-data.ts` for complete test data definitions.
 
@@ -135,7 +132,7 @@ tests/
 │   ├── public/             # Public user flows (browsing, search, detail pages)
 │   ├── auth/               # Authentication flows (login, protected routes, roles)
 │   ├── content/            # Content submission (recipes, videos, libraries)
-│   └── admin/              # Admin workflows (moderation, content mgmt, users)
+│   └── admin/              # Admin workflows (content management, users, shortcuts)
 ├── pages/                  # Page Object Models (POMs)
 │   ├── BasePage.ts         # Base class with common functionality
 │   ├── HomePage.ts         # Homepage navigation and search
@@ -144,7 +141,6 @@ tests/
 │   ├── LoginPage.ts        # Login and authentication
 │   ├── SubmitPage.ts       # Content submission forms
 │   ├── AdminDashboardPage.ts # Admin dashboard
-│   ├── ModerationQueuePage.ts # Content moderation
 │   ├── ContentEditPage.ts  # Content editing
 │   ├── UserManagementPage.ts # User management
 │   ├── ShortcutsPage.ts    # Sidebar shortcuts management

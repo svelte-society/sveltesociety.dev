@@ -4,10 +4,9 @@
 	interface Props {
 		item: NavLink
 		isActive: (href: string) => boolean
-		moderationCount?: number
 	}
 
-	let { item, isActive, moderationCount = 0 }: Props = $props()
+	let { item, isActive }: Props = $props()
 
 	const IconComponent = $derived(item.icon)
 </script>
@@ -28,12 +27,5 @@
 			weight={isActive(item.href) ? 'fill' : 'regular'}
 		/>
 		<span class="text-sm">{item.label}</span>
-		{#if moderationCount && moderationCount > 0}
-			<span
-				class="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white shadow-sm"
-			>
-				{moderationCount > 99 ? '99+' : moderationCount}
-			</span>
-		{/if}
 	</a>
 </li>

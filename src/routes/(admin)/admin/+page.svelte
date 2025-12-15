@@ -6,7 +6,6 @@
 		Users,
 		FileText,
 		ClockClockwise,
-		CheckCircle,
 		Plus,
 		Tag,
 		Megaphone,
@@ -35,21 +34,22 @@
 			testid="stat-users"
 		/>
 		<StatCard
-			title="Total Content"
-			value={data.content.toLocaleString()}
+			title="Published"
+			value={data.published.toLocaleString()}
+			subtitle="Live content items"
 			icon={FileText}
 			iconColor="text-svelte-300"
-			href="/admin/content"
+			href="/admin/content?status=published"
 			testid="stat-content"
 		/>
 		<StatCard
-			title="Published"
-			value={data.content - data.moderation_queue}
-			subtitle="Live content items"
-			icon={CheckCircle}
-			iconColor="text-svelte-900"
-			href="/admin/content?status=published"
-			testid="stat-published"
+			title="Pending Review"
+			value={data.pending_review.toLocaleString()}
+			subtitle="Awaiting moderation"
+			icon={ClockClockwise}
+			iconColor="text-orange-600"
+			href="/admin/content?status=pending_review"
+			testid="stat-pending"
 		/>
 	</div>
 
@@ -67,10 +67,10 @@
 				testid="quick-action-add-content"
 			/>
 			<QuickAction
-				title="Review Queue"
-				description="Moderate pending submissions"
+				title="Review Submissions"
+				description="Moderate pending content"
 				icon={ClockClockwise}
-				href="/admin/moderation"
+				href="/admin/content?status=pending_review"
 				iconColor="text-orange-600"
 				bgColor="bg-orange-50"
 				testid="quick-action-moderation"

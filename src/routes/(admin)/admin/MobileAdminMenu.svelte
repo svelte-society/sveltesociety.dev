@@ -6,10 +6,9 @@
 
 	type Props = {
 		links: NavLink[]
-		moderationCount?: number
 	}
 
-	let { links, moderationCount = 0 }: Props = $props()
+	let { links }: Props = $props()
 
 	let menuOpen = $state(false)
 
@@ -70,13 +69,6 @@
 											weight={isActive(item.href) ? 'fill' : 'regular'}
 										/>
 										<span class="text-sm">{item.label}</span>
-										{#if item.href === '/admin/moderation' && moderationCount && moderationCount > 0}
-											<span
-												class="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white shadow-sm"
-											>
-												{moderationCount > 99 ? '99+' : moderationCount}
-											</span>
-										{/if}
 									</a>
 								</li>
 							{/each}
