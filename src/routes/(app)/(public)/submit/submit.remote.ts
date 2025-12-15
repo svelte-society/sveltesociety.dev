@@ -54,9 +54,8 @@ export const submitResource = form(resourceSchema, async (data) => {
         const ext = contentType.split('/').at(-1) || 'png'
 
         // Generate a unique key based on timestamp and title
-        const slugPart = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 50)
         const timestamp = Date.now()
-        const key = `resource/${slugPart}-${timestamp}/thumbnail.${ext}`
+        const key = `resource/${generateSlug(data.title)}-${timestamp}/thumbnail.${ext}`
 
         if (isS3Enabled) {
           image = await uploadThumbnail(key, arrayBuffer)
