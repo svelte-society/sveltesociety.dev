@@ -25,7 +25,7 @@ export const handleError: HandleServerError = async ({ error, event, status, mes
 			status,
 			event: {
 				method: event.request.method,
-				url: event.url.href
+				href: event.url.href
 			},
 			error: {
 				message: error.message,
