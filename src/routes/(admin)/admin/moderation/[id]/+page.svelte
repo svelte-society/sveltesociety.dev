@@ -27,7 +27,7 @@
 		['user', 'danger']
 	])
 
-	const submissionData = data.item.parsedData || JSON.parse(data.item.data)
+	const submissionData = data.item.parsedData
 	let showRawJSON = $state(false)
 
 	// Transform tagNames to Tags component format

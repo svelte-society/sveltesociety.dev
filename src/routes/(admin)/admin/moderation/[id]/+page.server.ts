@@ -1,20 +1,15 @@
-import { ModerationService, ModerationStatus } from '$lib/server/services/moderation'
 import { error, redirect } from '@sveltejs/kit'
 import type { PageServerLoad, Actions } from './$types'
-import { YouTubeImporter } from '$lib/server/services/importers/youtube'
-import { GitHubImporter } from '$lib/server/services/importers/github'
-
-// TODO: Create and import user and role services similarly to how ModerationService is implemented
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	const id = params.id
-	const item = locals.moderationService.getModerationQueueItem(id)
+	const content = locals.contentService.getContentById(id)
 
-	if (!item) {
+	if (!content || content.status !== 'pending_review') {
 		redirect(302, '/admin/moderation')
 	}
 
-	const submitter = locals.userService.getUser(item.submitted_by)
+	const submitter = content.author_id ? locals.userService.getUser(content.author_id) : null
 
 	if (!submitter) {
 		error(404, 'Submitter not found')
@@ -22,22 +17,43 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	const role = locals.roleService.getRoleById(submitter.role)
 
-	// Parse submission data to get tag IDs
-	const submissionData = JSON.parse(item.data)
+	// Cast content to any to work around type mismatch
+	// (ContentService returns Tag[] but type says string[])
+	const contentAny = content as any
 
 	// Fetch all tags and create a map of ID to name
 	const allTags = locals.tagService.getTags({ limit: 100 })
 	const tagMap = new Map(allTags.map((tag) => [tag.id, tag.name]))
 
-	// Map tag IDs to names
-	if (submissionData.tags && Array.isArray(submissionData.tags)) {
-		submissionData.tagNames = submissionData.tags.map((tagId) => tagMap.get(tagId) || tagId)
-	}
+	// Map tag IDs to names - handle both Tag[] and string[] cases
+	const tags = contentAny.tags || []
+	const tagNames = tags.map((tag: any) =>
+		typeof tag === 'string' ? tagMap.get(tag) || tag : tagMap.get(tag.id) || tag.name
+	)
+	const tagIds = tags.map((tag: any) => (typeof tag === 'string' ? tag : tag.id))
 
 	return {
 		item: {
-			...item,
-			parsedData: submissionData
+			id: content.id,
+			title: content.title,
+			type: content.type,
+			status: 'pending', // UI expects 'pending' not 'pending_review'
+			submitted_at: content.created_at,
+			submitted_by: content.author_id,
+			parsedData: {
+				title: content.title,
+				type: content.type, // Include type for UI checks
+				description: content.description,
+				body: contentAny.body || '',
+				tags: tagIds,
+				tagNames,
+				notes: content.metadata?.submitter_notes,
+				// Type-specific data
+				url: content.metadata?.watchUrl || content.metadata?.embedUrl,
+				github_repo: content.metadata?.github,
+				link: content.metadata?.link,
+				image: content.metadata?.image || content.metadata?.thumbnail
+			}
 		},
 		submitter: { ...submitter, role: role?.name }
 	}
@@ -50,220 +66,80 @@ export const actions: Actions = {
 		}
 
 		const id = params.id
-		const item = locals.moderationService.getModerationQueueItem(id)
+		const content = locals.contentService.getContentById(id)
 
-		if (!item) {
-			error(404, 'Moderation item not found')
+		if (!content) {
+			error(404, 'Content not found')
 		}
 
-		const submissionData = JSON.parse(item.data)
-
-		const slug = (submissionData.title || `${item.type}-${Date.now()}`)
-			.toLowerCase()
-			.replace(/[^a-z0-9\s-]/g, '')
-			.replace(/\s+/g, '-')
-			.replace(/-+/g, '-')
-			.trim()
-
-		try {
-			let contentId: string
-
-			if (item.type === 'video' && submissionData.url) {
-				const videoIdMatch = submissionData.url.match(
-					/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
-				)
-				const videoId = videoIdMatch ? videoIdMatch[1] : null
-
-				if (videoId) {
-					const submitter = locals.userService.getUser(item.submitted_by)
-					if (!submitter) {
-						console.error('Submitter not found:', item.submitted_by)
-						throw new Error('Submitter user not found in database')
-					}
-
-					const youtubeImporter = new YouTubeImporter(
-						locals.externalContentService,
-						locals.cacheService
-					)
-					const importedContentId = await youtubeImporter.importVideo(videoId, item.submitted_by)
-
-					if (importedContentId) {
-						contentId = importedContentId
-
-						const importedContent = locals.contentService.getContentById(importedContentId)
-						console.log('Imported content: ', importedContent)
-						if (importedContent) {
-							const updatedMetadata = {
-								...importedContent.metadata,
-								imported_from_moderation: true,
-								moderated_by: locals.user.id,
-								moderated_at: new Date().toISOString(),
-								notes: submissionData.notes || ''
-							}
-
-							locals.contentService.updateContent({
-								...importedContent,
-								id: importedContentId,
-								title: importedContent.title, // Always use the fetched title from YouTube/GitHub
-								description: submissionData.description || importedContent.description,
-								status: 'draft',
-								tags: submissionData.tags || [],
-								metadata: updatedMetadata,
-								author_id: item.submitted_by
-							})
-						}
-					} else {
-						throw new Error('Failed to import video from YouTube')
-					}
-				} else {
-					throw new Error('Invalid YouTube video URL')
-				}
-			} else if (item.type === 'library' && submissionData.github_repo) {
-				const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
-				const repoPattern = /^([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)$/
-
-				let owner: string, repo: string
-
-				const urlMatch = submissionData.github_repo.match(githubPattern)
-				if (urlMatch) {
-					owner = urlMatch[1]
-					repo = urlMatch[2].replace(/\.git$/, '') // Remove .git suffix if present
-				} else {
-					const repoMatch = submissionData.github_repo.match(repoPattern)
-					if (repoMatch) {
-						owner = repoMatch[1]
-						repo = repoMatch[2]
-					} else {
-						throw new Error('Invalid GitHub repository format')
-					}
-				}
-
-				const submitter = locals.userService.getUser(item.submitted_by)
-				if (!submitter) {
-					console.error('Submitter not found:', item.submitted_by)
-					throw new Error('Submitter user not found in database')
-				}
-
-				const githubImporter = new GitHubImporter(
-					locals.externalContentService,
-					locals.cacheService
-				)
-				const importedContentId = await githubImporter.importRepository(
-					owner,
-					repo,
-					item.submitted_by
-				)
-
-				if (importedContentId) {
-					contentId = importedContentId
-
-					const importedContent = locals.contentService.getContentById(importedContentId)
-					if (importedContent) {
-						const updatedMetadata = {
-							...importedContent.metadata,
-							imported_from_moderation: true,
-							moderated_by: locals.user.id,
-							moderated_at: new Date().toISOString(),
-							notes: submissionData.notes || ''
-						}
-
-						locals.contentService.updateContent({
-							...importedContent,
-							id: importedContentId,
-							title: importedContent.title, // Always use the fetched title from YouTube/GitHub // Use submitted title or keep imported title
-							description: submissionData.description || importedContent.description,
-							status: 'draft',
-							tags: submissionData.tags || [],
-							metadata: updatedMetadata,
-							author_id: item.submitted_by
-						})
-					}
-				} else {
-					throw new Error('Failed to import repository from GitHub')
-				}
-			} else if (item.type === 'resource') {
-				const contentData = {
-					title: submissionData.title || 'Untitled',
-					slug: slug,
-					description: submissionData.description || '',
-					type: 'resource' as const,
-					status: 'draft' as const,
-					tags: submissionData.tags || [],
-					author_id: item.submitted_by,
-					published_at: null,
-					metadata: {
-						link: submissionData.link || '',
-						image: submissionData.image || undefined
-					}
-				}
-
-				contentId = locals.contentService.addContent(contentData, item.submitted_by)
-			} else {
-				const contentData = {
-					title: submissionData.title || 'Untitled',
-					slug: slug,
-					description: submissionData.description || '',
-					body: submissionData.body,
-					type: item.type,
-					status: 'draft',
-					tags: submissionData.tags || [],
-					author_id: item.submitted_by,
-					metadata: {
-						imported_from_moderation: true,
-						moderated_by: locals.user.id,
-						moderated_at: new Date().toISOString(),
-						notes: submissionData.notes || ''
-					}
-				}
-
-				contentId = locals.contentService.addContent(contentData, item.submitted_by)
-			}
-
-			// Only update moderation status and delete from queue if content was created successfully
-			console.log('Content ID: ', contentId)
-			if (contentId) {
-				locals.moderationService.updateModerationStatus(
-					id,
-					ModerationStatus.APPROVED,
-					locals.user.id
-				)
-				locals.moderationService.deleteModerationQueueItem(id)
-				console.log(
-					`Created content ${contentId} from moderation item ${id} and removed from queue`
-				)
-			} else {
-				throw new Error('Failed to create content - no content ID returned')
-			}
-		} catch (error) {
-			console.error('Error creating content from moderation item:', {
-				itemId: id,
-				itemType: item.type,
-				submissionData,
-				error: error instanceof Error ? error.message : error,
-				stack: error instanceof Error ? error.stack : undefined
-			})
-			throw error
+		if (content.status !== 'pending_review') {
+			error(400, 'Content is not pending review')
 		}
 
-		return getNextItem(locals.moderationService, id)
+		// Simply change status from pending_review to draft
+		// Convert tags from Tag[] objects to string[] IDs for updateContent
+		const tagIds = (content.tags || []).map((tag: any) =>
+			typeof tag === 'string' ? tag : tag.id
+		)
+
+		locals.contentService.updateContent({
+			...content,
+			id,
+			status: 'draft',
+			tags: tagIds,
+			metadata: {
+				...content.metadata,
+				moderated_by: locals.user.id,
+				moderated_at: new Date().toISOString()
+			}
+		})
+
+		return getNextItem(locals.contentService, id)
 	},
+
 	reject: async ({ params, locals }) => {
 		if (!locals.user) {
 			redirect(302, '/login')
 		}
 
 		const id = params.id
-		locals.moderationService.updateModerationStatus(id, ModerationStatus.REJECTED, locals.user.id)
-		locals.moderationService.deleteModerationQueueItem(id)
-		return getNextItem(locals.moderationService, id)
+		const content = locals.contentService.getContentById(id)
+
+		if (!content) {
+			error(404, 'Content not found')
+		}
+
+		if (content.status !== 'pending_review') {
+			error(400, 'Content is not pending review')
+		}
+
+		// Change status to archived with rejection metadata
+		// Convert tags from Tag[] objects to string[] IDs for updateContent
+		const tagIds = (content.tags || []).map((tag: any) =>
+			typeof tag === 'string' ? tag : tag.id
+		)
+
+		locals.contentService.updateContent({
+			...content,
+			id,
+			status: 'archived',
+			tags: tagIds,
+			metadata: {
+				...content.metadata,
+				rejected_at: new Date().toISOString(),
+				rejected_by: locals.user.id
+			}
+		})
+
+		return getNextItem(locals.contentService, id)
 	}
 }
 
-function getNextItem(moderationService: ModerationService, currentId: string) {
-	const nextItems = moderationService.getModerationQueuePaginated({
-		status: ModerationStatus.PENDING,
+function getNextItem(contentService: App.Locals['contentService'], currentId: string) {
+	const nextItems = contentService.getFilteredContent({
+		status: 'pending_review',
 		limit: 1,
-		offset: 0
+		sort: 'oldest'
 	})
 
 	if (nextItems.length > 0 && nextItems[0].id !== currentId) {

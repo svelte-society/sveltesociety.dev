@@ -7,8 +7,20 @@
 	import Eye from 'phosphor-svelte/lib/Eye'
 	import Table from '$lib/ui/admin/Table.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
-	import type { PreviewModerationQueueItem } from '$lib/server/services/moderation'
 	import ClockClockwise from 'phosphor-svelte/lib/ClockClockwise'
+
+	import type { Type as ContentType } from '$lib/types/content'
+
+	interface PendingContentItem {
+		id: string
+		title: string
+		type: ContentType
+		status: string
+		submitted_at: string
+		submitted_by: string | null
+		submitter_name: string
+		submitter_username: string | null
+	}
 
 	let { data } = $props()
 
@@ -56,7 +68,7 @@
 			<th scope="col" class={[classes, 'text-center']}>Type</th>
 			<th scope="col" class={classes}>Submitted</th>
 		{/snippet}
-		{#snippet row(item: PreviewModerationQueueItem, classes)}
+		{#snippet row(item: PendingContentItem, classes)}
 			<td class={classes}>
 				<input
 					type="checkbox"
@@ -81,7 +93,7 @@
 			</td>
 			<td class={classes}>{formatRelativeDate(item.submitted_at)}</td>
 		{/snippet}
-		{#snippet actionCell(item: PreviewModerationQueueItem)}
+		{#snippet actionCell(item: PendingContentItem)}
 			<div class="flex space-x-2">
 				<a
 					href="/admin/moderation/{item.id}"

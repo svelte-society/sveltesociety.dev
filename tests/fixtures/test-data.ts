@@ -168,30 +168,42 @@ export const TEST_SAVES = [
 ] as const
 
 /**
- * Test moderation queue entries
+ * Test pending content entries (replacing moderation queue)
+ * These are content items with status='pending_review' awaiting moderation
  */
-export const TEST_MODERATION_QUEUE = [
+export const TEST_PENDING_CONTENT = [
 	{
+		id: 'content_pending_001',
+		title: 'Test Pending: New Animation Tutorial',
 		type: 'recipe',
-		status: 'pending',
-		data: {
-			title: 'Test Pending: New Animation Tutorial',
-			description: 'Advanced animation techniques',
-			body: '# Animation Tutorial\n\nLearn how to create smooth animations...',
-			type: 'recipe'
+		status: 'pending_review',
+		body: '# Animation Tutorial\n\nLearn how to create smooth animations...',
+		slug: 'test-pending-animation-tutorial',
+		description: 'Advanced animation techniques',
+		metadata: {
+			submitter_notes: '',
+			submitted_at: new Date().toISOString()
 		},
-		submittedBy: 'test_contrib_001'
+		authorId: 'test_contrib_001',
+		tags: ['tag_animation', 'tag_svelte']
 	},
 	{
+		id: 'content_pending_002',
+		title: 'Svelte 5 Fundamentals Tutorial',
 		type: 'video',
-		status: 'pending',
-		data: {
-			title: 'Svelte 5 Fundamentals Tutorial', // Title fetched from YouTube API during submission
-			url: 'https://www.youtube.com/watch?v=test456',
-			description: 'Learn Svelte 5 fundamentals in this comprehensive tutorial',
-			type: 'video'
+		status: 'pending_review',
+		body: '',
+		slug: 'test-pending-svelte-5-fundamentals',
+		description: 'Learn Svelte 5 fundamentals in this comprehensive tutorial',
+		metadata: {
+			watchUrl: 'https://www.youtube.com/watch?v=test456',
+			embedUrl: 'https://www.youtube.com/embed/test456',
+			thumbnail: 'https://i.ytimg.com/vi/test456/maxresdefault.jpg',
+			submitter_notes: '',
+			submitted_at: new Date().toISOString()
 		},
-		submittedBy: 'test_viewer_001'
+		authorId: 'test_viewer_001',
+		tags: ['tag_svelte', 'tag_tutorial']
 	}
 ] as const
 

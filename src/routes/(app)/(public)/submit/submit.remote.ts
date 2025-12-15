@@ -5,6 +5,21 @@ import { resourceSchema, videoSchema, librarySchema, recipeSchema } from './sche
 import { extractYouTubeVideoId, parseGitHubRepo } from './helpers'
 import { uploadThumbnail, isS3Enabled } from '$lib/server/services/s3-storage'
 
+/**
+ * Generate a slug from a title.
+ * Note: The database trigger (migration 006) automatically appends the ID
+ * to make slugs unique, so we just need the base slug here.
+ */
+function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 50)
+}
+
 export const getTags = query(() => {
   const { locals } = getRequestEvent()
   return locals.tagService.getTags({ limit: 50 }).map((tag) => ({
@@ -39,9 +54,9 @@ export const submitResource = form(resourceSchema, async (data) => {
         const ext = contentType.split('/').at(-1) || 'png'
 
         // Generate a unique key based on timestamp and title
-        const slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 50)
+        const slugPart = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 50)
         const timestamp = Date.now()
-        const key = `resource/${slug}-${timestamp}/thumbnail.${ext}`
+        const key = `resource/${slugPart}-${timestamp}/thumbnail.${ext}`
 
         if (isS3Enabled) {
           image = await uploadThumbnail(key, arrayBuffer)
@@ -54,13 +69,28 @@ export const submitResource = form(resourceSchema, async (data) => {
   }
 
   try {
-    locals.moderationService.addToModerationQueue({
-      type: data.type,
-      data: JSON.stringify({ ...data, image }),
-      submitted_by: locals.user.id
-    })
+    const slug = generateSlug(data.title)
+
+    locals.contentService.addContent(
+      {
+        title: data.title,
+        type: 'resource',
+        slug,
+        description: data.description,
+        status: 'pending_review',
+        tags: data.tags,
+        metadata: {
+          link: data.link,
+          image: image || undefined,
+          submitter_notes: data.notes || '',
+          submitted_at: new Date().toISOString()
+        }
+      },
+      locals.user.id
+    )
   } catch (error) {
-    console.error('Error adding content to moderation queue:', error)
+    console.error('Error creating pending content:', error)
+    return fail(500, { error: 'Failed to submit content' })
   }
   redirect(302, '/submit/thankyou')
 })
@@ -116,36 +146,62 @@ export const submitVideo = form(videoSchema, async (data) => {
     })
   }
 
-  let title: string | undefined = undefined
-
   const videoId = extractYouTubeVideoId(data.url)
-  if (videoId) {
-    const existingContent = locals.externalContentService.getContentByExternalId('youtube', videoId)
-    if (existingContent) {
-      return {
-        success: false,
-        text: `This video has already been submitted. You can find it <a href="/${existingContent.type}/${existingContent.slug}" class="underline text-blue-600 hover:text-blue-800">here</a>.`
-      }
-    }
+  if (!videoId) {
+    return fail(400, {
+      error: 'Invalid URL',
+      message: 'Could not extract video ID from the provided URL.'
+    })
+  }
 
-    // Fetch video title from YouTube API
-    try {
-      const metadata = await locals.metadataService.fetchYoutubeMetadata(videoId)
-      title = metadata.title
-    } catch (error) {
-      console.error('Error fetching YouTube metadata:', error)
-      // Continue without title - will show "<No Title>" in moderation queue
+  // Check for duplicates
+  const existingContent = locals.externalContentService.getContentByExternalId('youtube', videoId)
+  if (existingContent) {
+    return {
+      success: false,
+      text: `This video has already been submitted. You can find it <a href="/${existingContent.type}/${existingContent.slug}" class="underline text-blue-600 hover:text-blue-800">here</a>.`
     }
   }
 
-  locals.moderationService.addToModerationQueue({
-    type: data.type,
-    data: JSON.stringify({
-      ...data,
-      title
-    }),
-    submitted_by: locals.user.id
-  })
+  // Try to fetch video metadata from YouTube API (optional - don't fail if unavailable)
+  let title = ''
+  let thumbnail = ''
+  try {
+    const metadata = await locals.metadataService.fetchYoutubeMetadata(videoId)
+    title = metadata.title || ''
+    thumbnail = metadata.thumbnail || ''
+  } catch (error) {
+    console.error('Error fetching YouTube metadata:', error)
+    // Continue without metadata - moderator will see video ID
+  }
+
+  try {
+    const slug = generateSlug(title || `video-${videoId}`)
+
+    locals.contentService.addContent(
+      {
+        title: title || `YouTube Video: ${videoId}`,
+        type: 'video',
+        slug,
+        description: data.description,
+        status: 'pending_review',
+        tags: data.tags,
+        metadata: {
+          embedUrl: `https://www.youtube.com/embed/${videoId}`,
+          watchUrl: `https://www.youtube.com/watch?v=${videoId}`,
+          thumbnail: thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+          youtubeVideoId: videoId,
+          submitter_notes: data.notes || '',
+          submitted_at: new Date().toISOString()
+        }
+      },
+      locals.user.id
+    )
+  } catch (error) {
+    console.error('Error creating pending video content:', error)
+    return fail(500, { error: 'Failed to submit video' })
+  }
+
   redirect(302, '/submit/thankyou')
 })
 
@@ -158,41 +214,72 @@ export const submitLibrary = form(librarySchema, async (data) => {
     })
   }
 
-  let title: string | undefined = undefined
   const { owner, repo, packagePath } = parseGitHubRepo(data.github_repo)
 
-  if (owner && repo) {
-    const externalId = packagePath ? `${owner}/${repo}/${packagePath}` : `${owner}/${repo}`
-
-    const existingContent = locals.externalContentService.getContentByExternalId(
-      'github',
-      externalId
-    )
-    if (existingContent) {
-      return {
-        success: false,
-        text: `This ${packagePath ? 'package' : 'repository'} has already been submitted. You can find it <a href="/${existingContent.type}/${existingContent.slug}" class="underline text-blue-600 hover:text-blue-800">here</a>.`
-      }
-    }
-
-    try {
-      title = await locals.externalContentService.getGithubMetadata(owner, repo, packagePath || undefined)
-    } catch (error) {
-      console.error('Error fetching GitHub metadata:', error)
-      // Continue without title - will use repo name as fallback
-    }
-
-    title = title || repo
+  if (!owner || !repo) {
+    return fail(400, {
+      error: 'Invalid repository',
+      message: 'Could not parse GitHub repository from the provided input.'
+    })
   }
 
-  locals.moderationService.addToModerationQueue({
-    type: data.type,
-    data: JSON.stringify({
-      ...data,
-      title
-    }),
-    submitted_by: locals.user.id
-  })
+  const externalId = packagePath ? `${owner}/${repo}/${packagePath}` : `${owner}/${repo}`
+  const githubUrl = `https://github.com/${owner}/${repo}`
+
+  // Check for duplicates
+  const existingContent = locals.externalContentService.getContentByExternalId('github', externalId)
+  if (existingContent) {
+    return {
+      success: false,
+      text: `This ${packagePath ? 'package' : 'repository'} has already been submitted. You can find it <a href="/${existingContent.type}/${existingContent.slug}" class="underline text-blue-600 hover:text-blue-800">here</a>.`
+    }
+  }
+
+  // Try to fetch repository metadata from GitHub API (optional - don't fail if unavailable)
+  let repoName = repo
+  let stars = 0
+  let repoDescription = ''
+  try {
+    const metadata = await locals.metadataService.fetchGithubMetadata(githubUrl)
+    if (metadata.github) {
+      repoName = metadata.github.repo || repo
+      stars = metadata.github.stars || 0
+      repoDescription = metadata.github.description || ''
+    }
+  } catch (error) {
+    console.error('Error fetching GitHub metadata:', error)
+    // Continue without metadata - moderator will see repo URL
+  }
+
+  try {
+    const title = packagePath ? `${repo}/${packagePath}` : repoName
+    const slug = generateSlug(title)
+
+    locals.contentService.addContent(
+      {
+        title,
+        type: 'library',
+        slug,
+        description: data.description || repoDescription || `GitHub repository: ${owner}/${repo}`,
+        status: 'pending_review',
+        tags: data.tags,
+        metadata: {
+          github: githubUrl,
+          stars,
+          githubOwner: owner,
+          githubRepo: repo,
+          packagePath: packagePath || undefined,
+          submitter_notes: data.notes || '',
+          submitted_at: new Date().toISOString()
+        }
+      },
+      locals.user.id
+    )
+  } catch (error) {
+    console.error('Error creating pending library content:', error)
+    return fail(500, { error: 'Failed to submit library' })
+  }
+
   redirect(302, '/submit/thankyou')
 })
 
@@ -206,13 +293,28 @@ export const submitRecipe = form(recipeSchema, async (data) => {
   }
 
   try {
-    locals.moderationService.addToModerationQueue({
-      type: data.type,
-      data: JSON.stringify(data),
-      submitted_by: locals.user.id
-    })
+    const slug = generateSlug(data.title)
+
+    locals.contentService.addContent(
+      {
+        title: data.title,
+        type: 'recipe',
+        slug,
+        description: data.description,
+        body: data.body,
+        status: 'pending_review',
+        tags: data.tags,
+        metadata: {
+          submitter_notes: data.notes || '',
+          submitted_at: new Date().toISOString()
+        }
+      },
+      locals.user.id
+    )
   } catch (error) {
-    console.error('Error adding content to moderation queue:', error)
+    console.error('Error creating pending recipe content:', error)
+    return fail(500, { error: 'Failed to submit recipe' })
   }
+
   redirect(302, '/submit/thankyou')
 })

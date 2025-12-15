@@ -23,7 +23,6 @@ const EXPECTED_SCHEMA = {
 		'delete_content_likes',
 		'delete_content_saves',
 		'update_published_at',
-		'approve_content',
 		'content___set_slug'
 	],
 	views: [

@@ -1,4 +1,3 @@
-import { ModerationStatus } from '$lib/server/services/moderation'
 import type { PageServerLoad, Actions } from './$types'
 import { fail } from '@sveltejs/kit'
 
@@ -8,20 +7,29 @@ export const load: PageServerLoad = async ({ url, locals }) => {
 		const itemsPerPage = 10
 		const offset = (page - 1) * itemsPerPage
 
-		const totalItems = locals.moderationService.getModerationQueueCount(ModerationStatus.PENDING)
+		// Query content with pending_review status
+		const totalItems = locals.contentService.getFilteredContentCount({
+			status: 'pending_review'
+		})
 		const totalPages = Math.ceil(totalItems / itemsPerPage)
 
-		const items = locals.moderationService.getModerationQueuePaginated({
-			status: ModerationStatus.PENDING,
+		const items = locals.contentService.getFilteredContent({
+			status: 'pending_review',
 			limit: itemsPerPage,
-			offset
+			offset,
+			sort: 'oldest' // FIFO - oldest first
 		})
 
-		// Fetch submitter information for each item
+		// Map to expected UI format
 		const itemsWithSubmitters = items.map((item) => {
-			const submitter = locals.userService.getUser(item.submitted_by)
+			const submitter = item.author_id ? locals.userService.getUser(item.author_id) : null
 			return {
-				...item,
+				id: item.id,
+				title: item.title,
+				type: item.type,
+				status: 'pending', // UI expects 'pending' not 'pending_review'
+				submitted_at: item.created_at,
+				submitted_by: item.author_id,
 				submitter_name: submitter?.name || 'Unknown',
 				submitter_username: submitter?.username || null
 			}
@@ -34,7 +42,7 @@ export const load: PageServerLoad = async ({ url, locals }) => {
 			totalItems
 		}
 	} catch (error) {
-		console.error('Error loading moderation queue:', error)
+		console.error('Error loading pending content:', error)
 		return {
 			items: [],
 			page: 1,
@@ -55,15 +63,25 @@ export const actions: Actions = {
 			const id = data.get('id') as string
 			if (!id) return fail(400, { success: false, message: 'Missing ID' })
 
-			await locals.moderationService.updateModerationStatus(
+			const content = locals.contentService.getContentById(id)
+			if (!content || content.status !== 'pending_review') {
+				return fail(404, { success: false, message: 'Content not found or already processed' })
+			}
+
+			locals.contentService.updateContent({
+				...content,
 				id,
-				ModerationStatus.APPROVED,
-				locals.user.id
-			)
+				status: 'draft',
+				metadata: {
+					...content.metadata,
+					moderated_by: locals.user.id,
+					moderated_at: new Date().toISOString()
+				}
+			})
 			return { success: true }
 		} catch (error) {
-			console.error('Error approving item:', error)
-			return fail(500, { success: false, message: 'Failed to approve item' })
+			console.error('Error approving content:', error)
+			return fail(500, { success: false, message: 'Failed to approve content' })
 		}
 	},
 	reject: async ({ request, locals }) => {
@@ -76,15 +94,25 @@ export const actions: Actions = {
 			const id = data.get('id') as string
 			if (!id) return fail(400, { success: false, message: 'Missing ID' })
 
-			await locals.moderationService.updateModerationStatus(
+			const content = locals.contentService.getContentById(id)
+			if (!content || content.status !== 'pending_review') {
+				return fail(404, { success: false, message: 'Content not found or already processed' })
+			}
+
+			locals.contentService.updateContent({
+				...content,
 				id,
-				ModerationStatus.REJECTED,
-				locals.user.id
-			)
+				status: 'archived',
+				metadata: {
+					...content.metadata,
+					rejected_at: new Date().toISOString(),
+					rejected_by: locals.user.id
+				}
+			})
 			return { success: true }
 		} catch (error) {
-			console.error('Error rejecting item:', error)
-			return fail(500, { success: false, message: 'Failed to reject item' })
+			console.error('Error rejecting content:', error)
+			return fail(500, { success: false, message: 'Failed to reject content' })
 		}
 	},
 	bulk_reject: async ({ request, locals }) => {
@@ -95,17 +123,27 @@ export const actions: Actions = {
 		try {
 			const data = await request.formData()
 			const ids = JSON.parse(data.get('ids') as string) as string[]
+
 			for (const id of ids) {
-				await locals.moderationService.updateModerationStatus(
-					id,
-					ModerationStatus.REJECTED,
-					locals.user.id
-				)
+				const content = locals.contentService.getContentById(id)
+				if (content && content.status === 'pending_review') {
+					locals.contentService.updateContent({
+						...content,
+						id,
+						status: 'archived',
+						metadata: {
+							...content.metadata,
+							rejected_at: new Date().toISOString(),
+							rejected_by: locals.user.id,
+							rejection_reason: 'Bulk rejected'
+						}
+					})
+				}
 			}
 			return { success: true }
 		} catch (error) {
-			console.error('Error bulk rejecting items:', error)
-			return fail(500, { success: false, message: 'Failed to bulk reject items' })
+			console.error('Error bulk rejecting content:', error)
+			return fail(500, { success: false, message: 'Failed to bulk reject content' })
 		}
 	}
 }
