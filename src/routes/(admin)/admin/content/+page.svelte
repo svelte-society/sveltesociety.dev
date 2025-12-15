@@ -79,12 +79,13 @@
 				| 'recipe'
 				| 'resource'
 				| undefined,
-			status: (selectedStatus || 'all') as 'draft' | 'published' | 'archived' | 'all',
+			status: (selectedStatus || 'all') as 'draft' | 'pending_review' | 'published' | 'archived' | 'all',
 			page: currentPage
 		})
 	)
 
 	let colorMap = new Map([
+		['pending_review', 'warning'],
 		['draft', 'warning'],
 		['published', 'success'],
 		['archived', 'danger']
@@ -148,9 +149,6 @@
 				<td class="whitespace-nowrap {classes} font-medium text-gray-900">
 					<a href={`/admin/content/${item.id}`} data-testid="content-edit-link">
 						<div data-testid="content-title-text">{item.title.length > 50 ? item.title.slice(0, 50) + '...' : item.title}</div>
-						<div class="mt-1 text-xs text-gray-400">
-							{item.slug.length > 50 ? item.slug.slice(0, 50) + '...' : item.slug}
-						</div>
 					</a>
 				</td>
 				<td class={classes}

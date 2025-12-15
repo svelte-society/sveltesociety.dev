@@ -10,6 +10,7 @@
 
 	const statuses = [
 		{ value: 'all', label: 'All Statuses', color: 'default' },
+		{ value: 'pending_review', label: 'Pending Review', color: 'warning' },
 		{ value: 'draft', label: 'Draft', color: 'warning' },
 		{ value: 'published', label: 'Published', color: 'success' },
 		{ value: 'archived', label: 'Archived', color: 'danger' }

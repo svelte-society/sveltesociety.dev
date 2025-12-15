@@ -123,6 +123,57 @@ export class SearchService {
 		return search(this.searchDB, searchParams) as Results<ContentDocument>
 	}
 
+	/**
+	 * Search for admin content listing with pending_review items first
+	 */
+	searchAdmin(filters: {
+		query?: string
+		type?: string
+		status?: string
+		limit?: number
+		offset?: number
+	}) {
+		const { query = '', type, status, limit = 50, offset = 0 } = filters
+
+		// Build where clause - only add status filter if it's a specific status (not 'all')
+		const where: Record<string, unknown> = {}
+		if (type) where.type = type
+		if (status && status !== 'all') where.status = status
+
+		const searchParams: SearchParams<Orama<typeof contentSchema>> = {
+			term: query,
+			where,
+			limit,
+			offset,
+			// Custom sort: pending_review first, then by created_at DESC
+			// Sort function receives [id, score, document] tuples
+			sortBy: (a, b) => {
+				const aDoc = a[2] as ContentDocument
+				const bDoc = b[2] as ContentDocument
+
+				// pending_review items come first
+				const aIsPending = aDoc.status === 'pending_review' ? 0 : 1
+				const bIsPending = bDoc.status === 'pending_review' ? 0 : 1
+
+				if (aIsPending !== bIsPending) {
+					return aIsPending - bIsPending
+				}
+
+				// Then sort by created_at DESC
+				const aDate = aDoc.created_at || ''
+				const bDate = bDoc.created_at || ''
+				return bDate.localeCompare(aDate)
+			}
+		}
+
+		const results = search(this.searchDB, searchParams) as Results<ContentDocument>
+
+		return {
+			hits: results.hits,
+			count: results.count
+		}
+	}
+
 	getContentById(id: string) {
 		return getByID(this.searchDB, id)
 	}
