@@ -1,16 +1,16 @@
 import type { LayoutServerLoad } from './$types'
-import { ModerationStatus } from '$lib/server/services/moderation'
 
 export const load: LayoutServerLoad = async ({ locals }) => {
-	const moderation_count = locals.moderationService.getModerationQueueCount(
-		ModerationStatus.PENDING
-	)
-
 	// Get user role
 	const userRole = locals.user ? locals.roleService.getRoleById(locals.user.role) : null
 
+	// Get pending review count for content badge
+	const pendingReviewCount = locals.contentService.getFilteredContentCount({
+		status: 'pending_review'
+	})
+
 	return {
-		moderation_count,
-		userRole: userRole?.value || null
+		userRole: userRole?.value || null,
+		pendingReviewCount
 	}
 }

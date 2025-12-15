@@ -5,7 +5,7 @@ import {
 	TEST_TAGS,
 	TEST_CONTENT,
 	TEST_SAVES,
-	TEST_MODERATION_QUEUE,
+	TEST_PENDING_CONTENT,
 	getSessionExpiry,
 	getYesterday
 } from '../tests/fixtures/test-data'
@@ -27,7 +27,6 @@ async function seedTestDatabase() {
 		db.run('DELETE FROM likes')
 		db.run('DELETE FROM content_to_tags')
 		db.run('DELETE FROM content_to_users')
-		db.run('DELETE FROM moderation_queue')
 		db.run('DELETE FROM content')
 		db.run('DELETE FROM tags')
 		db.run('DELETE FROM sessions')
@@ -160,20 +159,27 @@ async function seedTestDatabase() {
 			saveInsert.run(save.userId, save.contentId)
 		})
 
-		// 9. Add moderation queue entries
-		console.log('  → Creating moderation queue entries...')
-		const moderationInsert = db.prepare(`
-			INSERT INTO moderation_queue (type, status, data, submitted_by)
-			VALUES (?, ?, ?, ?)
-		`)
-
-		TEST_MODERATION_QUEUE.forEach(item => {
-			moderationInsert.run(
-				item.type,
-				item.status,
-				JSON.stringify(item.data),
-				item.submittedBy
+		// 9. Add pending content entries (for moderation testing)
+		console.log('  → Creating pending content entries...')
+		TEST_PENDING_CONTENT.forEach(content => {
+			contentInsert.run(
+				content.id,
+				content.title,
+				content.type,
+				content.status,
+				content.body,
+				content.slug,
+				content.description,
+				content.metadata ? JSON.stringify(content.metadata) : null,
+				null, // children
+				null  // published_at
 			)
+			// Link to author
+			contentUserInsert.run(content.id, content.authorId)
+			// Link to tags
+			content.tags.forEach(tagId => {
+				contentTagInsert.run(content.id, tagId)
+			})
 		})
 
 		// Summary
@@ -181,9 +187,8 @@ async function seedTestDatabase() {
 		console.log('\n📊 Summary:')
 		console.log(`   Users: ${Object.keys(TEST_USERS).length} (admin, contributor, viewer)`)
 		console.log(`   Tags: ${TEST_TAGS.length}`)
-		console.log(`   Content: ${TEST_CONTENT.length} items`)
+		console.log(`   Content: ${TEST_CONTENT.length} published + ${TEST_PENDING_CONTENT.length} pending`)
 		console.log(`   Sessions: ${Object.keys(TEST_USERS).length} (one per user)`)
-		console.log(`   Moderation queue: ${TEST_MODERATION_QUEUE.length} items`)
 		console.log('\n🔑 Test User Credentials:')
 		Object.entries(TEST_USERS).forEach(([key, user]) => {
 			console.log(`   ${key.charAt(0).toUpperCase() + key.slice(1).padEnd(12)} ${user.username} / ${user.email}`)

@@ -7,7 +7,6 @@ import { InteractionsService } from '$lib/server/services/interactions'
 import { RoleService } from '$lib/server/services/role'
 import { SessionService } from '$lib/server/services/session'
 import { TagService } from '$lib/server/services/tags'
-import { ModerationService } from '$lib/server/services/moderation'
 import { UserService } from '$lib/server/services/user'
 import { MetadataService } from '$lib/server/services/metadata'
 import { EventsService } from '$lib/server/services/events'
@@ -29,7 +28,6 @@ const dbCache = new Map<
 		roleService: RoleService
 		sessionService: SessionService
 		tagService: TagService
-		moderationService: ModerationService
 		userService: UserService
 		metadataService: MetadataService
 		eventsService: EventsService
@@ -65,7 +63,6 @@ const initialize_db = (dbPath: string) => {
 	const roleService = new RoleService(db)
 	const sessionService = new SessionService(db)
 	const tagService = new TagService(db)
-	const moderationService = new ModerationService(db)
 	const userService = new UserService(db)
 	const metadataService = new MetadataService(db)
 	const eventsService = new EventsService(db, cacheService)
@@ -81,7 +78,6 @@ const initialize_db = (dbPath: string) => {
 		roleService,
 		sessionService,
 		tagService,
-		moderationService,
 		userService,
 		metadataService,
 		eventsService,
@@ -132,7 +128,6 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.roleService = services.roleService
 	event.locals.sessionService = services.sessionService
 	event.locals.tagService = services.tagService
-	event.locals.moderationService = services.moderationService
 	event.locals.userService = services.userService
 	event.locals.metadataService = services.metadataService
 	event.locals.eventsService = services.eventsService

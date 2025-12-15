@@ -15,10 +15,9 @@
 
 	interface Props {
 		links: NavLink[]
-		moderationCount?: number
 	}
 
-	let { links, moderationCount }: Props = $props()
+	let { links }: Props = $props()
 
 	const homeLink: NavLink = {
 		href: '/',
@@ -42,11 +41,7 @@
 		<nav class="flex-grow">
 			<ul class="space-y-1">
 				{#each links as item}
-					<NavigationLink
-						{item}
-						{isActive}
-						moderationCount={item.href === '/admin/moderation' ? moderationCount : 0}
-					/>
+					<NavigationLink {item} {isActive} />
 				{/each}
 			</ul>
 		</nav>
