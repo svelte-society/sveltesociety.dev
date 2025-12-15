@@ -22,6 +22,7 @@
 		label: string
 		icon: typeof Icon
 		allowedRoles: string[]
+		badge?: number
 	}
 
 	const allLinks: NavLink[] = [
@@ -41,7 +42,8 @@
 			href: '/admin/content',
 			label: 'Content',
 			icon: FileText,
-			allowedRoles: ['admin', 'moderator', 'editor']
+			allowedRoles: ['admin', 'moderator', 'editor'],
+			badge: data.pendingReviewCount
 		},
 		{
 			href: '/admin/tags',

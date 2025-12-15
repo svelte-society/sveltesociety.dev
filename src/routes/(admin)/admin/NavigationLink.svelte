@@ -27,5 +27,12 @@
 			weight={isActive(item.href) ? 'fill' : 'regular'}
 		/>
 		<span class="text-sm">{item.label}</span>
+		{#if item.badge && item.badge > 0}
+			<span
+				class="ml-auto inline-flex items-center justify-center rounded-full bg-orange-100 px-2 py-0.5 text-xs font-medium text-orange-800"
+			>
+				{item.badge}
+			</span>
+		{/if}
 	</a>
 </li>
