@@ -1,5 +1,7 @@
 import { Database } from 'bun:sqlite'
-import type { CacheService } from './cache'
+import { CacheService } from './cache'
+import { Effect } from 'effect'
+import { TaggedError } from 'effect/Data'
 
 interface Presenter {
 	id: string
@@ -72,6 +74,16 @@ interface EventsResponse {
 	}
 }
 
+class CacheServiceNotFound extends TaggedError("CacheServiceNotFound") { }
+class CachifiedError extends TaggedError("CachifiedError")<{
+	slug: string,
+	cause: unknown
+}> { }
+class FetchUpcomingEventsError extends TaggedError("FetchUpcomingEventsError")<{
+	slug: string
+	cause: unknown
+}> { }
+
 export class EventsService {
 	private apiBaseUrl = 'https://guild.host/api/next'
 	private readonly GUILD_SLUG = 'svelte-society'
@@ -79,7 +91,10 @@ export class EventsService {
 	constructor(
 		private db: Database,
 		private cacheService?: CacheService
-	) {}
+	) { }
+
+
+
 
 	// Fetch upcoming events from the remote API
 	async fetchUpcomingEventsFromAPI(guildSlug: string = this.GUILD_SLUG): Promise<GuildEvent[]> {
@@ -93,6 +108,36 @@ export class EventsService {
 			ttl: 5 * 60 * 1000, // 5 minutes
 			swr: 60 * 60 * 1000 // 1 hour stale-while-revalidate
 		})
+	}
+	async fetchUpcomingEventsFromAPI2(guildSlug: string = this.GUILD_SLUG) {
+		return Effect.runPromiseExit(Effect.gen(this, function* () {
+			if (!this.cacheService) {
+				return yield* new CacheServiceNotFound()
+			}
+
+			const upcomingEvents = yield* this._fetchUpcomingEventsDirectly2(guildSlug)
+
+			return Effect.tryPromise({
+				try: () => {
+					if (!this.cacheService) {
+						throw new CacheServiceNotFound()
+					}
+					return this.cacheService.cachify({
+						key: `events:upcoming:${guildSlug}`,
+						getFreshValue: () => Effect.runPromise(this._fetchUpcomingEventsDirectly2(guildSlug)),
+						ttl: 5 * 60 * 1000, // 5 minutes
+						swr: 60 * 60 * 1000 // 1 hour stale-while-revalidate
+					})
+				},
+				catch: (e) => {
+					return new CachifiedError({
+						slug: guildSlug,
+						cause: e
+					})
+				}
+			})
+
+		}))
 	}
 
 	private async _fetchUpcomingEventsDirectly(guildSlug: string): Promise<GuildEvent[]> {
@@ -111,6 +156,37 @@ export class EventsService {
 			console.error('Error fetching events from API:', error)
 			return []
 		}
+	}
+
+	private _fetchUpcomingEventsDirectly2(guildSlug: string) {
+		return Effect.gen(this, function* () {
+			const url = `${this.apiBaseUrl}/${guildSlug}/events/upcoming`
+
+			const response = yield* Effect.tryPromise({
+				try: (abortSignal) => {
+					return fetch(url, {
+						signal: abortSignal
+					})
+				},
+				catch: (e) => {
+					return new FetchUpcomingEventsError({
+						slug: guildSlug,
+						cause: e
+					})
+				}
+			})
+
+			if (!response.ok) {
+				return yield* new FetchUpcomingEventsError({
+					slug: guildSlug,
+					cause: response
+				})
+			}
+
+			const json: EventsResponse = yield* Effect.tryPromise(() => response.json())
+
+			return json.events?.edges?.map((edge) => edge.node) || []
+		})
 	}
 
 	// Fetch past events from the remote API
