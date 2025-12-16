@@ -5,7 +5,7 @@ import { checkAdminAuth } from '../authorization.remote'
 
 const contentFiltersSchema = z.object({
 	type: z.enum(['video', 'library', 'announcement', 'collection', 'recipe', 'resource']).optional(),
-	status: z.enum(['draft', 'published', 'archived', 'all']).default('all'),
+	status: z.enum(['draft', 'pending_review', 'published', 'archived', 'all']).default('all'),
 	search: z.string().optional(),
 	page: z.number().int().positive().default(1),
 	perPage: z.number().int().positive().default(50)
@@ -17,22 +17,34 @@ const contentIdSchema = z.object({
 
 export const getFilteredContent = query(contentFiltersSchema, async (filters) => {
 	const { locals } = getRequestEvent()
-	const { page, perPage, ...serviceFilters } = filters
+	const { page, perPage, search, type, status } = filters
 
 	const offset = (page - 1) * perPage
 
-	const content = locals.contentService.getFilteredContent({
-		...serviceFilters,
+	// Use Orama search for admin content listing (pending_review first, then by created_at)
+	const results = locals.searchService.searchAdmin({
+		query: search,
+		type,
+		status,
 		limit: perPage,
 		offset
 	})
 
-	const count = locals.contentService.getFilteredContentCount(serviceFilters)
+	// Map Orama results to content format expected by the UI
+	const content = results.hits.map((hit) => ({
+		id: hit.document.id,
+		title: hit.document.title,
+		description: hit.document.description,
+		type: hit.document.type,
+		status: hit.document.status,
+		created_at: hit.document.created_at,
+		tags: hit.document.tags
+	}))
 
 	return {
 		content,
 		pagination: {
-			count,
+			count: results.count,
 			perPage,
 			currentPage: page
 		}
