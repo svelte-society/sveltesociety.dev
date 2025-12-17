@@ -230,9 +230,11 @@ export class MetadataService {
 				: Date.now().toString(36).padStart(12, '0')
 			const ogImageUrl = `https://opengraph.githubassets.com/${hash}/${owner}/${repo}`
 
+			console.log(`[MetadataService] Fetching GitHub OG image from: ${ogImageUrl}`)
 			const response = await fetch(ogImageUrl)
+			console.log(`[MetadataService] Response: status=${response.status}, content-type=${response.headers.get('content-type')}`)
 			if (!response.ok || !response.headers.get('content-type')?.includes('image')) {
-				console.error(`Failed to fetch GitHub OG image for ${owner}/${repo}`)
+				console.error(`Failed to fetch GitHub OG image for ${owner}/${repo}: status=${response.status}, content-type=${response.headers.get('content-type')}`)
 				return null
 			}
 
@@ -338,25 +340,48 @@ export class MetadataService {
 
 		switch (contentType) {
 			case 'library': {
-				const githubUrl =
-					typeof currentMetadata.github === 'string'
-						? currentMetadata.github
-						: currentMetadata.github?.repoUrl
-				if (githubUrl && typeof githubUrl === 'string') {
+				// Extract owner/repo from various metadata formats:
+				// 1. github as string URL (user submitted): "https://github.com/owner/repo"
+				// 2. github as object with owner/repo (imported): { owner: "...", repo: "..." }
+				// 3. githubOwner/githubRepo at top level (user submitted)
+				let owner: string | undefined
+				let repo: string | undefined
+				let githubUrl: string | undefined
+
+				if (typeof currentMetadata.github === 'string') {
+					// Format 1: github is a URL string
+					githubUrl = currentMetadata.github
 					const urlMatch = githubUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/i)
 					if (urlMatch) {
-						const [, owner, repo] = urlMatch
-						const githubMetadata = await this.fetchGithubMetadata(githubUrl)
-						Object.assign(newMetadata, githubMetadata)
+						owner = urlMatch[1]
+						repo = urlMatch[2]
+					}
+				} else if (currentMetadata.github?.owner && currentMetadata.github?.repo) {
+					// Format 2: github is an object with owner/repo
+					owner = currentMetadata.github.owner
+					repo = currentMetadata.github.repo
+					githubUrl = `https://github.com/${owner}/${repo}`
+				} else if (currentMetadata.githubOwner && currentMetadata.githubRepo) {
+					// Format 3: githubOwner/githubRepo at top level
+					owner = currentMetadata.githubOwner
+					repo = currentMetadata.githubRepo
+					githubUrl = `https://github.com/${owner}/${repo}`
+				}
 
-						const thumbnailUrl = await this.refreshLibraryThumbnail(
-							owner,
-							repo,
-							githubMetadata.github?.lastUpdated
-						)
-						if (thumbnailUrl) {
-							newMetadata.thumbnail = thumbnailUrl
-						}
+				console.log(`[MetadataService] Extracted owner=${owner}, repo=${repo}, githubUrl=${githubUrl}`)
+
+				if (owner && repo && githubUrl) {
+					const githubMetadata = await this.fetchGithubMetadata(githubUrl)
+					Object.assign(newMetadata, githubMetadata)
+
+					const thumbnailUrl = await this.refreshLibraryThumbnail(
+						owner,
+						repo,
+						githubMetadata.github?.lastUpdated
+					)
+					console.log(`[MetadataService] Thumbnail result: ${thumbnailUrl}`)
+					if (thumbnailUrl) {
+						newMetadata.thumbnail = thumbnailUrl
 					}
 				}
 				newMetadata.type = 'library'

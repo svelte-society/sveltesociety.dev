@@ -6,6 +6,7 @@
 	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte'
 	import DynamicSelector from '$lib/ui/DynamicSelector.svelte'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
+	import { refreshMetadata } from './data.remote'
 	import type { RemoteForm } from '@sveltejs/kit'
 
 	interface Option {
@@ -69,7 +70,66 @@
 			? false
 			: contentType !== 'resource' && contentType !== 'video' && contentType !== 'library'
 	)
+
+	let refreshing = $state(false)
+	const refreshAction = $derived(contentId ? refreshMetadata.for(contentId) : null)
 </script>
+
+<!-- Library thumbnail section - outside main form to avoid nested forms -->
+{#if contentType === 'library' && isEditing}
+	<div class="mb-4 space-y-2">
+		<!-- Thumbnail Status -->
+		<div class={content?.metadata?.thumbnail
+			? "rounded-md border border-green-200 bg-green-50 p-4"
+			: "rounded-md border border-amber-200 bg-amber-50 p-4"}>
+			<div class="flex items-start justify-between gap-4">
+				<div class="flex-1">
+					<p class="mb-2 text-sm font-medium {content?.metadata?.thumbnail ? 'text-green-800' : 'text-amber-800'}">
+						{content?.metadata?.thumbnail ? 'Thumbnail Available' : 'Thumbnail Missing'}
+					</p>
+					{#if content?.metadata?.thumbnail}
+						<img
+							src={getCachedImageWithPreset(content.metadata.thumbnail, 'thumbnail')}
+							alt="Library thumbnail"
+							class="w-64 rounded border border-gray-200"
+						/>
+					{:else}
+						<p class="text-sm text-amber-700">
+							The thumbnail could not be fetched from GitHub. Click "Refresh Metadata" to try again.
+						</p>
+					{/if}
+				</div>
+				{#if refreshAction}
+					<form
+						{...refreshAction.enhance(async ({ submit }) => {
+							refreshing = true
+							try {
+								await submit()
+								if (refreshAction.result?.success) {
+									toast.success(refreshAction.result.text || 'Metadata refreshed!')
+								} else {
+									toast.error(refreshAction.result?.text || 'Failed to refresh metadata')
+								}
+							} catch {
+								toast.error('Failed to refresh metadata')
+							}
+							refreshing = false
+						})}
+					>
+						<input {...refreshAction.fields.id.as('hidden', contentId)} />
+						<button
+							type="submit"
+							disabled={refreshing}
+							class="shrink-0 rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+						>
+							{refreshing ? 'Refreshing...' : 'Refresh Metadata'}
+						</button>
+					</form>
+				{/if}
+			</div>
+		</div>
+	</div>
+{/if}
 
 <form
 	{...form.enhance(async ({ submit }) => {
@@ -260,87 +320,6 @@
 				{/if}
 			</div>
 			<p class="text-sm text-gray-500 italic">Video metadata is read-only for imported content.</p>
-		</div>
-	{/if}
-
-	{#if contentType === 'library' && isImported && content?.metadata?.externalSource?.source === 'github'}
-		<div class="space-y-2">
-			<div class="rounded-md border border-blue-200 bg-blue-50 p-4">
-				<p class="mb-2 text-sm font-medium text-blue-800">GitHub Repository Information</p>
-				<div class="flex gap-4">
-					{#if content?.metadata?.owner?.avatar}
-						<img
-							src={getCachedImageWithPreset(content.metadata.owner.avatar, 'avatar')}
-							alt={content.metadata.owner.name}
-							class="h-16 w-16 rounded"
-						/>
-					{/if}
-					<div class="flex-1 space-y-1 text-sm">
-						<div class="flex gap-4">
-							<div>
-								<span class="font-medium">Owner:</span>
-								<a
-									href={content?.metadata?.owner?.url}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="text-blue-600 underline"
-								>
-									{content?.metadata?.owner?.name}
-								</a>
-							</div>
-							<div>
-								<span class="font-medium">Language:</span>
-								{content?.metadata?.language || 'Unknown'}
-							</div>
-						</div>
-						<div class="flex gap-4">
-							<div>
-								<span class="font-medium">Stars:</span>
-								{content?.metadata?.stars || 0}
-							</div>
-							<div>
-								<span class="font-medium">Forks:</span>
-								{content?.metadata?.forks || 0}
-							</div>
-							<div>
-								<span class="font-medium">Issues:</span>
-								{content?.metadata?.issues || 0}
-							</div>
-						</div>
-						{#if content?.metadata?.topics && content.metadata.topics.length > 0}
-							<div>
-								<span class="font-medium">Topics:</span>
-								{content.metadata.topics.join(', ')}
-							</div>
-						{/if}
-						<div class="flex gap-4">
-							{#if content?.metadata?.github}
-								<a
-									href={content.metadata.github}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="text-blue-600 underline"
-								>
-									View on GitHub
-								</a>
-							{/if}
-							{#if content?.metadata?.homepage && content.metadata.homepage !== content?.metadata?.github}
-								<a
-									href={content.metadata.homepage}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="text-blue-600 underline"
-								>
-									Homepage
-								</a>
-							{/if}
-						</div>
-					</div>
-				</div>
-			</div>
-			<p class="text-sm text-gray-500 italic">
-				Repository metadata is read-only for imported content.
-			</p>
 		</div>
 	{/if}
 
