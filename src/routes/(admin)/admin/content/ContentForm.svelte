@@ -75,27 +75,30 @@
 	const refreshAction = $derived(contentId ? refreshMetadata.for(contentId) : null)
 </script>
 
-<!-- Library thumbnail section - outside main form to avoid nested forms -->
-{#if contentType === 'library' && isEditing}
+<!-- Thumbnail section for refreshable content types - outside main form to avoid nested forms -->
+{#if (contentType === 'library' || contentType === 'video' || contentType === 'resource') && isEditing}
+	{@const thumbnail = contentType === 'resource' ? content?.metadata?.image : content?.metadata?.thumbnail}
+	{@const typeLabel = contentType === 'library' ? 'Library' : contentType === 'video' ? 'Video' : 'Resource'}
+	{@const sourceHint = contentType === 'library' ? 'GitHub' : contentType === 'video' ? 'YouTube' : 'the resource URL'}
 	<div class="mb-4 space-y-2">
 		<!-- Thumbnail Status -->
-		<div class={content?.metadata?.thumbnail
+		<div class={thumbnail
 			? "rounded-md border border-green-200 bg-green-50 p-4"
 			: "rounded-md border border-amber-200 bg-amber-50 p-4"}>
 			<div class="flex items-start justify-between gap-4">
 				<div class="flex-1">
-					<p class="mb-2 text-sm font-medium {content?.metadata?.thumbnail ? 'text-green-800' : 'text-amber-800'}">
-						{content?.metadata?.thumbnail ? 'Thumbnail Available' : 'Thumbnail Missing'}
+					<p class="mb-2 text-sm font-medium {thumbnail ? 'text-green-800' : 'text-amber-800'}">
+						{thumbnail ? 'Thumbnail Available' : 'Thumbnail Missing'}
 					</p>
-					{#if content?.metadata?.thumbnail}
+					{#if thumbnail}
 						<img
-							src={getCachedImageWithPreset(content.metadata.thumbnail, 'thumbnail')}
-							alt="Library thumbnail"
+							src={getCachedImageWithPreset(thumbnail, 'thumbnail')}
+							alt="{typeLabel} thumbnail"
 							class="w-64 rounded border border-gray-200"
 						/>
 					{:else}
 						<p class="text-sm text-amber-700">
-							The thumbnail could not be fetched from GitHub. Click "Refresh Metadata" to try again.
+							The thumbnail could not be fetched from {sourceHint}. Click "Refresh Metadata" to try again.
 						</p>
 					{/if}
 				</div>
