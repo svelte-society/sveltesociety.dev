@@ -71,7 +71,7 @@ export class ExternalContentService {
       }
 
       if (existing) {
-        this.contentService.updateContent({
+        await this.contentService.updateContent({
           id: existing.id,
           title: data.title,
           slug: existing.slug,
@@ -85,7 +85,7 @@ export class ExternalContentService {
 
         return existing.id
       } else {
-        const contentId = this.contentService.addContent({
+        const contentId = await this.contentService.addContent({
           title: data.title,
           type: data.type,
           slug,

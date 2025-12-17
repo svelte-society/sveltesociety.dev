@@ -43,7 +43,9 @@
 	},
 	"private": true,
 	"dependencies": {
-		"sharp": "^0.34.5"
+		"marked-shiki": "^1.2.1",
+		"sharp": "^0.34.5",
+		"shiki": "^3.20.0"
 	},
 	"scripts": {
 		"dev": "vite dev",

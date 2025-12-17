@@ -200,7 +200,7 @@ describe('ContentService', () => {
 	})
 
 	describe('addContent', () => {
-		test('should create new content', () => {
+		test('should create new content', async () => {
 			const newContent = {
 				title: 'New Test Content',
 				slug: 'new-test-content',
@@ -211,7 +211,7 @@ describe('ContentService', () => {
 				tags: ['tag1']
 			}
 
-			const id = contentService.addContent(newContent)
+			const id = await contentService.addContent(newContent)
 			expect(id).toBeDefined()
 			expect(typeof id).toBe('string')
 
@@ -223,7 +223,7 @@ describe('ContentService', () => {
 			expect(content?.status).toBe('draft')
 		})
 
-		test('should create content with author', () => {
+		test('should create content with author', async () => {
 			// First create a user
 			db.prepare('INSERT INTO users (id, username, email) VALUES (?, ?, ?)').run(
 				'author1',
@@ -241,7 +241,7 @@ describe('ContentService', () => {
 				tags: []
 			}
 
-			const id = contentService.addContent(newContent, 'author1')
+			const id = await contentService.addContent(newContent, 'author1')
 			expect(id).toBeDefined()
 
 			// Verify author association
@@ -252,7 +252,7 @@ describe('ContentService', () => {
 			expect(authors[0].user_id).toBe('author1')
 		})
 
-		test('should create content with multiple tags', () => {
+		test('should create content with multiple tags', async () => {
 			const newContent = {
 				title: 'Multi-tag Content',
 				slug: 'multi-tag-content',
@@ -263,7 +263,7 @@ describe('ContentService', () => {
 				tags: ['tag1', 'tag2']
 			}
 
-			const id = contentService.addContent(newContent)
+			const id = await contentService.addContent(newContent)
 			expect(id).toBeDefined()
 
 			// Verify tags
@@ -273,7 +273,7 @@ describe('ContentService', () => {
 			expect(tags.length).toBe(2)
 		})
 
-		test('should add content to search index with tag slugs', () => {
+		test('should add content to search index with tag slugs', async () => {
 			const newContent = {
 				title: 'Searchable Content',
 				slug: 'searchable-content',
@@ -284,7 +284,7 @@ describe('ContentService', () => {
 				tags: ['tag1', 'tag2']
 			}
 
-			const id = contentService.addContent(newContent)
+			const id = await contentService.addContent(newContent)
 
 			// Verify content is in search index with correct tag slugs
 			const indexed = searchService.getContentById(id)
@@ -295,7 +295,7 @@ describe('ContentService', () => {
 	})
 
 	describe('updateContent', () => {
-		test('should update content fields', () => {
+		test('should update content fields', async () => {
 			// Get existing content to provide all required fields
 			const existing = db.prepare('SELECT * FROM content WHERE id = ?').get('content1') as any
 
@@ -309,14 +309,14 @@ describe('ContentService', () => {
 				description: 'Updated description'
 			}
 
-			contentService.updateContent(updates)
+			await contentService.updateContent(updates)
 
 			const content = contentService.getContentById('content1')
 			expect(content?.title).toBe('Updated Title')
 			expect(content?.description).toBe('Updated description')
 		})
 
-		test('should update content status', () => {
+		test('should update content status', async () => {
 			// Get existing content to provide all required fields
 			const existing = db.prepare('SELECT * FROM content WHERE id = ?').get('content3') as any
 
@@ -330,13 +330,13 @@ describe('ContentService', () => {
 				status: 'published' as const
 			}
 
-			contentService.updateContent(updates)
+			await contentService.updateContent(updates)
 
 			const content = contentService.getContentById('content3')
 			expect(content?.status).toBe('published')
 		})
 
-		test('should update content tags', () => {
+		test('should update content tags', async () => {
 			// Get existing content to provide all required fields
 			const existing = db.prepare('SELECT * FROM content WHERE id = ?').get('content1') as any
 
@@ -351,7 +351,7 @@ describe('ContentService', () => {
 				tags: ['tag2', 'tag3']
 			}
 
-			contentService.updateContent(updates)
+			await contentService.updateContent(updates)
 
 			const content = contentService.getContentById('content1')
 			expect(content?.tags.length).toBe(2)
@@ -359,7 +359,7 @@ describe('ContentService', () => {
 			expect(content?.tags.some((t: any) => t.id === 'tag3')).toBe(true)
 		})
 
-		test('should set published_at when publishing', () => {
+		test('should set published_at when publishing', async () => {
 			// Get existing content to provide all required fields
 			const existing = db.prepare('SELECT * FROM content WHERE id = ?').get('content3') as any
 
@@ -373,7 +373,7 @@ describe('ContentService', () => {
 				status: 'published' as const
 			}
 
-			contentService.updateContent(updates)
+			await contentService.updateContent(updates)
 
 			const content = db
 				.prepare('SELECT published_at FROM content WHERE id = ?')
@@ -384,7 +384,7 @@ describe('ContentService', () => {
 			expect(content.published_at).not.toBeNull()
 		})
 
-		test('should update search index with tag slugs', () => {
+		test('should update search index with tag slugs', async () => {
 			// Get existing content to provide all required fields
 			const existing = db.prepare('SELECT * FROM content WHERE id = ?').get('content1') as any
 
@@ -398,7 +398,7 @@ describe('ContentService', () => {
 				status: existing.status
 			}
 
-			contentService.updateContent(updates)
+			await contentService.updateContent(updates)
 
 			// Verify search index was updated
 			const indexed = searchService.getContentById('content1')
