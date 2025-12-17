@@ -2,7 +2,7 @@ import { form, getRequestEvent, query } from '$app/server'
 import { error, redirect } from '@sveltejs/kit'
 import { createTagSchema, updateTagSchema, deleteTagSchema } from '$lib/schema/tags'
 import { checkAdminAuth } from '../authorization.remote'
-import z from 'zod/v4'
+import { z } from 'zod/v4'
 
 export const getTags = query(() => {
   checkAdminAuth()
