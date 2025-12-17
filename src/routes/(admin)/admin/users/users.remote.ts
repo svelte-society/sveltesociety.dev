@@ -8,7 +8,7 @@ import {
   clearSessionsSchema
 } from '$lib/schema/users'
 import { checkAdminAuth } from '../authorization.remote'
-import z from 'zod/v4'
+import { z } from 'zod/v4'
 
 export const getUsers = query(getUsersSchema, ({ page, perPage }) => {
   checkAdminAuth()
