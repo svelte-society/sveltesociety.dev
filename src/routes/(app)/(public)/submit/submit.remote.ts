@@ -70,7 +70,7 @@ export const submitResource = form(resourceSchema, async (data) => {
   try {
     const slug = generateSlug(data.title)
 
-    locals.contentService.addContent(
+    await locals.contentService.addContent(
       {
         title: data.title,
         type: 'resource',
@@ -177,7 +177,7 @@ export const submitVideo = form(videoSchema, async (data) => {
   try {
     const slug = generateSlug(title || `video-${videoId}`)
 
-    locals.contentService.addContent(
+    await locals.contentService.addContent(
       {
         title: title || `YouTube Video: ${videoId}`,
         type: 'video',
@@ -254,7 +254,7 @@ export const submitLibrary = form(librarySchema, async (data) => {
     const title = packagePath ? `${repo}/${packagePath}` : repoName
     const slug = generateSlug(title)
 
-    locals.contentService.addContent(
+    await locals.contentService.addContent(
       {
         title,
         type: 'library',
@@ -294,7 +294,7 @@ export const submitRecipe = form(recipeSchema, async (data) => {
   try {
     const slug = generateSlug(data.title)
 
-    locals.contentService.addContent(
+    await locals.contentService.addContent(
       {
         title: data.title,
         type: 'recipe',

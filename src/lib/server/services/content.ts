@@ -8,7 +8,7 @@ import type {
 	ContentWithAuthor
 } from '$lib/types/content'
 import type { Tag } from '$lib/types/tags'
-import { marked } from 'marked'
+import { renderMarkdown } from '../markdown'
 
 export class ContentService {
 	constructor(
@@ -323,11 +323,11 @@ export class ContentService {
 		return result?.total || 0
 	}
 
-	addContent(data: CreateContent, author_id?: string) {
+	async addContent(data: CreateContent, author_id?: string) {
 		// Convert markdown to HTML for content types that have body
 		let renderedBody = null
 		if ('body' in data && data.body) {
-			renderedBody = marked(data.body) as string
+			renderedBody = await renderMarkdown(data.body)
 		}
 
 		const params = {
@@ -423,11 +423,11 @@ export class ContentService {
 		return id
 	}
 
-	updateContent(data: UpdateContent) {
+	async updateContent(data: UpdateContent) {
 		// Convert markdown to HTML for content types that have body
 		let renderedBody = null
 		if ('body' in data && data.body) {
-			renderedBody = marked(data.body) as string
+			renderedBody = await renderMarkdown(data.body)
 		}
 
 		const params = {

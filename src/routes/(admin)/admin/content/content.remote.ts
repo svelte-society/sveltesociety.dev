@@ -99,7 +99,7 @@ export const createContent = form(adminCreateContentSchema, async (data) => {
 		...(data.metadata && { metadata: data.metadata })
 	} as any
 
-	const contentId = locals.contentService.addContent(contentData, locals.user?.id)
+	const contentId = await locals.contentService.addContent(contentData, locals.user?.id)
 	redirect(303, `/admin/content/${contentId}`)
 })
 
@@ -178,7 +178,7 @@ export const updateContent = form(adminUpdateContentSchema, async (data) => {
 		...(data.metadata && { metadata: data.metadata })
 	} as any
 
-	locals.contentService.updateContent(contentData)
+	await locals.contentService.updateContent(contentData)
 
 	const content = locals.contentService.getContentById(data.id)
 	if (content) {
