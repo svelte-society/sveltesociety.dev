@@ -1,6 +1,7 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
+		"target": "ES2022",
 		"allowJs": true,
 		"checkJs": true,
 		"esModuleInterop": true,
