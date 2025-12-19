@@ -22,9 +22,10 @@ describe('MetadataService', () => {
 			expect(result).toBeDefined()
 			expect(result.updated_at).toBeDefined()
 			// GitHub API may or may not return data depending on rate limits
-			if (result.github) {
-				expect(result.github.owner).toBe('sveltejs')
-				expect(result.github.repo).toBe('svelte')
+			// Stats are returned at top level (not under github key)
+			if (result.stars !== undefined) {
+				expect(typeof result.stars).toBe('number')
+				expect(typeof result.forks).toBe('number')
 			}
 		})
 
@@ -37,8 +38,10 @@ describe('MetadataService', () => {
 		test('should handle empty URL', async () => {
 			const result = await service.fetchGithubMetadata('')
 			expect(result).toBeDefined()
-			expect(result.github).toBeDefined()
-			expect(result.github.stars).toBe(0)
+			// Stats are returned at top level
+			expect(result.stars).toBe(0)
+			expect(result.forks).toBe(0)
+			expect(result.issues).toBe(0)
 		})
 	})
 
