@@ -39,7 +39,7 @@
 	const loadingAttr = $derived(isAboveFold ? 'eager' : 'lazy')
 	const fetchPriorityAttr = $derived(isAboveFold ? 'high' : undefined)
 
-	// Use packageUrl for monorepo packages, otherwise use github URL
+	// Get GitHub URL - prefer packageUrl for monorepo packages
 	const githubUrl = $derived(content.metadata?.packageUrl || content.metadata?.github)
 </script>
 

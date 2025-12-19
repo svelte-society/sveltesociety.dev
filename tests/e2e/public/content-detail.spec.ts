@@ -132,4 +132,61 @@ test.describe('Content Detail Pages', () => {
 		await expect(npmLink).toHaveAttribute('target', '_blank')
 		await expect(npmLink).toHaveAttribute('rel', 'noopener noreferrer')
 	})
+
+	test('library thumbnail link has valid GitHub URL', async ({ page }) => {
+		const detailPage = new ContentDetailPage(page)
+		await detailPage.goto('library', 'test-library-testing-library-content_library_001')
+
+		await detailPage.expectContentLoaded()
+
+		// Check that the library thumbnail link is visible
+		const thumbnailLink = page.getByTestId('library-thumbnail-link')
+		await expect(thumbnailLink).toBeVisible()
+
+		// Verify the link points to a valid GitHub URL
+		const href = await thumbnailLink.getAttribute('href')
+		expect(href).toBeTruthy()
+		expect(href).toMatch(/^https:\/\/github\.com\//)
+
+		// Regression test: ensure href is not [object Object] (bug fix for metadata.github being object)
+		expect(href).not.toContain('[object')
+		expect(href).not.toContain('Object]')
+
+		// Verify the specific GitHub repo URL
+		expect(href).toBe('https://github.com/testing-library/svelte-testing-library')
+
+		// Verify link has correct attributes for external links
+		await expect(thumbnailLink).toHaveAttribute('target', '_blank')
+		await expect(thumbnailLink).toHaveAttribute('rel', 'noopener noreferrer')
+	})
+
+	test('library thumbnail link works for second library', async ({ page }) => {
+		// Test with a different library to ensure consistent behavior
+		const detailPage = new ContentDetailPage(page)
+		await detailPage.goto('library', 'test-library-store-utils-content_library_002')
+
+		await detailPage.expectContentLoaded()
+
+		// Check that the library thumbnail link is visible
+		const thumbnailLink = page.getByTestId('library-thumbnail-link')
+		await expect(thumbnailLink).toBeVisible()
+
+		// Verify the link points to a valid GitHub URL
+		const href = await thumbnailLink.getAttribute('href')
+		expect(href).toBeTruthy()
+		expect(href).toMatch(/^https:\/\/github\.com\//)
+
+		// Regression test: ensure href is not [object Object]
+		// This catches a bug where metadata.github could become an object
+		expect(href).not.toContain('[object')
+		expect(href).not.toContain('Object]')
+
+		// Verify the specific GitHub repo URL
+		expect(href).toBe('https://github.com/svelte-society/svelte-store-utils')
+
+		// Verify link has correct attributes for external links
+		await expect(thumbnailLink).toHaveAttribute('target', '_blank')
+		await expect(thumbnailLink).toHaveAttribute('rel', 'noopener noreferrer')
+	})
+
 })

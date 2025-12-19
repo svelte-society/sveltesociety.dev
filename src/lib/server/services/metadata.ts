@@ -13,6 +13,7 @@ export class MetadataService {
 	constructor(private db: Database) {}
 
 	// GitHub metadata method
+	// Returns stats at top level to avoid overwriting the github URL field
 	async fetchGithubMetadata(repoUrl: string) {
 		const result: any = {
 			updated_at: new Date().toISOString()
@@ -20,14 +21,10 @@ export class MetadataService {
 
 		if (!repoUrl) {
 			return {
-				github: {
-					owner: '',
-					repo: '',
-					stars: 0,
-					forks: 0,
-					issues: 0,
-					lastUpdated: ''
-				}
+				stars: 0,
+				forks: 0,
+				issues: 0,
+				updatedAt: ''
 			}
 		}
 
@@ -52,26 +49,16 @@ export class MetadataService {
 				if (githubResponse.ok) {
 					const repoData = await githubResponse.json()
 
-					result.github = {
-						owner,
-						repo,
-						stars: repoData.stargazers_count || 0,
-						forks: repoData.forks_count || 0,
-						issues: repoData.open_issues_count || 0,
-						lastUpdated: repoData.updated_at || ''
-					}
+					// Store stats at top level (consistent with GitHub importer)
+					// This avoids overwriting the github URL field
+					result.stars = repoData.stargazers_count || 0
+					result.forks = repoData.forks_count || 0
+					result.issues = repoData.open_issues_count || 0
+					result.updatedAt = repoData.updated_at || ''
 				}
 			}
 		} catch (error) {
 			console.error(`Error fetching GitHub metadata for ${repoUrl}:`, error)
-			result.github = {
-				owner: '',
-				repo: '',
-				stars: 0,
-				forks: 0,
-				issues: 0,
-				lastUpdated: ''
-			}
 		}
 
 		return result
@@ -377,7 +364,7 @@ export class MetadataService {
 					const thumbnailUrl = await this.refreshLibraryThumbnail(
 						owner,
 						repo,
-						githubMetadata.github?.lastUpdated
+						githubMetadata.updatedAt
 					)
 					console.log(`[MetadataService] Thumbnail result: ${thumbnailUrl}`)
 					if (thumbnailUrl) {

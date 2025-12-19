@@ -235,23 +235,17 @@ export const submitLibrary = form(librarySchema, async (data) => {
   }
 
   // Try to fetch repository metadata from GitHub API (optional - don't fail if unavailable)
-  let repoName = repo
   let stars = 0
-  let repoDescription = ''
   try {
     const metadata = await locals.metadataService.fetchGithubMetadata(githubUrl)
-    if (metadata.github) {
-      repoName = metadata.github.repo || repo
-      stars = metadata.github.stars || 0
-      repoDescription = metadata.github.description || ''
-    }
+    stars = metadata.stars || 0
   } catch (error) {
     console.error('Error fetching GitHub metadata:', error)
     // Continue without metadata - moderator will see repo URL
   }
 
   try {
-    const title = packagePath ? `${repo}/${packagePath}` : repoName
+    const title = packagePath ? `${repo}/${packagePath}` : repo
     const slug = generateSlug(title)
 
     await locals.contentService.addContent(
@@ -259,7 +253,7 @@ export const submitLibrary = form(librarySchema, async (data) => {
         title,
         type: 'library',
         slug,
-        description: data.description || repoDescription || `GitHub repository: ${owner}/${repo}`,
+        description: data.description || `GitHub repository: ${owner}/${repo}`,
         status: 'pending_review',
         tags: data.tags,
         metadata: {
