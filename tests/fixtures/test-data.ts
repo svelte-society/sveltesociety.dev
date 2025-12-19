@@ -114,6 +114,27 @@ export const TEST_CONTENT = [
 		published: true
 	},
 	{
+		id: 'content_library_002',
+		title: 'Test Library: Svelte Store Utils',
+		type: 'library',
+		status: 'published',
+		body: 'Utility functions for Svelte stores.',
+		slug: 'test-library-store-utils',
+		description: 'Helpful utilities for working with Svelte stores',
+		metadata: {
+			npm: 'svelte-store-utils',
+			github: 'https://github.com/svelte-society/svelte-store-utils',
+			stars: 500,
+			forks: 50,
+			issues: 5,
+			updatedAt: '2024-01-15T10:00:00Z',
+			thumbnail: 'https://opengraph.githubassets.com/test/svelte-society/svelte-store-utils'
+		},
+		authorId: 'test_admin_001',
+		tags: ['tag_state', 'tag_svelte'],
+		published: true
+	},
+	{
 		id: 'content_announcement_001',
 		title: 'Test Announcement: Svelte 5 Released',
 		type: 'announcement',
