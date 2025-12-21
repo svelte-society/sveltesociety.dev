@@ -1,20 +1,23 @@
-import { Effect, Layer } from 'effect'
+import { Config, Effect, Layer } from 'effect'
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses'
 import { EmailSendError } from '../schemas'
-import { EmailConfig } from '../services/EmailConfig'
 import { SesClientService } from '../services/SesClient'
 
+/**
+ * SES client layer that reads config from ConfigProvider.
+ * In production, uses environment variables via default ConfigProvider.
+ * In tests, provide a custom ConfigProvider via Layer.setConfigProvider.
+ */
 export const SesClientLive = Layer.effect(
   SesClientService,
   Effect.gen(function* () {
-    const config = yield* EmailConfig
+    const region = yield* Config.string('AWS_SES_REGION')
+    const accessKeyId = yield* Config.string('AWS_SES_ACCESS_KEY')
+    const secretAccessKey = yield* Config.string('AWS_SES_SECRET_KEY')
 
     const client = new SESClient({
-      region: config.region,
-      credentials: {
-        accessKeyId: config.accessKeyId,
-        secretAccessKey: config.secretAccessKey
-      }
+      region,
+      credentials: { accessKeyId, secretAccessKey }
     })
 
     return {

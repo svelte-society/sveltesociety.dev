@@ -15,7 +15,13 @@ import { ExternalContentService } from '$lib/server/services/external-content'
 import { LLMService } from '$lib/server/services/llm'
 import { AnnouncementService } from '$lib/server/services/AnnouncementService'
 import { ShortcutService } from '$lib/server/services/ShortcutService'
+import { createEmailClient } from '$lib/server/services/email'
 import fs from 'node:fs'
+
+// Email service client - shared across all requests
+// Uses its own LMDB storage, independent of SQLite database
+// Lazily initialized on first use (will fail if AWS_SES_* env vars are missing)
+const emailService = createEmailClient()
 
 // Cache for database connections and services per database path
 const dbCache = new Map<
@@ -136,6 +142,7 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.llmService = services.llmService
 	event.locals.announcementService = services.announcementService
 	event.locals.shortcutService = services.shortcutService
+	event.locals.emailService = emailService
 
 	return resolve(event)
 }

@@ -1,13 +1,12 @@
 // Live implementations
-export { EmailConfigLive } from './EmailConfigLive'
 export { KeyValueStoreLive } from './KeyValueStoreLive'
 export { KeyValueStoreConfigLive } from './KeyValueStoreConfigLive'
 export { EmailQueueLive } from './EmailQueueLive'
 export { SesClientLive } from './SesClientLive'
+export { SesClientConsole } from './SesClientConsole'
 export { EmailServiceLive } from './EmailServiceLive'
 
 // Test implementations
-export { EmailConfigTest, makeEmailConfigTest } from './EmailConfigTest'
 export { KeyValueStoreTest } from './KeyValueStoreTest'
 export {
   SesClientTest,

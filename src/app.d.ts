@@ -14,6 +14,7 @@ import type { ExternalContentService } from '$lib/server/services/external-conte
 import type { LLMService } from '$lib/server/services/llm'
 import type { AnnouncementService } from '$lib/server/services/AnnouncementService'
 import type { ShortcutService } from '$lib/server/services/ShortcutService'
+import type { EmailClient } from '$lib/server/services/email'
 
 declare global {
 	namespace App {
@@ -35,6 +36,7 @@ declare global {
 			llmService: LLMService
 			announcementService: AnnouncementService
 			shortcutService: ShortcutService
+			emailService: EmailClient
 		}
 		// interface PageData {}
 		// interface PageState {}
