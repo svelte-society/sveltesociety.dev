@@ -191,7 +191,7 @@
 		</div>
 	{/if}
 
-	<div class="mt-2">
+	<div class="mt-2 min-w-0">
 		{#if content.type === 'recipe'}
 			<Recipe {content} {variant} />
 		{:else if content.type === 'collection'}

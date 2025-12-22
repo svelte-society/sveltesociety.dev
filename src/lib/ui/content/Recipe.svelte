@@ -11,7 +11,7 @@
 </script>
 
 {#if variant === 'detail' && content.rendered_body}
-	<div class="prose prose-sm max-w-none text-gray-700">
+	<div class="prose prose-sm min-w-0 max-w-none text-gray-700">
 		{@html content.rendered_body}
 	</div>
 {/if}
