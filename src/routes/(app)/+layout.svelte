@@ -57,12 +57,12 @@
 	>
 		<LeftSidebar {links} />
 
-		<div class="flex flex-col px-4 pt-8">
+		<div class="flex min-w-0 flex-col px-4 pt-8">
 			<div class="mb-6 shrink-0 sm:hidden">
 				<MobileMenu {links} upcomingEvents={await getUpcomingEvents()} />
 			</div>
 
-			<div class="flex-1 pb-8">
+			<div class="min-w-0 flex-1 pb-8">
 				{@render children()}
 			</div>
 		</div>
