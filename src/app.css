@@ -32,7 +32,7 @@
 /* Syntax highlighting - shiki code blocks */
 @layer components {
     .prose pre {
-        @apply overflow-x-auto rounded-lg py-4 pr-4 pl-2 text-sm;
+        @apply overflow-x-auto rounded-lg py-4 pr-4 pl-2 text-base;
     }
 
     .prose pre code {
