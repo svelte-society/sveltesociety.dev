@@ -4,8 +4,35 @@
 	import MapPin from 'phosphor-svelte/lib/MapPin'
 	import User from 'phosphor-svelte/lib/User'
 	import Event from './Event.svelte'
+	import Schema from '$lib/ui/Schema.svelte'
+	import { generateEventListSchema, type EventSchemaInput } from '$lib/seo'
+
 	let { data } = $props()
+
+	// Generate event list schema for upcoming events (for rich snippets)
+	const eventSchemaInputs: EventSchemaInput[] = $derived(
+		data.upcomingEvents.map((event) => ({
+			name: event.title,
+			description: event.description,
+			startDate: event.startTime,
+			endDate: event.endTime,
+			url: event.url,
+			imageUrl: event.socialCardUrl,
+			organizerName: event.owner,
+			isOnline: true // Most Svelte Society events are online
+		}))
+	)
+
+	const eventListSchema = $derived(
+		eventSchemaInputs.length > 0
+			? generateEventListSchema(eventSchemaInputs, 'Upcoming Svelte Society Events')
+			: null
+	)
 </script>
+
+{#if eventListSchema}
+	<Schema schema={eventListSchema} />
+{/if}
 
 <div class="grid gap-8">
 	<!-- Upcoming Events Section -->

@@ -1,4 +1,11 @@
+import { buildStaticPageMeta } from '$lib/seo'
 import type { PageServerLoad } from './$types'
+
+const EVENTS_META = buildStaticPageMeta(
+	'Events',
+	'Join us at upcoming Svelte Society events, meetups, and workshops',
+	'https://sveltesociety.dev/events'
+)
 
 export const load: PageServerLoad = async ({ locals }) => {
 	try {
@@ -92,22 +99,14 @@ export const load: PageServerLoad = async ({ locals }) => {
 		return {
 			upcomingEvents,
 			pastEvents,
-			meta: {
-				title: 'Events - Svelte Society',
-				description: 'Join us at upcoming Svelte Society events, meetups, and workshops',
-				url: '/events'
-			}
+			meta: EVENTS_META
 		}
 	} catch (error) {
 		console.error('Error loading events:', error)
 		return {
 			upcomingEvents: [],
 			pastEvents: [],
-			meta: {
-				title: 'Events - Svelte Society',
-				description: 'Join us at upcoming Svelte Society events, meetups, and workshops',
-				url: '/events'
-			}
+			meta: EVENTS_META
 		}
 	}
 }

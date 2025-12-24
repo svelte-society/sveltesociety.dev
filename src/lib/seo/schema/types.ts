@@ -120,6 +120,54 @@ export interface BreadcrumbItemSchema {
 }
 
 /**
+ * Place Schema for event location
+ * https://schema.org/Place
+ */
+export interface PlaceSchema {
+	'@type': 'Place' | 'VirtualLocation'
+	name?: string
+	address?: string
+	url?: string
+}
+
+/**
+ * Event Schema
+ * https://schema.org/Event
+ */
+export interface EventSchema extends SchemaBase {
+	'@type': 'Event'
+	name: string
+	description?: string
+	startDate: string // ISO 8601
+	endDate?: string // ISO 8601
+	location?: PlaceSchema
+	url?: string
+	image?: string
+	organizer?: {
+		'@type': 'Organization'
+		name: string
+		url?: string
+	}
+	eventStatus?: 'https://schema.org/EventScheduled' | 'https://schema.org/EventCancelled' | 'https://schema.org/EventPostponed'
+	eventAttendanceMode?: 'https://schema.org/OnlineEventAttendanceMode' | 'https://schema.org/OfflineEventAttendanceMode' | 'https://schema.org/MixedEventAttendanceMode'
+}
+
+/**
+ * ItemList Schema for event listings
+ * https://schema.org/ItemList
+ */
+export interface ItemListSchema extends SchemaBase {
+	'@type': 'ItemList'
+	name?: string
+	numberOfItems: number
+	itemListElement: Array<{
+		'@type': 'ListItem'
+		position: number
+		item: EventSchema
+	}>
+}
+
+/**
  * Generic schema type that can be any of the above
  */
 export type Schema =
@@ -129,6 +177,8 @@ export type Schema =
 	| TechArticleSchema
 	| SoftwareSourceCodeSchema
 	| BreadcrumbListSchema
+	| EventSchema
+	| ItemListSchema
 
 /**
  * Helper type for multiple schemas

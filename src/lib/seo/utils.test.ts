@@ -9,6 +9,7 @@ import {
 	getOgType,
 	getSchemaType,
 	formatContentType,
+	pluralizeContentType,
 	buildSeoConfig,
 	buildHomepageMeta,
 	buildContentMeta,
@@ -175,6 +176,26 @@ describe('SEO Utility Functions', () => {
 		})
 	})
 
+	describe('pluralizeContentType', () => {
+		test('pluralizes known content types correctly', () => {
+			expect(pluralizeContentType('library')).toBe('Libraries')
+			expect(pluralizeContentType('recipe')).toBe('Recipes')
+			expect(pluralizeContentType('video')).toBe('Videos')
+			expect(pluralizeContentType('collection')).toBe('Collections')
+			expect(pluralizeContentType('announcement')).toBe('Announcements')
+			expect(pluralizeContentType('resource')).toBe('Resources')
+		})
+
+		test('handles case insensitivity', () => {
+			expect(pluralizeContentType('LIBRARY')).toBe('Libraries')
+			expect(pluralizeContentType('Recipe')).toBe('Recipes')
+		})
+
+		test('falls back to adding s for unknown types', () => {
+			expect(pluralizeContentType('widget')).toBe('Widgets')
+		})
+	})
+
 	describe('buildSeoConfig', () => {
 		test('builds complete config with defaults matching Svead API', () => {
 			const config = buildSeoConfig({
@@ -222,6 +243,38 @@ describe('SEO Utility Functions', () => {
 			})
 
 			expect(config.author_name).toBe('John Doe')
+		})
+
+		test('includes og_type when provided', () => {
+			const config = buildSeoConfig({
+				title: 'Test',
+				description: 'Test',
+				url: 'https://example.com',
+				og_type: 'article'
+			})
+
+			expect(config.og_type).toBe('article')
+		})
+
+		test('includes robots when provided', () => {
+			const config = buildSeoConfig({
+				title: 'Test',
+				description: 'Test',
+				url: 'https://example.com',
+				robots: 'noindex, nofollow'
+			})
+
+			expect(config.robots).toBe('noindex, nofollow')
+		})
+
+		test('does not include og_type when not provided', () => {
+			const config = buildSeoConfig({
+				title: 'Test',
+				description: 'Test',
+				url: 'https://example.com'
+			})
+
+			expect(config.og_type).toBeUndefined()
 		})
 	})
 
@@ -293,22 +346,77 @@ describe('SEO Utility Functions', () => {
 
 			expect(meta.author_name).toBe('Jane Doe')
 		})
+
+		test('sets og_type based on content type', () => {
+			const videoContent = {
+				title: 'My Video',
+				type: 'video',
+				slug: 'my-video'
+			}
+			const videoMeta = buildContentMeta(videoContent, 'https://sveltesociety.dev/video/my-video')
+			expect(videoMeta.og_type).toBe('video.other')
+
+			const recipeContent = {
+				title: 'My Recipe',
+				type: 'recipe',
+				slug: 'my-recipe'
+			}
+			const recipeMeta = buildContentMeta(recipeContent, 'https://sveltesociety.dev/recipe/my-recipe')
+			expect(recipeMeta.og_type).toBe('article')
+
+			const libraryContent = {
+				title: 'My Library',
+				type: 'library',
+				slug: 'my-library'
+			}
+			const libraryMeta = buildContentMeta(libraryContent, 'https://sveltesociety.dev/library/my-library')
+			expect(libraryMeta.og_type).toBe('article')
+		})
+
+		test('handles null published_at and updated_at', () => {
+			const content = {
+				title: 'My Content',
+				type: 'recipe',
+				slug: 'my-content',
+				published_at: null,
+				updated_at: null
+			}
+
+			const meta = buildContentMeta(content, 'https://sveltesociety.dev/recipe/my-content')
+
+			expect(meta.title).toBe('My Content - Svelte Society')
+		})
 	})
 
 	describe('buildCategoryMeta', () => {
-		test('builds category meta configuration', () => {
+		test('builds category meta configuration with pluralized description', () => {
 			const meta = buildCategoryMeta('recipe', 'https://sveltesociety.dev/recipe')
 
 			expect(meta.title).toBe('Recipe - Svelte Society')
-			expect(meta.description).toBe('Browse recipe from the Svelte Society community')
+			expect(meta.description).toBe('Browse recipes from the Svelte Society community')
 			expect(meta.url).toBe('https://sveltesociety.dev/recipe')
+			expect(meta.og_type).toBe('website')
 		})
 
-		test('capitalizes category type', () => {
+		test('capitalizes category type in title', () => {
 			const meta = buildCategoryMeta('video', 'https://sveltesociety.dev/video')
 
 			expect(meta.title).toContain('Video')
-			expect(meta.description).toContain('video')
+			expect(meta.description).toBe('Browse videos from the Svelte Society community')
+		})
+
+		test('handles library pluralization correctly', () => {
+			const meta = buildCategoryMeta('library', 'https://sveltesociety.dev/library')
+
+			expect(meta.title).toBe('Library - Svelte Society')
+			expect(meta.description).toBe('Browse libraries from the Svelte Society community')
+		})
+
+		test('handles resource pluralization correctly', () => {
+			const meta = buildCategoryMeta('resource', 'https://sveltesociety.dev/resource')
+
+			expect(meta.title).toBe('Resource - Svelte Society')
+			expect(meta.description).toBe('Browse resources from the Svelte Society community')
 		})
 	})
 

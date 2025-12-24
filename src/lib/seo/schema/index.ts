@@ -15,6 +15,7 @@ export { generateVideoSchema, type VideoSchemaInput } from './video'
 export { generateArticleSchema, type ArticleSchemaInput } from './article'
 export { generateSoftwareSchema, type SoftwareSchemaInput } from './software'
 export { generateBreadcrumbSchema, type BreadcrumbItem } from './breadcrumb'
+export { generateEventSchema, generateEventListSchema, type EventSchemaInput } from './event'
 
 // Export all types
 export type {
@@ -27,6 +28,9 @@ export type {
 	SoftwareSourceCodeSchema,
 	BreadcrumbListSchema,
 	BreadcrumbItemSchema,
+	EventSchema,
+	ItemListSchema,
+	PlaceSchema,
 	Schema,
 	SchemaArray
 } from './types'
