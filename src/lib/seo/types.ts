@@ -37,6 +37,18 @@ export interface SeoMetaTagConfig {
 
 	/** Web Monetization payment pointer (optional) */
 	payment_pointer?: string
+
+	/**
+	 * Open Graph type (e.g., 'website', 'article', 'video.other')
+	 * @see https://ogp.me/#types
+	 */
+	og_type?: string
+
+	/**
+	 * Robots directive (defaults to 'index, follow')
+	 * Use 'noindex, nofollow' to prevent indexing
+	 */
+	robots?: string
 }
 
 /**

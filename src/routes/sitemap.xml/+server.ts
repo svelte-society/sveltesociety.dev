@@ -47,7 +47,7 @@ function generateSitemap(locals: App.Locals): string {
 	)
 
 	// Category pages
-	const categories = ['recipe', 'video', 'library', 'collection', 'announcement']
+	const categories = ['recipe', 'video', 'library', 'collection', 'announcement', 'resource']
 	for (const category of categories) {
 		urls.push(
 			createUrlEntry(
@@ -62,6 +62,7 @@ function generateSitemap(locals: App.Locals): string {
 	// Static pages
 	const staticPages = [
 		{ path: '/about', lastmod: now },
+		{ path: '/events', lastmod: now },
 		{ path: '/terms', lastmod: now },
 		{ path: '/privacy', lastmod: now }
 	]

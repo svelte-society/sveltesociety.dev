@@ -5,6 +5,7 @@ import { generateVideoSchema } from './video'
 import { generateArticleSchema } from './article'
 import { generateSoftwareSchema } from './software'
 import { generateBreadcrumbSchema } from './breadcrumb'
+import { generateEventSchema, generateEventListSchema } from './event'
 import { SEO_CONFIG } from '../config'
 
 describe('Schema Generators', () => {
@@ -231,6 +232,124 @@ describe('Schema Generators', () => {
 			const schema = generateBreadcrumbSchema(items)
 
 			expect(schema.itemListElement).toHaveLength(0)
+		})
+	})
+
+	describe('generateEventSchema', () => {
+		test('should generate valid Event schema', () => {
+			const input = {
+				name: 'Svelte Society Meetup',
+				description: 'Monthly community meetup',
+				startDate: '2025-02-15T18:00:00Z',
+				endDate: '2025-02-15T20:00:00Z',
+				url: 'https://example.com/event',
+				imageUrl: 'https://example.com/event.jpg',
+				organizerName: 'Svelte Society',
+				organizerUrl: 'https://sveltesociety.dev',
+				isOnline: true
+			}
+
+			const schema = generateEventSchema(input)
+
+			expect(schema['@context']).toBe('https://schema.org')
+			expect(schema['@type']).toBe('Event')
+			expect(schema.name).toBe(input.name)
+			expect(schema.description).toBe(input.description)
+			expect(schema.startDate).toBe(input.startDate)
+			expect(schema.endDate).toBe(input.endDate)
+			expect(schema.url).toBe(input.url)
+			expect(schema.image).toBe(input.imageUrl)
+			expect(schema.eventStatus).toBe('https://schema.org/EventScheduled')
+			expect(schema.eventAttendanceMode).toBe('https://schema.org/OnlineEventAttendanceMode')
+			expect(schema.organizer).toEqual({
+				'@type': 'Organization',
+				name: input.organizerName,
+				url: input.organizerUrl
+			})
+			expect(schema.location).toEqual({
+				'@type': 'VirtualLocation',
+				url: input.url
+			})
+		})
+
+		test('should handle offline events with location', () => {
+			const input = {
+				name: 'Svelte Conf',
+				startDate: '2025-06-01T09:00:00Z',
+				location: 'San Francisco, CA',
+				isOnline: false
+			}
+
+			const schema = generateEventSchema(input)
+
+			expect(schema.eventAttendanceMode).toBe('https://schema.org/OfflineEventAttendanceMode')
+			expect(schema.location).toEqual({
+				'@type': 'Place',
+				name: 'San Francisco, CA',
+				address: 'San Francisco, CA'
+			})
+		})
+
+		test('should handle minimal input', () => {
+			const input = {
+				name: 'Quick Event',
+				startDate: '2025-03-01T10:00:00Z'
+			}
+
+			const schema = generateEventSchema(input)
+
+			expect(schema.name).toBe(input.name)
+			expect(schema.startDate).toBe(input.startDate)
+			expect(schema.eventStatus).toBe('https://schema.org/EventScheduled')
+			expect(schema.description).toBeUndefined()
+			expect(schema.endDate).toBeUndefined()
+			expect(schema.organizer).toBeUndefined()
+		})
+	})
+
+	describe('generateEventListSchema', () => {
+		test('should generate valid ItemList schema with events', () => {
+			const events = [
+				{
+					name: 'Event 1',
+					startDate: '2025-02-01T18:00:00Z',
+					isOnline: true
+				},
+				{
+					name: 'Event 2',
+					startDate: '2025-03-01T18:00:00Z',
+					isOnline: true
+				}
+			]
+
+			const schema = generateEventListSchema(events, 'Upcoming Events')
+
+			expect(schema['@context']).toBe('https://schema.org')
+			expect(schema['@type']).toBe('ItemList')
+			expect(schema.name).toBe('Upcoming Events')
+			expect(schema.numberOfItems).toBe(2)
+			expect(schema.itemListElement).toHaveLength(2)
+
+			schema.itemListElement.forEach((item, index) => {
+				expect(item['@type']).toBe('ListItem')
+				expect(item.position).toBe(index + 1)
+				expect(item.item['@type']).toBe('Event')
+				expect(item.item.name).toBe(events[index].name)
+			})
+		})
+
+		test('should handle empty events array', () => {
+			const schema = generateEventListSchema([])
+
+			expect(schema.numberOfItems).toBe(0)
+			expect(schema.itemListElement).toHaveLength(0)
+		})
+
+		test('should handle optional list name', () => {
+			const events = [{ name: 'Event', startDate: '2025-01-01T10:00:00Z' }]
+			const schema = generateEventListSchema(events)
+
+			expect(schema.name).toBeUndefined()
 		})
 	})
 

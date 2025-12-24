@@ -14,6 +14,7 @@ export {
 	getOgType,
 	getSchemaType,
 	formatContentType,
+	pluralizeContentType,
 	buildSeoConfig,
 	buildHomepageMeta,
 	buildContentMeta,
@@ -21,6 +22,9 @@ export {
 	buildStaticPageMeta
 } from './utils'
 export type { SeoMetaTagConfig, PageMetaReturn } from './types'
+
+// Export SEO component (enhanced wrapper around svead)
+export { default as Seo } from './Seo.svelte'
 
 // Export schema generators
 export * from './schema'

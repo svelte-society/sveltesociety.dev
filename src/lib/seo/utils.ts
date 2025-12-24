@@ -163,7 +163,9 @@ export function buildSeoConfig(config: Partial<SeoMetaTagConfig>): SeoMetaTagCon
 		twitter_card_type = 'summary_large_image',
 		website,
 		language = 'en',
-		payment_pointer
+		payment_pointer,
+		og_type,
+		robots
 	} = config
 
 	// Build complete configuration matching Svead's expected format
@@ -182,6 +184,8 @@ export function buildSeoConfig(config: Partial<SeoMetaTagConfig>): SeoMetaTagCon
 	if (author_name) seoConfig.author_name = author_name
 	if (website) seoConfig.website = website
 	if (payment_pointer) seoConfig.payment_pointer = payment_pointer
+	if (og_type) seoConfig.og_type = og_type
+	if (robots) seoConfig.robots = robots
 
 	return seoConfig
 }
@@ -210,8 +214,8 @@ export function buildContentMeta(
 		description?: string
 		type: string
 		slug: string
-		published_at?: string
-		updated_at?: string
+		published_at?: string | null
+		updated_at?: string | null
 		author?: string
 	},
 	url: string
@@ -223,10 +227,28 @@ export function buildContentMeta(
 		description,
 		url,
 		open_graph_image: getAbsoluteUrl(getOgImageUrl(content.slug)),
-		author_name: content.author
+		author_name: content.author,
+		og_type: getOgType(content.type)
 	}
 
 	return buildSeoConfig(config)
+}
+
+/**
+ * Pluralizes a content type for display
+ * @param type - Content type (singular)
+ * @returns Pluralized content type
+ */
+export function pluralizeContentType(type: string): string {
+	const pluralMap: Record<string, string> = {
+		library: 'Libraries',
+		recipe: 'Recipes',
+		video: 'Videos',
+		collection: 'Collections',
+		announcement: 'Announcements',
+		resource: 'Resources'
+	}
+	return pluralMap[type.toLowerCase()] || formatContentType(type) + 's'
 }
 
 /**
@@ -236,12 +258,14 @@ export function buildContentMeta(
  * @returns Category meta configuration
  */
 export function buildCategoryMeta(type: string, url: string): SeoMetaTagConfig {
-	const typeForDisplay = formatContentType(type)
+	const typeForTitle = formatContentType(type)
+	const typeForDescription = pluralizeContentType(type).toLowerCase()
 
 	return buildSeoConfig({
-		title: `${typeForDisplay} - Svelte Society`,
-		description: `Browse ${typeForDisplay.toLowerCase()} from the Svelte Society community`,
-		url
+		title: `${typeForTitle} - Svelte Society`,
+		description: `Browse ${typeForDescription} from the Svelte Society community`,
+		url,
+		og_type: 'website'
 	})
 }
 

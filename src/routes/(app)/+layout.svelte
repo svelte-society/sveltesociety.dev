@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state'
-	import { Head } from 'svead'
+	import { Seo, SEO_CONFIG } from '$lib/seo'
 	import Header from './_components/Header.svelte'
 	import LeftSidebar from './_components/LeftSidebar.svelte'
 	import RightSidebar from './_components/RightSidebar.svelte'
@@ -15,7 +15,10 @@
 		title: 'Svelte Society',
 		description:
 			'The Svelte Society is a community of developers who use Svelte to build web applications.',
-		url: page.url.toString()
+		url: page.url.toString(),
+		site_name: SEO_CONFIG.siteName,
+		twitter_handle: SEO_CONFIG.twitterHandle,
+		open_graph_image: SEO_CONFIG.defaultOgImage
 	}
 
 	let shortcuts = $derived(await getSidebarShortcuts())
@@ -46,7 +49,7 @@
 	></script>
 </svelte:head>
 
-<Head seo_config={page.data.meta || fallbackMeta} />
+<Seo config={page.data.meta || fallbackMeta} />
 
 <div class="flex min-h-screen flex-col">
 	<Header {user} announcement={await getHeaderAnnouncement()} />
