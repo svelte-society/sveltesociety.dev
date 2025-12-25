@@ -43,6 +43,10 @@
 	},
 	"private": true,
 	"dependencies": {
+		"@aws-sdk/client-ses": "^3.954.0",
+		"@effect/language-service": "^0.62.4",
+		"effect": "^3.19.12",
+		"lmdb": "^3.4.4",
 		"marked-shiki": "^1.2.1",
 		"sharp": "^0.34.5",
 		"shiki": "^3.20.0"
