@@ -30,37 +30,38 @@
 }
 
 /* Syntax highlighting - shiki code blocks */
-@layer components {
-    .prose pre {
-        @apply overflow-x-auto rounded-lg py-4 pr-4 pl-2 text-base;
-    }
+.prose pre {
+    @apply overflow-x-auto rounded-lg py-4 pr-4 pl-2;
+    font-size: 1rem !important; /* 16px - override typography plugin */
+    line-height: 1.75 !important;
+}
 
-    .prose pre code {
-        @apply bg-transparent p-0;
-        font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono',
-            monospace;
-        counter-reset: line;
-    }
+.prose pre code {
+    @apply bg-transparent p-0;
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono',
+        monospace;
+    font-size: inherit !important;
+    counter-reset: line;
+}
 
-    .prose pre code>.line {
-        width: 100%;
-    }
+.prose pre code>.line {
+    width: 100%;
+}
 
-    .prose pre code>.line::before {
-        counter-increment: line;
-        content: counter(line);
-        display: inline-block;
-        width: 1.5rem;
-        margin-right: 1rem;
-        text-align: right;
-        color: #94a3b8;
-        /* slate-400 */
-        user-select: none;
-    }
+.prose pre code>.line::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 1.5rem;
+    margin-right: 1rem;
+    text-align: right;
+    color: #94a3b8;
+    /* slate-400 */
+    user-select: none;
+}
 
-    .prose :not(pre)>code {
-        @apply rounded bg-slate-100 px-1.5 py-0.5 text-sm;
-    }
+.prose :not(pre)>code {
+    @apply rounded bg-slate-100 px-1.5 py-0.5 text-sm;
 }
 
 ::view-transition-group(header),
