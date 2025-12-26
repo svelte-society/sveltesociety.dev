@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ContentCard from '$lib/ui/ContentCard.svelte'
 	import Filters from './Filters.svelte'
-	import FilterDropdown from './FilterDropdown.svelte'
+	import FilterDropdown from '$lib/ui/filter/FilterDropdown.svelte'
 	import Schema from '$lib/ui/Schema.svelte'
 	import { getData, getTags } from './data.remote'
 	import { page } from '$app/state'
