@@ -2,7 +2,8 @@
 	import Select from '$lib/ui/Select.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import Tags, { type TagType } from '$lib/ui/Tags.svelte'
-	import { page } from '$app/state'
+	import FilterDropdown from '$lib/ui/filter/FilterDropdown.svelte'
+	import ActiveFilters from '$lib/ui/filter/ActiveFilters.svelte'
 
 	type Option = {
 		label: string
@@ -10,27 +11,20 @@
 	}
 
 	type Props = {
-		categories: Option[]
 		sort: Option[]
 		tags: TagType[]
 		filters: URL
-		updateCategory: (value: string) => void
 		updateSort: (value: string) => void
 	}
 
-	let { categories, sort, tags, filters, updateCategory, updateSort }: Props = $props()
+	let { sort, tags, filters, updateSort }: Props = $props()
 </script>
 
 <form class="@container grid gap-4">
 	<div class="grid w-full grid-cols-1 gap-4 @xs:grid-cols-2">
 		<div class="flex w-full flex-col gap-2">
-			<label for="category" class="text-xs font-medium outline-none">Category</label>
-			<Select
-				value={page.params.type || categories[0].value}
-				name="category"
-				onchange={updateCategory}
-				options={categories}
-			/>
+			<label class="text-xs font-medium outline-none">Filter</label>
+			<FilterDropdown />
 		</div>
 		<div class="flex w-full flex-col gap-2">
 			<label for="sort" class="text-xs font-medium outline-none">Sort</label>
@@ -42,6 +36,7 @@
 			/>
 		</div>
 	</div>
+	<ActiveFilters />
 	<!-- Tags only shown on mobile, hidden on desktop (lg and up) -->
 	<div class="flex w-full flex-col gap-2 lg:hidden">
 		<p class="text-xs font-medium outline-none">Tags</p>

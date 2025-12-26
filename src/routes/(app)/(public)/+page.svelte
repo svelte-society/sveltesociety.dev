@@ -1,22 +1,10 @@
 <script lang="ts">
 	import ContentCard from '$lib/ui/ContentCard.svelte'
-	import FilterDropdown from '$lib/ui/filter/FilterDropdown.svelte'
-	import ActiveFilters from '$lib/ui/filter/ActiveFilters.svelte'
 	import Schema from '$lib/ui/Schema.svelte'
-	import { getHomeData, getTags } from './data.remote'
+	import { getHomeData } from './data.remote'
 	import { page } from '$app/state'
 	import Pagination from '$lib/ui/Pagination.svelte'
 	import Filters from './Filters.svelte'
-
-	const categories = [
-		{ label: 'All', value: '' },
-		{ label: 'Recipe', value: 'recipe' },
-		{ label: 'Video', value: 'video' },
-		{ label: 'Library', value: 'library' },
-		{ label: 'Resource', value: 'resource' },
-		{ label: 'Announcement', value: 'announcement' },
-		{ label: 'Collection', value: 'collection' }
-	]
 
 	const sort = [
 		{ label: 'Newest', value: 'published_at' },
@@ -32,12 +20,7 @@
 	<Schema schema={schemas} />
 {/if}
 
-<Filters {categories} {sort} />
-
-<div class="mb-4 flex flex-wrap items-center gap-4">
-	<FilterDropdown />
-	<ActiveFilters />
-</div>
+<Filters {sort} />
 
 <div data-testid="content-list" class="grid gap-6">
 	{#if count > 0}
