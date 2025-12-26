@@ -1,5 +1,6 @@
 <script lang="ts">
 	import CaretRight from 'phosphor-svelte/lib/CaretRight'
+	import Check from 'phosphor-svelte/lib/Check'
 	import { page } from '$app/state'
 	import { buildToggleHref, isValueActive } from './url-helpers'
 
@@ -105,14 +106,22 @@
 			{@const isActive = isValueActive(page.url, paramName, item.value)}
 			<a
 				href={buildToggleHref(page.url, page.route.id, page.params, paramName, item.value)}
-				role="menuitem"
-				class={[
-					'flex h-8 w-full items-center rounded-sm py-3 pr-1.5 pl-3 text-sm outline-hidden',
-					isActive
-						? 'bg-svelte-100 text-svelte-900 hover:bg-svelte-200 focus:bg-svelte-200'
-						: 'hover:bg-svelte-100 focus:bg-svelte-100'
-				]}
+				role="menuitemcheckbox"
+				aria-checked={isActive}
+				class="flex h-8 w-full items-center gap-2 rounded-sm py-3 pr-3 pl-2 text-sm outline-hidden hover:bg-svelte-100 focus:bg-svelte-100"
 			>
+				<span
+					class={[
+						'flex size-4 shrink-0 items-center justify-center rounded border',
+						isActive
+							? 'border-svelte-500 bg-svelte-500 text-white'
+							: 'border-gray-300 bg-white'
+					]}
+				>
+					{#if isActive}
+						<Check class="size-3" weight="bold" />
+					{/if}
+				</span>
 				{item.label}
 			</a>
 		{/each}
