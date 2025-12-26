@@ -35,6 +35,8 @@
 	<!-- Trigger button - styled like Select component -->
 	<button
 		type="button"
+		aria-haspopup="true"
+		aria-label="Add filter"
 		class="grid w-full min-w-36 grid-cols-[1fr_auto] items-center rounded-md border-2 border-transparent bg-slate-100 px-3 py-1 pl-2 text-left text-sm focus:outline-2 focus:outline-svelte-300"
 	>
 		Add Filter
@@ -43,6 +45,8 @@
 
 	<!-- First level dropdown - styled like Select content -->
 	<div
+		role="menu"
+		aria-label="Filter options"
 		class="invisible absolute left-0 top-full z-50 mt-1 min-w-44 rounded-xl bg-white px-1 py-3 opacity-0 shadow-2xl transition-all select-none group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100"
 	>
 		<FilterSubmenu
