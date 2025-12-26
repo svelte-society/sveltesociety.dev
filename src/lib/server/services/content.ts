@@ -405,14 +405,25 @@ export class ContentService {
 					.filter(Boolean)
 			}
 
+			// Get author username for search index
+			let authorUsernames: string[] = []
+			if (data.author_id) {
+				const authorQuery = this.db.prepare(`SELECT username FROM users WHERE id = ?`)
+				const author = authorQuery.get(data.author_id) as { username: string } | null
+				if (author) {
+					authorUsernames = [author.username]
+				}
+			}
+
 			this.searchService.add({
 				id,
 				title: data.title,
 				description: data.description,
 				tags: tagSlugs,
+				authors: authorUsernames,
 				type: data.type,
 				status: data.status,
-				created_at: data.created_at || new Date().toISOString(),
+				created_at: new Date().toISOString(),
 				published_at: data.status === 'published' ? new Date().toISOString() : '',
 				likes: 0,
 				saves: 0,
