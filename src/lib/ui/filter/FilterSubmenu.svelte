@@ -108,21 +108,12 @@
 				href={buildToggleHref(page.url, page.route.id, page.params, paramName, item.value)}
 				role="menuitemcheckbox"
 				aria-checked={isActive}
-				class="flex h-8 w-full items-center gap-2 rounded-sm py-3 pr-3 pl-2 text-sm outline-hidden hover:bg-svelte-100 focus:bg-svelte-100"
+				class="flex h-8 w-full items-center justify-between rounded-sm py-3 pr-2 pl-3 text-sm outline-hidden hover:bg-svelte-100 focus:bg-svelte-100"
 			>
-				<span
-					class={[
-						'flex size-4 shrink-0 items-center justify-center rounded border',
-						isActive
-							? 'border-svelte-500 bg-svelte-500 text-white'
-							: 'border-gray-300 bg-white'
-					]}
-				>
-					{#if isActive}
-						<Check class="size-3" weight="bold" />
-					{/if}
-				</span>
 				{item.label}
+				{#if isActive}
+					<Check class="size-4 text-svelte-500" weight="bold" />
+				{/if}
 			</a>
 		{/each}
 	</div>
