@@ -1,5 +1,7 @@
 <script lang="ts">
 	import CaretRight from 'phosphor-svelte/lib/CaretRight'
+	import { page } from '$app/state'
+	import { buildToggleHref, isValueActive } from './url-helpers'
 
 	export type Item = {
 		label: string
@@ -8,12 +10,12 @@
 
 	type Props = {
 		label: string
+		paramName: string
 		items?: Item[]
 		getItems?: () => Promise<Item[]> | Item[]
-		buildHref: (item: Item) => string
 	}
 
-	let { label, items, getItems, buildHref }: Props = $props()
+	let { label, paramName, items, getItems }: Props = $props()
 
 	// Normalize items access to a function (supports both sync items and async getItems)
 	function fetchItems(): Promise<Item[]> | Item[] {
@@ -100,10 +102,16 @@
 		class="invisible absolute left-full top-0 ml-1 min-w-44 rounded-xl bg-white px-1 py-3 opacity-0 shadow-2xl transition-all select-none group-focus-within/submenu:visible group-focus-within/submenu:opacity-100"
 	>
 		{#each await fetchItems() as item (item.value)}
+			{@const isActive = isValueActive(page.url, paramName, item.value)}
 			<a
-				href={buildHref(item)}
+				href={buildToggleHref(page.url, page.route.id, page.params, paramName, item.value)}
 				role="menuitem"
-				class="flex h-8 w-full items-center rounded-sm py-3 pr-1.5 pl-3 text-sm outline-hidden hover:bg-svelte-100 focus:bg-svelte-100"
+				class={[
+					'flex h-8 w-full items-center rounded-sm py-3 pr-1.5 pl-3 text-sm outline-hidden',
+					isActive
+						? 'bg-svelte-100 text-svelte-900 hover:bg-svelte-200 focus:bg-svelte-200'
+						: 'hover:bg-svelte-100 focus:bg-svelte-100'
+				]}
 			>
 				{item.label}
 			</a>

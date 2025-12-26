@@ -89,20 +89,8 @@
 		bind:this={menuEl}
 		class="invisible absolute left-0 top-full z-50 mt-1 min-w-44 rounded-xl bg-white px-1 py-3 opacity-0 shadow-2xl transition-all select-none group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100"
 	>
-		<FilterSubmenu
-			label="Categories"
-			getItems={getCategories}
-			buildHref={(item) => `/${item.value}`}
-		/>
-		<FilterSubmenu
-			label="Tags"
-			getItems={getTags}
-			buildHref={(item) => `?tags=${item.value}`}
-		/>
-		<FilterSubmenu
-			label="Authors"
-			getItems={getAuthors}
-			buildHref={(item) => `?author=${item.value}`}
-		/>
+		<FilterSubmenu label="Categories" paramName="type" getItems={getCategories} />
+		<FilterSubmenu label="Tags" paramName="tags" getItems={getTags} />
+		<FilterSubmenu label="Authors" paramName="authors" getItems={getAuthors} />
 	</div>
 </div>
