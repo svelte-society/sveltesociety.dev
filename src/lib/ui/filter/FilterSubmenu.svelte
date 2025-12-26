@@ -90,7 +90,7 @@
 		aria-haspopup="true"
 		aria-expanded={isOpen}
 		bind:this={triggerEl}
-		class="group/button flex h-8 w-full items-center justify-between rounded-sm py-3 pr-1.5 pl-3 text-left text-sm outline-hidden hover:bg-svelte-100 focus:bg-svelte-100 group-focus-within/submenu:bg-svelte-50"
+		class="group/button flex h-8 w-full items-center justify-between rounded-sm py-3 pr-1.5 pl-3 text-left text-sm outline-hidden hover:bg-svelte-50 focus:bg-svelte-100 group-focus-within/submenu:bg-svelte-50"
 	>
 		<span>{label}</span>
 		<CaretRight class="size-4 text-gray-400 group-hover/button:text-svelte-900 group-focus/button:text-svelte-900 group-focus-within/submenu:text-svelte-900" />
@@ -115,7 +115,7 @@
 						e.currentTarget.click()
 					}
 				}}
-				class="flex h-8 w-full items-center justify-between rounded-sm py-3 pr-2 pl-3 text-sm outline-hidden hover:bg-svelte-100 focus:bg-svelte-100"
+				class="flex h-8 w-full items-center justify-between rounded-sm py-3 pr-2 pl-3 text-sm outline-hidden hover:bg-svelte-50 focus:bg-svelte-100"
 			>
 				{item.label}
 				{#if isActive}
