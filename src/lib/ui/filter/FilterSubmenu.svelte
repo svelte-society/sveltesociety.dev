@@ -1,18 +1,26 @@
 <script lang="ts">
 	import CaretRight from 'phosphor-svelte/lib/CaretRight'
 
-	type Item = {
+	export type Item = {
 		label: string
 		value: string
 	}
 
 	type Props = {
 		label: string
-		items: Item[]
+		items?: Item[]
+		getItems?: () => Promise<Item[]> | Item[]
 		buildHref: (item: Item) => string
 	}
 
-	let { label, items, buildHref }: Props = $props()
+	let { label, items, getItems, buildHref }: Props = $props()
+
+	// Normalize items access to a function (supports both sync items and async getItems)
+	function fetchItems(): Promise<Item[]> | Item[] {
+		if (items) return items
+		if (getItems) return getItems()
+		return []
+	}
 
 	let isOpen = $state(false)
 	let containerEl: HTMLDivElement | undefined = $state()
@@ -91,7 +99,7 @@
 		bind:this={submenuEl}
 		class="invisible absolute left-full top-0 ml-1 min-w-44 rounded-xl bg-white px-1 py-3 opacity-0 shadow-2xl transition-all select-none group-focus-within/submenu:visible group-focus-within/submenu:opacity-100"
 	>
-		{#each items as item (item.value)}
+		{#each await fetchItems() as item (item.value)}
 			<a
 				href={buildHref(item)}
 				role="menuitem"

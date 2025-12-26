@@ -1,6 +1,7 @@
 <script lang="ts">
 	import CaretUpDown from 'phosphor-svelte/lib/CaretUpDown'
 	import FilterSubmenu from './FilterSubmenu.svelte'
+	import { getCategories, getTags, getAuthors } from './data.remote'
 
 	let isOpen = $state(false)
 	let containerEl: HTMLDivElement | undefined = $state()
@@ -57,33 +58,6 @@
 		}
 	}
 
-	// Dummy data for now
-	const filterOptions = {
-		categories: [
-			{ label: 'Recipe', value: 'recipe' },
-			{ label: 'Video', value: 'video' },
-			{ label: 'Library', value: 'library' },
-			{ label: 'Resource', value: 'resource' },
-			{ label: 'Announcement', value: 'announcement' },
-			{ label: 'Collection', value: 'collection' }
-		],
-		tags: [
-			{ label: 'SvelteKit', value: 'sveltekit' },
-			{ label: 'Components', value: 'components' },
-			{ label: 'Animation', value: 'animation' },
-			{ label: 'Forms', value: 'forms' },
-			{ label: 'State Management', value: 'state-management' },
-			{ label: 'Testing', value: 'testing' },
-			{ label: 'TypeScript', value: 'typescript' },
-			{ label: 'CSS', value: 'css' }
-		],
-		authors: [
-			{ label: 'Rich Harris', value: 'rich-harris' },
-			{ label: 'Geoff Rich', value: 'geoff-rich' },
-			{ label: 'Dominik G', value: 'dominik-g' },
-			{ label: 'Puru Vijay', value: 'puru-vijay' }
-		]
-	}
 </script>
 
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
@@ -117,17 +91,17 @@
 	>
 		<FilterSubmenu
 			label="Categories"
-			items={filterOptions.categories}
+			getItems={getCategories}
 			buildHref={(item) => `/${item.value}`}
 		/>
 		<FilterSubmenu
 			label="Tags"
-			items={filterOptions.tags}
+			getItems={getTags}
 			buildHref={(item) => `?tags=${item.value}`}
 		/>
 		<FilterSubmenu
 			label="Authors"
-			items={filterOptions.authors}
+			getItems={getAuthors}
 			buildHref={(item) => `?author=${item.value}`}
 		/>
 	</div>

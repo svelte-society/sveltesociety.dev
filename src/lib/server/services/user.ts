@@ -51,6 +51,7 @@ export class UserService {
 	private getUserByUsernameStatement
 	private getUsersStatement
 	private getUserCountStatement
+	private getAuthorsWithContentStatement
 	private getProviderStatement
 	private getExistingUserStatement
 	private updateUserStatement
@@ -84,6 +85,15 @@ export class UserService {
 
 		this.getUserCountStatement = this.db.prepare(`
 			SELECT COUNT(*) as count FROM users
+		`)
+
+		this.getAuthorsWithContentStatement = this.db.prepare(`
+			SELECT DISTINCT u.*
+			FROM users u
+			INNER JOIN content_to_users cu ON u.id = cu.user_id
+			INNER JOIN content c ON cu.content_id = c.id
+			WHERE c.status = 'published'
+			ORDER BY u.name, u.username
 		`)
 
 		this.getProviderStatement = this.db.prepare(`
@@ -201,6 +211,15 @@ export class UserService {
 		} catch (error) {
 			console.error('Error getting user count:', error)
 			return 0
+		}
+	}
+
+	getAuthorsWithContent(): User[] {
+		try {
+			return this.getAuthorsWithContentStatement.all() as User[]
+		} catch (error) {
+			console.error('Error getting authors with content:', error)
+			return []
 		}
 	}
 
