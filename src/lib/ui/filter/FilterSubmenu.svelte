@@ -109,6 +109,12 @@
 				data-sveltekit-keepfocus
 				role="menuitemcheckbox"
 				aria-checked={isActive}
+				onkeydown={(e) => {
+					if (e.key === ' ') {
+						e.preventDefault()
+						e.currentTarget.click()
+					}
+				}}
 				class="flex h-8 w-full items-center justify-between rounded-sm py-3 pr-2 pl-3 text-sm outline-hidden hover:bg-svelte-100 focus:bg-svelte-100"
 			>
 				{item.label}
