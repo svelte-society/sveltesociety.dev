@@ -1,13 +1,16 @@
 <script lang="ts">
+	import X from 'phosphor-svelte/lib/X'
 	import { page } from '$app/state'
 	import { buildToggleHref, isValueActive } from './filter/url-helpers'
+	import { tagVariants } from './tag.variants'
 
 	type Tag = {
 		id: string
 		name: string
 		slug: string
 	}
-	let { tag, onclick }: { tag: Tag; onclick?: () => void } = $props()
+	let { tag, onclick, removable = false }: { tag: Tag; onclick?: () => void; removable?: boolean } =
+		$props()
 
 	function getTagHref() {
 		return buildToggleHref(page.url, page.route.id, page.params, 'tags', tag.slug)
@@ -16,17 +19,7 @@
 	let isActive = $derived(isValueActive(page.url, 'tags', tag.slug))
 </script>
 
-<a
-	href={onclick ? undefined : getTagHref()}
-	class={[
-		'focus:outline-svelte-300 flex items-center gap-0.5 rounded border border-slate-200 bg-slate-100 px-1.5 py-1 text-xs text-zinc-800 focus:outline-2 focus:outline-offset-2',
-		{
-			'border-svelte-300 bg-svelte-100 text-svelte-900 hover:bg-svelte-200': isActive,
-			'hover:bg-slate-200': !isActive
-		}
-	]}
-	tabindex="0"
->
+{#snippet hashIcon()}
 	<svg
 		width="16"
 		height="16"
@@ -42,5 +35,28 @@
 			fill={isActive ? '#FF6F41' : '#71717a'}
 		/>
 	</svg>
-	{tag.name}
-</a>
+{/snippet}
+
+{#if removable}
+	<span class={tagVariants({ active: isActive, removable: true })}>
+		{@render hashIcon()}
+		{tag.name}
+		<a
+			href={getTagHref()}
+			data-sveltekit-keepfocus
+			aria-label="Remove tag: {tag.name}"
+			class="rounded p-0.5 text-zinc-400 hover:bg-svelte-50 hover:text-svelte-600 focus:outline-2 focus:outline-offset-1 focus:outline-svelte-300"
+		>
+			<X class="size-3" weight="bold" />
+		</a>
+	</span>
+{:else}
+	<a
+		href={onclick ? undefined : getTagHref()}
+		class={tagVariants({ active: isActive, removable: false })}
+		tabindex="0"
+	>
+		{@render hashIcon()}
+		{tag.name}
+	</a>
+{/if}
