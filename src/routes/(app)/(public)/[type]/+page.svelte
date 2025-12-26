@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ContentCard from '$lib/ui/ContentCard.svelte'
 	import FilterDropdown from '$lib/ui/filter/FilterDropdown.svelte'
+	import ActiveFilters from '$lib/ui/filter/ActiveFilters.svelte'
 	import Schema from '$lib/ui/Schema.svelte'
 	import { getCategoryData } from '../data.remote'
 	import { page } from '$app/state'
@@ -35,8 +36,9 @@
 
 <Filters {categories} {sort} />
 
-<div class="mb-4">
+<div class="mb-4 flex flex-wrap items-center gap-4">
 	<FilterDropdown />
+	<ActiveFilters />
 </div>
 
 <div data-testid="content-list" class="grid gap-6">
