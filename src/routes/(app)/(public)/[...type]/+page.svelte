@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ContentCard from '$lib/ui/ContentCard.svelte'
 	import Filters from './Filters.svelte'
+	import FilterDropdown from './FilterDropdown.svelte'
 	import Schema from '$lib/ui/Schema.svelte'
 	import { getData, getTags } from './data.remote'
 	import { page } from '$app/state'
@@ -66,6 +67,10 @@
 {/if}
 
 <Filters {categories} {sort} />
+
+<div class="mb-4">
+	<FilterDropdown />
+</div>
 
 <div data-testid="content-list" class="grid gap-6">
 	{#if count > 0}
