@@ -5,6 +5,7 @@
 	let isOpen = $state(false)
 	let containerEl: HTMLDivElement | undefined = $state()
 	let triggerEl: HTMLButtonElement | undefined = $state()
+	let menuEl: HTMLDivElement | undefined = $state()
 
 	function handleFocusIn() {
 		isOpen = true
@@ -17,11 +18,42 @@
 		}
 	}
 
+	function getMenuItems(): HTMLElement[] {
+		if (!menuEl) return []
+		return Array.from(menuEl.querySelectorAll<HTMLElement>(':scope > div > button'))
+	}
+
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape' && isOpen) {
 			e.preventDefault()
 			isOpen = false
 			triggerEl?.focus()
+			return
+		}
+
+		const items = getMenuItems()
+		if (items.length === 0) return
+
+		const currentIndex = items.findIndex((item) => item === document.activeElement)
+
+		if (e.key === 'ArrowDown') {
+			e.preventDefault()
+			if (document.activeElement === triggerEl) {
+				// From trigger, move to first menu item
+				items[0]?.focus()
+			} else if (currentIndex >= 0 && currentIndex < items.length - 1) {
+				// Move to next item
+				items[currentIndex + 1]?.focus()
+			}
+		} else if (e.key === 'ArrowUp') {
+			e.preventDefault()
+			if (currentIndex > 0) {
+				// Move to previous item
+				items[currentIndex - 1]?.focus()
+			} else if (currentIndex === 0) {
+				// From first item, move back to trigger
+				triggerEl?.focus()
+			}
 		}
 	}
 
@@ -80,6 +112,7 @@
 	<div
 		role="menu"
 		aria-label="Filter options"
+		bind:this={menuEl}
 		class="invisible absolute left-0 top-full z-50 mt-1 min-w-44 rounded-xl bg-white px-1 py-3 opacity-0 shadow-2xl transition-all select-none group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100"
 	>
 		<FilterSubmenu
