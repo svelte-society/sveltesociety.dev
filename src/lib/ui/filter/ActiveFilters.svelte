@@ -77,21 +77,26 @@
 	{#if filters.length > 0}
 		<div class="flex flex-wrap gap-2">
 			{#each filters as filter (filter.paramName + filter.value)}
-				<a
-					href={buildToggleHref(
-						page.url,
-						page.route.id,
-						page.params,
-						filter.paramName,
-						filter.value
-					)}
-					data-sveltekit-keepfocus
-					class="flex items-center gap-1.5 rounded border border-slate-200 bg-slate-100 px-2 py-1 text-xs text-zinc-800 hover:bg-slate-200 focus:outline-2 focus:outline-offset-2 focus:outline-svelte-300"
+				<span
+					class="flex items-center gap-1.5 rounded border border-slate-200 bg-slate-100 py-1 pl-2 pr-1 text-xs text-zinc-800"
 				>
 					<span class="text-zinc-500">{filter.type}:</span>
 					<span>{filter.label}</span>
-					<X class="size-3 text-zinc-400" weight="bold" />
-				</a>
+					<a
+						href={buildToggleHref(
+							page.url,
+							page.route.id,
+							page.params,
+							filter.paramName,
+							filter.value
+						)}
+						data-sveltekit-keepfocus
+						aria-label="Remove {filter.type.toLowerCase()} filter: {filter.label}"
+						class="rounded p-0.5 text-zinc-400 hover:bg-slate-200 hover:text-zinc-600 focus:outline-2 focus:outline-offset-1 focus:outline-svelte-300"
+					>
+						<X class="size-3" weight="bold" />
+					</a>
+				</span>
 			{/each}
 		</div>
 	{/if}
