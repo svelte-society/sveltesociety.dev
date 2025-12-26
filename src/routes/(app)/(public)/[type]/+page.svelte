@@ -1,64 +1,31 @@
 <script lang="ts">
 	import ContentCard from '$lib/ui/ContentCard.svelte'
-	import Filters from './Filters.svelte'
 	import FilterDropdown from '$lib/ui/filter/FilterDropdown.svelte'
 	import Schema from '$lib/ui/Schema.svelte'
-	import { getData, getTags } from './data.remote'
+	import { getCategoryData } from '../data.remote'
 	import { page } from '$app/state'
 	import Pagination from '$lib/ui/Pagination.svelte'
+	import Filters from '../Filters.svelte'
 
 	const categories = [
-		{
-			label: 'All',
-			value: ''
-		},
-		{
-			label: 'Recipe',
-			value: 'recipe'
-		},
-		{
-			label: 'Video',
-			value: 'video'
-		},
-		{
-			label: 'Library',
-			value: 'library'
-		},
-		{
-			label: 'Resource',
-			value: 'resource'
-		},
-		{
-			label: 'Announcement',
-			value: 'announcement'
-		},
-		{
-			label: 'Collection',
-			value: 'collection'
-		}
+		{ label: 'All', value: '' },
+		{ label: 'Recipe', value: 'recipe' },
+		{ label: 'Video', value: 'video' },
+		{ label: 'Library', value: 'library' },
+		{ label: 'Resource', value: 'resource' },
+		{ label: 'Announcement', value: 'announcement' },
+		{ label: 'Collection', value: 'collection' }
 	]
 
 	const sort = [
-		{
-			label: 'Newest',
-			value: 'published_at'
-		},
-		{
-			label: 'Most Likes',
-			value: 'likes'
-		},
-		{
-			label: 'Most Saved',
-			value: 'saves'
-		},
-		{
-			label: 'Most GitHub Stars',
-			value: 'stars'
-		}
+		{ label: 'Newest', value: 'published_at' },
+		{ label: 'Most Likes', value: 'likes' },
+		{ label: 'Most Saved', value: 'saves' },
+		{ label: 'Most GitHub Stars', value: 'stars' }
 	]
 
-	let { content, count, tags, meta, schemas } = $derived(
-		await getData({ url: page.url, type: page.params.type })
+	let { content, count, meta, schemas } = $derived(
+		await getCategoryData({ url: page.url, type: page.params.type! })
 	)
 </script>
 
