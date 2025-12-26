@@ -13,13 +13,32 @@
 	}
 
 	let { label, items, buildHref }: Props = $props()
+
+	let isOpen = $state(false)
+	let containerEl: HTMLDivElement | undefined = $state()
+
+	function handleFocusIn() {
+		isOpen = true
+	}
+
+	function handleFocusOut(e: FocusEvent) {
+		if (containerEl && !containerEl.contains(e.relatedTarget as Node)) {
+			isOpen = false
+		}
+	}
 </script>
 
-<div class="group/submenu relative">
+<div
+	class="group/submenu relative"
+	bind:this={containerEl}
+	onfocusin={handleFocusIn}
+	onfocusout={handleFocusOut}
+>
 	<button
 		type="button"
 		role="menuitem"
 		aria-haspopup="true"
+		aria-expanded={isOpen}
 		class="group/button flex h-8 w-full items-center justify-between rounded-sm py-3 pr-1.5 pl-3 text-left text-sm outline-hidden hover:bg-svelte-50 focus:bg-svelte-50 group-focus-within/submenu:bg-svelte-50"
 	>
 		<span>{label}</span>

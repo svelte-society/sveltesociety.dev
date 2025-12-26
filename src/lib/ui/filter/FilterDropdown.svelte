@@ -2,6 +2,29 @@
 	import CaretUpDown from 'phosphor-svelte/lib/CaretUpDown'
 	import FilterSubmenu from './FilterSubmenu.svelte'
 
+	let isOpen = $state(false)
+	let containerEl: HTMLDivElement | undefined = $state()
+	let triggerEl: HTMLButtonElement | undefined = $state()
+
+	function handleFocusIn() {
+		isOpen = true
+	}
+
+	function handleFocusOut(e: FocusEvent) {
+		// Check if focus moved outside the container
+		if (containerEl && !containerEl.contains(e.relatedTarget as Node)) {
+			isOpen = false
+		}
+	}
+
+	function handleKeydown(e: KeyboardEvent) {
+		if (e.key === 'Escape' && isOpen) {
+			e.preventDefault()
+			isOpen = false
+			triggerEl?.focus()
+		}
+	}
+
 	// Dummy data for now
 	const filterOptions = {
 		categories: [
@@ -31,12 +54,22 @@
 	}
 </script>
 
-<div class="group/dropdown relative inline-block">
+<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+<div
+	role="group"
+	class="group/dropdown relative inline-block"
+	bind:this={containerEl}
+	onfocusin={handleFocusIn}
+	onfocusout={handleFocusOut}
+	onkeydown={handleKeydown}
+>
 	<!-- Trigger button - styled like Select component -->
 	<button
 		type="button"
 		aria-haspopup="true"
+		aria-expanded={isOpen}
 		aria-label="Add filter"
+		bind:this={triggerEl}
 		class="grid w-full min-w-36 grid-cols-[1fr_auto] items-center rounded-md border-2 border-transparent bg-slate-100 px-3 py-1 pl-2 text-left text-sm focus:outline-2 focus:outline-svelte-300"
 	>
 		Add Filter
