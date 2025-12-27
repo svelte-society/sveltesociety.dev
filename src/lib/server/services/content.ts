@@ -405,13 +405,13 @@ export class ContentService {
 					.filter(Boolean)
 			}
 
-			// Get author username for search index
-			let authorUsernames: string[] = []
+			// Get author name for search index (fallback to username if no name)
+			let authorNames: string[] = []
 			if (data.author_id) {
-				const authorQuery = this.db.prepare(`SELECT username FROM users WHERE id = ?`)
-				const author = authorQuery.get(data.author_id) as { username: string } | null
+				const authorQuery = this.db.prepare(`SELECT name, username FROM users WHERE id = ?`)
+				const author = authorQuery.get(data.author_id) as { name: string | null; username: string } | null
 				if (author) {
-					authorUsernames = [author.username]
+					authorNames = [author.name || author.username]
 				}
 			}
 
@@ -420,7 +420,7 @@ export class ContentService {
 				title: data.title,
 				description: data.description,
 				tags: tagSlugs,
-				authors: authorUsernames,
+				authors: authorNames,
 				type: data.type,
 				status: data.status,
 				created_at: new Date().toISOString(),

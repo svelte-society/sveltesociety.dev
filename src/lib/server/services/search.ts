@@ -65,7 +65,7 @@ export class SearchService {
             WHERE ct.content_id = c.id
           ) as tags,
           (
-            SELECT json_group_array(u.username)
+            SELECT json_group_array(COALESCE(u.name, u.username))
             FROM content_to_users cu
             LEFT JOIN users u ON cu.user_id = u.id
             WHERE cu.content_id = c.id
@@ -253,7 +253,7 @@ export class SearchService {
             WHERE ct.content_id = c.id
           ) as tags,
           (
-            SELECT json_group_array(u.username)
+            SELECT json_group_array(COALESCE(u.name, u.username))
             FROM content_to_users cu
             LEFT JOIN users u ON cu.user_id = u.id
             WHERE cu.content_id = c.id

@@ -41,10 +41,13 @@ export const getTags = query(() => {
 export const getAuthors = query(() => {
   const { locals } = getRequestEvent()
   const authors = locals.userService.getAuthorsWithContent()
-  return authors.map((author) => ({
-    label: author.name || author.username,
-    value: author.username
-  }))
+  return authors.map((author) => {
+    const name = author.name || author.username
+    return {
+      label: name,
+      value: name // Use name for filtering (matches Orama index)
+    }
+  })
 })
 
 export const getActiveFilters = query("unchecked", async (searchParams: URLSearchParams) => {
