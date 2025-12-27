@@ -1,9 +1,18 @@
 import { z } from 'zod'
 import { command, getRequestEvent } from '$app/server'
 import { error } from '@sveltejs/kit'
-import { getData } from '../../routes/(app)/(public)/[...type]/data.remote'
+import { getHomeData, getCategoryData } from '../../routes/(app)/(public)/data.remote'
 
 const idSchema = z.string().min(1)
+
+// Helper to refresh the appropriate query cache based on route
+function refreshDataCache(url: URL, type: string | undefined) {
+	if (type) {
+		getCategoryData({ url, type }).refresh()
+	} else {
+		getHomeData({ url }).refresh()
+	}
+}
 
 export const toggleLike = command(idSchema, async (contentId) => {
 	const { locals, url, params } = getRequestEvent()
@@ -28,7 +37,7 @@ export const toggleLike = command(idSchema, async (contentId) => {
 	}
 
 	// Refresh the query cache to ensure liked state stays in sync
-	getData({ url, type: params.type }).refresh()
+	refreshDataCache(url, params.type)
 
 	return result
 })
@@ -56,7 +65,7 @@ export const toggleSave = command(idSchema, async (contentId) => {
 	}
 
 	// Refresh the query cache to ensure saved state stays in sync
-	getData({ url, type: params.type }).refresh()
+	refreshDataCache(url, params.type)
 
 	return result
 })
