@@ -37,7 +37,7 @@ export class HomePage extends BasePage {
 	 * Search input field
 	 */
 	get searchInput(): Locator {
-		return this.page.getByTestId('search-input')
+		return this.page.getByTestId('omni-search-input')
 	}
 
 	/**

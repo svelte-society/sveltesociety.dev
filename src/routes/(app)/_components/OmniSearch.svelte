@@ -87,26 +87,52 @@
 		inputElement?.focus()
 	}
 
+	// Build URL for full-text search
+	function buildSearchHref(): string {
+		const params = new URLSearchParams(page.url.searchParams)
+
+		// If on category page, redirect to home with category as type param
+		if (categoryType) {
+			params.append('type', categoryType)
+		}
+
+		// Set the query param
+		if (searchQuery.trim()) {
+			params.set('query', searchQuery.trim())
+		}
+
+		// Reset pagination
+		params.delete('page')
+
+		return '/?' + params.toString()
+	}
+
 	// Handle keyboard navigation
 	function handleKeydown(event: KeyboardEvent) {
-		if (!availableSuggestions.length) return
-
 		switch (event.key) {
 			case 'ArrowDown':
+				if (!availableSuggestions.length) return
 				event.preventDefault()
 				selectedIndex = (selectedIndex + 1) % availableSuggestions.length
 				suggestionRefs[selectedIndex]?.focus()
 				break
 			case 'ArrowUp':
+				if (!availableSuggestions.length) return
 				event.preventDefault()
 				selectedIndex = selectedIndex <= 0 ? availableSuggestions.length - 1 : selectedIndex - 1
 				suggestionRefs[selectedIndex]?.focus()
 				break
 			case 'Enter':
 				if (selectedIndex >= 0 && selectedIndex < availableSuggestions.length) {
+					// Navigate to selected suggestion
 					event.preventDefault()
 					const suggestion = availableSuggestions[selectedIndex]
 					goto(buildAddFilterHref(suggestion), { keepFocus: true })
+					clearSearch()
+				} else if (searchQuery.trim()) {
+					// No suggestion selected - do full-text search
+					event.preventDefault()
+					goto(buildSearchHref(), { keepFocus: true })
 					clearSearch()
 				}
 				break
@@ -130,7 +156,7 @@
 </script>
 
 <div class="group/search relative w-full">
-	<form method="GET" action="/" data-sveltekit-keepfocus onsubmit={clearSearch}>
+	<form method="GET" action="/" data-sveltekit-keepfocus>
 		<!-- Preserve existing filters as hidden inputs -->
 		{#each existingTypes as type (type)}
 			<input type="hidden" name="type" value={type} />
