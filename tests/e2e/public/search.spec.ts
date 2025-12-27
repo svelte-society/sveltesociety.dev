@@ -275,3 +275,55 @@ test.describe('Search Functionality', () => {
 		expect(allResultsCount).toBeGreaterThanOrEqual(searchResultCount)
 	})
 })
+
+test.describe('Author Filtering', () => {
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page)
+	})
+
+	test('partial author name matches full author name', async ({ page }) => {
+		// Navigate with partial author name "Test" which should match "Test Admin"
+		await page.goto('/?authors=Test')
+
+		const contentList = new ContentListPage(page)
+		await contentList.expectContentDisplayed()
+
+		// Should show content from "Test Admin" (all test content is authored by test_admin)
+		const count = await contentList.getContentCount()
+		expect(count).toBeGreaterThan(0)
+	})
+
+	test('partial author name is case-insensitive', async ({ page }) => {
+		// Navigate with lowercase partial author name
+		await page.goto('/?authors=admin')
+
+		const contentList = new ContentListPage(page)
+		await contentList.expectContentDisplayed()
+
+		// Should match "Test Admin" case-insensitively
+		const count = await contentList.getContentCount()
+		expect(count).toBeGreaterThan(0)
+	})
+
+	test('full author name works for exact match', async ({ page }) => {
+		// Navigate with full author name
+		await page.goto('/?authors=Test%20Admin')
+
+		const contentList = new ContentListPage(page)
+		await contentList.expectContentDisplayed()
+
+		// Should show content from "Test Admin"
+		const count = await contentList.getContentCount()
+		expect(count).toBeGreaterThan(0)
+	})
+
+	test('non-matching author name shows no results', async ({ page }) => {
+		// Navigate with author name that doesn't match any author
+		await page.goto('/?authors=NonExistentAuthor123')
+
+		// Should show no results or empty state
+		const contentList = new ContentListPage(page)
+		const count = await contentList.getContentCount()
+		expect(count).toBe(0)
+	})
+})
