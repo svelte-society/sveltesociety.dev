@@ -7,8 +7,7 @@
 	import { getCategoryFromRoute } from '$lib/ui/filter/url-helpers'
 
 	let searchQuery = $state('')
-	let inputElement: HTMLInputElement
-	let suggestionRefs: HTMLAnchorElement[] = []
+	let inputElement: HTMLInputElement | undefined
 	let selectedIndex = $state(-1)
 
 	// Reset selection when query changes
@@ -47,6 +46,9 @@
 			return true
 		})
 	)
+
+	// Track suggestion refs for keyboard navigation
+	let suggestionRefs: (HTMLAnchorElement | undefined)[] = $state([])
 
 	// Build href for adding a filter
 	function buildAddFilterHref(suggestion: SearchSuggestion): string {

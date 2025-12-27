@@ -79,6 +79,41 @@ test.describe('Active Filters', () => {
 		const queryValue = page.locator('span').filter({ hasText: 'counter' }).first()
 		await expect(queryValue).toBeVisible()
 	})
+
+	test('legacy comma-separated tags are converted to repeated params', async ({ page }) => {
+		// Navigate using legacy comma-separated format
+		await page.goto('/?tags=svelte,testing')
+
+		// Should redirect to new format with repeated params
+		await expect(page).toHaveURL(/tags=svelte/)
+		await expect(page).toHaveURL(/tags=testing/)
+
+		// Both tags should appear as active filters
+		const svelteTag = page.locator('span').filter({ hasText: 'svelte' }).first()
+		const testingTag = page.locator('span').filter({ hasText: 'testing' }).first()
+		await expect(svelteTag).toBeVisible()
+		await expect(testingTag).toBeVisible()
+
+		// Clear all should be visible since there are multiple filters
+		const clearAllButton = page.getByRole('link', { name: /Clear all/i })
+		await expect(clearAllButton).toBeVisible()
+	})
+
+	test('legacy comma-separated tags preserve other params', async ({ page }) => {
+		// Navigate using legacy format with other params
+		await page.goto('/?type=recipe&tags=svelte,testing&query=counter')
+
+		// Should preserve type and query params
+		await expect(page).toHaveURL(/type=recipe/)
+		await expect(page).toHaveURL(/query=counter/)
+
+		// Tags should be in new format
+		await expect(page).toHaveURL(/tags=svelte/)
+		await expect(page).toHaveURL(/tags=testing/)
+
+		// URL should not contain comma-separated format
+		await expect(page).not.toHaveURL(/tags=svelte,testing/)
+	})
 })
 
 test.describe('Public Content Browsing', () => {

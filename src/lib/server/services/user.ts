@@ -94,6 +94,7 @@ export class UserService {
 			INNER JOIN content c ON cu.content_id = c.id
 			WHERE c.status = 'published'
 			ORDER BY u.name, u.username
+			LIMIT 100
 		`)
 
 		this.getProviderStatement = this.db.prepare(`

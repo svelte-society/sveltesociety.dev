@@ -2,11 +2,35 @@ import { redirect } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 
 /**
- * Handles the no-JS fallback for OmniSearch.
- * When the form is submitted without JavaScript, it sends `q` (query) and `type` params.
- * This converts them to the proper filter format and redirects.
+ * Handles URL normalization and backwards compatibility.
+ *
+ * 1. Converts legacy comma-separated tags format (?tags=a,b) to repeated params (?tags=a&tags=b)
+ * 2. Handles no-JS fallback for OmniSearch form submissions
  */
 export const load: PageServerLoad = ({ url }) => {
+	// Check for legacy comma-separated tags format and convert to repeated params
+	const tagsParam = url.searchParams.get('tags')
+	if (tagsParam && tagsParam.includes(',')) {
+		const params = new URLSearchParams()
+
+		// Copy all params except tags
+		url.searchParams.forEach((value, key) => {
+			if (key !== 'tags') {
+				params.append(key, value)
+			}
+		})
+
+		// Split comma-separated tags into repeated params
+		const tags = tagsParam.split(',').filter(Boolean)
+		for (const tag of tags) {
+			params.append('tags', tag.trim())
+		}
+
+		const queryString = params.toString()
+		redirect(301, queryString ? `/?${queryString}` : '/')
+	}
+
+	// Handle no-JS fallback for OmniSearch
 	const q = url.searchParams.get('q')
 	const type = url.searchParams.get('type')
 
