@@ -209,7 +209,7 @@
 						value="all"
 						class="rounded-md px-2 py-1.5 text-left text-sm hover:bg-slate-100"
 					>
-						Search <strong>"{searchQuery || 'your query'}"</strong> in content
+						Search in content
 					</button>
 					<button
 						type="submit"
@@ -217,7 +217,7 @@
 						value="tags"
 						class="rounded-md px-2 py-1.5 text-left text-sm hover:bg-slate-100"
 					>
-						Search <strong>"{searchQuery || 'your query'}"</strong> in tags
+						Search in tags
 					</button>
 					<button
 						type="submit"
@@ -225,7 +225,7 @@
 						value="category"
 						class="rounded-md px-2 py-1.5 text-left text-sm hover:bg-slate-100"
 					>
-						Search <strong>"{searchQuery || 'your query'}"</strong> in categories
+						Search in categories
 					</button>
 					<button
 						type="submit"
@@ -233,7 +233,7 @@
 						value="author"
 						class="rounded-md px-2 py-1.5 text-left text-sm hover:bg-slate-100"
 					>
-						Search <strong>"{searchQuery || 'your query'}"</strong> in authors
+						Search in authors
 					</button>
 				</div>
 			{/if}
