@@ -4,10 +4,12 @@
 	import { buildToggleHref } from './url-helpers'
 	import { getActiveFilters } from './data.remote'
 	import Tag from '$lib/ui/Tag.svelte'
+
+	let filters = $derived(await getActiveFilters(page.url.searchParams))
 </script>
 
 <div class="flex flex-wrap gap-2">
-	{#each await getActiveFilters(page.url.searchParams) as filter (filter.paramName + filter.value)}
+	{#each filters as filter (filter.paramName + filter.value)}
 		{#if filter.type === 'Tag'}
 			<Tag tag={{ id: filter.value, name: filter.label, slug: filter.value }} removable />
 		{:else}
@@ -27,4 +29,14 @@
 			</span>
 		{/if}
 	{/each}
+	{#if filters.length > 1}
+		<a
+			href="/"
+			data-sveltekit-keepfocus
+			class="flex items-center gap-1 rounded border border-slate-300 bg-white py-1 px-2 text-xs text-slate-600 hover:bg-slate-50 hover:text-slate-800 focus:outline-2 focus:outline-offset-1 focus:outline-svelte-300"
+		>
+			<X class="size-3" weight="bold" />
+			<span>Clear all</span>
+		</a>
+	{/if}
 </div>

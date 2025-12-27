@@ -23,7 +23,7 @@
 <form class="@container grid gap-4">
 	<div class="grid w-full grid-cols-1 gap-4 @xs:grid-cols-2">
 		<div class="flex w-full flex-col gap-2">
-			<label class="text-xs font-medium outline-none">Filter</label>
+			<span class="text-xs font-medium">Filter</span>
 			<FilterDropdown />
 		</div>
 		<div class="flex w-full flex-col gap-2">

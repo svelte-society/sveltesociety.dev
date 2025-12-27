@@ -2,7 +2,14 @@ import { getRequestEvent, query } from '$app/server'
 import type { Item } from './FilterSubmenu.svelte'
 
 type FilterItem = {
-  type: 'Category' | 'Tag' | 'Author'
+  type: 'Category' | 'Tag' | 'Author' | 'Search'
+  paramName: string
+  value: string
+  label: string
+}
+
+export type SearchSuggestion = {
+  type: 'category' | 'tag' | 'author'
   paramName: string
   value: string
   label: string
@@ -79,5 +86,52 @@ export const getActiveFilters = query("unchecked", async (searchParams: URLSearc
     })
   }
 
+  // Get search query
+  const query = searchParams.get('query')
+  if (query) {
+    filters.push({
+      type: 'Search',
+      paramName: 'query',
+      value: query,
+      label: query
+    })
+  }
+
   return filters
+})
+
+export const getSearchSuggestions = query(async () => {
+  const suggestions: SearchSuggestion[] = []
+
+  const categories = await getCategories()
+  for (const cat of categories) {
+    suggestions.push({
+      type: 'category',
+      paramName: 'type',
+      value: cat.value,
+      label: cat.label
+    })
+  }
+
+  const tags = await getTags()
+  for (const tag of tags) {
+    suggestions.push({
+      type: 'tag',
+      paramName: 'tags',
+      value: tag.value,
+      label: tag.label
+    })
+  }
+
+  const authors = await getAuthors()
+  for (const author of authors) {
+    suggestions.push({
+      type: 'author',
+      paramName: 'authors',
+      value: author.value,
+      label: author.label
+    })
+  }
+
+  return suggestions
 })
