@@ -23,43 +23,32 @@
 		preserveParams = true
 	} = $props()
 
-	// Get the current page from the URL
 	let currentPage = $derived(parseInt(page.url.searchParams.get('page') || '1', 10))
-
-	// Calculate total pages and range for display
 	let totalPages = $derived(Math.ceil(count / perPage))
 	let rangeStart = $derived((currentPage - 1) * perPage + 1)
 	let rangeEnd = $derived(Math.min(currentPage * perPage, count))
 
-	// Calculate which page numbers to show
 	let pages = $derived.by(() => {
 		const result: (number | 'ellipsis')[] = []
-
-		// Always show first page
 		result.push(1)
 
-		// Calculate the range around current page
 		const leftSibling = Math.max(2, currentPage - siblingCount)
 		const rightSibling = Math.min(totalPages - 1, currentPage + siblingCount)
 
-		// Add left ellipsis if needed
 		if (leftSibling > 2) {
 			result.push('ellipsis')
 		}
 
-		// Add pages around current
 		for (let i = leftSibling; i <= rightSibling; i++) {
 			if (i !== 1 && i !== totalPages) {
 				result.push(i)
 			}
 		}
 
-		// Add right ellipsis if needed
 		if (rightSibling < totalPages - 1) {
 			result.push('ellipsis')
 		}
 
-		// Always show last page (if more than 1 page)
 		if (totalPages > 1) {
 			result.push(totalPages)
 		}
@@ -67,7 +56,6 @@
 		return result
 	})
 
-	// Build href for a given page number
 	function getPageHref(pageNum: number): string {
 		const url = new URL(page.url)
 		if (!preserveParams) {
@@ -77,20 +65,6 @@
 		return url.pathname + url.search
 	}
 </script>
-
-<!--
-@component
-A pagination component using native links for navigation.
-
-- Uses anchor tags for SEO and progressive enhancement
-- Preserves URL parameters when navigating between pages
-- Styled with custom Svelte colors
-
-Usage:
-```svelte
-<Pagination count={100} perPage={10} />
-```
--->
 
 <nav aria-label="Pagination">
 	<div class="my-8 flex items-center justify-center">
