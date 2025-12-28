@@ -190,7 +190,7 @@
 				bind:value={searchQuery}
 				onkeydown={handleKeydown}
 				data-testid="omni-search-input"
-				class="h-8 w-full rounded-md border-none bg-slate-100 pr-14 pl-8 text-sm text-slate-800 placeholder-slate-500 focus:outline-2 focus:outline-svelte-300"
+				class="h-8 w-full rounded-md border-none bg-slate-100 pr-14 pl-8 text-base text-slate-800 placeholder-slate-500 focus:outline-2 focus:outline-svelte-300"
 			/>
 			<!-- Native datalist for no-JS users - hidden when JS is enabled -->
 			{#if !browser}
@@ -218,7 +218,7 @@
 						<a
 							bind:this={suggestionRefs[i]}
 							href={buildAddFilterHref(suggestion)}
-							data-sveltekit-keepfocus
+							onpointerdown={(e) => e.preventDefault()}
 							onclick={clearSearch}
 							onkeydown={handleKeydown}
 							onfocus={() => handleFocus(suggestion)}
