@@ -77,11 +77,11 @@
 	}
 
 	option {
+		position: relative;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
 		height: 2rem;
-		padding: 0.75rem 0.375rem 0.75rem 0.75rem;
+		padding: 0.75rem 2rem 0.75rem 0.75rem;
 		font-size: 0.875rem;
 		border-radius: 0.125rem;
 		text-transform: capitalize;
@@ -93,6 +93,7 @@
 	}
 
 	option::checkmark {
-		margin-left: auto;
+		position: absolute;
+		right: 0.5rem;
 	}
 </style>
