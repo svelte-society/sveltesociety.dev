@@ -73,7 +73,7 @@
 		background: white;
 		padding: 0.75rem 0.25rem;
 		box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-		min-width: 100%;
+		width: anchor-size(width);
 	}
 
 	option {
