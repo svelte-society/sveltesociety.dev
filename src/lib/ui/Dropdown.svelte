@@ -153,11 +153,13 @@
 		{@render triggerContent()}
 	</div>
 
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
 		role="menu"
 		aria-label={menuLabel}
 		bind:this={menuEl}
-		class="invisible absolute top-full z-50 mt-1 select-none group-focus-within/dropdown:visible group-data-[force-closed]/dropdown:invisible {alignmentClass} {menuClass}"
+		ontouchstart={() => {}}
+		class="invisible absolute top-full z-50 mt-1 cursor-pointer opacity-0 touch-manipulation transition-[visibility] select-none group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100 group-data-[force-closed]/dropdown:opacity-0 group-data-[force-closed]/dropdown:pointer-events-none {alignmentClass} {menuClass}"
 	>
 		{@render children()}
 	</div>
