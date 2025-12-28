@@ -202,8 +202,6 @@
 			{/if}
 			<button
 				type="submit"
-				name="type"
-				value="all"
 				class="absolute right-1 top-1/2 -translate-y-1/2 invisible rounded bg-slate-200 px-2 py-0.5 text-xs font-medium text-slate-600 opacity-0 transition-opacity hover:bg-slate-300 group-focus-within/search:visible group-focus-within/search:opacity-100"
 			>
 				Search
@@ -238,40 +236,9 @@
 					<div class="px-2 py-3 text-center text-sm text-slate-400">Start typing to search...</div>
 				{/if}
 			{:else}
-				<!-- No-JS fallback: show buttons to search in different places -->
-				<div class="grid gap-1">
-					<button
-						type="submit"
-						name="type"
-						value="all"
-						class="rounded-md px-2 py-1.5 text-left text-sm hover:bg-slate-100"
-					>
-						Search in content
-					</button>
-					<button
-						type="submit"
-						name="type"
-						value="tags"
-						class="rounded-md px-2 py-1.5 text-left text-sm hover:bg-slate-100"
-					>
-						Search in tags
-					</button>
-					<button
-						type="submit"
-						name="type"
-						value="category"
-						class="rounded-md px-2 py-1.5 text-left text-sm hover:bg-slate-100"
-					>
-						Search in categories
-					</button>
-					<button
-						type="submit"
-						name="type"
-						value="author"
-						class="rounded-md px-2 py-1.5 text-left text-sm hover:bg-slate-100"
-					>
-						Search in authors
-					</button>
+				<!-- No-JS fallback: simple help text (datalist provides autocomplete) -->
+				<div class="px-2 py-3 text-center text-sm text-slate-500">
+					Type to search or select from suggestions
 				</div>
 			{/if}
 		</div>

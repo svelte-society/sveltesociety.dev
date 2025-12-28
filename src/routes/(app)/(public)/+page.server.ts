@@ -45,14 +45,12 @@ export const load: PageServerLoad = ({ url }) => {
 
 	// Handle no-JS fallback for OmniSearch
 	const q = url.searchParams.get('q')
-	const type = url.searchParams.get('type')
 
-	if (q && type) {
+	if (q) {
 		const params = new URLSearchParams(url.searchParams)
 
-		// Remove the omni-search specific params
+		// Remove the omni-search specific param
 		params.delete('q')
-		params.delete('type')
 
 		// Check if q matches datalist format "label (type)"
 		const datalistSelection = parseDatalistSelection(q)
@@ -67,20 +65,8 @@ export const load: PageServerLoad = ({ url }) => {
 				params.append('authors', datalistSelection.label)
 			}
 		} else {
-			// Regular search - convert based on search type button clicked
-			if (type === 'all') {
-				// Full-text search
-				params.set('query', q)
-			} else if (type === 'tags') {
-				// Search in tags - append to existing tags
-				params.append('tags', q)
-			} else if (type === 'category') {
-				// Search in categories - append to type filter
-				params.append('type', q)
-			} else if (type === 'author') {
-				// Search in authors - append to authors filter
-				params.append('authors', q)
-			}
+			// Regular text search - use full-text query
+			params.set('query', q)
 		}
 
 		const queryString = params.toString()
