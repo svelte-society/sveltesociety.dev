@@ -6,7 +6,9 @@ import { Database } from 'bun:sqlite'
 // Create a Zod schema for query parameters
 const querySchema = z.object({
 	type: z.string().optional(),
+	types: z.array(z.string()).optional(), // Multiple types for OR filtering
 	tags: z.union([z.string(), z.array(z.string())]).optional(),
+	authors: z.array(z.string()).optional(), // Author usernames for filtering
 	query: z.string().optional(),
 	status: z.string().optional(),
 	sort: z.string().optional(),
@@ -22,6 +24,7 @@ const contentSchema = {
 	title: 'string',
 	description: 'string',
 	tags: 'string[]',
+	authors: 'string[]', // Author usernames for filtering
 	type: 'string',
 	status: 'string',
 	created_at: 'string',
@@ -55,10 +58,19 @@ export class SearchService {
         SELECT
           c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.status, c.created_at, c.published_at, c.likes, c.saves,
           COALESCE(json_extract(c.metadata, '$.stars'), 0) as stars,
-          json_group_array(t.slug) as tags
+          (
+            SELECT json_group_array(t.slug)
+            FROM content_to_tags ct
+            LEFT JOIN tags t ON ct.tag_id = t.id
+            WHERE ct.content_id = c.id
+          ) as tags,
+          (
+            SELECT json_group_array(COALESCE(u.name, u.username))
+            FROM content_to_users cu
+            LEFT JOIN users u ON cu.user_id = u.id
+            WHERE cu.content_id = c.id
+          ) as authors
         FROM content c
-        LEFT JOIN content_to_tags ct ON c.id = ct.content_id
-        LEFT JOIN tags t ON ct.tag_id = t.id
         GROUP BY c.id
         `
 			)
@@ -66,6 +78,9 @@ export class SearchService {
 			.map((c: any) => ({
 				...c,
 				tags: c.tags ? (JSON.parse(c.tags).filter((tag: unknown) => tag !== null) as string[]) : [],
+				authors: c.authors
+					? (JSON.parse(c.authors).filter((author: unknown) => author !== null) as string[])
+					: [],
 				published_at: c.published_at || ''
 			}))
 
@@ -75,8 +90,10 @@ export class SearchService {
 	search(filters?: QuerySchema) {
 		let query = ''
 		let type = ''
+		let types: string[] = []
 		let status = ''
 		let tags: string[] = []
+		let authors: string[] = []
 		let sort = filters?.sort || 'published_at'
 		let order = filters?.order || 'DESC'
 		let limit = filters?.limit || 15
@@ -92,6 +109,10 @@ export class SearchService {
 			type = result.data.type
 		}
 
+		if (result?.data?.types) {
+			types = result.data.types
+		}
+
 		if (result?.data?.status) {
 			status = result.data.status
 		}
@@ -104,12 +125,18 @@ export class SearchService {
 			}
 		}
 
+		if (result?.data?.authors) {
+			authors = result.data.authors
+		}
+
 		const searchParams: SearchParams<Orama<typeof contentSchema>> = {
 			term: query,
 			where: {
-				// conditionally add tags, type, and status to the search
+				// conditionally add tags, type/types, authors, and status to the search
 				...(tags.length > 0 && { tags }),
+				...(authors.length > 0 && { authors }),
 				...(type && { type }),
+				...(types.length > 0 && { type: types }), // Multiple types uses OR logic in Orama
 				...(status && { status })
 			},
 			offset,
@@ -219,10 +246,19 @@ export class SearchService {
         SELECT
           c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.status, c.created_at, c.published_at, c.likes, c.saves,
           COALESCE(json_extract(c.metadata, '$.stars'), 0) as stars,
-          json_group_array(t.slug) as tags
+          (
+            SELECT json_group_array(t.slug)
+            FROM content_to_tags ct
+            LEFT JOIN tags t ON ct.tag_id = t.id
+            WHERE ct.content_id = c.id
+          ) as tags,
+          (
+            SELECT json_group_array(COALESCE(u.name, u.username))
+            FROM content_to_users cu
+            LEFT JOIN users u ON cu.user_id = u.id
+            WHERE cu.content_id = c.id
+          ) as authors
         FROM content c
-        LEFT JOIN content_to_tags ct ON c.id = ct.content_id
-        LEFT JOIN tags t ON ct.tag_id = t.id
         GROUP BY c.id
         `
 			)
@@ -230,6 +266,9 @@ export class SearchService {
 			.map((c: any) => ({
 				...c,
 				tags: c.tags ? (JSON.parse(c.tags).filter((tag: unknown) => tag !== null) as string[]) : [],
+				authors: c.authors
+					? (JSON.parse(c.authors).filter((author: unknown) => author !== null) as string[])
+					: [],
 				published_at: c.published_at || ''
 			}))
 

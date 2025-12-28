@@ -1,5 +1,5 @@
 <script>
-	import Search from './Search.svelte'
+	import OmniSearch from './OmniSearch.svelte'
 	import Dropdown from './Dropdown.svelte'
 
 	let { user, announcement } = $props()
@@ -58,7 +58,7 @@
 		</a>
 
 		<div class="flex-1">
-			<Search />
+			<OmniSearch />
 		</div>
 
 		<nav class="ml-auto items-center space-x-4 md:flex">
