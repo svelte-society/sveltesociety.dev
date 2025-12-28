@@ -1,7 +1,6 @@
 <script lang="ts">
-	import CaretUpDown from 'phosphor-svelte/lib/CaretUpDown'
-	import Check from 'phosphor-svelte/lib/Check'
-	import { Select } from 'bits-ui'
+	import type { HTMLSelectAttributes } from 'svelte/elements'
+
 	type Option = {
 		label: string
 		value: string
@@ -10,58 +9,113 @@
 	type Props = {
 		options: Option[]
 		value?: string
-		name: string
-		selected?: string
-		props?: any
-		disabled?: boolean
 		onchange?: (value: string) => void
-		testId?: string
-	}
+		'data-testid'?: string
+	} & HTMLSelectAttributes
+
 	let {
 		options,
 		value = $bindable(),
-		name,
-		props,
-		disabled = false,
 		onchange,
-		testId
+		'data-testid': testId,
+		...rest
 	}: Props = $props()
 
-	const placeholder = $derived(props?.placeholder || 'Select...')
-	const selectedLabel = $derived(options.find((option) => option.value === value)?.label)
+	function handleChange(e: Event) {
+		const target = e.target as HTMLSelectElement
+		value = target.value
+		onchange?.(target.value)
+	}
+
+	const computedTestId = $derived(testId)
 </script>
 
-<Select.Root type="single" bind:value onValueChange={onchange} {name} {disabled}>
-	<Select.Trigger
-		{...props}
-		class="focus:outline-svelte-300 grid w-full grid-cols-[1fr_auto] items-center rounded-md border-2 border-transparent bg-slate-100 px-3 py-1 pl-2 text-left text-sm placeholder-slate-500 focus:outline-2 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500 data-fs-error:border-red-300 data-fs-error:bg-red-50 data-fs-error:text-red-600"
-		{disabled}
-		tabindex={disabled ? -1 : 0}
-		aria-label={selectedLabel || 'Select an option'}
-		data-testid={testId}
-	>
-		{selectedLabel || placeholder}
-		<CaretUpDown class="ml-auto size-4 text-gray-500" />
-	</Select.Trigger>
-	<Select.Portal>
-		<Select.Content
-			class="focus-override z-50 w-(--bits-select-anchor-width) min-w-(--bits-select-anchor-width) rounded-xl bg-white px-1 py-3 shadow-2xl outline-hidden select-none data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1"
-		>
-			{#each options as option}
-				<Select.Item
-					value={option.value}
-					class="flex h-8 w-full items-center rounded-sm py-3 pr-1.5 pl-3 text-sm capitalize outline-hidden select-none data-disabled:opacity-50 data-highlighted:bg-gray-100"
-				>
-					{#snippet children({ selected })}
-						{option.label}
-						{#if selected}
-							<div class="ml-auto">
-								<Check />
-							</div>
-						{/if}
-					{/snippet}
-				</Select.Item>
-			{/each}
-		</Select.Content>
-	</Select.Portal>
-</Select.Root>
+<select bind:value onchange={handleChange} data-testid={computedTestId} {...rest}>
+	{#each options as option}
+		<option value={option.value}>
+			{option.label}
+		</option>
+	{/each}
+</select>
+
+<style>
+	/* Base styles for all browsers (Safari fallback) */
+	select {
+		width: 100%;
+		min-width: 9rem;
+		padding: 0.25rem 2rem 0.25rem 0.5rem;
+		background: rgb(241 245 249); /* slate-100 */
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' fill='%236b7280'%3E%3Cpath d='M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,0-11.32,0l-48,48a8,8,0,0,0,11.32,11.32Z'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 0.5rem center;
+		background-size: 1rem;
+		border: 2px solid transparent;
+		border-radius: 0.375rem;
+		font-size: 0.875rem;
+		line-height: 1.25rem;
+		text-align: left;
+		cursor: pointer;
+		appearance: none;
+		-webkit-appearance: none;
+	}
+
+	select:focus {
+		outline: 2px solid rgb(253 186 116); /* svelte-300 */
+	}
+
+	select:disabled {
+		cursor: not-allowed;
+		background-color: rgb(243 244 246); /* gray-100 */
+		color: rgb(107 114 128); /* gray-500 */
+	}
+
+	/* Enhanced styles for browsers supporting base-select */
+	@supports (appearance: base-select) {
+		select,
+		::picker(select) {
+			appearance: base-select;
+		}
+
+		select {
+			padding: 0.25rem 0.75rem 0.25rem 0.5rem;
+			background-image: none;
+		}
+
+		::picker(select) {
+			border: none;
+			border-radius: 0.75rem;
+			background: white;
+			padding: 0.75rem 0.25rem;
+			box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+			width: anchor-size(width);
+		}
+
+		option {
+			position: relative;
+			display: flex;
+			align-items: center;
+			height: 2rem;
+			padding: 0.75rem 2rem 0.75rem 0.75rem;
+			font-size: 0.875rem;
+			border-radius: 0.125rem;
+			text-transform: capitalize;
+		}
+
+		option:hover,
+		option:focus {
+			background: rgb(243 244 246); /* gray-100 */
+		}
+
+		option::checkmark {
+			position: absolute;
+			right: 0.5rem;
+		}
+
+		/* CaretUpDown icon from phosphor-svelte */
+		select::picker-icon {
+			content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' fill='%236b7280'%3E%3Cpath d='M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,0-11.32,0l-48,48a8,8,0,0,0,11.32,11.32Z'/%3E%3C/svg%3E");
+			width: 1rem;
+			height: 1rem;
+		}
+	}
+</style>

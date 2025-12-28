@@ -2,6 +2,7 @@
 	import { page } from '$app/state'
 	import Input from '$lib/ui/Input.svelte'
 	import Button from '$lib/ui/Button.svelte'
+	import Select from '$lib/ui/Select.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import Megaphone from 'phosphor-svelte/lib/Megaphone'
 	import { initForm } from '$lib/utils/form.svelte'
@@ -51,23 +52,11 @@
 				<div class="grid gap-6 lg:grid-cols-2">
 					<div class="flex flex-col gap-2">
 						<label for="content_id" class="text-xs font-medium">Announcement</label>
-						<select
+						<Select
 							{...updatePlacement.fields.content_id.as('select')}
-							id="content_id"
-							class={[
-								'w-full rounded-md border-2 bg-slate-100 px-3 py-1.5 text-sm',
-								'focus:outline-2 focus:outline-sky-200',
-								(updatePlacement.fields.content_id.issues() ?? []).length > 0
-									? 'border-red-300 bg-red-50 text-red-600'
-									: 'border-transparent'
-							]}
+							options={[{ value: '', label: 'Select an announcement' }, ...announcementOptions]}
 							data-testid="select-content_id"
-						>
-							<option value="">Select an announcement</option>
-							{#each announcementOptions as option (option.value)}
-								<option value={option.value}>{option.label}</option>
-							{/each}
-						</select>
+						/>
 						{#each updatePlacement.fields.content_id.issues() ?? [] as issue, i (i)}
 							<p class="text-xs text-red-600">{issue.message}</p>
 						{:else}
@@ -77,23 +66,11 @@
 
 					<div class="flex flex-col gap-2">
 						<label for="placement_location_id" class="text-xs font-medium">Placement Location</label>
-						<select
+						<Select
 							{...updatePlacement.fields.placement_location_id.as('select')}
-							id="placement_location_id"
-							class={[
-								'w-full rounded-md border-2 bg-slate-100 px-3 py-1.5 text-sm',
-								'focus:outline-2 focus:outline-sky-200',
-								(updatePlacement.fields.placement_location_id.issues() ?? []).length > 0
-									? 'border-red-300 bg-red-50 text-red-600'
-									: 'border-transparent'
-							]}
+							options={[{ value: '', label: 'Select a location' }, ...locationOptions]}
 							data-testid="select-placement_location_id"
-						>
-							<option value="">Select a location</option>
-							{#each locationOptions as option (option.value)}
-								<option value={option.value}>{option.label}</option>
-							{/each}
-						</select>
+						/>
 						{#each updatePlacement.fields.placement_location_id.issues() ?? [] as issue, i (i)}
 							<p class="text-xs text-red-600">{issue.message}</p>
 						{:else}

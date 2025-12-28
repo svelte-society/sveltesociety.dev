@@ -5,6 +5,7 @@
 	import TextArea from '$lib/ui/TextArea.svelte'
 	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte'
 	import DynamicSelector from '$lib/ui/DynamicSelector.svelte'
+	import Select from '$lib/ui/Select.svelte'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 	import { refreshMetadata } from './data.remote'
 	import type { RemoteForm } from '@sveltejs/kit'
@@ -178,22 +179,11 @@
 			{#if !isEditing}
 				<div class="flex flex-col gap-2">
 					<label for="type" class="text-xs font-medium">Content Type</label>
-					<select
+					<Select
 						{...form.fields.type.as('select')}
-						id="type"
-						class={[
-							'w-full rounded-md border-2 bg-slate-100 px-3 py-1.5 text-sm',
-							'focus:outline-2 focus:outline-sky-200',
-							(form.fields.type.issues() ?? []).length > 0
-								? 'border-red-300 bg-red-50 text-red-600'
-								: 'border-transparent'
-						]}
+						options={typeOptions}
 						data-testid="select-type"
-					>
-						{#each typeOptions as option (option.value)}
-							<option value={option.value}>{option.label}</option>
-						{/each}
-					</select>
+					/>
 					<p class="text-xs text-slate-500">Select the type of content</p>
 					{#each form.fields.type.issues() ?? [] as issue, i (i)}
 						<p class="text-xs text-red-600">{issue.message}</p>
@@ -203,23 +193,16 @@
 
 			<div class="flex flex-col gap-2">
 				<label for="status" class="text-xs font-medium">Status</label>
-				<select
+				<Select
 					{...form.fields.status.as('select')}
-					id="status"
-					class={[
-						'w-full rounded-md border-2 bg-slate-100 px-3 py-1.5 text-sm',
-						'focus:outline-2 focus:outline-sky-200',
-						(form.fields.status.issues() ?? []).length > 0
-							? 'border-red-300 bg-red-50 text-red-600'
-							: 'border-transparent'
+					options={[
+						{ value: 'draft', label: 'Draft' },
+						{ value: 'pending_review', label: 'Pending Review' },
+						{ value: 'published', label: 'Published' },
+						{ value: 'archived', label: 'Archived' }
 					]}
 					data-testid="select-status"
-				>
-					<option value="draft">Draft</option>
-					<option value="pending_review">Pending Review</option>
-					<option value="published">Published</option>
-					<option value="archived">Archived</option>
-				</select>
+				/>
 				<p class="text-xs text-slate-500">Select the publication status</p>
 				{#each form.fields.status.issues() ?? [] as issue, i (i)}
 					<p class="text-xs text-red-600">{issue.message}</p>
@@ -232,17 +215,11 @@
 		<div class="grid grid-cols-1 gap-2 space-y-2 rounded-md border-2 border-slate-200 p-4">
 			<div class="flex flex-col gap-2">
 				<label for="author_id" class="text-xs font-medium">Author</label>
-				<select
+				<Select
 					{...form.fields.author_id.as('select')}
-					id="author_id"
-					class="w-full rounded-md border-2 border-transparent bg-slate-100 px-3 py-1.5 text-sm focus:outline-2 focus:outline-sky-200"
+					options={[{ value: '', label: 'Select an author...' }, ...users]}
 					data-testid="select-author"
-				>
-					<option value="">Select an author...</option>
-					{#each users as user (user.value)}
-						<option value={user.value}>{user.label}</option>
-					{/each}
-				</select>
+				/>
 				<p class="text-xs text-slate-500">
 					{authorId
 						? 'Change the author or submitter of this content'
