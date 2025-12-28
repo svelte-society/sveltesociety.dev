@@ -29,14 +29,19 @@
 	let triggerEl: HTMLDivElement | undefined = $state()
 	let menuEl: HTMLDivElement | undefined = $state()
 	let isOpen = $state(false)
+	// Force close state for Escape key - allows closing while keeping focus
+	let forceClosed = $state(false)
 
 	function handleFocusIn() {
 		isOpen = true
+		// Clear force close on any focus - menu should reopen
+		forceClosed = false
 	}
 
 	function handleFocusOut(e: FocusEvent) {
 		if (containerEl && !containerEl.contains(e.relatedTarget as Node)) {
 			isOpen = false
+			forceClosed = false
 		}
 	}
 
@@ -48,10 +53,9 @@
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape') {
 			e.preventDefault()
-			isOpen = false
-			if (document.activeElement instanceof HTMLElement) {
-				document.activeElement.blur()
-			}
+			// Instead of blurring, just force close - keeps focus on trigger
+			forceClosed = true
+			triggerEl?.focus()
 			return
 		}
 
@@ -62,6 +66,8 @@
 
 		if (e.key === 'ArrowDown') {
 			e.preventDefault()
+			// Clear force close when navigating
+			forceClosed = false
 			if (document.activeElement === triggerEl) {
 				items[0]?.focus()
 			} else if (currentIndex >= 0 && currentIndex < items.length - 1) {
@@ -69,6 +75,8 @@
 			}
 		} else if (e.key === 'ArrowUp') {
 			e.preventDefault()
+			// Clear force close when navigating
+			forceClosed = false
 			if (currentIndex > 0) {
 				items[currentIndex - 1]?.focus()
 			} else if (currentIndex === 0) {
@@ -84,16 +92,24 @@
 	}
 
 	function handleTriggerClick() {
-		if (wasFocusedBeforeClick) {
-			triggerEl?.blur()
+		if (forceClosed) {
+			// If force closed, clicking should reopen
+			forceClosed = false
+		} else if (wasFocusedBeforeClick) {
+			// Toggle close if already focused and open
+			forceClosed = true
 		}
 	}
 
 	function handleTriggerKeydown(e: KeyboardEvent) {
 		if (e.key === 'Enter' || e.key === ' ') {
 			e.preventDefault()
-			if (isOpen) {
-				triggerEl?.blur()
+			if (forceClosed) {
+				// If force closed, key should reopen
+				forceClosed = false
+			} else if (isOpen) {
+				// Toggle close if open
+				forceClosed = true
 			}
 		}
 	}
@@ -109,6 +125,7 @@
 <div
 	role="group"
 	class="group/dropdown relative inline-block"
+	data-force-closed={forceClosed || undefined}
 	bind:this={containerEl}
 	onfocusin={handleFocusIn}
 	onfocusout={handleFocusOut}
@@ -119,7 +136,7 @@
 		tabindex="0"
 		data-testid={triggerTestId}
 		aria-haspopup="true"
-		aria-expanded={isOpen}
+		aria-expanded={isOpen && !forceClosed}
 		aria-label={triggerLabel}
 		bind:this={triggerEl}
 		onmousedown={handleTriggerMousedown}
@@ -135,7 +152,7 @@
 		role="menu"
 		aria-label={menuLabel}
 		bind:this={menuEl}
-		class="invisible absolute top-full z-50 mt-1 select-none group-focus-within/dropdown:visible {alignmentClass} {menuClass}"
+		class="invisible absolute top-full z-50 mt-1 select-none group-focus-within/dropdown:visible group-data-[force-closed]/dropdown:invisible {alignmentClass} {menuClass}"
 	>
 		{@render children()}
 	</div>
