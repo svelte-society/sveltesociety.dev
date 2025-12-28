@@ -327,3 +327,57 @@ test.describe('Author Filtering', () => {
 		expect(count).toBe(0)
 	})
 })
+
+test.describe('Datalist Selection (No-JS fallback)', () => {
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page)
+	})
+
+	test('datalist category selection is parsed correctly', async ({ page }) => {
+		// Simulate selecting "Recipe (category)" from datalist
+		await page.goto('/?q=Recipe%20(category)&type=all')
+
+		// Should redirect to /?type=recipe
+		await expect(page).toHaveURL(/type=recipe/)
+		await expect(page).not.toHaveURL(/q=/)
+
+		const contentList = new ContentListPage(page)
+		await contentList.expectContentDisplayed()
+	})
+
+	test('datalist tag selection is parsed correctly', async ({ page }) => {
+		// Simulate selecting "svelte (tag)" from datalist
+		await page.goto('/?q=svelte%20(tag)&type=all')
+
+		// Should redirect to /?tags=svelte
+		await expect(page).toHaveURL(/tags=svelte/)
+		await expect(page).not.toHaveURL(/q=/)
+
+		const contentList = new ContentListPage(page)
+		await contentList.expectContentDisplayed()
+	})
+
+	test('datalist author selection is parsed correctly', async ({ page }) => {
+		// Simulate selecting "Test Admin (author)" from datalist
+		await page.goto('/?q=Test%20Admin%20(author)&type=all')
+
+		// Should redirect to /?authors=Test%20Admin
+		await expect(page).toHaveURL(/authors=Test/)
+		await expect(page).not.toHaveURL(/q=/)
+
+		const contentList = new ContentListPage(page)
+		await contentList.expectContentDisplayed()
+	})
+
+	test('regular search still works when not matching datalist format', async ({ page }) => {
+		// Regular search term without datalist format
+		await page.goto('/?q=Counter&type=all')
+
+		// Should redirect to /?query=Counter
+		await expect(page).toHaveURL(/query=Counter/)
+		await expect(page).not.toHaveURL(/q=/)
+
+		const contentList = new ContentListPage(page)
+		await contentList.expectContentDisplayed()
+	})
+})

@@ -185,12 +185,21 @@
 				type="search"
 				name="q"
 				placeholder="Search content, tags, authors..."
-				autocomplete="off"
+				autocomplete={browser ? 'off' : 'on'}
+				list={browser ? undefined : 'search-suggestions'}
 				bind:value={searchQuery}
 				onkeydown={handleKeydown}
 				data-testid="omni-search-input"
 				class="h-8 w-full rounded-md border-none bg-slate-100 pr-14 pl-8 text-sm text-slate-800 placeholder-slate-500 focus:outline-2 focus:outline-svelte-300"
 			/>
+			<!-- Native datalist for no-JS users - hidden when JS is enabled -->
+			{#if !browser}
+				<datalist id="search-suggestions">
+					{#each allSuggestions as suggestion (suggestion.type + suggestion.value)}
+						<option value="{suggestion.label} ({suggestion.type})" />
+					{/each}
+				</datalist>
+			{/if}
 			<button
 				type="submit"
 				name="type"
