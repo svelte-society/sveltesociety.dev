@@ -2,10 +2,44 @@
 	import CaretUpDown from 'phosphor-svelte/lib/CaretUpDown'
 	import FilterSubmenu from './FilterSubmenu.svelte'
 	import { getCategories, getTags, getAuthors } from './data.remote'
+	import { afterNavigate } from '$app/navigation'
 
 	let isOpen = $state(false)
+	let shouldFocusTrigger = $state(false)
+
+	afterNavigate(() => {
+		if (shouldFocusTrigger) {
+			triggerEl?.focus()
+			shouldFocusTrigger = false
+		}
+	})
+
+	function handleSelect() {
+		shouldFocusTrigger = true
+	}
+
+	let wasFocusedBeforeClick = false
+
+	function handleTriggerMousedown() {
+		wasFocusedBeforeClick = document.activeElement === triggerEl
+	}
+
+	function handleTriggerClick() {
+		if (wasFocusedBeforeClick) {
+			triggerEl?.blur()
+		}
+	}
+
+	function handleTriggerKeydown(e: KeyboardEvent) {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault()
+			if (isOpen) {
+				triggerEl?.blur()
+			}
+		}
+	}
 	let containerEl: HTMLDivElement | undefined = $state()
-	let triggerEl: HTMLButtonElement | undefined = $state()
+	let triggerEl: HTMLDivElement | undefined = $state()
 	let menuEl: HTMLDivElement | undefined = $state()
 
 	function handleFocusIn() {
@@ -13,7 +47,6 @@
 	}
 
 	function handleFocusOut(e: FocusEvent) {
-		// Check if focus moved outside the container
 		if (containerEl && !containerEl.contains(e.relatedTarget as Node)) {
 			isOpen = false
 		}
@@ -21,14 +54,16 @@
 
 	function getMenuItems(): HTMLElement[] {
 		if (!menuEl) return []
-		return Array.from(menuEl.querySelectorAll<HTMLElement>(':scope > div > button'))
+		return Array.from(menuEl.querySelectorAll<HTMLElement>(':scope > div > div[role="menuitem"]'))
 	}
 
 	function handleKeydown(e: KeyboardEvent) {
-		if (e.key === 'Escape' && isOpen) {
+		if (e.key === 'Escape') {
 			e.preventDefault()
 			isOpen = false
-			triggerEl?.focus()
+			if (document.activeElement instanceof HTMLElement) {
+				document.activeElement.blur()
+			}
 			return
 		}
 
@@ -40,19 +75,15 @@
 		if (e.key === 'ArrowDown') {
 			e.preventDefault()
 			if (document.activeElement === triggerEl) {
-				// From trigger, move to first menu item
 				items[0]?.focus()
 			} else if (currentIndex >= 0 && currentIndex < items.length - 1) {
-				// Move to next item
 				items[currentIndex + 1]?.focus()
 			}
 		} else if (e.key === 'ArrowUp') {
 			e.preventDefault()
 			if (currentIndex > 0) {
-				// Move to previous item
 				items[currentIndex - 1]?.focus()
 			} else if (currentIndex === 0) {
-				// From first item, move back to trigger
 				triggerEl?.focus()
 			}
 		}
@@ -69,28 +100,31 @@
 	onfocusout={handleFocusOut}
 	onkeydown={handleKeydown}
 >
-	<!-- Trigger button - styled like Select component -->
-	<button
-		type="button"
+	<div
+		role="button"
+		tabindex="0"
 		aria-haspopup="true"
 		aria-expanded={isOpen}
 		aria-label="Add filter"
 		bind:this={triggerEl}
-		class="grid w-full min-w-36 grid-cols-[1fr_auto] items-center rounded-md border-2 border-transparent bg-slate-100 px-3 py-1 pl-2 text-left text-sm focus:outline-2 focus:outline-svelte-300"
+		onmousedown={handleTriggerMousedown}
+		ontouchstart={handleTriggerMousedown}
+		onclick={handleTriggerClick}
+		onkeydown={handleTriggerKeydown}
+		class="grid w-full min-w-36 cursor-pointer grid-cols-[1fr_auto] items-center rounded-md border-2 border-transparent bg-slate-100 px-3 py-1 pl-2 text-left text-sm focus:outline-2 focus:outline-svelte-300"
 	>
 		Add Filter
 		<CaretUpDown class="ml-auto size-4 text-gray-500" />
-	</button>
+	</div>
 
-	<!-- First level dropdown - styled like Select content -->
 	<div
 		role="menu"
 		aria-label="Filter options"
 		bind:this={menuEl}
 		class="invisible absolute left-0 top-full z-50 mt-1 min-w-44 rounded-xl bg-white px-1 py-3 opacity-0 shadow-2xl transition-all select-none group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100"
 	>
-		<FilterSubmenu label="Categories" paramName="type" getItems={getCategories} />
-		<FilterSubmenu label="Tags" paramName="tags" getItems={getTags} />
-		<FilterSubmenu label="Authors" paramName="authors" getItems={getAuthors} />
+		<FilterSubmenu label="Categories" paramName="type" getItems={getCategories} onSelect={handleSelect} />
+		<FilterSubmenu label="Tags" paramName="tags" getItems={getTags} onSelect={handleSelect} />
+		<FilterSubmenu label="Authors" paramName="authors" getItems={getAuthors} onSelect={handleSelect} />
 	</div>
 </div>
