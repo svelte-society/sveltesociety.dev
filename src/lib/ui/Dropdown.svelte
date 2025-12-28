@@ -32,10 +32,13 @@
 	// Force close state for Escape key - allows closing while keeping focus
 	let forceClosed = $state(false)
 
-	function handleFocusIn() {
+	function handleFocusIn(e: FocusEvent) {
 		isOpen = true
-		// Clear force close on any focus - menu should reopen
-		forceClosed = false
+		// Only clear force close if focus moved to a menu item, not the trigger
+		// This preserves forceClosed when close() programmatically focuses the trigger
+		if (e.target !== triggerEl) {
+			forceClosed = false
+		}
 	}
 
 	function handleFocusOut(e: FocusEvent) {
@@ -114,9 +117,11 @@
 		}
 	}
 
-	const alignmentClass = align === 'right' ? 'right-0' : 'left-0'
+	let alignmentClass = $derived(align === 'right' ? 'right-0' : 'left-0')
 
-	export function focusTrigger() {
+	// Close the dropdown and focus trigger
+	export function close() {
+		forceClosed = true
 		triggerEl?.focus()
 	}
 </script>

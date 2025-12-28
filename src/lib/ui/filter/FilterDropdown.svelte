@@ -5,18 +5,19 @@
 	import { afterNavigate } from '$app/navigation'
 	import Dropdown from '$lib/ui/Dropdown.svelte'
 
-	let dropdownRef: { focusTrigger: () => void } | undefined = $state()
-	let shouldFocusTrigger = $state(false)
+	let dropdownRef: { close: () => void } | undefined = $state()
+	let shouldRefocus = $state(false)
 
 	afterNavigate(() => {
-		if (shouldFocusTrigger) {
-			dropdownRef?.focusTrigger()
-			shouldFocusTrigger = false
+		if (shouldRefocus) {
+			dropdownRef?.close()
+			shouldRefocus = false
 		}
 	})
 
 	function handleSelect() {
-		shouldFocusTrigger = true
+		dropdownRef?.close()
+		shouldRefocus = true
 	}
 </script>
 

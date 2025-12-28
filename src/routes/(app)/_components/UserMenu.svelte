@@ -5,9 +5,12 @@
 	import GearSix from 'phosphor-svelte/lib/GearSix'
 
 	let { user } = $props()
+
+	let dropdownRef: { close: () => void } | undefined = $state()
 </script>
 
 <Dropdown
+	bind:this={dropdownRef}
 	align="right"
 	triggerLabel="User menu"
 	triggerTestId="user-menu-trigger"
@@ -23,6 +26,7 @@
 		href={`/user/${user.username}`}
 		role="menuitem"
 		data-testid="profile-menu-item"
+		onclick={() => dropdownRef?.close()}
 		class="flex h-10 cursor-pointer items-center rounded-sm py-3 pr-1.5 pl-3 text-sm font-medium select-none hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
 	>
 		<GearSix class="mr-2 size-5" />
@@ -33,6 +37,7 @@
 			type="submit"
 			role="menuitem"
 			data-testid="logout-menu-item"
+			onclick={() => dropdownRef?.close()}
 			class="flex h-10 w-full cursor-pointer items-center rounded-sm py-3 pr-1.5 pl-3 text-sm font-medium select-none hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
 		>
 			<SignOut class="mr-2 size-5" />

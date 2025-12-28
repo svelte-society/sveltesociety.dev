@@ -19,18 +19,19 @@
 
 	let { options, paramName, defaultValue = '' }: Props = $props()
 
-	let dropdownRef: { focusTrigger: () => void } | undefined = $state()
-	let shouldFocusTrigger = $state(false)
+	let dropdownRef: { close: () => void } | undefined = $state()
+	let shouldRefocus = $state(false)
 
 	afterNavigate(() => {
-		if (shouldFocusTrigger) {
-			dropdownRef?.focusTrigger()
-			shouldFocusTrigger = false
+		if (shouldRefocus) {
+			dropdownRef?.close()
+			shouldRefocus = false
 		}
 	})
 
 	function handleSelect() {
-		shouldFocusTrigger = true
+		dropdownRef?.close()
+		shouldRefocus = true
 	}
 
 	// Get current value from URL or use default
