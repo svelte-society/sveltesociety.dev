@@ -208,11 +208,11 @@
 			</button>
 		</div>
 
-		<!-- Dropdown -->
-		<div
-			class="invisible absolute left-0 right-0 top-full z-50 mt-1 max-h-80 overflow-y-auto rounded-xl border border-slate-200 bg-white p-2 opacity-0 shadow-lg transition-opacity group-focus-within/search:visible group-focus-within/search:opacity-100"
-		>
-			{#if browser}
+		<!-- Dropdown - only shown when JS is enabled (no-JS uses native datalist) -->
+		{#if browser}
+			<div
+				class="invisible absolute left-0 right-0 top-full z-50 mt-1 max-h-80 overflow-y-auto rounded-xl border border-slate-200 bg-white p-2 opacity-0 shadow-lg transition-opacity group-focus-within/search:visible group-focus-within/search:opacity-100"
+			>
 				{#if availableSuggestions.length > 0}
 					{#each availableSuggestions as suggestion, i (suggestion.type + suggestion.value)}
 						<a
@@ -235,12 +235,7 @@
 				{:else}
 					<div class="px-2 py-3 text-center text-sm text-slate-400">Start typing to search...</div>
 				{/if}
-			{:else}
-				<!-- No-JS fallback: simple help text (datalist provides autocomplete) -->
-				<div class="px-2 py-3 text-center text-sm text-slate-500">
-					Type to search or select from suggestions
-				</div>
-			{/if}
-		</div>
+			</div>
+		{/if}
 	</form>
 </div>
