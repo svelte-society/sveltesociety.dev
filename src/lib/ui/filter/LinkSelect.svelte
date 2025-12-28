@@ -172,7 +172,7 @@
 		role="listbox"
 		aria-label="{paramName} options"
 		bind:this={menuEl}
-		class="invisible absolute left-0 top-full z-50 mt-1 min-w-44 rounded-xl bg-white px-1 py-3 opacity-0 shadow-2xl transition-all select-none group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100"
+		class="invisible absolute left-0 right-0 top-full z-50 mt-1 rounded-xl bg-white px-1 py-3 opacity-0 shadow-2xl transition-all select-none group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100"
 	>
 		{#each options as option (option.value)}
 			{@const isActive = currentValue === option.value}
