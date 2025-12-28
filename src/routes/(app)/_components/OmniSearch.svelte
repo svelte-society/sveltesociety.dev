@@ -196,7 +196,7 @@
 			{#if !browser}
 				<datalist id="search-suggestions">
 					{#each allSuggestions as suggestion (suggestion.type + suggestion.value)}
-						<option value="{suggestion.label} ({suggestion.type})" />
+						<option value="{suggestion.label} ({suggestion.type})"></option>
 					{/each}
 				</datalist>
 			{/if}
@@ -208,8 +208,8 @@
 			</button>
 		</div>
 
-		<!-- Dropdown - only shown when JS is enabled (no-JS uses native datalist) -->
-		{#if browser}
+		<!-- Dropdown - only shown when JS is enabled and user has typed something -->
+		{#if browser && searchQuery.trim()}
 			<div
 				class="invisible absolute left-0 right-0 top-full z-50 mt-1 max-h-80 overflow-y-auto rounded-xl border border-slate-200 bg-white p-2 opacity-0 shadow-lg transition-opacity group-focus-within/search:visible group-focus-within/search:opacity-100"
 			>
@@ -228,12 +228,10 @@
 							<span class="text-xs text-slate-600">{typeLabels[suggestion.type]}</span>
 						</a>
 					{/each}
-				{:else if searchQuery.trim()}
+				{:else}
 					<div class="px-2 py-3 text-center text-sm text-slate-500">
 						No matching filters found. Press Enter to search content.
 					</div>
-				{:else}
-					<div class="px-2 py-3 text-center text-sm text-slate-400">Start typing to search...</div>
 				{/if}
 			</div>
 		{/if}

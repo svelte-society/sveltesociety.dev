@@ -4,7 +4,6 @@
 	import Collapsible from '$lib/ui/Collapsible.svelte'
 	import FilterForm from './FilterForm.svelte'
 	import FunnelSimple from 'phosphor-svelte/lib/FunnelSimple'
-	import { getTags } from './data.remote'
 
 	type Option = {
 		label: string
@@ -42,23 +41,13 @@
 		{/snippet}
 		{#snippet children()}
 			<div class="mb-4">
-				<FilterForm
-					{sort}
-					tags={await getTags()}
-					{filters}
-					{updateSort}
-				/>
+				<FilterForm {sort} {filters} {updateSort} />
 			</div>
 		{/snippet}
 	</Collapsible>
 
 	<!-- Desktop non-collapsible filters -->
 	<div class="hidden p-2 sm:block">
-		<FilterForm
-			{sort}
-			tags={await getTags()}
-			{filters}
-			{updateSort}
-		/>
+		<FilterForm {sort} {filters} {updateSort} />
 	</div>
 </div>

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Select from '$lib/ui/Select.svelte'
 	import Button from '$lib/ui/Button.svelte'
-	import Tags, { type TagType } from '$lib/ui/Tags.svelte'
 	import FilterDropdown from '$lib/ui/filter/FilterDropdown.svelte'
 	import ActiveFilters from '$lib/ui/filter/ActiveFilters.svelte'
 
@@ -12,12 +11,11 @@
 
 	type Props = {
 		sort: Option[]
-		tags: TagType[]
 		filters: URL
 		updateSort: (value: string) => void
 	}
 
-	let { sort, tags, filters, updateSort }: Props = $props()
+	let { sort, filters, updateSort }: Props = $props()
 </script>
 
 <form class="@container grid gap-4">
@@ -37,11 +35,6 @@
 		</div>
 	</div>
 	<ActiveFilters />
-	<!-- Tags only shown on mobile, hidden on desktop (lg and up) -->
-	<div class="flex w-full flex-col gap-2 lg:hidden">
-		<p class="text-xs font-medium outline-none">Tags</p>
-		<Tags {tags} />
-	</div>
 	<div class="sr-only">
 		<Button type="submit">Filter</Button>
 	</div>
