@@ -14,9 +14,10 @@
 		paramName: string
 		items?: Item[]
 		getItems?: () => Promise<Item[]> | Item[]
+		onSelect?: () => void
 	}
 
-	let { label, paramName, items, getItems }: Props = $props()
+	let { label, paramName, items, getItems, onSelect }: Props = $props()
 
 	// Normalize items access to a function (supports both sync items and async getItems)
 	function fetchItems(): Promise<Item[]> | Item[] {
@@ -27,7 +28,7 @@
 
 	let isOpen = $state(false)
 	let containerEl: HTMLDivElement | undefined = $state()
-	let triggerEl: HTMLButtonElement | undefined = $state()
+	let triggerEl: HTMLDivElement | undefined = $state()
 	let submenuEl: HTMLDivElement | undefined = $state()
 
 	function handleFocusIn() {
@@ -84,18 +85,18 @@
 	onfocusout={handleFocusOut}
 	onkeydown={handleKeydown}
 >
-	<button
-		type="button"
+	<div
 		role="menuitem"
+		tabindex="0"
 		aria-haspopup="true"
 		aria-expanded={isOpen}
 		bind:this={triggerEl}
-		class="group/button flex h-8 w-full items-center justify-between rounded-sm py-3 pr-1.5 pl-3 text-left text-sm outline-hidden hover:bg-svelte-50 focus:bg-svelte-100 group-focus-within/submenu:bg-svelte-50"
+		class="group/button flex h-8 w-full cursor-pointer items-center justify-between rounded-sm py-3 pr-1.5 pl-3 text-left text-sm outline-hidden hover:bg-svelte-50 focus:bg-svelte-100 group-focus-within/submenu:bg-svelte-50"
 	>
 		<span>{label}</span>
 		<CaretRight class="size-4 text-gray-400 group-hover/button:text-svelte-900 group-focus/button:text-svelte-900 group-focus-within/submenu:text-svelte-900" />
 		<span class="sr-only">Open submenu</span>
-	</button>
+	</div>
 	<div
 		role="menu"
 		aria-label="{label} options"
@@ -106,9 +107,9 @@
 			{@const isActive = isValueActive(page.url, paramName, item.value)}
 			<a
 				href={buildToggleHref(page.url, page.route.id, page.params, paramName, item.value)}
-				data-sveltekit-keepfocus
 				role="menuitemcheckbox"
 				aria-checked={isActive}
+				onclick={() => onSelect?.()}
 				onkeydown={(e) => {
 					if (e.key === ' ') {
 						e.preventDefault()
