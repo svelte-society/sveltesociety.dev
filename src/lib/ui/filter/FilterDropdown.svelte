@@ -7,7 +7,6 @@
 	let isOpen = $state(false)
 	let shouldFocusTrigger = $state(false)
 
-	// Focus trigger after navigation when a filter was selected
 	afterNavigate(() => {
 		if (shouldFocusTrigger) {
 			triggerEl?.focus()
@@ -22,12 +21,10 @@
 	let wasFocusedBeforeClick = false
 
 	function handleTriggerMousedown() {
-		// Capture focus state before the click applies focus
 		wasFocusedBeforeClick = document.activeElement === triggerEl
 	}
 
 	function handleTriggerClick() {
-		// If was already focused before click, blur to close
 		if (wasFocusedBeforeClick) {
 			triggerEl?.blur()
 		}
@@ -36,7 +33,6 @@
 	function handleTriggerKeydown(e: KeyboardEvent) {
 		if (e.key === 'Enter' || e.key === ' ') {
 			e.preventDefault()
-			// Toggle: if open, blur to close; if closed, it will open via focus
 			if (isOpen) {
 				triggerEl?.blur()
 			}
@@ -51,7 +47,6 @@
 	}
 
 	function handleFocusOut(e: FocusEvent) {
-		// Check if focus moved outside the container
 		if (containerEl && !containerEl.contains(e.relatedTarget as Node)) {
 			isOpen = false
 		}
@@ -66,7 +61,6 @@
 		if (e.key === 'Escape') {
 			e.preventDefault()
 			isOpen = false
-			// Blur whatever is currently focused inside the dropdown
 			if (document.activeElement instanceof HTMLElement) {
 				document.activeElement.blur()
 			}
@@ -81,19 +75,15 @@
 		if (e.key === 'ArrowDown') {
 			e.preventDefault()
 			if (document.activeElement === triggerEl) {
-				// From trigger, move to first menu item
 				items[0]?.focus()
 			} else if (currentIndex >= 0 && currentIndex < items.length - 1) {
-				// Move to next item
 				items[currentIndex + 1]?.focus()
 			}
 		} else if (e.key === 'ArrowUp') {
 			e.preventDefault()
 			if (currentIndex > 0) {
-				// Move to previous item
 				items[currentIndex - 1]?.focus()
 			} else if (currentIndex === 0) {
-				// From first item, move back to trigger
 				triggerEl?.focus()
 			}
 		}
@@ -110,7 +100,6 @@
 	onfocusout={handleFocusOut}
 	onkeydown={handleKeydown}
 >
-	<!-- Trigger - using div for Safari mobile focus compatibility -->
 	<div
 		role="button"
 		tabindex="0"
@@ -128,7 +117,6 @@
 		<CaretUpDown class="ml-auto size-4 text-gray-500" />
 	</div>
 
-	<!-- First level dropdown - styled like Select content -->
 	<div
 		role="menu"
 		aria-label="Filter options"

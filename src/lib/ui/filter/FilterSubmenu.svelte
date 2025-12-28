@@ -19,7 +19,6 @@
 
 	let { label, paramName, items, getItems, onSelect }: Props = $props()
 
-	// Normalize items access to a function (supports both sync items and async getItems)
 	function fetchItems(): Promise<Item[]> | Item[] {
 		if (items) return items
 		if (getItems) return getItems()
@@ -50,14 +49,12 @@
 		const submenuItems = getSubmenuItems()
 
 		if (e.key === 'ArrowRight' && document.activeElement === triggerEl) {
-			// From trigger, open submenu and focus first item
 			e.preventDefault()
 			submenuItems[0]?.focus()
 			return
 		}
 
 		if (e.key === 'ArrowLeft') {
-			// From submenu, return to trigger
 			e.preventDefault()
 			triggerEl?.focus()
 			return
