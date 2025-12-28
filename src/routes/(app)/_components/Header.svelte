@@ -1,6 +1,6 @@
 <script>
 	import OmniSearch from './OmniSearch.svelte'
-	import Dropdown from './Dropdown.svelte'
+	import UserMenu from './UserMenu.svelte'
 
 	let { user, announcement } = $props()
 </script>
@@ -63,7 +63,7 @@
 
 		<nav class="ml-auto items-center space-x-4 md:flex">
 			{#if user}
-				<Dropdown {user} />
+				<UserMenu {user} />
 			{:else}
 				<a data-sveltekit-preload-data={false} href="/login" class="hover:underline"> Login </a>
 			{/if}
