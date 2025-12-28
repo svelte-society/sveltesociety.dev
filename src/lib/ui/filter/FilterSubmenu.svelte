@@ -1,5 +1,7 @@
 <script lang="ts">
 	import CaretRight from 'phosphor-svelte/lib/CaretRight'
+	import CaretUp from 'phosphor-svelte/lib/CaretUp'
+	import CaretDown from 'phosphor-svelte/lib/CaretDown'
 	import Check from 'phosphor-svelte/lib/Check'
 	import { page } from '$app/state'
 	import { buildToggleHref, isValueActive } from './url-helpers'
@@ -95,31 +97,47 @@
 		<span class="sr-only">Open submenu</span>
 	</div>
 	<div
-		role="menu"
-		aria-label="{label} options"
-		bind:this={submenuEl}
-		class="invisible absolute left-full top-0 ml-1 min-w-44 rounded-xl bg-white px-1 py-3 opacity-0 shadow-2xl transition-all select-none group-focus-within/submenu:visible group-focus-within/submenu:opacity-100"
+		class="group/menu invisible absolute left-full top-0 ml-1 min-w-44 rounded-xl bg-white shadow-2xl opacity-0 transition-all select-none group-focus-within/submenu:visible group-focus-within/submenu:opacity-100"
 	>
-		{#each await fetchItems() as item (item.value)}
-			{@const isActive = isValueActive(page.url, paramName, item.value)}
-			<a
-				href={buildToggleHref(page.url, page.route.id, page.params, paramName, item.value)}
-				role="menuitemcheckbox"
-				aria-checked={isActive}
-				onclick={() => onSelect?.()}
-				onkeydown={(e) => {
-					if (e.key === ' ') {
-						e.preventDefault()
-						e.currentTarget.click()
-					}
-				}}
-				class="flex h-8 w-full items-center justify-between rounded-sm py-3 pr-2 pl-3 text-sm outline-hidden hover:bg-gray-100 focus:bg-gray-100"
-			>
-				{item.label}
-				{#if isActive}
-					<Check class="size-4 text-svelte-500" weight="bold" />
-				{/if}
-			</a>
-		{/each}
+		<div
+			class="hidden items-center justify-center py-2 text-gray-400 group-has-[:nth-child(15)]/menu:flex"
+			aria-hidden="true"
+		>
+			<CaretUp class="size-4" />
+		</div>
+		<div
+			role="menu"
+			aria-label="{label} options"
+			bind:this={submenuEl}
+			class="max-h-[500px] overflow-y-auto px-1 group-has-[:nth-child(15)]/menu:py-1 py-3"
+		>
+			{#each await fetchItems() as item (item.value)}
+				{@const isActive = isValueActive(page.url, paramName, item.value)}
+				<a
+					href={buildToggleHref(page.url, page.route.id, page.params, paramName, item.value)}
+					role="menuitemcheckbox"
+					aria-checked={isActive}
+					onclick={() => onSelect?.()}
+					onkeydown={(e) => {
+						if (e.key === ' ') {
+							e.preventDefault()
+							e.currentTarget.click()
+						}
+					}}
+					class="flex h-8 w-full items-center justify-between rounded-sm py-3 pr-2 pl-3 text-sm outline-hidden hover:bg-gray-100 focus:bg-gray-100"
+				>
+					{item.label}
+					{#if isActive}
+						<Check class="size-4 text-svelte-500" weight="bold" />
+					{/if}
+				</a>
+			{/each}
+		</div>
+		<div
+			class="hidden items-center justify-center py-2 text-gray-400 group-has-[:nth-child(15)]/menu:flex"
+			aria-hidden="true"
+		>
+			<CaretDown class="size-4" />
+		</div>
 	</div>
 </div>
