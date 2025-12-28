@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Select from '$lib/ui/Select.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import FilterDropdown from '$lib/ui/filter/FilterDropdown.svelte'
+	import LinkSelect from '$lib/ui/filter/LinkSelect.svelte'
 	import ActiveFilters from '$lib/ui/filter/ActiveFilters.svelte'
 
 	type Option = {
@@ -11,11 +11,9 @@
 
 	type Props = {
 		sort: Option[]
-		filters: URL
-		updateSort: (value: string) => void
 	}
 
-	let { sort, filters, updateSort }: Props = $props()
+	let { sort }: Props = $props()
 </script>
 
 <form class="@container grid gap-4">
@@ -25,13 +23,8 @@
 			<FilterDropdown />
 		</div>
 		<div class="flex w-full flex-col gap-2">
-			<label for="sort" class="text-xs font-medium outline-none">Sort</label>
-			<Select
-				value={filters.searchParams.get('sort') || sort[0].value}
-				name="sort"
-				onchange={updateSort}
-				options={sort}
-			/>
+			<span class="text-xs font-medium">Sort</span>
+			<LinkSelect options={sort} paramName="sort" defaultValue={sort[0]?.value} />
 		</div>
 	</div>
 	<ActiveFilters />
