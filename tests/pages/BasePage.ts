@@ -79,7 +79,7 @@ export class BasePage {
 	 * User profile dropdown/menu (visible when authenticated)
 	 */
 	protected get userMenu(): Locator {
-		return this.page.locator('[data-testid="user-menu"]')
+		return this.page.locator('[data-testid="user-menu-trigger"]')
 	}
 
 	// Common actions
