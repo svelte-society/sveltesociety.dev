@@ -10,25 +10,19 @@
 	let inputElement: HTMLInputElement | undefined
 	let selectedIndex = $state(-1)
 
-	$effect(() => {
-		searchQuery
-		selectedIndex = -1
-	})
-
 	let existingTypes = $derived(page.url.searchParams.getAll('type'))
 	let existingTags = $derived(page.url.searchParams.getAll('tags'))
 	let existingAuthors = $derived(page.url.searchParams.getAll('authors'))
 	let existingQuery = $derived(page.url.searchParams.get('query') || '')
 	let categoryType = $derived(getCategoryFromRoute(page.route.id, page.params))
 	let allSuggestions = $derived(await getSearchSuggestions())
+	let filteredSuggestions = $derived(filterSuggestions(allSuggestions, searchQuery))
 
 	function filterSuggestions(suggestions: SearchSuggestion[], query: string): SearchSuggestion[] {
 		if (!query.trim()) return []
 		const lowerQuery = query.toLowerCase()
 		return suggestions.filter((s) => s.label.toLowerCase().includes(lowerQuery))
 	}
-
-	let filteredSuggestions = $derived(filterSuggestions(allSuggestions, searchQuery))
 
 	let availableSuggestions = $derived(
 		filteredSuggestions.filter((s) => {
@@ -160,7 +154,7 @@
 			/>
 			{#if !browser}
 				<datalist id="search-suggestions">
-					{#each allSuggestions as suggestion (suggestion.type + suggestion.value)}
+					{#each await getSearchSuggestions() as suggestion (suggestion.type + suggestion.value)}
 						<option value="{suggestion.label} ({suggestion.type})"></option>
 					{/each}
 				</datalist>
@@ -182,6 +176,7 @@
 						<a
 							bind:this={suggestionRefs[i]}
 							href={buildAddFilterHref(suggestion)}
+							data-sveltekit-preload-data={false}
 							onpointerdown={(e) => e.preventDefault()}
 							onclick={(e) => {
 								e.preventDefault()
@@ -190,7 +185,11 @@
 							}}
 							onkeydown={handleKeydown}
 							onfocus={() => handleFocus(suggestion)}
-							class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm hover:bg-svelte-50 focus:bg-svelte-100 focus:outline-none {isSelected(suggestion) ? 'bg-svelte-100' : ''}"
+							class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm hover:bg-svelte-50 focus:bg-svelte-100 focus:outline-none {isSelected(
+								suggestion
+							)
+								? 'bg-svelte-100'
+								: ''}"
 						>
 							<span>{@html highlightMatch(suggestion.label, searchQuery)}</span>
 							<span class="text-xs text-slate-600">{typeLabels[suggestion.type]}</span>
