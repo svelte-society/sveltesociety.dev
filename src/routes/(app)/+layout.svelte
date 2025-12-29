@@ -5,7 +5,13 @@
 	import LeftSidebar from './_components/LeftSidebar.svelte'
 	import RightSidebar from './_components/RightSidebar.svelte'
 	import MobileMenu from './_components/MobileMenu.svelte'
-	import { getTags, getUpcomingEvents, getHeaderAnnouncement, getUser, getSidebarShortcuts } from './data.remote'
+	import {
+		getTags,
+		getUpcomingEvents,
+		getHeaderAnnouncement,
+		getUser,
+		getSidebarShortcuts
+	} from './data.remote'
 
 	let { children } = $props()
 
@@ -52,7 +58,7 @@
 <Seo config={page.data.meta || fallbackMeta} />
 
 <div class="flex min-h-screen flex-col">
-	<Header {user} announcement={await getHeaderAnnouncement()} />
+	<Header user={await getUser()} announcement={await getHeaderAnnouncement()} />
 
 	<main
 		class="relative mx-auto grid w-full max-w-[1440px] flex-1 grid-cols-1 gap-2 sm:grid-cols-[1.5fr_5fr_2.5fr] md:gap-4 lg:gap-6"
