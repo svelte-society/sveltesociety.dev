@@ -183,7 +183,11 @@
 							bind:this={suggestionRefs[i]}
 							href={buildAddFilterHref(suggestion)}
 							onpointerdown={(e) => e.preventDefault()}
-							onclick={clearSearch}
+							onclick={(e) => {
+								e.preventDefault()
+								goto(buildAddFilterHref(suggestion), { keepFocus: true })
+								clearSearch()
+							}}
 							onkeydown={handleKeydown}
 							onfocus={() => handleFocus(suggestion)}
 							class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm hover:bg-svelte-50 focus:bg-svelte-100 focus:outline-none {isSelected(suggestion) ? 'bg-svelte-100' : ''}"
