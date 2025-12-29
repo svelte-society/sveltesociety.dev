@@ -1,10 +1,6 @@
 import { redirect } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 
-/**
- * Parse datalist selection format "label (type)" into components.
- * Returns null if the format doesn't match.
- */
 function parseDatalistSelection(q: string): { label: string; type: string } | null {
 	const match = q.match(/^(.+)\s+\((category|tag|author)\)$/)
 	if (match) {
@@ -13,27 +9,24 @@ function parseDatalistSelection(q: string): { label: string; type: string } | nu
 	return null
 }
 
-/**
- * Handles URL normalization and backwards compatibility.
- *
- * 1. Converts legacy comma-separated tags format (?tags=a,b) to repeated params (?tags=a&tags=b)
- * 2. Handles no-JS fallback for OmniSearch form submissions
- * 3. Parses datalist selections in "label (type)" format
- */
-export const load: PageServerLoad = ({ url }) => {
-	// Check for legacy comma-separated tags format and convert to repeated params
+function labelToSlug(label: string): string {
+	return label
+		.toLowerCase()
+		.replace(/\s+/g, '-')
+		.replace(/[^a-z0-9-]/g, '')
+}
+
+export const load: PageServerLoad = ({ url, locals }) => {
 	const tagsParam = url.searchParams.get('tags')
 	if (tagsParam && tagsParam.includes(',')) {
 		const params = new URLSearchParams()
 
-		// Copy all params except tags
 		url.searchParams.forEach((value, key) => {
 			if (key !== 'tags') {
 				params.append(key, value)
 			}
 		})
 
-		// Split comma-separated tags into repeated params
 		const tags = tagsParam.split(',').filter(Boolean)
 		for (const tag of tags) {
 			params.append('tags', tag.trim())
@@ -43,29 +36,28 @@ export const load: PageServerLoad = ({ url }) => {
 		redirect(301, queryString ? `/?${queryString}` : '/')
 	}
 
-	// Handle no-JS fallback for OmniSearch
 	const q = url.searchParams.get('q')
 
 	if (q) {
 		const params = new URLSearchParams(url.searchParams)
-
-		// Remove the omni-search specific param
 		params.delete('q')
 
-		// Check if q matches datalist format "label (type)"
 		const datalistSelection = parseDatalistSelection(q)
 
 		if (datalistSelection) {
-			// User selected from datalist - apply the specific filter
 			if (datalistSelection.type === 'category') {
 				params.append('type', datalistSelection.label.toLowerCase())
 			} else if (datalistSelection.type === 'tag') {
-				params.append('tags', datalistSelection.label.toLowerCase())
+				const allTags = locals.tagService.getAllTags()
+				const matchingTag = allTags.find(
+					(t) => t.name.toLowerCase() === datalistSelection.label.toLowerCase()
+				)
+				const tagSlug = matchingTag?.slug ?? labelToSlug(datalistSelection.label)
+				params.append('tags', tagSlug)
 			} else if (datalistSelection.type === 'author') {
 				params.append('authors', datalistSelection.label)
 			}
 		} else {
-			// Regular text search - use full-text query
 			params.set('query', q)
 		}
 
