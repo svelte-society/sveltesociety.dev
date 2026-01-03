@@ -7,9 +7,7 @@
 	import Select from '$lib/ui/Select.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte'
-	import { submitJob } from './submit.remote'
-
-	let { data } = $props()
+	import { submitJob, getJobTiers } from './submit.remote'
 
 	const {
 		company_name,
@@ -30,7 +28,8 @@
 		tier_id
 	} = submitJob.fields
 
-	let selectedTierId = $state(data.tiers[0]?.id || '')
+	let tiers = await getJobTiers()
+	let selectedTierId = $state(tiers[0]?.id || '')
 
 	const positionTypes = [
 		{ value: 'full-time', label: 'Full-Time' },
@@ -82,7 +81,7 @@
 	<div class="mb-8">
 		<h2 class="mb-4 text-xl font-semibold">Select a Plan</h2>
 		<div class="grid gap-4 sm:grid-cols-3" data-testid="pricing-tiers">
-			{#each data.tiers as tier}
+			{#each tiers as tier}
 				{@const features = tier.features}
 				<button
 					type="button"
@@ -300,11 +299,11 @@
 		<div class="flex items-center justify-between rounded-lg bg-slate-50 p-6">
 			<div>
 				<p class="font-semibold">
-					Total: {formatPrice(data.tiers.find((t) => t.id === selectedTierId)?.price_cents || 0)}
+					Total: {formatPrice(tiers.find((t) => t.id === selectedTierId)?.price_cents || 0)}
 				</p>
 				<p class="text-sm text-slate-600">
 					Your job will be live for{' '}
-					{data.tiers.find((t) => t.id === selectedTierId)?.duration_days || 30} days
+					{tiers.find((t) => t.id === selectedTierId)?.duration_days || 30} days
 				</p>
 			</div>
 			<Button data-testid="submit-job-button">

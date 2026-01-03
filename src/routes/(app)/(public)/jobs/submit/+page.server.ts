@@ -7,11 +7,8 @@ const SUBMIT_META = buildStaticPageMeta(
 	'https://sveltesociety.dev/jobs/submit'
 )
 
-export const load: PageServerLoad = async ({ locals }) => {
-	const tiers = locals.jobTierService.getActiveTiers()
-
+export const load: PageServerLoad = async () => {
 	return {
-		tiers,
 		meta: SUBMIT_META
 	}
 }
