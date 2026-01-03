@@ -15,8 +15,12 @@ import { ExternalContentService } from '$lib/server/services/external-content'
 import { LLMService } from '$lib/server/services/llm'
 import { AnnouncementService } from '$lib/server/services/AnnouncementService'
 import { ShortcutService } from '$lib/server/services/ShortcutService'
-import { JobTierService, PaymentService, JobApplicationService } from '$lib/server/services/jobs'
+import { JobTierService, PaymentService, JobApplicationService, StripeService, PlunkService } from '$lib/server/services/jobs'
 import fs from 'node:fs'
+
+// Singleton instances for API-based services (no database dependency)
+const stripeService = new StripeService()
+const plunkService = new PlunkService()
 
 // Cache for database connections and services per database path
 const dbCache = new Map<
@@ -149,6 +153,8 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.jobTierService = services.jobTierService
 	event.locals.paymentService = services.paymentService
 	event.locals.jobApplicationService = services.jobApplicationService
+	event.locals.stripeService = stripeService
+	event.locals.plunkService = plunkService
 
 	return resolve(event)
 }
