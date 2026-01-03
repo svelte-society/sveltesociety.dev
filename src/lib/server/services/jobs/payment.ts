@@ -38,7 +38,7 @@ interface PaymentRow {
 export interface CreatePaymentData {
 	user_id?: string
 	employer_email: string
-	stripe_checkout_session_id: string
+	stripe_checkout_session_id?: string
 	amount_cents: number
 	tier_id: string
 	currency?: string
@@ -89,7 +89,7 @@ export class PaymentService {
 		const result = stmt.get({
 			user_id: data.user_id || null,
 			employer_email: data.employer_email,
-			stripe_checkout_session_id: data.stripe_checkout_session_id,
+			stripe_checkout_session_id: data.stripe_checkout_session_id || null,
 			amount_cents: data.amount_cents,
 			tier_id: data.tier_id,
 			currency: data.currency || 'usd',

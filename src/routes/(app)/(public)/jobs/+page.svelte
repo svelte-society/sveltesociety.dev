@@ -1,0 +1,175 @@
+<script lang="ts">
+	import Briefcase from 'phosphor-svelte/lib/Briefcase'
+	import Plus from 'phosphor-svelte/lib/Plus'
+	import MagnifyingGlass from 'phosphor-svelte/lib/MagnifyingGlass'
+	import JobCard from '$lib/ui/jobs/JobCard.svelte'
+	import Button from '$lib/ui/Button.svelte'
+	import { getJobListings } from './jobs.remote'
+	import { page } from '$app/state'
+	import Pagination from '$lib/ui/Pagination.svelte'
+
+	let { jobs, count, filters, meta } = $derived(await getJobListings({ url: page.url }))
+
+	const remoteOptions = [
+		{ value: 'all', label: 'All Locations' },
+		{ value: 'remote', label: 'Remote' },
+		{ value: 'hybrid', label: 'Hybrid' },
+		{ value: 'on-site', label: 'On-Site' }
+	]
+
+	const typeOptions = [
+		{ value: 'all', label: 'All Types' },
+		{ value: 'full-time', label: 'Full-Time' },
+		{ value: 'part-time', label: 'Part-Time' },
+		{ value: 'contract', label: 'Contract' },
+		{ value: 'internship', label: 'Internship' }
+	]
+
+	const levelOptions = [
+		{ value: 'all', label: 'All Levels' },
+		{ value: 'entry', label: 'Entry Level' },
+		{ value: 'junior', label: 'Junior' },
+		{ value: 'mid', label: 'Mid-Level' },
+		{ value: 'senior', label: 'Senior' },
+		{ value: 'principal', label: 'Principal/Staff' }
+	]
+</script>
+
+<svelte:head>
+	<title>{meta.title}</title>
+	<meta name="description" content={meta.description} />
+</svelte:head>
+
+<div class="grid gap-8">
+	<!-- Header -->
+	<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+		<div>
+			<h1 class="text-3xl font-bold">Svelte Jobs</h1>
+			<p class="mt-1 text-slate-600">
+				Find your next position in the Svelte ecosystem
+			</p>
+		</div>
+		<a
+			href="/jobs/submit"
+			class="inline-flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2.5 font-medium text-white transition-colors hover:bg-orange-600"
+			data-testid="post-job-button"
+		>
+			<Plus size={20} weight="bold" />
+			Post a Job
+		</a>
+	</div>
+
+	<!-- Filters -->
+	<div class="flex flex-wrap items-center gap-3">
+		<form class="flex flex-1 items-center gap-2" data-testid="job-search-form">
+			<div class="relative flex-1">
+				<MagnifyingGlass
+					size={18}
+					class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+				/>
+				<input
+					type="search"
+					name="query"
+					placeholder="Search jobs..."
+					value={filters.query}
+					class="w-full rounded-lg border border-slate-200 py-2 pl-10 pr-4 text-sm focus:border-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-100"
+					data-testid="job-search-input"
+				/>
+			</div>
+			<button
+				type="submit"
+				class="rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-200"
+			>
+				Search
+			</button>
+		</form>
+
+		<select
+			name="remote"
+			class="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-100"
+			data-testid="remote-filter"
+		>
+			{#each remoteOptions as option}
+				<option value={option.value} selected={filters.remote === option.value}>
+					{option.label}
+				</option>
+			{/each}
+		</select>
+
+		<select
+			name="type"
+			class="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-100"
+			data-testid="type-filter"
+		>
+			{#each typeOptions as option}
+				<option value={option.value} selected={filters.type === option.value}>
+					{option.label}
+				</option>
+			{/each}
+		</select>
+
+		<select
+			name="level"
+			class="hidden rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-100 sm:block"
+			data-testid="level-filter"
+		>
+			{#each levelOptions as option}
+				<option value={option.value} selected={filters.level === option.value}>
+					{option.label}
+				</option>
+			{/each}
+		</select>
+	</div>
+
+	<!-- Job Listings -->
+	<div class="grid gap-4" data-testid="job-listings">
+		{#if count > 0}
+			{#each jobs as job (job.id)}
+				<JobCard {job} />
+			{/each}
+		{:else}
+			<div
+				class="flex flex-col items-center justify-center rounded-lg border border-dashed border-slate-300 bg-slate-50 py-16 text-center"
+				data-testid="no-jobs-message"
+			>
+				<Briefcase size={48} class="mb-4 text-slate-400" />
+				<h2 class="text-xl font-semibold text-slate-700">No jobs found</h2>
+				<p class="mt-2 text-slate-500">
+					{#if filters.query || filters.remote !== 'all' || filters.type !== 'all' || filters.level !== 'all'}
+						Try adjusting your filters to see more results.
+					{:else}
+						Be the first to post a job opportunity!
+					{/if}
+				</p>
+				<a
+					href="/jobs/submit"
+					class="mt-4 inline-flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-medium text-white transition-colors hover:bg-orange-600"
+				>
+					<Plus size={18} />
+					Post a Job
+				</a>
+			</div>
+		{/if}
+	</div>
+
+	<!-- Pagination -->
+	{#if count > 20}
+		<Pagination {count} perPage={20} />
+	{/if}
+
+	<!-- CTA Section -->
+	<div class="rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 p-8 text-white">
+		<div class="mx-auto max-w-2xl text-center">
+			<h2 class="text-2xl font-bold">Hiring Svelte Developers?</h2>
+			<p class="mt-2 text-orange-100">
+				Reach thousands of Svelte developers looking for their next opportunity.
+			</p>
+			<a
+				href="/jobs/submit"
+				class="mt-4 inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 font-medium text-orange-600 transition-colors hover:bg-orange-50"
+			>
+				Post a Job Starting at $199
+			</a>
+		</div>
+	</div>
+</div>
