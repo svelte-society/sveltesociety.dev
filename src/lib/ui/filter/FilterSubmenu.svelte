@@ -115,6 +115,7 @@
 				{@const isActive = isValueActive(page.url, paramName, item.value)}
 				<a
 					href={buildToggleHref(page.url, page.route.id, page.params, paramName, item.value)}
+					data-sveltekit-preload-data="off"
 					role="menuitemcheckbox"
 					aria-checked={isActive}
 					onclick={() => onSelect?.()}
