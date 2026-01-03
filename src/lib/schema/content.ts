@@ -1,6 +1,6 @@
 import { z } from 'zod/v4'
 
-export const typeSchema = z.enum(['video', 'library', 'announcement', 'collection', 'recipe', 'resource'])
+export const typeSchema = z.enum(['video', 'library', 'announcement', 'collection', 'recipe', 'resource', 'job'])
 export const statusSchema = z.enum(['draft', 'pending_review', 'published', 'archived'])
 
 const baseContentSchema = z.object({
@@ -167,6 +167,41 @@ const resourceContentSchema = baseContentSchema.extend({
 const updateResourceContentSchema = resourceContentSchema.omit(updateKeysToOmit)
 const createResourceContentSchema = resourceContentSchema.omit(createKeysToOmit)
 
+// Job content schema - for paid job listings
+export const jobMetadataSchema = z.object({
+	// Company info (no user account required)
+	company_name: z.string().min(1, 'Company name is required'),
+	company_logo: z.string().url().optional().nullable(),
+	company_website: z.string().url().optional().nullable(),
+	employer_email: z.string().email('Valid employer email is required'),
+
+	// Job details
+	position_type: z.enum(['full-time', 'part-time', 'contract', 'internship']),
+	seniority_level: z.enum(['entry', 'junior', 'mid', 'senior', 'principal']),
+	salary_min: z.number().optional().nullable(),
+	salary_max: z.number().optional().nullable(),
+	salary_currency: z.string().default('USD'),
+	remote_status: z.enum(['on-site', 'hybrid', 'remote']),
+	remote_restrictions: z.string().optional().nullable(),
+	location: z.string().optional().nullable(),
+
+	// Payment & tier
+	tier_id: z.string(),
+	tier_name: z.string(),
+	expires_at: z.string(),
+	payment_id: z.string()
+})
+
+const jobContentSchema = baseContentSchema.extend({
+	type: z.literal('job'),
+	body: z.string().min(1, 'Job description is required'),
+	rendered_body: z.string().optional(),
+	metadata: jobMetadataSchema
+})
+
+const updateJobContentSchema = jobContentSchema.omit(updateKeysToOmit)
+const createJobContentSchema = jobContentSchema.omit(createKeysToOmit)
+
 // Union of all metadata types
 export const contentSchema = z.union([
 	videoContentSchema,
@@ -174,7 +209,8 @@ export const contentSchema = z.union([
 	recipeContentSchema,
 	announcementContentSchema,
 	collectionContentSchema,
-	resourceContentSchema
+	resourceContentSchema,
+	jobContentSchema
 ])
 
 export const updateContentSchema = z.union([
@@ -183,7 +219,8 @@ export const updateContentSchema = z.union([
 	updateRecipeContentSchema,
 	updateAnnouncementContentSchema,
 	updateCollectionContentSchema,
-	updateResourceContentSchema
+	updateResourceContentSchema,
+	updateJobContentSchema
 ])
 
 export const createContentSchema = z.union([
@@ -192,7 +229,8 @@ export const createContentSchema = z.union([
 	createRecipeContentSchema,
 	createAnnouncementContentSchema,
 	createCollectionContentSchema,
-	createResourceContentSchema
+	createResourceContentSchema,
+	createJobContentSchema
 ])
 
 export const contentFilterSchema = z.object({
