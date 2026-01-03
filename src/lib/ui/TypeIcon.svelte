@@ -11,6 +11,7 @@
 	import Draft from 'phosphor-svelte/lib/FileDashed'
 	import Archive from 'phosphor-svelte/lib/Archive'
 	import Published from 'phosphor-svelte/lib/Globe'
+	import Briefcase from 'phosphor-svelte/lib/Briefcase'
 
 	type Props = {
 		type: Type
@@ -29,6 +30,7 @@
 		event: Calendar,
 		resource: Link,
 		link: Link,
+		job: Briefcase,
 		draft: Draft,
 		published: Published,
 		archive: Archive
