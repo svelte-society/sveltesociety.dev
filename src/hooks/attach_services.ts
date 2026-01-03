@@ -15,6 +15,7 @@ import { ExternalContentService } from '$lib/server/services/external-content'
 import { LLMService } from '$lib/server/services/llm'
 import { AnnouncementService } from '$lib/server/services/AnnouncementService'
 import { ShortcutService } from '$lib/server/services/ShortcutService'
+import { JobTierService, PaymentService, JobApplicationService } from '$lib/server/services/jobs'
 import fs from 'node:fs'
 
 // Cache for database connections and services per database path
@@ -36,6 +37,9 @@ const dbCache = new Map<
 		llmService: LLMService
 		announcementService: AnnouncementService
 		shortcutService: ShortcutService
+		jobTierService: JobTierService
+		paymentService: PaymentService
+		jobApplicationService: JobApplicationService
 	}
 >()
 
@@ -69,6 +73,9 @@ const initialize_db = (dbPath: string) => {
 	const llmService = new LLMService(tagService)
 	const announcementService = new AnnouncementService(db)
 	const shortcutService = new ShortcutService(db)
+	const jobTierService = new JobTierService(db)
+	const paymentService = new PaymentService(db)
+	const jobApplicationService = new JobApplicationService(db)
 
 	const services = {
 		db,
@@ -85,7 +92,10 @@ const initialize_db = (dbPath: string) => {
 		externalContentService,
 		llmService,
 		announcementService,
-		shortcutService
+		shortcutService,
+		jobTierService,
+		paymentService,
+		jobApplicationService
 	}
 
 	dbCache.set(dbPath, services)
@@ -136,6 +146,9 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.llmService = services.llmService
 	event.locals.announcementService = services.announcementService
 	event.locals.shortcutService = services.shortcutService
+	event.locals.jobTierService = services.jobTierService
+	event.locals.paymentService = services.paymentService
+	event.locals.jobApplicationService = services.jobApplicationService
 
 	return resolve(event)
 }
