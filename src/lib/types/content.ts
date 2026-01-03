@@ -3,13 +3,15 @@ import {
 	contentSchema,
 	updateContentSchema,
 	createContentSchema,
-	jobMetadataSchema
+	jobMetadataSchema,
+	storedJobDataSchema
 } from '$lib/schema/content'
 import type { TagType } from '$lib/ui/Tags.svelte'
 import { z } from 'zod/v4'
 
 export type Type = z.infer<typeof typeSchema>
 export type JobMetadata = z.infer<typeof jobMetadataSchema>
+export type StoredJobData = z.infer<typeof storedJobDataSchema>
 
 export type Content = z.infer<typeof contentSchema>
 export type UpdateContent = z.infer<typeof updateContentSchema>

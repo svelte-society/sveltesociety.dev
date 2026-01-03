@@ -167,8 +167,8 @@ const resourceContentSchema = baseContentSchema.extend({
 const updateResourceContentSchema = resourceContentSchema.omit(updateKeysToOmit)
 const createResourceContentSchema = resourceContentSchema.omit(createKeysToOmit)
 
-// Job content schema - for paid job listings
-export const jobMetadataSchema = z.object({
+// Base job data - shared fields between submission and stored metadata
+export const baseJobDataSchema = z.object({
 	// Company info (no user account required)
 	company_name: z.string().min(1, 'Company name is required'),
 	company_logo: z.string().url().optional().nullable(),
@@ -183,9 +183,18 @@ export const jobMetadataSchema = z.object({
 	salary_currency: z.string().default('USD'),
 	remote_status: z.enum(['on-site', 'hybrid', 'remote']),
 	remote_restrictions: z.string().optional().nullable(),
-	location: z.string().optional().nullable(),
+	location: z.string().optional().nullable()
+})
 
-	// Payment & tier
+// Job data stored in payment metadata before job creation (includes content fields)
+export const storedJobDataSchema = baseJobDataSchema.extend({
+	title: z.string().min(1),
+	description: z.string().min(1),
+	body: z.string().min(1)
+})
+
+// Job content metadata - extends base with payment/tier info added after creation
+export const jobMetadataSchema = baseJobDataSchema.extend({
 	tier_id: z.string(),
 	tier_name: z.string(),
 	expires_at: z.string(),

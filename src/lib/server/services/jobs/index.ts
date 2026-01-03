@@ -1,11 +1,7 @@
 export { JobTierService, type JobTier } from './job-tier'
-export {
-	PaymentService,
-	type Payment,
-	type PaymentStatus,
-	type CreatePaymentData,
-	type StoredJobData
-} from './payment'
+export { PaymentService, type Payment, type PaymentStatus, type CreatePaymentData } from './payment'
+// Re-export StoredJobData from central types for convenience
+export { type StoredJobData } from '$lib/types/content'
 export {
 	JobApplicationService,
 	type JobApplication,

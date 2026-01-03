@@ -45,27 +45,6 @@ export interface CreatePaymentData {
 	metadata?: Record<string, unknown>
 }
 
-/**
- * Job data stored in payment metadata before job creation
- */
-export interface StoredJobData {
-	company_name: string
-	company_logo: string | null
-	company_website: string | null
-	employer_email: string
-	title: string
-	description: string
-	body: string
-	position_type: 'full-time' | 'part-time' | 'contract' | 'internship'
-	seniority_level: 'entry' | 'junior' | 'mid' | 'senior' | 'principal'
-	remote_status: 'on-site' | 'hybrid' | 'remote'
-	remote_restrictions: string | null
-	location: string | null
-	salary_min: number | null
-	salary_max: number | null
-	salary_currency: string
-}
-
 export class PaymentService {
 	constructor(private db: Database) {}
 
