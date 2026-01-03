@@ -8,8 +8,7 @@ const jobsFilterSchema = z.object({
 	page: z.coerce.number().default(1),
 	remote: z.enum(['all', 'remote', 'hybrid', 'on-site']).default('all'),
 	type: z.enum(['all', 'full-time', 'part-time', 'contract', 'internship']).default('all'),
-	level: z.enum(['all', 'entry', 'junior', 'mid', 'senior', 'principal']).default('all'),
-	query: z.string().default('')
+	level: z.enum(['all', 'entry', 'junior', 'mid', 'senior', 'principal']).default('all')
 })
 
 const jobListingInputSchema = z.object({
@@ -27,15 +26,13 @@ export const getJobListings = query(jobListingInputSchema, async ({ url }) => {
 		page: parsedFilters?.page ?? 1,
 		remote: parsedFilters?.remote ?? 'all',
 		type: parsedFilters?.type ?? 'all',
-		level: parsedFilters?.level ?? 'all',
-		query: parsedFilters?.query ?? ''
+		level: parsedFilters?.level ?? 'all'
 	} as const
 	const perPage = 20
 	const offset = (filters.page - 1) * perPage
 
 	// Search for job content
 	const searchResults = locals.searchService.search({
-		query: filters.query || undefined,
 		type: 'job',
 		status: 'published',
 		limit: perPage,

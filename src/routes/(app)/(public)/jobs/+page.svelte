@@ -1,9 +1,7 @@
 <script lang="ts">
 	import Briefcase from 'phosphor-svelte/lib/Briefcase'
 	import Plus from 'phosphor-svelte/lib/Plus'
-	import MagnifyingGlass from 'phosphor-svelte/lib/MagnifyingGlass'
 	import JobCard from '$lib/ui/jobs/JobCard.svelte'
-	import Button from '$lib/ui/Button.svelte'
 	import { getJobListings } from './jobs.remote'
 	import { page } from '$app/state'
 	import Pagination from '$lib/ui/Pagination.svelte'
@@ -61,29 +59,6 @@
 
 	<!-- Filters -->
 	<div class="flex flex-wrap items-center gap-3">
-		<form class="flex flex-1 items-center gap-2" data-testid="job-search-form">
-			<div class="relative flex-1">
-				<MagnifyingGlass
-					size={18}
-					class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-				/>
-				<input
-					type="search"
-					name="query"
-					placeholder="Search jobs..."
-					value={filters.query}
-					class="w-full rounded-lg border border-slate-200 py-2 pl-10 pr-4 text-sm focus:border-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-100"
-					data-testid="job-search-input"
-				/>
-			</div>
-			<button
-				type="submit"
-				class="rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-200"
-			>
-				Search
-			</button>
-		</form>
-
 		<select
 			name="remote"
 			class="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-100"
@@ -135,7 +110,7 @@
 				<Briefcase size={48} class="mb-4 text-slate-400" />
 				<h2 class="text-xl font-semibold text-slate-700">No jobs found</h2>
 				<p class="mt-2 text-slate-500">
-					{#if filters.query || filters.remote !== 'all' || filters.type !== 'all' || filters.level !== 'all'}
+					{#if filters.remote !== 'all' || filters.type !== 'all' || filters.level !== 'all'}
 						Try adjusting your filters to see more results.
 					{:else}
 						Be the first to post a job opportunity!
