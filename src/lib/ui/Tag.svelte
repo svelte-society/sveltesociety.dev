@@ -43,6 +43,7 @@
 		{tag.name}
 		<a
 			href={getTagHref()}
+			data-sveltekit-preload-data="off"
 			data-sveltekit-keepfocus
 			aria-label="Remove tag: {tag.name}"
 			class="rounded p-0.5 text-zinc-400 hover:bg-svelte-50 hover:text-svelte-600 focus:outline-2 focus:outline-offset-1 focus:outline-svelte-300"
@@ -53,6 +54,7 @@
 {:else}
 	<a
 		href={onclick ? undefined : getTagHref()}
+		data-sveltekit-preload-data="off"
 		class={tagVariants({ active: isActive, removable: false })}
 		tabindex="0"
 	>

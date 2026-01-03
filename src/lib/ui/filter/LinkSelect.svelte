@@ -89,6 +89,7 @@
 		{@const isActive = currentValue === option.value}
 		<a
 			href={buildSetHref(option.value)}
+			data-sveltekit-preload-data="off"
 			role="menuitemradio"
 			aria-checked={isActive}
 			onclick={() => handleSelect()}
