@@ -1,5 +1,11 @@
 export { JobTierService, type JobTier } from './job-tier'
-export { PaymentService, type Payment, type PaymentStatus, type CreatePaymentData } from './payment'
+export {
+	PaymentService,
+	type Payment,
+	type PaymentStatus,
+	type CreatePaymentData,
+	type StoredJobData
+} from './payment'
 export {
 	JobApplicationService,
 	type JobApplication,

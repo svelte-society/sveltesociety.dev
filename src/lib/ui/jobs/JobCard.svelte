@@ -4,7 +4,7 @@
 	import CurrencyDollar from 'phosphor-svelte/lib/CurrencyDollar'
 	import Buildings from 'phosphor-svelte/lib/Buildings'
 	import Star from 'phosphor-svelte/lib/Star'
-	import type { ContentWithAuthor } from '$lib/types/content'
+	import type { ContentWithAuthor, JobMetadata } from '$lib/types/content'
 
 	interface Props {
 		job: ContentWithAuthor
@@ -12,21 +12,6 @@
 	}
 
 	let { job, variant = 'list' }: Props = $props()
-
-	// Type for job metadata
-	type JobMetadata = {
-		company_name: string
-		company_logo?: string | null
-		position_type: string
-		seniority_level: string
-		salary_min?: number | null
-		salary_max?: number | null
-		salary_currency?: string
-		remote_status: string
-		location?: string | null
-		tier_name?: string
-		expires_at?: string
-	}
 
 	// Reactive metadata derived from job
 	const metadata = $derived(job.metadata as JobMetadata)

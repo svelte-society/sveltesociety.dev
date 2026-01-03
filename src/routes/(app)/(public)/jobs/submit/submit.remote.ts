@@ -1,6 +1,7 @@
 import { getRequestEvent, query, form } from '$app/server'
 import { fail, redirect } from '@sveltejs/kit'
 import { jobSubmissionSchema, type JobSubmissionData } from './schema'
+import type { StoredJobData } from '$lib/server/services/jobs'
 
 /**
  * Get available job tiers
@@ -26,7 +27,7 @@ export const submitJob = form(jobSubmissionSchema, async (data: JobSubmissionDat
 	}
 
 	// Store job data in payment metadata (will be used after payment succeeds)
-	const jobData = {
+	const jobData: StoredJobData = {
 		company_name: data.company_name,
 		company_logo: data.company_logo || null,
 		company_website: data.company_website || null,
@@ -50,7 +51,7 @@ export const submitJob = form(jobSubmissionSchema, async (data: JobSubmissionDat
 			employer_email: data.employer_email,
 			tier_id: tier.id,
 			amount_cents: tier.price_cents,
-			metadata: jobData
+			metadata: jobData as unknown as Record<string, unknown>
 		})
 
 		// Create Stripe checkout session

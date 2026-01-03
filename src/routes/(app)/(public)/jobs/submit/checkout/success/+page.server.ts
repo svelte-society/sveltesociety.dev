@@ -1,5 +1,6 @@
 import { error, redirect } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
+import type { StoredJobData } from '$lib/server/services/jobs'
 
 export const load: PageServerLoad = async ({ locals, url }) => {
 	const sessionId = url.searchParams.get('session_id')
@@ -45,7 +46,10 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 		const expiresAt = locals.jobTierService.calculateExpirationDate(tier.id)
 
 		// Parse the job data from payment metadata
-		const jobData = payment.metadata as any
+		if (!payment.metadata) {
+			throw error(500, { message: 'Payment metadata missing' })
+		}
+		const jobData = payment.metadata as unknown as StoredJobData
 
 		// Generate slug
 		const slug = jobData.title
