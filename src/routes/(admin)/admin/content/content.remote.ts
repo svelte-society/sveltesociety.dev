@@ -151,12 +151,44 @@ const adminUpdateContentSchema = z.object({
 	slug: z.string().min(1, 'Slug is required'),
 	description: z.string().min(1, 'Description is required'),
 	status: z.enum(['draft', 'pending_review', 'published', 'archived']),
-	type: z.enum(['video', 'library', 'recipe', 'announcement', 'collection', 'resource']),
+	type: z.enum(['video', 'library', 'recipe', 'announcement', 'collection', 'resource', 'job']),
 	tags: commaSeparatedArray.pipe(z.array(z.string()).min(1, 'At least one tag is required')),
 	author_id: z.string().optional(),
 	body: z.string().optional(),
 	children: commaSeparatedArray.optional(),
 	metadata: z.any().optional()
+})
+
+// Transform empty strings to undefined/null for optional fields
+const optionalString = z.string().transform((val) => (val === '' ? null : val))
+const optionalNumber = z.string().transform((val) => (val === '' ? null : Number(val))).pipe(
+	z.number().positive().nullable()
+)
+
+// Job-specific update schema
+const adminUpdateJobSchema = z.object({
+	id: z.string().min(1, 'Content ID is required'),
+	// Content fields
+	title: z.string().min(1, 'Title is required'),
+	slug: z.string().min(1, 'Slug is required'),
+	description: z.string().min(1, 'Description is required'),
+	body: z.string().min(1, 'Job description is required'),
+	status: z.enum(['draft', 'pending_review', 'published', 'archived']),
+	// Company info
+	company_name: z.string().min(1, 'Company name is required'),
+	company_logo: optionalString,
+	company_website: optionalString,
+	employer_email: z.email({ message: 'Valid email is required' }),
+	// Job details
+	position_type: z.enum(['full-time', 'part-time', 'contract', 'internship']),
+	seniority_level: z.enum(['entry', 'junior', 'mid', 'senior', 'principal']),
+	remote_status: z.enum(['on-site', 'hybrid', 'remote']),
+	remote_restrictions: optionalString,
+	location: optionalString,
+	// Salary
+	salary_min: optionalNumber,
+	salary_max: optionalNumber,
+	salary_currency: z.string().default('USD')
 })
 
 export const updateContent = form(adminUpdateContentSchema, async (data) => {
@@ -197,6 +229,52 @@ export const updateContent = form(adminUpdateContentSchema, async (data) => {
 			stars: content.metadata?.stars || 0
 		})
 	}
+
+	return { success: true }
+})
+
+export const updateJob = form(adminUpdateJobSchema, async (data) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	// Get existing content to preserve metadata fields we don't edit
+	const existingContent = locals.contentService.getContentById(data.id)
+	if (!existingContent) error(404, 'Job not found')
+	if (existingContent.type !== 'job') error(400, 'Content is not a job')
+
+	const existingMetadata = existingContent.metadata || {}
+
+	// Build updated metadata, preserving payment/tier info
+	const updatedMetadata = {
+		...existingMetadata,
+		company_name: data.company_name,
+		company_logo: data.company_logo,
+		company_website: data.company_website,
+		employer_email: data.employer_email,
+		position_type: data.position_type,
+		seniority_level: data.seniority_level,
+		remote_status: data.remote_status,
+		remote_restrictions: data.remote_restrictions,
+		location: data.location,
+		salary_min: data.salary_min,
+		salary_max: data.salary_max,
+		salary_currency: data.salary_currency
+	}
+
+	const contentData = {
+		id: data.id,
+		title: data.title,
+		slug: data.slug,
+		description: data.description,
+		body: data.body,
+		status: data.status,
+		type: 'job' as const,
+		tags: existingContent.tags?.map((t: { id: string }) => t.id) || [],
+		published_at: data.status === 'published' ? new Date().toISOString() : null,
+		metadata: updatedMetadata
+	}
+
+	await locals.contentService.updateContent(contentData)
 
 	return { success: true }
 })
