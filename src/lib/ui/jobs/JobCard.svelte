@@ -93,7 +93,9 @@
 					>
 						{job.title}
 					</h3>
-					<p class="text-sm text-slate-600">{metadata.company_name}</p>
+					<p class="text-sm text-slate-600">
+						posted by <span class="font-medium text-slate-700">{metadata.company_name}</span>
+					</p>
 				</div>
 
 				{#if isPremium}
