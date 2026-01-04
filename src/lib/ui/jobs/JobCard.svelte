@@ -60,7 +60,7 @@
 </script>
 
 <a
-	href="/jobs/{job.slug}"
+	href="/job/{job.slug}"
 	style="view-transition-name: job-card-{job.id};"
 	class="group block rounded-lg border bg-white p-5 transition-all hover:border-orange-300 hover:shadow-md {isFeatured
 		? 'border-orange-200 bg-orange-50/30'
