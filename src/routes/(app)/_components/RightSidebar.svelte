@@ -13,8 +13,8 @@
 	}: { upcomingEvents?: UpcomingEvent[]; tags?: TagType[]; jobs?: SidebarJob[] } = $props()
 </script>
 
-<div
-	class="@container sticky top-[--header-height] mr-4 hidden max-h-[calc(100vh-var(--header-height))] space-y-4 overflow-y-auto py-8 sm:block"
+<aside
+	class="@container mr-4 hidden space-y-4 py-8 sm:block [@media(min-height:1000px)]:sticky [@media(min-height:1000px)]:top-(--header-height) [@media(min-height:1000px)]:max-h-[calc(100vh-var(--header-height))] [@media(min-height:1000px)]:overflow-y-auto"
 >
 	<div class="grid grid-cols-1 items-start gap-1 @xs:grid-cols-[1fr_auto]">
 		<div>
@@ -44,4 +44,4 @@
 	<SidebarJobs {jobs} />
 
 	<UpcomingEvents events={upcomingEvents} />
-</div>
+</aside>
