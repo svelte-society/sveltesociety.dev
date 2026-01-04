@@ -26,7 +26,7 @@
 			id: 'jobs',
 			type: 'cta',
 			position: 'random',
-			positionRange: [3, 8],
+			positionRange: [3, 7],
 			component: ContentCTA,
 			props: {
 				title: 'Hiring Svelte Developers?',
