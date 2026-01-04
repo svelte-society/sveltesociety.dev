@@ -25,7 +25,7 @@
 
 	// Helper to get the correct URL path for content
 	const getContentPath = (type: string, slug: string) => {
-		if (type === 'job') return `/jobs/${slug}`
+		if (type === 'job') return `/job/${slug}`
 		return `/${type}/${slug}`
 	}
 
