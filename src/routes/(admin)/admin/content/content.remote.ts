@@ -2,6 +2,7 @@ import { form, query, getRequestEvent } from '$app/server'
 import { error, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../authorization.remote'
+import { uploadThumbnail, isS3Enabled } from '$lib/server/services/s3-storage'
 
 // Helper to transform comma-separated array values from form submission
 // When using hidden inputs with array values, they may serialize as "a,b,c" instead of ["a","b","c"]
@@ -165,6 +166,49 @@ const optionalNumber = z.string().transform((val) => (val === '' ? null : Number
 	z.number().positive().nullable()
 )
 
+// Accept File for image uploads (SvelteKit uses LazyFile internally)
+const optionalFile = z
+	.custom<File>((val) => {
+		if (val === undefined || val === null) return true
+		// Check for file-like properties (works with both File and LazyFile)
+		return typeof val === 'object' && 'name' in val && 'type' in val && 'arrayBuffer' in val
+	}, { message: 'Must be a valid image file' })
+	.optional()
+
+/**
+ * Generate a slug from a title
+ */
+function generateSlug(title: string): string {
+	return title
+		.toLowerCase()
+		.replace(/[^a-z0-9\s-]/g, '')
+		.replace(/\s+/g, '-')
+		.replace(/-+/g, '-')
+		.replace(/^-|-$/g, '')
+		.slice(0, 50)
+}
+
+/**
+ * Upload a File to S3 and return the public URL
+ */
+async function uploadFileToS3(file: File, keyPrefix: string): Promise<string | null> {
+	if (!isS3Enabled) {
+		console.warn('S3 storage is not enabled. Company logo will not be uploaded.')
+		return null
+	}
+
+	try {
+		const ext = file.type.split('/')[1] || 'png'
+		const arrayBuffer = await file.arrayBuffer()
+		const timestamp = Date.now()
+		const key = `jobs/${keyPrefix}-${timestamp}/logo.${ext}`
+		return await uploadThumbnail(key, arrayBuffer)
+	} catch (err) {
+		console.error('Error uploading company logo to S3:', err)
+		return null
+	}
+}
+
 // Job-specific update schema
 const adminUpdateJobSchema = z.object({
 	id: z.string().min(1, 'Content ID is required'),
@@ -176,7 +220,7 @@ const adminUpdateJobSchema = z.object({
 	status: z.enum(['draft', 'pending_review', 'published', 'archived']),
 	// Company info
 	company_name: z.string().min(1, 'Company name is required'),
-	company_logo: optionalString,
+	company_logo: optionalFile,
 	company_website: optionalString,
 	employer_email: z.email({ message: 'Valid email is required' }),
 	// Job details
@@ -244,11 +288,20 @@ export const updateJob = form(adminUpdateJobSchema, async (data) => {
 
 	const existingMetadata = existingContent.metadata || {}
 
+	// Upload new logo to S3 if provided, otherwise keep existing
+	let companyLogoUrl: string | null = existingMetadata.company_logo || null
+	if (data.company_logo) {
+		const uploadedUrl = await uploadFileToS3(data.company_logo, generateSlug(data.company_name))
+		if (uploadedUrl) {
+			companyLogoUrl = uploadedUrl
+		}
+	}
+
 	// Build updated metadata, preserving payment/tier info
 	const updatedMetadata = {
 		...existingMetadata,
 		company_name: data.company_name,
-		company_logo: data.company_logo,
+		company_logo: companyLogoUrl,
 		company_website: data.company_website,
 		employer_email: data.employer_email,
 		position_type: data.position_type,

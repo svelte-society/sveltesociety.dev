@@ -5,6 +5,7 @@
 	import TextArea from '$lib/ui/TextArea.svelte'
 	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte'
 	import Select from '$lib/ui/Select.svelte'
+	import ImageUpload from '$lib/ui/ImageUpload.svelte'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 	import type { RemoteForm } from '@sveltejs/kit'
 
@@ -100,6 +101,7 @@
 			toast.error('Failed to update job')
 		}
 	})}
+	enctype="multipart/form-data"
 	class="flex flex-col gap-6"
 >
 	<input type="hidden" name="id" value={contentId} />
@@ -153,19 +155,22 @@
 			/>
 
 			<div class="flex flex-col gap-2">
-				<Input
-					{...form.fields.company_logo.as('url')}
-					label="Company Logo URL"
-					placeholder="https://acme.com/logo.png"
+				<ImageUpload
+					{...form.fields.company_logo.as('file')}
+					label="Company Logo"
+					description="Upload a new logo to replace the current one"
 					issues={form.fields.company_logo.issues()}
 					data-testid="input-company-logo"
 				/>
 				{#if metadata.company_logo}
-					<img
-						src={getCachedImageWithPreset(metadata.company_logo, 'thumbnail')}
-						alt="Company logo"
-						class="h-16 w-16 rounded border border-slate-200 object-contain bg-white"
-					/>
+					<div class="flex items-center gap-2">
+						<img
+							src={getCachedImageWithPreset(metadata.company_logo, 'thumbnail')}
+							alt="Current company logo"
+							class="h-16 w-16 rounded border border-slate-200 object-contain bg-white"
+						/>
+						<span class="text-xs text-slate-500">Current logo</span>
+					</div>
 				{/if}
 			</div>
 		</div>

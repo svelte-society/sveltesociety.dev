@@ -36,7 +36,7 @@
 			body: (content as unknown as { body?: string })?.body ?? '',
 			status: content?.status ?? 'pending_review',
 			company_name: metadata.company_name ?? '',
-			company_logo: metadata.company_logo ?? '',
+			// company_logo is a file field - current logo is shown separately in JobForm
 			company_website: metadata.company_website ?? '',
 			employer_email: metadata.employer_email ?? '',
 			position_type: metadata.position_type ?? 'full-time',
