@@ -9,7 +9,7 @@ type FilterItem = {
 }
 
 export type SearchSuggestion = {
-  type: 'category' | 'tag' | 'author'
+  type: 'category' | 'tag' | 'author' | 'job-location' | 'job-position' | 'job-level'
   paramName: string
   value: string
   label: string
@@ -203,6 +203,36 @@ export const getSearchSuggestions = query(async () => {
       paramName: 'authors',
       value: author.value,
       label: author.label
+    })
+  }
+
+  const locations = await getJobLocations()
+  for (const loc of locations) {
+    suggestions.push({
+      type: 'job-location',
+      paramName: 'remote',
+      value: loc.value,
+      label: loc.label
+    })
+  }
+
+  const positions = await getJobPositionTypes()
+  for (const pos of positions) {
+    suggestions.push({
+      type: 'job-position',
+      paramName: 'position',
+      value: pos.value,
+      label: pos.label
+    })
+  }
+
+  const levels = await getJobLevels()
+  for (const lvl of levels) {
+    suggestions.push({
+      type: 'job-level',
+      paramName: 'level',
+      value: lvl.value,
+      label: lvl.label
     })
   }
 

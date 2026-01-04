@@ -13,6 +13,9 @@
 	let existingTypes = $derived(page.url.searchParams.getAll('type'))
 	let existingTags = $derived(page.url.searchParams.getAll('tags'))
 	let existingAuthors = $derived(page.url.searchParams.getAll('authors'))
+	let existingRemote = $derived(page.url.searchParams.getAll('remote'))
+	let existingPosition = $derived(page.url.searchParams.getAll('position'))
+	let existingLevel = $derived(page.url.searchParams.getAll('level'))
 	let existingQuery = $derived(page.url.searchParams.get('query') || '')
 	let categoryType = $derived(getCategoryFromRoute(page.route.id, page.params))
 	let allSuggestions = $derived(await getSearchSuggestions())
@@ -29,6 +32,9 @@
 			if (s.type === 'category') return !existingTypes.includes(s.value)
 			if (s.type === 'tag') return !existingTags.includes(s.value)
 			if (s.type === 'author') return !existingAuthors.includes(s.value)
+			if (s.type === 'job-location') return !existingRemote.includes(s.value)
+			if (s.type === 'job-position') return !existingPosition.includes(s.value)
+			if (s.type === 'job-level') return !existingLevel.includes(s.value)
 			return true
 		})
 	)
@@ -54,7 +60,10 @@
 	const typeLabels: Record<string, string> = {
 		category: 'in Categories',
 		tag: 'in Tags',
-		author: 'in Authors'
+		author: 'in Authors',
+		'job-location': 'in Job Location',
+		'job-position': 'in Position Type',
+		'job-level': 'in Experience Level'
 	}
 
 	function clearSearch() {
@@ -128,6 +137,15 @@
 		{/each}
 		{#each existingAuthors as author (author)}
 			<input type="hidden" name="authors" value={author} />
+		{/each}
+		{#each existingRemote as remote (remote)}
+			<input type="hidden" name="remote" value={remote} />
+		{/each}
+		{#each existingPosition as position (position)}
+			<input type="hidden" name="position" value={position} />
+		{/each}
+		{#each existingLevel as level (level)}
+			<input type="hidden" name="level" value={level} />
 		{/each}
 		{#if existingQuery}
 			<input type="hidden" name="query" value={existingQuery} />
