@@ -2,7 +2,7 @@ import { getRequestEvent, query } from '$app/server'
 import type { Item } from './FilterSubmenu.svelte'
 
 type FilterItem = {
-  type: 'Category' | 'Tag' | 'Author' | 'Search' | 'JobLocation' | 'JobPosition' | 'JobLevel'
+  type: 'Category' | 'Tag' | 'Author' | 'Search' | 'Job'
   paramName: string
   value: string
   label: string
@@ -130,7 +130,7 @@ export const getActiveFilters = query("unchecked", async (searchParams: URLSearc
   const activeLocations = searchParams.getAll('remote')
   for (const value of activeLocations) {
     filters.push({
-      type: 'JobLocation',
+      type: 'Job',
       paramName: 'remote',
       value,
       label: locations.get(value) || value
@@ -141,7 +141,7 @@ export const getActiveFilters = query("unchecked", async (searchParams: URLSearc
   const activePositions = searchParams.getAll('position')
   for (const value of activePositions) {
     filters.push({
-      type: 'JobPosition',
+      type: 'Job',
       paramName: 'position',
       value,
       label: positions.get(value) || value
@@ -152,7 +152,7 @@ export const getActiveFilters = query("unchecked", async (searchParams: URLSearc
   const activeLevels = searchParams.getAll('level')
   for (const value of activeLevels) {
     filters.push({
-      type: 'JobLevel',
+      type: 'Job',
       paramName: 'level',
       value,
       label: levels.get(value) || value
