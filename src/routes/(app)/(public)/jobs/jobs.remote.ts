@@ -7,7 +7,7 @@ import { parseSearchParams } from 'zod-search-params/v4'
 const jobsFilterSchema = z.object({
 	page: z.coerce.number().default(1),
 	remote: z.enum(['all', 'remote', 'hybrid', 'on-site']).default('all'),
-	type: z.enum(['all', 'full-time', 'part-time', 'contract', 'internship']).default('all'),
+	position: z.enum(['all', 'full-time', 'part-time', 'contract', 'internship']).default('all'),
 	level: z.enum(['all', 'entry', 'junior', 'mid', 'senior', 'principal']).default('all')
 })
 
@@ -25,7 +25,7 @@ export const getJobListings = query(jobListingInputSchema, async ({ url }) => {
 	const filters = {
 		page: parsedFilters?.page ?? 1,
 		remote: parsedFilters?.remote ?? 'all',
-		type: parsedFilters?.type ?? 'all',
+		position: parsedFilters?.position ?? 'all',
 		level: parsedFilters?.level ?? 'all'
 	} as const
 	const perPage = 20
@@ -49,8 +49,8 @@ export const getJobListings = query(jobListingInputSchema, async ({ url }) => {
 		jobs = jobs.filter((job) => job.metadata?.remote_status === filters.remote)
 	}
 
-	if (filters.type !== 'all') {
-		jobs = jobs.filter((job) => job.metadata?.position_type === filters.type)
+	if (filters.position !== 'all') {
+		jobs = jobs.filter((job) => job.metadata?.position_type === filters.position)
 	}
 
 	if (filters.level !== 'all') {

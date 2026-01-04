@@ -1,7 +1,8 @@
 <script lang="ts">
 	import CaretUpDown from 'phosphor-svelte/lib/CaretUpDown'
 	import FilterSubmenu from './FilterSubmenu.svelte'
-	import { getCategories, getTags, getAuthors } from './data.remote'
+	import FilterSubmenuGroup from './FilterSubmenuGroup.svelte'
+	import { getCategories, getTags, getAuthors, getJobLocations, getJobPositionTypes, getJobLevels } from './data.remote'
 	import { afterNavigate } from '$app/navigation'
 	import Dropdown from '$lib/ui/Dropdown.svelte'
 
@@ -37,4 +38,9 @@
 	<FilterSubmenu label="Categories" paramName="type" getItems={getCategories} onSelect={handleSelect} />
 	<FilterSubmenu label="Tags" paramName="tags" getItems={getTags} onSelect={handleSelect} />
 	<FilterSubmenu label="Authors" paramName="authors" getItems={getAuthors} onSelect={handleSelect} />
+	<FilterSubmenuGroup label="Jobs">
+		<FilterSubmenu label="Location" paramName="remote" getItems={getJobLocations} onSelect={handleSelect} />
+		<FilterSubmenu label="Position Type" paramName="position" getItems={getJobPositionTypes} onSelect={handleSelect} />
+		<FilterSubmenu label="Experience Level" paramName="level" getItems={getJobLevels} onSelect={handleSelect} />
+	</FilterSubmenuGroup>
 </Dropdown>

@@ -61,7 +61,7 @@
 	<!-- Filters -->
 	<div class="flex flex-wrap items-center gap-3">
 		<LinkSelect options={remoteOptions} paramName="remote" defaultValue="all" />
-		<LinkSelect options={typeOptions} paramName="type" defaultValue="all" />
+		<LinkSelect options={typeOptions} paramName="position" defaultValue="all" />
 		<LinkSelect options={levelOptions} paramName="level" defaultValue="all" />
 	</div>
 
@@ -79,7 +79,7 @@
 				<Briefcase size={48} class="mb-4 text-slate-400" />
 				<h2 class="text-xl font-semibold text-slate-700">No jobs found</h2>
 				<p class="mt-2 text-slate-500">
-					{#if filters.remote !== 'all' || filters.type !== 'all' || filters.level !== 'all'}
+					{#if filters.remote !== 'all' || filters.position !== 'all' || filters.level !== 'all'}
 						Try adjusting your filters to see more results.
 					{:else}
 						Be the first to post a job opportunity!

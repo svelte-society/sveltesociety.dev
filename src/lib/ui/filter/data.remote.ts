@@ -2,7 +2,7 @@ import { getRequestEvent, query } from '$app/server'
 import type { Item } from './FilterSubmenu.svelte'
 
 type FilterItem = {
-  type: 'Category' | 'Tag' | 'Author' | 'Search'
+  type: 'Category' | 'Tag' | 'Author' | 'Search' | 'JobLocation' | 'JobPosition' | 'JobLevel'
   paramName: string
   value: string
   label: string
@@ -25,8 +25,42 @@ const contentTypes: Item[] = [
   { label: 'Collection', value: 'collection' }
 ]
 
+// Job filter options
+const jobLocations: Item[] = [
+  { label: 'Remote', value: 'remote' },
+  { label: 'Hybrid', value: 'hybrid' },
+  { label: 'On-Site', value: 'on-site' }
+]
+
+const jobPositionTypes: Item[] = [
+  { label: 'Full-Time', value: 'full-time' },
+  { label: 'Part-Time', value: 'part-time' },
+  { label: 'Contract', value: 'contract' },
+  { label: 'Internship', value: 'internship' }
+]
+
+const jobLevels: Item[] = [
+  { label: 'Entry Level', value: 'entry' },
+  { label: 'Junior', value: 'junior' },
+  { label: 'Mid-Level', value: 'mid' },
+  { label: 'Senior', value: 'senior' },
+  { label: 'Principal/Staff', value: 'principal' }
+]
+
 export const getCategories = query(() => {
   return contentTypes
+})
+
+export const getJobLocations = query(() => {
+  return jobLocations
+})
+
+export const getJobPositionTypes = query(() => {
+  return jobPositionTypes
+})
+
+export const getJobLevels = query(() => {
+  return jobLevels
 })
 
 export const getTags = query(() => {
@@ -56,6 +90,9 @@ export const getActiveFilters = query("unchecked", async (searchParams: URLSearc
   const categories = new Map((await getCategories()).map((c) => [c.value, c.label]))
   const authors = new Map((await getAuthors()).map((c) => [c.value, c.label]))
   const tags = new Map((await getTags()).map((c) => [c.value, c.label]))
+  const locations = new Map((await getJobLocations()).map((c) => [c.value, c.label]))
+  const positions = new Map((await getJobPositionTypes()).map((c) => [c.value, c.label]))
+  const levels = new Map((await getJobLevels()).map((c) => [c.value, c.label]))
 
   const activeTypes = searchParams.getAll('type')
   for (const value of activeTypes) {
@@ -86,6 +123,39 @@ export const getActiveFilters = query("unchecked", async (searchParams: URLSearc
       paramName: 'authors',
       value,
       label: authors.get(value) || value
+    })
+  }
+
+  // Get active job locations
+  const activeLocations = searchParams.getAll('remote')
+  for (const value of activeLocations) {
+    filters.push({
+      type: 'JobLocation',
+      paramName: 'remote',
+      value,
+      label: locations.get(value) || value
+    })
+  }
+
+  // Get active job position types
+  const activePositions = searchParams.getAll('position')
+  for (const value of activePositions) {
+    filters.push({
+      type: 'JobPosition',
+      paramName: 'position',
+      value,
+      label: positions.get(value) || value
+    })
+  }
+
+  // Get active job levels
+  const activeLevels = searchParams.getAll('level')
+  for (const value of activeLevels) {
+    filters.push({
+      type: 'JobLevel',
+      paramName: 'level',
+      value,
+      label: levels.get(value) || value
     })
   }
 
