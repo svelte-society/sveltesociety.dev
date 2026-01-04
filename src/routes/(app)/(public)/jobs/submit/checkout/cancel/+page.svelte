@@ -31,7 +31,7 @@
 		</a>
 
 		<a
-			href="/jobs"
+			href="/?type=job"
 			class="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 px-6 py-3 font-medium text-slate-700 transition-colors hover:bg-slate-50"
 		>
 			Browse Jobs

@@ -13,7 +13,7 @@
 	import Schema from '$lib/ui/Schema.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
-	import { applyToJob } from '../../jobs/jobs.remote'
+	import { applyToJob } from './job.remote'
 
 	let { data } = $props()
 
@@ -84,7 +84,7 @@
 <div class="mx-auto max-w-4xl">
 	<!-- Back Link -->
 	<a
-		href="/jobs"
+		href="/?type=job"
 		class="mb-6 inline-flex items-center gap-2 text-sm text-slate-600 hover:text-orange-600"
 		data-testid="back-to-jobs"
 	>

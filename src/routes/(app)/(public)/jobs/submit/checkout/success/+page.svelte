@@ -86,7 +86,7 @@
 
 		<div class="mt-6">
 			<a
-				href="/jobs"
+				href="/?type=job"
 				class="flex w-full items-center justify-center gap-2 rounded-lg bg-orange-500 px-6 py-3 font-medium text-white transition-colors hover:bg-orange-600"
 			>
 				Browse All Jobs

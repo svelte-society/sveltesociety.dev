@@ -20,7 +20,7 @@
 	<div class="grid gap-3 rounded border border-slate-200 bg-gray-50 p-4">
 		<div class="flex items-center justify-between">
 			<h3 class="text-md font-bold">Jobs</h3>
-			<a href="/jobs" class="text-svelte-500 text-xs hover:underline" onclick={onLinkClick}
+			<a href="/?type=job" class="text-svelte-500 text-xs hover:underline" onclick={onLinkClick}
 				>View all</a
 			>
 		</div>
