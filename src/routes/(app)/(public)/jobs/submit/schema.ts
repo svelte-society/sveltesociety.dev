@@ -5,6 +5,15 @@ const optionalUrl = z.string().transform((val) => (val === '' ? undefined : val)
 	z.url({ message: 'Must be a valid URL' }).optional()
 )
 
+// Accept File for image uploads (SvelteKit uses LazyFile internally, so we check for file-like object)
+const optionalFile = z
+	.custom<File>((val) => {
+		if (val === undefined || val === null) return true
+		// Check for file-like properties (works with both File and LazyFile)
+		return typeof val === 'object' && 'name' in val && 'type' in val && 'arrayBuffer' in val
+	}, { message: 'Must be a valid image file' })
+	.optional()
+
 // Transform empty strings to undefined for optional number fields
 const optionalNumber = z.string().transform((val) => (val === '' ? undefined : Number(val))).pipe(
 	z.number().positive().optional()
@@ -13,7 +22,7 @@ const optionalNumber = z.string().transform((val) => (val === '' ? undefined : N
 export const jobSubmissionSchema = z.object({
 	// Company details
 	company_name: z.string().min(2, { message: 'Company name must be at least 2 characters' }),
-	company_logo: optionalUrl,
+	company_logo: optionalFile,
 	company_website: optionalUrl,
 	employer_email: z.email({ message: 'Please enter a valid email address' }),
 

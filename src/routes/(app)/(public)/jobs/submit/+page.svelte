@@ -7,6 +7,7 @@
 	import Select from '$lib/ui/Select.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte'
+	import ImageUpload from '$lib/ui/ImageUpload.svelte'
 	import { submitJob, getJobTiers } from './submit.remote'
 
 	const {
@@ -133,7 +134,7 @@
 	</div>
 
 	<!-- Job Submission Form -->
-	<form {...submitJob} class="space-y-8">
+	<form {...submitJob} enctype="multipart/form-data" class="space-y-8">
 		<input {...tier_id.as('hidden', selectedTierId)} />
 
 		<!-- Company Information -->
@@ -165,10 +166,10 @@
 					data-testid="company-website-input"
 				/>
 
-				<Input
-					{...company_logo.as('url')}
-					label="Company Logo URL (optional)"
-					placeholder="https://acme.com/logo.png"
+				<ImageUpload
+					{...company_logo.as('file')}
+					label="Company Logo (optional)"
+					description="PNG, JPG, or WebP. Max 2MB."
 					issues={company_logo.issues()}
 					data-testid="company-logo-input"
 				/>
