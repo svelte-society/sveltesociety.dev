@@ -3,10 +3,14 @@
 	import Plus from 'phosphor-svelte/lib/Plus'
 	import Tags, { type TagType } from '$lib/ui/Tags.svelte'
 	import UpcomingEvents from './UpcomingEvents.svelte'
-	import { type UpcomingEvent } from './types'
+	import SidebarJobs from './SidebarJobs.svelte'
+	import { type UpcomingEvent, type SidebarJob } from './types'
 
-	let { upcomingEvents = [], tags }: { upcomingEvents?: UpcomingEvent[]; tags?: TagType[] } =
-		$props()
+	let {
+		upcomingEvents = [],
+		tags,
+		jobs = []
+	}: { upcomingEvents?: UpcomingEvent[]; tags?: TagType[]; jobs?: SidebarJob[] } = $props()
 </script>
 
 <div
@@ -36,6 +40,8 @@
 			</a>
 		</p>
 	</div>
+
+	<SidebarJobs {jobs} />
 
 	<UpcomingEvents events={upcomingEvents} />
 </div>

@@ -10,7 +10,8 @@
 		getUpcomingEvents,
 		getHeaderAnnouncement,
 		getUser,
-		getSidebarShortcuts
+		getSidebarShortcuts,
+		getSidebarJobs
 	} from './data.remote'
 
 	let { children } = $props()
@@ -76,7 +77,7 @@
 			</div>
 		</div>
 
-		<RightSidebar upcomingEvents={await getUpcomingEvents()} tags={await getTags()} />
+		<RightSidebar upcomingEvents={await getUpcomingEvents()} tags={await getTags()} jobs={await getSidebarJobs()} />
 
 		{#if user?.role === 1}
 			<a

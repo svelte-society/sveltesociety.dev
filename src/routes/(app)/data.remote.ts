@@ -84,3 +84,49 @@ export const getSidebarShortcuts = query(() => {
 		href: `/${shortcut.type}/${shortcut.slug}`
 	}))
 })
+
+export const getSidebarJobs = query(async () => {
+	const { locals } = getRequestEvent()
+
+	// Get published jobs
+	const searchResults = locals.searchService.search({
+		type: 'job',
+		status: 'published',
+		limit: 20 // Get more to filter and sort
+	})
+
+	// Get full job data
+	const now = new Date().toISOString()
+	const jobs = searchResults.hits
+		.map((hit) => locals.contentService.getContentById(hit.id))
+		.filter((job): job is NonNullable<typeof job> => job !== null)
+		// Filter out expired jobs
+		.filter((job) => {
+			const expiresAt = job.metadata?.expires_at
+			return !expiresAt || expiresAt > now
+		})
+		// Sort by tier (premium first, then featured, then basic) and then by created_at
+		.sort((a, b) => {
+			const tierOrder: Record<string, number> = { premium: 0, featured: 1, basic: 2 }
+			const aTier = tierOrder[a.metadata?.tier_name || 'basic'] ?? 2
+			const bTier = tierOrder[b.metadata?.tier_name || 'basic'] ?? 2
+			if (aTier !== bTier) return aTier - bTier
+			// Within same tier, sort by created_at (newest first)
+			return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+		})
+		// Limit to 5
+		.slice(0, 5)
+		// Transform to sidebar format
+		.map((job) => ({
+			id: job.id,
+			slug: job.slug,
+			title: job.title,
+			company_name: job.metadata?.company_name || 'Unknown Company',
+			company_logo: job.metadata?.company_logo || null,
+			remote_status: job.metadata?.remote_status || 'remote',
+			location: job.metadata?.location || null,
+			tier_name: job.metadata?.tier_name
+		}))
+
+	return jobs
+})
