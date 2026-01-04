@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 import { JobsPage } from '../../pages'
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
-test.describe('Jobs Listing Page', () => {
+test.describe('Jobs Listing', () => {
 	test.beforeEach(async ({ page }) => {
 		await setupDatabaseIsolation(page)
 	})
@@ -27,21 +27,20 @@ test.describe('Jobs Listing Page', () => {
 		await jobsPage.expectJobWithTitle('Junior Svelte Developer')
 	})
 
-	test('shows Post a Job button', async ({ page }) => {
-		const jobsPage = new JobsPage(page)
-		await jobsPage.goto()
+	test('jobs appear in category dropdown', async ({ page }) => {
+		await page.goto('/')
 
-		await expect(jobsPage.postJobButton).toBeVisible()
-		await expect(jobsPage.postJobButton).toHaveText(/Post a Job/i)
-	})
+		// Open the Add Filter dropdown
+		const addFilterButton = page.getByRole('button', { name: /Add Filter/i })
+		await addFilterButton.click()
 
-	test('Post a Job button links to submit page', async ({ page }) => {
-		const jobsPage = new JobsPage(page)
-		await jobsPage.goto()
+		// Navigate to Categories submenu
+		const categoriesSubmenu = page.getByRole('menuitem', { name: 'Categories' })
+		await categoriesSubmenu.focus()
 
-		await jobsPage.clickPostJob()
-
-		await expect(page).toHaveURL(/\/jobs\/submit/)
+		// Job should be in the categories list
+		const jobOption = page.getByRole('menuitem', { name: 'Job' })
+		await expect(jobOption).toBeVisible()
 	})
 })
 
@@ -230,7 +229,7 @@ test.describe('Jobs on Homepage Filter', () => {
 
 	test('job filters appear as active filter chips on homepage', async ({ page }) => {
 		// Navigate to homepage with job filters
-		await page.goto('/?remote=remote')
+		await page.goto('/?type=job&remote=remote')
 
 		// Should show the job filter chip
 		const jobFilter = page.locator('span').filter({ hasText: 'Job:' })

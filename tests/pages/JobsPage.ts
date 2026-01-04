@@ -3,9 +3,9 @@ import { expect } from '@playwright/test'
 import { BasePage } from './BasePage'
 
 /**
- * JobsPage - Page Object Model for the jobs listing page
+ * JobsPage - Page Object Model for the jobs listing on homepage
  *
- * Represents the /jobs page that displays job listings
+ * Represents the homepage filtered by type=job that displays job listings
  * with filters for location, position type, and experience level.
  *
  * Provides methods for:
@@ -17,15 +17,15 @@ import { BasePage } from './BasePage'
  * @example
  * const jobsPage = new JobsPage(page)
  * await jobsPage.goto()
- * await jobsPage.filterByLocation('remote')
+ * await jobsPage.gotoWithFilters({ remote: 'remote' })
  * await jobsPage.expectJobsDisplayed()
  */
 export class JobsPage extends BasePage {
 	/**
-	 * Navigate to the jobs listing page
+	 * Navigate to the jobs listing (homepage with type=job filter)
 	 */
 	async goto(): Promise<void> {
-		await this.page.goto('/jobs')
+		await this.page.goto('/?type=job')
 	}
 
 	/**
@@ -38,22 +38,15 @@ export class JobsPage extends BasePage {
 		level?: string
 	}): Promise<void> {
 		const params = new URLSearchParams()
+		params.set('type', 'job')
 		if (filters.remote) params.set('remote', filters.remote)
 		if (filters.position) params.set('position', filters.position)
 		if (filters.level) params.set('level', filters.level)
 
-		const queryString = params.toString()
-		await this.page.goto(`/jobs${queryString ? `?${queryString}` : ''}`)
+		await this.page.goto(`/?${params.toString()}`)
 	}
 
 	// Selectors
-
-	/**
-	 * Job listings container
-	 */
-	get jobListings(): Locator {
-		return this.page.getByTestId('job-listings')
-	}
 
 	/**
 	 * All job cards on the page
@@ -71,104 +64,13 @@ export class JobsPage extends BasePage {
 	}
 
 	/**
-	 * No jobs found message
+	 * No content message
 	 */
-	get noJobsMessage(): Locator {
-		return this.page.getByTestId('no-jobs-message')
-	}
-
-	/**
-	 * Post a Job button
-	 */
-	get postJobButton(): Locator {
-		return this.page.getByTestId('post-job-button')
-	}
-
-	/**
-	 * Location filter dropdown (remote/hybrid/on-site)
-	 */
-	get locationFilter(): Locator {
-		return this.page.locator('select[name="remote"], a[href*="remote="]').first()
-	}
-
-	/**
-	 * Position type filter dropdown (full-time/part-time/contract/internship)
-	 */
-	get positionFilter(): Locator {
-		return this.page.locator('select[name="position"], a[href*="position="]').first()
-	}
-
-	/**
-	 * Level filter dropdown (entry/junior/mid/senior/principal)
-	 */
-	get levelFilter(): Locator {
-		return this.page.locator('select[name="level"], a[href*="level="]').first()
+	get noContentMessage(): Locator {
+		return this.page.getByTestId('no-content-message')
 	}
 
 	// Actions
-
-	/**
-	 * Filter jobs by location using LinkSelect
-	 * @param value - Location value (remote, hybrid, on-site, all)
-	 */
-	async filterByLocation(value: 'all' | 'remote' | 'hybrid' | 'on-site'): Promise<void> {
-		// LinkSelect uses anchor tags for navigation
-		const link = this.page.locator(`a[href*="remote=${value}"]`).first()
-		if (await link.isVisible()) {
-			await link.click()
-		} else {
-			// Fallback to navigating directly
-			const currentUrl = new URL(this.page.url())
-			if (value === 'all') {
-				currentUrl.searchParams.delete('remote')
-			} else {
-				currentUrl.searchParams.set('remote', value)
-			}
-			await this.page.goto(currentUrl.toString())
-		}
-	}
-
-	/**
-	 * Filter jobs by position type using LinkSelect
-	 * @param value - Position type value (full-time, part-time, contract, internship, all)
-	 */
-	async filterByPosition(
-		value: 'all' | 'full-time' | 'part-time' | 'contract' | 'internship'
-	): Promise<void> {
-		const link = this.page.locator(`a[href*="position=${value}"]`).first()
-		if (await link.isVisible()) {
-			await link.click()
-		} else {
-			const currentUrl = new URL(this.page.url())
-			if (value === 'all') {
-				currentUrl.searchParams.delete('position')
-			} else {
-				currentUrl.searchParams.set('position', value)
-			}
-			await this.page.goto(currentUrl.toString())
-		}
-	}
-
-	/**
-	 * Filter jobs by experience level using LinkSelect
-	 * @param value - Level value (entry, junior, mid, senior, principal, all)
-	 */
-	async filterByLevel(
-		value: 'all' | 'entry' | 'junior' | 'mid' | 'senior' | 'principal'
-	): Promise<void> {
-		const link = this.page.locator(`a[href*="level=${value}"]`).first()
-		if (await link.isVisible()) {
-			await link.click()
-		} else {
-			const currentUrl = new URL(this.page.url())
-			if (value === 'all') {
-				currentUrl.searchParams.delete('level')
-			} else {
-				currentUrl.searchParams.set('level', value)
-			}
-			await this.page.goto(currentUrl.toString())
-		}
-	}
 
 	/**
 	 * Click on a job card by index
@@ -176,13 +78,6 @@ export class JobsPage extends BasePage {
 	 */
 	async clickJobCard(index: number): Promise<void> {
 		await this.jobCard(index).click()
-	}
-
-	/**
-	 * Click the "Post a Job" button
-	 */
-	async clickPostJob(): Promise<void> {
-		await this.postJobButton.click()
 	}
 
 	// Getters
@@ -213,12 +108,12 @@ export class JobsPage extends BasePage {
 	}
 
 	/**
-	 * Check if no jobs message is displayed
-	 * @returns true if no jobs message is visible
+	 * Check if no content message is displayed
+	 * @returns true if no content message is visible
 	 */
-	async hasNoJobsMessage(): Promise<boolean> {
+	async hasNoContentMessage(): Promise<boolean> {
 		try {
-			await this.noJobsMessage.waitFor({ state: 'visible', timeout: 2000 })
+			await this.noContentMessage.waitFor({ state: 'visible', timeout: 2000 })
 			return true
 		} catch {
 			return false
@@ -263,7 +158,7 @@ export class JobsPage extends BasePage {
 	 * Verify no jobs are found (empty state)
 	 */
 	async expectNoJobs(): Promise<void> {
-		await expect(this.noJobsMessage).toBeVisible()
+		await expect(this.noContentMessage).toBeVisible()
 	}
 
 	/**
@@ -276,6 +171,7 @@ export class JobsPage extends BasePage {
 		level?: string
 	}): Promise<void> {
 		const url = new URL(this.page.url())
+		expect(url.searchParams.get('type')).toBe('job')
 		if (params.remote) {
 			expect(url.searchParams.get('remote')).toBe(params.remote)
 		}
