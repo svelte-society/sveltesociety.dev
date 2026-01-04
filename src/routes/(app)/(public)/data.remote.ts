@@ -87,6 +87,27 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 		.map((hit) => locals.contentService.getContentById(hit.id))
 		.filter((piece) => piece !== null)
 
+	// Apply job-specific filters (only affects job content)
+	const hasJobFilters = data.remote.length > 0 || data.position.length > 0 || data.level.length > 0
+	if (hasJobFilters) {
+		content = content.filter((piece) => {
+			// Non-job content passes through unchanged
+			if (piece.type !== 'job') return true
+
+			// Apply job filters
+			if (data.remote.length > 0 && !data.remote.includes(piece.metadata?.remote_status)) {
+				return false
+			}
+			if (data.position.length > 0 && !data.position.includes(piece.metadata?.position_type)) {
+				return false
+			}
+			if (data.level.length > 0 && !data.level.includes(piece.metadata?.seniority_level)) {
+				return false
+			}
+			return true
+		})
+	}
+
 	if (locals.user?.id) {
 		const contentIds = content.map((piece) => piece.id)
 		const { userLikes, userSaves } = locals.interactionsService.getUserLikesAndSaves(
@@ -103,7 +124,7 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 
 	return {
 		content,
-		count: searchResults.count,
+		count: hasJobFilters ? content.length : searchResults.count,
 		meta: buildHomepageMeta(),
 		schemas: [generateOrganizationSchema(), generateWebSiteSchema()]
 	}
@@ -141,6 +162,23 @@ export const getCategoryData = query(categoryDataInputSchema, async ({ url, type
 		.map((hit) => locals.contentService.getContentById(hit.id))
 		.filter((piece) => piece !== null)
 
+	// Apply job-specific filters (only affects job content on job category page)
+	const hasJobFilters = data.remote.length > 0 || data.position.length > 0 || data.level.length > 0
+	if (hasJobFilters && type === 'job') {
+		content = content.filter((piece) => {
+			if (data.remote.length > 0 && !data.remote.includes(piece.metadata?.remote_status)) {
+				return false
+			}
+			if (data.position.length > 0 && !data.position.includes(piece.metadata?.position_type)) {
+				return false
+			}
+			if (data.level.length > 0 && !data.level.includes(piece.metadata?.seniority_level)) {
+				return false
+			}
+			return true
+		})
+	}
+
 	if (locals.user?.id) {
 		const contentIds = content.map((piece) => piece.id)
 		const { userLikes, userSaves } = locals.interactionsService.getUserLikesAndSaves(
@@ -157,7 +195,7 @@ export const getCategoryData = query(categoryDataInputSchema, async ({ url, type
 
 	return {
 		content,
-		count: searchResults.count,
+		count: (hasJobFilters && type === 'job') ? content.length : searchResults.count,
 		meta: buildCategoryMeta(type, url.toString()),
 		schemas: undefined
 	}
