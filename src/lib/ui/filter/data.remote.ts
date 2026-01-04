@@ -22,7 +22,8 @@ const contentTypes: Item[] = [
   { label: 'Library', value: 'library' },
   { label: 'Resource', value: 'resource' },
   { label: 'Announcement', value: 'announcement' },
-  { label: 'Collection', value: 'collection' }
+  { label: 'Collection', value: 'collection' },
+  { label: 'Job', value: 'job' }
 ]
 
 // Job filter options
