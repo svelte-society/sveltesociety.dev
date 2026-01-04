@@ -4,6 +4,7 @@ import {
 	TEST_USERS,
 	TEST_TAGS,
 	TEST_CONTENT,
+	TEST_JOBS,
 	TEST_SAVES,
 	TEST_PENDING_CONTENT,
 	getSessionExpiry,
@@ -182,12 +183,36 @@ async function seedTestDatabase() {
 			})
 		})
 
+		// 10. Add job listings
+		console.log('  → Creating job listings...')
+		TEST_JOBS.forEach(job => {
+			contentInsert.run(
+				job.id,
+				job.title,
+				job.type,
+				job.status,
+				job.body,
+				job.slug,
+				job.description,
+				job.metadata ? JSON.stringify(job.metadata) : null,
+				null, // children
+				job.published ? yesterday : null
+			)
+			// Link to author
+			contentUserInsert.run(job.id, job.authorId)
+			// Link to tags
+			job.tags.forEach(tagId => {
+				contentTagInsert.run(job.id, tagId)
+			})
+		})
+
 		// Summary
 		console.log('\n✅ Test database seeded successfully!')
 		console.log('\n📊 Summary:')
 		console.log(`   Users: ${Object.keys(TEST_USERS).length} (admin, contributor, viewer)`)
 		console.log(`   Tags: ${TEST_TAGS.length}`)
 		console.log(`   Content: ${TEST_CONTENT.length} published + ${TEST_PENDING_CONTENT.length} pending`)
+		console.log(`   Jobs: ${TEST_JOBS.length} published`)
 		console.log(`   Sessions: ${Object.keys(TEST_USERS).length} (one per user)`)
 		console.log('\n🔑 Test User Credentials:')
 		Object.entries(TEST_USERS).forEach(([key, user]) => {
