@@ -81,7 +81,7 @@
 	<!-- Pricing Tiers -->
 	<div class="mb-8">
 		<h2 class="mb-4 text-xl font-semibold">Select a Plan</h2>
-		<div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-4" data-testid="pricing-tiers">
+		<div class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4" data-testid="pricing-tiers">
 			{#each tiers as tier}
 				{@const features = tier.features}
 				<button

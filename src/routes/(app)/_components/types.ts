@@ -27,4 +27,7 @@ export interface SidebarJob {
     remote_status: 'remote' | 'hybrid' | 'on-site'
     location?: string | null
     tier_name?: string
+    salary_min?: number | null
+    salary_max?: number | null
+    salary_currency?: string | null
 }

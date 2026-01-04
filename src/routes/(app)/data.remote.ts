@@ -125,7 +125,10 @@ export const getSidebarJobs = query(async () => {
 			company_logo: job.metadata?.company_logo || null,
 			remote_status: job.metadata?.remote_status || 'remote',
 			location: job.metadata?.location || null,
-			tier_name: job.metadata?.tier_name
+			tier_name: job.metadata?.tier_name,
+			salary_min: job.metadata?.salary_min || null,
+			salary_max: job.metadata?.salary_max || null,
+			salary_currency: job.metadata?.salary_currency || null
 		}))
 
 	return jobs

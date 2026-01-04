@@ -14,6 +14,20 @@
 	}
 
 	const isPremium = (tierName?: string) => tierName === 'premium' || tierName === 'featured'
+
+	const formatSalary = (min?: number | null, max?: number | null, currency?: string | null) => {
+		if (!min && !max) return null
+		const fmt = new Intl.NumberFormat('en-US', {
+			notation: 'compact',
+			maximumFractionDigits: 0
+		})
+		const curr = currency || 'USD'
+		const symbol = curr === 'USD' ? '$' : curr === 'EUR' ? '€' : curr === 'GBP' ? '£' : ''
+		if (min && max) return `${symbol}${fmt.format(min)}-${fmt.format(max)}`
+		if (min) return `${symbol}${fmt.format(min)}+`
+		if (max) return `Up to ${symbol}${fmt.format(max)}`
+		return null
+	}
 </script>
 
 {#if jobs && jobs.length > 0}
@@ -26,6 +40,7 @@
 		</div>
 		<div class="space-y-3">
 			{#each jobs as job}
+				{@const salary = formatSalary(job.salary_min, job.salary_max, job.salary_currency)}
 				<div class="grid grid-cols-[auto_1fr] gap-3">
 					<!-- Logo column -->
 					{#if job.company_logo}
@@ -71,6 +86,9 @@
 									<MapPin size={10} />
 									<span class="truncate">{job.location}</span>
 								</span>
+							{/if}
+							{#if salary}
+								<span class="text-green-600">{salary}</span>
 							{/if}
 						</div>
 					</div>
