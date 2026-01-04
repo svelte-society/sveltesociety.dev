@@ -99,16 +99,16 @@
 	class="{contentCardVariants({ variant, compact })} {isJobFeatured ? 'bg-orange-50/50' : ''}"
 >
 	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between gap-2 text-xs sm:gap-0">
-		<div class="flex flex-wrap items-center">
-			<span data-testid="content-type" class="font-semibold capitalize">{content.type}&nbsp;</span>
+		<div class="flex min-w-0 flex-wrap items-center">
+			<span data-testid="content-type" class="shrink-0 font-semibold capitalize">{content.type}&nbsp;</span>
 			{#if content.type === 'job' && content.metadata?.company_name}
-				<span class="flex flex-wrap text-gray-500">
-					<span>posted by&nbsp;</span>
-					<span class="font-medium text-gray-700">{content.metadata.company_name}</span>
+				<span class="flex min-w-0 max-w-full text-gray-500">
+					<span class="shrink-0">posted by&nbsp;</span>
+					<span class="truncate font-medium text-gray-700">{content.metadata.company_name}</span>
 				</span>
 			{:else if content.author_username}
-				<span class="flex flex-wrap text-gray-500">
-					<span
+				<span class="flex min-w-0 max-w-full text-gray-500">
+					<span class="shrink-0"
 						>{content.type === 'video' || content.type === 'library'
 							? 'submitted'
 							: 'posted'} by&nbsp;</span
@@ -116,7 +116,7 @@
 					<a
 						data-testid="author-link"
 						href="/user/{content.author_username}"
-						class="focus:outline-svelte-300 rounded-sm hover:underline focus:outline-2 focus:outline-offset-2"
+						class="focus:outline-svelte-300 truncate rounded-sm hover:underline focus:outline-2 focus:outline-offset-2"
 						tabindex="0"
 					>
 						{content.author_name || content.author_username}
