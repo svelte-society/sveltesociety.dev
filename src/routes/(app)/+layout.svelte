@@ -43,7 +43,7 @@
 		{ name: 'Videos', href: '/video' },
 		{ name: 'Recipes', href: '/recipe' },
 		{ name: 'OTHER', href: null },
-		{ name: 'Jobs', href: '/?type=job' },
+		{ name: 'Jobs', href: '/job' },
 		...(shortcuts.length > 0
 			? [{ name: 'SHORTCUTS', href: null }, ...shortcuts.map((s) => ({ ...s, isShortcut: true }))]
 			: [])
@@ -79,7 +79,11 @@
 			</div>
 		</div>
 
-		<RightSidebar upcomingEvents={await getUpcomingEvents()} tags={await getTags()} jobs={await getSidebarJobs()} />
+		<RightSidebar
+			upcomingEvents={await getUpcomingEvents()}
+			tags={await getTags()}
+			jobs={await getSidebarJobs()}
+		/>
 
 		{#if user?.role === 1}
 			<a
