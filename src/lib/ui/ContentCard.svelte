@@ -13,6 +13,7 @@
 
 	import Tags from './Tags.svelte'
 	import type { ContentWithAuthor } from '$lib/types/content'
+	import Buildings from 'phosphor-svelte/lib/Buildings'
 
 	import Announcement from '$lib/ui/content/Announcement.svelte'
 	import Collection from '$lib/ui/content/Collection.svelte'
@@ -20,6 +21,13 @@
 	import Video from '$lib/ui/content/Video.svelte'
 	import Library from '$lib/ui/content/Library.svelte'
 	import Resource from '$lib/ui/content/Resource.svelte'
+	import Job from '$lib/ui/content/Job.svelte'
+
+	// Helper to get the correct URL path for content
+	const getContentPath = (type: string, slug: string) => {
+		if (type === 'job') return `/jobs/${slug}`
+		return `/${type}/${slug}`
+	}
 
 	let {
 		content,
@@ -32,6 +40,12 @@
 		variant?: CardVariant
 		priority?: 'high' | 'auto'
 	} = $props()
+
+	// Check if job is featured/premium for visual distinction
+	const isJobFeatured = $derived(
+		content.type === 'job' &&
+			(content.metadata?.tier_name === 'featured' || content.metadata?.tier_name === 'premium')
+	)
 
 	let likePending = $state(false)
 	let savePending = $state(false)
@@ -82,15 +96,22 @@
 <article
 	data-testid="content-card"
 	style="view-transition-name: post-card-{content.id};"
-	class={contentCardVariants({ variant, compact })}
+	class="{contentCardVariants({ variant, compact })} {isJobFeatured ? 'bg-orange-50/50' : ''}"
 >
 	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between gap-2 text-xs sm:gap-0">
 		<div class="flex flex-wrap items-center">
 			<span data-testid="content-type" class="font-semibold capitalize">{content.type}&nbsp;</span>
-			{#if content.author_username}
+			{#if content.type === 'job' && content.metadata?.company_name}
+				<span class="flex flex-wrap text-gray-500">
+					<span>posted by&nbsp;</span>
+					<span class="font-medium text-gray-700">{content.metadata.company_name}</span>
+				</span>
+			{:else if content.author_username}
 				<span class="flex flex-wrap text-gray-500">
 					<span
-						>{content.type === 'video' || content.type === 'library' ? 'submitted' : 'posted'} by&nbsp;</span
+						>{content.type === 'video' || content.type === 'library'
+							? 'submitted'
+							: 'posted'} by&nbsp;</span
 					>
 					<a
 						data-testid="author-link"
@@ -171,48 +192,97 @@
 		</div>
 	</div>
 
-	<h2 id="title" data-testid="content-title" class={titleVariants({ variant, compact })}>
-		<a
-			href="/{content.type}/{content.slug}"
-			class="focus:outline-svelte-300 rounded-sm hover:underline focus:outline-2 focus:outline-offset-2"
-			tabindex="0">{content.title}</a
-		>
-		{#if isAdmin}
+	{#if content.type === 'job'}
+		<!-- Job layout: Logo column | Title + Description -->
+		<div class="flex gap-4">
+			<!-- Company Logo - larger, in its own column -->
+			{#if content.metadata?.company_logo}
+				<div class="shrink-0">
+					<img
+						src={content.metadata.company_logo}
+						alt="{content.metadata.company_name} logo"
+						class="h-16 w-16 rounded-lg object-contain sm:h-20 sm:w-20"
+					/>
+				</div>
+			{:else}
+				<div
+					class="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-slate-100 sm:h-20 sm:w-20"
+				>
+					<Buildings size={32} class="text-slate-400" />
+				</div>
+			{/if}
+
+			<!-- Title + Description -->
+			<div class="min-w-0 flex-1">
+				<h2 id="title" data-testid="content-title" class={titleVariants({ variant, compact })}>
+					<a
+						href={getContentPath(content.type, content.slug)}
+						class="focus:outline-svelte-300 rounded-sm hover:underline focus:outline-2 focus:outline-offset-2"
+						tabindex="0">{content.title}</a
+					>
+					{#if isAdmin}
+						<a
+							data-testid="edit-link"
+							class="text-svelte-900 ml-4 text-sm"
+							href="/admin/content/{content.id}">Edit</a
+						>
+					{/if}
+				</h2>
+				{#if content.description}
+					<div data-testid="content-description" class="line-clamp-4 text-sm sm:text-base">
+						{content.description}
+					</div>
+				{/if}
+			</div>
+		</div>
+	{:else}
+		<h2 id="title" data-testid="content-title" class={titleVariants({ variant, compact })}>
 			<a
-				data-testid="edit-link"
-				class="text-svelte-900 ml-4 text-sm"
-				href="/admin/content/{content.id}">Edit</a
+				href={getContentPath(content.type, content.slug)}
+				class="focus:outline-svelte-300 rounded-sm hover:underline focus:outline-2 focus:outline-offset-2"
+				tabindex="0">{content.title}</a
 			>
+			{#if isAdmin}
+				<a
+					data-testid="edit-link"
+					class="text-svelte-900 ml-4 text-sm"
+					href="/admin/content/{content.id}">Edit</a
+				>
+			{/if}
+		</h2>
+		{#if content.description && !(variant === 'detail' && content.type === 'recipe') && content.type !== 'resource'}
+			<div data-testid="content-description" class={descriptionVariants({ variant, compact })}>
+				{content.description}
+			</div>
 		{/if}
-	</h2>
-	{#if content.description && !(variant === 'detail' && content.type === 'recipe') && content.type !== 'resource'}
-		<div data-testid="content-description" class={descriptionVariants({ variant, compact })}>
-			{content.description}
+
+		<div class="mt-2 min-w-0">
+			{#if content.type === 'recipe'}
+				<Recipe {content} {variant} />
+			{:else if content.type === 'collection'}
+				<Collection children={content.children} />
+			{:else if content.type === 'video'}
+				<Video {content} {priority} />
+			{:else if content.type === 'library'}
+				<Library {content} {priority} {variant} />
+			{:else if content.type === 'announcement'}
+				<Announcement {content} {variant} />
+			{:else if content.type === 'resource'}
+				<Resource {content} {priority} {variant} />
+			{/if}
 		</div>
 	{/if}
 
-	<div class="mt-2 min-w-0">
-		{#if content.type === 'recipe'}
-			<Recipe {content} {variant} />
-		{:else if content.type === 'collection'}
-			<Collection children={content.children} />
-		{:else if content.type === 'video'}
-			<Video {content} {priority} />
-		{:else if content.type === 'library'}
-			<Library {content} {priority} {variant} />
-		{:else if content.type === 'announcement'}
-			<Announcement {content} {variant} />
-		{:else if content.type === 'resource'}
-			<Resource {content} {priority} {variant} />
-		{/if}
-	</div>
-
 	<div
-		class="mt-4 grid grid-cols-1 items-start justify-between gap-2 sm:grid-cols-[1fr_auto] sm:gap-0"
+		class="mt-4 grid grid-cols-1 items-center justify-between gap-2 sm:grid-cols-[1fr_auto] sm:gap-0"
 	>
-		<div data-testid="content-tags" class="flex flex-wrap gap-2">
-			<Tags tags={content.tags} />
-		</div>
+		{#if content.type === 'job'}
+			<Job {content} {variant} />
+		{:else}
+			<div data-testid="content-tags" class="flex flex-wrap gap-2">
+				<Tags tags={content.tags} />
+			</div>
+		{/if}
 
 		<div data-testid="published-date" class="text-xs text-gray-500">
 			{formatRelativeDate(content.published_at)}

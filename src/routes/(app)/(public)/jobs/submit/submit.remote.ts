@@ -45,6 +45,8 @@ export const submitJob = form(jobSubmissionSchema, async (data: JobSubmissionDat
 		salary_currency: data.salary_currency
 	}
 
+	let checkoutUrl: string
+
 	try {
 		// Create a pending payment record
 		const paymentId = locals.paymentService.createPayment({
@@ -74,8 +76,7 @@ export const submitJob = form(jobSubmissionSchema, async (data: JobSubmissionDat
 			id: paymentId
 		})
 
-		// Redirect to Stripe checkout
-		redirect(303, checkoutResult.url)
+		checkoutUrl = checkoutResult.url
 	} catch (error) {
 		console.error('Error creating checkout session:', error)
 		return fail(500, {
@@ -83,4 +84,7 @@ export const submitJob = form(jobSubmissionSchema, async (data: JobSubmissionDat
 			message: 'Failed to create checkout session. Please try again.'
 		})
 	}
+
+	// Redirect to Stripe checkout (outside try/catch)
+	redirect(303, checkoutUrl)
 })

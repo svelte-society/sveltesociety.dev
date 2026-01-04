@@ -17,7 +17,7 @@
 
 <svelte:head>
 	<title>
-		{data.status === 'success' ? 'Job Posted Successfully!' : 'Processing Payment...'}
+		{data.status === 'success' ? 'Payment Received!' : 'Processing Payment...'}
 	</title>
 </svelte:head>
 
@@ -41,19 +41,30 @@
 			}, 3000)
 		</script>
 	{:else}
-		<div
-			class="mb-6 flex justify-center"
-		>
+		<div class="mb-6 flex justify-center">
 			<div class="flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
 				<CheckCircle size={48} weight="fill" class="text-green-600" />
 			</div>
 		</div>
 
-		<h1 class="text-3xl font-bold text-slate-900">Your Job is Live!</h1>
+		<h1 class="text-3xl font-bold text-slate-900">Payment Received!</h1>
 
 		<p class="mt-4 text-lg text-slate-600">
-			<strong>{data.job?.title}</strong> has been published successfully.
+			Thank you for submitting <strong>{data.job?.title}</strong>.
 		</p>
+
+		<div class="mt-6 rounded-lg border border-orange-200 bg-orange-50 p-6 text-left">
+			<div class="flex items-start gap-3">
+				<Clock size={24} class="mt-0.5 shrink-0 text-orange-600" />
+				<div>
+					<h2 class="font-semibold text-orange-900">Pending Review</h2>
+					<p class="mt-1 text-sm text-orange-800">
+						Your job posting is currently being reviewed by our team. We'll publish it within 24
+						hours and send you a confirmation email once it's live.
+					</p>
+				</div>
+			</div>
+		</div>
 
 		<div class="mt-6 rounded-lg border border-slate-200 bg-white p-6 text-left">
 			<h2 class="mb-4 font-semibold">Job Details</h2>
@@ -73,21 +84,13 @@
 			</dl>
 		</div>
 
-		<div class="mt-6 space-y-3">
-			<a
-				href="/jobs/{data.job?.slug}"
-				class="flex w-full items-center justify-center gap-2 rounded-lg bg-orange-500 px-6 py-3 font-medium text-white transition-colors hover:bg-orange-600"
-				data-testid="view-job-link"
-			>
-				View Your Job Listing
-				<ArrowRight size={18} />
-			</a>
-
+		<div class="mt-6">
 			<a
 				href="/jobs"
-				class="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 px-6 py-3 font-medium text-slate-700 transition-colors hover:bg-slate-50"
+				class="flex w-full items-center justify-center gap-2 rounded-lg bg-orange-500 px-6 py-3 font-medium text-white transition-colors hover:bg-orange-600"
 			>
 				Browse All Jobs
+				<ArrowRight size={18} />
 			</a>
 		</div>
 
@@ -96,21 +99,17 @@
 			<ul class="space-y-2">
 				<li class="flex items-start gap-2">
 					<Clock size={16} class="mt-0.5 shrink-0 text-slate-400" />
-					<span>
-						Your job is now visible to thousands of Svelte developers.
-					</span>
+					<span> We'll review your job posting within 24 hours. </span>
 				</li>
 				<li class="flex items-start gap-2">
 					<Clock size={16} class="mt-0.5 shrink-0 text-slate-400" />
 					<span>
-						You'll receive email notifications when candidates apply.
+						Once approved, your job will be visible to thousands of Svelte developers.
 					</span>
 				</li>
 				<li class="flex items-start gap-2">
 					<Clock size={16} class="mt-0.5 shrink-0 text-slate-400" />
-					<span>
-						A confirmation email has been sent to your inbox.
-					</span>
+					<span> A confirmation email has been sent to your inbox. </span>
 				</li>
 			</ul>
 		</div>

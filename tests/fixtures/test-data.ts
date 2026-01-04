@@ -213,7 +213,7 @@ We're looking for a Senior Svelte Developer to join our growing team. You'll be 
 - Strong TypeScript skills
 - Experience with testing frameworks`,
 		slug: 'senior-svelte-developer-acme',
-		description: 'Join our team as a Senior Svelte Developer and build amazing web applications.',
+		description: 'Join our team as a Senior Svelte Developer and build amazing web applications using Svelte 5 and SvelteKit. You\'ll be working on cutting-edge projects that push the boundaries of what\'s possible on the web.\n\nWe\'re looking for someone who is passionate about creating exceptional user experiences and writing clean, maintainable code. You\'ll have the opportunity to mentor junior developers and contribute to architecture decisions that shape the future of our platform.\n\nThis is a fully remote position with competitive compensation, equity, and a flexible work environment that values work-life balance.',
 		metadata: {
 			company_name: 'Acme Corp',
 			company_logo: 'https://ui-avatars.com/api/?name=Acme+Corp&background=ff3e00&color=fff',
@@ -257,7 +257,7 @@ TechStart is seeking a talented Frontend Engineer to help build our next-generat
 - CSS/Tailwind expertise
 - Good communication skills`,
 		slug: 'frontend-engineer-svelte-techstart',
-		description: 'Build beautiful, performant web applications with Svelte at TechStart.',
+		description: 'Build beautiful, performant web applications with Svelte at TechStart. We\'re a fast-growing SaaS company looking for talented engineers who want to make a real impact on our product and millions of users worldwide.\n\nAs a Frontend Engineer, you\'ll collaborate closely with designers and backend engineers to deliver pixel-perfect, accessible UI components. You\'ll have ownership over key features and the autonomy to make technical decisions that improve our codebase.\n\nWe offer a hybrid work environment in our beautiful San Francisco office, comprehensive benefits, and the opportunity to grow with an innovative team.',
 		metadata: {
 			company_name: 'TechStart',
 			company_logo: 'https://ui-avatars.com/api/?name=TechStart&background=3b82f6&color=fff',
@@ -301,7 +301,7 @@ Perfect opportunity for developers new to Svelte who want to grow their skills.
 - Enthusiasm to learn Svelte
 - Strong problem-solving skills`,
 		slug: 'junior-svelte-developer-growthco',
-		description: 'Launch your career as a Svelte developer at GrowthCo.',
+		description: 'Launch your career as a Svelte developer at GrowthCo, where we believe in investing in talent and helping you grow. This is the perfect opportunity for developers who are eager to learn and build real-world applications.\n\nYou\'ll work alongside experienced senior developers who are passionate about mentoring and knowledge sharing. Our supportive environment encourages questions, experimentation, and continuous learning.\n\nWe\'re located in the heart of Austin\'s tech scene, offering a vibrant office culture, competitive salary, and a clear path for career advancement.',
 		metadata: {
 			company_name: 'GrowthCo',
 			company_logo: 'https://ui-avatars.com/api/?name=GrowthCo&background=22c55e&color=fff',
@@ -344,7 +344,7 @@ Looking for an experienced Svelte consultant for a 6-month project.
 - Strong consulting/communication skills
 - Available for 40 hours/week`,
 		slug: 'svelte-consultant-contract-enterprise',
-		description: 'Help Enterprise Inc. migrate to SvelteKit as a contract consultant.',
+		description: 'Help Enterprise Inc. migrate their flagship product from React to SvelteKit as a contract consultant. This is a high-impact, 6-month engagement with potential for extension based on project needs.\n\nYou\'ll be the technical lead on this migration, working directly with stakeholders to define the roadmap, set up best practices, and ensure a smooth transition. You\'ll also train their internal team on Svelte development patterns.\n\nWe offer competitive hourly rates, flexible working hours, and the opportunity to work with a Fortune 500 company on a transformative project.',
 		metadata: {
 			company_name: 'Enterprise Inc',
 			company_logo: 'https://ui-avatars.com/api/?name=Enterprise&background=6366f1&color=fff',
@@ -388,7 +388,7 @@ Join us for a summer internship focused on Svelte development.
 - Interest in modern web development
 - Available for summer 2025`,
 		slug: 'svelte-intern-summer-startup',
-		description: 'Summer internship opportunity to learn Svelte at Startup Labs.',
+		description: 'Summer internship opportunity to learn Svelte at Startup Labs, one of NYC\'s most exciting startups. Perfect for students who want hands-on experience with modern web development in a fast-paced environment.\n\nDuring your internship, you\'ll work on real features that ship to production, participate in code reviews, and learn from experienced engineers. We provide structured mentorship and regular feedback to ensure you get the most out of your experience.\n\nWe offer competitive hourly pay, a hybrid work arrangement, and the possibility of a full-time offer for outstanding performers.',
 		metadata: {
 			company_name: 'Startup Labs',
 			company_logo: 'https://ui-avatars.com/api/?name=Startup+Labs&background=f59e0b&color=fff',

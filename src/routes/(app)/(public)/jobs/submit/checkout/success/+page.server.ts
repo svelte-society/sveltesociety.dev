@@ -67,9 +67,8 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 			slug,
 			description: jobData.description,
 			body: jobData.body,
-			status: 'published', // Jobs go live immediately after payment
+			status: 'pending_review', // Jobs require review before going live
 			tags: [], // Jobs don't require tags
-			published_at: new Date().toISOString(),
 			metadata: {
 				company_name: jobData.company_name,
 				company_logo: jobData.company_logo,

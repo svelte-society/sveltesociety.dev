@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Briefcase from 'phosphor-svelte/lib/Briefcase'
 	import Plus from 'phosphor-svelte/lib/Plus'
-	import JobCard from '$lib/ui/jobs/JobCard.svelte'
+	import ContentCard from '$lib/ui/ContentCard.svelte'
 	import LinkSelect from '$lib/ui/filter/LinkSelect.svelte'
 	import { getJobListings } from './jobs.remote'
 	import { page } from '$app/state'
@@ -62,16 +62,14 @@
 	<div class="flex flex-wrap items-center gap-3">
 		<LinkSelect options={remoteOptions} paramName="remote" defaultValue="all" />
 		<LinkSelect options={typeOptions} paramName="type" defaultValue="all" />
-		<div class="hidden sm:block">
-			<LinkSelect options={levelOptions} paramName="level" defaultValue="all" />
-		</div>
+		<LinkSelect options={levelOptions} paramName="level" defaultValue="all" />
 	</div>
 
 	<!-- Job Listings -->
 	<div class="grid gap-4" data-testid="job-listings">
 		{#if count > 0}
 			{#each jobs as job (job.id)}
-				<JobCard {job} />
+				<ContentCard content={job} />
 			{/each}
 		{:else}
 			<div
