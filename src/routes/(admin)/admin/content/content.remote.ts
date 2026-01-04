@@ -2,7 +2,7 @@ import { form, query, getRequestEvent } from '$app/server'
 import { error, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../authorization.remote'
-import { uploadThumbnail, isS3Enabled } from '$lib/server/services/s3-storage'
+import { uploadImageFile } from '$lib/server/services/s3-storage'
 
 // Helper to transform comma-separated array values from form submission
 // When using hidden inputs with array values, they may serialize as "a,b,c" instead of ["a","b","c"]
@@ -188,27 +188,6 @@ function generateSlug(title: string): string {
 		.slice(0, 50)
 }
 
-/**
- * Upload a File to S3 and return the public URL
- */
-async function uploadFileToS3(file: File, keyPrefix: string): Promise<string | null> {
-	if (!isS3Enabled) {
-		console.warn('S3 storage is not enabled. Company logo will not be uploaded.')
-		return null
-	}
-
-	try {
-		const ext = file.type.split('/')[1] || 'png'
-		const arrayBuffer = await file.arrayBuffer()
-		const timestamp = Date.now()
-		const key = `jobs/${keyPrefix}-${timestamp}/logo.${ext}`
-		return await uploadThumbnail(key, arrayBuffer)
-	} catch (err) {
-		console.error('Error uploading company logo to S3:', err)
-		return null
-	}
-}
-
 // Job-specific update schema
 const adminUpdateJobSchema = z.object({
 	id: z.string().min(1, 'Content ID is required'),
@@ -291,7 +270,7 @@ export const updateJob = form(adminUpdateJobSchema, async (data) => {
 	// Upload new logo to S3 if provided, otherwise keep existing
 	let companyLogoUrl: string | null = existingMetadata.company_logo || null
 	if (data.company_logo) {
-		const uploadedUrl = await uploadFileToS3(data.company_logo, generateSlug(data.company_name))
+		const uploadedUrl = await uploadImageFile(data.company_logo, `jobs/${generateSlug(data.company_name)}`)
 		if (uploadedUrl) {
 			companyLogoUrl = uploadedUrl
 		}

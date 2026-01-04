@@ -2,7 +2,7 @@ import { getRequestEvent, query, form } from '$app/server'
 import { fail, redirect } from '@sveltejs/kit'
 import { jobSubmissionSchema, type JobSubmissionData } from './schema'
 import type { StoredJobData } from '$lib/server/services/jobs'
-import { uploadThumbnail, isS3Enabled } from '$lib/server/services/s3-storage'
+import { uploadImageFile } from '$lib/server/services/s3-storage'
 
 /**
  * Generate a slug from a title
@@ -15,30 +15,6 @@ function generateSlug(title: string): string {
 		.replace(/-+/g, '-')
 		.replace(/^-|-$/g, '')
 		.slice(0, 50)
-}
-
-/**
- * Upload a File to S3 and return the public URL
- */
-async function uploadFileToS3(file: File, keyPrefix: string): Promise<string | null> {
-	if (!isS3Enabled) {
-		console.warn('S3 storage is not enabled. Company logo will not be uploaded.')
-		return null
-	}
-
-	try {
-		// Get file extension from MIME type
-		const ext = file.type.split('/')[1] || 'png'
-		const arrayBuffer = await file.arrayBuffer()
-
-		const timestamp = Date.now()
-		const key = `jobs/${keyPrefix}-${timestamp}/logo.${ext}`
-
-		return await uploadThumbnail(key, arrayBuffer)
-	} catch (error) {
-		console.error('Error uploading company logo to S3:', error)
-		return null
-	}
 }
 
 /**
@@ -67,7 +43,7 @@ export const submitJob = form(jobSubmissionSchema, async (data: JobSubmissionDat
 	// Upload company logo to S3 if provided
 	let companyLogoUrl: string | null = null
 	if (data.company_logo) {
-		companyLogoUrl = await uploadFileToS3(data.company_logo, generateSlug(data.company_name))
+		companyLogoUrl = await uploadImageFile(data.company_logo, `jobs/${generateSlug(data.company_name)}`)
 	}
 
 	// Store job data in payment metadata (will be used after payment succeeds)
