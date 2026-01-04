@@ -42,6 +42,8 @@
 		{ name: 'LEARNING', href: null },
 		{ name: 'Videos', href: '/video' },
 		{ name: 'Recipes', href: '/recipe' },
+		{ name: 'OTHER', href: null },
+		{ name: 'Jobs', href: '/?type=job' },
 		...(shortcuts.length > 0
 			? [{ name: 'SHORTCUTS', href: null }, ...shortcuts.map((s) => ({ ...s, isShortcut: true }))]
 			: [])
