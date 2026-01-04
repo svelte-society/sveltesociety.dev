@@ -81,13 +81,13 @@
 	<!-- Pricing Tiers -->
 	<div class="mb-8">
 		<h2 class="mb-4 text-xl font-semibold">Select a Plan</h2>
-		<div class="grid gap-4 sm:grid-cols-3" data-testid="pricing-tiers">
+		<div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-4" data-testid="pricing-tiers">
 			{#each tiers as tier}
 				{@const features = tier.features}
 				<button
 					type="button"
 					onclick={() => (selectedTierId = tier.id)}
-					class="relative rounded-lg border-2 p-6 text-left transition-all {selectedTierId ===
+					class="relative flex flex-col items-start rounded-lg border-2 p-6 text-left transition-all {selectedTierId ===
 					tier.id
 						? 'border-orange-500 bg-orange-50 ring-2 ring-orange-200'
 						: 'border-slate-200 hover:border-orange-300'}"
