@@ -85,7 +85,7 @@ export class JobApplicationService {
 		const stmt = this.db.prepare(`
 			SELECT * FROM job_applications
 			WHERE job_id = $job_id
-			ORDER BY created_at DESC
+			ORDER BY created_at DESC, rowid DESC
 		`)
 		return stmt.all({ job_id: jobId }) as JobApplication[]
 	}
@@ -98,7 +98,7 @@ export class JobApplicationService {
 		const stmt = this.db.prepare(`
 			SELECT * FROM job_applications
 			WHERE applicant_id = $applicant_id
-			ORDER BY created_at DESC
+			ORDER BY created_at DESC, rowid DESC
 		`)
 		return stmt.all({ applicant_id: applicantId }) as JobApplication[]
 	}
