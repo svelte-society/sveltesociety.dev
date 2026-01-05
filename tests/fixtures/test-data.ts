@@ -228,7 +228,7 @@ We're looking for a Senior Svelte Developer to join our growing team. You'll be 
 			remote_restrictions: 'US/Canada only',
 			location: null,
 			tier_id: 'tier_premium',
-			tier_name: 'Premium',
+			tier_name: 'premium',
 			expires_at: getExpiresAt(),
 			payment_id: 'payment_001'
 		},
@@ -272,7 +272,7 @@ TechStart is seeking a talented Frontend Engineer to help build our next-generat
 			remote_restrictions: null,
 			location: 'San Francisco, CA',
 			tier_id: 'tier_featured',
-			tier_name: 'Featured',
+			tier_name: 'featured',
 			expires_at: getExpiresAt(),
 			payment_id: 'payment_002'
 		},
@@ -316,7 +316,7 @@ Perfect opportunity for developers new to Svelte who want to grow their skills.
 			remote_restrictions: null,
 			location: 'Austin, TX',
 			tier_id: 'tier_basic',
-			tier_name: 'Basic',
+			tier_name: 'basic',
 			expires_at: getExpiresAt(),
 			payment_id: 'payment_003'
 		},
@@ -359,7 +359,7 @@ Looking for an experienced Svelte consultant for a 6-month project.
 			remote_restrictions: 'EU timezone preferred',
 			location: null,
 			tier_id: 'tier_premium',
-			tier_name: 'Premium',
+			tier_name: 'premium',
 			expires_at: getExpiresAt(),
 			payment_id: 'payment_004'
 		},
@@ -403,7 +403,7 @@ Join us for a summer internship focused on Svelte development.
 			remote_restrictions: null,
 			location: 'New York, NY',
 			tier_id: 'tier_basic',
-			tier_name: 'Basic',
+			tier_name: 'basic',
 			expires_at: getExpiresAt(),
 			payment_id: 'payment_005'
 		},

@@ -42,8 +42,8 @@
 		priority?: 'high' | 'auto'
 	} = $props()
 
-	// Determine highlight variant based on job tier (case-insensitive)
-	const tierName = $derived(content.metadata?.tier_name?.toLowerCase())
+	// Determine highlight variant based on job tier
+	const tierName = $derived(content.metadata?.tier_name)
 	const highlight = $derived<CardHighlight>(
 		content.type === 'job' && tierName === 'premium' ? 'border' : 'none'
 	)
