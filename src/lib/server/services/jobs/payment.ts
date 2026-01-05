@@ -175,7 +175,7 @@ export class PaymentService {
 		const stmt = this.db.prepare(`
 			SELECT * FROM payments
 			WHERE employer_email = $email
-			ORDER BY created_at DESC, rowid DESC
+			ORDER BY created_at DESC
 		`)
 		const rows = stmt.all({ email }) as PaymentRow[]
 		return rows.map((row) => this.parseRow(row))
@@ -188,7 +188,7 @@ export class PaymentService {
 	getRecentPayments(limit: number = 20): Payment[] {
 		const stmt = this.db.prepare(`
 			SELECT * FROM payments
-			ORDER BY created_at DESC, rowid DESC
+			ORDER BY created_at DESC
 			LIMIT $limit
 		`)
 		const rows = stmt.all({ limit }) as PaymentRow[]
