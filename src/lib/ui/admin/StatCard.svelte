@@ -32,7 +32,10 @@
 			{#if trend}
 				<div class="mt-3 flex items-center gap-1">
 					<span
-						class="text-sm font-medium {trend.isPositive ? 'text-green-600' : 'text-red-600'}"
+						class={[
+							'text-sm font-medium',
+							trend.isPositive ? 'text-green-600' : 'text-red-600'
+						]}
 					>
 						{trend.isPositive ? '↑' : '↓'} {trend.value}
 					</span>
@@ -43,7 +46,7 @@
 		<div
 			class="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-svelte-50 to-svelte-100 transition-transform group-hover:scale-110"
 		>
-			<IconComponent class={`h-6 w-6 ${iconColor}`} weight="duotone" />
+			<IconComponent class={['h-6 w-6', iconColor]} weight="duotone" />
 		</div>
 	</div>
 	{#if href}

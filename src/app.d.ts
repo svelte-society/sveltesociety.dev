@@ -14,6 +14,7 @@ import type { ExternalContentService } from '$lib/server/services/external-conte
 import type { LLMService } from '$lib/server/services/llm'
 import type { AnnouncementService } from '$lib/server/services/AnnouncementService'
 import type { ShortcutService } from '$lib/server/services/ShortcutService'
+import type { JobTierService, PaymentService, JobApplicationService, StripeService, PlunkService } from '$lib/server/services/jobs'
 
 declare global {
 	namespace App {
@@ -35,6 +36,11 @@ declare global {
 			llmService: LLMService
 			announcementService: AnnouncementService
 			shortcutService: ShortcutService
+			jobTierService: JobTierService
+			paymentService: PaymentService
+			jobApplicationService: JobApplicationService
+			stripeService: StripeService
+			plunkService: PlunkService
 		}
 		// interface PageData {}
 		// interface PageState {}

@@ -83,12 +83,16 @@
 	{@const sourceHint = contentType === 'library' ? 'GitHub' : contentType === 'video' ? 'YouTube' : 'the resource URL'}
 	<div class="mb-4 space-y-2">
 		<!-- Thumbnail Status -->
-		<div class={thumbnail
-			? "rounded-md border border-green-200 bg-green-50 p-4"
-			: "rounded-md border border-amber-200 bg-amber-50 p-4"}>
+		<div class={[
+			'rounded-md border p-4',
+			thumbnail ? 'border-green-200 bg-green-50' : 'border-amber-200 bg-amber-50'
+		]}>
 			<div class="flex items-start justify-between gap-4">
 				<div class="flex-1">
-					<p class="mb-2 text-sm font-medium {thumbnail ? 'text-green-800' : 'text-amber-800'}">
+					<p class={[
+						'mb-2 text-sm font-medium',
+						thumbnail ? 'text-green-800' : 'text-amber-800'
+					]}>
 						{thumbnail ? 'Thumbnail Available' : 'Thumbnail Missing'}
 					</p>
 					{#if thumbnail}

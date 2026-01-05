@@ -1,25 +1,35 @@
 <script lang="ts">
+	import type { RemoteFormIssue } from '@sveltejs/kit'
 	import type { HTMLSelectAttributes } from 'svelte/elements'
 
-	type Option = {
+	export type Option = {
 		label: string
 		value: string
 	}
 
 	type Props = {
 		options: Option[]
-		value?: string
+		value?: string | number
 		onchange?: (value: string) => void
 		'data-testid'?: string
+		label?: string
+		description?: string
+		issues?: RemoteFormIssue[]
 	} & HTMLSelectAttributes
 
 	let {
 		options,
-		value = $bindable(),
+		value = $bindable<string | number>(),
 		onchange,
 		'data-testid': testId,
+		label,
+		description,
+		issues,
 		...rest
 	}: Props = $props()
+
+	// Convert value to string for the select element
+	const stringValue = $derived(value?.toString() ?? '')
 
 	function handleChange(e: Event) {
 		const target = e.target as HTMLSelectElement
@@ -28,15 +38,38 @@
 	}
 
 	const computedTestId = $derived(testId)
+	const hasErrors = $derived(issues && issues.length > 0)
 </script>
 
-<select bind:value onchange={handleChange} data-testid={computedTestId} {...rest}>
-	{#each options as option}
-		<option value={option.value}>
-			{option.label}
-		</option>
-	{/each}
-</select>
+{#if label}
+	<div class="flex flex-col gap-2">
+		<label class="text-xs font-medium outline-none">
+			{label}
+			<select bind:value onchange={handleChange} data-testid={computedTestId} class="mt-2" class:select-error={hasErrors} {...rest}>
+				{#each options as option}
+					<option value={option.value}>
+						{option.label}
+					</option>
+				{/each}
+			</select>
+		</label>
+		{#if hasErrors && issues}
+			{#each issues as issue}
+				<div class="text-xs text-red-600">{issue.message}</div>
+			{/each}
+		{:else if description}
+			<div class="text-xs text-slate-500">{description}</div>
+		{/if}
+	</div>
+{:else}
+	<select bind:value onchange={handleChange} data-testid={computedTestId} {...rest}>
+		{#each options as option}
+			<option value={option.value}>
+				{option.label}
+			</option>
+		{/each}
+	</select>
+{/if}
 
 <style>
 	/* Base styles for all browsers (Safari fallback) */
@@ -67,6 +100,11 @@
 		cursor: not-allowed;
 		background-color: rgb(243 244 246); /* gray-100 */
 		color: rgb(107 114 128); /* gray-500 */
+	}
+
+	select.select-error {
+		border-color: rgb(252 165 165); /* red-300 */
+		background-color: rgb(254 242 242); /* red-50 */
 	}
 
 	/* Enhanced styles for browsers supporting base-select */

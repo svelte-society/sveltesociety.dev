@@ -97,7 +97,7 @@
 		<span class="sr-only">Open submenu</span>
 	</div>
 	<div
-		class="group/menu invisible absolute left-full top-0 ml-1 min-w-44 rounded-xl bg-white shadow-2xl opacity-0 transition-all select-none group-focus-within/submenu:visible group-focus-within/submenu:opacity-100"
+		class="group/menu invisible absolute min-w-44 rounded-xl bg-white shadow-2xl opacity-0 transition-all select-none group-focus-within/submenu:visible group-focus-within/submenu:opacity-100 left-0 top-full mt-1 w-full sm:left-full sm:top-0 sm:ml-1 sm:mt-0 sm:w-auto"
 	>
 		<div
 			class="hidden items-center justify-center py-2 text-gray-400 group-has-[:nth-child(15)]/menu:flex"

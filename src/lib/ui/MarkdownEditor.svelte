@@ -1,15 +1,11 @@
 <script lang="ts">
 	import type { HTMLTextareaAttributes } from 'svelte/elements'
 	import type { RemoteFormIssue } from '@sveltejs/kit'
-	import Toggle from '$lib/ui/Toggle.svelte'
-	import { marked } from 'marked'
+	import { onMount, tick } from 'svelte'
 
 	interface Props extends HTMLTextareaAttributes {
 		label?: string
 		description?: string
-		placeholder?: string
-		rows?: number
-		'data-testid'?: string
 		issues?: RemoteFormIssue[]
 	}
 
@@ -17,48 +13,108 @@
 		label,
 		description,
 		placeholder,
-		rows = 20,
-		'data-testid': testId,
+		rows = 10,
 		issues,
+		value = $bindable(''),
+		'data-testid': testId,
 		...rest
 	}: Props = $props()
 
-	let preview = $state(false)
 	const hasErrors = $derived(issues && issues.length > 0)
-	const previewContent = $derived(String(rest.value ?? ''))
+
+	// Carta components - loaded dynamically on client
+	let Editor: typeof import('carta-md').MarkdownEditor | null = $state(null)
+	let carta: import('carta-md').Carta | null = $state(null)
+	let ready = $state(false)
+	let content = $state(String(value ?? ''))
+	let editorWrapper: HTMLDivElement | null = $state(null)
+
+	// Keep content and value in sync
+	$effect(() => {
+		if (ready) value = content
+	})
+
+	$effect(() => {
+		if (!ready && value) content = String(value)
+	})
+
+	// Add prose classes to the renderer after it mounts
+	$effect(() => {
+		if (ready && editorWrapper) {
+			tick().then(() => {
+				const renderer = editorWrapper?.querySelector('.carta-renderer')
+				if (renderer) {
+					renderer.classList.add('prose', 'prose-sm', 'max-w-none')
+				}
+			})
+		}
+	})
+
+	onMount(async () => {
+		const [{ Carta, MarkdownEditor }, DOMPurify] = await Promise.all([
+			import('carta-md'),
+			import('isomorphic-dompurify'),
+			import('carta-md/default.css')
+		])
+
+		Editor = MarkdownEditor
+		carta = new Carta({
+			sanitizer: (html) => DOMPurify.default.sanitize(html)
+		})
+		ready = true
+	})
 </script>
 
 <div class="flex flex-col gap-2">
-	<div class="relative flex flex-col gap-2">
-		<div class="flex justify-between">
-			<label class="text-xs font-medium outline-none" for={testId}>
-				{label}
-			</label>
-			<Toggle text="Preview" name="preview-toggle" bind:checked={preview} />
+	{#if label}
+		<label class="text-xs font-medium" for={testId}>
+			{label}
+		</label>
+	{/if}
+
+	<!-- Textarea: visible fallback before JS loads, hidden after -->
+	<textarea
+		id={testId}
+		data-testid={testId}
+		{rows}
+		{placeholder}
+		class={[
+			ready ? 'sr-only' : 'w-full rounded-md border-2 px-2 py-1.5 text-sm placeholder-slate-500 focus:outline-2 focus:outline-sky-200',
+			{
+				'border-red-300 bg-red-50 text-red-600': !ready && hasErrors,
+				'border-transparent bg-slate-100': !ready && !hasErrors
+			}
+		]}
+		bind:value={content}
+		{...rest}
+	></textarea>
+
+	<!-- Carta editor: appears when ready -->
+	{#if ready && Editor && carta}
+		<div bind:this={editorWrapper} class={[{ 'rounded-md ring-2 ring-red-300': hasErrors }]}>
+			<Editor {carta} bind:value={content} mode="tabs" {placeholder} />
 		</div>
-		<textarea
-			id={testId}
-			{rows}
-			class="w-full rounded-md border-2 px-2 py-1.5 pr-7 text-sm placeholder-slate-500 focus:outline-2 focus:outline-sky-200 {hasErrors
-				? 'border-red-300 bg-red-50 text-red-600'
-				: 'border-transparent bg-slate-100'}"
-			{placeholder}
-			data-testid={testId}
-			{...rest}
-		></textarea>
-		{#if preview && previewContent}
-			<div
-				class="prose absolute top-7 right-0 bottom-0 left-0 max-w-none overflow-y-auto rounded-md border bg-white p-4"
-			>
-				{@html marked(previewContent)}
-			</div>
-		{/if}
-	</div>
+	{/if}
+
 	{#if hasErrors}
 		{#each issues as issue}
 			<div class="text-xs text-red-600">{issue.message}</div>
 		{/each}
-	{:else}
+	{:else if description}
 		<div class="text-xs text-slate-500">{description}</div>
 	{/if}
 </div>
+
+<style>
+	/* Match site's input styling */
+	:global(.carta-editor) {
+		background-color: rgb(241 245 249); /* bg-slate-100 */
+		border-radius: 0.375rem;
+		overflow: hidden;
+	}
+
+	:global(.carta-toolbar-left) {
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
+	}
+</style>

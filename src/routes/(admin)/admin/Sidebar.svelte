@@ -37,8 +37,8 @@
 	</div>
 
 	<!-- Navigation -->
-	<div class="flex flex-grow flex-col gap-2 p-4">
-		<nav class="flex-grow">
+	<div class="flex grow flex-col gap-2 p-4">
+		<nav class="grow">
 			<ul class="space-y-1">
 				{#each links as item}
 					<NavigationLink {item} {isActive} />

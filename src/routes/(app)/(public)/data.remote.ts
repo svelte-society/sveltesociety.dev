@@ -73,14 +73,17 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 	const searchResults = locals.searchService.search({
 		query: data.query || undefined,
 		tags: data.tags.length > 0 ? data.tags : undefined,
-		type: data.type.length === 1 ? data.type[0] : undefined, // Single type
-		types: data.type.length > 1 ? data.type : undefined, // Multiple types
+		types: data.type.length > 0 ? data.type : undefined,
 		authors: expandedAuthors,
 		sort: data.sort || undefined,
 		order: data.order || undefined,
 		status: 'published',
 		limit: perPage,
-		offset
+		offset,
+		// Job-specific filters (Orama will only return jobs when these are set)
+		position: data.position.length > 0 ? data.position : undefined,
+		level: data.level.length > 0 ? data.level : undefined,
+		remote: data.remote.length > 0 ? data.remote : undefined
 	})
 
 	let content = searchResults.hits
@@ -125,16 +128,23 @@ export const getCategoryData = query(categoryDataInputSchema, async ({ url, type
 		? expandAuthorNames(data.authors, allAuthors)
 		: undefined
 
+	// Job-specific filters only apply on job category page
+	const isJobPage = type === 'job'
+
 	const searchResults = locals.searchService.search({
 		query: data.query || undefined,
 		tags: data.tags.length > 0 ? data.tags : undefined,
-		type, // From path param
+		types: [type], // From path param
 		authors: expandedAuthors,
 		sort: data.sort || undefined,
 		order: data.order || undefined,
 		status: 'published',
 		limit: perPage,
-		offset
+		offset,
+		// Job-specific filters (handled by Orama, only on job page)
+		position: isJobPage && data.position.length > 0 ? data.position : undefined,
+		level: isJobPage && data.level.length > 0 ? data.level : undefined,
+		remote: isJobPage && data.remote.length > 0 ? data.remote : undefined
 	})
 
 	let content = searchResults.hits

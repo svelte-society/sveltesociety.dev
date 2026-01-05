@@ -1,16 +1,18 @@
 <script lang="ts">
 	import Button from '$lib/ui/Button.svelte'
 	import Plus from 'phosphor-svelte/lib/Plus'
-	import Tags, { type TagType } from '$lib/ui/Tags.svelte'
 	import UpcomingEvents from './UpcomingEvents.svelte'
-	import { type UpcomingEvent } from './types'
+	import SidebarJobs from './SidebarJobs.svelte'
+	import { type UpcomingEvent, type SidebarJob } from './types'
 
-	let { upcomingEvents = [], tags }: { upcomingEvents?: UpcomingEvent[]; tags?: TagType[] } =
-		$props()
+	let {
+		upcomingEvents = [],
+		jobs = []
+	}: { upcomingEvents?: UpcomingEvent[]; jobs?: SidebarJob[] } = $props()
 </script>
 
-<div
-	class="@container sticky top-[--header-height] mr-4 hidden max-h-[calc(100vh-var(--header-height))] space-y-4 overflow-y-auto py-8 sm:block"
+<aside
+	class="@container mr-4 hidden space-y-4 py-8 sm:block [@media(min-height:1000px)]:sticky [@media(min-height:1000px)]:top-(--header-height) [@media(min-height:1000px)]:max-h-[calc(100vh-var(--header-height))] [@media(min-height:1000px)]:overflow-y-auto"
 >
 	<div class="grid grid-cols-1 items-start gap-1 @xs:grid-cols-[1fr_auto]">
 		<div>
@@ -19,10 +21,6 @@
 		</div>
 		<Button href="/submit" size="sm"><Plus />Submit Post</Button>
 	</div>
-
-	{#if tags}
-		<Tags {tags} />
-	{/if}
 
 	<div class="grid gap-2 rounded border border-slate-200 bg-gray-50 px-4 py-2 text-sm">
 		<h3 class="text-md font-bold">Become a sponsor</h3>
@@ -37,5 +35,7 @@
 		</p>
 	</div>
 
+	<SidebarJobs {jobs} />
+
 	<UpcomingEvents events={upcomingEvents} />
-</div>
+</aside>

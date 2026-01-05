@@ -180,6 +180,240 @@ export const TEST_CONTENT = [
 ] as const
 
 /**
+ * Helper to get expiration date (60 days from now)
+ */
+function getExpiresAt(): string {
+	const date = new Date()
+	date.setDate(date.getDate() + 60)
+	return date.toISOString()
+}
+
+/**
+ * Test job listings
+ */
+export const TEST_JOBS = [
+	{
+		id: 'content_job_001',
+		title: 'Senior Svelte Developer',
+		type: 'job',
+		status: 'published',
+		body: `## About the Role
+
+We're looking for a Senior Svelte Developer to join our growing team. You'll be working on cutting-edge web applications using Svelte 5 and SvelteKit.
+
+### Responsibilities
+- Lead development of new features using Svelte 5
+- Mentor junior developers
+- Contribute to architecture decisions
+- Write clean, maintainable code
+
+### Requirements
+- 5+ years of frontend development experience
+- 2+ years with Svelte/SvelteKit
+- Strong TypeScript skills
+- Experience with testing frameworks`,
+		slug: 'senior-svelte-developer-acme',
+		description: 'Join our team as a Senior Svelte Developer and build amazing web applications using Svelte 5 and SvelteKit. You\'ll be working on cutting-edge projects that push the boundaries of what\'s possible on the web.\n\nWe\'re looking for someone who is passionate about creating exceptional user experiences and writing clean, maintainable code. You\'ll have the opportunity to mentor junior developers and contribute to architecture decisions that shape the future of our platform.\n\nThis is a fully remote position with competitive compensation, equity, and a flexible work environment that values work-life balance.',
+		metadata: {
+			company_name: 'Acme Corp',
+			company_logo: 'https://ui-avatars.com/api/?name=Acme+Corp&background=ff3e00&color=fff',
+			company_website: 'https://acme.example.com',
+			employer_email: 'jobs@acme.example.com',
+			position_type: 'full-time',
+			seniority_level: 'senior',
+			salary_min: 120000,
+			salary_max: 160000,
+			salary_currency: 'USD',
+			remote_status: 'remote',
+			remote_restrictions: 'US/Canada only',
+			location: null,
+			tier_id: 'tier_premium',
+			tier_name: 'premium',
+			expires_at: getExpiresAt(),
+			payment_id: 'payment_001'
+		},
+		authorId: 'test_admin_001',
+		tags: ['tag_svelte', 'tag_sveltekit'],
+		published: true
+	},
+	{
+		id: 'content_job_002',
+		title: 'Frontend Engineer - Svelte',
+		type: 'job',
+		status: 'published',
+		body: `## The Opportunity
+
+TechStart is seeking a talented Frontend Engineer to help build our next-generation SaaS platform.
+
+### What You'll Do
+- Build responsive, accessible UI components
+- Collaborate with designers and backend engineers
+- Optimize performance and user experience
+- Participate in code reviews
+
+### What We're Looking For
+- 3+ years of frontend experience
+- Proficiency in Svelte or willingness to learn
+- CSS/Tailwind expertise
+- Good communication skills`,
+		slug: 'frontend-engineer-svelte-techstart',
+		description: 'Build beautiful, performant web applications with Svelte at TechStart. We\'re a fast-growing SaaS company looking for talented engineers who want to make a real impact on our product and millions of users worldwide.\n\nAs a Frontend Engineer, you\'ll collaborate closely with designers and backend engineers to deliver pixel-perfect, accessible UI components. You\'ll have ownership over key features and the autonomy to make technical decisions that improve our codebase.\n\nWe offer a hybrid work environment in our beautiful San Francisco office, comprehensive benefits, and the opportunity to grow with an innovative team.',
+		metadata: {
+			company_name: 'TechStart',
+			company_logo: 'https://ui-avatars.com/api/?name=TechStart&background=3b82f6&color=fff',
+			company_website: 'https://techstart.example.com',
+			employer_email: 'careers@techstart.example.com',
+			position_type: 'full-time',
+			seniority_level: 'mid',
+			salary_min: 90000,
+			salary_max: 120000,
+			salary_currency: 'USD',
+			remote_status: 'hybrid',
+			remote_restrictions: null,
+			location: 'San Francisco, CA',
+			tier_id: 'tier_featured',
+			tier_name: 'featured',
+			expires_at: getExpiresAt(),
+			payment_id: 'payment_002'
+		},
+		authorId: 'test_admin_001',
+		tags: ['tag_svelte', 'tag_components'],
+		published: true
+	},
+	{
+		id: 'content_job_003',
+		title: 'Junior Svelte Developer',
+		type: 'job',
+		status: 'published',
+		body: `## Start Your Career with Us
+
+Perfect opportunity for developers new to Svelte who want to grow their skills.
+
+### The Role
+- Work alongside senior developers
+- Build features using Svelte 5
+- Learn best practices and modern tooling
+- Grow your skills in a supportive environment
+
+### Requirements
+- Some experience with JavaScript/TypeScript
+- Basic understanding of web development
+- Enthusiasm to learn Svelte
+- Strong problem-solving skills`,
+		slug: 'junior-svelte-developer-growthco',
+		description: 'Launch your career as a Svelte developer at GrowthCo, where we believe in investing in talent and helping you grow. This is the perfect opportunity for developers who are eager to learn and build real-world applications.\n\nYou\'ll work alongside experienced senior developers who are passionate about mentoring and knowledge sharing. Our supportive environment encourages questions, experimentation, and continuous learning.\n\nWe\'re located in the heart of Austin\'s tech scene, offering a vibrant office culture, competitive salary, and a clear path for career advancement.',
+		metadata: {
+			company_name: 'GrowthCo',
+			company_logo: 'https://ui-avatars.com/api/?name=GrowthCo&background=22c55e&color=fff',
+			company_website: 'https://growthco.example.com',
+			employer_email: 'hr@growthco.example.com',
+			position_type: 'full-time',
+			seniority_level: 'junior',
+			salary_min: 60000,
+			salary_max: 80000,
+			salary_currency: 'USD',
+			remote_status: 'on-site',
+			remote_restrictions: null,
+			location: 'Austin, TX',
+			tier_id: 'tier_basic',
+			tier_name: 'basic',
+			expires_at: getExpiresAt(),
+			payment_id: 'payment_003'
+		},
+		authorId: 'test_admin_001',
+		tags: ['tag_svelte'],
+		published: true
+	},
+	{
+		id: 'content_job_004',
+		title: 'Svelte Consultant (Contract)',
+		type: 'job',
+		status: 'published',
+		body: `## Contract Opportunity
+
+Looking for an experienced Svelte consultant for a 6-month project.
+
+### Project Details
+- Migrate existing React app to SvelteKit
+- Set up CI/CD and testing
+- Train internal team on Svelte best practices
+
+### Requirements
+- Expert-level Svelte/SvelteKit knowledge
+- Experience with React migrations
+- Strong consulting/communication skills
+- Available for 40 hours/week`,
+		slug: 'svelte-consultant-contract-enterprise',
+		description: 'Help Enterprise Inc. migrate their flagship product from React to SvelteKit as a contract consultant. This is a high-impact, 6-month engagement with potential for extension based on project needs.\n\nYou\'ll be the technical lead on this migration, working directly with stakeholders to define the roadmap, set up best practices, and ensure a smooth transition. You\'ll also train their internal team on Svelte development patterns.\n\nWe offer competitive hourly rates, flexible working hours, and the opportunity to work with a Fortune 500 company on a transformative project.',
+		metadata: {
+			company_name: 'Enterprise Inc',
+			company_logo: 'https://ui-avatars.com/api/?name=Enterprise&background=6366f1&color=fff',
+			company_website: 'https://enterprise.example.com',
+			employer_email: 'contracts@enterprise.example.com',
+			position_type: 'contract',
+			seniority_level: 'principal',
+			salary_min: 150,
+			salary_max: 200,
+			salary_currency: 'USD',
+			remote_status: 'remote',
+			remote_restrictions: 'EU timezone preferred',
+			location: null,
+			tier_id: 'tier_premium',
+			tier_name: 'premium',
+			expires_at: getExpiresAt(),
+			payment_id: 'payment_004'
+		},
+		authorId: 'test_admin_001',
+		tags: ['tag_svelte', 'tag_sveltekit'],
+		published: true
+	},
+	{
+		id: 'content_job_005',
+		title: 'Svelte/SvelteKit Intern',
+		type: 'job',
+		status: 'published',
+		body: `## Summer Internship
+
+Join us for a summer internship focused on Svelte development.
+
+### What You'll Learn
+- Modern frontend development with Svelte 5
+- SvelteKit for full-stack applications
+- Testing and CI/CD practices
+- Agile development methodology
+
+### Who Should Apply
+- Currently pursuing CS or related degree
+- Basic JavaScript knowledge
+- Interest in modern web development
+- Available for summer 2025`,
+		slug: 'svelte-intern-summer-startup',
+		description: 'Summer internship opportunity to learn Svelte at Startup Labs, one of NYC\'s most exciting startups. Perfect for students who want hands-on experience with modern web development in a fast-paced environment.\n\nDuring your internship, you\'ll work on real features that ship to production, participate in code reviews, and learn from experienced engineers. We provide structured mentorship and regular feedback to ensure you get the most out of your experience.\n\nWe offer competitive hourly pay, a hybrid work arrangement, and the possibility of a full-time offer for outstanding performers.',
+		metadata: {
+			company_name: 'Startup Labs',
+			company_logo: 'https://ui-avatars.com/api/?name=Startup+Labs&background=f59e0b&color=fff',
+			company_website: 'https://startuplabs.example.com',
+			employer_email: 'internships@startuplabs.example.com',
+			position_type: 'internship',
+			seniority_level: 'entry',
+			salary_min: 25,
+			salary_max: 30,
+			salary_currency: 'USD',
+			remote_status: 'hybrid',
+			remote_restrictions: null,
+			location: 'New York, NY',
+			tier_id: 'tier_basic',
+			tier_name: 'basic',
+			expires_at: getExpiresAt(),
+			payment_id: 'payment_005'
+		},
+		authorId: 'test_admin_001',
+		tags: ['tag_svelte'],
+		published: true
+	}
+] as const
+
+/**
  * Test bookmarks/saves
  */
 export const TEST_SAVES = [

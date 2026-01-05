@@ -17,3 +17,17 @@ export interface UpcomingEvent {
         socialCardUrl?: string
     }
 }
+
+export interface SidebarJob {
+    id: string
+    slug: string
+    title: string
+    company_name: string
+    company_logo?: string | null
+    remote_status: 'remote' | 'hybrid' | 'on-site'
+    location?: string | null
+    tier_name?: string
+    salary_min?: number | null
+    salary_max?: number | null
+    salary_currency?: string | null
+}

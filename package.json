@@ -42,9 +42,12 @@
 	},
 	"private": true,
 	"dependencies": {
+		"carta-md": "^4.11.1",
+		"isomorphic-dompurify": "^2.35.0",
 		"marked-shiki": "^1.2.1",
 		"sharp": "^0.34.5",
 		"shiki": "^3.20.0",
+		"stripe": "^20.1.0",
 		"zod-search-params": "^0.2.0"
 	},
 	"scripts": {

@@ -6,11 +6,11 @@
 	import RightSidebar from './_components/RightSidebar.svelte'
 	import MobileMenu from './_components/MobileMenu.svelte'
 	import {
-		getTags,
 		getUpcomingEvents,
 		getHeaderAnnouncement,
 		getUser,
-		getSidebarShortcuts
+		getSidebarShortcuts,
+		getSidebarJobs
 	} from './data.remote'
 
 	let { children } = $props()
@@ -41,6 +41,8 @@
 		{ name: 'LEARNING', href: null },
 		{ name: 'Videos', href: '/video' },
 		{ name: 'Recipes', href: '/recipe' },
+		{ name: 'OTHER', href: null },
+		{ name: 'Jobs', href: '/job' },
 		...(shortcuts.length > 0
 			? [{ name: 'SHORTCUTS', href: null }, ...shortcuts.map((s) => ({ ...s, isShortcut: true }))]
 			: [])
@@ -76,7 +78,7 @@
 			</div>
 		</div>
 
-		<RightSidebar upcomingEvents={await getUpcomingEvents()} tags={await getTags()} />
+		<RightSidebar upcomingEvents={await getUpcomingEvents()} jobs={await getSidebarJobs()} />
 
 		{#if user?.role === 1}
 			<a

@@ -9,7 +9,11 @@ export const schema = z.object({
 	query: z.string().catch(''), // Search query
 	page: z.number().catch(1), // Pagination
 	sort: z.string().optional().catch(undefined), // Sort field
-	order: z.enum(['ASC', 'DESC']).optional().catch(undefined) // Sort direction
+	order: z.enum(['ASC', 'DESC']).optional().catch(undefined), // Sort direction
+	// Job filters
+	remote: z.array(z.string()).catch([]), // Job location (remote, hybrid, on-site)
+	position: z.array(z.string()).catch([]), // Job position type (full-time, part-time, etc.)
+	level: z.array(z.string()).catch([]) // Job experience level (entry, junior, mid, senior, principal)
 })
 
 export type SearchParams = z.infer<typeof schema>

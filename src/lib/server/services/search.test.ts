@@ -145,7 +145,7 @@ describe('SearchService', () => {
 		})
 
 		test('should filter by type', () => {
-			const results = searchService.search({ type: 'library' })
+			const results = searchService.search({ types: ['library'] })
 			expect(results.hits.every((hit) => hit.document.type === 'library')).toBe(true)
 		})
 
@@ -176,7 +176,7 @@ describe('SearchService', () => {
 		})
 
 		test('should combine query and filters', () => {
-			const results = searchService.search({ query: 'svelte', type: 'recipe' })
+			const results = searchService.search({ query: 'svelte', types: ['recipe'] })
 			expect(results.hits.every((hit) => hit.document.type === 'recipe')).toBe(true)
 		})
 
@@ -231,11 +231,15 @@ describe('SearchService', () => {
 				type: 'recipe',
 				status: 'published',
 				tags: ['svelte'],
+				authors: ['Test Author'],
 				created_at: new Date().toISOString(),
 				published_at: new Date().toISOString(),
 				likes: 0,
 				saves: 0,
-				stars: 0
+				stars: 0,
+				position_type: '',
+				seniority_level: '',
+				remote_status: ''
 			})
 
 			const content = searchService.getContentById('content5')

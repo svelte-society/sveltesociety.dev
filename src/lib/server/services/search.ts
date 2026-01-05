@@ -5,8 +5,7 @@ import { Database } from 'bun:sqlite'
 
 // Create a Zod schema for query parameters
 const querySchema = z.object({
-	type: z.string().optional(),
-	types: z.array(z.string()).optional(), // Multiple types for OR filtering
+	types: z.array(z.string()).optional(), // Content types to filter by (OR logic)
 	tags: z.union([z.string(), z.array(z.string())]).optional(),
 	authors: z.array(z.string()).optional(), // Author usernames for filtering
 	query: z.string().optional(),
@@ -14,7 +13,11 @@ const querySchema = z.object({
 	sort: z.string().optional(),
 	order: z.enum(['ASC', 'DESC']).optional(),
 	limit: z.number().optional(),
-	offset: z.number().optional()
+	offset: z.number().optional(),
+	// Job-specific filters
+	position: z.array(z.string()).optional(),
+	level: z.array(z.string()).optional(),
+	remote: z.array(z.string()).optional()
 })
 
 type QuerySchema = z.infer<typeof querySchema>
@@ -31,7 +34,11 @@ const contentSchema = {
 	published_at: 'string',
 	likes: 'number',
 	saves: 'number',
-	stars: 'number'
+	stars: 'number',
+	// Job-specific fields (empty string for non-jobs)
+	position_type: 'string',
+	seniority_level: 'string',
+	remote_status: 'string'
 } as const
 
 type ContentDocument = TypedDocument<Orama<typeof contentSchema>>
@@ -58,6 +65,9 @@ export class SearchService {
         SELECT
           c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.status, c.created_at, c.published_at, c.likes, c.saves,
           COALESCE(json_extract(c.metadata, '$.stars'), 0) as stars,
+          COALESCE(json_extract(c.metadata, '$.position_type'), '') as position_type,
+          COALESCE(json_extract(c.metadata, '$.seniority_level'), '') as seniority_level,
+          COALESCE(json_extract(c.metadata, '$.remote_status'), '') as remote_status,
           (
             SELECT json_group_array(t.slug)
             FROM content_to_tags ct
@@ -89,11 +99,13 @@ export class SearchService {
 
 	search(filters?: QuerySchema) {
 		let query = ''
-		let type = ''
 		let types: string[] = []
 		let status = ''
 		let tags: string[] = []
 		let authors: string[] = []
+		let position: string[] = []
+		let level: string[] = []
+		let remote: string[] = []
 		let sort = filters?.sort || 'published_at'
 		let order = filters?.order || 'DESC'
 		let limit = filters?.limit || 15
@@ -103,10 +115,6 @@ export class SearchService {
 
 		if (result?.data?.query) {
 			query = result.data.query
-		}
-
-		if (result?.data?.type) {
-			type = result.data.type
 		}
 
 		if (result?.data?.types) {
@@ -129,15 +137,29 @@ export class SearchService {
 			authors = result.data.authors
 		}
 
+		if (result?.data?.position) {
+			position = result.data.position
+		}
+
+		if (result?.data?.level) {
+			level = result.data.level
+		}
+
+		if (result?.data?.remote) {
+			remote = result.data.remote
+		}
+
 		const searchParams: SearchParams<Orama<typeof contentSchema>> = {
 			term: query,
 			where: {
-				// conditionally add tags, type/types, authors, and status to the search
 				...(tags.length > 0 && { tags }),
 				...(authors.length > 0 && { authors }),
-				...(type && { type }),
-				...(types.length > 0 && { type: types }), // Multiple types uses OR logic in Orama
-				...(status && { status })
+				...(types.length > 0 && { type: types }),
+				...(status && { status }),
+				// Job-specific filters
+				...(position.length > 0 && { position_type: position }),
+				...(level.length > 0 && { seniority_level: level }),
+				...(remote.length > 0 && { remote_status: remote })
 			},
 			offset,
 			limit,
@@ -246,6 +268,9 @@ export class SearchService {
         SELECT
           c.id, REPLACE(c.title, '-', ' ') as title, c.description, c.type, c.status, c.created_at, c.published_at, c.likes, c.saves,
           COALESCE(json_extract(c.metadata, '$.stars'), 0) as stars,
+          COALESCE(json_extract(c.metadata, '$.position_type'), '') as position_type,
+          COALESCE(json_extract(c.metadata, '$.seniority_level'), '') as seniority_level,
+          COALESCE(json_extract(c.metadata, '$.remote_status'), '') as remote_status,
           (
             SELECT json_group_array(t.slug)
             FROM content_to_tags ct
