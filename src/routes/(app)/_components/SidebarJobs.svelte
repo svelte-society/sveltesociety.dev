@@ -13,10 +13,7 @@
 		'on-site': 'On-Site'
 	}
 
-	const isPremium = (tierName?: string) => {
-		const tier = tierName?.toLowerCase()
-		return tier === 'premium' || tier === 'featured'
-	}
+	const isPremium = (tierName?: string) => tierName?.toLowerCase() === 'premium'
 
 	const formatSalary = (min?: number | null, max?: number | null, currency?: string | null) => {
 		if (!min && !max) return null
@@ -71,11 +68,7 @@
 								{job.title}
 							</a>
 							{#if isPremium(job.tier_name)}
-								<Star
-									size={12}
-									weight="fill"
-									class="ml-1 inline-block text-amber-500"
-								/>
+								<Star size={12} weight="fill" class="ml-1 inline-block text-amber-500" />
 							{/if}
 						</h4>
 						<p class="truncate text-xs text-gray-600">{job.company_name}</p>

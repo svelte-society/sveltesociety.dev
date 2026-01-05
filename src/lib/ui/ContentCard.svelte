@@ -6,7 +6,8 @@
 		contentCardVariants,
 		titleVariants,
 		descriptionVariants,
-		type CardVariant
+		type CardVariant,
+		type CardHighlight
 	} from './contentCard.variants'
 
 	const isAdmin = page.data.isAdmin
@@ -41,12 +42,11 @@
 		priority?: 'high' | 'auto'
 	} = $props()
 
-	// Check if job is featured/premium for visual distinction (case-insensitive)
+	// Determine highlight variant based on job tier (case-insensitive)
 	const tierName = $derived(content.metadata?.tier_name?.toLowerCase())
-	const isJobFeatured = $derived(
-		content.type === 'job' && (tierName === 'featured' || tierName === 'premium')
+	const highlight = $derived<CardHighlight>(
+		content.type === 'job' && tierName === 'premium' ? 'border' : 'none'
 	)
-	const isJobPremium = $derived(content.type === 'job' && tierName === 'premium')
 
 	let likePending = $state(false)
 	let savePending = $state(false)
@@ -97,7 +97,7 @@
 <article
 	data-testid="content-card"
 	style="view-transition-name: post-card-{content.id};"
-	class={[contentCardVariants({ variant, compact }), { 'bg-svelte-100': isJobPremium, 'bg-svelte-50': isJobFeatured && !isJobPremium }]}
+	class={contentCardVariants({ variant, compact, highlight })}
 >
 	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between gap-2 text-xs sm:gap-0">
 		<div class="flex min-w-0 flex-wrap items-center">
