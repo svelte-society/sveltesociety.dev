@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test'
-import { JobsPage } from '../../pages'
+import { JobsPage, JobDetailPage, SubmitJobPage } from '../../pages'
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
+import { loginAs } from '../../helpers/auth'
+import { TEST_JOBS } from '../../fixtures/test-data'
 
 test.describe('Jobs Listing', () => {
 	test.beforeEach(async ({ page }) => {
@@ -261,5 +263,212 @@ test.describe('Jobs on Homepage Filter', () => {
 		if (count > 0) {
 			await expect(contentCards.first()).toBeVisible()
 		}
+	})
+})
+
+// Job slugs have the content ID appended (same format as other content)
+const JOB_SLUGS = {
+	senior: 'senior-svelte-developer-acme-content_job_001',
+	frontend: 'frontend-engineer-svelte-techstart-content_job_002',
+	junior: 'junior-svelte-developer-growthco-content_job_003',
+	consultant: 'svelte-consultant-contract-enterprise-content_job_004',
+	intern: 'svelte-intern-summer-startup-content_job_005'
+}
+
+test.describe('Job Detail Page', () => {
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page)
+	})
+
+	test('can view job detail page', async ({ page }) => {
+		const jobDetailPage = new JobDetailPage(page)
+		await jobDetailPage.goto(JOB_SLUGS.senior)
+
+		await jobDetailPage.expectJobLoaded()
+		await jobDetailPage.expectTitleIs('Senior Svelte Developer')
+		await jobDetailPage.expectCompanyIs('Acme Corp')
+	})
+
+	test('displays job metadata correctly', async ({ page }) => {
+		const jobDetailPage = new JobDetailPage(page)
+		await jobDetailPage.goto(JOB_SLUGS.senior)
+
+		await jobDetailPage.expectJobLoaded()
+		await jobDetailPage.expectMetadataVisible()
+		await jobDetailPage.expectNotExpired()
+	})
+
+	test('shows back to jobs link', async ({ page }) => {
+		const jobDetailPage = new JobDetailPage(page)
+		await jobDetailPage.goto(JOB_SLUGS.senior)
+
+		await jobDetailPage.expectBackLinkVisible()
+	})
+
+	test('back link navigates to job listings', async ({ page }) => {
+		const jobDetailPage = new JobDetailPage(page)
+		await jobDetailPage.goto(JOB_SLUGS.senior)
+
+		await jobDetailPage.clickBackToJobs()
+
+		// Should navigate to jobs listing
+		await expect(page).toHaveURL(/\?type=job/)
+	})
+
+	test('shows login prompt for unauthenticated users', async ({ page }) => {
+		const jobDetailPage = new JobDetailPage(page)
+		await jobDetailPage.goto(JOB_SLUGS.senior)
+
+		await jobDetailPage.expectLoginRequired()
+	})
+
+	test('login link includes redirect back to job', async ({ page }) => {
+		const jobDetailPage = new JobDetailPage(page)
+		await jobDetailPage.goto(JOB_SLUGS.senior)
+
+		await expect(jobDetailPage.loginToApplyLink).toHaveAttribute(
+			'href',
+			`/login?redirect=/job/${JOB_SLUGS.senior}`
+		)
+	})
+})
+
+test.describe('Job Application - Authenticated', () => {
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page)
+		await loginAs(page, 'viewer')
+	})
+
+	test('authenticated user can see apply form', async ({ page }) => {
+		const jobDetailPage = new JobDetailPage(page)
+		await jobDetailPage.goto(JOB_SLUGS.senior)
+
+		await jobDetailPage.expectCanApply()
+	})
+
+	test('can apply for job without message', async ({ page }) => {
+		const jobDetailPage = new JobDetailPage(page)
+		await jobDetailPage.goto(JOB_SLUGS.senior)
+
+		await jobDetailPage.submitApplication()
+		await jobDetailPage.expectApplicationSuccess()
+	})
+
+	test('can apply for job with message', async ({ page }) => {
+		const jobDetailPage = new JobDetailPage(page)
+		await jobDetailPage.goto(JOB_SLUGS.frontend)
+
+		await jobDetailPage.applyForJob('I am very interested in this position and have 5 years of Svelte experience.')
+		await jobDetailPage.expectApplicationSuccess()
+	})
+
+	test('cannot apply twice to same job', async ({ page }) => {
+		const jobDetailPage = new JobDetailPage(page)
+		await jobDetailPage.goto(JOB_SLUGS.junior)
+
+		// Apply first time
+		await jobDetailPage.submitApplication()
+		await jobDetailPage.expectApplicationSuccess()
+
+		// Verify "already applied" message is shown
+		await jobDetailPage.expectAlreadyApplied()
+	})
+})
+
+test.describe('Job Submission Form', () => {
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page)
+	})
+
+	test('can access job submission page', async ({ page }) => {
+		const submitJobPage = new SubmitJobPage(page)
+		await submitJobPage.goto()
+
+		await submitJobPage.expectPageLoaded()
+	})
+
+	test('displays all pricing tiers', async ({ page }) => {
+		const submitJobPage = new SubmitJobPage(page)
+		await submitJobPage.goto()
+
+		await submitJobPage.expectAllTiersVisible()
+	})
+
+	test('can select different pricing tiers', async ({ page }) => {
+		const submitJobPage = new SubmitJobPage(page)
+		await submitJobPage.goto()
+
+		// Select featured tier
+		await submitJobPage.selectTier('featured')
+		await submitJobPage.expectTierSelected('featured')
+
+		// Select premium tier
+		await submitJobPage.selectTier('premium')
+		await submitJobPage.expectTierSelected('premium')
+
+		// Select basic tier
+		await submitJobPage.selectTier('basic')
+		await submitJobPage.expectTierSelected('basic')
+	})
+
+	test('form has all required fields', async ({ page }) => {
+		const submitJobPage = new SubmitJobPage(page)
+		await submitJobPage.goto()
+
+		// Company info fields
+		await expect(submitJobPage.companyNameInput).toBeVisible()
+		await expect(submitJobPage.employerEmailInput).toBeVisible()
+		await expect(submitJobPage.companyWebsiteInput).toBeVisible()
+
+		// Job details fields
+		await expect(submitJobPage.jobTitleInput).toBeVisible()
+		await expect(submitJobPage.jobDescriptionInput).toBeVisible()
+		await expect(submitJobPage.positionTypeSelect).toBeVisible()
+		await expect(submitJobPage.seniorityLevelSelect).toBeVisible()
+
+		// Location fields
+		await expect(submitJobPage.remoteStatusSelect).toBeVisible()
+		await expect(submitJobPage.locationInput).toBeVisible()
+
+		// Salary fields
+		await expect(submitJobPage.salaryMinInput).toBeVisible()
+		await expect(submitJobPage.salaryMaxInput).toBeVisible()
+		await expect(submitJobPage.salaryCurrencySelect).toBeVisible()
+
+		// Submit button
+		await expect(submitJobPage.submitButton).toBeVisible()
+	})
+
+	test('can fill out job submission form', async ({ page }) => {
+		const submitJobPage = new SubmitJobPage(page)
+		await submitJobPage.goto()
+
+		await submitJobPage.fillCompleteForm({
+			tier: 'featured',
+			company: {
+				companyName: 'Test Company',
+				employerEmail: 'jobs@testcompany.com',
+				companyWebsite: 'https://testcompany.com'
+			},
+			job: {
+				title: 'Svelte Developer',
+				description: 'Join our team as a Svelte developer',
+				body: '# About the Role\n\nWe are looking for a talented developer.',
+				positionType: 'full-time',
+				seniorityLevel: 'mid'
+			},
+			location: {
+				remoteStatus: 'remote',
+				remoteRestrictions: 'US/EU timezone'
+			},
+			salary: {
+				min: '80000',
+				max: '120000',
+				currency: 'USD'
+			}
+		})
+
+		// Verify form can be submitted (button is enabled)
+		await submitJobPage.expectCanSubmit()
 	})
 })
