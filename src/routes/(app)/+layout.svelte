@@ -6,7 +6,6 @@
 	import RightSidebar from './_components/RightSidebar.svelte'
 	import MobileMenu from './_components/MobileMenu.svelte'
 	import {
-		getTags,
 		getUpcomingEvents,
 		getHeaderAnnouncement,
 		getUser,
@@ -79,11 +78,7 @@
 			</div>
 		</div>
 
-		<RightSidebar
-			upcomingEvents={await getUpcomingEvents()}
-			tags={await getTags()}
-			jobs={await getSidebarJobs()}
-		/>
+		<RightSidebar upcomingEvents={await getUpcomingEvents()} jobs={await getSidebarJobs()} />
 
 		{#if user?.role === 1}
 			<a
