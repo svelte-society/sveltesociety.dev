@@ -20,7 +20,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 	if (payment.content_id) {
 		const job = locals.contentService.getContentById(payment.content_id)
 		if (job) {
-			redirect(303, `/jobs/${job.slug}`)
+			redirect(303, `/job/${job.slug}`)
 		}
 	}
 
@@ -119,8 +119,8 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 				month: 'long',
 				day: 'numeric'
 			}),
-			jobUrl: `${url.origin}/jobs/${job.slug}`,
-			editUrl: `${url.origin}/jobs/${job.slug}` // TODO: Add edit functionality
+			jobUrl: `${url.origin}/job/${job.slug}`,
+			editUrl: `${url.origin}/job/${job.slug}` // TODO: Add edit functionality
 		})
 
 		return {

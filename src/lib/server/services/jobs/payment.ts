@@ -118,6 +118,15 @@ export class PaymentService {
 	}
 
 	/**
+	 * Get a payment by Stripe payment intent ID
+	 */
+	getPaymentByPaymentIntentId(paymentIntentId: string): Payment | null {
+		const stmt = this.db.prepare('SELECT * FROM payments WHERE stripe_payment_intent_id = $payment_intent_id')
+		const row = stmt.get({ payment_intent_id: paymentIntentId }) as PaymentRow | undefined
+		return row ? this.parseRow(row) : null
+	}
+
+	/**
 	 * Update the status of a payment
 	 * Sets completed_at timestamp when status is 'succeeded'
 	 */

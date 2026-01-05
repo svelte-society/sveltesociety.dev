@@ -75,18 +75,14 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
 			if (typeof paymentIntentId === 'string') {
 				// Find payment by payment intent ID and mark as refunded
-				const payment = locals.db
-					.prepare('SELECT id FROM payments WHERE stripe_payment_intent_id = $pi_id')
-					.get({ pi_id: paymentIntentId }) as { id: string } | undefined
+				const payment = locals.paymentService.getPaymentByPaymentIntentId(paymentIntentId)
 
 				if (payment) {
 					locals.paymentService.updatePaymentStatus(payment.id, 'refunded')
 
-					// Optionally archive the job
-					const paymentRecord = locals.paymentService.getPaymentById(payment.id)
-					if (paymentRecord?.content_id) {
-						// Archive the job since payment was refunded
-						locals.contentService.updateStatus(paymentRecord.content_id, 'archived')
+					// Archive the job since payment was refunded
+					if (payment.content_id) {
+						locals.contentService.updateStatus(payment.content_id, 'archived')
 					}
 
 					console.log(`Payment ${payment.id} refunded via webhook`)
