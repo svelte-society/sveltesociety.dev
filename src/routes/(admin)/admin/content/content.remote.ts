@@ -238,18 +238,24 @@ export const updateContent = form(adminUpdateContentSchema, async (data) => {
 	const content = locals.contentService.getContentById(data.id)
 	if (content) {
 		const tags = content.tags as unknown as { slug: string }[] | undefined
+		const authors = content.authors as unknown as { name: string | null; username: string }[] | undefined
 		locals.searchService.update(data.id, {
 			id: content.id,
 			title: content.title,
 			description: content.description,
 			tags: tags?.map((tag) => tag.slug),
+			authors: authors?.map((author) => author.name || author.username) || [],
 			type: content.type,
 			status: content.status,
 			created_at: content.created_at,
 			published_at: content.published_at || '',
 			likes: content.likes,
 			saves: content.saves,
-			stars: content.metadata?.stars || 0
+			stars: content.metadata?.stars || 0,
+			// Job-specific fields (empty string for non-jobs)
+			position_type: content.metadata?.position_type || '',
+			seniority_level: content.metadata?.seniority_level || '',
+			remote_status: content.metadata?.remote_status || ''
 		})
 	}
 

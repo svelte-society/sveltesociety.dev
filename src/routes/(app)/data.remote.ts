@@ -90,7 +90,7 @@ export const getSidebarJobs = query(async () => {
 
 	// Get published jobs
 	const searchResults = locals.searchService.search({
-		type: 'job',
+		types: ['job'],
 		status: 'published',
 		limit: 20 // Get more to filter and sort
 	})

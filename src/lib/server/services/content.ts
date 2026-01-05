@@ -427,7 +427,11 @@ export class ContentService {
 				published_at: data.status === 'published' ? new Date().toISOString() : '',
 				likes: 0,
 				saves: 0,
-				stars: data?.metadata?.stars || 0
+				stars: data?.metadata?.stars || 0,
+				// Job-specific fields (empty string for non-jobs)
+				position_type: data?.metadata?.position_type || '',
+				seniority_level: data?.metadata?.seniority_level || '',
+				remote_status: data?.metadata?.remote_status || ''
 			})
 		}
 
@@ -510,19 +514,27 @@ export class ContentService {
 			if (updatedContent) {
 				// Get tag slugs for search index
 				const tagSlugs = updatedContent.tags?.map((tag) => tag.slug) || []
+				// Get author names for search index
+				const authorNames =
+					updatedContent.authors?.map((author) => author.name || author.username) || []
 
 				this.searchService.update(data.id, {
 					id: updatedContent.id,
 					title: updatedContent.title,
 					description: updatedContent.description,
 					tags: tagSlugs,
+					authors: authorNames,
 					type: updatedContent.type,
 					status: updatedContent.status,
 					created_at: updatedContent.created_at,
 					published_at: updatedContent.published_at || '',
 					likes: updatedContent.likes,
 					saves: updatedContent.saves,
-					stars: updatedContent.metadata?.stars || 0
+					stars: updatedContent.metadata?.stars || 0,
+					// Job-specific fields (empty string for non-jobs)
+					position_type: updatedContent.metadata?.position_type || '',
+					seniority_level: updatedContent.metadata?.seniority_level || '',
+					remote_status: updatedContent.metadata?.remote_status || ''
 				})
 			}
 		}

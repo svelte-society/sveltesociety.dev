@@ -73,40 +73,22 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 	const searchResults = locals.searchService.search({
 		query: data.query || undefined,
 		tags: data.tags.length > 0 ? data.tags : undefined,
-		type: data.type.length === 1 ? data.type[0] : undefined, // Single type
-		types: data.type.length > 1 ? data.type : undefined, // Multiple types
+		types: data.type.length > 0 ? data.type : undefined,
 		authors: expandedAuthors,
 		sort: data.sort || undefined,
 		order: data.order || undefined,
 		status: 'published',
 		limit: perPage,
-		offset
+		offset,
+		// Job-specific filters (Orama will only return jobs when these are set)
+		position: data.position.length > 0 ? data.position : undefined,
+		level: data.level.length > 0 ? data.level : undefined,
+		remote: data.remote.length > 0 ? data.remote : undefined
 	})
 
 	let content = searchResults.hits
 		.map((hit) => locals.contentService.getContentById(hit.id))
 		.filter((piece) => piece !== null)
-
-	// Apply job-specific filters (only show matching jobs when these filters are active)
-	const hasJobFilters = data.remote.length > 0 || data.position.length > 0 || data.level.length > 0
-	if (hasJobFilters) {
-		content = content.filter((piece) => {
-			// Job filters only apply to jobs - exclude non-job content
-			if (piece.type !== 'job') return false
-
-			// Apply job filters
-			if (data.remote.length > 0 && !data.remote.includes(piece.metadata?.remote_status)) {
-				return false
-			}
-			if (data.position.length > 0 && !data.position.includes(piece.metadata?.position_type)) {
-				return false
-			}
-			if (data.level.length > 0 && !data.level.includes(piece.metadata?.seniority_level)) {
-				return false
-			}
-			return true
-		})
-	}
 
 	if (locals.user?.id) {
 		const contentIds = content.map((piece) => piece.id)
@@ -124,7 +106,7 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 
 	return {
 		content,
-		count: hasJobFilters ? content.length : searchResults.count,
+		count: searchResults.count,
 		meta: buildHomepageMeta(),
 		schemas: [generateOrganizationSchema(), generateWebSiteSchema()]
 	}
@@ -146,38 +128,28 @@ export const getCategoryData = query(categoryDataInputSchema, async ({ url, type
 		? expandAuthorNames(data.authors, allAuthors)
 		: undefined
 
+	// Job-specific filters only apply on job category page
+	const isJobPage = type === 'job'
+
 	const searchResults = locals.searchService.search({
 		query: data.query || undefined,
 		tags: data.tags.length > 0 ? data.tags : undefined,
-		type, // From path param
+		types: [type], // From path param
 		authors: expandedAuthors,
 		sort: data.sort || undefined,
 		order: data.order || undefined,
 		status: 'published',
 		limit: perPage,
-		offset
+		offset,
+		// Job-specific filters (handled by Orama, only on job page)
+		position: isJobPage && data.position.length > 0 ? data.position : undefined,
+		level: isJobPage && data.level.length > 0 ? data.level : undefined,
+		remote: isJobPage && data.remote.length > 0 ? data.remote : undefined
 	})
 
 	let content = searchResults.hits
 		.map((hit) => locals.contentService.getContentById(hit.id))
 		.filter((piece) => piece !== null)
-
-	// Apply job-specific filters (only on job category page)
-	const hasJobFilters = data.remote.length > 0 || data.position.length > 0 || data.level.length > 0
-	if (hasJobFilters && type === 'job') {
-		content = content.filter((piece) => {
-			if (data.remote.length > 0 && !data.remote.includes(piece.metadata?.remote_status)) {
-				return false
-			}
-			if (data.position.length > 0 && !data.position.includes(piece.metadata?.position_type)) {
-				return false
-			}
-			if (data.level.length > 0 && !data.level.includes(piece.metadata?.seniority_level)) {
-				return false
-			}
-			return true
-		})
-	}
 
 	if (locals.user?.id) {
 		const contentIds = content.map((piece) => piece.id)
@@ -195,7 +167,7 @@ export const getCategoryData = query(categoryDataInputSchema, async ({ url, type
 
 	return {
 		content,
-		count: (hasJobFilters && type === 'job') ? content.length : searchResults.count,
+		count: searchResults.count,
 		meta: buildCategoryMeta(type, url.toString()),
 		schemas: undefined
 	}
