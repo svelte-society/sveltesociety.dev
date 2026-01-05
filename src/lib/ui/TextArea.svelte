@@ -32,9 +32,10 @@
 		{label}
 		<textarea
 			{rows}
-			class="w-full rounded-md mt-2 border-2 px-2 py-1.5 pr-7 text-sm placeholder-slate-500 focus:outline-2 focus:outline-sky-200 {hasErrors
-				? 'border-red-300 bg-red-50 text-red-600'
-				: 'border-transparent bg-slate-100'}"
+			class={[
+				'w-full rounded-md mt-2 border-2 px-2 py-1.5 pr-7 text-sm placeholder-slate-500 focus:outline-2 focus:outline-sky-200',
+				hasErrors ? 'border-red-300 bg-red-50 text-red-600' : 'border-transparent bg-slate-100'
+			]}
 			{placeholder}
 			data-testid={computedTestId}
 			{...rest}

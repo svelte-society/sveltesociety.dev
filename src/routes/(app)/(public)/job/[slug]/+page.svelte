@@ -57,10 +57,9 @@
 		)
 	)
 
-	const isPremium = $derived(data.job.metadata.tier_name === 'premium')
-	const isFeatured = $derived(
-		data.job.metadata.tier_name === 'featured' || data.job.metadata.tier_name === 'premium'
-	)
+	const tierName = $derived(data.job.metadata.tier_name?.toLowerCase())
+	const isPremium = $derived(tierName === 'premium')
+	const isFeatured = $derived(tierName === 'featured' || tierName === 'premium')
 </script>
 
 <svelte:head>
@@ -97,7 +96,7 @@
 
 <!-- Main Card (ContentCard style) -->
 <article
-	class="grid min-w-0 gap-2 rounded-lg px-4 py-4 sm:px-6 sm:py-5 {isFeatured ? 'bg-orange-50/50' : 'bg-zinc-50'}"
+	class="grid min-w-0 gap-2 rounded-lg px-4 py-4 sm:px-6 sm:py-5 bg-zinc-50"
 	data-testid="job-detail-card"
 >
 	<!-- Top Row: Type + Company | Date -->
@@ -174,7 +173,10 @@
 					{formatSeniorityLevel(data.job.metadata.seniority_level)}
 				</span>
 
-				<span class="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs {data.job.metadata.remote_status === 'remote' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'}">
+				<span class={[
+					'inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs',
+					data.job.metadata.remote_status === 'remote' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'
+				]}>
 					<MapPin size={12} />
 					{formatRemoteStatus(data.job.metadata.remote_status)}
 					{#if data.job.metadata.location && data.job.metadata.remote_status !== 'remote'}

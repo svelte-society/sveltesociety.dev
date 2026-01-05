@@ -13,7 +13,10 @@
 		'on-site': 'On-Site'
 	}
 
-	const isPremium = (tierName?: string) => tierName === 'premium' || tierName === 'featured'
+	const isPremium = (tierName?: string) => {
+		const tier = tierName?.toLowerCase()
+		return tier === 'premium' || tier === 'featured'
+	}
 
 	const formatSalary = (min?: number | null, max?: number | null, currency?: string | null) => {
 		if (!min && !max) return null
@@ -34,7 +37,7 @@
 	<div class="grid gap-3 rounded border border-slate-200 bg-gray-50 p-4">
 		<div class="flex items-center justify-between">
 			<h3 class="text-md font-bold">Jobs</h3>
-			<a href="/?type=job" class="text-svelte-500 text-xs hover:underline" onclick={onLinkClick} data-sveltekit-preload-data="off"
+			<a href="/job" class="text-svelte-500 text-xs hover:underline" onclick={onLinkClick} data-sveltekit-preload-data="off"
 				>View all</a
 			>
 		</div>

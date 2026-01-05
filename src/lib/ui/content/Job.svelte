@@ -48,10 +48,9 @@
 	const salary = $derived(
 		formatSalary(metadata?.salary_min, metadata?.salary_max, metadata?.salary_currency)
 	)
-	const isPremium = $derived(metadata?.tier_name === 'premium')
-	const isFeatured = $derived(
-		metadata?.tier_name === 'featured' || metadata?.tier_name === 'premium'
-	)
+	const tierName = $derived(metadata?.tier_name?.toLowerCase())
+	const isPremium = $derived(tierName === 'premium')
+	const isFeatured = $derived(tierName === 'featured' || tierName === 'premium')
 </script>
 
 {#if metadata}
@@ -80,10 +79,10 @@
 		</span>
 
 		<span
-			class="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs {metadata.remote_status ===
-			'remote'
-				? 'bg-green-100 text-green-700'
-				: 'bg-slate-100 text-slate-500'}"
+			class={[
+				'inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs',
+				metadata.remote_status === 'remote' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'
+			]}
 		>
 			<MapPin size={12} />
 			{formatRemoteStatus(metadata.remote_status)}

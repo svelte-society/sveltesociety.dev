@@ -41,11 +41,12 @@
 		priority?: 'high' | 'auto'
 	} = $props()
 
-	// Check if job is featured/premium for visual distinction
+	// Check if job is featured/premium for visual distinction (case-insensitive)
+	const tierName = $derived(content.metadata?.tier_name?.toLowerCase())
 	const isJobFeatured = $derived(
-		content.type === 'job' &&
-			(content.metadata?.tier_name === 'featured' || content.metadata?.tier_name === 'premium')
+		content.type === 'job' && (tierName === 'featured' || tierName === 'premium')
 	)
+	const isJobPremium = $derived(content.type === 'job' && tierName === 'premium')
 
 	let likePending = $state(false)
 	let savePending = $state(false)
@@ -96,7 +97,7 @@
 <article
 	data-testid="content-card"
 	style="view-transition-name: post-card-{content.id};"
-	class="{contentCardVariants({ variant, compact })} {isJobFeatured ? 'bg-orange-50/50' : ''}"
+	class={[contentCardVariants({ variant, compact }), { 'bg-svelte-100': isJobPremium, 'bg-svelte-50': isJobFeatured && !isJobPremium }]}
 >
 	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between gap-2 text-xs sm:gap-0">
 		<div class="flex min-w-0 flex-wrap items-center">
