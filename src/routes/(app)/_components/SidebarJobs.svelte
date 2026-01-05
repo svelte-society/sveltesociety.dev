@@ -5,7 +5,7 @@
 	import { type SidebarJob } from './types'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 
-	let { jobs = [], onLinkClick }: { jobs?: SidebarJob[]; onLinkClick?: () => void } = $props()
+	let { jobs = [] }: { jobs?: SidebarJob[] } = $props()
 
 	const remoteLabels: Record<string, string> = {
 		remote: 'Remote',
@@ -34,7 +34,7 @@
 	<div class="flex items-center justify-between">
 		<h3 class="text-md font-bold">Jobs</h3>
 		{#if jobs && jobs.length > 0}
-			<a href="/job" class="text-svelte-500 text-xs hover:underline" onclick={onLinkClick} data-sveltekit-preload-data="off"
+			<a href="/job" class="text-svelte-500 text-xs hover:underline" data-sveltekit-preload-data="off"
 				>View all</a
 			>
 		{/if}
@@ -64,7 +64,6 @@
 							<a
 								href="/job/{job.slug}"
 								class="hover:text-svelte-500"
-								onclick={onLinkClick}
 								data-sveltekit-preload-data="off"
 							>
 								{job.title}
@@ -102,7 +101,6 @@
 	<a
 		href="/jobs/submit"
 		class="mt-1 block rounded bg-orange-500 px-3 py-1.5 text-center text-xs font-medium text-white transition-colors hover:bg-orange-600"
-		onclick={onLinkClick}
 		data-sveltekit-preload-data="off"
 	>
 		Post a Job
