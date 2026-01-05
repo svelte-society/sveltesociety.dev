@@ -30,14 +30,16 @@
 	}
 </script>
 
-{#if jobs && jobs.length > 0}
-	<div class="grid gap-3 rounded border border-slate-200 bg-gray-50 p-4">
-		<div class="flex items-center justify-between">
-			<h3 class="text-md font-bold">Jobs</h3>
+<div class="grid gap-3 rounded border border-slate-200 bg-gray-50 p-4">
+	<div class="flex items-center justify-between">
+		<h3 class="text-md font-bold">Jobs</h3>
+		{#if jobs && jobs.length > 0}
 			<a href="/job" class="text-svelte-500 text-xs hover:underline" onclick={onLinkClick} data-sveltekit-preload-data="off"
 				>View all</a
 			>
-		</div>
+		{/if}
+	</div>
+	{#if jobs && jobs.length > 0}
 		<div class="space-y-3">
 			{#each jobs as job}
 				{@const salary = formatSalary(job.salary_min, job.salary_max, job.salary_currency)}
@@ -92,13 +94,17 @@
 				</div>
 			{/each}
 		</div>
-		<a
-			href="/jobs/submit"
-			class="mt-1 block rounded bg-orange-500 px-3 py-1.5 text-center text-xs font-medium text-white transition-colors hover:bg-orange-600"
-			onclick={onLinkClick}
-			data-sveltekit-preload-data="off"
-		>
-			Post a Job
-		</a>
-	</div>
-{/if}
+	{:else}
+		<p class="text-xs text-gray-600">
+			Reach thousands of Svelte developers by posting your job here.
+		</p>
+	{/if}
+	<a
+		href="/jobs/submit"
+		class="mt-1 block rounded bg-orange-500 px-3 py-1.5 text-center text-xs font-medium text-white transition-colors hover:bg-orange-600"
+		onclick={onLinkClick}
+		data-sveltekit-preload-data="off"
+	>
+		Post a Job
+	</a>
+</div>
