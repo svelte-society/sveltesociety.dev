@@ -55,7 +55,8 @@
 					<ContentCard content={item.data} priority={index < 2 ? 'high' : 'auto'} />
 				</div>
 			{:else if item.type === 'cta' || item.type === 'ad'}
-				<svelte:component this={item.component} {...item.props} />
+				{@const Component = item.component}
+				<Component {...item.props} />
 			{:else if item.type === 'featured'}
 				<div class="min-w-0">
 					<ContentCard content={item.data} priority="high" />
