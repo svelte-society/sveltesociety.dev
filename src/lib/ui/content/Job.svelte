@@ -1,5 +1,7 @@
 <script lang="ts">
 	import MapPin from 'phosphor-svelte/lib/MapPin'
+	import { page } from '$app/state'
+	import { buildToggleHref, isValueActive } from '../filter/url-helpers'
 	import type { ContentWithAuthor, JobMetadata } from '$lib/types/content'
 	import type { CardVariant } from '../contentCard.variants'
 
@@ -11,6 +13,18 @@
 	let { content, variant = 'list' }: Props = $props()
 
 	const metadata = $derived(content.metadata as JobMetadata)
+
+	// Filter param mappings
+	const getPositionHref = (positionType: string) =>
+		buildToggleHref(page.url, page.route.id, page.params, 'position', positionType)
+	const getLevelHref = (level: string) =>
+		buildToggleHref(page.url, page.route.id, page.params, 'level', level)
+	const getRemoteHref = (status: string) =>
+		buildToggleHref(page.url, page.route.id, page.params, 'remote', status)
+
+	const isPositionActive = $derived(isValueActive(page.url, 'position', metadata?.position_type))
+	const isLevelActive = $derived(isValueActive(page.url, 'level', metadata?.seniority_level))
+	const isRemoteActive = $derived(isValueActive(page.url, 'remote', metadata?.remote_status))
 
 	const formatSalary = (min?: number | null, max?: number | null, currency = 'USD') => {
 		if (!min && !max) return null
@@ -50,18 +64,45 @@
 
 {#if metadata}
 	<div class="flex flex-wrap items-center gap-2">
-		<span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs text-slate-500">
-			{formatPositionType(metadata.position_type)}
-		</span>
-
-		<span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs text-slate-500">
-			{formatSeniorityLevel(metadata.seniority_level)}
-		</span>
-
-		<span
+		<a
+			href={getPositionHref(metadata.position_type)}
+			data-sveltekit-preload-data="off"
 			class={[
-				'inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs',
-				metadata.remote_status === 'remote' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'
+				'flex items-center gap-0.5 rounded border px-1.5 py-1 text-xs',
+				isPositionActive
+					? 'border-svelte-300 bg-svelte-100 text-svelte-900 hover:bg-svelte-200'
+					: 'border-slate-200 bg-slate-100 text-zinc-800 hover:bg-slate-200',
+				'focus:outline-2 focus:outline-offset-2 focus:outline-svelte-300'
+			]}
+		>
+			{formatPositionType(metadata.position_type)}
+		</a>
+
+		<a
+			href={getLevelHref(metadata.seniority_level)}
+			data-sveltekit-preload-data="off"
+			class={[
+				'flex items-center gap-0.5 rounded border px-1.5 py-1 text-xs',
+				isLevelActive
+					? 'border-svelte-300 bg-svelte-100 text-svelte-900 hover:bg-svelte-200'
+					: 'border-slate-200 bg-slate-100 text-zinc-800 hover:bg-slate-200',
+				'focus:outline-2 focus:outline-offset-2 focus:outline-svelte-300'
+			]}
+		>
+			{formatSeniorityLevel(metadata.seniority_level)}
+		</a>
+
+		<a
+			href={getRemoteHref(metadata.remote_status)}
+			data-sveltekit-preload-data="off"
+			class={[
+				'flex items-center gap-1 rounded border px-1.5 py-1 text-xs',
+				isRemoteActive
+					? 'border-svelte-300 bg-svelte-100 text-svelte-900 hover:bg-svelte-200'
+					: metadata.remote_status === 'remote'
+						? 'border-green-200 bg-green-100 text-green-700 hover:bg-green-200'
+						: 'border-slate-200 bg-slate-100 text-zinc-800 hover:bg-slate-200',
+				'focus:outline-2 focus:outline-offset-2 focus:outline-svelte-300'
 			]}
 		>
 			<MapPin size={12} />
@@ -69,10 +110,10 @@
 			{#if metadata.location && metadata.remote_status !== 'remote'}
 				- {metadata.location}
 			{/if}
-		</span>
+		</a>
 
 		{#if salary}
-			<span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs text-slate-500">
+			<span class="flex items-center gap-0.5 rounded border border-slate-200 bg-slate-100 px-1.5 py-1 text-xs text-zinc-800">
 				{salary}
 			</span>
 		{/if}

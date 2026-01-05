@@ -53,6 +53,25 @@ export class StripeService {
 			line_items: lineItems,
 			success_url: successUrl,
 			cancel_url: cancelUrl,
+			// Enable automatic tax calculation (VAT for EU customers)
+			automatic_tax: {
+				enabled: true
+			},
+			// Allow businesses to enter their VAT number for reverse charge
+			tax_id_collection: {
+				enabled: true
+			},
+			// Enable invoice creation for receipts and record keeping
+			invoice_creation: {
+				enabled: true,
+				invoice_data: {
+					description: `${tier.display_name} Job Posting - Svelte Society`,
+					metadata: {
+						tier_id: tier.id,
+						tier_name: tier.name
+					}
+				}
+			},
 			metadata: {
 				tier_id: tier.id,
 				tier_name: tier.name,
