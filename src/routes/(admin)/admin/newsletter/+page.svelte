@@ -1,9 +1,11 @@
 <script lang="ts">
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
+	import { Actions, Action } from '$lib/ui/admin/Actions'
 	import Newspaper from 'phosphor-svelte/lib/Newspaper'
 	import Plus from 'phosphor-svelte/lib/Plus'
-	import { getCampaigns } from './data.remote'
+	import PaperPlaneTilt from 'phosphor-svelte/lib/PaperPlaneTilt'
+	import { getCampaigns, deleteCampaign, sendCampaign } from './data.remote'
 
 	const campaigns = getCampaigns()
 
@@ -69,7 +71,22 @@
 			<td class={classes}>{formatDate(campaign.sent_at)}</td>
 		{/snippet}
 		{#snippet actionCell(campaign)}
-			<!-- Actions will be added in next step -->
+			<Actions id={campaign.id}>
+				<Action.Edit href={`/admin/newsletter/${campaign.id}`} />
+				{#if campaign.status === 'draft'}
+					<Action.Button
+						icon={PaperPlaneTilt}
+						form={sendCampaign}
+						variant="success"
+						tooltip="Send Campaign"
+						confirm="Are you sure you want to send this campaign to all subscribers?"
+					/>
+				{/if}
+				<Action.Delete
+					form={deleteCampaign}
+					confirm="Are you sure you want to delete this campaign?"
+				/>
+			</Actions>
 		{/snippet}
 	</Table>
 </div>
