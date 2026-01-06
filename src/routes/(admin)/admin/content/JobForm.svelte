@@ -8,9 +8,13 @@
 	import ImageUpload from '$lib/ui/ImageUpload.svelte'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 	import type { RemoteForm } from '@sveltejs/kit'
+	import { approveJob, rejectJob } from './content.remote'
+
+	let rejectionReason = $state('')
 
 	interface Props {
 		form: RemoteForm<any, any>
+		approveForm: RemoteForm<any, any>
 		contentId: string
 		content: any
 	}
@@ -53,15 +57,6 @@
 			month: 'long',
 			day: 'numeric'
 		})
-	}
-
-	const formatPrice = (cents: number | undefined) => {
-		if (!cents) return 'N/A'
-		return new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency: 'USD',
-			maximumFractionDigits: 0
-		}).format(cents / 100)
 	}
 </script>
 
@@ -120,9 +115,7 @@
 				]}
 				data-testid="select-status"
 			/>
-			<p class="mt-1 text-xs text-slate-500">
-				Set to "Published" to make this job listing visible
-			</p>
+			<p class="mt-1 text-xs text-slate-500">Set to "Published" to make this job listing visible</p>
 		</div>
 	</div>
 
@@ -306,3 +299,73 @@
 		<Button href="/admin/content" variant="secondary">Cancel</Button>
 	</div>
 </form>
+
+<!-- Quick Actions (outside main form) -->
+{#if content?.status === 'pending_review'}
+	<div class="mt-6 grid gap-4 sm:grid-cols-2">
+		<!-- Approve -->
+		<div class="rounded-lg border border-green-200 bg-green-50 p-4">
+			<h3 class="mb-2 text-sm font-semibold text-green-900">Approve</h3>
+			<p class="mb-3 text-sm text-green-700">
+				Publish this job and notify the employer.
+			</p>
+			<form
+				{...approveJob.enhance(async ({ submit }) => {
+					try {
+						const result = await submit()
+						if (result?.success === true || approveJob.result?.success === true) {
+							toast.success('Job approved and employer notified!')
+							window.location.reload()
+						} else {
+							toast.error(result?.text || approveJob.result?.text || 'Failed to approve job')
+						}
+					} catch {
+						toast.error('Failed to approve job')
+					}
+				})}
+			>
+				<input type="hidden" name="id" value={contentId} />
+				<Button type="submit" variant="primary" disabled={!!approveJob.pending}>
+					{approveJob.pending ? 'Approving...' : 'Approve & Notify'}
+				</Button>
+			</form>
+		</div>
+
+		<!-- Reject -->
+		<div class="rounded-lg border border-red-200 bg-red-50 p-4">
+			<h3 class="mb-2 text-sm font-semibold text-red-900">Reject</h3>
+			<p class="mb-3 text-sm text-red-700">
+				Archive this job and notify the employer.
+			</p>
+			<form
+				{...rejectJob.enhance(async ({ submit }) => {
+					try {
+						const result = await submit()
+						if (result?.success === true || rejectJob.result?.success === true) {
+							toast.success('Job rejected and employer notified.')
+							window.location.reload()
+						} else {
+							toast.error(result?.text || rejectJob.result?.text || 'Failed to reject job')
+						}
+					} catch {
+						toast.error('Failed to reject job')
+					}
+				})}
+				class="flex flex-col gap-3"
+			>
+				<input type="hidden" name="id" value={contentId} />
+				<input
+					type="text"
+					name="rejectionReason"
+					bind:value={rejectionReason}
+					placeholder="Reason for rejection..."
+					class="w-full rounded-lg border border-red-300 px-3 py-2 text-sm focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
+					data-testid="input-rejection-reason"
+				/>
+				<Button type="submit" variant="danger" disabled={!!rejectJob.pending || !rejectionReason}>
+					{rejectJob.pending ? 'Rejecting...' : 'Reject & Notify'}
+				</Button>
+			</form>
+		</div>
+	</div>
+{/if}

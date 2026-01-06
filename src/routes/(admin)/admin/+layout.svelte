@@ -12,7 +12,8 @@
 		Megaphone,
 		LinkSimple,
 		ArrowsLeftRight,
-		CloudArrowUp
+		CloudArrowUp,
+		EnvelopeSimple
 	} from 'phosphor-svelte'
 
 	let { data, children } = $props()
@@ -74,6 +75,12 @@
 			label: 'Bulk Import',
 			icon: CloudArrowUp,
 			allowedRoles: ['admin', 'moderator']
+		},
+		{
+			href: '/admin/email-preview',
+			label: 'Email Templates',
+			icon: EnvelopeSimple,
+			allowedRoles: ['admin']
 		}
 	]
 

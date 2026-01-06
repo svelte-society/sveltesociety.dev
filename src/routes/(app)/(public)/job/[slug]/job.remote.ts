@@ -66,7 +66,7 @@ export const applyToJob = form(applyToJobSchema, async (data) => {
 		// Send notification email to employer
 		const employerEmail = job.metadata?.employer_email
 		if (employerEmail) {
-			await locals.plunkService.sendJobApplicationNotification({
+			await locals.emailService.sendJobApplicationEmail({
 				employerEmail,
 				jobTitle: job.title,
 				applicantName: locals.user.name || locals.user.username,
