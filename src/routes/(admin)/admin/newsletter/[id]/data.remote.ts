@@ -11,6 +11,12 @@ export const getCampaign = query(z.string(), (id) => {
 	return campaign
 })
 
+export const getCampaignItems = query(z.string(), (campaignId) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+	return locals.newsletterService.getCampaignItems(campaignId)
+})
+
 const updateCampaignSchema = z.object({
 	id: z.string().min(1, 'Campaign ID is required'),
 	title: z.string().min(1, 'Title is required'),
@@ -43,6 +49,97 @@ export const updateCampaign = form(updateCampaignSchema, async (data) => {
 		return {
 			success: false,
 			text: 'An unexpected error occurred. Please try again.'
+		}
+	}
+})
+
+const addContentSchema = z.object({
+	campaign_id: z.string().min(1, 'Campaign ID is required'),
+	content_id: z.string().min(1, 'Content ID is required')
+})
+
+export const addContent = form(addContentSchema, async (data) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	try {
+		const item = locals.newsletterService.addContentToCampaign(data.campaign_id, data.content_id)
+		if (!item) {
+			return {
+				success: false,
+				text: 'Failed to add content.'
+			}
+		}
+		return {
+			success: true,
+			text: 'Content added!'
+		}
+	} catch (error) {
+		console.error('Error adding content:', error)
+		return {
+			success: false,
+			text: 'An error occurred while adding content.'
+		}
+	}
+})
+
+const updateItemSchema = z.object({
+	item_id: z.string().min(1, 'Item ID is required'),
+	custom_description: z.string().optional()
+})
+
+export const updateItem = form(updateItemSchema, async (data) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	try {
+		const item = locals.newsletterService.updateCampaignItem(data.item_id, {
+			custom_description: data.custom_description
+		})
+		if (!item) {
+			return {
+				success: false,
+				text: 'Failed to update item.'
+			}
+		}
+		return {
+			success: true,
+			text: 'Item updated!'
+		}
+	} catch (error) {
+		console.error('Error updating item:', error)
+		return {
+			success: false,
+			text: 'An error occurred while updating the item.'
+		}
+	}
+})
+
+const removeContentSchema = z.object({
+	item_id: z.string().min(1, 'Item ID is required')
+})
+
+export const removeContent = form(removeContentSchema, async (data) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	try {
+		const success = locals.newsletterService.removeContentFromCampaign(data.item_id)
+		if (!success) {
+			return {
+				success: false,
+				text: 'Failed to remove content.'
+			}
+		}
+		return {
+			success: true,
+			text: 'Content removed!'
+		}
+	} catch (error) {
+		console.error('Error removing content:', error)
+		return {
+			success: false,
+			text: 'An error occurred while removing content.'
 		}
 	}
 })
