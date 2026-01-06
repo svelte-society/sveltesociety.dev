@@ -301,4 +301,100 @@ export class EmailService {
 			}
 		})
 	}
+
+	// ==========================================
+	// Newsletter Contact Methods
+	// ==========================================
+
+	/**
+	 * Subscribe a contact to the newsletter via Plunk
+	 * This triggers the double opt-in flow if configured in Plunk
+	 */
+	async subscribeContact(email: string): Promise<{ success: boolean; id?: string }> {
+		try {
+			const response = await fetch(`${this.apiUrl}/v1/contacts/subscribe`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${this.apiKey}`
+				},
+				body: JSON.stringify({ email })
+			})
+
+			if (!response.ok) {
+				const error = await response.text()
+				console.error('Subscribe contact failed:', error)
+				return { success: false }
+			}
+
+			const data = await response.json()
+			return { success: true, id: data.id }
+		} catch (error) {
+			console.error('Subscribe contact error:', error)
+			return { success: false }
+		}
+	}
+
+	/**
+	 * Get a contact by email from Plunk
+	 */
+	async getContact(email: string): Promise<PlunkContact | null> {
+		try {
+			const response = await fetch(`${this.apiUrl}/v1/contacts?email=${encodeURIComponent(email)}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${this.apiKey}`
+				}
+			})
+
+			if (!response.ok) {
+				const error = await response.text()
+				console.error('Get contact failed:', error)
+				return null
+			}
+
+			const data = await response.json()
+			return data.length > 0 ? data[0] : null
+		} catch (error) {
+			console.error('Get contact error:', error)
+			return null
+		}
+	}
+
+	/**
+	 * Get the total count of contacts in Plunk
+	 */
+	async getContactCount(): Promise<number> {
+		try {
+			const response = await fetch(`${this.apiUrl}/v1/contacts/count`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${this.apiKey}`
+				}
+			})
+
+			if (!response.ok) {
+				const error = await response.text()
+				console.error('Get contact count failed:', error)
+				return 0
+			}
+
+			const data = await response.json()
+			return data.count ?? 0
+		} catch (error) {
+			console.error('Get contact count error:', error)
+			return 0
+		}
+	}
+}
+
+// Plunk contact type
+export interface PlunkContact {
+	id: string
+	email: string
+	subscribed: boolean
+	createdAt: string
+	updatedAt: string
 }
