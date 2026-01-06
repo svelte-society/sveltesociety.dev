@@ -110,7 +110,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 		}
 
 		// Send confirmation email
-		await locals.plunkService.sendJobPostingConfirmation({
+		await locals.emailService.sendJobPostingReceivedEmail({
 			employerEmail: jobData.employer_email,
 			jobTitle: jobData.title,
 			tierName: tier.display_name,
@@ -118,9 +118,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 				year: 'numeric',
 				month: 'long',
 				day: 'numeric'
-			}),
-			jobUrl: `${url.origin}/job/${job.slug}`,
-			editUrl: `${url.origin}/job/${job.slug}` // TODO: Add edit functionality
+			})
 		})
 
 		return {
