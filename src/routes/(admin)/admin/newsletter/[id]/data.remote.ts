@@ -1,5 +1,5 @@
 import { form, getRequestEvent, query } from '$app/server'
-import { error, isRedirect, redirect } from '@sveltejs/kit'
+import { error, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../../authorization.remote'
 
@@ -28,29 +28,29 @@ export const updateCampaign = form(updateCampaignSchema, async (data) => {
 	checkAdminAuth()
 	const { locals } = getRequestEvent()
 
+	let campaign
 	try {
-		const campaign = locals.newsletterService.updateCampaign(data.id, {
+		campaign = locals.newsletterService.updateCampaign(data.id, {
 			title: data.title,
 			subject: data.subject,
 			intro_text: data.intro_text
 		})
-
-		if (!campaign) {
-			return {
-				success: false,
-				text: 'Failed to update campaign. Please try again.'
-			}
-		}
-
-		redirect(303, '/admin/newsletter')
-	} catch (error) {
-		if (isRedirect(error)) throw error
-		console.error('Error updating campaign:', error)
+	} catch (err) {
+		console.error('Error updating campaign:', err)
 		return {
 			success: false,
 			text: 'An unexpected error occurred. Please try again.'
 		}
 	}
+
+	if (!campaign) {
+		return {
+			success: false,
+			text: 'Failed to update campaign. Please try again.'
+		}
+	}
+
+	redirect(303, '/admin/newsletter')
 })
 
 const addContentSchema = z.object({

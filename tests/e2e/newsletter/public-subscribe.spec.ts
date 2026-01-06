@@ -28,6 +28,10 @@ test.describe('Newsletter Subscribe Form', () => {
 		const subscribePage = new NewsletterSubscribePage(page)
 		await subscribePage.goto()
 
+		// Wait for form to be fully ready
+		await subscribePage.expectFormVisible()
+		await expect(subscribePage.submitButton).toBeEnabled()
+
 		// Submit without entering email
 		await subscribePage.submitEmpty()
 

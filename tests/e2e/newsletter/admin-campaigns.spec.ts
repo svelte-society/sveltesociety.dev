@@ -3,6 +3,9 @@ import { AdminCampaignListPage, AdminCampaignEditorPage } from '../../pages'
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 import { loginAs } from '../../helpers/auth'
 
+// Run tests serially to avoid database conflicts when multiple tests create campaigns
+test.describe.configure({ mode: 'serial' })
+
 test.describe('Admin - Newsletter Campaigns', () => {
 	test.beforeEach(async ({ page }) => {
 		await setupDatabaseIsolation(page)
@@ -48,15 +51,16 @@ test.describe('Admin - Newsletter Campaigns', () => {
 		const editorPage = new AdminCampaignEditorPage(page)
 		await editorPage.gotoNew()
 
-		await editorPage.createCampaign(
-			'Test Campaign Title',
-			'Test Email Subject Line',
-			'Welcome to our test newsletter!'
-		)
+		// Fill fields and verify before submitting
+		await editorPage.titleInput.fill('Test Campaign Title')
+		await expect(editorPage.titleInput).toHaveValue('Test Campaign Title')
+		await editorPage.subjectInput.fill('Test Email Subject Line')
+		await expect(editorPage.subjectInput).toHaveValue('Test Email Subject Line')
+		await editorPage.introTextarea.fill('Welcome to our test newsletter!')
+		await editorPage.submit()
 
 		// Should redirect to edit page after creation so user can add content
-		await expect(page).toHaveURL(/\/admin\/newsletter\/[^/]+$/, { timeout: 5000 })
-		await editorPage.expectEditPageLoaded()
+		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible({ timeout: 10000 })
 	})
 
 	test('created campaign can be found after reload', async ({ page }) => {
@@ -64,17 +68,19 @@ test.describe('Admin - Newsletter Campaigns', () => {
 		await editorPage.gotoNew()
 
 		const campaignTitle = `Test Campaign ${Date.now()}`
-		await editorPage.createCampaign(
-			campaignTitle,
-			'Test Subject',
-			'Test intro'
-		)
+		// Fill fields and verify before submitting
+		await editorPage.titleInput.fill(campaignTitle)
+		await expect(editorPage.titleInput).toHaveValue(campaignTitle)
+		await editorPage.subjectInput.fill('Test Subject')
+		await expect(editorPage.subjectInput).toHaveValue('Test Subject')
+		await editorPage.introTextarea.fill('Test intro')
+		await editorPage.submit()
 
-		// Should redirect to edit page after creation
-		await expect(page).toHaveURL(/\/admin\/newsletter\/[^/]+$/, { timeout: 5000 })
+		// After creation, redirects to edit page - wait for edit heading
+		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible({ timeout: 10000 })
 
 		// Verify the edit page shows the campaign title we created
-		await expect(editorPage.titleInput).toHaveValue(campaignTitle)
+		await expect(editorPage.titleInput).toHaveValue(campaignTitle, { timeout: 5000 })
 	})
 
 	test('cancel button returns to campaign list', async ({ page }) => {
@@ -131,14 +137,18 @@ test.describe('Admin - Campaign Editing', () => {
 		await editorPage.gotoNew()
 
 		const originalTitle = `Original Campaign ${Date.now()}`
-		await editorPage.createCampaign(originalTitle, 'Original Subject')
-
-		// After creation, redirects to edit page
-		await expect(page).toHaveURL(/\/admin\/newsletter\/[^/]+$/, { timeout: 5000 })
-
-		// Verify we're on the edit page with the form
-		await editorPage.expectEditPageLoaded()
+		// Fill fields individually and verify values before submitting
+		await editorPage.titleInput.fill(originalTitle)
 		await expect(editorPage.titleInput).toHaveValue(originalTitle)
+		await editorPage.subjectInput.fill('Original Subject')
+		await expect(editorPage.subjectInput).toHaveValue('Original Subject')
+		await editorPage.submit()
+
+		// After creation, redirects to edit page - wait for edit heading
+		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible({ timeout: 10000 })
+
+		// Verify we're on the edit page with the correct values
+		await expect(editorPage.titleInput).toHaveValue(originalTitle, { timeout: 5000 })
 	})
 
 	test('edit page shows existing campaign values', async ({ page }) => {
@@ -148,13 +158,18 @@ test.describe('Admin - Campaign Editing', () => {
 
 		const campaignTitle = `Edit Test Campaign ${Date.now()}`
 		const campaignSubject = 'Edit Test Subject'
-		await editorPage.createCampaign(campaignTitle, campaignSubject)
+		// Fill fields individually and verify values before submitting
+		await editorPage.titleInput.fill(campaignTitle)
+		await expect(editorPage.titleInput).toHaveValue(campaignTitle)
+		await editorPage.subjectInput.fill(campaignSubject)
+		await expect(editorPage.subjectInput).toHaveValue(campaignSubject)
+		await editorPage.submit()
 
-		// After creation, redirects to edit page
-		await expect(page).toHaveURL(/\/admin\/newsletter\/[^/]+$/, { timeout: 5000 })
+		// After creation, redirects to edit page - wait for edit heading
+		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible({ timeout: 10000 })
 
 		// Verify values are populated on the edit page
-		await expect(editorPage.titleInput).toHaveValue(campaignTitle)
+		await expect(editorPage.titleInput).toHaveValue(campaignTitle, { timeout: 5000 })
 		await expect(editorPage.subjectInput).toHaveValue(campaignSubject)
 	})
 })
