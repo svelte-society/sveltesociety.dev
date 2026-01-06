@@ -54,11 +54,12 @@ test.describe('Admin - Newsletter Campaigns', () => {
 			'Welcome to our test newsletter!'
 		)
 
-		// Should redirect to campaign list after success
-		await expect(page).toHaveURL(/\/admin\/newsletter$/, { timeout: 5000 })
+		// Should redirect to edit page after creation so user can add content
+		await expect(page).toHaveURL(/\/admin\/newsletter\/[^/]+$/, { timeout: 5000 })
+		await editorPage.expectEditPageLoaded()
 	})
 
-	test('created campaign appears in list', async ({ page }) => {
+	test('created campaign can be found after reload', async ({ page }) => {
 		const editorPage = new AdminCampaignEditorPage(page)
 		await editorPage.gotoNew()
 
@@ -69,12 +70,11 @@ test.describe('Admin - Newsletter Campaigns', () => {
 			'Test intro'
 		)
 
-		// Wait for redirect
-		await expect(page).toHaveURL(/\/admin\/newsletter$/, { timeout: 5000 })
+		// Should redirect to edit page after creation
+		await expect(page).toHaveURL(/\/admin\/newsletter\/[^/]+$/, { timeout: 5000 })
 
-		// Verify campaign is in list
-		const listPage = new AdminCampaignListPage(page)
-		await listPage.expectCampaignInList(campaignTitle)
+		// Verify the edit page shows the campaign title we created
+		await expect(editorPage.titleInput).toHaveValue(campaignTitle)
 	})
 
 	test('cancel button returns to campaign list', async ({ page }) => {
@@ -133,18 +133,12 @@ test.describe('Admin - Campaign Editing', () => {
 		const originalTitle = `Original Campaign ${Date.now()}`
 		await editorPage.createCampaign(originalTitle, 'Original Subject')
 
-		// Wait for redirect
-		await expect(page).toHaveURL(/\/admin\/newsletter$/, { timeout: 5000 })
+		// After creation, redirects to edit page
+		await expect(page).toHaveURL(/\/admin\/newsletter\/[^/]+$/, { timeout: 5000 })
 
-		// Click edit on the campaign we just created
-		const listPage = new AdminCampaignListPage(page)
-		await listPage.clickEditByTitle(originalTitle)
-
-		// Should be on edit page
-		await expect(page).toHaveURL(/\/admin\/newsletter\/[^/]+$/)
-
-		// Verify edit page loaded with form
+		// Verify we're on the edit page with the form
 		await editorPage.expectEditPageLoaded()
+		await expect(editorPage.titleInput).toHaveValue(originalTitle)
 	})
 
 	test('edit page shows existing campaign values', async ({ page }) => {
@@ -156,14 +150,10 @@ test.describe('Admin - Campaign Editing', () => {
 		const campaignSubject = 'Edit Test Subject'
 		await editorPage.createCampaign(campaignTitle, campaignSubject)
 
-		// Wait for redirect
-		await expect(page).toHaveURL(/\/admin\/newsletter$/, { timeout: 5000 })
+		// After creation, redirects to edit page
+		await expect(page).toHaveURL(/\/admin\/newsletter\/[^/]+$/, { timeout: 5000 })
 
-		// Navigate to edit
-		const listPage = new AdminCampaignListPage(page)
-		await listPage.clickEditByTitle(campaignTitle)
-
-		// Verify values are populated
+		// Verify values are populated on the edit page
 		await expect(editorPage.titleInput).toHaveValue(campaignTitle)
 		await expect(editorPage.subjectInput).toHaveValue(campaignSubject)
 	})
