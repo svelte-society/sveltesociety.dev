@@ -8,9 +8,11 @@
 	import ImageUpload from '$lib/ui/ImageUpload.svelte'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
 	import type { RemoteForm } from '@sveltejs/kit'
+	import { approveJob } from './content.remote'
 
 	interface Props {
 		form: RemoteForm<any, any>
+		approveForm: RemoteForm<any, any>
 		contentId: string
 		content: any
 	}
@@ -53,15 +55,6 @@
 			month: 'long',
 			day: 'numeric'
 		})
-	}
-
-	const formatPrice = (cents: number | undefined) => {
-		if (!cents) return 'N/A'
-		return new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency: 'USD',
-			maximumFractionDigits: 0
-		}).format(cents / 100)
 	}
 </script>
 
@@ -120,9 +113,7 @@
 				]}
 				data-testid="select-status"
 			/>
-			<p class="mt-1 text-xs text-slate-500">
-				Set to "Published" to make this job listing visible
-			</p>
+			<p class="mt-1 text-xs text-slate-500">Set to "Published" to make this job listing visible</p>
 		</div>
 	</div>
 
@@ -306,3 +297,33 @@
 		<Button href="/admin/content" variant="secondary">Cancel</Button>
 	</div>
 </form>
+
+<!-- Approve action (outside main form) -->
+{#if content?.status === 'pending_review'}
+	<div class="mt-6 rounded-lg border border-green-200 bg-green-50 p-4">
+		<h3 class="mb-2 text-sm font-semibold text-green-900">Quick Actions</h3>
+		<p class="mb-3 text-sm text-green-700">
+			Approve this job to publish it immediately and send a notification email to the employer.
+		</p>
+		<form
+			{...approveJob.enhance(async ({ submit }) => {
+				try {
+					const result = await submit()
+					if (result?.success === true || approveJob.result?.success === true) {
+						toast.success('Job approved and employer notified!')
+						window.location.reload()
+					} else {
+						toast.error(result?.text || approveJob.result?.text || 'Failed to approve job')
+					}
+				} catch {
+					toast.error('Failed to approve job')
+				}
+			})}
+		>
+			<input type="hidden" name="id" value={contentId} />
+			<Button type="submit" variant="primary" disabled={!!approveJob.pending}>
+				{approveJob.pending ? 'Approving...' : 'Approve & Notify Employer'}
+			</Button>
+		</form>
+	</div>
+{/if}

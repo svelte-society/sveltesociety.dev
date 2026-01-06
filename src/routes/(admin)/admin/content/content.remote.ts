@@ -316,3 +316,58 @@ export const updateJob = form(adminUpdateJobSchema, async (data) => {
 
 	return { success: true }
 })
+
+const approveJobSchema = z.object({
+	id: z.string().min(1, 'Job ID is required')
+})
+
+/**
+ * Approve a job posting - publishes it and sends notification email to employer
+ */
+export const approveJob = form(approveJobSchema, async (data) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	// Get the job
+	const job = locals.contentService.getContentById(data.id)
+	if (!job) error(404, 'Job not found')
+	if (job.type !== 'job') error(400, 'Content is not a job')
+	if (job.status === 'published') error(400, 'Job is already published')
+
+	const metadata = job.metadata || {}
+
+	// Update status to published
+	await locals.contentService.updateContent({
+		id: data.id,
+		title: job.title,
+		slug: job.slug,
+		description: job.description,
+		body: job.body,
+		status: 'published',
+		type: 'job',
+		tags: job.tags?.map((t: { id: string }) => t.id) || [],
+		published_at: new Date().toISOString(),
+		metadata
+	})
+
+	// Send job-live email to employer
+	if (metadata.employer_email) {
+		const expiresAt = metadata.expires_at
+			? new Date(metadata.expires_at).toLocaleDateString('en-US', {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric'
+				})
+			: 'N/A'
+
+		await locals.emailService.sendJobLiveEmail({
+			employerEmail: metadata.employer_email,
+			jobTitle: job.title,
+			companyName: metadata.company_name || 'Your company',
+			expiresAt,
+			jobUrl: `https://sveltesociety.dev/job/${job.slug}`
+		})
+	}
+
+	return { success: true }
+})
