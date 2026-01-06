@@ -1,11 +1,16 @@
 <script lang="ts">
 	import { page } from '$app/state'
+	import { goto } from '$app/navigation'
 	import { toast } from 'svelte-sonner'
 	import { invalidateAll } from '$app/navigation'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import ContentPicker from '$lib/ui/admin/ContentPicker.svelte'
+	import Button from '$lib/ui/Button.svelte'
+	import ConfirmWithDialog from '$lib/ui/admin/ConfirmWithDialog.svelte'
 	import Newspaper from 'phosphor-svelte/lib/Newspaper'
 	import Trash from 'phosphor-svelte/lib/Trash'
+	import Eye from 'phosphor-svelte/lib/Eye'
+	import PaperPlaneTilt from 'phosphor-svelte/lib/PaperPlaneTilt'
 	import { initForm } from '$lib/utils/form.svelte'
 	import CampaignForm from '../CampaignForm.svelte'
 	import {
@@ -15,11 +20,13 @@
 		addContent,
 		removeContent
 	} from './data.remote'
+	import { sendCampaign } from '../data.remote'
 
 	const campaignId = page.params.id!
 
-	const campaign = await getCampaign(campaignId)
+	let campaign = $state(await getCampaign(campaignId))
 	let campaignItems = $state(await getCampaignItems(campaignId))
+	let isSending = $state(false)
 
 	initForm(updateCampaign, () => ({
 		id: campaign.id,
@@ -89,6 +96,37 @@
 				return 'bg-blue-100 text-blue-800'
 			default:
 				return 'bg-gray-100 text-gray-800'
+		}
+	}
+
+	function handlePreview() {
+		window.open(`/api/newsletter/preview/${campaignId}`, '_blank')
+	}
+
+	async function handleSendCampaign() {
+		isSending = true
+		const sendAction = sendCampaign.for(campaignId)
+		const formData = new FormData()
+		formData.set('campaign_id', campaignId)
+
+		try {
+			const response = await fetch(sendAction.action, {
+				method: 'POST',
+				body: formData
+			})
+			const result = await response.json()
+
+			if (result.success) {
+				toast.success('Campaign sent successfully!')
+				await invalidateAll()
+				goto('/admin/newsletter')
+			} else {
+				toast.error(result.text || 'Failed to send campaign')
+			}
+		} catch {
+			toast.error('An error occurred while sending')
+		} finally {
+			isSending = false
 		}
 	}
 </script>
@@ -169,5 +207,23 @@
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<!-- Action Buttons -->
+	<div class="flex justify-end gap-4">
+		<Button variant="secondary" onclick={handlePreview}>
+			<Eye class="size-4" />
+			Preview
+		</Button>
+		<ConfirmWithDialog
+			title="Send Campaign"
+			description="Are you sure you want to send this campaign to all subscribers? This action cannot be undone."
+			onConfirm={handleSendCampaign}
+		>
+			<Button disabled={isSending || campaignItems.length === 0}>
+				<PaperPlaneTilt class="size-4" />
+				{isSending ? 'Sending...' : 'Send Campaign'}
+			</Button>
+		</ConfirmWithDialog>
 	</div>
 </div>
