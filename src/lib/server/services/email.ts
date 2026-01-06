@@ -388,6 +388,97 @@ export class EmailService {
 			return 0
 		}
 	}
+
+	// ==========================================
+	// Newsletter Campaign Methods
+	// ==========================================
+
+	/**
+	 * Get all contacts from Plunk (for campaign recipients)
+	 */
+	async getAllContacts(): Promise<PlunkContact[]> {
+		try {
+			const response = await fetch(`${this.apiUrl}/v1/contacts`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${this.apiKey}`
+				}
+			})
+
+			if (!response.ok) {
+				const error = await response.text()
+				console.error('Get all contacts failed:', error)
+				return []
+			}
+
+			return await response.json()
+		} catch (error) {
+			console.error('Get all contacts error:', error)
+			return []
+		}
+	}
+
+	/**
+	 * Create a campaign in Plunk (draft state)
+	 */
+	async createPlunkCampaign(params: CreateCampaignParams): Promise<{ success: boolean; id?: string }> {
+		const { subject, body, recipients, style = 'HTML' } = params
+
+		try {
+			const response = await fetch(`${this.apiUrl}/v1/campaigns`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${this.apiKey}`
+				},
+				body: JSON.stringify({
+					subject,
+					body,
+					recipients,
+					style
+				})
+			})
+
+			if (!response.ok) {
+				const error = await response.text()
+				console.error('Create campaign failed:', error)
+				return { success: false }
+			}
+
+			const data = await response.json()
+			return { success: true, id: data.id }
+		} catch (error) {
+			console.error('Create campaign error:', error)
+			return { success: false }
+		}
+	}
+
+	/**
+	 * Send a campaign via Plunk
+	 */
+	async sendPlunkCampaign(campaignId: string): Promise<boolean> {
+		try {
+			const response = await fetch(`${this.apiUrl}/v1/campaigns/${campaignId}/send`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${this.apiKey}`
+				}
+			})
+
+			if (!response.ok) {
+				const error = await response.text()
+				console.error('Send campaign failed:', error)
+				return false
+			}
+
+			return true
+		} catch (error) {
+			console.error('Send campaign error:', error)
+			return false
+		}
+	}
 }
 
 // Plunk contact type
@@ -397,4 +488,12 @@ export interface PlunkContact {
 	subscribed: boolean
 	createdAt: string
 	updatedAt: string
+}
+
+// Plunk campaign params
+export interface CreateCampaignParams {
+	subject: string
+	body: string
+	recipients: string[] // Array of contact IDs or emails
+	style?: 'PLUNK' | 'HTML'
 }
