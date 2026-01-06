@@ -37,6 +37,22 @@ export interface ListCampaignsFilters {
 	offset?: number
 }
 
+export interface CampaignItem {
+	id: string
+	campaign_id: string
+	content_id: string
+	custom_description: string | null
+	display_order: number
+	created_at: string
+}
+
+export interface CampaignItemWithContent extends CampaignItem {
+	title: string
+	type: string
+	slug: string
+	description: string | null
+}
+
 export class NewsletterService {
 	private db: Database
 
@@ -46,6 +62,13 @@ export class NewsletterService {
 	private deleteCampaignStatement: any
 	private listCampaignsStatement: any
 	private countCampaignsStatement: any
+
+	// Campaign item statements
+	private getCampaignItemsStatement: any
+	private addCampaignItemStatement: any
+	private updateCampaignItemStatement: any
+	private removeCampaignItemStatement: any
+	private getMaxDisplayOrderStatement: any
 
 	constructor(db: Database) {
 		this.db = db
@@ -85,6 +108,38 @@ export class NewsletterService {
 
 		this.countCampaignsStatement = this.db.prepare(`
 			SELECT COUNT(*) as count FROM newsletter_campaigns
+		`)
+
+		// Campaign item statements
+		this.getCampaignItemsStatement = this.db.prepare(`
+			SELECT ci.*, c.title, c.type, c.slug, c.description
+			FROM newsletter_campaign_items ci
+			JOIN content c ON ci.content_id = c.id
+			WHERE ci.campaign_id = $campaign_id
+			ORDER BY ci.display_order ASC
+		`)
+
+		this.addCampaignItemStatement = this.db.prepare(`
+			INSERT INTO newsletter_campaign_items (campaign_id, content_id, custom_description, display_order)
+			VALUES ($campaign_id, $content_id, $custom_description, $display_order)
+			RETURNING *
+		`)
+
+		this.updateCampaignItemStatement = this.db.prepare(`
+			UPDATE newsletter_campaign_items
+			SET custom_description = $custom_description
+			WHERE id = $id
+			RETURNING *
+		`)
+
+		this.removeCampaignItemStatement = this.db.prepare(`
+			DELETE FROM newsletter_campaign_items WHERE id = $id
+		`)
+
+		this.getMaxDisplayOrderStatement = this.db.prepare(`
+			SELECT COALESCE(MAX(display_order), -1) as max_order
+			FROM newsletter_campaign_items
+			WHERE campaign_id = $campaign_id
 		`)
 	}
 
@@ -194,6 +249,110 @@ export class NewsletterService {
 		} catch (error) {
 			console.error('Error listing newsletter campaigns:', error)
 			return { campaigns: [], total: 0 }
+		}
+	}
+
+	// ==========================================
+	// Campaign Item Methods
+	// ==========================================
+
+	/**
+	 * Get all items for a campaign with content details
+	 */
+	getCampaignItems(campaignId: string): CampaignItemWithContent[] {
+		try {
+			return this.getCampaignItemsStatement.all({
+				campaign_id: campaignId
+			}) as CampaignItemWithContent[]
+		} catch (error) {
+			console.error('Error getting campaign items:', error)
+			return []
+		}
+	}
+
+	/**
+	 * Add content to a campaign
+	 */
+	addContentToCampaign(
+		campaignId: string,
+		contentId: string,
+		customDescription?: string | null
+	): CampaignItem | null {
+		try {
+			// Get the next display order
+			const maxResult = this.getMaxDisplayOrderStatement.get({
+				campaign_id: campaignId
+			}) as { max_order: number }
+			const nextOrder = maxResult.max_order + 1
+
+			const result = this.addCampaignItemStatement.get({
+				campaign_id: campaignId,
+				content_id: contentId,
+				custom_description: customDescription || null,
+				display_order: nextOrder
+			})
+			return result as CampaignItem
+		} catch (error) {
+			console.error('Error adding content to campaign:', error)
+			return null
+		}
+	}
+
+	/**
+	 * Update a campaign item's custom description
+	 */
+	updateCampaignItem(itemId: string, customDescription: string | null): CampaignItem | null {
+		try {
+			const result = this.updateCampaignItemStatement.get({
+				id: itemId,
+				custom_description: customDescription
+			})
+			return result as CampaignItem
+		} catch (error) {
+			console.error('Error updating campaign item:', error)
+			return null
+		}
+	}
+
+	/**
+	 * Remove content from a campaign
+	 */
+	removeContentFromCampaign(itemId: string): boolean {
+		try {
+			const result = this.removeCampaignItemStatement.run({ id: itemId })
+			return result.changes > 0
+		} catch (error) {
+			console.error('Error removing content from campaign:', error)
+			return false
+		}
+	}
+
+	/**
+	 * Reorder campaign items
+	 */
+	reorderCampaignItems(campaignId: string, orderedItemIds: string[]): boolean {
+		try {
+			const updateOrderStatement = this.db.prepare(`
+				UPDATE newsletter_campaign_items
+				SET display_order = $display_order
+				WHERE id = $id AND campaign_id = $campaign_id
+			`)
+
+			const transaction = this.db.transaction(() => {
+				orderedItemIds.forEach((itemId, index) => {
+					updateOrderStatement.run({
+						id: itemId,
+						campaign_id: campaignId,
+						display_order: index
+					})
+				})
+			})
+
+			transaction()
+			return true
+		} catch (error) {
+			console.error('Error reordering campaign items:', error)
+			return false
 		}
 	}
 }
