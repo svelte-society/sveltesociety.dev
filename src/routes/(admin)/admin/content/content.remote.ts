@@ -371,3 +371,49 @@ export const approveJob = form(approveJobSchema, async (data) => {
 
 	return { success: true }
 })
+
+const rejectJobSchema = z.object({
+	id: z.string().min(1, 'Job ID is required'),
+	rejectionReason: z.string().min(1, 'Rejection reason is required')
+})
+
+/**
+ * Reject a job posting - archives it and sends notification email to employer
+ */
+export const rejectJob = form(rejectJobSchema, async (data) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	// Get the job
+	const job = locals.contentService.getContentById(data.id)
+	if (!job) error(404, 'Job not found')
+	if (job.type !== 'job') error(400, 'Content is not a job')
+	if (job.status === 'archived') error(400, 'Job is already archived')
+
+	const metadata = job.metadata || {}
+
+	// Update status to archived
+	await locals.contentService.updateContent({
+		id: data.id,
+		title: job.title,
+		slug: job.slug,
+		description: job.description,
+		body: job.body,
+		status: 'archived',
+		type: 'job',
+		tags: job.tags?.map((t: { id: string }) => t.id) || [],
+		published_at: null,
+		metadata
+	})
+
+	// Send rejection email to employer
+	if (metadata.employer_email) {
+		await locals.emailService.sendJobRejectedEmail({
+			employerEmail: metadata.employer_email,
+			jobTitle: job.title,
+			rejectionReason: data.rejectionReason
+		})
+	}
+
+	return { success: true }
+})
