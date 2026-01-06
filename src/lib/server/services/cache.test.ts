@@ -48,8 +48,10 @@ describe('CacheService', () => {
 	test('should support stale-while-revalidate', async () => {
 		const key = 'swr-test'
 		let callCount = 0
+		// Simulate slow async operation so SWR can return stale value before refresh completes
 		const getFreshValue = async () => {
 			callCount++
+			await new Promise((resolve) => setTimeout(resolve, 100))
 			return { data: `value-${callCount}` }
 		}
 
@@ -78,8 +80,8 @@ describe('CacheService', () => {
 		// Should return stale value
 		expect(result2).toEqual({ data: 'value-1' })
 
-		// Wait a bit for background refresh
-		await new Promise((resolve) => setTimeout(resolve, 50))
+		// Wait for background refresh to complete
+		await new Promise((resolve) => setTimeout(resolve, 150))
 
 		// Next call should get the fresh value
 		const result3 = await cacheService.cachify({
