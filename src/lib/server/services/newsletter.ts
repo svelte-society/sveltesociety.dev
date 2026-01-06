@@ -54,6 +54,15 @@ export interface CampaignItemWithContent extends CampaignItem {
 	description: string | null
 }
 
+// Pending subscription for double opt-in
+export interface PendingSubscription {
+	id: string
+	email: string
+	token: string
+	expires_at: string
+	created_at: string
+}
+
 export class NewsletterService {
 	private db: Database
 
@@ -70,6 +79,13 @@ export class NewsletterService {
 	private updateCampaignItemStatement: any
 	private removeCampaignItemStatement: any
 	private getMaxDisplayOrderStatement: any
+
+	// Pending subscription statements (for double opt-in)
+	private createPendingStatement: any
+	private getPendingByTokenStatement: any
+	private getPendingByEmailStatement: any
+	private deletePendingStatement: any
+	private deleteExpiredPendingStatement: any
 
 	constructor(db: Database) {
 		this.db = db
@@ -141,6 +157,38 @@ export class NewsletterService {
 			SELECT COALESCE(MAX(display_order), -1) as max_order
 			FROM newsletter_campaign_items
 			WHERE campaign_id = $campaign_id
+		`)
+
+		// Pending subscription statements (for double opt-in)
+		this.createPendingStatement = this.db.prepare(`
+			INSERT INTO newsletter_pending_subscriptions (email, token, expires_at)
+			VALUES ($email, $token, $expires_at)
+			ON CONFLICT(email) DO UPDATE SET
+				token = excluded.token,
+				expires_at = excluded.expires_at,
+				created_at = CURRENT_TIMESTAMP
+			RETURNING *
+		`)
+
+		this.getPendingByTokenStatement = this.db.prepare(`
+			SELECT * FROM newsletter_pending_subscriptions
+			WHERE token = $token AND expires_at > datetime('now')
+		`)
+
+		this.getPendingByEmailStatement = this.db.prepare(`
+			SELECT * FROM newsletter_pending_subscriptions
+			WHERE email = $email AND expires_at > datetime('now')
+		`)
+
+		this.deletePendingStatement = this.db.prepare(`
+			DELETE FROM newsletter_pending_subscriptions
+			WHERE email = $email
+			RETURNING *
+		`)
+
+		this.deleteExpiredPendingStatement = this.db.prepare(`
+			DELETE FROM newsletter_pending_subscriptions
+			WHERE expires_at <= datetime('now')
 		`)
 	}
 
@@ -387,21 +435,21 @@ export class NewsletterService {
 			// Build the HTML using the provided render function
 			const html = await renderHtml(campaign, items)
 
-			// Get all subscribed contacts from Plunk
-			const contacts = await emailService.getAllContacts()
-			const subscribedContacts = contacts.filter((c) => c.subscribed)
+			// Check if there are any subscribers before sending
+			// Plunk's audienceType: 'ALL' will send to all subscribed contacts
+			const subscriberCount = await emailService.getContactCount()
 
-			if (subscribedContacts.length === 0) {
+			if (subscriberCount === 0) {
 				return { success: false, error: 'No subscribers to send to' }
 			}
 
 			// Create campaign in Plunk
-			const recipientEmails = subscribedContacts.map((c) => c.email)
+			// Using audienceType: 'ALL' sends to all subscribed contacts automatically
 			const createResult = await emailService.createPlunkCampaign({
+				name: campaign.title,
 				subject: campaign.subject,
 				body: html,
-				recipients: recipientEmails,
-				style: 'HTML'
+				audienceType: 'ALL'
 			})
 
 			if (!createResult.success || !createResult.id) {
@@ -426,6 +474,95 @@ export class NewsletterService {
 		} catch (error) {
 			console.error('Error sending campaign:', error)
 			return { success: false, error: 'An unexpected error occurred' }
+		}
+	}
+
+	// ==========================================
+	// Pending Subscription Methods (Double Opt-In)
+	// ==========================================
+
+	private static readonly TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000
+
+	/**
+	 * Format a Date as SQLite-compatible timestamp
+	 */
+	private formatDateForSQLite(date: Date): string {
+		return date.toISOString().replace('T', ' ').replace('Z', '')
+	}
+
+	/**
+	 * Create or update a pending subscription
+	 * Uses upsert pattern - resubscribing refreshes the token
+	 * Returns the token for building the confirmation URL
+	 */
+	createPendingSubscription(email: string): { token: string; expiresAt: Date } {
+		const token = crypto.randomUUID()
+		const expiresAt = new Date(Date.now() + NewsletterService.TWENTY_FOUR_HOURS_MS)
+
+		this.createPendingStatement.run({
+			email: email.toLowerCase().trim(),
+			token,
+			expires_at: this.formatDateForSQLite(expiresAt)
+		})
+
+		return { token, expiresAt }
+	}
+
+	/**
+	 * Get a valid (non-expired) pending subscription by token
+	 * Returns null if token is invalid or expired
+	 */
+	getPendingByToken(token: string): PendingSubscription | null {
+		try {
+			const result = this.getPendingByTokenStatement.get({ token })
+			return result ? (result as PendingSubscription) : null
+		} catch (error) {
+			console.error('Error getting pending subscription by token:', error)
+			return null
+		}
+	}
+
+	/**
+	 * Get a valid (non-expired) pending subscription by email
+	 */
+	getPendingByEmail(email: string): PendingSubscription | null {
+		try {
+			const result = this.getPendingByEmailStatement.get({
+				email: email.toLowerCase().trim()
+			})
+			return result ? (result as PendingSubscription) : null
+		} catch (error) {
+			console.error('Error getting pending subscription by email:', error)
+			return null
+		}
+	}
+
+	/**
+	 * Delete a pending subscription (after successful confirmation)
+	 */
+	deletePending(email: string): boolean {
+		try {
+			const result = this.deletePendingStatement.get({
+				email: email.toLowerCase().trim()
+			})
+			return result !== null
+		} catch (error) {
+			console.error('Error deleting pending subscription:', error)
+			return false
+		}
+	}
+
+	/**
+	 * Clean up expired pending subscriptions
+	 * Can be called periodically or opportunistically
+	 */
+	cleanupExpired(): number {
+		try {
+			const result = this.deleteExpiredPendingStatement.run()
+			return result.changes
+		} catch (error) {
+			console.error('Error cleaning up expired pending subscriptions:', error)
+			return 0
 		}
 	}
 }
