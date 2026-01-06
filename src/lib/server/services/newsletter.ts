@@ -1,4 +1,5 @@
 import type { Database } from 'better-sqlite3'
+import type { EmailService } from './email'
 
 export interface NewsletterCampaign {
 	id: string
@@ -353,6 +354,78 @@ export class NewsletterService {
 		} catch (error) {
 			console.error('Error reordering campaign items:', error)
 			return false
+		}
+	}
+
+	// ==========================================
+	// Send Campaign Methods
+	// ==========================================
+
+	/**
+	 * Send a campaign via Plunk
+	 * This builds the HTML, creates the campaign in Plunk, and sends it
+	 */
+	async sendCampaign(
+		campaignId: string,
+		emailService: EmailService,
+		renderHtml: (campaign: NewsletterCampaign, items: CampaignItemWithContent[]) => Promise<string>
+	): Promise<{ success: boolean; error?: string }> {
+		try {
+			// Get the campaign
+			const campaign = this.getCampaignById(campaignId)
+			if (!campaign) {
+				return { success: false, error: 'Campaign not found' }
+			}
+
+			if (campaign.status !== 'draft') {
+				return { success: false, error: 'Campaign has already been sent' }
+			}
+
+			// Get campaign items
+			const items = this.getCampaignItems(campaignId)
+
+			// Build the HTML using the provided render function
+			const html = await renderHtml(campaign, items)
+
+			// Get all subscribed contacts from Plunk
+			const contacts = await emailService.getAllContacts()
+			const subscribedContacts = contacts.filter((c) => c.subscribed)
+
+			if (subscribedContacts.length === 0) {
+				return { success: false, error: 'No subscribers to send to' }
+			}
+
+			// Create campaign in Plunk
+			const recipientEmails = subscribedContacts.map((c) => c.email)
+			const createResult = await emailService.createPlunkCampaign({
+				subject: campaign.subject,
+				body: html,
+				recipients: recipientEmails,
+				style: 'HTML'
+			})
+
+			if (!createResult.success || !createResult.id) {
+				return { success: false, error: 'Failed to create campaign in Plunk' }
+			}
+
+			// Send the campaign
+			const sendSuccess = await emailService.sendPlunkCampaign(createResult.id)
+
+			if (!sendSuccess) {
+				return { success: false, error: 'Failed to send campaign via Plunk' }
+			}
+
+			// Update local campaign status
+			this.updateCampaign(campaignId, {
+				status: 'sent',
+				plunk_campaign_id: createResult.id,
+				sent_at: new Date().toISOString()
+			})
+
+			return { success: true }
+		} catch (error) {
+			console.error('Error sending campaign:', error)
+			return { success: false, error: 'An unexpected error occurred' }
 		}
 	}
 }
