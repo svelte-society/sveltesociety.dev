@@ -11,6 +11,7 @@ import JobLiveEmail from '$lib/templates/email/jobs/job-live.svelte'
 import JobExpiredEmail from '$lib/templates/email/jobs/job-expired.svelte'
 import JobRejectedEmail from '$lib/templates/email/jobs/job-rejected.svelte'
 import JobRenewalReminderEmail from '$lib/templates/email/jobs/job-renewal-reminder.svelte'
+import NewsletterCampaignEmail from '$lib/templates/email/newsletter/newsletter-campaign.svelte'
 
 const renderer = new Renderer({ customCSS: appStyles })
 
@@ -84,6 +85,21 @@ export interface JobRenewalReminderEmailParams {
 	expiresAt: string
 	daysRemaining: number
 	renewUrl?: string
+}
+
+// Newsletter email parameter types
+export interface NewsletterContentItem {
+	title: string
+	description: string
+	type: string
+	slug: string
+}
+
+export interface RenderNewsletterEmailParams {
+	subject: string
+	introText?: string
+	items: NewsletterContentItem[]
+	baseUrl?: string
 }
 
 export class EmailService {
@@ -300,6 +316,28 @@ export class EmailService {
 				renewUrl
 			}
 		})
+	}
+
+	// ==========================================
+	// Newsletter Email Methods
+	// ==========================================
+
+	/**
+	 * Render a newsletter campaign email to HTML
+	 * Returns the rendered HTML string for use with Plunk campaigns
+	 */
+	async renderNewsletterEmail(params: RenderNewsletterEmailParams): Promise<string> {
+		const { subject, introText, items, baseUrl } = params
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const result = (await renderer.render(NewsletterCampaignEmail, {
+			subject,
+			introText,
+			items,
+			baseUrl
+		})) as any
+
+		return result.html ?? String(result)
 	}
 
 	// ==========================================
