@@ -346,17 +346,21 @@ export class EmailService {
 
 	/**
 	 * Subscribe a contact to the newsletter via Plunk
-	 * This triggers the double opt-in flow if configured in Plunk
+	 * Creates or updates a contact with subscribed: true
 	 */
 	async subscribeContact(email: string): Promise<{ success: boolean; id?: string }> {
 		try {
-			const response = await fetch(`${this.apiUrl}/v1/contacts/subscribe`, {
+			// Use the create contact endpoint with subscribed: true
+			const response = await fetch(`${this.apiUrl}/v1/contacts`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${this.apiKey}`
 				},
-				body: JSON.stringify({ email })
+				body: JSON.stringify({
+					email,
+					subscribed: true
+				})
 			})
 
 			if (!response.ok) {
