@@ -33,14 +33,16 @@
 <form
 	{...form.enhance(async ({ submit }) => {
 		try {
-			const result = await submit()
-			if (result?.success === true || form.result?.success === true) {
+			await submit()
+			// If we get here without redirect, check result
+			if (form.result?.success === true) {
 				toast.success(successMessage)
-			} else {
-				toast.error(result?.text || form.result?.text || errorMessage)
+			} else if (form.result?.success === false) {
+				// Only show error if explicitly failed (not on redirect)
+				toast.error(form.result?.text || errorMessage)
 			}
 		} catch {
-			toast.error(errorMessage)
+			// Redirects may throw, which is expected - don't show error
 		}
 	})}
 	class="flex flex-col gap-4"

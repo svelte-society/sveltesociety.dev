@@ -6,15 +6,10 @@ const campaignIdSchema = z.object({
 	id: z.string().min(1, 'Campaign ID is required')
 })
 
-const campaignFiltersSchema = z.object({
-	status: z.enum(['draft', 'scheduled', 'sent', 'all']).default('all')
-})
-
-export const getCampaigns = query(campaignFiltersSchema.optional(), (filters) => {
+export const getCampaigns = query('unchecked', () => {
 	checkAdminAuth()
 	const { locals } = getRequestEvent()
-	const status = filters?.status === 'all' ? undefined : filters?.status
-	return locals.newsletterService.listCampaigns({ status })
+	return locals.newsletterService.listCampaigns({}).campaigns
 })
 
 export const deleteCampaign = form(campaignIdSchema, async (data) => {
