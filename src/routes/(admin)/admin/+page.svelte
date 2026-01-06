@@ -9,7 +9,8 @@
 		Plus,
 		Tag,
 		Megaphone,
-		ChartLine
+		ChartLine,
+		Envelope
 	} from 'phosphor-svelte'
 
 	let { data } = $props()
@@ -50,6 +51,15 @@
 			iconColor="text-orange-600"
 			href="/admin/content?status=pending_review"
 			testid="stat-pending"
+		/>
+		<StatCard
+			title="Subscribers"
+			value={data.subscribers.toLocaleString()}
+			subtitle="Newsletter subscribers"
+			icon={Envelope}
+			iconColor="text-blue-500"
+			href="/admin/newsletter"
+			testid="stat-subscribers"
 		/>
 	</div>
 

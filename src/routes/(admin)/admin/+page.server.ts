@@ -7,9 +7,18 @@ export const load = (async ({ locals }) => {
 		status: 'pending_review'
 	})
 
+	// Fetch subscriber count from Plunk (may fail if API is down)
+	let subscribers = 0
+	try {
+		subscribers = await locals.emailService.getContactCount()
+	} catch (error) {
+		console.error('Failed to fetch subscriber count:', error)
+	}
+
 	return {
 		users,
 		published,
-		pending_review
+		pending_review,
+		subscribers
 	}
 }) satisfies PageServerLoad
