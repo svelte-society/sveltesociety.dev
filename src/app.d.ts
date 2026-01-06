@@ -16,6 +16,7 @@ import type { AnnouncementService } from '$lib/server/services/AnnouncementServi
 import type { ShortcutService } from '$lib/server/services/ShortcutService'
 import type { JobTierService, PaymentService, JobApplicationService, StripeService } from '$lib/server/services/jobs'
 import type { EmailService } from '$lib/server/services/email'
+import type { NewsletterService } from '$lib/server/services/newsletter'
 
 declare global {
 	namespace App {
@@ -42,6 +43,7 @@ declare global {
 			jobApplicationService: JobApplicationService
 			stripeService: StripeService
 			emailService: EmailService
+			newsletterService: NewsletterService
 		}
 		// interface PageData {}
 		// interface PageState {}

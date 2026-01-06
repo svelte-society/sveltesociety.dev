@@ -17,6 +17,7 @@ import { AnnouncementService } from '$lib/server/services/AnnouncementService'
 import { ShortcutService } from '$lib/server/services/ShortcutService'
 import { JobTierService, PaymentService, JobApplicationService, StripeService } from '$lib/server/services/jobs'
 import { EmailService } from '$lib/server/services/email'
+import { NewsletterService } from '$lib/server/services/newsletter'
 import fs from 'node:fs'
 
 // Singleton instances for API-based services (no database dependency)
@@ -45,6 +46,7 @@ const dbCache = new Map<
 		jobTierService: JobTierService
 		paymentService: PaymentService
 		jobApplicationService: JobApplicationService
+		newsletterService: NewsletterService
 	}
 >()
 
@@ -81,6 +83,7 @@ const initialize_db = (dbPath: string) => {
 	const jobTierService = new JobTierService(db)
 	const paymentService = new PaymentService(db)
 	const jobApplicationService = new JobApplicationService(db)
+	const newsletterService = new NewsletterService(db)
 
 	const services = {
 		db,
@@ -100,7 +103,8 @@ const initialize_db = (dbPath: string) => {
 		shortcutService,
 		jobTierService,
 		paymentService,
-		jobApplicationService
+		jobApplicationService,
+		newsletterService
 	}
 
 	dbCache.set(dbPath, services)
@@ -154,6 +158,7 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.jobTierService = services.jobTierService
 	event.locals.paymentService = services.paymentService
 	event.locals.jobApplicationService = services.jobApplicationService
+	event.locals.newsletterService = services.newsletterService
 	event.locals.stripeService = stripeService
 	event.locals.emailService = emailService
 
