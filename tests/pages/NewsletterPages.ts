@@ -1,4 +1,5 @@
 import type { Page, Locator } from '@playwright/test'
+import { expect } from '@playwright/test'
 import { BasePage } from './BasePage'
 
 /**
@@ -99,6 +100,108 @@ export class NewsletterSubscribePage extends BasePage {
 	async isLoading(): Promise<boolean> {
 		const buttonText = await this.submitButton.textContent()
 		return buttonText?.includes('Subscribing') ?? false
+	}
+}
+
+/**
+ * NewsletterConfirmPage - Page Object for the newsletter confirmation page
+ *
+ * Handles the email confirmation flow for double opt-in subscriptions.
+ */
+export class NewsletterConfirmPage extends BasePage {
+	/**
+	 * Navigate to confirmation page with a specific token
+	 * @param token - Confirmation token
+	 */
+	async goto(token: string): Promise<void> {
+		await super.goto(`/newsletter/confirm/${token}`)
+	}
+
+	// Selectors
+
+	/**
+	 * Confirmation page container
+	 */
+	get pageContainer(): Locator {
+		return this.page.getByTestId('newsletter-confirm-page')
+	}
+
+	/**
+	 * Page title
+	 */
+	get title(): Locator {
+		return this.page.getByTestId('confirm-title')
+	}
+
+	/**
+	 * Page message
+	 */
+	get message(): Locator {
+		return this.page.getByTestId('confirm-message')
+	}
+
+	/**
+	 * Hidden status element (for checking exact status)
+	 */
+	get statusElement(): Locator {
+		return this.page.getByTestId('confirm-status')
+	}
+
+	/**
+	 * Browse content button
+	 */
+	get browseButton(): Locator {
+		return this.page.getByTestId('browse-button')
+	}
+
+	/**
+	 * Try again button (only visible on error states)
+	 */
+	get tryAgainButton(): Locator {
+		return this.page.getByTestId('try-again-button')
+	}
+
+	// Assertions
+
+	/**
+	 * Verify page is loaded
+	 */
+	async expectPageLoaded(): Promise<void> {
+		await this.pageContainer.waitFor({ state: 'visible' })
+	}
+
+	/**
+	 * Get the current status
+	 */
+	async getStatus(): Promise<string> {
+		const status = await this.statusElement.getAttribute('data-status')
+		return status ?? ''
+	}
+
+	/**
+	 * Verify success state
+	 */
+	async expectSuccess(): Promise<void> {
+		await this.title.waitFor({ state: 'visible' })
+		await expect(this.title).toHaveText('Subscription Confirmed!')
+	}
+
+	/**
+	 * Verify invalid token state
+	 */
+	async expectInvalid(): Promise<void> {
+		await this.title.waitFor({ state: 'visible' })
+		await expect(this.title).toHaveText('Invalid Link')
+		await expect(this.tryAgainButton).toBeVisible()
+	}
+
+	/**
+	 * Verify error state
+	 */
+	async expectError(): Promise<void> {
+		await this.title.waitFor({ state: 'visible' })
+		await expect(this.title).toHaveText('Something Went Wrong')
+		await expect(this.tryAgainButton).toBeVisible()
 	}
 }
 

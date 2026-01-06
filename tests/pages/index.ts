@@ -13,6 +13,7 @@ export { JobDetailPage } from './JobDetailPage'
 export { SubmitJobPage } from './SubmitJobPage'
 export {
 	NewsletterSubscribePage,
+	NewsletterConfirmPage,
 	AdminCampaignListPage,
 	AdminCampaignEditorPage
 } from './NewsletterPages'
