@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { MagnifyingGlass, Plus } from 'phosphor-svelte'
+	import { searchContent } from './content-picker.remote'
 
 	interface ContentItem {
 		id: string
@@ -16,52 +17,23 @@
 	let { onSelect, 'data-testid': testId = 'content-picker' }: Props = $props()
 
 	let searchQuery = $state('')
-	let searchResults = $state<ContentItem[]>([])
-	let isSearching = $state(false)
+	let debouncedQuery = $state('')
 	let debounceTimer: ReturnType<typeof setTimeout> | undefined
-
-	async function searchContent(query: string) {
-		if (!query.trim()) {
-			searchResults = []
-			return
-		}
-
-		isSearching = true
-		try {
-			const response = await fetch(`/api/search?query=${encodeURIComponent(query)}`)
-			const data = await response.json()
-
-			if (data.success) {
-				searchResults = data.data.map((hit: any) => ({
-					id: hit.document.id,
-					title: hit.document.title,
-					type: hit.document.type,
-					description: hit.document.description
-				}))
-			}
-		} catch (error) {
-			console.error('Search error:', error)
-			searchResults = []
-		} finally {
-			isSearching = false
-		}
-	}
 
 	function handleInput(event: Event) {
 		const value = (event.target as HTMLInputElement).value
 		searchQuery = value
 
-		// Debounce search
 		if (debounceTimer) clearTimeout(debounceTimer)
 		debounceTimer = setTimeout(() => {
-			searchContent(value)
+			debouncedQuery = value
 		}, 300)
 	}
 
 	function handleSelect(content: ContentItem) {
 		onSelect?.(content)
 		searchQuery = ''
-		searchResults = []
+		debouncedQuery = ''
 	}
 
 	function getTypeColor(type: string) {
@@ -81,10 +53,11 @@
 </script>
 
 <div class="space-y-2" data-testid={testId}>
-	<label class="text-xs font-medium">Add Content</label>
+	<label for="search_query" class="text-xs font-medium">Add Content</label>
 	<div class="relative">
 		<MagnifyingGlass class="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
 		<input
+			name="search_query"
 			type="text"
 			placeholder="Search for content to add..."
 			value={searchQuery}
@@ -94,40 +67,49 @@
 		/>
 	</div>
 
-	{#if isSearching}
-		<p class="py-2 text-center text-sm text-slate-500">Searching...</p>
-	{:else if searchResults.length > 0}
-		<ul class="max-h-60 overflow-y-auto rounded-md border border-slate-200 bg-white">
-			{#each searchResults as content (content.id)}
-				<li class="border-b border-slate-100 last:border-b-0">
-					<button
-						type="button"
-						onclick={() => handleSelect(content)}
-						class="flex w-full items-center gap-3 px-3 py-2 text-left hover:bg-slate-50"
-						data-testid="content-picker-result"
-					>
-						<Plus class="size-4 shrink-0 text-slate-400" />
-						<div class="min-w-0 flex-1">
-							<div class="flex items-center gap-2">
-								<span class="truncate text-sm font-medium text-slate-900">{content.title}</span>
-								<span
-									class={[
-										'shrink-0 rounded px-1.5 py-0.5 text-xs font-medium capitalize',
-										getTypeColor(content.type)
-									]}
-								>
-									{content.type}
-								</span>
+	<svelte:boundary>
+		{#if $effect.pending()}
+			<p class="py-2 text-center text-sm text-slate-500">Searching...</p>
+		{/if}
+
+		{#snippet failed()}
+			<p class="py-2 text-center text-sm text-red-500">Search failed</p>
+		{/snippet}
+
+		{@const results = await searchContent({ search: debouncedQuery, limit: 20 })}
+		{#if results.length > 0}
+			<ul class="max-h-60 overflow-y-auto rounded-md border border-slate-200 bg-white">
+				{#each results as content (content.id)}
+					<li class="border-b border-slate-100 last:border-b-0">
+						<button
+							type="button"
+							onclick={() => handleSelect(content)}
+							class="flex w-full items-center gap-3 px-3 py-2 text-left hover:bg-slate-50"
+							data-testid="content-picker-result"
+						>
+							<Plus class="size-4 shrink-0 text-slate-400" />
+							<div class="min-w-0 flex-1">
+								<div class="flex items-center gap-2">
+									<span class="truncate text-sm font-medium text-slate-900">{content.title}</span>
+									<span
+										class={[
+											'shrink-0 rounded px-1.5 py-0.5 text-xs font-medium capitalize',
+											getTypeColor(content.type)
+										]}
+									>
+										{content.type}
+									</span>
+								</div>
+								{#if content.description}
+									<p class="truncate text-xs text-slate-500">{content.description}</p>
+								{/if}
 							</div>
-							{#if content.description}
-								<p class="truncate text-xs text-slate-500">{content.description}</p>
-							{/if}
-						</div>
-					</button>
-				</li>
-			{/each}
-		</ul>
-	{:else if searchQuery.trim()}
-		<p class="py-2 text-center text-sm text-slate-500">No content found</p>
-	{/if}
+						</button>
+					</li>
+				{/each}
+			</ul>
+		{:else}
+			<p class="py-2 text-center text-sm text-slate-500">No content found</p>
+		{/if}
+	</svelte:boundary>
 </div>
