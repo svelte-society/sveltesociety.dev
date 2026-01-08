@@ -7,7 +7,8 @@
 	import PaperPlaneTilt from 'phosphor-svelte/lib/PaperPlaneTilt'
 	import ChartLine from 'phosphor-svelte/lib/ChartLine'
 	import Copy from 'phosphor-svelte/lib/Copy'
-	import { getCampaigns, deleteCampaign, sendCampaign } from './data.remote'
+	import { getCampaigns, deleteCampaign } from './data.remote'
+	import { sendCampaign } from './[id]/data.remote'
 	import { copyCampaign } from './[id]/data.remote'
 
 	const campaigns = getCampaigns()
@@ -106,10 +107,12 @@
 					variant="secondary"
 					tooltip="Copy Campaign"
 				/>
-				<Action.Delete
-					form={deleteCampaign}
-					confirm="Are you sure you want to delete this campaign?"
-				/>
+				{#if campaign.status !== 'sent'}
+					<Action.Delete
+						form={deleteCampaign}
+						confirm="Are you sure you want to delete this campaign?"
+					/>
+				{/if}
 			</Actions>
 		{/snippet}
 	</Table>

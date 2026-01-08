@@ -19,10 +19,10 @@
 				<tr>
 					{@render header('px-4 py-3.5 text-xs font-semibold text-gray-700 uppercase tracking-wider')}
 					{#if action && actionCell}
-						<th scope="col" class="px-4 py-3.5 text-center">
+						<th scope="col" class="px-4 py-3.5 text-right">
 							<span class="sr-only">Actions</span>
 							<svg
-								class="mx-auto h-4 w-4 text-gray-400"
+								class="inline-block h-4 w-4 text-gray-400"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
@@ -51,7 +51,7 @@
 						{@render row(item, 'px-4 py-4 text-gray-900')}
 						{#if action && actionCell}
 							<td class="px-4 py-4">
-								<div class="flex items-center justify-center gap-1.5">
+								<div class="flex items-center justify-end gap-1.5">
 									{@render actionCell(item)}
 								</div>
 							</td>

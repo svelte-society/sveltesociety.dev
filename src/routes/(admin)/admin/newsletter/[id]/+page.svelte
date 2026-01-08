@@ -12,27 +12,23 @@
 	import Copy from 'phosphor-svelte/lib/Copy'
 	import { initForm } from '$lib/utils/form.svelte'
 	import CampaignForm from '../CampaignForm.svelte'
-	import { createCampaign, updateCampaign, getCampaign, sendCampaign, copyCampaign } from './data.remote'
+	import {
+		createCampaign,
+		updateCampaign,
+		getCampaign,
+		sendCampaign,
+		copyCampaign
+	} from './data.remote'
 
 	const campaignId = page.params.id!
 	const isNew = campaignId === 'new'
 
 	// Only fetch campaign if editing
 	const campaign = isNew ? null : await getCampaign(campaignId)
-	let isSending = $state(false)
-	let isCopying = $state(false)
 	let showSendConfirm = $state(false)
 
 	// Check if campaign has been sent
 	const isSent = campaign?.status === 'sent'
-
-	// Form ref for send campaign
-	let sendCampaignFormRef = $state<HTMLFormElement>()
-	let copyCampaignFormRef = $state<HTMLFormElement>()
-
-	// Form instance for send (only used in edit mode)
-	const sendCampaignAction = $derived(isNew ? null : sendCampaign.for(campaignId))
-	const copyCampaignAction = $derived(isNew ? null : copyCampaign.for(campaignId))
 
 	// Initialize the appropriate form (only for non-sent campaigns)
 	if (isNew) {
@@ -53,71 +49,7 @@
 	}
 
 	const currentForm = isNew ? createCampaign : updateCampaign
-
-	function handlePreview() {
-		window.open(`/api/newsletter/preview/${campaignId}`, '_blank')
-	}
-
-	async function confirmSendCampaign() {
-		showSendConfirm = false
-		sendCampaignFormRef?.requestSubmit()
-	}
-
-	async function handleCopyCampaign() {
-		copyCampaignFormRef?.requestSubmit()
-	}
 </script>
-
-<!-- Hidden form for sending campaign (only in edit mode, not sent) -->
-{#if !isNew && !isSent && sendCampaignAction}
-	<form
-		bind:this={sendCampaignFormRef}
-		class="hidden"
-		{...sendCampaignAction.enhance(async ({ submit }) => {
-			isSending = true
-			try {
-				await submit()
-				if (sendCampaignAction.result?.success) {
-					toast.success('Campaign sent successfully!')
-					await invalidateAll()
-					goto('/admin/newsletter')
-				} else {
-					toast.error(sendCampaignAction.result?.text || 'Failed to send campaign')
-				}
-			} catch {
-				toast.error('An error occurred while sending')
-			} finally {
-				isSending = false
-			}
-		})}
-	>
-		<input {...sendCampaignAction.fields.id.as('hidden', campaignId)} />
-	</form>
-{/if}
-
-<!-- Hidden form for copying campaign -->
-{#if !isNew && copyCampaignAction}
-	<form
-		bind:this={copyCampaignFormRef}
-		class="hidden"
-		{...copyCampaignAction.enhance(async ({ submit }) => {
-			isCopying = true
-			try {
-				await submit()
-				// copyCampaign redirects on success, so we only handle errors
-				if (copyCampaignAction.result?.success === false) {
-					toast.error(copyCampaignAction.result?.text || 'Failed to copy campaign')
-				}
-			} catch {
-				// Redirect throws, which is expected on success
-			} finally {
-				isCopying = false
-			}
-		})}
-	>
-		<input {...copyCampaignAction.fields.id.as('hidden', campaignId)} />
-	</form>
-{/if}
 
 <!-- Send confirmation dialog -->
 {#if showSendConfirm}
@@ -130,7 +62,20 @@
 			</p>
 			<div class="flex justify-end gap-2">
 				<Button onclick={() => (showSendConfirm = false)} variant="secondary">Cancel</Button>
-				<Button onclick={confirmSendCampaign}>Confirm</Button>
+
+				<form>
+					<Button
+						{...sendCampaign.for(campaignId).buttonProps.enhance(async ({ submit }) => {
+							try {
+								await submit()
+								toast.success('Succesfully sent campaign.')
+							} catch {
+								toast.error('Something went wrong when trying to send the campaign.')
+							}
+							showSendConfirm = false
+						})}>Confirm</Button
+					>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -194,10 +139,17 @@
 					View Analytics
 				</Button>
 			{/if}
-			<Button variant="secondary" onclick={handleCopyCampaign} disabled={isCopying}>
-				<Copy class="size-4" />
-				{isCopying ? 'Copying...' : 'Copy Campaign'}
-			</Button>
+
+			<form>
+				<Button
+					variant="secondary"
+					disabled={!!copyCampaign.pending}
+					{...copyCampaign.for(campaignId).buttonProps}
+				>
+					<Copy class="size-4" />
+					{!!copyCampaign.pending ? 'Copying...' : 'Copy Campaign'}
+				</Button>
+			</form>
 		</div>
 	{:else}
 		<!-- New or draft campaign: show edit form -->
@@ -216,10 +168,16 @@
 					<Eye class="size-4" />
 					Preview
 				</Button>
-				<Button variant="secondary" onclick={handleCopyCampaign} disabled={isCopying}>
-					<Copy class="size-4" />
-					{isCopying ? 'Copying...' : 'Copy Campaign'}
-				</Button>
+				<form>
+					<Button
+						variant="secondary"
+						{...copyCampaign.for(campaignId).buttonProps}
+						disabled={!!copyCampaign.pending}
+					>
+						<Copy class="size-4" />
+						{!!copyCampaign.pending ? 'Copying...' : 'Copy Campaign'}
+					</Button>
+				</form>
 			{/if}
 			<Button type="submit" form="campaign-form" disabled={!!currentForm.pending}>
 				{#if currentForm.pending}
@@ -231,10 +189,10 @@
 			{#if !isNew && campaign}
 				<Button
 					onclick={() => (showSendConfirm = true)}
-					disabled={isSending || campaign.items.length === 0}
+					disabled={!!sendCampaign.pending || campaign.items.length === 0}
 				>
 					<PaperPlaneTilt class="size-4" />
-					{isSending ? 'Sending...' : 'Send Campaign'}
+					{!!sendCampaign.pending ? 'Sending...' : 'Send Campaign'}
 				</Button>
 			{/if}
 		</div>

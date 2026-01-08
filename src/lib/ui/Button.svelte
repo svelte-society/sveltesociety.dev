@@ -16,7 +16,7 @@
 		size?: ButtonSize
 		width?: ButtonWidth
 		thickness?: ButtonThickness
-		class?: ClassValue
+		class?: ClassValue,
 	} & (({ href: string } & HTMLAnchorAttributes) | ({ href?: never } & HTMLButtonAttributes))
 
 	let { children, variant, size, width, thickness, href, class: className, ...rest }: Props =
