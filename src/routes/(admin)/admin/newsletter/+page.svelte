@@ -5,7 +5,10 @@
 	import Newspaper from 'phosphor-svelte/lib/Newspaper'
 	import Plus from 'phosphor-svelte/lib/Plus'
 	import PaperPlaneTilt from 'phosphor-svelte/lib/PaperPlaneTilt'
+	import ChartLine from 'phosphor-svelte/lib/ChartLine'
+	import Copy from 'phosphor-svelte/lib/Copy'
 	import { getCampaigns, deleteCampaign, sendCampaign } from './data.remote'
+	import { copyCampaign } from './[id]/data.remote'
 
 	const campaigns = getCampaigns()
 
@@ -25,6 +28,10 @@
 			default:
 				return 'bg-gray-100 text-gray-800'
 		}
+	}
+
+	function openAnalytics(plunkCampaignId: string) {
+		window.open(`https://next-app.useplunk.com/campaigns/${plunkCampaignId}`, '_blank')
 	}
 </script>
 
@@ -72,7 +79,18 @@
 		{/snippet}
 		{#snippet actionCell(campaign)}
 			<Actions id={campaign.id}>
-				<Action.Edit href={`/admin/newsletter/${campaign.id}`} />
+				<Action.Edit
+					href={`/admin/newsletter/${campaign.id}`}
+					label={campaign.status === 'sent' ? 'View' : 'Edit'}
+				/>
+				{#if campaign.status === 'sent' && campaign.plunk_campaign_id}
+					<Action.Button
+						icon={ChartLine}
+						onclick={() => openAnalytics(campaign.plunk_campaign_id)}
+						variant="info"
+						tooltip="View Analytics"
+					/>
+				{/if}
 				{#if campaign.status === 'draft'}
 					<Action.Button
 						icon={PaperPlaneTilt}
@@ -82,6 +100,12 @@
 						confirm="Are you sure you want to send this campaign to all subscribers?"
 					/>
 				{/if}
+				<Action.Button
+					icon={Copy}
+					form={copyCampaign}
+					variant="secondary"
+					tooltip="Copy Campaign"
+				/>
 				<Action.Delete
 					form={deleteCampaign}
 					confirm="Are you sure you want to delete this campaign?"

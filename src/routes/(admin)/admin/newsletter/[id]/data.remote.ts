@@ -221,3 +221,61 @@ export const sendCampaign = form(sendCampaignSchema, async (data) => {
     return { success: false, text: 'An error occurred while sending the campaign.' }
   }
 })
+
+const copyCampaignSchema = z.object({
+  id: z.string().min(1, 'Campaign ID is required')
+})
+
+export const copyCampaign = form(copyCampaignSchema, async (data) => {
+  checkAdminAuth()
+  const { locals } = getRequestEvent()
+
+  const userId = locals.user?.id
+  if (!userId) {
+    return { success: false, text: 'You must be logged in to copy a campaign.' }
+  }
+
+  try {
+    // Get the source campaign
+    const sourceCampaign = locals.newsletterService.getCampaignWithItems(data.id)
+    if (!sourceCampaign) {
+      return { success: false, text: 'Campaign not found.' }
+    }
+
+    // Create a copy
+    const newCampaign = locals.newsletterService.createCampaignDraft({
+      title: `Copy of ${sourceCampaign.title}`,
+      subject: sourceCampaign.subject,
+      intro_text: sourceCampaign.intro_text,
+      created_by: userId,
+      items: sourceCampaign.items.map((item) => ({
+        id: item.id,
+        custom_description: item.custom_description
+      }))
+    })
+
+    if (!newCampaign) {
+      return { success: false, text: 'Failed to copy campaign.' }
+    }
+
+    // Sync the new campaign to Plunk
+    const campaignWithItems = locals.newsletterService.getCampaignWithItems(newCampaign.id)
+    if (campaignWithItems) {
+      const html = await renderCampaignHtml(campaignWithItems, locals.emailService)
+      const plunkResult = await locals.emailService.createPlunkCampaign(
+        getPlunkCampaignParams(campaignWithItems, html)
+      )
+
+      if (plunkResult.success && plunkResult.id) {
+        locals.newsletterService.updateCampaign(newCampaign.id, {
+          plunk_campaign_id: plunkResult.id
+        })
+      }
+    }
+
+    redirect(303, `/admin/newsletter/${newCampaign.id}`)
+  } catch (err) {
+    // Redirect throws, so this is expected
+    throw err
+  }
+})
