@@ -1,6 +1,22 @@
 import type { Database } from 'better-sqlite3'
 import type { EmailService } from './email'
 
+// Item stored in JSON (minimal data)
+export interface CampaignItemData {
+	id: string
+	custom_description?: string | null
+}
+
+// Item with full content details (for display)
+export interface CampaignItemWithContent {
+	id: string
+	custom_description: string | null
+	title: string
+	type: string
+	slug: string
+	description: string | null
+}
+
 export interface NewsletterCampaign {
 	id: string
 	title: string
@@ -13,6 +29,7 @@ export interface NewsletterCampaign {
 	created_by: string
 	created_at: string
 	updated_at: string
+	items: string // JSON string in DB
 }
 
 export interface CreateCampaignData {
@@ -20,6 +37,7 @@ export interface CreateCampaignData {
 	subject: string
 	intro_text?: string | null
 	created_by: string
+	items?: CampaignItemData[]
 }
 
 export interface UpdateCampaignData {
@@ -30,28 +48,13 @@ export interface UpdateCampaignData {
 	plunk_campaign_id?: string | null
 	scheduled_at?: string | null
 	sent_at?: string | null
+	items?: CampaignItemData[]
 }
 
 export interface ListCampaignsFilters {
 	status?: 'draft' | 'scheduled' | 'sent' | 'all'
 	limit?: number
 	offset?: number
-}
-
-export interface CampaignItem {
-	id: string
-	campaign_id: string
-	content_id: string
-	custom_description: string | null
-	display_order: number
-	created_at: string
-}
-
-export interface CampaignItemWithContent extends CampaignItem {
-	title: string
-	type: string
-	slug: string
-	description: string | null
 }
 
 // Pending subscription for double opt-in
@@ -73,13 +76,6 @@ export class NewsletterService {
 	private listCampaignsStatement: any
 	private countCampaignsStatement: any
 
-	// Campaign item statements
-	private getCampaignItemsStatement: any
-	private addCampaignItemStatement: any
-	private updateCampaignItemStatement: any
-	private removeCampaignItemStatement: any
-	private getMaxDisplayOrderStatement: any
-
 	// Pending subscription statements (for double opt-in)
 	private createPendingStatement: any
 	private getPendingByTokenStatement: any
@@ -91,8 +87,8 @@ export class NewsletterService {
 		this.db = db
 
 		this.createCampaignStatement = this.db.prepare(`
-			INSERT INTO newsletter_campaigns (title, subject, intro_text, created_by)
-			VALUES ($title, $subject, $intro_text, $created_by)
+			INSERT INTO newsletter_campaigns (title, subject, intro_text, created_by, items)
+			VALUES ($title, $subject, $intro_text, $created_by, $items)
 			RETURNING *
 		`)
 
@@ -108,7 +104,8 @@ export class NewsletterService {
 				status = $status,
 				plunk_campaign_id = $plunk_campaign_id,
 				scheduled_at = $scheduled_at,
-				sent_at = $sent_at
+				sent_at = $sent_at,
+				items = $items
 			WHERE id = $id
 			RETURNING *
 		`)
@@ -125,38 +122,6 @@ export class NewsletterService {
 
 		this.countCampaignsStatement = this.db.prepare(`
 			SELECT COUNT(*) as count FROM newsletter_campaigns
-		`)
-
-		// Campaign item statements
-		this.getCampaignItemsStatement = this.db.prepare(`
-			SELECT ci.*, c.title, c.type, c.slug, c.description
-			FROM newsletter_campaign_items ci
-			JOIN content c ON ci.content_id = c.id
-			WHERE ci.campaign_id = $campaign_id
-			ORDER BY ci.display_order ASC
-		`)
-
-		this.addCampaignItemStatement = this.db.prepare(`
-			INSERT INTO newsletter_campaign_items (campaign_id, content_id, custom_description, display_order)
-			VALUES ($campaign_id, $content_id, $custom_description, $display_order)
-			RETURNING *
-		`)
-
-		this.updateCampaignItemStatement = this.db.prepare(`
-			UPDATE newsletter_campaign_items
-			SET custom_description = $custom_description
-			WHERE id = $id
-			RETURNING *
-		`)
-
-		this.removeCampaignItemStatement = this.db.prepare(`
-			DELETE FROM newsletter_campaign_items WHERE id = $id
-		`)
-
-		this.getMaxDisplayOrderStatement = this.db.prepare(`
-			SELECT COALESCE(MAX(display_order), -1) as max_order
-			FROM newsletter_campaign_items
-			WHERE campaign_id = $campaign_id
 		`)
 
 		// Pending subscription statements (for double opt-in)
@@ -193,15 +158,29 @@ export class NewsletterService {
 	}
 
 	/**
+	 * Parse items JSON from database
+	 */
+	private parseItems(itemsJson: string | null): CampaignItemData[] {
+		if (!itemsJson) return []
+		try {
+			return JSON.parse(itemsJson) as CampaignItemData[]
+		} catch {
+			return []
+		}
+	}
+
+	/**
 	 * Create a new campaign draft
 	 */
 	createCampaignDraft(data: CreateCampaignData): NewsletterCampaign | null {
 		try {
+			const items = data.items || []
 			const result = this.createCampaignStatement.get({
 				title: data.title,
 				subject: data.subject,
 				intro_text: data.intro_text || null,
-				created_by: data.created_by
+				created_by: data.created_by,
+				items: JSON.stringify(items)
 			})
 			return result as NewsletterCampaign
 		} catch (error) {
@@ -230,6 +209,8 @@ export class NewsletterService {
 			const existing = this.getCampaignById(id)
 			if (!existing) return null
 
+			const existingItems = this.parseItems(existing.items)
+
 			const result = this.updateCampaignStatement.get({
 				id,
 				title: data.title ?? existing.title,
@@ -241,7 +222,8 @@ export class NewsletterService {
 						? data.plunk_campaign_id
 						: existing.plunk_campaign_id,
 				scheduled_at: data.scheduled_at !== undefined ? data.scheduled_at : existing.scheduled_at,
-				sent_at: data.sent_at !== undefined ? data.sent_at : existing.sent_at
+				sent_at: data.sent_at !== undefined ? data.sent_at : existing.sent_at,
+				items: data.items !== undefined ? JSON.stringify(data.items) : JSON.stringify(existingItems)
 			})
 			return result as NewsletterCampaign
 		} catch (error) {
@@ -306,13 +288,53 @@ export class NewsletterService {
 	// ==========================================
 
 	/**
-	 * Get all items for a campaign with content details
+	 * Get campaign items with full content details
+	 * Joins with content table to get title, type, etc.
 	 */
 	getCampaignItems(campaignId: string): CampaignItemWithContent[] {
 		try {
-			return this.getCampaignItemsStatement.all({
-				campaign_id: campaignId
-			}) as CampaignItemWithContent[]
+			const campaign = this.getCampaignById(campaignId)
+			if (!campaign) return []
+
+			const items = this.parseItems(campaign.items)
+			if (items.length === 0) return []
+
+			// Get content details for each item
+			const contentIds = items.map((item) => item.id)
+			const placeholders = contentIds.map(() => '?').join(',')
+
+			const contentStatement = this.db.prepare(`
+				SELECT id, title, type, slug, description
+				FROM content
+				WHERE id IN (${placeholders})
+			`)
+
+			const contentRows = contentStatement.all(...contentIds) as Array<{
+				id: string
+				title: string
+				type: string
+				slug: string
+				description: string | null
+			}>
+
+			// Create a map for quick lookup
+			const contentMap = new Map(contentRows.map((c) => [c.id, c]))
+
+			// Merge items with content, preserving order
+			return items
+				.map((item) => {
+					const content = contentMap.get(item.id)
+					if (!content) return null
+					return {
+						id: item.id,
+						custom_description: item.custom_description || null,
+						title: content.title,
+						type: content.type,
+						slug: content.slug,
+						description: content.description
+					}
+				})
+				.filter((item): item is CampaignItemWithContent => item !== null)
 		} catch (error) {
 			console.error('Error getting campaign items:', error)
 			return []
@@ -320,87 +342,15 @@ export class NewsletterService {
 	}
 
 	/**
-	 * Add content to a campaign
+	 * Update campaign items (replaces all items)
 	 */
-	addContentToCampaign(
-		campaignId: string,
-		contentId: string,
-		customDescription?: string | null
-	): CampaignItem | null {
+	updateCampaignItems(campaignId: string, contentIds: string[]): boolean {
 		try {
-			// Get the next display order
-			const maxResult = this.getMaxDisplayOrderStatement.get({
-				campaign_id: campaignId
-			}) as { max_order: number }
-			const nextOrder = maxResult.max_order + 1
-
-			const result = this.addCampaignItemStatement.get({
-				campaign_id: campaignId,
-				content_id: contentId,
-				custom_description: customDescription || null,
-				display_order: nextOrder
-			})
-			return result as CampaignItem
+			const items: CampaignItemData[] = contentIds.map((contentId) => ({ id: contentId }))
+			const result = this.updateCampaign(campaignId, { items })
+			return result !== null
 		} catch (error) {
-			console.error('Error adding content to campaign:', error)
-			return null
-		}
-	}
-
-	/**
-	 * Update a campaign item's custom description
-	 */
-	updateCampaignItem(itemId: string, customDescription: string | null): CampaignItem | null {
-		try {
-			const result = this.updateCampaignItemStatement.get({
-				id: itemId,
-				custom_description: customDescription
-			})
-			return result as CampaignItem
-		} catch (error) {
-			console.error('Error updating campaign item:', error)
-			return null
-		}
-	}
-
-	/**
-	 * Remove content from a campaign
-	 */
-	removeContentFromCampaign(itemId: string): boolean {
-		try {
-			const result = this.removeCampaignItemStatement.run({ id: itemId })
-			return result.changes > 0
-		} catch (error) {
-			console.error('Error removing content from campaign:', error)
-			return false
-		}
-	}
-
-	/**
-	 * Reorder campaign items
-	 */
-	reorderCampaignItems(campaignId: string, orderedItemIds: string[]): boolean {
-		try {
-			const updateOrderStatement = this.db.prepare(`
-				UPDATE newsletter_campaign_items
-				SET display_order = $display_order
-				WHERE id = $id AND campaign_id = $campaign_id
-			`)
-
-			const transaction = this.db.transaction(() => {
-				orderedItemIds.forEach((itemId, index) => {
-					updateOrderStatement.run({
-						id: itemId,
-						campaign_id: campaignId,
-						display_order: index
-					})
-				})
-			})
-
-			transaction()
-			return true
-		} catch (error) {
-			console.error('Error reordering campaign items:', error)
+			console.error('Error updating campaign items:', error)
 			return false
 		}
 	}
@@ -429,7 +379,7 @@ export class NewsletterService {
 				return { success: false, error: 'Campaign has already been sent' }
 			}
 
-			// Get campaign items
+			// Get campaign items with content details
 			const items = this.getCampaignItems(campaignId)
 
 			// Build the HTML using the provided render function

@@ -3,10 +3,20 @@ import { redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../../authorization.remote'
 
+const itemSchema = z.object({
+	id: z.string(),
+	custom_description: z.string().optional()
+})
+
 const createCampaignSchema = z.object({
 	title: z.string().min(1, 'Title is required'),
 	subject: z.string().min(1, 'Subject is required'),
-	intro_text: z.string().optional()
+	intro_text: z.string().optional(),
+	items: z
+		.string()
+		.transform((val) => JSON.parse(val) as Array<{ id: string; custom_description?: string }>)
+		.pipe(z.array(itemSchema))
+		.optional()
 })
 
 export const createCampaign = form(createCampaignSchema, async (data) => {
@@ -27,7 +37,8 @@ export const createCampaign = form(createCampaignSchema, async (data) => {
 			title: data.title,
 			subject: data.subject,
 			intro_text: data.intro_text,
-			created_by: userId
+			created_by: userId,
+			items: data.items || []
 		})
 	} catch (error) {
 		console.error('Error creating campaign:', error)
