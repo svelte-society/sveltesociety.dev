@@ -15,6 +15,7 @@ export interface CampaignItemWithContent {
 	type: string
 	slug: string
 	description: string | null
+	image: string | null
 }
 
 export interface NewsletterCampaign {
@@ -30,6 +31,11 @@ export interface NewsletterCampaign {
 	created_at: string
 	updated_at: string
 	items: string // JSON string in DB
+}
+
+// Campaign with enriched items (for display/sending)
+export interface CampaignWithItems extends Omit<NewsletterCampaign, 'items'> {
+	items: CampaignItemWithContent[]
 }
 
 export interface CreateCampaignData {
@@ -288,23 +294,44 @@ export class NewsletterService {
 	// ==========================================
 
 	/**
-	 * Get campaign items with full content details
-	 * Joins with content table to get title, type, etc.
+	 * Extract image URL from content metadata based on content type
 	 */
-	getCampaignItems(campaignId: string): CampaignItemWithContent[] {
+	private extractImageFromMetadata(type: string, metadataJson: string | null): string | null {
+		if (!metadataJson) return null
 		try {
-			const campaign = this.getCampaignById(campaignId)
-			if (!campaign) return []
+			const metadata = JSON.parse(metadataJson)
+			switch (type) {
+				case 'video':
+					// Video: use thumbnail or YouTube thumbnails
+					return metadata.thumbnail || metadata.thumbnails?.high?.url || null
+				case 'library':
+					return metadata.thumbnail || null
+				case 'resource':
+					return metadata.image || null
+				case 'job':
+					return metadata.company_logo || null
+				default:
+					return metadata.thumbnail || metadata.image || null
+			}
+		} catch {
+			return null
+		}
+	}
 
-			const items = this.parseItems(campaign.items)
-			if (items.length === 0) return []
+	/**
+	 * Enrich campaign items with full content details
+	 * Private helper - takes parsed items and returns enriched items
+	 */
+	private enrichItems(items: CampaignItemData[]): CampaignItemWithContent[] {
+		if (items.length === 0) return []
 
+		try {
 			// Get content details for each item
 			const contentIds = items.map((item) => item.id)
 			const placeholders = contentIds.map(() => '?').join(',')
 
 			const contentStatement = this.db.prepare(`
-				SELECT id, title, type, slug, description
+				SELECT id, title, type, slug, description, metadata
 				FROM content
 				WHERE id IN (${placeholders})
 			`)
@@ -315,6 +342,7 @@ export class NewsletterService {
 				type: string
 				slug: string
 				description: string | null
+				metadata: string | null
 			}>
 
 			// Create a map for quick lookup
@@ -331,13 +359,31 @@ export class NewsletterService {
 						title: content.title,
 						type: content.type,
 						slug: content.slug,
-						description: content.description
+						description: content.description,
+						image: this.extractImageFromMetadata(content.type, content.metadata)
 					}
 				})
 				.filter((item): item is CampaignItemWithContent => item !== null)
 		} catch (error) {
-			console.error('Error getting campaign items:', error)
+			console.error('Error enriching campaign items:', error)
 			return []
+		}
+	}
+
+	/**
+	 * Get a campaign by ID with enriched items
+	 * Returns the campaign with full content details for each item
+	 */
+	getCampaignWithItems(id: string): CampaignWithItems | null {
+		const campaign = this.getCampaignById(id)
+		if (!campaign) return null
+
+		const rawItems = this.parseItems(campaign.items)
+		const enrichedItems = this.enrichItems(rawItems)
+
+		return {
+			...campaign,
+			items: enrichedItems
 		}
 	}
 
@@ -366,11 +412,11 @@ export class NewsletterService {
 	async sendCampaign(
 		campaignId: string,
 		emailService: EmailService,
-		renderHtml: (campaign: NewsletterCampaign, items: CampaignItemWithContent[]) => Promise<string>
+		renderHtml: (campaign: CampaignWithItems) => Promise<string>
 	): Promise<{ success: boolean; error?: string }> {
 		try {
-			// Get the campaign
-			const campaign = this.getCampaignById(campaignId)
+			// Get the campaign with enriched items
+			const campaign = this.getCampaignWithItems(campaignId)
 			if (!campaign) {
 				return { success: false, error: 'Campaign not found' }
 			}
@@ -379,11 +425,8 @@ export class NewsletterService {
 				return { success: false, error: 'Campaign has already been sent' }
 			}
 
-			// Get campaign items with content details
-			const items = this.getCampaignItems(campaignId)
-
 			// Build the HTML using the provided render function
-			const html = await renderHtml(campaign, items)
+			const html = await renderHtml(campaign)
 
 			// Check if there are any subscribers before sending
 			// Plunk's audienceType: 'ALL' will send to all subscribed contacts

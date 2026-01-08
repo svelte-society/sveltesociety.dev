@@ -6,10 +6,9 @@ import { checkAdminAuth } from '../../authorization.remote'
 export const getCampaign = query(z.string(), (id) => {
   checkAdminAuth()
   const { locals } = getRequestEvent()
-  const campaign = locals.newsletterService.getCampaignById(id)
+  const campaign = locals.newsletterService.getCampaignWithItems(id)
   if (!campaign) error(404, 'Campaign not found')
-  const items = locals.newsletterService.getCampaignItems(id)
-  return { ...campaign, items }
+  return campaign
 })
 
 const itemSchema = z.object({
@@ -93,7 +92,17 @@ export const sendCampaign = form(sendCampaignSchema, async (data) => {
     const result = await locals.newsletterService.sendCampaign(
       data.id,
       locals.emailService,
-      async (params) => locals.emailService.renderNewsletterEmail(params)
+      async (campaign) => locals.emailService.renderNewsletterEmail({
+        subject: campaign.subject,
+        introText: campaign.intro_text || undefined,
+        items: campaign.items.map((item) => ({
+          title: item.title,
+          description: item.custom_description || item.description || '',
+          type: item.type,
+          slug: item.slug,
+          image: item.image
+        }))
+      })
     )
 
     if (!result.success) {

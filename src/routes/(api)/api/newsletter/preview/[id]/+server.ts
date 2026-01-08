@@ -1,4 +1,4 @@
-import { error, json } from '@sveltejs/kit'
+import { error } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 
 export const GET: RequestHandler = async ({ params, locals }) => {
@@ -14,28 +14,23 @@ export const GET: RequestHandler = async ({ params, locals }) => {
 	}
 
 	try {
-		// Get campaign
-		const campaign = locals.newsletterService.getCampaignById(campaignId)
+		// Get campaign with enriched items
+		const campaign = locals.newsletterService.getCampaignWithItems(campaignId)
 		if (!campaign) {
 			throw error(404, 'Campaign not found')
 		}
-
-		// Get campaign items with content details
-		const items = locals.newsletterService.getCampaignItems(campaignId)
-
-		// Map items to the format expected by the email template
-		const contentItems = items.map((item: any) => ({
-			title: item.content_title,
-			description: item.custom_description || item.content_description || '',
-			type: item.content_type,
-			slug: item.content_slug
-		}))
 
 		// Render the email HTML
 		const html = await locals.emailService.renderNewsletterEmail({
 			subject: campaign.subject,
 			introText: campaign.intro_text || undefined,
-			items: contentItems
+			items: campaign.items.map((item) => ({
+				title: item.title,
+				description: item.custom_description || item.description || '',
+				type: item.type,
+				slug: item.slug,
+				image: item.image
+			}))
 		})
 
 		return new Response(html, {

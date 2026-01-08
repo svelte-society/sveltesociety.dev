@@ -24,7 +24,7 @@
 
 	const isEditing = $derived(mode === 'edit')
 
-	// Local state for content items - uses bindable in ContentSection
+	// Local state for content items
 	let contentItems = $state<ContentItem[]>([...initialItems])
 
 	const successMessage = $derived(

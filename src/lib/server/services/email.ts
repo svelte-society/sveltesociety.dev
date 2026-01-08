@@ -96,6 +96,7 @@ export interface NewsletterContentItem {
   description: string
   type: string
   slug: string
+  image?: string | null
 }
 
 export interface RenderNewsletterEmailParams {
@@ -339,15 +340,11 @@ export class EmailService {
    * Render a newsletter campaign email to HTML
    * Returns the rendered HTML string for use with Plunk campaigns
    */
-  async renderNewsletterEmail(params: RenderNewsletterEmailParams): Promise<string> {
-    const { subject, introText, items, baseUrl } = params
+  async renderNewsletterEmail(props: RenderNewsletterEmailParams): Promise<string> {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = (await renderer.render(NewsletterCampaignEmail, {
-      subject,
-      introText,
-      items,
-      baseUrl
+      props
     })) as any
 
     return result.html ?? String(result)
