@@ -8,7 +8,6 @@ export const getCampaign = query(z.string(), (id) => {
   const { locals } = getRequestEvent()
   const campaign = locals.newsletterService.getCampaignById(id)
   if (!campaign) error(404, 'Campaign not found')
-  // Get items with full content details for display
   const items = locals.newsletterService.getCampaignItems(id)
   return { ...campaign, items }
 })
@@ -18,20 +17,51 @@ const itemSchema = z.object({
   custom_description: z.string().optional()
 })
 
-const updateCampaignSchema = z.object({
-  id: z.string().min(1, 'Campaign ID is required'),
+const campaignSchema = z.object({
+  id: z.string().optional(),
   title: z.string().min(1, 'Title is required'),
   subject: z.string().min(1, 'Subject is required'),
   intro_text: z.string().optional(),
-  items: z.array(z.object({
-    id: z.string(),
-    custom_description: z.string().optional()
-  })).optional()
+  items: z.array(itemSchema).optional()
 })
 
-export const updateCampaign = form(updateCampaignSchema, async (data) => {
+export const createCampaign = form(campaignSchema, async (data) => {
   checkAdminAuth()
   const { locals } = getRequestEvent()
+
+  const userId = locals.user?.id
+  if (!userId) {
+    return { success: false, text: 'You must be logged in to create a campaign.' }
+  }
+
+  let campaign
+  try {
+    campaign = locals.newsletterService.createCampaignDraft({
+      title: data.title,
+      subject: data.subject,
+      intro_text: data.intro_text,
+      created_by: userId,
+      items: data.items || []
+    })
+  } catch (err) {
+    console.error('Error creating campaign:', err)
+    return { success: false, text: 'An unexpected error occurred. Please try again.' }
+  }
+
+  if (!campaign) {
+    return { success: false, text: 'Failed to create campaign. Please try again.' }
+  }
+
+  redirect(303, `/admin/newsletter/${campaign.id}`)
+})
+
+export const updateCampaign = form(campaignSchema, async (data) => {
+  checkAdminAuth()
+  const { locals } = getRequestEvent()
+
+  if (!data.id) {
+    return { success: false, text: 'Campaign ID is required.' }
+  }
 
   let campaign
   try {
@@ -43,20 +73,12 @@ export const updateCampaign = form(updateCampaignSchema, async (data) => {
     })
   } catch (err) {
     console.error('Error updating campaign:', err)
-    return {
-      success: false,
-      text: 'An unexpected error occurred. Please try again.'
-    }
+    return { success: false, text: 'An unexpected error occurred. Please try again.' }
   }
 
   if (!campaign) {
-    return {
-      success: false,
-      text: 'Failed to update campaign. Please try again.'
-    }
+    return { success: false, text: 'Failed to update campaign. Please try again.' }
   }
-
-  redirect(303, '/admin/newsletter')
 })
 
 const sendCampaignSchema = z.object({

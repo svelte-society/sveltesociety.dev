@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { toast } from 'svelte-sonner'
-	import Button from '$lib/ui/Button.svelte'
 	import Input from '$lib/ui/Input.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
 	import ContentSection from './ContentSection.svelte'
@@ -16,11 +15,12 @@
 	interface Props {
 		mode: 'create' | 'edit'
 		form: RemoteForm<any, any>
+		formId?: string
 		campaignId?: string
 		initialItems?: ContentItem[]
 	}
 
-	let { mode, form, campaignId, initialItems = [] }: Props = $props()
+	let { mode, form, formId = 'campaign-form', campaignId, initialItems = [] }: Props = $props()
 
 	const isEditing = $derived(mode === 'edit')
 
@@ -33,19 +33,11 @@
 	const errorMessage = $derived(
 		isEditing ? 'Failed to update campaign' : 'Failed to create campaign'
 	)
-	const submitLabel = $derived(
-		form.pending
-			? isEditing
-				? 'Saving...'
-				: 'Creating...'
-			: isEditing
-				? 'Update Campaign'
-				: 'Create Campaign'
-	)
 </script>
 
 <!-- Two-column layout for both create and edit modes -->
 <form
+	id={formId}
 	{...form.enhance(async ({ submit }) => {
 		try {
 			await submit()
@@ -100,13 +92,6 @@
 					data-testid="textarea-intro-text"
 					rows={4}
 				/>
-
-				<div class="mt-6 flex gap-4">
-					<Button type="submit" width="full" disabled={!!form.pending}>
-						{submitLabel}
-					</Button>
-					<Button href="/admin/newsletter" variant="secondary">Cancel</Button>
-				</div>
 			</div>
 		</div>
 		<div class="rounded-2xl border border-gray-200 bg-white shadow-sm">
