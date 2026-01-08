@@ -552,10 +552,51 @@ export class EmailService {
         return { success: false }
       }
 
-      const data = await response.json()
-      return { success: true, id: data.id }
+      const responseData = await response.json()
+      // Plunk wraps the campaign in a data object: { success: true, data: { id: "...", ... } }
+      const campaignId = responseData.data?.id
+      return { success: true, id: campaignId }
     } catch (error) {
       console.error('Create campaign error:', error)
+      return { success: false }
+    }
+  }
+
+  /**
+   * Update a campaign in Plunk
+   */
+  async updatePlunkCampaign(
+    campaignId: string,
+    params: CreateCampaignParams
+  ): Promise<{ success: boolean }> {
+    const { name, subject, body, from, audienceType = 'ALL' } = params
+
+    try {
+      // Note: Plunk campaigns endpoint does NOT use /v1 prefix
+      const response = await fetch(`${this.apiUrl}/campaigns/${campaignId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.apiKey}`
+        },
+        body: JSON.stringify({
+          name,
+          subject,
+          body,
+          from: from || this.fromEmail,
+          audienceType
+        })
+      })
+
+      if (!response.ok) {
+        const error = await response.text()
+        console.error('Update campaign failed:', error)
+        return { success: false }
+      }
+
+      return { success: true }
+    } catch (error) {
+      console.error('Update campaign error:', error)
       return { success: false }
     }
   }
@@ -583,6 +624,33 @@ export class EmailService {
       return true
     } catch (error) {
       console.error('Send campaign error:', error)
+      return false
+    }
+  }
+
+  /**
+   * Delete a campaign from Plunk
+   */
+  async deletePlunkCampaign(campaignId: string): Promise<boolean> {
+    try {
+      // Note: Plunk campaigns endpoint does NOT use /v1 prefix
+      const response = await fetch(`${this.apiUrl}/campaigns/${campaignId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.apiKey}`
+        }
+      })
+
+      if (!response.ok) {
+        const error = await response.text()
+        console.error('Delete campaign failed:', error)
+        return false
+      }
+
+      return true
+    } catch (error) {
+      console.error('Delete campaign error:', error)
       return false
     }
   }
