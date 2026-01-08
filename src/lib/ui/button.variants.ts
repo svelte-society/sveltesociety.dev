@@ -14,7 +14,7 @@ export const buttonVariants = tv({
 			ghost: 'bg-svelte-50 text-svelte-500 hover:bg-svelte-100 hover:text-svelte-900 hover:shadow-sm',
 			danger: 'bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-900 hover:shadow-sm',
 			warning: 'bg-orange-50 text-orange-600 hover:bg-orange-100 hover:text-orange-900 hover:shadow-sm',
-			info: 'bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-900 hover:shadow-sm'
+			info: 'bg-blue-100 text-blue-700 hover:bg-blue-200 hover:text-blue-900 hover:shadow-sm'
 		},
 		size: {
 			default: 'px-4 py-2',

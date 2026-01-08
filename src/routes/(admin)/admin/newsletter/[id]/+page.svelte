@@ -5,7 +5,6 @@
 	import { invalidateAll } from '$app/navigation'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import Button from '$lib/ui/Button.svelte'
-	import ConfirmWithDialog from '$lib/ui/admin/ConfirmWithDialog.svelte'
 	import Newspaper from 'phosphor-svelte/lib/Newspaper'
 	import Eye from 'phosphor-svelte/lib/Eye'
 	import PaperPlaneTilt from 'phosphor-svelte/lib/PaperPlaneTilt'
@@ -22,6 +21,7 @@
 	const campaign = isNew ? null : await getCampaign(campaignId)
 	let isSending = $state(false)
 	let isCopying = $state(false)
+	let showSendConfirm = $state(false)
 
 	// Check if campaign has been sent
 	const isSent = campaign?.status === 'sent'
@@ -58,7 +58,8 @@
 		window.open(`/api/newsletter/preview/${campaignId}`, '_blank')
 	}
 
-	async function handleSendCampaign() {
+	async function confirmSendCampaign() {
+		showSendConfirm = false
 		sendCampaignFormRef?.requestSubmit()
 	}
 
@@ -118,6 +119,23 @@
 	</form>
 {/if}
 
+<!-- Send confirmation dialog -->
+{#if showSendConfirm}
+	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
+		<div class="rounded-lg bg-white p-6 shadow-xl">
+			<h2 class="mb-4 text-xl font-bold">Send Campaign</h2>
+			<p class="mb-4">
+				Are you sure you want to send this campaign to all subscribers? This action cannot be
+				undone.
+			</p>
+			<div class="flex justify-end gap-2">
+				<Button onclick={() => (showSendConfirm = false)} variant="secondary">Cancel</Button>
+				<Button onclick={confirmSendCampaign}>Confirm</Button>
+			</div>
+		</div>
+	</div>
+{/if}
+
 <div class="container mx-auto space-y-8 px-2 py-6">
 	<PageHeader
 		title={isNew ? 'New Campaign' : isSent ? campaign!.title : 'Edit Campaign'}
@@ -169,14 +187,14 @@
 			</Button>
 			{#if campaign.plunk_campaign_id}
 				<Button
-					variant="secondary"
+					variant="info"
 					href="https://next-app.useplunk.com/campaigns/{campaign.plunk_campaign_id}"
 				>
 					<ChartLine class="size-4" />
 					View Analytics
 				</Button>
 			{/if}
-			<Button onclick={handleCopyCampaign} disabled={isCopying}>
+			<Button variant="secondary" onclick={handleCopyCampaign} disabled={isCopying}>
 				<Copy class="size-4" />
 				{isCopying ? 'Copying...' : 'Copy Campaign'}
 			</Button>
@@ -211,16 +229,13 @@
 				{/if}
 			</Button>
 			{#if !isNew && campaign}
-				<ConfirmWithDialog
-					title="Send Campaign"
-					description="Are you sure you want to send this campaign to all subscribers? This action cannot be undone."
-					onConfirm={handleSendCampaign}
+				<Button
+					onclick={() => (showSendConfirm = true)}
+					disabled={isSending || campaign.items.length === 0}
 				>
-					<Button disabled={isSending || campaign.items.length === 0}>
-						<PaperPlaneTilt class="size-4" />
-						{isSending ? 'Sending...' : 'Send Campaign'}
-					</Button>
-				</ConfirmWithDialog>
+					<PaperPlaneTilt class="size-4" />
+					{isSending ? 'Sending...' : 'Send Campaign'}
+				</Button>
 			{/if}
 		</div>
 	{/if}

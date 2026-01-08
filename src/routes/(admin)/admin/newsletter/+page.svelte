@@ -95,7 +95,7 @@
 					<Action.Button
 						icon={PaperPlaneTilt}
 						form={sendCampaign}
-						variant="success"
+						variant="primary"
 						tooltip="Send Campaign"
 						confirm="Are you sure you want to send this campaign to all subscribers?"
 					/>
