@@ -11,3 +11,9 @@ export { ShortcutsPage } from './ShortcutsPage'
 export { JobsPage } from './JobsPage'
 export { JobDetailPage } from './JobDetailPage'
 export { SubmitJobPage } from './SubmitJobPage'
+export {
+	NewsletterSubscribePage,
+	NewsletterConfirmPage,
+	AdminCampaignListPage,
+	AdminCampaignEditorPage
+} from './NewsletterPages'

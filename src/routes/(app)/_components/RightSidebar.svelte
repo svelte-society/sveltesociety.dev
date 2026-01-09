@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/ui/Button.svelte'
+	import NewsletterSubscribe from '$lib/ui/NewsletterSubscribe.svelte'
 	import Plus from 'phosphor-svelte/lib/Plus'
 	import UpcomingEvents from './UpcomingEvents.svelte'
 	import SidebarJobs from './SidebarJobs.svelte'
@@ -34,6 +35,8 @@
 			</a>
 		</p>
 	</div>
+
+	<NewsletterSubscribe />
 
 	<SidebarJobs {jobs} />
 

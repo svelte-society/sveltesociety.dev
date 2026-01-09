@@ -13,7 +13,8 @@
 		LinkSimple,
 		ArrowsLeftRight,
 		CloudArrowUp,
-		EnvelopeSimple
+		EnvelopeSimple,
+		Newspaper
 	} from 'phosphor-svelte'
 
 	let { data, children } = $props()
@@ -69,6 +70,12 @@
 			label: 'External Content',
 			icon: ArrowsLeftRight,
 			allowedRoles: ['admin', 'moderator']
+		},
+		{
+			href: '/admin/newsletter',
+			label: 'Newsletter',
+			icon: Newspaper,
+			allowedRoles: ['admin']
 		},
 		{
 			href: '/admin/bulk-import',

@@ -62,7 +62,7 @@
 	<Icon class={['h-5 w-5', isSubmitting && 'animate-spin']} weight="bold" />
 	{#if tooltip}
 		<span
-			class="absolute bottom-full left-1/2 mb-1 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100"
+			class="pointer-events-none absolute bottom-full right-0 mb-1 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100"
 		>
 			{tooltip}
 		</span>

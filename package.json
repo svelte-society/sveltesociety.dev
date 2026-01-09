@@ -27,6 +27,7 @@
 		"prettier": "^3.7.4",
 		"prettier-plugin-svelte": "^3.4.1",
 		"prettier-plugin-tailwindcss": "^0.7.2",
+		"runed": "^0.37.1",
 		"satori": "^0.18.3",
 		"svead": "^0.0.15",
 		"svelte": "^5.46.1",
