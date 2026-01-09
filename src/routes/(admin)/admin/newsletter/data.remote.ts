@@ -33,6 +33,11 @@ export const deleteCampaign = form(campaignIdSchema, async (data) => {
       }
     }
 
+    // Delete from Plunk first if it exists there
+    if (campaign.plunk_campaign_id) {
+      await locals.emailService.deletePlunkCampaign(campaign.plunk_campaign_id)
+    }
+
     const success = locals.newsletterService.deleteCampaign(data.id)
     if (!success) {
       return {

@@ -103,7 +103,7 @@ export const createCampaign = form(campaignSchema, async (data) => {
     }
   }
 
-  redirect(303, `/admin/newsletter/${campaign.id}`)
+  redirect(303, '/admin/newsletter')
 })
 
 export const updateCampaign = form(campaignSchema, async (data) => {
