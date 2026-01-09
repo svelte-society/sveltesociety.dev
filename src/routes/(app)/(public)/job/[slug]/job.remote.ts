@@ -1,5 +1,4 @@
 import { getRequestEvent, form } from '$app/server'
-import { fail } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 
 // Schema for job application
@@ -15,43 +14,48 @@ export const applyToJob = form(applyToJobSchema, async (data) => {
 	const { locals } = getRequestEvent()
 
 	if (!locals.user) {
-		return fail(401, {
+		return {
+			success: false,
 			error: 'Authentication required',
 			message: 'You must be logged in to apply for jobs.'
-		})
+		}
 	}
 
 	if (!locals.user.email) {
-		return fail(400, {
+		return {
+			success: false,
 			error: 'Email required',
 			message: 'Your account must have an email address to apply for jobs.'
-		})
+		}
 	}
 
 	// Get the job
 	const job = locals.contentService.getContentById(data.jobId)
 	if (!job || job.type !== 'job') {
-		return fail(404, {
+		return {
+			success: false,
 			error: 'Job not found',
 			message: 'The job you are trying to apply for does not exist.'
-		})
+		}
 	}
 
 	// Check if job is expired
 	const now = new Date().toISOString()
 	if (job.metadata?.expires_at && job.metadata.expires_at < now) {
-		return fail(400, {
+		return {
+			success: false,
 			error: 'Job expired',
 			message: 'This job posting has expired and is no longer accepting applications.'
-		})
+		}
 	}
 
 	// Check if user has already applied
 	if (locals.jobApplicationService.hasApplied(data.jobId, locals.user.id)) {
-		return fail(400, {
+		return {
+			success: false,
 			error: 'Already applied',
 			message: 'You have already applied for this position.'
-		})
+		}
 	}
 
 	try {
@@ -79,9 +83,10 @@ export const applyToJob = form(applyToJobSchema, async (data) => {
 		return { success: true, message: 'Application submitted successfully!' }
 	} catch (error) {
 		console.error('Error creating job application:', error)
-		return fail(500, {
+		return {
+			success: false,
 			error: 'Application failed',
 			message: 'Failed to submit your application. Please try again.'
-		})
+		}
 	}
 })
