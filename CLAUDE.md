@@ -70,7 +70,19 @@ bd automatically syncs with git (5s debounce):
 - Imports from JSONL after git pull
 - No manual sync needed
 
+## Code Formatting
+
+After modifying files, run the formatter to ensure consistent style:
+
+```bash
+bun run lint
+```
+
+This formats all project files (TypeScript, Svelte, Markdown, etc.) with Prettier.
+Run this before committing to avoid mixing formatting changes with code changes.
+
 ## Important Reminders
 
 - All new features MUST include Playwright E2E tests
 - Update `tests/README.md` after adding new test coverage
+- Run `bun run lint` after modifying files to maintain consistent formatting
