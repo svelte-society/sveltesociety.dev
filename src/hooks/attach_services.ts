@@ -15,6 +15,7 @@ import { ExternalContentService } from '$lib/server/services/external-content'
 import { LLMService } from '$lib/server/services/llm'
 import { AnnouncementService } from '$lib/server/services/AnnouncementService'
 import { ShortcutService } from '$lib/server/services/ShortcutService'
+import { FeedItemService } from '$lib/server/services/FeedItemService'
 import { JobTierService, PaymentService, JobApplicationService, StripeService } from '$lib/server/services/jobs'
 import { EmailService } from '$lib/server/services/email'
 import { NewsletterService } from '$lib/server/services/newsletter'
@@ -43,6 +44,7 @@ const dbCache = new Map<
 		llmService: LLMService
 		announcementService: AnnouncementService
 		shortcutService: ShortcutService
+		feedItemService: FeedItemService
 		jobTierService: JobTierService
 		paymentService: PaymentService
 		jobApplicationService: JobApplicationService
@@ -80,6 +82,7 @@ const initialize_db = (dbPath: string) => {
 	const llmService = new LLMService(tagService)
 	const announcementService = new AnnouncementService(db)
 	const shortcutService = new ShortcutService(db)
+	const feedItemService = new FeedItemService(db)
 	const jobTierService = new JobTierService(db)
 	const paymentService = new PaymentService(db)
 	const jobApplicationService = new JobApplicationService(db)
@@ -101,6 +104,7 @@ const initialize_db = (dbPath: string) => {
 		llmService,
 		announcementService,
 		shortcutService,
+		feedItemService,
 		jobTierService,
 		paymentService,
 		jobApplicationService,
@@ -155,6 +159,7 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.llmService = services.llmService
 	event.locals.announcementService = services.announcementService
 	event.locals.shortcutService = services.shortcutService
+	event.locals.feedItemService = services.feedItemService
 	event.locals.jobTierService = services.jobTierService
 	event.locals.paymentService = services.paymentService
 	event.locals.jobApplicationService = services.jobApplicationService
