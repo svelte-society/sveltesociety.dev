@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state'
 	import Input from '$lib/ui/Input.svelte'
-	import Textarea from '$lib/ui/Textarea.svelte'
+	import Textarea from '$lib/ui/TextArea.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import Select from '$lib/ui/Select.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
