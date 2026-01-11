@@ -5,7 +5,6 @@
 	import Empty from 'phosphor-svelte/lib/Empty'
 	import Trash from 'phosphor-svelte/lib/Trash'
 	import CaretUpDown from 'phosphor-svelte/lib/CaretUpDown'
-	import Check from 'phosphor-svelte/lib/Check'
 	import TagIcon from 'phosphor-svelte/lib/Tag'
 
 	import { fade } from 'svelte/transition'
@@ -211,9 +210,6 @@
 										</div>
 									{/if}
 									<span class="flex-1">{option.label}</span>
-									{#if field.value()?.includes(option.value)}
-										<Check class="h-4 w-4 text-sky-600" />
-									{/if}
 								</li>
 							{/each}
 						{:else}
