@@ -10,12 +10,12 @@ See @./docs/E2E_TESTING_MEMORY.md for E2E testing requirements and patterns.
 
 When building Svelte components, use the Svelte MCP server tools:
 
-| Tool | Purpose | When to Use |
-|------|---------|-------------|
-| `list-sections` | Lists all Svelte 5/SvelteKit documentation sections | First step when looking up docs |
-| `get-documentation` | Retrieves full documentation for sections | After list-sections to fetch relevant docs |
-| `svelte-autofixer` | Analyzes code and suggests fixes | **Always** before finalizing any Svelte component |
-| `playground-link` | Generates Svelte playground link | When sharing code for testing |
+| Tool                | Purpose                                             | When to Use                                       |
+| ------------------- | --------------------------------------------------- | ------------------------------------------------- |
+| `list-sections`     | Lists all Svelte 5/SvelteKit documentation sections | First step when looking up docs                   |
+| `get-documentation` | Retrieves full documentation for sections           | After list-sections to fetch relevant docs        |
+| `svelte-autofixer`  | Analyzes code and suggests fixes                    | **Always** before finalizing any Svelte component |
+| `playground-link`   | Generates Svelte playground link                    | When sharing code for testing                     |
 
 **Important**: Always run `svelte-autofixer` on Svelte components before completing work.
 
@@ -25,15 +25,17 @@ Skills are invoked with `/skill-name` (e.g., `/e2e-test-builder`). They provide 
 
 **ALWAYS invoke any skill that is deemed important for what you are doing.**
 
-| Skill | Purpose | When to Use |
-|-------|---------|-------------|
-| `svelte-code-writer` | Svelte 5 docs lookup and code analysis | Creating/editing `.svelte` or `.svelte.ts/.svelte.js` files |
-| `using-remote-functions` | Type-safe client-server communication | Components that fetch data, submit forms, or run server commands |
-| `admin-crud-page` | Admin dashboard pages with tables/forms | Adding admin sections at `/admin/[feature]` |
-| `page-builder` | List and detail page patterns | Building pages with forms, filters, pagination |
-| `e2e-test-builder` | Playwright E2E tests with POM pattern | Adding tests for new features |
+| Skill                    | Purpose                                     | When to Use                                                      |
+| ------------------------ | ------------------------------------------- | ---------------------------------------------------------------- |
+| `component-builder`      | Create UI components with tailwind-variants | Creating/editing UI components in `src/lib/ui/`                  |
+| `svelte-code-writer`     | Svelte 5 docs lookup and code analysis      | Creating/editing `.svelte` or `.svelte.ts/.svelte.js` files      |
+| `using-remote-functions` | Type-safe client-server communication       | Components that fetch data, submit forms, or run server commands |
+| `admin-crud-page`        | Admin dashboard pages with tables/forms     | Adding admin sections at `/admin/[feature]`                      |
+| `page-builder`           | List and detail page patterns               | Building pages with forms, filters, pagination                   |
+| `e2e-test-builder`       | Playwright E2E tests with POM pattern       | Adding tests for new features                                    |
 
 **Template skills** (for creating new skills):
+
 - `sample-basic` - Minimal skill structure template
 - `sample-with-references` - Progressive disclosure pattern with reference files
 
@@ -63,6 +65,7 @@ This project uses **bd** (beads) for dependency-aware issue tracking. Issues are
 ### Auto-Sync
 
 bd automatically syncs with git (5s debounce):
+
 - Exports to JSONL after changes
 - Imports from JSONL after git pull
 - No manual sync needed
