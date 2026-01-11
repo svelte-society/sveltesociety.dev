@@ -1,4 +1,11 @@
 <script lang="ts">
+	import {
+		promoCardVariants,
+		promoCardTitleVariants,
+		promoCardDescriptionVariants,
+		promoCardButtonVariants
+	} from './promoCard.variants'
+
 	interface Props {
 		title: string
 		description: string
@@ -7,18 +14,17 @@
 	}
 
 	let { title, description, buttonText, buttonHref }: Props = $props()
+
+	const variant = 'cta' as const
 </script>
 
-<div data-testid="cta-card" class="rounded-lg bg-gradient-to-r from-svelte-50 to-svelte-100 p-6">
+<div data-testid="cta-card" class={promoCardVariants({ variant })}>
 	<div class="mx-auto max-w-2xl text-center">
-		<h2 class="text-xl font-semibold text-svelte-900">{title}</h2>
-		<p class="mt-1.5 text-sm text-svelte-500">
+		<h2 class={promoCardTitleVariants({ variant })}>{title}</h2>
+		<p class={promoCardDescriptionVariants({ variant })}>
 			{description}
 		</p>
-		<a
-			href={buttonHref}
-			class="mt-3 inline-flex items-center gap-2 rounded-lg bg-svelte-500 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-svelte-900"
-		>
+		<a href={buttonHref} class={promoCardButtonVariants({ variant })}>
 			{buttonText}
 		</a>
 	</div>
