@@ -18,11 +18,11 @@
 <div class="@container grid gap-4">
 	<div class="grid w-full grid-cols-1 gap-4 @xs:grid-cols-2">
 		<div class="flex w-full flex-col gap-2">
-			<span class="text-xs font-medium">Filter</span>
+			<span class="sr-only">Filter</span>
 			<FilterDropdown />
 		</div>
 		<div class="flex w-full flex-col gap-2">
-			<span class="text-xs font-medium">Sort</span>
+			<span class="sr-only">Sort</span>
 			<LinkSelect options={sort} paramName="sort" defaultValue={sort[0]?.value} />
 		</div>
 	</div>
