@@ -1,4 +1,10 @@
 <script lang="ts">
+	import {
+		switchContainerVariants,
+		switchTrackVariants,
+		switchThumbVariants
+	} from './switch.variants'
+
 	interface SwitchProps {
 		checked: boolean
 		disabled?: boolean
@@ -14,20 +20,11 @@
 	}: SwitchProps = $props()
 </script>
 
-<label
-	class="inline-flex cursor-pointer items-center {disabled ? 'cursor-not-allowed opacity-50' : ''}"
->
+<label class={switchContainerVariants({ disabled })}>
 	<div class="relative">
 		<input type="checkbox" class="sr-only" {name} bind:checked {disabled} />
-		<div
-			class="h-6 w-10 rounded-full bg-gray-200 shadow-inner transition-colors duration-300 ease-in-out
-        {checked ? 'bg-blue-500' : 'bg-gray-200'}
-        {disabled ? 'opacity-50' : ''}"
-		></div>
-		<div
-			class="absolute top-1 left-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-300 ease-in-out
-        {checked ? 'translate-x-full transform' : ''}"
-		></div>
+		<div class={switchTrackVariants({ checked, disabled })}></div>
+		<div class={switchThumbVariants({ checked })}></div>
 	</div>
 	{#if label}
 		<span class="ml-3 text-sm font-medium text-gray-700">{label}</span>
