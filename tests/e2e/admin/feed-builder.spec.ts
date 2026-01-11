@@ -133,7 +133,7 @@ test.describe.serial('Admin - Feed Builder', () => {
 		await feedBuilderPage.editButtons.first().click()
 
 		// Should navigate to edit page
-		await expect(page).toHaveURL(/\/admin\/feed-builder\/[a-f0-9]+/)
+		await expect(page).toHaveURL(/\/admin\/feed-builder\/[a-fA-F0-9]+/)
 
 		// Update the title
 		await feedBuilderPage.setTitle('Edit Test Updated')
@@ -141,5 +141,22 @@ test.describe.serial('Admin - Feed Builder', () => {
 
 		// Should redirect back to list
 		await feedBuilderPage.expectListPage()
+	})
+
+	test('can create a featured content-linked feed item', async ({ page }) => {
+		const feedBuilderPage = new FeedBuilderPage(page)
+		await feedBuilderPage.gotoNew()
+
+		// Fill out the featured content form (links to existing content)
+		await feedBuilderPage.fillFeaturedContentForm({ priority: 5 })
+
+		await feedBuilderPage.submitForm()
+
+		// Should redirect back to list
+		await feedBuilderPage.expectListPage()
+
+		// Should now have at least one feed item
+		const count = await feedBuilderPage.getFeedItemCount()
+		expect(count).toBeGreaterThan(0)
 	})
 })

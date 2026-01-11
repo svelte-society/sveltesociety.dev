@@ -13,7 +13,8 @@ export const contentCardVariants = tv({
 		highlight: {
 			none: 'bg-zinc-50',
 			premium: 'bg-svelte-50/50',
-			border: 'bg-zinc-50 border-l-4 border-l-svelte-500 rounded-l-none'
+			border: 'bg-zinc-50 border-l-4 border-l-svelte-500 rounded-l-none',
+			featured: 'bg-gradient-to-r from-svelte-50 to-svelte-100'
 		}
 	},
 	defaultVariants: {

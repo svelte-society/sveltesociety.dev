@@ -3,22 +3,27 @@ import { error, isRedirect, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../authorization.remote'
 
-const feedItemSchema = z.object({
-	content_id: z.string().optional(),
-	item_type: z.enum(['cta', 'ad', 'featured']),
-	title: z.string().optional(),
-	description: z.string().optional(),
-	button_text: z.string().optional(),
-	button_href: z.string().optional(),
-	position_type: z.enum(['fixed', 'random']).default('random'),
-	position_fixed: z.coerce.number().int().min(0).optional(),
-	position_range_min: z.coerce.number().int().min(0).default(3),
-	position_range_max: z.coerce.number().int().min(0).default(7),
-	start_date: z.string().optional(),
-	end_date: z.string().optional(),
-	is_active: z.coerce.boolean().default(true),
-	priority: z.coerce.number().int().min(0).default(0)
-})
+const feedItemSchema = z
+	.object({
+		content_id: z.string().optional(),
+		item_type: z.enum(['cta', 'ad', 'featured']),
+		title: z.string().optional(),
+		description: z.string().optional(),
+		button_text: z.string().optional(),
+		button_href: z.string().optional(),
+		position_type: z.enum(['fixed', 'random']).default('random'),
+		position_fixed: z.coerce.number().int().min(0).optional(),
+		position_range_min: z.coerce.number().int().min(0).default(3),
+		position_range_max: z.coerce.number().int().min(0).default(7),
+		start_date: z.string().optional(),
+		end_date: z.string().optional(),
+		is_active: z.coerce.boolean().default(true),
+		priority: z.coerce.number().int().min(0).default(0)
+	})
+	.refine((data) => data.position_range_min <= data.position_range_max, {
+		message: 'Min position must be less than or equal to max position',
+		path: ['position_range_min']
+	})
 
 const toggleSchema = z.object({
 	id: z.string().min(1, 'Feed item ID is required')
@@ -98,23 +103,28 @@ export const createFeedItem = form(feedItemSchema, async (data) => {
 })
 
 export const updateFeedItem = form(
-	z.object({
-		id: z.string().min(1),
-		content_id: z.string().optional(),
-		item_type: z.enum(['cta', 'ad', 'featured']),
-		title: z.string().optional(),
-		description: z.string().optional(),
-		button_text: z.string().optional(),
-		button_href: z.string().optional(),
-		position_type: z.enum(['fixed', 'random']).default('random'),
-		position_fixed: z.coerce.number().int().min(0).optional(),
-		position_range_min: z.coerce.number().int().min(0).default(3),
-		position_range_max: z.coerce.number().int().min(0).default(7),
-		start_date: z.string().optional(),
-		end_date: z.string().optional(),
-		is_active: z.coerce.boolean().default(true),
-		priority: z.coerce.number().int().min(0).default(0)
-	}),
+	z
+		.object({
+			id: z.string().min(1),
+			content_id: z.string().optional(),
+			item_type: z.enum(['cta', 'ad', 'featured']),
+			title: z.string().optional(),
+			description: z.string().optional(),
+			button_text: z.string().optional(),
+			button_href: z.string().optional(),
+			position_type: z.enum(['fixed', 'random']).default('random'),
+			position_fixed: z.coerce.number().int().min(0).optional(),
+			position_range_min: z.coerce.number().int().min(0).default(3),
+			position_range_max: z.coerce.number().int().min(0).default(7),
+			start_date: z.string().optional(),
+			end_date: z.string().optional(),
+			is_active: z.coerce.boolean().default(true),
+			priority: z.coerce.number().int().min(0).default(0)
+		})
+		.refine((data) => data.position_range_min <= data.position_range_max, {
+			message: 'Min position must be less than or equal to max position',
+			path: ['position_range_min']
+		}),
 	async (data) => {
 		checkAdminAuth()
 		const { locals } = getRequestEvent()
@@ -137,7 +147,7 @@ export const updateFeedItem = form(
 				priority: data.priority
 			}
 
-			const feedItem = locals.feedItemService.updateFeedItem(String(data.id), updateData)
+			const feedItem = locals.feedItemService.updateFeedItem(data.id, updateData)
 
 			if (!feedItem) {
 				return {

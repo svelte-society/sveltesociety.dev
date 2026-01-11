@@ -91,6 +91,7 @@
 					form={toggleFeedItem}
 					variant="info"
 					tooltip={item.is_active ? 'Deactivate' : 'Activate'}
+					testId="toggle-button"
 				/>
 				<Action.Delete
 					form={deleteFeedItem}

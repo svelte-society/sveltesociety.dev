@@ -111,7 +111,7 @@ function buildUnifiedFeed(
 	// Sort by priority (higher first) then calculate positions
 	const sortedInsertables = [...insertables].sort((a, b) => b.priority - a.priority)
 
-	const insertions: { position: number; entry: FeedEntry }[] = []
+	const insertions: { id: string; position: number; entry: FeedEntry }[] = []
 
 	for (const item of sortedInsertables) {
 		let position: number
@@ -125,11 +125,12 @@ function buildUnifiedFeed(
 
 		// Clamp to valid range
 		position = Math.max(0, Math.min(position, feed.length))
-		insertions.push({ position, entry: item.entry })
+		insertions.push({ id: item.id, position, entry: item.entry })
 	}
 
-	// Sort by position descending and insert from end to avoid index shifts
-	insertions.sort((a, b) => b.position - a.position)
+	// Sort by position descending (insert from end to avoid index shifts)
+	// Use id as secondary sort key for deterministic ordering when positions match
+	insertions.sort((a, b) => b.position - a.position || a.id.localeCompare(b.id))
 	for (const { position, entry } of insertions) {
 		feed.splice(position, 0, entry)
 	}
@@ -221,6 +222,9 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 	// Build the unified feed with insertable items
 	const feedItems = locals.feedItemService.getActiveFeedItems()
 
+	// Collect content IDs that will be featured (to dedupe from regular feed)
+	const featuredContentIds = new Set<string>()
+
 	const insertables: InsertableItem[] = feedItems
 		.map((item): InsertableItem | null => {
 			// For featured items, fetch full content
@@ -228,6 +232,7 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 				if (!item.content_id) return null
 				const fullContent = locals.contentService.getContentById(item.content_id)
 				if (!fullContent) return null
+				featuredContentIds.add(item.content_id)
 				return {
 					id: item.id,
 					type: 'featured',
@@ -261,7 +266,10 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 		})
 		.filter((item): item is InsertableItem => item !== null)
 
-	const feed = buildUnifiedFeed(content, insertables, pageNum)
+	// Remove featured content from regular feed to avoid duplicates
+	const dedupedContent = content.filter((c) => !featuredContentIds.has(c.id))
+
+	const feed = buildUnifiedFeed(dedupedContent, insertables, pageNum)
 
 	return {
 		feed,

@@ -1,4 +1,5 @@
 -- Create feed_items table for managing promotional content in the homepage feed
+-- Note: Application-level defaults are defined in FeedItemService.ts, not here
 CREATE TABLE IF NOT EXISTS feed_items (
     id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
     content_id TEXT,
@@ -7,14 +8,14 @@ CREATE TABLE IF NOT EXISTS feed_items (
     description TEXT,
     button_text TEXT,
     button_href TEXT,
-    position_type TEXT NOT NULL CHECK (position_type IN ('fixed', 'random')) DEFAULT 'random',
+    position_type TEXT NOT NULL CHECK (position_type IN ('fixed', 'random')),
     position_fixed INTEGER,
-    position_range_min INTEGER DEFAULT 3,
-    position_range_max INTEGER DEFAULT 7,
+    position_range_min INTEGER,
+    position_range_max INTEGER,
     start_date TIMESTAMP,
     end_date TIMESTAMP,
-    is_active BOOLEAN DEFAULT 1,
-    priority INTEGER DEFAULT 0,
+    is_active BOOLEAN NOT NULL,
+    priority INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by TEXT,

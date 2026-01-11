@@ -15,6 +15,7 @@
 	import Tags from './Tags.svelte'
 	import type { ContentWithAuthor } from '$lib/types/content'
 	import Buildings from 'phosphor-svelte/lib/Buildings'
+	import Star from 'phosphor-svelte/lib/Star'
 
 	import Announcement from '$lib/ui/content/Announcement.svelte'
 	import Collection from '$lib/ui/content/Collection.svelte'
@@ -34,18 +35,24 @@
 		content,
 		compact = false,
 		variant = 'list',
-		priority = 'auto'
+		priority = 'auto',
+		showFeaturedBadge = false
 	}: {
 		content: ContentWithAuthor
 		compact?: boolean
 		variant?: CardVariant
 		priority?: 'high' | 'auto'
+		showFeaturedBadge?: boolean
 	} = $props()
 
-	// Determine highlight variant based on job tier
+	// Determine highlight variant based on job tier or featured badge
 	const tierName = $derived(content.metadata?.tier_name)
 	const highlight = $derived<CardHighlight>(
-		content.type === 'job' && tierName === 'premium' ? 'border' : 'none'
+		showFeaturedBadge
+			? 'featured'
+			: content.type === 'job' && tierName === 'premium'
+				? 'border'
+				: 'none'
 	)
 
 	let likePending = $state(false)
@@ -100,7 +107,13 @@
 	class={contentCardVariants({ variant, compact, highlight })}
 >
 	<div class="mb-2 grid grid-cols-[1fr_auto] items-start justify-between gap-2 text-xs sm:gap-0">
-		<div class="flex min-w-0 flex-wrap items-center">
+		<div class="flex min-w-0 flex-wrap items-center gap-2">
+			{#if showFeaturedBadge}
+				<span class="flex shrink-0 items-center gap-1 rounded-full bg-svelte-500 px-2 py-0.5 text-xs font-semibold text-white">
+					<Star size={10} weight="fill" />
+					Featured
+				</span>
+			{/if}
 			<span data-testid="content-type" class="shrink-0 font-semibold capitalize">{content.type}&nbsp;</span>
 			{#if content.type === 'job' && content.metadata?.company_name}
 				<span class="flex min-w-0 max-w-full text-gray-500">

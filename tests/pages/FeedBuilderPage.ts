@@ -28,6 +28,8 @@ export class FeedBuilderPage extends BasePage {
 	readonly isActiveCheckbox: Locator
 	readonly submitButton: Locator
 	readonly cancelButton: Locator
+	readonly contentModeCustomRadio: Locator
+	readonly contentModeContentRadio: Locator
 
 	constructor(page: Page) {
 		super(page)
@@ -60,6 +62,8 @@ export class FeedBuilderPage extends BasePage {
 		this.isActiveCheckbox = page.getByTestId('checkbox-is_active')
 		this.submitButton = page.locator('button[type="submit"]')
 		this.cancelButton = page.locator('a[href="/admin/feed-builder"]').last()
+		this.contentModeCustomRadio = page.locator('#content_mode_custom')
+		this.contentModeContentRadio = page.locator('#content_mode_content')
 	}
 
 	async gotoList(): Promise<void> {
@@ -155,6 +159,34 @@ export class FeedBuilderPage extends BasePage {
 		await this.setDescription(data.description)
 		await this.setButtonText(data.buttonText)
 		await this.setButtonHref(data.buttonHref)
+		if (data.priority !== undefined) {
+			await this.setPriority(data.priority)
+		}
+	}
+
+	async setContentMode(mode: 'custom' | 'content'): Promise<void> {
+		if (mode === 'content') {
+			await this.contentModeContentRadio.click()
+		} else {
+			await this.contentModeCustomRadio.click()
+		}
+	}
+
+	async selectContent(index: number = 1): Promise<void> {
+		// Select the first non-empty option (index 0 is "Select content to feature")
+		const options = await this.contentIdSelect.locator('option').all()
+		if (options.length > index) {
+			const value = await options[index].getAttribute('value')
+			if (value) {
+				await this.contentIdSelect.selectOption(value)
+			}
+		}
+	}
+
+	async fillFeaturedContentForm(data: { priority?: number } = {}): Promise<void> {
+		await this.setItemType('featured')
+		await this.setContentMode('content')
+		await this.selectContent()
 		if (data.priority !== undefined) {
 			await this.setPriority(data.priority)
 		}
