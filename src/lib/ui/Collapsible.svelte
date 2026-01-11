@@ -1,77 +1,100 @@
 <script lang="ts">
-	import { Collapsible as CollapsiblePrimitive } from 'bits-ui'
-	import { slide } from 'svelte/transition'
+	import type { Snippet } from 'svelte'
+	import type { ClassValue } from 'svelte/elements'
+	import {
+		collapsibleTriggerVariants,
+		collapsibleContentVariants,
+		type CollapsibleTriggerVariant,
+		type CollapsibleContentPadding
+	} from './collapsible.variants'
 
 	type Props = {
 		title: string
-		icon?: any
+		icon?: Snippet
 		open?: boolean
-		showOnMobile?: boolean
-		showOnDesktop?: boolean
-		triggerClass?: string
-		contentClass?: string
-		children: any
+		variant?: CollapsibleTriggerVariant
+		padding?: CollapsibleContentPadding
+		triggerClass?: ClassValue
+		contentClass?: ClassValue
+		children: Snippet
 	}
 
 	let {
 		title,
 		icon,
 		open = $bindable(false),
-		showOnMobile = true,
-		showOnDesktop = true,
-		triggerClass = '',
-		contentClass = '',
+		variant,
+		padding,
+		triggerClass,
+		contentClass,
 		children
 	}: Props = $props()
 
-	let isOpen = $state(open)
-
-	// Determine visibility classes
-	let visibilityClass = $derived(() => {
-		if (showOnMobile && showOnDesktop) return ''
-		if (showOnMobile && !showOnDesktop) return 'sm:hidden'
-		if (!showOnMobile && showOnDesktop) return 'hidden sm:block'
-		return 'hidden' // Neither mobile nor desktop
-	})
+	function handleToggle(event: Event) {
+		open = (event as ToggleEvent).newState === 'open'
+	}
 </script>
 
-<div class={visibilityClass()}>
-	<CollapsiblePrimitive.Root bind:open={isOpen}>
-		<CollapsiblePrimitive.Trigger
-			class="focus:outline-svelte-300 flex w-full items-center justify-between rounded-lg border border-slate-200 bg-slate-50 p-3 text-left transition-[background-color] hover:bg-slate-100 focus:outline-2 focus:outline-offset-2 {triggerClass}"
+<details {open} ontoggle={handleToggle}>
+	<summary class={[collapsibleTriggerVariants({ variant }), triggerClass]}>
+		<div class="flex items-center gap-2">
+			{#if icon}
+				{@render icon()}
+			{/if}
+			<span class="font-medium text-gray-900">
+				{title}
+			</span>
+		</div>
+		<svg
+			class="h-4 w-4 text-gray-500 transition-transform duration-200"
+			class:rotate-180={open}
+			fill="none"
+			stroke="currentColor"
+			viewBox="0 0 24 24"
 		>
-			<div class="flex items-center gap-2">
-				{#if icon}
-					{@render icon()}
-				{/if}
-				<span class="font-medium text-gray-900">
-					{title}
-				</span>
-			</div>
-			<svg
-				class="h-4 w-4 text-gray-500 transition-transform duration-200"
-				class:rotate-180={isOpen}
-				fill="none"
-				stroke="currentColor"
-				viewBox="0 0 24 24"
-			>
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"
-				></path>
-			</svg>
-		</CollapsiblePrimitive.Trigger>
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"
+			></path>
+		</svg>
+	</summary>
 
-		<CollapsiblePrimitive.Content forceMount>
-			{#snippet child({ props, open })}
-				{#if open}
-					<div
-						transition:slide={{ duration: 200 }}
-						{...props}
-						class="my-4 rounded-lg border border-slate-200 bg-white p-4 {contentClass}"
-					>
-						{@render children()}
-					</div>
-				{/if}
-			{/snippet}
-		</CollapsiblePrimitive.Content>
-	</CollapsiblePrimitive.Root>
-</div>
+	<div class={[collapsibleContentVariants({ padding }), contentClass]}>
+		{@render children()}
+	</div>
+</details>
+
+<style>
+	/* Hide default marker */
+	summary::marker,
+	summary::-webkit-details-marker {
+		display: none;
+	}
+
+	/* Ensure summary doesn't show list-item marker */
+	summary {
+		list-style: none;
+	}
+
+	/* Base styles for content animation */
+	details::details-content {
+		overflow: clip;
+		height: 0;
+	}
+
+	/* Open state */
+	details[open]::details-content {
+		height: auto;
+	}
+
+	/* Animation for browsers that support interpolate-size */
+	@supports (interpolate-size: allow-keywords) {
+		details {
+			interpolate-size: allow-keywords;
+		}
+
+		details::details-content {
+			transition:
+				height 0.2s ease,
+				content-visibility 0.2s ease allow-discrete;
+		}
+	}
+</style>
