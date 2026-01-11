@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Combobox } from 'bits-ui'
+	import { inputVariants } from './input.variants'
 
 	// Define a generic type for the items
 	type Item = Record<string, any>
@@ -131,7 +132,7 @@ With error state:
 		<Combobox.Input
 			oninput={(e) => (searchValue = e.currentTarget.value)}
 			{placeholder}
-			class={`w-full rounded-md border-2 ${error ? 'border-red-300 bg-red-50 text-red-600' : 'border-transparent bg-slate-100 text-slate-800'} px-2 py-1.5 pr-7 text-sm placeholder-slate-500`}
+			class={inputVariants({ error })}
 		/>
 	</div>
 
