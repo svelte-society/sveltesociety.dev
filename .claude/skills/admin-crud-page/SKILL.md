@@ -30,6 +30,10 @@ src/routes/(admin)/admin/
         └── +page.svelte      # Create page (optional)
 ```
 
+> **IMPORTANT: Never use `+page.server.ts`**
+>
+> This project uses Remote Functions exclusively for server-side logic. All data loading, form handling, and mutations must go through `.remote.ts` files. Never create `+page.server.ts`, `+server.ts`, or use SvelteKit form actions.
+
 ## Admin-Specific Components
 
 | Component | Purpose | Import |

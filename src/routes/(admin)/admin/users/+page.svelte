@@ -67,6 +67,12 @@
 		{/snippet}
 	</Table>
 
+	{#if data.users.length === 0}
+		<div class="mt-8 text-center">
+			<p class="text-gray-500">No users found.</p>
+		</div>
+	{/if}
+
 	{#if data.pagination}
 		<Pagination count={data.pagination.count} perPage={data.pagination.perPage} />
 	{/if}

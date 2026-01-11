@@ -8,7 +8,7 @@
 	import Power from 'phosphor-svelte/lib/Power'
 	import { getFeedItems, toggleFeedItem, deleteFeedItem } from './data.remote'
 
-	const feedItems = getFeedItems()
+	const feedItems = await getFeedItems()
 
 	function formatDate(dateString: string | null) {
 		if (!dateString) return 'Not set'
@@ -53,7 +53,7 @@
 		{/snippet}
 	</PageHeader>
 
-	<Table action={true} data={await feedItems} testId="feed-items-table">
+	<Table action={true} data={feedItems} testId="feed-items-table">
 		{#snippet header(classes)}
 			<th class={classes}>Title</th>
 			<th class={classes}>Type</th>
@@ -73,14 +73,7 @@
 			<td class={classes}>{formatDate(item.end_date)}</td>
 			<td class={classes}>{item.priority}</td>
 			<td class={classes}>
-				<span
-					class={[
-						'inline-flex rounded-full px-2 text-xs leading-5 font-semibold',
-						item.is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-					]}
-				>
-					{item.is_active ? 'Active' : 'Inactive'}
-				</span>
+				<Badge color={item.is_active ? 'success' : 'default'} text={item.is_active ? 'Active' : 'Inactive'} />
 			</td>
 		{/snippet}
 		{#snippet actionCell(item)}
@@ -100,4 +93,10 @@
 			</Actions>
 		{/snippet}
 	</Table>
+
+	{#if feedItems.length === 0}
+		<div class="mt-8 text-center">
+			<p class="text-gray-500">No feed items found.</p>
+		</div>
+	{/if}
 </div>
