@@ -2,6 +2,7 @@
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
 	import { Actions, Action } from '$lib/ui/admin/Actions'
+	import Badge from '$lib/ui/admin/Badge.svelte'
 	import Newspaper from 'phosphor-svelte/lib/Newspaper'
 	import Plus from 'phosphor-svelte/lib/Plus'
 	import PaperPlaneTilt from 'phosphor-svelte/lib/PaperPlaneTilt'
@@ -11,23 +12,23 @@
 	import { sendCampaign } from './[id]/data.remote'
 	import { copyCampaign } from './[id]/data.remote'
 
-	const campaigns = getCampaigns()
+	const campaigns = await getCampaigns()
 
 	function formatDate(dateString: string | null) {
 		if (!dateString) return '-'
 		return new Date(dateString).toLocaleDateString()
 	}
 
-	function getStatusColor(status: string) {
+	function getStatusColor(status: string): 'info' | 'success' | 'warning' | 'danger' | 'default' {
 		switch (status) {
 			case 'draft':
-				return 'bg-gray-100 text-gray-800'
+				return 'default'
 			case 'scheduled':
-				return 'bg-blue-100 text-blue-800'
+				return 'info'
 			case 'sent':
-				return 'bg-green-100 text-green-800'
+				return 'success'
 			default:
-				return 'bg-gray-100 text-gray-800'
+				return 'default'
 		}
 	}
 
@@ -54,7 +55,7 @@
 		{/snippet}
 	</PageHeader>
 
-	<Table action={true} data={await campaigns} testId="campaigns-table">
+	<Table action={true} data={campaigns} testId="campaigns-table">
 		{#snippet header(classes)}
 			<th class={classes}>Title</th>
 			<th class={classes}>Subject</th>
@@ -66,14 +67,7 @@
 			<td class={classes}>{campaign.title}</td>
 			<td class={classes}>{campaign.subject}</td>
 			<td class={classes}>
-				<span
-					class={[
-						'inline-flex rounded-full px-2 text-xs leading-5 font-semibold capitalize',
-						getStatusColor(campaign.status)
-					]}
-				>
-					{campaign.status}
-				</span>
+				<Badge color={getStatusColor(campaign.status)} text={campaign.status} />
 			</td>
 			<td class={classes}>{formatDate(campaign.created_at)}</td>
 			<td class={classes}>{formatDate(campaign.sent_at)}</td>
@@ -116,4 +110,10 @@
 			</Actions>
 		{/snippet}
 	</Table>
+
+	{#if campaigns.length === 0}
+		<div class="mt-8 text-center">
+			<p class="text-gray-500">No campaigns found.</p>
+		</div>
+	{/if}
 </div>

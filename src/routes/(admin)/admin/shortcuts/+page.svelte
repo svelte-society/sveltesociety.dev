@@ -2,13 +2,14 @@
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
 	import { Actions, Action } from '$lib/ui/admin/Actions'
+	import Badge from '$lib/ui/admin/Badge.svelte'
 	import LinkSimple from 'phosphor-svelte/lib/LinkSimple'
 	import Plus from 'phosphor-svelte/lib/Plus'
 	import Power from 'phosphor-svelte/lib/Power'
 	import { getShortcuts, toggleShortcut, deleteShortcut } from './shortcuts.remote'
 	import type { SidebarShortcutWithContent } from '$lib/server/services/ShortcutService'
 
-	const shortcuts = getShortcuts()
+	const shortcuts = await getShortcuts()
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
@@ -29,7 +30,7 @@
 		{/snippet}
 	</PageHeader>
 
-	<Table action={true} data={await shortcuts} testId="shortcuts-table">
+	<Table action={true} data={shortcuts} testId="shortcuts-table">
 		{#snippet header(classes)}
 			<th class={classes}>Content</th>
 			<th class={classes}>Display Label</th>
@@ -43,13 +44,7 @@
 			<td class="{classes} capitalize">{shortcut.type}</td>
 			<td class={classes}>{shortcut.priority}</td>
 			<td class={classes} data-testid="shortcut-status">
-				<span
-					class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold {shortcut.is_active
-						? 'bg-green-100 text-green-800'
-						: 'bg-gray-100 text-gray-800'}"
-				>
-					{shortcut.is_active ? 'Active' : 'Inactive'}
-				</span>
+				<Badge color={shortcut.is_active ? 'success' : 'default'} text={shortcut.is_active ? 'Active' : 'Inactive'} />
 			</td>
 		{/snippet}
 		{#snippet actionCell(shortcut: SidebarShortcutWithContent)}
@@ -69,4 +64,10 @@
 			</Actions>
 		{/snippet}
 	</Table>
+
+	{#if shortcuts.length === 0}
+		<div class="mt-8 text-center">
+			<p class="text-gray-500">No shortcuts found.</p>
+		</div>
+	{/if}
 </div>

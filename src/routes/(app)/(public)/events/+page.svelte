@@ -1,17 +1,16 @@
 <script lang="ts">
 	import Calendar from 'phosphor-svelte/lib/Calendar'
 	import ClockCounterClockwise from 'phosphor-svelte/lib/ClockCounterClockwise'
-	import MapPin from 'phosphor-svelte/lib/MapPin'
-	import User from 'phosphor-svelte/lib/User'
 	import Event from './Event.svelte'
 	import Schema from '$lib/ui/Schema.svelte'
 	import { generateEventListSchema, type EventSchemaInput } from '$lib/seo'
+	import { getEvents } from './events.remote'
 
-	let { data } = $props()
+	const events = await getEvents()
 
 	// Generate event list schema for upcoming events (for rich snippets)
 	const eventSchemaInputs: EventSchemaInput[] = $derived(
-		data.upcomingEvents.map((event) => ({
+		events.upcomingEvents.map((event) => ({
 			name: event.title,
 			description: event.description,
 			startDate: event.startTime,
@@ -44,7 +43,7 @@
 			</p>
 		</div>
 
-		{#if data.upcomingEvents.length === 0}
+		{#if events.upcomingEvents.length === 0}
 			<div class="rounded-lg bg-zinc-50 p-8 text-center">
 				<Calendar size={48} class="mx-auto mb-4 text-gray-400" />
 				<p class="text-lg text-gray-600">No upcoming events at the moment.</p>
@@ -52,7 +51,7 @@
 			</div>
 		{:else}
 			<div class="grid gap-3">
-				{#each data.upcomingEvents as event}
+				{#each events.upcomingEvents as event (event.id)}
 					<Event {event} />
 				{/each}
 			</div>
@@ -69,14 +68,14 @@
 			</div>
 		</div>
 
-		{#if data.pastEvents.length === 0}
+		{#if events.pastEvents.length === 0}
 			<div class="rounded-lg bg-zinc-50 p-8 text-center">
 				<ClockCounterClockwise size={48} class="mx-auto mb-4 text-gray-400" />
 				<p class="text-lg text-gray-600">No past events to show.</p>
 			</div>
 		{:else}
 			<div class="grid gap-3">
-				{#each data.pastEvents as event}
+				{#each events.pastEvents as event (event.id)}
 					<Event {event} />
 				{/each}
 			</div>

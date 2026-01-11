@@ -97,43 +97,24 @@ Admin edit forms use a card wrapper for visual consistency:
 
 ## Delete with Confirmation
 
-Use `ConfirmWithDialog` for destructive actions:
+For delete actions in list pages, use `Action.Delete` in the Actions component (see [LIST-PAGE.md](./LIST-PAGE.md)).
 
+For standalone delete confirmation dialogs, this project currently uses `Action.Delete` in the list page rather than individual edit page delete buttons. The `Action.Delete` component automatically handles confirmation with remote functions.
+
+**Example in list page:**
 ```svelte
-<script>
-  import ConfirmWithDialog from '$lib/ui/admin/ConfirmWithDialog.svelte'
-  import Button from '$lib/ui/Button.svelte'
-  import { deleteItem } from '../data.remote'
-
-  const itemId = 'some-id'
-  // Create isolated form instance for this item
-  const remove = deleteItem.for(itemId)
-</script>
-
-<ConfirmWithDialog
-  title="Delete Item"
-  message="Are you sure? This action cannot be undone."
->
-  {#snippet trigger()}
-    <Button type="button" variant="danger">Delete</Button>
-  {/snippet}
-  {#snippet confirm()}
-    <form {...remove.enhance(async ({ submit }) => {
-      await submit()
-      // Redirect happens server-side via redirect()
-    })}>
-      <Button type="submit" variant="danger" disabled={!!remove.pending}>
-        {remove.pending ? 'Deleting...' : 'Confirm Delete'}
-      </Button>
-    </form>
-  {/snippet}
-</ConfirmWithDialog>
+{#snippet actionCell(item)}
+  <Actions id={item.id}>
+    <Action.Edit href={`/admin/items/${item.id}`} />
+    <Action.Delete
+      form={deleteItem}
+      confirm="Are you sure you want to delete this item?"
+    />
+  </Actions>
+{/snippet}
 ```
 
-**Key points:**
-- Use `form.for(id)` to create isolated instance
-- Use `.enhance()` for progressive enhancement
-- Redirect happens in the remote function
+**Note:** The existing `ConfirmWithDialog` component uses form actions which don't align with our remote functions architecture. For delete functionality, prefer using `Action.Delete` in list pages.
 
 ## ContentPicker for Relations
 
@@ -155,30 +136,14 @@ Use `ConfirmWithDialog` for destructive actions:
 
 ## Form Actions Layout
 
-Standard layout with delete on left, cancel/save on right:
+Standard layout with cancel/save buttons:
 
 ```svelte
-<div class="flex justify-between border-t border-gray-200 pt-6">
-  <!-- Delete button -->
-  <ConfirmWithDialog
-    title="Delete Item"
-    message="Are you sure?"
-  >
-    {#snippet trigger()}
-      <Button type="button" variant="danger">Delete</Button>
-    {/snippet}
-    {#snippet confirm()}
-      <!-- Delete form -->
-    {/snippet}
-  </ConfirmWithDialog>
-
-  <!-- Cancel and Save -->
-  <div class="flex gap-3">
-    <Button variant="secondary" href="/admin/items">Cancel</Button>
-    <Button type="submit" disabled={!!updateItem.pending}>
-      {updateItem.pending ? 'Saving...' : 'Save Changes'}
-    </Button>
-  </div>
+<div class="flex justify-end gap-4 border-t border-gray-200 pt-6">
+  <Button variant="secondary" href="/admin/items">Cancel</Button>
+  <Button type="submit" disabled={!!updateItem.pending}>
+    {updateItem.pending ? 'Saving...' : 'Save Changes'}
+  </Button>
 </div>
 ```
 

@@ -17,7 +17,7 @@
 	/>
 
 	<div class="rounded-2xl border-2 border-svelte-200 bg-gradient-to-br from-svelte-50 via-white to-svelte-50/50 shadow-sm">
-		<div class="border-b border-svelte-100 bg-gradient-to-r from-svelte-100/50 to-white px-6 py-4">
+		<div class="border-b border-svelte-100 bg-linear-to-r from-svelte-100/50 to-white px-6 py-4">
 			<div class="flex items-center gap-3">
 				<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-svelte-500 to-svelte-300 shadow-md">
 					<Info class="h-5 w-5 text-white" weight="duotone" />
@@ -42,9 +42,9 @@
 	</div>
 
 	<div class="rounded-2xl border border-gray-200 bg-white shadow-sm">
-		<div class="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white px-8 py-6">
+		<div class="border-b border-gray-100 bg-linear-to-r from-gray-50 to-white px-8 py-6">
 			<div class="flex items-center gap-3">
-				<div class="h-1 w-12 rounded-full bg-gradient-to-r from-svelte-500 to-svelte-300"></div>
+				<div class="h-1 w-12 rounded-full bg-linear-to-r from-svelte-500 to-svelte-300"></div>
 				<p class="text-sm font-medium text-gray-600">Content Details</p>
 			</div>
 		</div>

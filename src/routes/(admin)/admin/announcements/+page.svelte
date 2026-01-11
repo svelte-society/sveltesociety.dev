@@ -2,12 +2,13 @@
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
 	import { Actions, Action } from '$lib/ui/admin/Actions'
+	import Badge from '$lib/ui/admin/Badge.svelte'
 	import Megaphone from 'phosphor-svelte/lib/Megaphone'
 	import Plus from 'phosphor-svelte/lib/Plus'
 	import Power from 'phosphor-svelte/lib/Power'
 	import { getPlacements, togglePlacement, deletePlacement } from './announcements.remote'
 
-	const placements = getPlacements()
+	const placements = await getPlacements()
 
 	function formatDate(dateString: string | null) {
 		if (!dateString) return 'Not set'
@@ -32,7 +33,7 @@
 		{/snippet}
 	</PageHeader>
 
-	<Table action={true} data={await placements} testId="announcements-table">
+	<Table action={true} data={placements} testId="announcements-table">
 		{#snippet header(classes)}
 			<th class={classes}>Announcement</th>
 			<th class={classes}>Placement</th>
@@ -48,14 +49,7 @@
 			<td class={classes}>{formatDate(placement.end_date)}</td>
 			<td class={classes}>{placement.priority}</td>
 			<td class={classes}>
-				<span
-					class={[
-						'inline-flex rounded-full px-2 text-xs leading-5 font-semibold',
-						placement.is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-					]}
-				>
-					{placement.is_active ? 'Active' : 'Inactive'}
-				</span>
+				<Badge color={placement.is_active ? 'success' : 'default'} text={placement.is_active ? 'Active' : 'Inactive'} />
 			</td>
 		{/snippet}
 		{#snippet actionCell(placement)}
@@ -74,4 +68,10 @@
 			</Actions>
 		{/snippet}
 	</Table>
+
+	{#if placements.length === 0}
+		<div class="mt-8 text-center">
+			<p class="text-gray-500">No announcement placements found.</p>
+		</div>
+	{/if}
 </div>

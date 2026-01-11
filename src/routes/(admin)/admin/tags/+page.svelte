@@ -9,7 +9,7 @@
 	import { getTags, deleteTag } from './tags.remote'
 	import type { Tag as TagType } from '$lib/schema/tags'
 
-	const tags = getTags()
+	const tags = await getTags()
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
@@ -29,7 +29,7 @@
 		{/snippet}
 	</PageHeader>
 
-	<Table action={true} data={await tags} testId="tags-table">
+	<Table action={true} data={tags} testId="tags-table">
 		{#snippet header(classes)}
 			<th class={classes}>Name</th>
 			<th class={classes}>Created</th>
@@ -51,4 +51,10 @@
 			</Actions>
 		{/snippet}
 	</Table>
+
+	{#if tags.length === 0}
+		<div class="mt-8 text-center">
+			<p class="text-gray-500">No tags found.</p>
+		</div>
+	{/if}
 </div>
