@@ -33,6 +33,14 @@ const config = {
 };
 ```
 
+## Remote-First Architecture
+
+**Put as little as possible in +page.svelte, as much as possible in data.remote.ts.**
+
+Build final data structures server-side. Pages should be pure renderers that map types to components.
+
+See [REMOTE-FIRST.md](REMOTE-FIRST.md) for patterns and examples.
+
 ## Four Types of Remote Functions
 
 | Type | Purpose | Reference |

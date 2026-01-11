@@ -14,6 +14,17 @@ Use this skill when creating admin pages for managing entities.
 - Creating edit/create forms with validation
 - Adding quick actions (edit, delete, custom actions)
 
+## Architecture Principle
+
+**Remote-First: Put as little as possible in +page.svelte, as much as possible in data.remote.ts.**
+
+- Build final data structures server-side in remote functions
+- Pages should be pure renderers that map types to components
+- No business logic in page components
+- Export types from data.remote.ts for type safety
+
+See [using-remote-functions/REMOTE-FIRST.md](../using-remote-functions/REMOTE-FIRST.md) for detailed patterns.
+
 ## Route Structure
 
 Admin routes live in `src/routes/(admin)/admin/`:
@@ -21,8 +32,8 @@ Admin routes live in `src/routes/(admin)/admin/`:
 ```
 src/routes/(admin)/admin/
 └── [feature]/
-    ├── +page.svelte          # List page
-    ├── data.remote.ts        # Remote functions (queries, forms, commands)
+    ├── +page.svelte          # List page (pure renderer)
+    ├── data.remote.ts        # Remote functions (all logic here)
     ├── [id]/
     │   └── +page.svelte      # Edit page
     └── new/
