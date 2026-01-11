@@ -24,12 +24,8 @@
 	}
 </script>
 
-<Collapsible
-	title={menuOpen ? 'Hide Menu' : 'Show Menu'}
-	bind:open={menuOpen}
-	showOnMobile={true}
-	showOnDesktop={false}
->
+<div class="sm:hidden">
+	<Collapsible title={menuOpen ? 'Hide Menu' : 'Show Menu'} bind:open={menuOpen}>
 	{#snippet icon()}
 		<List size={20} class="text-gray-600" />
 	{/snippet}
@@ -99,4 +95,5 @@
 			</div>
 		</div>
 	{/snippet}
-</Collapsible>
+	</Collapsible>
+</div>

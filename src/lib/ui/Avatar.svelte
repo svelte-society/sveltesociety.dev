@@ -1,8 +1,16 @@
 <script lang="ts">
-	import { Avatar } from 'bits-ui'
+	import type { ClassValue } from 'svelte/elements'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
+	import { avatarVariants, type AvatarSize } from './avatar.variants'
 
-	let { src, name = '' } = $props()
+	type Props = {
+		src?: string | null
+		name?: string
+		size?: AvatarSize
+		class?: ClassValue
+	}
+
+	let { src, name = '', size, class: className }: Props = $props()
 
 	function getInitials(name: string): string {
 		if (!name) return '?'
@@ -15,14 +23,15 @@
 	}
 </script>
 
-<Avatar.Root
-	delayMs={200}
-	class="data-[status=loaded]:border-svelte-900 bg-svelte-100 h-10 w-10 rounded-full border text-sm font-medium text-slate-700 uppercase hover:opacity-80 data-[status=loading]:border-transparent"
->
-	<div
-		class="flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-transparent"
-	>
-		<Avatar.Image src={getCachedImageWithPreset(src, 'avatar')} alt={name} loading="lazy" decoding="async" />
-		<Avatar.Fallback class="border-none">{getInitials(name)}</Avatar.Fallback>
-	</div>
-</Avatar.Root>
+<div class={[avatarVariants({ size }), className]}>
+	<span class="select-none">{getInitials(name)}</span>
+	{#if src}
+		<img
+			src={getCachedImageWithPreset(src, 'avatar')}
+			alt={name}
+			loading="lazy"
+			decoding="async"
+			class="absolute inset-0.5 h-[calc(100%-4px)] w-[calc(100%-4px)] rounded-full border-0 object-cover"
+		/>
+	{/if}
+</div>

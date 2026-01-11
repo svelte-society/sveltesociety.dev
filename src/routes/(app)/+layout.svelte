@@ -69,7 +69,7 @@
 		<LeftSidebar {links} />
 
 		<div class="flex min-w-0 flex-col px-4 pt-8">
-			<div class="mb-6 shrink-0 sm:hidden">
+			<div class="mb-4 shrink-0 sm:hidden">
 				<MobileMenu {links} upcomingEvents={await getUpcomingEvents()} />
 			</div>
 

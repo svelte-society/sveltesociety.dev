@@ -13,6 +13,6 @@
 	let { sort }: Props = $props()
 </script>
 
-<div class="mb-4 p-2 sm:p-0">
+<div>
 	<FilterForm {sort} />
 </div>
