@@ -10,6 +10,7 @@
 		FileText,
 		Tag,
 		Megaphone,
+		Rows,
 		LinkSimple,
 		ArrowsLeftRight,
 		CloudArrowUp,
@@ -57,6 +58,12 @@
 			href: '/admin/announcements',
 			label: 'Announcements',
 			icon: Megaphone,
+			allowedRoles: ['admin', 'moderator']
+		},
+		{
+			href: '/admin/feed-builder',
+			label: 'Feed Builder',
+			icon: Rows,
 			allowedRoles: ['admin', 'moderator']
 		},
 		{
