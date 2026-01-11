@@ -59,7 +59,7 @@ jobs:
           DB_PATH: test.db
 
       - name: Build application
-        run: bun --bun run build
+        run: bun run build
         env:
           NODE_ENV: test
           DB_PATH: test.db
