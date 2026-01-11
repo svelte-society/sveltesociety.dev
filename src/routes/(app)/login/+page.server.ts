@@ -1,9 +1,9 @@
 import type { PageServerLoad } from './$types'
 import { dev } from '$app/environment'
-import { env } from '$env/dynamic/private'
+import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private'
 
 export const load: PageServerLoad = async ({ url }) => {
-	const oauthConfigured = Boolean(env.GITHUB_CLIENT_ID && env.GITHUB_CLIENT_SECRET)
+	const oauthConfigured = Boolean(GITHUB_CLIENT_ID && GITHUB_CLIENT_SECRET)
 
 	const authProviders = oauthConfigured
 		? [{ name: 'GitHub', icon: 'github', color: 'bg-slate-900 text-white' }]

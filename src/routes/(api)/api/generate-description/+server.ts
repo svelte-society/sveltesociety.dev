@@ -1,6 +1,6 @@
 import { json, error } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import { env } from '$env/dynamic/private'
+import { ANTHROPIC_API_KEY } from '$env/static/private'
 
 export const POST: RequestHandler = async ({ request, locals }) => {
 	// Check if user is authenticated
@@ -20,7 +20,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	}
 
 	// Check if API key is configured
-	const apiKey = env.ANTHROPIC_API_KEY
+	const apiKey = ANTHROPIC_API_KEY
 	if (!apiKey) {
 		throw error(500, 'AI service not configured')
 	}
