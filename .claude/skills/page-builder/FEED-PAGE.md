@@ -7,6 +7,7 @@ Feed pages display mixed-type items (content, CTAs, ads, featured items) using a
 **Build the feed server-side, render with a component map client-side.**
 
 The remote function returns a `FeedEntry[]` where each entry has:
+
 - `type` - Used to look up the component
 - `props` - Spread directly onto the component
 
@@ -47,22 +48,22 @@ Define a discriminated union for feed entries in `data.remote.ts`:
 ```typescript
 // Props for each component type
 export type CTAProps = {
-  title: string
-  description: string
-  buttonText: string
-  buttonHref: string
+	title: string
+	description: string
+	buttonText: string
+	buttonHref: string
 }
 
 export type ContentProps = {
-  content: ContentWithAuthor
+	content: ContentWithAuthor
 }
 
 // Discriminated union - all have `props` for spreading
 export type FeedEntry =
-  | { type: 'content'; props: ContentProps }
-  | { type: 'cta'; props: CTAProps }
-  | { type: 'ad'; props: CTAProps }
-  | { type: 'featured'; props: ContentProps }
+	| { type: 'content'; props: ContentProps }
+	| { type: 'cta'; props: CTAProps }
+	| { type: 'ad'; props: CTAProps }
+	| { type: 'featured'; props: ContentProps }
 ```
 
 ## Remote Function
@@ -119,51 +120,51 @@ Insert items at positions using a utility function:
 
 ```typescript
 type InsertableItem = {
-  type: string
-  positionType: 'fixed' | 'random'
-  positionFixed: number | null
-  positionRangeMin: number
-  positionRangeMax: number
-  priority: number
-  entry: FeedEntry
+	type: string
+	positionType: 'fixed' | 'random'
+	positionFixed: number | null
+	positionRangeMin: number
+	positionRangeMax: number
+	priority: number
+	entry: FeedEntry
 }
 
 function buildUnifiedFeed(
-  content: ContentWithAuthor[],
-  insertables: InsertableItem[],
-  seed: number
+	content: ContentWithAuthor[],
+	insertables: InsertableItem[],
+	seed: number
 ): FeedEntry[] {
-  // Start with content items
-  const feed: FeedEntry[] = content.map(c => ({
-    type: 'content',
-    props: { content: c }
-  }))
+	// Start with content items
+	const feed: FeedEntry[] = content.map((c) => ({
+		type: 'content',
+		props: { content: c }
+	}))
 
-  // Seeded random for SSR-consistent positioning
-  const random = seededRandom(seed)
+	// Seeded random for SSR-consistent positioning
+	const random = seededRandom(seed)
 
-  // Sort by priority, calculate positions
-  const sortedInsertables = [...insertables].sort((a, b) => b.priority - a.priority)
+	// Sort by priority, calculate positions
+	const sortedInsertables = [...insertables].sort((a, b) => b.priority - a.priority)
 
-  const insertions = sortedInsertables.map(item => {
-    let position: number
-    if (item.positionType === 'fixed' && item.positionFixed !== null) {
-      position = item.positionFixed
-    } else {
-      const min = item.positionRangeMin
-      const max = item.positionRangeMax
-      position = min + Math.floor(random() * (max - min + 1))
-    }
-    return { position: Math.max(0, Math.min(position, feed.length)), entry: item.entry }
-  })
+	const insertions = sortedInsertables.map((item) => {
+		let position: number
+		if (item.positionType === 'fixed' && item.positionFixed !== null) {
+			position = item.positionFixed
+		} else {
+			const min = item.positionRangeMin
+			const max = item.positionRangeMax
+			position = min + Math.floor(random() * (max - min + 1))
+		}
+		return { position: Math.max(0, Math.min(position, feed.length)), entry: item.entry }
+	})
 
-  // Insert from end to avoid index shifts
-  insertions.sort((a, b) => b.position - a.position)
-  for (const { position, entry } of insertions) {
-    feed.splice(position, 0, entry)
-  }
+	// Insert from end to avoid index shifts
+	insertions.sort((a, b) => b.position - a.position)
+	for (const { position, entry } of insertions) {
+		feed.splice(position, 0, entry)
+	}
 
-  return feed
+	return feed
 }
 ```
 
@@ -173,11 +174,11 @@ Use seeded random to ensure consistent positions between server and client:
 
 ```typescript
 function seededRandom(seed: number): () => number {
-  let state = seed
-  return () => {
-    state = (state * 1103515245 + 12345) & 0x7fffffff
-    return state / 0x7fffffff
-  }
+	let state = seed
+	return () => {
+		state = (state * 1103515245 + 12345) & 0x7fffffff
+		return state / 0x7fffffff
+	}
 }
 ```
 
@@ -215,26 +216,26 @@ Provide a default item when no insertables exist:
 
 ```typescript
 const DEFAULT_CTA: FeedEntry = {
-  type: 'cta',
-  props: {
-    title: 'Hiring Developers?',
-    description: 'Reach thousands of developers.',
-    buttonText: 'Post a Job',
-    buttonHref: '/jobs/submit'
-  }
+	type: 'cta',
+	props: {
+		title: 'Hiring Developers?',
+		description: 'Reach thousands of developers.',
+		buttonText: 'Post a Job',
+		buttonHref: '/jobs/submit'
+	}
 }
 
 function buildUnifiedFeed(content, insertables, seed) {
-  const feed = content.map(c => ({ type: 'content', props: { content: c } }))
+	const feed = content.map((c) => ({ type: 'content', props: { content: c } }))
 
-  if (insertables.length === 0 && feed.length >= 3) {
-    const random = seededRandom(seed)
-    const position = 3 + Math.floor(random() * 5)
-    feed.splice(Math.min(position, feed.length), 0, DEFAULT_CTA)
-    return feed
-  }
+	if (insertables.length === 0 && feed.length >= 3) {
+		const random = seededRandom(seed)
+		const position = 3 + Math.floor(random() * 5)
+		feed.splice(Math.min(position, feed.length), 0, DEFAULT_CTA)
+		return feed
+	}
 
-  // ... rest of insertion logic
+	// ... rest of insertion logic
 }
 ```
 

@@ -17,12 +17,7 @@ const CACHE_TTL = 3600 * 1000 // 1 hour in milliseconds
 /**
  * Creates a sitemap URL entry
  */
-function createUrlEntry(
-	path: string,
-	lastmod: Date,
-	priority: number,
-	changefreq: string
-): string {
+function createUrlEntry(path: string, lastmod: Date, priority: number, changefreq: string): string {
 	const url = `${SEO_CONFIG.siteUrl}${path}`
 	const lastmodFormatted = lastmod.toISOString()
 
@@ -42,9 +37,7 @@ function generateSitemap(locals: App.Locals): string {
 	const urls: string[] = []
 
 	// Homepage
-	urls.push(
-		createUrlEntry('/', now, SEO_CONFIG.priority.homepage, SEO_CONFIG.changefreq.homepage)
-	)
+	urls.push(createUrlEntry('/', now, SEO_CONFIG.priority.homepage, SEO_CONFIG.changefreq.homepage))
 
 	// Category pages
 	const categories = ['recipe', 'video', 'library', 'collection', 'announcement', 'resource']

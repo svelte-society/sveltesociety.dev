@@ -80,7 +80,9 @@ test.describe('Newsletter Subscribe Form', () => {
 		// Should show loading text (this happens very quickly)
 		// We check that the button has either loading text or success state appeared
 		await Promise.race([
-			expect(subscribePage.submitButton).toHaveText(/subscribing/i, { timeout: 500 }).catch(() => {}),
+			expect(subscribePage.submitButton)
+				.toHaveText(/subscribing/i, { timeout: 500 })
+				.catch(() => {}),
 			subscribePage.successMessage.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {}),
 			subscribePage.errorMessage.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {})
 		])

@@ -310,8 +310,7 @@ export class GitHubImporter {
 					response = await fetch(`${this.apiBaseUrl}/repos/${owner}/${repo}/readme`, { headers })
 					if (response.ok) {
 						const data: GitHubReadme = await response.json()
-						readmeContent =
-							data.encoding === 'base64' ? atob(data.content) : data.content
+						readmeContent = data.encoding === 'base64' ? atob(data.content) : data.content
 					}
 				}
 
@@ -377,9 +376,7 @@ export class GitHubImporter {
 				headers['Authorization'] = `Bearer ${this.token}`
 			}
 
-			const contentPath = packagePath
-				? `${packagePath}/package.json`
-				: 'package.json'
+			const contentPath = packagePath ? `${packagePath}/package.json` : 'package.json'
 
 			const response = await fetch(
 				`${this.apiBaseUrl}/repos/${owner}/${repo}/contents/${contentPath}`,

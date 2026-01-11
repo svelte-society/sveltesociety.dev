@@ -52,12 +52,14 @@ bun test:integration --grep "search"
 Each test file gets its own isolated database copy to ensure complete test independence:
 
 **How it works:**
+
 1. `test.db` is the base database (initialized and seeded once)
 2. Each test file gets a unique copy (e.g., `test-public-search.db`)
 3. Tests set a cookie to route requests to their isolated database
 4. Databases are automatically created in `globalSetup` and cleaned up in `globalTeardown`
 
 **Benefits:**
+
 - ✅ Perfect test isolation - no test can affect another
 - ✅ Parallel execution safe - tests never conflict
 - ✅ Fast - databases pre-created, not during test execution
@@ -80,18 +82,21 @@ bun run db:test:seed
 Three test users with different permission levels:
 
 ### Admin User
+
 - **Username:** `test_admin`
 - **Email:** `admin@test.local`
 - **Role:** Admin (full access to all features)
 - **Session Token:** `test_session_admin_token`
 
 ### Contributor User (Moderator)
+
 - **Username:** `test_contributor`
 - **Email:** `contributor@test.local`
 - **Role:** Moderator (can submit and moderate content)
 - **Session Token:** `test_session_contributor_token`
 
 ### Viewer User (Member)
+
 - **Username:** `test_viewer`
 - **Email:** `viewer@test.local`
 - **Role:** Member (read-only access, can save content)
@@ -105,8 +110,8 @@ Use the `loginAs` helper function:
 import { loginAs } from '../../helpers/auth'
 
 test.beforeEach(async ({ page }) => {
-  await setupDatabaseIsolation(page)
-  await loginAs(page, 'admin')  // or 'contributor' or 'viewer'
+	await setupDatabaseIsolation(page)
+	await loginAs(page, 'admin') // or 'contributor' or 'viewer'
 })
 ```
 
@@ -115,6 +120,7 @@ test.beforeEach(async ({ page }) => {
 Seed data includes:
 
 **Content:** 8 items (recipes, videos, libraries, announcements, collections)
+
 - Mix of published, pending review, and draft content
 - Variety of content types for testing different views
 
@@ -167,25 +173,26 @@ import { HomePage, ContentListPage } from '../../pages'
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('Search Functionality', () => {
-  test.beforeEach(async ({ page }) => {
-    await setupDatabaseIsolation(page)
-  })
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page)
+	})
 
-  test('can search for content', async ({ page }) => {
-    const homePage = new HomePage(page)
-    await homePage.goto()
-    await homePage.search('Counter')
+	test('can search for content', async ({ page }) => {
+		const homePage = new HomePage(page)
+		await homePage.goto()
+		await homePage.search('Counter')
 
-    const contentList = new ContentListPage(page)
-    await contentList.expectContentDisplayed()
+		const contentList = new ContentListPage(page)
+		await contentList.expectContentDisplayed()
 
-    const titles = await contentList.getContentTitles()
-    expect(titles.some(title => title.includes('Counter'))).toBeTruthy()
-  })
+		const titles = await contentList.getContentTitles()
+		expect(titles.some((title) => title.includes('Counter'))).toBeTruthy()
+	})
 })
 ```
 
 **Why POMs?**
+
 - ✅ Maintainable - changes to UI only affect POM, not all tests
 - ✅ Reusable - same page interactions used across multiple tests
 - ✅ Readable - tests read like plain English
@@ -211,11 +218,13 @@ get submitButton(): Locator {
 
 **Auto-generated test-ids:**
 Form components automatically generate test-ids from their `name` prop:
+
 - `<Input name="username" />` → `data-testid="input-username"`
 - `<Textarea name="description" />` → `data-testid="textarea-description"`
 - `<Select name="role" />` → `data-testid="select-role"`
 
 **Why test-ids?**
+
 - ✅ Stable - don't break when CSS/styling changes
 - ✅ Explicit - clear intent for testing
 - ✅ Fast - direct element lookup
@@ -225,6 +234,7 @@ Form components automatically generate test-ids from their `name` prop:
 ### Best Practices
 
 **✅ Do:**
+
 - Use POMs for all page interactions
 - Add test-ids to new components
 - Use `setupDatabaseIsolation()` in `beforeEach`
@@ -235,6 +245,7 @@ Form components automatically generate test-ids from their `name` prop:
 - Use helper functions (`loginAs`, etc.)
 
 **❌ Don't:**
+
 - Use CSS selectors or XPath
 - Add unnecessary waits (use `waitForLoadState` only when needed)
 - Test implementation details
@@ -250,11 +261,12 @@ Form components automatically generate test-ids from their `name` prop:
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.beforeEach(async ({ page }) => {
-  await setupDatabaseIsolation(page)  // Auto-detects test file name
+	await setupDatabaseIsolation(page) // Auto-detects test file name
 })
 ```
 
 This automatically:
+
 1. Detects your test file name from the stack trace
 2. Sets a cookie to route requests to your isolated database
 3. Ensures complete test independence
@@ -262,16 +274,19 @@ This automatically:
 ## Performance & Parallelization
 
 **Current Performance:**
+
 - **Local:** ~14 seconds for 65 tests (with 4 workers)
 - **CI:** ~15-20 seconds for test execution
 - **Total CI time:** ~3-4 minutes (including build, dependencies, database setup)
 
 **Parallel Execution:**
+
 - ✅ Enabled by default (`fullyParallel: true`)
 - ✅ 4 workers run tests concurrently
 - ✅ Database isolation ensures safety
 
 **Why it's fast:**
+
 - Pre-created isolated databases (no runtime overhead)
 - Parallel execution (4 tests at once)
 - Efficient POMs (no redundant waits)
@@ -280,28 +295,33 @@ This automatically:
 ## Troubleshooting
 
 ### Tests fail with "database locked"
+
 - Check that no other process is accessing test databases
 - Ensure tests are using `setupDatabaseIsolation()`
 - Try running with `--workers=1` to isolate the issue
 
 ### Tests fail with "session not found" / "Unauthorized"
+
 - Ensure you're using `loginAs()` helper for authenticated tests
 - Check that database was seeded: `bun run db:test:seed`
 - Verify session tokens in `tests/fixtures/test-data.ts`
 
 ### Tests timeout
+
 - Check for missing `await` keywords
 - Ensure elements have `data-testid` attributes
 - Look for slow network requests in the test output
 - Try running in headed mode to see what's happening: `bun run test:integration:headed`
 
 ### Flaky tests
+
 - Avoid `waitForTimeout()` - use `waitForLoadState('networkidle')` if needed
 - Ensure proper waiting with `expectContentDisplayed()` or similar
 - Check for race conditions in asynchronous operations
 - Use `test.fail()` to mark known flaky tests
 
 ### Build or environment issues
+
 - Check that `.env.development` exists with required variables
 - Ensure `bun install` completed successfully
 - Try cleaning: `rm -rf node_modules && bun install`
@@ -314,6 +334,7 @@ Tests run automatically on GitHub Actions for every PR to `staging`:
 **Workflow:** `.github/workflows/playwright.yml`
 
 **Steps:**
+
 1. Install dependencies
 2. Cache Playwright browsers (~1.5 min savings)
 3. Initialize and seed test database
@@ -323,10 +344,12 @@ Tests run automatically on GitHub Actions for every PR to `staging`:
 7. Upload artifacts (HTML report, screenshots, videos)
 
 **Performance:**
+
 - First run: ~5-6 minutes (downloads browsers)
 - Subsequent runs: ~3-4 minutes (uses cached browsers)
 
 **Artifacts:**
+
 - HTML report (always uploaded, 30 day retention)
 - Test results with screenshots/videos (uploaded on failure, 30 day retention)
 
@@ -340,6 +363,7 @@ Tests run automatically on GitHub Actions for every PR to `staging`:
 ## Getting Help
 
 If you encounter issues:
+
 1. Check this README's troubleshooting section
 2. Review test output and error messages
 3. Run in headed mode to see browser: `bun run test:integration:headed`

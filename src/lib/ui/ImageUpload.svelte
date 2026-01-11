@@ -4,6 +4,7 @@
 	import Upload from 'phosphor-svelte/lib/Upload'
 	import X from 'phosphor-svelte/lib/X'
 	import Image from 'phosphor-svelte/lib/Image'
+	import { imageUploadDropzoneVariants, type ImageUploadState } from './imageUpload.variants'
 
 	type Props = {
 		label?: string
@@ -30,6 +31,9 @@
 	let isDragOver = $state(false)
 
 	const hasErrors = $derived((issues && issues.length > 0) || error !== '')
+	const dropzoneState = $derived<ImageUploadState>(
+		isDragOver ? 'dragging' : hasErrors ? 'error' : 'default'
+	)
 
 	function handleFileSelect(file: File | null) {
 		if (!file) {
@@ -138,11 +142,7 @@
 			ondrop={handleDrop}
 			ondragover={handleDragOver}
 			ondragleave={handleDragLeave}
-			class="flex h-24 w-full max-w-xs cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed transition-colors {isDragOver
-				? 'border-orange-400 bg-orange-50'
-				: hasErrors
-					? 'border-red-300 bg-red-50'
-					: 'border-slate-300 bg-slate-50 hover:border-orange-300 hover:bg-orange-50'}"
+			class={imageUploadDropzoneVariants({ state: dropzoneState })}
 			data-testid={testId}
 		>
 			{#if isDragOver}

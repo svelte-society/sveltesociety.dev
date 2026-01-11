@@ -37,7 +37,9 @@ async function seedTestDatabase() {
 		// Get role IDs
 		const roles = {
 			admin: db.prepare('SELECT id FROM roles WHERE value = ?').get('admin') as { id: number },
-			moderator: db.prepare('SELECT id FROM roles WHERE value = ?').get('moderator') as { id: number },
+			moderator: db.prepare('SELECT id FROM roles WHERE value = ?').get('moderator') as {
+				id: number
+			},
 			member: db.prepare('SELECT id FROM roles WHERE value = ?').get('member') as { id: number }
 		}
 
@@ -48,7 +50,7 @@ async function seedTestDatabase() {
 			VALUES (?, ?, ?, ?, ?, ?, ?)
 		`)
 
-		Object.values(TEST_USERS).forEach(user => {
+		Object.values(TEST_USERS).forEach((user) => {
 			const roleId = roles[user.roleValue as keyof typeof roles].id
 			userInsert.run(
 				user.id,
@@ -63,7 +65,9 @@ async function seedTestDatabase() {
 
 		// 2. Create OAuth provider entries for test users
 		console.log('  → Creating OAuth entries...')
-		const githubProvider = db.prepare('SELECT id FROM oauth_providers WHERE name = ?').get('github') as { id: number }
+		const githubProvider = db
+			.prepare('SELECT id FROM oauth_providers WHERE name = ?')
+			.get('github') as { id: number }
 		const oauthInsert = db.prepare(`
 			INSERT INTO user_oauth (user_id, provider_id, provider_user_id, access_token, profile_data)
 			VALUES (?, ?, ?, ?, ?)
@@ -87,7 +91,7 @@ async function seedTestDatabase() {
 		`)
 
 		const expiry = getSessionExpiry()
-		Object.values(TEST_USERS).forEach(user => {
+		Object.values(TEST_USERS).forEach((user) => {
 			sessionInsert.run(user.id, user.sessionToken, expiry)
 		})
 
@@ -98,7 +102,7 @@ async function seedTestDatabase() {
 			VALUES (?, ?, ?, ?)
 		`)
 
-		TEST_TAGS.forEach(tag => tagInsert.run(tag.id, tag.name, tag.slug, tag.color))
+		TEST_TAGS.forEach((tag) => tagInsert.run(tag.id, tag.name, tag.slug, tag.color))
 
 		// 5. Create sample content
 		console.log('  → Creating sample content...')
@@ -109,8 +113,9 @@ async function seedTestDatabase() {
 
 		const yesterday = getYesterday()
 
-		TEST_CONTENT.forEach(content => {
-			const children = 'children' in content && content.children ? JSON.stringify(content.children) : null
+		TEST_CONTENT.forEach((content) => {
+			const children =
+				'children' in content && content.children ? JSON.stringify(content.children) : null
 			contentInsert.run(
 				content.id,
 				content.title,
@@ -132,7 +137,7 @@ async function seedTestDatabase() {
 			VALUES (?, ?)
 		`)
 
-		TEST_CONTENT.forEach(content => {
+		TEST_CONTENT.forEach((content) => {
 			contentUserInsert.run(content.id, content.authorId)
 		})
 
@@ -143,8 +148,8 @@ async function seedTestDatabase() {
 			VALUES (?, ?)
 		`)
 
-		TEST_CONTENT.forEach(content => {
-			content.tags.forEach(tagId => {
+		TEST_CONTENT.forEach((content) => {
+			content.tags.forEach((tagId) => {
 				contentTagInsert.run(content.id, tagId)
 			})
 		})
@@ -156,13 +161,13 @@ async function seedTestDatabase() {
 			VALUES (?, ?)
 		`)
 
-		TEST_SAVES.forEach(save => {
+		TEST_SAVES.forEach((save) => {
 			saveInsert.run(save.userId, save.contentId)
 		})
 
 		// 9. Add pending content entries (for moderation testing)
 		console.log('  → Creating pending content entries...')
-		TEST_PENDING_CONTENT.forEach(content => {
+		TEST_PENDING_CONTENT.forEach((content) => {
 			contentInsert.run(
 				content.id,
 				content.title,
@@ -173,19 +178,19 @@ async function seedTestDatabase() {
 				content.description,
 				content.metadata ? JSON.stringify(content.metadata) : null,
 				null, // children
-				null  // published_at
+				null // published_at
 			)
 			// Link to author
 			contentUserInsert.run(content.id, content.authorId)
 			// Link to tags
-			content.tags.forEach(tagId => {
+			content.tags.forEach((tagId) => {
 				contentTagInsert.run(content.id, tagId)
 			})
 		})
 
 		// 10. Add job listings
 		console.log('  → Creating job listings...')
-		TEST_JOBS.forEach(job => {
+		TEST_JOBS.forEach((job) => {
 			contentInsert.run(
 				job.id,
 				job.title,
@@ -201,7 +206,7 @@ async function seedTestDatabase() {
 			// Link to author
 			contentUserInsert.run(job.id, job.authorId)
 			// Link to tags
-			job.tags.forEach(tagId => {
+			job.tags.forEach((tagId) => {
 				contentTagInsert.run(job.id, tagId)
 			})
 		})
@@ -211,18 +216,23 @@ async function seedTestDatabase() {
 		console.log('\n📊 Summary:')
 		console.log(`   Users: ${Object.keys(TEST_USERS).length} (admin, contributor, viewer)`)
 		console.log(`   Tags: ${TEST_TAGS.length}`)
-		console.log(`   Content: ${TEST_CONTENT.length} published + ${TEST_PENDING_CONTENT.length} pending`)
+		console.log(
+			`   Content: ${TEST_CONTENT.length} published + ${TEST_PENDING_CONTENT.length} pending`
+		)
 		console.log(`   Jobs: ${TEST_JOBS.length} published`)
 		console.log(`   Sessions: ${Object.keys(TEST_USERS).length} (one per user)`)
 		console.log('\n🔑 Test User Credentials:')
 		Object.entries(TEST_USERS).forEach(([key, user]) => {
-			console.log(`   ${key.charAt(0).toUpperCase() + key.slice(1).padEnd(12)} ${user.username} / ${user.email}`)
+			console.log(
+				`   ${key.charAt(0).toUpperCase() + key.slice(1).padEnd(12)} ${user.username} / ${user.email}`
+			)
 		})
 		console.log(`\n🎫 Session Tokens (for auth fixtures):`)
 		Object.entries(TEST_USERS).forEach(([key, user]) => {
-			console.log(`   ${key.charAt(0).toUpperCase() + key.slice(1).padEnd(12)} ${user.sessionToken}`)
+			console.log(
+				`   ${key.charAt(0).toUpperCase() + key.slice(1).padEnd(12)} ${user.sessionToken}`
+			)
 		})
-
 	} catch (error) {
 		console.error('❌ Failed to seed test database:', error)
 		throw error

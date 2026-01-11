@@ -6,12 +6,20 @@ console.log('Tables in test.db:')
 tables.forEach((t: any) => console.log(`  - ${t.name}`))
 
 // Check a few key tables exist
-const expectedTables = ['users', 'roles', 'content', 'sessions', 'migrations', 'tags', 'content_to_tags']
+const expectedTables = [
+	'users',
+	'roles',
+	'content',
+	'sessions',
+	'migrations',
+	'tags',
+	'content_to_tags'
+]
 const tableNames = tables.map((t: any) => t.name)
 console.log('\nVerifying key tables:')
-expectedTables.forEach(table => {
-  const exists = tableNames.includes(table)
-  console.log(`  ${exists ? '✓' : '✗'} ${table}`)
+expectedTables.forEach((table) => {
+	const exists = tableNames.includes(table)
+	console.log(`  ${exists ? '✓' : '✗'} ${table}`)
 })
 
 // Check migrations table

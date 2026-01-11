@@ -45,16 +45,16 @@ Instead of returning raw data and building structures in the page, build the fin
 ```ts
 // data.remote.ts
 export type FeedEntry =
-  | { type: 'content'; id: string; content: ContentData }
-  | { type: 'featured'; id: string; content: ContentData }
-  | { type: 'cta'; id: string; cta: CTAProps }
+	| { type: 'content'; id: string; content: ContentData }
+	| { type: 'featured'; id: string; content: ContentData }
+	| { type: 'cta'; id: string; cta: CTAProps }
 
 export const getFeed = query(async () => {
-  // All logic lives here
-  const items = await getItems()
-  const featured = await getFeaturedItems()
-  const feed = buildFeed(items, featured)
-  return feed.sort((a, b) => b.priority - a.priority)
+	// All logic lives here
+	const items = await getItems()
+	const featured = await getFeaturedItems()
+	const feed = buildFeed(items, featured)
+	return feed.sort((a, b) => b.priority - a.priority)
 })
 ```
 
@@ -85,10 +85,10 @@ export type CTAProps = { title: string; buttonText: string; buttonHref: string }
 export type ContentProps = { content: ContentWithAuthor }
 
 export type FeedEntry =
-  | { type: 'content'; props: ContentProps }
-  | { type: 'featured'; props: ContentProps }
-  | { type: 'cta'; props: CTAProps }
-  | { type: 'ad'; props: CTAProps }
+	| { type: 'content'; props: ContentProps }
+	| { type: 'featured'; props: ContentProps }
+	| { type: 'cta'; props: CTAProps }
+	| { type: 'ad'; props: CTAProps }
 ```
 
 ```svelte
@@ -134,5 +134,6 @@ export type FeedEntry =
 ## Real Example
 
 See the homepage feed implementation:
+
 - `src/routes/(app)/(public)/data.remote.ts` - Builds unified feed server-side
 - `src/routes/(app)/(public)/+page.svelte` - Simple renderer with type-based component selection

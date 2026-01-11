@@ -148,8 +148,14 @@ export interface EventSchema extends SchemaBase {
 		name: string
 		url?: string
 	}
-	eventStatus?: 'https://schema.org/EventScheduled' | 'https://schema.org/EventCancelled' | 'https://schema.org/EventPostponed'
-	eventAttendanceMode?: 'https://schema.org/OnlineEventAttendanceMode' | 'https://schema.org/OfflineEventAttendanceMode' | 'https://schema.org/MixedEventAttendanceMode'
+	eventStatus?:
+		| 'https://schema.org/EventScheduled'
+		| 'https://schema.org/EventCancelled'
+		| 'https://schema.org/EventPostponed'
+	eventAttendanceMode?:
+		| 'https://schema.org/OnlineEventAttendanceMode'
+		| 'https://schema.org/OfflineEventAttendanceMode'
+		| 'https://schema.org/MixedEventAttendanceMode'
 }
 
 /**

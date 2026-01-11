@@ -28,9 +28,9 @@ describe('JobApplicationService', () => {
 		testJobId = job.id
 
 		// Create a test user
-		const existingUser = db.prepare('SELECT id FROM users WHERE username = $username').get({ username: 'test_applicant' }) as
-			| { id: string }
-			| undefined
+		const existingUser = db
+			.prepare('SELECT id FROM users WHERE username = $username')
+			.get({ username: 'test_applicant' }) as { id: string } | undefined
 
 		if (existingUser) {
 			testUserId = existingUser.id

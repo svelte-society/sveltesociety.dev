@@ -409,7 +409,10 @@ export class ContentService {
 			let authorNames: string[] = []
 			if (data.author_id) {
 				const authorQuery = this.db.prepare(`SELECT name, username FROM users WHERE id = ?`)
-				const author = authorQuery.get(data.author_id) as { name: string | null; username: string } | null
+				const author = authorQuery.get(data.author_id) as {
+					name: string | null
+					username: string
+				} | null
 				if (author) {
 					authorNames = [author.name || author.username]
 				}

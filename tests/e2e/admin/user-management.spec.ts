@@ -32,7 +32,6 @@ test.describe('Admin - User Management', () => {
 		expect(firstRole.length).toBeGreaterThan(0)
 	})
 
-
 	test('can navigate to user details page', async ({ page }) => {
 		const userManagementPage = new UserManagementPage(page)
 		await userManagementPage.gotoUsersList()

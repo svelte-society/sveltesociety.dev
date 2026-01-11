@@ -6,10 +6,10 @@ Starter templates for Remote Functions. Copy and customize.
 
 ```ts
 // src/lib/components/[feature]/data.remote.ts
-import { z } from 'zod/v4';
-import { error, redirect } from '@sveltejs/kit';
-import { query, form, command } from '$app/server';
-import * as db from '$lib/server/database';
+import { z } from 'zod/v4'
+import { error, redirect } from '@sveltejs/kit'
+import { query, form, command } from '$app/server'
+import * as db from '$lib/server/database'
 
 // ============================================
 // QUERIES - Reading Data
@@ -20,24 +20,24 @@ import * as db from '$lib/server/database';
  * TODO: Replace with your query
  */
 export const getItems = query(async () => {
-  const items = await db.sql`
+	const items = await db.sql`
     SELECT * FROM items
     ORDER BY created_at DESC
-  `;
-  return items;
-});
+  `
+	return items
+})
 
 /**
  * Get single item by ID
  * TODO: Replace with your query
  */
 export const getItem = query(z.string(), async (id) => {
-  const [item] = await db.sql`
+	const [item] = await db.sql`
     SELECT * FROM items WHERE id = ${id}
-  `;
-  if (!item) error(404, 'Not found');
-  return item;
-});
+  `
+	if (!item) error(404, 'Not found')
+	return item
+})
 
 // ============================================
 // FORMS - Form Submissions
@@ -48,46 +48,46 @@ export const getItem = query(z.string(), async (id) => {
  * TODO: Replace schema and handler
  */
 export const createItem = form(
-  z.object({
-    name: z.string().min(1, 'Name is required'),
-    description: z.string().optional()
-  }),
-  async ({ name, description }) => {
-    await db.sql`
+	z.object({
+		name: z.string().min(1, 'Name is required'),
+		description: z.string().optional()
+	}),
+	async ({ name, description }) => {
+		await db.sql`
       INSERT INTO items (name, description)
       VALUES (${name}, ${description})
-    `;
+    `
 
-    // Refresh the list after creating
-    await getItems().refresh();
+		// Refresh the list after creating
+		await getItems().refresh()
 
-    redirect(303, '/items');
-  }
-);
+		redirect(303, '/items')
+	}
+)
 
 /**
  * Update existing item
  * TODO: Replace schema and handler
  */
 export const updateItem = form(
-  z.object({
-    id: z.string(),
-    name: z.string().min(1, 'Name is required'),
-    description: z.string().optional()
-  }),
-  async ({ id, name, description }) => {
-    await db.sql`
+	z.object({
+		id: z.string(),
+		name: z.string().min(1, 'Name is required'),
+		description: z.string().optional()
+	}),
+	async ({ id, name, description }) => {
+		await db.sql`
       UPDATE items
       SET name = ${name}, description = ${description}
       WHERE id = ${id}
-    `;
+    `
 
-    // Refresh the specific item
-    await getItem(id).refresh();
+		// Refresh the specific item
+		await getItem(id).refresh()
 
-    return { success: true };
-  }
-);
+		return { success: true }
+	}
+)
 
 // ============================================
 // COMMANDS - Programmatic Mutations
@@ -98,25 +98,25 @@ export const updateItem = form(
  * TODO: Replace with your command
  */
 export const deleteItem = command(z.string(), async (id) => {
-  await db.sql`DELETE FROM items WHERE id = ${id}`;
+	await db.sql`DELETE FROM items WHERE id = ${id}`
 
-  // Refresh the list after deleting
-  await getItems().refresh();
-});
+	// Refresh the list after deleting
+	await getItems().refresh()
+})
 
 /**
  * Toggle item status
  * TODO: Replace with your command
  */
 export const toggleItem = command(z.string(), async (id) => {
-  await db.sql`
+	await db.sql`
     UPDATE items
     SET is_active = NOT is_active
     WHERE id = ${id}
-  `;
+  `
 
-  await getItem(id).refresh();
-});
+	await getItem(id).refresh()
+})
 ```
 
 ## Component.svelte Template
@@ -256,23 +256,23 @@ When rendering forms in a list, use `.for(id)` to isolate each form instance:
 
 ```ts
 export const updateItem = form(
-  z.object({
-    name: z.string().min(1),
-    description: z.string().optional()
-  }),
-  async ({ name, description }, issue) => {
-    // The id comes from .for(id), not from form fields
-    const { params } = getRequestEvent();
-    // Or pass id through a hidden field if needed
+	z.object({
+		name: z.string().min(1),
+		description: z.string().optional()
+	}),
+	async ({ name, description }, issue) => {
+		// The id comes from .for(id), not from form fields
+		const { params } = getRequestEvent()
+		// Or pass id through a hidden field if needed
 
-    await db.sql`
+		await db.sql`
       UPDATE items SET name = ${name}, description = ${description}
       WHERE id = ${params.id}
-    `;
+    `
 
-    return { success: true };
-  }
-);
+		return { success: true }
+	}
+)
 ```
 
 ### Component.svelte with Multiple Forms
@@ -316,6 +316,7 @@ export const updateItem = form(
 ## Composing Remote Functions (Auth, Shared Logic)
 
 Remote functions can call other remote functions. This is useful for:
+
 - Authorization checks
 - Shared data fetching
 - Reusable logic
@@ -324,105 +325,103 @@ Remote functions can call other remote functions. This is useful for:
 
 ```ts
 // src/lib/server/auth.remote.ts
-import { getRequestEvent, query } from '$app/server';
-import { redirect } from '@sveltejs/kit';
+import { getRequestEvent, query } from '$app/server'
+import { redirect } from '@sveltejs/kit'
 
 /**
  * Check if user is authenticated
  * Call from other remote functions
  */
 export const checkAuth = query(() => {
-  const { locals } = getRequestEvent();
+	const { locals } = getRequestEvent()
 
-  if (!locals.user) {
-    redirect(303, '/login');
-  }
+	if (!locals.user) {
+		redirect(303, '/login')
+	}
 
-  return locals.user;
-});
+	return locals.user
+})
 
 /**
  * Check if user is admin or moderator
  * Call from other remote functions
  */
 export const checkAdminAuth = query(() => {
-  const { locals } = getRequestEvent();
+	const { locals } = getRequestEvent()
 
-  if (!locals.user) {
-    redirect(303, '/login');
-  }
+	if (!locals.user) {
+		redirect(303, '/login')
+	}
 
-  const userRole = locals.roleService.getRoleById(locals.user.role);
-  const isAuthorized =
-    userRole &&
-    userRole.active &&
-    (userRole.value === 'admin' || userRole.value === 'moderator');
+	const userRole = locals.roleService.getRoleById(locals.user.role)
+	const isAuthorized =
+		userRole && userRole.active && (userRole.value === 'admin' || userRole.value === 'moderator')
 
-  if (!isAuthorized) {
-    redirect(303, '/');
-  }
+	if (!isAuthorized) {
+		redirect(303, '/')
+	}
 
-  return locals.user;
-});
+	return locals.user
+})
 
 /**
  * Get current user (returns null if not logged in)
  * Safe to call - doesn't redirect
  */
 export const getCurrentUser = query(() => {
-  const { locals } = getRequestEvent();
-  return locals.user ?? null;
-});
+	const { locals } = getRequestEvent()
+	return locals.user ?? null
+})
 ```
 
 ### Using Auth in Other Remote Functions
 
 ```ts
 // src/lib/components/admin/data.remote.ts
-import { z } from 'zod/v4';
-import { query, form, command } from '$app/server';
-import { checkAdminAuth } from '$lib/server/auth.remote';
-import * as db from '$lib/server/database';
+import { z } from 'zod/v4'
+import { query, form, command } from '$app/server'
+import { checkAdminAuth } from '$lib/server/auth.remote'
+import * as db from '$lib/server/database'
 
 /**
  * Get all users - admin only
  */
 export const getUsers = query(async () => {
-  // This will redirect if not authorized
-  await checkAdminAuth();
+	// This will redirect if not authorized
+	await checkAdminAuth()
 
-  return await db.sql`SELECT * FROM users`;
-});
+	return await db.sql`SELECT * FROM users`
+})
 
 /**
  * Delete user - admin only
  */
 export const deleteUser = command(z.string(), async (userId) => {
-  const admin = await checkAdminAuth();
+	const admin = await checkAdminAuth()
 
-  // Prevent self-deletion
-  if (admin.id === userId) {
-    throw new Error('Cannot delete yourself');
-  }
+	// Prevent self-deletion
+	if (admin.id === userId) {
+		throw new Error('Cannot delete yourself')
+	}
 
-  await db.sql`DELETE FROM users WHERE id = ${userId}`;
-  await getUsers().refresh();
-});
+	await db.sql`DELETE FROM users WHERE id = ${userId}`
+	await getUsers().refresh()
+})
 
 /**
  * Create content - requires login
  */
 export const createContent = form(
-  z.object({ title: z.string(), body: z.string() }),
-  async ({ title, body }) => {
-    const user = await checkAuth();
+	z.object({ title: z.string(), body: z.string() }),
+	async ({ title, body }) => {
+		const user = await checkAuth()
 
-    await db.sql`
+		await db.sql`
       INSERT INTO content (title, body, author_id)
       VALUES (${title}, ${body}, ${user.id})
-    `;
-  }
-);
+    `
+	}
+)
 ```
 
 ### Caching Composed Queries
@@ -431,13 +430,13 @@ Queries are cached per-request, so calling `checkAdminAuth()` multiple times in 
 
 ```ts
 export const getAdminDashboard = query(async () => {
-  await checkAdminAuth();  // Runs once
+	await checkAdminAuth() // Runs once
 
-  const users = await getUsers();      // checkAdminAuth cached
-  const content = await getContent();  // checkAdminAuth cached
+	const users = await getUsers() // checkAdminAuth cached
+	const content = await getContent() // checkAdminAuth cached
 
-  return { users, content };
-});
+	return { users, content }
+})
 ```
 
 ### Component Using Protected Remote Functions
@@ -487,6 +486,7 @@ The `.enhance` method lets you customize form submission behavior, handle succes
 ```
 
 **Key points:**
+
 - `form` - The form element (use `form.reset()` to clear inputs)
 - `data` - The form data being submitted
 - `submit()` - Call this to perform the submission
@@ -498,13 +498,10 @@ If your form handler returns data, access it via `.result` after submission:
 
 ```ts
 // data.remote.ts
-export const createItem = form(
-  z.object({ name: z.string().min(1) }),
-  async ({ name }) => {
-    const id = await db.insert({ name });
-    return { success: true, message: `Item created with ID: ${id}!` };
-  }
-);
+export const createItem = form(z.object({ name: z.string().min(1) }), async ({ name }) => {
+	const id = await db.insert({ name })
+	return { success: true, message: `Item created with ID: ${id}!` }
+})
 ```
 
 ```svelte

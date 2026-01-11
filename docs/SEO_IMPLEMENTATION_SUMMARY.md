@@ -27,6 +27,7 @@
 ### 24 Small, Testable Phases
 
 Each phase:
+
 - ✅ 15 minutes to 3 hours
 - ✅ Has clear deliverables
 - ✅ Can be tested independently
@@ -99,38 +100,39 @@ Total: 42.75 hours = 5-6 days for 1 developer
 
 ### Phase-by-Phase Deliverables
 
-| Phase | Deliverable | Testing |
-|-------|-------------|---------|
-| 1 | `/src/lib/seo/config.ts` + utils | Import test |
-| 2 | `/robots.txt` endpoint | robots.txt validator |
-| 3 | `/sitemap.xml` with static pages | XML validator |
-| 4 | Sitemap with all content | Check URL count |
-| 5 | Resource hints in `<head>` | DevTools check |
-| 6 | Extended Svead configuration | TypeScript build |
-| 7 | Homepage OG/Twitter tags | Facebook/Twitter validators |
-| 8 | Content pages OG/Twitter tags | Test 5+ pages |
-| 9 | Category/static pages meta | Test all page types |
-| 10 | `/static/og-default.png` | Visual check |
-| 11 | `/og-image/[slug]` endpoint | Generate test image |
-| 12 | Content uses dynamic images | Facebook preview |
-| 13 | Schema generators infrastructure | Import test |
-| 14 | Homepage Organization/WebSite schema | Rich Results Test |
-| 15 | All content schema generators | Unit tests |
-| 16 | Recipe/library schemas | Rich Results Test |
-| 17 | Video schemas | Rich Results Test |
-| 18 | Collection/announcement schemas | Rich Results Test |
-| 19 | Optimized image loading | Lighthouse |
-| 20 | E2E tests for SEO | Tests pass |
-| 21 | Manual validation report | All validators pass |
-| 22 | Updated documentation | Review docs |
-| 23 | Search Console configured | Sitemap submitted |
-| 24 | Final review complete | All criteria met |
+| Phase | Deliverable                          | Testing                     |
+| ----- | ------------------------------------ | --------------------------- |
+| 1     | `/src/lib/seo/config.ts` + utils     | Import test                 |
+| 2     | `/robots.txt` endpoint               | robots.txt validator        |
+| 3     | `/sitemap.xml` with static pages     | XML validator               |
+| 4     | Sitemap with all content             | Check URL count             |
+| 5     | Resource hints in `<head>`           | DevTools check              |
+| 6     | Extended Svead configuration         | TypeScript build            |
+| 7     | Homepage OG/Twitter tags             | Facebook/Twitter validators |
+| 8     | Content pages OG/Twitter tags        | Test 5+ pages               |
+| 9     | Category/static pages meta           | Test all page types         |
+| 10    | `/static/og-default.png`             | Visual check                |
+| 11    | `/og-image/[slug]` endpoint          | Generate test image         |
+| 12    | Content uses dynamic images          | Facebook preview            |
+| 13    | Schema generators infrastructure     | Import test                 |
+| 14    | Homepage Organization/WebSite schema | Rich Results Test           |
+| 15    | All content schema generators        | Unit tests                  |
+| 16    | Recipe/library schemas               | Rich Results Test           |
+| 17    | Video schemas                        | Rich Results Test           |
+| 18    | Collection/announcement schemas      | Rich Results Test           |
+| 19    | Optimized image loading              | Lighthouse                  |
+| 20    | E2E tests for SEO                    | Tests pass                  |
+| 21    | Manual validation report             | All validators pass         |
+| 22    | Updated documentation                | Review docs                 |
+| 23    | Search Console configured            | Sitemap submitted           |
+| 24    | Final review complete                | All criteria met            |
 
 ---
 
 ## Parallel Implementation (2 Developers)
 
 ### Developer 1: Meta Tags Track (Days 1-3)
+
 ```
 Day 1: Phases 1-5   (Foundation)
 Day 2: Phases 6-9   (Meta Tags)
@@ -140,6 +142,7 @@ Then:  Phases 20-24 (Testing)
 ```
 
 ### Developer 2: Images & Schema Track (Days 1-3)
+
 ```
 Day 1: Phases 13-14 (Schema Infrastructure + Homepage)
 Day 2: Phases 15-18 (Content Schemas)
@@ -154,6 +157,7 @@ Then:  Phases 20-24 (Testing)
 ## Phase Grouping by Feature
 
 ### Core SEO (Critical Path)
+
 - Phase 1: Config
 - Phase 2: robots.txt
 - Phase 3-4: sitemap.xml
@@ -162,6 +166,7 @@ Then:  Phases 20-24 (Testing)
 **Result:** Search engines can crawl properly
 
 ### Meta Tags (Social Sharing)
+
 - Phase 6: Extended Svead config
 - Phase 7-9: All page meta tags
 - Phase 10: Default OG image
@@ -170,6 +175,7 @@ Then:  Phases 20-24 (Testing)
 **Result:** Social sharing works beautifully
 
 ### Structured Data (Rich Results)
+
 - Phase 13: Schema infrastructure
 - Phase 14: Homepage schemas
 - Phase 15-18: Content schemas
@@ -177,6 +183,7 @@ Then:  Phases 20-24 (Testing)
 **Result:** Rich search results
 
 ### Polish (Performance & Quality)
+
 - Phase 19: Image optimization
 - Phase 20: E2E tests
 - Phase 21-24: Validation & launch
@@ -190,6 +197,7 @@ Then:  Phases 20-24 (Testing)
 ### To Begin Implementation
 
 1. **Read the plan:**
+
    ```bash
    open docs/SEO_IMPLEMENTATION_PLAN.md
    ```
@@ -231,13 +239,16 @@ Then:  Phases 20-24 (Testing)
 ## Testing Strategy
 
 ### Per-Phase Testing
+
 Each phase includes:
+
 - Unit/integration tests where applicable
 - Manual verification steps
 - External tool validation
 - Acceptance criteria checklist
 
 ### Final Validation (Phase 21)
+
 - robots.txt validator
 - Sitemap XML validator
 - Facebook Sharing Debugger (5+ pages)
@@ -246,6 +257,7 @@ Each phase includes:
 - Lighthouse SEO audit (≥95 score)
 
 ### Automated Testing (Phase 20)
+
 ```typescript
 // E2E tests verify:
 - Meta tags present on all pages
@@ -262,6 +274,7 @@ Each phase includes:
 ### If Timeline Slips
 
 **Minimum Viable SEO (3 days):**
+
 1. Phases 1-5: robots + sitemap (must have)
 2. Phases 6-9: Meta tags (must have)
 3. Phase 10: Default OG image (must have)
@@ -269,6 +282,7 @@ Each phase includes:
 5. Phase 20-21: Basic testing (must have)
 
 **Can defer:**
+
 - Dynamic OG images (use default)
 - Content-specific schemas (add post-launch)
 - Image optimization (post-launch OK)
@@ -276,6 +290,7 @@ Each phase includes:
 ### If Issues Arise
 
 **Each phase is independent:**
+
 - Can skip dynamic OG images
 - Can simplify schema implementation
 - Can defer image optimization
@@ -288,18 +303,22 @@ Each phase includes:
 ### Technical Checkpoints
 
 After Phase 5 (Day 1):
+
 - [ ] robots.txt accessible
 - [ ] sitemap.xml with all content
 
 After Phase 10 (Day 3):
+
 - [ ] All pages have meta tags
 - [ ] Social sharing previews work
 
 After Phase 18 (Day 6):
+
 - [ ] Structured data on all pages
 - [ ] Rich Results Test passes
 
 After Phase 24 (Day 8):
+
 - [ ] Lighthouse SEO ≥95
 - [ ] All validators pass
 - [ ] Ready for launch
@@ -309,27 +328,32 @@ After Phase 24 (Day 8):
 ## Next Steps
 
 ### 1. Review & Approve (30 min)
+
 - Read `SEO_IMPLEMENTATION_PLAN.md`
 - Understand phased approach
 - Approve timeline
 
 ### 2. Allocate Resources
+
 - Assign 1-2 developers
 - Block 5-6 days (1 dev) or 3-4 days (2 devs)
 - Schedule start date
 
 ### 3. Begin Implementation
+
 - Start with Phase 1
 - Follow plan exactly
 - Test each phase
 - Commit frequently
 
 ### 4. Track Progress
+
 - Use implementation plan as checklist
 - Update progress daily
 - Flag blockers immediately
 
 ### 5. Launch with Confidence
+
 - Complete all P0 phases
 - Pass all validation tests
 - Submit to Search Console
@@ -358,18 +382,23 @@ docs/
 ## Questions?
 
 ### "Can we launch without this?"
+
 **No.** You'll get 10% of the traffic you could get with proper SEO.
 
 ### "Can we do it faster?"
+
 **Yes.** With 2 developers, complete in 3-4 days.
 
 ### "What if we only do some of it?"
+
 **Minimum:** Phases 1-10 (robots, sitemap, meta tags) = 3 days
 
 ### "Is the plan flexible?"
+
 **Yes.** Each phase is independent. Can adjust based on needs.
 
 ### "Do we have to follow it exactly?"
+
 **Recommended.** The plan is battle-tested and comprehensive. But you can adapt.
 
 ---

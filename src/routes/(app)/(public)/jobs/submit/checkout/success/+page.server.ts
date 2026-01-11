@@ -101,9 +101,10 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 		locals.paymentService.updatePaymentStatus(paymentId, 'succeeded')
 
 		// Update payment intent ID from session
-		const paymentIntentId = typeof session.payment_intent === 'string'
-			? session.payment_intent
-			: session.payment_intent?.id
+		const paymentIntentId =
+			typeof session.payment_intent === 'string'
+				? session.payment_intent
+				: session.payment_intent?.id
 
 		if (paymentIntentId) {
 			locals.paymentService.updatePaymentIntentId(paymentId, paymentIntentId)

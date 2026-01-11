@@ -105,11 +105,13 @@ The API now supports importing individual packages from monorepos. You can speci
 ### Supported Formats
 
 1. **Full GitHub URL with path:**
+
    ```
    https://github.com/sveltejs/kit/tree/main/packages/kit
    ```
 
 2. **Short format (owner/repo/path):**
+
    ```
    sveltejs/kit/packages/kit
    ```

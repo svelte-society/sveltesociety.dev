@@ -34,9 +34,9 @@ test.describe('Newsletter Double Opt-In Flow', () => {
 
 			// Check for loading text or response (very quick)
 			await Promise.race([
-				expect(subscribePage.submitButton).toHaveText(/subscribing/i, { timeout: 500 }).catch(
-					() => {}
-				),
+				expect(subscribePage.submitButton)
+					.toHaveText(/subscribing/i, { timeout: 500 })
+					.catch(() => {}),
 				subscribePage.successMessage.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {}),
 				subscribePage.errorMessage.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {})
 			])

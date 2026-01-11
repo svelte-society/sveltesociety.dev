@@ -20,17 +20,17 @@ Add to `svelte.config.js`:
 
 ```js
 const config = {
-  kit: {
-    experimental: {
-      remoteFunctions: true
-    }
-  },
-  compilerOptions: {
-    experimental: {
-      async: true  // Optional: enables await in components
-    }
-  }
-};
+	kit: {
+		experimental: {
+			remoteFunctions: true
+		}
+	},
+	compilerOptions: {
+		experimental: {
+			async: true // Optional: enables await in components
+		}
+	}
+}
 ```
 
 ## Remote-First Architecture
@@ -43,12 +43,12 @@ See [REMOTE-FIRST.md](REMOTE-FIRST.md) for patterns and examples.
 
 ## Four Types of Remote Functions
 
-| Type | Purpose | Reference |
-|------|---------|-----------|
-| `query` | Read dynamic data | [QUERY.md](QUERY.md) |
-| `form` | Handle form submissions | [FORM.md](FORM.md) |
-| `command` | Programmatic mutations, avoid if possible. Always prefer `form` | [COMMAND.md](COMMAND.md) |
-| `prerender` | Static data at build time | (not covered) |
+| Type        | Purpose                                                         | Reference                |
+| ----------- | --------------------------------------------------------------- | ------------------------ |
+| `query`     | Read dynamic data                                               | [QUERY.md](QUERY.md)     |
+| `form`      | Handle form submissions                                         | [FORM.md](FORM.md)       |
+| `command`   | Programmatic mutations, avoid if possible. Always prefer `form` | [COMMAND.md](COMMAND.md) |
+| `prerender` | Static data at build time                                       | (not covered)            |
 
 ## Combining Functions
 
@@ -61,9 +61,11 @@ For starter code blocks, see [TEMPLATES.md](TEMPLATES.md).
 ## When to Use Remote Functions vs Load Functions
 
 **Use Remote Functions when:**
+
 - Data is needed at the component level, not page level
 - You want colocated data fetching with the component
 - Building reusable components with their own data needs
 
 **Use Load Functions when:**
+
 - Never

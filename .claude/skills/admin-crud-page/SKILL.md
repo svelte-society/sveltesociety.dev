@@ -36,18 +36,18 @@ src/routes/(admin)/admin/
 
 ## Admin-Specific Components
 
-| Component | Purpose | Import |
-|-----------|---------|--------|
-| `PageHeader` | Page title with icon and actions | `$lib/ui/admin/PageHeader.svelte` |
-| `Table` | Data table with snippets for header/row/actions | `$lib/ui/admin/Table.svelte` |
-| `AdminList` | Simple wrapper with title and "New" button | `$lib/ui/admin/AdminList.svelte` |
-| `StatusSelect` | Status filter dropdown | `$lib/ui/admin/StatusSelect.svelte` |
-| `TypeSelect` | Content type filter | `$lib/ui/admin/TypeSelect.svelte` |
-| `Badge` | Status/type badges | `$lib/ui/admin/Badge.svelte` |
-| `Actions` | Row action buttons (edit, delete, custom) | `$lib/ui/admin/Actions` |
-| `ContentPicker` | Select related content | `$lib/ui/admin/ContentPicker.svelte` |
-| `QuickAction` | Dashboard quick action cards | `$lib/ui/admin/QuickAction.svelte` |
-| `ConfirmWithDialog` | Confirmation dialog wrapper | `$lib/ui/admin/ConfirmWithDialog.svelte` |
+| Component           | Purpose                                         | Import                                   |
+| ------------------- | ----------------------------------------------- | ---------------------------------------- |
+| `PageHeader`        | Page title with icon and actions                | `$lib/ui/admin/PageHeader.svelte`        |
+| `Table`             | Data table with snippets for header/row/actions | `$lib/ui/admin/Table.svelte`             |
+| `AdminList`         | Simple wrapper with title and "New" button      | `$lib/ui/admin/AdminList.svelte`         |
+| `StatusSelect`      | Status filter dropdown                          | `$lib/ui/admin/StatusSelect.svelte`      |
+| `TypeSelect`        | Content type filter                             | `$lib/ui/admin/TypeSelect.svelte`        |
+| `Badge`             | Status/type badges                              | `$lib/ui/admin/Badge.svelte`             |
+| `Actions`           | Row action buttons (edit, delete, custom)       | `$lib/ui/admin/Actions`                  |
+| `ContentPicker`     | Select related content                          | `$lib/ui/admin/ContentPicker.svelte`     |
+| `QuickAction`       | Dashboard quick action cards                    | `$lib/ui/admin/QuickAction.svelte`       |
+| `ConfirmWithDialog` | Confirmation dialog wrapper                     | `$lib/ui/admin/ConfirmWithDialog.svelte` |
 
 ## Quick Start
 
@@ -132,9 +132,9 @@ Always call `checkAdminAuth()` first in admin remote functions:
 ```typescript
 import { checkAdminAuth } from '../authorization.remote'
 
-export const getItems = query("unchecked", async (searchParams) => {
-  checkAdminAuth()  // Throws if not admin
-  // ... rest of logic
+export const getItems = query('unchecked', async (searchParams) => {
+	checkAdminAuth() // Throws if not admin
+	// ... rest of logic
 })
 ```
 

@@ -16,31 +16,33 @@ Refresh queries inside the form/command handler:
 
 ```ts
 // data.remote.ts
-import { query, form } from '$app/server';
+import { query, form } from '$app/server'
 
-export const getPosts = query(async () => { /* ... */ });
+export const getPosts = query(async () => {
+	/* ... */
+})
 
 export const createPost = form(schema, async (data) => {
-  // Insert the post...
-  await db.sql`INSERT INTO posts ...`;
+	// Insert the post...
+	await db.sql`INSERT INTO posts ...`
 
-  // Refresh getPosts() on the server
-  // Data is sent back with the form result
-  await getPosts().refresh();
+	// Refresh getPosts() on the server
+	// Data is sent back with the form result
+	await getPosts().refresh()
 
-  redirect(303, '/posts');
-});
+	redirect(303, '/posts')
+})
 ```
 
 You can also set the query value directly if you already have it:
 
 ```ts
 export const updatePost = form(schema, async (data) => {
-  const result = await externalApi.update(data);
+	const result = await externalApi.update(data)
 
-  // Set the value directly instead of refreshing
-  await getPost(data.id).set(result);
-});
+	// Set the value directly instead of refreshing
+	await getPost(data.id).set(result)
+})
 ```
 
 ## Client-Side Refresh
@@ -88,6 +90,7 @@ Show updated data immediately, before the server responds:
 ```
 
 The override:
+
 1. Is applied immediately when the button is clicked
 2. Shows the optimistic value to the user
 3. Is released when the command completes
@@ -132,10 +135,10 @@ Update multiple queries at once:
 
 ## Comparison
 
-| Approach | When to Use |
-|----------|-------------|
-| Default (refresh all) | Simple cases, prototyping |
-| Server-side `.refresh()` | When you know which queries to update |
-| Server-side `.set()` | When you already have the updated data |
+| Approach                 | When to Use                               |
+| ------------------------ | ----------------------------------------- |
+| Default (refresh all)    | Simple cases, prototyping                 |
+| Server-side `.refresh()` | When you know which queries to update     |
+| Server-side `.set()`     | When you already have the updated data    |
 | Client-side `.updates()` | When the client knows what needs updating |
-| `.withOverride()` | When you want instant feedback |
+| `.withOverride()`        | When you want instant feedback            |

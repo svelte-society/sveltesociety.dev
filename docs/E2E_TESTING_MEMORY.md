@@ -5,6 +5,7 @@
 **ALL NEW FEATURES REQUIRE E2E TESTS**
 
 When adding a new feature:
+
 1. Write Playwright tests using Page Object Model pattern
 2. Add `data-testid` attributes to all new UI components
 3. Use `setupDatabaseIsolation(page)` in test `beforeEach`
@@ -15,6 +16,7 @@ When adding a new feature:
 ## Current Test Coverage
 
 **65 tests** across 14 test files (100% passing, 0% flaky)
+
 - Public Tests (13) - Content browsing, search, detail pages
 - Authentication Tests (13) - Login flows, protected routes, roles
 - Content Submission (9) - Submit recipes, videos, libraries
@@ -25,12 +27,14 @@ When adding a new feature:
 ## Test Infrastructure
 
 ### Database Isolation
+
 - **Cookie-based routing** - Each test file gets isolated database copy
 - **Auto-detection** - Test names from stack trace
 - **Pre-creation** - `globalSetup` creates, `globalTeardown` cleans
 - Files: `test-public-search.db`, `test-admin-moderation.db`, etc.
 
 ### Page Object Models (`tests/pages/`)
+
 - BasePage - Common functionality
 - HomePage - Navigation and search
 - ContentListPage - Browse content
@@ -43,11 +47,13 @@ When adding a new feature:
 - UserManagementPage - User management
 
 ### Helpers & Fixtures
+
 - `tests/helpers/database-isolation.ts` - Cookie routing
 - `tests/helpers/auth.ts` - `loginAs('admin'|'contributor'|'viewer')`
 - `tests/fixtures/test-data.ts` - Centralized test data
 
 ### Test Users
+
 - `test_admin` - Admin role (full access)
 - `test_contributor` - Moderator role (moderate content)
 - `test_viewer` - Member role (read-only)
@@ -77,23 +83,24 @@ import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 import { loginAs } from '../../helpers/auth'
 
 test.describe('New Feature', () => {
-  test.beforeEach(async ({ page }) => {
-    await setupDatabaseIsolation(page)
-    await loginAs(page, 'admin')  // if auth needed
-  })
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page)
+		await loginAs(page, 'admin') // if auth needed
+	})
 
-  test('can do something', async ({ page }) => {
-    const newPage = new NewPage(page)
-    await newPage.goto()
-    await newPage.doSomething()
-    await newPage.expectSuccess()
-  })
+	test('can do something', async ({ page }) => {
+		const newPage = new NewPage(page)
+		await newPage.goto()
+		await newPage.doSomething()
+		await newPage.expectSuccess()
+	})
 })
 ```
 
 ## Auto-Generated Test IDs
 
 Form components auto-generate test-ids from `name` prop:
+
 - `<Input name="username" />` → `data-testid="input-username"`
 - `<Textarea name="description" />` → `data-testid="textarea-description"`
 - `<Select name="role" />` → `data-testid="select-role"`
@@ -101,6 +108,7 @@ Form components auto-generate test-ids from `name` prop:
 ## Best Practices
 
 ### ✅ Do:
+
 - Use POMs for all page interactions
 - Add test-ids to new components
 - Use `setupDatabaseIsolation()` in every test
@@ -110,6 +118,7 @@ Form components auto-generate test-ids from `name` prop:
 - Rely on Playwright auto-waiting
 
 ### ❌ Don't:
+
 - Use CSS selectors or XPath
 - Add manual waits (`waitForTimeout`)
 - Hardcode test data (use `test-data.ts`)

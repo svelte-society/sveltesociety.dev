@@ -50,12 +50,14 @@ Copy this checklist and track progress:
 Provide concrete input/output examples:
 
 **Example 1: Simple case**
+
 ```
 Input: "Create a button component"
 Output: Creates Button.svelte with props, styles, accessibility
 ```
 
 **Example 2: Complex case**
+
 ```
 Input: "Create a data table with sorting and filtering"
 Output: Creates DataTable.svelte with:

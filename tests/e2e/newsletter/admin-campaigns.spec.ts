@@ -60,7 +60,9 @@ test.describe('Admin - Newsletter Campaigns', () => {
 		await editorPage.submit()
 
 		// Should redirect to edit page after creation so user can add content
-		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible({ timeout: 10000 })
+		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible({
+			timeout: 10000
+		})
 	})
 
 	test('created campaign can be found after reload', async ({ page }) => {
@@ -77,7 +79,9 @@ test.describe('Admin - Newsletter Campaigns', () => {
 		await editorPage.submit()
 
 		// After creation, redirects to edit page - wait for edit heading
-		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible({ timeout: 10000 })
+		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible({
+			timeout: 10000
+		})
 
 		// Verify the edit page shows the campaign title we created
 		await expect(editorPage.titleInput).toHaveValue(campaignTitle, { timeout: 5000 })
@@ -117,9 +121,7 @@ test.describe('Admin - Newsletter Campaigns', () => {
 		// Should be redirected or show unauthorized
 		const url = page.url()
 		const isUnauthorized =
-			url.includes('/login') ||
-			url.includes('/unauthorized') ||
-			!url.includes('/admin/newsletter')
+			url.includes('/login') || url.includes('/unauthorized') || !url.includes('/admin/newsletter')
 
 		expect(isUnauthorized).toBe(true)
 	})
@@ -145,7 +147,9 @@ test.describe('Admin - Campaign Editing', () => {
 		await editorPage.submit()
 
 		// After creation, redirects to edit page - wait for edit heading
-		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible({ timeout: 10000 })
+		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible({
+			timeout: 10000
+		})
 
 		// Verify we're on the edit page with the correct values
 		await expect(editorPage.titleInput).toHaveValue(originalTitle, { timeout: 5000 })
@@ -166,7 +170,9 @@ test.describe('Admin - Campaign Editing', () => {
 		await editorPage.submit()
 
 		// After creation, redirects to edit page - wait for edit heading
-		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible({ timeout: 10000 })
+		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible({
+			timeout: 10000
+		})
 
 		// Verify values are populated on the edit page
 		await expect(editorPage.titleInput).toHaveValue(campaignTitle, { timeout: 5000 })

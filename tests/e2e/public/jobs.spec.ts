@@ -358,7 +358,9 @@ test.describe('Job Application - Authenticated', () => {
 		const jobDetailPage = new JobDetailPage(page)
 		await jobDetailPage.goto(JOB_SLUGS.frontend)
 
-		await jobDetailPage.applyForJob('I am very interested in this position and have 5 years of Svelte experience.')
+		await jobDetailPage.applyForJob(
+			'I am very interested in this position and have 5 years of Svelte experience.'
+		)
 		await jobDetailPage.expectApplicationSuccess()
 	})
 

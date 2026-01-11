@@ -361,7 +361,10 @@ describe('SEO Utility Functions', () => {
 				type: 'recipe',
 				slug: 'my-recipe'
 			}
-			const recipeMeta = buildContentMeta(recipeContent, 'https://sveltesociety.dev/recipe/my-recipe')
+			const recipeMeta = buildContentMeta(
+				recipeContent,
+				'https://sveltesociety.dev/recipe/my-recipe'
+			)
 			expect(recipeMeta.og_type).toBe('article')
 
 			const libraryContent = {
@@ -369,7 +372,10 @@ describe('SEO Utility Functions', () => {
 				type: 'library',
 				slug: 'my-library'
 			}
-			const libraryMeta = buildContentMeta(libraryContent, 'https://sveltesociety.dev/library/my-library')
+			const libraryMeta = buildContentMeta(
+				libraryContent,
+				'https://sveltesociety.dev/library/my-library'
+			)
 			expect(libraryMeta.og_type).toBe('article')
 		})
 

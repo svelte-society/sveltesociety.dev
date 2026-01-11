@@ -9,7 +9,8 @@ export const tagVariants = tv({
 		},
 		removable: {
 			true: 'pl-1.5 pr-1',
-			false: 'px-1.5 hover:bg-slate-200 focus:outline-2 focus:outline-offset-2 focus:outline-svelte-300'
+			false:
+				'px-1.5 hover:bg-slate-200 focus:outline-2 focus:outline-offset-2 focus:outline-svelte-300'
 		}
 	},
 	compoundVariants: [

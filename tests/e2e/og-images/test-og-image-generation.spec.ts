@@ -48,9 +48,7 @@ test.describe('OG Image Generation', () => {
 	})
 
 	test('generates recipe OG image with description', async ({ request }) => {
-		const response = await request.get(
-			'/og-image/test-recipe-counter-component-content_recipe_001'
-		)
+		const response = await request.get('/og-image/test-recipe-counter-component-content_recipe_001')
 
 		expect(response.status()).toBe(200)
 		expect(response.headers()['content-type']).toBe('image/png')
@@ -82,9 +80,7 @@ test.describe('OG Image Generation', () => {
 	})
 
 	test('generates library OG image with GitHub stats', async ({ request }) => {
-		const response = await request.get(
-			'/og-image/test-library-testing-library-content_library_001'
-		)
+		const response = await request.get('/og-image/test-library-testing-library-content_library_001')
 
 		expect(response.status()).toBe(200)
 		expect(response.headers()['content-type']).toBe('image/png')

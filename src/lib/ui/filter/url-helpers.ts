@@ -58,9 +58,7 @@ export function buildToggleHref(
 	if (values.includes(value)) {
 		// Remove the value - delete all, then re-add the rest
 		newUrl.searchParams.delete(paramName)
-		values
-			.filter((v) => v !== value)
-			.forEach((v) => newUrl.searchParams.append(paramName, v))
+		values.filter((v) => v !== value).forEach((v) => newUrl.searchParams.append(paramName, v))
 	} else {
 		// Add the value
 		newUrl.searchParams.append(paramName, value)

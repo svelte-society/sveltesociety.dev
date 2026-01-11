@@ -21,17 +21,20 @@ This guide provides best practices, patterns, and guidelines for writing and mai
 ### What to Test
 
 **✅ Test user flows and behaviors:**
+
 - Can a user complete their task?
 - Do features work as expected from a user's perspective?
 - Are critical paths protected and functional?
 
 **✅ Test integration points:**
+
 - Forms submit correctly
 - Navigation works
 - Data displays correctly
 - Auth and permissions work
 
 **❌ Don't test implementation details:**
+
 - Internal state management
 - Component props or events
 - CSS class names
@@ -40,6 +43,7 @@ This guide provides best practices, patterns, and guidelines for writing and mai
 ### Test Quality Metrics
 
 Our testing standards:
+
 - **0% flaky tests** - Tests must be reliable
 - **Fast execution** - <20 seconds for full suite
 - **100% passing** - No known failing tests in main branch
@@ -56,20 +60,20 @@ A Page Object Model encapsulates page structure and interactions into a reusable
 ```typescript
 // Bad: Directly using Playwright API in tests
 test('can search', async ({ page }) => {
-  await page.goto('/')
-  await page.getByTestId('search-input').fill('Counter')
-  await page.getByTestId('search-input').press('Enter')
-  await expect(page.getByTestId('content-card')).toBeVisible()
+	await page.goto('/')
+	await page.getByTestId('search-input').fill('Counter')
+	await page.getByTestId('search-input').press('Enter')
+	await expect(page.getByTestId('content-card')).toBeVisible()
 })
 
 // Good: Using a POM
 test('can search', async ({ page }) => {
-  const homePage = new HomePage(page)
-  await homePage.goto()
-  await homePage.search('Counter')
+	const homePage = new HomePage(page)
+	await homePage.goto()
+	await homePage.search('Counter')
 
-  const contentList = new ContentListPage(page)
-  await contentList.expectContentDisplayed()
+	const contentList = new ContentListPage(page)
+	await contentList.expectContentDisplayed()
 })
 ```
 
@@ -97,43 +101,46 @@ import { BasePage } from './BasePage'
  * await myPage.doSomething()
  */
 export class MyPage extends BasePage {
-  // 1. Locators (getters for elements)
-  get submitButton(): Locator {
-    return this.page.getByTestId('submit-button')
-  }
+	// 1. Locators (getters for elements)
+	get submitButton(): Locator {
+		return this.page.getByTestId('submit-button')
+	}
 
-  // 2. Actions (methods that perform interactions)
-  async submit(): Promise<void> {
-    await this.submitButton.click()
-  }
+	// 2. Actions (methods that perform interactions)
+	async submit(): Promise<void> {
+		await this.submitButton.click()
+	}
 
-  // 3. Getters (methods that retrieve data)
-  async getTitle(): Promise<string> {
-    return await this.page.getByTestId('title').textContent() || ''
-  }
+	// 3. Getters (methods that retrieve data)
+	async getTitle(): Promise<string> {
+		return (await this.page.getByTestId('title').textContent()) || ''
+	}
 
-  // 4. Assertions (methods that verify state)
-  async expectFormDisplayed(): Promise<void> {
-    await expect(this.page.getByTestId('form')).toBeVisible()
-  }
+	// 4. Assertions (methods that verify state)
+	async expectFormDisplayed(): Promise<void> {
+		await expect(this.page.getByTestId('form')).toBeVisible()
+	}
 }
 ```
 
 ### Creating a New POM
 
 1. **Extend BasePage:**
+
 ```typescript
 export class NewPage extends BasePage {
-  // Your implementation
+	// Your implementation
 }
 ```
 
 2. **Add to index.ts:**
+
 ```typescript
 export { NewPage } from './NewPage'
 ```
 
 3. **Use in tests:**
+
 ```typescript
 import { NewPage } from '../../pages'
 ```
@@ -151,26 +158,26 @@ import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 import { loginAs } from '../../helpers/auth'
 
 test.describe('Feature Name', () => {
-  test.beforeEach(async ({ page }) => {
-    // Always set up database isolation
-    await setupDatabaseIsolation(page)
+	test.beforeEach(async ({ page }) => {
+		// Always set up database isolation
+		await setupDatabaseIsolation(page)
 
-    // Login if needed
-    await loginAs(page, 'admin')
-  })
+		// Login if needed
+		await loginAs(page, 'admin')
+	})
 
-  test('specific behavior', async ({ page }) => {
-    // Arrange
-    const homePage = new HomePage(page)
-    await homePage.goto()
+	test('specific behavior', async ({ page }) => {
+		// Arrange
+		const homePage = new HomePage(page)
+		await homePage.goto()
 
-    // Act
-    await homePage.search('test')
+		// Act
+		await homePage.search('test')
 
-    // Assert
-    const contentList = new ContentListPage(page)
-    await contentList.expectContentDisplayed()
-  })
+		// Assert
+		const contentList = new ContentListPage(page)
+		await contentList.expectContentDisplayed()
+	})
 })
 ```
 
@@ -197,27 +204,27 @@ test('works', ...)
 ```typescript
 // ✅ Good - Each test sets up its own state
 test('can save content', async ({ page }) => {
-  const detailPage = new ContentDetailPage(page)
-  await detailPage.goto('recipe', '1')
-  await detailPage.save()
-  await detailPage.expectSaved()
+	const detailPage = new ContentDetailPage(page)
+	await detailPage.goto('recipe', '1')
+	await detailPage.save()
+	await detailPage.expectSaved()
 })
 
 test('can unsave content', async ({ page }) => {
-  const detailPage = new ContentDetailPage(page)
-  await detailPage.goto('recipe', '1')
-  await detailPage.save()  // Set up saved state
-  await detailPage.unsave()
-  await detailPage.expectNotSaved()
+	const detailPage = new ContentDetailPage(page)
+	await detailPage.goto('recipe', '1')
+	await detailPage.save() // Set up saved state
+	await detailPage.unsave()
+	await detailPage.expectNotSaved()
 })
 
 // ❌ Bad - Second test depends on first test
 test('can save content', async ({ page }) => {
-  await detailPage.save()
+	await detailPage.save()
 })
 
 test('can unsave content', async ({ page }) => {
-  await detailPage.unsave()  // Assumes previous test ran!
+	await detailPage.unsave() // Assumes previous test ran!
 })
 ```
 
@@ -242,11 +249,12 @@ Each test file gets its own isolated database copy:
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.beforeEach(async ({ page }) => {
-  await setupDatabaseIsolation(page)  // Auto-detects test file name
+	await setupDatabaseIsolation(page) // Auto-detects test file name
 })
 ```
 
 This automatically:
+
 - Detects the test file name from the call stack
 - Sets a cookie that routes requests to the correct database
 - Ensures complete test isolation
@@ -270,11 +278,11 @@ All test data is defined in `tests/fixtures/test-data.ts`:
 import { TEST_USERS, TEST_CONTENT } from '../fixtures/test-data'
 
 // Access test users
-TEST_USERS.admin.username  // 'test_admin'
-TEST_USERS.viewer.email    // 'viewer@test.local'
+TEST_USERS.admin.username // 'test_admin'
+TEST_USERS.viewer.email // 'viewer@test.local'
 
 // Access test content
-TEST_CONTENT.publishedRecipe.title  // 'Test Recipe: Building a Counter Component'
+TEST_CONTENT.publishedRecipe.title // 'Test Recipe: Building a Counter Component'
 ```
 
 ### Authentication
@@ -299,16 +307,16 @@ await loginAs(page, 'viewer')
 ```typescript
 // ❌ Bad
 test('can view recipe', async ({ page }) => {
-  await page.goto('/recipe/1')
-  await expect(page.getByText('Test Recipe')).toBeVisible()
+	await page.goto('/recipe/1')
+	await expect(page.getByText('Test Recipe')).toBeVisible()
 })
 
 // ✅ Good
 test('can view recipe', async ({ page }) => {
-  const detailPage = new ContentDetailPage(page)
-  await detailPage.goto('recipe', TEST_CONTENT.publishedRecipe.id)
-  const title = await detailPage.getTitle()
-  expect(title).toContain('Counter')
+	const detailPage = new ContentDetailPage(page)
+	await detailPage.goto('recipe', TEST_CONTENT.publishedRecipe.id)
+	const title = await detailPage.getTitle()
+	expect(title).toContain('Counter')
 })
 ```
 
@@ -335,6 +343,7 @@ get submitButton(): Locator {
 
 **Auto-generated test-ids:**
 Form components automatically generate test-ids:
+
 - `<Input name="username" />` → `data-testid="input-username"`
 - `<Select name="role" />` → `data-testid="select-role"`
 
@@ -357,8 +366,8 @@ Playwright automatically waits for elements:
 
 ```typescript
 // No manual waiting needed!
-await page.getByTestId('button').click()  // Waits for visible + enabled
-await expect(page.getByTestId('text')).toBeVisible()  // Waits up to 5s
+await page.getByTestId('button').click() // Waits for visible + enabled
+await expect(page.getByTestId('text')).toBeVisible() // Waits up to 5s
 ```
 
 ### Keep Tests Focused
@@ -366,18 +375,18 @@ await expect(page.getByTestId('text')).toBeVisible()  // Waits up to 5s
 ```typescript
 // ✅ Good - Tests one thing
 test('shows validation error when title is missing', async ({ page }) => {
-  const submitPage = new SubmitPage(page)
-  await submitPage.goto('recipe')
-  await submitPage.submit()
-  await submitPage.expectValidationError('Title is required')
+	const submitPage = new SubmitPage(page)
+	await submitPage.goto('recipe')
+	await submitPage.submit()
+	await submitPage.expectValidationError('Title is required')
 })
 
 // ❌ Bad - Tests multiple things
 test('form validation works', async ({ page }) => {
-  // Tests title validation
-  // Tests description validation
-  // Tests URL validation
-  // Too much in one test!
+	// Tests title validation
+	// Tests description validation
+	// Tests URL validation
+	// Too much in one test!
 })
 ```
 
@@ -389,11 +398,11 @@ test('form validation works', async ({ page }) => {
 
 ```typescript
 test('can navigate to recipes', async ({ page }) => {
-  const homePage = new HomePage(page)
-  await homePage.goto()
-  await homePage.navigateToRecipes()
+	const homePage = new HomePage(page)
+	await homePage.goto()
+	await homePage.navigateToRecipes()
 
-  await expect(page).toHaveURL('/recipe')
+	await expect(page).toHaveURL('/recipe')
 })
 ```
 
@@ -401,17 +410,17 @@ test('can navigate to recipes', async ({ page }) => {
 
 ```typescript
 test('can submit valid form', async ({ page }) => {
-  const submitPage = new SubmitPage(page)
-  await submitPage.goto('recipe')
+	const submitPage = new SubmitPage(page)
+	await submitPage.goto('recipe')
 
-  await submitPage.fill({
-    title: 'My Recipe',
-    description: 'Test description',
-    body: 'Recipe content'
-  })
+	await submitPage.fill({
+		title: 'My Recipe',
+		description: 'Test description',
+		body: 'Recipe content'
+	})
 
-  await submitPage.submit()
-  await expect(page).toHaveURL('/recipe')
+	await submitPage.submit()
+	await expect(page).toHaveURL('/recipe')
 })
 ```
 
@@ -419,15 +428,15 @@ test('can submit valid form', async ({ page }) => {
 
 ```typescript
 test('can search for content', async ({ page }) => {
-  const homePage = new HomePage(page)
-  await homePage.goto()
-  await homePage.search('Counter')
+	const homePage = new HomePage(page)
+	await homePage.goto()
+	await homePage.search('Counter')
 
-  const contentList = new ContentListPage(page)
-  await contentList.expectContentDisplayed()
+	const contentList = new ContentListPage(page)
+	await contentList.expectContentDisplayed()
 
-  const titles = await contentList.getContentTitles()
-  expect(titles.some(t => t.includes('Counter'))).toBeTruthy()
+	const titles = await contentList.getContentTitles()
+	expect(titles.some((t) => t.includes('Counter'))).toBeTruthy()
 })
 ```
 
@@ -435,11 +444,11 @@ test('can search for content', async ({ page }) => {
 
 ```typescript
 test('can access admin page', async ({ page }) => {
-  await loginAs(page, 'admin')
+	await loginAs(page, 'admin')
 
-  const adminPage = new AdminDashboardPage(page)
-  await adminPage.goto()
-  await adminPage.expectDashboardVisible()
+	const adminPage = new AdminDashboardPage(page)
+	await adminPage.goto()
+	await adminPage.expectDashboardVisible()
 })
 ```
 
@@ -447,10 +456,10 @@ test('can access admin page', async ({ page }) => {
 
 ```typescript
 test('member cannot access admin page', async ({ page }) => {
-  await loginAs(page, 'viewer')
+	await loginAs(page, 'viewer')
 
-  await page.goto('/admin')
-  await expect(page).toHaveURL('/login')
+	await page.goto('/admin')
+	await expect(page).toHaveURL('/login')
 })
 ```
 
@@ -463,11 +472,13 @@ test('member cannot access admin page', async ({ page }) => {
 **Symptoms:** Test passes sometimes, fails other times
 
 **Common causes:**
+
 1. **Race conditions** - Add proper waits
 2. **Network timing** - Use `waitForLoadState` when needed
 3. **Animation delays** - Wait for element state changes
 
 **Solutions:**
+
 ```typescript
 // Add explicit waits
 await contentList.expectContentDisplayed()
@@ -477,30 +488,34 @@ await page.waitForLoadState('networkidle')
 
 // Use retry logic for known flaky operations
 await test.step('retry flaky operation', async () => {
-  await expect(async () => {
-    await page.getByTestId('element').click()
-  }).toPass({ timeout: 10000 })
+	await expect(async () => {
+		await page.getByTestId('element').click()
+	}).toPass({ timeout: 10000 })
 })
 ```
 
 ### Debugging Tests
 
 **Run in headed mode to see what's happening:**
+
 ```bash
 bun run test:integration:headed
 ```
 
 **Run in debug mode to step through:**
+
 ```bash
 bun run test:integration:debug
 ```
 
 **Use Playwright Inspector:**
+
 ```bash
 PWDEBUG=1 bun test:integration
 ```
 
 **Add console logs in POMs:**
+
 ```typescript
 async search(query: string): Promise<void> {
   console.log(`Searching for: ${query}`)
@@ -520,6 +535,7 @@ Tests run automatically on every PR to `staging`:
 **Workflow file:** `.github/workflows/playwright.yml`
 
 **What happens:**
+
 1. Install dependencies (with caching)
 2. Install Playwright browsers (with caching - saves ~1.5 min)
 3. Initialize and seed test database
@@ -533,6 +549,7 @@ Tests run automatically on every PR to `staging`:
 ### PR Comments
 
 Every test run posts a comment with:
+
 - ✅/❌ Status
 - Number of passed/failed tests
 - Link to detailed HTML report
@@ -540,6 +557,7 @@ Every test run posts a comment with:
 ### Artifacts
 
 On failure, these are uploaded:
+
 - HTML report with screenshots
 - Video recordings of failed tests
 - Test logs
@@ -571,17 +589,17 @@ import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 import { loginAs } from '../../helpers/auth'
 
 test.describe('New Feature', () => {
-  test.beforeEach(async ({ page }) => {
-    await setupDatabaseIsolation(page)
-    await loginAs(page, 'admin')
-  })
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page)
+		await loginAs(page, 'admin')
+	})
 
-  test('can do something', async ({ page }) => {
-    const newPage = new NewPage(page)
-    await newPage.goto()
-    await newPage.doSomething()
-    await newPage.expectSuccess()
-  })
+	test('can do something', async ({ page }) => {
+		const newPage = new NewPage(page)
+		await newPage.goto()
+		await newPage.doSomething()
+		await newPage.expectSuccess()
+	})
 })
 ```
 

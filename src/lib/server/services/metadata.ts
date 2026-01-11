@@ -210,7 +210,11 @@ export class MetadataService {
 		}
 	}
 
-	private async refreshLibraryThumbnail(owner: string, repo: string, updatedAt?: string): Promise<string | null> {
+	private async refreshLibraryThumbnail(
+		owner: string,
+		repo: string,
+		updatedAt?: string
+	): Promise<string | null> {
 		try {
 			const hash = updatedAt
 				? new Date(updatedAt).getTime().toString(36).padStart(12, '0')
@@ -219,9 +223,13 @@ export class MetadataService {
 
 			console.log(`[MetadataService] Fetching GitHub OG image from: ${ogImageUrl}`)
 			const response = await fetch(ogImageUrl)
-			console.log(`[MetadataService] Response: status=${response.status}, content-type=${response.headers.get('content-type')}`)
+			console.log(
+				`[MetadataService] Response: status=${response.status}, content-type=${response.headers.get('content-type')}`
+			)
 			if (!response.ok || !response.headers.get('content-type')?.includes('image')) {
-				console.error(`Failed to fetch GitHub OG image for ${owner}/${repo}: status=${response.status}, content-type=${response.headers.get('content-type')}`)
+				console.error(
+					`Failed to fetch GitHub OG image for ${owner}/${repo}: status=${response.status}, content-type=${response.headers.get('content-type')}`
+				)
 				return null
 			}
 
@@ -244,7 +252,10 @@ export class MetadataService {
 		}
 	}
 
-	private async refreshResourceThumbnail(contentId: string, linkUrl: string): Promise<string | null> {
+	private async refreshResourceThumbnail(
+		contentId: string,
+		linkUrl: string
+	): Promise<string | null> {
 		try {
 			const pageResponse = await fetch(linkUrl, {
 				headers: {
@@ -257,8 +268,9 @@ export class MetadataService {
 			}
 
 			const html = await pageResponse.text()
-			const ogImageMatch = html.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["']/i)
-				|| html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["']/i)
+			const ogImageMatch =
+				html.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["']/i) ||
+				html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["']/i)
 
 			if (!ogImageMatch || !ogImageMatch[1]) {
 				console.error(`No OG image found for: ${linkUrl}`)
@@ -355,7 +367,9 @@ export class MetadataService {
 					githubUrl = `https://github.com/${owner}/${repo}`
 				}
 
-				console.log(`[MetadataService] Extracted owner=${owner}, repo=${repo}, githubUrl=${githubUrl}`)
+				console.log(
+					`[MetadataService] Extracted owner=${owner}, repo=${repo}, githubUrl=${githubUrl}`
+				)
 
 				if (owner && repo && githubUrl) {
 					const githubMetadata = await this.fetchGithubMetadata(githubUrl)

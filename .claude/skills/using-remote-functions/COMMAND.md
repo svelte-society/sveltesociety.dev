@@ -8,22 +8,22 @@ Use `command` for mutations that aren't tied to form submissions.
 
 ```ts
 // data.remote.ts
-import { z } from 'zod/v4';
-import { query, command } from '$app/server';
-import * as db from '$lib/server/database';
+import { z } from 'zod/v4'
+import { query, command } from '$app/server'
+import * as db from '$lib/server/database'
 
 export const getLikes = query(z.string(), async (id) => {
-  const [row] = await db.sql`
+	const [row] = await db.sql`
     SELECT likes FROM items WHERE id = ${id}
-  `;
-  return row.likes;
-});
+  `
+	return row.likes
+})
 
 export const addLike = command(z.string(), async (id) => {
-  await db.sql`
+	await db.sql`
     UPDATE items SET likes = likes + 1 WHERE id = ${id}
-  `;
-});
+  `
+})
 ```
 
 ```svelte
@@ -57,13 +57,13 @@ export const addLike = command(z.string(), async (id) => {
 ```ts
 // data.remote.ts
 export const addLike = command(z.string(), async (id) => {
-  await db.sql`
+	await db.sql`
     UPDATE items SET likes = likes + 1 WHERE id = ${id}
-  `;
+  `
 
-  // Refresh the query on the server
-  await getLikes(id).refresh();
-});
+	// Refresh the query on the server
+	await getLikes(id).refresh()
+})
 ```
 
 ### Client-Side Refresh
@@ -100,8 +100,8 @@ The override is applied immediately and released when the command completes (or 
 
 ```ts
 export const refreshAll = command(async () => {
-  await db.sql`UPDATE cache SET refreshed_at = NOW()`;
-});
+	await db.sql`UPDATE cache SET refreshed_at = NOW()`
+})
 ```
 
 ```svelte
@@ -146,9 +146,9 @@ Unlike `form`, `command` cannot use `redirect()`. If you need to redirect after 
 
 ```ts
 export const deleteItem = command(z.string(), async (id) => {
-  await db.sql`DELETE FROM items WHERE id = ${id}`;
-  return { redirect: '/items' };
-});
+	await db.sql`DELETE FROM items WHERE id = ${id}`
+	return { redirect: '/items' }
+})
 ```
 
 ```svelte

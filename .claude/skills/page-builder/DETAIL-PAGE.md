@@ -64,28 +64,29 @@ import { initForm } from '$lib/utils/form.svelte'
 
 // Simple initialization
 initForm(updateItem, () => ({
-  id: itemId,
-  name: item?.name ?? '',
-  status: item?.status ?? 'draft'
+	id: itemId,
+	name: item?.name ?? '',
+	status: item?.status ?? 'draft'
 }))
 
 // With arrays
 initForm(updateItem, () => ({
-  id: itemId,
-  tags: item?.tags?.map(t => t.id) ?? []
+	id: itemId,
+	tags: item?.tags?.map((t) => t.id) ?? []
 }))
 ```
 
 ## Form Components
 
-| Component | Purpose |
-|-----------|---------|
-| `Input` | Text, email, password, url inputs |
-| `Textarea` | Multi-line text |
-| `Select` | Dropdown with options |
-| `Checkbox` | Boolean toggle |
+| Component  | Purpose                           |
+| ---------- | --------------------------------- |
+| `Input`    | Text, email, password, url inputs |
+| `Textarea` | Multi-line text                   |
+| `Select`   | Dropdown with options             |
+| `Checkbox` | Boolean toggle                    |
 
 **Common Props:**
+
 - `label` - Field label
 - `description` - Helper text (hidden when errors present)
 - `issues` - Validation errors from `.issues()`
@@ -182,32 +183,29 @@ For all form errors:
 import { z } from 'zod/v4'
 import { query, form, getRequestEvent, error } from '$app/server'
 
-export const getItem = query(
-  z.object({ id: z.string() }),
-  async ({ id }) => {
-    const { locals } = getRequestEvent()
-    const item = await locals.service.getById(id)
-    if (!item) error(404, 'Item not found')
-    return item
-  }
-)
+export const getItem = query(z.object({ id: z.string() }), async ({ id }) => {
+	const { locals } = getRequestEvent()
+	const item = await locals.service.getById(id)
+	if (!item) error(404, 'Item not found')
+	return item
+})
 
 export const updateItem = form(
-  z.object({
-    id: z.string(),
-    name: z.string().min(1, 'Name is required'),
-    description: z.string().optional(),
-    status: z.enum(['draft', 'published'])
-  }),
-  async (data) => {
-    const { locals } = getRequestEvent()
-    await locals.service.update(data.id, data)
+	z.object({
+		id: z.string(),
+		name: z.string().min(1, 'Name is required'),
+		description: z.string().optional(),
+		status: z.enum(['draft', 'published'])
+	}),
+	async (data) => {
+		const { locals } = getRequestEvent()
+		await locals.service.update(data.id, data)
 
-    // Refresh the item query
-    await getItem({ id: data.id }).refresh()
+		// Refresh the item query
+		await getItem({ id: data.id }).refresh()
 
-    return { success: true }
-  }
+		return { success: true }
+	}
 )
 ```
 

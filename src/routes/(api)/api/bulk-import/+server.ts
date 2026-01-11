@@ -60,7 +60,8 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		const youtubePattern =
 			/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
 		const videoIdPattern = /^[a-zA-Z0-9_-]{11}$/
-		const githubPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)(?:\/tree\/[^/]+\/(.+))?/
+		const githubPattern =
+			/^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)(?:\/tree\/[^/]+\/(.+))?/
 		const repoPattern = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+(?:\/(.+))?$/
 
 		for (let i = 0; i < urls.length; i += options.batchSize) {
@@ -145,7 +146,9 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 							}
 
 							// Build external ID including package path if present
-							const externalId = packagePath ? `${owner}/${repo}/${packagePath}` : `${owner}/${repo}`
+							const externalId = packagePath
+								? `${owner}/${repo}/${packagePath}`
+								: `${owner}/${repo}`
 
 							if (options.skipExisting) {
 								const existing = locals.externalContentService.getContentByExternalId(

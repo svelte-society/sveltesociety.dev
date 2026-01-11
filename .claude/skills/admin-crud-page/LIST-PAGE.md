@@ -31,6 +31,7 @@ For filter forms, search, and pagination patterns, see [page-builder/LIST-PAGE.m
 ```
 
 **Props:**
+
 - `title` - Page title
 - `description` - Subtitle text
 - `icon` - Phosphor icon component
@@ -75,6 +76,7 @@ For filter forms, search, and pagination patterns, see [page-builder/LIST-PAGE.m
 ```
 
 **Props:**
+
 - `data` - Array of items to display
 - `action` - Show action column (boolean)
 - `testId` - Test ID for E2E tests
@@ -109,6 +111,7 @@ For filter forms, search, and pagination patterns, see [page-builder/LIST-PAGE.m
 ```
 
 **Action Types:**
+
 - `Action.Edit` - Link to edit page
 - `Action.Delete` - Delete with confirmation dialog
 - `Action.Button` - Custom action with form
@@ -126,16 +129,16 @@ For filter forms, search, and pagination patterns, see [page-builder/LIST-PAGE.m
 
 ```typescript
 const colorMap = new Map([
-  ['pending_review', 'warning'],
-  ['draft', 'warning'],
-  ['published', 'success'],
-  ['archived', 'danger'],
-  ['active', 'success'],
-  ['inactive', 'default']
+	['pending_review', 'warning'],
+	['draft', 'warning'],
+	['published', 'success'],
+	['archived', 'danger'],
+	['active', 'success'],
+	['inactive', 'default']
 ])
 
 function getStatusColor(status: string): string {
-  return colorMap.get(status) || 'default'
+	return colorMap.get(status) || 'default'
 }
 ```
 
@@ -160,43 +163,41 @@ import { query, form, getRequestEvent, redirect } from '$app/server'
 import { checkAdminAuth } from '../authorization.remote'
 
 const filtersSchema = z.object({
-  search: z.string().catch(''),
-  status: z.string().catch(''),
-  page: z.number().catch(1)
+	search: z.string().catch(''),
+	status: z.string().catch(''),
+	page: z.number().catch(1)
 })
 
-export const getItems = query("unchecked", async (searchParams: URLSearchParams) => {
-  checkAdminAuth()  // Always first!
-  const { locals } = getRequestEvent()
-  const perPage = 20
+export const getItems = query('unchecked', async (searchParams: URLSearchParams) => {
+	checkAdminAuth() // Always first!
+	const { locals } = getRequestEvent()
+	const perPage = 20
 
-  const { search, status, page } = parseSearchParams(filtersSchema, searchParams)
+	const { search, status, page } = parseSearchParams(filtersSchema, searchParams)
 
-  const result = await locals.itemService.getFiltered({
-    search: search || undefined,
-    status: status || undefined,
-    page,
-    perPage
-  })
+	const result = await locals.itemService.getFiltered({
+		search: search || undefined,
+		status: status || undefined,
+		page,
+		perPage
+	})
 
-  return {
-    items: result.items,
-    pagination: { count: result.total, perPage }
-  }
+	return {
+		items: result.items,
+		pagination: { count: result.total, perPage }
+	}
 })
 
-export const deleteItem = form(
-  z.object({ id: z.string() }),
-  async ({ id }) => {
-    checkAdminAuth()
-    const { locals } = getRequestEvent()
-    await locals.itemService.delete(id)
-    redirect(303, '/admin/items')
-  }
-)
+export const deleteItem = form(z.object({ id: z.string() }), async ({ id }) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+	await locals.itemService.delete(id)
+	redirect(303, '/admin/items')
+})
 ```
 
 **Key points:**
+
 - Always call `checkAdminAuth()` first
 - Use `"unchecked"` schema for list queries with `URLSearchParams`
 - Delete redirects server-side via `redirect()`

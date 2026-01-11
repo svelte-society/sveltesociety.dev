@@ -61,5 +61,4 @@ test.describe('Login Flow', () => {
 		const adminPage = new AdminDashboardPage(page)
 		await adminPage.expectUserMenuVisible()
 	})
-
 })

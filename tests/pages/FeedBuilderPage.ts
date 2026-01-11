@@ -39,7 +39,9 @@ export class FeedBuilderPage extends BasePage {
 		this.feedItemsTable = page.getByTestId('feed-items-table')
 		this.feedItemRows = page.locator('[data-testid="feed-items-table"] tbody tr')
 		this.feedItemTitles = page.locator('[data-testid="feed-items-table"] tbody tr td:first-child')
-		this.feedItemStatuses = page.locator('[data-testid="feed-items-table"] tbody tr td:last-child span')
+		this.feedItemStatuses = page.locator(
+			'[data-testid="feed-items-table"] tbody tr td:last-child span'
+		)
 		this.noFeedItemsMessage = page.getByText('No feed items found')
 		this.editButtons = page.getByTestId('edit-button')
 		this.toggleButtons = page.getByTestId('toggle-button')

@@ -8,4 +8,8 @@ export {
 	type ApplicationStatus,
 	type CreateApplicationData
 } from './job-application'
-export { StripeService, type CreateCheckoutSessionParams, type CheckoutSessionResult } from './stripe'
+export {
+	StripeService,
+	type CreateCheckoutSessionParams,
+	type CheckoutSessionResult
+} from './stripe'

@@ -110,7 +110,11 @@ export class StripeService {
 	/**
 	 * Construct and verify a webhook event from the raw body and signature
 	 */
-	constructWebhookEvent(payload: string | Buffer, signature: string, webhookSecret: string = STRIPE_WEBHOOK_SECRET): Stripe.Event {
+	constructWebhookEvent(
+		payload: string | Buffer,
+		signature: string,
+		webhookSecret: string = STRIPE_WEBHOOK_SECRET
+	): Stripe.Event {
 		return this.stripe.webhooks.constructEvent(payload, signature, webhookSecret)
 	}
 

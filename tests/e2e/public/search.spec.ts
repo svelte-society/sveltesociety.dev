@@ -62,7 +62,9 @@ test.describe('OmniSearch Suggestions', () => {
 		await searchInput.fill('svelte')
 
 		// Wait for suggestions
-		const suggestions = page.locator('a:has-text("in Tags"), a:has-text("in Categories"), a:has-text("in Authors")')
+		const suggestions = page.locator(
+			'a:has-text("in Tags"), a:has-text("in Categories"), a:has-text("in Authors")'
+		)
 		await expect(suggestions.first()).toBeVisible()
 
 		// Press arrow down to select first suggestion
@@ -122,7 +124,10 @@ test.describe('OmniSearch Suggestions', () => {
 
 		// The exact "svelte" tag should not appear in suggestions since it's already active
 		// But "sveltekit" should still appear
-		const svelteKitSuggestion = page.locator('a').filter({ hasText: 'sveltekit' }).filter({ hasText: 'in Tags' })
+		const svelteKitSuggestion = page
+			.locator('a')
+			.filter({ hasText: 'sveltekit' })
+			.filter({ hasText: 'in Tags' })
 
 		// Either no suggestions at all (if svelte was the only match) or sveltekit is available
 		const suggestionCount = await page.locator('a:has-text("in Tags")').count()
@@ -144,7 +149,10 @@ test.describe('OmniSearch Suggestions', () => {
 		await searchInput.fill('testing')
 
 		// Should show the testing tag
-		const testingSuggestion = page.locator('a').filter({ hasText: 'testing' }).filter({ hasText: 'in Tags' })
+		const testingSuggestion = page
+			.locator('a')
+			.filter({ hasText: 'testing' })
+			.filter({ hasText: 'in Tags' })
 		await expect(testingSuggestion).toBeVisible()
 
 		// Clear and type something else

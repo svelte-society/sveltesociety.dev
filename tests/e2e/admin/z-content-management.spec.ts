@@ -6,7 +6,6 @@ import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 test.describe.configure({ mode: 'serial' })
 
 test.describe('Admin Content Management', () => {
-
 	test.beforeEach(async ({ page }) => {
 		await setupDatabaseIsolation(page)
 		await loginAs(page, 'admin')

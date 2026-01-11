@@ -6,14 +6,14 @@ Use `query` to read dynamic data from the server.
 
 ```ts
 // data.remote.ts
-import { query } from '$app/server';
-import * as db from '$lib/server/database';
+import { query } from '$app/server'
+import * as db from '$lib/server/database'
 
 export const getItems = query(async () => {
-  // TODO: Add your database query
-  const items = await db.sql`SELECT * FROM items`;
-  return items;
-});
+	// TODO: Add your database query
+	const items = await db.sql`SELECT * FROM items`
+	return items
+})
 ```
 
 ```svelte
@@ -33,20 +33,20 @@ Always validate arguments using Zod:
 
 ```ts
 // data.remote.ts
-import { z } from 'zod/v4';
-import { error } from '@sveltejs/kit';
-import { query } from '$app/server';
-import * as db from '$lib/server/database';
+import { z } from 'zod/v4'
+import { error } from '@sveltejs/kit'
+import { query } from '$app/server'
+import * as db from '$lib/server/database'
 
 export const getItem = query(z.string(), async (id) => {
-  // TODO: Add your database query
-  const [item] = await db.sql`
+	// TODO: Add your database query
+	const [item] = await db.sql`
     SELECT * FROM items WHERE id = ${id}
-  `;
+  `
 
-  if (!item) error(404, 'Not found');
-  return item;
-});
+	if (!item) error(404, 'Not found')
+	return item
+})
 ```
 
 ```svelte
@@ -98,14 +98,14 @@ Use `query.batch` when rendering lists to avoid multiple database calls:
 ```ts
 // data.remote.ts
 export const getAuthor = query.batch(z.string(), async (authorIds) => {
-  // Single query for all authors
-  const authors = await db.sql`
+	// Single query for all authors
+	const authors = await db.sql`
     SELECT * FROM authors WHERE id = ANY(${authorIds})
-  `;
-  const lookup = new Map(authors.map(a => [a.id, a]));
+  `
+	const lookup = new Map(authors.map((a) => [a.id, a]))
 
-  return (id) => lookup.get(id);
-});
+	return (id) => lookup.get(id)
+})
 ```
 
 ```svelte

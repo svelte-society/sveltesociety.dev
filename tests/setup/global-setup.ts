@@ -65,4 +65,3 @@ export default async function globalSetup() {
 if (import.meta.main) {
 	globalSetup().catch(console.error)
 }
-

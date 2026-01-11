@@ -271,12 +271,18 @@ export class NewsletterService {
 					ORDER BY created_at DESC
 					LIMIT $limit OFFSET $offset
 				`)
-				campaigns = filteredStatement.all({ status: filters.status, limit, offset }) as NewsletterCampaign[]
+				campaigns = filteredStatement.all({
+					status: filters.status,
+					limit,
+					offset
+				}) as NewsletterCampaign[]
 
 				const countFilteredStatement = this.db.prepare(`
 					SELECT COUNT(*) as count FROM newsletter_campaigns WHERE status = $status
 				`)
-				const countResult = countFilteredStatement.get({ status: filters.status }) as { count: number }
+				const countResult = countFilteredStatement.get({ status: filters.status }) as {
+					count: number
+				}
 				return { campaigns, total: countResult.count }
 			} else {
 				campaigns = this.listCampaignsStatement.all({ limit, offset }) as NewsletterCampaign[]

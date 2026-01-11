@@ -65,7 +65,11 @@ interface FileToMigrate {
 /**
  * Recursively scan directory for thumbnail files
  */
-function scanDirectory(dirPath: string, baseDir: string, type: 'yt' | 'gh' | 'og'): FileToMigrate[] {
+function scanDirectory(
+	dirPath: string,
+	baseDir: string,
+	type: 'yt' | 'gh' | 'og'
+): FileToMigrate[] {
 	const files: FileToMigrate[] = []
 
 	if (!existsSync(dirPath)) {
@@ -149,7 +153,10 @@ async function uploadToS3(file: FileToMigrate): Promise<boolean> {
 /**
  * Update database records with new S3 URLs
  */
-function updateDatabase(files: FileToMigrate[], db: Database): { updated: number; skipped: number } {
+function updateDatabase(
+	files: FileToMigrate[],
+	db: Database
+): { updated: number; skipped: number } {
 	let updated = 0
 	let skipped = 0
 
