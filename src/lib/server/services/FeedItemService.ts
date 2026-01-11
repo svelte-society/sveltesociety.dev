@@ -199,9 +199,16 @@ export class FeedItemService {
 				button_text: data.button_text !== undefined ? data.button_text : existing.button_text,
 				button_href: data.button_href !== undefined ? data.button_href : existing.button_href,
 				position_type: data.position_type ?? existing.position_type,
-				position_fixed: data.position_fixed !== undefined ? data.position_fixed : existing.position_fixed,
-				position_range_min: data.position_range_min !== undefined ? data.position_range_min : existing.position_range_min,
-				position_range_max: data.position_range_max !== undefined ? data.position_range_max : existing.position_range_max,
+				position_fixed:
+					data.position_fixed !== undefined ? data.position_fixed : existing.position_fixed,
+				position_range_min:
+					data.position_range_min !== undefined
+						? data.position_range_min
+						: existing.position_range_min,
+				position_range_max:
+					data.position_range_max !== undefined
+						? data.position_range_max
+						: existing.position_range_max,
 				start_date: data.start_date !== undefined ? data.start_date : existing.start_date,
 				end_date: data.end_date !== undefined ? data.end_date : existing.end_date,
 				is_active: data.is_active !== undefined ? (data.is_active ? 1 : 0) : existing.is_active,

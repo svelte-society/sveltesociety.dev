@@ -230,7 +230,10 @@ test.describe('Content Interactions (Like/Save)', () => {
 		test('can interact with announcement content', async ({ page }) => {
 			await loginAs(page, 'viewer')
 			const detailPage = new ContentDetailPage(page)
-			await detailPage.goto('announcement', 'test-announcement-svelte-5-released-content_announcement_001')
+			await detailPage.goto(
+				'announcement',
+				'test-announcement-svelte-5-released-content_announcement_001'
+			)
 
 			await detailPage.expectContentLoaded()
 
@@ -249,5 +252,4 @@ test.describe('Content Interactions (Like/Save)', () => {
 			expect(await detailPage.isSaved()).toBe(true)
 		})
 	})
-
 })

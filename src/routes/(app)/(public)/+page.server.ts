@@ -11,23 +11,23 @@ function parseDatalistSelection(q: string): { label: string; type: string } | nu
 
 // Job filter label to value mappings
 const jobLocationValues: Record<string, string> = {
-	'Remote': 'remote',
-	'Hybrid': 'hybrid',
+	Remote: 'remote',
+	Hybrid: 'hybrid',
 	'On-Site': 'on-site'
 }
 
 const jobPositionValues: Record<string, string> = {
 	'Full-Time': 'full-time',
 	'Part-Time': 'part-time',
-	'Contract': 'contract',
-	'Internship': 'internship'
+	Contract: 'contract',
+	Internship: 'internship'
 }
 
 const jobLevelValues: Record<string, string> = {
 	'Entry Level': 'entry',
-	'Junior': 'junior',
+	Junior: 'junior',
 	'Mid-Level': 'mid',
-	'Senior': 'senior',
+	Senior: 'senior',
 	'Principal/Staff': 'principal'
 }
 
@@ -79,13 +79,16 @@ export const load: PageServerLoad = ({ url, locals }) => {
 			} else if (datalistSelection.type === 'author') {
 				params.append('authors', datalistSelection.label)
 			} else if (datalistSelection.type === 'job-location') {
-				const value = jobLocationValues[datalistSelection.label] ?? datalistSelection.label.toLowerCase()
+				const value =
+					jobLocationValues[datalistSelection.label] ?? datalistSelection.label.toLowerCase()
 				params.append('remote', value)
 			} else if (datalistSelection.type === 'job-position') {
-				const value = jobPositionValues[datalistSelection.label] ?? datalistSelection.label.toLowerCase()
+				const value =
+					jobPositionValues[datalistSelection.label] ?? datalistSelection.label.toLowerCase()
 				params.append('position', value)
 			} else if (datalistSelection.type === 'job-level') {
-				const value = jobLevelValues[datalistSelection.label] ?? datalistSelection.label.toLowerCase()
+				const value =
+					jobLevelValues[datalistSelection.label] ?? datalistSelection.label.toLowerCase()
 				params.append('level', value)
 			}
 		} else {

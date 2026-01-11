@@ -225,7 +225,9 @@ export class ContentListPage extends BasePage {
 	async expectContentWithTitle(title: string): Promise<void> {
 		const titles = await this.getContentTitles()
 		if (!titles.some((t) => t.includes(title))) {
-			throw new Error(`Expected to find content with title containing "${title}", but found: ${titles.join(', ')}`)
+			throw new Error(
+				`Expected to find content with title containing "${title}", but found: ${titles.join(', ')}`
+			)
 		}
 	}
 }

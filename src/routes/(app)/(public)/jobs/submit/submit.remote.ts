@@ -43,7 +43,10 @@ export const submitJob = form(jobSubmissionSchema, async (data: JobSubmissionDat
 	// Upload company logo to S3 if provided
 	let companyLogoUrl: string | null = null
 	if (data.company_logo) {
-		companyLogoUrl = await uploadImageFile(data.company_logo, `jobs/${generateSlug(data.company_name)}`)
+		companyLogoUrl = await uploadImageFile(
+			data.company_logo,
+			`jobs/${generateSlug(data.company_name)}`
+		)
 	}
 
 	// Store job data in payment metadata (will be used after payment succeeds)
@@ -91,10 +94,12 @@ export const submitJob = form(jobSubmissionSchema, async (data: JobSubmissionDat
 
 		// Update payment with Stripe session ID
 		locals.paymentService.updatePaymentStatus(paymentId, 'pending')
-		locals.db.prepare('UPDATE payments SET stripe_checkout_session_id = $session_id WHERE id = $id').run({
-			session_id: checkoutResult.sessionId,
-			id: paymentId
-		})
+		locals.db
+			.prepare('UPDATE payments SET stripe_checkout_session_id = $session_id WHERE id = $id')
+			.run({
+				session_id: checkoutResult.sessionId,
+				id: paymentId
+			})
 
 		checkoutUrl = checkoutResult.url
 	} catch (error) {

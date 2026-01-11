@@ -5,6 +5,7 @@ This guide covers migrating thumbnail storage from local filesystem to S3-compat
 ## Overview
 
 Thumbnails are now stored in S3-compatible storage instead of the local filesystem. This provides:
+
 - **Scalability**: No filesystem limits
 - **Performance**: CDN-backed delivery
 - **Reliability**: Redundant storage
@@ -29,6 +30,7 @@ S3 Bucket: sveltesociety-thumbnails/
 ### Feature Flag
 
 All S3 functionality is controlled by the `USE_S3_THUMBNAILS` environment variable:
+
 - `false` (default): Uses local filesystem storage
 - `true`: Uses S3 storage
 
@@ -58,6 +60,7 @@ USE_S3_THUMBNAILS=true  # Enable S3 storage
 ```
 
 **Environment Variable Descriptions:**
+
 - `S3_THUMBNAILS_ENDPOINT`: Tigris endpoint URL (use Fly.io region for best performance)
 - `S3_THUMBNAILS_BUCKET`: Your bucket name
 - `S3_THUMBNAILS_ACCESS_KEY`: Tigris access key ID
@@ -87,6 +90,7 @@ bun run s3:migrate:dry-run
 ```
 
 This will:
+
 - Scan local filesystem for thumbnails
 - Check S3 configuration
 - Show what would be uploaded
@@ -108,11 +112,13 @@ bun run s3:migrate -- --skip-existing
 ```
 
 The script will:
+
 1. Upload all local thumbnails to S3
 2. Update database `metadata.thumbnail` fields with S3 URLs
 3. Display progress and summary
 
 **Migration Stats Example:**
+
 ```
 📂 Scanning for thumbnails...
 Found 150 thumbnail files:
@@ -157,6 +163,7 @@ Deploy the updated environment configuration. New thumbnails will now be stored 
 After verifying everything works correctly for ~1 week:
 
 1. **Optional**: Archive local thumbnail files
+
    ```bash
    tar -czf thumbnail-backup.tar.gz .state_directory/files/
    ```
@@ -175,16 +182,19 @@ Keep the backup for at least 30 days in case you need to rollback.
 If you need to rollback to local filesystem storage:
 
 1. **Set feature flag to false:**
+
    ```bash
    USE_S3_THUMBNAILS=false
    ```
 
 2. **Restore local files from backup** (if deleted):
+
    ```bash
    tar -xzf thumbnail-backup.tar.gz
    ```
 
 3. **Revert database URLs** (if needed):
+
    ```sql
    UPDATE content
    SET metadata = json_set(
@@ -245,6 +255,7 @@ GROUP BY storage_type;
 ### Issue: Migration script fails with "S3 not configured"
 
 **Solution**: Verify all required environment variables are set in `.env`:
+
 ```bash
 grep S3_THUMBNAILS .env
 ```
@@ -252,11 +263,13 @@ grep S3_THUMBNAILS .env
 ### Issue: Thumbnails not loading after migration
 
 **Possible causes:**
+
 1. S3 bucket doesn't have public read access
 2. `S3_THUMBNAILS_PUBLIC_URL` doesn't match actual public URL
 3. CORS configuration needed for custom domain
 
 **Solution**: Test direct S3 URL access:
+
 ```bash
 curl -I https://thumbnails.yourdomain.com/yt/abc123/thumbnail.jpg
 ```
@@ -268,6 +281,7 @@ curl -I https://thumbnails.yourdomain.com/yt/abc123/thumbnail.jpg
 ### Issue: Database update failed for some records
 
 **Solution**: Re-run migration with `--skip-existing` flag:
+
 ```bash
 bun run s3:migrate -- --skip-existing
 ```
@@ -277,6 +291,7 @@ bun run s3:migrate -- --skip-existing
 ### CDN Caching
 
 Configure your CDN (if using custom domain) with:
+
 - **Cache-Control**: `public, max-age=31536000` (1 year)
 - **Edge caching**: Enabled
 - **Origin shield**: Optional for high traffic
@@ -284,18 +299,21 @@ Configure your CDN (if using custom domain) with:
 ### Image Optimization
 
 Thumbnails are served directly from S3. For additional optimization, consider:
+
 1. Using Cloudflare Images (if using Cloudflare CDN)
 2. Keeping the existing `wsrv.nl` CDN integration (already implemented)
 
 ### Cost Estimation (Tigris)
 
 **Example calculation** (10K thumbnails, 1M views/month):
+
 - Storage (500MB): $0.015/GB = ~$0.01/month
 - Operations: ~$0.20/month
 - Egress: $0 (free with Tigris)
 - **Total: ~$0.21/month**
 
 Compare to local storage:
+
 - Storage: Free (but limited by disk space)
 - Scaling: Manual server upgrades needed
 - Bandwidth: Included in hosting costs
@@ -303,6 +321,7 @@ Compare to local storage:
 ## Support
 
 For issues with:
+
 - **Migration script**: Check logs and file permissions
 - **S3 configuration**: Verify Tigris dashboard settings
 - **Database updates**: Check database logs and backup before re-running

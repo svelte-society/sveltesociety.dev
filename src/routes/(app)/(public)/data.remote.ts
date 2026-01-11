@@ -143,7 +143,10 @@ function buildUnifiedFeed(
  * This enables partial matching for no-JS users who type "Rich" to match
  * "Rich Harris", "Rich Stevenson", etc.
  */
-function expandAuthorNames(partialNames: string[], allAuthors: { name: string | null; username: string }[]): string[] {
+function expandAuthorNames(
+	partialNames: string[],
+	allAuthors: { name: string | null; username: string }[]
+): string[] {
 	const expandedNames = new Set<string>()
 
 	for (const partial of partialNames) {
@@ -181,9 +184,8 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 
 	// Expand partial author names to all matching full names
 	const allAuthors = locals.userService.getAuthorsWithContent()
-	const expandedAuthors = data.authors.length > 0
-		? expandAuthorNames(data.authors, allAuthors)
-		: undefined
+	const expandedAuthors =
+		data.authors.length > 0 ? expandAuthorNames(data.authors, allAuthors) : undefined
 
 	const searchResults = locals.searchService.search({
 		query: data.query || undefined,
@@ -250,7 +252,9 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 				title: item.title || item.content_title || 'Check this out',
 				description: item.description || item.content_description || '',
 				buttonText: item.button_text || 'Learn More',
-				buttonHref: item.button_href || (item.content_slug ? `/${item.content_type}/${item.content_slug}` : '/')
+				buttonHref:
+					item.button_href ||
+					(item.content_slug ? `/${item.content_type}/${item.content_slug}` : '/')
 			}
 
 			return {
@@ -291,9 +295,8 @@ export const getCategoryData = query(categoryDataInputSchema, async ({ url, type
 
 	// Expand partial author names to all matching full names
 	const allAuthors = locals.userService.getAuthorsWithContent()
-	const expandedAuthors = data.authors.length > 0
-		? expandAuthorNames(data.authors, allAuthors)
-		: undefined
+	const expandedAuthors =
+		data.authors.length > 0 ? expandAuthorNames(data.authors, allAuthors) : undefined
 
 	// Job-specific filters only apply on job category page
 	const isJobPage = type === 'job'

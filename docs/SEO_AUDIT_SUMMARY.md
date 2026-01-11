@@ -31,12 +31,15 @@ Svelte Society has a solid foundation for SEO (clean URLs, SSR, structured conte
 ## Critical Gaps Detail
 
 ### Search Engine Indexing
+
 **Current State:** ❌ Broken
+
 - No robots.txt = search engines don't know what to crawl
 - No sitemap.xml = search engines can't discover content
 - **Impact:** Site won't be properly indexed, content won't appear in search results
 
 **Fix Required:**
+
 - Dynamic robots.txt endpoint
 - Dynamic sitemap.xml with all published content
 - Submit sitemap to Google Search Console
@@ -44,7 +47,9 @@ Svelte Society has a solid foundation for SEO (clean URLs, SSR, structured conte
 ---
 
 ### Social Media Sharing
+
 **Current State:** ❌ Poor Experience
+
 - No Open Graph tags = generic/broken social previews
 - No Twitter Cards = no rich Twitter previews
 - No og:image = shares have no visual
@@ -52,12 +57,14 @@ Svelte Society has a solid foundation for SEO (clean URLs, SSR, structured conte
 
 **Example Current Behavior:**
 When someone shares a recipe on Facebook:
+
 - Title: Generic browser title
 - Description: None or first text on page
 - Image: None (Facebook picks random image or nothing)
 - Result: Looks unprofessional, low click-through
 
 **Fix Required:**
+
 - Full OG tag implementation
 - Twitter Card meta tags
 - Dynamic OG image generation (1200x630px)
@@ -66,17 +73,21 @@ When someone shares a recipe on Facebook:
 ---
 
 ### Rich Search Results
+
 **Current State:** ❌ Missing Opportunity
+
 - No Schema.org JSON-LD = no rich snippets
 - **Impact:** Content appears as plain text in search results, lower CTR
 
 **Example Missed Opportunities:**
+
 - Recipe pages could show rating stars, author, date
 - Video pages could show thumbnails, duration in search results
 - Library pages could show GitHub stars, description
 - Events could show date/time/location
 
 **Fix Required:**
+
 - Organization schema (homepage)
 - WebSite schema with SearchAction
 - VideoObject schema (videos)
@@ -89,6 +100,7 @@ When someone shares a recipe on Facebook:
 ## Quick Wins vs. Deep Work
 
 ### Quick Wins (Day 1-2)
+
 - ✅ Add robots.txt (2 hours)
 - ✅ Add sitemap.xml (4 hours)
 - ✅ Extend Svead config with OG tags (4 hours)
@@ -96,6 +108,7 @@ When someone shares a recipe on Facebook:
 - ✅ Add resource hints (1 hour)
 
 ### Deep Work (Day 3-5)
+
 - 🔧 OG image generation (8 hours)
 - 🔧 Schema.org implementation (10 hours)
 - 🔧 Testing & validation (6 hours)
@@ -103,6 +116,7 @@ When someone shares a recipe on Facebook:
 ## Implementation Priority
 
 ### P0 - Do Before Launch (3-5 days)
+
 1. robots.txt + sitemap.xml
 2. Open Graph tags (all pages)
 3. Twitter Cards
@@ -112,6 +126,7 @@ When someone shares a recipe on Facebook:
 7. Standardize all pages to use Svead
 
 ### P1 - Launch Week (2-3 days)
+
 1. Image lazy loading
 2. Resource hints
 3. Complete Schema.org coverage
@@ -119,6 +134,7 @@ When someone shares a recipe on Facebook:
 5. Manual validation across tools
 
 ### P2 - Post-Launch (Ongoing)
+
 1. Static page prerendering
 2. RSS feed
 3. Advanced schema types
@@ -127,6 +143,7 @@ When someone shares a recipe on Facebook:
 ## Estimated Effort
 
 **Total Time:** 5-7 days (1 developer)
+
 - Day 1: Foundation (robots, sitemap, resource hints)
 - Day 2: Meta tags (OG, Twitter, canonical)
 - Day 3: OG images
@@ -135,6 +152,7 @@ When someone shares a recipe on Facebook:
 - Day 6-7: Buffer for issues
 
 **Can be parallelized:**
+
 - robots.txt + sitemap (1 person)
 - OG tags + Twitter cards (1 person)
 - Schema.org (1 person)
@@ -144,11 +162,13 @@ When someone shares a recipe on Facebook:
 Before considering SEO complete:
 
 ### Automated
+
 - [ ] Playwright tests for meta tags pass
 - [ ] Lighthouse SEO score ≥95
 - [ ] All E2E tests pass
 
 ### Manual Validation
+
 - [ ] robots.txt validator passes
 - [ ] Sitemap XML validator passes
 - [ ] Facebook Sharing Debugger (no errors)
@@ -158,6 +178,7 @@ Before considering SEO complete:
 - [ ] Google Search Console (sitemap submitted)
 
 ### Sample URLs Tested
+
 - [ ] Homepage
 - [ ] 3 recipe pages
 - [ ] 3 video pages
@@ -169,30 +190,38 @@ Before considering SEO complete:
 ## Risk Assessment
 
 ### High Risk
+
 **Launching without SEO fixes:**
+
 - Content won't be indexed properly → Low organic traffic
 - Social shares look broken → Low viral growth
 - Missing rich results → Lower click-through rate
 - **Business Impact:** Acquisition will rely 100% on paid/direct traffic
 
 ### Medium Risk
+
 **OG image generation complexity:**
+
 - Mitigation: Use simple template, fallback to static image
 - Alternative: Pre-generate on publish
 
 ### Low Risk
+
 **Svead library limitations:**
+
 - Mitigation: Library is actively maintained, fallback to manual meta tags
 
 ## Success Metrics (30 Days Post-Launch)
 
 ### Technical
+
 - Lighthouse SEO score: 95+
 - Google Search Console: 0 critical errors
 - Pages indexed: 90%+ of published content
 - Schema errors: 0
 
 ### Business
+
 - Organic search traffic: >20% of total
 - Social referral traffic: >10% of total
 - Avg. time on page from social: >2min
@@ -201,6 +230,7 @@ Before considering SEO complete:
 ## Competitive Analysis
 
 Checked similar sites:
+
 - **Svelte.dev** - ✅ Has OG tags, Schema.org, sitemap
 - **Vue.js.org** - ✅ Has OG tags, Schema.org, sitemap
 - **React.dev** - ✅ Has OG tags, Schema.org, sitemap
@@ -214,6 +244,7 @@ Checked similar sites:
 The effort required (3-5 days) is minimal compared to the cost of launching without proper SEO. Once live, it takes 2-4 weeks for Google to index changes, meaning any SEO fixes post-launch will take a month to show impact.
 
 **Recommended Approach:**
+
 1. Implement P0 items (days 1-5)
 2. Launch with validated SEO
 3. Continue P1 items during launch week

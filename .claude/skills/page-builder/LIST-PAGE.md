@@ -107,33 +107,33 @@ import { parseSearchParams } from 'zod-search-params/v4'
 import { query, getRequestEvent } from '$app/server'
 
 const inputSchema = z.object({
-  url: z.instanceof(URL)
+	url: z.instanceof(URL)
 })
 
 const filtersSchema = z.object({
-  search: z.string().catch(''),
-  status: z.string().catch(''),
-  page: z.number().catch(1)
+	search: z.string().catch(''),
+	status: z.string().catch(''),
+	page: z.number().catch(1)
 })
 
 export const getItems = query(inputSchema, async ({ url }) => {
-  const { locals } = getRequestEvent()
-  const perPage = 20
+	const { locals } = getRequestEvent()
+	const perPage = 20
 
-  const filters = parseSearchParams(filtersSchema, url.searchParams)
-  const offset = (filters.page - 1) * perPage
+	const filters = parseSearchParams(filtersSchema, url.searchParams)
+	const offset = (filters.page - 1) * perPage
 
-  const result = locals.service.search({
-    query: filters.search || undefined,
-    status: filters.status || undefined,
-    limit: perPage,
-    offset
-  })
+	const result = locals.service.search({
+		query: filters.search || undefined,
+		status: filters.status || undefined,
+		limit: perPage,
+		offset
+	})
 
-  return {
-    items: result.hits,
-    count: result.total
-  }
+	return {
+		items: result.hits,
+		count: result.total
+	}
 })
 ```
 

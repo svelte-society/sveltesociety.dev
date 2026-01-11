@@ -2,69 +2,69 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-    --font-display: Inter, system-ui, sans-serif;
-    --font-sans: Inter, system-ui, sans-serif;
+	--font-display: Inter, system-ui, sans-serif;
+	--font-sans: Inter, system-ui, sans-serif;
 
-    --color-svelte-900: oklch(65.43% 0.2341 34.2);
-    --color-svelte-500: oklch(71.09% 0.1862 37.91);
-    --color-svelte-300: oklch(86.8% 0.1825 38.6);
-    --color-svelte-100: oklch(92.72% 0.0386 39.91);
-    --color-svelte-50: oklch(97.02% 0.0151 37.88);
+	--color-svelte-900: oklch(65.43% 0.2341 34.2);
+	--color-svelte-500: oklch(71.09% 0.1862 37.91);
+	--color-svelte-300: oklch(86.8% 0.1825 38.6);
+	--color-svelte-100: oklch(92.72% 0.0386 39.91);
+	--color-svelte-50: oklch(97.02% 0.0151 37.88);
 }
 
 @layer base {
-    html {
-        @apply text-slate-800;
-        scrollbar-gutter: stable;
-    }
+	html {
+		@apply text-slate-800;
+		scrollbar-gutter: stable;
+	}
 
-    @font-face {
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 100 900;
-        font-display: swap;
-        src:
-            local('Inter'),
-            url('/fonts/Inter.woff2') format('woff2');
-    }
+	@font-face {
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 100 900;
+		font-display: swap;
+		src:
+			local('Inter'),
+			url('/fonts/Inter.woff2') format('woff2');
+	}
 }
 
 /* Syntax highlighting - shiki code blocks */
 .prose pre {
-    @apply overflow-x-auto rounded-lg py-4 pr-4 pl-2;
-    font-size: 1rem !important; /* 16px - override typography plugin */
-    line-height: 1.75 !important;
+	@apply overflow-x-auto rounded-lg py-4 pr-4 pl-2;
+	font-size: 1rem !important; /* 16px - override typography plugin */
+	line-height: 1.75 !important;
 }
 
 .prose pre code {
-    @apply bg-transparent p-0;
-    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono',
-        monospace;
-    font-size: inherit !important;
-    counter-reset: line;
+	@apply bg-transparent p-0;
+	font-family:
+		ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+	font-size: inherit !important;
+	counter-reset: line;
 }
 
-.prose pre code>.line {
-    width: 100%;
+.prose pre code > .line {
+	width: 100%;
 }
 
-.prose pre code>.line::before {
-    counter-increment: line;
-    content: counter(line);
-    display: inline-block;
-    width: 1.5rem;
-    margin-right: 1rem;
-    text-align: right;
-    color: #94a3b8;
-    /* slate-400 */
-    user-select: none;
+.prose pre code > .line::before {
+	counter-increment: line;
+	content: counter(line);
+	display: inline-block;
+	width: 1.5rem;
+	margin-right: 1rem;
+	text-align: right;
+	color: #94a3b8;
+	/* slate-400 */
+	user-select: none;
 }
 
-.prose :not(pre)>code {
-    @apply rounded bg-slate-100 px-1.5 py-0.5 text-sm;
+.prose :not(pre) > code {
+	@apply rounded bg-slate-100 px-1.5 py-0.5 text-sm;
 }
 
 ::view-transition-group(header),
 ::view-transition-group(announcement) {
-    z-index: 10;
+	z-index: 10;
 }

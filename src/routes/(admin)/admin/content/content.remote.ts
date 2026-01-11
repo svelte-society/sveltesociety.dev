@@ -162,17 +162,21 @@ const adminUpdateContentSchema = z.object({
 
 // Transform empty strings to undefined/null for optional fields
 const optionalString = z.string().transform((val) => (val === '' ? null : val))
-const optionalNumber = z.string().transform((val) => (val === '' ? null : Number(val))).pipe(
-	z.number().positive().nullable()
-)
+const optionalNumber = z
+	.string()
+	.transform((val) => (val === '' ? null : Number(val)))
+	.pipe(z.number().positive().nullable())
 
 // Accept File for image uploads (SvelteKit uses LazyFile internally)
 const optionalFile = z
-	.custom<File>((val) => {
-		if (val === undefined || val === null) return true
-		// Check for file-like properties (works with both File and LazyFile)
-		return typeof val === 'object' && 'name' in val && 'type' in val && 'arrayBuffer' in val
-	}, { message: 'Must be a valid image file' })
+	.custom<File>(
+		(val) => {
+			if (val === undefined || val === null) return true
+			// Check for file-like properties (works with both File and LazyFile)
+			return typeof val === 'object' && 'name' in val && 'type' in val && 'arrayBuffer' in val
+		},
+		{ message: 'Must be a valid image file' }
+	)
 	.optional()
 
 /**
@@ -238,7 +242,9 @@ export const updateContent = form(adminUpdateContentSchema, async (data) => {
 	const content = locals.contentService.getContentById(data.id)
 	if (content) {
 		const tags = content.tags as unknown as { slug: string }[] | undefined
-		const authors = content.authors as unknown as { name: string | null; username: string }[] | undefined
+		const authors = content.authors as unknown as
+			| { name: string | null; username: string }[]
+			| undefined
 		locals.searchService.update(data.id, {
 			id: content.id,
 			title: content.title,
@@ -276,7 +282,10 @@ export const updateJob = form(adminUpdateJobSchema, async (data) => {
 	// Upload new logo to S3 if provided, otherwise keep existing
 	let companyLogoUrl: string | null = existingMetadata.company_logo || null
 	if (data.company_logo) {
-		const uploadedUrl = await uploadImageFile(data.company_logo, `jobs/${generateSlug(data.company_name)}`)
+		const uploadedUrl = await uploadImageFile(
+			data.company_logo,
+			`jobs/${generateSlug(data.company_name)}`
+		)
 		if (uploadedUrl) {
 			companyLogoUrl = uploadedUrl
 		}

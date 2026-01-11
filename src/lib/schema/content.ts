@@ -1,6 +1,14 @@
 import { z } from 'zod/v4'
 
-export const typeSchema = z.enum(['video', 'library', 'announcement', 'collection', 'recipe', 'resource', 'job'])
+export const typeSchema = z.enum([
+	'video',
+	'library',
+	'announcement',
+	'collection',
+	'recipe',
+	'resource',
+	'job'
+])
 export const statusSchema = z.enum(['draft', 'pending_review', 'published', 'archived'])
 
 const baseContentSchema = z.object({

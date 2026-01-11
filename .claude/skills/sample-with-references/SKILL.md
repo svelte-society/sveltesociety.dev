@@ -10,6 +10,7 @@ This skill demonstrates **progressive disclosure** - keeping the main SKILL.md c
 ## When to Use This Pattern
 
 Use reference files when you have:
+
 - Detailed API documentation
 - Multiple workflows or domains
 - Large code examples

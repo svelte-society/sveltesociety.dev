@@ -234,11 +234,7 @@ export class SubmitJobPage extends BasePage {
 	/**
 	 * Fill salary section
 	 */
-	async fillSalary(data: {
-		min?: string
-		max?: string
-		currency?: string
-	}): Promise<void> {
+	async fillSalary(data: { min?: string; max?: string; currency?: string }): Promise<void> {
 		if (data.min) {
 			await this.salaryMinInput.fill(data.min)
 		}

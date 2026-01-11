@@ -16,7 +16,12 @@ import { LLMService } from '$lib/server/services/llm'
 import { AnnouncementService } from '$lib/server/services/AnnouncementService'
 import { ShortcutService } from '$lib/server/services/ShortcutService'
 import { FeedItemService } from '$lib/server/services/FeedItemService'
-import { JobTierService, PaymentService, JobApplicationService, StripeService } from '$lib/server/services/jobs'
+import {
+	JobTierService,
+	PaymentService,
+	JobApplicationService,
+	StripeService
+} from '$lib/server/services/jobs'
 import { EmailService } from '$lib/server/services/email'
 import { NewsletterService } from '$lib/server/services/newsletter'
 import fs from 'node:fs'

@@ -74,8 +74,7 @@ export const importContent = form(importSchema, async (data) => {
 
 	const url = data.url
 
-	const youtubePattern =
-		/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
+	const youtubePattern = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/
 	const videoIdPattern = /^[a-zA-Z0-9_-]{11}$/
 	const githubPattern =
 		/^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)(?:\/tree\/[^/]+\/(.+))?/
@@ -176,8 +175,7 @@ export const importContent = form(importSchema, async (data) => {
 			console.error('Error importing GitHub repository:', error)
 			return {
 				success: false,
-				error:
-					'Failed to import GitHub repository. The repository may not exist or may be private.'
+				error: 'Failed to import GitHub repository. The repository may not exist or may be private.'
 			}
 		}
 	}

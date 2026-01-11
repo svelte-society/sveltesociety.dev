@@ -143,7 +143,9 @@ export function clearTables(tables: string[]): void {
  * const draftCount = count('content', 'status = ?', ['draft'])
  */
 export function count(table: string, where?: string, params: any[] = []): number {
-	const sql = where ? `SELECT COUNT(*) as count FROM ${table} WHERE ${where}` : `SELECT COUNT(*) as count FROM ${table}`
+	const sql = where
+		? `SELECT COUNT(*) as count FROM ${table} WHERE ${where}`
+		: `SELECT COUNT(*) as count FROM ${table}`
 	const result = queryOne<{ count: number }>(sql, params)
 	return result?.count || 0
 }

@@ -76,9 +76,10 @@ function getCallerTestFileIdentifier(): string {
 		}
 	}
 
-	throw new Error('Unable to find .spec.ts file in stack trace. Please provide testFileName manually.')
+	throw new Error(
+		'Unable to find .spec.ts file in stack trace. Please provide testFileName manually.'
+	)
 }
-
 
 /**
  * Extracts a test file identifier from the file path.
@@ -105,7 +106,5 @@ export function getTestFileIdentifier(filePath: string): string {
 	// Remove .spec.ts extension and replace slashes with hyphens
 	// e.g., 'public/content-detail.spec.ts' → 'public-content-detail'
 	// e.g., 'admin/moderation.spec.ts' → 'admin-moderation'
-	return relativePath
-		.replace(/\.spec\.ts$/, '')
-		.replace(/\//g, '-')
+	return relativePath.replace(/\.spec\.ts$/, '').replace(/\//g, '-')
 }

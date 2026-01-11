@@ -276,71 +276,68 @@ import { checkAdminAuth } from '../authorization.remote'
 
 // Define schema with .catch() for defaults - do NOT use coerce
 const filtersSchema = z.object({
-  search: z.string().catch(''),
-  status: z.string().catch(''),
-  page: z.number().catch(1)
+	search: z.string().catch(''),
+	status: z.string().catch(''),
+	page: z.number().catch(1)
 })
 
-export const getItems = query("unchecked", async (searchParams: URLSearchParams) => {
-  checkAdminAuth()
-  const { locals } = getRequestEvent()
-  const perPage = 20
+export const getItems = query('unchecked', async (searchParams: URLSearchParams) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+	const perPage = 20
 
-  // Parse with zod-search-params (auto-coerces types)
-  const { search, status, page } = parseSearchParams(filtersSchema, searchParams)
+	// Parse with zod-search-params (auto-coerces types)
+	const { search, status, page } = parseSearchParams(filtersSchema, searchParams)
 
-  const result = await locals.itemService.getFiltered({
-    search: search || undefined,
-    status: status || undefined,
-    page,
-    perPage
-  })
+	const result = await locals.itemService.getFiltered({
+		search: search || undefined,
+		status: status || undefined,
+		page,
+		perPage
+	})
 
-  return {
-    items: result.items,
-    pagination: { count: result.total, perPage }
-  }
+	return {
+		items: result.items,
+		pagination: { count: result.total, perPage }
+	}
 })
 
 // ============================================
 // QUERY: Get single item
 // ============================================
 
-export const getItem = query(
-  z.object({ id: z.string() }),
-  async ({ id }) => {
-    checkAdminAuth()
-    const { locals } = getRequestEvent()
-    const item = await locals.itemService.getById(id)
-    if (!item) error(404, 'Item not found')
-    return item
-  }
-)
+export const getItem = query(z.object({ id: z.string() }), async ({ id }) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+	const item = await locals.itemService.getById(id)
+	if (!item) error(404, 'Item not found')
+	return item
+})
 
 // ============================================
 // FORM: Update item
 // ============================================
 
 export const updateItem = form(
-  z.object({
-    id: z.string(),
-    name: z.string().min(1, 'Name is required'),
-    description: z.string().optional(),
-    status: z.enum(['draft', 'active', 'archived'])
-  }),
-  async (data) => {
-    checkAdminAuth()
-    const { locals } = getRequestEvent()
+	z.object({
+		id: z.string(),
+		name: z.string().min(1, 'Name is required'),
+		description: z.string().optional(),
+		status: z.enum(['draft', 'active', 'archived'])
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
 
-    await locals.itemService.update(data.id, {
-      name: data.name,
-      description: data.description,
-      status: data.status
-    })
+		await locals.itemService.update(data.id, {
+			name: data.name,
+			description: data.description,
+			status: data.status
+		})
 
-    await getItem({ id: data.id }).refresh()
-    return { success: true }
-  }
+		await getItem({ id: data.id }).refresh()
+		return { success: true }
+	}
 )
 
 // ============================================
@@ -348,37 +345,34 @@ export const updateItem = form(
 // ============================================
 
 export const createItem = form(
-  z.object({
-    name: z.string().min(1, 'Name is required'),
-    description: z.string().optional()
-  }),
-  async (data) => {
-    checkAdminAuth()
-    const { locals } = getRequestEvent()
+	z.object({
+		name: z.string().min(1, 'Name is required'),
+		description: z.string().optional()
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
 
-    const id = await locals.itemService.create({
-      name: data.name,
-      description: data.description,
-      status: 'draft'
-    })
+		const id = await locals.itemService.create({
+			name: data.name,
+			description: data.description,
+			status: 'draft'
+		})
 
-    redirect(303, `/admin/items/${id}`)
-  }
+		redirect(303, `/admin/items/${id}`)
+	}
 )
 
 // ============================================
 // FORM: Delete item
 // ============================================
 
-export const deleteItem = form(
-  z.object({ id: z.string() }),
-  async ({ id }) => {
-    checkAdminAuth()
-    const { locals } = getRequestEvent()
-    await locals.itemService.delete(id)
-    redirect(303, '/admin/items')
-  }
-)
+export const deleteItem = form(z.object({ id: z.string() }), async ({ id }) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+	await locals.itemService.delete(id)
+	redirect(303, '/admin/items')
+})
 ```
 
 ---

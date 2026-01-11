@@ -43,7 +43,10 @@ test.describe('Content Detail Pages', () => {
 
 	test('can view announcement detail page', async ({ page }) => {
 		const detailPage = new ContentDetailPage(page)
-		await detailPage.goto('announcement', 'test-announcement-svelte-5-released-content_announcement_001')
+		await detailPage.goto(
+			'announcement',
+			'test-announcement-svelte-5-released-content_announcement_001'
+		)
 
 		await detailPage.expectContentLoaded()
 		await detailPage.expectTitleIs('Test Announcement: Svelte 5 Released')
@@ -188,5 +191,4 @@ test.describe('Content Detail Pages', () => {
 		await expect(thumbnailLink).toHaveAttribute('target', '_blank')
 		await expect(thumbnailLink).toHaveAttribute('rel', 'noopener noreferrer')
 	})
-
 })

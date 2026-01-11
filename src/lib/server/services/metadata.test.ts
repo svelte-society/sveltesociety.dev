@@ -146,10 +146,12 @@ describe('MetadataService', () => {
 	describe('refreshMetadataForContent', () => {
 		test('should refresh library metadata with GitHub data', async () => {
 			// First insert content
-			db.prepare(`
+			db.prepare(
+				`
 				INSERT INTO content (id, type, title, slug, status, description, metadata)
 				VALUES (?, ?, ?, ?, ?, ?, ?)
-			`).run(
+			`
+			).run(
 				'test-id',
 				'library',
 				'Test Library',
@@ -180,10 +182,12 @@ describe('MetadataService', () => {
 
 		test('should refresh video metadata with YouTube data', async () => {
 			// First insert content
-			db.prepare(`
+			db.prepare(
+				`
 				INSERT INTO content (id, type, title, slug, status, description, metadata)
 				VALUES (?, ?, ?, ?, ?, ?, ?)
-			`).run(
+			`
+			).run(
 				'test-id',
 				'video',
 				'Test Video',

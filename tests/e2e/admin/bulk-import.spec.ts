@@ -34,7 +34,7 @@ test.describe('Bulk Import', () => {
 		// Test the API directly with monorepo path
 		const response = await page.request.post('/api/bulk-import', {
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
 			data: {
 				urls: ['sveltejs/kit/packages/kit'],
@@ -59,7 +59,7 @@ test.describe('Bulk Import', () => {
 		// Test the API with full GitHub URL including path
 		const response = await page.request.post('/api/bulk-import', {
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
 			data: {
 				urls: ['https://github.com/sveltejs/kit/tree/main/packages/kit'],
@@ -84,13 +84,10 @@ test.describe('Bulk Import', () => {
 		// Import two different packages from the same monorepo
 		const response = await page.request.post('/api/bulk-import', {
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
 			data: {
-				urls: [
-					'sveltejs/kit/packages/kit',
-					'sveltejs/kit/packages/adapter-node'
-				],
+				urls: ['sveltejs/kit/packages/kit', 'sveltejs/kit/packages/adapter-node'],
 				options: {
 					skipExisting: false,
 					batchSize: 2
@@ -123,7 +120,7 @@ test.describe('Bulk Import', () => {
 		// First import
 		const firstResponse = await page.request.post('/api/bulk-import', {
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
 			data: {
 				urls: ['sveltejs/kit/packages/kit'],
@@ -147,7 +144,7 @@ test.describe('Bulk Import', () => {
 		// Second import with skipExisting=true
 		const secondResponse = await page.request.post('/api/bulk-import', {
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
 			data: {
 				urls: ['sveltejs/kit/packages/kit'],
@@ -171,12 +168,12 @@ test.describe('Bulk Import', () => {
 
 		const response = await page.request.post('/api/bulk-import', {
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
 			data: {
 				urls: [
-					'sveltejs/svelte',  // Regular repo
-					'sveltejs/kit/packages/kit',  // Monorepo package
+					'sveltejs/svelte', // Regular repo
+					'sveltejs/kit/packages/kit' // Monorepo package
 				],
 				options: {
 					skipExisting: false,
@@ -203,10 +200,10 @@ test.describe('Bulk Import', () => {
 		// Create a new context without authentication
 		const response = await request.post('/api/bulk-import', {
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
 			data: {
-				urls: ['sveltejs/kit/packages/kit'],
+				urls: ['sveltejs/kit/packages/kit']
 			}
 		})
 

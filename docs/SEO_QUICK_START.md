@@ -12,6 +12,7 @@
 **Priority:** P0 (Launch Blocker)
 
 **What We're Adding:**
+
 1. robots.txt + sitemap.xml
 2. Open Graph + Twitter Card meta tags
 3. OG image generation
@@ -54,27 +55,28 @@ Create `/src/lib/seo/config.ts`:
 
 ```typescript
 export const SEO_CONFIG = {
-  siteName: 'Svelte Society',
-  siteUrl: 'https://sveltesociety.dev',
-  defaultTitle: 'Svelte Society - Community of Svelte Developers',
-  defaultDescription: 'Discover recipes, videos, libraries, and resources from the Svelte community.',
-  defaultImage: '/og-default.png',
-  twitterHandle: '@sveltesociety',
-  locale: 'en_US',
+	siteName: 'Svelte Society',
+	siteUrl: 'https://sveltesociety.dev',
+	defaultTitle: 'Svelte Society - Community of Svelte Developers',
+	defaultDescription:
+		'Discover recipes, videos, libraries, and resources from the Svelte community.',
+	defaultImage: '/og-default.png',
+	twitterHandle: '@sveltesociety',
+	locale: 'en_US',
 
-  // OG Image settings
-  ogImageWidth: 1200,
-  ogImageHeight: 630,
+	// OG Image settings
+	ogImageWidth: 1200,
+	ogImageHeight: 630,
 
-  // Priority settings for sitemap
-  priority: {
-    homepage: 1.0,
-    collection: 0.9,
-    announcement: 0.9,
-    content: 0.8,
-    category: 0.7,
-    static: 0.6
-  }
+	// Priority settings for sitemap
+	priority: {
+		homepage: 1.0,
+		collection: 0.9,
+		announcement: 0.9,
+		content: 0.8,
+		category: 0.7,
+		static: 0.6
+	}
 }
 ```
 
@@ -88,7 +90,7 @@ Create `/src/routes/robots.txt/+server.ts`:
 import { SEO_CONFIG } from '$lib/seo/config'
 
 export const GET = () => {
-  const robots = `
+	const robots = `
 User-agent: *
 Allow: /
 Disallow: /admin/
@@ -99,12 +101,12 @@ Disallow: /login
 Sitemap: ${SEO_CONFIG.siteUrl}/sitemap.xml
 `.trim()
 
-  return new Response(robots, {
-    headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Cache-Control': 'public, max-age=86400' // 24 hours
-    }
-  })
+	return new Response(robots, {
+		headers: {
+			'Content-Type': 'text/plain; charset=utf-8',
+			'Cache-Control': 'public, max-age=86400' // 24 hours
+		}
+	})
 }
 ```
 
@@ -120,65 +122,58 @@ Create `/src/routes/sitemap.xml/+server.ts`:
 import { SEO_CONFIG } from '$lib/seo/config'
 
 export const GET = async ({ locals }) => {
-  const { contentService } = locals
+	const { contentService } = locals
 
-  // Get all published content
-  const allContent = contentService.getAllPublishedContent()
+	// Get all published content
+	const allContent = contentService.getAllPublishedContent()
 
-  // Build URL entries
-  const urls: string[] = []
+	// Build URL entries
+	const urls: string[] = []
 
-  // Homepage
-  urls.push(createUrlEntry('/', new Date(), 1.0, 'daily'))
+	// Homepage
+	urls.push(createUrlEntry('/', new Date(), 1.0, 'daily'))
 
-  // Static pages
-  urls.push(createUrlEntry('/about', new Date(), 0.6, 'monthly'))
-  urls.push(createUrlEntry('/terms', new Date(), 0.3, 'yearly'))
-  urls.push(createUrlEntry('/privacy', new Date(), 0.3, 'yearly'))
+	// Static pages
+	urls.push(createUrlEntry('/about', new Date(), 0.6, 'monthly'))
+	urls.push(createUrlEntry('/terms', new Date(), 0.3, 'yearly'))
+	urls.push(createUrlEntry('/privacy', new Date(), 0.3, 'yearly'))
 
-  // Category pages
-  urls.push(createUrlEntry('/recipe', new Date(), 0.7, 'daily'))
-  urls.push(createUrlEntry('/video', new Date(), 0.7, 'daily'))
-  urls.push(createUrlEntry('/library', new Date(), 0.7, 'daily'))
-  urls.push(createUrlEntry('/collection', new Date(), 0.7, 'daily'))
-  urls.push(createUrlEntry('/announcement', new Date(), 0.7, 'daily'))
+	// Category pages
+	urls.push(createUrlEntry('/recipe', new Date(), 0.7, 'daily'))
+	urls.push(createUrlEntry('/video', new Date(), 0.7, 'daily'))
+	urls.push(createUrlEntry('/library', new Date(), 0.7, 'daily'))
+	urls.push(createUrlEntry('/collection', new Date(), 0.7, 'daily'))
+	urls.push(createUrlEntry('/announcement', new Date(), 0.7, 'daily'))
 
-  // Content pages
-  for (const content of allContent) {
-    const priority = content.type === 'collection' || content.type === 'announcement'
-      ? 0.9
-      : 0.8
+	// Content pages
+	for (const content of allContent) {
+		const priority = content.type === 'collection' || content.type === 'announcement' ? 0.9 : 0.8
 
-    urls.push(
-      createUrlEntry(
-        `/${content.type}/${content.slug}`,
-        new Date(content.updated_at || content.created_at),
-        priority,
-        'weekly'
-      )
-    )
-  }
+		urls.push(
+			createUrlEntry(
+				`/${content.type}/${content.slug}`,
+				new Date(content.updated_at || content.created_at),
+				priority,
+				'weekly'
+			)
+		)
+	}
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.join('\n')}
 </urlset>`
 
-  return new Response(sitemap, {
-    headers: {
-      'Content-Type': 'application/xml; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600' // 1 hour
-    }
-  })
+	return new Response(sitemap, {
+		headers: {
+			'Content-Type': 'application/xml; charset=utf-8',
+			'Cache-Control': 'public, max-age=3600' // 1 hour
+		}
+	})
 }
 
-function createUrlEntry(
-  path: string,
-  lastmod: Date,
-  priority: number,
-  changefreq: string
-): string {
-  return `  <url>
+function createUrlEntry(path: string, lastmod: Date, priority: number, changefreq: string): string {
+	return `  <url>
     <loc>${SEO_CONFIG.siteUrl}${path}</loc>
     <lastmod>${lastmod.toISOString()}</lastmod>
     <changefreq>${changefreq}</changefreq>
@@ -199,54 +194,58 @@ Update all `+page.server.ts` files to include full meta config:
 ```typescript
 // Example: /[type]/[slug]/+page.server.ts
 export const load = async ({ locals, params, url }) => {
-  const content = locals.contentService.getContentBySlug(params.slug)
+	const content = locals.contentService.getContentBySlug(params.slug)
 
-  if (!content) {
-    throw error(404, { message: 'Content not found' })
-  }
+	if (!content) {
+		throw error(404, { message: 'Content not found' })
+	}
 
-  // Determine OG type
-  const ogType = content.type === 'video' ? 'video.other' : 'article'
+	// Determine OG type
+	const ogType = content.type === 'video' ? 'video.other' : 'article'
 
-  return {
-    content,
-    meta: {
-      // Basic
-      title: `${content.title} - Svelte Society`,
-      description: content.description || `View ${content.title} on Svelte Society`,
-      url: url.toString(),
+	return {
+		content,
+		meta: {
+			// Basic
+			title: `${content.title} - Svelte Society`,
+			description: content.description || `View ${content.title} on Svelte Society`,
+			url: url.toString(),
 
-      // Open Graph
-      image: `/og-image/${content.slug}`,
-      imageAlt: content.title,
-      imageWidth: 1200,
-      imageHeight: 630,
-      type: ogType,
-      siteName: 'Svelte Society',
-      locale: 'en_US',
+			// Open Graph
+			image: `/og-image/${content.slug}`,
+			imageAlt: content.title,
+			imageWidth: 1200,
+			imageHeight: 630,
+			type: ogType,
+			siteName: 'Svelte Society',
+			locale: 'en_US',
 
-      // Twitter
-      twitter: {
-        card: 'summary_large_image',
-        site: '@sveltesociety',
-        title: content.title,
-        description: content.description,
-        image: `/og-image/${content.slug}`,
-        imageAlt: content.title
-      },
+			// Twitter
+			twitter: {
+				card: 'summary_large_image',
+				site: '@sveltesociety',
+				title: content.title,
+				description: content.description,
+				image: `/og-image/${content.slug}`,
+				imageAlt: content.title
+			},
 
-      // Article specific (for recipes/libraries)
-      article: content.type !== 'video' ? {
-        publishedTime: content.created_at,
-        modifiedTime: content.updated_at,
-        author: content.author_name
-      } : undefined
-    }
-  }
+			// Article specific (for recipes/libraries)
+			article:
+				content.type !== 'video'
+					? {
+							publishedTime: content.created_at,
+							modifiedTime: content.updated_at,
+							author: content.author_name
+						}
+					: undefined
+		}
+	}
 }
 ```
 
 **Test:** Check meta tags with:
+
 - Facebook Sharing Debugger: https://developers.facebook.com/tools/debug/
 - Twitter Card Validator: https://cards-dev.twitter.com/validator
 
@@ -255,6 +254,7 @@ export const load = async ({ locals, params, url }) => {
 ## Step 5: OG Image Generation (6 hours)
 
 Install dependencies:
+
 ```bash
 bun add @vercel/og
 # or
@@ -363,109 +363,111 @@ export const GET = async ({ params, locals }) => {
 Create schema generators in `/src/lib/seo/schema/`:
 
 ### organization.ts
+
 ```typescript
 import { SEO_CONFIG } from '../config'
 
 export function generateOrganizationSchema() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: SEO_CONFIG.siteName,
-    url: SEO_CONFIG.siteUrl,
-    logo: `${SEO_CONFIG.siteUrl}/logo.png`,
-    description: SEO_CONFIG.defaultDescription,
-    sameAs: [
-      'https://twitter.com/sveltesociety',
-      'https://github.com/svelte-society'
-    ]
-  }
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'Organization',
+		name: SEO_CONFIG.siteName,
+		url: SEO_CONFIG.siteUrl,
+		logo: `${SEO_CONFIG.siteUrl}/logo.png`,
+		description: SEO_CONFIG.defaultDescription,
+		sameAs: ['https://twitter.com/sveltesociety', 'https://github.com/svelte-society']
+	}
 }
 ```
 
 ### website.ts
+
 ```typescript
 import { SEO_CONFIG } from '../config'
 
 export function generateWebSiteSchema() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: SEO_CONFIG.siteName,
-    url: SEO_CONFIG.siteUrl,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${SEO_CONFIG.siteUrl}/?q={search_term_string}`
-      },
-      'query-input': 'required name=search_term_string'
-    }
-  }
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'WebSite',
+		name: SEO_CONFIG.siteName,
+		url: SEO_CONFIG.siteUrl,
+		potentialAction: {
+			'@type': 'SearchAction',
+			target: {
+				'@type': 'EntryPoint',
+				urlTemplate: `${SEO_CONFIG.siteUrl}/?q={search_term_string}`
+			},
+			'query-input': 'required name=search_term_string'
+		}
+	}
 }
 ```
 
 ### article.ts
+
 ```typescript
 export function generateArticleSchema(content: any, url: string) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'TechArticle',
-    headline: content.title,
-    description: content.description,
-    url: url,
-    datePublished: content.created_at,
-    dateModified: content.updated_at || content.created_at,
-    author: {
-      '@type': 'Person',
-      name: content.author_name || 'Svelte Society'
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Svelte Society',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://sveltesociety.dev/logo.png'
-      }
-    }
-  }
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'TechArticle',
+		headline: content.title,
+		description: content.description,
+		url: url,
+		datePublished: content.created_at,
+		dateModified: content.updated_at || content.created_at,
+		author: {
+			'@type': 'Person',
+			name: content.author_name || 'Svelte Society'
+		},
+		publisher: {
+			'@type': 'Organization',
+			name: 'Svelte Society',
+			logo: {
+				'@type': 'ImageObject',
+				url: 'https://sveltesociety.dev/logo.png'
+			}
+		}
+	}
 }
 ```
 
 ### video.ts
+
 ```typescript
 export function generateVideoSchema(content: any, url: string) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'VideoObject',
-    name: content.title,
-    description: content.description,
-    thumbnailUrl: content.thumbnail,
-    uploadDate: content.created_at,
-    contentUrl: content.metadata?.url,
-    embedUrl: content.metadata?.embedUrl,
-    author: {
-      '@type': 'Person',
-      name: content.metadata?.channelName || content.author_name
-    }
-  }
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'VideoObject',
+		name: content.title,
+		description: content.description,
+		thumbnailUrl: content.thumbnail,
+		uploadDate: content.created_at,
+		contentUrl: content.metadata?.url,
+		embedUrl: content.metadata?.embedUrl,
+		author: {
+			'@type': 'Person',
+			name: content.metadata?.channelName || content.author_name
+		}
+	}
 }
 ```
 
 ### breadcrumb.ts
+
 ```typescript
 import { SEO_CONFIG } from '../config'
 
-export function generateBreadcrumbSchema(items: Array<{name: string, url: string}>) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: item.name,
-      item: `${SEO_CONFIG.siteUrl}${item.url}`
-    }))
-  }
+export function generateBreadcrumbSchema(items: Array<{ name: string; url: string }>) {
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'BreadcrumbList',
+		itemListElement: items.map((item, index) => ({
+			'@type': 'ListItem',
+			position: index + 1,
+			name: item.name,
+			item: `${SEO_CONFIG.siteUrl}${item.url}`
+		}))
+	}
 }
 ```
 
@@ -505,15 +507,15 @@ Update `/src/app.html`:
 
 ```html
 <head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="%sveltekit.assets%/favicon.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="utf-8" />
+	<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Resource hints -->
-  <link rel="preconnect" href="https://images.wsrv.nl" crossorigin>
-  <link rel="dns-prefetch" href="https://umami.sveltesociety.dev">
+	<!-- Resource hints -->
+	<link rel="preconnect" href="https://images.wsrv.nl" crossorigin />
+	<link rel="dns-prefetch" href="https://umami.sveltesociety.dev" />
 
-  %sveltekit.head%
+	%sveltekit.head%
 </head>
 ```
 
@@ -522,37 +524,39 @@ Update `/src/app.html`:
 ## Testing Checklist
 
 ### Automated Tests
+
 ```typescript
 // tests/e2e/seo/meta-tags.spec.ts
 import { test, expect } from '@playwright/test'
 
 test('homepage has OG tags', async ({ page }) => {
-  await page.goto('/')
+	await page.goto('/')
 
-  await expect(page.locator('meta[property="og:title"]')).toHaveCount(1)
-  await expect(page.locator('meta[property="og:image"]')).toHaveCount(1)
-  await expect(page.locator('meta[name="twitter:card"]')).toHaveCount(1)
-  await expect(page.locator('link[rel="canonical"]')).toHaveCount(1)
+	await expect(page.locator('meta[property="og:title"]')).toHaveCount(1)
+	await expect(page.locator('meta[property="og:image"]')).toHaveCount(1)
+	await expect(page.locator('meta[name="twitter:card"]')).toHaveCount(1)
+	await expect(page.locator('link[rel="canonical"]')).toHaveCount(1)
 })
 
 test('content page has schema', async ({ page }) => {
-  await page.goto('/recipe/form-validation')
+	await page.goto('/recipe/form-validation')
 
-  const jsonLd = await page.locator('script[type="application/ld+json"]').textContent()
-  expect(jsonLd).toBeTruthy()
+	const jsonLd = await page.locator('script[type="application/ld+json"]').textContent()
+	expect(jsonLd).toBeTruthy()
 
-  const schemas = JSON.parse(jsonLd!)
-  expect(Array.isArray(schemas)).toBe(true)
-  expect(schemas[0]['@type']).toBe('TechArticle')
+	const schemas = JSON.parse(jsonLd!)
+	expect(Array.isArray(schemas)).toBe(true)
+	expect(schemas[0]['@type']).toBe('TechArticle')
 })
 
 test('og:image returns 200', async ({ request }) => {
-  const response = await request.get('/og-image/test-slug')
-  expect(response.status()).toBe(200)
+	const response = await request.get('/og-image/test-slug')
+	expect(response.status()).toBe(200)
 })
 ```
 
 ### Manual Validation
+
 - [ ] robots.txt: http://www.robotstxt.org/validator.html
 - [ ] sitemap.xml: https://www.xml-sitemaps.com/validate-xml-sitemap.html
 - [ ] OG tags: https://developers.facebook.com/tools/debug/
@@ -565,15 +569,19 @@ test('og:image returns 200', async ({ request }) => {
 ## Common Issues & Fixes
 
 ### Issue: OG image not showing on Facebook
+
 **Fix:** Clear Facebook cache in Sharing Debugger
 
 ### Issue: Schema validation errors
+
 **Fix:** Ensure all dates are ISO 8601 format, escape user content
 
 ### Issue: Sitemap too slow
+
 **Fix:** Add caching, query optimization, consider background job
 
 ### Issue: Twitter Card not rendering
+
 **Fix:** Verify card type is `summary_large_image`, image meets size requirements
 
 ---

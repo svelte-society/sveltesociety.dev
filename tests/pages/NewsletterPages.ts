@@ -380,11 +380,7 @@ export class AdminCampaignEditorPage extends BasePage {
 	 * @param subject - Email subject
 	 * @param introText - Optional introduction text
 	 */
-	async fillCampaignDetails(
-		title: string,
-		subject: string,
-		introText?: string
-	): Promise<void> {
+	async fillCampaignDetails(title: string, subject: string, introText?: string): Promise<void> {
 		await this.titleInput.fill(title)
 		await this.subjectInput.fill(subject)
 		if (introText) {
@@ -405,11 +401,7 @@ export class AdminCampaignEditorPage extends BasePage {
 	 * @param subject - Email subject
 	 * @param introText - Optional introduction text
 	 */
-	async createCampaign(
-		title: string,
-		subject: string,
-		introText?: string
-	): Promise<void> {
+	async createCampaign(title: string, subject: string, introText?: string): Promise<void> {
 		await this.fillCampaignDetails(title, subject, introText)
 		await this.submit()
 	}

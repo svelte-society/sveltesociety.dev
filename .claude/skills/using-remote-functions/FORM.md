@@ -6,26 +6,26 @@ Use `form` for handling form submissions with progressive enhancement.
 
 ```ts
 // data.remote.ts
-import { z } from 'zod/v4';
-import { redirect } from '@sveltejs/kit';
-import { form } from '$app/server';
-import * as db from '$lib/server/database';
+import { z } from 'zod/v4'
+import { redirect } from '@sveltejs/kit'
+import { form } from '$app/server'
+import * as db from '$lib/server/database'
 
 export const createItem = form(
-  z.object({
-    name: z.string().min(1),
-    description: z.string().min(1)
-  }),
-  async ({ name, description }) => {
-    // TODO: Add your database insert
-    await db.sql`
+	z.object({
+		name: z.string().min(1),
+		description: z.string().min(1)
+	}),
+	async ({ name, description }) => {
+		// TODO: Add your database insert
+		await db.sql`
       INSERT INTO items (name, description)
       VALUES (${name}, ${description})
-    `;
+    `
 
-    redirect(303, '/items');
-  }
-);
+		redirect(303, '/items')
+	}
+)
 ```
 
 ```svelte
@@ -122,17 +122,17 @@ Use `.result` to access data returned from the form handler:
 ```ts
 // data.remote.ts
 export const createItem = form(schema, async (data) => {
-  const item = await db.sql`
+	const item = await db.sql`
     INSERT INTO items (name) VALUES (${data.name})
     RETURNING id
-  `;
+  `
 
-  return {
-    success: true,
-    id: item.id,
-    message: 'Item created successfully'
-  };
-});
+	return {
+		success: true,
+		id: item.id,
+		message: 'Item created successfully'
+	}
+})
 ```
 
 ```svelte
@@ -154,13 +154,13 @@ export const createItem = form(schema, async (data) => {
 ```ts
 // data.remote.ts
 export const updateSettings = form(schema, async (data) => {
-  try {
-    await db.updateSettings(data);
-    return { success: true };
-  } catch (e) {
-    return { success: false, error: e.message };
-  }
-});
+	try {
+		await db.updateSettings(data)
+		return { success: true }
+	} catch (e) {
+		return { success: false, error: e.message }
+	}
+})
 ```
 
 ```svelte
@@ -181,6 +181,7 @@ export const updateSettings = form(schema, async (data) => {
 ### Result is Ephemeral
 
 The `.result` value clears when:
+
 - Form is resubmitted
 - User navigates away
 - Page is reloaded
@@ -371,6 +372,7 @@ Some types require passing a value as the second argument to `.as()`:
 ### Type Coercion
 
 SvelteKit automatically coerces values based on the input type:
+
 - `number` and `range` → coerced to JavaScript `number`
 - `checkbox` (boolean) → coerced to `boolean`
 - `file` → becomes `File` object
@@ -378,48 +380,48 @@ SvelteKit automatically coerces values based on the input type:
 
 ### Full Type Reference
 
-| Type | Schema Type | Description |
-|------|-------------|-------------|
-| `'text'` | `string` | Basic text input |
-| `'email'` | `string` | Email with browser validation |
-| `'password'` | `string` | Masked password input |
-| `'url'` | `string` | URL with browser validation |
-| `'tel'` | `string` | Telephone number |
-| `'search'` | `string` | Search input |
-| `'hidden'` | `string` | Hidden field (pass value as 2nd arg) |
-| `'number'` | `number` | Numeric input |
-| `'range'` | `number` | Slider input |
-| `'date'` | `string` | Date picker (YYYY-MM-DD) |
-| `'datetime-local'` | `string` | DateTime picker |
-| `'time'` | `string` | Time picker (HH:MM) |
-| `'month'` | `string` | Month picker (YYYY-MM) |
-| `'week'` | `string` | Week picker |
-| `'checkbox'` | `boolean` or `string[]` | Checkbox (pass value for multi) |
-| `'radio'` | `string` | Radio button group (pass value as 2nd arg) |
-| `'select'` | `string` | Single select |
-| `'select multiple'` | `string[]` | Multi-select |
-| `'file'` | `File` | Single file upload |
-| `'file multiple'` | `File[]` | Multiple file upload |
-| `'color'` | `string` | Color picker (#RRGGBB) |
+| Type                | Schema Type             | Description                                |
+| ------------------- | ----------------------- | ------------------------------------------ |
+| `'text'`            | `string`                | Basic text input                           |
+| `'email'`           | `string`                | Email with browser validation              |
+| `'password'`        | `string`                | Masked password input                      |
+| `'url'`             | `string`                | URL with browser validation                |
+| `'tel'`             | `string`                | Telephone number                           |
+| `'search'`          | `string`                | Search input                               |
+| `'hidden'`          | `string`                | Hidden field (pass value as 2nd arg)       |
+| `'number'`          | `number`                | Numeric input                              |
+| `'range'`           | `number`                | Slider input                               |
+| `'date'`            | `string`                | Date picker (YYYY-MM-DD)                   |
+| `'datetime-local'`  | `string`                | DateTime picker                            |
+| `'time'`            | `string`                | Time picker (HH:MM)                        |
+| `'month'`           | `string`                | Month picker (YYYY-MM)                     |
+| `'week'`            | `string`                | Week picker                                |
+| `'checkbox'`        | `boolean` or `string[]` | Checkbox (pass value for multi)            |
+| `'radio'`           | `string`                | Radio button group (pass value as 2nd arg) |
+| `'select'`          | `string`                | Single select                              |
+| `'select multiple'` | `string[]`              | Multi-select                               |
+| `'file'`            | `File`                  | Single file upload                         |
+| `'file multiple'`   | `File[]`                | Multiple file upload                       |
+| `'color'`           | `string`                | Color picker (#RRGGBB)                     |
 
 ## Nested Fields
 
 ```ts
 // data.remote.ts
-import { z } from 'zod/v4';
-import { form } from '$app/server';
+import { z } from 'zod/v4'
+import { form } from '$app/server'
 
 const schema = z.object({
-  user: z.object({
-    name: z.string(),
-    email: z.string().email()
-  }),
-  tags: z.array(z.string())
-});
+	user: z.object({
+		name: z.string(),
+		email: z.string().email()
+	}),
+	tags: z.array(z.string())
+})
 
 export const createProfile = form(schema, async (data) => {
-  // data.user.name, data.user.email, data.tags
-});
+	// data.user.name, data.user.email, data.tags
+})
 ```
 
 ```svelte
@@ -476,9 +478,9 @@ Validate on input or change:
 
 ```ts
 export const createItem = form(schema, async (data) => {
-  // ...
-  return { success: true, id: newItem.id };
-});
+	// ...
+	return { success: true, id: newItem.id }
+})
 ```
 
 ```svelte

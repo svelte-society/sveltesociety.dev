@@ -102,6 +102,7 @@ For delete actions in list pages, use `Action.Delete` in the Actions component (
 For standalone delete confirmation dialogs, this project currently uses `Action.Delete` in the list page rather than individual edit page delete buttons. The `Action.Delete` component automatically handles confirmation with remote functions.
 
 **Example in list page:**
+
 ```svelte
 {#snippet actionCell(item)}
   <Actions id={item.id}>
@@ -154,48 +155,42 @@ import { z } from 'zod/v4'
 import { query, form, getRequestEvent, redirect, error } from '$app/server'
 import { checkAdminAuth } from '../authorization.remote'
 
-export const getItem = query(
-  z.object({ id: z.string() }),
-  async ({ id }) => {
-    checkAdminAuth()
-    const { locals } = getRequestEvent()
-    const item = await locals.itemService.getById(id)
-    if (!item) error(404, 'Item not found')
-    return item
-  }
-)
+export const getItem = query(z.object({ id: z.string() }), async ({ id }) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+	const item = await locals.itemService.getById(id)
+	if (!item) error(404, 'Item not found')
+	return item
+})
 
 export const updateItem = form(
-  z.object({
-    id: z.string(),
-    name: z.string().min(1, 'Name is required'),
-    status: z.enum(['draft', 'active', 'archived'])
-  }),
-  async (data) => {
-    checkAdminAuth()
-    const { locals } = getRequestEvent()
+	z.object({
+		id: z.string(),
+		name: z.string().min(1, 'Name is required'),
+		status: z.enum(['draft', 'active', 'archived'])
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
 
-    await locals.itemService.update(data.id, {
-      name: data.name,
-      status: data.status
-    })
+		await locals.itemService.update(data.id, {
+			name: data.name,
+			status: data.status
+		})
 
-    // Refresh the item query
-    await getItem({ id: data.id }).refresh()
+		// Refresh the item query
+		await getItem({ id: data.id }).refresh()
 
-    return { success: true }
-  }
+		return { success: true }
+	}
 )
 
-export const deleteItem = form(
-  z.object({ id: z.string() }),
-  async ({ id }) => {
-    checkAdminAuth()
-    const { locals } = getRequestEvent()
-    await locals.itemService.delete(id)
+export const deleteItem = form(z.object({ id: z.string() }), async ({ id }) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+	await locals.itemService.delete(id)
 
-    // Redirect back to list page
-    redirect(303, '/admin/items')
-  }
-)
+	// Redirect back to list page
+	redirect(303, '/admin/items')
+})
 ```

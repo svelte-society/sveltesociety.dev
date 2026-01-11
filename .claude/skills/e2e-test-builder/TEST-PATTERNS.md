@@ -11,21 +11,21 @@ import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 import { loginAs } from '../../helpers/auth'
 
 test.describe('Feature Name', () => {
-  test.beforeEach(async ({ page }) => {
-    await setupDatabaseIsolation(page)  // REQUIRED
-    // await loginAs(page, 'admin')      // If auth needed
-  })
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page) // REQUIRED
+		// await loginAs(page, 'admin')      // If auth needed
+	})
 
-  test('can do something', async ({ page }) => {
-    const featurePage = new FeaturePage(page)
-    await featurePage.goto()
+	test('can do something', async ({ page }) => {
+		const featurePage = new FeaturePage(page)
+		await featurePage.goto()
 
-    // Actions
-    await featurePage.doSomething()
+		// Actions
+		await featurePage.doSomething()
 
-    // Assertions
-    await expect(featurePage.result).toBeVisible()
-  })
+		// Assertions
+		await expect(featurePage.result).toBeVisible()
+	})
 })
 ```
 
@@ -47,11 +47,12 @@ tests/e2e/
 
 ```typescript
 test.beforeEach(async ({ page }) => {
-  await setupDatabaseIsolation(page)
+	await setupDatabaseIsolation(page)
 })
 ```
 
 This:
+
 1. Auto-detects your test file name
 2. Sets a cookie to route to isolated database
 3. Ensures complete test independence
@@ -64,16 +65,16 @@ This:
 import { loginAs } from '../../helpers/auth'
 
 test.beforeEach(async ({ page }) => {
-  await setupDatabaseIsolation(page)
-  await loginAs(page, 'admin')  // 'admin' | 'viewer'
+	await setupDatabaseIsolation(page)
+	await loginAs(page, 'admin') // 'admin' | 'viewer'
 })
 ```
 
 ### Test Users
 
-| Role | Username | Use For |
-|------|----------|---------|
-| `admin` | `test_admin` | Admin features, full access |
+| Role     | Username      | Use For                           |
+| -------- | ------------- | --------------------------------- |
+| `admin`  | `test_admin`  | Admin features, full access       |
 | `viewer` | `test_viewer` | Read-only access, member features |
 
 ### Checking Auth State
@@ -137,14 +138,14 @@ await featurePage.expectSuccess()
 
 ```typescript
 test('navigates to detail page', async ({ page }) => {
-  const listPage = new ContentListPage(page)
-  await listPage.goto('recipe')
+	const listPage = new ContentListPage(page)
+	await listPage.goto('recipe')
 
-  await listPage.clickContentCard(0)
+	await listPage.clickContentCard(0)
 
-  await expect(page).toHaveURL(/\/recipe\//)
-  const detailPage = new ContentDetailPage(page)
-  await expect(detailPage.title).toBeVisible()
+	await expect(page).toHaveURL(/\/recipe\//)
+	const detailPage = new ContentDetailPage(page)
+	await expect(detailPage.title).toBeVisible()
 })
 ```
 
@@ -152,15 +153,15 @@ test('navigates to detail page', async ({ page }) => {
 
 ```typescript
 test('submits form successfully', async ({ page }) => {
-  const submitPage = new SubmitPage(page)
-  await submitPage.goto()
+	const submitPage = new SubmitPage(page)
+	await submitPage.goto()
 
-  await submitPage.fillTitle('My Content')
-  await submitPage.fillDescription('Description here')
-  await submitPage.selectType('recipe')
-  await submitPage.submit()
+	await submitPage.fillTitle('My Content')
+	await submitPage.fillDescription('Description here')
+	await submitPage.selectType('recipe')
+	await submitPage.submit()
 
-  await expect(page).toHaveURL(/success/)
+	await expect(page).toHaveURL(/success/)
 })
 ```
 
@@ -168,13 +169,13 @@ test('submits form successfully', async ({ page }) => {
 
 ```typescript
 test('filters content by tag', async ({ page }) => {
-  const listPage = new ContentListPage(page)
-  await listPage.goto('recipe')
+	const listPage = new ContentListPage(page)
+	await listPage.goto('recipe')
 
-  await listPage.filterByCategory('svelte')
+	await listPage.filterByCategory('svelte')
 
-  const titles = await listPage.getContentTitles()
-  expect(titles.length).toBeGreaterThan(0)
+	const titles = await listPage.getContentTitles()
+	expect(titles.length).toBeGreaterThan(0)
 })
 ```
 
@@ -182,15 +183,15 @@ test('filters content by tag', async ({ page }) => {
 
 ```typescript
 test('admin can edit content', async ({ page }) => {
-  await loginAs(page, 'admin')
+	await loginAs(page, 'admin')
 
-  const editPage = new ContentEditPage(page)
-  await editPage.goto('content_recipe_001')
+	const editPage = new ContentEditPage(page)
+	await editPage.goto('content_recipe_001')
 
-  await editPage.updateTitle('Updated Title')
-  await editPage.save()
+	await editPage.updateTitle('Updated Title')
+	await editPage.save()
 
-  await expect(editPage.successMessage).toBeVisible()
+	await expect(editPage.successMessage).toBeVisible()
 })
 ```
 

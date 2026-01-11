@@ -132,5 +132,4 @@ describe('ExternalContentService', () => {
 			expect(content).toBeNull()
 		})
 	})
-
 })

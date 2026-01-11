@@ -57,14 +57,19 @@ function verifySchemaIntegrity(db: Database): void {
 
 	// Query all schema objects from sqlite_master
 	const schemaObjects = db
-		.query<{ name: string; type: string }, []>(
-			`SELECT name, type FROM sqlite_master WHERE type IN ('trigger', 'view', 'index')`
-		)
+		.query<
+			{ name: string; type: string },
+			[]
+		>(`SELECT name, type FROM sqlite_master WHERE type IN ('trigger', 'view', 'index')`)
 		.all()
 
-	const existingTriggers = new Set(schemaObjects.filter((o) => o.type === 'trigger').map((o) => o.name))
+	const existingTriggers = new Set(
+		schemaObjects.filter((o) => o.type === 'trigger').map((o) => o.name)
+	)
 	const existingViews = new Set(schemaObjects.filter((o) => o.type === 'view').map((o) => o.name))
-	const existingIndexes = new Set(schemaObjects.filter((o) => o.type === 'index').map((o) => o.name))
+	const existingIndexes = new Set(
+		schemaObjects.filter((o) => o.type === 'index').map((o) => o.name)
+	)
 
 	// Check triggers
 	for (const trigger of EXPECTED_SCHEMA.triggers) {

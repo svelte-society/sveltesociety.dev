@@ -51,8 +51,7 @@ describe('SearchService', () => {
 				title: 'Building a Blog with SvelteKit',
 				slug: 'building-a-blog-with-sveltekit',
 				body: 'Step by step guide to creating a blog with SvelteKit and TypeScript',
-				rendered_body:
-					'<p>Step by step guide to creating a blog with SvelteKit and TypeScript</p>',
+				rendered_body: '<p>Step by step guide to creating a blog with SvelteKit and TypeScript</p>',
 				description: 'Learn SvelteKit by building a real project',
 				type: 'recipe',
 				status: 'published',
@@ -134,9 +133,7 @@ describe('SearchService', () => {
 		test('should find content by description', () => {
 			const results = searchService.search({ query: 'development' })
 			expect(results.count).toBeGreaterThanOrEqual(1)
-			expect(results.hits.some((hit) => hit.id === 'content1' || hit.id === 'content2')).toBe(
-				true
-			)
+			expect(results.hits.some((hit) => hit.id === 'content1' || hit.id === 'content2')).toBe(true)
 		})
 
 		test('should respect limit parameter', () => {

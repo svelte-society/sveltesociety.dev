@@ -10,6 +10,7 @@
 Before launching Svelte Society to production, critical SEO infrastructure must be implemented to ensure proper search engine indexing, social media sharing, and discoverability. While the project has solid foundations (clean URLs, SSR-ready architecture, Svead library), essential SEO elements are missing that will significantly impact visibility and user acquisition.
 
 **Key Gaps Identified:**
+
 - No robots.txt or sitemap.xml (search engines cannot discover content)
 - No Open Graph or Twitter Card tags (poor social sharing experience)
 - No structured data/Schema.org (missing rich search results)
@@ -20,6 +21,7 @@ Before launching Svelte Society to production, critical SEO infrastructure must 
 ## Current State Assessment
 
 ### Strengths ✅
+
 1. **Clean URL Structure** - Semantic slugs (`/recipe/form-validation`, `/video/rich-harris-keynote`)
 2. **SSR-Ready** - SvelteKit with server-side rendering enabled
 3. **Content Types** - Well-structured content (recipes, videos, libraries, collections, announcements)
@@ -28,6 +30,7 @@ Before launching Svelte Society to production, critical SEO infrastructure must 
 6. **Analytics** - Umami analytics integrated
 
 ### Critical Gaps 🚨
+
 1. **No `robots.txt`** - Search engines have no crawling guidance
 2. **No `sitemap.xml`** - No URL discovery mechanism for search engines
 3. **No Open Graph tags** - Facebook/LinkedIn sharing shows generic previews
@@ -38,6 +41,7 @@ Before launching Svelte Society to production, critical SEO infrastructure must 
 8. **Inconsistent meta implementation** - Some pages use Svead, others use basic `<svelte:head>`
 
 ### Moderate Gaps ⚠️
+
 1. Image lazy loading not implemented
 2. No resource hints for external resources (preconnect, dns-prefetch)
 3. About page has no meta configuration
@@ -47,6 +51,7 @@ Before launching Svelte Society to production, critical SEO infrastructure must 
 ## Goals and Success Metrics
 
 ### Primary Goals
+
 1. **Search Engine Indexability** - Enable proper crawling and indexing of all public content
 2. **Social Media Sharing** - Rich, appealing previews on Facebook, Twitter, LinkedIn, Discord, Slack
 3. **Rich Search Results** - Implement structured data for enhanced SERP appearance
@@ -54,6 +59,7 @@ Before launching Svelte Society to production, critical SEO infrastructure must 
 5. **Page Load Performance** - Optimize for Core Web Vitals
 
 ### Success Metrics
+
 - **Technical SEO Score** - Lighthouse SEO score ≥95
 - **Social Sharing** - All content pages have valid OG images and Twitter Cards
 - **Indexing** - Sitemap submitted and verified in Google Search Console
@@ -63,6 +69,7 @@ Before launching Svelte Society to production, critical SEO infrastructure must 
 ## Technical Architecture
 
 ### Technology Stack
+
 - **Svead** (v0.0.15) - Meta tag management
 - **SvelteKit** - SSR and routing
 - **wsrv.nl CDN** - Image optimization (already configured)
@@ -95,9 +102,11 @@ src/routes/
 ### P0 - Launch Blockers (Must Have)
 
 #### 1. robots.txt Implementation
+
 **File:** `/src/routes/robots.txt/+server.ts`
 
 **Requirements:**
+
 - Dynamic robots.txt generation
 - Allow all crawlers on public content
 - Disallow admin routes (`/admin/*`)
@@ -106,6 +115,7 @@ src/routes/
 - User-agent specific rules
 
 **Example Output:**
+
 ```
 User-agent: *
 Allow: /
@@ -118,6 +128,7 @@ Sitemap: https://sveltesociety.dev/sitemap.xml
 ```
 
 **Acceptance Criteria:**
+
 - [ ] Accessible at `/robots.txt`
 - [ ] Returns `text/plain` content type
 - [ ] Includes sitemap reference
@@ -127,9 +138,11 @@ Sitemap: https://sveltesociety.dev/sitemap.xml
 ---
 
 #### 2. Sitemap.xml Generation
+
 **File:** `/src/routes/sitemap.xml/+server.ts`
 
 **Requirements:**
+
 - Dynamic sitemap generation from database
 - Include all published content (recipes, videos, libraries, collections, announcements)
 - Include static pages (home, about, terms, privacy)
@@ -139,6 +152,7 @@ Sitemap: https://sveltesociety.dev/sitemap.xml
 - Cache sitemap for 1 hour
 
 **Priority Scheme:**
+
 - Homepage: 1.0
 - Collections/Announcements: 0.9
 - Recipes/Videos/Libraries: 0.8
@@ -146,6 +160,7 @@ Sitemap: https://sveltesociety.dev/sitemap.xml
 - Category pages: 0.7
 
 **Acceptance Criteria:**
+
 - [ ] Accessible at `/sitemap.xml`
 - [ ] Valid XML format (passes validator)
 - [ ] Includes all published content
@@ -157,14 +172,17 @@ Sitemap: https://sveltesociety.dev/sitemap.xml
 ---
 
 #### 3. Open Graph Tags Implementation
+
 **Files:** All `+page.server.ts` files, layout component
 
 **Requirements:**
+
 - Configure Svead with full OG support
 - Generate OG image URLs for all content
 - Content-type specific OG tags
 
 **Required OG Tags:**
+
 ```typescript
 {
   'og:title': string
@@ -181,11 +199,13 @@ Sitemap: https://sveltesociety.dev/sitemap.xml
 ```
 
 **Content Type Mappings:**
+
 - **Video content** → `og:type: 'video.other'`
 - **Recipe/Library content** → `og:type: 'article'`
 - **Homepage/Categories** → `og:type: 'website'`
 
 **Acceptance Criteria:**
+
 - [ ] All pages have OG tags
 - [ ] Images are 1200x630px
 - [ ] Passes Facebook Sharing Debugger
@@ -195,14 +215,17 @@ Sitemap: https://sveltesociety.dev/sitemap.xml
 ---
 
 #### 4. Twitter Card Tags
+
 **Files:** All `+page.server.ts` files
 
 **Requirements:**
+
 - Implement Twitter Card meta tags via Svead
 - Use `summary_large_image` card type
 - Include Twitter-specific metadata
 
 **Required Twitter Tags:**
+
 ```typescript
 {
   'twitter:card': 'summary_large_image'
@@ -215,6 +238,7 @@ Sitemap: https://sveltesociety.dev/sitemap.xml
 ```
 
 **Acceptance Criteria:**
+
 - [ ] All pages have Twitter Card tags
 - [ ] Passes Twitter Card Validator
 - [ ] Images optimized for Twitter (2:1 ratio)
@@ -223,9 +247,11 @@ Sitemap: https://sveltesociety.dev/sitemap.xml
 ---
 
 #### 5. OG Image Generation
+
 **File:** `/src/routes/og-image/[slug]/+server.ts`
 
 **Requirements:**
+
 - Dynamic OG image generation for content
 - Use Satori (HTML/CSS to PNG)
 - Branded template with Svelte Society styling
@@ -239,6 +265,7 @@ Option C: Pre-generate on content publish (store in database)
 **Recommended:** Option A (most flexible)
 
 **Template Design:**
+
 - Size: 1200x630px
 - Background: Svelte Society brand gradient
 - Content title (max 60 chars)
@@ -247,6 +274,7 @@ Option C: Pre-generate on content publish (store in database)
 - Optional: Content thumbnail (for videos)
 
 **Acceptance Criteria:**
+
 - [ ] Generates valid PNG images
 - [ ] Returns proper content-type header
 - [ ] Caches generated images
@@ -257,20 +285,24 @@ Option C: Pre-generate on content publish (store in database)
 ---
 
 #### 6. Canonical URLs
+
 **Files:** All `+page.server.ts` files, Svead config
 
 **Requirements:**
+
 - Add canonical URL to every page
 - Use absolute URLs (https://sveltesociety.dev/...)
 - Handle trailing slashes consistently
 - Prevent duplicate content issues
 
 **Implementation:**
+
 - Svead supports canonical via `url` field
 - Ensure URL is always absolute
 - Remove query parameters for content pages
 
 **Acceptance Criteria:**
+
 - [ ] All pages have canonical URL
 - [ ] Uses HTTPS protocol
 - [ ] No trailing slashes (SvelteKit default)
@@ -279,120 +311,125 @@ Option C: Pre-generate on content publish (store in database)
 ---
 
 #### 7. Schema.org Structured Data
+
 **Files:** `/src/lib/seo/schema/`, individual page components
 
 **Requirements:**
 Implement JSON-LD structured data for:
 
 **Organization Schema (Homepage):**
+
 ```json
 {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Svelte Society",
-  "url": "https://sveltesociety.dev",
-  "logo": "https://sveltesociety.dev/logo.png",
-  "description": "A community of Svelte developers...",
-  "sameAs": [
-    "https://twitter.com/sveltesociety",
-    "https://github.com/svelte-society"
-  ]
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	"name": "Svelte Society",
+	"url": "https://sveltesociety.dev",
+	"logo": "https://sveltesociety.dev/logo.png",
+	"description": "A community of Svelte developers...",
+	"sameAs": ["https://twitter.com/sveltesociety", "https://github.com/svelte-society"]
 }
 ```
 
 **WebSite Schema (Homepage):**
+
 ```json
 {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Svelte Society",
-  "url": "https://sveltesociety.dev",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://sveltesociety.dev/?q={search_term_string}"
-    },
-    "query-input": "required name=search_term_string"
-  }
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"name": "Svelte Society",
+	"url": "https://sveltesociety.dev",
+	"potentialAction": {
+		"@type": "SearchAction",
+		"target": {
+			"@type": "EntryPoint",
+			"urlTemplate": "https://sveltesociety.dev/?q={search_term_string}"
+		},
+		"query-input": "required name=search_term_string"
+	}
 }
 ```
 
 **VideoObject Schema (Video Content):**
+
 ```json
 {
-  "@context": "https://schema.org",
-  "@type": "VideoObject",
-  "name": "Title",
-  "description": "Description",
-  "thumbnailUrl": "...",
-  "uploadDate": "ISO8601",
-  "contentUrl": "YouTube URL",
-  "embedUrl": "YouTube embed URL",
-  "author": {
-    "@type": "Person",
-    "name": "Author name"
-  }
+	"@context": "https://schema.org",
+	"@type": "VideoObject",
+	"name": "Title",
+	"description": "Description",
+	"thumbnailUrl": "...",
+	"uploadDate": "ISO8601",
+	"contentUrl": "YouTube URL",
+	"embedUrl": "YouTube embed URL",
+	"author": {
+		"@type": "Person",
+		"name": "Author name"
+	}
 }
 ```
 
 **TechArticle Schema (Recipe Content):**
+
 ```json
 {
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Title",
-  "description": "Description",
-  "author": {
-    "@type": "Person",
-    "name": "Author name"
-  },
-  "datePublished": "ISO8601",
-  "dateModified": "ISO8601"
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	"headline": "Title",
+	"description": "Description",
+	"author": {
+		"@type": "Person",
+		"name": "Author name"
+	},
+	"datePublished": "ISO8601",
+	"dateModified": "ISO8601"
 }
 ```
 
 **SoftwareSourceCode Schema (Library Content):**
+
 ```json
 {
-  "@context": "https://schema.org",
-  "@type": "SoftwareSourceCode",
-  "name": "Library name",
-  "description": "Description",
-  "codeRepository": "GitHub URL",
-  "programmingLanguage": "JavaScript"
+	"@context": "https://schema.org",
+	"@type": "SoftwareSourceCode",
+	"name": "Library name",
+	"description": "Description",
+	"codeRepository": "GitHub URL",
+	"programmingLanguage": "JavaScript"
 }
 ```
 
 **BreadcrumbList Schema (All Content Pages):**
+
 ```json
 {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://sveltesociety.dev"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Recipes",
-      "item": "https://sveltesociety.dev/recipe"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Form Validation",
-      "item": "https://sveltesociety.dev/recipe/form-validation"
-    }
-  ]
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+		{
+			"@type": "ListItem",
+			"position": 1,
+			"name": "Home",
+			"item": "https://sveltesociety.dev"
+		},
+		{
+			"@type": "ListItem",
+			"position": 2,
+			"name": "Recipes",
+			"item": "https://sveltesociety.dev/recipe"
+		},
+		{
+			"@type": "ListItem",
+			"position": 3,
+			"name": "Form Validation",
+			"item": "https://sveltesociety.dev/recipe/form-validation"
+		}
+	]
 }
 ```
 
 **Acceptance Criteria:**
+
 - [ ] All schemas validate in Google Rich Results Test
 - [ ] Schema rendered in `<script type="application/ld+json">`
 - [ ] Multiple schemas combined in array when needed
@@ -402,14 +439,17 @@ Implement JSON-LD structured data for:
 ---
 
 #### 8. Standardize Meta Tag Approach
+
 **Files:** `/src/routes/(app)/(public)/user/[username]/+page.svelte`, `/src/routes/(app)/(public)/about/+page.svelte`
 
 **Requirements:**
+
 - Convert all pages to use Svead (currently user profile uses `<svelte:head>`)
 - Add meta config to About page (currently missing)
 - Ensure consistent meta structure across all pages
 
 **Acceptance Criteria:**
+
 - [ ] All pages use Svead for meta tags
 - [ ] No pages using raw `<svelte:head>` for SEO
 - [ ] About page has proper meta configuration
@@ -420,15 +460,18 @@ Implement JSON-LD structured data for:
 ### P1 - High Priority (Launch Week)
 
 #### 9. Enhanced Image Optimization
+
 **Files:** Content components, image utility
 
 **Requirements:**
+
 - Add `loading="lazy"` to all non-critical images
 - Add `decoding="async"` to all images
 - Add `fetchpriority="high"` to hero images
 - Implement responsive images with srcset where appropriate
 
 **Acceptance Criteria:**
+
 - [ ] All images below fold have lazy loading
 - [ ] Hero images have high fetch priority
 - [ ] Images have explicit width/height attributes
@@ -437,18 +480,20 @@ Implement JSON-LD structured data for:
 ---
 
 #### 10. Resource Hints
+
 **File:** `/src/app.html`
 
 **Requirements:**
 Add resource hints for external services:
 
 ```html
-<link rel="preconnect" href="https://images.wsrv.nl" crossorigin>
-<link rel="dns-prefetch" href="https://umami.sveltesociety.dev">
-<link rel="dns-prefetch" href="https://www.youtube.com">
+<link rel="preconnect" href="https://images.wsrv.nl" crossorigin />
+<link rel="dns-prefetch" href="https://umami.sveltesociety.dev" />
+<link rel="dns-prefetch" href="https://www.youtube.com" />
 ```
 
 **Acceptance Criteria:**
+
 - [ ] Preconnect to image CDN
 - [ ] DNS prefetch for analytics
 - [ ] DNS prefetch for YouTube embeds (if used)
@@ -457,9 +502,11 @@ Add resource hints for external services:
 ---
 
 #### 11. SEO Configuration File
+
 **File:** `/src/lib/seo/config.ts`
 
 **Requirements:**
+
 - Centralized SEO constants
 - Default meta values
 - Social media handles
@@ -468,20 +515,22 @@ Add resource hints for external services:
 
 ```typescript
 export const SEO_CONFIG = {
-  siteName: 'Svelte Society',
-  siteUrl: 'https://sveltesociety.dev',
-  defaultTitle: 'Svelte Society - Community of Svelte Developers',
-  defaultDescription: 'Discover recipes, videos, libraries, and resources from the Svelte community.',
-  defaultImage: '/og-default.png',
-  twitterHandle: '@sveltesociety',
-  ogImageWidth: 1200,
-  ogImageHeight: 630,
-  twitterCardType: 'summary_large_image',
-  locale: 'en_US'
+	siteName: 'Svelte Society',
+	siteUrl: 'https://sveltesociety.dev',
+	defaultTitle: 'Svelte Society - Community of Svelte Developers',
+	defaultDescription:
+		'Discover recipes, videos, libraries, and resources from the Svelte community.',
+	defaultImage: '/og-default.png',
+	twitterHandle: '@sveltesociety',
+	ogImageWidth: 1200,
+	ogImageHeight: 630,
+	twitterCardType: 'summary_large_image',
+	locale: 'en_US'
 }
 ```
 
 **Acceptance Criteria:**
+
 - [ ] All SEO constants centralized
 - [ ] Used across all page configurations
 - [ ] Easy to update for environment changes
@@ -489,15 +538,18 @@ export const SEO_CONFIG = {
 ---
 
 #### 12. Meta Tag Testing
+
 **Files:** New E2E test file
 
 **Requirements:**
+
 - Playwright tests for meta tag presence
 - Validate OG tags on sample pages
 - Validate Twitter Cards on sample pages
 - Test og:image URLs resolve
 
 **Test Coverage:**
+
 - Homepage has all required meta tags
 - Content detail pages have content-specific tags
 - OG images return 200 status
@@ -505,6 +557,7 @@ export const SEO_CONFIG = {
 - No duplicate meta tags
 
 **Acceptance Criteria:**
+
 - [ ] E2E tests for meta tags pass
 - [ ] Test added to CI pipeline
 - [ ] Documentation updated in `tests/README.md`
@@ -514,14 +567,17 @@ export const SEO_CONFIG = {
 ### P2 - Medium Priority (Post-Launch)
 
 #### 13. Static Page Prerendering
+
 **File:** `/svelte.config.js`, individual page files
 
 **Requirements:**
+
 - Configure prerendering for static pages
 - Prerender: about, terms, privacy, 404
 - Keep dynamic content as SSR
 
 **Acceptance Criteria:**
+
 - [ ] Static pages are prerendered
 - [ ] Build time includes prerendering
 - [ ] No SSR calls for static content
@@ -529,15 +585,18 @@ export const SEO_CONFIG = {
 ---
 
 #### 14. RSS Feed Generation
+
 **File:** `/src/routes/rss.xml/+server.ts`
 
 **Requirements:**
+
 - RSS 2.0 feed for latest content
 - Include all content types
 - Limit to 50 most recent items
 - Cache for 1 hour
 
 **Acceptance Criteria:**
+
 - [ ] Valid RSS 2.0 format
 - [ ] Includes content from all types
 - [ ] Passes RSS validator
@@ -545,9 +604,11 @@ export const SEO_CONFIG = {
 ---
 
 #### 15. Advanced Schema.org
+
 **Files:** Additional schema generators
 
 **Requirements:**
+
 - Event schema for upcoming events
 - Person schema for user profiles (if public)
 - ItemList schema for category pages
@@ -558,6 +619,7 @@ export const SEO_CONFIG = {
 ## Implementation Plan
 
 ### Phase 1: Foundation (Day 1)
+
 **Estimated Time:** 6-8 hours
 
 1. Create SEO configuration file and utilities
@@ -566,6 +628,7 @@ export const SEO_CONFIG = {
 4. Add resource hints to app.html
 
 **Deliverables:**
+
 - [ ] `/robots.txt` accessible and valid
 - [ ] `/sitemap.xml` accessible and valid
 - [ ] Sitemap submitted to Google Search Console
@@ -573,6 +636,7 @@ export const SEO_CONFIG = {
 ---
 
 ### Phase 2: Meta Tags (Day 2)
+
 **Estimated Time:** 8-10 hours
 
 1. Extend Svead configuration with OG and Twitter tags
@@ -581,6 +645,7 @@ export const SEO_CONFIG = {
 4. Add canonical URLs to all pages
 
 **Deliverables:**
+
 - [ ] All pages have OG tags
 - [ ] All pages have Twitter Card tags
 - [ ] All pages have canonical URLs
@@ -590,6 +655,7 @@ export const SEO_CONFIG = {
 ---
 
 ### Phase 3: OG Images (Day 3)
+
 **Estimated Time:** 6-8 hours
 
 1. Choose and implement OG image generation solution
@@ -599,6 +665,7 @@ export const SEO_CONFIG = {
 5. Update meta configs to use og:image URLs
 
 **Deliverables:**
+
 - [ ] OG images generate successfully
 - [ ] All content pages have unique OG images
 - [ ] Fallback image in place
@@ -607,6 +674,7 @@ export const SEO_CONFIG = {
 ---
 
 ### Phase 4: Structured Data (Day 4)
+
 **Estimated Time:** 8-10 hours
 
 1. Create schema generators for each content type
@@ -616,6 +684,7 @@ export const SEO_CONFIG = {
 5. Validate all schemas
 
 **Deliverables:**
+
 - [ ] All schemas validate in Google Rich Results Test
 - [ ] No schema errors in Search Console (after indexing)
 - [ ] Breadcrumbs display in search results preview
@@ -623,6 +692,7 @@ export const SEO_CONFIG = {
 ---
 
 ### Phase 5: Testing & Polish (Day 5)
+
 **Estimated Time:** 4-6 hours
 
 1. Write Playwright tests for meta tags
@@ -632,6 +702,7 @@ export const SEO_CONFIG = {
 5. Documentation updates
 
 **Deliverables:**
+
 - [ ] E2E tests pass
 - [ ] Lighthouse SEO score ≥95
 - [ ] All acceptance criteria met
@@ -642,42 +713,54 @@ export const SEO_CONFIG = {
 ## Testing Strategy
 
 ### Automated Testing
+
 **Playwright E2E Tests** (`tests/e2e/seo/meta-tags.spec.ts`):
+
 ```typescript
 test.describe('SEO Meta Tags', () => {
-  test('homepage has all required meta tags', async ({ page }) => {
-    await page.goto('/')
+	test('homepage has all required meta tags', async ({ page }) => {
+		await page.goto('/')
 
-    // Check Open Graph
-    await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', /Svelte Society/)
-    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /og-image/)
+		// Check Open Graph
+		await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
+			'content',
+			/Svelte Society/
+		)
+		await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /og-image/)
 
-    // Check Twitter Card
-    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image')
+		// Check Twitter Card
+		await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+			'content',
+			'summary_large_image'
+		)
 
-    // Check canonical
-    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://sveltesociety.dev/')
-  })
+		// Check canonical
+		await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			'https://sveltesociety.dev/'
+		)
+	})
 
-  test('content pages have structured data', async ({ page }) => {
-    await page.goto('/recipe/form-validation')
+	test('content pages have structured data', async ({ page }) => {
+		await page.goto('/recipe/form-validation')
 
-    const jsonLd = await page.locator('script[type="application/ld+json"]').textContent()
-    const schema = JSON.parse(jsonLd)
+		const jsonLd = await page.locator('script[type="application/ld+json"]').textContent()
+		const schema = JSON.parse(jsonLd)
 
-    expect(schema['@type']).toBe('TechArticle')
-    expect(schema.headline).toBeTruthy()
-  })
+		expect(schema['@type']).toBe('TechArticle')
+		expect(schema.headline).toBeTruthy()
+	})
 
-  test('og:image URLs return 200', async ({ request }) => {
-    const response = await request.get('/og-image/test-content')
-    expect(response.status()).toBe(200)
-    expect(response.headers()['content-type']).toContain('image/png')
-  })
+	test('og:image URLs return 200', async ({ request }) => {
+		const response = await request.get('/og-image/test-content')
+		expect(response.status()).toBe(200)
+		expect(response.headers()['content-type']).toContain('image/png')
+	})
 })
 ```
 
 ### Manual Testing Checklist
+
 - [ ] **robots.txt validator** - http://www.robotstxt.org/validator.html
 - [ ] **Sitemap validator** - https://www.xml-sitemaps.com/validate-xml-sitemap.html
 - [ ] **Google Rich Results Test** - https://search.google.com/test/rich-results
@@ -689,6 +772,7 @@ test.describe('SEO Meta Tags', () => {
 - [ ] **Schema.org Validator** - https://validator.schema.org/
 
 ### Sample URLs to Test
+
 - Homepage: `https://sveltesociety.dev/`
 - Video: `https://sveltesociety.dev/video/[any-slug]`
 - Recipe: `https://sveltesociety.dev/recipe/[any-slug]`
@@ -702,18 +786,21 @@ test.describe('SEO Meta Tags', () => {
 ## Performance Considerations
 
 ### Caching Strategy
+
 1. **Sitemap** - Cache for 1 hour (CDN + in-memory)
 2. **OG Images** - Cache indefinitely (immutable once generated)
 3. **Structured Data** - No caching needed (server-rendered)
 4. **robots.txt** - Cache for 24 hours
 
 ### Image Optimization
+
 - Use existing wsrv.nl infrastructure
 - OG images: 1200x630px, JPEG, 90% quality
 - Serve WebP for browsers that support it
 - Implement lazy loading for below-fold images
 
 ### Database Queries
+
 - Sitemap generation should use indexed queries
 - Cache content list for sitemap generation
 - Consider background job for large sitemaps (>10k URLs)
@@ -723,17 +810,20 @@ test.describe('SEO Meta Tags', () => {
 ## Security Considerations
 
 ### robots.txt
+
 - Do not expose sensitive routes
 - Block `/admin/*`, `/api/*`, `/saved`, `/login`
 - Allow search engines on public content only
 
 ### OG Image Generation
+
 - Sanitize slug input to prevent injection
 - Rate limit image generation endpoint (10 req/min per IP)
 - Validate content exists before generating image
 - Limit image generation to published content only
 
 ### Structured Data
+
 - Escape user-generated content in JSON-LD
 - Validate schema data types
 - Do not include sensitive user information
@@ -743,18 +833,21 @@ test.describe('SEO Meta Tags', () => {
 ## Monitoring and Maintenance
 
 ### Search Console Monitoring
+
 - Weekly review of crawl errors
 - Monitor sitemap indexing status
 - Track search appearance (clicks, impressions)
 - Monitor Core Web Vitals
 
 ### Ongoing Tasks
+
 - Update sitemap when content published
 - Regenerate OG images if template changes
 - Monitor structured data errors
 - Keep Svead library updated
 
 ### Alerts
+
 - Drop in Lighthouse SEO score below 90
 - Sitemap returns 404 or errors
 - OG image generation failures >5% rate
@@ -765,6 +858,7 @@ test.describe('SEO Meta Tags', () => {
 ## Documentation Requirements
 
 ### Developer Documentation
+
 1. **SEO Implementation Guide** (`docs/SEO.md`)
    - How to add meta tags to new pages
    - How schema generators work
@@ -776,6 +870,7 @@ test.describe('SEO Meta Tags', () => {
    - Add to coverage matrix
 
 ### User-Facing Documentation
+
 None required (technical implementation)
 
 ---
@@ -783,6 +878,7 @@ None required (technical implementation)
 ## Success Criteria (Definition of Done)
 
 ### Technical Checklist
+
 - [ ] robots.txt accessible and valid
 - [ ] sitemap.xml accessible and valid
 - [ ] Sitemap submitted to Google Search Console
@@ -803,6 +899,7 @@ None required (technical implementation)
 - [ ] Lighthouse SEO score ≥95
 
 ### Validation Checklist
+
 - [ ] Facebook Sharing Debugger passes (no errors)
 - [ ] Twitter Card Validator passes
 - [ ] LinkedIn Post Inspector shows correct preview
@@ -812,6 +909,7 @@ None required (technical implementation)
 - [ ] No schema errors in Search Console (after indexing)
 
 ### Performance Checklist
+
 - [ ] OG image generation <500ms
 - [ ] Sitemap generation <2s
 - [ ] No LCP regression from new meta tags
@@ -822,14 +920,14 @@ None required (technical implementation)
 
 ## Risks and Mitigations
 
-| Risk | Impact | Likelihood | Mitigation |
-|------|--------|------------|------------|
-| OG image generation too slow | High | Medium | Implement background job + cache, use simple template |
-| Sitemap too large (>50k URLs) | Medium | Low | Implement sitemap index, paginate |
-| Schema validation errors | Medium | Medium | Use schema generators, validate before commit |
-| Breaking existing functionality | High | Low | Comprehensive testing, gradual rollout |
-| Twitter Card not rendering | Medium | Low | Use fallback to summary card, validate early |
-| Svead library bugs | High | Low | Test thoroughly, have fallback to basic meta |
+| Risk                            | Impact | Likelihood | Mitigation                                            |
+| ------------------------------- | ------ | ---------- | ----------------------------------------------------- |
+| OG image generation too slow    | High   | Medium     | Implement background job + cache, use simple template |
+| Sitemap too large (>50k URLs)   | Medium | Low        | Implement sitemap index, paginate                     |
+| Schema validation errors        | Medium | Medium     | Use schema generators, validate before commit         |
+| Breaking existing functionality | High   | Low        | Comprehensive testing, gradual rollout                |
+| Twitter Card not rendering      | Medium | Low        | Use fallback to summary card, validate early          |
+| Svead library bugs              | High   | Low        | Test thoroughly, have fallback to basic meta          |
 
 ---
 
@@ -853,40 +951,40 @@ None required (technical implementation)
 ```typescript
 // In +page.server.ts
 export const load = async ({ url, locals }) => {
-  const content = await getContent()
+	const content = await getContent()
 
-  return {
-    content,
-    meta: {
-      // Basic (already implemented)
-      title: `${content.title} - Svelte Society`,
-      description: content.description,
-      url: url.toString(),
+	return {
+		content,
+		meta: {
+			// Basic (already implemented)
+			title: `${content.title} - Svelte Society`,
+			description: content.description,
+			url: url.toString(),
 
-      // New additions
-      image: `/og-image/${content.slug}`,
-      imageAlt: content.title,
-      imageWidth: 1200,
-      imageHeight: 630,
-      type: 'article', // or 'website', 'video.other'
-      siteName: 'Svelte Society',
+			// New additions
+			image: `/og-image/${content.slug}`,
+			imageAlt: content.title,
+			imageWidth: 1200,
+			imageHeight: 630,
+			type: 'article', // or 'website', 'video.other'
+			siteName: 'Svelte Society',
 
-      // Twitter specific
-      twitter: {
-        card: 'summary_large_image',
-        site: '@sveltesociety',
-        creator: content.author?.twitter || '@sveltesociety'
-      },
+			// Twitter specific
+			twitter: {
+				card: 'summary_large_image',
+				site: '@sveltesociety',
+				creator: content.author?.twitter || '@sveltesociety'
+			},
 
-      // Article specific (for content pages)
-      article: {
-        publishedTime: content.created_at,
-        modifiedTime: content.updated_at,
-        author: content.author?.name,
-        tags: content.tags
-      }
-    }
-  }
+			// Article specific (for content pages)
+			article: {
+				publishedTime: content.created_at,
+				modifiedTime: content.updated_at,
+				author: content.author?.name,
+				tags: content.tags
+			}
+		}
+	}
 }
 ```
 
@@ -900,13 +998,14 @@ const ogImage = `https://images.wsrv.nl/?url=${encodeURIComponent(thumbnailUrl)}
 
 // For library content with GitHub social image
 const ogImage = content.ogImage
-  ? `https://images.wsrv.nl/?url=${encodeURIComponent(content.ogImage)}&w=1200&h=630&fit=cover&output=jpg&q=90`
-  : '/og-default.png'
+	? `https://images.wsrv.nl/?url=${encodeURIComponent(content.ogImage)}&w=1200&h=630&fit=cover&output=jpg&q=90`
+	: '/og-default.png'
 ```
 
 ### C. Priority Pages for Manual Testing
 
 **Critical Path:**
+
 1. Homepage - https://sveltesociety.dev/
 2. Popular recipe - https://sveltesociety.dev/recipe/[popular-slug]
 3. Popular video - https://sveltesociety.dev/video/[popular-slug]
@@ -914,6 +1013,7 @@ const ogImage = content.ogImage
 5. Collection page - https://sveltesociety.dev/collection/[slug]
 
 **Test on Share Platforms:**
+
 - Facebook (personal profile post)
 - Twitter/X (tweet with link)
 - LinkedIn (company page post)
@@ -949,6 +1049,7 @@ const ogImage = content.ogImage
 ## Sign-off
 
 This PRD should be reviewed and approved by:
+
 - [ ] Tech Lead
 - [ ] Product Owner
 - [ ] DevOps (for deployment considerations)

@@ -11,9 +11,11 @@ export const buttonVariants = tv({
 			success: 'bg-green-400 text-black hover:bg-green-200 focus:ring-green-500',
 			error: 'bg-red-600 text-white transition-colors duration-200 hover:bg-red-700',
 			// Action button variants (subtle/ghost style)
-			ghost: 'bg-svelte-50 text-svelte-500 hover:bg-svelte-100 hover:text-svelte-900 hover:shadow-sm',
+			ghost:
+				'bg-svelte-50 text-svelte-500 hover:bg-svelte-100 hover:text-svelte-900 hover:shadow-sm',
 			danger: 'bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-900 hover:shadow-sm',
-			warning: 'bg-orange-50 text-orange-600 hover:bg-orange-100 hover:text-orange-900 hover:shadow-sm',
+			warning:
+				'bg-orange-50 text-orange-600 hover:bg-orange-100 hover:text-orange-900 hover:shadow-sm',
 			info: 'bg-blue-100 text-blue-700 hover:bg-blue-200 hover:text-blue-900 hover:shadow-sm'
 		},
 		size: {

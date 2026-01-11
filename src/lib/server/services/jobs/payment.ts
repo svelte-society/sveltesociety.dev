@@ -112,7 +112,9 @@ export class PaymentService {
 	 * Get a payment by Stripe checkout session ID
 	 */
 	getPaymentBySessionId(sessionId: string): Payment | null {
-		const stmt = this.db.prepare('SELECT * FROM payments WHERE stripe_checkout_session_id = $session_id')
+		const stmt = this.db.prepare(
+			'SELECT * FROM payments WHERE stripe_checkout_session_id = $session_id'
+		)
 		const row = stmt.get({ session_id: sessionId }) as PaymentRow | undefined
 		return row ? this.parseRow(row) : null
 	}
@@ -121,7 +123,9 @@ export class PaymentService {
 	 * Get a payment by Stripe payment intent ID
 	 */
 	getPaymentByPaymentIntentId(paymentIntentId: string): Payment | null {
-		const stmt = this.db.prepare('SELECT * FROM payments WHERE stripe_payment_intent_id = $payment_intent_id')
+		const stmt = this.db.prepare(
+			'SELECT * FROM payments WHERE stripe_payment_intent_id = $payment_intent_id'
+		)
 		const row = stmt.get({ payment_intent_id: paymentIntentId }) as PaymentRow | undefined
 		return row ? this.parseRow(row) : null
 	}

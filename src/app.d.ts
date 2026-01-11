@@ -15,7 +15,12 @@ import type { LLMService } from '$lib/server/services/llm'
 import type { AnnouncementService } from '$lib/server/services/AnnouncementService'
 import type { ShortcutService } from '$lib/server/services/ShortcutService'
 import type { FeedItemService } from '$lib/server/services/FeedItemService'
-import type { JobTierService, PaymentService, JobApplicationService, StripeService } from '$lib/server/services/jobs'
+import type {
+	JobTierService,
+	PaymentService,
+	JobApplicationService,
+	StripeService
+} from '$lib/server/services/jobs'
 import type { EmailService } from '$lib/server/services/email'
 import type { NewsletterService } from '$lib/server/services/newsletter'
 

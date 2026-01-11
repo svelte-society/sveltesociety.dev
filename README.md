@@ -72,15 +72,15 @@ import { HomePage, ContentListPage } from '../pages'
 import { setupDatabaseIsolation } from '../helpers/database-isolation'
 
 test.describe('Feature', () => {
-  test.beforeEach(async ({ page }) => {
-    await setupDatabaseIsolation(page)
-  })
+	test.beforeEach(async ({ page }) => {
+		await setupDatabaseIsolation(page)
+	})
 
-  test('can do something', async ({ page }) => {
-    const homePage = new HomePage(page)
-    await homePage.goto()
-    // ... test implementation
-  })
+	test('can do something', async ({ page }) => {
+		const homePage = new HomePage(page)
+		await homePage.goto()
+		// ... test implementation
+	})
 })
 ```
 

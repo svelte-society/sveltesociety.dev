@@ -270,7 +270,10 @@ describe('GitHubImporter', () => {
 			expect(rootId).not.toBe(packageId)
 
 			// Verify both exist independently
-			const rootContent = externalContentService.getContentByExternalId('github', 'testuser/test-repo')
+			const rootContent = externalContentService.getContentByExternalId(
+				'github',
+				'testuser/test-repo'
+			)
 			const packageContent = externalContentService.getContentByExternalId(
 				'github',
 				'testuser/test-repo/packages/kit'

@@ -126,7 +126,9 @@ export class SubmitPage extends BasePage {
 	// Generic description field - context-dependent based on current page
 	get descriptionField(): Locator {
 		// Try each type's description field - the visible one will match
-		return this.page.locator('[data-testid$="-description-input"], [data-testid="description-textarea"]')
+		return this.page.locator(
+			'[data-testid$="-description-input"], [data-testid="description-textarea"]'
+		)
 	}
 
 	// Tags selector (common to all forms)
