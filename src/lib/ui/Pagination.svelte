@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state'
+	import { paginationButtonVariants, paginationNavVariants } from './pagination.variants'
 
 	let {
 		/**
@@ -71,7 +72,7 @@
 		{#if currentPage > 1}
 			<a
 				href={getPageHref(currentPage - 1)}
-				class="mr-4 inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 active:scale-[0.98]"
+				class={['mr-4', paginationNavVariants({ disabled: false })]}
 				aria-label="Previous page"
 			>
 				<svg
@@ -89,10 +90,7 @@
 				</svg>
 			</a>
 		{:else}
-			<span
-				class="mr-4 inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 opacity-50"
-				aria-disabled="true"
-			>
+			<span class={['mr-4', paginationNavVariants({ disabled: true })]} aria-disabled="true">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="16"
@@ -114,17 +112,11 @@
 				{#if item === 'ellipsis'}
 					<span class="text-sm font-medium text-gray-500 select-none">...</span>
 				{:else if item === currentPage}
-					<span
-						class="border-svelte-900 bg-svelte-900 inline-flex h-9 w-9 items-center justify-center rounded-md border text-sm font-medium text-white select-none"
-						aria-current="page"
-					>
+					<span class={paginationButtonVariants({ variant: 'active' })} aria-current="page">
 						{item}
 					</span>
 				{:else}
-					<a
-						href={getPageHref(item)}
-						class="inline-flex h-9 w-9 items-center justify-center rounded-md border text-sm font-medium select-none hover:bg-gray-50 active:scale-[0.98]"
-					>
+					<a href={getPageHref(item)} class={paginationButtonVariants({ variant: 'default' })}>
 						{item}
 					</a>
 				{/if}
@@ -134,7 +126,7 @@
 		{#if currentPage < totalPages}
 			<a
 				href={getPageHref(currentPage + 1)}
-				class="ml-4 inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 active:scale-[0.98]"
+				class={['ml-4', paginationNavVariants({ disabled: false })]}
 				aria-label="Next page"
 			>
 				<svg
@@ -152,10 +144,7 @@
 				</svg>
 			</a>
 		{:else}
-			<span
-				class="ml-4 inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 opacity-50"
-				aria-disabled="true"
-			>
+			<span class={['ml-4', paginationNavVariants({ disabled: true })]} aria-disabled="true">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="16"
