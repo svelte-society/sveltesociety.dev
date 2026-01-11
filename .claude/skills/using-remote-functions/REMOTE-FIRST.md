@@ -95,14 +95,16 @@ export type FeedEntry =
 <!-- +page.svelte -->
 <script lang="ts">
   import ContentCard from '$lib/ui/ContentCard.svelte'
-  import { ContentCTA } from '$lib/ui/cta'
+  import FeaturedCard from '$lib/ui/FeaturedCard.svelte'
+  import CTACard from '$lib/ui/CTACard.svelte'
+  import AdCard from '$lib/ui/AdCard.svelte'
 
   // Component map - easy to add new types
   const components = new Map([
     ['content', ContentCard],
-    ['featured', ContentCard],
-    ['cta', ContentCTA],
-    ['ad', ContentCTA]
+    ['featured', FeaturedCard],
+    ['cta', CTACard],
+    ['ad', AdCard]
   ])
 </script>
 

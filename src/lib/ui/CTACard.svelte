@@ -1,20 +1,15 @@
 <script lang="ts">
 	interface Props {
-		title?: string
-		description?: string
-		buttonText?: string
-		buttonHref?: string
+		title: string
+		description: string
+		buttonText: string
+		buttonHref: string
 	}
 
-	let {
-		title = 'Hiring Svelte Developers?',
-		description = 'Reach thousands of Svelte developers looking for their next opportunity.',
-		buttonText = 'Post a Job Starting at $199',
-		buttonHref = '/jobs/submit'
-	}: Props = $props()
+	let { title, description, buttonText, buttonHref }: Props = $props()
 </script>
 
-<div class="rounded-lg bg-gradient-to-r from-svelte-50 to-svelte-100 p-6">
+<div data-testid="cta-card" class="rounded-lg bg-gradient-to-r from-svelte-50 to-svelte-100 p-6">
 	<div class="mx-auto max-w-2xl text-center">
 		<h2 class="text-xl font-semibold text-svelte-900">{title}</h2>
 		<p class="mt-1.5 text-sm text-svelte-500">

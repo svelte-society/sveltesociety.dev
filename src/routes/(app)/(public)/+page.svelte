@@ -1,11 +1,13 @@
 <script lang="ts">
 	import ContentCard from '$lib/ui/ContentCard.svelte'
+	import FeaturedCard from '$lib/ui/FeaturedCard.svelte'
+	import CTACard from '$lib/ui/CTACard.svelte'
+	import AdCard from '$lib/ui/AdCard.svelte'
 	import Schema from '$lib/ui/Schema.svelte'
 	import { getHomeData } from './data.remote'
 	import { page } from '$app/state'
 	import Pagination from '$lib/ui/Pagination.svelte'
 	import Filters from './Filters.svelte'
-	import { ContentCTA } from '$lib/ui/cta'
 
 	const sort = [
 		{ label: 'Newest', value: 'published_at' },
@@ -19,9 +21,9 @@
 	// Component map for feed item types
 	const components = new Map([
 		['content', ContentCard],
-		['featured', ContentCard],
-		['cta', ContentCTA],
-		['ad', ContentCTA]
+		['featured', FeaturedCard],
+		['cta', CTACard],
+		['ad', AdCard]
 	])
 
 	// Card types need wrapper div and priority prop

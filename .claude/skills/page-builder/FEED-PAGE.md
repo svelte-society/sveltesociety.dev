@@ -15,7 +15,9 @@ The remote function returns a `FeedEntry[]` where each entry has:
 ```svelte
 <script lang="ts">
   import ContentCard from '$lib/ui/ContentCard.svelte'
-  import { ContentCTA } from '$lib/ui/cta'
+  import FeaturedCard from '$lib/ui/FeaturedCard.svelte'
+  import CTACard from '$lib/ui/CTACard.svelte'
+  import AdCard from '$lib/ui/AdCard.svelte'
   import { getFeed } from './data.remote'
   import { page } from '$app/state'
 
@@ -24,9 +26,9 @@ The remote function returns a `FeedEntry[]` where each entry has:
   // Map types to components
   const components = new Map([
     ['content', ContentCard],
-    ['featured', ContentCard],
-    ['cta', ContentCTA],
-    ['ad', ContentCTA]
+    ['featured', FeaturedCard],
+    ['cta', CTACard],
+    ['ad', AdCard]
   ])
 </script>
 
