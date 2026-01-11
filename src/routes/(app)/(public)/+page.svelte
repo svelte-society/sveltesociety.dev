@@ -6,7 +6,6 @@
 	import Pagination from '$lib/ui/Pagination.svelte'
 	import Filters from './Filters.svelte'
 	import { ContentCTA } from '$lib/ui/cta'
-	import { buildFeed, getFeedItemKey, type InterstitialConfig } from '$lib/utils/feed'
 
 	const sort = [
 		{ label: 'Newest', value: 'published_at' },
@@ -15,30 +14,18 @@
 		{ label: 'Most GitHub Stars', value: 'stars' }
 	]
 
-	let { content, count, meta, schemas } = $derived(await getHomeData({ url: page.url }))
+	let { feed, count, meta, schemas } = $derived(await getHomeData({ url: page.url }))
 
-	// Page number for seeding random positions (SSR-consistent)
-	const pageNum = Number(page.url.searchParams.get('page') || '1')
+	// Component map for feed item types
+	const components = new Map([
+		['content', ContentCard],
+		['featured', ContentCard],
+		['cta', ContentCTA],
+		['ad', ContentCTA]
+	])
 
-	// Interstitials configuration
-	const interstitials: InterstitialConfig[] = [
-		{
-			id: 'jobs',
-			type: 'cta',
-			position: 'random',
-			positionRange: [3, 7],
-			component: ContentCTA,
-			props: {
-				title: 'Hiring Svelte Developers?',
-				description: 'Reach thousands of Svelte developers looking for their next opportunity.',
-				buttonText: 'Post a Job Starting at $199',
-				buttonHref: '/jobs/submit'
-			}
-		}
-	]
-
-	// Build unified feed with content and interstitials
-	const feed = $derived(buildFeed(content, interstitials, pageNum))
+	// Card types need wrapper div and priority prop
+	const cardTypes = new Set(['content', 'featured'])
 </script>
 
 {#if schemas}
@@ -49,18 +36,18 @@
 
 <div data-testid="content-list" class="grid gap-6">
 	{#if count > 0}
-		{#each feed as item, index (getFeedItemKey(item))}
-			{#if item.type === 'content'}
+		{#each feed as item, index (index)}
+			{@const Component = components.get(item.type)}
+			{@const isCard = cardTypes.has(item.type)}
+			{#if isCard}
 				<div class="min-w-0">
-					<ContentCard content={item.data} priority={index < 2 ? 'high' : 'auto'} />
+					<Component
+						{...item.props}
+						priority={item.type === 'featured' || index < 2 ? 'high' : 'auto'}
+					/>
 				</div>
-			{:else if item.type === 'cta' || item.type === 'ad'}
-				{@const Component = item.component}
+			{:else}
 				<Component {...item.props} />
-			{:else if item.type === 'featured'}
-				<div class="min-w-0">
-					<ContentCard content={item.data} priority="high" />
-				</div>
 			{/if}
 		{/each}
 	{:else}
