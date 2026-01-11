@@ -10,20 +10,10 @@ Use this skill when creating admin pages for managing entities.
 ## When to Use
 
 - Adding a new admin section (e.g., /admin/[feature])
-- Creating list pages with filtering, search, pagination
-- Creating edit/create forms with validation
-- Adding quick actions (edit, delete, custom actions)
+- Creating admin list pages with tables and row actions
+- Creating admin edit/create forms with headers
 
-## Architecture Principle
-
-**Remote-First: Put as little as possible in +page.svelte, as much as possible in data.remote.ts.**
-
-- Build final data structures server-side in remote functions
-- Pages should be pure renderers that map types to components
-- No business logic in page components
-- Export types from data.remote.ts for type safety
-
-See [using-remote-functions/REMOTE-FIRST.md](../using-remote-functions/REMOTE-FIRST.md) for detailed patterns.
+**Note:** For general page patterns (forms, filters, pagination, remote functions), see [page-builder](../page-builder/SKILL.md).
 
 ## Route Structure
 
@@ -40,7 +30,7 @@ src/routes/(admin)/admin/
         └── +page.svelte      # Create page (optional)
 ```
 
-## Key Components
+## Admin-Specific Components
 
 | Component | Purpose | Import |
 |-----------|---------|--------|
@@ -125,19 +115,36 @@ src/routes/(admin)/admin/
 
   <form {...updateItem} class="space-y-6">
     <input {...updateItem.fields.id.as('hidden', itemId)} />
-
-    <label>
-      Name
-      <input {...updateItem.fields.name.as('text')} />
-    </label>
-
+    <!-- See page-builder/DETAIL-PAGE.md for form patterns -->
     <button type="submit">Save</button>
   </form>
 </div>
 ```
 
+## Authorization
+
+Always call `checkAdminAuth()` first in admin remote functions:
+
+```typescript
+import { checkAdminAuth } from '../authorization.remote'
+
+export const getItems = query("unchecked", async (searchParams) => {
+  checkAdminAuth()  // Throws if not admin
+  // ... rest of logic
+})
+```
+
 ## Reference Files
 
-- [LIST-PAGE.md](./LIST-PAGE.md) - Table, filters, pagination patterns
-- [EDIT-PAGE.md](./EDIT-PAGE.md) - Forms, validation, save/delete
+- [LIST-PAGE.md](./LIST-PAGE.md) - Table, Actions, Badge patterns
+- [EDIT-PAGE.md](./EDIT-PAGE.md) - PageHeader, ConfirmWithDialog patterns
 - [TEMPLATES.md](./TEMPLATES.md) - Copy-paste starter templates
+
+## General Patterns
+
+For patterns that apply to both admin and public pages, see:
+
+- [page-builder/LIST-PAGE.md](../page-builder/LIST-PAGE.md) - Filters, search, pagination
+- [page-builder/DETAIL-PAGE.md](../page-builder/DETAIL-PAGE.md) - Forms, validation
+- [page-builder/FEED-PAGE.md](../page-builder/FEED-PAGE.md) - Mixed-type feeds
+- [using-remote-functions/REMOTE-FIRST.md](../using-remote-functions/REMOTE-FIRST.md) - Remote-first architecture

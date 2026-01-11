@@ -1,50 +1,18 @@
-# List Page Pattern
+# Admin List Page Pattern
 
-Admin list pages display data in tables with filtering, search, and actions.
+Admin list pages display data in tables with row actions.
 
-## Basic Structure
-
-```svelte
-<script lang="ts">
-  import { page } from '$app/state'
-  import PageHeader from '$lib/ui/admin/PageHeader.svelte'
-  import Table from '$lib/ui/admin/Table.svelte'
-  import { Actions, Action } from '$lib/ui/admin/Actions'
-  import Badge from '$lib/ui/admin/Badge.svelte'
-  import Pagination from '$lib/ui/Pagination.svelte'
-  import Input from '$lib/ui/Input.svelte'
-  import Select from '$lib/ui/Select.svelte'
-  import FileText from 'phosphor-svelte/lib/FileText'
-  import Plus from 'phosphor-svelte/lib/Plus'
-  import { getItems, deleteItem } from './data.remote'
-
-  // Fetch data using URL search params
-  const { items, pagination } = $derived(await getItems(page.url.searchParams))
-
-  // Form reference for auto-submit
-  let form: HTMLFormElement
-  let debounceTimer: ReturnType<typeof setTimeout> | null = null
-
-  function submitForm() {
-    form.requestSubmit()
-  }
-
-  function debouncedSubmit() {
-    if (debounceTimer) clearTimeout(debounceTimer)
-    debounceTimer = setTimeout(submitForm, 300)
-  }
-
-  const statusOptions = [
-    { value: '', label: 'All Statuses' },
-    { value: 'active', label: 'Active' },
-    { value: 'inactive', label: 'Inactive' }
-  ]
-</script>
-```
+For filter forms, search, and pagination patterns, see [page-builder/LIST-PAGE.md](../page-builder/LIST-PAGE.md).
 
 ## PageHeader Component
 
 ```svelte
+<script>
+  import PageHeader from '$lib/ui/admin/PageHeader.svelte'
+  import Plus from 'phosphor-svelte/lib/Plus'
+  import FileText from 'phosphor-svelte/lib/FileText'
+</script>
+
 <PageHeader
   title="Items"
   description="Manage all items"
@@ -68,44 +36,16 @@ Admin list pages display data in tables with filtering, search, and actions.
 - `icon` - Phosphor icon component
 - `actions` - Snippet for action buttons
 
-## Filter Form (Auto-Submit)
-
-Use a native `<form>` that auto-submits on input change. This adds search params to the URL, which triggers a re-fetch of data.
-
-```svelte
-<form bind:this={form} class="mb-4 grid gap-3 sm:grid-cols-[1fr_auto_auto]">
-  <Input
-    name="search"
-    type="text"
-    value={page.url.searchParams.get('search') || ''}
-    oninput={debouncedSubmit}
-    placeholder="Search items..."
-  />
-
-  <Select
-    name="status"
-    options={statusOptions}
-    value={page.url.searchParams.get('status') || ''}
-    onchange={submitForm}
-  />
-
-  {#if page.url.search}
-    <a href={page.url.pathname} class="self-center text-sm text-gray-500 hover:text-gray-700">
-      Clear filters
-    </a>
-  {/if}
-</form>
-```
-
-**Key points:**
-- Text inputs use `debouncedSubmit` (300ms delay) to avoid excessive requests
-- Select inputs use `submitForm` for immediate filtering
-- "Clear filters" link navigates to base URL (removes all params)
-- Values are read from `page.url.searchParams` to reflect current URL state
-
 ## Table Component
 
 ```svelte
+<script>
+  import Table from '$lib/ui/admin/Table.svelte'
+  import Badge from '$lib/ui/admin/Badge.svelte'
+  import { Actions, Action } from '$lib/ui/admin/Actions'
+  import { formatRelativeDate } from '$lib/utils/date'
+</script>
+
 <Table action={true} data={items} testId="items-table">
   {#snippet header(classes)}
     <th class={classes}>Name</th>
@@ -145,7 +85,10 @@ Use a native `<form>` that auto-submits on input change. This adds search params
 ## Actions Component
 
 ```svelte
-import { Actions, Action } from '$lib/ui/admin/Actions'
+<script>
+  import { Actions, Action } from '$lib/ui/admin/Actions'
+  import ArrowsClockwise from 'phosphor-svelte/lib/ArrowsClockwise'
+</script>
 
 <Actions id={item.id}>
   <!-- Edit link -->
@@ -165,7 +108,21 @@ import { Actions, Action } from '$lib/ui/admin/Actions'
 </Actions>
 ```
 
-## Badge Colors
+**Action Types:**
+- `Action.Edit` - Link to edit page
+- `Action.Delete` - Delete with confirmation dialog
+- `Action.Button` - Custom action with form
+
+## Badge Component
+
+```svelte
+<Badge color="success" text="Published" />
+<Badge color="warning" text="Draft" />
+<Badge color="danger" text="Archived" />
+<Badge color="default" text="Unknown" />
+```
+
+**Color mapping:**
 
 ```typescript
 const colorMap = new Map([
@@ -182,14 +139,6 @@ function getStatusColor(status: string): string {
 }
 ```
 
-## Pagination
-
-```svelte
-{#if pagination}
-  <Pagination count={pagination.count} perPage={pagination.perPage} />
-{/if}
-```
-
 ## Empty State
 
 ```svelte
@@ -200,20 +149,16 @@ function getStatusColor(status: string): string {
 {/if}
 ```
 
-## Remote Functions Pattern
+## Remote Functions
+
+Admin remote functions must call `checkAdminAuth()`:
 
 ```typescript
-// data.remote.ts
 import { z } from 'zod/v4'
 import { parseSearchParams } from 'zod-search-params'
 import { query, form, getRequestEvent, redirect } from '$app/server'
 import { checkAdminAuth } from '../authorization.remote'
 
-// ============================================
-// QUERY: List with filters
-// ============================================
-
-// Define schema with .catch() for defaults - do NOT use coerce
 const filtersSchema = z.object({
   search: z.string().catch(''),
   status: z.string().catch(''),
@@ -221,11 +166,10 @@ const filtersSchema = z.object({
 })
 
 export const getItems = query("unchecked", async (searchParams: URLSearchParams) => {
-  checkAdminAuth()
+  checkAdminAuth()  // Always first!
   const { locals } = getRequestEvent()
   const perPage = 20
 
-  // Parse with zod-search-params (auto-coerces types)
   const { search, status, page } = parseSearchParams(filtersSchema, searchParams)
 
   const result = await locals.itemService.getFiltered({
@@ -241,10 +185,6 @@ export const getItems = query("unchecked", async (searchParams: URLSearchParams)
   }
 })
 
-// ============================================
-// FORM: Delete item
-// ============================================
-
 export const deleteItem = form(
   z.object({ id: z.string() }),
   async ({ id }) => {
@@ -257,8 +197,6 @@ export const deleteItem = form(
 ```
 
 **Key points:**
-- Always call `checkAdminAuth()` first in every admin remote function
-- Use `"unchecked"` schema for list queries that accept `URLSearchParams`
-- Use `parseSearchParams(schema, searchParams)` from `zod-search-params` to parse URL params
-- Define filter schema with `.catch()` for default values - do NOT use `coerce` (it's applied automatically)
+- Always call `checkAdminAuth()` first
+- Use `"unchecked"` schema for list queries with `URLSearchParams`
 - Delete redirects server-side via `redirect()`
