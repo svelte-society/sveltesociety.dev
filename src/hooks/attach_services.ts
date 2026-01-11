@@ -1,6 +1,6 @@
 import type { Handle } from '@sveltejs/kit'
 import { Database } from 'bun:sqlite'
-import { DB_PATH } from '$env/static/private'
+import { env } from '$env/dynamic/private'
 import { ContentService } from '$lib/server/services/content'
 import { SearchService } from '$lib/server/services/search'
 import { InteractionsService } from '$lib/server/services/interactions'
@@ -117,7 +117,7 @@ const initialize_db = (dbPath: string) => {
 
 export const attach_services: Handle = async ({ event, resolve }) => {
 	// Determine which database to use based on test cookie
-	let dbPath = DB_PATH
+	let dbPath = env.DB_PATH ?? 'data.db'
 
 	// In test environment, check for test_db cookie to enable per-test isolation
 	if (process.env.NODE_ENV === 'test') {

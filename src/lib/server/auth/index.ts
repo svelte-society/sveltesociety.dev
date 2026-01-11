@@ -1,10 +1,6 @@
-import {
-	GITHUB_AUTHORIZATION_CALLBACK_URL,
-	GITHUB_CLIENT_ID,
-	GITHUB_CLIENT_SECRET
-} from '$env/static/private'
+import { env } from '$env/dynamic/private'
 
-export const GITHUB_AUTH_URL = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${GITHUB_AUTHORIZATION_CALLBACK_URL}`
+export const GITHUB_AUTH_URL = `https://github.com/login/oauth/authorize?client_id=${env.GITHUB_CLIENT_ID}&redirect_uri=${env.GITHUB_AUTHORIZATION_CALLBACK_URL}`
 
 export const exchangeGitHubCodeForToken = async (code: string) => {
 	const response = await fetch('https://github.com/login/oauth/access_token', {
@@ -14,8 +10,8 @@ export const exchangeGitHubCodeForToken = async (code: string) => {
 			Accept: 'application/json'
 		},
 		body: JSON.stringify({
-			client_id: GITHUB_CLIENT_ID,
-			client_secret: GITHUB_CLIENT_SECRET,
+			client_id: env.GITHUB_CLIENT_ID,
+			client_secret: env.GITHUB_CLIENT_SECRET,
 			code
 		})
 	})

@@ -1,4 +1,4 @@
-import { PLUNK_API_SECRET_KEY, PLUNK_API_URL } from '$env/static/private'
+import { env } from '$env/dynamic/private'
 import { Renderer } from 'better-svelte-email'
 import appStyles from '../../../app.css?raw'
 import type { Component } from 'svelte'
@@ -118,8 +118,8 @@ export class EmailService {
   private fromEmail: string
 
   constructor(
-    apiKey: string = PLUNK_API_SECRET_KEY,
-    apiUrl: string = PLUNK_API_URL,
+    apiKey: string = env.PLUNK_API_SECRET_KEY ?? '',
+    apiUrl: string = env.PLUNK_API_URL ?? '',
     fromEmail: string = DEFAULT_FROM_EMAIL
   ) {
     this.apiKey = apiKey

@@ -1,5 +1,5 @@
 import Stripe from 'stripe'
-import { STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET } from '$env/static/private'
+import { env } from '$env/dynamic/private'
 import type { JobTier } from './job-tier'
 
 export interface CreateCheckoutSessionParams {
@@ -18,7 +18,7 @@ export interface CheckoutSessionResult {
 export class StripeService {
 	private stripe: Stripe
 
-	constructor(secretKey: string = STRIPE_SECRET_KEY) {
+	constructor(secretKey: string = env.STRIPE_SECRET_KEY ?? '') {
 		this.stripe = new Stripe(secretKey, {
 			apiVersion: '2025-12-15.clover'
 		})
@@ -110,7 +110,7 @@ export class StripeService {
 	/**
 	 * Construct and verify a webhook event from the raw body and signature
 	 */
-	constructWebhookEvent(payload: string | Buffer, signature: string, webhookSecret: string = STRIPE_WEBHOOK_SECRET): Stripe.Event {
+	constructWebhookEvent(payload: string | Buffer, signature: string, webhookSecret: string = env.STRIPE_WEBHOOK_SECRET ?? ''): Stripe.Event {
 		return this.stripe.webhooks.constructEvent(payload, signature, webhookSecret)
 	}
 
