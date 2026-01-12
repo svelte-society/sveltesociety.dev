@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { toast } from 'svelte-sonner'
 	import Input from '$lib/ui/Input.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
 	import ContentSection from './ContentSection.svelte'
@@ -38,18 +37,7 @@
 <!-- Two-column layout for both create and edit modes -->
 <form
 	id={formId}
-	{...form.enhance(async ({ submit }) => {
-		try {
-			await submit()
-			if (form.result?.success === true) {
-				toast.success(successMessage)
-			} else if (form.result?.success === false) {
-				toast.error(form.result?.text || errorMessage)
-			}
-		} catch {
-			// Redirects may throw, which is expected
-		}
-	})}
+	{...form}
 	class="flex flex-col gap-6"
 >
 	<div class="grid gap-8 lg:grid-cols-2">
