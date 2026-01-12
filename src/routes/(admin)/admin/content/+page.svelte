@@ -137,7 +137,7 @@
 	</div>
 
 	{#if content}
-		<Table action={true} data={content}>
+		<Table action={true} data={content} emptyMessage="No content found matching your search.">
 			{#snippet header(classes)}
 				<th scope="col" class={classes}>Title</th>
 				<th scope="col" class={[classes, 'text-center']}>Status</th>
@@ -197,37 +197,10 @@
 					<Action.Delete
 						form={deleteContent}
 						confirm={`Are you sure you want to delete "${item.title}"?`}
-						onSuccess={() => {
-							const sp = page.url.searchParams
-							getFilteredContent({
-								search: sp.get('search') || undefined,
-								type: (sp.get('type') || undefined) as
-									| 'video'
-									| 'library'
-									| 'announcement'
-									| 'collection'
-									| 'recipe'
-									| 'resource'
-									| undefined,
-								status: (sp.get('status') || 'all') as
-									| 'draft'
-									| 'pending_review'
-									| 'published'
-									| 'archived'
-									| 'all',
-								page: parseInt(sp.get('page') || '1')
-							}).refresh()
-						}}
 					/>
 				</Actions>
 			{/snippet}
 		</Table>
-
-		{#if content.length === 0}
-			<div class="mt-8 text-center">
-				<p class="text-gray-500">No content found matching your search.</p>
-			</div>
-		{/if}
 
 		{#if pagination}
 			<Pagination count={pagination.count} perPage={pagination.perPage} />

@@ -36,5 +36,6 @@ export const deleteTag = form(deleteTagSchema, async (data) => {
 	checkAdminAuth()
 	const { locals } = getRequestEvent()
 	locals.tagService.deleteTag(data.id)
+	await getTags().refresh()
 	return { success: true, text: 'Tag deleted successfully!' }
 })

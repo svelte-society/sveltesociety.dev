@@ -53,7 +53,7 @@
 		{/snippet}
 	</PageHeader>
 
-	<Table action={true} data={feedItems} testId="feed-items-table">
+	<Table action={true} data={feedItems} emptyMessage="No feed items found." testId="feed-items-table">
 		{#snippet header(classes)}
 			<th class={classes}>Title</th>
 			<th class={classes}>Type</th>
@@ -93,10 +93,4 @@
 			</Actions>
 		{/snippet}
 	</Table>
-
-	{#if feedItems.length === 0}
-		<div class="mt-8 text-center">
-			<p class="text-gray-500">No feed items found.</p>
-		</div>
-	{/if}
 </div>

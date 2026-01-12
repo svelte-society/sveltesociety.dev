@@ -14,7 +14,10 @@ test.describe.serial('Admin - Sidebar Shortcuts', () => {
 		await shortcutsPage.gotoList()
 
 		await expect(page).toHaveURL('/admin/shortcuts')
-		await expect(shortcutsPage.shortcutsTable).toBeVisible()
+		// Expect either the table or empty state to be visible
+		const tableVisible = await shortcutsPage.shortcutsTable.isVisible()
+		const emptyVisible = await shortcutsPage.noShortcutsMessage.isVisible()
+		expect(tableVisible || emptyVisible).toBe(true)
 	})
 
 	test('shows empty state when no shortcuts exist', async ({ page }) => {

@@ -30,7 +30,7 @@
 		{/snippet}
 	</PageHeader>
 
-	<Table action={true} data={shortcuts} testId="shortcuts-table">
+	<Table action={true} data={shortcuts} emptyMessage="No shortcuts found." testId="shortcuts-table">
 		{#snippet header(classes)}
 			<th class={classes}>Content</th>
 			<th class={classes}>Display Label</th>
@@ -64,10 +64,4 @@
 			</Actions>
 		{/snippet}
 	</Table>
-
-	{#if shortcuts.length === 0}
-		<div class="mt-8 text-center">
-			<p class="text-gray-500">No shortcuts found.</p>
-		</div>
-	{/if}
 </div>

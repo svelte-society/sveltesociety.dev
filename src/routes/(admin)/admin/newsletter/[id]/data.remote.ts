@@ -2,6 +2,7 @@ import { form, getRequestEvent, query } from '$app/server'
 import { error, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../../authorization.remote'
+import { getCampaigns } from '../data.remote'
 import type { CampaignWithItems } from '$lib/server/services/newsletter'
 import type { EmailService } from '$lib/server/services/email'
 
@@ -218,6 +219,8 @@ export const sendCampaign = form(sendCampaignSchema, async (data) => {
 			sent_at: new Date().toISOString()
 		})
 
+		await getCampaign(data.id).refresh()
+		await getCampaigns().refresh()
 		return { success: true, text: 'Campaign sent successfully!' }
 	} catch (err) {
 		console.error('Error sending campaign:', err)
@@ -276,6 +279,7 @@ export const copyCampaign = form(copyCampaignSchema, async (data) => {
 			}
 		}
 
+		await getCampaigns().refresh()
 		redirect(303, `/admin/newsletter/${newCampaign.id}`)
 	} catch (err) {
 		// Redirect throws, so this is expected

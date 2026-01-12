@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { getContext } from 'svelte'
 	import { toast } from 'svelte-sonner'
-	import { invalidateAll } from '$app/navigation'
 	import type { RemoteForm } from '@sveltejs/kit'
 	import Trash from 'phosphor-svelte/lib/Trash'
 	import Button from '$lib/ui/Button.svelte'
@@ -13,14 +12,12 @@
 		form: RemoteForm<{ id: string }, DeleteResult>
 		confirm?: string
 		label?: string
-		onSuccess?: () => void | Promise<void>
 	}
 
 	let {
 		form,
 		confirm = 'Are you sure you want to delete this?',
-		label = 'Delete',
-		onSuccess
+		label = 'Delete'
 	}: Props = $props()
 
 	const ctx = getContext<{ id: string }>('actions')
@@ -49,11 +46,6 @@
 				if (remove.result?.success === true) {
 					toast.success(remove.result.text)
 					dialogOpen = false
-					if (onSuccess) {
-						await onSuccess()
-					} else {
-						await invalidateAll()
-					}
 				} else if (remove.result?.success === false) {
 					toast.error(remove.result.text || 'Something broke, please try again.')
 				}

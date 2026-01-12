@@ -30,7 +30,7 @@
 		icon={Users}
 	/>
 
-	<Table action={true} data={data.users} testId="users-table">
+	<Table action={true} data={data.users} emptyMessage="No users found." testId="users-table">
 		{#snippet header(classes)}
 			<th scope="col" class={classes}>User</th>
 			<th scope="col" class={classes}>Email</th>
@@ -62,16 +62,13 @@
 					variant="warning"
 					tooltip="Clear sessions"
 				/>
-				<Action.Delete form={deleteUser} confirm="Delete this user?" />
+				<Action.Delete
+					form={deleteUser}
+					confirm="Delete this user?"
+				/>
 			</Actions>
 		{/snippet}
 	</Table>
-
-	{#if data.users.length === 0}
-		<div class="mt-8 text-center">
-			<p class="text-gray-500">No users found.</p>
-		</div>
-	{/if}
 
 	{#if data.pagination}
 		<Pagination count={data.pagination.count} perPage={data.pagination.perPage} />

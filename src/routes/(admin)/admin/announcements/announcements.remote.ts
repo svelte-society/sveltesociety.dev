@@ -150,6 +150,7 @@ export const togglePlacement = form(toggleSchema, async (data) => {
 			}
 		}
 
+		await getPlacements().refresh()
 		return {
 			success: true,
 			text: `Placement ${result.is_active ? 'activated' : 'deactivated'} successfully!`
@@ -176,6 +177,7 @@ export const deletePlacement = form(deleteSchema, async (data) => {
 			}
 		}
 
+		await getPlacements().refresh()
 		return {
 			success: true,
 			text: 'Placement deleted successfully!'

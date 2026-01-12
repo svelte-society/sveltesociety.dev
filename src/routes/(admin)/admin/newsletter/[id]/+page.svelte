@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state'
-	import { goto } from '$app/navigation'
 	import { toast } from 'svelte-sonner'
-	import { invalidateAll } from '$app/navigation'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import { DialogTrigger, ConfirmDialog } from '$lib/ui/Dialog'
@@ -62,7 +60,6 @@
 					await submit()
 					toast.success('Successfully sent campaign.')
 					sendDialogOpen = false
-					await invalidateAll()
 				} catch {
 					toast.error('Something went wrong when trying to send the campaign.')
 				}
