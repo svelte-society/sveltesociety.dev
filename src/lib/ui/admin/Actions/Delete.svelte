@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getContext } from 'svelte'
 	import { toast } from 'svelte-sonner'
+	import { invalidateAll } from '$app/navigation'
 	import type { RemoteForm } from '@sveltejs/kit'
 	import Trash from 'phosphor-svelte/lib/Trash'
 	import Button from '$lib/ui/Button.svelte'
@@ -45,9 +46,10 @@
 				await submit()
 				if (remove.result?.success === true) {
 					toast.success(remove.result.text)
-					(document.getElementById(dialogId) as HTMLDialogElement)?.close()
-				} else {
-					toast.error(remove.result?.text || 'Something broke, please try again.')
+					;(document.getElementById(dialogId) as HTMLDialogElement)?.close()
+					await invalidateAll()
+				} else if (remove.result?.success === false) {
+					toast.error(remove.result.text || 'Something broke, please try again.')
 				}
 			} catch {
 				toast.error('Something broke, please try again.')
