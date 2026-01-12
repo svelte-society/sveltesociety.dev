@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state'
 	import { formatRelativeDate } from '$lib/utils/date'
+	import { formatSalary, formatEnumLabel } from '$lib/utils/job-format'
 	import ArrowLeft from 'phosphor-svelte/lib/ArrowLeft'
 	import MapPin from 'phosphor-svelte/lib/MapPin'
 	import Buildings from 'phosphor-svelte/lib/Buildings'
@@ -16,37 +17,6 @@
 
 	const { jobId, message } = applyToJob.fields
 	const isAdmin = page.data.isAdmin
-
-	const formatSalary = (min?: number | null, max?: number | null, currency = 'USD') => {
-		if (!min && !max) return null
-		const formatter = new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency,
-			maximumFractionDigits: 0
-		})
-		if (min && max) return `${formatter.format(min)} - ${formatter.format(max)}`
-		if (min) return `From ${formatter.format(min)}`
-		if (max) return `Up to ${formatter.format(max)}`
-		return null
-	}
-
-	const formatPositionType = (type: string) => {
-		return type
-			.split('-')
-			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-			.join('-')
-	}
-
-	const formatSeniorityLevel = (level: string) => {
-		return level.charAt(0).toUpperCase() + level.slice(1)
-	}
-
-	const formatRemoteStatus = (status: string) => {
-		return status
-			.split('-')
-			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-			.join('-')
-	}
 
 	const salary = $derived(
 		formatSalary(
@@ -151,11 +121,11 @@
 			<!-- Pills -->
 			<div class="flex flex-wrap items-center gap-2">
 				<span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs text-slate-500">
-					{formatPositionType(data.job.metadata.position_type)}
+					{formatEnumLabel(data.job.metadata.position_type)}
 				</span>
 
 				<span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs text-slate-500">
-					{formatSeniorityLevel(data.job.metadata.seniority_level)}
+					{formatEnumLabel(data.job.metadata.seniority_level)}
 				</span>
 
 				<span class={[
@@ -163,7 +133,7 @@
 					data.job.metadata.remote_status === 'remote' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'
 				]}>
 					<MapPin size={12} />
-					{formatRemoteStatus(data.job.metadata.remote_status)}
+					{formatEnumLabel(data.job.metadata.remote_status)}
 					{#if data.job.metadata.location && data.job.metadata.remote_status !== 'remote'}
 						- {data.job.metadata.location}
 					{/if}

@@ -4,30 +4,11 @@
 	import Star from 'phosphor-svelte/lib/Star'
 	import { type SidebarJob } from './types'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
+	import { formatSalary, REMOTE_LABELS } from '$lib/utils/job-format'
 
 	let { jobs = [] }: { jobs?: SidebarJob[] } = $props()
 
-	const remoteLabels: Record<string, string> = {
-		remote: 'Remote',
-		hybrid: 'Hybrid',
-		'on-site': 'On-Site'
-	}
-
 	const isPremium = (tierName?: string) => tierName?.toLowerCase() === 'premium'
-
-	const formatSalary = (min?: number | null, max?: number | null, currency?: string | null) => {
-		if (!min && !max) return null
-		const fmt = new Intl.NumberFormat('en-US', {
-			notation: 'compact',
-			maximumFractionDigits: 0
-		})
-		const curr = currency || 'USD'
-		const symbol = curr === 'USD' ? '$' : curr === 'EUR' ? '€' : curr === 'GBP' ? '£' : ''
-		if (min && max) return `${symbol}${fmt.format(min)}-${fmt.format(max)}`
-		if (min) return `${symbol}${fmt.format(min)}+`
-		if (max) return `Up to ${symbol}${fmt.format(max)}`
-		return null
-	}
 </script>
 
 <div class="grid gap-3 rounded border border-slate-200 bg-gray-50 p-4">
@@ -42,7 +23,7 @@
 	{#if jobs && jobs.length > 0}
 		<div class="space-y-3">
 			{#each jobs as job}
-				{@const salary = formatSalary(job.salary_min, job.salary_max, job.salary_currency)}
+				{@const salary = formatSalary(job.salary_min, job.salary_max, job.salary_currency || 'USD', true)}
 				<div class="grid grid-cols-[auto_1fr] gap-3">
 					<!-- Logo column -->
 					{#if job.company_logo}
@@ -77,7 +58,7 @@
 							<span
 								class="rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-medium uppercase"
 							>
-								{remoteLabels[job.remote_status] || job.remote_status}
+								{REMOTE_LABELS[job.remote_status] || job.remote_status}
 							</span>
 							{#if job.location}
 								<span class="flex items-center gap-0.5">
