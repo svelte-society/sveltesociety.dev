@@ -42,7 +42,7 @@ export class FeedBuilderPage extends BasePage {
 		this.feedItemStatuses = page.locator(
 			'[data-testid="feed-items-table"] tbody tr td:last-child span'
 		)
-		this.noFeedItemsMessage = page.getByText('No feed items found')
+		this.noFeedItemsMessage = page.getByTestId('feed-items-table-empty')
 		this.editButtons = page.getByTestId('edit-button')
 		this.toggleButtons = page.getByTestId('toggle-button')
 		this.deleteButtons = page.getByTestId('delete-button')
@@ -130,8 +130,8 @@ export class FeedBuilderPage extends BasePage {
 
 	async deleteFirstFeedItem(): Promise<void> {
 		await this.deleteButtons.first().click()
-		// Wait for confirmation modal and click confirm button
-		await this.page.getByTestId('confirm-delete-button').click()
+		// Wait for confirmation modal and click confirm button (scoped to open dialog)
+		await this.page.locator('dialog[open]').getByTestId('confirm-delete-button').click()
 	}
 
 	async getFirstFeedItemStatus(): Promise<string> {
@@ -145,8 +145,11 @@ export class FeedBuilderPage extends BasePage {
 
 	async expectListPage(): Promise<void> {
 		await this.page.waitForURL('/admin/feed-builder')
-		// Wait for the table to be visible
-		await this.feedItemsTable.waitFor({ state: 'visible' })
+		// Wait for either the table or empty state to be visible
+		await Promise.race([
+			this.feedItemsTable.waitFor({ state: 'visible' }),
+			this.noFeedItemsMessage.waitFor({ state: 'visible' })
+		])
 	}
 
 	async fillCustomCTAForm(data: {

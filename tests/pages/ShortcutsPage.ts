@@ -26,7 +26,7 @@ export class ShortcutsPage extends BasePage {
 		this.shortcutRows = page.getByTestId('shortcuts-table-row')
 		this.shortcutTitles = page.getByTestId('shortcut-title')
 		this.shortcutStatuses = page.getByTestId('shortcut-status')
-		this.noShortcutsMessage = page.getByTestId('no-shortcuts-message')
+		this.noShortcutsMessage = page.getByTestId('shortcuts-table-empty')
 		this.editButtons = page.getByTestId('edit-button')
 		this.toggleButtons = page.getByTestId('toggle-button')
 		this.deleteButtons = page.getByTestId('delete-button')
@@ -89,8 +89,8 @@ export class ShortcutsPage extends BasePage {
 
 	async deleteFirstShortcut(): Promise<void> {
 		await this.deleteButtons.first().click()
-		// Wait for confirmation modal and click confirm button
-		await this.page.getByTestId('confirm-delete-button').click()
+		// Wait for confirmation modal and click confirm button (scoped to open dialog)
+		await this.page.locator('dialog[open]').getByTestId('confirm-delete-button').click()
 	}
 
 	async getFirstShortcutStatus(): Promise<string> {
@@ -104,7 +104,10 @@ export class ShortcutsPage extends BasePage {
 
 	async expectListPage(): Promise<void> {
 		await this.page.waitForURL('/admin/shortcuts')
-		// Wait for the table to be visible
-		await this.shortcutsTable.waitFor({ state: 'visible' })
+		// Wait for either the table or empty state to be visible
+		await Promise.race([
+			this.shortcutsTable.waitFor({ state: 'visible' }),
+			this.noShortcutsMessage.waitFor({ state: 'visible' })
+		])
 	}
 }

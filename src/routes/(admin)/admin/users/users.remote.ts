@@ -71,26 +71,32 @@ export const updateUserRole = form(updateUserRoleSchema, async (data) => {
 	return { success: true, text: 'Role updated successfully!' }
 })
 
+function getPageFromUrl(url: URL) {
+	return parseInt(url.searchParams.get('page') || '1', 10)
+}
+
 export const deleteUser = form(deleteUserSchema, async (data) => {
 	checkAdminAuth()
-	const { locals } = getRequestEvent()
+	const { locals, url } = getRequestEvent()
 	const deleted = locals.userService.deleteUser(data.id)
 
 	if (!deleted) {
 		return { success: false, text: 'Failed to delete user.' }
 	}
 
+	await getUsers({ page: getPageFromUrl(url), perPage: 25 }).refresh()
 	return { success: true, text: 'User deleted successfully!' }
 })
 
 export const clearUserSessions = form(clearSessionsSchema, async (data) => {
 	checkAdminAuth()
-	const { locals } = getRequestEvent()
+	const { locals, url } = getRequestEvent()
 	const deletedCount = locals.sessionService.deleteSessionsByUserId(data.id)
 
 	if (deletedCount === 0) {
 		return { success: false, text: 'No sessions found for this user.' }
 	}
 
+	await getUsers({ page: getPageFromUrl(url), perPage: 25 }).refresh()
 	return { success: true, text: `Cleared ${deletedCount} session(s) for this user.` }
 })

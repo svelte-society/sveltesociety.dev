@@ -33,7 +33,7 @@
 		{/snippet}
 	</PageHeader>
 
-	<Table action={true} data={placements} testId="announcements-table">
+	<Table action={true} data={placements} emptyMessage="No announcement placements found." testId="announcements-table">
 		{#snippet header(classes)}
 			<th class={classes}>Announcement</th>
 			<th class={classes}>Placement</th>
@@ -68,10 +68,4 @@
 			</Actions>
 		{/snippet}
 	</Table>
-
-	{#if placements.length === 0}
-		<div class="mt-8 text-center">
-			<p class="text-gray-500">No announcement placements found.</p>
-		</div>
-	{/if}
 </div>

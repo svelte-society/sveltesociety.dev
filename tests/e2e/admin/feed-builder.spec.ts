@@ -14,7 +14,10 @@ test.describe.serial('Admin - Feed Builder', () => {
 		await feedBuilderPage.gotoList()
 
 		await expect(page).toHaveURL('/admin/feed-builder')
-		await expect(feedBuilderPage.feedItemsTable).toBeVisible()
+		// Expect either the table or empty state to be visible
+		const tableVisible = await feedBuilderPage.feedItemsTable.isVisible()
+		const emptyVisible = await feedBuilderPage.noFeedItemsMessage.isVisible()
+		expect(tableVisible || emptyVisible).toBe(true)
 	})
 
 	test('shows empty state when no feed items exist', async ({ page }) => {

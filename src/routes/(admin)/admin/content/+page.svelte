@@ -137,7 +137,7 @@
 	</div>
 
 	{#if content}
-		<Table action={true} data={content}>
+		<Table action={true} data={content} emptyMessage="No content found matching your search.">
 			{#snippet header(classes)}
 				<th scope="col" class={classes}>Title</th>
 				<th scope="col" class={[classes, 'text-center']}>Status</th>
@@ -201,12 +201,6 @@
 				</Actions>
 			{/snippet}
 		</Table>
-
-		{#if content.length === 0}
-			<div class="mt-8 text-center">
-				<p class="text-gray-500">No content found matching your search.</p>
-			</div>
-		{/if}
 
 		{#if pagination}
 			<Pagination count={pagination.count} perPage={pagination.perPage} />

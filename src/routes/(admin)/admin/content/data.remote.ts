@@ -53,9 +53,31 @@ export const getFilteredContent = query(contentFiltersSchema, async (filters) =>
 
 const REFRESHABLE_TYPES = ['video', 'library', 'resource'] as const
 
+function getFiltersFromUrl(url: URL) {
+	const sp = url.searchParams
+	return {
+		search: sp.get('search') || undefined,
+		type: (sp.get('type') || undefined) as
+			| 'video'
+			| 'library'
+			| 'announcement'
+			| 'collection'
+			| 'recipe'
+			| 'resource'
+			| undefined,
+		status: (sp.get('status') || 'all') as
+			| 'draft'
+			| 'pending_review'
+			| 'published'
+			| 'archived'
+			| 'all',
+		page: parseInt(sp.get('page') || '1')
+	}
+}
+
 export const refreshMetadata = form(contentIdSchema, async (data) => {
 	checkAdminAuth()
-	const { locals } = getRequestEvent()
+	const { locals, url } = getRequestEvent()
 
 	try {
 		const content = locals.contentService.getContentById(data.id)
@@ -75,6 +97,7 @@ export const refreshMetadata = form(contentIdSchema, async (data) => {
 
 		await locals.metadataService.refreshMetadataForContent(content)
 
+		await getFilteredContent(getFiltersFromUrl(url)).refresh()
 		return {
 			success: true,
 			text: 'Metadata and thumbnail refreshed successfully!'
@@ -90,7 +113,7 @@ export const refreshMetadata = form(contentIdSchema, async (data) => {
 
 export const deleteContent = form(contentIdSchema, async (data) => {
 	checkAdminAuth()
-	const { locals } = getRequestEvent()
+	const { locals, url } = getRequestEvent()
 
 	try {
 		const success = locals.contentService.deleteContent(data.id)
@@ -102,6 +125,7 @@ export const deleteContent = form(contentIdSchema, async (data) => {
 			}
 		}
 
+		await getFilteredContent(getFiltersFromUrl(url)).refresh()
 		return {
 			success: true,
 			text: 'Content deleted successfully!'

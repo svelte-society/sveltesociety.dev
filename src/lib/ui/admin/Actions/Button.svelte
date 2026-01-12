@@ -3,8 +3,8 @@
 	import type { RemoteForm } from '@sveltejs/kit'
 	import { getContext } from 'svelte'
 	import { toast } from 'svelte-sonner'
-	import { invalidateAll } from '$app/navigation'
 	import Button from '$lib/ui/Button.svelte'
+	import { DialogTrigger, ConfirmDialog } from '$lib/ui/Dialog'
 	import type { ButtonVariant } from '$lib/ui/button.variants'
 
 	type Variant = 'ghost' | 'danger' | 'warning' | 'info' | 'secondary'
@@ -46,17 +46,9 @@
 
 	const ctx = getContext<{ id: string }>('actions')
 
-	let showDialog = $state(false)
 	let isSubmitting = $state(false)
+	let dialogOpen = $state(false)
 	const action = $derived(form?.for(ctx.id))
-
-	function handleClick() {
-		if (onclick) {
-			onclick()
-		} else if (form && confirm) {
-			showDialog = true
-		}
-	}
 </script>
 
 {#snippet iconWithTooltip()}
@@ -71,13 +63,13 @@
 {/snippet}
 
 {#if form && action && !confirm}
+	<!-- Form without confirm: direct submit -->
 	<form
 		{...action.enhance(async ({ submit }) => {
 			isSubmitting = true
 			await submit()
 			if (action.result?.success === true) {
 				toast.success(action.result.text)
-				await invalidateAll()
 			} else {
 				toast.error(action.result?.text || 'Something broke, please try again.')
 			}
@@ -97,10 +89,44 @@
 			{@render iconWithTooltip()}
 		</Button>
 	</form>
-{:else}
+{:else if form && action && confirm}
+	<!-- Form with confirm: opens dialog first -->
+	<DialogTrigger
+		onclick={() => (dialogOpen = true)}
+		variant={variant as ButtonVariant}
+		size="icon"
+		class="group relative"
+		aria-label={label || tooltip}
+		data-testid={testId}
+	>
+		{@render iconWithTooltip()}
+	</DialogTrigger>
+
+	{#snippet confirmButton()}
+		<form
+			{...action.enhance(async ({ submit }) => {
+				await submit()
+				if (action.result?.success === true) {
+					toast.success(action.result.text)
+				} else {
+					toast.error(action.result?.text || 'Something broke, please try again.')
+				}
+				dialogOpen = false
+			})}
+		>
+			<input {...action.fields.id.as('hidden', ctx.id)} />
+			<Button type="submit" disabled={!!action.pending}>
+				{action.pending ? 'Processing...' : 'Confirm'}
+			</Button>
+		</form>
+	{/snippet}
+
+	<ConfirmDialog id={`action-dialog-${ctx.id}`} bind:open={dialogOpen} title={confirm} confirm={confirmButton} />
+{:else if onclick}
+	<!-- Click handler only -->
 	<Button
 		type="button"
-		onclick={handleClick}
+		{onclick}
 		variant={variant as ButtonVariant}
 		size="icon"
 		class="group relative"
@@ -109,27 +135,4 @@
 	>
 		{@render iconWithTooltip()}
 	</Button>
-{/if}
-
-{#if showDialog && form && action}
-	<div class="fixed inset-0 z-5000 flex items-center justify-center bg-black/30">
-		<div class="rounded-lg bg-white p-6 shadow-xl">
-			<h2 class="mb-4 text-xl font-bold">{confirm}</h2>
-			<div class="flex justify-end space-x-2">
-				<Button onclick={() => (showDialog = false)} variant="secondary">Cancel</Button>
-				<form
-					{...action.enhance(async ({ submit }) => {
-						await submit()
-						showDialog = false
-						await invalidateAll()
-					})}
-				>
-					<input {...action.fields.id.as('hidden', ctx.id)} />
-					<Button type="submit" disabled={!!action.pending}>
-						{action.pending ? 'Processing...' : 'Confirm'}
-					</Button>
-				</form>
-			</div>
-		</div>
-	</div>
 {/if}

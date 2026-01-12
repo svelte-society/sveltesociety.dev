@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/state'
-	import { goto } from '$app/navigation'
 	import { toast } from 'svelte-sonner'
-	import { invalidateAll } from '$app/navigation'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import Button from '$lib/ui/Button.svelte'
+	import { DialogTrigger, ConfirmDialog } from '$lib/ui/Dialog'
 	import Newspaper from 'phosphor-svelte/lib/Newspaper'
 	import Eye from 'phosphor-svelte/lib/Eye'
 	import PaperPlaneTilt from 'phosphor-svelte/lib/PaperPlaneTilt'
@@ -22,10 +21,11 @@
 
 	const campaignId = page.params.id!
 	const isNew = campaignId === 'new'
+	const sendDialogId = `send-confirm-${campaignId}`
+	let sendDialogOpen = $state(false)
 
 	// Only fetch campaign if editing
 	const campaign = $derived(isNew ? null : await getCampaign(campaignId))
-	let showSendConfirm = $state(false)
 
 	// Check if campaign has been sent
 	const isSent = $derived(campaign?.status === 'sent')
@@ -52,34 +52,29 @@
 </script>
 
 <!-- Send confirmation dialog -->
-{#if showSendConfirm}
-	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
-		<div class="rounded-lg bg-white p-6 shadow-xl">
-			<h2 class="mb-4 text-xl font-bold">Send Campaign</h2>
-			<p class="mb-4">
-				Are you sure you want to send this campaign to all subscribers? This action cannot be
-				undone.
-			</p>
-			<div class="flex justify-end gap-2">
-				<Button onclick={() => (showSendConfirm = false)} variant="secondary">Cancel</Button>
+{#snippet confirmSend()}
+	<form>
+		<Button
+			{...sendCampaign.for(campaignId).buttonProps.enhance(async ({ submit }) => {
+				try {
+					await submit()
+					toast.success('Successfully sent campaign.')
+					sendDialogOpen = false
+				} catch {
+					toast.error('Something went wrong when trying to send the campaign.')
+				}
+			})}>Confirm</Button
+		>
+	</form>
+{/snippet}
 
-				<form>
-					<Button
-						{...sendCampaign.for(campaignId).buttonProps.enhance(async ({ submit }) => {
-							try {
-								await submit()
-								toast.success('Succesfully sent campaign.')
-							} catch {
-								toast.error('Something went wrong when trying to send the campaign.')
-							}
-							showSendConfirm = false
-						})}>Confirm</Button
-					>
-				</form>
-			</div>
-		</div>
-	</div>
-{/if}
+<ConfirmDialog
+	id={sendDialogId}
+	bind:open={sendDialogOpen}
+	title="Send Campaign"
+	description="Are you sure you want to send this campaign to all subscribers? This action cannot be undone."
+	confirm={confirmSend}
+/>
 
 <div class="container mx-auto space-y-8 px-2 py-6">
 	<PageHeader
@@ -187,13 +182,13 @@
 				{/if}
 			</Button>
 			{#if !isNew && campaign}
-				<Button
-					onclick={() => (showSendConfirm = true)}
+				<DialogTrigger
+					onclick={() => (sendDialogOpen = true)}
 					disabled={!!sendCampaign.pending || campaign.items.length === 0}
 				>
 					<PaperPlaneTilt class="size-4" />
 					{!!sendCampaign.pending ? 'Sending...' : 'Send Campaign'}
-				</Button>
+				</DialogTrigger>
 			{/if}
 		</div>
 	{/if}

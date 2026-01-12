@@ -181,6 +181,7 @@ export const toggleFeedItem = form(toggleSchema, async (data) => {
 			}
 		}
 
+		await getFeedItems().refresh()
 		return {
 			success: true,
 			text: `Feed item ${result.is_active ? 'activated' : 'deactivated'} successfully!`
@@ -207,6 +208,7 @@ export const deleteFeedItem = form(deleteSchema, async (data) => {
 			}
 		}
 
+		await getFeedItems().refresh()
 		return {
 			success: true,
 			text: 'Feed item deleted successfully!'

@@ -157,8 +157,8 @@ test.describe('Admin Content Management', () => {
 		const confirmDialog = page.getByRole('heading', { name: /are you sure/i })
 		await expect(confirmDialog).toBeVisible()
 
-		// Click the confirm delete button in the dialog
-		const confirmButton = page.getByTestId('confirm-delete-button')
+		// Click the confirm delete button in the dialog (scoped to open dialog)
+		const confirmButton = page.locator('dialog[open]').getByTestId('confirm-delete-button')
 		await expect(confirmButton).toBeVisible()
 		await confirmButton.click()
 

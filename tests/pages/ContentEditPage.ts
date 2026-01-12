@@ -159,8 +159,8 @@ export class ContentEditPage extends BasePage {
 		const confirmDialog = this.page.getByRole('heading', { name: /are you sure/i })
 		await expect(confirmDialog).toBeVisible()
 
-		// Click the confirm delete button in the dialog
-		const confirmButton = this.page.getByRole('button', { name: 'Delete' })
+		// Click the confirm delete button in the dialog (scoped to open dialog)
+		const confirmButton = this.page.locator('dialog[open]').getByRole('button', { name: 'Delete' })
 		await expect(confirmButton).toBeVisible()
 		await confirmButton.click()
 	}

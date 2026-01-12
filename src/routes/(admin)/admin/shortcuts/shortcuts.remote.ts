@@ -153,6 +153,7 @@ export const toggleShortcut = form(toggleSchema, async (data) => {
 		}
 	}
 
+	await getShortcuts().refresh()
 	return {
 		success: true,
 		text: `Shortcut ${result.is_active ? 'activated' : 'deactivated'} successfully!`
@@ -171,6 +172,7 @@ export const deleteShortcut = form(deleteSchema, async (data) => {
 		}
 	}
 
+	await getShortcuts().refresh()
 	return {
 		success: true,
 		text: 'Shortcut deleted successfully!'

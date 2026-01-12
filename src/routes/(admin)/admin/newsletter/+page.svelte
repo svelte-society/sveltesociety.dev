@@ -55,7 +55,7 @@
 		{/snippet}
 	</PageHeader>
 
-	<Table action={true} data={campaigns} testId="campaigns-table">
+	<Table action={true} data={campaigns} emptyMessage="No campaigns found." testId="campaigns-table">
 		{#snippet header(classes)}
 			<th class={classes}>Title</th>
 			<th class={classes}>Subject</th>
@@ -110,10 +110,4 @@
 			</Actions>
 		{/snippet}
 	</Table>
-
-	{#if campaigns.length === 0}
-		<div class="mt-8 text-center">
-			<p class="text-gray-500">No campaigns found.</p>
-		</div>
-	{/if}
 </div>
