@@ -20,14 +20,10 @@ export const load = async ({ locals, params, url }) => {
 		throw error(404, { message: 'Content not found' })
 	}
 
-	if (locals.user) {
-		const { userLikes, userSaves } = locals.interactionsService.getUserLikesAndSaves(
-			locals.user.id,
-			[content.id]
-		)
-		content.liked = userLikes.has(content.id)
-		content.saved = userSaves.has(content.id)
-	}
+	const [contentWithInteractions] = locals.interactionsService.attachUserInteractions(
+		[content],
+		locals.user?.id
+	)
 
 	const stop = performance.now()
 	console.log('Loading content took: ', stop - start)
@@ -98,7 +94,7 @@ export const load = async ({ locals, params, url }) => {
 	)
 
 	return {
-		content,
+		content: contentWithInteractions,
 		meta,
 		schemas
 	}

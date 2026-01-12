@@ -25,18 +25,8 @@ export const load = (async ({ locals, url }) => {
 			}
 		}
 
-		// Get user interactions
-		const { userLikes, userSaves } = locals.interactionsService.getUserLikesAndSaves(
-			locals.user.id,
-			content.map((c) => c.id.toString())
-		)
-
 		return {
-			content: content.map((c) => ({
-				...c,
-				liked: userLikes.has(c.id.toString()),
-				saved: userSaves.has(c.id.toString())
-			})),
+			content: locals.interactionsService.attachUserInteractions(content, locals.user.id),
 			count,
 			meta: {
 				title: 'Saved Content - Svelte Society',

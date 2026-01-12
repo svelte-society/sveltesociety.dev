@@ -64,6 +64,29 @@ export class InteractionsService {
 		}
 	}
 
+	/**
+	 * Attach liked/saved flags to content items for the current user
+	 */
+	attachUserInteractions<T extends { id: string }>(
+		content: T[],
+		userId: string | undefined
+	): (T & { liked: boolean; saved: boolean })[] {
+		if (!userId || content.length === 0) {
+			return content.map((item) => ({ ...item, liked: false, saved: false }))
+		}
+
+		const { userLikes, userSaves } = this.getUserLikesAndSaves(
+			userId,
+			content.map((item) => item.id)
+		)
+
+		return content.map((item) => ({
+			...item,
+			liked: userLikes.has(item.id),
+			saved: userSaves.has(item.id)
+		}))
+	}
+
 	toggleInteraction(type: 'like' | 'save', userId: string, contentId: string) {
 		const interactionQuery = this.db.prepare(
 			`SELECT * FROM ${type}s WHERE user_id = $user_id AND target_id = $target_id`

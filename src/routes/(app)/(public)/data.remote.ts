@@ -86,26 +86,12 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 		remote: data.remote.length > 0 ? data.remote : undefined
 	})
 
-	let content = searchResults.hits
+	const content = searchResults.hits
 		.map((hit) => locals.contentService.getContentById(hit.id))
 		.filter((piece) => piece !== null)
 
-	if (locals.user?.id) {
-		const contentIds = content.map((piece) => piece.id)
-		const { userLikes, userSaves } = locals.interactionsService.getUserLikesAndSaves(
-			locals.user.id,
-			contentIds
-		)
-
-		content = content.map((piece) => ({
-			...piece,
-			liked: userLikes.has(piece.id),
-			saved: userSaves.has(piece.id)
-		}))
-	}
-
 	return {
-		content,
+		content: locals.interactionsService.attachUserInteractions(content, locals.user?.id),
 		count: searchResults.count,
 		meta: buildHomepageMeta(),
 		schemas: [generateOrganizationSchema(), generateWebSiteSchema()]
@@ -147,26 +133,12 @@ export const getCategoryData = query(categoryDataInputSchema, async ({ url, type
 		remote: isJobPage && data.remote.length > 0 ? data.remote : undefined
 	})
 
-	let content = searchResults.hits
+	const content = searchResults.hits
 		.map((hit) => locals.contentService.getContentById(hit.id))
 		.filter((piece) => piece !== null)
 
-	if (locals.user?.id) {
-		const contentIds = content.map((piece) => piece.id)
-		const { userLikes, userSaves } = locals.interactionsService.getUserLikesAndSaves(
-			locals.user.id,
-			contentIds
-		)
-
-		content = content.map((piece) => ({
-			...piece,
-			liked: userLikes.has(piece.id),
-			saved: userSaves.has(piece.id)
-		}))
-	}
-
 	return {
-		content,
+		content: locals.interactionsService.attachUserInteractions(content, locals.user?.id),
 		count: searchResults.count,
 		meta: buildCategoryMeta(type, url.toString()),
 		schemas: undefined
