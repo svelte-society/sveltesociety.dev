@@ -59,8 +59,8 @@ test.describe('Admin - Newsletter Campaigns', () => {
 		await editorPage.introTextarea.fill('Welcome to our test newsletter!')
 		await editorPage.submit()
 
-		// Should redirect to edit page after creation so user can add content
-		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible({
+		// Should redirect to list page after creation
+		await expect(page.getByRole('heading', { name: 'Newsletter Campaigns' })).toBeVisible({
 			timeout: 10000
 		})
 	})
