@@ -13,12 +13,14 @@
 		form: RemoteForm<{ id: string }, DeleteResult>
 		confirm?: string
 		label?: string
+		onSuccess?: () => void | Promise<void>
 	}
 
 	let {
 		form,
 		confirm = 'Are you sure you want to delete this?',
-		label = 'Delete'
+		label = 'Delete',
+		onSuccess
 	}: Props = $props()
 
 	const ctx = getContext<{ id: string }>('actions')
@@ -47,7 +49,11 @@
 				if (remove.result?.success === true) {
 					toast.success(remove.result.text)
 					dialogOpen = false
-					await invalidateAll()
+					if (onSuccess) {
+						await onSuccess()
+					} else {
+						await invalidateAll()
+					}
 				} else if (remove.result?.success === false) {
 					toast.error(remove.result.text || 'Something broke, please try again.')
 				}

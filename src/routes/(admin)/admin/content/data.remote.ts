@@ -55,7 +55,7 @@ const REFRESHABLE_TYPES = ['video', 'library', 'resource'] as const
 
 export const refreshMetadata = form(contentIdSchema, async (data) => {
 	checkAdminAuth()
-	const { locals } = getRequestEvent()
+	const { locals, url } = getRequestEvent()
 
 	try {
 		const content = locals.contentService.getContentById(data.id)
