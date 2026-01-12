@@ -3,19 +3,7 @@ import { fail, redirect } from '@sveltejs/kit'
 import { jobSubmissionSchema, type JobSubmissionData } from './schema'
 import type { StoredJobData } from '$lib/server/services/jobs'
 import { uploadImageFile } from '$lib/server/services/s3-storage'
-
-/**
- * Generate a slug from a title
- */
-function generateSlug(title: string): string {
-	return title
-		.toLowerCase()
-		.replace(/[^a-z0-9\s-]/g, '')
-		.replace(/\s+/g, '-')
-		.replace(/-+/g, '-')
-		.replace(/^-|-$/g, '')
-		.slice(0, 50)
-}
+import { generateSlug } from '$lib/utils/slug'
 
 /**
  * Get available job tiers

@@ -4,21 +4,7 @@ import { fail, redirect } from '@sveltejs/kit'
 import { resourceSchema, videoSchema, librarySchema, recipeSchema } from './schema'
 import { extractYouTubeVideoId, parseGitHubRepo } from './helpers'
 import { uploadThumbnail, isS3Enabled } from '$lib/server/services/s3-storage'
-
-/**
- * Generate a slug from a title.
- * Note: The database trigger (migration 006) automatically appends the ID
- * to make slugs unique, so we just need the base slug here.
- */
-function generateSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
-    .slice(0, 50)
-}
+import { generateSlug } from '$lib/utils/slug'
 
 export const getTags = query(() => {
   const { locals } = getRequestEvent()

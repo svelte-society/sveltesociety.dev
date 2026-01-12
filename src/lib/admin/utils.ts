@@ -1,14 +1,5 @@
-/**
- * Generate a URL-safe slug from a string
- */
-export function generateSlug(text: string): string {
-	return text
-		.toLowerCase()
-		.trim()
-		.replace(/[^a-z0-9]+/g, '-')
-		.replace(/^-+|-+$/g, '')
-		.substring(0, 255)
-}
+// Re-export from canonical location
+export { generateSlug } from '$lib/utils/slug'
 
 /**
  * Parse pagination parameters from URL
