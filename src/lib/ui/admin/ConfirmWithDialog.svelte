@@ -4,8 +4,7 @@
 	import { invalidateAll } from '$app/navigation'
 	import Button from '../Button.svelte'
 	import Trash from 'phosphor-svelte/lib/Trash'
-
-	let showDialog = $state(false)
+	import { DialogTrigger, ConfirmDialog } from '../Dialog'
 
 	interface BaseProps {
 		title: string
@@ -27,47 +26,46 @@
 
 	type Props = PropsWithDescription | PropsWithChildren
 
-	let { title, description, action, id, confirmButtonText, cancelButtonText, children }: Props =
-		$props()
+	let {
+		title,
+		description,
+		action,
+		id,
+		confirmButtonText = 'Delete',
+		cancelButtonText = 'Cancel',
+		children
+	}: Props = $props()
+
+	const dialogId = `confirm-delete-${id}`
 </script>
 
-<button
-	type="button"
-	onclick={() => (showDialog = !showDialog)}
-	class="inline-flex items-center justify-center rounded-lg bg-red-50 p-2 text-red-600 transition-all hover:bg-red-100 hover:text-red-900 hover:shadow-sm"
-	aria-label="Delete item"
->
+<DialogTrigger target={dialogId} variant="danger" size="icon" aria-label="Delete item">
 	<Trash class="h-5 w-5" weight="bold" />
-</button>
+</DialogTrigger>
 
-{#if showDialog}
-	<div class="fixed inset-0 z-5000 flex items-center justify-center bg-black/30">
-		<div class="rounded-lg bg-white p-6 shadow-xl">
-			<h2 class="mb-4 text-xl font-bold">{title}</h2>
-			{#if children}
-				{@render children()}
-			{:else}
-				<p class="mb-4">{description}</p>
-			{/if}
-			<div class="flex justify-end space-x-2">
-				<Button onclick={() => (showDialog = false)} variant="secondary">{cancelButtonText}</Button>
-				<form
-					{action}
-					method="POST"
-					use:enhance={() => {
-						return async ({ result }) => {
-							if (result.type === 'success') {
-								showDialog = false
-								await invalidateAll()
-							}
-							await applyAction(result)
-						}
-					}}
-				>
-					<input type="hidden" name="id" value={id} />
-					<Button data-testid="confirm-delete-button">{confirmButtonText}</Button>
-				</form>
-			</div>
-		</div>
-	</div>
+{#snippet confirm()}
+	<form
+		{action}
+		method="POST"
+		use:enhance={() => {
+			return async ({ result }) => {
+				if (result.type === 'success') {
+					(document.getElementById(dialogId) as HTMLDialogElement)?.close()
+					await invalidateAll()
+				}
+				await applyAction(result)
+			}
+		}}
+	>
+		<input type="hidden" name="id" value={id} />
+		<Button data-testid="confirm-delete-button">{confirmButtonText}</Button>
+	</form>
+{/snippet}
+
+{#if description}
+	<ConfirmDialog id={dialogId} {title} {description} cancelText={cancelButtonText} {confirm} />
+{:else if children}
+	<ConfirmDialog id={dialogId} {title} cancelText={cancelButtonText} {confirm}>
+		{@render children()}
+	</ConfirmDialog>
 {/if}

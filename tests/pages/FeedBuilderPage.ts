@@ -130,8 +130,8 @@ export class FeedBuilderPage extends BasePage {
 
 	async deleteFirstFeedItem(): Promise<void> {
 		await this.deleteButtons.first().click()
-		// Wait for confirmation modal and click confirm button
-		await this.page.getByTestId('confirm-delete-button').click()
+		// Wait for confirmation modal and click confirm button (scoped to open dialog)
+		await this.page.locator('dialog[open]').getByTestId('confirm-delete-button').click()
 	}
 
 	async getFirstFeedItemStatus(): Promise<string> {
