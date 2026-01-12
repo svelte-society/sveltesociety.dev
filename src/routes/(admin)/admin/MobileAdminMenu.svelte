@@ -32,12 +32,7 @@
 </script>
 
 <div class="md:hidden">
-	<Collapsible
-		title={menuOpen ? 'Hide Admin Menu' : 'Show Admin Menu'}
-		bind:open={menuOpen}
-		showOnMobile={true}
-		showOnDesktop={false}
-	>
+	<Collapsible title={menuOpen ? 'Hide Admin Menu' : 'Show Admin Menu'} bind:open={menuOpen}>
 		{#snippet icon()}
 			<List size={20} class="text-gray-600" />
 		{/snippet}

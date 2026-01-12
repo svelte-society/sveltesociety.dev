@@ -3,6 +3,7 @@
 	import type { RemoteForm } from '@sveltejs/kit'
 	import { getContext } from 'svelte'
 	import { toast } from 'svelte-sonner'
+	import { invalidateAll } from '$app/navigation'
 	import Button from '$lib/ui/Button.svelte'
 	import type { ButtonVariant } from '$lib/ui/button.variants'
 
@@ -73,15 +74,12 @@
 	<form
 		{...action.enhance(async ({ submit }) => {
 			isSubmitting = true
-			try {
-				await submit()
-				if (action.result?.success === true) {
-					toast.success(action.result.text)
-				} else {
-					toast.error(action.result?.text || 'Something  broke, please try again.')
-				}
-			} catch {
-				toast.error('Something broke, please try again.')
+			await submit()
+			if (action.result?.success === true) {
+				toast.success(action.result.text)
+				await invalidateAll()
+			} else {
+				toast.error(action.result?.text || 'Something broke, please try again.')
 			}
 			isSubmitting = false
 		})}
@@ -123,6 +121,7 @@
 					{...action.enhance(async ({ submit }) => {
 						await submit()
 						showDialog = false
+						await invalidateAll()
 					})}
 				>
 					<input {...action.fields.id.as('hidden', ctx.id)} />

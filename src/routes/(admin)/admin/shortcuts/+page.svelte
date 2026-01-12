@@ -9,7 +9,7 @@
 	import { getShortcuts, toggleShortcut, deleteShortcut } from './shortcuts.remote'
 	import type { SidebarShortcutWithContent } from '$lib/server/services/ShortcutService'
 
-	const shortcuts = await getShortcuts()
+	let shortcuts = $derived(await getShortcuts())
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">

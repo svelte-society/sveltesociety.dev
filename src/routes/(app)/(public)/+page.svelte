@@ -34,31 +34,33 @@
 	<Schema schema={schemas} />
 {/if}
 
-<Filters {sort} />
+<div class="grid gap-4">
+	<Filters {sort} />
 
-<div data-testid="content-list" class="grid gap-6">
-	{#if count > 0}
-		{#each feed as item, index (index)}
-			{@const Component = components.get(item.type)}
-			{@const isCard = cardTypes.has(item.type)}
-			{#if isCard}
-				<div class="min-w-0">
-					<Component
-						{...item.props}
-						priority={item.type === 'featured' || index < 2 ? 'high' : 'auto'}
-					/>
-				</div>
-			{:else}
-				<Component {...item.props} />
-			{/if}
-		{/each}
-	{:else}
-		<div data-testid="no-content-message" class="py-10 text-center">
-			<h2 class="text-2xl font-bold">No content found</h2>
-			<p class="text-gray-500">Try adjusting your filters or check back later.</p>
-		</div>
-	{/if}
-	{#if count > 0}
-		<Pagination {count} perPage={30} />
-	{/if}
+	<div data-testid="content-list" class="grid gap-6">
+		{#if count > 0}
+			{#each feed as item, index (index)}
+				{@const Component = components.get(item.type)}
+				{@const isCard = cardTypes.has(item.type)}
+				{#if isCard}
+					<div class="min-w-0">
+						<Component
+							{...item.props}
+							priority={item.type === 'featured' || index < 2 ? 'high' : 'auto'}
+						/>
+					</div>
+				{:else}
+					<Component {...item.props} />
+				{/if}
+			{/each}
+		{:else}
+			<div data-testid="no-content-message" class="py-10 text-center">
+				<h2 class="text-2xl font-bold">No content found</h2>
+				<p class="text-gray-500">Try adjusting your filters or check back later.</p>
+			</div>
+		{/if}
+		{#if count > 0}
+			<Pagination {count} perPage={30} />
+		{/if}
+	</div>
 </div>

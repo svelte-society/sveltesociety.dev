@@ -381,9 +381,9 @@ Use this checklist to track progress on SEO implementation. Check off items as c
 
 **Implementation Complete:** **_ / _** / \_\_\_
 
-**Tested By:** ******\_\_\_\_******
+**Tested By:** **\*\***\_\_\_\_**\*\***
 
-**Approved By:** ******\_\_\_\_******
+**Approved By:** **\*\***\_\_\_\_**\*\***
 
 **Ready for Launch:** ☐ Yes ☐ No
 

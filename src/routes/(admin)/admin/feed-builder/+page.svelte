@@ -8,7 +8,7 @@
 	import Power from 'phosphor-svelte/lib/Power'
 	import { getFeedItems, toggleFeedItem, deleteFeedItem } from './data.remote'
 
-	const feedItems = await getFeedItems()
+	let feedItems = $derived(await getFeedItems())
 
 	function formatDate(dateString: string | null) {
 		if (!dateString) return 'Not set'

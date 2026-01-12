@@ -159,7 +159,7 @@
 		aria-label={menuLabel}
 		bind:this={menuEl}
 		ontouchstart={() => {}}
-		class="invisible pointer-events-none absolute top-full z-50 mt-1 cursor-pointer opacity-0 touch-manipulation transition-[visibility] select-none group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100 group-focus-within/dropdown:pointer-events-auto group-data-[force-closed]/dropdown:opacity-0 group-data-[force-closed]/dropdown:pointer-events-none {alignmentClass} {menuClass}"
+		class="invisible pointer-events-none absolute top-full z-50 mt-1 cursor-pointer opacity-0 touch-manipulation transition-[visibility] select-none group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100 group-focus-within/dropdown:pointer-events-auto group-data-force-closed/dropdown:opacity-0 group-data-force-closed/dropdown:pointer-events-none {alignmentClass} {menuClass}"
 	>
 		{@render children()}
 	</div>
