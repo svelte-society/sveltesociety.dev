@@ -244,8 +244,8 @@ export class SubmitPage extends BasePage {
 		// Click the combobox input to open the dropdown
 		await this.tagsSelector.click()
 		// Wait for the dropdown to be visible and click the first item
-		// bits-ui Combobox uses [data-combobox-item] for items
-		const firstItem = this.page.locator('[data-combobox-item]').first()
+		// DynamicSelector uses role="option" for items
+		const firstItem = this.page.locator('[role="option"]').first()
 		await firstItem.waitFor({ state: 'visible' })
 		await firstItem.click()
 	}

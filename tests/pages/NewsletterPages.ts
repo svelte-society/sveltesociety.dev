@@ -389,10 +389,14 @@ export class AdminCampaignEditorPage extends BasePage {
 	}
 
 	/**
-	 * Submit the campaign form
+	 * Submit the campaign form and wait for navigation
 	 */
 	async submit(): Promise<void> {
-		await this.submitButton.click()
+		// Click and wait for the page to navigate (redirect after form submission)
+		await Promise.all([
+			this.page.waitForURL(/\/admin\/newsletter\/(?!new)/),
+			this.submitButton.click()
+		])
 	}
 
 	/**
