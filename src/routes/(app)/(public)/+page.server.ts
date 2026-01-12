@@ -1,100 +1,66 @@
 import { redirect } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 
+// Maps datalist selection types to URL param name and optional value lookup
+const DATALIST_TYPE_CONFIG: Record<string, { param: string; values?: Record<string, string> }> = {
+	category: { param: 'type' },
+	tag: { param: 'tags' },
+	author: { param: 'authors' },
+	'job-location': {
+		param: 'remote',
+		values: { Remote: 'remote', Hybrid: 'hybrid', 'On-Site': 'on-site' }
+	},
+	'job-position': {
+		param: 'position',
+		values: { 'Full-Time': 'full-time', 'Part-Time': 'part-time', Contract: 'contract', Internship: 'internship' }
+	},
+	'job-level': {
+		param: 'level',
+		values: { 'Entry Level': 'entry', Junior: 'junior', 'Mid-Level': 'mid', Senior: 'senior', 'Principal/Staff': 'principal' }
+	}
+}
+
 function parseDatalistSelection(q: string): { label: string; type: string } | null {
 	const match = q.match(/^(.+)\s+\((category|tag|author|job-location|job-position|job-level)\)$/)
-	if (match) {
-		return { label: match[1], type: match[2] }
-	}
-	return null
-}
-
-// Job filter label to value mappings
-const jobLocationValues: Record<string, string> = {
-	'Remote': 'remote',
-	'Hybrid': 'hybrid',
-	'On-Site': 'on-site'
-}
-
-const jobPositionValues: Record<string, string> = {
-	'Full-Time': 'full-time',
-	'Part-Time': 'part-time',
-	'Contract': 'contract',
-	'Internship': 'internship'
-}
-
-const jobLevelValues: Record<string, string> = {
-	'Entry Level': 'entry',
-	'Junior': 'junior',
-	'Mid-Level': 'mid',
-	'Senior': 'senior',
-	'Principal/Staff': 'principal'
-}
-
-function labelToSlug(label: string): string {
-	return label
-		.toLowerCase()
-		.replace(/\s+/g, '-')
-		.replace(/[^a-z0-9-]/g, '')
+	return match ? { label: match[1], type: match[2] } : null
 }
 
 export const load: PageServerLoad = ({ url, locals }) => {
+	// Normalize comma-separated tags to multiple params
 	const tagsParam = url.searchParams.get('tags')
-	if (tagsParam && tagsParam.includes(',')) {
-		const params = new URLSearchParams()
-
-		url.searchParams.forEach((value, key) => {
-			if (key !== 'tags') {
-				params.append(key, value)
-			}
-		})
-
-		const tags = tagsParam.split(',').filter(Boolean)
-		for (const tag of tags) {
-			params.append('tags', tag.trim())
-		}
-
-		const queryString = params.toString()
-		redirect(301, queryString ? `/?${queryString}` : '/')
-	}
-
-	const q = url.searchParams.get('q')
-
-	if (q) {
+	if (tagsParam?.includes(',')) {
 		const params = new URLSearchParams(url.searchParams)
-		params.delete('q')
-
-		const datalistSelection = parseDatalistSelection(q)
-
-		if (datalistSelection) {
-			if (datalistSelection.type === 'category') {
-				params.append('type', datalistSelection.label.toLowerCase())
-			} else if (datalistSelection.type === 'tag') {
-				const allTags = locals.tagService.getAllTags()
-				const matchingTag = allTags.find(
-					(t) => t.name.toLowerCase() === datalistSelection.label.toLowerCase()
-				)
-				const tagSlug = matchingTag?.slug ?? labelToSlug(datalistSelection.label)
-				params.append('tags', tagSlug)
-			} else if (datalistSelection.type === 'author') {
-				params.append('authors', datalistSelection.label)
-			} else if (datalistSelection.type === 'job-location') {
-				const value = jobLocationValues[datalistSelection.label] ?? datalistSelection.label.toLowerCase()
-				params.append('remote', value)
-			} else if (datalistSelection.type === 'job-position') {
-				const value = jobPositionValues[datalistSelection.label] ?? datalistSelection.label.toLowerCase()
-				params.append('position', value)
-			} else if (datalistSelection.type === 'job-level') {
-				const value = jobLevelValues[datalistSelection.label] ?? datalistSelection.label.toLowerCase()
-				params.append('level', value)
-			}
-		} else {
-			params.set('query', q)
+		params.delete('tags')
+		for (const tag of tagsParam.split(',')) {
+			if (tag.trim()) params.append('tags', tag.trim())
 		}
-
-		const queryString = params.toString()
-		redirect(303, queryString ? `/?${queryString}` : '/')
+		redirect(301, `/?${params}`)
 	}
 
-	return
+	// Convert datalist selections to filter params
+	const q = url.searchParams.get('q')
+	if (!q) return
+
+	const params = new URLSearchParams(url.searchParams)
+	params.delete('q')
+
+	const selection = parseDatalistSelection(q)
+	if (!selection) {
+		params.set('query', q)
+		redirect(303, `/?${params}`)
+	}
+
+	const config = DATALIST_TYPE_CONFIG[selection.type]
+	let value = selection.label.toLowerCase()
+
+	if (selection.type === 'tag') {
+		const allTags = locals.tagService.getAllTags()
+		const match = allTags.find((t) => t.name.toLowerCase() === value)
+		value = match?.slug ?? value.replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+	} else if (config.values) {
+		value = config.values[selection.label] ?? value
+	}
+
+	params.append(config.param, value)
+	redirect(303, `/?${params}`)
 }
