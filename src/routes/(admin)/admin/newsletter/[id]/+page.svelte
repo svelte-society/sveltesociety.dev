@@ -24,11 +24,11 @@
 	const isNew = campaignId === 'new'
 
 	// Only fetch campaign if editing
-	const campaign = isNew ? null : await getCampaign(campaignId)
+	const campaign = $derived(isNew ? null : await getCampaign(campaignId))
 	let showSendConfirm = $state(false)
 
 	// Check if campaign has been sent
-	const isSent = campaign?.status === 'sent'
+	const isSent = $derived(campaign?.status === 'sent')
 
 	// Initialize the appropriate form (only for non-sent campaigns)
 	if (isNew) {
@@ -48,7 +48,7 @@
 		}))
 	}
 
-	const currentForm = isNew ? createCampaign : updateCampaign
+	const currentForm = $derived(isNew ? createCampaign : updateCampaign)
 </script>
 
 <!-- Send confirmation dialog -->

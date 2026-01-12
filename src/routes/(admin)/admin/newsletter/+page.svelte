@@ -12,7 +12,7 @@
 	import { sendCampaign } from './[id]/data.remote'
 	import { copyCampaign } from './[id]/data.remote'
 
-	const campaigns = await getCampaigns()
+	const campaigns = $derived(await getCampaigns())
 
 	function formatDate(dateString: string | null) {
 		if (!dateString) return '-'
