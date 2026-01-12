@@ -19,61 +19,39 @@ export const load: PageServerLoad = async ({ locals }) => {
 		const apiUpcomingEvents = Array.isArray(upcomingEventsApi) ? upcomingEventsApi : []
 		const apiPastEvents = Array.isArray(pastEventsApi) ? pastEventsApi : []
 
-		// Helper function to process API events
-		const processApiEvents = (apiEvents: any[]) => {
-			return apiEvents.map((event) => {
-				// Extract location from venue coordinates
-				let location = undefined
-				if (event.venue?.address?.location?.geojson?.coordinates) {
-					// TODO: Could reverse geocode coordinates to get actual location
-					location = undefined
+		const getPresenterName = (node: any): string => {
+			if (node.presenter) {
+				if (typeof node.presenter === 'string') return node.presenter
+				if (node.presenter.firstName) {
+					return `${node.presenter.firstName} ${node.presenter.lastName || ''}`.trim()
 				}
-
-				// Extract presentations
-				const presentations =
-					event.presentations?.edges?.map((edge) => {
-						let presenterName = 'Unknown'
-
-						// Handle different presenter formats
-						if (edge.node.presenter) {
-							if (typeof edge.node.presenter === 'object' && edge.node.presenter.firstName) {
-								// Presenter is an object with firstName/lastName
-								presenterName =
-									`${edge.node.presenter.firstName} ${edge.node.presenter.lastName || ''}`.trim()
-							} else if (typeof edge.node.presenter === 'string') {
-								// Presenter is a string
-								presenterName = edge.node.presenter
-							}
-						} else if (edge.node.presenterFirstName || edge.node.presenterLastName) {
-							// Fall back to separate first/last name fields
-							presenterName =
-								`${edge.node.presenterFirstName || ''} ${edge.node.presenterLastName || ''}`.trim()
-						}
-
-						return {
-							title: edge.node.title,
-							presenter: presenterName,
-							description: edge.node.description,
-							videoUrl: edge.node.videoSourceUrl
-						}
-					}) || []
-
-				return {
-					id: event.id,
-					slug: event.slug,
-					title: event.name,
-					description: event.description,
-					startTime: event.startAt,
-					endTime: event.endAt,
-					location: location,
-					url: event.fullUrl || event.shortUrl,
-					source: 'api',
-					owner: event.owner?.name || 'Svelte Society',
-					presentations,
-					socialCardUrl: event.uploadedSocialCard?.url
-				}
-			})
+			}
+			if (node.presenterFirstName || node.presenterLastName) {
+				return `${node.presenterFirstName || ''} ${node.presenterLastName || ''}`.trim()
+			}
+			return 'Unknown'
 		}
+
+		const processApiEvents = (apiEvents: any[]) =>
+			apiEvents.map((event) => ({
+				id: event.id,
+				slug: event.slug,
+				title: event.name,
+				description: event.description,
+				startTime: event.startAt,
+				endTime: event.endAt,
+				url: event.fullUrl || event.shortUrl,
+				source: 'api',
+				owner: event.owner?.name || 'Svelte Society',
+				socialCardUrl: event.uploadedSocialCard?.url,
+				presentations:
+					event.presentations?.edges?.map((edge: any) => ({
+						title: edge.node.title,
+						presenter: getPresenterName(edge.node),
+						description: edge.node.description,
+						videoUrl: edge.node.videoSourceUrl
+					})) || []
+			}))
 
 		// Process upcoming and past events
 		const upcomingEvents = processApiEvents(apiUpcomingEvents).sort((a, b) => {
