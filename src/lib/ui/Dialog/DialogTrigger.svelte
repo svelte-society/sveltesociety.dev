@@ -5,7 +5,8 @@
 	import type { ButtonVariant, ButtonSize } from '../button.variants'
 
 	type Props = {
-		target: string
+		target?: string
+		onclick?: () => void
 		variant?: ButtonVariant
 		size?: ButtonSize
 		disabled?: boolean
@@ -17,6 +18,7 @@
 
 	let {
 		target,
+		onclick,
 		variant,
 		size,
 		disabled,
@@ -26,17 +28,21 @@
 		'data-testid': testId
 	}: Props = $props()
 
-	function openDialog() {
-		const dialog = document.getElementById(target) as HTMLDialogElement | null
-		if (dialog && !dialog.open) {
-			dialog.showModal()
+	function handleClick() {
+		if (onclick) {
+			onclick()
+		} else if (target) {
+			const dialog = document.getElementById(target) as HTMLDialogElement | null
+			if (dialog && !dialog.open) {
+				dialog.showModal()
+			}
 		}
 	}
 </script>
 
 <Button
 	type="button"
-	onclick={openDialog}
+	onclick={handleClick}
 	{variant}
 	{size}
 	{disabled}

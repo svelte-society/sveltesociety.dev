@@ -48,8 +48,8 @@
 	const ctx = getContext<{ id: string }>('actions')
 
 	let isSubmitting = $state(false)
+	let dialogOpen = $state(false)
 	const action = $derived(form?.for(ctx.id))
-	const dialogId = `action-dialog-${ctx.id}`
 </script>
 
 {#snippet iconWithTooltip()}
@@ -94,7 +94,7 @@
 {:else if form && action && confirm}
 	<!-- Form with confirm: opens dialog first -->
 	<DialogTrigger
-		target={dialogId}
+		onclick={() => (dialogOpen = true)}
 		variant={variant as ButtonVariant}
 		size="icon"
 		class="group relative"
@@ -108,7 +108,7 @@
 		<form
 			{...action.enhance(async ({ submit }) => {
 				await submit()
-				(document.getElementById(dialogId) as HTMLDialogElement)?.close()
+				dialogOpen = false
 				await invalidateAll()
 			})}
 		>
@@ -119,7 +119,7 @@
 		</form>
 	{/snippet}
 
-	<ConfirmDialog id={dialogId} title={confirm} confirm={confirmButton} />
+	<ConfirmDialog id={`action-dialog-${ctx.id}`} bind:open={dialogOpen} title={confirm} confirm={confirmButton} />
 {:else if onclick}
 	<!-- Click handler only -->
 	<Button

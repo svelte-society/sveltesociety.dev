@@ -24,6 +24,7 @@
 	const campaignId = page.params.id!
 	const isNew = campaignId === 'new'
 	const sendDialogId = `send-confirm-${campaignId}`
+	let sendDialogOpen = $state(false)
 
 	// Only fetch campaign if editing
 	const campaign = $derived(isNew ? null : await getCampaign(campaignId))
@@ -60,7 +61,8 @@
 				try {
 					await submit()
 					toast.success('Successfully sent campaign.')
-					;(document.getElementById(sendDialogId) as HTMLDialogElement)?.close()
+					sendDialogOpen = false
+					await invalidateAll()
 				} catch {
 					toast.error('Something went wrong when trying to send the campaign.')
 				}
@@ -71,6 +73,7 @@
 
 <ConfirmDialog
 	id={sendDialogId}
+	bind:open={sendDialogOpen}
 	title="Send Campaign"
 	description="Are you sure you want to send this campaign to all subscribers? This action cannot be undone."
 	confirm={confirmSend}
@@ -183,7 +186,7 @@
 			</Button>
 			{#if !isNew && campaign}
 				<DialogTrigger
-					target={sendDialogId}
+					onclick={() => (sendDialogOpen = true)}
 					disabled={!!sendCampaign.pending || campaign.items.length === 0}
 				>
 					<PaperPlaneTilt class="size-4" />

@@ -36,10 +36,10 @@
 		children
 	}: Props = $props()
 
-	const dialogId = `confirm-delete-${id}`
+	let dialogOpen = $state(false)
 </script>
 
-<DialogTrigger target={dialogId} variant="danger" size="icon" aria-label="Delete item">
+<DialogTrigger onclick={() => (dialogOpen = true)} variant="danger" size="icon" aria-label="Delete item">
 	<Trash class="h-5 w-5" weight="bold" />
 </DialogTrigger>
 
@@ -50,7 +50,7 @@
 		use:enhance={() => {
 			return async ({ result }) => {
 				if (result.type === 'success') {
-					(document.getElementById(dialogId) as HTMLDialogElement)?.close()
+					dialogOpen = false
 					await invalidateAll()
 				}
 				await applyAction(result)
@@ -63,9 +63,9 @@
 {/snippet}
 
 {#if description}
-	<ConfirmDialog id={dialogId} {title} {description} cancelText={cancelButtonText} {confirm} />
+	<ConfirmDialog id={`confirm-delete-${id}`} bind:open={dialogOpen} {title} {description} cancelText={cancelButtonText} {confirm} />
 {:else if children}
-	<ConfirmDialog id={dialogId} {title} cancelText={cancelButtonText} {confirm}>
+	<ConfirmDialog id={`confirm-delete-${id}`} bind:open={dialogOpen} {title} cancelText={cancelButtonText} {confirm}>
 		{@render children()}
 	</ConfirmDialog>
 {/if}

@@ -24,12 +24,12 @@
 	const ctx = getContext<{ id: string }>('actions')
 
 	let isSubmitting = $state(false)
+	let dialogOpen = $state(false)
 	const remove = $derived(form.for(ctx.id))
-	const dialogId = `delete-dialog-${ctx.id}`
 </script>
 
 <DialogTrigger
-	target={dialogId}
+	onclick={() => (dialogOpen = true)}
 	variant="danger"
 	size="icon"
 	aria-label={label}
@@ -46,7 +46,7 @@
 				await submit()
 				if (remove.result?.success === true) {
 					toast.success(remove.result.text)
-					;(document.getElementById(dialogId) as HTMLDialogElement)?.close()
+					dialogOpen = false
 					await invalidateAll()
 				} else if (remove.result?.success === false) {
 					toast.error(remove.result.text || 'Something broke, please try again.')
@@ -65,7 +65,8 @@
 {/snippet}
 
 <ConfirmDialog
-	id={dialogId}
+	id={`delete-dialog-${ctx.id}`}
+	bind:open={dialogOpen}
 	title={confirm}
 	description="This action cannot be undone."
 	confirm={confirmButton}
