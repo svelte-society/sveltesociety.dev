@@ -4,50 +4,19 @@
 	import Input from '$lib/ui/Input.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
 	import DynamicSelector from '$lib/ui/DynamicSelector.svelte'
-	import { debounce } from '$lib/utils/debounce'
+	import { usePreview } from '$lib/utils/use-preview.svelte'
 	import { submitLibrary, getTags } from '../submit.remote'
 
 	const { description, type, tags, github_repo, notes } = submitLibrary.fields
 
-	let libraryPreview = $state<any>(null)
-	let previousGithubRepo = $state<string>('')
-	let previewLoading = $state(false)
-	let previewError = $state<string | null>(null)
-
-	const fetchGitHubPreview = debounce(async (repo: string) => {
-		if (!repo) {
-			libraryPreview = null
-			return
-		}
-
-		previewLoading = true
-		previewError = null
-
-		try {
-			const response = await fetch(`/api/preview/github?repo=${encodeURIComponent(repo)}`)
-			const data = await response.json()
-
-			if (!response.ok) {
-				throw new Error(data.error || 'Failed to fetch preview')
-			}
-
-			libraryPreview = data
-		} catch (error) {
-			previewError = error instanceof Error ? error.message : 'Failed to fetch preview'
-			libraryPreview = null
-		} finally {
-			previewLoading = false
-		}
-	}, 1000)
+	const preview = usePreview<{
+		exists: boolean
+		content?: { id: string; title: string; status: string; url: string | null }
+		preview?: { title: string; description: string; owner: string; stars: number; language: string | null; avatarUrl: string }
+	}>('/api/preview/github', 'repo')
 
 	$effect(() => {
-		if (github_repo.value()) {
-    		const currentRepo = github_repo.value()
-    		if (currentRepo !== previousGithubRepo) {
-        		previousGithubRepo = currentRepo
-        		fetchGitHubPreview(currentRepo)
-    		}
-		}
+		preview.fetch(github_repo.value() || '')
 	})
 </script>
 
@@ -72,47 +41,47 @@
 		data-testid="library-github-input"
 	/>
 
-	{#if previewLoading}
+	{#if preview.state.loading}
 		<div class="rounded-lg border border-gray-200 bg-gray-50 p-4">
 			<p class="text-sm text-gray-600">Loading preview...</p>
 		</div>
-	{:else if previewError}
+	{:else if preview.state.error}
 		<div class="rounded-lg border border-red-200 bg-red-50 p-4">
-			<p class="text-sm text-red-600">{previewError}</p>
+			<p class="text-sm text-red-600">{preview.state.error}</p>
 		</div>
-	{:else if libraryPreview?.exists}
+	{:else if preview.state.data?.exists && preview.state.data.content}
 		<div class="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
 			<p class="text-sm font-medium text-yellow-800">This repository has already been submitted</p>
 			<p class="mt-1 text-sm text-yellow-700">
-				{#if libraryPreview.content.status === 'published'}
-					View it here: <a href={libraryPreview.content.url} class="underline"
-						>{libraryPreview.content.title}</a
+				{#if preview.state.data.content.status === 'published'}
+					View it here: <a href={preview.state.data.content.url} class="underline"
+						>{preview.state.data.content.title}</a
 					>
-				{:else if libraryPreview.content.status === 'draft' || libraryPreview.content.status === 'pending_review'}
-					"{libraryPreview.content.title}" is currently awaiting review.
+				{:else if preview.state.data.content.status === 'draft' || preview.state.data.content.status === 'pending_review'}
+					"{preview.state.data.content.title}" is currently awaiting review.
 				{:else}
-					"{libraryPreview.content.title}" has been submitted.
+					"{preview.state.data.content.title}" has been submitted.
 				{/if}
 			</p>
 		</div>
-	{:else if libraryPreview?.preview}
+	{:else if preview.state.data?.preview}
 		<div class="rounded-lg border border-gray-200 bg-white p-4">
 			<h3 class="mb-2 text-sm font-medium text-gray-900">Preview</h3>
 			<div class="flex gap-4">
 				<img
-					src={libraryPreview.preview.avatarUrl}
-					alt={libraryPreview.preview.owner}
+					src={preview.state.data.preview.avatarUrl}
+					alt={preview.state.data.preview.owner}
 					class="h-16 w-16 rounded"
 				/>
 				<div class="flex-1">
-					<p class="font-medium text-gray-900">{libraryPreview.preview.title}</p>
-					<p class="mt-1 text-sm text-gray-600">by {libraryPreview.preview.owner}</p>
-					<p class="mt-1 text-sm text-gray-500">{libraryPreview.preview.description}</p>
+					<p class="font-medium text-gray-900">{preview.state.data.preview.title}</p>
+					<p class="mt-1 text-sm text-gray-600">by {preview.state.data.preview.owner}</p>
+					<p class="mt-1 text-sm text-gray-500">{preview.state.data.preview.description}</p>
 					<div class="mt-2 flex gap-4 text-xs text-gray-500">
-						{#if libraryPreview.preview.language}
-							<span>{libraryPreview.preview.language}</span>
+						{#if preview.state.data.preview.language}
+							<span>{preview.state.data.preview.language}</span>
 						{/if}
-						<span>⭐ {libraryPreview.preview.stars}</span>
+						<span>⭐ {preview.state.data.preview.stars}</span>
 					</div>
 				</div>
 			</div>

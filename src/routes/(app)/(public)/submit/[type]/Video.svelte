@@ -4,50 +4,19 @@
 	import Input from '$lib/ui/Input.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
 	import DynamicSelector from '$lib/ui/DynamicSelector.svelte'
-	import { debounce } from '$lib/utils/debounce'
+	import { usePreview } from '$lib/utils/use-preview.svelte'
 	import { submitVideo, getTags } from '../submit.remote'
 
 	const { description, type, tags, url, notes } = submitVideo.fields
 
-	let videoPreview = $state<any>(null)
-	let previousVideoUrl = $state<string>('')
-	let previewLoading = $state(false)
-	let previewError = $state<string | null>(null)
-
-	const fetchYouTubePreview = debounce(async (url: string) => {
-		if (!url) {
-			videoPreview = null
-			return
-		}
-
-		previewLoading = true
-		previewError = null
-
-		try {
-			const response = await fetch(`/api/preview/youtube?url=${encodeURIComponent(url)}`)
-			const data = await response.json()
-
-			if (!response.ok) {
-				throw new Error(data.error || 'Failed to fetch preview')
-			}
-
-			videoPreview = data
-		} catch (error) {
-			previewError = error instanceof Error ? error.message : 'Failed to fetch preview'
-			videoPreview = null
-		} finally {
-			previewLoading = false
-		}
-	}, 1000)
+	const preview = usePreview<{
+		exists: boolean
+		content?: { id: string; title: string; status: string; url: string | null }
+		preview?: { title: string; description: string; thumbnail: string; channelTitle: string }
+	}>('/api/preview/youtube', 'url')
 
 	$effect(() => {
-		if (url.value()) {
-			const currentUrl = url.value() || ''
-			if (currentUrl !== previousVideoUrl) {
-				previousVideoUrl = currentUrl
-				fetchYouTubePreview(currentUrl)
-			}
-		}
+		preview.fetch(url.value() || '')
 	})
 </script>
 
@@ -72,43 +41,43 @@
 		data-testid="video-url-input"
 	/>
 
-	{#if previewLoading}
+	{#if preview.state.loading}
 		<div class="rounded-lg border border-gray-200 bg-gray-50 p-4">
 			<p class="text-sm text-gray-600">Loading preview...</p>
 		</div>
-	{:else if previewError}
+	{:else if preview.state.error}
 		<div class="rounded-lg border border-red-200 bg-red-50 p-4">
-			<p class="text-sm text-red-600">{previewError}</p>
+			<p class="text-sm text-red-600">{preview.state.error}</p>
 		</div>
-	{:else if videoPreview?.exists}
+	{:else if preview.state.data?.exists && preview.state.data.content}
 		<div class="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
 			<p class="text-sm font-medium text-yellow-800">This video has already been submitted</p>
 			<p class="mt-1 text-sm text-yellow-700">
-				{#if videoPreview.content.status === 'published'}
-					View it here: <a href={videoPreview.content.url} class="underline"
-						>{videoPreview.content.title}</a
+				{#if preview.state.data.content.status === 'published'}
+					View it here: <a href={preview.state.data.content.url} class="underline"
+						>{preview.state.data.content.title}</a
 					>
-				{:else if videoPreview.content.status === 'draft' || videoPreview.content.status === 'pending_review'}
-					"{videoPreview.content.title}" is currently awaiting review.
+				{:else if preview.state.data.content.status === 'draft' || preview.state.data.content.status === 'pending_review'}
+					"{preview.state.data.content.title}" is currently awaiting review.
 				{:else}
-					"{videoPreview.content.title}" has been submitted.
+					"{preview.state.data.content.title}" has been submitted.
 				{/if}
 			</p>
 		</div>
-	{:else if videoPreview?.preview}
+	{:else if preview.state.data?.preview}
 		<div class="rounded-lg border border-gray-200 bg-white p-4">
 			<h3 class="mb-2 text-sm font-medium text-gray-900">Preview</h3>
 			<div class="flex gap-4">
 				<img
-					src={videoPreview.preview.thumbnail}
-					alt={videoPreview.preview.title}
+					src={preview.state.data.preview.thumbnail}
+					alt={preview.state.data.preview.title}
 					class="h-20 w-32 rounded object-cover"
 				/>
 				<div class="flex-1">
-					<p class="font-medium text-gray-900">{videoPreview.preview.title}</p>
-					<p class="mt-1 text-sm text-gray-600">{videoPreview.preview.channelTitle}</p>
+					<p class="font-medium text-gray-900">{preview.state.data.preview.title}</p>
+					<p class="mt-1 text-sm text-gray-600">{preview.state.data.preview.channelTitle}</p>
 					<p class="mt-1 line-clamp-2 text-xs text-gray-500">
-						{videoPreview.preview.description}
+						{preview.state.data.preview.description}
 					</p>
 				</div>
 			</div>
