@@ -1,7 +1,7 @@
 import { tv, type VariantProps } from 'tailwind-variants'
 
 export const dialogVariants = tv({
-	base: 'rounded-lg bg-white p-6 shadow-xl backdrop:bg-black/30',
+	base: 'fixed inset-0 m-auto rounded-lg bg-white p-6 shadow-xl backdrop:bg-black/30',
 	variants: {
 		size: {
 			sm: 'max-w-sm',
