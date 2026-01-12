@@ -141,6 +141,12 @@
 
 <form
 	{...form.enhance(async ({ submit }) => {
+		// For create, the remote function uses redirect() which throws - let it propagate
+		if (!isEditing) {
+			await submit()
+			return
+		}
+		// For edit, handle success/error with toasts
 		try {
 			const result = await submit()
 			if (result?.success === true || form.result?.success === true) {

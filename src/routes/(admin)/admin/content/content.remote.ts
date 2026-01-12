@@ -100,8 +100,8 @@ export const createContent = form(adminCreateContentSchema, async (data) => {
 		...(data.metadata && { metadata: data.metadata })
 	} as any
 
-	const contentId = await locals.contentService.addContent(contentData, locals.user?.id)
-	redirect(303, `/admin/content/${contentId}`)
+	await locals.contentService.addContent(contentData, locals.user?.id)
+	redirect(303, '/admin/content')
 })
 
 const contentIdSchema = z.object({
