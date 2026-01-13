@@ -2,6 +2,7 @@
 	import type { HTMLTextareaAttributes } from 'svelte/elements'
 	import type { RemoteFormIssue } from '@sveltejs/kit'
 	import { inputVariants } from './input.variants'
+	import Field from './Field.svelte'
 
 	interface TextInputProps {
 		label?: string
@@ -28,22 +29,12 @@
 	const hasErrors = $derived(issues && issues.length > 0)
 </script>
 
-<div class="flex flex-col gap-2">
-	<label class="text-xs font-medium outline-none">
-		{label}
-		<textarea
-			{rows}
-			class={[inputVariants({ error: hasErrors }), 'mt-2']}
-			{placeholder}
-			data-testid={computedTestId}
-			{...rest}
-		></textarea>
-	</label>
-	{#if hasErrors}
-		{#each issues as issue}
-			<div class="text-xs text-red-600">{issue.message}</div>
-		{/each}
-	{:else}
-		<div class="text-xs text-slate-500">{description}</div>
-	{/if}
-</div>
+<Field {label} {description} {issues}>
+	<textarea
+		{rows}
+		class={[inputVariants({ error: hasErrors }), 'mt-2']}
+		{placeholder}
+		data-testid={computedTestId}
+		{...rest}
+	></textarea>
+</Field>

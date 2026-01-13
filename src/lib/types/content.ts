@@ -6,7 +6,6 @@ import {
 	jobMetadataSchema,
 	storedJobDataSchema
 } from '$lib/schema/content'
-import type { TagType } from '$lib/ui/Tags.svelte'
 import { z } from 'zod/v4'
 
 export type Type = z.infer<typeof typeSchema>
@@ -33,17 +32,4 @@ export interface ContentFilters {
 	limit?: number
 	offset?: number
 	sort?: 'latest' | 'oldest' | 'popular'
-}
-
-// Helper function to convert tags to TagType
-export function convertTags(tags: unknown[]): TagType[] {
-	if (!Array.isArray(tags)) return []
-	return tags.map((tag) => {
-		const t = tag as { id?: unknown; name?: unknown; slug?: unknown }
-		return {
-			id: String(t.id ?? ''),
-			name: String(t.name ?? ''),
-			slug: String(t.slug ?? '')
-		}
-	})
 }

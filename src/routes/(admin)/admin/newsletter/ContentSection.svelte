@@ -3,6 +3,7 @@
 	import ContentPicker from '$lib/ui/admin/ContentPicker.svelte'
 	import Trash from 'phosphor-svelte/lib/Trash'
 	import TextArea from '$lib/ui/TextArea.svelte'
+	import { getContentTypeColor } from '$lib/utils/content-type-colors'
 
 	interface ContentItem {
 		id: string
@@ -29,21 +30,6 @@
 	function handleRemoveContent(id: string) {
 		items = items.filter((c) => c.id !== id)
 	}
-
-	function getTypeColor(type: string) {
-		switch (type) {
-			case 'video':
-				return 'bg-red-100 text-red-800'
-			case 'library':
-				return 'bg-purple-100 text-purple-800'
-			case 'recipe':
-				return 'bg-green-100 text-green-800'
-			case 'resource':
-				return 'bg-blue-100 text-blue-800'
-			default:
-				return 'bg-gray-100 text-gray-800'
-		}
-	}
 </script>
 
 <div class="space-y-6">
@@ -65,7 +51,7 @@
 								<span
 									class={[
 										'shrink-0 rounded px-1.5 py-0.5 text-xs font-medium capitalize',
-										getTypeColor(item.type)
+										getContentTypeColor(item.type)
 									]}
 								>
 									{item.type}

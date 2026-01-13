@@ -1,6 +1,13 @@
-export function slugify(input: string): string {
-	return input
+/**
+ * Generate a URL-safe slug from a title.
+ * Note: Database triggers may automatically append IDs to make slugs unique.
+ */
+export function generateSlug(title: string): string {
+	return title
 		.toLowerCase()
-		.replaceAll(/[^0-9a-z_-]+/g, '-') // Replace unknown chars
-		.replaceAll(/(^-+)|(-+$)/g, '') // Trim '-' at start and end
+		.replace(/[^a-z0-9\s-]/g, '')
+		.replace(/\s+/g, '-')
+		.replace(/-+/g, '-')
+		.replace(/^-|-$/g, '')
+		.slice(0, 50)
 }

@@ -7,6 +7,8 @@
 	import Select from '$lib/ui/Select.svelte'
 	import ImageUpload from '$lib/ui/ImageUpload.svelte'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
+	import { formatLongDate } from '$lib/utils/date'
+	import { positionTypes, seniorityLevels, remoteOptions, currencyOptions } from '$lib/constants/job-options'
 	import type { RemoteForm } from '@sveltejs/kit'
 	import { approveJob, rejectJob } from './content.remote'
 
@@ -22,42 +24,6 @@
 	let { form, contentId, content }: Props = $props()
 
 	const metadata = $derived(content?.metadata || {})
-
-	const positionTypes = [
-		{ value: 'full-time', label: 'Full-Time' },
-		{ value: 'part-time', label: 'Part-Time' },
-		{ value: 'contract', label: 'Contract' },
-		{ value: 'internship', label: 'Internship' }
-	]
-
-	const seniorityLevels = [
-		{ value: 'entry', label: 'Entry Level' },
-		{ value: 'junior', label: 'Junior' },
-		{ value: 'mid', label: 'Mid-Level' },
-		{ value: 'senior', label: 'Senior' },
-		{ value: 'principal', label: 'Principal / Staff' }
-	]
-
-	const remoteOptions = [
-		{ value: 'remote', label: 'Remote' },
-		{ value: 'hybrid', label: 'Hybrid' },
-		{ value: 'on-site', label: 'On-Site' }
-	]
-
-	const currencyOptions = [
-		{ value: 'USD', label: 'USD ($)' },
-		{ value: 'EUR', label: 'EUR' },
-		{ value: 'GBP', label: 'GBP' }
-	]
-
-	const formatDate = (dateString: string) => {
-		if (!dateString) return 'N/A'
-		return new Date(dateString).toLocaleDateString('en-US', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		})
-	}
 </script>
 
 <!-- Payment/Tier Information (Read-only) -->
@@ -74,11 +40,11 @@
 		</div>
 		<div>
 			<span class="text-blue-700">Expires:</span>
-			<span class="ml-1 font-medium text-blue-900">{formatDate(metadata.expires_at)}</span>
+			<span class="ml-1 font-medium text-blue-900">{formatLongDate(metadata.expires_at, 'N/A')}</span>
 		</div>
 		<div>
 			<span class="text-blue-700">Created:</span>
-			<span class="ml-1 font-medium text-blue-900">{formatDate(content?.created_at)}</span>
+			<span class="ml-1 font-medium text-blue-900">{formatLongDate(content?.created_at, 'N/A')}</span>
 		</div>
 	</div>
 </div>

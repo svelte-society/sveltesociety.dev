@@ -9,6 +9,8 @@
 	import MarkdownEditor from '$lib/ui/MarkdownEditor.svelte'
 	import ImageUpload from '$lib/ui/ImageUpload.svelte'
 	import { submitJob, getJobTiers } from './submit.remote'
+	import { positionTypes, seniorityLevels, remoteOptions, currencyOptions } from '$lib/constants/job-options'
+	import { formatPrice } from '$lib/utils/job-formatters'
 
 	const {
 		company_name,
@@ -31,35 +33,6 @@
 
 	let tiers = await getJobTiers()
 	let selectedTierId = $state(tiers[0]?.id || '')
-
-	const positionTypes = [
-		{ value: 'full-time', label: 'Full-Time' },
-		{ value: 'part-time', label: 'Part-Time' },
-		{ value: 'contract', label: 'Contract' },
-		{ value: 'internship', label: 'Internship' }
-	]
-
-	const seniorityLevels = [
-		{ value: 'entry', label: 'Entry Level' },
-		{ value: 'junior', label: 'Junior' },
-		{ value: 'mid', label: 'Mid-Level' },
-		{ value: 'senior', label: 'Senior' },
-		{ value: 'principal', label: 'Principal / Staff' }
-	]
-
-	const remoteOptions = [
-		{ value: 'remote', label: 'Remote' },
-		{ value: 'hybrid', label: 'Hybrid' },
-		{ value: 'on-site', label: 'On-Site' }
-	]
-
-	const formatPrice = (cents: number) => {
-		return new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency: 'USD',
-			maximumFractionDigits: 0
-		}).format(cents / 100)
-	}
 </script>
 
 <svelte:head>
@@ -286,11 +259,7 @@
 				<Select
 					{...salary_currency.as('select')}
 					label="Currency"
-					options={[
-						{ value: 'USD', label: 'USD ($)' },
-						{ value: 'EUR', label: 'EUR (€)' },
-						{ value: 'GBP', label: 'GBP (£)' }
-					]}
+					options={currencyOptions}
 					data-testid="salary-currency-select"
 				/>
 			</div>

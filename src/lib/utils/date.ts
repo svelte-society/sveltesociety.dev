@@ -1,12 +1,27 @@
-export function formatRelativeDate(date: string | null): string {
-	if (!date) {
-		return 'Unknown date'
-	}
+/**
+ * Format a date string for display (short format: "1/13/2026")
+ */
+export function formatDate(date: string | null, fallback = '-'): string {
+	if (!date) return fallback
+	return new Date(date).toLocaleDateString()
+}
 
-	const inputDate = new Date(date)
-	return inputDate.toLocaleDateString('en-US', {
+/**
+ * Format a date string with long month name ("January 13, 2026")
+ */
+export function formatLongDate(date: string | null, fallback = 'Unknown date'): string {
+	if (!date) return fallback
+	return new Date(date).toLocaleDateString('en-US', {
 		year: 'numeric',
 		month: 'long',
 		day: 'numeric'
 	})
+}
+
+/**
+ * Format a date string with long month name ("January 13, 2026")
+ * Alias for formatLongDate with 'Unknown date' as default fallback
+ */
+export function formatRelativeDate(date: string | null): string {
+	return formatLongDate(date, 'Unknown date')
 }

@@ -2,6 +2,7 @@
 	import type { HTMLTextareaAttributes } from 'svelte/elements'
 	import type { RemoteFormIssue } from '@sveltejs/kit'
 	import { onMount, tick } from 'svelte'
+	import Field from './Field.svelte'
 
 	interface Props extends HTMLTextareaAttributes {
 		label?: string
@@ -21,6 +22,7 @@
 	}: Props = $props()
 
 	const hasErrors = $derived(issues && issues.length > 0)
+	const computedId = $derived(testId ?? (rest.name ? `markdown-editor-${rest.name}` : 'markdown-editor'))
 
 	// Carta components - loaded dynamically on client
 	let Editor: typeof import('carta-md').MarkdownEditor | null = $state(null)
@@ -65,16 +67,10 @@
 	})
 </script>
 
-<div class="flex flex-col gap-2">
-	{#if label}
-		<label class="text-xs font-medium" for={testId}>
-			{label}
-		</label>
-	{/if}
-
+<Field {label} {description} {issues} id={computedId} labelStyle="for">
 	<!-- Textarea: visible fallback before JS loads, hidden after -->
 	<textarea
-		id={testId}
+		id={computedId}
 		data-testid={testId}
 		{rows}
 		{placeholder}
@@ -95,15 +91,7 @@
 			<Editor {carta} bind:value={content} mode="tabs" {placeholder} />
 		</div>
 	{/if}
-
-	{#if hasErrors}
-		{#each issues as issue}
-			<div class="text-xs text-red-600">{issue.message}</div>
-		{/each}
-	{:else if description}
-		<div class="text-xs text-slate-500">{description}</div>
-	{/if}
-</div>
+</Field>
 
 <style>
 	/* Match site's input styling */

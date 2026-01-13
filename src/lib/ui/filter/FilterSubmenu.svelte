@@ -14,14 +14,14 @@
 	type Props = {
 		label: string
 		paramName: string
-		items?: Item[]
-		getItems?: () => Promise<Item[]> | Item[]
+		items?: readonly Item[]
+		getItems?: () => Promise<readonly Item[]> | readonly Item[]
 		onSelect?: () => void
 	}
 
 	let { label, paramName, items, getItems, onSelect }: Props = $props()
 
-	function fetchItems(): Promise<Item[]> | Item[] {
+	function fetchItems(): Promise<readonly Item[]> | readonly Item[] {
 		if (items) return items
 		if (getItems) return getItems()
 		return []

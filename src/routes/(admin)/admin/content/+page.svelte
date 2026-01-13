@@ -10,8 +10,7 @@
 	import TypeIcon from '$lib/ui/TypeIcon.svelte'
 	import MagnifyingGlass from 'phosphor-svelte/lib/MagnifyingGlass'
 	import ArrowsClockwise from 'phosphor-svelte/lib/ArrowsClockwise'
-	import StatusSelect from '$lib/ui/admin/StatusSelect.svelte'
-	import TypeSelect from '$lib/ui/admin/TypeSelect.svelte'
+	import Select from '$lib/ui/Select.svelte'
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/state'
@@ -31,6 +30,24 @@
 
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null
 	let debouncedSearch = $state(page.url.searchParams.get('search') || '')
+
+	const statusOptions = [
+		{ value: 'all', label: 'All Statuses' },
+		{ value: 'pending_review', label: 'Pending Review' },
+		{ value: 'draft', label: 'Draft' },
+		{ value: 'published', label: 'Published' },
+		{ value: 'archived', label: 'Archived' }
+	]
+
+	const typeOptions = [
+		{ value: '', label: 'All Types' },
+		{ value: 'video', label: 'Video' },
+		{ value: 'library', label: 'Library' },
+		{ value: 'resource', label: 'Resource' },
+		{ value: 'announcement', label: 'Announcement' },
+		{ value: 'collection', label: 'Collection' },
+		{ value: 'recipe', label: 'Recipe' }
+	]
 
 	function handleSearchInput(value: string) {
 		searchQuery = value
@@ -128,11 +145,11 @@
 		</div>
 
 		<div class="w-full sm:w-48">
-			<TypeSelect value={selectedType} onchange={handleTypeChange} />
+			<Select name="type" value={selectedType} options={typeOptions} onchange={handleTypeChange} />
 		</div>
 
 		<div class="w-full sm:w-48">
-			<StatusSelect value={selectedStatus} onchange={handleStatusChange} />
+			<Select name="status" value={selectedStatus} options={statusOptions} onchange={handleStatusChange} />
 		</div>
 	</div>
 

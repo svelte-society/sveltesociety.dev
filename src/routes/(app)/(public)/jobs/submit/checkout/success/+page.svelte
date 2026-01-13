@@ -3,16 +3,9 @@
 	import Clock from 'phosphor-svelte/lib/Clock'
 	import ArrowRight from 'phosphor-svelte/lib/ArrowRight'
 	import Spinner from 'phosphor-svelte/lib/Spinner'
+	import { formatLongDate } from '$lib/utils/date'
 
 	let { data } = $props()
-
-	const formatDate = (dateString: string) => {
-		return new Date(dateString).toLocaleDateString('en-US', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		})
-	}
 </script>
 
 <svelte:head>
@@ -79,7 +72,7 @@
 				</div>
 				<div class="flex justify-between">
 					<dt class="text-slate-500">Expires</dt>
-					<dd class="font-medium">{data.expiresAt ? formatDate(data.expiresAt) : 'N/A'}</dd>
+					<dd class="font-medium">{formatLongDate(data.expiresAt, 'N/A')}</dd>
 				</div>
 			</dl>
 		</div>

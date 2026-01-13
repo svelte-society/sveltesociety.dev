@@ -1,8 +1,7 @@
 <script lang="ts">
 	import ContentCard from '$lib/ui/ContentCard.svelte'
 	import FeaturedCard from '$lib/ui/FeaturedCard.svelte'
-	import CTACard from '$lib/ui/CTACard.svelte'
-	import AdCard from '$lib/ui/AdCard.svelte'
+	import PromotionalCard from '$lib/ui/PromotionalCard.svelte'
 	import Schema from '$lib/ui/Schema.svelte'
 	import { getHomeData } from './data.remote'
 	import { page } from '$app/state'
@@ -22,12 +21,15 @@
 	const components = new Map([
 		['content', ContentCard],
 		['featured', FeaturedCard],
-		['cta', CTACard],
-		['ad', AdCard]
+		['cta', PromotionalCard],
+		['ad', PromotionalCard]
 	])
 
 	// Card types need wrapper div and priority prop
 	const cardTypes = new Set(['content', 'featured'])
+
+	// Promo types need variant prop
+	const promoTypes = new Set(['cta', 'ad'])
 </script>
 
 {#if schemas}
@@ -42,6 +44,7 @@
 			{#each feed as item, index (index)}
 				{@const Component = components.get(item.type)}
 				{@const isCard = cardTypes.has(item.type)}
+				{@const isPromo = promoTypes.has(item.type)}
 				{#if isCard}
 					<div class="min-w-0">
 						<Component
@@ -49,6 +52,8 @@
 							priority={item.type === 'featured' || index < 2 ? 'high' : 'auto'}
 						/>
 					</div>
+				{:else if isPromo}
+					<Component {...item.props} variant={item.type} />
 				{:else}
 					<Component {...item.props} />
 				{/if}

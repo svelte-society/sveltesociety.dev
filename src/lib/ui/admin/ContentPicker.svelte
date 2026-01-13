@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { MagnifyingGlass, Plus } from 'phosphor-svelte'
 	import { searchContent } from './content-picker.remote'
+	import { getContentTypeColor } from '$lib/utils/content-type-colors'
 
 	interface ContentItem {
 		id: string
@@ -34,21 +35,6 @@
 		onSelect?.(content)
 		searchQuery = ''
 		debouncedQuery = ''
-	}
-
-	function getTypeColor(type: string) {
-		switch (type) {
-			case 'video':
-				return 'bg-red-100 text-red-800'
-			case 'library':
-				return 'bg-purple-100 text-purple-800'
-			case 'recipe':
-				return 'bg-green-100 text-green-800'
-			case 'resource':
-				return 'bg-blue-100 text-blue-800'
-			default:
-				return 'bg-gray-100 text-gray-800'
-		}
 	}
 </script>
 
@@ -94,7 +80,7 @@
 									<span
 										class={[
 											'shrink-0 rounded px-1.5 py-0.5 text-xs font-medium capitalize',
-											getTypeColor(content.type)
+											getContentTypeColor(content.type)
 										]}
 									>
 										{content.type}

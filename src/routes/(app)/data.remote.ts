@@ -1,11 +1,8 @@
 import { query } from '$app/server'
 import { getRequestEvent } from '$app/server'
 
-export const getTags = query(async () => {
-	const { locals } = getRequestEvent()
-	const tags = locals.tagService.getAllTags()
-	return tags
-})
+// Re-export shared getTags (returns raw tag objects)
+export { getTagsRaw as getTags } from '$lib/remote/tags.remote'
 
 export const getUpcomingEvents = query(async () => {
 	const { locals } = getRequestEvent()

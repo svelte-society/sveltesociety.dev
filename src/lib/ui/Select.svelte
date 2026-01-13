@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { RemoteFormIssue } from '@sveltejs/kit'
 	import type { HTMLSelectAttributes } from 'svelte/elements'
+	import Field from './Field.svelte'
 
 	export type Option = {
 		label: string
@@ -8,7 +9,7 @@
 	}
 
 	type Props = {
-		options: Option[]
+		options: readonly Option[]
 		value?: string | number
 		onchange?: (value: string) => void
 		'data-testid'?: string
@@ -41,35 +42,15 @@
 	const hasErrors = $derived(issues && issues.length > 0)
 </script>
 
-{#if label}
-	<div class="flex flex-col gap-2">
-		<label class="text-xs font-medium outline-none">
-			{label}
-			<select bind:value onchange={handleChange} data-testid={computedTestId} class="mt-2" class:select-error={hasErrors} {...rest}>
-				{#each options as option}
-					<option value={option.value}>
-						{option.label}
-					</option>
-				{/each}
-			</select>
-		</label>
-		{#if hasErrors && issues}
-			{#each issues as issue}
-				<div class="text-xs text-red-600">{issue.message}</div>
-			{/each}
-		{:else if description}
-			<div class="text-xs text-slate-500">{description}</div>
-		{/if}
-	</div>
-{:else}
-	<select bind:value onchange={handleChange} data-testid={computedTestId} {...rest}>
+<Field {label} {description} {issues}>
+	<select bind:value onchange={handleChange} data-testid={computedTestId} class:mt-2={label} class:select-error={hasErrors} {...rest}>
 		{#each options as option}
 			<option value={option.value}>
 				{option.label}
 			</option>
 		{/each}
 	</select>
-{/if}
+</Field>
 
 <style>
 	/* Base styles for all browsers (Safari fallback) */
