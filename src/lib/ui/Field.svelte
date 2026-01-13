@@ -5,20 +5,33 @@
 	/**
 	 * Label styles:
 	 * - 'wrap': Input nested inside <label> (default, used by Input, TextArea, Select)
-	 * - 'for': Label separate with for attribute (used by MarkdownEditor)
+	 * - 'for': Label separate with for attribute (used by MarkdownEditor) - requires id
 	 * - 'text': Just a <span> label, no association (used by ImageUpload)
 	 */
-	type LabelStyle = 'wrap' | 'for' | 'text'
-
-	interface Props {
+	type BaseProps = {
 		label?: string
 		description?: string
 		issues?: RemoteFormIssue[]
 		error?: string
-		id?: string
-		labelStyle?: LabelStyle
 		children: Snippet
 	}
+
+	type WrapProps = BaseProps & {
+		labelStyle?: 'wrap'
+		id?: string
+	}
+
+	type ForProps = BaseProps & {
+		labelStyle: 'for'
+		id: string // Required for accessibility when using 'for' style
+	}
+
+	type TextProps = BaseProps & {
+		labelStyle: 'text'
+		id?: string
+	}
+
+	type Props = WrapProps | ForProps | TextProps
 
 	let {
 		label,

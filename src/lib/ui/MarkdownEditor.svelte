@@ -22,6 +22,7 @@
 	}: Props = $props()
 
 	const hasErrors = $derived(issues && issues.length > 0)
+	const computedId = $derived(testId ?? (rest.name ? `markdown-editor-${rest.name}` : 'markdown-editor'))
 
 	// Carta components - loaded dynamically on client
 	let Editor: typeof import('carta-md').MarkdownEditor | null = $state(null)
@@ -66,10 +67,10 @@
 	})
 </script>
 
-<Field {label} {description} {issues} id={testId} labelStyle="for">
+<Field {label} {description} {issues} id={computedId} labelStyle="for">
 	<!-- Textarea: visible fallback before JS loads, hidden after -->
 	<textarea
-		id={testId}
+		id={computedId}
 		data-testid={testId}
 		{rows}
 		{placeholder}

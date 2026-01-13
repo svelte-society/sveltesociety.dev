@@ -54,6 +54,7 @@
 
 	const issues = $derived(field.issues() ?? [])
 	const hasErrors = $derived(issues.length > 0)
+	const computedId = $derived(testId ?? `dynamic-selector-${name}`)
 
 	const filteredOptions = $derived.by(() => {
 		const selectedValues = field.value() || []
@@ -153,13 +154,13 @@
 	</datalist>
 {/if}
 
-<Field {label} {description} issues={issues} id={testId} labelStyle="for">
+<Field {label} {description} issues={issues} id={computedId} labelStyle="for">
 	<div class="space-y-2 rounded-md border-2 border-slate-200 p-4">
 		<div class="relative">
 			<Icon class="absolute left-2 top-1/2 size-4 -translate-y-1/2 text-slate-500" />
 			<input
 				bind:this={inputElement}
-				id={testId}
+				id={computedId}
 				data-testid={testId}
 				type="text"
 				list={browser ? undefined : `${name}-options`}
