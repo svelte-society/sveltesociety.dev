@@ -100,11 +100,14 @@ test.describe('Admin Content Management', () => {
 		if (currentStatus !== 'archived') {
 			await editPage.archiveContent()
 			await editPage.expectSuccessMessage()
+			// Wait for status to update after archive action
+			await expect(statusSelect).toHaveValue('archived')
 		}
 
 		await editPage.unarchiveContent()
 		await editPage.expectSuccessMessage()
 
+		// Wait for status to update after unarchive action
 		await expect(statusSelect).toHaveValue('draft')
 	})
 
