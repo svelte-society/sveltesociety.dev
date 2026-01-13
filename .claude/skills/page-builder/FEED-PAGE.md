@@ -17,8 +17,7 @@ The remote function returns a `FeedEntry[]` where each entry has:
 <script lang="ts">
   import ContentCard from '$lib/ui/ContentCard.svelte'
   import FeaturedCard from '$lib/ui/FeaturedCard.svelte'
-  import CTACard from '$lib/ui/CTACard.svelte'
-  import AdCard from '$lib/ui/AdCard.svelte'
+  import PromotionalCard from '$lib/ui/PromotionalCard.svelte'
   import { getFeed } from './data.remote'
   import { page } from '$app/state'
 
@@ -28,15 +27,23 @@ The remote function returns a `FeedEntry[]` where each entry has:
   const components = new Map([
     ['content', ContentCard],
     ['featured', FeaturedCard],
-    ['cta', CTACard],
-    ['ad', AdCard]
+    ['cta', PromotionalCard],
+    ['ad', PromotionalCard]
   ])
+
+  // Promo types need variant prop
+  const promoTypes = new Set(['cta', 'ad'])
 </script>
 
 <div class="grid gap-6">
   {#each feed as item, index (index)}
     {@const Component = components.get(item.type)}
-    <Component {...item.props} />
+    {@const isPromo = promoTypes.has(item.type)}
+    {#if isPromo}
+      <Component {...item.props} variant={item.type} />
+    {:else}
+      <Component {...item.props} />
+    {/if}
   {/each}
 </div>
 ```
