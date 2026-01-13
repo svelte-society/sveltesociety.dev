@@ -2,6 +2,7 @@
 	import type { HTMLTextareaAttributes } from 'svelte/elements'
 	import type { RemoteFormIssue } from '@sveltejs/kit'
 	import { onMount, tick } from 'svelte'
+	import FormFieldFeedback from './FormFieldFeedback.svelte'
 
 	interface Props extends HTMLTextareaAttributes {
 		label?: string
@@ -96,13 +97,7 @@
 		</div>
 	{/if}
 
-	{#if hasErrors}
-		{#each issues as issue}
-			<div class="text-xs text-red-600">{issue.message}</div>
-		{/each}
-	{:else if description}
-		<div class="text-xs text-slate-500">{description}</div>
-	{/if}
+	<FormFieldFeedback {issues} {description} />
 </div>
 
 <style>

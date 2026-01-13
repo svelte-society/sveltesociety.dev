@@ -2,6 +2,7 @@
 	import type { HTMLTextareaAttributes } from 'svelte/elements'
 	import type { RemoteFormIssue } from '@sveltejs/kit'
 	import { inputVariants } from './input.variants'
+	import FormFieldFeedback from './FormFieldFeedback.svelte'
 
 	interface TextInputProps {
 		label?: string
@@ -39,11 +40,5 @@
 			{...rest}
 		></textarea>
 	</label>
-	{#if hasErrors}
-		{#each issues as issue}
-			<div class="text-xs text-red-600">{issue.message}</div>
-		{/each}
-	{:else}
-		<div class="text-xs text-slate-500">{description}</div>
-	{/if}
+	<FormFieldFeedback {issues} {description} />
 </div>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { RemoteFormIssue } from '@sveltejs/kit'
 	import type { HTMLSelectAttributes } from 'svelte/elements'
+	import FormFieldFeedback from './FormFieldFeedback.svelte'
 
 	export type Option = {
 		label: string
@@ -53,13 +54,7 @@
 				{/each}
 			</select>
 		</label>
-		{#if hasErrors && issues}
-			{#each issues as issue}
-				<div class="text-xs text-red-600">{issue.message}</div>
-			{/each}
-		{:else if description}
-			<div class="text-xs text-slate-500">{description}</div>
-		{/if}
+		<FormFieldFeedback {issues} {description} />
 	</div>
 {:else}
 	<select bind:value onchange={handleChange} data-testid={computedTestId} {...rest}>
