@@ -1,10 +1,12 @@
 import { test, expect } from '@playwright/test'
 import { NewsletterSubscribePage, NewsletterConfirmPage } from '../../pages'
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
+import { setupPlunkMock } from '../../helpers/plunk-mock'
 
 test.describe('Newsletter Double Opt-In Flow', () => {
 	test.beforeEach(async ({ page }) => {
 		await setupDatabaseIsolation(page)
+		await setupPlunkMock(page)
 	})
 
 	test.describe('Subscription Form', () => {
@@ -112,8 +114,11 @@ test.describe('Newsletter Double Opt-In Flow', () => {
 		test('rejects invalid email format via HTML5 validation', async ({ page }) => {
 			const subscribePage = new NewsletterSubscribePage(page)
 			await subscribePage.goto()
+			await subscribePage.expectFormVisible()
 
+			await subscribePage.emailInput.click()
 			await subscribePage.emailInput.fill('invalid-email')
+			await expect(subscribePage.emailInput).toHaveValue('invalid-email')
 
 			const isValid = await subscribePage.emailInput.evaluate((el: HTMLInputElement) =>
 				el.checkValidity()

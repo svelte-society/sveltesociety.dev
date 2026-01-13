@@ -1,10 +1,12 @@
 import { test, expect } from '@playwright/test'
 import { NewsletterSubscribePage } from '../../pages'
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
+import { setupPlunkMock } from '../../helpers/plunk-mock'
 
 test.describe('Newsletter Subscribe Form', () => {
 	test.beforeEach(async ({ page }) => {
 		await setupDatabaseIsolation(page)
+		await setupPlunkMock(page)
 	})
 
 	test('subscribe form is visible on homepage', async ({ page }) => {
@@ -42,10 +44,13 @@ test.describe('Newsletter Subscribe Form', () => {
 	test('shows error for invalid email format', async ({ page }) => {
 		const subscribePage = new NewsletterSubscribePage(page)
 		await subscribePage.goto()
+		await subscribePage.expectFormVisible()
 
 		// The HTML5 email input will prevent submission of invalid emails
 		// Test that invalid email doesn't get submitted
+		await subscribePage.emailInput.click()
 		await subscribePage.emailInput.fill('not-an-email')
+		await expect(subscribePage.emailInput).toHaveValue('not-an-email')
 
 		// Form should not submit due to HTML5 validation
 		// The input is type="email" so browser handles validation
@@ -70,9 +75,12 @@ test.describe('Newsletter Subscribe Form', () => {
 	test('submit button shows loading state when submitting', async ({ page }) => {
 		const subscribePage = new NewsletterSubscribePage(page)
 		await subscribePage.goto()
+		await subscribePage.expectFormVisible()
 
 		// Fill valid email
+		await subscribePage.emailInput.click()
 		await subscribePage.emailInput.fill('test@example.com')
+		await expect(subscribePage.emailInput).toHaveValue('test@example.com')
 
 		// Click submit
 		await subscribePage.submitButton.click()
