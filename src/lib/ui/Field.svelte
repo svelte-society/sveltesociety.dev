@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { RemoteFormIssue } from '@sveltejs/kit'
 	import type { Snippet } from 'svelte'
-	import FormFieldFeedback from './FormFieldFeedback.svelte'
 
 	/**
 	 * Label styles:
@@ -30,6 +29,8 @@
 		labelStyle = 'wrap',
 		children
 	}: Props = $props()
+
+	const hasErrors = $derived((issues && issues.length > 0) || !!error)
 </script>
 
 {#if label}
@@ -48,7 +49,18 @@
 			<span class="text-xs font-medium">{label}</span>
 			{@render children()}
 		{/if}
-		<FormFieldFeedback {issues} {description} {error} />
+		{#if hasErrors}
+			{#if error}
+				<div class="text-xs text-red-600">{error}</div>
+			{/if}
+			{#if issues}
+				{#each issues as issue, i (i)}
+					<div class="text-xs text-red-600">{issue.message}</div>
+				{/each}
+			{/if}
+		{:else if description}
+			<div class="text-xs text-slate-500">{description}</div>
+		{/if}
 	</div>
 {:else}
 	{@render children()}

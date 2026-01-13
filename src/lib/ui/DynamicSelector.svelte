@@ -11,7 +11,6 @@
 	import { flip } from 'svelte/animate'
 	import type { Component } from 'svelte'
 	import type { RemoteFormField } from '@sveltejs/kit'
-	import FormFieldFeedback from './FormFieldFeedback.svelte'
 	import {
 		dynamicSelectorInputVariants,
 		dynamicSelectorDropdownVariants,
@@ -220,7 +219,13 @@
 				{/if}
 			</div>
 		</label>
-		<FormFieldFeedback {issues} {description} />
+		{#if hasErrors}
+			{#each issues as issue, i (i)}
+				<div class="text-xs text-red-600">{issue.message}</div>
+			{/each}
+		{:else if description}
+			<div class="text-xs text-slate-500">{description}</div>
+		{/if}
 	</div>
 
 	<ul class="space-y-2 rounded-md bg-slate-100 p-4">
