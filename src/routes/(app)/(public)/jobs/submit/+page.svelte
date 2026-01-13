@@ -10,6 +10,7 @@
 	import ImageUpload from '$lib/ui/ImageUpload.svelte'
 	import { submitJob, getJobTiers } from './submit.remote'
 	import { positionTypes, seniorityLevels, remoteOptions, currencyOptions } from '$lib/constants/job-options'
+	import { formatPrice } from '$lib/utils/job-formatters'
 
 	const {
 		company_name,
@@ -32,14 +33,6 @@
 
 	let tiers = await getJobTiers()
 	let selectedTierId = $state(tiers[0]?.id || '')
-
-	const formatPrice = (cents: number) => {
-		return new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency: 'USD',
-			maximumFractionDigits: 0
-		}).format(cents / 100)
-	}
 </script>
 
 <svelte:head>

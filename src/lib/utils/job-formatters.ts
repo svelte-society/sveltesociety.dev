@@ -65,3 +65,14 @@ export function formatRemoteStatus(status: string): string {
 		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 		.join('-')
 }
+
+/**
+ * Format price from cents to currency (e.g., 9900 -> "$99")
+ */
+export function formatPrice(cents: number, currency = 'USD'): string {
+	return new Intl.NumberFormat('en-US', {
+		style: 'currency',
+		currency,
+		maximumFractionDigits: 0
+	}).format(cents / 100)
+}
