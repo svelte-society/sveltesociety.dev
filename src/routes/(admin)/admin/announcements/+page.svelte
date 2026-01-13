@@ -7,13 +7,9 @@
 	import Plus from 'phosphor-svelte/lib/Plus'
 	import Power from 'phosphor-svelte/lib/Power'
 	import { getPlacements, togglePlacement, deletePlacement } from './announcements.remote'
+	import { formatDate } from '$lib/utils/date'
 
 	const placements = await getPlacements()
-
-	function formatDate(dateString: string | null) {
-		if (!dateString) return 'Not set'
-		return new Date(dateString).toLocaleDateString()
-	}
 </script>
 
 <div class="container mx-auto space-y-8 px-2 py-6">

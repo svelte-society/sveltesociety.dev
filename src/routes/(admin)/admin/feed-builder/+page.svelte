@@ -7,13 +7,9 @@
 	import Plus from 'phosphor-svelte/lib/Plus'
 	import Power from 'phosphor-svelte/lib/Power'
 	import { getFeedItems, toggleFeedItem, deleteFeedItem } from './data.remote'
+	import { formatDate } from '$lib/utils/date'
 
 	let feedItems = $derived(await getFeedItems())
-
-	function formatDate(dateString: string | null) {
-		if (!dateString) return 'Not set'
-		return new Date(dateString).toLocaleDateString()
-	}
 
 	function formatPosition(item: { position_type: string; position_fixed: number | null; position_range_min: number | null; position_range_max: number | null }) {
 		if (item.position_type === 'fixed') {

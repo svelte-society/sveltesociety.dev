@@ -11,13 +11,9 @@
 	import { getCampaigns, deleteCampaign } from './data.remote'
 	import { sendCampaign } from './[id]/data.remote'
 	import { copyCampaign } from './[id]/data.remote'
+	import { formatDate } from '$lib/utils/date'
 
 	const campaigns = $derived(await getCampaigns())
-
-	function formatDate(dateString: string | null) {
-		if (!dateString) return '-'
-		return new Date(dateString).toLocaleDateString()
-	}
 
 	function getStatusColor(status: string): 'info' | 'success' | 'warning' | 'danger' | 'default' {
 		switch (status) {
