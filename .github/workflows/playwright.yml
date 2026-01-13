@@ -172,3 +172,13 @@ jobs:
           name: test-results
           path: test-results/
           retention-days: 30
+
+      - name: Fail if tests failed
+        if: always()
+        run: |
+          FAILED="${{ steps.test-results.outputs.failed }}"
+          if [ "$FAILED" != "0" ] && [ -n "$FAILED" ]; then
+            echo "❌ $FAILED test(s) failed"
+            exit 1
+          fi
+          echo "✅ All tests passed"

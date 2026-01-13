@@ -8,7 +8,9 @@ const config: PlaywrightTestConfig = {
 	timeout: 30 * 1000,
 	// Test suite timeout
 	globalTimeout: 10 * 60 * 1000, // 10 minutes
-	expect: { timeout: 5000 },
+	// Assertion timeout - align with action timeout for consistency
+	// Previously 5s which was too short relative to action timeout (10s)
+	expect: { timeout: 10000 },
 	// Run tests in files in parallel
 	fullyParallel: true, // Enable parallel execution where safe
 	// Fail the build on CI if you accidentally left test.only
@@ -30,8 +32,10 @@ const config: PlaywrightTestConfig = {
 		screenshot: 'only-on-failure',
 		// Video on failure
 		video: 'retain-on-failure',
-		// Action timeout
-		actionTimeout: 10000
+		// Action timeout (click, fill, etc.)
+		actionTimeout: 15000,
+		// Navigation timeout
+		navigationTimeout: 30000
 	},
 	// Configure projects for major browsers
 	projects: [

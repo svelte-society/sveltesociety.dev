@@ -47,7 +47,8 @@ test.describe('Structured Data (Schema.org)', () => {
 	test('video detail page has VideoObject and Breadcrumb schemas', async ({ page }) => {
 		// Navigate directly to a known video detail page
 		await page.goto('/video/test-video-svelte-5-intro-content_video_001')
-		await page.waitForLoadState('networkidle')
+		// Wait for JSON-LD script to be present instead of unreliable networkidle
+		await page.locator('script[type="application/ld+json"]').first().waitFor({ state: 'attached' })
 
 		// Get all JSON-LD scripts
 		const jsonLdScripts = await page.locator('script[type="application/ld+json"]').all()
@@ -93,7 +94,8 @@ test.describe('Structured Data (Schema.org)', () => {
 	test('recipe detail page has TechArticle and Breadcrumb schemas', async ({ page }) => {
 		// Navigate directly to a known recipe detail page
 		await page.goto('/recipe/test-recipe-counter-component-content_recipe_001')
-		await page.waitForLoadState('networkidle')
+		// Wait for JSON-LD script to be present instead of unreliable networkidle
+		await page.locator('script[type="application/ld+json"]').first().waitFor({ state: 'attached' })
 
 		// Get all JSON-LD scripts
 		const jsonLdScripts = await page.locator('script[type="application/ld+json"]').all()
@@ -135,7 +137,8 @@ test.describe('Structured Data (Schema.org)', () => {
 	test('library detail page has SoftwareSourceCode and Breadcrumb schemas', async ({ page }) => {
 		// Navigate directly to a known library detail page
 		await page.goto('/library/test-library-testing-library-content_library_001')
-		await page.waitForLoadState('networkidle')
+		// Wait for JSON-LD script to be present instead of unreliable networkidle
+		await page.locator('script[type="application/ld+json"]').first().waitFor({ state: 'attached' })
 
 		// Get all JSON-LD scripts
 		const jsonLdScripts = await page.locator('script[type="application/ld+json"]').all()

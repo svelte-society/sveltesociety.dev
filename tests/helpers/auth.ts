@@ -32,6 +32,17 @@ export async function loginAs(page: Page, role: 'admin' | 'viewer'): Promise<voi
 			expires: -1
 		}
 	])
+
+	// Verify the cookie was set correctly to catch silent failures early
+	const cookies = await page.context().cookies('http://localhost:4173/')
+	const sessionCookie = cookies.find((c) => c.name === 'session_id')
+
+	if (!sessionCookie || sessionCookie.value !== user.sessionToken) {
+		throw new Error(
+			`Failed to set session cookie for ${role}. ` +
+				`Expected token: ${user.sessionToken}, got: ${sessionCookie?.value || 'none'}`
+		)
+	}
 }
 
 /**

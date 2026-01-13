@@ -1,10 +1,12 @@
 import { test, expect } from '@playwright/test'
 import { NewsletterSubscribePage, NewsletterConfirmPage } from '../../pages'
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
+import { setupPlunkMock } from '../../helpers/plunk-mock'
 
 test.describe('Newsletter Double Opt-In Flow', () => {
 	test.beforeEach(async ({ page }) => {
 		await setupDatabaseIsolation(page)
+		await setupPlunkMock(page)
 	})
 
 	test.describe('Subscription Form', () => {
@@ -29,19 +31,17 @@ test.describe('Newsletter Double Opt-In Flow', () => {
 			// Fill valid email
 			await subscribePage.emailInput.fill('test-loading@example.com')
 
-			// Click submit and race to check loading state
-			const submitPromise = subscribePage.submitButton.click()
+			// Click submit
+			await subscribePage.submitButton.click()
 
-			// Check for loading text or response (very quick)
-			await Promise.race([
-				expect(subscribePage.submitButton)
-					.toHaveText(/subscribing/i, { timeout: 500 })
-					.catch(() => {}),
-				subscribePage.successMessage.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {}),
-				subscribePage.errorMessage.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {})
-			])
-
-			await submitPromise
+			// Wait for final state (success or error) - this properly verifies the form submission completed
+			// The loading state is transient and checking for it is inherently flaky
+			await expect(async () => {
+				const isSuccess = await subscribePage.successMessage.isVisible().catch(() => false)
+				const isError = await subscribePage.errorMessage.isVisible().catch(() => false)
+				// Form should reach a final state (success or error)
+				expect(isSuccess || isError).toBeTruthy()
+			}).toPass({ timeout: 10000 })
 		})
 	})
 
@@ -114,8 +114,11 @@ test.describe('Newsletter Double Opt-In Flow', () => {
 		test('rejects invalid email format via HTML5 validation', async ({ page }) => {
 			const subscribePage = new NewsletterSubscribePage(page)
 			await subscribePage.goto()
+			await subscribePage.expectFormVisible()
 
+			await subscribePage.emailInput.click()
 			await subscribePage.emailInput.fill('invalid-email')
+			await expect(subscribePage.emailInput).toHaveValue('invalid-email')
 
 			const isValid = await subscribePage.emailInput.evaluate((el: HTMLInputElement) =>
 				el.checkValidity()

@@ -1,4 +1,5 @@
 import type { Locator } from '@playwright/test'
+import { expect } from '@playwright/test'
 import { BasePage } from './BasePage'
 
 /**
@@ -82,7 +83,11 @@ export class HomePage extends BasePage {
 	 * @param query - Search query string
 	 */
 	async search(query: string): Promise<void> {
-		await this.searchInput.fill(query)
+		// Wait for page content to be ready before searching
+		await expect(this.page.locator('[data-testid="content-card"]').first()).toBeVisible()
+		await this.searchInput.click()
+		await this.searchInput.pressSequentially(query, { delay: 50 })
+		await expect(this.searchInput).toHaveValue(query)
 		await this.searchInput.press('Enter')
 	}
 

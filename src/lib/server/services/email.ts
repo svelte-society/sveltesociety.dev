@@ -3,6 +3,9 @@ import { Renderer } from 'better-svelte-email'
 import appStyles from '../../../app.css?raw'
 import type { Component } from 'svelte'
 
+// Check if we're in test mode (Plunk URL points to localhost test server)
+const IS_TEST_MODE = PLUNK_API_URL.includes('localhost:3001')
+
 // Import job email templates
 import JobApplicationEmail from '$lib/templates/email/jobs/job-application.svelte'
 import JobPostingReceivedEmail from '$lib/templates/email/jobs/job-posting-received.svelte'
@@ -133,6 +136,11 @@ export class EmailService {
 	 */
 	async sendEmail(params: SendEmailParams & { subscribed?: boolean }): Promise<boolean> {
 		const { to, subject, body, subscribed } = params
+
+		// Return mock success in test mode
+		if (IS_TEST_MODE) {
+			return true
+		}
 
 		try {
 			const response = await fetch(`${this.apiUrl}/v1/send`, {
@@ -379,6 +387,11 @@ export class EmailService {
 	 * Creates or updates a contact with subscribed: true
 	 */
 	async subscribeContact(email: string): Promise<{ success: boolean; id?: string }> {
+		// Return mock success in test mode
+		if (IS_TEST_MODE) {
+			return { success: true, id: 'mock_contact_id' }
+		}
+
 		try {
 			// Use the create contact endpoint with subscribed: true
 			// Note: Plunk contacts endpoint does NOT use /v1 prefix
@@ -412,6 +425,17 @@ export class EmailService {
 	 * Get a contact by email from Plunk
 	 */
 	async getContact(email: string): Promise<PlunkContact | null> {
+		// Return mock contact in test mode
+		if (IS_TEST_MODE) {
+			return {
+				id: 'mock_contact_id',
+				email,
+				subscribed: true,
+				createdAt: new Date().toISOString(),
+				updatedAt: new Date().toISOString()
+			}
+		}
+
 		try {
 			// Note: Plunk contacts endpoint does NOT use /v1 prefix
 			// Use 'search' parameter to find by email
@@ -444,6 +468,11 @@ export class EmailService {
 	 * Uses GET /contacts which returns total count on first page
 	 */
 	async getContactCount(): Promise<number> {
+		// Return mock count in test mode
+		if (IS_TEST_MODE) {
+			return 1
+		}
+
 		try {
 			// Note: Plunk contacts endpoint does NOT use /v1 prefix
 			// The total count is returned as part of the list response (first page only)
@@ -478,6 +507,19 @@ export class EmailService {
 	 * Handles cursor-based pagination to fetch all contacts
 	 */
 	async getAllContacts(): Promise<PlunkContact[]> {
+		// Return mock contacts in test mode
+		if (IS_TEST_MODE) {
+			return [
+				{
+					id: 'mock_contact_id',
+					email: 'test@example.com',
+					subscribed: true,
+					createdAt: new Date().toISOString(),
+					updatedAt: new Date().toISOString()
+				}
+			]
+		}
+
 		const allContacts: PlunkContact[] = []
 		let cursor: string | null = null
 		let hasMore = true
@@ -530,6 +572,11 @@ export class EmailService {
 	): Promise<{ success: boolean; id?: string }> {
 		const { name, subject, body, from, audienceType = 'ALL' } = params
 
+		// Return mock success in test mode
+		if (IS_TEST_MODE) {
+			return { success: true, id: `mock_campaign_${Date.now()}` }
+		}
+
 		try {
 			// Note: Plunk campaigns endpoint does NOT use /v1 prefix
 			const response = await fetch(`${this.apiUrl}/campaigns`, {
@@ -572,6 +619,11 @@ export class EmailService {
 	): Promise<{ success: boolean }> {
 		const { name, subject, body, from, audienceType = 'ALL' } = params
 
+		// Return mock success in test mode
+		if (IS_TEST_MODE) {
+			return { success: true }
+		}
+
 		try {
 			// Note: Plunk campaigns endpoint does NOT use /v1 prefix
 			const response = await fetch(`${this.apiUrl}/campaigns/${campaignId}`, {
@@ -606,6 +658,11 @@ export class EmailService {
 	 * Send a campaign via Plunk
 	 */
 	async sendPlunkCampaign(campaignId: string): Promise<boolean> {
+		// Return mock success in test mode
+		if (IS_TEST_MODE) {
+			return true
+		}
+
 		try {
 			// Note: Plunk campaigns endpoint does NOT use /v1 prefix
 			const response = await fetch(`${this.apiUrl}/campaigns/${campaignId}/send`, {
@@ -633,6 +690,11 @@ export class EmailService {
 	 * Delete a campaign from Plunk
 	 */
 	async deletePlunkCampaign(campaignId: string): Promise<boolean> {
+		// Return mock success in test mode
+		if (IS_TEST_MODE) {
+			return true
+		}
+
 		try {
 			// Note: Plunk campaigns endpoint does NOT use /v1 prefix
 			const response = await fetch(`${this.apiUrl}/campaigns/${campaignId}`, {

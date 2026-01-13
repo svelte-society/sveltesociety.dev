@@ -38,6 +38,9 @@ test.describe('Content Interactions (Like/Save)', () => {
 	})
 
 	test.describe('Authenticated Users - Like Functionality', () => {
+		// Run serially - these tests modify like state on the same content
+		test.describe.configure({ mode: 'serial' })
+
 		test('can like content', async ({ page }) => {
 			await loginAs(page, 'viewer')
 			const detailPage = new ContentDetailPage(page)
@@ -82,15 +85,16 @@ test.describe('Content Interactions (Like/Save)', () => {
 			// Wait for button to be enabled
 			await expect(detailPage.likeButton).toBeEnabled()
 
-			// First, like the content
-			await detailPage.like()
+			// Check initial state - ensure content is liked before we unlike it
+			const initiallyLiked = await detailPage.isLiked()
+			if (!initiallyLiked) {
+				// If not already liked, like it first
+				await detailPage.like()
+				await expect(detailPage.likeButton).toHaveAttribute('title', 'Remove like')
+			}
 
-			// Wait for title to change to "Remove like"
-			await expect(detailPage.likeButton).toHaveAttribute('title', 'Remove like')
-
-			const likeCountAfterLike = await detailPage.getLikeCount()
-			const likedState = await detailPage.isLiked()
-			expect(likedState).toBe(true)
+			const likeCountBeforeUnlike = await detailPage.getLikeCount()
+			expect(await detailPage.isLiked()).toBe(true)
 
 			// Now unlike it
 			await detailPage.like()
@@ -100,7 +104,7 @@ test.describe('Content Interactions (Like/Save)', () => {
 
 			// Verify like count decreased by 1
 			const finalLikeCount = await detailPage.getLikeCount()
-			expect(finalLikeCount).toBe(likeCountAfterLike - 1)
+			expect(finalLikeCount).toBe(likeCountBeforeUnlike - 1)
 
 			// Verify button state changed
 			const finalLikedState = await detailPage.isLiked()
@@ -120,6 +124,9 @@ test.describe('Content Interactions (Like/Save)', () => {
 	})
 
 	test.describe('Authenticated Users - Save Functionality', () => {
+		// Run serially - these tests modify save state on the same content
+		test.describe.configure({ mode: 'serial' })
+
 		test('can save content', async ({ page }) => {
 			await loginAs(page, 'viewer')
 			const detailPage = new ContentDetailPage(page)
