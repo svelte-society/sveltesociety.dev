@@ -9,7 +9,7 @@
 	}
 
 	type Props = {
-		options: Option[]
+		options: readonly Option[]
 		value?: string | number
 		onchange?: (value: string) => void
 		'data-testid'?: string

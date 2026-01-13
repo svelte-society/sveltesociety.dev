@@ -1,5 +1,11 @@
 import { getRequestEvent, query } from '$app/server'
 import type { Item } from './FilterSubmenu.svelte'
+import { getTagsAsSlugOptions } from '$lib/remote/tags.remote'
+import { remoteOptions, positionTypes, seniorityLevels } from '$lib/constants/job-options'
+
+// Re-export for external consumers, alias for internal use
+export { getTagsAsSlugOptions as getTags } from '$lib/remote/tags.remote'
+const getTags = getTagsAsSlugOptions
 
 type FilterItem = {
 	type: 'Category' | 'Tag' | 'Author' | 'Search' | 'Job'
@@ -26,27 +32,10 @@ const contentTypes: Item[] = [
 	{ label: 'Job', value: 'job' }
 ]
 
-// Job filter options
-const jobLocations: Item[] = [
-	{ label: 'Remote', value: 'remote' },
-	{ label: 'Hybrid', value: 'hybrid' },
-	{ label: 'On-Site', value: 'on-site' }
-]
-
-const jobPositionTypes: Item[] = [
-	{ label: 'Full-Time', value: 'full-time' },
-	{ label: 'Part-Time', value: 'part-time' },
-	{ label: 'Contract', value: 'contract' },
-	{ label: 'Internship', value: 'internship' }
-]
-
-const jobLevels: Item[] = [
-	{ label: 'Entry Level', value: 'entry' },
-	{ label: 'Junior', value: 'junior' },
-	{ label: 'Mid-Level', value: 'mid' },
-	{ label: 'Senior', value: 'senior' },
-	{ label: 'Principal/Staff', value: 'principal' }
-]
+// Job filter options - imported from centralized constants (readonly arrays)
+const jobLocations = remoteOptions
+const jobPositionTypes = positionTypes
+const jobLevels = seniorityLevels
 
 export const getCategories = query(() => {
 	return contentTypes
@@ -64,15 +53,6 @@ export const getJobLevels = query(() => {
 	return jobLevels
 })
 
-export const getTags = query(() => {
-	const { locals } = getRequestEvent()
-	const tags = locals.tagService.getAllTags()
-	return tags.map((tag) => ({
-		label: tag.name,
-		value: tag.slug
-	}))
-})
-
 export const getAuthors = query(() => {
 	const { locals } = getRequestEvent()
 	const authors = locals.userService.getAuthorsWithContent()
@@ -88,12 +68,16 @@ export const getAuthors = query(() => {
 export const getActiveFilters = query('unchecked', async (searchParams: URLSearchParams) => {
 	const filters: FilterItem[] = []
 
-	const categories = new Map((await getCategories()).map((c) => [c.value, c.label]))
-	const authors = new Map((await getAuthors()).map((c) => [c.value, c.label]))
-	const tags = new Map((await getTags()).map((c) => [c.value, c.label]))
-	const locations = new Map((await getJobLocations()).map((c) => [c.value, c.label]))
-	const positions = new Map((await getJobPositionTypes()).map((c) => [c.value, c.label]))
-	const levels = new Map((await getJobLevels()).map((c) => [c.value, c.label]))
+	const categories = new Map<string, string>((await getCategories()).map((c) => [c.value, c.label]))
+	const authors = new Map<string, string>((await getAuthors()).map((c) => [c.value, c.label]))
+	const tags = new Map<string, string>((await getTags()).map((c) => [c.value, c.label]))
+	const locations = new Map<string, string>(
+		(await getJobLocations()).map((c) => [c.value, c.label])
+	)
+	const positions = new Map<string, string>(
+		(await getJobPositionTypes()).map((c) => [c.value, c.label])
+	)
+	const levels = new Map<string, string>((await getJobLevels()).map((c) => [c.value, c.label]))
 
 	const activeTypes = searchParams.getAll('type')
 	for (const value of activeTypes) {

@@ -24,3 +24,14 @@ export const currencyOptions = [
 	{ value: 'EUR', label: 'EUR (€)' },
 	{ value: 'GBP', label: 'GBP (£)' }
 ] as const
+
+// Helper to create label -> value lookup maps
+type Option = { value: string; label: string }
+function toLabelValueMap<T extends readonly Option[]>(options: T): Record<string, string> {
+	return Object.fromEntries(options.map((o) => [o.label, o.value]))
+}
+
+// Label -> value mappings for search/filter redirects
+export const positionTypeLabelMap = toLabelValueMap(positionTypes)
+export const seniorityLevelLabelMap = toLabelValueMap(seniorityLevels)
+export const remoteOptionsLabelMap = toLabelValueMap(remoteOptions)
