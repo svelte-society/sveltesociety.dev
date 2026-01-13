@@ -4,6 +4,7 @@
 	import { buildToggleHref, isValueActive } from '../filter/url-helpers'
 	import type { ContentWithAuthor, JobMetadata } from '$lib/types/content'
 	import type { CardVariant } from '../contentCard.variants'
+	import { formatSalary } from '$lib/utils/job-formatters'
 
 	interface Props {
 		content: ContentWithAuthor
@@ -25,19 +26,6 @@
 	const isPositionActive = $derived(isValueActive(page.url, 'position', metadata?.position_type))
 	const isLevelActive = $derived(isValueActive(page.url, 'level', metadata?.seniority_level))
 	const isRemoteActive = $derived(isValueActive(page.url, 'remote', metadata?.remote_status))
-
-	const formatSalary = (min?: number | null, max?: number | null, currency = 'USD') => {
-		if (!min && !max) return null
-		const formatter = new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency,
-			maximumFractionDigits: 0
-		})
-		if (min && max) return `${formatter.format(min)} - ${formatter.format(max)}`
-		if (min) return `From ${formatter.format(min)}`
-		if (max) return `Up to ${formatter.format(max)}`
-		return null
-	}
 
 	const formatPositionType = (type: string) => {
 		return type

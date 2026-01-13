@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state'
 	import { formatRelativeDate } from '$lib/utils/date'
+	import { formatSalary } from '$lib/utils/job-formatters'
 	import ArrowLeft from 'phosphor-svelte/lib/ArrowLeft'
 	import MapPin from 'phosphor-svelte/lib/MapPin'
 	import Buildings from 'phosphor-svelte/lib/Buildings'
@@ -16,19 +17,6 @@
 
 	const { jobId, message } = applyToJob.fields
 	const isAdmin = page.data.isAdmin
-
-	const formatSalary = (min?: number | null, max?: number | null, currency = 'USD') => {
-		if (!min && !max) return null
-		const formatter = new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency,
-			maximumFractionDigits: 0
-		})
-		if (min && max) return `${formatter.format(min)} - ${formatter.format(max)}`
-		if (min) return `From ${formatter.format(min)}`
-		if (max) return `Up to ${formatter.format(max)}`
-		return null
-	}
 
 	const formatPositionType = (type: string) => {
 		return type

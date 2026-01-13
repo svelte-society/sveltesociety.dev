@@ -3,6 +3,7 @@ import { error, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../authorization.remote'
 import { uploadImageFile } from '$lib/server/services/s3-storage'
+import { generateSlug } from '$lib/utils/slug'
 
 // Helper to transform comma-separated array values from form submission
 // When using hidden inputs with array values, they may serialize as "a,b,c" instead of ["a","b","c"]
@@ -178,19 +179,6 @@ const optionalFile = z
 		{ message: 'Must be a valid image file' }
 	)
 	.optional()
-
-/**
- * Generate a slug from a title
- */
-function generateSlug(title: string): string {
-	return title
-		.toLowerCase()
-		.replace(/[^a-z0-9\s-]/g, '')
-		.replace(/\s+/g, '-')
-		.replace(/-+/g, '-')
-		.replace(/^-|-$/g, '')
-		.slice(0, 50)
-}
 
 // Job-specific update schema
 const adminUpdateJobSchema = z.object({

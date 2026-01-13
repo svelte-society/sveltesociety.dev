@@ -5,6 +5,7 @@
 	import Buildings from 'phosphor-svelte/lib/Buildings'
 	import Star from 'phosphor-svelte/lib/Star'
 	import type { ContentWithAuthor, JobMetadata } from '$lib/types/content'
+	import { formatSalary } from '$lib/utils/job-formatters'
 
 	interface Props {
 		job: ContentWithAuthor
@@ -15,19 +16,6 @@
 
 	// Reactive metadata derived from job
 	const metadata = $derived(job.metadata as JobMetadata)
-
-	const formatSalary = (min?: number | null, max?: number | null, currency = 'USD') => {
-		if (!min && !max) return null
-		const formatter = new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency,
-			maximumFractionDigits: 0
-		})
-		if (min && max) return `${formatter.format(min)} - ${formatter.format(max)}`
-		if (min) return `From ${formatter.format(min)}`
-		if (max) return `Up to ${formatter.format(max)}`
-		return null
-	}
 
 	const formatPositionType = (type: string) => {
 		return type.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join('-')
