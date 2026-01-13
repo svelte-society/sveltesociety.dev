@@ -19,7 +19,8 @@ export function formatLongDate(date: string | null, fallback = 'Unknown date'): 
 }
 
 /**
- * @deprecated Use formatLongDate instead
+ * Format a date string with long month name ("January 13, 2026")
+ * Alias for formatLongDate with 'Unknown date' as default fallback
  */
 export function formatRelativeDate(date: string | null): string {
 	return formatLongDate(date, 'Unknown date')
