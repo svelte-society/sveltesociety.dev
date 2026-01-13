@@ -10,6 +10,9 @@ import {
 } from '$lib/seo'
 import type { ContentWithAuthor } from '$lib/types/content'
 
+// Re-export shared getTags (returns raw tag objects)
+export { getTagsRaw as getTags } from '$lib/remote/tags.remote'
+
 // Input schemas for query functions
 const homeDataInputSchema = z.object({
 	url: z.instanceof(URL)
@@ -18,11 +21,6 @@ const homeDataInputSchema = z.object({
 const categoryDataInputSchema = z.object({
 	url: z.instanceof(URL),
 	type: z.string()
-})
-
-export const getTags = query(() => {
-	const { locals } = getRequestEvent()
-	return locals.tagService.getAllTags()
 })
 
 // ============================================================================
