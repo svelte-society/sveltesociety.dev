@@ -1,4 +1,5 @@
 import type { Page, Locator } from '@playwright/test'
+import { expect } from '@playwright/test'
 import { BasePage } from './BasePage'
 
 export class ShortcutsPage extends BasePage {
@@ -104,10 +105,12 @@ export class ShortcutsPage extends BasePage {
 
 	async expectListPage(): Promise<void> {
 		await this.page.waitForURL('/admin/shortcuts')
-		// Wait for either the table or empty state to be visible
-		await Promise.race([
-			this.shortcutsTable.waitFor({ state: 'visible' }),
-			this.noShortcutsMessage.waitFor({ state: 'visible' })
-		])
+		// Wait for either the table or empty state to be visible using polling
+		// This is more reliable than Promise.race as it properly verifies the state
+		await expect(async () => {
+			const tableVisible = await this.shortcutsTable.isVisible()
+			const emptyVisible = await this.noShortcutsMessage.isVisible()
+			expect(tableVisible || emptyVisible).toBeTruthy()
+		}).toPass({ timeout: 10000 })
 	}
 }

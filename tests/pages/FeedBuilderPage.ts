@@ -1,4 +1,5 @@
 import type { Page, Locator } from '@playwright/test'
+import { expect } from '@playwright/test'
 import { BasePage } from './BasePage'
 
 export class FeedBuilderPage extends BasePage {
@@ -145,11 +146,13 @@ export class FeedBuilderPage extends BasePage {
 
 	async expectListPage(): Promise<void> {
 		await this.page.waitForURL('/admin/feed-builder')
-		// Wait for either the table or empty state to be visible
-		await Promise.race([
-			this.feedItemsTable.waitFor({ state: 'visible' }),
-			this.noFeedItemsMessage.waitFor({ state: 'visible' })
-		])
+		// Wait for either the table or empty state to be visible using polling
+		// This is more reliable than Promise.race as it properly verifies the state
+		await expect(async () => {
+			const tableVisible = await this.feedItemsTable.isVisible()
+			const emptyVisible = await this.noFeedItemsMessage.isVisible()
+			expect(tableVisible || emptyVisible).toBeTruthy()
+		}).toPass({ timeout: 10000 })
 	}
 
 	async fillCustomCTAForm(data: {

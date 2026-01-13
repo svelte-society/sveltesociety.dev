@@ -46,8 +46,11 @@ test.describe('Admin Content Management', () => {
 		await dashboardPage.expectContentManagementHeading()
 
 		const links = page.getByTestId('content-edit-link')
-		await links.first().waitFor({ state: 'visible' })
-		await links.nth(1).click()
+		// Store specific locator reference - wait for first to ensure list is loaded, then click second
+		const firstLink = links.first()
+		const secondLink = links.nth(1)
+		await firstLink.waitFor({ state: 'visible' })
+		await secondLink.click()
 		await editPage.expectEditPageLoaded()
 
 		const newDescription = `Updated description - ${Date.now()}`
@@ -76,7 +79,7 @@ test.describe('Admin Content Management', () => {
 
 		// Wait for form to settle after invalidateAll refresh
 		const statusSelect = page.getByTestId('select-status')
-		await expect(statusSelect).toHaveValue('archived', { timeout: 10000 })
+		await expect(statusSelect).toHaveValue('archived')
 	})
 
 	test('admin can unarchive content', async ({ page }) => {
@@ -113,8 +116,11 @@ test.describe('Admin Content Management', () => {
 		await dashboardPage.expectContentManagementHeading()
 
 		const links = page.getByTestId('content-edit-link')
-		await links.first().waitFor({ state: 'visible' })
-		await links.nth(1).click()
+		// Store specific locator reference - wait for first to ensure list is loaded, then click second
+		const firstLink = links.first()
+		const secondLink = links.nth(1)
+		await firstLink.waitFor({ state: 'visible' })
+		await secondLink.click()
 		await editPage.expectEditPageLoaded()
 
 		const statusSelect = page.getByTestId('select-status')
@@ -124,13 +130,13 @@ test.describe('Admin Content Management', () => {
 			await editPage.changeStatus('draft')
 			await editPage.submit()
 			// Wait for status to change to draft before proceeding
-			await expect(statusSelect).toHaveValue('draft', { timeout: 10000 })
+			await expect(statusSelect).toHaveValue('draft')
 		}
 
 		await editPage.publishContent()
 
 		// Verify the status changed to published (primary success indicator)
-		await expect(statusSelect).toHaveValue('published', { timeout: 10000 })
+		await expect(statusSelect).toHaveValue('published')
 	})
 
 	test('admin can delete content from list page', async ({ page }) => {
@@ -149,9 +155,10 @@ test.describe('Admin Content Management', () => {
 		const initialCount = await page.getByTestId('content-title-text').count()
 
 		// Find and click the delete button for the first item (trash icon in Actions component)
-		const deleteButtons = page.getByRole('button', { name: /delete/i })
-		await deleteButtons.first().waitFor({ state: 'visible' })
-		await deleteButtons.first().click()
+		// Store locator reference once to avoid race condition from DOM changes
+		const firstDeleteButton = page.getByRole('button', { name: /delete/i }).first()
+		await firstDeleteButton.waitFor({ state: 'visible' })
+		await firstDeleteButton.click()
 
 		// Wait for confirmation dialog to appear
 		const confirmDialog = page.getByRole('heading', { name: /are you sure/i })
@@ -162,14 +169,15 @@ test.describe('Admin Content Management', () => {
 		await expect(confirmButton).toBeVisible()
 		await confirmButton.click()
 
-		// Wait for the page to reload after deletion
-		await page.waitForLoadState('networkidle')
-
-		// Verify the content no longer appears in the list
+		// Wait for the list to update after deletion using polling instead of unreliable networkidle
 		const allContentTitles = page.getByTestId('content-title-text')
-		const newCount = await allContentTitles.count()
+		await expect(async () => {
+			const newCount = await allContentTitles.count()
+			expect(newCount).toBe(initialCount - 1)
+		}).toPass({ timeout: 10000 })
 
-		// Count should be reduced by 1
+		// Verify count is now reduced
+		const newCount = await allContentTitles.count()
 		expect(newCount).toBe(initialCount - 1)
 
 		// Check that the deleted content is not in the list
@@ -269,8 +277,9 @@ test.describe('Admin Content Management', () => {
 		await refreshButton.waitFor({ state: 'visible' })
 		await refreshButton.click()
 
-		// Wait for the action to complete and check for success toast or no error
-		await page.waitForLoadState('networkidle')
+		// Wait for the action to complete - button should still be visible after refresh
+		// Using domcontentloaded is more reliable than networkidle for form actions
+		await page.waitForLoadState('domcontentloaded')
 
 		// The page should still be on content management (no error redirect)
 		await expect(page).toHaveURL(/\/admin\/content/)

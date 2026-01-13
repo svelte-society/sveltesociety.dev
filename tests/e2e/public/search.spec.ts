@@ -119,8 +119,16 @@ test.describe('OmniSearch Suggestions', () => {
 		const searchInput = page.getByTestId('omni-search-input')
 		await searchInput.fill('svelte')
 
-		// Wait a moment for suggestions to potentially appear
-		await page.waitForTimeout(300)
+		// Wait for suggestions to load - use proper state verification instead of hard-coded timeout
+		const tagSuggestions = page.locator('a:has-text("in Tags")')
+		const noResultsMessage = page.getByText('No matching filters found')
+
+		await expect(async () => {
+			const suggestionCount = await tagSuggestions.count()
+			const hasNoResults = await noResultsMessage.isVisible().catch(() => false)
+			// Either we have suggestions loaded or we see the "no results" state
+			expect(suggestionCount > 0 || hasNoResults).toBeTruthy()
+		}).toPass({ timeout: 5000 })
 
 		// The exact "svelte" tag should not appear in suggestions since it's already active
 		// But "sveltekit" should still appear
@@ -129,12 +137,9 @@ test.describe('OmniSearch Suggestions', () => {
 			.filter({ hasText: 'sveltekit' })
 			.filter({ hasText: 'in Tags' })
 
-		// Either no suggestions at all (if svelte was the only match) or sveltekit is available
-		const suggestionCount = await page.locator('a:has-text("in Tags")').count()
-
-		// If there are tag suggestions, verify svelte is not among them as an exact match
+		// If there are tag suggestions, verify sveltekit is available (svelte is excluded)
+		const suggestionCount = await tagSuggestions.count()
 		if (suggestionCount > 0) {
-			// Check that we have sveltekit but the first tag is not exactly "svelte"
 			await expect(svelteKitSuggestion).toBeVisible()
 		}
 	})

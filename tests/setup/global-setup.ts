@@ -46,9 +46,13 @@ export default async function globalSetup() {
 
 		const isolatedDbPath = `test-${identifier}.db`
 
-		// Remove existing isolated database if it exists
-		if (fs.existsSync(isolatedDbPath)) {
-			fs.unlinkSync(isolatedDbPath)
+		// Remove existing isolated database and its WAL/SHM files if they exist
+		// SQLite WAL mode creates .db-wal and .db-shm files that can cause issues
+		for (const ext of ['', '-wal', '-shm']) {
+			const filePath = `${isolatedDbPath}${ext}`
+			if (fs.existsSync(filePath)) {
+				fs.unlinkSync(filePath)
+			}
 		}
 
 		// Copy the base test database

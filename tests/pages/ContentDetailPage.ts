@@ -1,4 +1,4 @@
-import { type Locator, type Page } from '@playwright/test'
+import { type Locator, type Page, expect } from '@playwright/test'
 import { BasePage } from './BasePage'
 
 /**
@@ -115,31 +115,19 @@ export class ContentDetailPage extends BasePage {
 	async likeAndWait() {
 		const wasLiked = await this.isLiked()
 		await this.likeButton.click()
-		// Wait for title to change
+		// Wait for title attribute to change using Playwright's built-in assertion
+		// This is more reliable than waitForFunction with raw DOM selectors
 		const expectedTitle = wasLiked ? 'Like' : 'Remove like'
-		await this.page.waitForFunction(
-			({ selector, expected }) => {
-				const button = document.querySelector(selector) as HTMLButtonElement
-				return button?.getAttribute('title') === expected
-			},
-			{ selector: 'button[aria-label^="Like"]', expected: expectedTitle },
-			{ timeout: 5000 }
-		)
+		await expect(this.likeButton).toHaveAttribute('title', expectedTitle, { timeout: 5000 })
 	}
 
 	async saveAndWait() {
 		const wasSaved = await this.isSaved()
 		await this.saveButton.click()
-		// Wait for title to change
+		// Wait for title attribute to change using Playwright's built-in assertion
+		// This is more reliable than waitForFunction with raw DOM selectors
 		const expectedTitle = wasSaved ? 'Save' : 'Unsave'
-		await this.page.waitForFunction(
-			({ selector, expected }) => {
-				const button = document.querySelector(selector) as HTMLButtonElement
-				return button?.getAttribute('title') === expected
-			},
-			{ selector: 'button[aria-label^="Save"]', expected: expectedTitle },
-			{ timeout: 5000 }
-		)
+		await expect(this.saveButton).toHaveAttribute('title', expectedTitle, { timeout: 5000 })
 	}
 
 	async hasEditLink() {

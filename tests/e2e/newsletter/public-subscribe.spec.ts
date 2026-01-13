@@ -74,20 +74,17 @@ test.describe('Newsletter Subscribe Form', () => {
 		// Fill valid email
 		await subscribePage.emailInput.fill('test@example.com')
 
-		// Click submit and check for loading state
-		const submitPromise = subscribePage.submitButton.click()
+		// Click submit
+		await subscribePage.submitButton.click()
 
-		// Should show loading text (this happens very quickly)
-		// We check that the button has either loading text or success state appeared
-		await Promise.race([
-			expect(subscribePage.submitButton)
-				.toHaveText(/subscribing/i, { timeout: 500 })
-				.catch(() => {}),
-			subscribePage.successMessage.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {}),
-			subscribePage.errorMessage.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {})
-		])
-
-		await submitPromise
+		// Wait for final state (success or error) - this properly verifies the form submission completed
+		// The loading state is transient and checking for it is inherently flaky
+		await expect(async () => {
+			const isSuccess = await subscribePage.successMessage.isVisible().catch(() => false)
+			const isError = await subscribePage.errorMessage.isVisible().catch(() => false)
+			// Form should reach a final state (success or error)
+			expect(isSuccess || isError).toBeTruthy()
+		}).toPass({ timeout: 10000 })
 	})
 
 	test('clears email input after successful subscription', async ({ page }) => {

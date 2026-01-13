@@ -49,8 +49,10 @@ test.describe.serial('Admin - Sidebar Shortcuts', () => {
 		await shortcutsPage.contentSelect.click()
 		await shortcutsPage.contentSelect.pressSequentially('Test')
 		// Wait for options to appear (300ms debounce + API call)
-		await page.getByRole('option').first().waitFor({ state: 'visible', timeout: 5000 })
-		await page.getByRole('option').first().click()
+		// Store locator reference once to avoid race condition from DOM changes
+		const firstOption = page.getByRole('option').first()
+		await firstOption.waitFor({ state: 'visible', timeout: 5000 })
+		await firstOption.click()
 
 		await shortcutsPage.setPriority(10)
 
@@ -71,8 +73,10 @@ test.describe.serial('Admin - Sidebar Shortcuts', () => {
 		await shortcutsPage.gotoNew()
 		await shortcutsPage.contentSelect.click()
 		await shortcutsPage.contentSelect.pressSequentially('Test')
-		await page.getByRole('option').first().waitFor({ state: 'visible', timeout: 5000 })
-		await page.getByRole('option').first().click()
+		// Store locator reference once to avoid race condition from DOM changes
+		const firstOption = page.getByRole('option').first()
+		await firstOption.waitFor({ state: 'visible', timeout: 5000 })
+		await firstOption.click()
 		await shortcutsPage.submitForm()
 		await shortcutsPage.expectListPage()
 
@@ -100,8 +104,10 @@ test.describe.serial('Admin - Sidebar Shortcuts', () => {
 		await shortcutsPage.gotoNew()
 		await shortcutsPage.contentSelect.click()
 		await shortcutsPage.contentSelect.pressSequentially('Test')
-		await page.getByRole('option').first().waitFor({ state: 'visible', timeout: 5000 })
-		await page.getByRole('option').first().click()
+		// Store locator reference once to avoid race condition from DOM changes
+		const firstOption = page.getByRole('option').first()
+		await firstOption.waitFor({ state: 'visible', timeout: 5000 })
+		await firstOption.click()
 		await shortcutsPage.submitForm()
 		await shortcutsPage.expectListPage()
 
