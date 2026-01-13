@@ -11,6 +11,7 @@
 	import { flip } from 'svelte/animate'
 	import type { Component } from 'svelte'
 	import type { RemoteFormField } from '@sveltejs/kit'
+	import Field from './Field.svelte'
 	import {
 		dynamicSelectorInputVariants,
 		dynamicSelectorDropdownVariants,
@@ -152,132 +153,123 @@
 	</datalist>
 {/if}
 
-<div class="space-y-2 rounded-md border-2 border-slate-200 p-4">
-	<div class="flex flex-col gap-2">
-		<label class="text-xs font-medium outline-none">
-			{label}
-			<div class="relative mt-2">
-				<Icon class="absolute left-2 top-1/2 size-4 -translate-y-1/2 text-slate-500" />
-				<input
-					bind:this={inputElement}
-					data-testid={testId}
-					type="text"
-					list={browser ? undefined : `${name}-options`}
-					autocomplete={browser ? 'off' : 'on'}
-					oninput={(e) => {
-						searchValue = e.currentTarget.value
-						open = true
-						selectedIndex = -1
-					}}
-					onfocus={() => (open = true)}
-					onblur={handleBlur}
-					onkeydown={handleKeydown}
-					placeholder={placeholder || `Select ${name}`}
-					value={searchValue}
-					class={dynamicSelectorInputVariants({ error: hasErrors })}
-				/>
-				<button
-					type="button"
-					class="absolute end-2 top-1/2 -translate-y-1/2 text-slate-500"
-					onclick={() => {
-						open = !open
-						inputElement?.focus()
-					}}
-					tabindex={-1}
-				>
-					<CaretUpDown class="size-4" />
-				</button>
-
-				<!-- Custom dropdown for JS -->
-				{#if browser && open}
-					<ul role="listbox" class={dynamicSelectorDropdownVariants()}>
-						{#if filteredOptions.length > 0}
-							{#each filteredOptions as option, i (option.value)}
-								<li
-									role="option"
-									aria-selected={i === selectedIndex}
-									class={dynamicSelectorOptionVariants({ highlighted: i === selectedIndex })}
-									onmousedown={() => handleSelect(option.value)}
-									onmouseenter={() => (selectedIndex = i)}
-								>
-									{#if option.avatar}
-										<img src={option.avatar} alt="" class="h-6 w-6 rounded-full object-cover" />
-									{:else}
-										<div
-											class="flex h-6 w-6 items-center justify-center rounded-full bg-slate-300 text-xs font-medium text-slate-700"
-										>
-											{option.label.charAt(0).toUpperCase()}
-										</div>
-									{/if}
-									<span class="flex-1">{option.label}</span>
-								</li>
-							{/each}
-						{:else}
-							<li class="px-3 py-2 text-sm text-slate-500">No results found</li>
-						{/if}
-					</ul>
-				{/if}
-			</div>
-		</label>
-		{#if hasErrors}
-			{#each issues as issue, i (i)}
-				<div class="text-xs text-red-600">{issue.message}</div>
-			{/each}
-		{:else if description}
-			<div class="text-xs text-slate-500">{description}</div>
-		{/if}
-	</div>
-
-	<ul class="space-y-2 rounded-md bg-slate-100 p-4">
-		{#each field.value() as item, index (item)}
-			{@const optionItem = options.find((c) => c.value === item)}
-			<li
-				class="relative"
-				animate:flip={{ duration: 200 }}
-				in:fade={{ duration: 150 }}
-				out:fade={{ duration: 150 }}
+<Field {label} {description} issues={issues} id={testId} labelStyle="for">
+	<div class="space-y-2 rounded-md border-2 border-slate-200 p-4">
+		<div class="relative">
+			<Icon class="absolute left-2 top-1/2 size-4 -translate-y-1/2 text-slate-500" />
+			<input
+				bind:this={inputElement}
+				id={testId}
+				data-testid={testId}
+				type="text"
+				list={browser ? undefined : `${name}-options`}
+				autocomplete={browser ? 'off' : 'on'}
+				oninput={(e) => {
+					searchValue = e.currentTarget.value
+					open = true
+					selectedIndex = -1
+				}}
+				onfocus={() => (open = true)}
+				onblur={handleBlur}
+				onkeydown={handleKeydown}
+				placeholder={placeholder || `Select ${name}`}
+				value={searchValue}
+				class={dynamicSelectorInputVariants({ error: hasErrors })}
+			/>
+			<button
+				type="button"
+				class="absolute end-2 top-1/2 -translate-y-1/2 text-slate-500"
+				onclick={() => {
+					open = !open
+					inputElement?.focus()
+				}}
+				tabindex={-1}
 			>
-				<div
-					class={dynamicSelectorItemVariants()}
-					use:draggable={{
-						container: index.toString(),
-						dragData: item
-					}}
-					use:droppable={{
-						container: index.toString(),
-						callbacks: { onDrop: handleDrop }
-					}}
-				>
-					<div class="flex items-center gap-2">
-						{#if optionItem?.avatar}
-							<img src={optionItem.avatar} alt="" class="h-6 w-6 rounded-full object-cover" />
-						{:else}
-							<div
-								class="flex h-6 w-6 items-center justify-center rounded-full bg-slate-300 text-xs font-medium text-slate-700"
+				<CaretUpDown class="size-4" />
+			</button>
+
+			<!-- Custom dropdown for JS -->
+			{#if browser && open}
+				<ul role="listbox" class={dynamicSelectorDropdownVariants()}>
+					{#if filteredOptions.length > 0}
+						{#each filteredOptions as option, i (option.value)}
+							<li
+								role="option"
+								aria-selected={i === selectedIndex}
+								class={dynamicSelectorOptionVariants({ highlighted: i === selectedIndex })}
+								onmousedown={() => handleSelect(option.value)}
+								onmouseenter={() => (selectedIndex = i)}
 							>
-								{optionItem?.label?.charAt(0).toUpperCase() || '?'}
-							</div>
-						{/if}
-						{optionItem?.label}
-					</div>
-					<DotsNine />
-				</div>
-				<button
-					type="button"
-					class="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
-					title="Remove {optionItem?.label}"
-					onclick={() => {
-						field.set(field.value().filter((i: string) => i !== item))
-					}}
+								{#if option.avatar}
+									<img src={option.avatar} alt="" class="h-6 w-6 rounded-full object-cover" />
+								{:else}
+									<div
+										class="flex h-6 w-6 items-center justify-center rounded-full bg-slate-300 text-xs font-medium text-slate-700"
+									>
+										{option.label.charAt(0).toUpperCase()}
+									</div>
+								{/if}
+								<span class="flex-1">{option.label}</span>
+							</li>
+						{/each}
+					{:else}
+						<li class="px-3 py-2 text-sm text-slate-500">No results found</li>
+					{/if}
+				</ul>
+			{/if}
+		</div>
+
+		<ul class="space-y-2 rounded-md bg-slate-100 p-4">
+			{#each field.value() as item, index (item)}
+				{@const optionItem = options.find((c) => c.value === item)}
+				<li
+					class="relative"
+					animate:flip={{ duration: 200 }}
+					in:fade={{ duration: 150 }}
+					out:fade={{ duration: 150 }}
 				>
-					<Trash class="text-red-600" />
-				</button>
-			</li>
-		{:else}
-			<p class="flex items-center gap-2 text-sm text-gray-500">
-				<Empty />
-				<span>No {name} selected</span>
-			</p>
-		{/each}
-	</ul>
-</div>
+					<div
+						class={dynamicSelectorItemVariants()}
+						use:draggable={{
+							container: index.toString(),
+							dragData: item
+						}}
+						use:droppable={{
+							container: index.toString(),
+							callbacks: { onDrop: handleDrop }
+						}}
+					>
+						<div class="flex items-center gap-2">
+							{#if optionItem?.avatar}
+								<img src={optionItem.avatar} alt="" class="h-6 w-6 rounded-full object-cover" />
+							{:else}
+								<div
+									class="flex h-6 w-6 items-center justify-center rounded-full bg-slate-300 text-xs font-medium text-slate-700"
+								>
+									{optionItem?.label?.charAt(0).toUpperCase() || '?'}
+								</div>
+							{/if}
+							{optionItem?.label}
+						</div>
+						<DotsNine />
+					</div>
+					<button
+						type="button"
+						class="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
+						title="Remove {optionItem?.label}"
+						onclick={() => {
+							field.set(field.value().filter((i: string) => i !== item))
+						}}
+					>
+						<Trash class="text-red-600" />
+					</button>
+				</li>
+			{:else}
+				<p class="flex items-center gap-2 text-sm text-gray-500">
+					<Empty />
+					<span>No {name} selected</span>
+				</p>
+			{/each}
+		</ul>
+	</div>
+</Field>
