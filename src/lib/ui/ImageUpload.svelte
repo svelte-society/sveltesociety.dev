@@ -2,7 +2,7 @@
 	import type { RemoteFormIssue } from '@sveltejs/kit'
 	import type { HTMLInputAttributes } from 'svelte/elements'
 	import Upload from 'phosphor-svelte/lib/Upload'
-	import FormFieldFeedback from './FormFieldFeedback.svelte'
+	import Field from './Field.svelte'
 	import X from 'phosphor-svelte/lib/X'
 	import Image from 'phosphor-svelte/lib/Image'
 	import { imageUploadDropzoneVariants, type ImageUploadState } from './imageUpload.variants'
@@ -105,11 +105,7 @@
 	}
 </script>
 
-<div class="flex flex-col gap-2">
-	{#if label}
-		<span class="text-xs font-medium">{label}</span>
-	{/if}
-
+<Field {label} {description} {issues} {error} labelStyle="text">
 	<input
 		bind:this={fileInput}
 		type="file"
@@ -155,6 +151,4 @@
 			{/if}
 		</button>
 	{/if}
-
-	<FormFieldFeedback {issues} {description} {error} />
-</div>
+</Field>

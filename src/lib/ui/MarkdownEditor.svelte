@@ -2,7 +2,7 @@
 	import type { HTMLTextareaAttributes } from 'svelte/elements'
 	import type { RemoteFormIssue } from '@sveltejs/kit'
 	import { onMount, tick } from 'svelte'
-	import FormFieldFeedback from './FormFieldFeedback.svelte'
+	import Field from './Field.svelte'
 
 	interface Props extends HTMLTextareaAttributes {
 		label?: string
@@ -66,13 +66,7 @@
 	})
 </script>
 
-<div class="flex flex-col gap-2">
-	{#if label}
-		<label class="text-xs font-medium" for={testId}>
-			{label}
-		</label>
-	{/if}
-
+<Field {label} {description} {issues} id={testId} labelStyle="for">
 	<!-- Textarea: visible fallback before JS loads, hidden after -->
 	<textarea
 		id={testId}
@@ -96,9 +90,7 @@
 			<Editor {carta} bind:value={content} mode="tabs" {placeholder} />
 		</div>
 	{/if}
-
-	<FormFieldFeedback {issues} {description} />
-</div>
+</Field>
 
 <style>
 	/* Match site's input styling */

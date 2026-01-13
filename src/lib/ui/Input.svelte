@@ -2,7 +2,7 @@
 	import type { RemoteFormIssue } from '@sveltejs/kit'
 	import type { HTMLInputAttributes } from 'svelte/elements'
 	import { inputVariants } from './input.variants'
-	import FormFieldFeedback from './FormFieldFeedback.svelte'
+	import Field from './Field.svelte'
 
 	type TextInputProps = {
 		label?: string
@@ -27,16 +27,12 @@
 	const hasErrors = $derived(issues && issues.length > 0)
 </script>
 
-<div class="flex flex-col gap-2">
-	<label class="text-xs font-medium outline-none">
-		{label}
-		<input
-			{type}
-			{...rest}
-			{placeholder}
-			class={[inputVariants({ error: hasErrors }), 'mt-2']}
-			data-testid={computedTestId}
-		/>
-	</label>
-	<FormFieldFeedback {issues} {description} />
-</div>
+<Field {label} {description} {issues}>
+	<input
+		{type}
+		{...rest}
+		{placeholder}
+		class={[inputVariants({ error: hasErrors }), 'mt-2']}
+		data-testid={computedTestId}
+	/>
+</Field>

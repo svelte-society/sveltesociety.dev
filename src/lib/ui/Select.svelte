@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { RemoteFormIssue } from '@sveltejs/kit'
 	import type { HTMLSelectAttributes } from 'svelte/elements'
-	import FormFieldFeedback from './FormFieldFeedback.svelte'
+	import Field from './Field.svelte'
 
 	export type Option = {
 		label: string
@@ -42,29 +42,15 @@
 	const hasErrors = $derived(issues && issues.length > 0)
 </script>
 
-{#if label}
-	<div class="flex flex-col gap-2">
-		<label class="text-xs font-medium outline-none">
-			{label}
-			<select bind:value onchange={handleChange} data-testid={computedTestId} class="mt-2" class:select-error={hasErrors} {...rest}>
-				{#each options as option}
-					<option value={option.value}>
-						{option.label}
-					</option>
-				{/each}
-			</select>
-		</label>
-		<FormFieldFeedback {issues} {description} />
-	</div>
-{:else}
-	<select bind:value onchange={handleChange} data-testid={computedTestId} {...rest}>
+<Field {label} {description} {issues}>
+	<select bind:value onchange={handleChange} data-testid={computedTestId} class:mt-2={label} class:select-error={hasErrors} {...rest}>
 		{#each options as option}
 			<option value={option.value}>
 				{option.label}
 			</option>
 		{/each}
 	</select>
-{/if}
+</Field>
 
 <style>
 	/* Base styles for all browsers (Safari fallback) */
