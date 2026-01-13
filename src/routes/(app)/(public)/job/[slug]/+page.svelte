@@ -1,7 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/state'
 	import { formatRelativeDate } from '$lib/utils/date'
-	import { formatSalary } from '$lib/utils/job-formatters'
+	import {
+		formatSalary,
+		formatPositionType,
+		formatSeniorityLevel,
+		formatRemoteStatus
+	} from '$lib/utils/job-formatters'
 	import ArrowLeft from 'phosphor-svelte/lib/ArrowLeft'
 	import MapPin from 'phosphor-svelte/lib/MapPin'
 	import Buildings from 'phosphor-svelte/lib/Buildings'
@@ -17,24 +22,6 @@
 
 	const { jobId, message } = applyToJob.fields
 	const isAdmin = page.data.isAdmin
-
-	const formatPositionType = (type: string) => {
-		return type
-			.split('-')
-			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-			.join('-')
-	}
-
-	const formatSeniorityLevel = (level: string) => {
-		return level.charAt(0).toUpperCase() + level.slice(1)
-	}
-
-	const formatRemoteStatus = (status: string) => {
-		return status
-			.split('-')
-			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-			.join('-')
-	}
 
 	const salary = $derived(
 		formatSalary(

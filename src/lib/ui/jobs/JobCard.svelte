@@ -5,7 +5,12 @@
 	import Buildings from 'phosphor-svelte/lib/Buildings'
 	import Star from 'phosphor-svelte/lib/Star'
 	import type { ContentWithAuthor, JobMetadata } from '$lib/types/content'
-	import { formatSalary } from '$lib/utils/job-formatters'
+	import {
+		formatSalary,
+		formatPositionType,
+		formatSeniorityLevel,
+		formatRemoteStatus
+	} from '$lib/utils/job-formatters'
 
 	interface Props {
 		job: ContentWithAuthor
@@ -16,18 +21,6 @@
 
 	// Reactive metadata derived from job
 	const metadata = $derived(job.metadata as JobMetadata)
-
-	const formatPositionType = (type: string) => {
-		return type.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join('-')
-	}
-
-	const formatSeniorityLevel = (level: string) => {
-		return level.charAt(0).toUpperCase() + level.slice(1)
-	}
-
-	const formatRemoteStatus = (status: string) => {
-		return status.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join('-')
-	}
 
 	const getTimeAgo = (dateString: string) => {
 		const date = new Date(dateString)

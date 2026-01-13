@@ -38,3 +38,30 @@ export function formatSalaryCompact(
 	if (max) return `Up to ${symbol}${fmt.format(max)}`
 	return null
 }
+
+/**
+ * Format position type (e.g., "full-time" -> "Full-Time")
+ */
+export function formatPositionType(type: string): string {
+	return type
+		.split('-')
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+		.join('-')
+}
+
+/**
+ * Format seniority level (e.g., "senior" -> "Senior")
+ */
+export function formatSeniorityLevel(level: string): string {
+	return level.charAt(0).toUpperCase() + level.slice(1)
+}
+
+/**
+ * Format remote status (e.g., "on-site" -> "On-Site")
+ */
+export function formatRemoteStatus(status: string): string {
+	return status
+		.split('-')
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+		.join('-')
+}
