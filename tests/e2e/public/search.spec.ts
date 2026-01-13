@@ -3,6 +3,10 @@ import { HomePage, ContentListPage } from '../../pages'
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 
 test.describe('OmniSearch Suggestions', () => {
+	// Run serially - these tests involve focus state and async suggestion loading
+	// that can conflict when running in parallel
+	test.describe.configure({ mode: 'serial' })
+
 	test.beforeEach(async ({ page }) => {
 		await setupDatabaseIsolation(page)
 	})
@@ -11,10 +15,15 @@ test.describe('OmniSearch Suggestions', () => {
 		const homePage = new HomePage(page)
 		await homePage.goto()
 
-		const searchInput = page.getByTestId('omni-search-input')
-		await searchInput.fill('svelte')
+		// Wait for page content to be ready (indicates async data has loaded)
+		await expect(page.locator('[data-testid="content-card"]').first()).toBeVisible()
 
-		// Wait for suggestions to appear
+		const searchInput = page.getByTestId('omni-search-input')
+		await searchInput.click()
+		await searchInput.pressSequentially('svelte', { delay: 50 })
+		await expect(searchInput).toHaveValue('svelte')
+
+		// Wait for suggestions to appear - suggestions load asynchronously
 		const suggestionLink = page.locator('a:has-text("in Tags")').first()
 		await expect(suggestionLink).toBeVisible()
 
@@ -26,8 +35,13 @@ test.describe('OmniSearch Suggestions', () => {
 		const homePage = new HomePage(page)
 		await homePage.goto()
 
+		// Wait for page content to be ready
+		await expect(page.locator('[data-testid="content-card"]').first()).toBeVisible()
+
 		const searchInput = page.getByTestId('omni-search-input')
-		await searchInput.fill('video')
+		await searchInput.click()
+		await searchInput.pressSequentially('video', { delay: 50 })
+		await expect(searchInput).toHaveValue('video')
 
 		// Wait for category suggestion
 		const categorySuggestion = page.locator('a:has-text("in Categories")').first()
@@ -38,8 +52,13 @@ test.describe('OmniSearch Suggestions', () => {
 		const homePage = new HomePage(page)
 		await homePage.goto()
 
+		// Wait for page content to be ready
+		await expect(page.locator('[data-testid="content-card"]').first()).toBeVisible()
+
 		const searchInput = page.getByTestId('omni-search-input')
-		await searchInput.fill('svelte')
+		await searchInput.click()
+		await searchInput.pressSequentially('svelte', { delay: 50 })
+		await expect(searchInput).toHaveValue('svelte')
 
 		// Click on a tag suggestion
 		const tagSuggestion = page.locator('a:has-text("in Tags")').first()
@@ -58,8 +77,13 @@ test.describe('OmniSearch Suggestions', () => {
 		const homePage = new HomePage(page)
 		await homePage.goto()
 
+		// Wait for page content to be ready
+		await expect(page.locator('[data-testid="content-card"]').first()).toBeVisible()
+
 		const searchInput = page.getByTestId('omni-search-input')
-		await searchInput.fill('svelte')
+		await searchInput.click()
+		await searchInput.pressSequentially('svelte', { delay: 50 })
+		await expect(searchInput).toHaveValue('svelte')
 
 		// Wait for suggestions
 		const suggestions = page.locator(
@@ -79,8 +103,13 @@ test.describe('OmniSearch Suggestions', () => {
 		const homePage = new HomePage(page)
 		await homePage.goto()
 
+		// Wait for page content to be ready
+		await expect(page.locator('[data-testid="content-card"]').first()).toBeVisible()
+
 		const searchInput = page.getByTestId('omni-search-input')
-		await searchInput.fill('svelte')
+		await searchInput.click()
+		await searchInput.pressSequentially('svelte', { delay: 50 })
+		await expect(searchInput).toHaveValue('svelte')
 
 		// Wait for suggestions
 		const suggestions = page.locator('a:has-text("in Tags"), a:has-text("in Categories")')
@@ -98,8 +127,13 @@ test.describe('OmniSearch Suggestions', () => {
 		const homePage = new HomePage(page)
 		await homePage.goto()
 
+		// Wait for page content to be ready
+		await expect(page.locator('[data-testid="content-card"]').first()).toBeVisible()
+
 		const searchInput = page.getByTestId('omni-search-input')
-		await searchInput.fill('svelte')
+		await searchInput.click()
+		await searchInput.pressSequentially('svelte', { delay: 50 })
+		await expect(searchInput).toHaveValue('svelte')
 
 		// Wait for suggestions
 		const suggestions = page.locator('a:has-text("in Tags")')
@@ -116,8 +150,13 @@ test.describe('OmniSearch Suggestions', () => {
 		// Navigate to homepage with an active tag filter
 		await page.goto('/?tags=svelte')
 
+		// Wait for page content to be ready
+		await expect(page.locator('[data-testid="content-card"]').first()).toBeVisible()
+
 		const searchInput = page.getByTestId('omni-search-input')
-		await searchInput.fill('svelte')
+		await searchInput.click()
+		await searchInput.pressSequentially('svelte', { delay: 50 })
+		await expect(searchInput).toHaveValue('svelte')
 
 		// Wait for suggestions to load - use proper state verification instead of hard-coded timeout
 		const tagSuggestions = page.locator('a:has-text("in Tags")')
@@ -148,10 +187,15 @@ test.describe('OmniSearch Suggestions', () => {
 		const homePage = new HomePage(page)
 		await homePage.goto()
 
+		// Wait for page content to be ready
+		await expect(page.locator('[data-testid="content-card"]').first()).toBeVisible()
+
 		const searchInput = page.getByTestId('omni-search-input')
+		await searchInput.click()
 
 		// Type a unique query that should match specific items
-		await searchInput.fill('testing')
+		await searchInput.pressSequentially('testing', { delay: 50 })
+		await expect(searchInput).toHaveValue('testing')
 
 		// Should show the testing tag
 		const testingSuggestion = page
@@ -173,8 +217,13 @@ test.describe('OmniSearch Suggestions', () => {
 		const homePage = new HomePage(page)
 		await homePage.goto()
 
+		// Wait for page content to be ready
+		await expect(page.locator('[data-testid="content-card"]').first()).toBeVisible()
+
 		const searchInput = page.getByTestId('omni-search-input')
-		await searchInput.fill('svelte')
+		await searchInput.click()
+		await searchInput.pressSequentially('svelte', { delay: 50 })
+		await expect(searchInput).toHaveValue('svelte')
 
 		// Wait for suggestions
 		const tagSuggestion = page.locator('a:has-text("in Tags")').first()
@@ -250,8 +299,14 @@ test.describe('Search Functionality', () => {
 		const contentList = new ContentListPage(page)
 		await contentList.goto('video')
 
-		await page.getByTestId('omni-search-input').fill('Svelte')
-		await page.getByTestId('omni-search-input').press('Enter')
+		// Wait for page content to be ready
+		await expect(page.locator('[data-testid="content-card"]').first()).toBeVisible()
+
+		const searchInput = page.getByTestId('omni-search-input')
+		await searchInput.click()
+		await searchInput.pressSequentially('Svelte', { delay: 50 })
+		await expect(searchInput).toHaveValue('Svelte')
+		await searchInput.press('Enter')
 
 		// Search from category page redirects to homepage with type preserved as query param
 		await expect(page).toHaveURL(/type=video/)
