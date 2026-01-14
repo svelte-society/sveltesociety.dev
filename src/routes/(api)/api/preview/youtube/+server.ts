@@ -65,9 +65,9 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 
 		const bestThumbnail =
 			video.snippet.thumbnails.maxres ||
-			video.snippet.thumbnails.standard ||
-			video.snippet.thumbnails.high ||
 			video.snippet.thumbnails.medium ||
+			video.snippet.thumbnails.high ||
+			video.snippet.thumbnails.standard ||
 			video.snippet.thumbnails.default
 
 		return json({
