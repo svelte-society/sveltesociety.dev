@@ -99,7 +99,12 @@ export class MetadataService {
 				title: snippet.title || '',
 				description: snippet.description || '',
 				duration: contentDetails.duration || '', // ISO 8601 duration format
-				thumbnail: snippet.thumbnails?.high?.url || snippet.thumbnails?.default?.url || '',
+				thumbnail:
+					snippet.thumbnails?.maxres?.url ||
+					snippet.thumbnails?.medium?.url ||
+					snippet.thumbnails?.high?.url ||
+					snippet.thumbnails?.default?.url ||
+					'',
 				publishedAt: snippet.publishedAt || ''
 			}
 		} catch (error) {

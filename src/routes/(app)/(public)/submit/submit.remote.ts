@@ -171,7 +171,7 @@ export const submitVideo = form(videoSchema, async (data) => {
 				metadata: {
 					embedUrl: `https://www.youtube.com/embed/${videoId}`,
 					watchUrl: `https://www.youtube.com/watch?v=${videoId}`,
-					thumbnail: thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+					thumbnail: thumbnail || `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
 					youtubeVideoId: videoId,
 					submitter_notes: data.notes || '',
 					submitted_at: new Date().toISOString()
