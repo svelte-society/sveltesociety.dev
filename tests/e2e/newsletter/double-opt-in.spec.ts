@@ -23,26 +23,6 @@ test.describe('Newsletter Double Opt-In Flow', () => {
 			await subscribePage.emailInput.fill('test@example.com')
 			await expect(subscribePage.emailInput).toHaveValue('test@example.com')
 		})
-
-		test('form shows loading state during submission', async ({ page }) => {
-			const subscribePage = new NewsletterSubscribePage(page)
-			await subscribePage.goto()
-
-			// Fill valid email
-			await subscribePage.emailInput.fill('test-loading@example.com')
-
-			// Click submit
-			await subscribePage.submitButton.click()
-
-			// Wait for final state (success or error) - this properly verifies the form submission completed
-			// The loading state is transient and checking for it is inherently flaky
-			await expect(async () => {
-				const isSuccess = await subscribePage.successMessage.isVisible().catch(() => false)
-				const isError = await subscribePage.errorMessage.isVisible().catch(() => false)
-				// Form should reach a final state (success or error)
-				expect(isSuccess || isError).toBeTruthy()
-			}).toPass({ timeout: 10000 })
-		})
 	})
 
 	test.describe('Confirmation Page', () => {

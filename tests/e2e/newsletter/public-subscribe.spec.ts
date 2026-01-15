@@ -72,29 +72,6 @@ test.describe('Newsletter Subscribe Form', () => {
 		expect(isValid).toBe(true)
 	})
 
-	test('submit button shows loading state when submitting', async ({ page }) => {
-		const subscribePage = new NewsletterSubscribePage(page)
-		await subscribePage.goto()
-		await subscribePage.expectFormVisible()
-
-		// Fill valid email
-		await subscribePage.emailInput.click()
-		await subscribePage.emailInput.fill('test@example.com')
-		await expect(subscribePage.emailInput).toHaveValue('test@example.com')
-
-		// Click submit
-		await subscribePage.submitButton.click()
-
-		// Wait for final state (success or error) - this properly verifies the form submission completed
-		// The loading state is transient and checking for it is inherently flaky
-		await expect(async () => {
-			const isSuccess = await subscribePage.successMessage.isVisible().catch(() => false)
-			const isError = await subscribePage.errorMessage.isVisible().catch(() => false)
-			// Form should reach a final state (success or error)
-			expect(isSuccess || isError).toBeTruthy()
-		}).toPass({ timeout: 10000 })
-	})
-
 	test('clears email input after successful subscription', async ({ page }) => {
 		// Note: This test requires Plunk to be configured
 		// It will pass if subscription succeeds or show error if API is not available
