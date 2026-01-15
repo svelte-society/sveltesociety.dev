@@ -80,6 +80,20 @@ export class JobDetailPage extends BasePage {
 	}
 
 	/**
+	 * Application name input
+	 */
+	get applicationNameInput(): Locator {
+		return this.page.getByTestId('application-name')
+	}
+
+	/**
+	 * Application email input
+	 */
+	get applicationEmailInput(): Locator {
+		return this.page.getByTestId('application-email')
+	}
+
+	/**
 	 * Application message textarea
 	 */
 	get applicationMessageInput(): Locator {
@@ -125,9 +139,21 @@ export class JobDetailPage extends BasePage {
 	}
 
 	/**
-	 * Submit job application
+	 * Submit job application (ensures required name/email fields have values)
 	 */
 	async submitApplication(): Promise<void> {
+		// Ensure name and email fields have values (they should be pre-filled from user profile)
+		const nameValue = await this.applicationNameInput.inputValue()
+		const emailValue = await this.applicationEmailInput.inputValue()
+
+		// If not pre-filled (shouldn't happen with authenticated users), fill with defaults
+		if (!nameValue) {
+			await this.applicationNameInput.fill('Test User')
+		}
+		if (!emailValue) {
+			await this.applicationEmailInput.fill('test@example.com')
+		}
+
 		await this.applyButton.click()
 	}
 
@@ -249,6 +275,8 @@ export class JobDetailPage extends BasePage {
 	 */
 	async expectCanApply(): Promise<void> {
 		await expect(this.applyButton).toBeVisible()
+		await expect(this.applicationNameInput).toBeVisible()
+		await expect(this.applicationEmailInput).toBeVisible()
 		await expect(this.applicationMessageInput).toBeVisible()
 	}
 
