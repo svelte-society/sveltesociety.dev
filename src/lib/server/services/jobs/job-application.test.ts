@@ -54,6 +54,7 @@ describe('JobApplicationService', () => {
 			const applicationData = {
 				job_id: testJobId,
 				applicant_id: testUserId,
+				applicant_name: 'Test Applicant',
 				applicant_email: 'applicant@test.com'
 			}
 
@@ -67,6 +68,7 @@ describe('JobApplicationService', () => {
 			const applicationId = jobApplicationService.createApplication({
 				job_id: testJobId,
 				applicant_id: testUserId,
+				applicant_name: 'Test Applicant',
 				applicant_email: 'applicant@test.com'
 			})
 
@@ -80,6 +82,7 @@ describe('JobApplicationService', () => {
 			const applicationId = jobApplicationService.createApplication({
 				job_id: testJobId,
 				applicant_id: testUserId,
+				applicant_name: 'Test Applicant',
 				applicant_email: 'applicant@test.com',
 				message
 			})
@@ -94,6 +97,7 @@ describe('JobApplicationService', () => {
 			jobApplicationService.createApplication({
 				job_id: testJobId,
 				applicant_id: testUserId,
+				applicant_name: 'Test Applicant',
 				applicant_email: 'applicant@test.com'
 			})
 
@@ -102,6 +106,7 @@ describe('JobApplicationService', () => {
 				jobApplicationService.createApplication({
 					job_id: testJobId,
 					applicant_id: testUserId,
+					applicant_name: 'Test Applicant',
 					applicant_email: 'applicant@test.com'
 				})
 			}).toThrow()
@@ -113,6 +118,7 @@ describe('JobApplicationService', () => {
 			const applicationId = jobApplicationService.createApplication({
 				job_id: testJobId,
 				applicant_id: testUserId,
+				applicant_name: 'Test Applicant',
 				applicant_email: 'applicant@test.com'
 			})
 
@@ -134,6 +140,7 @@ describe('JobApplicationService', () => {
 			jobApplicationService.createApplication({
 				job_id: testJobId,
 				applicant_id: testUserId,
+				applicant_name: 'Test Applicant',
 				applicant_email: 'applicant@test.com'
 			})
 
@@ -170,6 +177,7 @@ describe('JobApplicationService', () => {
 				jobApplicationService.createApplication({
 					job_id: testJobId,
 					applicant_id: user.id,
+					applicant_name: `Applicant ${i}`,
 					applicant_email: `applicant${i}@test.com`
 				})
 			}
@@ -206,11 +214,13 @@ describe('JobApplicationService', () => {
 			jobApplicationService.createApplication({
 				job_id: testJobId,
 				applicant_id: user1.id,
+				applicant_name: 'First',
 				applicant_email: 'first@test.com'
 			})
 			jobApplicationService.createApplication({
 				job_id: testJobId,
 				applicant_id: user2.id,
+				applicant_name: 'Second',
 				applicant_email: 'second@test.com'
 			})
 
@@ -241,6 +251,7 @@ describe('JobApplicationService', () => {
 				jobApplicationService.createApplication({
 					job_id: job.id,
 					applicant_id: testUserId,
+					applicant_name: 'Test Applicant',
 					applicant_email: 'applicant@test.com'
 				})
 			}
@@ -262,6 +273,7 @@ describe('JobApplicationService', () => {
 			const applicationId = jobApplicationService.createApplication({
 				job_id: testJobId,
 				applicant_id: testUserId,
+				applicant_name: 'Test Applicant',
 				applicant_email: 'applicant@test.com'
 			})
 
@@ -275,6 +287,7 @@ describe('JobApplicationService', () => {
 			const applicationId = jobApplicationService.createApplication({
 				job_id: testJobId,
 				applicant_id: testUserId,
+				applicant_name: 'Test Applicant',
 				applicant_email: 'applicant@test.com'
 			})
 
@@ -288,6 +301,7 @@ describe('JobApplicationService', () => {
 			const applicationId = jobApplicationService.createApplication({
 				job_id: testJobId,
 				applicant_id: testUserId,
+				applicant_name: 'Test Applicant',
 				applicant_email: 'applicant@test.com'
 			})
 
@@ -301,6 +315,7 @@ describe('JobApplicationService', () => {
 			const applicationId = jobApplicationService.createApplication({
 				job_id: testJobId,
 				applicant_id: testUserId,
+				applicant_name: 'Test Applicant',
 				applicant_email: 'applicant@test.com'
 			})
 
@@ -332,6 +347,7 @@ describe('JobApplicationService', () => {
 				jobApplicationService.createApplication({
 					job_id: testJobId,
 					applicant_id: user.id,
+					applicant_name: `User ${i}`,
 					applicant_email: `count${i}@test.com`
 				})
 			}
@@ -353,6 +369,7 @@ describe('JobApplicationService', () => {
 			const applicationId = jobApplicationService.createApplication({
 				job_id: testJobId,
 				applicant_id: testUserId,
+				applicant_name: 'Test Applicant',
 				applicant_email: 'applicant@test.com'
 			})
 

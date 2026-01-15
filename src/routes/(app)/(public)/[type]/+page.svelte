@@ -22,9 +22,8 @@
 	<Schema schema={schemas} />
 {/if}
 
-<Filters {sort} />
-
 <div data-testid="content-list" class="grid gap-6">
+	<Filters {sort} />
 	{#if count > 0}
 		{#each content as content, index (content.id)}
 			<div class="min-w-0">

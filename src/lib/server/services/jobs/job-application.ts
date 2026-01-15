@@ -6,6 +6,7 @@ export interface JobApplication {
 	id: string
 	job_id: string
 	applicant_id: string
+	applicant_name: string | null
 	applicant_email: string
 	message: string | null
 	status: ApplicationStatus
@@ -16,6 +17,7 @@ export interface JobApplication {
 export interface CreateApplicationData {
 	job_id: string
 	applicant_id: string
+	applicant_name: string
 	applicant_email: string
 	message?: string
 }
@@ -33,12 +35,14 @@ export class JobApplicationService {
 			INSERT INTO job_applications (
 				job_id,
 				applicant_id,
+				applicant_name,
 				applicant_email,
 				message,
 				status
 			) VALUES (
 				$job_id,
 				$applicant_id,
+				$applicant_name,
 				$applicant_email,
 				$message,
 				'pending'
@@ -49,6 +53,7 @@ export class JobApplicationService {
 		const result = stmt.get({
 			job_id: data.job_id,
 			applicant_id: data.applicant_id,
+			applicant_name: data.applicant_name,
 			applicant_email: data.applicant_email,
 			message: data.message || null
 		}) as { id: string }

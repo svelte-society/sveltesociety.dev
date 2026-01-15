@@ -4,6 +4,8 @@ import { z } from 'zod/v4'
 // Schema for job application
 const applyToJobSchema = z.object({
 	jobId: z.string(),
+	name: z.string().min(1, 'Name is required'),
+	email: z.email('Please enter a valid email address'),
 	message: z.string().optional()
 })
 
@@ -63,7 +65,8 @@ export const applyToJob = form(applyToJobSchema, async (data) => {
 		locals.jobApplicationService.createApplication({
 			job_id: data.jobId,
 			applicant_id: locals.user.id,
-			applicant_email: locals.user.email,
+			applicant_name: data.name,
+			applicant_email: data.email,
 			message: data.message
 		})
 
@@ -73,8 +76,8 @@ export const applyToJob = form(applyToJobSchema, async (data) => {
 			await locals.emailService.sendJobApplicationEmail({
 				employerEmail,
 				jobTitle: job.title,
-				applicantName: locals.user.name || locals.user.username,
-				applicantEmail: locals.user.email,
+				applicantName: data.name,
+				applicantEmail: data.email,
 				applicantProfileUrl: `https://sveltesociety.dev/user/${locals.user.username}`,
 				applicationMessage: data.message
 			})
