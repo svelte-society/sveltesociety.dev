@@ -22,6 +22,31 @@ test.describe('User Newsletter Subscription', () => {
 			// Should see the modal automatically
 			await newsletterPage.expectModalVisible()
 		})
+
+		test('user can decline newsletter and modal does not reappear', async ({ page }) => {
+			const newsletterPage = new UserNewsletterPage(page)
+
+			// Login as viewer (has null newsletter_preference)
+			await loginAs(page, 'viewer')
+			await page.goto('/')
+			await page.waitForLoadState('networkidle')
+
+			// Should see the modal automatically
+			await newsletterPage.expectModalVisible()
+
+			// Click "No thanks" to decline
+			await newsletterPage.clickDecline()
+
+			// Modal should close
+			await newsletterPage.expectModalNotVisible()
+
+			// Refresh the page
+			await page.reload()
+			await page.waitForLoadState('networkidle')
+
+			// Modal should NOT reappear (preference saved as 'declined')
+			await newsletterPage.expectModalNotVisible()
+		})
 	})
 
 	test.describe('Sidebar Newsletter', () => {
