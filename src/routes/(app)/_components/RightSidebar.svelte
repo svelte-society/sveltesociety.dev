@@ -4,6 +4,7 @@
 	import Plus from 'phosphor-svelte/lib/Plus'
 	import UpcomingEvents from './UpcomingEvents.svelte'
 	import SidebarJobs from './SidebarJobs.svelte'
+	import SidebarSponsors from './SidebarSponsors.svelte'
 	import { type UpcomingEvent, type SidebarJob } from './types'
 	import type { User } from '$lib/server/services/user'
 
@@ -25,18 +26,7 @@
 		<Button href="/submit" size="sm"><Plus />Submit Post</Button>
 	</div>
 
-	<div class="grid gap-2 rounded border border-slate-200 bg-gray-50 px-4 py-2 text-sm">
-		<h3 class="text-md font-bold">Become a sponsor</h3>
-		<p class="text-xs text-gray-600">
-			Support Svelte Society and get your company featured here.
-			<a
-				href="mailto:sponsor@sveltesociety.dev"
-				class="text-orange-600 underline hover:text-orange-700"
-			>
-				Contact us
-			</a>
-		</p>
-	</div>
+	<SidebarSponsors />
 
 	{#if user?.newsletter_preference !== 'subscribed'}
 		<NewsletterSubscribe />
