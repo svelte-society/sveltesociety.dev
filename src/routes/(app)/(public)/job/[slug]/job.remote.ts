@@ -3,7 +3,9 @@ import { z } from 'zod/v4'
 
 // Schema for job application
 const applyToJobSchema = z.object({
-	jobId: z.string(),
+	id: z.string(),
+	name: z.string().min(1, 'Name is required'),
+	email: z.email('Please enter a valid email address'),
 	message: z.string().optional()
 })
 
@@ -30,7 +32,7 @@ export const applyToJob = form(applyToJobSchema, async (data) => {
 	}
 
 	// Get the job
-	const job = locals.contentService.getContentById(data.jobId)
+	const job = locals.contentService.getContentById(data.id)
 	if (!job || job.type !== 'job') {
 		return {
 			success: false,
@@ -50,7 +52,7 @@ export const applyToJob = form(applyToJobSchema, async (data) => {
 	}
 
 	// Check if user has already applied
-	if (locals.jobApplicationService.hasApplied(data.jobId, locals.user.id)) {
+	if (locals.jobApplicationService.hasApplied(data.id, locals.user.id)) {
 		return {
 			success: false,
 			error: 'Already applied',
@@ -61,9 +63,10 @@ export const applyToJob = form(applyToJobSchema, async (data) => {
 	try {
 		// Create the application
 		locals.jobApplicationService.createApplication({
-			job_id: data.jobId,
+			job_id: data.id,
 			applicant_id: locals.user.id,
-			applicant_email: locals.user.email,
+			applicant_name: data.name,
+			applicant_email: data.email,
 			message: data.message
 		})
 
@@ -73,8 +76,8 @@ export const applyToJob = form(applyToJobSchema, async (data) => {
 			await locals.emailService.sendJobApplicationEmail({
 				employerEmail,
 				jobTitle: job.title,
-				applicantName: locals.user.name || locals.user.username,
-				applicantEmail: locals.user.email,
+				applicantName: data.name,
+				applicantEmail: data.email,
 				applicantProfileUrl: `https://sveltesociety.dev/user/${locals.user.username}`,
 				applicationMessage: data.message
 			})

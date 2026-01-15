@@ -16,11 +16,12 @@
 	import Schema from '$lib/ui/Schema.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
+	import Input from '$lib/ui/Input.svelte'
 	import { applyToJob } from './job.remote'
 
 	let { data } = $props()
 
-	const { jobId, message } = applyToJob.fields
+	const { name, email, message } = applyToJob.fields
 	const isAdmin = page.data.isAdmin
 
 	const salary = $derived(
@@ -185,8 +186,19 @@
 				<span class="text-sm font-medium text-green-700">You've already applied for this position</span>
 			</div>
 		{:else if data.user}
-			<form {...applyToJob} class="space-y-3">
-				<input {...jobId.as('hidden', data.job.id)} />
+			<form {...applyToJob.for(data.job.id)} class="space-y-3">
+				<Input
+					{...name.as('text', data.user.name || '')}
+					label="Name"
+					placeholder="Your full name"
+					data-testid="application-name"
+				/>
+				<Input
+					{...email.as('email', data.user.email || '')}
+					label="Email"
+					placeholder="Your email address"
+					data-testid="application-email"
+				/>
 				<TextArea
 					{...message.as('text')}
 					label="Message (optional)"
