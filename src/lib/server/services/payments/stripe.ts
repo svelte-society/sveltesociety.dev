@@ -44,7 +44,9 @@ export class StripeService {
 		let priceId: string | null = null
 		if (mode === 'subscription' && billingInterval) {
 			priceId =
-				billingInterval === 'year' ? (tier.stripe_yearly_price_id ?? null) : (tier.stripe_monthly_price_id ?? null)
+				billingInterval === 'year'
+					? (tier.stripe_yearly_price_id ?? null)
+					: (tier.stripe_monthly_price_id ?? null)
 		} else {
 			priceId = tier.stripe_price_id ?? null
 		}
