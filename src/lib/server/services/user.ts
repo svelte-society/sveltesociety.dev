@@ -346,10 +346,7 @@ export class UserService {
 		}
 	}
 
-	updateNewsletterPreference(
-		id: string,
-		preference: 'declined' | 'subscribed'
-	): boolean {
+	updateNewsletterPreference(id: string, preference: 'declined' | 'subscribed'): boolean {
 		try {
 			const result = this.updateNewsletterPreferenceStatement.run({
 				id,
