@@ -27,7 +27,7 @@ export default async function globalSetup() {
 		return
 	}
 
-	console.log(`📋 Found ${testFiles.length} test file(s)`)
+	console.log(`�� Found ${testFiles.length} test file(s)`)
 	console.log('🗂️  Pre-creating isolated test databases...\n')
 
 	let created = 0

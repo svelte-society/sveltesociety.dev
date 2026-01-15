@@ -40,6 +40,18 @@ export const TEST_USERS = {
 		avatarUrl: 'https://avatars.githubusercontent.com/u/3?v=4',
 		bio: 'Viewer user for testing',
 		roleValue: 'member'
+	},
+	// User for testing newsletter modal auto-show (has null newsletter_preference)
+	newsletter_new: {
+		id: 'test_newsletter_001',
+		email: 'newsletter@test.local',
+		username: 'test_newsletter',
+		name: 'Test Newsletter User',
+		password: 'test_password_newsletter',
+		sessionToken: 'test_session_newsletter_token',
+		avatarUrl: 'https://avatars.githubusercontent.com/u/4?v=4',
+		bio: 'User for newsletter modal testing',
+		roleValue: 'member'
 	}
 } as const
 

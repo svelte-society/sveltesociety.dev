@@ -14,8 +14,8 @@ test.describe('User Newsletter Subscription', () => {
 		test('new user sees newsletter modal on page load', async ({ page }) => {
 			const newsletterPage = new UserNewsletterPage(page)
 
-			// Login as viewer (has null newsletter_preference)
-			await loginAs(page, 'viewer')
+			// Login as newsletter_new user (has null newsletter_preference)
+			await loginAs(page, 'newsletter_new')
 			await page.goto('/')
 			await page.waitForLoadState('networkidle')
 
@@ -26,8 +26,8 @@ test.describe('User Newsletter Subscription', () => {
 		test('user can decline newsletter and modal does not reappear', async ({ page }) => {
 			const newsletterPage = new UserNewsletterPage(page)
 
-			// Login as viewer (has null newsletter_preference)
-			await loginAs(page, 'viewer')
+			// Login as newsletter_new user (has null newsletter_preference)
+			await loginAs(page, 'newsletter_new')
 			await page.goto('/')
 			await page.waitForLoadState('networkidle')
 
