@@ -53,7 +53,9 @@ declare global {
 			newsletterService: NewsletterService
 		}
 		// interface PageData {}
-		// interface PageState {}
+		interface PageState {
+			showNewsletterModal?: boolean
+		}
 		// interface Platform {}
 	}
 }

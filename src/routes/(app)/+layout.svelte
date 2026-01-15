@@ -78,7 +78,7 @@
 			</div>
 		</div>
 
-		<RightSidebar upcomingEvents={await getUpcomingEvents()} jobs={await getSidebarJobs()} />
+		<RightSidebar upcomingEvents={await getUpcomingEvents()} jobs={await getSidebarJobs()} {user} />
 
 		{#if user?.role === 1}
 			<a

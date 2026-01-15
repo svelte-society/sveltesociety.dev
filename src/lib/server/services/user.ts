@@ -21,6 +21,7 @@ export interface User {
 	location: string | null
 	twitter: string | null
 	role: number
+	newsletter_preference: 'declined' | 'subscribed' | null
 	created_at: string
 }
 
@@ -59,6 +60,7 @@ export class UserService {
 	private updateOAuthStatement
 	private createOAuthStatement
 	private deleteUserStatement
+	private updateNewsletterPreferenceStatement
 
 	constructor(private db: Database) {
 		this.getUserStatement = this.db.prepare(`
@@ -158,6 +160,11 @@ export class UserService {
 		`)
 
 		this.deleteUserStatement = this.db.prepare('DELETE FROM users WHERE id = $id')
+
+		this.updateNewsletterPreferenceStatement = this.db.prepare(`
+			UPDATE users SET newsletter_preference = $preference
+			WHERE id = $id
+		`)
 	}
 
 	getUser(id: string): User | undefined {
@@ -335,6 +342,22 @@ export class UserService {
 			return result.changes > 0
 		} catch (error) {
 			console.error('Error deleting user:', error)
+			return false
+		}
+	}
+
+	updateNewsletterPreference(
+		id: string,
+		preference: 'declined' | 'subscribed'
+	): boolean {
+		try {
+			const result = this.updateNewsletterPreferenceStatement.run({
+				id,
+				preference
+			})
+			return result.changes > 0
+		} catch (error) {
+			console.error('Error updating newsletter preference:', error)
 			return false
 		}
 	}

@@ -63,7 +63,7 @@
 
 		<nav class="ml-auto items-center space-x-4 md:flex">
 			{#if user}
-				<UserMenu {user} />
+				<UserMenu {user} newsletterPreference={user.newsletter_preference} />
 			{:else}
 				<a data-sveltekit-preload-data={false} href="/login" class="hover:underline"> Login </a>
 			{/if}
