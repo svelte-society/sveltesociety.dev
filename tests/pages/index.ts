@@ -16,5 +16,6 @@ export {
 	NewsletterSubscribePage,
 	NewsletterConfirmPage,
 	AdminCampaignListPage,
-	AdminCampaignEditorPage
+	AdminCampaignEditorPage,
+	UserNewsletterPage
 } from './NewsletterPages'

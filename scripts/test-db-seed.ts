@@ -46,12 +46,15 @@ async function seedTestDatabase() {
 		// 1. Create test users
 		console.log('  → Creating test users...')
 		const userInsert = db.prepare(`
-			INSERT INTO users (id, email, username, name, avatar_url, bio, role)
-			VALUES (?, ?, ?, ?, ?, ?, ?)
+			INSERT INTO users (id, email, username, name, avatar_url, bio, role, newsletter_preference)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 		`)
 
 		Object.values(TEST_USERS).forEach((user) => {
 			const roleId = roles[user.roleValue as keyof typeof roles].id
+			// Set newsletter_preference to 'declined' for most users to prevent modal from
+			// interfering with tests. The newsletter_new user keeps null for modal testing.
+			const newsletterPreference = user.username === 'test_newsletter' ? null : 'declined'
 			userInsert.run(
 				user.id,
 				user.email,
@@ -59,7 +62,8 @@ async function seedTestDatabase() {
 				user.name,
 				user.avatarUrl,
 				user.bio,
-				roleId
+				roleId,
+				newsletterPreference
 			)
 		})
 

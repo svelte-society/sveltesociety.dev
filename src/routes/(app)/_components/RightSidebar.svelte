@@ -5,11 +5,13 @@
 	import UpcomingEvents from './UpcomingEvents.svelte'
 	import SidebarJobs from './SidebarJobs.svelte'
 	import { type UpcomingEvent, type SidebarJob } from './types'
+	import type { User } from '$lib/server/services/user'
 
 	let {
 		upcomingEvents = [],
-		jobs = []
-	}: { upcomingEvents?: UpcomingEvent[]; jobs?: SidebarJob[] } = $props()
+		jobs = [],
+		user = null
+	}: { upcomingEvents?: UpcomingEvent[]; jobs?: SidebarJob[]; user?: User | null } = $props()
 </script>
 
 <aside
@@ -36,7 +38,9 @@
 		</p>
 	</div>
 
-	<NewsletterSubscribe />
+	{#if user?.newsletter_preference !== 'subscribed'}
+		<NewsletterSubscribe />
+	{/if}
 
 	<SidebarJobs {jobs} />
 

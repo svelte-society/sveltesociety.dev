@@ -303,6 +303,182 @@ export class AdminCampaignListPage extends BasePage {
 }
 
 /**
+ * UserNewsletterPage - Page Object for user newsletter subscription modal/page
+ *
+ * Handles both the standalone page at /newsletter/subscribe and the modal
+ * that appears for logged-in users who haven't been asked about newsletter yet.
+ */
+export class UserNewsletterPage extends BasePage {
+	/**
+	 * Navigate to the standalone newsletter subscribe page
+	 */
+	async goto(): Promise<void> {
+		await super.goto('/newsletter/subscribe')
+	}
+
+	// Selectors
+
+	/**
+	 * Newsletter subscribe page container
+	 */
+	get pageContainer(): Locator {
+		return this.page.getByTestId('newsletter-subscribe-page')
+	}
+
+	/**
+	 * Newsletter modal dialog (open state)
+	 * Using [open] attribute to detect when dialog is actually shown via showModal()
+	 */
+	get modal(): Locator {
+		return this.page.locator('#newsletter-modal[open]')
+	}
+
+	/**
+	 * Newsletter modal dialog (any state)
+	 */
+	get modalElement(): Locator {
+		return this.page.locator('#newsletter-modal')
+	}
+
+	/**
+	 * Subscribe button
+	 */
+	get subscribeButton(): Locator {
+		return this.page.getByTestId('newsletter-subscribe-btn')
+	}
+
+	/**
+	 * Decline button
+	 */
+	get declineButton(): Locator {
+		return this.page.getByTestId('newsletter-decline-btn')
+	}
+
+	/**
+	 * Success message element
+	 */
+	get successMessage(): Locator {
+		return this.page.getByTestId('newsletter-success')
+	}
+
+	/**
+	 * User menu trigger button
+	 */
+	get userMenuTrigger(): Locator {
+		return this.page.getByTestId('user-menu-trigger')
+	}
+
+	/**
+	 * Newsletter subscribe menu item in user menu
+	 */
+	get subscribeMenuItem(): Locator {
+		return this.page.getByTestId('newsletter-subscribe-menu-item')
+	}
+
+	/**
+	 * Newsletter preferences menu item in user menu (for subscribed users)
+	 */
+	get preferencesMenuItem(): Locator {
+		return this.page.getByTestId('newsletter-preferences-menu-item')
+	}
+
+	/**
+	 * Sidebar newsletter subscribe component
+	 */
+	get sidebarNewsletter(): Locator {
+		return this.page.getByTestId('newsletter-subscribe')
+	}
+
+	// Actions
+
+	/**
+	 * Click subscribe button in modal
+	 */
+	async clickSubscribe(): Promise<void> {
+		await this.subscribeButton.click()
+	}
+
+	/**
+	 * Click decline button in modal
+	 */
+	async clickDecline(): Promise<void> {
+		await this.declineButton.click()
+	}
+
+	/**
+	 * Open user menu and click subscribe to newsletter
+	 */
+	async openNewsletterFromMenu(): Promise<void> {
+		await this.userMenuTrigger.click()
+		await this.subscribeMenuItem.waitFor({ state: 'visible' })
+		await this.subscribeMenuItem.click()
+	}
+
+	/**
+	 * Open user menu
+	 */
+	async openUserMenu(): Promise<void> {
+		await this.userMenuTrigger.click()
+	}
+
+	// Assertions
+
+	/**
+	 * Verify modal is visible (dialog is open)
+	 * Native dialog elements need special handling - check for [open] attribute
+	 */
+	async expectModalVisible(): Promise<void> {
+		// Wait for the dialog with [open] attribute to appear
+		await this.modal.waitFor({ state: 'attached', timeout: 15000 })
+		await expect(this.subscribeButton).toBeVisible()
+	}
+
+	/**
+	 * Verify modal is not visible (dialog is closed)
+	 * Check that the dialog doesn't have the [open] attribute
+	 */
+	async expectModalNotVisible(): Promise<void> {
+		// Wait for the dialog to not have [open] attribute (or not exist)
+		await expect(this.modal).toHaveCount(0, { timeout: 15000 })
+	}
+
+	/**
+	 * Verify success message is shown
+	 */
+	async expectSuccess(): Promise<void> {
+		await this.successMessage.waitFor({ state: 'visible' })
+	}
+
+	/**
+	 * Verify sidebar newsletter is visible
+	 */
+	async expectSidebarNewsletterVisible(): Promise<void> {
+		await this.sidebarNewsletter.waitFor({ state: 'visible' })
+	}
+
+	/**
+	 * Verify sidebar newsletter is not visible
+	 */
+	async expectSidebarNewsletterNotVisible(): Promise<void> {
+		await expect(this.sidebarNewsletter).not.toBeVisible()
+	}
+
+	/**
+	 * Verify subscribe menu item is visible in user menu
+	 */
+	async expectSubscribeMenuItemVisible(): Promise<void> {
+		await this.subscribeMenuItem.waitFor({ state: 'visible' })
+	}
+
+	/**
+	 * Verify preferences menu item is visible in user menu
+	 */
+	async expectPreferencesMenuItemVisible(): Promise<void> {
+		await this.preferencesMenuItem.waitFor({ state: 'visible' })
+	}
+}
+
+/**
  * AdminCampaignEditorPage - Page Object for admin campaign editor (new and edit)
  */
 export class AdminCampaignEditorPage extends BasePage {

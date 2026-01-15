@@ -71,7 +71,7 @@ jobs:
           YOUTUBE_API_KEY: mock_youtube_key
           GITHUB_TOKEN: mock_github_token
           PLUNK_API_SECRET_KEY: mock_plunk_key
-          PLUNK_API_URL: https://api.useplunk.com
+          PLUNK_API_URL: http://localhost:3001
           STRIPE_SECRET_KEY: sk_test_mock_stripe_key
           STRIPE_WEBHOOK_SECRET: whsec_mock_webhook_secret
 
@@ -96,7 +96,7 @@ jobs:
           YOUTUBE_API_KEY: mock_youtube_key
           GITHUB_TOKEN: mock_github_token
           PLUNK_API_SECRET_KEY: mock_plunk_key
-          PLUNK_API_URL: https://api.useplunk.com
+          PLUNK_API_URL: http://localhost:3001
           STRIPE_SECRET_KEY: sk_test_mock_stripe_key
           STRIPE_WEBHOOK_SECRET: whsec_mock_webhook_secret
 

@@ -1,13 +1,32 @@
 <script lang="ts">
+	import { pushState } from '$app/navigation'
 	import Avatar from '$lib/ui/Avatar.svelte'
 	import Dropdown from '$lib/ui/Dropdown.svelte'
 	import SignOut from 'phosphor-svelte/lib/SignOut'
 	import GearSix from 'phosphor-svelte/lib/GearSix'
 	import Envelope from 'phosphor-svelte/lib/Envelope'
 
-	let { user } = $props()
+	let { user, newsletterPreference }: { user: any; newsletterPreference?: string | null } = $props()
 
 	let dropdownRef: { close: () => void } | undefined = $state()
+
+	async function handleNewsletterSubscribeNavigation(e) {
+		dropdownRef?.close()
+		if (
+			innerWidth < 640 || // bail if the screen is too small
+			e.shiftKey || // or the link is opened in a new window
+			e.metaKey ||
+			e.ctrlKey // or a new tab (mac: metaKey, win/linux: ctrlKey)
+			// should also consider clicking with a mouse scroll wheel
+		)
+			return
+
+		e.preventDefault()
+
+		const { href } = e.currentTarget
+
+		pushState(href, { showNewsletterModal: true })
+	}
 </script>
 
 <Dropdown
@@ -33,18 +52,33 @@
 		<GearSix class="mr-2 size-5" />
 		Profile
 	</a>
-	<a
-		href="https://app.useplunk.com/subscribe"
-		target="_blank"
-		rel="noopener noreferrer"
-		role="menuitem"
-		data-testid="newsletter-preferences-menu-item"
-		onclick={() => dropdownRef?.close()}
-		class="flex h-10 cursor-pointer items-center rounded-sm py-3 pr-1.5 pl-3 text-sm font-medium select-none hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
-	>
-		<Envelope class="mr-2 size-5" />
-		Newsletter Preferences
-	</a>
+	{#if newsletterPreference === 'subscribed'}
+		<a
+			href="https://app.useplunk.com/subscribe"
+			target="_blank"
+			rel="noopener noreferrer"
+			role="menuitem"
+			data-testid="newsletter-preferences-menu-item"
+			onclick={() => dropdownRef?.close()}
+			class="flex h-10 cursor-pointer items-center rounded-sm py-3 pr-1.5 pl-3 text-sm font-medium select-none hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+		>
+			<Envelope class="mr-2 size-5" />
+			Newsletter Preferences
+		</a>
+	{:else}
+		<a
+			href="/newsletter/subscribe"
+			target="_blank"
+			rel="noopener noreferrer"
+			role="menuitem"
+			data-testid="newsletter-subscribe-menu-item"
+			onclick={handleNewsletterSubscribeNavigation}
+			class="flex h-10 cursor-pointer items-center rounded-sm py-3 pr-1.5 pl-3 text-sm font-medium select-none hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+		>
+			<Envelope class="mr-2 size-5" />
+			Subscribe to Newsletter
+		</a>
+	{/if}
 	<form method="post" action="/auth/logout" class="contents">
 		<button
 			type="submit"

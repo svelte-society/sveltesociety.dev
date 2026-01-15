@@ -26,7 +26,7 @@ test.describe('Admin - User Management', () => {
 		await userManagementPage.gotoUsersList()
 
 		const userCount = await userManagementPage.getUserCount()
-		expect(userCount).toBe(3)
+		expect(userCount).toBe(4) // admin, contributor, viewer, newsletter_new
 
 		const firstRole = await userManagementPage.getRoleByRow(0)
 		expect(firstRole.length).toBeGreaterThan(0)

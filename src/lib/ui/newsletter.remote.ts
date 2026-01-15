@@ -33,9 +33,6 @@ export const subscribeNewsletter = form(subscribeSchema, async (data) => {
 		// 2. Create/update pending subscription with new token
 		const { token } = locals.newsletterService.createPendingSubscription(email)
 
-		// 3. Build confirmation URL with token in path
-		const confirmationUrl = `${BASE_URL}/newsletter/confirm/${token}`
-
 		// 4. Send confirmation email
 		const emailSent = await locals.emailService.sendNewsletterConfirmationEmail({
 			email,
@@ -52,6 +49,12 @@ export const subscribeNewsletter = form(subscribeSchema, async (data) => {
 		// 5. Opportunistically clean up expired tokens
 		locals.newsletterService.cleanupExpired()
 
+		// 6. If user is logged in, mark them as subscribed immediately
+		// This prevents the modal from reappearing while they confirm their email
+		if (locals.user) {
+			locals.userService.updateNewsletterPreference(locals.user.id, 'subscribed')
+		}
+
 		return {
 			success: true,
 			text: 'Check your email to confirm your subscription!'
@@ -63,5 +66,19 @@ export const subscribeNewsletter = form(subscribeSchema, async (data) => {
 			success: false,
 			text: 'Something went wrong. Please try again.'
 		}
+	}
+})
+
+export const userDecline = form(z.object({}), async () => {
+	const { locals } = getRequestEvent()
+
+	if (!locals.user) {
+		return { success: false, text: 'You must be logged in' }
+	}
+
+	const updated = locals.userService.updateNewsletterPreference(locals.user.id, 'declined')
+	return {
+		success: updated,
+		text: updated ? 'Preference saved' : 'Failed to save preference'
 	}
 })

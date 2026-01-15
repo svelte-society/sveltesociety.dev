@@ -131,7 +131,8 @@ export class ContentEditPage extends BasePage {
 	 */
 	async expectSuccessMessage(): Promise<void> {
 		// SuperForms uses toast notifications (svelte-sonner)
-		const successToast = this.page.getByText('Content updated successfully')
+		// Use .first() to handle cases where multiple toasts may appear
+		const successToast = this.page.getByText('Content updated successfully').first()
 		await expect(successToast).toBeVisible({ timeout: 5000 })
 	}
 

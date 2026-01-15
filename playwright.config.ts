@@ -58,7 +58,21 @@ const config: PlaywrightTestConfig = {
 		port: 4173,
 		timeout: 120 * 1000,
 		reuseExistingServer: !process.env.CI,
-		env: { DB_PATH: 'test.db', NODE_ENV: 'test' }
+		env: {
+			DB_PATH: 'test.db',
+			NODE_ENV: 'test',
+			// Auth mocks
+			GITHUB_CLIENT_ID: 'test_client',
+			GITHUB_CLIENT_SECRET: 'test_secret',
+			GITHUB_AUTHORIZATION_CALLBACK_URL: 'http://localhost:4173/auth/callback',
+			// API mocks - use localhost:3001 to trigger test mode in email service
+			PLUNK_API_SECRET_KEY: 'mock_plunk_key',
+			PLUNK_API_URL: 'http://localhost:3001',
+			STRIPE_SECRET_KEY: 'sk_test_mock',
+			STRIPE_WEBHOOK_SECRET: 'whsec_test_mock',
+			// Disable seeding
+			SEED_DATABASE: 'none'
+		}
 	},
 	// Global setup to pre-create isolated test databases
 	globalSetup: './tests/setup/global-setup.ts',
