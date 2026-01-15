@@ -21,6 +21,11 @@ import type {
 	JobApplicationService
 } from '$lib/server/services/jobs'
 import type { StripeService } from '$lib/server/services/payments'
+import type {
+	SponsorTierService,
+	SponsorService,
+	SponsorSubscriptionService
+} from '$lib/server/services/sponsors'
 import type { EmailService } from '$lib/server/services/email'
 import type { NewsletterService } from '$lib/server/services/newsletter'
 
@@ -49,6 +54,9 @@ declare global {
 			paymentService: PaymentService
 			jobApplicationService: JobApplicationService
 			stripeService: StripeService
+			sponsorTierService: SponsorTierService
+			sponsorService: SponsorService
+			sponsorSubscriptionService: SponsorSubscriptionService
 			emailService: EmailService
 			newsletterService: NewsletterService
 		}
