@@ -176,8 +176,13 @@ export const activateSponsor = form(sponsorIdSchema, async (data) => {
 		const subscriptions = locals.sponsorSubscriptionService.getSubscriptionsBySponsor(data.id)
 		const subscription = subscriptions[0] // Get the most recent subscription
 		if (subscription && subscription.status !== 'active') {
-			// Set the subscription period to start now and end in 30 days (default for one-time)
-			// For subscriptions managed by Stripe, this will be overwritten by webhooks
+			// Set the subscription period to start now and end in 30 days as a default fallback.
+			// This is used when:
+			// 1. Admin manually activates a pending sponsor before payment completes
+			// 2. One-time payment sponsors that need manual activation
+			// For Stripe-managed recurring subscriptions, these values will be overwritten
+			// by webhook events (subscription.created, subscription.updated, invoice.paid)
+			// with the actual billing period from Stripe.
 			const now = new Date()
 			const periodEnd = new Date()
 			periodEnd.setDate(periodEnd.getDate() + 30)

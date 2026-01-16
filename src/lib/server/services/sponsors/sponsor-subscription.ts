@@ -203,6 +203,18 @@ export class SponsorSubscriptionService {
 	}
 
 	/**
+	 * Set Stripe checkout session ID
+	 */
+	setStripeCheckoutSessionId(id: string, sessionId: string): void {
+		const stmt = this.db.prepare(`
+			UPDATE sponsor_subscriptions
+			SET stripe_checkout_session_id = $session_id
+			WHERE id = $id
+		`)
+		stmt.run({ id, session_id: sessionId })
+	}
+
+	/**
 	 * Set Stripe customer ID
 	 */
 	setStripeCustomerId(id: string, stripeCustomerId: string): void {

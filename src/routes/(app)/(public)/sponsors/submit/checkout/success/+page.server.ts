@@ -40,7 +40,11 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 		}
 
 		// For one-time payments, update here (webhook handles subscriptions)
-		if (session.mode === 'payment' && subscription.status === 'incomplete') {
+		// Check both subscription AND sponsor status to handle race conditions with webhooks
+		const isSubscriptionIncomplete = subscription.status === 'incomplete'
+		const isSponsorNotActive = sponsor.status !== 'active'
+
+		if (session.mode === 'payment' && isSubscriptionIncomplete && isSponsorNotActive) {
 			const now = new Date()
 			const expiresAt = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000) // 30 days
 

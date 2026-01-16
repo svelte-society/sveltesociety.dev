@@ -93,14 +93,10 @@ export const submitSponsor = form(sponsorSubmissionSchema, async (data: SponsorS
 		})
 
 		// Update subscription with checkout session ID
-		locals.db
-			.prepare(
-				'UPDATE sponsor_subscriptions SET stripe_checkout_session_id = $session_id WHERE id = $id'
-			)
-			.run({
-				session_id: checkoutResult.sessionId,
-				id: subscriptionId
-			})
+		locals.sponsorSubscriptionService.setStripeCheckoutSessionId(
+			subscriptionId,
+			checkoutResult.sessionId
+		)
 
 		checkoutUrl = checkoutResult.url
 	} catch (error) {

@@ -212,9 +212,26 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription, loca
 
 	try {
 		// Find our subscription record by Stripe subscription ID
-		const ourSubscription = locals.sponsorSubscriptionService.getByStripeSubscriptionId(
+		let ourSubscription = locals.sponsorSubscriptionService.getByStripeSubscriptionId(
 			subscription.id
 		)
+
+		// Fallback: try to find by checkout session ID from metadata if Stripe ID not linked yet
+		// This handles cases where events arrive out of order
+		if (!ourSubscription) {
+			const subscriptionIdFromMeta = subscription.metadata?.subscription_id
+			if (subscriptionIdFromMeta) {
+				ourSubscription =
+					locals.sponsorSubscriptionService.getSubscriptionById(subscriptionIdFromMeta)
+				// Link the Stripe subscription ID now that we found it
+				if (ourSubscription) {
+					locals.sponsorSubscriptionService.setStripeSubscriptionId(
+						ourSubscription.id,
+						subscription.id
+					)
+				}
+			}
+		}
 
 		if (!ourSubscription) {
 			console.error(`No local subscription found for Stripe subscription ${subscription.id}`)
@@ -258,9 +275,24 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription, loca
 	const sponsorId = subscription.metadata?.sponsor_id
 
 	try {
-		const ourSubscription = locals.sponsorSubscriptionService.getByStripeSubscriptionId(
+		let ourSubscription = locals.sponsorSubscriptionService.getByStripeSubscriptionId(
 			subscription.id
 		)
+
+		// Fallback: try to find by subscription ID from metadata if Stripe ID not linked yet
+		if (!ourSubscription) {
+			const subscriptionIdFromMeta = subscription.metadata?.subscription_id
+			if (subscriptionIdFromMeta) {
+				ourSubscription =
+					locals.sponsorSubscriptionService.getSubscriptionById(subscriptionIdFromMeta)
+				if (ourSubscription) {
+					locals.sponsorSubscriptionService.setStripeSubscriptionId(
+						ourSubscription.id,
+						subscription.id
+					)
+				}
+			}
+		}
 
 		if (!ourSubscription) {
 			console.error(`No local subscription found for Stripe subscription ${subscription.id}`)
@@ -322,9 +354,18 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription, loca
 	const sponsorId = subscription.metadata?.sponsor_id
 
 	try {
-		const ourSubscription = locals.sponsorSubscriptionService.getByStripeSubscriptionId(
+		let ourSubscription = locals.sponsorSubscriptionService.getByStripeSubscriptionId(
 			subscription.id
 		)
+
+		// Fallback: try to find by subscription ID from metadata
+		if (!ourSubscription) {
+			const subscriptionIdFromMeta = subscription.metadata?.subscription_id
+			if (subscriptionIdFromMeta) {
+				ourSubscription =
+					locals.sponsorSubscriptionService.getSubscriptionById(subscriptionIdFromMeta)
+			}
+		}
 
 		if (ourSubscription) {
 			locals.sponsorSubscriptionService.markCancelled(ourSubscription.id, false)
