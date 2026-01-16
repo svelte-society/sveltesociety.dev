@@ -20,13 +20,13 @@ test.describe.serial('Admin - Feed Builder', () => {
 		expect(tableVisible || emptyVisible).toBe(true)
 	})
 
-	test('shows empty state when no feed items exist', async ({ page }) => {
+	test('shows seeded feed items including sponsors', async ({ page }) => {
 		const feedBuilderPage = new FeedBuilderPage(page)
 		await feedBuilderPage.gotoList()
 
-		// Initially should show empty state or no rows
+		// Test data seeds 3 feed items: 1 CTA + 2 sponsors
 		const count = await feedBuilderPage.getFeedItemCount()
-		expect(count).toBe(0)
+		expect(count).toBe(3)
 	})
 
 	test('can navigate to add feed item form', async ({ page }) => {
@@ -63,7 +63,7 @@ test.describe.serial('Admin - Feed Builder', () => {
 	test('can toggle feed item status', async ({ page }) => {
 		const feedBuilderPage = new FeedBuilderPage(page)
 
-		// First create a feed item
+		// First create a feed item (this creates a non-sponsor CTA we can toggle)
 		await feedBuilderPage.gotoNew()
 		await feedBuilderPage.fillCustomCTAForm({
 			title: 'Toggle Test',
@@ -74,27 +74,32 @@ test.describe.serial('Admin - Feed Builder', () => {
 		await feedBuilderPage.submitForm()
 		await feedBuilderPage.expectListPage()
 
-		// Get initial status
-		const initialStatus = await feedBuilderPage.getFirstFeedItemStatus()
+		// Find the first non-sponsor row (rows that have toggle buttons)
+		// Sponsor rows don't have toggle buttons
+		const toggleableRow = page
+			.locator('[data-testid="feed-items-table"] tbody tr')
+			.filter({ has: page.getByTestId('toggle-button') })
+			.first()
+		await expect(toggleableRow).toBeVisible()
+
+		// Get initial status from the status badge in this row
+		const statusBadge = toggleableRow.locator('td').last().locator('span').first()
+		const initialStatus = await statusBadge.textContent()
 
 		// Toggle status
-		await feedBuilderPage.toggleFirstFeedItem()
+		await toggleableRow.getByTestId('toggle-button').click()
 
 		// Wait for status to change
 		await expect(async () => {
-			const newStatus = await feedBuilderPage.getFirstFeedItemStatus()
-			expect(newStatus).not.toBe(initialStatus)
+			const newStatus = await statusBadge.textContent()
+			expect(newStatus?.trim()).not.toBe(initialStatus?.trim())
 		}).toPass({ timeout: 5000 })
-
-		// Status should have changed
-		const newStatus = await feedBuilderPage.getFirstFeedItemStatus()
-		expect(newStatus).not.toBe(initialStatus)
 	})
 
 	test('can delete a feed item', async ({ page }) => {
 		const feedBuilderPage = new FeedBuilderPage(page)
 
-		// First create a feed item
+		// First create a feed item (this creates a non-sponsor CTA we can delete)
 		await feedBuilderPage.gotoNew()
 		await feedBuilderPage.fillCustomCTAForm({
 			title: 'Delete Test',
@@ -108,8 +113,17 @@ test.describe.serial('Admin - Feed Builder', () => {
 		const initialCount = await feedBuilderPage.getFeedItemCount()
 		expect(initialCount).toBeGreaterThan(0)
 
+		// Find a row that has a delete button (non-sponsor rows)
+		const deletableRow = page
+			.locator('[data-testid="feed-items-table"] tbody tr')
+			.filter({ has: page.getByTestId('delete-button') })
+			.first()
+		await expect(deletableRow).toBeVisible()
+
 		// Delete the feed item
-		await feedBuilderPage.deleteFirstFeedItem()
+		await deletableRow.getByTestId('delete-button').click()
+		// Wait for confirmation modal and click confirm button
+		await page.locator('dialog[open]').getByTestId('confirm-delete-button').click()
 
 		// Wait for count to decrease
 		await expect(async () => {
@@ -121,7 +135,7 @@ test.describe.serial('Admin - Feed Builder', () => {
 	test('can edit a feed item', async ({ page }) => {
 		const feedBuilderPage = new FeedBuilderPage(page)
 
-		// First create a feed item
+		// First create a feed item (this creates a non-sponsor CTA we can edit)
 		await feedBuilderPage.gotoNew()
 		await feedBuilderPage.fillCustomCTAForm({
 			title: 'Edit Test Original',
@@ -132,8 +146,15 @@ test.describe.serial('Admin - Feed Builder', () => {
 		await feedBuilderPage.submitForm()
 		await feedBuilderPage.expectListPage()
 
-		// Click edit button on first item
-		await feedBuilderPage.editButtons.first().click()
+		// Find a row that has an edit button (non-sponsor rows)
+		const editableRow = page
+			.locator('[data-testid="feed-items-table"] tbody tr')
+			.filter({ has: page.getByTestId('edit-button') })
+			.first()
+		await expect(editableRow).toBeVisible()
+
+		// Click edit button on the editable row
+		await editableRow.getByTestId('edit-button').click()
 
 		// Should navigate to edit page
 		await expect(page).toHaveURL(/\/admin\/feed-builder\/[a-fA-F0-9]+/)
@@ -161,5 +182,57 @@ test.describe.serial('Admin - Feed Builder', () => {
 		// Should now have at least one feed item
 		const count = await feedBuilderPage.getFeedItemCount()
 		expect(count).toBeGreaterThan(0)
+	})
+
+	// ========== SPONSOR FEED ITEM TESTS ==========
+
+	test('sponsor feed items display with SPONSOR type badge', async ({ page }) => {
+		const feedBuilderPage = new FeedBuilderPage(page)
+		await feedBuilderPage.gotoList()
+
+		// Should have sponsor feed items from seed data
+		const sponsorCount = await feedBuilderPage.getSponsorFeedItemCount()
+		expect(sponsorCount).toBe(2) // 2 active sponsors in test data
+	})
+
+	test('sponsor feed items show company name as title', async ({ page }) => {
+		const feedBuilderPage = new FeedBuilderPage(page)
+		await feedBuilderPage.gotoList()
+
+		// Check that sponsor company names appear in the table
+		const title1 = await feedBuilderPage.getSponsorFeedItemTitle(0)
+		const title2 = await feedBuilderPage.getSponsorFeedItemTitle(1)
+
+		// Should be one of the test sponsor company names
+		const validNames = ['Acme Dev Tools', 'CloudHost Pro']
+		expect(validNames).toContain(title1)
+		expect(validNames).toContain(title2)
+	})
+
+	test('sponsor feed items show "(Auto-managed)" label', async ({ page }) => {
+		const feedBuilderPage = new FeedBuilderPage(page)
+		await feedBuilderPage.gotoList()
+
+		// Check both sponsor rows have the auto-managed label
+		expect(await feedBuilderPage.sponsorRowHasAutoManagedLabel(0)).toBe(true)
+		expect(await feedBuilderPage.sponsorRowHasAutoManagedLabel(1)).toBe(true)
+	})
+
+	test('sponsor feed items show "Managed via Sponsors" instead of actions', async ({ page }) => {
+		const feedBuilderPage = new FeedBuilderPage(page)
+		await feedBuilderPage.gotoList()
+
+		// Check both sponsor rows have the "Managed via Sponsors" text
+		expect(await feedBuilderPage.sponsorRowHasManagedViaText(0)).toBe(true)
+		expect(await feedBuilderPage.sponsorRowHasManagedViaText(1)).toBe(true)
+	})
+
+	test('sponsor feed items do not have edit or delete buttons', async ({ page }) => {
+		const feedBuilderPage = new FeedBuilderPage(page)
+		await feedBuilderPage.gotoList()
+
+		// Sponsor rows should not have edit/delete buttons
+		await feedBuilderPage.expectSponsorRowsHaveNoEditButtons()
+		await feedBuilderPage.expectSponsorRowsHaveNoDeleteButtons()
 	})
 })

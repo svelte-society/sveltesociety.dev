@@ -605,6 +605,70 @@ export const TEST_SPONSOR_TIERS = [
 ] as const
 
 /**
+ * Test feed items for feed builder testing
+ * Includes both CTA items and sponsor-linked items
+ */
+export const TEST_FEED_ITEMS = [
+	{
+		id: 'feed_item_cta_001',
+		content_id: null,
+		sponsor_id: null,
+		item_type: 'cta',
+		title: 'Join the Svelte Community',
+		description: 'Connect with thousands of Svelte developers worldwide',
+		button_text: 'Join Now',
+		button_href: '/community',
+		position_type: 'random',
+		position_fixed: null,
+		position_range_min: 3,
+		position_range_max: 8,
+		start_date: null,
+		end_date: null,
+		is_active: true,
+		priority: 50,
+		created_by: 'test_admin_001'
+	},
+	{
+		id: 'feed_item_sponsor_001',
+		content_id: null,
+		sponsor_id: 'sponsor_001', // Acme Dev Tools - Premium tier
+		item_type: 'sponsor',
+		title: null,
+		description: null,
+		button_text: null,
+		button_href: null,
+		position_type: 'random',
+		position_fixed: null,
+		position_range_min: 2,
+		position_range_max: 5,
+		start_date: new Date().toISOString(),
+		end_date: getSponsorExpiresAt(),
+		is_active: true,
+		priority: 100, // Premium sponsors get higher priority
+		created_by: null
+	},
+	{
+		id: 'feed_item_sponsor_002',
+		content_id: null,
+		sponsor_id: 'sponsor_002', // CloudHost Pro - Basic tier
+		item_type: 'sponsor',
+		title: null,
+		description: null,
+		button_text: null,
+		button_href: null,
+		position_type: 'random',
+		position_fixed: null,
+		position_range_min: 5,
+		position_range_max: 10,
+		start_date: new Date().toISOString(),
+		end_date: getSponsorExpiresAt(),
+		is_active: true,
+		priority: 50, // Basic sponsors get lower priority
+		created_by: null
+	}
+] as const
+
+/**
  * Test pending content entries (replacing moderation queue)
  * These are content items with status='pending_review' awaiting moderation
  */

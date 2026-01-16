@@ -22,13 +22,21 @@
 		const colorMap: Record<string, 'info' | 'success' | 'warning' | 'danger' | 'default'> = {
 			cta: 'info',
 			ad: 'warning',
-			featured: 'success'
+			featured: 'success',
+			sponsor: 'danger'
 		}
 		return colorMap[type] || 'default'
 	}
 
-	function getDisplayTitle(item: { title: string | null; content_title: string | null }) {
-		return item.title || item.content_title || 'Untitled'
+	function getDisplayTitle(item: { item_type: string; title: string | null; content?: { title: string } | null; sponsor?: { company_name: string } | null }) {
+		if (item.item_type === 'sponsor' && item.sponsor) {
+			return item.sponsor.company_name
+		}
+		return item.title || item.content?.title || 'Untitled'
+	}
+
+	function isSponsorItem(item: { item_type: string }): boolean {
+		return item.item_type === 'sponsor'
 	}
 </script>
 
@@ -60,7 +68,12 @@
 			<th class={classes}>Status</th>
 		{/snippet}
 		{#snippet row(item, classes)}
-			<td class={classes}>{getDisplayTitle(item)}</td>
+			<td class={classes}>
+				{getDisplayTitle(item)}
+				{#if isSponsorItem(item)}
+					<span class="ml-2 text-xs text-gray-500">(Auto-managed)</span>
+				{/if}
+			</td>
 			<td class={classes}>
 				<Badge color={getTypeColor(item.item_type)} text={item.item_type.toUpperCase()} />
 			</td>
@@ -73,20 +86,24 @@
 			</td>
 		{/snippet}
 		{#snippet actionCell(item)}
-			<Actions id={item.id}>
-				<Action.Edit href={`/admin/feed-builder/${item.id}`} />
-				<Action.Button
-					icon={Power}
-					form={toggleFeedItem}
-					variant="info"
-					tooltip={item.is_active ? 'Deactivate' : 'Activate'}
-					testId="toggle-button"
-				/>
-				<Action.Delete
-					form={deleteFeedItem}
-					confirm="Are you sure you want to delete this feed item?"
-				/>
-			</Actions>
+			{#if isSponsorItem(item)}
+				<span class="text-xs text-gray-400">Managed via Sponsors</span>
+			{:else}
+				<Actions id={item.id}>
+					<Action.Edit href={`/admin/feed-builder/${item.id}`} />
+					<Action.Button
+						icon={Power}
+						form={toggleFeedItem}
+						variant="info"
+						tooltip={item.is_active ? 'Deactivate' : 'Activate'}
+						testId="toggle-button"
+					/>
+					<Action.Delete
+						form={deleteFeedItem}
+						confirm="Are you sure you want to delete this feed item?"
+					/>
+				</Actions>
+			{/if}
 		{/snippet}
 	</Table>
 </div>

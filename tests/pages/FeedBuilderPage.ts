@@ -199,4 +199,97 @@ export class FeedBuilderPage extends BasePage {
 			await this.setPriority(data.priority)
 		}
 	}
+
+	// ========== SPONSOR-SPECIFIC METHODS ==========
+
+	/**
+	 * Get all rows that have type "SPONSOR"
+	 */
+	get sponsorRows(): Locator {
+		return this.feedItemRows.filter({ hasText: 'SPONSOR' })
+	}
+
+	/**
+	 * Get all "Auto-managed" labels in the table
+	 */
+	get autoManagedLabels(): Locator {
+		return this.page.locator('text=(Auto-managed)')
+	}
+
+	/**
+	 * Get all "Managed via Sponsors" text elements
+	 */
+	get managedViaSponsorText(): Locator {
+		return this.page.locator('text=Managed via Sponsors')
+	}
+
+	/**
+	 * Get count of sponsor feed items
+	 */
+	async getSponsorFeedItemCount(): Promise<number> {
+		return await this.sponsorRows.count()
+	}
+
+	/**
+	 * Check if a sponsor row has the "(Auto-managed)" label
+	 */
+	async sponsorRowHasAutoManagedLabel(index: number = 0): Promise<boolean> {
+		const row = this.sponsorRows.nth(index)
+		const label = row.locator('text=(Auto-managed)')
+		return await label.isVisible()
+	}
+
+	/**
+	 * Check if a sponsor row has "Managed via Sponsors" instead of edit/delete buttons
+	 */
+	async sponsorRowHasManagedViaText(index: number = 0): Promise<boolean> {
+		const row = this.sponsorRows.nth(index)
+		const text = row.locator('text=Managed via Sponsors')
+		return await text.isVisible()
+	}
+
+	/**
+	 * Get the title/company name of a sponsor feed item
+	 */
+	async getSponsorFeedItemTitle(index: number = 0): Promise<string> {
+		const row = this.sponsorRows.nth(index)
+		const titleCell = row.locator('td').first()
+		const text = await titleCell.textContent()
+		// Remove the "(Auto-managed)" suffix if present
+		return text?.replace('(Auto-managed)', '').trim() || ''
+	}
+
+	/**
+	 * Check if sponsor rows don't have edit buttons
+	 */
+	async expectSponsorRowsHaveNoEditButtons(): Promise<void> {
+		const sponsorCount = await this.getSponsorFeedItemCount()
+		for (let i = 0; i < sponsorCount; i++) {
+			const row = this.sponsorRows.nth(i)
+			const editBtn = row.getByTestId('edit-button')
+			const editCount = await editBtn.count()
+			expect(editCount).toBe(0)
+		}
+	}
+
+	/**
+	 * Check if sponsor rows don't have delete buttons
+	 */
+	async expectSponsorRowsHaveNoDeleteButtons(): Promise<void> {
+		const sponsorCount = await this.getSponsorFeedItemCount()
+		for (let i = 0; i < sponsorCount; i++) {
+			const row = this.sponsorRows.nth(i)
+			const deleteBtn = row.getByTestId('delete-button')
+			const deleteCount = await deleteBtn.count()
+			expect(deleteCount).toBe(0)
+		}
+	}
+
+	/**
+	 * Expect sponsor feed items to be displayed with auto-managed UI
+	 */
+	async expectSponsorFeedItemsDisplayed(): Promise<void> {
+		const count = await this.getSponsorFeedItemCount()
+		expect(count).toBeGreaterThan(0)
+	}
 }

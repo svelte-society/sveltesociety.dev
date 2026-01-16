@@ -236,11 +236,8 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 	// Build the unified feed with insertable items
 	const feedItems = locals.feedItemService.getActiveFeedItems()
 
-	// Expire overdue sponsors and get active sponsors for feed
+	// Expire overdue sponsors (this also handles one-time sponsors)
 	locals.sponsorService.expireOverdueSponsors()
-	const activeSponsors = locals.sponsorService
-		.getActiveSponsorsWithTiers()
-		.filter((s) => s.show_in_feed)
 
 	// Collect content IDs that will be featured (to dedupe from regular feed)
 	const featuredContentIds = new Set<string>()
@@ -265,14 +262,39 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 				}
 			}
 
-			// For CTA/ad items, build props
+			// For sponsor items, build SponsorProps from the nested sponsor object
+			if (item.item_type === 'sponsor') {
+				if (!item.sponsor_id || !item.sponsor) return null
+				const sponsorProps: SponsorProps = {
+					id: item.sponsor_id,
+					company_name: item.sponsor.company_name,
+					logo_url: item.sponsor.logo_url,
+					tagline: item.sponsor.tagline,
+					website_url: item.sponsor.website_url,
+					discount_code: item.sponsor.discount_code,
+					discount_description: item.sponsor.discount_description,
+					tier_name: item.sponsor.tier_name,
+					logo_size: item.sponsor.logo_size
+				}
+				return {
+					id: item.id,
+					type: 'sponsor',
+					positionType: item.position_type,
+					positionFixed: item.position_fixed,
+					positionRangeMin: item.position_range_min ?? 3,
+					positionRangeMax: item.position_range_max ?? 7,
+					priority: item.priority,
+					entry: { type: 'sponsor', props: sponsorProps }
+				}
+			}
+
+			// For CTA/ad items, build props (can optionally link to content)
 			const ctaProps: CTAProps = {
-				title: item.title || item.content_title || 'Check this out',
-				description: item.description || item.content_description || '',
+				title: item.title || item.content?.title || 'Check this out',
+				description: item.description || item.content?.description || '',
 				buttonText: item.button_text || 'Learn More',
 				buttonHref:
-					item.button_href ||
-					(item.content_slug ? `/${item.content_type}/${item.content_slug}` : '/')
+					item.button_href || (item.content ? `/${item.content.type}/${item.content.slug}` : '/')
 			}
 
 			return {
@@ -287,36 +309,6 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 			}
 		})
 		.filter((item): item is InsertableItem => item !== null)
-
-	// Add sponsors to insertables
-	// Premium sponsors get higher priority and earlier positions
-	activeSponsors.forEach((sponsor, index) => {
-		const isPremium = sponsor.logo_size === 'large'
-		const sponsorProps: SponsorProps = {
-			id: sponsor.id,
-			company_name: sponsor.company_name,
-			logo_url: sponsor.logo_url,
-			tagline: sponsor.tagline,
-			website_url: sponsor.website_url,
-			discount_code: sponsor.discount_code,
-			discount_description: sponsor.discount_description,
-			tier_name: sponsor.tier_name,
-			logo_size: sponsor.logo_size
-		}
-
-		insertables.push({
-			id: `sponsor-${sponsor.id}`,
-			type: 'sponsor',
-			positionType: 'random',
-			positionFixed: null,
-			// Premium sponsors appear earlier (positions 2-5), basic later (positions 5-10)
-			positionRangeMin: isPremium ? 2 : 5,
-			positionRangeMax: isPremium ? 5 : 10,
-			// Premium sponsors have higher priority
-			priority: isPremium ? 100 - index : 50 - index,
-			entry: { type: 'sponsor', props: sponsorProps }
-		})
-	})
 
 	// Remove featured content from regular feed to avoid duplicates
 	const dedupedContent = content.filter((c) => !featuredContentIds.has(c.id))

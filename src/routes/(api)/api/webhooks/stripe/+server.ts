@@ -133,6 +133,33 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 }
 
 /**
+ * Helper to create/update FeedItem when sponsor is activated
+ */
+function createSponsorFeedItem(sponsorId: string, endDate: Date | null, locals: App.Locals): void {
+	try {
+		// Get sponsor's active subscription to determine tier
+		const subscription = locals.sponsorSubscriptionService.getActiveSubscription(sponsorId)
+		if (!subscription) {
+			console.error(`No active subscription found for sponsor ${sponsorId}`)
+			return
+		}
+
+		const tier = locals.sponsorTierService.getTierById(subscription.tier_id)
+		const isPremium = tier?.logo_size === 'large'
+
+		locals.feedItemService.createSponsorFeedItem({
+			sponsorId,
+			isPremium,
+			endDate
+		})
+
+		console.log(`Created/updated FeedItem for sponsor ${sponsorId}`)
+	} catch (error) {
+		console.error('Error creating sponsor FeedItem:', error)
+	}
+}
+
+/**
  * Handle sponsor checkout completion
  * - Link subscription to sponsor record
  * - Get customer email from Stripe
@@ -182,6 +209,9 @@ async function handleSponsorCheckoutCompleted(
 			locals.sponsorSubscriptionService.activateSubscription(subscriptionId, now, expiresAt)
 			locals.sponsorService.activateSponsor(sponsorId)
 			locals.sponsorService.setExpiresAt(sponsorId, expiresAt)
+
+			// Create FeedItem for the activated sponsor
+			createSponsorFeedItem(sponsorId, expiresAt, locals)
 
 			console.log(`Sponsor ${sponsorId} activated via one-time payment`)
 		}
@@ -251,6 +281,9 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription, loca
 			locals.sponsorService.activateSponsor(sponsorId)
 			locals.sponsorService.setExpiresAt(sponsorId, periodEnd)
 
+			// Create FeedItem for the activated sponsor
+			createSponsorFeedItem(sponsorId, periodEnd, locals)
+
 			console.log(`Sponsor ${sponsorId} activated via subscription`)
 		} else {
 			locals.sponsorSubscriptionService.updateStatus(ourSubscription.id, subscription.status)
@@ -319,6 +352,8 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription, loca
 				case 'active':
 					locals.sponsorService.activateSponsor(sponsorId)
 					locals.sponsorService.setExpiresAt(sponsorId, periodEnd)
+					// Update FeedItem end date
+					locals.feedItemService.updateSponsorFeedItemEndDate(sponsorId, periodEnd)
 					break
 				case 'past_due':
 					// Keep sponsor active but log warning
@@ -327,9 +362,13 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription, loca
 				case 'canceled':
 				case 'unpaid':
 					locals.sponsorService.cancelSponsor(sponsorId)
+					// Deactivate FeedItem
+					locals.feedItemService.deactivateSponsorFeedItem(sponsorId)
 					break
 				case 'paused':
 					locals.sponsorService.pauseSponsor(sponsorId)
+					// Deactivate FeedItem while paused
+					locals.feedItemService.deactivateSponsorFeedItem(sponsorId)
 					break
 			}
 		}
@@ -373,6 +412,8 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription, loca
 
 		if (sponsorId) {
 			locals.sponsorService.cancelSponsor(sponsorId)
+			// Deactivate FeedItem
+			locals.feedItemService.deactivateSponsorFeedItem(sponsorId)
 			console.log(`Sponsor ${sponsorId} cancelled due to subscription deletion`)
 		}
 	} catch (error) {
@@ -417,6 +458,8 @@ async function handleInvoicePaid(invoice: Stripe.Invoice, locals: App.Locals) {
 		if (sponsor) {
 			locals.sponsorService.activateSponsor(ourSubscription.sponsor_id)
 			locals.sponsorService.setExpiresAt(ourSubscription.sponsor_id, periodEnd)
+			// Extend FeedItem end date on renewal
+			locals.feedItemService.updateSponsorFeedItemEndDate(ourSubscription.sponsor_id, periodEnd)
 		}
 
 		console.log(
