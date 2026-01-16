@@ -594,22 +594,26 @@ export class AdminCampaignEditorPage extends BasePage {
 	// Actions
 
 	/**
-	 * Select a campaign type
+	 * Select a campaign type and wait for the selection to take effect
 	 */
 	async selectCampaignType(
 		type: 'content_highlights' | 'announcement' | 'jobs_roundup'
 	): Promise<void> {
+		let button: Locator
 		switch (type) {
 			case 'content_highlights':
-				await this.contentHighlightsTypeButton.click()
+				button = this.contentHighlightsTypeButton
 				break
 			case 'announcement':
-				await this.announcementTypeButton.click()
+				button = this.announcementTypeButton
 				break
 			case 'jobs_roundup':
-				await this.jobsRoundupTypeButton.click()
+				button = this.jobsRoundupTypeButton
 				break
 		}
+		await button.click()
+		// Wait for the selection to take effect - selected buttons get ring-2 class
+		await expect(button).toHaveClass(/ring-2/, { timeout: 5000 })
 	}
 
 	/**
