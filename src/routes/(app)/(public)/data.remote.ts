@@ -294,8 +294,7 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 				description: item.description || item.content?.description || '',
 				buttonText: item.button_text || 'Learn More',
 				buttonHref:
-					item.button_href ||
-					(item.content ? `/${item.content.type}/${item.content.slug}` : '/')
+					item.button_href || (item.content ? `/${item.content.type}/${item.content.slug}` : '/')
 			}
 
 			return {

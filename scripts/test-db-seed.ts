@@ -10,6 +10,7 @@ import {
 	TEST_SPONSORS,
 	TEST_SPONSOR_TIERS,
 	TEST_SPONSOR_SUBSCRIPTIONS,
+	TEST_FEED_ITEMS,
 	getSessionExpiry,
 	getYesterday
 } from '../tests/fixtures/test-data'
@@ -290,6 +291,36 @@ async function seedTestDatabase() {
 			)
 		})
 
+		// 14. Add feed items (for feed builder testing)
+		console.log('  → Creating feed items...')
+		db.run('DELETE FROM feed_items')
+		const feedItemInsert = db.prepare(`
+			INSERT INTO feed_items (id, content_id, sponsor_id, item_type, title, description, button_text, button_href, position_type, position_fixed, position_range_min, position_range_max, start_date, end_date, is_active, priority, created_by)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		`)
+
+		TEST_FEED_ITEMS.forEach((item) => {
+			feedItemInsert.run(
+				item.id,
+				item.content_id,
+				item.sponsor_id,
+				item.item_type,
+				item.title,
+				item.description,
+				item.button_text,
+				item.button_href,
+				item.position_type,
+				item.position_fixed,
+				item.position_range_min,
+				item.position_range_max,
+				item.start_date,
+				item.end_date,
+				item.is_active ? 1 : 0,
+				item.priority,
+				item.created_by
+			)
+		})
+
 		// Summary
 		console.log('\n✅ Test database seeded successfully!')
 		console.log('\n📊 Summary:')
@@ -300,6 +331,7 @@ async function seedTestDatabase() {
 		)
 		console.log(`   Jobs: ${TEST_JOBS.length} published`)
 		console.log(`   Sponsors: ${TEST_SPONSORS.length} (${TEST_SPONSOR_TIERS.length} tiers)`)
+		console.log(`   Feed Items: ${TEST_FEED_ITEMS.length} (CTA + sponsor items)`)
 		console.log(`   Sessions: ${Object.keys(TEST_USERS).length} (one per user)`)
 		console.log('\n🔑 Test User Credentials:')
 		Object.entries(TEST_USERS).forEach(([key, user]) => {

@@ -151,14 +151,43 @@ test.describe('Sponsors in Feed', () => {
 		await setupDatabaseIsolation(page)
 	})
 
-	test('sponsor cards appear in content feed', async ({ page }) => {
+	test('content feed loads with sponsor cards', async ({ page }) => {
 		await page.goto('/')
 
-		// Check for sponsor card in feed
-		const sponsorCard = page.getByTestId('sponsor-card')
-		// May or may not be visible depending on feed position
-		// Just verify the feed loads
+		// Verify the feed loads
 		const contentList = page.getByTestId('content-list')
 		await expect(contentList).toBeVisible()
+
+		// Sponsor cards may or may not appear depending on random position calculation
+		// The important thing is that the feed renders without errors
+		// and contains some content
+		const feedItems = contentList.locator('> div, > [data-testid]')
+		const itemCount = await feedItems.count()
+		expect(itemCount).toBeGreaterThan(0)
+	})
+
+	test('sponsor cards have correct structure when present', async ({ page }) => {
+		await page.goto('/')
+
+		// Wait for feed to load
+		const contentList = page.getByTestId('content-list')
+		await expect(contentList).toBeVisible()
+
+		// If sponsor cards are visible, verify their structure
+		const sponsorCards = page.getByTestId('sponsor-card')
+		const sponsorCount = await sponsorCards.count()
+
+		if (sponsorCount > 0) {
+			const sponsorCard = sponsorCards.first()
+			await expect(sponsorCard).toBeVisible()
+
+			// Sponsor card should link to external site with sponsored rel
+			const sponsorLink = sponsorCard.locator('a[rel="noopener sponsored"]')
+			await expect(sponsorLink).toBeVisible()
+
+			// Should have a company logo
+			const logo = sponsorCard.locator('img')
+			await expect(logo.first()).toBeVisible()
+		}
 	})
 })
