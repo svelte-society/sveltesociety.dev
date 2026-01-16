@@ -26,7 +26,8 @@ describe('SponsorSubscriptionService', () => {
 		db.prepare('DELETE FROM sponsor_tiers').run()
 
 		// Create a test tier
-		db.prepare(`
+		db.prepare(
+			`
 			INSERT INTO sponsor_tiers (
 				id, name, display_name, price_cents, yearly_price_cents, one_time_price_cents,
 				features, logo_size, max_tagline_length, show_in_feed, show_in_sidebar,
@@ -35,7 +36,8 @@ describe('SponsorSubscriptionService', () => {
 				'tier-basic', 'basic', 'Basic Sponsor', 39900, 399000, 39900,
 				'["Feature 1"]', 'normal', 100, 1, 1, 0, 1, 1
 			)
-		`).run()
+		`
+		).run()
 		testTierId = 'tier-basic'
 
 		// Create a test sponsor
