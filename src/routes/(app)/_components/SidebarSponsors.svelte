@@ -4,6 +4,8 @@
 	import Tag from 'phosphor-svelte/lib/Tag'
 	import { type SidebarSponsor } from './types'
 	import { getCachedImageWithPreset } from '$lib/utils/image-cache'
+	import SidebarCard from '$lib/ui/SidebarCard.svelte'
+	import Button from '$lib/ui/Button.svelte'
 
 	let { sponsors = [] }: { sponsors?: SidebarSponsor[] } = $props()
 
@@ -13,11 +15,13 @@
 	const isPremium = (logoSize?: string) => logoSize === 'large'
 </script>
 
-<div class="grid gap-3 rounded border border-slate-200 bg-gray-50 p-4">
-	<div class="flex items-center justify-between">
-		<h3 class="text-md font-bold">Sponsors</h3>
-		<a href="/sponsors/submit" class="text-svelte-500 text-xs hover:underline">Learn more</a>
-	</div>
+<SidebarCard title="Sponsors">
+	{#snippet action()}
+		<Button href="/sponsors/submit" variant="secondary" size="thin">
+			<Plus size={12} />
+			Sponsor
+		</Button>
+	{/snippet}
 
 	<div class="space-y-2">
 		{#each sponsors as sponsor (sponsor.id)}
@@ -101,15 +105,4 @@
 			</a>
 		{/each}
 	</div>
-
-	<p class="text-xs text-gray-600">
-		Support Svelte Society and get your company featured to thousands of developers.
-	</p>
-
-	<a
-		href="/sponsors/submit"
-		class="mt-1 block rounded bg-orange-500 px-3 py-1.5 text-center text-xs font-medium text-white transition-colors hover:bg-orange-600"
-	>
-		Become a Sponsor
-	</a>
-</div>
+</SidebarCard>
