@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from './Button.svelte'
+	import SidebarCard from './SidebarCard.svelte'
 	import { Envelope, CheckCircle, Warning } from 'phosphor-svelte'
 	import { subscribeNewsletter } from './newsletter.remote'
 
@@ -7,14 +8,10 @@
 	let errorMessage = $state('')
 </script>
 
-<div
-	class="grid gap-2 rounded border border-slate-200 bg-gray-50 px-4 py-3 text-sm"
-	data-testid="newsletter-subscribe"
->
-	<div class="flex items-center gap-2">
+<SidebarCard title="Newsletter" padding="compact" data-testid="newsletter-subscribe">
+	{#snippet icon()}
 		<Envelope weight="bold" class="text-orange-600" />
-		<h3 class="font-bold">Newsletter</h3>
-	</div>
+	{/snippet}
 
 	{#if showSuccess}
 		<div class="flex items-center gap-2 text-green-600" data-testid="newsletter-success">
@@ -65,4 +62,4 @@
 			</Button>
 		</form>
 	{/if}
-</div>
+</SidebarCard>

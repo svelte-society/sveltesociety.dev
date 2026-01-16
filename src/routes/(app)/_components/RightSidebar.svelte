@@ -34,11 +34,11 @@
 
 	<SidebarSponsors {sponsors} />
 
-	{#if user?.newsletter_preference !== 'subscribed'}
-		<NewsletterSubscribe />
-	{/if}
-
 	<SidebarJobs {jobs} />
 
 	<UpcomingEvents events={upcomingEvents} />
+
+	{#if user?.newsletter_preference !== 'subscribed'}
+		<NewsletterSubscribe />
+	{/if}
 </aside>

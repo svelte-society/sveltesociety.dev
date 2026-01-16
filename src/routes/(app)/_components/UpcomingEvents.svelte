@@ -3,19 +3,14 @@
 	import MapPin from 'phosphor-svelte/lib/MapPin'
 	import User from 'phosphor-svelte/lib/User'
 	import { type UpcomingEvent } from './types'
+	import SidebarCard from '$lib/ui/SidebarCard.svelte'
 
 	let { events = [], onLinkClick }: { events?: UpcomingEvent[]; onLinkClick?: () => void } =
 		$props()
 </script>
 
 {#if events && events.length > 0}
-	<div class="grid gap-3 rounded border border-slate-200 bg-gray-50 p-4">
-		<div class="flex items-center justify-between">
-			<h3 class="text-md font-bold">Upcoming Events</h3>
-			<a href="/events" class="text-svelte-500 text-xs hover:underline" onclick={onLinkClick}
-				>View all</a
-			>
-		</div>
+	<SidebarCard title="Upcoming Events">
 		<div class="space-y-3">
 			{#each events as event}
 				<div class="border-svelte-300 border-l-2 pl-3">
@@ -73,5 +68,11 @@
 				</div>
 			{/each}
 		</div>
-	</div>
+
+		{#snippet footer()}
+			<a href="/events" class="text-svelte-500 text-xs hover:underline" onclick={onLinkClick}>
+				View all →
+			</a>
+		{/snippet}
+	</SidebarCard>
 {/if}
