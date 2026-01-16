@@ -175,6 +175,7 @@ export const activateSponsor = form(sponsorIdSchema, async (data) => {
 		// Use getSubscriptionsBySponsor to find any subscription (not just 'active' ones)
 		const subscriptions = locals.sponsorSubscriptionService.getSubscriptionsBySponsor(data.id)
 		const subscription = subscriptions[0] // Get the most recent subscription
+		let periodEnd: Date | null = null
 		if (subscription && subscription.status !== 'active') {
 			// Set the subscription period to start now and end in 30 days as a default fallback.
 			// This is used when:
@@ -184,9 +185,22 @@ export const activateSponsor = form(sponsorIdSchema, async (data) => {
 			// by webhook events (subscription.created, subscription.updated, invoice.paid)
 			// with the actual billing period from Stripe.
 			const now = new Date()
-			const periodEnd = new Date()
+			periodEnd = new Date()
 			periodEnd.setDate(periodEnd.getDate() + 30)
 			locals.sponsorSubscriptionService.activateSubscription(subscription.id, now, periodEnd)
+		} else if (subscription?.current_period_end) {
+			periodEnd = new Date(subscription.current_period_end)
+		}
+
+		// Create FeedItem for the activated sponsor
+		if (subscription) {
+			const tier = locals.sponsorTierService.getTierById(subscription.tier_id)
+			const isPremium = tier?.logo_size === 'large'
+			locals.feedItemService.createSponsorFeedItem({
+				sponsorId: data.id,
+				isPremium,
+				endDate: periodEnd
+			})
 		}
 
 		await getSponsors(getFiltersFromUrl(url)).refresh()
@@ -218,6 +232,9 @@ export const pauseSponsor = form(sponsorIdSchema, async (data) => {
 		if (subscription) {
 			locals.sponsorSubscriptionService.updateStatus(subscription.id, 'paused')
 		}
+
+		// Deactivate FeedItem while paused
+		locals.feedItemService.deactivateSponsorFeedItem(data.id)
 
 		await getSponsors(getFiltersFromUrl(url)).refresh()
 		await getSponsor({ id: data.id }).refresh()
@@ -259,6 +276,9 @@ export const cancelSponsor = form(sponsorIdSchema, async (data) => {
 				}
 			}
 		}
+
+		// Deactivate FeedItem
+		locals.feedItemService.deactivateSponsorFeedItem(data.id)
 
 		await getSponsors(getFiltersFromUrl(url)).refresh()
 		await getSponsor({ id: data.id }).refresh()
