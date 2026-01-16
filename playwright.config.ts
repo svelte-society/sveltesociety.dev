@@ -20,9 +20,12 @@ const config: PlaywrightTestConfig = {
 	// Workers - allow parallel execution for read-only tests
 	workers: process.env.CI ? 4 : 4,
 	// Reporter configuration
-	reporter: process.env.CI
-		? [['html'], ['github'], ['list']]
-		: [['html', { open: 'never' }], ['list']],
+	// AGENT_MODE=1 uses minimal output reporter for coding agents
+	reporter: process.env.AGENT_MODE
+		? [['./tests/reporters/agent-reporter.ts']]
+		: process.env.CI
+			? [['html'], ['github'], ['list']]
+			: [['html', { open: 'never' }], ['list']],
 	use: {
 		// Base URL
 		baseURL: 'http://localhost:4173',

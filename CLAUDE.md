@@ -70,6 +70,35 @@ bd automatically syncs with git (5s debounce):
 - Imports from JSONL after git pull
 - No manual sync needed
 
+## Context-Efficient Commands for Agents
+
+**Prefer these commands to minimize context window usage:**
+
+| Command               | Description   | Output on Success         |
+| --------------------- | ------------- | ------------------------- |
+| `bun run agent:test`  | Unit tests    | `✓ unit tests passed`     |
+| `bun run agent:e2e`   | E2E tests     | `✓ e2e tests passed`      |
+| `bun run agent:check` | Type check    | `✓ type check passed`     |
+| `bun run agent:lint`  | Lint check    | `✓ lint passed`           |
+| `bun run agent:build` | Build project | `✓ build passed`          |
+| `bun run agent:all`   | Full pipeline | `✓ all checks passed`     |
+| `bun run agent:json`  | JSON output   | `{"status":"passed",...}` |
+
+These commands show full output **only on failure**, preserving context window tokens.
+
+**How it works:**
+
+- Success: Shows `✓ description` (single line)
+- Failure: Shows `✗ description` + full error output for debugging
+
+**Direct script usage:**
+
+```bash
+./scripts/agent-run.sh test:unit      # Run unit tests
+./scripts/agent-run.sh all --json     # JSON output for all checks
+./scripts/run-silent.sh "task" "cmd"  # Wrap any command
+```
+
 ## Code Formatting
 
 After modifying files, run the formatter to ensure consistent style:
