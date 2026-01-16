@@ -1,10 +1,24 @@
-# Claude Memory - Additional Context
+# SvelteSociety.dev
 
-This file provides additional context for Claude Code beyond the main CLAUDE.md.
+A community website for Svelte developers featuring user-curated content (videos, recipes, libraries, announcements, collections, jobs) with content submission, admin moderation, and search.
 
-## Testing Documentation
+**Tech stack**: Svelte 5, SvelteKit 2, SQLite, Bun, Tailwind CSS + tailwind-variants
 
-See @./docs/E2E_TESTING_MEMORY.md for E2E testing requirements and patterns.
+## Key Directories
+
+| Directory                    | Purpose                                              |
+| ---------------------------- | ---------------------------------------------------- |
+| `src/routes/(app)/(public)/` | Public pages (content listings, details, submission) |
+| `src/routes/(admin)/admin/`  | Protected admin routes (moderation, user management) |
+| `src/lib/ui/`                | Reusable UI components with tailwind-variants        |
+| `src/lib/server/services/`   | Data access layer (33 service classes)               |
+| `src/lib/remote/`            | Remote Functions for type-safe client-server RPC     |
+
+## Key Documentation
+
+- **E2E Testing**: See @./docs/E2E_TESTING_MEMORY.md - All new features require Playwright tests
+- **Beads Workflow**: See @./docs/BEADS_WORKFLOW.md - Dependency-aware issue tracking (`bd` command)
+- **Agent Commands**: See @./docs/AGENT_COMMANDS.md - Context-efficient commands for AI agents
 
 ## Svelte MCP Tools
 
@@ -17,72 +31,28 @@ When building Svelte components, use the Svelte MCP server tools:
 | `svelte-autofixer`  | Analyzes code and suggests fixes                    | **Always** before finalizing any Svelte component |
 | `playground-link`   | Generates Svelte playground link                    | When sharing code for testing                     |
 
-**Important**: Always run `svelte-autofixer` on Svelte components before completing work.
-
 ## Claude Skills
 
-Skills are invoked with `/skill-name` (e.g., `/e2e-test-builder`). They provide specialized patterns for this codebase.
+Skills provide specialized patterns for this codebase. Invoke with `/skill-name`.
 
-**ALWAYS invoke any skill that is deemed important for what you are doing.**
+| Skill                    | Purpose                                     | When to Use                                      |
+| ------------------------ | ------------------------------------------- | ------------------------------------------------ |
+| `component-builder`      | Create UI components with tailwind-variants | Creating/editing components in `src/lib/ui/`     |
+| `svelte-code-writer`     | Svelte 5 docs lookup and code analysis      | Creating/editing `.svelte` or `.svelte.ts` files |
+| `using-remote-functions` | Type-safe client-server communication       | Components that fetch data or submit forms       |
+| `admin-crud-page`        | Admin dashboard pages with tables/forms     | Adding admin sections at `/admin/[feature]`      |
+| `page-builder`           | List and detail page patterns               | Building pages with forms, filters, pagination   |
+| `e2e-test-builder`       | Playwright E2E tests with POM pattern       | Adding tests for new features                    |
 
-| Skill                    | Purpose                                     | When to Use                                                      |
-| ------------------------ | ------------------------------------------- | ---------------------------------------------------------------- |
-| `component-builder`      | Create UI components with tailwind-variants | Creating/editing UI components in `src/lib/ui/`                  |
-| `svelte-code-writer`     | Svelte 5 docs lookup and code analysis      | Creating/editing `.svelte` or `.svelte.ts/.svelte.js` files      |
-| `using-remote-functions` | Type-safe client-server communication       | Components that fetch data, submit forms, or run server commands |
-| `admin-crud-page`        | Admin dashboard pages with tables/forms     | Adding admin sections at `/admin/[feature]`                      |
-| `page-builder`           | List and detail page patterns               | Building pages with forms, filters, pagination                   |
-| `e2e-test-builder`       | Playwright E2E tests with POM pattern       | Adding tests for new features                                    |
+## Canonical Examples
 
-**Template skills** (for creating new skills):
+Reference these files for patterns:
 
-- `sample-basic` - Minimal skill structure template
-- `sample-with-references` - Progressive disclosure pattern with reference files
-
-## Beads Workflow (bd)
-
-This project uses **bd** (beads) for dependency-aware issue tracking. Issues are chained together like beads on a string.
-
-### Key Commands
-
-- `bd create "Task name"` - Create new issue
-- `bd list` - List all issues
-- `bd list --status open` - Filter by status
-- `bd ready` - Show issues ready to work (no blockers)
-- `bd show bd-1` - View issue details
-- `bd update bd-1 --status in_progress` - Update issue status
-- `bd close bd-1` - Mark issue complete
-- `bd dep add bd-1 bd-2` - Add dependency (bd-2 blocks bd-1)
-
-### Workflow Pattern
-
-1. Use `bd ready` to find available work
-2. Use `bd update <id> --status in_progress` to claim work
-3. Use `bd create` when discovering new tasks during work
-4. Use `bd dep add` to link related tasks
-5. Use `bd close <id>` when work is complete
-
-### Auto-Sync
-
-bd automatically syncs with git (5s debounce):
-
-- Exports to JSONL after changes
-- Imports from JSONL after git pull
-- No manual sync needed
+- **UI Component**: `src/lib/ui/Button.svelte` + `src/lib/ui/button.variants.ts`
+- **Service Layer**: `src/lib/server/services/content.ts`
+- **Remote Function**: `src/lib/remote/interact.remote.ts`
+- **Content Type Page**: `src/lib/ui/content/Video.svelte`
 
 ## Code Formatting
 
-After modifying files, run the formatter to ensure consistent style:
-
-```bash
-bun run lint
-```
-
-This formats all project files (TypeScript, Svelte, Markdown, etc.) with Prettier.
-Run this before committing to avoid mixing formatting changes with code changes.
-
-## Important Reminders
-
-- All new features MUST include Playwright E2E tests
-- Update `tests/README.md` after adding new test coverage
-- Run `bun run lint` after modifying files to maintain consistent formatting
+Run before committing: `bun run lint`

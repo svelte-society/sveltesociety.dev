@@ -72,7 +72,14 @@
 		"test:watch": "bun test src/ tests/unit/ --watch",
 		"test:coverage": "bun test src/ tests/unit/ --coverage",
 		"test:coverage:lcov": "bun test src/ tests/unit/ --coverage --coverage-reporter=lcov",
-		"test:ci": "bun test src/ tests/unit/ --coverage --coverage-reporter=lcov"
+		"test:ci": "bun test src/ tests/unit/ --coverage --coverage-reporter=lcov",
+		"agent:test": "./scripts/agent-run.sh test:unit",
+		"agent:e2e": "./scripts/agent-run.sh test:e2e",
+		"agent:check": "./scripts/agent-run.sh check",
+		"agent:lint": "./scripts/agent-run.sh lint",
+		"agent:build": "./scripts/agent-run.sh build",
+		"agent:all": "./scripts/agent-run.sh all",
+		"agent:json": "./scripts/agent-run.sh all --json"
 	},
 	"type": "module"
 }
