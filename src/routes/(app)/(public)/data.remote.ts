@@ -40,12 +40,26 @@ export type ContentProps = {
 	content: ContentWithAuthor
 }
 
+/** SponsorCard props */
+export type SponsorProps = {
+	id: string
+	company_name: string
+	logo_url: string
+	tagline: string
+	website_url: string
+	discount_code: string | null
+	discount_description: string | null
+	tier_name: string
+	logo_size: 'normal' | 'large'
+}
+
 /** A single entry in the unified feed - all use `props` for component spreading */
 export type FeedEntry =
 	| { type: 'content'; props: ContentProps }
 	| { type: 'cta'; props: CTAProps }
 	| { type: 'ad'; props: CTAProps }
 	| { type: 'featured'; props: ContentProps }
+	| { type: 'sponsor'; props: SponsorProps }
 
 // ============================================================================
 // Feed Building Utilities (Server-side only)
@@ -73,7 +87,7 @@ const DEFAULT_CTA: FeedEntry = {
 
 type InsertableItem = {
 	id: string
-	type: 'cta' | 'ad' | 'featured'
+	type: 'cta' | 'ad' | 'featured' | 'sponsor'
 	positionType: 'fixed' | 'random'
 	positionFixed: number | null
 	positionRangeMin: number
@@ -222,6 +236,12 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 	// Build the unified feed with insertable items
 	const feedItems = locals.feedItemService.getActiveFeedItems()
 
+	// Expire overdue sponsors and get active sponsors for feed
+	locals.sponsorService.expireOverdueSponsors()
+	const activeSponsors = locals.sponsorService
+		.getActiveSponsorsWithTiers()
+		.filter((s) => s.show_in_feed)
+
 	// Collect content IDs that will be featured (to dedupe from regular feed)
 	const featuredContentIds = new Set<string>()
 
@@ -267,6 +287,36 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 			}
 		})
 		.filter((item): item is InsertableItem => item !== null)
+
+	// Add sponsors to insertables
+	// Premium sponsors get higher priority and earlier positions
+	activeSponsors.forEach((sponsor, index) => {
+		const isPremium = sponsor.logo_size === 'large'
+		const sponsorProps: SponsorProps = {
+			id: sponsor.id,
+			company_name: sponsor.company_name,
+			logo_url: sponsor.logo_url,
+			tagline: sponsor.tagline,
+			website_url: sponsor.website_url,
+			discount_code: sponsor.discount_code,
+			discount_description: sponsor.discount_description,
+			tier_name: sponsor.tier_name,
+			logo_size: sponsor.logo_size
+		}
+
+		insertables.push({
+			id: `sponsor-${sponsor.id}`,
+			type: 'sponsor',
+			positionType: 'random',
+			positionFixed: null,
+			// Premium sponsors appear earlier (positions 2-5), basic later (positions 5-10)
+			positionRangeMin: isPremium ? 2 : 5,
+			positionRangeMax: isPremium ? 5 : 10,
+			// Premium sponsors have higher priority
+			priority: isPremium ? 100 - index : 50 - index,
+			entry: { type: 'sponsor', props: sponsorProps }
+		})
+	})
 
 	// Remove featured content from regular feed to avoid duplicates
 	const dedupedContent = content.filter((c) => !featuredContentIds.has(c.id))

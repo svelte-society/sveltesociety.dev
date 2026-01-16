@@ -2,6 +2,7 @@
 	import ContentCard from '$lib/ui/ContentCard.svelte'
 	import FeaturedCard from '$lib/ui/FeaturedCard.svelte'
 	import PromotionalCard from '$lib/ui/PromotionalCard.svelte'
+	import SponsorCard from '$lib/ui/SponsorCard.svelte'
 	import Schema from '$lib/ui/Schema.svelte'
 	import { getHomeData } from './data.remote'
 	import { page } from '$app/state'
@@ -22,7 +23,8 @@
 		['content', ContentCard],
 		['featured', FeaturedCard],
 		['cta', PromotionalCard],
-		['ad', PromotionalCard]
+		['ad', PromotionalCard],
+		['sponsor', SponsorCard]
 	])
 
 	// Card types need wrapper div and priority prop

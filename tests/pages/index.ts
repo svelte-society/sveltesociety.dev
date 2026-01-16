@@ -19,3 +19,5 @@ export {
 	AdminCampaignEditorPage,
 	UserNewsletterPage
 } from './NewsletterPages'
+export { SponsorSubmitPage } from './SponsorSubmitPage'
+export { AdminSponsorsPage } from './AdminSponsorsPage'

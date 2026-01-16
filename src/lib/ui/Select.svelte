@@ -38,7 +38,9 @@
 		onchange?.(target.value)
 	}
 
-	const computedTestId = $derived(testId)
+	// Auto-generate test ID from name if not explicitly provided
+	const name = rest.name as string | undefined
+	const computedTestId = $derived(testId ?? (name ? `select-${name}` : undefined))
 	const hasErrors = $derived(issues && issues.length > 0)
 </script>
 

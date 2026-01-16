@@ -48,9 +48,10 @@ test.describe('Newsletter Subscribe Form', () => {
 
 		// The HTML5 email input will prevent submission of invalid emails
 		// Test that invalid email doesn't get submitted
+		// Use 'test@@example.com' with double @ - always invalid per HTML5 spec
 		await subscribePage.emailInput.click()
-		await subscribePage.emailInput.fill('not-an-email')
-		await expect(subscribePage.emailInput).toHaveValue('not-an-email')
+		await subscribePage.emailInput.fill('test@@example.com')
+		await expect(subscribePage.emailInput).toHaveValue('test@@example.com')
 
 		// Form should not submit due to HTML5 validation
 		// The input is type="email" so browser handles validation

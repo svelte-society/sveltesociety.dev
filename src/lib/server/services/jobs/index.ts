@@ -8,8 +8,11 @@ export {
 	type ApplicationStatus,
 	type CreateApplicationData
 } from './job-application'
-export {
-	StripeService,
-	type CreateCheckoutSessionParams,
-	type CheckoutSessionResult
-} from './stripe'
+
+// Re-export StripeService from shared payments service
+// This maintains backwards compatibility for existing imports
+export { StripeService } from '$lib/server/services/payments'
+export type {
+	CheckoutSessionResult,
+	JobCheckoutParams as CreateCheckoutSessionParams
+} from '$lib/server/services/payments'

@@ -103,10 +103,7 @@ test.describe('Admin - Campaign Types', () => {
 		const campaignTitle = `Weekly Digest ${Date.now()}`
 
 		// Fill campaign details (content_highlights is default)
-		await editorPage.titleInput.clear()
-		await editorPage.titleInput.fill(campaignTitle)
-		await editorPage.subjectInput.clear()
-		await editorPage.subjectInput.fill('Weekly Svelte Digest')
+		await editorPage.fillCampaignFieldsRobust(campaignTitle, 'Weekly Svelte Digest')
 		await editorPage.introTextarea.clear()
 		await editorPage.introTextarea.fill('Welcome to this weeks edition!')
 
@@ -133,11 +130,8 @@ test.describe('Admin - Campaign Types', () => {
 		// Select announcement type
 		await editorPage.selectCampaignType('announcement')
 
-		// Fill campaign details
-		await editorPage.titleInput.clear()
-		await editorPage.titleInput.fill(campaignTitle)
-		await editorPage.subjectInput.clear()
-		await editorPage.subjectInput.fill('Important Community Update')
+		// Fill campaign details using robust method to handle reactive race conditions
+		await editorPage.fillCampaignFieldsRobust(campaignTitle, 'Important Community Update')
 		await editorPage.announcementBodyTextarea.fill('<p>We have exciting news to share!</p>')
 		await editorPage.ctaTextInput.fill('Learn More')
 		await editorPage.ctaUrlInput.fill('https://sveltesociety.dev/blog')
@@ -165,11 +159,8 @@ test.describe('Admin - Campaign Types', () => {
 		// Select jobs roundup type
 		await editorPage.selectCampaignType('jobs_roundup')
 
-		// Fill campaign details
-		await editorPage.titleInput.clear()
-		await editorPage.titleInput.fill(campaignTitle)
-		await editorPage.subjectInput.clear()
-		await editorPage.subjectInput.fill('New Svelte Jobs This Week')
+		// Fill campaign details using robust method to handle reactive race conditions
+		await editorPage.fillCampaignFieldsRobust(campaignTitle, 'New Svelte Jobs This Week')
 		await editorPage.jobsIntroTextarea.fill('Check out these latest opportunities!')
 
 		await editorPage.submit()
@@ -192,10 +183,7 @@ test.describe('Admin - Campaign Types', () => {
 		// Create a content_highlights campaign
 		await editorPage.gotoNew()
 		await editorPage.expectNewPageLoaded()
-		await editorPage.titleInput.clear()
-		await editorPage.titleInput.fill('Badge Test Digest')
-		await editorPage.subjectInput.clear()
-		await editorPage.subjectInput.fill('Content Subject')
+		await editorPage.fillCampaignFieldsRobust('Badge Test Digest', 'Content Subject')
 		await editorPage.submit()
 		await expect(page.getByRole('heading', { name: 'Newsletter Campaigns' })).toBeVisible({
 			timeout: 10000
@@ -205,10 +193,7 @@ test.describe('Admin - Campaign Types', () => {
 		await listPage.clickNewCampaign()
 		await editorPage.expectNewPageLoaded()
 		await editorPage.selectCampaignType('announcement')
-		await editorPage.titleInput.clear()
-		await editorPage.titleInput.fill('Badge Test News')
-		await editorPage.subjectInput.clear()
-		await editorPage.subjectInput.fill('Announcement Subject')
+		await editorPage.fillCampaignFieldsRobust('Badge Test News', 'Announcement Subject')
 		await editorPage.announcementBodyTextarea.fill('<p>Test content</p>')
 		await editorPage.submit()
 		await expect(page.getByRole('heading', { name: 'Newsletter Campaigns' })).toBeVisible({
@@ -219,10 +204,7 @@ test.describe('Admin - Campaign Types', () => {
 		await listPage.clickNewCampaign()
 		await editorPage.expectNewPageLoaded()
 		await editorPage.selectCampaignType('jobs_roundup')
-		await editorPage.titleInput.clear()
-		await editorPage.titleInput.fill('Badge Test Openings')
-		await editorPage.subjectInput.clear()
-		await editorPage.subjectInput.fill('Jobs Subject')
+		await editorPage.fillCampaignFieldsRobust('Badge Test Openings', 'Jobs Subject')
 		await editorPage.submit()
 		await expect(page.getByRole('heading', { name: 'Newsletter Campaigns' })).toBeVisible({
 			timeout: 10000
@@ -258,10 +240,7 @@ test.describe('Admin - Campaign Types', () => {
 		await editorPage.selectCampaignType('announcement')
 
 		const campaignTitle = `Edit Type Test ${Date.now()}`
-		await editorPage.titleInput.clear()
-		await editorPage.titleInput.fill(campaignTitle)
-		await editorPage.subjectInput.clear()
-		await editorPage.subjectInput.fill('Test Subject')
+		await editorPage.fillCampaignFieldsRobust(campaignTitle, 'Test Subject')
 		await editorPage.announcementBodyTextarea.fill('<p>Original content</p>')
 		await editorPage.submit()
 
@@ -276,6 +255,8 @@ test.describe('Admin - Campaign Types', () => {
 
 		// Verify we're on edit page with correct type fields
 		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible()
+		// Wait for form values to load (async data fetch)
+		await editorPage.waitForFormValues()
 
 		// Announcement fields should be visible (type is preserved)
 		await expect(editorPage.announcementBodyTextarea).toBeVisible()

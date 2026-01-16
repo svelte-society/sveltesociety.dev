@@ -17,18 +17,21 @@
 		label,
 		description,
 		placeholder,
+		name,
 		type,
 		'data-testid': testId,
 		issues,
 		...rest
 	}: TextInputProps = $props()
 
-	const computedTestId = $derived(testId)
+	// Auto-generate test ID from name if not explicitly provided
+	const computedTestId = $derived(testId ?? (name ? `input-${name}` : undefined))
 	const hasErrors = $derived(issues && issues.length > 0)
 </script>
 
 <Field {label} {description} {issues}>
 	<input
+		{name}
 		{type}
 		{...rest}
 		{placeholder}

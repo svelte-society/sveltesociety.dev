@@ -70,6 +70,28 @@ export class ShortcutsPage extends BasePage {
 		await this.page.getByRole('option', { name: labelText }).click()
 	}
 
+	/**
+	 * Search for content and select the first result.
+	 * More robust than manual click + type for CI environments.
+	 */
+	async searchAndSelectFirstContent(searchTerm: string): Promise<void> {
+		// Focus the input
+		await this.contentSelect.click()
+
+		// Clear any existing value and fill with search term
+		await this.contentSelect.fill(searchTerm)
+
+		// Wait for search results to appear (300ms debounce + API call)
+		// Use polling to handle slow CI environments
+		await expect(async () => {
+			const optionCount = await this.page.getByRole('option').count()
+			expect(optionCount).toBeGreaterThan(0)
+		}).toPass({ timeout: 15000, intervals: [500, 1000, 2000] })
+
+		// Click the first option
+		await this.page.getByRole('option').first().click()
+	}
+
 	async setPriority(priority: number): Promise<void> {
 		await this.priorityInput.fill(priority.toString())
 	}

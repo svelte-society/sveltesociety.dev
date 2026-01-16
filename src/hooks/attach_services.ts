@@ -16,12 +16,13 @@ import { LLMService } from '$lib/server/services/llm'
 import { AnnouncementService } from '$lib/server/services/AnnouncementService'
 import { ShortcutService } from '$lib/server/services/ShortcutService'
 import { FeedItemService } from '$lib/server/services/FeedItemService'
+import { JobTierService, PaymentService, JobApplicationService } from '$lib/server/services/jobs'
+import { StripeService } from '$lib/server/services/payments'
 import {
-	JobTierService,
-	PaymentService,
-	JobApplicationService,
-	StripeService
-} from '$lib/server/services/jobs'
+	SponsorTierService,
+	SponsorService,
+	SponsorSubscriptionService
+} from '$lib/server/services/sponsors'
 import { EmailService } from '$lib/server/services/email'
 import { NewsletterService } from '$lib/server/services/newsletter'
 import fs from 'node:fs'
@@ -54,6 +55,9 @@ const dbCache = new Map<
 		paymentService: PaymentService
 		jobApplicationService: JobApplicationService
 		newsletterService: NewsletterService
+		sponsorTierService: SponsorTierService
+		sponsorService: SponsorService
+		sponsorSubscriptionService: SponsorSubscriptionService
 	}
 >()
 
@@ -92,6 +96,9 @@ const initialize_db = (dbPath: string) => {
 	const paymentService = new PaymentService(db)
 	const jobApplicationService = new JobApplicationService(db)
 	const newsletterService = new NewsletterService(db)
+	const sponsorTierService = new SponsorTierService(db)
+	const sponsorService = new SponsorService(db)
+	const sponsorSubscriptionService = new SponsorSubscriptionService(db)
 
 	const services = {
 		db,
@@ -113,7 +120,10 @@ const initialize_db = (dbPath: string) => {
 		jobTierService,
 		paymentService,
 		jobApplicationService,
-		newsletterService
+		newsletterService,
+		sponsorTierService,
+		sponsorService,
+		sponsorSubscriptionService
 	}
 
 	dbCache.set(dbPath, services)
@@ -169,6 +179,9 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.paymentService = services.paymentService
 	event.locals.jobApplicationService = services.jobApplicationService
 	event.locals.newsletterService = services.newsletterService
+	event.locals.sponsorTierService = services.sponsorTierService
+	event.locals.sponsorService = services.sponsorService
+	event.locals.sponsorSubscriptionService = services.sponsorSubscriptionService
 	event.locals.stripeService = stripeService
 	event.locals.emailService = emailService
 

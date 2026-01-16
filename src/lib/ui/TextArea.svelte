@@ -8,6 +8,7 @@
 		label?: string
 		description?: string
 		placeholder?: string
+		name?: string
 		rows?: number
 		'data-testid'?: string
 		rest?: HTMLTextareaAttributes
@@ -18,6 +19,7 @@
 		label,
 		description,
 		placeholder,
+		name,
 		rows = 4,
 		id,
 		'data-testid': testId,
@@ -25,12 +27,14 @@
 		...rest
 	}: TextInputProps = $props()
 
-	const computedTestId = $derived(testId)
+	// Auto-generate test ID from name if not explicitly provided
+	const computedTestId = $derived(testId ?? (name ? `textarea-${name}` : undefined))
 	const hasErrors = $derived(issues && issues.length > 0)
 </script>
 
 <Field {label} {description} {issues}>
 	<textarea
+		{name}
 		{rows}
 		class={[inputVariants({ error: hasErrors }), 'mt-2']}
 		{placeholder}

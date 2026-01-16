@@ -54,13 +54,8 @@ test.describe('Admin - Newsletter Campaigns', () => {
 		await editorPage.gotoNew()
 		await editorPage.expectNewPageLoaded()
 
-		// Clear and fill fields (inputs have default values)
-		await editorPage.titleInput.clear()
-		await editorPage.titleInput.fill('Test Campaign Title')
-		await expect(editorPage.titleInput).toHaveValue('Test Campaign Title')
-		await editorPage.subjectInput.clear()
-		await editorPage.subjectInput.fill('Test Email Subject Line')
-		await expect(editorPage.subjectInput).toHaveValue('Test Email Subject Line')
+		// Fill fields using robust method that handles Svelte reactive race conditions
+		await editorPage.fillCampaignFieldsRobust('Test Campaign Title', 'Test Email Subject Line')
 		await editorPage.introTextarea.clear()
 		await editorPage.introTextarea.fill('Welcome to our test newsletter!')
 		await editorPage.submit()
@@ -78,13 +73,8 @@ test.describe('Admin - Newsletter Campaigns', () => {
 		await editorPage.expectNewPageLoaded()
 
 		const campaignTitle = `Test Campaign ${Date.now()}`
-		// Clear and fill fields (inputs have default values)
-		await editorPage.titleInput.clear()
-		await editorPage.titleInput.fill(campaignTitle)
-		await expect(editorPage.titleInput).toHaveValue(campaignTitle)
-		await editorPage.subjectInput.clear()
-		await editorPage.subjectInput.fill('Test Subject')
-		await expect(editorPage.subjectInput).toHaveValue('Test Subject')
+		// Fill fields using robust method that handles Svelte reactive race conditions
+		await editorPage.fillCampaignFieldsRobust(campaignTitle, 'Test Subject')
 		await editorPage.introTextarea.clear()
 		await editorPage.introTextarea.fill('Test intro')
 		await editorPage.submit()
@@ -152,13 +142,8 @@ test.describe('Admin - Campaign Editing', () => {
 		await editorPage.expectNewPageLoaded()
 
 		const originalTitle = `Original Campaign ${Date.now()}`
-		// Clear and fill fields (inputs have default values)
-		await editorPage.titleInput.clear()
-		await editorPage.titleInput.fill(originalTitle)
-		await expect(editorPage.titleInput).toHaveValue(originalTitle)
-		await editorPage.subjectInput.clear()
-		await editorPage.subjectInput.fill('Original Subject')
-		await expect(editorPage.subjectInput).toHaveValue('Original Subject')
+		// Fill fields using robust method that handles Svelte reactive race conditions
+		await editorPage.fillCampaignFieldsRobust(originalTitle, 'Original Subject')
 		await editorPage.submit()
 
 		// After creation, redirects to list page
@@ -172,6 +157,8 @@ test.describe('Admin - Campaign Editing', () => {
 
 		// Now we should be on the edit page
 		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible()
+		// Wait for form values to load (async data fetch)
+		await editorPage.waitForFormValues()
 		await expect(editorPage.titleInput).toHaveValue(originalTitle)
 	})
 
@@ -183,13 +170,8 @@ test.describe('Admin - Campaign Editing', () => {
 
 		const campaignTitle = `Edit Test Campaign ${Date.now()}`
 		const campaignSubject = 'Edit Test Subject'
-		// Clear and fill fields (inputs have default values)
-		await editorPage.titleInput.clear()
-		await editorPage.titleInput.fill(campaignTitle)
-		await expect(editorPage.titleInput).toHaveValue(campaignTitle)
-		await editorPage.subjectInput.clear()
-		await editorPage.subjectInput.fill(campaignSubject)
-		await expect(editorPage.subjectInput).toHaveValue(campaignSubject)
+		// Fill fields using robust method that handles Svelte reactive race conditions
+		await editorPage.fillCampaignFieldsRobust(campaignTitle, campaignSubject)
 		await editorPage.submit()
 
 		// After creation, redirects to list page
@@ -203,6 +185,8 @@ test.describe('Admin - Campaign Editing', () => {
 
 		// Now we should be on the edit page with values populated
 		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible()
+		// Wait for form values to load (async data fetch)
+		await editorPage.waitForFormValues()
 		await expect(editorPage.titleInput).toHaveValue(campaignTitle)
 		await expect(editorPage.subjectInput).toHaveValue(campaignSubject)
 	})
