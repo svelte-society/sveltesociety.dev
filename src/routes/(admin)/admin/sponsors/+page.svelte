@@ -121,6 +121,7 @@
 				value={selectedStatus}
 				options={statusOptions}
 				onchange={handleStatusChange}
+				data-testid="select-status"
 			/>
 		</div>
 	</div>

@@ -75,42 +75,47 @@
 						<input {...updateSponsor.fields.id.as('hidden', sponsorId)} />
 
 						<Input
-							{...updateSponsor.fields.company_name}
+							{...updateSponsor.fields.company_name.as('text')}
 							label="Company Name"
 							placeholder="Company name"
+							issues={updateSponsor.fields.company_name.issues()}
 						/>
 
 						<TextArea
-							{...updateSponsor.fields.tagline}
+							{...updateSponsor.fields.tagline.as('text')}
 							label="Tagline"
 							placeholder="A short description of the company"
 							rows={3}
+							issues={updateSponsor.fields.tagline.issues()}
 						/>
 
 						<Input
-							{...updateSponsor.fields.website_url}
+							{...updateSponsor.fields.website_url.as('url')}
 							label="Website URL"
 							placeholder="https://example.com"
-							type="url"
+							issues={updateSponsor.fields.website_url.issues()}
 						/>
 
 						<div class="grid gap-4 sm:grid-cols-2">
 							<Input
-								{...updateSponsor.fields.discount_code}
+								{...updateSponsor.fields.discount_code.as('text')}
 								label="Discount Code"
 								placeholder="e.g., SVELTE20"
+								issues={updateSponsor.fields.discount_code.issues()}
 							/>
 							<Input
-								{...updateSponsor.fields.discount_description}
+								{...updateSponsor.fields.discount_description.as('text')}
 								label="Discount Description"
 								placeholder="e.g., 20% off first month"
+								issues={updateSponsor.fields.discount_description.issues()}
 							/>
 						</div>
 
 						<Select
-							{...updateSponsor.fields.status}
+							{...updateSponsor.fields.status.as('text')}
 							label="Status"
 							options={statusOptions}
+							issues={updateSponsor.fields.status.issues()}
 						/>
 
 						<div class="flex justify-end gap-3 border-t border-gray-200 pt-4">

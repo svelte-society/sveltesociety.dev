@@ -9,7 +9,7 @@
 
 	// Max slots to show (3 total: sponsors + placeholders)
 	const MAX_SLOTS = 3
-	const placeholderCount = Math.max(0, MAX_SLOTS - sponsors.length)
+	const placeholderCount = $derived(Math.max(0, MAX_SLOTS - sponsors.length))
 	const isPremium = (logoSize?: string) => logoSize === 'large'
 </script>
 

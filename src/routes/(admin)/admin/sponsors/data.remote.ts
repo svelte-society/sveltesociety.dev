@@ -148,6 +148,7 @@ export const updateSponsor = form(updateSponsorSchema, async (data) => {
 		})
 
 		await getSponsors(getFiltersFromUrl(url)).refresh()
+		await getSponsor({ id: data.id }).refresh()
 
 		return {
 			success: true,
@@ -167,9 +168,24 @@ export const activateSponsor = form(sponsorIdSchema, async (data) => {
 	const { locals, url } = getRequestEvent()
 
 	try {
+		// Activate the sponsor
 		locals.sponsorService.activateSponsor(data.id)
 
+		// Also activate the subscription so it shows up in the active_sponsors view
+		// Use getSubscriptionsBySponsor to find any subscription (not just 'active' ones)
+		const subscriptions = locals.sponsorSubscriptionService.getSubscriptionsBySponsor(data.id)
+		const subscription = subscriptions[0] // Get the most recent subscription
+		if (subscription && subscription.status !== 'active') {
+			// Set the subscription period to start now and end in 30 days (default for one-time)
+			// For subscriptions managed by Stripe, this will be overwritten by webhooks
+			const now = new Date()
+			const periodEnd = new Date()
+			periodEnd.setDate(periodEnd.getDate() + 30)
+			locals.sponsorSubscriptionService.activateSubscription(subscription.id, now, periodEnd)
+		}
+
 		await getSponsors(getFiltersFromUrl(url)).refresh()
+		await getSponsor({ id: data.id }).refresh()
 
 		return {
 			success: true,
@@ -191,7 +207,15 @@ export const pauseSponsor = form(sponsorIdSchema, async (data) => {
 	try {
 		locals.sponsorService.pauseSponsor(data.id)
 
+		// Also pause the subscription
+		const subscriptions = locals.sponsorSubscriptionService.getSubscriptionsBySponsor(data.id)
+		const subscription = subscriptions.find((s) => s.status === 'active')
+		if (subscription) {
+			locals.sponsorSubscriptionService.updateStatus(subscription.id, 'paused')
+		}
+
 		await getSponsors(getFiltersFromUrl(url)).refresh()
+		await getSponsor({ id: data.id }).refresh()
 
 		return {
 			success: true,
@@ -213,18 +237,26 @@ export const cancelSponsor = form(sponsorIdSchema, async (data) => {
 	try {
 		locals.sponsorService.cancelSponsor(data.id)
 
-		// Also cancel the Stripe subscription if exists
-		const subscription = locals.sponsorSubscriptionService.getActiveSubscription(data.id)
-		if (subscription?.stripe_subscription_id) {
-			try {
-				await locals.stripeService.cancelSubscription(subscription.stripe_subscription_id)
-			} catch (stripeError) {
-				console.error('Error cancelling Stripe subscription:', stripeError)
-				// Continue even if Stripe cancellation fails - we've already marked it cancelled locally
+		// Also cancel all subscriptions for this sponsor
+		const subscriptions = locals.sponsorSubscriptionService.getSubscriptionsBySponsor(data.id)
+		for (const subscription of subscriptions) {
+			if (subscription.status !== 'canceled') {
+				locals.sponsorSubscriptionService.updateStatus(subscription.id, 'canceled')
+
+				// Also cancel the Stripe subscription if exists
+				if (subscription.stripe_subscription_id) {
+					try {
+						await locals.stripeService.cancelSubscription(subscription.stripe_subscription_id)
+					} catch (stripeError) {
+						console.error('Error cancelling Stripe subscription:', stripeError)
+						// Continue even if Stripe cancellation fails - we've already marked it cancelled locally
+					}
+				}
 			}
 		}
 
 		await getSponsors(getFiltersFromUrl(url)).refresh()
+		await getSponsor({ id: data.id }).refresh()
 
 		return {
 			success: true,

@@ -206,8 +206,9 @@ export class AdminSponsorsPage extends BasePage {
 	 */
 	async search(query: string): Promise<void> {
 		await this.searchInput.fill(query)
-		// Wait for debounce
-		await this.page.waitForTimeout(400)
+		// Wait for debounce (300ms) + data refetch cycle
+		// Using longer timeout to ensure data has time to refresh
+		await this.page.waitForTimeout(800)
 	}
 
 	/**

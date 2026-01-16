@@ -9,6 +9,7 @@ import {
 	TEST_PENDING_CONTENT,
 	TEST_SPONSORS,
 	TEST_SPONSOR_TIERS,
+	TEST_SPONSOR_SUBSCRIPTIONS,
 	getSessionExpiry,
 	getYesterday
 } from '../tests/fixtures/test-data'
@@ -217,11 +218,13 @@ async function seedTestDatabase() {
 			})
 		})
 
-		// 11. Add sponsor tiers
+		// 11. Add sponsor tiers (clear subscriptions/sponsors first due to FK constraints)
 		console.log('  → Creating sponsor tiers...')
+		db.run('DELETE FROM sponsor_subscriptions')
+		db.run('DELETE FROM sponsors')
 		db.run('DELETE FROM sponsor_tiers')
 		const tierInsert = db.prepare(`
-			INSERT INTO sponsor_tiers (id, name, display_name, price_cents, yearly_price_cents, one_time_price_cents, features, max_tagline_length, logo_size, display_order)
+			INSERT INTO sponsor_tiers (id, name, display_name, price_cents, yearly_price_cents, one_time_price_cents, features, max_tagline_length, logo_size, sort_order)
 			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 		`)
 
@@ -240,12 +243,11 @@ async function seedTestDatabase() {
 			)
 		})
 
-		// 12. Add sponsors
+		// 12. Add sponsors (matches sponsors table schema)
 		console.log('  → Creating sponsors...')
-		db.run('DELETE FROM sponsors')
 		const sponsorInsert = db.prepare(`
-			INSERT INTO sponsors (id, company_name, logo_url, tagline, website_url, discount_code, discount_description, contact_email, tier_id, billing_type, status, show_in_sidebar, show_in_feed, logo_size, activated_at, expires_at)
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+			INSERT INTO sponsors (id, company_name, logo_url, tagline, website_url, discount_code, discount_description, contact_email, status, activated_at, expires_at)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 		`)
 
 		TEST_SPONSORS.forEach((sponsor) => {
@@ -258,14 +260,33 @@ async function seedTestDatabase() {
 				sponsor.discount_code,
 				sponsor.discount_description,
 				sponsor.contact_email,
-				sponsor.tier_id,
-				sponsor.billing_type,
 				sponsor.status,
-				sponsor.show_in_sidebar ? 1 : 0,
-				sponsor.show_in_feed ? 1 : 0,
-				sponsor.logo_size,
 				sponsor.activated_at,
 				sponsor.expires_at
+			)
+		})
+
+		// 13. Add sponsor subscriptions (links sponsors to tiers)
+		console.log('  → Creating sponsor subscriptions...')
+		const subscriptionInsert = db.prepare(`
+			INSERT INTO sponsor_subscriptions (id, sponsor_id, tier_id, billing_type, stripe_subscription_id, stripe_customer_id, stripe_checkout_session_id, amount_cents, currency, status, current_period_start, current_period_end)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		`)
+
+		TEST_SPONSOR_SUBSCRIPTIONS.forEach((sub) => {
+			subscriptionInsert.run(
+				sub.id,
+				sub.sponsor_id,
+				sub.tier_id,
+				sub.billing_type,
+				sub.stripe_subscription_id,
+				sub.stripe_customer_id,
+				sub.stripe_checkout_session_id,
+				sub.amount_cents,
+				sub.currency,
+				sub.status,
+				sub.current_period_start,
+				sub.current_period_end
 			)
 		})
 

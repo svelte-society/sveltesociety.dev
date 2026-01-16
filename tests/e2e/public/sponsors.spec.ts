@@ -118,8 +118,11 @@ test.describe('Sponsors in Sidebar', () => {
 		const sponsorSection = page.locator('text=Sponsors')
 		await expect(sponsorSection.first()).toBeVisible()
 
-		// Check for test sponsor company names
-		await expect(page.locator('text=Acme Dev Tools')).toBeVisible()
+		// Check for test sponsor company names in the sidebar sponsor links (rel="noopener sponsored")
+		const sidebarSponsorLink = page.locator('a[rel="noopener sponsored"]', {
+			hasText: 'Acme Dev Tools'
+		})
+		await expect(sidebarSponsorLink.first()).toBeVisible()
 	})
 
 	test('sponsor cards link to sponsor website', async ({ page }) => {

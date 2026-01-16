@@ -449,7 +449,7 @@ function getSponsorExpiresAt(): string {
 }
 
 /**
- * Test sponsors
+ * Test sponsors (matches sponsors table schema)
  */
 export const TEST_SPONSORS = [
 	{
@@ -461,15 +461,9 @@ export const TEST_SPONSORS = [
 		discount_code: 'SVELTE20',
 		discount_description: '20% off for Svelte developers',
 		contact_email: 'sponsors@acme.example.com',
-		tier_id: 'sponsor_tier_premium',
-		tier_name: 'premium',
-		billing_type: 'monthly',
 		status: 'active',
-		show_in_sidebar: true,
-		show_in_feed: true,
-		logo_size: 'large',
 		activated_at: new Date().toISOString(),
-		expires_at: getSponsorExpiresAt()
+		expires_at: null // Managed by subscription
 	},
 	{
 		id: 'sponsor_002',
@@ -480,15 +474,9 @@ export const TEST_SPONSORS = [
 		discount_code: null,
 		discount_description: null,
 		contact_email: 'hello@cloudhost.example.com',
-		tier_id: 'sponsor_tier_basic',
-		tier_name: 'basic',
-		billing_type: 'yearly',
 		status: 'active',
-		show_in_sidebar: true,
-		show_in_feed: true,
-		logo_size: 'normal',
 		activated_at: new Date().toISOString(),
-		expires_at: getSponsorExpiresAt()
+		expires_at: null
 	},
 	{
 		id: 'sponsor_003',
@@ -499,15 +487,57 @@ export const TEST_SPONSORS = [
 		discount_code: null,
 		discount_description: null,
 		contact_email: 'contact@pending.example.com',
-		tier_id: 'sponsor_tier_basic',
-		tier_name: 'basic',
-		billing_type: 'one_time',
 		status: 'pending',
-		show_in_sidebar: false,
-		show_in_feed: false,
-		logo_size: 'normal',
 		activated_at: null,
 		expires_at: null
+	}
+] as const
+
+/**
+ * Test sponsor subscriptions (links sponsors to tiers)
+ */
+export const TEST_SPONSOR_SUBSCRIPTIONS = [
+	{
+		id: 'subscription_001',
+		sponsor_id: 'sponsor_001',
+		tier_id: 'sponsor_tier_premium',
+		billing_type: 'monthly',
+		stripe_subscription_id: null,
+		stripe_customer_id: null,
+		stripe_checkout_session_id: 'test_session_001',
+		amount_cents: 24900,
+		currency: 'usd',
+		status: 'active',
+		current_period_start: new Date().toISOString(),
+		current_period_end: getSponsorExpiresAt()
+	},
+	{
+		id: 'subscription_002',
+		sponsor_id: 'sponsor_002',
+		tier_id: 'sponsor_tier_basic',
+		billing_type: 'yearly',
+		stripe_subscription_id: null,
+		stripe_customer_id: null,
+		stripe_checkout_session_id: 'test_session_002',
+		amount_cents: 99900,
+		currency: 'usd',
+		status: 'active',
+		current_period_start: new Date().toISOString(),
+		current_period_end: getSponsorExpiresAt()
+	},
+	{
+		id: 'subscription_003',
+		sponsor_id: 'sponsor_003',
+		tier_id: 'sponsor_tier_basic',
+		billing_type: 'one_time',
+		stripe_subscription_id: null,
+		stripe_customer_id: null,
+		stripe_checkout_session_id: 'test_session_003',
+		amount_cents: 9900,
+		currency: 'usd',
+		status: 'incomplete', // Pending payment
+		current_period_start: null,
+		current_period_end: null
 	}
 ] as const
 
