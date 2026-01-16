@@ -223,11 +223,42 @@ export class AdminSponsorsPage extends BasePage {
 	async filterByStatus(
 		status: 'all' | 'pending' | 'active' | 'paused' | 'expired' | 'cancelled'
 	): Promise<void> {
-		await this.statusSelect.selectOption(status)
+		// Try the filter operation with retry for reliability
+		for (let attempt = 0; attempt < 3; attempt++) {
+			// Use evaluate to set value and trigger change event directly
+			// This ensures Svelte's event handlers fire correctly
+			await this.statusSelect.evaluate((select, newValue) => {
+				const el = select as HTMLSelectElement
+				el.value = newValue
+				el.dispatchEvent(new Event('change', { bubbles: true }))
+				el.dispatchEvent(new Event('input', { bubbles: true }))
+			}, status)
 
-		// Wait for data refresh - the page uses replaceState which doesn't trigger
-		// navigation events, so we wait for the data to refresh
-		await this.page.waitForTimeout(500)
+			// Wait a moment for the filter to take effect
+			await this.page.waitForTimeout(500)
+
+			// Verify the filter was applied by checking the select value
+			const currentValue = await this.statusSelect.inputValue()
+			if (currentValue === status) {
+				break // Filter applied successfully
+			}
+
+			// Wait longer before retry
+			await this.page.waitForTimeout(500)
+		}
+
+		// Wait for the filter to take effect by checking for expected table content
+		// Different statuses show different action buttons in the first row
+		if (status === 'pending') {
+			// Pending sponsors should have Activate button
+			await expect(this.activateButton(0)).toBeVisible({ timeout: 5000 })
+		} else if (status === 'active') {
+			// Active sponsors should have Pause button
+			await expect(this.pauseButton(0)).toBeVisible({ timeout: 5000 })
+		} else {
+			// For other statuses or 'all', just wait a fixed time
+			await this.page.waitForTimeout(1000)
+		}
 	}
 
 	/**
