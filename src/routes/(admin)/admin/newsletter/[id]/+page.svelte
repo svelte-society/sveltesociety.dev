@@ -227,6 +227,7 @@
 					{@const c = campaign as AnnouncementCampaign}
 					<div>
 						<h3 class="text-sm font-medium text-gray-500">Content</h3>
+						<!-- SECURITY: body_html is trusted admin-authored content (see announcement-campaign.svelte) -->
 						<div class="prose prose-sm mt-1 max-w-none text-gray-700">
 							{@html c.type_data.body_html}
 						</div>

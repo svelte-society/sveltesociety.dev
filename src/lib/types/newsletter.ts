@@ -169,7 +169,7 @@ export const CAMPAIGN_TYPE_CONFIG: Record<
 		label: string
 		description: string
 		icon: string
-		color: 'amber' | 'purple' | 'green'
+		color: 'amber' | 'purple' | 'success'
 	}
 > = {
 	content_highlights: {
@@ -188,7 +188,7 @@ export const CAMPAIGN_TYPE_CONFIG: Record<
 		label: 'Jobs',
 		description: 'Collection of job listings',
 		icon: 'Briefcase',
-		color: 'green'
+		color: 'success'
 	}
 }
 

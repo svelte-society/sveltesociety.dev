@@ -17,6 +17,9 @@
 </script>
 
 <span
+	role="checkbox"
+	aria-checked={checked}
+	aria-disabled={disabled}
 	class={[
 		'flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-colors',
 		checked

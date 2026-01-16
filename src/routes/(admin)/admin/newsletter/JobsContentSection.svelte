@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Checkbox from '$lib/ui/Checkbox.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
+	import { formatSalary } from '$lib/utils/job-formatters'
 	import type { JobItemWithContent } from '$lib/types/newsletter'
 
 	interface Props {
@@ -31,18 +32,14 @@
 		onSelectionChange(selectedIds)
 	}
 
-	function formatSalary(job: JobItemWithContent): string {
-		const { salary_min, salary_max, salary_currency = 'USD' } = job.metadata || {}
-		if (!salary_min && !salary_max) return ''
-		const formatter = new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency: salary_currency,
-			maximumFractionDigits: 0
-		})
-		if (salary_min && salary_max)
-			return `${formatter.format(salary_min)} - ${formatter.format(salary_max)}`
-		if (salary_min) return `From ${formatter.format(salary_min)}`
-		return `Up to ${formatter.format(salary_max!)}`
+	function getJobSalary(job: JobItemWithContent): string {
+		return (
+			formatSalary(
+				job.metadata?.salary_min,
+				job.metadata?.salary_max,
+				job.metadata?.salary_currency
+			) || ''
+		)
 	}
 </script>
 
@@ -122,9 +119,9 @@
 											{job.metadata.position_type}
 										</span>
 									{/if}
-									{#if formatSalary(job)}
+									{#if getJobSalary(job)}
 										<span class="rounded bg-green-100 px-1.5 py-0.5 text-xs text-green-700">
-											{formatSalary(job)}
+											{getJobSalary(job)}
 										</span>
 									{/if}
 								</div>

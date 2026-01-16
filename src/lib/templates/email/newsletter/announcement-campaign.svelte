@@ -76,6 +76,10 @@
 				</Heading>
 
 				<!-- Body Content -->
+				<!-- SECURITY: bodyHtml is trusted admin-authored content. This is safe because:
+				     1. Only authenticated admins can create/edit announcement campaigns
+				     2. Content is entered through the admin dashboard
+				     3. If sanitization is needed in future, use DOMPurify before storing -->
 				<div class="text-slate-700 text-base leading-relaxed">
 					{@html bodyHtml}
 				</div>
