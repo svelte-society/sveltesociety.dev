@@ -276,6 +276,8 @@ test.describe('Admin - Campaign Types', () => {
 
 		// Verify we're on edit page with correct type fields
 		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible()
+		// Wait for form values to load (async data fetch)
+		await editorPage.waitForFormValues()
 
 		// Announcement fields should be visible (type is preserved)
 		await expect(editorPage.announcementBodyTextarea).toBeVisible()

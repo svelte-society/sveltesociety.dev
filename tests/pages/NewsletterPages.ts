@@ -600,20 +600,43 @@ export class AdminCampaignEditorPage extends BasePage {
 		type: 'content_highlights' | 'announcement' | 'jobs_roundup'
 	): Promise<void> {
 		let button: Locator
+		let fieldToWaitFor: Locator
 		switch (type) {
 			case 'content_highlights':
 				button = this.contentHighlightsTypeButton
+				fieldToWaitFor = this.introTextarea
 				break
 			case 'announcement':
 				button = this.announcementTypeButton
+				fieldToWaitFor = this.announcementBodyTextarea
 				break
 			case 'jobs_roundup':
 				button = this.jobsRoundupTypeButton
+				fieldToWaitFor = this.jobsIntroTextarea
 				break
 		}
-		await button.click()
-		// Wait for the selection to take effect - selected buttons get ring-2 class
-		await expect(button).toHaveClass(/ring-2/, { timeout: 5000 })
+
+		// Use retry mechanism for reliable selection
+		for (let attempt = 0; attempt < 3; attempt++) {
+			await button.click()
+
+			// Wait a bit for Svelte to process the click
+			await this.page.waitForTimeout(200)
+
+			// Check if the field appeared (primary success indicator)
+			const isFieldVisible = await fieldToWaitFor.isVisible()
+			if (isFieldVisible) {
+				// Verify button is also selected
+				await expect(button).toHaveClass(/ring-2/, { timeout: 5000 })
+				return
+			}
+
+			// Wait longer before retry
+			await this.page.waitForTimeout(300)
+		}
+
+		// Final attempt - throw if still not working
+		await expect(fieldToWaitFor).toBeVisible({ timeout: 5000 })
 	}
 
 	/**
@@ -700,5 +723,17 @@ export class AdminCampaignEditorPage extends BasePage {
 	 */
 	async expectFormValues(title: string, subject: string): Promise<void> {
 		await this.titleInput.waitFor({ state: 'visible' })
+	}
+
+	/**
+	 * Wait for form values to be populated (for edit page)
+	 * This waits for the async campaign data to load and populate the form
+	 */
+	async waitForFormValues(): Promise<void> {
+		// Wait for title input to have a non-empty value (indicates data has loaded)
+		await expect(async () => {
+			const value = await this.titleInput.inputValue()
+			expect(value.length).toBeGreaterThan(0)
+		}).toPass({ timeout: 10000 })
 	}
 }

@@ -172,6 +172,8 @@ test.describe('Admin - Campaign Editing', () => {
 
 		// Now we should be on the edit page
 		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible()
+		// Wait for form values to load (async data fetch)
+		await editorPage.waitForFormValues()
 		await expect(editorPage.titleInput).toHaveValue(originalTitle)
 	})
 
@@ -203,6 +205,8 @@ test.describe('Admin - Campaign Editing', () => {
 
 		// Now we should be on the edit page with values populated
 		await expect(page.getByRole('heading', { name: 'Edit Campaign' })).toBeVisible()
+		// Wait for form values to load (async data fetch)
+		await editorPage.waitForFormValues()
 		await expect(editorPage.titleInput).toHaveValue(campaignTitle)
 		await expect(editorPage.subjectInput).toHaveValue(campaignSubject)
 	})
