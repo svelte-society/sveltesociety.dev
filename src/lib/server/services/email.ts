@@ -16,6 +16,8 @@ import JobRejectedEmail from '$lib/templates/email/jobs/job-rejected.svelte'
 import JobRenewalReminderEmail from '$lib/templates/email/jobs/job-renewal-reminder.svelte'
 import NewsletterCampaignEmail from '$lib/templates/email/newsletter/newsletter-campaign.svelte'
 import NewsletterConfirmationEmail from '$lib/templates/email/newsletter/newsletter-confirmation.svelte'
+import AnnouncementCampaignEmail from '$lib/templates/email/newsletter/announcement-campaign.svelte'
+import JobsRoundupCampaignEmail from '$lib/templates/email/newsletter/jobs-roundup-campaign.svelte'
 
 const renderer = new Renderer({ customCSS: appStyles })
 
@@ -113,6 +115,38 @@ export interface NewsletterConfirmationEmailParams {
 	email: string
 	baseUrl?: string
 	token: string
+}
+
+export interface RenderAnnouncementEmailParams {
+	subject: string
+	bodyHtml: string
+	ctaText?: string | null
+	ctaUrl?: string | null
+	baseUrl?: string
+}
+
+export interface JobItemForEmail {
+	id: string
+	title: string
+	slug: string
+	description: string | null
+	metadata?: {
+		company_name?: string
+		company_logo?: string
+		location?: string
+		remote_status?: string
+		position_type?: string
+		salary_min?: number
+		salary_max?: number
+		salary_currency?: string
+	}
+}
+
+export interface RenderJobsRoundupEmailParams {
+	subject: string
+	introText?: string | null
+	jobs: JobItemForEmail[]
+	baseUrl?: string
 }
 
 export class EmailService {
@@ -351,6 +385,30 @@ export class EmailService {
 	async renderNewsletterEmail(props: RenderNewsletterEmailParams): Promise<string> {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const result = (await renderer.render(NewsletterCampaignEmail, {
+			props
+		})) as any
+
+		return result.html ?? String(result)
+	}
+
+	/**
+	 * Render an announcement campaign email to HTML
+	 */
+	async renderAnnouncementEmail(props: RenderAnnouncementEmailParams): Promise<string> {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const result = (await renderer.render(AnnouncementCampaignEmail, {
+			props
+		})) as any
+
+		return result.html ?? String(result)
+	}
+
+	/**
+	 * Render a jobs roundup campaign email to HTML
+	 */
+	async renderJobsRoundupEmail(props: RenderJobsRoundupEmailParams): Promise<string> {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const result = (await renderer.render(JobsRoundupCampaignEmail, {
 			props
 		})) as any
 

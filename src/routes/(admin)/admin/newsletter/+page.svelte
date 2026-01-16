@@ -2,7 +2,7 @@
 	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
 	import Table from '$lib/ui/admin/Table.svelte'
 	import { Actions, Action } from '$lib/ui/admin/Actions'
-	import Badge from '$lib/ui/admin/Badge.svelte'
+	import Badge, { type BadgeColor } from '$lib/ui/admin/Badge.svelte'
 	import Newspaper from 'phosphor-svelte/lib/Newspaper'
 	import Plus from 'phosphor-svelte/lib/Plus'
 	import PaperPlaneTilt from 'phosphor-svelte/lib/PaperPlaneTilt'
@@ -12,10 +12,11 @@
 	import { sendCampaign } from './[id]/data.remote'
 	import { copyCampaign } from './[id]/data.remote'
 	import { formatDate } from '$lib/utils/date'
+	import { CAMPAIGN_TYPE_CONFIG, type CampaignType } from '$lib/types/newsletter'
 
 	const campaigns = $derived(await getCampaigns())
 
-	function getStatusColor(status: string): 'info' | 'success' | 'warning' | 'danger' | 'default' {
+	function getStatusColor(status: string): BadgeColor {
 		switch (status) {
 			case 'draft':
 				return 'default'
@@ -26,6 +27,10 @@
 			default:
 				return 'default'
 		}
+	}
+
+	function getTypeConfig(type: CampaignType) {
+		return CAMPAIGN_TYPE_CONFIG[type] || CAMPAIGN_TYPE_CONFIG.content_highlights
 	}
 
 	function openAnalytics(plunkCampaignId: string) {
@@ -54,6 +59,7 @@
 	<Table action={true} data={campaigns} emptyMessage="No campaigns found." testId="campaigns-table">
 		{#snippet header(classes)}
 			<th class={classes}>Title</th>
+			<th class={classes}>Type</th>
 			<th class={classes}>Subject</th>
 			<th class={classes}>Status</th>
 			<th class={classes}>Created</th>
@@ -61,6 +67,12 @@
 		{/snippet}
 		{#snippet row(campaign, classes)}
 			<td class={classes}>{campaign.title}</td>
+			<td class={classes}>
+				<Badge
+					color={getTypeConfig(campaign.campaign_type).color}
+					text={getTypeConfig(campaign.campaign_type).label}
+				/>
+			</td>
 			<td class={classes}>{campaign.subject}</td>
 			<td class={classes}>
 				<Badge color={getStatusColor(campaign.status)} text={campaign.status} />

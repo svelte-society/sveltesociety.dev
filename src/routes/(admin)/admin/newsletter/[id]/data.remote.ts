@@ -3,7 +3,13 @@ import { error, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../../authorization.remote'
 import { getCampaigns } from '../data.remote'
-import type { CampaignWithItems } from '$lib/server/services/newsletter'
+import type {
+	CampaignWithItems,
+	CampaignType,
+	ContentHighlightsCampaignWithItems,
+	JobsRoundupCampaignWithItems,
+	AnnouncementCampaign
+} from '$lib/server/services/newsletter'
 import type { EmailService } from '$lib/server/services/email'
 
 export const getCampaign = query(z.string(), (id) => {
@@ -14,37 +20,95 @@ export const getCampaign = query(z.string(), (id) => {
 	return campaign
 })
 
+export const getAvailableJobs = query(() => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+	return locals.newsletterService.getActiveJobs()
+})
+
+// Schema for content_highlights items
 const itemSchema = z.object({
 	id: z.string(),
 	custom_description: z.string().optional()
 })
 
-const campaignSchema = z.object({
+// Base campaign fields
+const baseCampaignSchema = z.object({
 	id: z.string().optional(),
 	title: z.string().min(1, 'Title is required'),
 	subject: z.string().min(1, 'Subject is required'),
+	campaign_type: z.enum(['content_highlights', 'announcement', 'jobs_roundup'])
+})
+
+// Type-specific fields
+const contentHighlightsFields = z.object({
 	intro_text: z.string().optional(),
 	items: z.array(itemSchema).optional()
 })
 
+const announcementFields = z.object({
+	body_html: z.string().min(1, 'Announcement content is required'),
+	cta_text: z.string().optional(),
+	cta_url: z.string().optional()
+})
+
+const jobsRoundupFields = z.object({
+	jobs_intro_text: z.string().optional(),
+	job_ids: z.array(z.string()).optional()
+})
+
+// Combined schema - all fields optional for flexibility
+const campaignSchema = baseCampaignSchema
+	.merge(contentHighlightsFields.partial())
+	.merge(announcementFields.partial())
+	.merge(jobsRoundupFields.partial())
+
 /**
- * Render campaign HTML for Plunk
+ * Render campaign HTML based on campaign type
  */
 async function renderCampaignHtml(
 	campaign: CampaignWithItems,
 	emailService: EmailService
 ): Promise<string> {
-	return emailService.renderNewsletterEmail({
-		subject: campaign.subject,
-		introText: campaign.intro_text || undefined,
-		items: campaign.items.map((item) => ({
-			title: item.title,
-			description: item.custom_description || item.description || '',
-			type: item.type,
-			slug: item.slug,
-			image: item.image
-		}))
-	})
+	switch (campaign.campaign_type) {
+		case 'content_highlights': {
+			const c = campaign as ContentHighlightsCampaignWithItems
+			return emailService.renderNewsletterEmail({
+				subject: c.subject,
+				introText: c.type_data.intro_text || undefined,
+				items: c.type_data.items.map((item) => ({
+					title: item.title,
+					description: item.custom_description || item.description || '',
+					type: item.type,
+					slug: item.slug,
+					image: item.image
+				}))
+			})
+		}
+		case 'announcement': {
+			const c = campaign as AnnouncementCampaign
+			return emailService.renderAnnouncementEmail({
+				subject: c.subject,
+				bodyHtml: c.type_data.body_html,
+				ctaText: c.type_data.cta_text || undefined,
+				ctaUrl: c.type_data.cta_url || undefined
+			})
+		}
+		case 'jobs_roundup': {
+			const c = campaign as JobsRoundupCampaignWithItems
+			return emailService.renderJobsRoundupEmail({
+				subject: c.subject,
+				introText: c.type_data.intro_text || undefined,
+				jobs: c.type_data.jobs.map((job) => ({
+					id: job.id,
+					title: job.title,
+					description: job.description,
+					slug: job.slug,
+					metadata: job.metadata
+				}))
+			})
+		}
+	}
 }
 
 /**
@@ -59,6 +123,53 @@ function getPlunkCampaignParams(campaign: CampaignWithItems, html: string) {
 	}
 }
 
+/**
+ * Build CreateCampaignData from form data based on campaign type
+ */
+function buildCreateCampaignData(
+	data: z.infer<typeof campaignSchema>,
+	userId: string
+): import('$lib/server/services/newsletter').CreateCampaignData {
+	const campaignType = data.campaign_type as CampaignType
+
+	switch (campaignType) {
+		case 'content_highlights':
+			return {
+				campaign_type: 'content_highlights',
+				title: data.title,
+				subject: data.subject,
+				created_by: userId,
+				type_data: {
+					items: data.items || [],
+					intro_text: data.intro_text || null
+				}
+			}
+		case 'announcement':
+			return {
+				campaign_type: 'announcement',
+				title: data.title,
+				subject: data.subject,
+				created_by: userId,
+				type_data: {
+					body_html: data.body_html || '',
+					cta_text: data.cta_text || null,
+					cta_url: data.cta_url || null
+				}
+			}
+		case 'jobs_roundup':
+			return {
+				campaign_type: 'jobs_roundup',
+				title: data.title,
+				subject: data.subject,
+				created_by: userId,
+				type_data: {
+					job_ids: data.job_ids || [],
+					intro_text: data.jobs_intro_text || null
+				}
+			}
+	}
+}
+
 export const createCampaign = form(campaignSchema, async (data) => {
 	checkAdminAuth()
 	const { locals } = getRequestEvent()
@@ -70,13 +181,7 @@ export const createCampaign = form(campaignSchema, async (data) => {
 
 	let campaign
 	try {
-		campaign = locals.newsletterService.createCampaignDraft({
-			title: data.title,
-			subject: data.subject,
-			intro_text: data.intro_text,
-			created_by: userId,
-			items: data.items || []
-		})
+		campaign = locals.newsletterService.createCampaignDraft(buildCreateCampaignData(data, userId))
 	} catch (err) {
 		console.error('Error creating campaign:', err)
 		return { success: false, text: 'An unexpected error occurred. Please try again.' }
@@ -107,6 +212,30 @@ export const createCampaign = form(campaignSchema, async (data) => {
 	redirect(303, `/admin/newsletter`)
 })
 
+/**
+ * Build type_data for update from form data based on campaign type
+ */
+function buildUpdateTypeData(data: z.infer<typeof campaignSchema>, campaignType: CampaignType) {
+	switch (campaignType) {
+		case 'content_highlights':
+			return {
+				items: data.items || [],
+				intro_text: data.intro_text || null
+			}
+		case 'announcement':
+			return {
+				body_html: data.body_html || '',
+				cta_text: data.cta_text || null,
+				cta_url: data.cta_url || null
+			}
+		case 'jobs_roundup':
+			return {
+				job_ids: data.job_ids || [],
+				intro_text: data.jobs_intro_text || null
+			}
+	}
+}
+
 export const updateCampaign = form(campaignSchema, async (data) => {
 	checkAdminAuth()
 	const { locals } = getRequestEvent()
@@ -125,13 +254,15 @@ export const updateCampaign = form(campaignSchema, async (data) => {
 		return { success: false, text: 'Cannot update a sent campaign.' }
 	}
 
+	const campaignType = existingCampaign.campaign_type
+	const typeData = buildUpdateTypeData(data, campaignType)
+
 	let campaign
 	try {
 		campaign = locals.newsletterService.updateCampaign(data.id, {
 			title: data.title,
 			subject: data.subject,
-			intro_text: data.intro_text,
-			items: data.items
+			type_data: typeData
 		})
 	} catch (err) {
 		console.error('Error updating campaign:', err)
@@ -248,17 +379,59 @@ export const copyCampaign = form(copyCampaignSchema, async (data) => {
 			return { success: false, text: 'Campaign not found.' }
 		}
 
+		// Build create data based on campaign type
+		let createData: import('$lib/server/services/newsletter').CreateCampaignData
+		switch (sourceCampaign.campaign_type) {
+			case 'content_highlights': {
+				const c = sourceCampaign as ContentHighlightsCampaignWithItems
+				createData = {
+					campaign_type: 'content_highlights',
+					title: `Copy of ${sourceCampaign.title}`,
+					subject: sourceCampaign.subject,
+					created_by: userId,
+					type_data: {
+						items: c.type_data.items.map((item) => ({
+							id: item.id,
+							custom_description: item.custom_description
+						})),
+						intro_text: c.type_data.intro_text
+					}
+				}
+				break
+			}
+			case 'announcement': {
+				const c = sourceCampaign as AnnouncementCampaign
+				createData = {
+					campaign_type: 'announcement',
+					title: `Copy of ${sourceCampaign.title}`,
+					subject: sourceCampaign.subject,
+					created_by: userId,
+					type_data: {
+						body_html: c.type_data.body_html,
+						cta_text: c.type_data.cta_text,
+						cta_url: c.type_data.cta_url
+					}
+				}
+				break
+			}
+			case 'jobs_roundup': {
+				const c = sourceCampaign as JobsRoundupCampaignWithItems
+				createData = {
+					campaign_type: 'jobs_roundup',
+					title: `Copy of ${sourceCampaign.title}`,
+					subject: sourceCampaign.subject,
+					created_by: userId,
+					type_data: {
+						job_ids: c.type_data.jobs.map((job) => job.id),
+						intro_text: c.type_data.intro_text
+					}
+				}
+				break
+			}
+		}
+
 		// Create a copy
-		const newCampaign = locals.newsletterService.createCampaignDraft({
-			title: `Copy of ${sourceCampaign.title}`,
-			subject: sourceCampaign.subject,
-			intro_text: sourceCampaign.intro_text,
-			created_by: userId,
-			items: sourceCampaign.items.map((item) => ({
-				id: item.id,
-				custom_description: item.custom_description
-			}))
-		})
+		const newCampaign = locals.newsletterService.createCampaignDraft(createData)
 
 		if (!newCampaign) {
 			return { success: false, text: 'Failed to copy campaign.' }

@@ -5,7 +5,9 @@
 		success: 'bg-green-100 text-green-800',
 		warning: 'bg-yellow-100 text-yellow-800',
 		danger: 'bg-red-100 text-red-800',
-		info: 'bg-svelte-100 text-svelte-900'
+		info: 'bg-svelte-100 text-svelte-900',
+		amber: 'bg-amber-100 text-amber-800',
+		purple: 'bg-purple-100 text-purple-800'
 	} as const
 
 	export type BadgeColor = keyof typeof colors
