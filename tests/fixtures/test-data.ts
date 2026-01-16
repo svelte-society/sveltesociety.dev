@@ -490,6 +490,19 @@ export const TEST_SPONSORS = [
 		status: 'pending',
 		activated_at: null,
 		expires_at: null
+	},
+	{
+		id: 'sponsor_004',
+		company_name: 'Awaiting Inc',
+		logo_url: 'https://ui-avatars.com/api/?name=Awaiting&background=8b5cf6&color=fff',
+		tagline: 'Waiting for activation',
+		website_url: 'https://awaiting.example.com',
+		discount_code: null,
+		discount_description: null,
+		contact_email: 'hello@awaiting.example.com',
+		status: 'pending',
+		activated_at: null,
+		expires_at: null
 	}
 ] as const
 
@@ -534,6 +547,20 @@ export const TEST_SPONSOR_SUBSCRIPTIONS = [
 		stripe_customer_id: null,
 		stripe_checkout_session_id: 'test_session_003',
 		amount_cents: 9900,
+		currency: 'usd',
+		status: 'incomplete', // Pending payment
+		current_period_start: null,
+		current_period_end: null
+	},
+	{
+		id: 'subscription_004',
+		sponsor_id: 'sponsor_004',
+		tier_id: 'sponsor_tier_premium',
+		billing_type: 'monthly',
+		stripe_subscription_id: null,
+		stripe_customer_id: null,
+		stripe_checkout_session_id: 'test_session_004',
+		amount_cents: 24900,
 		currency: 'usd',
 		status: 'incomplete', // Pending payment
 		current_period_start: null,

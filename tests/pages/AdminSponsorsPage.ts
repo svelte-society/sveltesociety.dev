@@ -205,10 +205,15 @@ export class AdminSponsorsPage extends BasePage {
 	 * @param query - Search query
 	 */
 	async search(query: string): Promise<void> {
-		await this.searchInput.fill(query)
-		// Wait for debounce (300ms) + data refetch cycle
-		// Using longer timeout to ensure data has time to refresh
-		await this.page.waitForTimeout(800)
+		// Clear any existing value first
+		await this.searchInput.clear()
+
+		// Use pressSequentially to simulate real typing which triggers oninput events properly
+		await this.searchInput.pressSequentially(query, { delay: 50 })
+
+		// Wait for debounce (300ms) + URL update + data refetch + render
+		// The page uses $derived(await getSponsors(...)) which depends on debouncedSearch
+		await this.page.waitForTimeout(2000)
 	}
 
 	/**
@@ -219,6 +224,10 @@ export class AdminSponsorsPage extends BasePage {
 		status: 'all' | 'pending' | 'active' | 'paused' | 'expired' | 'cancelled'
 	): Promise<void> {
 		await this.statusSelect.selectOption(status)
+
+		// Wait for data refresh - the page uses replaceState which doesn't trigger
+		// navigation events, so we wait for the data to refresh
+		await this.page.waitForTimeout(500)
 	}
 
 	/**

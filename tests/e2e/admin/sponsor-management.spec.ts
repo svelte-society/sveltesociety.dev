@@ -35,6 +35,7 @@ test.describe('Admin - Sponsor Management', () => {
 		await sponsorsPage.expectSponsorWithCompanyName('Acme Dev Tools')
 		await sponsorsPage.expectSponsorWithCompanyName('CloudHost Pro')
 		await sponsorsPage.expectSponsorWithCompanyName('Pending Corp')
+		await sponsorsPage.expectSponsorWithCompanyName('Awaiting Inc')
 	})
 
 	test('can search sponsors by company name', async ({ page }) => {
@@ -68,11 +69,12 @@ test.describe('Admin - Sponsor Management', () => {
 
 		await sponsorsPage.filterByStatus('pending')
 
-		// Should only show pending sponsors (1 in test data)
+		// Should only show pending sponsors (2 in test data)
 		const count = await sponsorsPage.getSponsorCount()
-		expect(count).toBe(1)
+		expect(count).toBe(2)
 
 		await sponsorsPage.expectSponsorWithCompanyName('Pending Corp')
+		await sponsorsPage.expectSponsorWithCompanyName('Awaiting Inc')
 	})
 
 	test('can navigate to sponsor edit page', async ({ page }) => {
@@ -169,7 +171,7 @@ test.describe('Admin - Sponsor Status Management', () => {
 
 	test('can activate pending sponsor from edit page', async ({ page }) => {
 		const sponsorsPage = new AdminSponsorsPage(page)
-		await sponsorsPage.gotoEdit('sponsor_003') // Pending Corp
+		await sponsorsPage.gotoEdit('sponsor_004') // Awaiting Inc (separate from list test)
 
 		// Should see activate button on edit page
 		await expect(sponsorsPage.activateSponsorButton).toBeVisible()
