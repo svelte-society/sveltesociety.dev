@@ -3,9 +3,11 @@
 	import Check from 'phosphor-svelte/lib/Check'
 	import Star from 'phosphor-svelte/lib/Star'
 	import Heart from 'phosphor-svelte/lib/Heart'
+	import Globe from 'phosphor-svelte/lib/Globe'
+	import Megaphone from 'phosphor-svelte/lib/Megaphone'
+	import Users from 'phosphor-svelte/lib/Users'
 	import Input from '$lib/ui/Input.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
-	import Select from '$lib/ui/Select.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import ImageUpload from '$lib/ui/ImageUpload.svelte'
 	import { submitSponsor, getSponsorTiers } from './submit.remote'
@@ -84,6 +86,57 @@
 		<p class="mt-2 text-slate-600">
 			Support the Svelte community and reach thousands of developers
 		</p>
+	</div>
+
+	<!-- Benefits -->
+	<div class="mb-10 grid gap-4 sm:grid-cols-2">
+		<div class="rounded-lg border border-slate-200 bg-white p-5 text-center">
+			<div
+				class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-orange-100"
+			>
+				<Users size={20} class="text-orange-600" />
+			</div>
+			<h3 class="font-semibold">Reach Developers</h3>
+			<p class="mt-1 text-sm text-slate-600">
+				Connect with thousands of Svelte developers actively building projects
+			</p>
+		</div>
+
+		<div class="rounded-lg border border-slate-200 bg-white p-5 text-center">
+			<div
+				class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-orange-100"
+			>
+				<Globe size={20} class="text-orange-600" />
+			</div>
+			<h3 class="font-semibold">Global Visibility</h3>
+			<p class="mt-1 text-sm text-slate-600">
+				Your brand displayed across our site, reaching a worldwide audience
+			</p>
+		</div>
+
+		<div class="rounded-lg border border-slate-200 bg-white p-5 text-center">
+			<div
+				class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-orange-100"
+			>
+				<Heart size={20} class="text-orange-600" />
+			</div>
+			<h3 class="font-semibold">Support Open Source</h3>
+			<p class="mt-1 text-sm text-slate-600">
+				Help sustain the Svelte ecosystem and community resources
+			</p>
+		</div>
+
+		<div class="rounded-lg border border-slate-200 bg-white p-5 text-center">
+			<div
+				class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-orange-100"
+			>
+				<Megaphone size={20} class="text-orange-600" />
+			</div>
+			<h3 class="font-semibold">Social Promotion</h3>
+			<p class="mt-1 text-sm text-slate-600">
+				Premium sponsors get featured in our social channels
+			</p>
+		</div>
 	</div>
 
 	<!-- Tier Selection -->

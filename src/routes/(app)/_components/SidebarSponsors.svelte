@@ -5,13 +5,13 @@
 <div class="grid gap-3 rounded border border-slate-200 bg-gray-50 p-4">
 	<div class="flex items-center justify-between">
 		<h3 class="text-md font-bold">Sponsors</h3>
-		<a href="/sponsors" class="text-svelte-500 text-xs hover:underline">Learn more</a>
+		<a href="/sponsors/submit" class="text-svelte-500 text-xs hover:underline">Learn more</a>
 	</div>
 
 	<div class="space-y-2">
 		{#each Array(3) as _, i (i)}
 			<a
-				href="/sponsors"
+				href="/sponsors/submit"
 				class="group grid grid-cols-[auto_1fr] gap-3 rounded border border-dashed border-slate-300 bg-white p-2 transition-colors hover:border-orange-400 hover:bg-orange-50"
 			>
 				<!-- Placeholder logo -->
@@ -38,7 +38,7 @@
 	</p>
 
 	<a
-		href="/sponsors"
+		href="/sponsors/submit"
 		class="mt-1 block rounded bg-orange-500 px-3 py-1.5 text-center text-xs font-medium text-white transition-colors hover:bg-orange-600"
 	>
 		Become a Sponsor
