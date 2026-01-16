@@ -7,6 +7,8 @@ import {
 	TEST_JOBS,
 	TEST_SAVES,
 	TEST_PENDING_CONTENT,
+	TEST_SPONSORS,
+	TEST_SPONSOR_TIERS,
 	getSessionExpiry,
 	getYesterday
 } from '../tests/fixtures/test-data'
@@ -215,6 +217,58 @@ async function seedTestDatabase() {
 			})
 		})
 
+		// 11. Add sponsor tiers
+		console.log('  → Creating sponsor tiers...')
+		db.run('DELETE FROM sponsor_tiers')
+		const tierInsert = db.prepare(`
+			INSERT INTO sponsor_tiers (id, name, display_name, price_cents, yearly_price_cents, one_time_price_cents, features, max_tagline_length, logo_size, display_order)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		`)
+
+		TEST_SPONSOR_TIERS.forEach((tier) => {
+			tierInsert.run(
+				tier.id,
+				tier.name,
+				tier.display_name,
+				tier.price_cents,
+				tier.yearly_price_cents,
+				tier.one_time_price_cents,
+				JSON.stringify(tier.features),
+				tier.max_tagline_length,
+				tier.logo_size,
+				tier.display_order
+			)
+		})
+
+		// 12. Add sponsors
+		console.log('  → Creating sponsors...')
+		db.run('DELETE FROM sponsors')
+		const sponsorInsert = db.prepare(`
+			INSERT INTO sponsors (id, company_name, logo_url, tagline, website_url, discount_code, discount_description, contact_email, tier_id, billing_type, status, show_in_sidebar, show_in_feed, logo_size, activated_at, expires_at)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		`)
+
+		TEST_SPONSORS.forEach((sponsor) => {
+			sponsorInsert.run(
+				sponsor.id,
+				sponsor.company_name,
+				sponsor.logo_url,
+				sponsor.tagline,
+				sponsor.website_url,
+				sponsor.discount_code,
+				sponsor.discount_description,
+				sponsor.contact_email,
+				sponsor.tier_id,
+				sponsor.billing_type,
+				sponsor.status,
+				sponsor.show_in_sidebar ? 1 : 0,
+				sponsor.show_in_feed ? 1 : 0,
+				sponsor.logo_size,
+				sponsor.activated_at,
+				sponsor.expires_at
+			)
+		})
+
 		// Summary
 		console.log('\n✅ Test database seeded successfully!')
 		console.log('\n📊 Summary:')
@@ -224,6 +278,7 @@ async function seedTestDatabase() {
 			`   Content: ${TEST_CONTENT.length} published + ${TEST_PENDING_CONTENT.length} pending`
 		)
 		console.log(`   Jobs: ${TEST_JOBS.length} published`)
+		console.log(`   Sponsors: ${TEST_SPONSORS.length} (${TEST_SPONSOR_TIERS.length} tiers)`)
 		console.log(`   Sessions: ${Object.keys(TEST_USERS).length} (one per user)`)
 		console.log('\n🔑 Test User Credentials:')
 		Object.entries(TEST_USERS).forEach(([key, user]) => {

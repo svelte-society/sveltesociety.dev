@@ -30,3 +30,15 @@ export interface SidebarJob {
 	salary_max?: number | null
 	salary_currency?: string | null
 }
+
+export interface SidebarSponsor {
+	id: string
+	company_name: string
+	logo_url: string
+	tagline: string
+	website_url: string
+	discount_code: string | null
+	discount_description: string | null
+	tier_name: string
+	logo_size: 'normal' | 'large'
+}

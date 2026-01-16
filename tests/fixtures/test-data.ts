@@ -440,6 +440,114 @@ export const TEST_SAVES = [
 ] as const
 
 /**
+ * Helper to get expiration date for sponsors (30 days from now)
+ */
+function getSponsorExpiresAt(): string {
+	const date = new Date()
+	date.setDate(date.getDate() + 30)
+	return date.toISOString()
+}
+
+/**
+ * Test sponsors
+ */
+export const TEST_SPONSORS = [
+	{
+		id: 'sponsor_001',
+		company_name: 'Acme Dev Tools',
+		logo_url: 'https://ui-avatars.com/api/?name=Acme&background=ff3e00&color=fff',
+		tagline: 'Developer tools that just work',
+		website_url: 'https://acme.example.com',
+		discount_code: 'SVELTE20',
+		discount_description: '20% off for Svelte developers',
+		contact_email: 'sponsors@acme.example.com',
+		tier_id: 'sponsor_tier_premium',
+		tier_name: 'premium',
+		billing_type: 'monthly',
+		status: 'active',
+		show_in_sidebar: true,
+		show_in_feed: true,
+		logo_size: 'large',
+		activated_at: new Date().toISOString(),
+		expires_at: getSponsorExpiresAt()
+	},
+	{
+		id: 'sponsor_002',
+		company_name: 'CloudHost Pro',
+		logo_url: 'https://ui-avatars.com/api/?name=CloudHost&background=3b82f6&color=fff',
+		tagline: 'Fast and reliable hosting for Svelte apps',
+		website_url: 'https://cloudhost.example.com',
+		discount_code: null,
+		discount_description: null,
+		contact_email: 'hello@cloudhost.example.com',
+		tier_id: 'sponsor_tier_basic',
+		tier_name: 'basic',
+		billing_type: 'yearly',
+		status: 'active',
+		show_in_sidebar: true,
+		show_in_feed: true,
+		logo_size: 'normal',
+		activated_at: new Date().toISOString(),
+		expires_at: getSponsorExpiresAt()
+	},
+	{
+		id: 'sponsor_003',
+		company_name: 'Pending Corp',
+		logo_url: 'https://ui-avatars.com/api/?name=Pending&background=f59e0b&color=fff',
+		tagline: 'Awaiting approval',
+		website_url: 'https://pending.example.com',
+		discount_code: null,
+		discount_description: null,
+		contact_email: 'contact@pending.example.com',
+		tier_id: 'sponsor_tier_basic',
+		tier_name: 'basic',
+		billing_type: 'one_time',
+		status: 'pending',
+		show_in_sidebar: false,
+		show_in_feed: false,
+		logo_size: 'normal',
+		activated_at: null,
+		expires_at: null
+	}
+] as const
+
+/**
+ * Test sponsor tiers
+ */
+export const TEST_SPONSOR_TIERS = [
+	{
+		id: 'sponsor_tier_basic',
+		name: 'basic',
+		display_name: 'Basic',
+		price_cents: 9900,
+		yearly_price_cents: 99900,
+		one_time_price_cents: 9900,
+		features: ['Logo in sidebar', 'Logo in feed', 'Link to website'],
+		max_tagline_length: 100,
+		logo_size: 'normal',
+		display_order: 1
+	},
+	{
+		id: 'sponsor_tier_premium',
+		name: 'premium',
+		display_name: 'Premium',
+		price_cents: 24900,
+		yearly_price_cents: 249900,
+		one_time_price_cents: 24900,
+		features: [
+			'Large logo in sidebar',
+			'Large logo in feed',
+			'Link to website',
+			'Discount code display',
+			'Priority placement'
+		],
+		max_tagline_length: 200,
+		logo_size: 'large',
+		display_order: 2
+	}
+] as const
+
+/**
  * Test pending content entries (replacing moderation queue)
  * These are content items with status='pending_review' awaiting moderation
  */

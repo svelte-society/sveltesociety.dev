@@ -26,7 +26,7 @@ bun test:integration --grep "search"
 
 ## Current Test Coverage
 
-**Total E2E Tests:** 89 tests across 16 test files
+**Total E2E Tests:** 103+ tests across 18 test files
 **Total Unit Tests:** 47 tests across 1 test file
 **Execution Time:** ~15-20 seconds E2E (with 4 parallel workers), <100ms unit tests
 **Success Rate:** 100% (0% flaky tests)
@@ -40,6 +40,8 @@ bun test:integration --grep "search"
 - **Admin User Management** (4 tests) - View users, edit profiles, manage roles
 - **Admin Sidebar Shortcuts** (6 tests) - Create, toggle, delete sidebar shortcuts
 - **SEO Endpoints** (29 tests) - robots.txt, sitemap.xml validation and resilience
+- **Sponsor Submission** (10 tests) - Sponsor form, tier selection, billing cycles
+- **Admin Sponsor Management** (14 tests) - List, filter, edit, activate/pause/cancel sponsors
 
 ### Unit Test Categories
 

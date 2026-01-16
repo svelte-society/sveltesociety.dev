@@ -5,14 +5,20 @@
 	import UpcomingEvents from './UpcomingEvents.svelte'
 	import SidebarJobs from './SidebarJobs.svelte'
 	import SidebarSponsors from './SidebarSponsors.svelte'
-	import { type UpcomingEvent, type SidebarJob } from './types'
+	import { type UpcomingEvent, type SidebarJob, type SidebarSponsor } from './types'
 	import type { User } from '$lib/server/services/user'
 
 	let {
 		upcomingEvents = [],
 		jobs = [],
+		sponsors = [],
 		user = null
-	}: { upcomingEvents?: UpcomingEvent[]; jobs?: SidebarJob[]; user?: User | null } = $props()
+	}: {
+		upcomingEvents?: UpcomingEvent[]
+		jobs?: SidebarJob[]
+		sponsors?: SidebarSponsor[]
+		user?: User | null
+	} = $props()
 </script>
 
 <aside
@@ -26,7 +32,7 @@
 		<Button href="/submit" size="sm"><Plus />Submit Post</Button>
 	</div>
 
-	<SidebarSponsors />
+	<SidebarSponsors {sponsors} />
 
 	{#if user?.newsletter_preference !== 'subscribed'}
 		<NewsletterSubscribe />
