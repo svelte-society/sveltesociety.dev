@@ -15,7 +15,7 @@
 		Column
 	} from 'better-svelte-email'
 	import { dev } from '$app/environment'
-	import { Header, Footer, Button } from '$lib/components/email'
+	import { Header, Footer, Button, SponsorSlot } from '$lib/components/email'
 
 	interface ContentItem {
 		title: string
@@ -25,12 +25,19 @@
 		image?: string | null
 	}
 
+	interface Sponsor {
+		name: string
+		logo: string
+		url: string
+	}
+
 	interface Props {
 		subject?: string
 		introText?: string
 		items?: ContentItem[]
 		baseUrl?: string
 		unsubscribeUrl?: string
+		sponsors?: Sponsor[]
 	}
 
 	const defaultBaseUrl = dev ? 'http://localhost:5173' : 'https://sveltesociety.dev'
@@ -39,7 +46,8 @@
 		introText = '',
 		items = [],
 		baseUrl = defaultBaseUrl,
-		unsubscribeUrl = 'https://app.useplunk.com/subscribe/{{plunk_id}}'
+		unsubscribeUrl = 'https://app.useplunk.com/subscribe/{{plunk_id}}',
+		sponsors = []
 	}: Props = $props()
 
 	const logoUrl = `${baseUrl}/email/logo.svg`
@@ -126,6 +134,9 @@
 				{#if items.length > 0}
 					<Button href={baseUrl} variant="primary">Visit Svelte Society</Button>
 				{/if}
+
+				<!-- Sponsor Slot -->
+				<SponsorSlot {sponsors} />
 
 				<Footer {aboutUrl} />
 

@@ -500,6 +500,21 @@ export class AdminCampaignEditorPage extends BasePage {
 	// Selectors
 
 	/**
+	 * Campaign type selector buttons
+	 */
+	get contentHighlightsTypeButton(): Locator {
+		return this.page.getByTestId('campaign-type-content_highlights')
+	}
+
+	get announcementTypeButton(): Locator {
+		return this.page.getByTestId('campaign-type-announcement')
+	}
+
+	get jobsRoundupTypeButton(): Locator {
+		return this.page.getByTestId('campaign-type-jobs_roundup')
+	}
+
+	/**
 	 * Campaign title input
 	 */
 	get titleInput(): Locator {
@@ -514,10 +529,38 @@ export class AdminCampaignEditorPage extends BasePage {
 	}
 
 	/**
-	 * Introduction text textarea
+	 * Introduction text textarea (for content_highlights type)
 	 */
 	get introTextarea(): Locator {
 		return this.page.getByTestId('textarea-intro-text')
+	}
+
+	/**
+	 * Announcement body textarea (for announcement type)
+	 */
+	get announcementBodyTextarea(): Locator {
+		return this.page.getByTestId('textarea-announcement-body')
+	}
+
+	/**
+	 * CTA text input (for announcement type)
+	 */
+	get ctaTextInput(): Locator {
+		return this.page.getByTestId('input-cta-text')
+	}
+
+	/**
+	 * CTA URL input (for announcement type)
+	 */
+	get ctaUrlInput(): Locator {
+		return this.page.getByTestId('input-cta-url')
+	}
+
+	/**
+	 * Jobs intro textarea (for jobs_roundup type)
+	 */
+	get jobsIntroTextarea(): Locator {
+		return this.page.getByTestId('textarea-jobs-intro')
 	}
 
 	/**
@@ -551,6 +594,29 @@ export class AdminCampaignEditorPage extends BasePage {
 	// Actions
 
 	/**
+	 * Select a campaign type and wait for the selection to take effect
+	 */
+	async selectCampaignType(
+		type: 'content_highlights' | 'announcement' | 'jobs_roundup'
+	): Promise<void> {
+		let button: Locator
+		switch (type) {
+			case 'content_highlights':
+				button = this.contentHighlightsTypeButton
+				break
+			case 'announcement':
+				button = this.announcementTypeButton
+				break
+			case 'jobs_roundup':
+				button = this.jobsRoundupTypeButton
+				break
+		}
+		await button.click()
+		// Wait for the selection to take effect - selected buttons get ring-2 class
+		await expect(button).toHaveClass(/ring-2/, { timeout: 5000 })
+	}
+
+	/**
 	 * Fill in campaign details
 	 * @param title - Campaign title
 	 * @param subject - Email subject
@@ -562,6 +628,26 @@ export class AdminCampaignEditorPage extends BasePage {
 		if (introText) {
 			await this.introTextarea.fill(introText)
 		}
+	}
+
+	/**
+	 * Fill in announcement-specific fields
+	 */
+	async fillAnnouncementFields(bodyHtml: string, ctaText?: string, ctaUrl?: string): Promise<void> {
+		await this.announcementBodyTextarea.fill(bodyHtml)
+		if (ctaText) {
+			await this.ctaTextInput.fill(ctaText)
+		}
+		if (ctaUrl) {
+			await this.ctaUrlInput.fill(ctaUrl)
+		}
+	}
+
+	/**
+	 * Fill in jobs roundup intro
+	 */
+	async fillJobsIntro(introText: string): Promise<void> {
+		await this.jobsIntroTextarea.fill(introText)
 	}
 
 	/**
