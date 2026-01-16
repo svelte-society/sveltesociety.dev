@@ -27,7 +27,7 @@
 			selected: 'border-purple-500 bg-purple-50 ring-2 ring-purple-200',
 			icon: 'bg-purple-100 text-purple-600'
 		},
-		green: {
+		success: {
 			selected: 'border-green-500 bg-green-50 ring-2 ring-green-200',
 			icon: 'bg-green-100 text-green-600'
 		}
