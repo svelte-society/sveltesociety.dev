@@ -736,4 +736,41 @@ export class AdminCampaignEditorPage extends BasePage {
 			expect(value.length).toBeGreaterThan(0)
 		}).toPass({ timeout: 10000 })
 	}
+
+	/**
+	 * Wait for form to be stable (initForm effects have run)
+	 * This handles the race condition where Svelte's reactive system
+	 * may reset form values after initial fill.
+	 */
+	async waitForFormStable(): Promise<void> {
+		// Wait for Svelte's reactive system to settle after page load
+		// This ensures any initForm effects have completed their first run
+		await this.page.waitForTimeout(150)
+	}
+
+	/**
+	 * Fill title and subject fields robustly, handling race conditions
+	 * with Svelte's form initialization.
+	 * @param title - Campaign title
+	 * @param subject - Email subject
+	 */
+	async fillCampaignFieldsRobust(title: string, subject: string): Promise<void> {
+		// Wait for form to stabilize after page load
+		await this.waitForFormStable()
+
+		// Use polling to ensure values stick despite potential reactive resets
+		await expect(async () => {
+			await this.titleInput.clear()
+			await this.titleInput.fill(title)
+			const titleValue = await this.titleInput.inputValue()
+			expect(titleValue).toBe(title)
+		}).toPass({ timeout: 5000, intervals: [100, 200, 500] })
+
+		await expect(async () => {
+			await this.subjectInput.clear()
+			await this.subjectInput.fill(subject)
+			const subjectValue = await this.subjectInput.inputValue()
+			expect(subjectValue).toBe(subject)
+		}).toPass({ timeout: 5000, intervals: [100, 200, 500] })
+	}
 }
