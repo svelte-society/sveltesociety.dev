@@ -31,7 +31,8 @@ import type { NewsletterService } from '$lib/server/services/newsletter'
 import type {
 	SocialPostService,
 	SocialTemplateService,
-	SocialCredentialService
+	SocialCredentialService,
+	SocialQueueService
 } from '$lib/server/services/social'
 
 declare global {
@@ -67,6 +68,7 @@ declare global {
 			socialPostService: SocialPostService
 			socialTemplateService: SocialTemplateService
 			socialCredentialService: SocialCredentialService
+			socialQueueService: SocialQueueService
 		}
 		// interface PageData {}
 		interface PageState {

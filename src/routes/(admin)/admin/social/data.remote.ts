@@ -544,3 +544,98 @@ export const duplicatePost = form(postIdSchema, async (data) => {
 
 	redirect(303, `/admin/social/${newPost.id}`)
 })
+
+// ============================================
+// Queue Settings
+// ============================================
+
+/**
+ * Get all queue settings
+ */
+export const getQueueSettings = query('unchecked', async () => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	return locals.socialQueueService.getAllSettings()
+})
+
+/**
+ * Get queue settings for a specific platform
+ */
+export const getQueueSettingsForPlatform = query(
+	z.object({ platform: z.enum(['twitter', 'bluesky', 'linkedin', 'global']) }),
+	async ({ platform }) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
+
+		return locals.socialQueueService.getSettings(platform)
+	}
+)
+
+/**
+ * Update queue settings for a specific platform
+ */
+export const updateQueueSettings = form(
+	z.object({
+		platform: z.enum(['twitter', 'bluesky', 'linkedin', 'global']),
+		posting_times: z.string().optional(), // JSON array string
+		posting_days: z.string().optional(), // JSON array string
+		min_gap_minutes: z.coerce.number().int().positive().optional(),
+		timezone: z.string().optional(),
+		is_paused: checkboxBoolean
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
+
+		try {
+			const settings = locals.socialQueueService.updateSettings(data.platform, {
+				posting_times: data.posting_times ? JSON.parse(data.posting_times) : undefined,
+				posting_days: data.posting_days ? JSON.parse(data.posting_days) : undefined,
+				min_gap_minutes: data.min_gap_minutes,
+				timezone: data.timezone,
+				is_paused: data.is_paused
+			})
+
+			if (!settings) {
+				return { success: false, text: 'Failed to update settings' }
+			}
+
+			await getQueueSettings().refresh()
+
+			return { success: true, text: 'Queue settings updated successfully!' }
+		} catch (error) {
+			console.error('Error updating queue settings:', error)
+			return { success: false, text: 'An error occurred while updating settings' }
+		}
+	}
+)
+
+/**
+ * Pause or resume the queue for a platform
+ */
+export const toggleQueuePaused = form(
+	z.object({
+		platform: z.enum(['twitter', 'bluesky', 'linkedin', 'global']),
+		is_paused: checkboxBoolean
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
+
+		try {
+			const settings = locals.socialQueueService.setQueuePaused(data.platform, data.is_paused)
+
+			if (!settings) {
+				return { success: false, text: 'Failed to update queue status' }
+			}
+
+			await getQueueSettings().refresh()
+
+			return { success: true, text: data.is_paused ? 'Queue paused' : 'Queue resumed' }
+		} catch (error) {
+			console.error('Error toggling queue:', error)
+			return { success: false, text: 'An error occurred' }
+		}
+	}
+)

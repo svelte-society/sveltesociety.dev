@@ -29,6 +29,8 @@ export type {
 	PlatformCredentials
 } from './social-credential'
 
+export { SocialQueueService } from './social-queue'
+
 // Re-export common types from the types file
 export type {
 	SocialPlatform,

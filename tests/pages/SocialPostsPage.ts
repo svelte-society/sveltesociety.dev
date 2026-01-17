@@ -164,7 +164,12 @@ export class SocialPostsPage extends BasePage {
 
 	async save(): Promise<void> {
 		await this.saveButton.click()
-		await this.page.waitForLoadState('domcontentloaded')
+		// Wait for the form to complete and show success message (green) or error (red div)
+		await Promise.race([
+			this.page.locator('div.bg-green-50').first().waitFor({ state: 'visible', timeout: 15000 }),
+			this.page.locator('div.bg-red-50.rounded-lg').waitFor({ state: 'visible', timeout: 15000 })
+		])
+		await this.page.waitForLoadState('networkidle')
 	}
 
 	async clickDelete(): Promise<void> {
@@ -245,7 +250,8 @@ export class SocialPostsPage extends BasePage {
 
 	async expectEditPage(): Promise<void> {
 		await expect(this.page).toHaveURL(/\/admin\/social\/[a-zA-Z0-9-]+$/)
-		await expect(this.saveButton).toBeVisible()
+		await this.page.waitForLoadState('networkidle')
+		await expect(this.saveButton).toBeVisible({ timeout: 15000 })
 	}
 
 	async expectNewPage(): Promise<void> {
@@ -259,5 +265,86 @@ export class SocialPostsPage extends BasePage {
 	async clickPostByTitle(title: string): Promise<void> {
 		const link = this.page.getByTestId('post-edit-link').filter({ hasText: title })
 		await link.first().click()
+	}
+
+	// ========== CALENDAR PAGE ==========
+
+	async gotoCalendar(): Promise<void> {
+		await this.page.goto('/admin/social/calendar')
+		await this.page.waitForLoadState('networkidle')
+	}
+
+	async expectCalendarPage(): Promise<void> {
+		await expect(this.page).toHaveURL('/admin/social/calendar')
+		await expect(this.page.getByRole('heading', { name: /Social Calendar/i })).toBeVisible()
+	}
+
+	async clickCalendarLink(): Promise<void> {
+		await this.page.getByTestId('calendar-button').click()
+	}
+
+	async navigateCalendarNext(): Promise<void> {
+		await this.page.getByLabel('Next').click()
+	}
+
+	async navigateCalendarPrev(): Promise<void> {
+		await this.page.getByLabel('Previous').click()
+	}
+
+	async clickCalendarToday(): Promise<void> {
+		await this.page.getByRole('button', { name: 'Today' }).click()
+	}
+
+	async switchToWeekView(): Promise<void> {
+		await this.page.getByRole('button', { name: 'Week' }).click()
+	}
+
+	async switchToMonthView(): Promise<void> {
+		await this.page.getByRole('button', { name: 'Month' }).click()
+	}
+
+	// ========== SETTINGS PAGE ==========
+
+	async gotoSettings(): Promise<void> {
+		await this.page.goto('/admin/social/settings')
+		await this.page.waitForLoadState('networkidle')
+	}
+
+	async expectSettingsPage(): Promise<void> {
+		await expect(this.page).toHaveURL('/admin/social/settings')
+		await expect(this.page.getByRole('heading', { name: /Queue Settings/i })).toBeVisible()
+	}
+
+	async clickSettingsLink(): Promise<void> {
+		await this.page.getByTestId('settings-button').click()
+	}
+
+	// ========== SCHEDULING (Edit Page) ==========
+
+	async schedulePost(date: string, time: string): Promise<void> {
+		// Fill in the schedule form on the edit page
+		await this.page.locator('#schedule_date').fill(date)
+		await this.page.locator('#schedule_time').fill(time)
+		await this.page.getByRole('button', { name: /Schedule Post/i }).click()
+		await this.page.waitForLoadState('domcontentloaded')
+	}
+
+	async unschedulePost(): Promise<void> {
+		await this.page.getByRole('button', { name: /Unschedule/i }).click()
+		await this.page.waitForLoadState('domcontentloaded')
+	}
+
+	async expectPostScheduled(): Promise<void> {
+		// Should see scheduled status badge (in the Status card)
+		await expect(
+			this.page.locator('.rounded-2xl').filter({ hasText: 'Status' }).getByText('Scheduled').first()
+		).toBeVisible()
+	}
+
+	async expectPostDraft(): Promise<void> {
+		// Should see draft status badge (in the Status card)
+		await expect(
+			this.page.locator('.rounded-2xl').filter({ hasText: 'Status' }).getByText('Draft').first()
+		).toBeVisible()
 	}
 }

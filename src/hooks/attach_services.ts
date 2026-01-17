@@ -28,7 +28,8 @@ import { NewsletterService } from '$lib/server/services/newsletter'
 import {
 	SocialPostService,
 	SocialTemplateService,
-	SocialCredentialService
+	SocialCredentialService,
+	SocialQueueService
 } from '$lib/server/services/social'
 import fs from 'node:fs'
 
@@ -66,6 +67,7 @@ const dbCache = new Map<
 		socialPostService: SocialPostService
 		socialTemplateService: SocialTemplateService
 		socialCredentialService: SocialCredentialService
+		socialQueueService: SocialQueueService
 	}
 >()
 
@@ -110,6 +112,7 @@ const initialize_db = (dbPath: string) => {
 	const socialPostService = new SocialPostService(db)
 	const socialTemplateService = new SocialTemplateService(db)
 	const socialCredentialService = new SocialCredentialService(db)
+	const socialQueueService = new SocialQueueService(db)
 
 	const services = {
 		db,
@@ -137,7 +140,8 @@ const initialize_db = (dbPath: string) => {
 		sponsorSubscriptionService,
 		socialPostService,
 		socialTemplateService,
-		socialCredentialService
+		socialCredentialService,
+		socialQueueService
 	}
 
 	dbCache.set(dbPath, services)
@@ -199,6 +203,7 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.socialPostService = services.socialPostService
 	event.locals.socialTemplateService = services.socialTemplateService
 	event.locals.socialCredentialService = services.socialCredentialService
+	event.locals.socialQueueService = services.socialQueueService
 	event.locals.stripeService = stripeService
 	event.locals.emailService = emailService
 

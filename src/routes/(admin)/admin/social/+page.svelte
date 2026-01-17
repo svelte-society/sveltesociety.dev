@@ -11,6 +11,8 @@
 	import Plus from 'phosphor-svelte/lib/Plus'
 	import ShareNetwork from 'phosphor-svelte/lib/ShareNetwork'
 	import Copy from 'phosphor-svelte/lib/Copy'
+	import CalendarBlank from 'phosphor-svelte/lib/CalendarBlank'
+	import GearSix from 'phosphor-svelte/lib/GearSix'
 	import { getPosts, deletePost, duplicatePost } from './data.remote'
 	import { POST_STATUS_CONFIG, POST_TYPE_CONFIG, PLATFORM_CONFIG } from '$lib/types/social'
 	import type { SocialPostStatus, SocialPostType, SocialPlatform } from '$lib/types/social'
@@ -86,6 +88,22 @@
 		icon={ShareNetwork}
 	>
 		{#snippet actions()}
+			<a
+				href="/admin/social/settings"
+				class="inline-flex items-center gap-2 rounded-lg bg-white/20 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-white/30"
+				data-testid="settings-button"
+			>
+				<GearSix class="h-4 w-4" weight="bold" />
+				Settings
+			</a>
+			<a
+				href="/admin/social/calendar"
+				class="inline-flex items-center gap-2 rounded-lg bg-white/20 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-white/30"
+				data-testid="calendar-button"
+			>
+				<CalendarBlank class="h-4 w-4" weight="bold" />
+				Calendar
+			</a>
 			<a
 				href="/admin/social/new"
 				class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-svelte-500 shadow-lg transition-all hover:bg-white/90"
