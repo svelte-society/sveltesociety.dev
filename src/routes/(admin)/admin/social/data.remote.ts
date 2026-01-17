@@ -844,3 +844,265 @@ export const toggleRuleActive = form(
 		}
 	}
 )
+
+// ============================================
+// Templates
+// ============================================
+
+const templateIdSchema = z.object({
+	id: z.string().min(1, 'Template ID is required')
+})
+
+const createTemplateSchema = z.object({
+	name: z.string().min(1, 'Name is required'),
+	description: z.string().optional(),
+	content_type: z.enum(['video', 'library', 'recipe', 'resource', 'job', 'sponsor', 'custom']),
+	twitter_template: z.string().min(1, 'Twitter template is required'),
+	bluesky_template: z.string().min(1, 'Bluesky template is required'),
+	linkedin_template: z.string().min(1, 'LinkedIn template is required'),
+	is_default: checkboxBoolean
+})
+
+const updateTemplateSchema = z.object({
+	id: z.string().min(1, 'Template ID is required'),
+	name: z.string().min(1, 'Name is required'),
+	description: z
+		.string()
+		.optional()
+		.transform((v) => (v === '' ? null : v)),
+	twitter_template: z.string().min(1, 'Twitter template is required'),
+	bluesky_template: z.string().min(1, 'Bluesky template is required'),
+	linkedin_template: z.string().min(1, 'LinkedIn template is required'),
+	is_default: checkboxBoolean
+})
+
+/**
+ * Get a single template by ID
+ */
+export const getTemplate = query(templateIdSchema, async ({ id }) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	return locals.socialTemplateService.getById(id)
+})
+
+/**
+ * Create a new template
+ */
+export const createTemplate = form(createTemplateSchema, async (data) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	const template = locals.socialTemplateService.create({
+		name: data.name,
+		description: data.description || null,
+		content_type: data.content_type,
+		twitter_template: data.twitter_template,
+		bluesky_template: data.bluesky_template,
+		linkedin_template: data.linkedin_template,
+		is_default: data.is_default
+	})
+
+	if (!template) {
+		return { success: false, text: 'Failed to create template' }
+	}
+
+	redirect(303, `/admin/social/templates/${template.id}`)
+})
+
+/**
+ * Update an existing template
+ */
+export const updateTemplate = form(updateTemplateSchema, async (data) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	try {
+		const template = locals.socialTemplateService.update(data.id, {
+			name: data.name,
+			description: data.description,
+			twitter_template: data.twitter_template,
+			bluesky_template: data.bluesky_template,
+			linkedin_template: data.linkedin_template,
+			is_default: data.is_default
+		})
+
+		if (!template) {
+			return { success: false, text: 'Template not found' }
+		}
+
+		await getTemplates().refresh()
+		await getTemplate({ id: data.id }).refresh()
+
+		return { success: true, text: 'Template updated successfully!' }
+	} catch (error) {
+		console.error('Error updating template:', error)
+		return { success: false, text: 'An error occurred while updating the template' }
+	}
+})
+
+/**
+ * Delete a template
+ */
+export const deleteTemplate = form(templateIdSchema, async (data) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	const success = locals.socialTemplateService.delete(data.id)
+
+	if (!success) {
+		return { success: false, text: 'Template not found' }
+	}
+
+	await getTemplates().refresh()
+
+	redirect(303, '/admin/social/templates')
+})
+
+// ============================================
+// Analytics
+// ============================================
+
+/**
+ * Get social media analytics/stats
+ */
+export const getAnalytics = query('unchecked', async () => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+	const db = locals.db
+
+	// Get post counts by status
+	const statusCounts = db
+		.prepare(
+			`
+		SELECT status, COUNT(*) as count
+		FROM social_posts
+		GROUP BY status
+	`
+		)
+		.all() as { status: string; count: number }[]
+
+	// Get post counts by platform
+	const platformCounts = db
+		.prepare(
+			`
+		SELECT platform, status, COUNT(*) as count
+		FROM social_post_platforms
+		GROUP BY platform, status
+	`
+		)
+		.all() as { platform: string; status: string; count: number }[]
+
+	// Get post counts by type
+	const typeCounts = db
+		.prepare(
+			`
+		SELECT post_type, COUNT(*) as count
+		FROM social_posts
+		GROUP BY post_type
+	`
+		)
+		.all() as { post_type: string; count: number }[]
+
+	// Get posts by day for last 30 days
+	const postsOverTime = db
+		.prepare(
+			`
+		SELECT
+			date(created_at) as date,
+			COUNT(*) as count
+		FROM social_posts
+		WHERE created_at >= date('now', '-30 days')
+		GROUP BY date(created_at)
+		ORDER BY date ASC
+	`
+		)
+		.all() as { date: string; count: number }[]
+
+	// Get published posts by day for last 30 days
+	const publishedOverTime = db
+		.prepare(
+			`
+		SELECT
+			date(published_at) as date,
+			COUNT(*) as count
+		FROM social_posts
+		WHERE published_at IS NOT NULL
+			AND published_at >= date('now', '-30 days')
+		GROUP BY date(published_at)
+		ORDER BY date ASC
+	`
+		)
+		.all() as { date: string; count: number }[]
+
+	// Get recent posts with their platforms
+	const recentPosts = db
+		.prepare(
+			`
+		SELECT
+			sp.id, sp.title, sp.status, sp.post_type, sp.created_at, sp.published_at,
+			GROUP_CONCAT(spp.platform) as platforms,
+			GROUP_CONCAT(spp.status) as platform_statuses
+		FROM social_posts sp
+		LEFT JOIN social_post_platforms spp ON sp.id = spp.post_id
+		GROUP BY sp.id
+		ORDER BY sp.created_at DESC
+		LIMIT 10
+	`
+		)
+		.all() as {
+		id: string
+		title: string
+		status: string
+		post_type: string
+		created_at: string
+		published_at: string | null
+		platforms: string
+		platform_statuses: string
+	}[]
+
+	// Get total counts
+	const totalPosts = statusCounts.reduce((sum, s) => sum + s.count, 0)
+	const publishedPosts = statusCounts.find((s) => s.status === 'published')?.count ?? 0
+	const scheduledPosts = statusCounts.find((s) => s.status === 'scheduled')?.count ?? 0
+	const draftPosts = statusCounts.find((s) => s.status === 'draft')?.count ?? 0
+	const failedPosts = statusCounts.find((s) => s.status === 'failed')?.count ?? 0
+
+	// Calculate platform totals
+	const platformTotals: Record<string, { total: number; published: number; failed: number }> = {}
+	for (const pc of platformCounts) {
+		if (!platformTotals[pc.platform]) {
+			platformTotals[pc.platform] = { total: 0, published: 0, failed: 0 }
+		}
+		platformTotals[pc.platform].total += pc.count
+		if (pc.status === 'published') {
+			platformTotals[pc.platform].published += pc.count
+		}
+		if (pc.status === 'failed') {
+			platformTotals[pc.platform].failed += pc.count
+		}
+	}
+
+	return {
+		summary: {
+			total: totalPosts,
+			published: publishedPosts,
+			scheduled: scheduledPosts,
+			draft: draftPosts,
+			failed: failedPosts
+		},
+		byStatus: statusCounts,
+		byPlatform: Object.entries(platformTotals).map(([platform, stats]) => ({
+			platform,
+			...stats
+		})),
+		byType: typeCounts,
+		postsOverTime,
+		publishedOverTime,
+		recentPosts: recentPosts.map((p) => ({
+			...p,
+			platforms: p.platforms?.split(',') ?? [],
+			platform_statuses: p.platform_statuses?.split(',') ?? []
+		}))
+	}
+})

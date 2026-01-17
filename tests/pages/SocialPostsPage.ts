@@ -352,4 +352,99 @@ export class SocialPostsPage extends BasePage {
 			this.page.locator('.rounded-2xl').filter({ hasText: 'Status' }).getByText('Draft').first()
 		).toBeVisible()
 	}
+
+	// ========== TEMPLATES PAGE ==========
+
+	async gotoTemplates(): Promise<void> {
+		await this.page.goto('/admin/social/templates')
+		await this.page.waitForLoadState('networkidle')
+	}
+
+	async gotoNewTemplate(): Promise<void> {
+		await this.page.goto('/admin/social/templates/new')
+		await this.page.waitForLoadState('networkidle')
+		await this.page.getByTestId('input-name').waitFor({ state: 'visible', timeout: 15000 })
+	}
+
+	async expectTemplatesPage(): Promise<void> {
+		await expect(this.page).toHaveURL('/admin/social/templates')
+		await expect(this.page.getByRole('heading', { name: /Post Templates/i })).toBeVisible()
+	}
+
+	async expectNewTemplatePage(): Promise<void> {
+		await expect(this.page).toHaveURL('/admin/social/templates/new')
+		await expect(this.page.getByRole('heading', { name: /New Template/i })).toBeVisible()
+	}
+
+	async expectEditTemplatePage(): Promise<void> {
+		await expect(this.page).toHaveURL(/\/admin\/social\/templates\/[A-F0-9]{16}$/)
+		await expect(this.page.getByTestId('save-button')).toBeVisible({ timeout: 15000 })
+	}
+
+	async clickTemplatesLink(): Promise<void> {
+		await this.page.getByTestId('templates-button').click()
+	}
+
+	async fillTemplateName(name: string): Promise<void> {
+		const input = this.page.getByTestId('input-name')
+		await input.click()
+		await input.fill(name)
+	}
+
+	async selectContentType(type: string): Promise<void> {
+		await this.page.getByTestId('select-content-type').selectOption(type)
+	}
+
+	async fillTwitterTemplate(text: string): Promise<void> {
+		await this.page.getByTestId('textarea-twitter').fill(text)
+	}
+
+	async fillBlueskyTemplate(text: string): Promise<void> {
+		await this.page.getByTestId('textarea-bluesky').fill(text)
+	}
+
+	async fillLinkedinTemplate(text: string): Promise<void> {
+		await this.page.getByTestId('textarea-linkedin').fill(text)
+	}
+
+	async submitTemplate(): Promise<void> {
+		await this.page.getByTestId('submit-button').click()
+		// Wait for redirect to edit page or error message
+		await Promise.race([
+			this.page.waitForURL(/\/admin\/social\/templates\/[A-F0-9]{16}$/, { timeout: 15000 }),
+			this.page.locator('.bg-red-50').waitFor({ state: 'visible', timeout: 15000 })
+		])
+	}
+
+	async saveTemplate(): Promise<void> {
+		await this.page.getByTestId('save-button').click()
+		// Wait for success or error
+		await Promise.race([
+			this.page.locator('div.bg-green-50').first().waitFor({ state: 'visible', timeout: 15000 }),
+			this.page.locator('div.bg-red-50').first().waitFor({ state: 'visible', timeout: 15000 })
+		])
+	}
+
+	async deleteTemplate(): Promise<void> {
+		await this.page.getByTestId('delete-button').click()
+		await this.page.locator('dialog[open]').waitFor({ state: 'visible' })
+		await this.page.getByTestId('confirm-delete-button').click()
+		await this.page.waitForLoadState('domcontentloaded')
+	}
+
+	// ========== ANALYTICS PAGE ==========
+
+	async gotoAnalytics(): Promise<void> {
+		await this.page.goto('/admin/social/analytics')
+		await this.page.waitForLoadState('networkidle')
+	}
+
+	async expectAnalyticsPage(): Promise<void> {
+		await expect(this.page).toHaveURL('/admin/social/analytics')
+		await expect(this.page.getByRole('heading', { name: /Analytics/i })).toBeVisible()
+	}
+
+	async clickAnalyticsLink(): Promise<void> {
+		await this.page.getByTestId('analytics-button').click()
+	}
 }

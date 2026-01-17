@@ -394,4 +394,98 @@ test.describe('Admin: Social Posts', () => {
 		// Should redirect to rules list
 		await expect(page).toHaveURL('/admin/social/rules')
 	})
+
+	// ========== TEMPLATES TESTS ==========
+
+	test('admin can access templates page', async ({ page }) => {
+		const socialPage = new SocialPostsPage(page)
+		await socialPage.gotoList()
+
+		// Click templates link
+		await socialPage.clickTemplatesLink()
+		await socialPage.expectTemplatesPage()
+	})
+
+	test('admin can create a new template', async ({ page }) => {
+		const socialPage = new SocialPostsPage(page)
+		await socialPage.gotoNewTemplate()
+
+		// Fill in template form
+		await socialPage.fillTemplateName('Video Announcement')
+		await socialPage.selectContentType('video')
+		await socialPage.fillTwitterTemplate('New video: {{title}} - Check it out! {{url}}')
+		await socialPage.fillBlueskyTemplate('New video: {{title}} - {{url}}')
+		await socialPage.fillLinkedinTemplate('{{title}}\n\n{{description}}\n\n{{url}}')
+
+		// Submit
+		await socialPage.submitTemplate()
+		await socialPage.expectEditTemplatePage()
+	})
+
+	test('admin can edit a template', async ({ page }) => {
+		const socialPage = new SocialPostsPage(page)
+
+		// First create a template
+		await socialPage.gotoNewTemplate()
+		await socialPage.fillTemplateName('Template to Edit')
+		await socialPage.selectContentType('library')
+		await socialPage.fillTwitterTemplate('Original twitter template')
+		await socialPage.fillBlueskyTemplate('Original bluesky template')
+		await socialPage.fillLinkedinTemplate('Original linkedin template')
+		await socialPage.submitTemplate()
+		await socialPage.expectEditTemplatePage()
+
+		// Edit the template name
+		const nameInput = page.getByTestId('input-name')
+		await nameInput.click()
+		await nameInput.clear()
+		await nameInput.fill('Updated Template Name')
+		await socialPage.saveTemplate()
+
+		// Verify success message
+		await expect(page.locator('div.bg-green-50').first()).toBeVisible({ timeout: 10000 })
+	})
+
+	test('admin can delete a template', async ({ page }) => {
+		const socialPage = new SocialPostsPage(page)
+
+		// First create a template
+		await socialPage.gotoNewTemplate()
+		await socialPage.fillTemplateName('Template to Delete')
+		await socialPage.selectContentType('recipe')
+		await socialPage.fillTwitterTemplate('Recipe template')
+		await socialPage.fillBlueskyTemplate('Recipe template')
+		await socialPage.fillLinkedinTemplate('Recipe template')
+		await socialPage.submitTemplate()
+		await socialPage.expectEditTemplatePage()
+
+		// Delete the template
+		await socialPage.deleteTemplate()
+
+		// Should redirect to templates list
+		await expect(page).toHaveURL('/admin/social/templates')
+	})
+
+	// ========== ANALYTICS TESTS ==========
+
+	test('admin can access analytics page', async ({ page }) => {
+		const socialPage = new SocialPostsPage(page)
+		await socialPage.gotoList()
+
+		// Click analytics link
+		await socialPage.clickAnalyticsLink()
+		await socialPage.expectAnalyticsPage()
+	})
+
+	test('analytics page shows summary statistics', async ({ page }) => {
+		const socialPage = new SocialPostsPage(page)
+		await socialPage.gotoAnalytics()
+
+		// Should see summary cards
+		await expect(page.getByText('Total Posts', { exact: true })).toBeVisible()
+		// Check for the Published card (has distinct styling)
+		await expect(page.locator('.bg-green-50').filter({ hasText: 'Published' })).toBeVisible()
+		// Check for the Scheduled card (has distinct styling)
+		await expect(page.locator('.bg-blue-50').filter({ hasText: 'Scheduled' })).toBeVisible()
+	})
 })
