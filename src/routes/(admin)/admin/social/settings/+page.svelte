@@ -123,7 +123,7 @@
 						<Button
 							type="submit"
 							variant={globalSettings.is_paused ? 'primary' : 'secondary'}
-							size="small"
+							size="sm"
 						>
 							{#if globalSettings.is_paused}
 								<Play class="mr-1 h-4 w-4" weight="bold" />
@@ -247,14 +247,14 @@
 							</span>
 						</div>
 
-						<Button variant="secondary" size="small" onclick={() => startEdit('global')}>
+						<Button variant="secondary" size="sm" onclick={() => startEdit('global')}>
 							Edit Settings
 						</Button>
 					</div>
 				{/if}
 			{:else}
 				<p class="text-sm text-gray-500">No global settings configured yet.</p>
-				<Button variant="secondary" size="small" onclick={() => startEdit('global')} class="mt-4">
+				<Button variant="secondary" size="sm" onclick={() => startEdit('global')} class="mt-4">
 					Configure Settings
 				</Button>
 			{/if}
@@ -327,10 +327,10 @@
 								/>
 
 								<div class="flex gap-2">
-									<Button type="submit" size="small" disabled={!!updateQueueSettings.pending}>
+									<Button type="submit" size="sm" disabled={!!updateQueueSettings.pending}>
 										Save
 									</Button>
-									<Button type="button" variant="secondary" size="small" onclick={cancelEdit}>
+									<Button type="button" variant="secondary" size="sm" onclick={cancelEdit}>
 										Cancel
 									</Button>
 								</div>
@@ -354,7 +354,7 @@
 							<div class="mt-4 flex gap-2">
 								<Button
 									variant="secondary"
-									size="small"
+									size="sm"
 									onclick={() => startEdit(platform)}
 								>
 									Edit
@@ -369,7 +369,7 @@
 									<Button
 										type="submit"
 										variant={platformSettings.is_paused ? 'primary' : 'secondary'}
-										size="small"
+										size="sm"
 									>
 										{platformSettings.is_paused ? 'Resume' : 'Pause'}
 									</Button>
@@ -378,7 +378,7 @@
 						{/if}
 					{:else}
 						<p class="mb-4 text-sm text-gray-500">Using global settings</p>
-						<Button variant="secondary" size="small" onclick={() => startEdit(platform)}>
+						<Button variant="secondary" size="sm" onclick={() => startEdit(platform)}>
 							Add Override
 						</Button>
 					{/if}

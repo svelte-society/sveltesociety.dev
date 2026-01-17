@@ -16,6 +16,7 @@
 	import Robot from 'phosphor-svelte/lib/Robot'
 	import FileText from 'phosphor-svelte/lib/FileText'
 	import ChartBar from 'phosphor-svelte/lib/ChartBar'
+	import Key from 'phosphor-svelte/lib/Key'
 	import { getPosts, deletePost, duplicatePost } from './data.remote'
 	import { POST_STATUS_CONFIG, POST_TYPE_CONFIG, PLATFORM_CONFIG } from '$lib/types/social'
 	import type { SocialPostStatus, SocialPostType, SocialPlatform } from '$lib/types/social'
@@ -122,6 +123,14 @@
 			>
 				<GearSix class="h-4 w-4" weight="bold" />
 				Settings
+			</a>
+			<a
+				href="/admin/social/credentials"
+				class="inline-flex items-center gap-2 rounded-lg bg-white/20 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-white/30"
+				data-testid="credentials-button"
+			>
+				<Key class="h-4 w-4" weight="bold" />
+				Credentials
 			</a>
 			<a
 				href="/admin/social/calendar"

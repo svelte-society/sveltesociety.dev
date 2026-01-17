@@ -21,9 +21,9 @@ const postIdSchema = z.object({
 	id: z.string().min(1, 'Post ID is required')
 })
 
-// Helper to parse HTML checkbox value ("on" or missing)
+// Helper to parse HTML checkbox value ("on", empty string, or missing)
 const checkboxBoolean = z
-	.union([z.literal('on'), z.literal('true'), z.boolean()])
+	.union([z.literal('on'), z.literal('true'), z.literal(''), z.boolean()])
 	.optional()
 	.transform((val) => val === 'on' || val === 'true' || val === true)
 
@@ -1106,3 +1106,263 @@ export const getAnalytics = query('unchecked', async () => {
 		}))
 	}
 })
+
+// ============================================
+// Credentials
+// ============================================
+
+const credentialIdSchema = z.object({
+	id: z.string().min(1, 'Credential ID is required')
+})
+
+/**
+ * Get all credentials (metadata only, no sensitive data)
+ */
+export const getCredentials = query('unchecked', async () => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	return locals.socialCredentialService.list()
+})
+
+/**
+ * Get a single credential by ID (metadata only)
+ */
+export const getCredential = query(credentialIdSchema, async ({ id }) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	return locals.socialCredentialService.getById(id)
+})
+
+/**
+ * Check if encryption is available
+ */
+export const checkEncryption = query('unchecked', async () => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	return {
+		available: locals.socialCredentialService.isEncryptionAvailable()
+	}
+})
+
+/**
+ * Create new credentials for a platform
+ */
+export const createCredential = form(
+	z.object({
+		platform: z.enum(['twitter', 'bluesky', 'linkedin']),
+		account_name: z.string().min(1, 'Account name is required'),
+		// Twitter credentials
+		twitter_access_token: z.string().optional(),
+		twitter_refresh_token: z.string().optional(),
+		// Bluesky credentials
+		bluesky_identifier: z.string().optional(),
+		bluesky_password: z.string().optional(),
+		// LinkedIn credentials
+		linkedin_access_token: z.string().optional(),
+		linkedin_refresh_token: z.string().optional()
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
+
+		// Check if encryption is available
+		if (!locals.socialCredentialService.isEncryptionAvailable()) {
+			return {
+				success: false,
+				text: 'Encryption is not configured. Please set SOCIAL_CREDENTIALS_KEY in your environment.'
+			}
+		}
+
+		// Build credentials object based on platform
+		let credentials: Record<string, string>
+		switch (data.platform) {
+			case 'twitter':
+				if (!data.twitter_access_token) {
+					return { success: false, text: 'Twitter access token is required' }
+				}
+				credentials = {
+					access_token: data.twitter_access_token,
+					refresh_token: data.twitter_refresh_token || '',
+					token_type: 'bearer'
+				}
+				break
+			case 'bluesky':
+				if (!data.bluesky_identifier || !data.bluesky_password) {
+					return { success: false, text: 'Bluesky identifier and app password are required' }
+				}
+				credentials = {
+					identifier: data.bluesky_identifier,
+					password: data.bluesky_password
+				}
+				break
+			case 'linkedin':
+				if (!data.linkedin_access_token) {
+					return { success: false, text: 'LinkedIn access token is required' }
+				}
+				credentials = {
+					access_token: data.linkedin_access_token,
+					refresh_token: data.linkedin_refresh_token || ''
+				}
+				break
+		}
+
+		try {
+			const result = await locals.socialCredentialService.create(
+				data.platform,
+				data.account_name,
+				credentials as import('$lib/server/services/social-credential').PlatformCredentials
+			)
+
+			if (!result) {
+				return { success: false, text: 'Failed to create credentials' }
+			}
+
+			await getCredentials().refresh()
+
+			return { success: true, text: 'Credentials added successfully!' }
+		} catch (error) {
+			console.error('Error creating credentials:', error)
+			return { success: false, text: 'An error occurred while creating credentials' }
+		}
+	}
+)
+
+/**
+ * Update existing credentials
+ */
+export const updateCredential = form(
+	z.object({
+		id: z.string().min(1, 'Credential ID is required'),
+		account_name: z.string().min(1, 'Account name is required'),
+		// Twitter credentials
+		twitter_access_token: z.string().optional(),
+		twitter_refresh_token: z.string().optional(),
+		// Bluesky credentials
+		bluesky_identifier: z.string().optional(),
+		bluesky_password: z.string().optional(),
+		// LinkedIn credentials
+		linkedin_access_token: z.string().optional(),
+		linkedin_refresh_token: z.string().optional()
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
+
+		const existing = locals.socialCredentialService.getById(data.id)
+		if (!existing) {
+			return { success: false, text: 'Credentials not found' }
+		}
+
+		// Build credentials object based on platform
+		let credentials: Record<string, string>
+		switch (existing.platform) {
+			case 'twitter':
+				if (!data.twitter_access_token) {
+					return { success: false, text: 'Twitter access token is required' }
+				}
+				credentials = {
+					access_token: data.twitter_access_token,
+					refresh_token: data.twitter_refresh_token || '',
+					token_type: 'bearer'
+				}
+				break
+			case 'bluesky':
+				if (!data.bluesky_identifier || !data.bluesky_password) {
+					return { success: false, text: 'Bluesky identifier and app password are required' }
+				}
+				credentials = {
+					identifier: data.bluesky_identifier,
+					password: data.bluesky_password
+				}
+				break
+			case 'linkedin':
+				if (!data.linkedin_access_token) {
+					return { success: false, text: 'LinkedIn access token is required' }
+				}
+				credentials = {
+					access_token: data.linkedin_access_token,
+					refresh_token: data.linkedin_refresh_token || ''
+				}
+				break
+		}
+
+		try {
+			const result = await locals.socialCredentialService.update(
+				data.id,
+				credentials as import('$lib/server/services/social-credential').PlatformCredentials,
+				{ accountName: data.account_name }
+			)
+
+			if (!result) {
+				return { success: false, text: 'Failed to update credentials' }
+			}
+
+			await getCredentials().refresh()
+			await getCredential({ id: data.id }).refresh()
+
+			return { success: true, text: 'Credentials updated successfully!' }
+		} catch (error) {
+			console.error('Error updating credentials:', error)
+			return { success: false, text: 'An error occurred while updating credentials' }
+		}
+	}
+)
+
+/**
+ * Delete credentials
+ */
+export const deleteCredential = form(credentialIdSchema, async (data) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	const success = locals.socialCredentialService.delete(data.id)
+
+	if (!success) {
+		return { success: false, text: 'Credentials not found' }
+	}
+
+	await getCredentials().refresh()
+
+	return { success: true, text: 'Credentials deleted successfully!' }
+})
+
+/**
+ * Activate/deactivate credentials
+ */
+export const toggleCredentialActive = form(
+	z.object({
+		id: z.string().min(1, 'Credential ID is required'),
+		is_active: checkboxBoolean
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
+
+		try {
+			let success: boolean
+			if (data.is_active) {
+				// Activate and deactivate others for the same platform
+				success = locals.socialCredentialService.activate(data.id, true)
+			} else {
+				success = locals.socialCredentialService.deactivate(data.id)
+			}
+
+			if (!success) {
+				return { success: false, text: 'Credentials not found' }
+			}
+
+			await getCredentials().refresh()
+
+			return {
+				success: true,
+				text: data.is_active ? 'Credentials activated' : 'Credentials deactivated'
+			}
+		} catch (error) {
+			console.error('Error toggling credentials:', error)
+			return { success: false, text: 'An error occurred' }
+		}
+	}
+)
