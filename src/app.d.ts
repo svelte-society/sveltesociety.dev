@@ -32,7 +32,9 @@ import type {
 	SocialPostService,
 	SocialTemplateService,
 	SocialCredentialService,
-	SocialQueueService
+	SocialQueueService,
+	SocialAutoRuleService,
+	SocialEventHandler
 } from '$lib/server/services/social'
 
 declare global {
@@ -69,6 +71,8 @@ declare global {
 			socialTemplateService: SocialTemplateService
 			socialCredentialService: SocialCredentialService
 			socialQueueService: SocialQueueService
+			socialAutoRuleService: SocialAutoRuleService
+			socialEventHandler: SocialEventHandler
 		}
 		// interface PageData {}
 		interface PageState {

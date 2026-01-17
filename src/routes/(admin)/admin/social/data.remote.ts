@@ -639,3 +639,208 @@ export const toggleQueuePaused = form(
 		}
 	}
 )
+
+// ============================================
+// Auto-Posting Rules
+// ============================================
+
+const createRuleSchema = z.object({
+	name: z.string().min(1, 'Name is required'),
+	description: z.string().optional(),
+	is_active: checkboxBoolean,
+	trigger_type: z.enum(['content_published', 'sponsor_activated', 'job_published']),
+	content_type_filter: z
+		.string()
+		.optional()
+		.transform((v) => (v === '' ? null : v)),
+	tag_filter: z
+		.string()
+		.optional()
+		.transform((v) =>
+			v
+				? v
+						.split(',')
+						.map((t) => t.trim())
+						.filter(Boolean)
+				: []
+		),
+	platforms: z.string().transform((v) => JSON.parse(v) as SocialPlatform[]),
+	template_id: z
+		.string()
+		.optional()
+		.transform((v) => (v === '' ? null : v)),
+	use_ai_generation: checkboxBoolean,
+	delay_minutes: z.coerce.number().int().min(0).default(0),
+	add_to_queue: checkboxBoolean,
+	create_as_draft: checkboxBoolean
+})
+
+const updateRuleSchema = z.object({
+	id: z.string().min(1, 'Rule ID is required'),
+	name: z.string().min(1, 'Name is required'),
+	description: z
+		.string()
+		.optional()
+		.transform((v) => (v === '' ? null : v)),
+	is_active: checkboxBoolean,
+	content_type_filter: z
+		.string()
+		.optional()
+		.transform((v) => (v === '' ? null : v)),
+	tag_filter: z
+		.string()
+		.optional()
+		.transform((v) =>
+			v
+				? v
+						.split(',')
+						.map((t) => t.trim())
+						.filter(Boolean)
+				: []
+		),
+	platforms: z.string().transform((v) => JSON.parse(v) as SocialPlatform[]),
+	template_id: z
+		.string()
+		.optional()
+		.transform((v) => (v === '' ? null : v)),
+	use_ai_generation: checkboxBoolean,
+	delay_minutes: z.coerce.number().int().min(0).default(0),
+	add_to_queue: checkboxBoolean,
+	create_as_draft: checkboxBoolean
+})
+
+const ruleIdSchema = z.object({
+	id: z.string().min(1, 'Rule ID is required')
+})
+
+/**
+ * Get all auto-posting rules
+ */
+export const getRules = query('unchecked', async () => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	return locals.socialAutoRuleService.list()
+})
+
+/**
+ * Get a single rule by ID
+ */
+export const getRule = query(ruleIdSchema, async ({ id }) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	return locals.socialAutoRuleService.getById(id)
+})
+
+/**
+ * Create a new auto-posting rule
+ */
+export const createRule = form(createRuleSchema, async (data) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	const rule = locals.socialAutoRuleService.create({
+		name: data.name,
+		description: data.description || null,
+		is_active: data.is_active,
+		trigger_type: data.trigger_type,
+		content_type_filter: data.content_type_filter,
+		tag_filter: data.tag_filter,
+		platforms: data.platforms,
+		template_id: data.template_id,
+		use_ai_generation: data.use_ai_generation,
+		delay_minutes: data.delay_minutes,
+		add_to_queue: data.add_to_queue,
+		create_as_draft: data.create_as_draft
+	})
+
+	if (!rule) {
+		return { success: false, text: 'Failed to create rule' }
+	}
+
+	redirect(303, `/admin/social/rules/${rule.id}`)
+})
+
+/**
+ * Update an existing auto-posting rule
+ */
+export const updateRule = form(updateRuleSchema, async (data) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	try {
+		const rule = locals.socialAutoRuleService.update(data.id, {
+			name: data.name,
+			description: data.description,
+			is_active: data.is_active,
+			content_type_filter: data.content_type_filter,
+			tag_filter: data.tag_filter,
+			platforms: data.platforms,
+			template_id: data.template_id,
+			use_ai_generation: data.use_ai_generation,
+			delay_minutes: data.delay_minutes,
+			add_to_queue: data.add_to_queue,
+			create_as_draft: data.create_as_draft
+		})
+
+		if (!rule) {
+			return { success: false, text: 'Rule not found' }
+		}
+
+		await getRules().refresh()
+		await getRule({ id: data.id }).refresh()
+
+		return { success: true, text: 'Rule updated successfully!' }
+	} catch (error) {
+		console.error('Error updating rule:', error)
+		return { success: false, text: 'An error occurred while updating the rule' }
+	}
+})
+
+/**
+ * Delete a rule
+ */
+export const deleteRule = form(ruleIdSchema, async (data) => {
+	checkAdminAuth()
+	const { locals } = getRequestEvent()
+
+	const success = locals.socialAutoRuleService.delete(data.id)
+
+	if (!success) {
+		return { success: false, text: 'Rule not found' }
+	}
+
+	await getRules().refresh()
+
+	redirect(303, '/admin/social/rules')
+})
+
+/**
+ * Toggle a rule's active status
+ */
+export const toggleRuleActive = form(
+	z.object({
+		id: z.string().min(1, 'Rule ID is required'),
+		is_active: checkboxBoolean
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
+
+		try {
+			const rule = locals.socialAutoRuleService.toggleActive(data.id, data.is_active)
+
+			if (!rule) {
+				return { success: false, text: 'Rule not found' }
+			}
+
+			await getRules().refresh()
+
+			return { success: true, text: data.is_active ? 'Rule activated' : 'Rule deactivated' }
+		} catch (error) {
+			console.error('Error toggling rule:', error)
+			return { success: false, text: 'An error occurred' }
+		}
+	}
+)

@@ -63,9 +63,9 @@ export class SocialPostsPage extends BasePage {
 		this.typeFilter = page.getByTestId('select-post_type')
 		this.platformFilter = page.getByTestId('select-platform')
 
-		// Form fields - use role/name for universal targeting across new and edit pages
+		// Form fields
 		this.form = page.locator('form')
-		this.titleInput = page.getByRole('textbox', { name: 'Title' })
+		this.titleInput = page.getByTestId('input-title')
 		this.twitterTextarea = page.getByTestId('textarea-twitter')
 		this.blueskyTextarea = page.getByTestId('textarea-bluesky')
 		this.linkedinTextarea = page.getByTestId('textarea-linkedin')
@@ -86,10 +86,12 @@ export class SocialPostsPage extends BasePage {
 
 	async gotoList(): Promise<void> {
 		await this.page.goto('/admin/social')
+		await this.page.waitForLoadState('networkidle')
 	}
 
 	async gotoNew(): Promise<void> {
 		await this.page.goto('/admin/social/new')
+		await this.page.waitForLoadState('networkidle')
 		// Wait for Svelte hydration - checkboxes should be checked by default after hydration
 		// This indicates the component has hydrated and state is initialized
 		await expect(this.twitterCheckbox).toBeChecked({ timeout: 15000 })
@@ -112,6 +114,9 @@ export class SocialPostsPage extends BasePage {
 	// ========== FORM ACTIONS ==========
 
 	async fillTitle(title: string): Promise<void> {
+		// Use click + clear + fill pattern for more reliable filling with Svelte
+		await this.titleInput.click()
+		await this.titleInput.clear()
 		await this.titleInput.fill(title)
 	}
 

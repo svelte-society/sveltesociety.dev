@@ -31,6 +31,24 @@ export type {
 
 export { SocialQueueService } from './social-queue'
 
+export { SocialAutoRuleService } from './social-auto-rule'
+export type {
+	SocialAutoRule as SocialAutoRuleType,
+	CreateSocialAutoRuleData,
+	UpdateSocialAutoRuleData,
+	TriggerType,
+	TriggerContext,
+	RuleExecutionResult
+} from './social-auto-rule'
+
+export { SocialEventHandler } from './social-event-handler'
+export type {
+	ContentPublishedContext,
+	SponsorActivatedContext,
+	JobPublishedContext,
+	EventHandlerResult
+} from './social-event-handler'
+
 // Re-export common types from the types file
 export type {
 	SocialPlatform,

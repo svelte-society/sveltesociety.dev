@@ -234,4 +234,164 @@ test.describe('Admin: Social Posts', () => {
 		await socialPage.unschedulePost()
 		await socialPage.expectPostDraft()
 	})
+
+	// ========== AUTO-POSTING RULES TESTS ==========
+
+	test('admin can access rules page', async ({ page }) => {
+		const socialPage = new SocialPostsPage(page)
+		await socialPage.gotoList()
+
+		// Click rules link
+		await page.getByTestId('rules-button').click()
+		await expect(page).toHaveURL('/admin/social/rules')
+		await expect(page.getByRole('heading', { name: 'Auto-Posting Rules', level: 1 })).toBeVisible()
+	})
+
+	test('admin can create a new auto-posting rule', async ({ page }) => {
+		// Navigate to new rule page
+		await page.goto('/admin/social/rules/new')
+		await page.waitForLoadState('networkidle')
+
+		// Wait for Svelte hydration - platforms should be selected by default
+		await expect(page.getByRole('button', { name: /Twitter\/X ✓/i })).toBeVisible({
+			timeout: 15000
+		})
+		await expect(page.getByTestId('submit-button')).toBeEnabled({ timeout: 5000 })
+
+		// Fill in rule form
+		const nameInput = page.getByRole('textbox', { name: 'Rule Name' })
+		await nameInput.click()
+		await nameInput.fill('Auto-post videos')
+
+		const descInput = page.getByRole('textbox', { name: 'Description' })
+		await descInput.click()
+		await descInput.fill('Automatically create posts for new videos')
+
+		// Select trigger type and filter
+		await page.locator('select[name="trigger_type"]').selectOption('content_published')
+		await page.locator('select[name="content_type_filter"]').selectOption('video')
+
+		// Submit and wait for redirect
+		await page.getByTestId('submit-button').click()
+		await expect(page).toHaveURL(/\/admin\/social\/rules\/[A-F0-9]{16}$/)
+	})
+
+	test('admin can edit an auto-posting rule', async ({ page }) => {
+		// First create a rule
+		await page.goto('/admin/social/rules/new')
+		await page.waitForLoadState('networkidle')
+		await expect(page.getByRole('button', { name: /Twitter\/X ✓/i })).toBeVisible({
+			timeout: 15000
+		})
+
+		const nameInput = page.getByRole('textbox', { name: 'Rule Name' })
+		await nameInput.click()
+		await nameInput.fill('Rule to Edit')
+
+		const descInput = page.getByRole('textbox', { name: 'Description' })
+		await descInput.click()
+		await descInput.fill('Test rule for editing')
+
+		await page.locator('select[name="trigger_type"]').selectOption('content_published')
+		await page.locator('select[name="content_type_filter"]').selectOption('video')
+
+		// Submit and wait for redirect
+		await page.getByTestId('submit-button').click()
+		await expect(page).toHaveURL(/\/admin\/social\/rules\/[A-F0-9]{16}$/)
+
+		// Wait for edit page to load
+		await page.waitForLoadState('networkidle')
+		await page.getByTestId('save-button').waitFor({ state: 'visible', timeout: 15000 })
+
+		// Now edit the rule
+		const editNameInput = page.getByRole('textbox', { name: 'Rule Name' })
+		await editNameInput.click()
+		await editNameInput.clear()
+		await editNameInput.fill('Updated Rule Name')
+		await page.getByTestId('save-button').click()
+
+		// Should show success message (within the form area)
+		await expect(page.locator('form .bg-green-50').first()).toBeVisible({ timeout: 10000 })
+	})
+
+	test('admin can toggle rule active status', async ({ page }) => {
+		// First create a rule
+		await page.goto('/admin/social/rules/new')
+		await page.waitForLoadState('networkidle')
+		await expect(page.getByRole('button', { name: /Twitter\/X ✓/i })).toBeVisible({
+			timeout: 15000
+		})
+
+		const nameInput = page.getByRole('textbox', { name: 'Rule Name' })
+		await nameInput.click()
+		await nameInput.fill('Rule to Toggle')
+
+		const descInput = page.getByRole('textbox', { name: 'Description' })
+		await descInput.click()
+		await descInput.fill('Test rule for toggling')
+
+		await page.locator('select[name="trigger_type"]').selectOption('content_published')
+		await page.locator('select[name="content_type_filter"]').selectOption('video')
+
+		// Submit and wait for redirect
+		await page.getByTestId('submit-button').click()
+		await expect(page).toHaveURL(/\/admin\/social\/rules\/[A-F0-9]{16}$/)
+
+		// Go to rules list
+		await page.goto('/admin/social/rules')
+		await page.waitForLoadState('networkidle')
+
+		// Wait for table to load
+		await expect(page.getByTestId('auto-rules-table')).toBeVisible({ timeout: 10000 })
+
+		// Find the rule and check it's active
+		const ruleRow = page.locator('tr').filter({ hasText: 'Rule to Toggle' })
+		await expect(ruleRow).toBeVisible({ timeout: 5000 })
+		await expect(ruleRow.getByText('Active')).toBeVisible()
+
+		// Toggle to inactive
+		await ruleRow.getByRole('button', { name: /Active/i }).click()
+		await page.waitForLoadState('networkidle')
+
+		// Check it's now paused
+		await expect(ruleRow.getByText('Paused')).toBeVisible()
+	})
+
+	test('admin can delete an auto-posting rule', async ({ page }) => {
+		// First create a rule
+		await page.goto('/admin/social/rules/new')
+		await page.waitForLoadState('networkidle')
+		await expect(page.getByRole('button', { name: /Twitter\/X ✓/i })).toBeVisible({
+			timeout: 15000
+		})
+
+		const nameInput = page.getByRole('textbox', { name: 'Rule Name' })
+		await nameInput.click()
+		await nameInput.fill('Rule to Delete')
+
+		const descInput = page.getByRole('textbox', { name: 'Description' })
+		await descInput.click()
+		await descInput.fill('Test rule for deletion')
+
+		await page.locator('select[name="trigger_type"]').selectOption('content_published')
+		await page.locator('select[name="content_type_filter"]').selectOption('video')
+
+		// Submit and wait for redirect
+		await page.getByTestId('submit-button').click()
+		await expect(page).toHaveURL(/\/admin\/social\/rules\/[A-F0-9]{16}$/)
+
+		// Wait for edit page to load with delete button
+		await page.waitForLoadState('networkidle')
+		await page.getByTestId('delete-button').waitFor({ state: 'visible', timeout: 15000 })
+
+		// Click delete button to open dialog
+		await page.getByTestId('delete-button').click()
+
+		// Confirm deletion in dialog
+		await page.locator('dialog[open]').waitFor({ state: 'visible' })
+		await page.getByTestId('confirm-delete-button').click()
+
+		// Should redirect to rules list
+		await expect(page).toHaveURL('/admin/social/rules')
+	})
 })

@@ -124,9 +124,7 @@ export class SocialQueueService {
 				// Create new settings if they don't exist
 				const result = this.createSettingsStatement.get({
 					platform,
-					posting_times: JSON.stringify(
-						data.posting_times ?? ['09:00', '12:00', '15:00', '18:00']
-					),
+					posting_times: JSON.stringify(data.posting_times ?? ['09:00', '12:00', '15:00', '18:00']),
 					posting_days: JSON.stringify(data.posting_days ?? [1, 2, 3, 4, 5]),
 					min_gap_minutes: data.min_gap_minutes ?? 60,
 					is_paused: (data.is_paused ?? false) ? 1 : 0,
@@ -146,7 +144,8 @@ export class SocialQueueService {
 					? JSON.stringify(data.posting_days)
 					: JSON.stringify(existing.posting_days),
 				min_gap_minutes: data.min_gap_minutes ?? existing.min_gap_minutes,
-				is_paused: data.is_paused !== undefined ? (data.is_paused ? 1 : 0) : (existing.is_paused ? 1 : 0),
+				is_paused:
+					data.is_paused !== undefined ? (data.is_paused ? 1 : 0) : existing.is_paused ? 1 : 0,
 				timezone: data.timezone ?? existing.timezone
 			}) as SocialQueueSettingsRaw | undefined
 

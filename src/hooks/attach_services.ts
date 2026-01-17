@@ -29,7 +29,9 @@ import {
 	SocialPostService,
 	SocialTemplateService,
 	SocialCredentialService,
-	SocialQueueService
+	SocialQueueService,
+	SocialAutoRuleService,
+	SocialEventHandler
 } from '$lib/server/services/social'
 import fs from 'node:fs'
 
@@ -68,6 +70,8 @@ const dbCache = new Map<
 		socialTemplateService: SocialTemplateService
 		socialCredentialService: SocialCredentialService
 		socialQueueService: SocialQueueService
+		socialAutoRuleService: SocialAutoRuleService
+		socialEventHandler: SocialEventHandler
 	}
 >()
 
@@ -113,6 +117,13 @@ const initialize_db = (dbPath: string) => {
 	const socialTemplateService = new SocialTemplateService(db)
 	const socialCredentialService = new SocialCredentialService(db)
 	const socialQueueService = new SocialQueueService(db)
+	const socialAutoRuleService = new SocialAutoRuleService(db)
+	const socialEventHandler = new SocialEventHandler(
+		db,
+		socialAutoRuleService,
+		socialPostService,
+		socialTemplateService
+	)
 
 	const services = {
 		db,
@@ -141,7 +152,9 @@ const initialize_db = (dbPath: string) => {
 		socialPostService,
 		socialTemplateService,
 		socialCredentialService,
-		socialQueueService
+		socialQueueService,
+		socialAutoRuleService,
+		socialEventHandler
 	}
 
 	dbCache.set(dbPath, services)
@@ -204,6 +217,8 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.socialTemplateService = services.socialTemplateService
 	event.locals.socialCredentialService = services.socialCredentialService
 	event.locals.socialQueueService = services.socialQueueService
+	event.locals.socialAutoRuleService = services.socialAutoRuleService
+	event.locals.socialEventHandler = services.socialEventHandler
 	event.locals.stripeService = stripeService
 	event.locals.emailService = emailService
 
