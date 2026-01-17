@@ -4,7 +4,7 @@
 	import Button from '$lib/ui/Button.svelte'
 	import Input from '$lib/ui/Input.svelte'
 	import Select from '$lib/ui/Select.svelte'
-	import Textarea from '$lib/ui/Textarea.svelte'
+	import Textarea from '$lib/ui/TextArea.svelte'
 	import { DialogTrigger, ConfirmDialog } from '$lib/ui/Dialog'
 	import Robot from 'phosphor-svelte/lib/Robot'
 	import Trash from 'phosphor-svelte/lib/Trash'

@@ -3,7 +3,7 @@
 	import Button from '$lib/ui/Button.svelte'
 	import Input from '$lib/ui/Input.svelte'
 	import Select from '$lib/ui/Select.svelte'
-	import Textarea from '$lib/ui/Textarea.svelte'
+	import Textarea from '$lib/ui/TextArea.svelte'
 	import Robot from 'phosphor-svelte/lib/Robot'
 	import { createRule, getTemplates } from '../../data.remote'
 	import { PLATFORMS, PLATFORM_CONFIG } from '$lib/types/social'
