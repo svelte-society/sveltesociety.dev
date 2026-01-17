@@ -28,6 +28,11 @@ import type {
 } from '$lib/server/services/sponsors'
 import type { EmailService } from '$lib/server/services/email'
 import type { NewsletterService } from '$lib/server/services/newsletter'
+import type {
+	SocialPostService,
+	SocialTemplateService,
+	SocialCredentialService
+} from '$lib/server/services/social'
 
 declare global {
 	namespace App {
@@ -59,6 +64,9 @@ declare global {
 			sponsorSubscriptionService: SponsorSubscriptionService
 			emailService: EmailService
 			newsletterService: NewsletterService
+			socialPostService: SocialPostService
+			socialTemplateService: SocialTemplateService
+			socialCredentialService: SocialCredentialService
 		}
 		// interface PageData {}
 		interface PageState {
