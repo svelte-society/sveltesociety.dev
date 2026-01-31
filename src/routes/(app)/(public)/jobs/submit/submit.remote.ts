@@ -31,10 +31,18 @@ export const submitJob = form(jobSubmissionSchema, async (data: JobSubmissionDat
 	// Upload company logo to S3 if provided
 	let companyLogoUrl: string | null = null
 	if (data.company_logo) {
-		companyLogoUrl = await uploadImageFile(
-			data.company_logo,
-			`jobs/${generateSlug(data.company_name)}`
-		)
+		try {
+			companyLogoUrl = await uploadImageFile(
+				data.company_logo,
+				`jobs/${generateSlug(data.company_name)}`
+			)
+		} catch (error) {
+			console.error('Error uploading company logo:', error)
+			return fail(500, {
+				error: 'Upload failed',
+				message: 'Failed to upload company logo. Please try again.'
+			})
+		}
 	}
 
 	// Store job data in payment metadata (will be used after payment succeeds)
