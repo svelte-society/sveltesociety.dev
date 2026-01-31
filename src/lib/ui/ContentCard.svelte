@@ -264,7 +264,7 @@
 				>
 			{/if}
 		</h2>
-		{#if content.description && !(variant === 'detail' && content.type === 'recipe') && content.type !== 'resource'}
+		{#if content.description && !(variant === 'detail' && (content.type === 'recipe' || content.type === 'announcement')) && content.type !== 'resource'}
 			<div data-testid="content-description" class={descriptionVariants({ variant, compact })}>
 				{content.description}
 			</div>
