@@ -7,7 +7,7 @@
 
 	<div class="prose prose-slate max-w-none">
 		<p class="mb-6 text-slate-600">
-			Svelte Society is operated by Svelte School AB, a Swedish company (org. nr 559292-4793). By
+			Svelte Society is operated by Svelte School AB, a Swedish company (org. nr 559260-8987). By
 			using our services or making purchases, you are entering into an agreement with Svelte School
 			AB.
 		</p>
