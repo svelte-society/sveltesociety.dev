@@ -167,26 +167,21 @@ export async function thumbnailExists(key: string): Promise<boolean> {
  *
  * @param file - File object to upload
  * @param keyPrefix - Prefix for the S3 key (e.g., 'jobs/company-name')
- * @returns Public URL of the uploaded file, or null if upload fails or S3 is disabled
+ * @returns Public URL of the uploaded file
+ * @throws Error if S3 is disabled or upload fails
  *
  * @example
  * const url = await uploadImageFile(logoFile, 'jobs/acme-inc')
  * // Returns: 'https://thumbnails.yourdomain.com/jobs/acme-inc-1234567890/logo.png'
  */
-export async function uploadImageFile(file: File, keyPrefix: string): Promise<string | null> {
+export async function uploadImageFile(file: File, keyPrefix: string): Promise<string> {
 	if (!isS3Enabled) {
-		console.warn('S3 storage is not enabled. File will not be uploaded.')
-		return null
+		throw new Error('S3 storage is not enabled. Set USE_S3_THUMBNAILS=true to enable.')
 	}
 
-	try {
-		const ext = file.type.split('/')[1] || 'png'
-		const arrayBuffer = await file.arrayBuffer()
-		const timestamp = Date.now()
-		const key = `${keyPrefix}-${timestamp}/logo.${ext}`
-		return await uploadThumbnail(key, arrayBuffer)
-	} catch (error) {
-		console.error('Error uploading file to S3:', error)
-		return null
-	}
+	const ext = file.type.split('/')[1] || 'png'
+	const arrayBuffer = await file.arrayBuffer()
+	const timestamp = Date.now()
+	const key = `${keyPrefix}-${timestamp}/logo.${ext}`
+	return await uploadThumbnail(key, arrayBuffer)
 }
