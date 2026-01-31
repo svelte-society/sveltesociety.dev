@@ -13,17 +13,11 @@ export const subscribeNewsletter = form(subscribeSchema, async (data) => {
 	const { locals } = getRequestEvent()
 	const email = data.email.toLowerCase().trim()
 
-	// SECURITY: Always redirect to the same page to prevent email enumeration
-	// This applies whether:
-	// - Email is new (create pending, send confirmation)
-	// - Email already pending (refresh token, resend confirmation)
-	// - Email already confirmed in Plunk (do nothing)
-
-	// 1. Check if already subscribed in Plunk (silent - don't reveal this)
+	// 1. Check if already subscribed in Plunk (silent success - don't reveal this)
 	const existingContact = await locals.emailService.getContact(email)
 	if (existingContact?.subscribed) {
-		// Already subscribed - redirect anyway to prevent email enumeration
-		redirect(303, '/newsletter/check-email')
+		// Already subscribed - return success to prevent email enumeration
+		return { success: true }
 	}
 
 	// 2. Create/update pending subscription with new token
@@ -39,7 +33,7 @@ export const subscribeNewsletter = form(subscribeSchema, async (data) => {
 
 	if (!emailSent) {
 		console.error('Failed to send confirmation email to:', email)
-		// Still redirect to prevent email enumeration
+		return { success: false, text: 'Failed to send confirmation email. Please try again.' }
 	}
 
 	// 4. Opportunistically clean up expired tokens
@@ -51,7 +45,7 @@ export const subscribeNewsletter = form(subscribeSchema, async (data) => {
 		locals.userService.updateNewsletterPreference(locals.user.id, 'subscribed')
 	}
 
-	redirect(303, '/newsletter/check-email')
+	return { success: true }
 })
 
 export const userDecline = form(z.object({}), async () => {
