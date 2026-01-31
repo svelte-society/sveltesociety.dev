@@ -76,7 +76,7 @@
 </header>
 {#if announcement}
 	<div
-		class="bg-svelte-900 sticky top-20 z-10 flex w-full place-content-center p-2"
+		class="bg-svelte-900 sticky top-20 z-0 flex w-full place-content-center p-2"
 		style:view-transition-name="announcement"
 	>
 		<a href={announcement.href} class="text-semibold mx-auto text-white underline">
