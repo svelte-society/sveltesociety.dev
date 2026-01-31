@@ -22,6 +22,7 @@ export interface User {
 	twitter: string | null
 	role: number
 	newsletter_preference: 'declined' | 'subscribed' | null
+	plunk_contact_id: string | null
 	created_at: string
 }
 
@@ -50,6 +51,7 @@ export class UserService {
 	private getUserStatement
 	private getUserByOAuthStatement
 	private getUserByUsernameStatement
+	private getUserByEmailStatement
 	private getUsersStatement
 	private getUserCountStatement
 	private getAuthorsWithContentStatement
@@ -78,6 +80,11 @@ export class UserService {
 		this.getUserByUsernameStatement = this.db.prepare(`
 			SELECT * FROM users
 			WHERE username = $username
+		`)
+
+		this.getUserByEmailStatement = this.db.prepare(`
+			SELECT * FROM users
+			WHERE email = $email
 		`)
 
 		this.getUsersStatement = this.db.prepare(`
@@ -162,7 +169,7 @@ export class UserService {
 		this.deleteUserStatement = this.db.prepare('DELETE FROM users WHERE id = $id')
 
 		this.updateNewsletterPreferenceStatement = this.db.prepare(`
-			UPDATE users SET newsletter_preference = $preference
+			UPDATE users SET newsletter_preference = $preference, plunk_contact_id = $plunk_contact_id
 			WHERE id = $id
 		`)
 	}
@@ -196,6 +203,16 @@ export class UserService {
 			return result ? (result as User) : undefined
 		} catch (error) {
 			console.error('Error getting user by username:', error)
+			return undefined
+		}
+	}
+
+	getUserByEmail(email: string): User | undefined {
+		try {
+			const result = this.getUserByEmailStatement.get({ email: email.toLowerCase().trim() })
+			return result ? (result as User) : undefined
+		} catch (error) {
+			console.error('Error getting user by email:', error)
 			return undefined
 		}
 	}
@@ -346,11 +363,16 @@ export class UserService {
 		}
 	}
 
-	updateNewsletterPreference(id: string, preference: 'declined' | 'subscribed'): boolean {
+	updateNewsletterPreference(
+		id: string,
+		preference: 'declined' | 'subscribed',
+		plunkContactId?: string | null
+	): boolean {
 		try {
 			const result = this.updateNewsletterPreferenceStatement.run({
 				id,
-				preference
+				preference,
+				plunk_contact_id: plunkContactId ?? null
 			})
 			return result.changes > 0
 		} catch (error) {

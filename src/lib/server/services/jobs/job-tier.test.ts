@@ -51,8 +51,7 @@ describe('JobTierService', () => {
 					'Premium badge',
 					'Top search ranking',
 					'Social media promotion',
-					'Newsletter feature',
-					'Homepage spotlight'
+					'Newsletter feature'
 				]),
 				sort_order: 3,
 				active: 1

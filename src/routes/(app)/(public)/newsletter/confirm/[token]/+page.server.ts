@@ -19,9 +19,16 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		return { status: 'error' as const }
 	}
 
-	// 3. Delete the pending subscription
+	// 3. If a user was logged in when subscribing, store their plunk_contact_id
+	// We use the user_id from the pending record since the user may have a different
+	// email in their account (e.g., GitHub OAuth users often have null email)
+	if (subscribeResult.id && pending.user_id) {
+		locals.userService.updateNewsletterPreference(pending.user_id, 'subscribed', subscribeResult.id)
+	}
+
+	// 4. Delete the pending subscription
 	locals.newsletterService.deletePending(pending.email)
 
-	// 4. Return success status
+	// 5. Return success status
 	return { status: 'success' as const }
 }
