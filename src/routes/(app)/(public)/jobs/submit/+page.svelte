@@ -275,6 +275,12 @@
 					Your job will be live for{' '}
 					{tiers.find((t) => t.id === selectedTierId)?.duration_days || 30} days
 				</p>
+				<p class="mt-2 text-sm text-slate-600">
+					By purchasing this job posting you accept the <a
+						href="/terms"
+						class="text-orange-600 underline hover:text-orange-700">terms of service</a
+					>.
+				</p>
 			</div>
 			<Button data-testid="submit-job-button">
 				<Briefcase size={18} class="mr-2" />

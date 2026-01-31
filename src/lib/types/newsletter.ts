@@ -197,6 +197,7 @@ export interface PendingSubscription {
 	id: string
 	email: string
 	token: string
+	user_id: string | null
 	expires_at: string
 	created_at: string
 }

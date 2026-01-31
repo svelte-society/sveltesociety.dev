@@ -1,4 +1,5 @@
 import { form, getRequestEvent } from '$app/server'
+import { redirect } from '@sveltejs/kit'
 import { dev } from '$app/environment'
 import { z } from 'zod/v4'
 
@@ -12,61 +13,45 @@ export const subscribeNewsletter = form(subscribeSchema, async (data) => {
 	const { locals } = getRequestEvent()
 	const email = data.email.toLowerCase().trim()
 
-	// SECURITY: Always return the same success message to prevent email enumeration
+	// SECURITY: Always redirect to the same page to prevent email enumeration
 	// This applies whether:
 	// - Email is new (create pending, send confirmation)
 	// - Email already pending (refresh token, resend confirmation)
 	// - Email already confirmed in Plunk (do nothing)
 
-	try {
-		// 1. Check if already subscribed in Plunk (silent - don't reveal this)
-		const existingContact = await locals.emailService.getContact(email)
-		if (existingContact?.subscribed) {
-			// Already subscribed - return success without doing anything
-			// This prevents email enumeration
-			return {
-				success: true,
-				text: 'Check your email to confirm your subscription!'
-			}
-		}
-
-		// 2. Create/update pending subscription with new token
-		const { token } = locals.newsletterService.createPendingSubscription(email)
-
-		// 4. Send confirmation email
-		const emailSent = await locals.emailService.sendNewsletterConfirmationEmail({
-			email,
-			token,
-			baseUrl: BASE_URL
-		})
-
-		if (!emailSent) {
-			console.error('Failed to send confirmation email to:', email)
-			// Still return success to prevent email enumeration
-			// But log for debugging
-		}
-
-		// 5. Opportunistically clean up expired tokens
-		locals.newsletterService.cleanupExpired()
-
-		// 6. If user is logged in, mark them as subscribed immediately
-		// This prevents the modal from reappearing while they confirm their email
-		if (locals.user) {
-			locals.userService.updateNewsletterPreference(locals.user.id, 'subscribed')
-		}
-
-		return {
-			success: true,
-			text: 'Check your email to confirm your subscription!'
-		}
-	} catch (error) {
-		console.error('Error in newsletter subscription:', error)
-		// Return generic error - don't expose details
-		return {
-			success: false,
-			text: 'Something went wrong. Please try again.'
-		}
+	// 1. Check if already subscribed in Plunk (silent - don't reveal this)
+	const existingContact = await locals.emailService.getContact(email)
+	if (existingContact?.subscribed) {
+		// Already subscribed - redirect anyway to prevent email enumeration
+		redirect(303, '/newsletter/check-email')
 	}
+
+	// 2. Create/update pending subscription with new token
+	// Pass user ID if logged in, so we can update their plunk_contact_id after confirmation
+	const { token } = locals.newsletterService.createPendingSubscription(email, locals.user?.id)
+
+	// 3. Send confirmation email
+	const emailSent = await locals.emailService.sendNewsletterConfirmationEmail({
+		email,
+		token,
+		baseUrl: BASE_URL
+	})
+
+	if (!emailSent) {
+		console.error('Failed to send confirmation email to:', email)
+		// Still redirect to prevent email enumeration
+	}
+
+	// 4. Opportunistically clean up expired tokens
+	locals.newsletterService.cleanupExpired()
+
+	// 5. If user is logged in, mark them as subscribed immediately
+	// This prevents the modal from reappearing while they confirm their email
+	if (locals.user) {
+		locals.userService.updateNewsletterPreference(locals.user.id, 'subscribed')
+	}
+
+	redirect(303, '/newsletter/check-email')
 })
 
 export const userDecline = form(z.object({}), async () => {

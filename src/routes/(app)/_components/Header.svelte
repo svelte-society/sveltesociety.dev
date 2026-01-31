@@ -63,7 +63,11 @@
 
 		<nav class="ml-auto items-center space-x-4 md:flex">
 			{#if user}
-				<UserMenu {user} newsletterPreference={user.newsletter_preference} />
+				<UserMenu
+					{user}
+					newsletterPreference={user.newsletter_preference}
+					plunkContactId={user.plunk_contact_id}
+				/>
 			{:else}
 				<a data-sveltekit-preload-data={false} href="/login" class="hover:underline"> Login </a>
 			{/if}

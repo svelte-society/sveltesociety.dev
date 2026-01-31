@@ -6,7 +6,11 @@
 	import GearSix from 'phosphor-svelte/lib/GearSix'
 	import Envelope from 'phosphor-svelte/lib/Envelope'
 
-	let { user, newsletterPreference }: { user: any; newsletterPreference?: string | null } = $props()
+	let {
+		user,
+		newsletterPreference,
+		plunkContactId
+	}: { user: any; newsletterPreference?: string | null; plunkContactId?: string | null } = $props()
 
 	let dropdownRef: { close: () => void } | undefined = $state()
 
@@ -52,9 +56,9 @@
 		<GearSix class="mr-2 size-5" />
 		Profile
 	</a>
-	{#if newsletterPreference === 'subscribed'}
+	{#if newsletterPreference === 'subscribed' && plunkContactId}
 		<a
-			href="https://app.useplunk.com/subscribe"
+			href={`https://next-app.useplunk.com/manage/${plunkContactId}`}
 			target="_blank"
 			rel="noopener noreferrer"
 			role="menuitem"

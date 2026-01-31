@@ -134,7 +134,7 @@
 			</div>
 			<h3 class="font-semibold">Social Promotion</h3>
 			<p class="mt-1 text-sm text-slate-600">
-				Premium sponsors get featured in our social channels
+				Premium sponsors get promoted once per month to our 20,000+ followers across social channels
 			</p>
 		</div>
 	</div>
@@ -293,9 +293,17 @@
 				<p class="text-sm text-slate-600">
 					{#if selectedBillingType === 'one_time'}
 						Your sponsorship will be active for 30 days
+					{:else if selectedBillingType === 'monthly'}
+						Billed monthly
 					{:else}
-						Cancel anytime. No long-term commitment required.
+						Billed yearly
 					{/if}
+				</p>
+				<p class="mt-2 text-sm text-slate-600">
+					By purchasing this sponsorship you accept the <a
+						href="/terms"
+						class="text-orange-600 underline hover:text-orange-700">terms of service</a
+					>.
 				</p>
 			</div>
 			<Button data-testid="submit-sponsor-button">

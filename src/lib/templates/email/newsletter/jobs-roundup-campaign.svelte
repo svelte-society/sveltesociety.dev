@@ -56,7 +56,7 @@
 		introText,
 		jobs = [],
 		baseUrl = defaultBaseUrl,
-		unsubscribeUrl = 'https://app.useplunk.com/subscribe/{{plunk_id}}',
+		unsubscribeUrl = '{{unsubscribeUrl}}',
 		sponsors = []
 	}: Props = $props()
 

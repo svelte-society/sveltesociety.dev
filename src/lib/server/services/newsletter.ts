@@ -107,11 +107,12 @@ export class NewsletterService {
 
 		// Pending subscription statements (for double opt-in)
 		this.createPendingStatement = this.db.prepare(`
-			INSERT INTO newsletter_pending_subscriptions (email, token, expires_at)
-			VALUES ($email, $token, $expires_at)
+			INSERT INTO newsletter_pending_subscriptions (email, token, expires_at, user_id)
+			VALUES ($email, $token, $expires_at, $user_id)
 			ON CONFLICT(email) DO UPDATE SET
 				token = excluded.token,
 				expires_at = excluded.expires_at,
+				user_id = excluded.user_id,
 				created_at = CURRENT_TIMESTAMP
 			RETURNING *
 		`)
@@ -648,14 +649,18 @@ export class NewsletterService {
 		return date.toISOString().replace('T', ' ').replace('Z', '')
 	}
 
-	createPendingSubscription(email: string): { token: string; expiresAt: Date } {
+	createPendingSubscription(
+		email: string,
+		userId?: string | null
+	): { token: string; expiresAt: Date } {
 		const token = crypto.randomUUID()
 		const expiresAt = new Date(Date.now() + NewsletterService.TWENTY_FOUR_HOURS_MS)
 
 		this.createPendingStatement.run({
 			email: email.toLowerCase().trim(),
 			token,
-			expires_at: this.formatDateForSQLite(expiresAt)
+			expires_at: this.formatDateForSQLite(expiresAt),
+			user_id: userId ?? null
 		})
 
 		return { token, expiresAt }
