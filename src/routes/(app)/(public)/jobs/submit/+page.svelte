@@ -265,6 +265,13 @@
 			</div>
 		</div>
 
+		<!-- Error Display -->
+		{#if submitJob.result && 'success' in submitJob.result && !submitJob.result.success}
+			<div class="rounded-lg border border-red-200 bg-red-50 p-4 text-red-700" data-testid="submit-error">
+				{submitJob.result.error}
+			</div>
+		{/if}
+
 		<!-- Submit -->
 		<div class="flex items-center justify-between rounded-lg bg-slate-50 p-6">
 			<div>
@@ -282,9 +289,9 @@
 					>.
 				</p>
 			</div>
-			<Button data-testid="submit-job-button">
+			<Button data-testid="submit-job-button" disabled={!!submitJob.pending}>
 				<Briefcase size={18} class="mr-2" />
-				Continue to Payment
+				{submitJob.pending ? 'Processing...' : 'Continue to Payment'}
 			</Button>
 		</div>
 	</form>

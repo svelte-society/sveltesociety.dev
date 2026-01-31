@@ -1,5 +1,5 @@
 import { getRequestEvent, query, form } from '$app/server'
-import { fail, redirect } from '@sveltejs/kit'
+import { redirect } from '@sveltejs/kit'
 import { jobSubmissionSchema, type JobSubmissionData } from './schema'
 import type { StoredJobData } from '$lib/server/services/jobs'
 import { uploadImageFile } from '$lib/server/services/s3-storage'
@@ -22,10 +22,10 @@ export const submitJob = form(jobSubmissionSchema, async (data: JobSubmissionDat
 	// Get the selected tier
 	const tier = locals.jobTierService.getTierById(data.tier_id)
 	if (!tier) {
-		return fail(400, {
-			error: 'Invalid tier',
-			message: 'The selected pricing tier is not valid.'
-		})
+		return {
+			success: false as const,
+			error: 'The selected pricing tier is not valid.'
+		}
 	}
 
 	// Upload company logo to S3 if provided
@@ -38,10 +38,10 @@ export const submitJob = form(jobSubmissionSchema, async (data: JobSubmissionDat
 			)
 		} catch (error) {
 			console.error('Error uploading company logo:', error)
-			return fail(500, {
-				error: 'Upload failed',
-				message: 'Failed to upload company logo. Please try again.'
-			})
+			return {
+				success: false as const,
+				error: 'Failed to upload company logo. Please try again.'
+			}
 		}
 	}
 
@@ -100,10 +100,10 @@ export const submitJob = form(jobSubmissionSchema, async (data: JobSubmissionDat
 		checkoutUrl = checkoutResult.url
 	} catch (error) {
 		console.error('Error creating checkout session:', error)
-		return fail(500, {
-			error: 'Checkout failed',
-			message: 'Failed to create checkout session. Please try again.'
-		})
+		return {
+			success: false as const,
+			error: 'Failed to create checkout session. Please try again.'
+		}
 	}
 
 	// Redirect to Stripe checkout (outside try/catch)
