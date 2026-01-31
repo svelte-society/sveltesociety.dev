@@ -78,6 +78,7 @@ export class StripeService {
 			cancel_url: cancelUrl,
 			automatic_tax: { enabled: true },
 			tax_id_collection: { enabled: true },
+			allow_promotion_codes: true,
 			metadata: {
 				tier_id: tier.id,
 				tier_name: tier.name,
@@ -172,6 +173,7 @@ export class StripeService {
 			cancel_url: cancelUrl,
 			automatic_tax: { enabled: true },
 			tax_id_collection: { enabled: true },
+			allow_promotion_codes: true,
 			invoice_creation: {
 				enabled: true,
 				invoice_data: {
