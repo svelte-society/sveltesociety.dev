@@ -14,8 +14,7 @@
 
 	<form {...subscribeNewsletter} class="flex flex-col gap-2">
 		<input
-			type="email"
-			{...subscribeNewsletter.fields.email}
+			{...subscribeNewsletter.fields.email.as('email')}
 			placeholder="your@email.com"
 			disabled={!!subscribeNewsletter.pending}
 			class="w-full rounded border border-slate-200 bg-white px-3 py-1.5 text-sm placeholder-slate-400 focus:border-orange-300 focus:outline-none focus:ring-1 focus:ring-orange-300 disabled:opacity-50"

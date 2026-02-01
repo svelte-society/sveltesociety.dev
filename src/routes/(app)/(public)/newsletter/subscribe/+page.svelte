@@ -49,8 +49,7 @@
 
 		<form {...subscribePageNewsletter} class="space-y-3">
 			<Input
-				type="email"
-				{...subscribePageNewsletter.fields.email}
+				{...subscribePageNewsletter.fields.email.as('email')}
 				placeholder="your@email.com"
 				issues={subscribePageNewsletter.fields.email.issues()}
 			/>
