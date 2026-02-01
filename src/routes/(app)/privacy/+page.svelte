@@ -33,8 +33,21 @@
 			</li>
 		</ul>
 
-		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">2. How We Use Your Information</h2>
-		<p>We use the collected information for the following purposes:</p>
+		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">2. Data Storage Locations</h2>
+		<p>Your data is stored and processed in the following locations:</p>
+		<ul class="mt-2 mb-4 list-disc pl-6">
+			<li>
+				<strong>Main Website Data:</strong> All user accounts, content submissions, and website data
+				are stored on our own servers located in Sweden.
+			</li>
+			<li>
+				<strong>Newsletter Data:</strong> Newsletter subscriber data is processed by Plunk, our email
+				service provider. This includes your email address and subscription preferences.
+			</li>
+		</ul>
+
+		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">3. How We Use Your Information</h2>
+		<p>We use your information for the following purposes:</p>
 		<ul class="mt-2 mb-4 list-disc pl-6">
 			<li>To provide and maintain our services</li>
 			<li>To authenticate users and manage accounts</li>
@@ -43,7 +56,7 @@
 			<li>To analyze usage patterns and optimize performance</li>
 		</ul>
 
-		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">3. Data Sharing and Disclosure</h2>
+		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">4. Data Sharing and Disclosure</h2>
 		<p>
 			We do not sell or rent your personal information to third parties. We may share your
 			information in the following circumstances:
@@ -54,21 +67,21 @@
 			<li>With your consent for specific purposes</li>
 		</ul>
 
-		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">4. Security</h2>
+		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">5. Security</h2>
 		<p>
 			We implement reasonable security measures to protect your personal information from
 			unauthorized access, alteration, disclosure, or destruction. However, no method of
 			transmission over the internet is 100% secure, and we cannot guarantee absolute security.
 		</p>
 
-		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">5. Cookies and Tracking</h2>
+		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">6. Cookies and Tracking</h2>
 		<p>
 			We use cookies and similar technologies to enhance your browsing experience, analyze site
 			traffic, and understand user behavior. You can control cookie settings through your browser
 			preferences.
 		</p>
 
-		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">6. Your Rights</h2>
+		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">7. Your Rights</h2>
 		<p>Depending on your location, you may have the following rights regarding your data:</p>
 		<ul class="mt-2 mb-4 list-disc pl-6">
 			<li>Access to your personal information</li>
@@ -78,20 +91,20 @@
 			<li>Data portability</li>
 		</ul>
 
-		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">7. Changes to This Policy</h2>
+		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">8. Changes to This Policy</h2>
 		<p>
 			We may update our Privacy Policy from time to time. We will notify you of significant changes
 			by posting the new policy on this page and updating the effective date.
 		</p>
 
-		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">8. Contact Us</h2>
+		<h2 class="text-svelte-900 mt-6 mb-3 text-xl font-semibold">9. Contact Us</h2>
 		<p>
 			If you have questions or concerns about this Privacy Policy, please contact us through our
 			website or community channels.
 		</p>
 
 		<div class="mt-8 text-sm text-slate-600">
-			<p>Last updated: May 2025</p>
+			<p>Last updated: February 2026</p>
 		</div>
 	</div>
 

@@ -60,6 +60,12 @@
 			>
 				{subscribeNewsletter.pending ? 'Subscribing...' : 'Subscribe'}
 			</Button>
+			<p class="text-xs text-slate-500">
+				Data processed by Plunk. <a
+					href="/privacy"
+					class="text-svelte-900 hover:text-svelte-500 underline">Privacy Policy</a
+				>
+			</p>
 		</form>
 	{/if}
 </SidebarCard>
