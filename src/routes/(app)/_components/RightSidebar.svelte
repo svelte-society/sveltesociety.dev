@@ -38,7 +38,7 @@
 
 	<UpcomingEvents events={upcomingEvents} />
 
-	{#if user?.newsletter_preference !== 'subscribed'}
+	{#if user?.newsletter_preference === 'declined' || !user}
 		<NewsletterSubscribe />
 	{/if}
 </aside>
