@@ -6,11 +6,12 @@
 </script>
 
 <header
-	class="border-svelte-900 sticky top-0 z-10 border-b-4 bg-white py-4"
+	class="border-svelte-900 sticky top-0 z-10 bg-white"
+	class:border-b-4={!announcement}
 	style:view-transition-name="header"
 >
 	<div
-		class="mx-auto grid w-full max-w-[1440px] grid-cols-[auto_1fr_auto] items-center gap-4 px-4 sm:grid-cols-[1.5fr_5fr_2.5fr]"
+		class="mx-auto grid w-full max-w-[1440px] grid-cols-[auto_1fr_auto] items-center gap-4 px-4 py-4 sm:grid-cols-[1.5fr_5fr_2.5fr]"
 	>
 		<a href="/" class="mr-auto flex items-center gap-2">
 			<svg
@@ -73,14 +74,14 @@
 			{/if}
 		</nav>
 	</div>
+	{#if announcement}
+		<div
+			class="bg-svelte-900 flex w-full place-content-center p-2"
+			style:view-transition-name="announcement"
+		>
+			<a href={announcement.href} class="text-semibold mx-auto text-white underline">
+				{announcement.text}
+			</a>
+		</div>
+	{/if}
 </header>
-{#if announcement}
-	<div
-		class="bg-svelte-900 sticky top-20 z-0 flex w-full place-content-center p-2"
-		style:view-transition-name="announcement"
-	>
-		<a href={announcement.href} class="text-semibold mx-auto text-white underline">
-			{announcement.text}
-		</a>
-	</div>
-{/if}
