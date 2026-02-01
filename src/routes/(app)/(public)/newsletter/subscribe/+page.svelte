@@ -70,6 +70,12 @@
 					No thanks
 				</Button>
 			</div>
+			<p class="text-xs text-slate-500">
+				Newsletter data is processed by Plunk, our email service provider. See our <a
+					href="/privacy"
+					class="text-svelte-900 hover:text-svelte-500 underline">Privacy Policy</a
+				>.
+			</p>
 		</form>
 	{/if}
 </div>
