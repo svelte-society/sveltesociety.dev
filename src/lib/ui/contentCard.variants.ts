@@ -7,6 +7,10 @@ export const contentCardVariants = tv({
 			list: 'px-4 py-4 sm:px-6 sm:py-5',
 			detail: 'px-4 py-4 sm:px-6 sm:py-5'
 		},
+		layout: {
+			default: '',
+			horizontal: 'grid-cols-[132px_1fr] items-start gap-2 px-3 py-3'
+		},
 		compact: {
 			true: 'px-3 py-3 sm:px-4 sm:py-3'
 		},
@@ -19,6 +23,7 @@ export const contentCardVariants = tv({
 	},
 	defaultVariants: {
 		variant: 'list',
+		layout: 'default',
 		compact: false,
 		highlight: 'none'
 	}
@@ -56,5 +61,26 @@ export const descriptionVariants = tv({
 	}
 })
 
+export const thumbnailVariants = tv({
+	base: 'shrink-0 overflow-hidden rounded-lg',
+	variants: {
+		size: {
+			sm: 'h-16 w-16',
+			md: 'h-20 w-20',
+			lg: 'h-[132px] w-[132px]'
+		},
+		hasImage: {
+			true: '',
+			false: 'flex items-center justify-center bg-slate-100'
+		}
+	},
+	defaultVariants: {
+		size: 'lg',
+		hasImage: false
+	}
+})
+
 export type CardVariant = NonNullable<VariantProps<typeof contentCardVariants>['variant']>
+export type CardLayout = NonNullable<VariantProps<typeof contentCardVariants>['layout']>
 export type CardHighlight = NonNullable<VariantProps<typeof contentCardVariants>['highlight']>
+export type ThumbnailSize = NonNullable<VariantProps<typeof thumbnailVariants>['size']>

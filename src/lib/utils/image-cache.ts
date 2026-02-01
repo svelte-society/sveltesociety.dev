@@ -140,6 +140,14 @@ export const imageCachePresets = {
 		fit: 'cover' as const,
 		q: 90,
 		output: 'jpg' as const
+	},
+	/** Square thumbnail for horizontal card layout */
+	cardThumbnail: {
+		w: 120,
+		h: 120,
+		fit: 'cover' as const,
+		q: 85,
+		output: 'webp' as const
 	}
 } as const
 
