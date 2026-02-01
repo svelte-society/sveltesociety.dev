@@ -74,7 +74,8 @@ export const GET: RequestHandler = async ({ url, cookies, locals }) => {
 		cookies.set('session_id', session_token, {
 			path: '/',
 			httpOnly: true,
-			secure: !dev
+			secure: !dev,
+			maxAge: 7 * 24 * 60 * 60 // 7 days in seconds
 		})
 
 		// Create a manual redirect response with appropriate headers
