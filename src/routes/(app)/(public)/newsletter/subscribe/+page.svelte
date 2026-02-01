@@ -2,7 +2,7 @@
 	import Button from '$lib/ui/Button.svelte'
 	import Input from '$lib/ui/Input.svelte'
 	import { Envelope, CheckCircle } from 'phosphor-svelte'
-	import { subscribeNewsletter, userDecline } from '$lib/ui/newsletter.remote'
+	import { subscribePageNewsletter, userDecline } from '$lib/ui/newsletter.remote'
 	import { getUser } from '../../../data.remote'
 
 	let user = $derived(await getUser())
@@ -10,10 +10,10 @@
 
 <div class="space-y-4 max-w-lg mx-auto" data-testid="newsletter-subscribe-page">
 	<h2 class="mb-4 text-xl font-bold">Newsletter</h2>
-	{#if subscribeNewsletter.for('newsletter-page').result?.success}
+	{#if subscribePageNewsletter.result?.success}
 		<div class="flex items-center gap-2 text-green-600" data-testid="newsletter-success">
 			<CheckCircle weight="fill" class="size-5" />
-			<span class="text-sm">{subscribeNewsletter.for('newsletter-page').result.text}</span>
+			<span class="text-sm">{subscribePageNewsletter.result.text}</span>
 		</div>
 	{:else}
 		<div class="flex items-center gap-3">
@@ -47,20 +47,20 @@
 			</li>
 		</ul>
 
-		<form {...subscribeNewsletter.for('newsletter-page')} class="space-y-3">
+		<form {...subscribePageNewsletter} class="space-y-3">
 			<Input
 				type="email"
-				{...subscribeNewsletter.for('newsletter-page').fields.email}
+				{...subscribePageNewsletter.fields.email}
 				placeholder="your@email.com"
-				issues={subscribeNewsletter.for('newsletter-page').fields.email.issues()}
+				issues={subscribePageNewsletter.fields.email.issues()}
 			/>
 			<div class="mt-3 flex gap-2">
 				<Button
 					type="submit"
-					disabled={!!subscribeNewsletter.for('newsletter-page').pending}
+					disabled={!!subscribePageNewsletter.pending}
 					data-testid="newsletter-subscribe-btn"
 				>
-					{subscribeNewsletter.for('newsletter-page').pending ? 'Subscribing...' : 'Yes, subscribe me'}
+					{subscribePageNewsletter.pending ? 'Subscribing...' : 'Yes, subscribe me'}
 				</Button>
 				<Button
 					variant="ghost"
