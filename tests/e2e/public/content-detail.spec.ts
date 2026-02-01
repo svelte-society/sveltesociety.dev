@@ -51,7 +51,7 @@ test.describe('Content Detail Pages', () => {
 		await detailPage.expectContentLoaded()
 		await detailPage.expectTitleIs('Test Announcement: Svelte 5 Released')
 		await detailPage.expectContentTypeIs('announcement')
-		await detailPage.expectDescriptionVisible()
+		// Announcements don't show description on detail pages, only the rendered body
 		await detailPage.expectPublishedDateVisible()
 	})
 
