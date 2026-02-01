@@ -156,9 +156,9 @@
 	>
 		<!-- Row 1: Metadata + Like/Save (spans both columns) -->
 		<div
-			class="col-span-2 grid grid-cols-[1fr_auto] items-start justify-between gap-2 text-xs sm:gap-0"
+			class="col-span-2 grid grid-cols-[1fr_auto] items-center justify-between gap-2 text-xs sm:gap-0"
 		>
-			<div class="flex min-w-0 flex-wrap items-center gap-2">
+			<div class="flex min-w-0 items-center gap-2 overflow-hidden">
 				{#if showFeaturedBadge}
 					<span
 						class="flex shrink-0 items-center gap-1 rounded-full bg-svelte-500 px-2 py-0.5 text-xs font-semibold text-white"
@@ -261,8 +261,65 @@
 			</div>
 		</div>
 
+		<!-- MOBILE LAYOUT (below sm) -->
+		<div class="col-span-2 sm:hidden">
+			<!-- Title -->
+			<h2 data-testid="content-title" class="mb-2 line-clamp-2 text-base font-bold">
+				<a
+					href={getContentPath(content.type, content.slug)}
+					class="hover:underline focus:outline-svelte-300 rounded-sm focus:outline-2 focus:outline-offset-2"
+					tabindex="0"
+				>
+					{content.title}
+				</a>
+				{#if isAdmin}
+					<a
+						data-testid="edit-link"
+						class="text-svelte-900 ml-2 text-xs"
+						href="/admin/content/{content.id}"
+					>
+						Edit
+					</a>
+				{/if}
+			</h2>
+
+			<!-- Thumbnail + Description row -->
+			<div class="flex gap-2">
+				<div class={thumbnailVariants({ size: 'mobile', hasImage: !!thumbnailUrl })}>
+					{#if thumbnailUrl}
+						<img
+							src={getCachedImageWithPreset(thumbnailUrl, 'cardThumbnail')}
+							alt={content.title}
+							class="h-full w-full object-cover"
+							loading={priority === 'high' ? 'eager' : 'lazy'}
+						/>
+					{:else}
+						<PlaceholderIcon size={24} class="text-slate-400" />
+					{/if}
+				</div>
+				<p class="line-clamp-2 max-h-[2lh] min-w-0 flex-1 overflow-hidden text-sm text-gray-600">
+					{content.description || ''}
+				</p>
+			</div>
+
+			<!-- Tags + Date -->
+			<div class="mt-4 grid grid-cols-[1fr_auto] items-end gap-2">
+				{#if content.type !== 'job' && content.tags}
+					<div class="flex flex-wrap gap-1">
+						<Tags tags={content.tags as any} />
+					</div>
+				{:else}
+					<div></div>
+				{/if}
+				<div class="shrink-0 text-xs text-gray-500">
+					{formatRelativeDate(content.published_at)}
+				</div>
+			</div>
+		</div>
+
+		<!-- DESKTOP LAYOUT (sm and above) -->
 		<!-- Column 1: Thumbnail -->
-		<div class={thumbnailVariants({ size: 'lg', hasImage: !!thumbnailUrl })}>
+		<div class="hidden {thumbnailVariants({ size: 'lg', hasImage: !!thumbnailUrl })} {thumbnailUrl ? 'sm:block' : 'sm:flex'}">
 			{#if thumbnailUrl}
 				<img
 					src={getCachedImageWithPreset(thumbnailUrl, 'cardThumbnail')}
@@ -275,10 +332,10 @@
 			{/if}
 		</div>
 
-		<!-- Column 2: Content - grid to align tags/date with bottom of thumbnail -->
-		<div class="grid min-h-[132px] min-w-0 grid-rows-[auto_1fr_auto] gap-1.5">
+		<!-- Column 2: Title + Description -->
+		<div class="hidden min-w-0 flex-col gap-1.5 sm:flex">
 			<!-- Title -->
-			<h2 class="line-clamp-1 text-base font-bold sm:text-lg">
+			<h2 data-testid="content-title" class="line-clamp-1 text-lg font-bold">
 				<a
 					href={getContentPath(content.type, content.slug)}
 					class="hover:underline focus:outline-svelte-300 rounded-sm focus:outline-2 focus:outline-offset-2"
@@ -298,20 +355,22 @@
 			</h2>
 
 			<!-- Description -->
-			<p class="line-clamp-3 max-h-[3lh] overflow-hidden text-sm text-gray-600">
+			<p class="line-clamp-3 max-h-[2.95lh] overflow-hidden text-sm text-gray-600">
 				{content.description || ''}
 			</p>
+		</div>
 
-			<!-- Tags + Date (aligns to bottom) -->
-			<div class="flex flex-wrap items-center justify-between gap-2">
-				{#if content.type !== 'job' && content.tags}
-					<div class="flex flex-wrap gap-2">
-						<Tags tags={content.tags as any} />
-					</div>
-				{/if}
-				<div class="text-xs text-gray-500">
-					{formatRelativeDate(content.published_at)}
+		<!-- Row 3: Tags + Date (spans both columns, desktop only) -->
+		<div class="col-span-2 hidden grid-cols-[1fr_auto] items-end gap-2 sm:grid">
+			{#if content.type !== 'job' && content.tags}
+				<div class="flex flex-wrap gap-1">
+					<Tags tags={content.tags as any} />
 				</div>
+			{:else}
+				<div></div>
+			{/if}
+			<div class="shrink-0 text-xs text-gray-500">
+				{formatRelativeDate(content.published_at)}
 			</div>
 		</div>
 	</article>

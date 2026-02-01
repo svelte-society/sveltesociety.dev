@@ -9,7 +9,7 @@ export const contentCardVariants = tv({
 		},
 		layout: {
 			default: '',
-			horizontal: 'grid-cols-[132px_1fr] items-start gap-2 px-3 py-3'
+			horizontal: 'sm:grid-cols-[132px_1fr] items-start gap-2 px-4 py-4 sm:px-5 sm:gap-4'
 		},
 		compact: {
 			true: 'px-3 py-3 sm:px-4 sm:py-3'
@@ -67,7 +67,8 @@ export const thumbnailVariants = tv({
 		size: {
 			sm: 'h-16 w-16',
 			md: 'h-20 w-20',
-			lg: 'h-[132px] w-[132px]'
+			lg: 'h-[132px] w-[132px]',
+			mobile: 'h-[66px] w-[66px]'
 		},
 		hasImage: {
 			true: '',
