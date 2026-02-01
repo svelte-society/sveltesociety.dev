@@ -10,10 +10,10 @@
 
 <div class="space-y-4 max-w-lg mx-auto" data-testid="newsletter-subscribe-page">
 	<h2 class="mb-4 text-xl font-bold">Newsletter</h2>
-	{#if subscribeNewsletter.result?.success}
+	{#if subscribeNewsletter.for('newsletter-page').result?.success}
 		<div class="flex items-center gap-2 text-green-600" data-testid="newsletter-success">
 			<CheckCircle weight="fill" class="size-5" />
-			<span class="text-sm">{subscribeNewsletter.result.text}</span>
+			<span class="text-sm">{subscribeNewsletter.for('newsletter-page').result.text}</span>
 		</div>
 	{:else}
 		<div class="flex items-center gap-3">
@@ -47,19 +47,20 @@
 			</li>
 		</ul>
 
-		<form {...subscribeNewsletter.for('subscribe-page')} class="space-y-3">
+		<form {...subscribeNewsletter.for('newsletter-page')} class="space-y-3">
 			<Input
-				{...subscribeNewsletter.fields.email.as('email')}
+				type="email"
+				{...subscribeNewsletter.for('newsletter-page').fields.email}
 				placeholder="your@email.com"
-				issues={subscribeNewsletter.fields.email.issues()}
+				issues={subscribeNewsletter.for('newsletter-page').fields.email.issues()}
 			/>
 			<div class="mt-3 flex gap-2">
 				<Button
 					type="submit"
-					disabled={!!subscribeNewsletter.pending}
+					disabled={!!subscribeNewsletter.for('newsletter-page').pending}
 					data-testid="newsletter-subscribe-btn"
 				>
-					{subscribeNewsletter.pending ? 'Subscribing...' : 'Yes, subscribe me'}
+					{subscribeNewsletter.for('newsletter-page').pending ? 'Subscribing...' : 'Yes, subscribe me'}
 				</Button>
 				<Button
 					variant="ghost"

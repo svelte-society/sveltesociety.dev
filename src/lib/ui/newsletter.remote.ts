@@ -16,8 +16,8 @@ export const subscribeNewsletter = form(subscribeSchema, async (data) => {
 	// 1. Check if already subscribed in Plunk (silent success - don't reveal this)
 	const existingContact = await locals.emailService.getContact(email)
 	if (existingContact?.subscribed) {
-		// Already subscribed - return success to prevent email enumeration
-		return { success: true }
+		// Already subscribed - redirect to prevent email enumeration
+		redirect(303, '/newsletter/check-email')
 	}
 
 	// 2. Create/update pending subscription with new token
@@ -45,7 +45,7 @@ export const subscribeNewsletter = form(subscribeSchema, async (data) => {
 		locals.userService.updateNewsletterPreference(locals.user.id, 'subscribed')
 	}
 
-	return { success: true }
+	redirect(303, '/newsletter/check-email')
 })
 
 export const userDecline = form(z.object({}), async () => {
