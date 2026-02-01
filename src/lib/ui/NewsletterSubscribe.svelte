@@ -25,7 +25,7 @@
 		{#if subscribeNewsletter.for('newsletter-sidebar').fields.email.issues()?.length}
 			<div class="flex items-center gap-1 text-xs text-red-600" data-testid="newsletter-error">
 				<Warning weight="fill" size={12} />
-				<span>{subscribeNewsletter.for('newsletter-sidebar').fields.email.issues()?.[0]}</span>
+				<span>{subscribeNewsletter.for('newsletter-sidebar').fields.email.issues()?.[0]?.message}</span>
 			</div>
 		{/if}
 
