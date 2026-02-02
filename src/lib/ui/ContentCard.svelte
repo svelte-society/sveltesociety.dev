@@ -167,8 +167,7 @@
 						Featured
 					</span>
 				{/if}
-				<span class="flex shrink-0 items-center gap-1 font-semibold capitalize">
-					<PlaceholderIcon size={14} weight="bold" />
+				<span class="shrink-0 font-semibold capitalize">
 					{content.type}
 				</span>
 				{#if content.type === 'job' && content.metadata?.company_name}
