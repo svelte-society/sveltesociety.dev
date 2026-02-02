@@ -146,7 +146,7 @@
 	}
 </script>
 
-{#if layout === 'horizontal'}
+{#if layout === 'horizontal' && content.type !== 'collection'}
 	<!-- Horizontal layout: Thumbnail | Content with likes/saves at top -->
 	<article
 		data-testid="content-card"
@@ -303,7 +303,9 @@
 
 			<!-- Tags + Date -->
 			<div class="mt-4 grid grid-cols-[1fr_auto] items-end gap-2">
-				{#if content.type !== 'job' && content.tags}
+				{#if content.type === 'job'}
+					<Job {content} variant="list" />
+				{:else if content.tags}
 					<div class="flex flex-wrap gap-1">
 						<Tags tags={content.tags as any} />
 					</div>
@@ -361,7 +363,9 @@
 
 		<!-- Row 3: Tags + Date (spans both columns, desktop only) -->
 		<div class="col-span-2 hidden grid-cols-[1fr_auto] items-end gap-2 sm:grid">
-			{#if content.type !== 'job' && content.tags}
+			{#if content.type === 'job'}
+				<Job {content} variant="list" />
+			{:else if content.tags}
 				<div class="flex flex-wrap gap-1">
 					<Tags tags={content.tags as any} />
 				</div>
@@ -556,7 +560,7 @@
 				{#if content.type === 'recipe'}
 					<Recipe {content} {variant} />
 				{:else if content.type === 'collection'}
-					<Collection children={content.children} />
+					<Collection children={content.children} slug={content.slug} {variant} />
 				{:else if content.type === 'video'}
 					<Video {content} {priority} />
 				{:else if content.type === 'library'}
