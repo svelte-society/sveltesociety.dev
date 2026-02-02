@@ -50,6 +50,7 @@
 				{#if isCard}
 					<div class="min-w-0">
 						<Component
+							layout="horizontal"
 							{...item.props}
 							priority={item.type === 'featured' || index < 2 ? 'high' : 'auto'}
 						/>
