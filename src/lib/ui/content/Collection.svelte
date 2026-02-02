@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ContentWithAuthor } from '$lib/types/content'
+	import type { CardVariant } from '../contentCard.variants'
 	import { formatRelativeDate } from '$lib/utils/date'
 	import ArrowSquareOut from 'phosphor-svelte/lib/ArrowSquareOut'
 
@@ -7,9 +8,18 @@
 
 	interface Props {
 		children: ContentChild[]
+		slug?: string
+		variant?: CardVariant
 	}
 
-	let { children = [] }: Props = $props()
+	const PREVIEW_COUNT = 2
+
+	let { children = [], slug, variant = 'list' }: Props = $props()
+
+	const visibleChildren = $derived(
+		variant === 'list' ? children.slice(0, PREVIEW_COUNT) : children
+	)
+	const remainingCount = $derived(children.length - PREVIEW_COUNT)
 
 	function getAuthor(content: ContentChild): string {
 		return content?.author_name || content?.author_username || 'Unknown'
@@ -30,7 +40,7 @@
 </script>
 
 <ul class="space-y-2">
-	{#each children as child (child.id)}
+	{#each visibleChildren as child (child.id)}
 		<li
 			class="rounded border border-slate-200 bg-slate-100 px-3 py-1.5 shadow-sm transition-all hover:bg-slate-50 hover:shadow-md"
 		>
@@ -64,3 +74,12 @@
 		</li>
 	{/each}
 </ul>
+
+{#if variant === 'list' && remainingCount > 0}
+	<a
+		href="/collection/{slug}"
+		class="mt-2 flex items-center justify-center gap-1.5 rounded border border-slate-200 bg-slate-100 px-3 py-3 text-sm font-medium text-gray-600 shadow-sm transition-all hover:bg-slate-50 hover:text-gray-800 hover:shadow-md"
+	>
+		+{remainingCount} more item{remainingCount === 1 ? '' : 's'}
+	</a>
+{/if}
