@@ -660,4 +660,41 @@ export class ContentService {
 			return false
 		}
 	}
+
+	/**
+	 * Check and expire jobs whose expires_at has passed.
+	 * Updates status from 'published' to 'expired' and syncs search index.
+	 * @returns Array of expired job IDs
+	 */
+	expireOverdueJobs(): string[] {
+		const selectStmt = this.db.prepare(`
+			SELECT id FROM content
+			WHERE type = 'job'
+			AND status = 'published'
+			AND json_extract(metadata, '$.expires_at') IS NOT NULL
+			AND json_extract(metadata, '$.expires_at') < CURRENT_TIMESTAMP
+		`)
+		const overdueJobs = selectStmt.all() as { id: string }[]
+
+		if (overdueJobs.length === 0) return []
+
+		const updateStmt = this.db.prepare(`
+			UPDATE content
+			SET status = 'expired'
+			WHERE type = 'job'
+			AND status = 'published'
+			AND json_extract(metadata, '$.expires_at') IS NOT NULL
+			AND json_extract(metadata, '$.expires_at') < CURRENT_TIMESTAMP
+		`)
+		updateStmt.run()
+
+		// Sync search index so expired jobs are excluded from search results
+		if (this.searchService) {
+			for (const { id } of overdueJobs) {
+				this.searchService.update(id, { status: 'expired' })
+			}
+		}
+
+		return overdueJobs.map((j) => j.id)
+	}
 }

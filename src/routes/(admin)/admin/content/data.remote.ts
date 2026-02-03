@@ -5,7 +5,9 @@ import { checkAdminAuth } from '../authorization.remote'
 
 const contentFiltersSchema = z.object({
 	type: z.enum(['video', 'library', 'announcement', 'collection', 'recipe', 'resource']).optional(),
-	status: z.enum(['draft', 'pending_review', 'published', 'archived', 'all']).default('all'),
+	status: z
+		.enum(['draft', 'pending_review', 'published', 'archived', 'expired', 'all'])
+		.default('all'),
 	search: z.string().optional(),
 	page: z.number().int().positive().default(1),
 	perPage: z.number().int().positive().default(50)
