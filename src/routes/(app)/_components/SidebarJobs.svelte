@@ -66,13 +66,11 @@
 					</h4>
 					<p class="truncate text-xs text-gray-600">{job.company_name}</p>
 					<div class="mt-1 flex flex-wrap items-center gap-2 text-xs text-gray-500">
-						<span
-							class="rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-medium uppercase"
-						>
+						<span class="rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-medium uppercase">
 							{remoteLabels[job.remote_status] || job.remote_status}
 						</span>
 						{#if job.location}
-							<span class="flex items-center gap-0.5">
+							<span class="flex min-w-0 items-center gap-0.5">
 								<MapPin size={10} />
 								<span class="truncate">{job.location}</span>
 							</span>
@@ -112,7 +110,11 @@
 
 	{#snippet footer()}
 		{#if jobs && jobs.length > 0}
-			<a href="/job" class="text-svelte-500 text-xs hover:underline" data-sveltekit-preload-data="off">
+			<a
+				href="/job"
+				class="text-svelte-500 text-xs hover:underline"
+				data-sveltekit-preload-data="off"
+			>
 				View all →
 			</a>
 		{/if}
