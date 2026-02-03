@@ -3,15 +3,14 @@ import { buildContentMeta, generateBreadcrumbSchema, SEO_CONFIG } from '$lib/seo
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ locals, params, url }) => {
-	const job = locals.contentService.getContentBySlug(params.slug)
+	const job = locals.contentService.getContentBySlug(params.slug, true)
 
-	if (!job || job.type !== 'job') {
+	if (!job || job.type !== 'job' || !['published', 'expired'].includes(job.status)) {
 		throw error(404, { message: 'Job not found' })
 	}
 
 	// Check if job is expired
-	const now = new Date().toISOString()
-	const isExpired = job.metadata?.expires_at && job.metadata.expires_at < now
+	const isExpired = job.status === 'expired'
 
 	// Get application count
 	const applicationCount = locals.jobApplicationService.getApplicationCount(job.id)
