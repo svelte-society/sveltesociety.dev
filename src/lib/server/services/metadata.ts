@@ -3,7 +3,7 @@ import type { Content } from '$lib/types/content'
 import fs from 'node:fs'
 import path from 'node:path'
 import { uploadThumbnail, isS3Enabled } from './s3-storage'
-import { assertSafeExternalUrl, fetchSafeExternalUrl } from '$lib/server/security/url'
+import { assertSafeExternalUrl, fetchSafeExternalUrl } from '../security/url'
 
 const { STATE_DIRECTORY = '.state_directory' } = process.env
 
