@@ -60,10 +60,6 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 			'User-Agent': 'SvelteSociety'
 		}
 
-		if (process.env.GITHUB_TOKEN) {
-			headers['Authorization'] = `token ${process.env.GITHUB_TOKEN}`
-		}
-
 		const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`, { headers })
 
 		if (!response.ok) {

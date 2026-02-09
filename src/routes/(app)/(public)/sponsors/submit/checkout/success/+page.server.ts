@@ -15,6 +15,13 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 		throw error(404, { message: 'Subscription not found' })
 	}
 
+	if (
+		!subscription.stripe_checkout_session_id ||
+		subscription.stripe_checkout_session_id !== sessionId
+	) {
+		throw error(400, { message: 'Checkout session does not match subscription' })
+	}
+
 	// Get the sponsor
 	const sponsor = locals.sponsorService.getSponsorById(subscription.sponsor_id)
 	if (!sponsor) {
@@ -30,6 +37,18 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 	// Verify the checkout session with Stripe
 	try {
 		const session = await locals.stripeService.getCheckoutSession(sessionId)
+
+		if (session.id !== subscription.stripe_checkout_session_id) {
+			throw error(400, { message: 'Checkout session mismatch' })
+		}
+
+		if (session.metadata?.subscription_id !== subscriptionId) {
+			throw error(400, { message: 'Invalid checkout metadata' })
+		}
+
+		if (session.metadata?.sponsor_id !== sponsor.id) {
+			throw error(400, { message: 'Invalid sponsor metadata' })
+		}
 
 		if (session.payment_status !== 'paid' && session.status !== 'complete') {
 			// Payment not complete yet - might be processing
@@ -76,6 +95,9 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 			message: getSuccessMessage(subscription.billing_type)
 		}
 	} catch (err) {
+		if (err && typeof err === 'object' && 'status' in err) {
+			throw err
+		}
 		console.error('Error processing checkout success:', err)
 		throw error(500, { message: 'Failed to process payment. Please contact support.' })
 	}

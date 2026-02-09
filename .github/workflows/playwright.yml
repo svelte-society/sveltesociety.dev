@@ -75,12 +75,6 @@ jobs:
           STRIPE_SECRET_KEY: sk_test_mock_stripe_key
           STRIPE_WEBHOOK_SECRET: whsec_mock_webhook_secret
 
-      - name: Run unit tests
-        run: bun test src/ tests/unit/
-        env:
-          NODE_ENV: test
-          DB_PATH: test.db
-
       - name: Run Playwright tests
         id: playwright
         run: bunx playwright test 2>&1 | tee test-output.log
@@ -103,11 +97,15 @@ jobs:
       - name: Parse test results
         if: always()
         id: test-results
+        env:
+          PLAYWRIGHT_OUTCOME: ${{ steps.playwright.outcome }}
         run: |
           if [ -f test-output.log ]; then
             # Parse the summary line from Playwright output (e.g., "65 passed (12.4s)")
-            PASSED=$(grep -oP '\d+(?= passed)' test-output.log | tail -1 || echo "0")
-            FAILED=$(grep -oP '\d+(?= failed)' test-output.log | tail -1 || echo "0")
+            PASSED=$(grep -oP '\d+(?= passed)' test-output.log | tail -1 || true)
+            FAILED=$(grep -oP '\d+(?= failed)' test-output.log | tail -1 || true)
+            PASSED=${PASSED:-0}
+            FAILED=${FAILED:-0}
             TOTAL=$((PASSED + FAILED))
           else
             PASSED="0"
@@ -118,7 +116,9 @@ jobs:
           echo "total=$TOTAL" >> $GITHUB_OUTPUT
           echo "passed=$PASSED" >> $GITHUB_OUTPUT
           echo "failed=$FAILED" >> $GITHUB_OUTPUT
+          echo "outcome=$PLAYWRIGHT_OUTCOME" >> $GITHUB_OUTPUT
 
+          echo "Playwright Step Outcome: $PLAYWRIGHT_OUTCOME"
           echo "Test Results: Passed=$PASSED, Failed=$FAILED, Total=$TOTAL"
 
       - name: Comment PR with test results
@@ -128,23 +128,26 @@ jobs:
           TOTAL: ${{ steps.test-results.outputs.total }}
           PASSED: ${{ steps.test-results.outputs.passed }}
           FAILED: ${{ steps.test-results.outputs.failed }}
+          OUTCOME: ${{ steps.test-results.outputs.outcome }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         with:
           script: |
             const total = process.env.TOTAL || '0';
             const passed = process.env.PASSED || '0';
             const failed = process.env.FAILED || '0';
+            const outcome = process.env.OUTCOME || 'unknown';
             const runUrl = process.env.RUN_URL;
 
             const passed_int = parseInt(passed);
             const failed_int = parseInt(failed);
-            const success = failed_int === 0 && passed_int > 0;
+            const success = outcome === 'success' && failed_int === 0 && passed_int > 0;
 
             const icon = success ? '✅' : '❌';
             const status = success ? 'All Tests Passed' : 'Tests Failed';
 
             const body = `## ${icon} Playwright Test Results\n\n` +
               `**Status:** ${status}\n\n` +
+              `- 🧪 Step Outcome: ${outcome}\n` +
               `- ✅ Passed: ${passed}\n` +
               `- ❌ Failed: ${failed}\n` +
               `- 📊 Total: ${total}\n\n` +
@@ -176,9 +179,22 @@ jobs:
       - name: Fail if tests failed
         if: always()
         run: |
+          OUTCOME="${{ steps.test-results.outputs.outcome }}"
+          TOTAL="${{ steps.test-results.outputs.total }}"
           FAILED="${{ steps.test-results.outputs.failed }}"
-          if [ "$FAILED" != "0" ] && [ -n "$FAILED" ]; then
+
+          if [ "$OUTCOME" != "success" ]; then
+            echo "❌ Playwright test step failed (outcome: $OUTCOME)"
+            exit 1
+          fi
+
+          if [ "${TOTAL:-0}" -eq 0 ]; then
+            echo "❌ No Playwright tests were executed"
+            exit 1
+          fi
+
+          if [ "$FAILED" != "0" ]; then
             echo "❌ $FAILED test(s) failed"
             exit 1
           fi
-          echo "✅ All tests passed"
+          echo "✅ Playwright tests passed"

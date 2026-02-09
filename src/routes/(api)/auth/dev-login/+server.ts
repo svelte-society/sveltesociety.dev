@@ -42,7 +42,8 @@ export const GET: RequestHandler = async ({ url, cookies, locals }) => {
 		cookies.set('session_id', sessionToken, {
 			path: '/',
 			httpOnly: true,
-			secure: false
+			secure: false,
+			sameSite: 'lax'
 		})
 
 		return new Response(null, {

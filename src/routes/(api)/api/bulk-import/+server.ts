@@ -29,7 +29,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	const authHeader = request.headers.get('Authorization')
 	const apiKey = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : null
 
-	const validApiKey = import.meta.env.VITE_BULK_IMPORT_API_KEY || process.env.BULK_IMPORT_API_KEY
+	const validApiKey = process.env.BULK_IMPORT_API_KEY
 	const isApiKeyValid = validApiKey && apiKey === validApiKey
 
 	if (!isApiKeyValid) {

@@ -1,6 +1,7 @@
 import { marked } from 'marked'
 import markedShiki from 'marked-shiki'
 import { createHighlighter, type Highlighter } from 'shiki'
+import DOMPurify from 'isomorphic-dompurify'
 
 let highlighter: Highlighter | null = null
 
@@ -42,5 +43,6 @@ async function configureMarked(): Promise<void> {
  */
 export async function renderMarkdown(markdown: string): Promise<string> {
 	await configureMarked()
-	return marked(markdown) as string
+	const rendered = await marked.parse(markdown, { async: true })
+	return DOMPurify.sanitize(rendered)
 }

@@ -3,6 +3,7 @@ import type { Content } from '$lib/types/content'
 import fs from 'node:fs'
 import path from 'node:path'
 import { uploadThumbnail, isS3Enabled } from './s3-storage'
+import { assertSafeExternalUrl, fetchSafeExternalUrl } from '../security/url'
 
 const { STATE_DIRECTORY = '.state_directory' } = process.env
 
@@ -262,11 +263,17 @@ export class MetadataService {
 		linkUrl: string
 	): Promise<string | null> {
 		try {
-			const pageResponse = await fetch(linkUrl, {
-				headers: {
-					'User-Agent': 'SvelteSociety-Metadata-Service'
+			const { response: pageResponse, finalUrl: finalPageUrl } = await fetchSafeExternalUrl(
+				linkUrl,
+				{
+					headers: {
+						'User-Agent': 'SvelteSociety-Metadata-Service'
+					},
+					signal: AbortSignal.timeout(10000),
+					maxRedirects: 3
 				}
-			})
+			)
+
 			if (!pageResponse.ok) {
 				console.error(`Failed to fetch page for OG image: ${linkUrl}`)
 				return null
@@ -286,11 +293,17 @@ export class MetadataService {
 			if (ogImageUrl.startsWith('//')) {
 				ogImageUrl = 'https:' + ogImageUrl
 			} else if (ogImageUrl.startsWith('/')) {
-				const urlObj = new URL(linkUrl)
-				ogImageUrl = urlObj.origin + ogImageUrl
+				ogImageUrl = finalPageUrl.origin + ogImageUrl
 			}
 
-			const imageResponse = await fetch(ogImageUrl)
+			const safeImageUrl = await assertSafeExternalUrl(ogImageUrl)
+			const { response: imageResponse } = await fetchSafeExternalUrl(safeImageUrl, {
+				headers: {
+					'User-Agent': 'SvelteSociety-Metadata-Service'
+				},
+				signal: AbortSignal.timeout(10000),
+				maxRedirects: 3
+			})
 			if (!imageResponse.ok || !imageResponse.headers.get('content-type')?.includes('image')) {
 				console.error(`Failed to fetch OG image: ${ogImageUrl}`)
 				return null
