@@ -51,10 +51,25 @@
 		return '/?' + params.toString()
 	}
 
+	function escapeHtml(value: string): string {
+		return value
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;')
+			.replace(/'/g, '&#39;')
+	}
+
 	function highlightMatch(text: string, search: string): string {
-		if (!search) return text
-		const regex = new RegExp(`(${search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi')
-		return text.replace(regex, '<mark class="bg-svelte-100 text-svelte-700 rounded-sm">$1</mark>')
+		const safeText = escapeHtml(text)
+		if (!search) return safeText
+
+		const safeSearch = escapeHtml(search)
+		const regex = new RegExp(`(${safeSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi')
+		return safeText.replace(
+			regex,
+			'<mark class="bg-svelte-100 text-svelte-700 rounded-sm">$1</mark>'
+		)
 	}
 
 	const typeLabels: Record<string, string> = {

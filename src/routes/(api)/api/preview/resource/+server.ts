@@ -1,5 +1,9 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
+import { assertSafeExternalUrl, fetchSafeExternalUrl } from '$lib/server/security/url'
+
+const MAX_HTML_BYTES = 1024 * 1024 // 1MB
+const MAX_REDIRECTS = 3
 
 export const GET: RequestHandler = async ({ url, locals }) => {
 	// Require authentication
@@ -13,20 +17,22 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 		return json({ error: 'URL parameter is required' }, { status: 400 })
 	}
 
-	// Validate URL format
+	// Validate URL format and block local/private targets
+	let validatedUrl: URL
 	try {
-		new URL(resourceUrl)
-	} catch {
-		return json({ error: 'Invalid URL format' }, { status: 400 })
+		validatedUrl = await assertSafeExternalUrl(resourceUrl)
+	} catch (error) {
+		return json({ error: 'Invalid or blocked URL' }, { status: 400 })
 	}
 
 	try {
-		const response = await fetch(resourceUrl, {
+		const { response, finalUrl } = await fetchSafeExternalUrl(validatedUrl, {
 			headers: {
 				'User-Agent': 'SvelteSociety-Bot/1.0',
 				Accept: 'text/html'
 			},
-			signal: AbortSignal.timeout(10000) // 10 second timeout
+			signal: AbortSignal.timeout(10000), // 10 second timeout
+			maxRedirects: MAX_REDIRECTS
 		})
 
 		if (!response.ok) {
@@ -42,7 +48,7 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 			})
 		}
 
-		const html = await response.text()
+		const html = await readTextWithLimit(response, MAX_HTML_BYTES)
 
 		// Parse og:image, og:title, og:description from HTML
 		const ogImage = extractMetaContent(html, 'og:image')
@@ -51,10 +57,16 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 			extractMetaContent(html, 'og:description') || extractMetaContent(html, 'description')
 
 		// Resolve relative og:image URLs to absolute
-		let absoluteImage = ogImage
-		if (ogImage && !ogImage.startsWith('http')) {
-			const baseUrl = new URL(resourceUrl)
-			absoluteImage = new URL(ogImage, baseUrl).toString()
+		let absoluteImage: string | null = null
+		if (ogImage) {
+			try {
+				const candidateImageUrl = ogImage.startsWith('http')
+					? ogImage
+					: new URL(ogImage, finalUrl).toString()
+				absoluteImage = (await assertSafeExternalUrl(candidateImageUrl)).toString()
+			} catch {
+				absoluteImage = null
+			}
 		}
 
 		return json({
@@ -72,6 +84,44 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 		}
 		return json({ error: 'Failed to fetch resource preview' }, { status: 500 })
 	}
+}
+
+async function readTextWithLimit(response: Response, maxBytes: number): Promise<string> {
+	const contentLength = Number(response.headers.get('content-length') || '0')
+	if (contentLength > maxBytes) {
+		throw new Error('Response too large')
+	}
+
+	if (!response.body) {
+		return ''
+	}
+
+	const reader = response.body.getReader()
+	const chunks: Uint8Array[] = []
+	let totalBytes = 0
+
+	while (true) {
+		const { done, value } = await reader.read()
+		if (done) break
+		if (!value) continue
+
+		totalBytes += value.byteLength
+		if (totalBytes > maxBytes) {
+			await reader.cancel()
+			throw new Error('Response too large')
+		}
+
+		chunks.push(value)
+	}
+
+	const merged = new Uint8Array(totalBytes)
+	let offset = 0
+	for (const chunk of chunks) {
+		merged.set(chunk, offset)
+		offset += chunk.byteLength
+	}
+
+	return new TextDecoder().decode(merged)
 }
 
 /**

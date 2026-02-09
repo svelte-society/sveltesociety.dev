@@ -1,9 +1,20 @@
 import type { RequestHandler } from './$types'
 import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private'
-import { redirect } from '@sveltejs/kit'
 import { dev } from '$app/environment'
+import { GITHUB_OAUTH_STATE_COOKIE } from '$lib/server/auth'
 
 export const GET: RequestHandler = async ({ url, cookies, locals }) => {
+	const state = url.searchParams.get('state')
+	const oauthState = cookies.get(GITHUB_OAUTH_STATE_COOKIE)
+
+	if (!state || !oauthState || state !== oauthState) {
+		cookies.delete(GITHUB_OAUTH_STATE_COOKIE, { path: '/' })
+		return new Response('Invalid OAuth state', { status: 400 })
+	}
+
+	// One-time state token
+	cookies.delete(GITHUB_OAUTH_STATE_COOKIE, { path: '/' })
+
 	const code = url.searchParams.get('code')
 	if (!code) {
 		return new Response('No code provided', { status: 400 })
@@ -75,6 +86,7 @@ export const GET: RequestHandler = async ({ url, cookies, locals }) => {
 			path: '/',
 			httpOnly: true,
 			secure: !dev,
+			sameSite: 'lax',
 			maxAge: 7 * 24 * 60 * 60 // 7 days in seconds
 		})
 

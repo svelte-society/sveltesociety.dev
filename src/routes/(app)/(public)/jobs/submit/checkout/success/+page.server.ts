@@ -16,6 +16,10 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 		throw error(404, { message: 'Payment not found' })
 	}
 
+	if (!payment.stripe_checkout_session_id || payment.stripe_checkout_session_id !== sessionId) {
+		throw error(400, { message: 'Checkout session does not match payment' })
+	}
+
 	// If job is already created, redirect to it
 	if (payment.content_id) {
 		const job = locals.contentService.getContentById(payment.content_id)
@@ -27,6 +31,18 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 	// Verify the checkout session with Stripe
 	try {
 		const session = await locals.stripeService.getCheckoutSession(sessionId)
+
+		if (session.id !== payment.stripe_checkout_session_id) {
+			throw error(400, { message: 'Checkout session mismatch' })
+		}
+
+		if (session.metadata?.payment_id !== paymentId) {
+			throw error(400, { message: 'Invalid checkout metadata' })
+		}
+
+		if (session.mode !== 'payment') {
+			throw error(400, { message: 'Invalid checkout mode for job payment' })
+		}
 
 		if (session.payment_status !== 'paid') {
 			// Payment not complete yet - might be processing
@@ -136,6 +152,9 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 			expiresAt: expiresAt.toISOString()
 		}
 	} catch (err) {
+		if (err && typeof err === 'object' && 'status' in err) {
+			throw err
+		}
 		console.error('Error processing checkout success:', err)
 		throw error(500, { message: 'Failed to process payment. Please contact support.' })
 	}
