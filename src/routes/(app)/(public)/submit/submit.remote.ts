@@ -5,6 +5,7 @@ import { resourceSchema, videoSchema, librarySchema, recipeSchema } from './sche
 import { extractYouTubeVideoId, parseGitHubRepo } from './helpers'
 import { uploadThumbnail, isS3Enabled } from '$lib/server/services/s3-storage'
 import { generateSlug } from '$lib/utils/slug'
+import { assertSafeExternalUrl, fetchSafeExternalUrl } from '$lib/server/security/url'
 
 // Re-export shared getTags for form selects (value = tag ID)
 export { getTagsAsIdOptions as getTags } from '$lib/remote/tags.remote'
@@ -24,9 +25,11 @@ export const submitResource = form(resourceSchema, async (data) => {
 	try {
 		const ogImageUrl = await fetchOgImage(data.link)
 		if (ogImageUrl) {
-			const imageResponse = await fetch(ogImageUrl, {
+			const safeOgImageUrl = await assertSafeExternalUrl(ogImageUrl)
+			const { response: imageResponse } = await fetchSafeExternalUrl(safeOgImageUrl, {
 				headers: { 'User-Agent': 'SvelteSociety-Bot/1.0' },
-				signal: AbortSignal.timeout(10000)
+				signal: AbortSignal.timeout(10000),
+				maxRedirects: 3
 			})
 
 			if (imageResponse.ok) {
@@ -80,12 +83,13 @@ export const submitResource = form(resourceSchema, async (data) => {
  */
 async function fetchOgImage(url: string): Promise<string | null> {
 	try {
-		const response = await fetch(url, {
+		const { response, finalUrl } = await fetchSafeExternalUrl(url, {
 			headers: {
 				'User-Agent': 'SvelteSociety-Bot/1.0',
 				Accept: 'text/html'
 			},
-			signal: AbortSignal.timeout(10000)
+			signal: AbortSignal.timeout(10000),
+			maxRedirects: 3
 		})
 
 		if (!response.ok) return null
@@ -108,11 +112,10 @@ async function fetchOgImage(url: string): Promise<string | null> {
 
 		// Resolve relative URLs to absolute
 		if (!ogImage.startsWith('http')) {
-			const baseUrl = new URL(url)
-			ogImage = new URL(ogImage, baseUrl).toString()
+			ogImage = new URL(ogImage, finalUrl).toString()
 		}
 
-		return ogImage
+		return (await assertSafeExternalUrl(ogImage)).toString()
 	} catch (error) {
 		console.error('Error fetching og:image:', error)
 		return null

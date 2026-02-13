@@ -4,7 +4,17 @@ import {
 	GITHUB_CLIENT_SECRET
 } from '$env/static/private'
 
-export const GITHUB_AUTH_URL = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${GITHUB_AUTHORIZATION_CALLBACK_URL}`
+export const GITHUB_OAUTH_STATE_COOKIE = 'github_oauth_state'
+
+export const getGitHubAuthUrl = (state: string) => {
+	const params = new URLSearchParams({
+		client_id: GITHUB_CLIENT_ID,
+		redirect_uri: GITHUB_AUTHORIZATION_CALLBACK_URL,
+		state
+	})
+
+	return `https://github.com/login/oauth/authorize?${params.toString()}`
+}
 
 export const exchangeGitHubCodeForToken = async (code: string) => {
 	const response = await fetch('https://github.com/login/oauth/access_token', {

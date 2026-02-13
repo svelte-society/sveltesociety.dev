@@ -4,8 +4,29 @@
  */
 
 import fs from 'fs'
-import { globSync } from 'glob'
+import path from 'path'
 import { getTestFileIdentifier } from '../helpers/database-isolation'
+
+function findSpecFiles(dir: string): string[] {
+	if (!fs.existsSync(dir)) return []
+
+	const entries = fs.readdirSync(dir, { withFileTypes: true })
+	const files: string[] = []
+
+	for (const entry of entries) {
+		const fullPath = path.join(dir, entry.name)
+		if (entry.isDirectory()) {
+			files.push(...findSpecFiles(fullPath))
+			continue
+		}
+
+		if (entry.isFile() && entry.name.endsWith('.spec.ts')) {
+			files.push(fullPath.replace(/\\/g, '/'))
+		}
+	}
+
+	return files
+}
 
 export default async function globalSetup() {
 	console.log('🚀 Global test setup starting...\n')
@@ -20,7 +41,7 @@ export default async function globalSetup() {
 	}
 
 	// Discover all test spec files
-	const testFiles = globSync('tests/e2e/**/*.spec.ts', { cwd: process.cwd() })
+	const testFiles = findSpecFiles(path.join('tests', 'e2e'))
 
 	if (testFiles.length === 0) {
 		console.warn('⚠️  Warning: No test files found in tests/e2e/\n')

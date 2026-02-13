@@ -1,9 +1,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { Readable } from 'node:stream'
-import { uploadThumbnail, getPublicUrl, isS3Enabled } from '$lib/server/services/s3-storage'
+import { uploadThumbnail, isS3Enabled } from '$lib/server/services/s3-storage'
 
 const { STATE_DIRECTORY = '.state_directory' } = process.env
+const FILES_ROOT = path.resolve(STATE_DIRECTORY, 'files')
 
 if (!fs.existsSync(STATE_DIRECTORY)) {
 	fs.mkdirSync(STATE_DIRECTORY, { recursive: true })
@@ -12,8 +13,12 @@ if (!fs.existsSync(STATE_DIRECTORY)) {
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ params, request }) {
 	const p = decodeURIComponent(params.path)
+	const normalizedPath = p.replace(/\\/g, '/')
+	const file_path = path.resolve(FILES_ROOT, normalizedPath)
 
-	const file_path = path.normalize(path.join(STATE_DIRECTORY, 'files', p))
+	if (file_path !== FILES_ROOT && !file_path.startsWith(`${FILES_ROOT}${path.sep}`)) {
+		return new Response('not found', { status: 404 })
+	}
 
 	const exists = fs.existsSync(file_path)
 
@@ -23,7 +28,7 @@ export async function GET({ params, request }) {
 		stats = fs.statSync(file_path)
 	}
 
-	const [source, ...rest] = p.split('/')
+	const [source, ...rest] = normalizedPath.split('/')
 
 	switch (source) {
 		case 'gh': {
@@ -62,7 +67,6 @@ export async function GET({ params, request }) {
 				// Also upload to S3 if enabled
 				if (isS3Enabled) {
 					try {
-						const extension = response.headers.get('content-type')?.split('/').at(-1) || 'png'
 						const s3Key = `gh/${rest.join('/')}`
 						await uploadThumbnail(s3Key, thumbnailBuffer, {
 							contentType: response.headers.get('content-type') || 'image/png'
