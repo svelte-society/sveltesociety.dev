@@ -25,6 +25,14 @@ import {
 } from '$lib/server/services/sponsors'
 import { EmailService } from '$lib/server/services/email'
 import { NewsletterService } from '$lib/server/services/newsletter'
+import {
+	SocialPostService,
+	SocialTemplateService,
+	SocialCredentialService,
+	SocialQueueService,
+	SocialAutoRuleService,
+	SocialEventHandler
+} from '$lib/server/services/social'
 import fs from 'node:fs'
 
 // Singleton instances for API-based services (no database dependency)
@@ -58,6 +66,12 @@ const dbCache = new Map<
 		sponsorTierService: SponsorTierService
 		sponsorService: SponsorService
 		sponsorSubscriptionService: SponsorSubscriptionService
+		socialPostService: SocialPostService
+		socialTemplateService: SocialTemplateService
+		socialCredentialService: SocialCredentialService
+		socialQueueService: SocialQueueService
+		socialAutoRuleService: SocialAutoRuleService
+		socialEventHandler: SocialEventHandler
 	}
 >()
 
@@ -99,6 +113,17 @@ const initialize_db = (dbPath: string) => {
 	const sponsorTierService = new SponsorTierService(db)
 	const sponsorService = new SponsorService(db)
 	const sponsorSubscriptionService = new SponsorSubscriptionService(db)
+	const socialPostService = new SocialPostService(db)
+	const socialTemplateService = new SocialTemplateService(db)
+	const socialCredentialService = new SocialCredentialService(db)
+	const socialQueueService = new SocialQueueService(db)
+	const socialAutoRuleService = new SocialAutoRuleService(db)
+	const socialEventHandler = new SocialEventHandler(
+		db,
+		socialAutoRuleService,
+		socialPostService,
+		socialTemplateService
+	)
 
 	const services = {
 		db,
@@ -123,7 +148,13 @@ const initialize_db = (dbPath: string) => {
 		newsletterService,
 		sponsorTierService,
 		sponsorService,
-		sponsorSubscriptionService
+		sponsorSubscriptionService,
+		socialPostService,
+		socialTemplateService,
+		socialCredentialService,
+		socialQueueService,
+		socialAutoRuleService,
+		socialEventHandler
 	}
 
 	dbCache.set(dbPath, services)
@@ -182,6 +213,12 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.sponsorTierService = services.sponsorTierService
 	event.locals.sponsorService = services.sponsorService
 	event.locals.sponsorSubscriptionService = services.sponsorSubscriptionService
+	event.locals.socialPostService = services.socialPostService
+	event.locals.socialTemplateService = services.socialTemplateService
+	event.locals.socialCredentialService = services.socialCredentialService
+	event.locals.socialQueueService = services.socialQueueService
+	event.locals.socialAutoRuleService = services.socialAutoRuleService
+	event.locals.socialEventHandler = services.socialEventHandler
 	event.locals.stripeService = stripeService
 	event.locals.emailService = emailService
 
