@@ -152,18 +152,18 @@
 
 <!-- Send confirmation dialog -->
 {#snippet confirmSend()}
-	<form>
-		<Button
-			{...sendCampaign.for(campaignId).buttonProps.enhance(async ({ submit }) => {
-				try {
-					await submit()
-					toast.success('Successfully sent campaign.')
-					sendDialogOpen = false
-				} catch {
-					toast.error('Something went wrong when trying to send the campaign.')
-				}
-			})}>Confirm</Button
-		>
+	<form
+		{...sendCampaign.for(campaignId).enhance(async ({ submit }) => {
+			try {
+				await submit()
+				toast.success('Successfully sent campaign.')
+				sendDialogOpen = false
+			} catch {
+				toast.error('Something went wrong when trying to send the campaign.')
+			}
+		})}
+	>
+		<Button type="submit">Confirm</Button>
 	</form>
 {/snippet}
 
@@ -286,12 +286,8 @@
 				</Button>
 			{/if}
 
-			<form>
-				<Button
-					variant="secondary"
-					disabled={!!copyCampaign.pending}
-					{...copyCampaign.for(campaignId).buttonProps}
-				>
+			<form {...copyCampaign.for(campaignId)}>
+				<Button type="submit" variant="secondary" disabled={!!copyCampaign.pending}>
 					<Copy class="size-4" />
 					{!!copyCampaign.pending ? 'Copying...' : 'Copy Campaign'}
 				</Button>
@@ -317,12 +313,8 @@
 					<Eye class="size-4" />
 					Preview
 				</Button>
-				<form>
-					<Button
-						variant="secondary"
-						{...copyCampaign.for(campaignId).buttonProps}
-						disabled={!!copyCampaign.pending}
-					>
+				<form {...copyCampaign.for(campaignId)}>
+					<Button type="submit" variant="secondary" disabled={!!copyCampaign.pending}>
 						<Copy class="size-4" />
 						{!!copyCampaign.pending ? 'Copying...' : 'Copy Campaign'}
 					</Button>

@@ -47,6 +47,7 @@
 			</li>
 		</ul>
 
+		<form {...userDecline} id="newsletter-decline-form" hidden></form>
 		<form {...subscribePageNewsletter} class="space-y-3">
 			<Input
 				{...subscribePageNewsletter.fields.email.as('email')}
@@ -63,9 +64,10 @@
 				</Button>
 				<Button
 					variant="ghost"
+					type="submit"
+					form="newsletter-decline-form"
 					disabled={!!userDecline.pending}
 					data-testid="newsletter-decline-btn"
-					{...userDecline.buttonProps}
 				>
 					No thanks
 				</Button>
