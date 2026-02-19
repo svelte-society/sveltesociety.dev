@@ -20,7 +20,7 @@
 		error = ''
 
 		try {
-			const result = await createMerchCheckout.submit({
+			const result = await createMerchCheckout({
 				items: cart.items.map((item) => ({
 					productId: item.productId,
 					variantId: item.variantId,
@@ -29,10 +29,10 @@
 				}))
 			})
 
-			if (result.data?.success && result.data.url) {
-				window.location.href = result.data.url
+			if (result?.success && result.url) {
+				window.location.href = result.url
 			} else {
-				error = result.data?.text || 'Checkout failed'
+				error = result?.text || 'Checkout failed'
 			}
 		} catch (e) {
 			error = 'An error occurred during checkout'

@@ -7,7 +7,7 @@
 		setFulfillmentTracking
 	} from '../data.remote'
 
-	let fulfillment = $derived(await getMerchFulfillment({ id: page.params.id }))
+	let fulfillment = $derived(await getMerchFulfillment({ id: page.params.id! }))
 
 	let trackingNumber = $state('')
 	let newStatus = $state('')
@@ -94,9 +94,8 @@
 				<h1 class="text-2xl font-bold text-gray-900">Fulfillment Detail</h1>
 				<p class="mt-1 text-sm text-gray-500">{formatDate(fulfillment.created_at)}</p>
 			</div>
-			{@const badge = statusBadge(fulfillment.fulfillment_status)}
-			<span class="rounded-full px-3 py-1 text-sm font-medium {badge.class}">
-				{badge.label}
+			<span class="rounded-full px-3 py-1 text-sm font-medium {statusBadge(fulfillment.fulfillment_status).class}">
+				{statusBadge(fulfillment.fulfillment_status).label}
 			</span>
 		</div>
 
@@ -132,7 +131,7 @@
 								<span>
 									{formatPrice(
 										fulfillment.sessionDetails.amount,
-										fulfillment.sessionDetails.currency
+										fulfillment.sessionDetails.currency ?? undefined
 									)}
 								</span>
 							</div>

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation'
 	import { createMerchProduct } from '../data.remote'
-	import { initForm } from '$lib/utils/form.svelte'
 
 	let title = $state('')
 	let slug = $state('')
@@ -51,7 +50,7 @@
 				}
 			}
 
-			const result = await createMerchProduct.submit({
+			const result = await createMerchProduct({
 				title,
 				slug,
 				description: description || undefined,
@@ -61,10 +60,10 @@
 				variant_options
 			})
 
-			if (result.data?.success && result.data.productId) {
-				goto(`/admin/merch/${result.data.productId}`)
+			if (result?.success && result.productId) {
+				goto(`/admin/merch/${result.productId}`)
 			} else {
-				error = result.data?.text || 'Failed to create product'
+				error = result?.text || 'Failed to create product'
 			}
 		} catch (e) {
 			error = 'An error occurred'

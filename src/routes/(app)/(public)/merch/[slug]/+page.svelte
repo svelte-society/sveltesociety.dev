@@ -4,7 +4,7 @@
 	import { getProduct } from './data.remote'
 	import { cart } from '$lib/stores/cart.svelte'
 
-	let product = $derived(await getProduct({ slug: page.params.slug }))
+	let product = $derived(await getProduct({ slug: page.params.slug! }))
 
 	let selectedOptions = $state<Record<string, string>>({})
 	let quantity = $state(1)
@@ -233,8 +233,8 @@
 				<!-- Stock Info -->
 				{#if selectedVariant()}
 					<p class="text-sm text-gray-500">
-						{#if selectedVariant()?.stock_quantity > 0}
-							{selectedVariant()?.stock_quantity} in stock
+						{#if selectedVariant()!.stock_quantity > 0}
+							{selectedVariant()!.stock_quantity} in stock
 						{:else}
 							Out of stock
 						{/if}

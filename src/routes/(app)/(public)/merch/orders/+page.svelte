@@ -74,9 +74,8 @@
 					</div>
 
 					<div class="flex items-center gap-4">
-						{@const badge = statusBadge(order.fulfillmentStatus)}
-						<span class="rounded-full px-2.5 py-0.5 text-xs font-medium {badge.class}">
-							{badge.label}
+						<span class="rounded-full px-2.5 py-0.5 text-xs font-medium {statusBadge(order.fulfillmentStatus).class}">
+							{statusBadge(order.fulfillmentStatus).label}
 						</span>
 						<span class="font-semibold text-gray-900">
 							{formatPrice(order.amount, order.currency)}

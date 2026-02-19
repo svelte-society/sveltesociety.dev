@@ -2,7 +2,7 @@
 	import { page } from '$app/state'
 	import { getMyOrder } from '../data.remote'
 
-	let order = $derived(await getMyOrder({ sessionId: page.params.session_id }))
+	let order = $derived(await getMyOrder({ sessionId: page.params.session_id! }))
 
 	function formatPrice(cents: number | null, currency: string | null): string {
 		if (cents == null) return '$0.00'
@@ -64,9 +64,8 @@
 				<h1 class="text-2xl font-bold text-gray-900">Order Detail</h1>
 				<p class="mt-1 text-sm text-gray-500">{formatDate(order.created)}</p>
 			</div>
-			{@const badge = statusBadge(order.fulfillmentStatus)}
-			<span class="rounded-full px-3 py-1 text-sm font-medium {badge.class}">
-				{badge.label}
+			<span class="rounded-full px-3 py-1 text-sm font-medium {statusBadge(order.fulfillmentStatus).class}">
+				{statusBadge(order.fulfillmentStatus).label}
 			</span>
 		</div>
 

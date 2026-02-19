@@ -1,4 +1,4 @@
-import { STYRIA_APP_ID, STYRIA_SECRET_KEY } from '$env/static/private'
+import { env } from '$env/dynamic/private'
 
 export interface StyriashirtsOrderItem {
 	product_code: string
@@ -31,8 +31,8 @@ export class StyriashirtsService {
 	private baseUrl = 'https://styriashirts.eu/api'
 
 	constructor(appId?: string, secretKey?: string) {
-		this.appId = appId || STYRIA_APP_ID
-		this.secretKey = secretKey || STYRIA_SECRET_KEY
+		this.appId = appId || env.STYRIA_APP_ID || ''
+		this.secretKey = secretKey || env.STYRIA_SECRET_KEY || ''
 	}
 
 	async createOrder(order: StyriashirtsOrder): Promise<StyriashirtsOrderResponse> {

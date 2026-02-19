@@ -63,6 +63,7 @@ export const getMyOrder = query(orderDetailSchema, async ({ sessionId }) => {
 
 		const fulfillment = locals.merchFulfillmentService.getByStripeSessionId(session.id)
 
+		const shippingDetails = (session as any).shipping_details
 		return {
 			sessionId: session.id,
 			amount: session.amount_total,
@@ -75,15 +76,15 @@ export const getMyOrder = query(orderDetailSchema, async ({ sessionId }) => {
 				amountTotal: item.amount_total,
 				currency: item.currency
 			})) || [],
-			shippingAddress: session.shipping_details?.address
+			shippingAddress: shippingDetails?.address
 				? {
-						name: session.shipping_details.name || '',
-						line1: session.shipping_details.address.line1 || '',
-						line2: session.shipping_details.address.line2 || '',
-						city: session.shipping_details.address.city || '',
-						state: session.shipping_details.address.state || '',
-						postalCode: session.shipping_details.address.postal_code || '',
-						country: session.shipping_details.address.country || ''
+						name: shippingDetails.name || '',
+						line1: shippingDetails.address.line1 || '',
+						line2: shippingDetails.address.line2 || '',
+						city: shippingDetails.address.city || '',
+						state: shippingDetails.address.state || '',
+						postalCode: shippingDetails.address.postal_code || '',
+						country: shippingDetails.address.country || ''
 					}
 				: null,
 			fulfillmentStatus: fulfillment?.fulfillment_status || 'processing',

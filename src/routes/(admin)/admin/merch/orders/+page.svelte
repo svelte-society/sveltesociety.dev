@@ -122,9 +122,8 @@
 							{fulfillment.styria_order_id || '-'}
 						</td>
 						<td class="px-4 py-3">
-							{@const badge = statusBadge(fulfillment.fulfillment_status)}
-							<span class="rounded-full px-2.5 py-0.5 text-xs font-medium {badge.class}">
-								{badge.label}
+							<span class="rounded-full px-2.5 py-0.5 text-xs font-medium {statusBadge(fulfillment.fulfillment_status).class}">
+								{statusBadge(fulfillment.fulfillment_status).label}
 							</span>
 						</td>
 						<td class="px-4 py-3">

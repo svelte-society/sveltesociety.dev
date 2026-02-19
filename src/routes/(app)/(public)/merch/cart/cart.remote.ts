@@ -1,4 +1,4 @@
-import { form, getRequestEvent } from '$app/server'
+import { command, getRequestEvent } from '$app/server'
 import { z } from 'zod/v4'
 
 const cartItemSchema = z.object({
@@ -12,7 +12,7 @@ const checkoutSchema = z.object({
 	items: z.array(cartItemSchema).min(1)
 })
 
-export const createMerchCheckout = form(checkoutSchema, async (data) => {
+export const createMerchCheckout = command(checkoutSchema, async (data) => {
 	const { locals, url } = getRequestEvent()
 
 	if (!locals.user) {

@@ -518,7 +518,7 @@ async function handleMerchCheckoutCompleted(
 					quantity: number
 				}>
 
-				const shippingDetails = session.shipping_details || session.customer_details
+				const shippingDetails = (session as any).shipping_details || (session as any).customer_details
 				if (shippingDetails?.address) {
 					const address = shippingDetails.address
 					const styriaOrder = await locals.styriashirtsService.createOrder({

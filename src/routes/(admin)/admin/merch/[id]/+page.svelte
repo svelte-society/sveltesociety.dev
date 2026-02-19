@@ -9,7 +9,7 @@
 		deleteVariant
 	} from '../data.remote'
 
-	let product = $derived(await getMerchProduct({ id: page.params.id }))
+	let product = $derived(await getMerchProduct({ id: page.params.id! }))
 
 	// Edit product state
 	let editTitle = $state('')
@@ -66,7 +66,7 @@
 				.map((s) => s.trim())
 				.filter(Boolean)
 
-			const result = await updateMerchProduct.submit({
+			const result = await updateMerchProduct({
 				id: product.id,
 				title: editTitle,
 				description: editDescription,
@@ -74,7 +74,7 @@
 				images
 			})
 
-			productMessage = result.data?.text || ''
+			productMessage = result?.text || 'Product updated'
 		} catch {
 			productMessage = 'Error saving product'
 		} finally {
@@ -99,7 +99,7 @@
 				}
 			}
 
-			const result = await createVariant.submit({
+			const result = await createVariant({
 				product_id: product.id,
 				label: newLabel,
 				option_values: optionValues,
@@ -109,7 +109,7 @@
 				styria_product_code: newStyriaCode || undefined
 			})
 
-			if (result.data?.success) {
+			if (result?.success) {
 				newLabel = ''
 				newOptionValues = ''
 				newPriceDollars = ''
@@ -117,7 +117,7 @@
 				newSku = ''
 				newStyriaCode = ''
 			}
-			variantMessage = result.data?.text || ''
+			variantMessage = result?.text || ''
 		} catch {
 			variantMessage = 'Error creating variant'
 		} finally {
@@ -136,11 +136,11 @@
 	async function handleSaveVariant(variantId: string) {
 		if (!product) return
 
-		await updateVariant.submit({
+		await updateVariant({
 			id: variantId,
 			product_id: product.id,
 			stock_quantity: parseInt(editVariantStock) || 0,
-			price_cents: editVariantPrice ? Math.round(parseFloat(editVariantPrice) * 100) : null,
+			price_cents: editVariantPrice ? Math.round(parseFloat(editVariantPrice) * 100) : undefined,
 			sku: editVariantSku || undefined,
 			styria_product_code: editVariantStyriaCode || undefined
 		})
@@ -341,7 +341,7 @@
 					</div>
 					<div>
 						<label class="mb-1 block text-xs text-gray-500">Option Values (JSON)</label>
-						<input type="text" bind:value={newOptionValues} placeholder='{"Size":"M","Color":"Black"}' class="w-full rounded border border-gray-300 px-2 py-1.5 font-mono text-sm" data-testid="variant-options" />
+						<input type="text" bind:value={newOptionValues} placeholder={'{"Size":"M","Color":"Black"}'} class="w-full rounded border border-gray-300 px-2 py-1.5 font-mono text-sm" data-testid="variant-options" />
 					</div>
 					<div>
 						<label class="mb-1 block text-xs text-gray-500">Price Override (USD)</label>

@@ -1,4 +1,4 @@
-import { form, query, command, getRequestEvent } from '$app/server'
+import { query, command, getRequestEvent } from '$app/server'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../authorization.remote'
 
@@ -51,7 +51,7 @@ const createProductSchema = z.object({
 		.optional()
 })
 
-export const createMerchProduct = form(createProductSchema, async (data) => {
+export const createMerchProduct = command(createProductSchema, async (data) => {
 	checkAdminAuth()
 	const { locals } = getRequestEvent()
 
@@ -95,7 +95,7 @@ const updateProductSchema = z.object({
 	active: z.boolean().optional()
 })
 
-export const updateMerchProduct = form(updateProductSchema, async (data) => {
+export const updateMerchProduct = command(updateProductSchema, async (data) => {
 	checkAdminAuth()
 	const { locals } = getRequestEvent()
 
@@ -120,18 +120,19 @@ export const updateMerchProduct = form(updateProductSchema, async (data) => {
 const createVariantSchema = z.object({
 	product_id: z.string(),
 	label: z.string().min(1, 'Label is required'),
-	option_values: z.record(z.string()),
+	option_values: z.record(z.string(), z.string()).optional(),
 	price_cents: z.number().int().optional(),
 	stock_quantity: z.number().int().min(0).optional(),
 	sku: z.string().optional(),
 	styria_product_code: z.string().optional()
 })
 
-export const createVariant = form(createVariantSchema, async (data) => {
+export const createVariant = command(createVariantSchema, async (data) => {
 	checkAdminAuth()
 	const { locals } = getRequestEvent()
 
 	try {
+		const optionValues = data.option_values || ({} as Record<string, string>)
 		const product = locals.merchProductService.getProductById(data.product_id)
 		if (!product) {
 			return { success: false, text: 'Product not found' }
@@ -151,6 +152,7 @@ export const createVariant = form(createVariantSchema, async (data) => {
 
 		const variant = locals.merchProductService.createVariant(data.product_id, {
 			...data,
+			option_values: optionValues,
 			stripe_price_id: stripePriceId
 		})
 
@@ -167,19 +169,20 @@ const updateVariantSchema = z.object({
 	id: z.string(),
 	product_id: z.string(),
 	label: z.string().optional(),
-	option_values: z.record(z.string()).optional(),
-	price_cents: z.number().int().nullable().optional(),
+	option_values: z.record(z.string(), z.string()).optional(),
+	price_cents: z.number().int().optional(),
 	stock_quantity: z.number().int().min(0).optional(),
 	sku: z.string().optional(),
 	styria_product_code: z.string().optional(),
 	active: z.boolean().optional()
 })
 
-export const updateVariant = form(updateVariantSchema, async (data) => {
+export const updateVariant = command(updateVariantSchema, async (data) => {
 	checkAdminAuth()
 	const { locals } = getRequestEvent()
 
 	try {
+		const optionValues = data.option_values || undefined
 		const { id, product_id, ...updates } = data
 
 		// If price changed, create new Stripe price
@@ -196,7 +199,10 @@ export const updateVariant = form(updateVariantSchema, async (data) => {
 			}
 		}
 
-		const variant = locals.merchProductService.updateVariant(id, updates)
+		const variant = locals.merchProductService.updateVariant(id, {
+			...updates,
+			option_values: optionValues
+		})
 		if (!variant) {
 			return { success: false, text: 'Variant not found' }
 		}
