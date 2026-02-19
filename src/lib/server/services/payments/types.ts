@@ -24,7 +24,7 @@ export interface PaymentTier {
 /**
  * Product types that can be purchased through Stripe
  */
-export type ProductType = 'job' | 'sponsor'
+export type ProductType = 'job' | 'sponsor' | 'merch'
 
 /**
  * Billing mode for checkout sessions

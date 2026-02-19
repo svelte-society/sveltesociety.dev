@@ -23,6 +23,7 @@ export interface User {
 	role: number
 	newsletter_preference: 'declined' | 'subscribed' | null
 	plunk_contact_id: string | null
+	stripe_customer_id: string | null
 	created_at: string
 }
 
@@ -63,6 +64,8 @@ export class UserService {
 	private createOAuthStatement
 	private deleteUserStatement
 	private updateNewsletterPreferenceStatement
+	private setStripeCustomerIdStatement
+	private getStripeCustomerIdStatement
 
 	constructor(private db: Database) {
 		this.getUserStatement = this.db.prepare(`
@@ -171,6 +174,15 @@ export class UserService {
 		this.updateNewsletterPreferenceStatement = this.db.prepare(`
 			UPDATE users SET newsletter_preference = $preference, plunk_contact_id = $plunk_contact_id
 			WHERE id = $id
+		`)
+
+		this.setStripeCustomerIdStatement = this.db.prepare(`
+			UPDATE users SET stripe_customer_id = $stripeCustomerId
+			WHERE id = $id
+		`)
+
+		this.getStripeCustomerIdStatement = this.db.prepare(`
+			SELECT stripe_customer_id FROM users WHERE id = $id
 		`)
 	}
 
@@ -360,6 +372,31 @@ export class UserService {
 		} catch (error) {
 			console.error('Error deleting user:', error)
 			return false
+		}
+	}
+
+	setStripeCustomerId(userId: string, stripeCustomerId: string): boolean {
+		try {
+			const result = this.setStripeCustomerIdStatement.run({
+				id: userId,
+				stripeCustomerId
+			})
+			return result.changes > 0
+		} catch (error) {
+			console.error('Error setting stripe customer ID:', error)
+			return false
+		}
+	}
+
+	getStripeCustomerId(userId: string): string | null {
+		try {
+			const result = this.getStripeCustomerIdStatement.get({ id: userId }) as
+				| { stripe_customer_id: string | null }
+				| undefined
+			return result?.stripe_customer_id || null
+		} catch (error) {
+			console.error('Error getting stripe customer ID:', error)
+			return null
 		}
 	}
 

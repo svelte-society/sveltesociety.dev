@@ -28,6 +28,12 @@ import type {
 } from '$lib/server/services/sponsors'
 import type { EmailService } from '$lib/server/services/email'
 import type { NewsletterService } from '$lib/server/services/newsletter'
+import type {
+	MerchSearchService,
+	MerchProductService,
+	MerchFulfillmentService,
+	StyriashirtsService
+} from '$lib/server/services/merch'
 
 declare global {
 	namespace App {
@@ -59,6 +65,10 @@ declare global {
 			sponsorSubscriptionService: SponsorSubscriptionService
 			emailService: EmailService
 			newsletterService: NewsletterService
+			merchSearchService: MerchSearchService
+			merchProductService: MerchProductService
+			merchFulfillmentService: MerchFulfillmentService
+			styriashirtsService: StyriashirtsService
 		}
 		// interface PageData {}
 		interface PageState {
