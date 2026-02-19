@@ -109,9 +109,7 @@ export class MerchProductService {
 		if (!product) return null
 
 		const variants = this.db
-			.prepare(
-				'SELECT * FROM merch_variants WHERE product_id = $productId ORDER BY sort_order'
-			)
+			.prepare('SELECT * FROM merch_variants WHERE product_id = $productId ORDER BY sort_order')
 			.all({ productId: id }) as any[]
 
 		return {
@@ -127,9 +125,7 @@ export class MerchProductService {
 		if (!product) return null
 
 		const variants = this.db
-			.prepare(
-				'SELECT * FROM merch_variants WHERE product_id = $productId ORDER BY sort_order'
-			)
+			.prepare('SELECT * FROM merch_variants WHERE product_id = $productId ORDER BY sort_order')
 			.all({ productId: product.id }) as any[]
 
 		return {
@@ -138,11 +134,10 @@ export class MerchProductService {
 		}
 	}
 
-	getAllProducts(filters?: {
-		active?: boolean
-		limit?: number
-		offset?: number
-	}): { products: MerchProductWithVariants[]; count: number } {
+	getAllProducts(filters?: { active?: boolean; limit?: number; offset?: number }): {
+		products: MerchProductWithVariants[]
+		count: number
+	} {
 		const { active, limit = 50, offset = 0 } = filters || {}
 
 		let whereClause = ''
@@ -165,9 +160,7 @@ export class MerchProductService {
 
 		const result = products.map((p) => {
 			const variants = this.db
-				.prepare(
-					'SELECT * FROM merch_variants WHERE product_id = $productId ORDER BY sort_order'
-				)
+				.prepare('SELECT * FROM merch_variants WHERE product_id = $productId ORDER BY sort_order')
 				.all({ productId: p.id }) as any[]
 			return {
 				...this.parseProduct(p),
@@ -406,9 +399,7 @@ export class MerchProductService {
 
 	getVariantsByProductId(productId: string): MerchVariant[] {
 		const rows = this.db
-			.prepare(
-				'SELECT * FROM merch_variants WHERE product_id = $productId ORDER BY sort_order'
-			)
+			.prepare('SELECT * FROM merch_variants WHERE product_id = $productId ORDER BY sort_order')
 			.all({ productId }) as any[]
 		return rows.map((v) => this.parseVariant(v))
 	}

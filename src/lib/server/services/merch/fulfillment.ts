@@ -29,18 +29,14 @@ export class MerchFulfillmentService {
 
 	getByStripeSessionId(sessionId: string): MerchFulfillment | null {
 		const row = this.db
-			.prepare(
-				'SELECT * FROM merch_fulfillments WHERE stripe_checkout_session_id = $sessionId'
-			)
+			.prepare('SELECT * FROM merch_fulfillments WHERE stripe_checkout_session_id = $sessionId')
 			.get({ sessionId }) as any
 		return row ? this.parseFulfillment(row) : null
 	}
 
 	getByUserId(userId: string): MerchFulfillment[] {
 		const rows = this.db
-			.prepare(
-				'SELECT * FROM merch_fulfillments WHERE user_id = $userId ORDER BY created_at DESC'
-			)
+			.prepare('SELECT * FROM merch_fulfillments WHERE user_id = $userId ORDER BY created_at DESC')
 			.all({ userId }) as any[]
 		return rows.map((r) => this.parseFulfillment(r))
 	}
@@ -90,11 +86,10 @@ export class MerchFulfillmentService {
 		return rows.map((r) => this.parseFulfillment(r))
 	}
 
-	getAllFulfillments(filters?: {
-		status?: string
-		limit?: number
-		offset?: number
-	}): { fulfillments: MerchFulfillment[]; count: number } {
+	getAllFulfillments(filters?: { status?: string; limit?: number; offset?: number }): {
+		fulfillments: MerchFulfillment[]
+		count: number
+	} {
 		const { status, limit = 50, offset = 0 } = filters || {}
 
 		let whereClause = ''

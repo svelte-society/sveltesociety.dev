@@ -60,11 +60,12 @@ export const getMerchFulfillment = query(fulfillmentIdSchema, async ({ id }) => 
 		sessionDetails = {
 			amount: session.amount_total,
 			currency: session.currency,
-			lineItems: session.line_items?.data?.map((item) => ({
-				description: item.description,
-				quantity: item.quantity,
-				amountTotal: item.amount_total
-			})) || [],
+			lineItems:
+				session.line_items?.data?.map((item) => ({
+					description: item.description,
+					quantity: item.quantity,
+					amountTotal: item.amount_total
+				})) || [],
 			shippingAddress: shippingDetails?.address
 				? {
 						name: shippingDetails.name || '',

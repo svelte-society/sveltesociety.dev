@@ -70,12 +70,13 @@ export const getMyOrder = query(orderDetailSchema, async ({ sessionId }) => {
 			currency: session.currency,
 			status: session.payment_status,
 			created: session.created ? new Date(session.created * 1000).toISOString() : '',
-			lineItems: session.line_items?.data?.map((item) => ({
-				description: item.description,
-				quantity: item.quantity,
-				amountTotal: item.amount_total,
-				currency: item.currency
-			})) || [],
+			lineItems:
+				session.line_items?.data?.map((item) => ({
+					description: item.description,
+					quantity: item.quantity,
+					amountTotal: item.amount_total,
+					currency: item.currency
+				})) || [],
 			shippingAddress: shippingDetails?.address
 				? {
 						name: shippingDetails.name || '',

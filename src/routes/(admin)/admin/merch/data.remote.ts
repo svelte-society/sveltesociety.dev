@@ -46,9 +46,7 @@ const createProductSchema = z.object({
 	base_price_cents: z.number().int().min(1, 'Price must be at least 1 cent'),
 	currency: z.string().optional(),
 	images: z.array(z.string()).optional(),
-	variant_options: z
-		.array(z.object({ name: z.string(), values: z.array(z.string()) }))
-		.optional()
+	variant_options: z.array(z.object({ name: z.string(), values: z.array(z.string()) })).optional()
 })
 
 export const createMerchProduct = command(createProductSchema, async (data) => {
@@ -89,9 +87,7 @@ const updateProductSchema = z.object({
 	body: z.string().optional(),
 	base_price_cents: z.number().int().min(1).optional(),
 	images: z.array(z.string()).optional(),
-	variant_options: z
-		.array(z.object({ name: z.string(), values: z.array(z.string()) }))
-		.optional(),
+	variant_options: z.array(z.object({ name: z.string(), values: z.array(z.string()) })).optional(),
 	active: z.boolean().optional()
 })
 

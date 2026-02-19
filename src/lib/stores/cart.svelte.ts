@@ -50,18 +50,14 @@ function createCart() {
 	}
 
 	function removeItem(productId: string, variantId: string) {
-		const index = items.findIndex(
-			(i) => i.productId === productId && i.variantId === variantId
-		)
+		const index = items.findIndex((i) => i.productId === productId && i.variantId === variantId)
 		if (index !== -1) {
 			items.splice(index, 1)
 		}
 	}
 
 	function updateQuantity(productId: string, variantId: string, quantity: number) {
-		const item = items.find(
-			(i) => i.productId === productId && i.variantId === variantId
-		)
+		const item = items.find((i) => i.productId === productId && i.variantId === variantId)
 		if (item) {
 			if (quantity <= 0) {
 				removeItem(productId, variantId)

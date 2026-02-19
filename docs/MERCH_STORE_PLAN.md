@@ -110,26 +110,28 @@ CREATE INDEX idx_merch_products_slug ON merch_products(slug);
 Orama-based search index for merch products, following the exact pattern of `SearchService` (`src/lib/server/services/search.ts`):
 
 **On startup**: Loads all active products + variants from SQLite into Orama for instant search/filter:
+
 ```typescript
 const merchSchema = {
-    id: 'string',
-    title: 'string',
-    description: 'string',
-    slug: 'string',
-    base_price_cents: 'number',
-    min_price_cents: 'number',    // Cheapest variant price
-    max_price_cents: 'number',    // Most expensive variant price
-    currency: 'string',
-    images: 'string[]',
-    variant_count: 'number',
-    in_stock: 'boolean',          // true if any variant has stock > 0
-    active: 'boolean',
-    created_at: 'string',
-    updated_at: 'string'
+	id: 'string',
+	title: 'string',
+	description: 'string',
+	slug: 'string',
+	base_price_cents: 'number',
+	min_price_cents: 'number', // Cheapest variant price
+	max_price_cents: 'number', // Most expensive variant price
+	currency: 'string',
+	images: 'string[]',
+	variant_count: 'number',
+	in_stock: 'boolean', // true if any variant has stock > 0
+	active: 'boolean',
+	created_at: 'string',
+	updated_at: 'string'
 } as const
 ```
 
 **Methods** (mirror SearchService pattern):
+
 - Constructor: creates Orama instance, queries `merch_products` + `merch_variants` from DB, inserts all
 - `search(filters?)` — search with text query, sort by price/date, filter by in_stock
 - `getById(id)` — single product from index
@@ -139,6 +141,7 @@ const merchSchema = {
 - `reindex()` — full rebuild from DB (called as fallback)
 
 **Integration points** — MerchProductService calls search service methods after mutations:
+
 - `createProduct()` -> `merchSearchService.add()`
 - `updateProduct()` / `createVariant()` / `updateVariant()` / `deleteVariant()` -> `merchSearchService.update()`
 - `deleteProduct()` -> `merchSearchService.remove()`
@@ -148,6 +151,7 @@ const merchSchema = {
 Constructor: `new MerchProductService(db, merchSearchService)` — mirrors `ContentService(db, searchService)` pattern.
 
 CRUD for products + variants (each mutation updates the search index):
+
 - `createProduct(data)` — insert into merch_products, update search index
 - `getProductById(id)` — product with variants (from DB for full data)
 - `getProductBySlug(slug)` — for public detail page (from DB)
@@ -164,6 +168,7 @@ CRUD for products + variants (each mutation updates the search index):
 ### 2c. `MerchFulfillmentService` (`src/lib/server/services/merch/fulfillment.ts`)
 
 Fulfillment tracking:
+
 - `createFulfillment(stripeSessionId, userId)` — create record
 - `getByStripeSessionId(sessionId)` — for webhook handling
 - `getByUserId(userId)` — user's fulfillments (joined with Stripe data)
@@ -176,6 +181,7 @@ Fulfillment tracking:
 ### 2d. `StyriashirtsService` (`src/lib/server/services/merch/styriashirts.ts`)
 
 Styria Shirts API client (singleton, no DB dependency):
+
 - Constructor uses `STYRIA_APP_ID` and `STYRIA_SECRET_KEY` env vars
 - `createOrder(orderData)` — POST /api/orders.php
 - `getOrder(orderId)` — GET /api/order.php?id=X
@@ -188,6 +194,7 @@ Styria Shirts API client (singleton, no DB dependency):
 **File**: `src/lib/server/services/merch/index.ts` — barrel export
 
 **Files to update**:
+
 - `src/hooks/attach_services.ts`:
   - `merchSearchService = new MerchSearchService(db)` (loads products into Orama on startup)
   - `merchProductService = new MerchProductService(db, merchSearchService)` (passes search service)
@@ -203,6 +210,7 @@ Styria Shirts API client (singleton, no DB dependency):
 ### 3a. Extend `ProductType`
 
 **File**: `src/lib/server/services/payments/types.ts`
+
 - Add `'merch'` to `ProductType`: `'job' | 'sponsor' | 'merch'`
 
 ### 3b. New methods on StripeService
@@ -238,6 +246,7 @@ async getSessionWithLineItems(sessionId: string): Promise<Stripe.Checkout.Sessio
 ### 3c. User service extension
 
 **File**: `src/lib/server/services/user.ts`
+
 - Add `setStripeCustomerId(userId: string, customerId: string)` method
 - Existing user model already returned by `getUserById()` — just need the column
 
@@ -246,13 +255,15 @@ async getSessionWithLineItems(sessionId: string): Promise<Stripe.Checkout.Sessio
 **File**: `src/routes/(api)/api/webhooks/stripe/+server.ts`
 
 Add `'merch'` branch in `checkout.session.completed`:
+
 ```typescript
 if (productType === 'merch') {
-    await handleMerchCheckoutCompleted(session, locals)
+	await handleMerchCheckoutCompleted(session, locals)
 }
 ```
 
 `handleMerchCheckoutCompleted(session, locals)`:
+
 1. Create fulfillment record (stripe_session_id, user_id from metadata)
 2. Decrement stock for each variant (variant IDs in metadata)
 3. Build Styria order from session line items + shipping details
@@ -267,22 +278,26 @@ if (productType === 'merch') {
 ### 4a. Navigation
 
 **File**: `src/routes/(app)/+layout.svelte`
+
 - Add `{ name: 'Merch', href: '/merch' }` under the "OTHER" section (after Jobs)
 
 ### 4b. Store listing page
 
 **File**: `src/routes/(app)/(public)/merch/+page.svelte` (new)
+
 - Grid of product cards with images, titles, prices
 - Search/filter support (text search, price sort, in-stock filter)
 - Links to product detail pages
 
 **File**: `src/routes/(app)/(public)/merch/data.remote.ts` (new)
+
 - `getProducts(filters?)` — queries `merchSearchService.search()` for instant results (text search, sort, pagination)
 - Returns product cards with price ranges, stock status, images — all from Orama index, no DB hit
 
 ### 4c. Product detail page
 
 **File**: `src/routes/(app)/(public)/merch/[slug]/+page.svelte` (new)
+
 - Product images, description, rendered body
 - Variant selector (dropdowns for each variant dimension)
 - Price display (updates based on selected variant)
@@ -291,6 +306,7 @@ if (productType === 'merch') {
 - Requires login check for cart actions
 
 **File**: `src/routes/(app)/(public)/merch/[slug]/data.remote.ts` (new)
+
 - `getProduct(slug)` — product with all variants
 
 ### 4d. Cart (client-side localStorage)
@@ -298,6 +314,7 @@ if (productType === 'merch') {
 **File**: `src/lib/stores/cart.svelte.ts` (new)
 
 Svelte 5 runes-based cart store:
+
 ```typescript
 // Cart item shape:
 // { productId, variantId, productTitle, variantLabel, image, priceCents, stripePriceId, quantity }
@@ -309,11 +326,13 @@ Svelte 5 runes-based cart store:
 ### 4e. Cart page
 
 **File**: `src/routes/(app)/(public)/merch/cart/+page.svelte` (new)
+
 - Displays cart items with quantities, prices, subtotal
 - Requires login (redirect if not authenticated)
 - "Checkout" button -> calls remote function -> redirects to Stripe
 
 **File**: `src/routes/(app)/(public)/merch/cart/cart.remote.ts` (new)
+
 - `createMerchCheckout(cartItems)` remote function:
   1. Verify user is logged in
   2. Validate cart items against DB (check stock, verify stripe_price_ids exist)
@@ -324,6 +343,7 @@ Svelte 5 runes-based cart store:
 ### 4f. Checkout success page
 
 **File**: `src/routes/(app)/(public)/merch/checkout/success/+page.svelte` (new)
+
 - Retrieves session from URL param, confirms payment
 - Shows order summary
 - Links to "My Orders"
@@ -332,16 +352,19 @@ Svelte 5 runes-based cart store:
 ### 4g. My Orders
 
 **File**: `src/routes/(app)/(public)/merch/orders/+page.svelte` (new)
+
 - Requires login
 - Fetches order history from Stripe (via user's stripe_customer_id)
 - Joins with local fulfillment data (Styria status + tracking)
 - Displays list: date, items summary, total, payment status, fulfillment status
 
 **File**: `src/routes/(app)/(public)/merch/orders/[session_id]/+page.svelte` (new)
+
 - Order detail: line items (from Stripe), shipping address (from Stripe), fulfillment status + tracking (from local DB)
 - Requires login + ownership check (session.customer matches user's stripe_customer_id)
 
 **File**: `src/routes/(app)/(public)/merch/orders/data.remote.ts` (new)
+
 - `getMyOrders()` — list Stripe sessions + join fulfillments
 - `getMyOrder(sessionId)` — single order detail
 
@@ -352,11 +375,13 @@ Svelte 5 runes-based cart store:
 ### 5a. Admin navigation
 
 **File**: `src/routes/(admin)/admin/+layout.svelte`
+
 - Add merch link: `{ href: '/admin/merch', label: 'Merch', icon: ShoppingBag, allowedRoles: ['admin'] }`
 
 ### 5b. Product management
 
 **Files**:
+
 - `src/routes/(admin)/admin/merch/+page.svelte` — Product list table
 - `src/routes/(admin)/admin/merch/new/+page.svelte` — Create product form (title, description, body, images, price, variant options)
 - `src/routes/(admin)/admin/merch/[id]/+page.svelte` — Edit product + inline variant editor (add/edit/delete variants, set Styria codes, stock, prices)
@@ -371,6 +396,7 @@ Svelte 5 runes-based cart store:
 ### 5c. Order/fulfillment management
 
 **Files**:
+
 - `src/routes/(admin)/admin/merch/orders/+page.svelte` — Fulfillment list with status filters
 - `src/routes/(admin)/admin/merch/orders/[id]/+page.svelte` — Fulfillment detail (Stripe session data + Styria status)
 - `src/routes/(admin)/admin/merch/orders/data.remote.ts`:
@@ -385,6 +411,7 @@ Svelte 5 runes-based cart store:
 ## 6. Styria Shirts Order Sync
 
 Admin-triggered (no webhooks from Styria):
+
 - "Sync Status" button on individual fulfillment detail
 - "Sync All" button on fulfillment list (updates all non-terminal orders)
 - Maps Styria statuses -> local fulfillment_status:
@@ -398,45 +425,45 @@ Admin-triggered (no webhooks from Styria):
 
 ### New files (24)
 
-| File | Purpose |
-|------|---------|
-| `src/lib/server/db/migrations/024_add_merch_infrastructure.sql` | DB migration |
-| `src/lib/server/services/merch/index.ts` | Service barrel export |
-| `src/lib/server/services/merch/search.ts` | MerchSearchService (Orama index) |
-| `src/lib/server/services/merch/product.ts` | MerchProductService |
-| `src/lib/server/services/merch/fulfillment.ts` | MerchFulfillmentService |
-| `src/lib/server/services/merch/styriashirts.ts` | Styria Shirts API client |
-| `src/lib/stores/cart.svelte.ts` | Client-side cart store |
-| `src/routes/(app)/(public)/merch/+page.svelte` | Store listing |
-| `src/routes/(app)/(public)/merch/data.remote.ts` | Store data queries |
-| `src/routes/(app)/(public)/merch/[slug]/+page.svelte` | Product detail |
-| `src/routes/(app)/(public)/merch/[slug]/data.remote.ts` | Product detail queries |
-| `src/routes/(app)/(public)/merch/cart/+page.svelte` | Cart page |
-| `src/routes/(app)/(public)/merch/cart/cart.remote.ts` | Cart checkout |
-| `src/routes/(app)/(public)/merch/checkout/success/+page.svelte` | Checkout success |
-| `src/routes/(app)/(public)/merch/orders/+page.svelte` | My Orders |
-| `src/routes/(app)/(public)/merch/orders/[session_id]/+page.svelte` | Order detail |
-| `src/routes/(app)/(public)/merch/orders/data.remote.ts` | Order data queries |
-| `src/routes/(admin)/admin/merch/+page.svelte` | Admin product list |
-| `src/routes/(admin)/admin/merch/new/+page.svelte` | Admin create product |
-| `src/routes/(admin)/admin/merch/[id]/+page.svelte` | Admin edit product + variants |
-| `src/routes/(admin)/admin/merch/data.remote.ts` | Admin product remote functions |
-| `src/routes/(admin)/admin/merch/orders/+page.svelte` | Admin fulfillment list |
-| `src/routes/(admin)/admin/merch/orders/[id]/+page.svelte` | Admin fulfillment detail |
-| `src/routes/(admin)/admin/merch/orders/data.remote.ts` | Admin fulfillment remote functions |
+| File                                                               | Purpose                            |
+| ------------------------------------------------------------------ | ---------------------------------- |
+| `src/lib/server/db/migrations/024_add_merch_infrastructure.sql`    | DB migration                       |
+| `src/lib/server/services/merch/index.ts`                           | Service barrel export              |
+| `src/lib/server/services/merch/search.ts`                          | MerchSearchService (Orama index)   |
+| `src/lib/server/services/merch/product.ts`                         | MerchProductService                |
+| `src/lib/server/services/merch/fulfillment.ts`                     | MerchFulfillmentService            |
+| `src/lib/server/services/merch/styriashirts.ts`                    | Styria Shirts API client           |
+| `src/lib/stores/cart.svelte.ts`                                    | Client-side cart store             |
+| `src/routes/(app)/(public)/merch/+page.svelte`                     | Store listing                      |
+| `src/routes/(app)/(public)/merch/data.remote.ts`                   | Store data queries                 |
+| `src/routes/(app)/(public)/merch/[slug]/+page.svelte`              | Product detail                     |
+| `src/routes/(app)/(public)/merch/[slug]/data.remote.ts`            | Product detail queries             |
+| `src/routes/(app)/(public)/merch/cart/+page.svelte`                | Cart page                          |
+| `src/routes/(app)/(public)/merch/cart/cart.remote.ts`              | Cart checkout                      |
+| `src/routes/(app)/(public)/merch/checkout/success/+page.svelte`    | Checkout success                   |
+| `src/routes/(app)/(public)/merch/orders/+page.svelte`              | My Orders                          |
+| `src/routes/(app)/(public)/merch/orders/[session_id]/+page.svelte` | Order detail                       |
+| `src/routes/(app)/(public)/merch/orders/data.remote.ts`            | Order data queries                 |
+| `src/routes/(admin)/admin/merch/+page.svelte`                      | Admin product list                 |
+| `src/routes/(admin)/admin/merch/new/+page.svelte`                  | Admin create product               |
+| `src/routes/(admin)/admin/merch/[id]/+page.svelte`                 | Admin edit product + variants      |
+| `src/routes/(admin)/admin/merch/data.remote.ts`                    | Admin product remote functions     |
+| `src/routes/(admin)/admin/merch/orders/+page.svelte`               | Admin fulfillment list             |
+| `src/routes/(admin)/admin/merch/orders/[id]/+page.svelte`          | Admin fulfillment detail           |
+| `src/routes/(admin)/admin/merch/orders/data.remote.ts`             | Admin fulfillment remote functions |
 
 ### Modified files (8)
 
-| File | Change |
-|------|--------|
-| `src/routes/(app)/+layout.svelte` | Add "Merch" to nav links |
-| `src/routes/(admin)/admin/+layout.svelte` | Add merch to admin nav |
-| `src/hooks/attach_services.ts` | Register merch services |
-| `src/app.d.ts` | Add merch services to Locals |
-| `src/lib/server/services/payments/types.ts` | Add 'merch' to ProductType |
-| `src/lib/server/services/payments/stripe.ts` | Add merch checkout + customer + product/price methods |
-| `src/lib/server/services/user.ts` | Add setStripeCustomerId method |
-| `src/routes/(api)/api/webhooks/stripe/+server.ts` | Handle merch checkout events |
+| File                                              | Change                                                |
+| ------------------------------------------------- | ----------------------------------------------------- |
+| `src/routes/(app)/+layout.svelte`                 | Add "Merch" to nav links                              |
+| `src/routes/(admin)/admin/+layout.svelte`         | Add merch to admin nav                                |
+| `src/hooks/attach_services.ts`                    | Register merch services                               |
+| `src/app.d.ts`                                    | Add merch services to Locals                          |
+| `src/lib/server/services/payments/types.ts`       | Add 'merch' to ProductType                            |
+| `src/lib/server/services/payments/stripe.ts`      | Add merch checkout + customer + product/price methods |
+| `src/lib/server/services/user.ts`                 | Add setStripeCustomerId method                        |
+| `src/routes/(api)/api/webhooks/stripe/+server.ts` | Handle merch checkout events                          |
 
 ---
 

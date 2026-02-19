@@ -396,7 +396,28 @@ export class StripeService {
 				quantity: item.quantity
 			})),
 			shipping_address_collection: {
-				allowed_countries: ['US', 'CA', 'GB', 'DE', 'FR', 'ES', 'IT', 'NL', 'AT', 'CH', 'SE', 'NO', 'DK', 'FI', 'BE', 'IE', 'PT', 'AU', 'NZ', 'JP']
+				allowed_countries: [
+					'US',
+					'CA',
+					'GB',
+					'DE',
+					'FR',
+					'ES',
+					'IT',
+					'NL',
+					'AT',
+					'CH',
+					'SE',
+					'NO',
+					'DK',
+					'FI',
+					'BE',
+					'IE',
+					'PT',
+					'AU',
+					'NZ',
+					'JP'
+				]
 			},
 			success_url: params.successUrl,
 			cancel_url: params.cancelUrl,

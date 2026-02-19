@@ -478,10 +478,7 @@ async function handleInvoicePaid(invoice: Stripe.Invoice, locals: App.Locals) {
  * - Decrement stock for purchased variants
  * - Submit order to Styria Shirts
  */
-async function handleMerchCheckoutCompleted(
-	session: Stripe.Checkout.Session,
-	locals: App.Locals
-) {
+async function handleMerchCheckoutCompleted(session: Stripe.Checkout.Session, locals: App.Locals) {
 	const userId = session.metadata?.user_id
 
 	if (!userId) {
@@ -518,7 +515,8 @@ async function handleMerchCheckoutCompleted(
 					quantity: number
 				}>
 
-				const shippingDetails = (session as any).shipping_details || (session as any).customer_details
+				const shippingDetails =
+					(session as any).shipping_details || (session as any).customer_details
 				if (shippingDetails?.address) {
 					const address = shippingDetails.address
 					const styriaOrder = await locals.styriashirtsService.createOrder({
