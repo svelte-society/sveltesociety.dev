@@ -339,4 +339,126 @@ export class StripeService {
 	async getCustomer(customerId: string): Promise<Stripe.Customer | Stripe.DeletedCustomer> {
 		return this.stripe.customers.retrieve(customerId)
 	}
+
+	/**
+	 * Create a Stripe Product for a merch item
+	 */
+	async createStripeProduct(product: {
+		title: string
+		description?: string
+		images?: string[]
+	}): Promise<string> {
+		const stripeProduct = await this.stripe.products.create({
+			name: product.title,
+			description: product.description || undefined,
+			images: product.images?.slice(0, 8) || undefined,
+			metadata: {
+				product_type: 'merch'
+			}
+		})
+		return stripeProduct.id
+	}
+
+	/**
+	 * Create a Stripe Price for a merch variant
+	 */
+	async createStripePrice(
+		stripeProductId: string,
+		priceCents: number,
+		currency: string = 'usd'
+	): Promise<string> {
+		const price = await this.stripe.prices.create({
+			product: stripeProductId,
+			unit_amount: priceCents,
+			currency,
+			metadata: {
+				product_type: 'merch'
+			}
+		})
+		return price.id
+	}
+
+	/**
+	 * Create checkout session for merch with multiple line items + shipping
+	 */
+	async createMerchCheckoutSession(params: {
+		lineItems: Array<{ stripePriceId: string; quantity: number }>
+		customerId: string
+		successUrl: string
+		cancelUrl: string
+		metadata: Record<string, string>
+	}): Promise<CheckoutSessionResult> {
+		const session = await this.stripe.checkout.sessions.create({
+			mode: 'payment',
+			customer: params.customerId,
+			line_items: params.lineItems.map((item) => ({
+				price: item.stripePriceId,
+				quantity: item.quantity
+			})),
+			shipping_address_collection: {
+				allowed_countries: ['US', 'CA', 'GB', 'DE', 'FR', 'ES', 'IT', 'NL', 'AT', 'CH', 'SE', 'NO', 'DK', 'FI', 'BE', 'IE', 'PT', 'AU', 'NZ', 'JP']
+			},
+			success_url: params.successUrl,
+			cancel_url: params.cancelUrl,
+			metadata: {
+				product_type: 'merch',
+				...params.metadata
+			},
+			payment_intent_data: {
+				metadata: {
+					product_type: 'merch',
+					...params.metadata
+				}
+			}
+		})
+
+		if (!session.url) {
+			throw new Error('Failed to create merch checkout session URL')
+		}
+
+		return {
+			sessionId: session.id,
+			url: session.url
+		}
+	}
+
+	/**
+	 * Create or retrieve a Stripe Customer
+	 */
+	async createCustomer(email: string, name?: string): Promise<string> {
+		const customer = await this.stripe.customers.create({
+			email,
+			name: name || undefined,
+			metadata: {
+				source: 'svelte-society-merch'
+			}
+		})
+		return customer.id
+	}
+
+	/**
+	 * List checkout sessions for a customer (order history)
+	 */
+	async listCustomerSessions(
+		customerId: string,
+		limit: number = 20
+	): Promise<Stripe.Checkout.Session[]> {
+		const sessions = await this.stripe.checkout.sessions.list({
+			customer: customerId,
+			limit,
+			expand: ['data.line_items']
+		})
+		return sessions.data.filter(
+			(s) => s.metadata?.product_type === 'merch' && s.payment_status === 'paid'
+		)
+	}
+
+	/**
+	 * Retrieve a session with line items expanded
+	 */
+	async getSessionWithLineItems(sessionId: string): Promise<Stripe.Checkout.Session> {
+		return this.stripe.checkout.sessions.retrieve(sessionId, {
+			expand: ['line_items', 'shipping_details', 'customer']
+		})
+	}
 }
