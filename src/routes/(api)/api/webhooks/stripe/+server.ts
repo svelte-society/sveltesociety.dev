@@ -25,7 +25,9 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			const session = event.data.object as Stripe.Checkout.Session
 			const productType = session.metadata?.product_type
 
-			if (productType === 'sponsor') {
+			if (productType === 'merch') {
+				await handleMerchCheckoutCompleted(session, locals)
+			} else if (productType === 'sponsor') {
 				// Handle sponsor checkout completion
 				await handleSponsorCheckoutCompleted(session, locals)
 			} else {
@@ -467,5 +469,90 @@ async function handleInvoicePaid(invoice: Stripe.Invoice, locals: App.Locals) {
 		)
 	} catch (error) {
 		console.error('Error processing invoice.paid:', error)
+	}
+}
+
+/**
+ * Handle merch checkout completion
+ * - Create fulfillment record
+ * - Decrement stock for purchased variants
+ * - Submit order to Styria Shirts
+ */
+async function handleMerchCheckoutCompleted(
+	session: Stripe.Checkout.Session,
+	locals: App.Locals
+) {
+	const userId = session.metadata?.user_id
+
+	if (!userId) {
+		console.error('Missing user_id in merch checkout session metadata')
+		return
+	}
+
+	try {
+		// 1. Create fulfillment record
+		const fulfillment = locals.merchFulfillmentService.createFulfillment(session.id, userId)
+
+		// 2. Decrement stock for each variant
+		const variantQuantities = session.metadata?.variant_quantities
+		if (variantQuantities) {
+			try {
+				const items = JSON.parse(variantQuantities) as Array<{
+					variantId: string
+					quantity: number
+				}>
+				for (const item of items) {
+					locals.merchProductService.decrementStock(item.variantId, item.quantity)
+				}
+			} catch (e) {
+				console.error('Error parsing variant_quantities:', e)
+			}
+		}
+
+		// 3. Build and submit Styria order
+		try {
+			const styriaItems = session.metadata?.styria_items
+			if (styriaItems) {
+				const items = JSON.parse(styriaItems) as Array<{
+					product_code: string
+					quantity: number
+				}>
+
+				const shippingDetails = session.shipping_details || session.customer_details
+				if (shippingDetails?.address) {
+					const address = shippingDetails.address
+					const styriaOrder = await locals.styriashirtsService.createOrder({
+						items,
+						shipping: {
+							name: shippingDetails.name || '',
+							address_line1: address.line1 || '',
+							address_line2: address.line2 || undefined,
+							city: address.city || '',
+							state: address.state || undefined,
+							postal_code: address.postal_code || '',
+							country: address.country || ''
+						},
+						reference: session.id
+					})
+
+					// 4. Update fulfillment with Styria order ID
+					locals.merchFulfillmentService.setStyriaOrderId(fulfillment.id, styriaOrder.id)
+					locals.merchFulfillmentService.updateStatus(fulfillment.id, 'submitted')
+
+					console.log(
+						`Merch order submitted to Styria: ${styriaOrder.id} for session ${session.id}`
+					)
+				} else {
+					console.warn(`No shipping address for merch session ${session.id}`)
+				}
+			}
+		} catch (error) {
+			console.error('Error submitting Styria order:', error)
+			// Fulfillment stays in 'pending' status for manual handling
+		}
+
+		console.log(`Merch checkout completed for user ${userId}, session ${session.id}`)
+	} catch (error) {
+		console.error('Error processing merch checkout:', error)
 	}
 }
