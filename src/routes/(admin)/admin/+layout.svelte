@@ -16,7 +16,8 @@
 		CloudArrowUp,
 		EnvelopeSimple,
 		Newspaper,
-		Handshake
+		Handshake,
+		ShoppingBag
 	} from 'phosphor-svelte'
 
 	let { data, children } = $props()
@@ -83,6 +84,12 @@
 			href: '/admin/sponsors',
 			label: 'Sponsors',
 			icon: Handshake,
+			allowedRoles: ['admin']
+		},
+		{
+			href: '/admin/merch',
+			label: 'Merch',
+			icon: ShoppingBag,
 			allowedRoles: ['admin']
 		},
 		{

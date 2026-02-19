@@ -44,6 +44,7 @@
 		{ name: 'Recipes', href: '/recipe' },
 		{ name: 'OTHER', href: null },
 		{ name: 'Jobs', href: '/job' },
+		{ name: 'Merch', href: '/merch' },
 		...(shortcuts.length > 0
 			? [{ name: 'SHORTCUTS', href: null }, ...shortcuts.map((s) => ({ ...s, isShortcut: true }))]
 			: [])
