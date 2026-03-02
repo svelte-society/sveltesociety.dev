@@ -1,6 +1,6 @@
 import type { TypedDocument, Orama, Results, SearchParams } from '@orama/orama'
 import { create, insertMultiple, search, update, remove, getByID, insert } from '@orama/orama'
-import { Database } from 'bun:sqlite'
+import type { MerchProductWithVariants } from './product'
 
 const merchSchema = {
 	id: 'string',
@@ -24,41 +24,40 @@ type MerchDocument = TypedDocument<Orama<typeof merchSchema>>
 export class MerchSearchService {
 	private searchDB: Orama<typeof merchSchema>
 
-	constructor(private db: Database) {
+	constructor() {
+		this.searchDB = create({
+			schema: merchSchema
+		})
+	}
+
+	loadFromProducts(products: MerchProductWithVariants[]) {
 		this.searchDB = create({
 			schema: merchSchema
 		})
 
-		// Load all active products with variant info
-		const products = this.db
-			.query(
-				`
-				SELECT
-					p.id, p.title, COALESCE(p.description, '') as description, p.slug,
-					p.base_price_cents, p.currency, p.images, p.active,
-					p.created_at, p.updated_at,
-					COUNT(v.id) as variant_count,
-					MIN(COALESCE(v.price_cents, p.base_price_cents)) as min_price_cents,
-					MAX(COALESCE(v.price_cents, p.base_price_cents)) as max_price_cents,
-					COALESCE(SUM(CASE WHEN v.stock_quantity > 0 AND v.active = 1 THEN 1 ELSE 0 END), 0) > 0 as in_stock
-				FROM merch_products p
-				LEFT JOIN merch_variants v ON v.product_id = p.id
-				GROUP BY p.id
-				`
-			)
-			.all()
-			.map((p: any) => ({
-				...p,
-				images: p.images ? JSON.parse(p.images) : [],
-				active: Boolean(p.active),
-				in_stock: Boolean(p.in_stock),
-				min_price_cents: p.min_price_cents || p.base_price_cents,
-				max_price_cents: p.max_price_cents || p.base_price_cents,
+		const docs = products.map((p) => {
+			const activeVariants = p.variants.filter((v) => v.active)
+			const prices = activeVariants.map((v) => v.price_cents)
+
+			return {
+				id: p.id,
+				title: p.title,
+				description: p.description || '',
+				slug: p.slug,
+				base_price_cents: p.base_price_cents,
+				min_price_cents: prices.length > 0 ? Math.min(...prices) : p.base_price_cents,
+				max_price_cents: prices.length > 0 ? Math.max(...prices) : p.base_price_cents,
+				currency: p.currency,
+				images: p.images,
+				variant_count: p.variants.length,
+				in_stock: true,
+				active: p.active,
 				created_at: p.created_at || '',
 				updated_at: p.updated_at || ''
-			}))
+			}
+		})
 
-		insertMultiple(this.searchDB, products)
+		insertMultiple(this.searchDB, docs)
 	}
 
 	search(filters?: {
@@ -112,41 +111,5 @@ export class MerchSearchService {
 
 	remove(id: string) {
 		remove(this.searchDB, id)
-	}
-
-	reindex() {
-		this.searchDB = create({
-			schema: merchSchema
-		})
-
-		const products = this.db
-			.query(
-				`
-				SELECT
-					p.id, p.title, COALESCE(p.description, '') as description, p.slug,
-					p.base_price_cents, p.currency, p.images, p.active,
-					p.created_at, p.updated_at,
-					COUNT(v.id) as variant_count,
-					MIN(COALESCE(v.price_cents, p.base_price_cents)) as min_price_cents,
-					MAX(COALESCE(v.price_cents, p.base_price_cents)) as max_price_cents,
-					COALESCE(SUM(CASE WHEN v.stock_quantity > 0 AND v.active = 1 THEN 1 ELSE 0 END), 0) > 0 as in_stock
-				FROM merch_products p
-				LEFT JOIN merch_variants v ON v.product_id = p.id
-				GROUP BY p.id
-				`
-			)
-			.all()
-			.map((p: any) => ({
-				...p,
-				images: p.images ? JSON.parse(p.images) : [],
-				active: Boolean(p.active),
-				in_stock: Boolean(p.in_stock),
-				min_price_cents: p.min_price_cents || p.base_price_cents,
-				max_price_cents: p.max_price_cents || p.base_price_cents,
-				created_at: p.created_at || '',
-				updated_at: p.updated_at || ''
-			}))
-
-		insertMultiple(this.searchDB, products)
 	}
 }

@@ -23,6 +23,10 @@ export class StripeService {
 		})
 	}
 
+	get client(): Stripe {
+		return this.stripe
+	}
+
 	/**
 	 * Create a Stripe Checkout session for any product type
 	 * Supports both one-time payments and subscriptions
@@ -338,44 +342,6 @@ export class StripeService {
 	 */
 	async getCustomer(customerId: string): Promise<Stripe.Customer | Stripe.DeletedCustomer> {
 		return this.stripe.customers.retrieve(customerId)
-	}
-
-	/**
-	 * Create a Stripe Product for a merch item
-	 */
-	async createStripeProduct(product: {
-		title: string
-		description?: string
-		images?: string[]
-	}): Promise<string> {
-		const stripeProduct = await this.stripe.products.create({
-			name: product.title,
-			description: product.description || undefined,
-			images: product.images?.slice(0, 8) || undefined,
-			metadata: {
-				product_type: 'merch'
-			}
-		})
-		return stripeProduct.id
-	}
-
-	/**
-	 * Create a Stripe Price for a merch variant
-	 */
-	async createStripePrice(
-		stripeProductId: string,
-		priceCents: number,
-		currency: string = 'usd'
-	): Promise<string> {
-		const price = await this.stripe.prices.create({
-			product: stripeProductId,
-			unit_amount: priceCents,
-			currency,
-			metadata: {
-				product_type: 'merch'
-			}
-		})
-		return price.id
 	}
 
 	/**

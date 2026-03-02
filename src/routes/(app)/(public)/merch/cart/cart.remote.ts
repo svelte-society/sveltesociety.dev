@@ -1,54 +1,99 @@
-import { command, getRequestEvent } from '$app/server'
+import { form, query, getRequestEvent } from '$app/server'
+import { redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
 
-const cartItemSchema = z.object({
-	productId: z.string(),
-	variantId: z.string(),
-	stripePriceId: z.string(),
-	quantity: z.number().int().min(1)
+export const getCart = query(async () => {
+	const { locals } = getRequestEvent()
+
+	if (!locals.user) {
+		return { items: [], summary: { itemCount: 0, totalCents: 0 } }
+	}
+
+	const items = locals.merchCartService.getCartItems(locals.user.id)
+	const summary = locals.merchCartService.getCartSummary(locals.user.id)
+
+	return { items, summary }
 })
 
-const checkoutSchema = z.object({
-	items: z.array(cartItemSchema).min(1)
+const variantSchema = z.object({ variant_id: z.string() })
+
+export const incrementQuantity = form(variantSchema, async ({ variant_id }) => {
+	const { locals } = getRequestEvent()
+
+	if (!locals.user) {
+		redirect(303, '/login')
+	}
+
+	const items = locals.merchCartService.getCartItems(locals.user.id)
+	const item = items.find((i) => i.variant_id === variant_id)
+	if (!item) return
+
+	locals.merchCartService.updateQuantity(locals.user.id, variant_id, item.quantity + 1)
+	await getCart().refresh()
 })
 
-export const createMerchCheckout = command(checkoutSchema, async (data) => {
+export const decrementQuantity = form(variantSchema, async ({ variant_id }) => {
+	const { locals } = getRequestEvent()
+
+	if (!locals.user) {
+		redirect(303, '/login')
+	}
+
+	const items = locals.merchCartService.getCartItems(locals.user.id)
+	const item = items.find((i) => i.variant_id === variant_id)
+	if (!item) return
+
+	// updateQuantity handles quantity <= 0 by removing the item
+	locals.merchCartService.updateQuantity(locals.user.id, variant_id, item.quantity - 1)
+	await getCart().refresh()
+})
+
+export const removeFromCart = form(variantSchema, async ({ variant_id }) => {
+	const { locals } = getRequestEvent()
+
+	if (!locals.user) {
+		redirect(303, '/login')
+	}
+
+	locals.merchCartService.removeItem(locals.user.id, variant_id)
+	await getCart().refresh()
+})
+
+export const createMerchCheckout = form(z.object({}), async () => {
 	const { locals, url } = getRequestEvent()
 
 	if (!locals.user) {
-		return { success: false, text: 'You must be logged in to checkout' }
+		return { success: false as const, text: 'You must be logged in to checkout' }
 	}
 
 	try {
-		// Validate cart items against DB
+		const cartItems = locals.merchCartService.getCartItems(locals.user.id)
+
+		if (cartItems.length === 0) {
+			return { success: false as const, text: 'Your cart is empty' }
+		}
+
+		// Validate cart items against product cache
 		const validatedItems: Array<{
 			variantId: string
-			stripePriceId: string
 			quantity: number
 			styriaProductCode: string | null
 		}> = []
 
-		for (const item of data.items) {
-			const variant = locals.merchProductService.getVariantById(item.variantId)
+		for (const item of cartItems) {
+			const variant = locals.merchProductService.getVariantById(item.variant_id)
 			if (!variant) {
-				return { success: false, text: `Variant ${item.variantId} not found` }
+				return { success: false as const, text: `Variant ${item.variant_id} not found` }
 			}
 			if (!variant.active) {
-				return { success: false, text: `${variant.label} is no longer available` }
-			}
-			if (variant.stock_quantity < item.quantity) {
 				return {
-					success: false,
-					text: `Not enough stock for ${variant.label}. Only ${variant.stock_quantity} available.`
+					success: false as const,
+					text: `${variant.label} is no longer available`
 				}
-			}
-			if (!variant.stripe_price_id) {
-				return { success: false, text: `${variant.label} is not yet available for purchase` }
 			}
 
 			validatedItems.push({
 				variantId: variant.id,
-				stripePriceId: variant.stripe_price_id,
 				quantity: item.quantity,
 				styriaProductCode: variant.styria_product_code
 			})
@@ -65,9 +110,9 @@ export const createMerchCheckout = command(checkoutSchema, async (data) => {
 			locals.userService.setStripeCustomerId(locals.user.id, stripeCustomerId)
 		}
 
-		// Build line items for Stripe
+		// Build line items for Stripe (variant ID is the Stripe Price ID)
 		const lineItems = validatedItems.map((item) => ({
-			stripePriceId: item.stripePriceId,
+			stripePriceId: item.variantId,
 			quantity: item.quantity
 		}))
 
@@ -97,9 +142,13 @@ export const createMerchCheckout = command(checkoutSchema, async (data) => {
 			}
 		})
 
-		return { success: true, text: 'Redirecting to checkout...', url: session.url }
+		// Clear cart after successful session creation
+		locals.merchCartService.clearCart(locals.user.id)
+		await getCart().refresh()
+
+		return { success: true as const, text: 'Redirecting to checkout...', url: session.url }
 	} catch (error) {
 		console.error('Error creating merch checkout:', error)
-		return { success: false, text: 'Failed to create checkout session' }
+		return { success: false as const, text: 'Failed to create checkout session' }
 	}
 })

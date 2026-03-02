@@ -29,6 +29,7 @@ import {
 	MerchSearchService,
 	MerchProductService,
 	MerchFulfillmentService,
+	MerchCartService,
 	StyriashirtsService
 } from '$lib/server/services/merch'
 import fs from 'node:fs'
@@ -68,6 +69,7 @@ const dbCache = new Map<
 		merchSearchService: MerchSearchService
 		merchProductService: MerchProductService
 		merchFulfillmentService: MerchFulfillmentService
+		merchCartService: MerchCartService
 	}
 >()
 
@@ -109,9 +111,10 @@ const initialize_db = (dbPath: string) => {
 	const sponsorTierService = new SponsorTierService(db)
 	const sponsorService = new SponsorService(db)
 	const sponsorSubscriptionService = new SponsorSubscriptionService(db)
-	const merchSearchService = new MerchSearchService(db)
-	const merchProductService = new MerchProductService(db, merchSearchService)
+	const merchSearchService = new MerchSearchService()
+	const merchProductService = new MerchProductService(stripeService.client, merchSearchService)
 	const merchFulfillmentService = new MerchFulfillmentService(db)
+	const merchCartService = new MerchCartService(db)
 
 	const services = {
 		db,
@@ -139,7 +142,8 @@ const initialize_db = (dbPath: string) => {
 		sponsorSubscriptionService,
 		merchSearchService,
 		merchProductService,
-		merchFulfillmentService
+		merchFulfillmentService,
+		merchCartService
 	}
 
 	dbCache.set(dbPath, services)
@@ -174,6 +178,9 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	// Initialize database and services for this path
 	const services = initialize_db(dbPath)
 
+	// Initialize Stripe-backed merch service (promise guard ensures one-time init)
+	await services.merchProductService.initialize()
+
 	// Attach all services to event.locals
 	event.locals.db = services.db
 	event.locals.contentService = services.contentService
@@ -201,6 +208,7 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	event.locals.merchSearchService = services.merchSearchService
 	event.locals.merchProductService = services.merchProductService
 	event.locals.merchFulfillmentService = services.merchFulfillmentService
+	event.locals.merchCartService = services.merchCartService
 	event.locals.styriashirtsService = styriashirtsService
 	event.locals.stripeService = stripeService
 	event.locals.emailService = emailService

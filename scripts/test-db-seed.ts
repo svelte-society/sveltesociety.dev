@@ -11,6 +11,7 @@ import {
 	TEST_SPONSOR_TIERS,
 	TEST_SPONSOR_SUBSCRIPTIONS,
 	TEST_FEED_ITEMS,
+	TEST_CART_ITEMS,
 	getSessionExpiry,
 	getYesterday
 } from '../tests/fixtures/test-data'
@@ -321,6 +322,43 @@ async function seedTestDatabase() {
 			)
 		})
 
+		// 15. Add merch cart items (products/variants now live in Stripe)
+		console.log('  → Creating merch cart items...')
+		db.run(`CREATE TABLE IF NOT EXISTS merch_cart_items (
+			id TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
+			user_id TEXT NOT NULL,
+			product_id TEXT NOT NULL,
+			variant_id TEXT NOT NULL,
+			product_title TEXT NOT NULL,
+			variant_label TEXT NOT NULL,
+			image TEXT NOT NULL DEFAULT '',
+			price_cents INTEGER NOT NULL,
+			quantity INTEGER NOT NULL DEFAULT 1,
+			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+			UNIQUE(user_id, variant_id)
+		)`)
+		db.run('DELETE FROM merch_cart_items')
+		const cartItemInsert = db.prepare(`
+			INSERT INTO merch_cart_items (id, user_id, product_id, variant_id, product_title, variant_label, image, price_cents, quantity)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+		`)
+
+		TEST_CART_ITEMS.forEach((item) => {
+			cartItemInsert.run(
+				item.id,
+				item.user_id,
+				item.product_id,
+				item.variant_id,
+				item.product_title,
+				item.variant_label,
+				item.image,
+				item.price_cents,
+				item.quantity
+			)
+		})
+
 		// Summary
 		console.log('\n✅ Test database seeded successfully!')
 		console.log('\n📊 Summary:')
@@ -332,6 +370,7 @@ async function seedTestDatabase() {
 		console.log(`   Jobs: ${TEST_JOBS.length} published`)
 		console.log(`   Sponsors: ${TEST_SPONSORS.length} (${TEST_SPONSOR_TIERS.length} tiers)`)
 		console.log(`   Feed Items: ${TEST_FEED_ITEMS.length} (CTA + sponsor items)`)
+		console.log(`   Merch: ${TEST_CART_ITEMS.length} cart items (products/variants in Stripe)`)
 		console.log(`   Sessions: ${Object.keys(TEST_USERS).length} (one per user)`)
 		console.log('\n🔑 Test User Credentials:')
 		Object.entries(TEST_USERS).forEach(([key, user]) => {

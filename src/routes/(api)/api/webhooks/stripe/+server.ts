@@ -490,23 +490,7 @@ async function handleMerchCheckoutCompleted(session: Stripe.Checkout.Session, lo
 		// 1. Create fulfillment record
 		const fulfillment = locals.merchFulfillmentService.createFulfillment(session.id, userId)
 
-		// 2. Decrement stock for each variant
-		const variantQuantities = session.metadata?.variant_quantities
-		if (variantQuantities) {
-			try {
-				const items = JSON.parse(variantQuantities) as Array<{
-					variantId: string
-					quantity: number
-				}>
-				for (const item of items) {
-					locals.merchProductService.decrementStock(item.variantId, item.quantity)
-				}
-			} catch (e) {
-				console.error('Error parsing variant_quantities:', e)
-			}
-		}
-
-		// 3. Build and submit Styria order
+		// 2. Build and submit Styria order
 		try {
 			const styriaItems = session.metadata?.styria_items
 			if (styriaItems) {

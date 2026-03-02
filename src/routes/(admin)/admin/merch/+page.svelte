@@ -1,7 +1,13 @@
 <script lang="ts">
-	import { page } from '$app/state'
-	import { goto } from '$app/navigation'
 	import { getMerchProducts, toggleProductActive } from './data.remote'
+	import Table from '$lib/ui/admin/Table.svelte'
+	import { Actions, Action } from '$lib/ui/admin/Actions'
+	import Badge from '$lib/ui/admin/Badge.svelte'
+	import ArrowSquareOut from 'phosphor-svelte/lib/ArrowSquareOut'
+	import Power from 'phosphor-svelte/lib/Power'
+	import Storefront from 'phosphor-svelte/lib/Storefront'
+	import PageHeader from '$lib/ui/admin/PageHeader.svelte'
+	import Button from '$lib/ui/Button.svelte'
 
 	let searchQuery = $state('')
 	let activeFilter = $state('all')
@@ -17,12 +23,8 @@
 	function formatPrice(cents: number): string {
 		return new Intl.NumberFormat('en-US', {
 			style: 'currency',
-			currency: 'USD'
+			currency: 'EUR'
 		}).format(cents / 100)
-	}
-
-	async function handleToggleActive(id: string, active: boolean) {
-		await toggleProductActive({ id, active: !active })
 	}
 </script>
 
@@ -30,20 +32,18 @@
 	<title>Merch Products | Admin</title>
 </svelte:head>
 
-<div class="space-y-6">
-	<div class="flex items-center justify-between">
-		<div>
-			<h1 class="text-2xl font-bold text-gray-900">Merch Products</h1>
-			<p class="mt-1 text-sm text-gray-500">{pagination.count} total products</p>
-		</div>
-		<a
-			href="/admin/merch/new"
-			class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-orange-600"
-			data-testid="create-product"
-		>
-			New Product
-		</a>
-	</div>
+<div class="container mx-auto space-y-8 px-2 py-6">
+	<PageHeader title="Merch Products" description="{pagination.count} total products" icon={Storefront}>
+		{#snippet actions()}
+			<a
+				href="/admin/merch/new"
+				class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-orange-600"
+				data-testid="create-product"
+			>
+				New Product
+			</a>
+		{/snippet}
+	</PageHeader>
 
 	<div class="flex flex-wrap items-center gap-3">
 		<input
@@ -65,80 +65,82 @@
 		</select>
 	</div>
 
-	<div class="overflow-hidden rounded-xl border border-gray-200 bg-white">
-		<table class="w-full text-left text-sm">
-			<thead class="border-b border-gray-200 bg-gray-50">
-				<tr>
-					<th class="px-4 py-3 font-medium text-gray-700">Product</th>
-					<th class="px-4 py-3 font-medium text-gray-700">Price</th>
-					<th class="px-4 py-3 font-medium text-gray-700">Variants</th>
-					<th class="px-4 py-3 font-medium text-gray-700">Status</th>
-					<th class="px-4 py-3 font-medium text-gray-700">Actions</th>
-				</tr>
-			</thead>
-			<tbody class="divide-y divide-gray-200">
-				{#each products as product (product.id)}
-					<tr class="hover:bg-gray-50">
-						<td class="px-4 py-3">
-							<div class="flex items-center gap-3">
-								{#if product.images && product.images.length > 0}
-									<img
-										src={product.images[0]}
-										alt={product.title}
-										class="h-10 w-10 rounded-lg object-cover"
-									/>
-								{:else}
-									<div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-400">
-										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-											<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-										</svg>
-									</div>
-								{/if}
-								<div>
-									<a href="/admin/merch/{product.id}" class="font-medium text-gray-900 hover:text-orange-600">
-										{product.title}
-									</a>
-									<p class="text-xs text-gray-500">/{product.slug}</p>
-								</div>
-							</div>
-						</td>
-						<td class="px-4 py-3 text-gray-700">
-							{formatPrice(product.base_price_cents)}
-						</td>
-						<td class="px-4 py-3 text-gray-700">
-							{product.variants.length}
-						</td>
-						<td class="px-4 py-3">
-							{#if product.active}
-								<span class="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">Active</span>
-							{:else}
-								<span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-500">Inactive</span>
-							{/if}
-						</td>
-						<td class="px-4 py-3">
-							<div class="flex items-center gap-2">
-								<a
-									href="/admin/merch/{product.id}"
-									class="text-sm text-orange-600 hover:text-orange-700"
-								>
-									Edit
-								</a>
-								<button
-									type="button"
-									class="text-sm text-gray-500 hover:text-gray-700"
-									onclick={() => handleToggleActive(product.id, product.active)}
-								>
-									{product.active ? 'Deactivate' : 'Activate'}
-								</button>
-							</div>
-						</td>
-					</tr>
-				{:else}
-					<tr>
-						<td colspan="5" class="px-4 py-8 text-center text-gray-500">No products found</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
-	</div>
+	<Table action={true} data={products} emptyMessage="No products found" testId="merch-table">
+		{#snippet header(classes)}
+			<th class={classes}>Product</th>
+			<th class={classes}>Price</th>
+			<th class={classes}>Variants</th>
+			<th class={classes}>Status</th>
+		{/snippet}
+		{#snippet row(product, classes)}
+			<td class={classes}>
+				<div class="flex items-center gap-3">
+					{#if product.images && product.images.length > 0}
+						<img
+							src={product.images[0]}
+							alt={product.title}
+							class="h-10 w-10 rounded-lg object-cover"
+						/>
+					{:else}
+						<div
+							class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-400"
+						>
+							<Storefront class="h-5 w-5" />
+						</div>
+					{/if}
+					<div>
+						<a
+							href="/admin/merch/{product.id}"
+							class="font-medium text-gray-900 hover:text-orange-600"
+						>
+							{product.title}
+						</a>
+						<p class="text-xs text-gray-500">/{product.slug}</p>
+					</div>
+				</div>
+			</td>
+			<td class={classes}>
+				{formatPrice(product.base_price_cents)}
+			</td>
+			<td class={classes}>
+				{product.variants.length}
+			</td>
+			<td class={classes}>
+				<Badge color={product.active ? 'success' : 'default'} text={product.active ? 'Active' : 'Inactive'} />
+			</td>
+		{/snippet}
+		{#snippet actionCell(product)}
+			<Actions id={product.id}>
+				<Action.Edit href={`/admin/merch/${product.id}`} />
+				<Button
+					href="https://dashboard.stripe.com/products/{product.id}"
+					variant="ghost"
+					size="icon"
+					aria-label="View in Stripe"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<ArrowSquareOut class="h-5 w-5" weight="bold" />
+				</Button>
+				{@const toggleForm = toggleProductActive.for(product.id)}
+				<form {...toggleForm} class="inline">
+					<input {...toggleForm.fields.id.as('hidden', product.id)} />
+					<input
+						{...toggleForm.fields.active.as('hidden', product.active ? 'false' : 'true')}
+					/>
+					<Button
+						type="submit"
+						variant="ghost"
+						size="icon"
+						aria-label={product.active ? 'Deactivate' : 'Activate'}
+					>
+						<Power
+							class="h-5 w-5 {product.active ? 'text-green-600' : 'text-gray-400'}"
+							weight="bold"
+						/>
+					</Button>
+				</form>
+			</Actions>
+		{/snippet}
+	</Table>
 </div>

@@ -709,6 +709,23 @@ export const TEST_PENDING_CONTENT = [
 ] as const
 
 /**
+ * Test cart items (pre-seeded for viewer user)
+ */
+export const TEST_CART_ITEMS = [
+	{
+		id: 'cart_item_001',
+		user_id: 'test_viewer_001',
+		product_id: 'merch_prod_002',
+		variant_id: 'merch_var_007',
+		product_title: 'Svelte Sticker Pack',
+		variant_label: 'Matte',
+		image: 'https://placehold.co/400x400/3b82f6/ffffff?text=Stickers',
+		price_cents: 999,
+		quantity: 2
+	}
+] as const
+
+/**
  * Helper to get session expiry date (1 year from now)
  * Format matches what SessionService expects for SQLite
  */

@@ -1,156 +1,26 @@
 <script lang="ts">
 	import { page } from '$app/state'
-	import { goto } from '$app/navigation'
 	import {
 		getMerchProduct,
 		updateMerchProduct,
 		createVariant,
 		updateVariant,
-		deleteVariant
+		deleteVariant,
+		generateVariants
 	} from '../data.remote'
+	import MarketingFeaturesEditor from '../MarketingFeaturesEditor.svelte'
+	import SizeGuideEditor from '../SizeGuideEditor.svelte'
 
 	let product = $derived(await getMerchProduct({ id: page.params.id! }))
 
-	// Edit product state
-	let editTitle = $state('')
-	let editDescription = $state('')
-	let editPriceDollars = $state('')
-	let editImages = $state('')
-	let productMessage = $state('')
-	let isSavingProduct = $state(false)
-
-	// New variant state
-	let newLabel = $state('')
-	let newOptionValues = $state('')
-	let newPriceDollars = $state('')
-	let newStock = $state('0')
-	let newSku = $state('')
-	let newStyriaCode = $state('')
-	let variantMessage = $state('')
-	let isSavingVariant = $state(false)
-
 	// Editing variant state
 	let editingVariantId = $state<string | null>(null)
-	let editVariantStock = $state('0')
-	let editVariantPrice = $state('')
-	let editVariantSku = $state('')
-	let editVariantStyriaCode = $state('')
 
-	// Load product data into edit fields
-	$effect(() => {
-		if (product) {
-			editTitle = product.title
-			editDescription = product.description || ''
-			editPriceDollars = (product.base_price_cents / 100).toFixed(2)
-			editImages = product.images?.join('\n') || ''
-		}
-	})
-
-	function formatPrice(cents: number | null): string {
-		if (cents == null) return '-'
+	function formatPrice(cents: number): string {
 		return new Intl.NumberFormat('en-US', {
 			style: 'currency',
-			currency: 'USD'
+			currency: 'EUR'
 		}).format(cents / 100)
-	}
-
-	async function handleSaveProduct() {
-		if (!product) return
-		isSavingProduct = true
-		productMessage = ''
-
-		try {
-			const priceCents = Math.round(parseFloat(editPriceDollars) * 100)
-			const images = editImages
-				.split('\n')
-				.map((s) => s.trim())
-				.filter(Boolean)
-
-			const result = await updateMerchProduct({
-				id: product.id,
-				title: editTitle,
-				description: editDescription,
-				base_price_cents: priceCents,
-				images
-			})
-
-			productMessage = result?.text || 'Product updated'
-		} catch {
-			productMessage = 'Error saving product'
-		} finally {
-			isSavingProduct = false
-		}
-	}
-
-	async function handleCreateVariant() {
-		if (!product) return
-		isSavingVariant = true
-		variantMessage = ''
-
-		try {
-			let optionValues: Record<string, string> = {}
-			if (newOptionValues.trim()) {
-				try {
-					optionValues = JSON.parse(newOptionValues)
-				} catch {
-					variantMessage = 'Invalid option values JSON'
-					isSavingVariant = false
-					return
-				}
-			}
-
-			const result = await createVariant({
-				product_id: product.id,
-				label: newLabel,
-				option_values: optionValues,
-				price_cents: newPriceDollars ? Math.round(parseFloat(newPriceDollars) * 100) : undefined,
-				stock_quantity: parseInt(newStock) || 0,
-				sku: newSku || undefined,
-				styria_product_code: newStyriaCode || undefined
-			})
-
-			if (result?.success) {
-				newLabel = ''
-				newOptionValues = ''
-				newPriceDollars = ''
-				newStock = '0'
-				newSku = ''
-				newStyriaCode = ''
-			}
-			variantMessage = result?.text || ''
-		} catch {
-			variantMessage = 'Error creating variant'
-		} finally {
-			isSavingVariant = false
-		}
-	}
-
-	function startEditVariant(variant: any) {
-		editingVariantId = variant.id
-		editVariantStock = String(variant.stock_quantity)
-		editVariantPrice = variant.price_cents != null ? (variant.price_cents / 100).toFixed(2) : ''
-		editVariantSku = variant.sku || ''
-		editVariantStyriaCode = variant.styria_product_code || ''
-	}
-
-	async function handleSaveVariant(variantId: string) {
-		if (!product) return
-
-		await updateVariant({
-			id: variantId,
-			product_id: product.id,
-			stock_quantity: parseInt(editVariantStock) || 0,
-			price_cents: editVariantPrice ? Math.round(parseFloat(editVariantPrice) * 100) : undefined,
-			sku: editVariantSku || undefined,
-			styria_product_code: editVariantStyriaCode || undefined
-		})
-
-		editingVariantId = null
-	}
-
-	async function handleDeleteVariant(variantId: string) {
-		if (!product) return
-		await deleteVariant({ id: variantId, product_id: product.id })
 	}
 </script>
 
@@ -182,29 +52,36 @@
 		<div class="rounded-xl border border-gray-200 bg-white p-6">
 			<h2 class="mb-4 text-lg font-semibold text-gray-900">Product Details</h2>
 
-			{#if productMessage}
-				<div class="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-3 text-sm text-blue-700">
-					{productMessage}
+			{#if updateMerchProduct.result}
+				<div
+					class="mb-4 rounded-lg border p-3 text-sm {updateMerchProduct.result.success
+						? 'border-blue-200 bg-blue-50 text-blue-700'
+						: 'border-red-200 bg-red-50 text-red-700'}"
+				>
+					{updateMerchProduct.result.text}
 				</div>
 			{/if}
 
-			<form onsubmit={(e) => { e.preventDefault(); handleSaveProduct() }} class="space-y-4">
+			<form {...updateMerchProduct} class="space-y-4">
+				<input {...updateMerchProduct.fields.id.as('hidden', product.id)} />
+
 				<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 					<div>
 						<label class="mb-1 block text-sm font-medium text-gray-700">Title</label>
 						<input
-							type="text"
-							bind:value={editTitle}
+							{...updateMerchProduct.fields.title.as('text')}
+							value={product.title}
 							class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 focus:outline-none"
 							data-testid="edit-title"
 						/>
 					</div>
 					<div>
-						<label class="mb-1 block text-sm font-medium text-gray-700">Base Price (USD)</label>
+						<label class="mb-1 block text-sm font-medium text-gray-700">Base Price (EUR)</label>
 						<input
+							{...updateMerchProduct.fields.base_price.as('text')}
 							type="number"
 							step="0.01"
-							bind:value={editPriceDollars}
+							value={(product.base_price_cents / 100).toFixed(2)}
 							class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 focus:outline-none"
 							data-testid="edit-price"
 						/>
@@ -214,40 +91,58 @@
 				<div>
 					<label class="mb-1 block text-sm font-medium text-gray-700">Description</label>
 					<textarea
-						bind:value={editDescription}
+						{...updateMerchProduct.fields.description.as('text')}
 						rows="2"
 						class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 focus:outline-none"
-						data-testid="edit-description"
-					></textarea>
+						data-testid="edit-description">{product.description || ''}</textarea
+					>
 				</div>
 
 				<div>
-					<label class="mb-1 block text-sm font-medium text-gray-700">Images (one URL per line)</label>
+					<label class="mb-1 block text-sm font-medium text-gray-700"
+						>Images (one URL per line)</label
+					>
 					<textarea
-						bind:value={editImages}
+						{...updateMerchProduct.fields.images.as('text')}
 						rows="3"
 						class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 focus:outline-none"
-						data-testid="edit-images"
-					></textarea>
+						data-testid="edit-images">{product.images?.join('\n') || ''}</textarea
+					>
+				</div>
+
+				<div>
+					<span class="mb-1 block text-sm font-medium text-gray-700">Marketing Features</span>
+					<p class="mb-2 text-xs text-gray-400">Bullet points shown on pricing tables (max 15)</p>
+					<MarketingFeaturesEditor name="marketing_features" initial={product.marketing_features} />
+				</div>
+
+				<div>
+					<span class="mb-1 block text-sm font-medium text-gray-700">Size Guide</span>
+					<SizeGuideEditor name="size_guide" initial={product.size_guide} />
 				</div>
 
 				<div>
 					<button
 						type="submit"
 						class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-orange-600 disabled:opacity-50"
-						disabled={isSavingProduct}
+						disabled={!!updateMerchProduct.pending}
 						data-testid="save-product"
 					>
-						{isSavingProduct ? 'Saving...' : 'Save Product'}
+						{updateMerchProduct.pending ? 'Saving...' : 'Save Product'}
 					</button>
 				</div>
 			</form>
 
-			<div class="mt-4 flex items-center gap-4 border-t border-gray-200 pt-4 text-sm text-gray-500">
+			<div
+				class="mt-4 flex items-center gap-4 border-t border-gray-200 pt-4 text-sm text-gray-500"
+			>
 				<span>ID: {product.id}</span>
 				<span>Slug: {product.slug}</span>
-				<span>Stripe: {product.stripe_product_id || 'Not linked'}</span>
-				<span class="rounded px-2 py-0.5 {product.active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}">
+				<span
+					class="rounded px-2 py-0.5 {product.active
+						? 'bg-green-100 text-green-700'
+						: 'bg-gray-100 text-gray-600'}"
+				>
 					{product.active ? 'Active' : 'Inactive'}
 				</span>
 			</div>
@@ -255,13 +150,40 @@
 
 		<!-- Variants -->
 		<div class="rounded-xl border border-gray-200 bg-white p-6">
-			<h2 class="mb-4 text-lg font-semibold text-gray-900">
-				Variants ({product.variants.length})
-			</h2>
+			<div class="mb-4 flex items-center justify-between">
+				<h2 class="text-lg font-semibold text-gray-900">
+					Variants ({product.variants.length})
+				</h2>
+				{#if product.variant_options && product.variant_options.length > 0}
+					<form {...generateVariants} class="inline">
+						<input {...generateVariants.fields.product_id.as('hidden', product.id)} />
+						<button
+							type="submit"
+							class="rounded-lg bg-gray-800 px-3 py-1.5 text-xs font-semibold text-white hover:bg-gray-700 disabled:opacity-50"
+							disabled={!!generateVariants.pending}
+							data-testid="generate-variants"
+						>
+							{generateVariants.pending
+								? 'Generating...'
+								: 'Generate Variants from Options'}
+						</button>
+					</form>
+				{/if}
+			</div>
 
-			{#if variantMessage}
+			{#if generateVariants.result?.text}
 				<div class="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-3 text-sm text-blue-700">
-					{variantMessage}
+					{generateVariants.result.text}
+				</div>
+			{/if}
+
+			{#if createVariant.result?.text}
+				<div
+					class="mb-4 rounded-lg border p-3 text-sm {createVariant.result.success
+						? 'border-blue-200 bg-blue-50 text-blue-700'
+						: 'border-red-200 bg-red-50 text-red-700'}"
+				>
+					{createVariant.result.text}
 				</div>
 			{/if}
 
@@ -273,7 +195,6 @@
 							<tr>
 								<th class="px-3 py-2 font-medium text-gray-700">Label</th>
 								<th class="px-3 py-2 font-medium text-gray-700">Price</th>
-								<th class="px-3 py-2 font-medium text-gray-700">Stock</th>
 								<th class="px-3 py-2 font-medium text-gray-700">SKU</th>
 								<th class="px-3 py-2 font-medium text-gray-700">Styria Code</th>
 								<th class="px-3 py-2 font-medium text-gray-700">Actions</th>
@@ -281,28 +202,57 @@
 						</thead>
 						<tbody class="divide-y divide-gray-200">
 							{#each product.variants as variant (variant.id)}
-								<tr>
-									{#if editingVariantId === variant.id}
-										<td class="px-3 py-2">{variant.label}</td>
-										<td class="px-3 py-2">
-											<input type="number" step="0.01" bind:value={editVariantPrice} placeholder="Base" class="w-20 rounded border px-2 py-1 text-xs" />
+								{#if editingVariantId === variant.id}
+									{@const editForm = updateVariant.for(variant.id)}
+									<tr>
+										<td colspan="5" class="px-3 py-3">
+											<form {...editForm} class="flex flex-wrap items-end gap-3">
+												<input {...editForm.fields.id.as('hidden', variant.id)} />
+												<input
+													{...editForm.fields.product_id.as('hidden', product.id)}
+												/>
+												<div>
+													<span class="block text-xs text-gray-500">Label</span>
+													<span class="text-sm font-medium">{variant.label}</span>
+												</div>
+												<div>
+													<span class="block text-xs text-gray-500">Price</span>
+													<span class="text-sm">{formatPrice(variant.price_cents)}</span>
+												</div>
+												<div>
+													<label class="block text-xs text-gray-500">SKU</label>
+													<input
+														{...editForm.fields.sku.as('text')}
+														value={variant.sku || ''}
+														class="w-28 rounded border px-2 py-1 text-xs"
+													/>
+												</div>
+												<div>
+													<label class="block text-xs text-gray-500">Styria Code</label>
+													<input
+														{...editForm.fields.styria_product_code.as('text')}
+														value={variant.styria_product_code || ''}
+														class="w-28 rounded border px-2 py-1 text-xs"
+													/>
+												</div>
+												<div class="flex gap-2">
+													<button
+														type="submit"
+														class="text-xs text-green-600 hover:text-green-700"
+														>Save</button
+													>
+													<button
+														type="button"
+														class="text-xs text-gray-500 hover:text-gray-700"
+														onclick={() => (editingVariantId = null)}>Cancel</button
+													>
+												</div>
+											</form>
 										</td>
-										<td class="px-3 py-2">
-											<input type="number" bind:value={editVariantStock} class="w-16 rounded border px-2 py-1 text-xs" />
-										</td>
-										<td class="px-3 py-2">
-											<input type="text" bind:value={editVariantSku} class="w-24 rounded border px-2 py-1 text-xs" />
-										</td>
-										<td class="px-3 py-2">
-											<input type="text" bind:value={editVariantStyriaCode} class="w-24 rounded border px-2 py-1 text-xs" />
-										</td>
-										<td class="px-3 py-2">
-											<div class="flex gap-2">
-												<button type="button" class="text-xs text-green-600 hover:text-green-700" onclick={() => handleSaveVariant(variant.id)}>Save</button>
-												<button type="button" class="text-xs text-gray-500 hover:text-gray-700" onclick={() => editingVariantId = null}>Cancel</button>
-											</div>
-										</td>
-									{:else}
+									</tr>
+								{:else}
+									{@const delForm = deleteVariant.for(variant.id)}
+									<tr>
 										<td class="px-3 py-2">
 											<span class="font-medium">{variant.label}</span>
 											{#if !variant.active}
@@ -310,21 +260,31 @@
 											{/if}
 										</td>
 										<td class="px-3 py-2">{formatPrice(variant.price_cents)}</td>
-										<td class="px-3 py-2">
-											<span class={variant.stock_quantity > 0 ? 'text-green-600' : 'text-red-600'}>
-												{variant.stock_quantity}
-											</span>
-										</td>
 										<td class="px-3 py-2 text-gray-500">{variant.sku || '-'}</td>
-										<td class="px-3 py-2 text-gray-500">{variant.styria_product_code || '-'}</td>
+										<td class="px-3 py-2 text-gray-500"
+											>{variant.styria_product_code || '-'}</td
+										>
 										<td class="px-3 py-2">
 											<div class="flex gap-2">
-												<button type="button" class="text-xs text-orange-600 hover:text-orange-700" onclick={() => startEditVariant(variant)}>Edit</button>
-												<button type="button" class="text-xs text-red-600 hover:text-red-700" onclick={() => handleDeleteVariant(variant.id)}>Delete</button>
+												<button
+													type="button"
+													class="text-xs text-orange-600 hover:text-orange-700"
+													onclick={() => (editingVariantId = variant.id)}>Edit</button
+												>
+												<form {...delForm} class="inline">
+													<input {...delForm.fields.id.as('hidden', variant.id)} />
+													<input
+														{...delForm.fields.product_id.as('hidden', product.id)}
+													/>
+													<button
+														type="submit"
+														class="text-xs text-red-600 hover:text-red-700">Delete</button
+													>
+												</form>
 											</div>
 										</td>
-									{/if}
-								</tr>
+									</tr>
+								{/if}
 							{/each}
 						</tbody>
 					</table>
@@ -334,39 +294,70 @@
 			<!-- Add variant form -->
 			<div class="rounded-lg border border-dashed border-gray-300 p-4">
 				<h3 class="mb-3 text-sm font-medium text-gray-700">Add Variant</h3>
-				<form onsubmit={(e) => { e.preventDefault(); handleCreateVariant() }} class="grid grid-cols-2 gap-3 md:grid-cols-3">
+				<form
+					{...createVariant.enhance(async ({ form: formEl, submit }) => {
+						await submit()
+						if (createVariant.result?.success) {
+							formEl.reset()
+						}
+					})}
+					class="grid grid-cols-2 gap-3 md:grid-cols-3"
+				>
+					<input {...createVariant.fields.product_id.as('hidden', product.id)} />
 					<div>
 						<label class="mb-1 block text-xs text-gray-500">Label</label>
-						<input type="text" bind:value={newLabel} placeholder="M / Black" class="w-full rounded border border-gray-300 px-2 py-1.5 text-sm" required data-testid="variant-label" />
+						<input
+							{...createVariant.fields.label.as('text')}
+							placeholder="M / Black"
+							class="w-full rounded border border-gray-300 px-2 py-1.5 text-sm"
+							required
+							data-testid="variant-label"
+						/>
 					</div>
 					<div>
 						<label class="mb-1 block text-xs text-gray-500">Option Values (JSON)</label>
-						<input type="text" bind:value={newOptionValues} placeholder={'{"Size":"M","Color":"Black"}'} class="w-full rounded border border-gray-300 px-2 py-1.5 font-mono text-sm" data-testid="variant-options" />
+						<input
+							{...createVariant.fields.option_values.as('text')}
+							placeholder={'{"Size":"M","Color":"Black"}'}
+							class="w-full rounded border border-gray-300 px-2 py-1.5 font-mono text-sm"
+							data-testid="variant-options"
+						/>
 					</div>
 					<div>
-						<label class="mb-1 block text-xs text-gray-500">Price Override (USD)</label>
-						<input type="number" step="0.01" bind:value={newPriceDollars} placeholder="Base price" class="w-full rounded border border-gray-300 px-2 py-1.5 text-sm" data-testid="variant-price" />
-					</div>
-					<div>
-						<label class="mb-1 block text-xs text-gray-500">Stock</label>
-						<input type="number" bind:value={newStock} class="w-full rounded border border-gray-300 px-2 py-1.5 text-sm" data-testid="variant-stock" />
+						<label class="mb-1 block text-xs text-gray-500">Price Override (EUR)</label>
+						<input
+							{...createVariant.fields.price.as('text')}
+							type="number"
+							step="0.01"
+							placeholder="Base price"
+							class="w-full rounded border border-gray-300 px-2 py-1.5 text-sm"
+							data-testid="variant-price"
+						/>
 					</div>
 					<div>
 						<label class="mb-1 block text-xs text-gray-500">SKU</label>
-						<input type="text" bind:value={newSku} class="w-full rounded border border-gray-300 px-2 py-1.5 text-sm" data-testid="variant-sku" />
+						<input
+							{...createVariant.fields.sku.as('text')}
+							class="w-full rounded border border-gray-300 px-2 py-1.5 text-sm"
+							data-testid="variant-sku"
+						/>
 					</div>
 					<div>
 						<label class="mb-1 block text-xs text-gray-500">Styria Code</label>
-						<input type="text" bind:value={newStyriaCode} class="w-full rounded border border-gray-300 px-2 py-1.5 text-sm" data-testid="variant-styria" />
+						<input
+							{...createVariant.fields.styria_product_code.as('text')}
+							class="w-full rounded border border-gray-300 px-2 py-1.5 text-sm"
+							data-testid="variant-styria"
+						/>
 					</div>
 					<div class="col-span-full">
 						<button
 							type="submit"
 							class="rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-700 disabled:opacity-50"
-							disabled={isSavingVariant}
+							disabled={!!createVariant.pending}
 							data-testid="add-variant"
 						>
-							{isSavingVariant ? 'Adding...' : 'Add Variant'}
+							{createVariant.pending ? 'Adding...' : 'Add Variant'}
 						</button>
 					</div>
 				</form>
@@ -376,6 +367,8 @@
 {:else}
 	<div class="py-12 text-center">
 		<h1 class="text-2xl font-bold text-gray-900">Product not found</h1>
-		<a href="/admin/merch" class="mt-4 inline-block text-orange-600 hover:underline">Back to Products</a>
+		<a href="/admin/merch" class="mt-4 inline-block text-orange-600 hover:underline"
+			>Back to Products</a
+		>
 	</div>
 {/if}

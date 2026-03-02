@@ -1,77 +1,17 @@
 <script lang="ts">
 	import { page } from '$app/state'
-	import { goto } from '$app/navigation'
-	import { getProduct } from './data.remote'
-	import { cart } from '$lib/stores/cart.svelte'
+	import { getProduct, getCartSummary, addToCart } from './data.remote'
 
 	let product = $derived(await getProduct({ slug: page.params.slug! }))
+	let cartSummary = $derived(await getCartSummary())
 
-	let selectedOptions = $state<Record<string, string>>({})
 	let quantity = $state(1)
-	let addedToCart = $state(false)
-
-	// Initialize selected options from first variant
-	$effect(() => {
-		if (product?.variant_options && Object.keys(selectedOptions).length === 0) {
-			const initial: Record<string, string> = {}
-			for (const opt of product.variant_options) {
-				if (opt.values.length > 0) {
-					initial[opt.name] = opt.values[0]
-				}
-			}
-			selectedOptions = initial
-		}
-	})
-
-	const selectedVariant = $derived(() => {
-		if (!product?.variants) return null
-		return product.variants.find((v) => {
-			return Object.entries(selectedOptions).every(
-				([key, value]) => v.option_values[key] === value
-			)
-		}) || null
-	})
-
-	const currentPrice = $derived(() => {
-		const variant = selectedVariant()
-		if (variant?.price_cents != null) return variant.price_cents
-		return product?.base_price_cents || 0
-	})
-
-	const isInStock = $derived(() => {
-		const variant = selectedVariant()
-		if (!variant) return false
-		return variant.stock_quantity > 0 && variant.active
-	})
 
 	function formatPrice(cents: number): string {
 		return new Intl.NumberFormat('en-US', {
 			style: 'currency',
-			currency: 'USD'
+			currency: 'EUR'
 		}).format(cents / 100)
-	}
-
-	function handleAddToCart() {
-		const variant = selectedVariant()
-		if (!variant || !product || !isInStock()) return
-
-		cart.addItem(
-			{
-				productId: product.id,
-				variantId: variant.id,
-				productTitle: product.title,
-				variantLabel: variant.label,
-				image: product.images?.[0] || '',
-				priceCents: variant.price_cents ?? product.base_price_cents,
-				stripePriceId: variant.stripe_price_id || ''
-			},
-			quantity
-		)
-
-		addedToCart = true
-		setTimeout(() => {
-			addedToCart = false
-		}, 2000)
 	}
 </script>
 
@@ -82,16 +22,16 @@
 {#if product}
 	<div class="space-y-8">
 		<nav class="text-sm text-gray-500">
-			<a href="/merch" class="hover:text-orange-600">Merch</a>
+			<a href="/merch" class="hover:underline">Merch</a>
 			<span class="mx-2">/</span>
-			<span class="text-gray-900">{product.title}</span>
+			<span class="font-medium text-gray-900">{product.title}</span>
 		</nav>
 
 		<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
 			<!-- Images -->
-			<div class="space-y-4">
+			<div class="space-y-3">
 				{#if product.images && product.images.length > 0}
-					<div class="aspect-square overflow-hidden rounded-xl bg-gray-100">
+					<div class="aspect-square overflow-hidden rounded-lg bg-zinc-100">
 						<img
 							src={product.images[0]}
 							alt={product.title}
@@ -101,7 +41,7 @@
 					{#if product.images.length > 1}
 						<div class="grid grid-cols-4 gap-2">
 							{#each product.images.slice(1) as image}
-								<div class="aspect-square overflow-hidden rounded-lg bg-gray-100">
+								<div class="aspect-square overflow-hidden rounded-lg bg-zinc-100">
 									<img src={image} alt={product.title} class="h-full w-full object-cover" />
 								</div>
 							{/each}
@@ -109,7 +49,7 @@
 					{/if}
 				{:else}
 					<div
-						class="flex aspect-square items-center justify-center rounded-xl bg-gray-100 text-gray-400"
+						class="flex aspect-square items-center justify-center rounded-lg bg-zinc-100 text-zinc-400"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -132,128 +72,165 @@
 			<!-- Product Info -->
 			<div class="space-y-6">
 				<div>
-					<h1 class="text-3xl font-bold text-gray-900">{product.title}</h1>
+					<h1 class="text-2xl font-bold sm:text-3xl">{product.title}</h1>
 					{#if product.description}
-						<p class="mt-2 text-gray-600">{product.description}</p>
+						<p class="mt-2 text-gray-600" data-testid="product-description">
+							{product.description}
+						</p>
 					{/if}
 				</div>
 
-				<div class="text-3xl font-bold text-gray-900">
-					{formatPrice(currentPrice())}
-				</div>
-
-				<!-- Variant Selectors -->
-				{#if product.variant_options && product.variant_options.length > 0}
-					<div class="space-y-4">
-						{#each product.variant_options as option}
-							<div>
-								<label class="mb-2 block text-sm font-medium text-gray-700"
-									>{option.name}</label
+				{#if product.marketing_features && product.marketing_features.length > 0}
+					<ul class="space-y-1.5" data-testid="marketing-features">
+						{#each product.marketing_features as feature}
+							<li class="flex items-start gap-2 text-sm text-gray-600">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 20 20"
+									fill="currentColor"
+									class="mt-0.5 h-4 w-4 shrink-0 text-green-500"
 								>
-								<div class="flex flex-wrap gap-2">
-									{#each option.values as value}
-										<button
-											type="button"
-											class="rounded-lg border px-4 py-2 text-sm transition-colors {selectedOptions[
-												option.name
-											] === value
-												? 'border-orange-500 bg-orange-50 text-orange-700'
-												: 'border-gray-300 text-gray-700 hover:border-gray-400'}"
-											onclick={() => {
-												selectedOptions = { ...selectedOptions, [option.name]: value }
-											}}
-											data-testid="variant-option-{option.name.toLowerCase()}-{value.toLowerCase()}"
-										>
-											{value}
-										</button>
-									{/each}
-								</div>
-							</div>
+									<path
+										fill-rule="evenodd"
+										d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+								{feature}
+							</li>
 						{/each}
-					</div>
+					</ul>
 				{/if}
 
-				<!-- Quantity -->
-				<div>
-					<label class="mb-2 block text-sm font-medium text-gray-700">Quantity</label>
-					<div class="flex items-center gap-2">
-						<button
-							type="button"
-							class="rounded-lg border border-gray-300 px-3 py-2 text-gray-600 hover:bg-gray-50"
-							onclick={() => {
-								if (quantity > 1) quantity--
-							}}
-							data-testid="quantity-minus"
-						>
-							-
-						</button>
-						<span class="w-12 text-center text-lg font-medium" data-testid="quantity-display"
-							>{quantity}</span
-						>
-						<button
-							type="button"
-							class="rounded-lg border border-gray-300 px-3 py-2 text-gray-600 hover:bg-gray-50"
-							onclick={() => quantity++}
-							data-testid="quantity-plus"
-						>
-							+
-						</button>
+				<div class="text-2xl font-bold">
+					{formatPrice(product.base_price_cents)}
+				</div>
+
+				<form {...addToCart}>
+					<div class="space-y-5">
+						<input {...addToCart.fields.slug.as('hidden', page.params.slug!)} />
+						<input {...addToCart.fields.quantity.as('hidden', String(quantity))} />
+
+						{#if product.variant_options && product.variant_options.length > 0}
+							<div class="space-y-4">
+								{#each product.variant_options as option}
+									<fieldset>
+										<legend class="mb-2 block text-sm font-medium">{option.name}</legend>
+										<div class="flex flex-wrap gap-2">
+											{#each option.values as value, i}
+												<label
+													class="cursor-pointer rounded-lg bg-zinc-100 px-4 py-2 text-sm transition-colors hover:bg-zinc-200 has-[:checked]:bg-zinc-900 has-[:checked]:text-white"
+													data-testid="variant-option-{option.name.toLowerCase()}-{value.toLowerCase()}"
+												>
+													<input
+														{...addToCart.fields.options[option.name].as('radio', value)}
+														checked={i === 0}
+														class="sr-only"
+													/>
+													{value}
+												</label>
+											{/each}
+										</div>
+									</fieldset>
+								{/each}
+							</div>
+						{/if}
+
+						<!-- Quantity -->
+						<div>
+							<label class="mb-2 block text-sm font-medium">Quantity</label>
+							<div class="flex items-center gap-2">
+								<button
+									type="button"
+									class="rounded-lg bg-zinc-100 px-3 py-2 text-sm font-medium transition-colors hover:bg-zinc-200"
+									onclick={() => {
+										if (quantity > 1) quantity--
+									}}
+									data-testid="quantity-minus"
+								>
+									-
+								</button>
+								<span
+									class="w-10 text-center font-medium"
+									data-testid="quantity-display">{quantity}</span
+								>
+								<button
+									type="button"
+									class="rounded-lg bg-zinc-100 px-3 py-2 text-sm font-medium transition-colors hover:bg-zinc-200"
+									onclick={() => quantity++}
+									data-testid="quantity-plus"
+								>
+									+
+								</button>
+							</div>
+						</div>
+
+						<div class="space-y-3">
+							<button
+								type="submit"
+								class="bg-svelte-900 hover:bg-svelte-500 w-full rounded-lg px-6 py-3 font-semibold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+								disabled={!!addToCart.pending}
+								data-testid="add-to-cart"
+							>
+								{#if addToCart.pending}
+									Adding...
+								{:else if addToCart.result?.success}
+									Added to Cart!
+								{:else}
+									Add to Cart
+								{/if}
+							</button>
+
+							{#if addToCart.result && !addToCart.result.success}
+								<p class="text-sm text-red-600">{addToCart.result.text}</p>
+							{/if}
+
+							{#if cartSummary.itemCount > 0}
+								<a
+									href="/merch/cart"
+									class="block w-full rounded-lg bg-zinc-100 px-6 py-3 text-center font-semibold transition-colors hover:bg-zinc-200"
+									data-testid="view-cart"
+								>
+									View Cart ({cartSummary.itemCount})
+								</a>
+							{/if}
+						</div>
 					</div>
-				</div>
-
-				<!-- Add to Cart -->
-				<div class="space-y-3">
-					<button
-						type="button"
-						class="w-full rounded-lg bg-orange-500 px-6 py-3 text-lg font-semibold text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
-						disabled={!isInStock()}
-						onclick={handleAddToCart}
-						data-testid="add-to-cart"
-					>
-						{#if addedToCart}
-							Added to Cart!
-						{:else if isInStock()}
-							Add to Cart
-						{:else}
-							Out of Stock
-						{/if}
-					</button>
-
-					{#if cart.itemCount > 0}
-						<a
-							href="/merch/cart"
-							class="block w-full rounded-lg border border-gray-300 px-6 py-3 text-center text-lg font-semibold text-gray-700 transition-colors hover:bg-gray-50"
-							data-testid="view-cart"
-						>
-							View Cart ({cart.itemCount})
-						</a>
-					{/if}
-				</div>
-
-				<!-- Stock Info -->
-				{#if selectedVariant()}
-					<p class="text-sm text-gray-500">
-						{#if selectedVariant()!.stock_quantity > 0}
-							{selectedVariant()!.stock_quantity} in stock
-						{:else}
-							Out of stock
-						{/if}
-					</p>
-				{/if}
+				</form>
 			</div>
 		</div>
 
-		<!-- Body content -->
-		{#if product.rendered_body}
-			<div class="prose max-w-none">
-				{@html product.rendered_body}
+		<!-- Size Guide -->
+		{#if product.size_guide && product.size_guide.headers.length > 0}
+			<div class="space-y-3" data-testid="size-guide">
+				<h2 class="text-lg font-semibold">Size Guide</h2>
+				<div class="overflow-hidden rounded-lg border border-zinc-200">
+					<table class="w-full text-left text-sm">
+						<thead class="bg-zinc-50">
+							<tr>
+								{#each product.size_guide.headers as header}
+									<th class="px-4 py-2.5 font-medium text-zinc-700">{header}</th>
+								{/each}
+							</tr>
+						</thead>
+						<tbody class="divide-y divide-zinc-200">
+							{#each product.size_guide.rows as row}
+								<tr>
+									{#each row as cell, i}
+										<td class="px-4 py-2 {i === 0 ? 'font-medium' : 'text-zinc-600'}">{cell}</td>
+									{/each}
+								</tr>
+							{/each}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		{/if}
 	</div>
 {:else}
 	<div class="py-12 text-center">
-		<h1 class="text-2xl font-bold text-gray-900">Product not found</h1>
+		<h1 class="text-2xl font-bold">Product not found</h1>
 		<p class="mt-2 text-gray-500">The product you're looking for doesn't exist.</p>
-		<a href="/merch" class="mt-4 inline-block text-orange-600 hover:underline">Back to Merch</a>
+		<a href="/merch" class="mt-4 inline-block hover:underline">Back to Merch</a>
 	</div>
 {/if}

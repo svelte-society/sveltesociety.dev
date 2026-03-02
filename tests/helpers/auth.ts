@@ -13,14 +13,14 @@ import { TEST_USERS } from '../fixtures/test-data'
  * Bypasses GitHub OAuth flow for faster, more reliable tests.
  *
  * @param page - Playwright page object
- * @param role - User role ('admin', 'viewer', or 'newsletter_new')
+ * @param role - User role ('admin', 'contributor', 'viewer', or 'newsletter_new')
  * @example
  * await loginAs(page, 'admin')
  * await page.goto('/admin')
  */
 export async function loginAs(
 	page: Page,
-	role: 'admin' | 'viewer' | 'newsletter_new'
+	role: 'admin' | 'contributor' | 'viewer' | 'newsletter_new'
 ): Promise<void> {
 	const user = TEST_USERS[role]
 

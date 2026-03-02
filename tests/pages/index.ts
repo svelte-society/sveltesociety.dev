@@ -21,3 +21,7 @@ export {
 } from './NewsletterPages'
 export { SponsorSubmitPage } from './SponsorSubmitPage'
 export { AdminSponsorsPage } from './AdminSponsorsPage'
+export { MerchStorePage } from './MerchStorePage'
+export { MerchProductPage } from './MerchProductPage'
+export { MerchCartPage } from './MerchCartPage'
+export { AdminMerchPage } from './AdminMerchPage'

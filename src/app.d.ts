@@ -32,6 +32,7 @@ import type {
 	MerchSearchService,
 	MerchProductService,
 	MerchFulfillmentService,
+	MerchCartService,
 	StyriashirtsService
 } from '$lib/server/services/merch'
 
@@ -68,6 +69,7 @@ declare global {
 			merchSearchService: MerchSearchService
 			merchProductService: MerchProductService
 			merchFulfillmentService: MerchFulfillmentService
+			merchCartService: MerchCartService
 			styriashirtsService: StyriashirtsService
 		}
 		// interface PageData {}

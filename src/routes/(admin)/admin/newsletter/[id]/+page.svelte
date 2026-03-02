@@ -130,6 +130,19 @@
 
 	const currentForm = $derived(isNew ? createCampaign : updateCampaign)
 
+	// Handle send campaign result (replaces buttonProps.enhance callback)
+	$effect(() => {
+		const result = sendCampaign.result
+		if (result) {
+			if (result.success) {
+				toast.success('Successfully sent campaign.')
+				sendDialogOpen = false
+			} else {
+				toast.error(result.text || 'Something went wrong when trying to send the campaign.')
+			}
+		}
+	})
+
 	// Extract initial items for content_highlights
 	const initialItems = $derived(() => {
 		if (!campaign || campaign.campaign_type !== 'content_highlights') return []
@@ -152,18 +165,10 @@
 
 <!-- Send confirmation dialog -->
 {#snippet confirmSend()}
-	<form>
-		<Button
-			{...sendCampaign.for(campaignId).buttonProps.enhance(async ({ submit }) => {
-				try {
-					await submit()
-					toast.success('Successfully sent campaign.')
-					sendDialogOpen = false
-				} catch {
-					toast.error('Something went wrong when trying to send the campaign.')
-				}
-			})}>Confirm</Button
-		>
+	<form {...sendCampaign.for(campaignId)}>
+		<Button type="submit" disabled={!!sendCampaign.pending}>
+			{sendCampaign.pending ? 'Sending...' : 'Confirm'}
+		</Button>
 	</form>
 {/snippet}
 
@@ -286,11 +291,11 @@
 				</Button>
 			{/if}
 
-			<form>
+			<form {...copyCampaign.for(campaignId)}>
 				<Button
+					type="submit"
 					variant="secondary"
 					disabled={!!copyCampaign.pending}
-					{...copyCampaign.for(campaignId).buttonProps}
 				>
 					<Copy class="size-4" />
 					{!!copyCampaign.pending ? 'Copying...' : 'Copy Campaign'}
@@ -317,10 +322,10 @@
 					<Eye class="size-4" />
 					Preview
 				</Button>
-				<form>
+				<form {...copyCampaign.for(campaignId)}>
 					<Button
+						type="submit"
 						variant="secondary"
-						{...copyCampaign.for(campaignId).buttonProps}
 						disabled={!!copyCampaign.pending}
 					>
 						<Copy class="size-4" />

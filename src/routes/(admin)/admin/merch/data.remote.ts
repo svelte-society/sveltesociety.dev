@@ -1,4 +1,4 @@
-import { query, command, getRequestEvent } from '$app/server'
+import { query, form, getRequestEvent } from '$app/server'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../authorization.remote'
 
@@ -38,202 +38,368 @@ export const getMerchProduct = query(productIdSchema, async ({ id }) => {
 	return locals.merchProductService.getProductById(id)
 })
 
-const createProductSchema = z.object({
-	title: z.string().min(1, 'Title is required'),
-	slug: z.string().min(1, 'Slug is required'),
-	description: z.string().optional(),
-	body: z.string().optional(),
-	base_price_cents: z.number().int().min(1, 'Price must be at least 1 cent'),
-	currency: z.string().optional(),
-	images: z.array(z.string()).optional(),
-	variant_options: z.array(z.object({ name: z.string(), values: z.array(z.string()) })).optional()
-})
+/**
+ * Generate the cross-product of all variant option values.
+ * E.g. [{name:"Size",values:["S","M"]},{name:"Color",values:["Black","White"]}]
+ * → [{Size:"S",Color:"Black"},{Size:"S",Color:"White"},{Size:"M",Color:"Black"},{Size:"M",Color:"White"}]
+ */
+function generateVariantCombinations(
+	variantOptions: Array<{ name: string; values: string[] }>
+): Array<{ label: string; option_values: Record<string, string> }> {
+	if (variantOptions.length === 0) return []
 
-export const createMerchProduct = command(createProductSchema, async (data) => {
-	checkAdminAuth()
-	const { locals } = getRequestEvent()
-
-	try {
-		// Check slug uniqueness
-		const existing = locals.merchProductService.getProductBySlug(data.slug)
-		if (existing) {
-			return { success: false, text: 'A product with this slug already exists' }
-		}
-
-		// Create Stripe product
-		const stripeProductId = await locals.stripeService.createStripeProduct({
-			title: data.title,
-			description: data.description,
-			images: data.images
-		})
-
-		const product = locals.merchProductService.createProduct({
-			...data,
-			stripe_product_id: stripeProductId
-		})
-
-		return { success: true, text: 'Product created', productId: product.id }
-	} catch (error) {
-		console.error('Error creating product:', error)
-		return { success: false, text: 'Failed to create product' }
-	}
-})
-
-const updateProductSchema = z.object({
-	id: z.string(),
-	title: z.string().min(1).optional(),
-	slug: z.string().min(1).optional(),
-	description: z.string().optional(),
-	body: z.string().optional(),
-	base_price_cents: z.number().int().min(1).optional(),
-	images: z.array(z.string()).optional(),
-	variant_options: z.array(z.object({ name: z.string(), values: z.array(z.string()) })).optional(),
-	active: z.boolean().optional()
-})
-
-export const updateMerchProduct = command(updateProductSchema, async (data) => {
-	checkAdminAuth()
-	const { locals } = getRequestEvent()
-
-	try {
-		const { id, ...updates } = data
-		const product = locals.merchProductService.updateProduct(id, updates)
-
-		if (!product) {
-			return { success: false, text: 'Product not found' }
-		}
-
-		await getMerchProducts({}).refresh()
-		await getMerchProduct({ id }).refresh()
-
-		return { success: true, text: 'Product updated' }
-	} catch (error) {
-		console.error('Error updating product:', error)
-		return { success: false, text: 'Failed to update product' }
-	}
-})
-
-const createVariantSchema = z.object({
-	product_id: z.string(),
-	label: z.string().min(1, 'Label is required'),
-	option_values: z.record(z.string(), z.string()).optional(),
-	price_cents: z.number().int().optional(),
-	stock_quantity: z.number().int().min(0).optional(),
-	sku: z.string().optional(),
-	styria_product_code: z.string().optional()
-})
-
-export const createVariant = command(createVariantSchema, async (data) => {
-	checkAdminAuth()
-	const { locals } = getRequestEvent()
-
-	try {
-		const optionValues = data.option_values || ({} as Record<string, string>)
-		const product = locals.merchProductService.getProductById(data.product_id)
-		if (!product) {
-			return { success: false, text: 'Product not found' }
-		}
-
-		// Create Stripe price for this variant
-		const priceCents = data.price_cents || product.base_price_cents
-		let stripePriceId: string | undefined
-
-		if (product.stripe_product_id) {
-			stripePriceId = await locals.stripeService.createStripePrice(
-				product.stripe_product_id,
-				priceCents,
-				product.currency
-			)
-		}
-
-		const variant = locals.merchProductService.createVariant(data.product_id, {
-			...data,
-			option_values: optionValues,
-			stripe_price_id: stripePriceId
-		})
-
-		await getMerchProduct({ id: data.product_id }).refresh()
-
-		return { success: true, text: 'Variant created', variantId: variant.id }
-	} catch (error) {
-		console.error('Error creating variant:', error)
-		return { success: false, text: 'Failed to create variant' }
-	}
-})
-
-const updateVariantSchema = z.object({
-	id: z.string(),
-	product_id: z.string(),
-	label: z.string().optional(),
-	option_values: z.record(z.string(), z.string()).optional(),
-	price_cents: z.number().int().optional(),
-	stock_quantity: z.number().int().min(0).optional(),
-	sku: z.string().optional(),
-	styria_product_code: z.string().optional(),
-	active: z.boolean().optional()
-})
-
-export const updateVariant = command(updateVariantSchema, async (data) => {
-	checkAdminAuth()
-	const { locals } = getRequestEvent()
-
-	try {
-		const optionValues = data.option_values || undefined
-		const { id, product_id, ...updates } = data
-
-		// If price changed, create new Stripe price
-		if (updates.price_cents !== undefined) {
-			const product = locals.merchProductService.getProductById(product_id)
-			if (product?.stripe_product_id) {
-				const priceCents = updates.price_cents || product.base_price_cents
-				const stripePriceId = await locals.stripeService.createStripePrice(
-					product.stripe_product_id,
-					priceCents,
-					product.currency
-				)
-				;(updates as any).stripe_price_id = stripePriceId
+	let combos: Array<Record<string, string>> = [{}]
+	for (const opt of variantOptions) {
+		const next: Array<Record<string, string>> = []
+		for (const combo of combos) {
+			for (const value of opt.values) {
+				next.push({ ...combo, [opt.name]: value })
 			}
 		}
-
-		const variant = locals.merchProductService.updateVariant(id, {
-			...updates,
-			option_values: optionValues
-		})
-		if (!variant) {
-			return { success: false, text: 'Variant not found' }
-		}
-
-		await getMerchProduct({ id: product_id }).refresh()
-
-		return { success: true, text: 'Variant updated' }
-	} catch (error) {
-		console.error('Error updating variant:', error)
-		return { success: false, text: 'Failed to update variant' }
+		combos = next
 	}
-})
 
-const deleteVariantSchema = z.object({
-	id: z.string(),
-	product_id: z.string()
-})
+	return combos.map((option_values) => ({
+		label: Object.values(option_values).join(' / '),
+		option_values
+	}))
+}
 
-export const deleteVariant = command(deleteVariantSchema, async (data) => {
-	checkAdminAuth()
-	const { locals } = getRequestEvent()
+function parsePriceCents(priceStr: string): number | null {
+	const cents = Math.round(parseFloat(priceStr) * 100)
+	if (isNaN(cents) || cents < 1) return null
+	return cents
+}
 
-	locals.merchProductService.deleteVariant(data.id)
-	await getMerchProduct({ id: data.product_id }).refresh()
-})
+function parseJsonField<T>(value: string): { ok: true; data: T } | { ok: false } {
+	try {
+		return { ok: true, data: JSON.parse(value) }
+	} catch {
+		return { ok: false }
+	}
+}
 
-const toggleActiveSchema = z.object({
-	id: z.string(),
-	active: z.boolean()
-})
+// --- Product CRUD ---
 
-export const toggleProductActive = command(toggleActiveSchema, async (data) => {
-	checkAdminAuth()
-	const { locals } = getRequestEvent()
+export const createMerchProduct = form(
+	z.object({
+		title: z.string().min(1, 'Title is required'),
+		slug: z.string().min(1, 'Slug is required'),
+		description: z.string().default(''),
+		base_price: z.string().min(1, 'Price is required'),
+		images: z.string().default(''),
+		variant_options: z.string().default(''),
+		variant_metadata: z.string().default(''),
+		marketing_features: z.string().default(''),
+		size_guide: z.string().default('')
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
 
-	locals.merchProductService.updateProduct(data.id, { active: data.active })
-	await getMerchProducts({}).refresh()
-})
+		try {
+			const priceCents = parsePriceCents(data.base_price)
+			if (!priceCents) {
+				return { success: false as const, text: 'Please enter a valid price' }
+			}
+
+			const images = data.images
+				.split('\n')
+				.map((s) => s.trim())
+				.filter(Boolean)
+
+			let variant_options: Array<{ name: string; values: string[] }> | undefined
+			if (data.variant_options.trim()) {
+				const parsed = parseJsonField<Array<{ name: string; values: string[] }>>(
+					data.variant_options
+				)
+				if (!parsed.ok) return { success: false as const, text: 'Invalid variant options JSON' }
+				variant_options = parsed.data
+			}
+
+			let marketing_features: string[] | undefined
+			if (data.marketing_features.trim()) {
+				const parsed = parseJsonField<string[]>(data.marketing_features)
+				if (!parsed.ok) return { success: false as const, text: 'Invalid marketing features JSON' }
+				marketing_features = parsed.data
+			}
+
+			let size_guide: { headers: string[]; rows: string[][] } | null = null
+			if (data.size_guide.trim()) {
+				const parsed = parseJsonField<{ headers: string[]; rows: string[][] }>(data.size_guide)
+				if (!parsed.ok) return { success: false as const, text: 'Invalid size guide JSON' }
+				size_guide = parsed.data
+			}
+
+			const existing = locals.merchProductService.getProductBySlug(data.slug)
+			if (existing) {
+				return { success: false as const, text: 'A product with this slug already exists' }
+			}
+
+			const product = await locals.merchProductService.createProduct({
+				title: data.title,
+				slug: data.slug,
+				description: data.description || undefined,
+				base_price_cents: priceCents,
+				images: images.length > 0 ? images : undefined,
+				marketing_features,
+				variant_options,
+				size_guide
+			})
+
+			// Parse per-variant metadata (SKU, Styria code) keyed by label
+			let metaMap: Record<string, { sku?: string; styria_product_code?: string }> = {}
+			if (data.variant_metadata.trim()) {
+				const parsed = parseJsonField<typeof metaMap>(data.variant_metadata)
+				if (parsed.ok) metaMap = parsed.data
+			}
+
+			// Auto-generate variants from variant_options
+			let variantsCreated = 0
+			if (variant_options && variant_options.length > 0) {
+				const combinations = generateVariantCombinations(variant_options)
+				for (const combo of combinations) {
+					const meta = metaMap[combo.label]
+					await locals.merchProductService.createVariant(product.id, {
+						label: combo.label,
+						option_values: combo.option_values,
+						price_cents: priceCents,
+						sku: meta?.sku || undefined,
+						styria_product_code: meta?.styria_product_code || undefined
+					})
+					variantsCreated++
+				}
+			}
+
+			return {
+				success: true as const,
+				text:
+					variantsCreated > 0
+						? `Product created with ${variantsCreated} variants`
+						: 'Product created',
+				productId: product.id
+			}
+		} catch (error) {
+			console.error('Error creating product:', error)
+			return { success: false as const, text: 'Failed to create product' }
+		}
+	}
+)
+
+export const updateMerchProduct = form(
+	z.object({
+		id: z.string(),
+		title: z.string().default(''),
+		description: z.string().default(''),
+		base_price: z.string().default(''),
+		images: z.string().default(''),
+		marketing_features: z.string().default(''),
+		size_guide: z.string().default('')
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
+
+		try {
+			const updates: Record<string, unknown> = {}
+
+			if (data.title) updates.title = data.title
+			if (data.description !== undefined) updates.description = data.description
+
+			if (data.base_price) {
+				const priceCents = parsePriceCents(data.base_price)
+				if (!priceCents) return { success: false as const, text: 'Invalid price' }
+				updates.base_price_cents = priceCents
+			}
+
+			if (data.images !== undefined) {
+				updates.images = data.images
+					.split('\n')
+					.map((s) => s.trim())
+					.filter(Boolean)
+			}
+
+			if (data.marketing_features.trim()) {
+				const parsed = parseJsonField<string[]>(data.marketing_features)
+				if (!parsed.ok) return { success: false as const, text: 'Invalid marketing features JSON' }
+				updates.marketing_features = parsed.data
+			} else {
+				updates.marketing_features = []
+			}
+
+			if (data.size_guide.trim()) {
+				const parsed = parseJsonField<{ headers: string[]; rows: string[][] }>(data.size_guide)
+				if (!parsed.ok) return { success: false as const, text: 'Invalid size guide JSON' }
+				updates.size_guide = parsed.data
+			} else {
+				updates.size_guide = null
+			}
+
+			const product = await locals.merchProductService.updateProduct(data.id, updates)
+			if (!product) {
+				return { success: false as const, text: 'Product not found' }
+			}
+
+			await getMerchProducts({}).refresh()
+			await getMerchProduct({ id: data.id }).refresh()
+
+			return { success: true as const, text: 'Product updated' }
+		} catch (error) {
+			console.error('Error updating product:', error)
+			return { success: false as const, text: 'Failed to update product' }
+		}
+	}
+)
+
+export const toggleProductActive = form(
+	z.object({
+		id: z.string(),
+		active: z.string()
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
+
+		await locals.merchProductService.updateProduct(data.id, { active: data.active === 'true' })
+		await getMerchProducts({}).refresh()
+	}
+)
+
+// --- Variant CRUD ---
+
+export const createVariant = form(
+	z.object({
+		product_id: z.string(),
+		label: z.string().min(1, 'Label is required'),
+		option_values: z.string().default(''),
+		price: z.string().default(''),
+		sku: z.string().default(''),
+		styria_product_code: z.string().default('')
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
+
+		try {
+			let optionValues: Record<string, string> = {}
+			if (data.option_values.trim()) {
+				const parsed = parseJsonField<Record<string, string>>(data.option_values)
+				if (!parsed.ok) return { success: false as const, text: 'Invalid option values JSON' }
+				optionValues = parsed.data
+			}
+
+			const product = locals.merchProductService.getProductById(data.product_id)
+			if (!product) {
+				return { success: false as const, text: 'Product not found' }
+			}
+
+			const priceCents = data.price ? parsePriceCents(data.price) : product.base_price_cents
+
+			const variant = await locals.merchProductService.createVariant(data.product_id, {
+				label: data.label,
+				option_values: optionValues,
+				price_cents: priceCents || product.base_price_cents,
+				sku: data.sku || undefined,
+				styria_product_code: data.styria_product_code || undefined
+			})
+
+			await getMerchProduct({ id: data.product_id }).refresh()
+
+			return { success: true as const, text: 'Variant created', variantId: variant.id }
+		} catch (error) {
+			console.error('Error creating variant:', error)
+			return { success: false as const, text: 'Failed to create variant' }
+		}
+	}
+)
+
+export const updateVariant = form(
+	z.object({
+		id: z.string(),
+		product_id: z.string(),
+		sku: z.string().default(''),
+		styria_product_code: z.string().default('')
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
+
+		try {
+			const variant = await locals.merchProductService.updateVariant(data.id, {
+				sku: data.sku || undefined,
+				styria_product_code: data.styria_product_code || undefined
+			})
+			if (!variant) {
+				return { success: false as const, text: 'Variant not found' }
+			}
+
+			await getMerchProduct({ id: data.product_id }).refresh()
+
+			return { success: true as const, text: 'Variant updated' }
+		} catch (error) {
+			console.error('Error updating variant:', error)
+			return { success: false as const, text: 'Failed to update variant' }
+		}
+	}
+)
+
+export const deleteVariant = form(
+	z.object({
+		id: z.string(),
+		product_id: z.string()
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
+
+		await locals.merchProductService.deleteVariant(data.id)
+		await getMerchProduct({ id: data.product_id }).refresh()
+	}
+)
+
+export const generateVariants = form(
+	z.object({
+		product_id: z.string()
+	}),
+	async (data) => {
+		checkAdminAuth()
+		const { locals } = getRequestEvent()
+
+		try {
+			const product = locals.merchProductService.getProductById(data.product_id)
+			if (!product) {
+				return { success: false as const, text: 'Product not found' }
+			}
+			if (!product.variant_options || product.variant_options.length === 0) {
+				return { success: false as const, text: 'No variant options defined on this product' }
+			}
+
+			const combinations = generateVariantCombinations(product.variant_options)
+
+			const existingVariants = product.variants || []
+			const existingLabels = new Set(existingVariants.map((v) => v.label))
+
+			let created = 0
+			for (const combo of combinations) {
+				if (existingLabels.has(combo.label)) continue
+
+				await locals.merchProductService.createVariant(data.product_id, {
+					label: combo.label,
+					option_values: combo.option_values,
+					price_cents: product.base_price_cents
+				})
+				created++
+			}
+
+			await getMerchProduct({ id: data.product_id }).refresh()
+
+			if (created === 0) {
+				return { success: true as const, text: 'All variants already exist' }
+			}
+			return { success: true as const, text: `Generated ${created} new variants` }
+		} catch (error) {
+			console.error('Error generating variants:', error)
+			return { success: false as const, text: 'Failed to generate variants' }
+		}
+	}
+)
