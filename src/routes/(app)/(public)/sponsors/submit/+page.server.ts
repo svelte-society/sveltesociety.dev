@@ -7,8 +7,10 @@ const SUBMIT_META = buildStaticPageMeta(
 	'https://sveltesociety.dev/sponsors/submit'
 )
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ locals, url }) => {
 	return {
-		meta: SUBMIT_META
+		meta: SUBMIT_META,
+		tiers: locals.sponsorTierService.getActiveTiers(),
+		tierParam: url.searchParams.get('tier')
 	}
 }

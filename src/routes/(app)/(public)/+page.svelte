@@ -17,21 +17,6 @@
 	]
 
 	let { feed, count, meta, schemas } = $derived(await getHomeData({ url: page.url }))
-
-	// Component map for feed item types
-	const components = new Map([
-		['content', ContentCard],
-		['featured', FeaturedCard],
-		['cta', PromotionalCard],
-		['ad', PromotionalCard],
-		['sponsor', SponsorCard]
-	])
-
-	// Card types need wrapper div and priority prop
-	const cardTypes = new Set(['content', 'featured'])
-
-	// Promo types need variant prop
-	const promoTypes = new Set(['cta', 'ad'])
 </script>
 
 {#if schemas}
@@ -44,21 +29,22 @@
 	<div data-testid="content-list" class="grid gap-6">
 		{#if count > 0}
 			{#each feed as item, index (index)}
-				{@const Component = components.get(item.type)}
-				{@const isCard = cardTypes.has(item.type)}
-				{@const isPromo = promoTypes.has(item.type)}
-				{#if isCard}
+				{#if item.type === 'content'}
 					<div class="min-w-0">
-						<Component
+						<ContentCard
 							layout="horizontal"
 							{...item.props}
-							priority={item.type === 'featured' || index < 2 ? 'high' : 'auto'}
+							priority={index < 2 ? 'high' : 'auto'}
 						/>
 					</div>
-				{:else if isPromo}
-					<Component {...item.props} variant={item.type} />
-				{:else}
-					<Component {...item.props} />
+				{:else if item.type === 'featured'}
+					<div class="min-w-0">
+						<FeaturedCard layout="horizontal" {...item.props} priority="high" />
+					</div>
+				{:else if item.type === 'cta' || item.type === 'ad'}
+					<PromotionalCard {...item.props} variant={item.type} />
+				{:else if item.type === 'sponsor'}
+					<SponsorCard {...item.props} />
 				{/if}
 			{/each}
 		{:else}
