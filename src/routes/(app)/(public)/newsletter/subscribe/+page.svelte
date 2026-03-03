@@ -4,8 +4,6 @@
 	import { Envelope, CheckCircle } from 'phosphor-svelte'
 	import { subscribePageNewsletter, userDecline } from '$lib/ui/newsletter.remote'
 	import { getUser } from '../../../data.remote'
-
-	let user = $derived(await getUser())
 </script>
 
 <div class="space-y-4 max-w-lg mx-auto" data-testid="newsletter-subscribe-page">
