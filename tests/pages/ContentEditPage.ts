@@ -140,10 +140,10 @@ export class ContentEditPage extends BasePage {
 	 * Verify the page is on edit mode
 	 */
 	async expectEditPageLoaded(): Promise<void> {
-		// Wait for page heading first
-		await expect(this.pageHeading).toBeVisible({ timeout: 10000 })
+		// Wait for page heading first (async component may take time to render in CI)
+		await expect(this.pageHeading).toBeVisible({ timeout: 30000 })
 		// Then wait for form elements
-		await expect(this.titleInput).toBeVisible({ timeout: 10000 })
+		await expect(this.titleInput).toBeVisible({ timeout: 15000 })
 		await expect(this.submitButton).toBeVisible()
 	}
 

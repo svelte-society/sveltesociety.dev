@@ -17,23 +17,23 @@ export class AdminDashboardPage extends BasePage {
 	}
 
 	async gotoDashboard(): Promise<void> {
-		await this.page.goto('/admin')
+		await this.page.goto('/admin', { waitUntil: 'networkidle' })
 	}
 
 	async gotoContentManagement(): Promise<void> {
-		await this.page.goto('/admin/content')
+		await this.page.goto('/admin/content', { waitUntil: 'networkidle' })
 	}
 
 	async gotoUserManagement(): Promise<void> {
-		await this.page.goto('/admin/users')
+		await this.page.goto('/admin/users', { waitUntil: 'networkidle' })
 	}
 
 	async expectDashboardHeading(): Promise<void> {
-		await this.dashboardHeading.waitFor({ state: 'visible' })
+		await this.dashboardHeading.waitFor({ state: 'visible', timeout: 30000 })
 	}
 
 	async expectContentManagementHeading(): Promise<void> {
-		await this.contentManagementHeading.waitFor({ state: 'visible' })
+		await this.contentManagementHeading.waitFor({ state: 'visible', timeout: 30000 })
 	}
 
 	async expectUserMenuVisible(): Promise<void> {
