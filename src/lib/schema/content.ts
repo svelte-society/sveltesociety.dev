@@ -9,7 +9,7 @@ export const typeSchema = z.enum([
 	'resource',
 	'job'
 ])
-export const statusSchema = z.enum(['draft', 'pending_review', 'published', 'archived'])
+export const statusSchema = z.enum(['draft', 'pending_review', 'published', 'archived', 'expired'])
 
 const baseContentSchema = z.object({
 	id: z.string(),

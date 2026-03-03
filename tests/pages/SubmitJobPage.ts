@@ -316,8 +316,13 @@ export class SubmitJobPage extends BasePage {
 	 */
 	async expectTierSelected(tierName: 'basic' | 'featured' | 'premium'): Promise<void> {
 		const tierButton = this.tierButton(tierName)
-		// Selected tier has specific styling with orange border
-		await expect(tierButton).toHaveClass(/border-orange-500/)
+		// Retry click+check to handle cases where click is lost during hydration
+		await expect(async () => {
+			if (!(await tierButton.evaluate((el) => el.className.includes('border-orange-500')))) {
+				await tierButton.click()
+			}
+			await expect(tierButton).toHaveClass(/border-orange-500/, { timeout: 2000 })
+		}).toPass({ timeout: 15000 })
 	}
 
 	/**

@@ -42,8 +42,7 @@ export const applyToJob = form(applyToJobSchema, async (data) => {
 	}
 
 	// Check if job is expired
-	const now = new Date().toISOString()
-	if (job.metadata?.expires_at && job.metadata.expires_at < now) {
+	if (job.status === 'expired') {
 		return {
 			success: false,
 			error: 'Job expired',

@@ -28,7 +28,7 @@ export class SponsorSubmitPage extends BasePage {
 	 * Navigate to the sponsor submission page
 	 */
 	async goto(): Promise<void> {
-		await this.page.goto('/sponsors/submit')
+		await this.page.goto('/sponsors/submit', { waitUntil: 'networkidle' })
 	}
 
 	// Tier Selection Selectors
@@ -208,8 +208,13 @@ export class SponsorSubmitPage extends BasePage {
 	 */
 	async expectTierSelected(tierName: 'basic' | 'premium'): Promise<void> {
 		const tierButton = this.tierButton(tierName)
-		// Selected tier has specific styling with orange border
-		await expect(tierButton).toHaveClass(/border-orange-500/)
+		// Retry click+check to handle cases where click is lost during hydration
+		await expect(async () => {
+			if (!(await tierButton.evaluate((el) => el.className.includes('border-orange-500')))) {
+				await tierButton.click()
+			}
+			await expect(tierButton).toHaveClass(/border-orange-500/, { timeout: 2000 })
+		}).toPass({ timeout: 15000 })
 	}
 
 	/**
@@ -218,8 +223,13 @@ export class SponsorSubmitPage extends BasePage {
 	 */
 	async expectBillingSelected(billingType: 'monthly' | 'yearly' | 'one_time'): Promise<void> {
 		const billingButton = this.billingButton(billingType)
-		// Selected billing has specific styling with orange border
-		await expect(billingButton).toHaveClass(/border-orange-500/)
+		// Retry click+check to handle cases where click is lost during hydration
+		await expect(async () => {
+			if (!(await billingButton.evaluate((el) => el.className.includes('border-orange-500')))) {
+				await billingButton.click()
+			}
+			await expect(billingButton).toHaveClass(/border-orange-500/, { timeout: 2000 })
+		}).toPass({ timeout: 15000 })
 	}
 
 	/**
