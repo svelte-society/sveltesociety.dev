@@ -1,16 +1,8 @@
-import { getRequestEvent, query, form } from '$app/server'
+import { getRequestEvent, form } from '$app/server'
 import { fail, redirect } from '@sveltejs/kit'
 import { sponsorSubmissionSchema, type SponsorSubmissionData } from './schema'
 import { uploadImageFile } from '$lib/server/services/s3-storage'
 import { generateSlug } from '$lib/utils/slug'
-
-/**
- * Get available sponsor tiers
- */
-export const getSponsorTiers = query(async () => {
-	const { locals } = getRequestEvent()
-	return locals.sponsorTierService.getActiveTiers()
-})
 
 /**
  * Submit sponsor application and redirect to Stripe checkout

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/state'
 	import Check from 'phosphor-svelte/lib/Check'
 	import Star from 'phosphor-svelte/lib/Star'
 	import Heart from 'phosphor-svelte/lib/Heart'
@@ -10,7 +9,9 @@
 	import TextArea from '$lib/ui/TextArea.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import ImageUpload from '$lib/ui/ImageUpload.svelte'
-	import { submitSponsor, getSponsorTiers } from './submit.remote'
+	import { submitSponsor } from './submit.remote'
+
+	let { data } = $props()
 
 	const {
 		company_name,
@@ -23,13 +24,14 @@
 		billing_type
 	} = submitSponsor.fields
 
-	let tiers = await getSponsorTiers()
+	const tiers = data.tiers
 
-	// Get initial tier from URL if provided
-	const initialTierName = page.url.searchParams.get('tier')
-	const initialTier = initialTierName ? tiers.find((t) => t.name === initialTierName) : tiers[0]
+	// Initialize tier from URL param or default to first
+	const initialTier = data.tierParam
+		? tiers.find((t) => t.name === data.tierParam) ?? tiers[0]
+		: tiers[0]
 
-	let selectedTierId = $state(initialTier?.id || tiers[0]?.id || '')
+	let selectedTierId = $state(initialTier?.id || '')
 	let selectedBillingType = $state<'monthly' | 'yearly' | 'one_time'>('monthly')
 
 	let selectedTier = $derived(tiers.find((t) => t.id === selectedTierId))
