@@ -217,7 +217,7 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 
 	let content = searchResults.hits
 		.map((hit) => locals.contentService.getContentById(hit.id))
-		.filter((piece) => piece !== null)
+		.filter((piece) => piece != null)
 
 	if (locals.user?.id) {
 		const contentIds = content.map((piece) => piece.id)
@@ -360,7 +360,7 @@ export const getCategoryData = query(categoryDataInputSchema, async ({ url, type
 
 	let content = searchResults.hits
 		.map((hit) => locals.contentService.getContentById(hit.id))
-		.filter((piece) => piece !== null)
+		.filter((piece) => piece != null)
 
 	if (locals.user?.id) {
 		const contentIds = content.map((piece) => piece.id)
