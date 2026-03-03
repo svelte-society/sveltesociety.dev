@@ -26,7 +26,7 @@ export class BasePage {
 	 * @param path - URL path to navigate to (e.g., '/admin', '/recipes')
 	 */
 	async goto(path: string): Promise<void> {
-		await this.page.goto(path)
+		await this.page.goto(path, { waitUntil: 'networkidle' })
 	}
 
 	/**

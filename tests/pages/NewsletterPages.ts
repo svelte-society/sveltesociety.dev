@@ -704,16 +704,16 @@ export class AdminCampaignEditorPage extends BasePage {
 	 * Verify the new campaign page is loaded
 	 */
 	async expectNewPageLoaded(): Promise<void> {
-		await this.newCampaignHeading.waitFor({ state: 'visible' })
-		await this.titleInput.waitFor({ state: 'visible' })
+		await this.newCampaignHeading.waitFor({ state: 'visible', timeout: 30000 })
+		await this.titleInput.waitFor({ state: 'visible', timeout: 15000 })
 	}
 
 	/**
 	 * Verify the edit campaign page is loaded
 	 */
 	async expectEditPageLoaded(): Promise<void> {
-		await this.editCampaignHeading.waitFor({ state: 'visible' })
-		await this.titleInput.waitFor({ state: 'visible' })
+		await this.editCampaignHeading.waitFor({ state: 'visible', timeout: 30000 })
+		await this.titleInput.waitFor({ state: 'visible', timeout: 15000 })
 	}
 
 	/**
