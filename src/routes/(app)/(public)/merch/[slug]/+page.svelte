@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/state'
 	import { getProduct, getCartSummary, addToCart } from './data.remote'
+	import Button from '$lib/ui/Button.svelte'
 
 	let product = $derived(await getProduct({ slug: page.params.slug! }))
 	let cartSummary = $derived(await getCartSummary())
 
 	let quantity = $state(1)
+	let selectedImage = $state(0)
 
 	function formatPrice(cents: number): string {
 		return new Intl.NumberFormat('en-US', {
@@ -20,36 +22,41 @@
 </svelte:head>
 
 {#if product}
-	<div class="space-y-8">
-		<nav class="text-sm text-gray-500">
-			<a href="/merch" class="hover:underline">Merch</a>
-			<span class="mx-2">/</span>
-			<span class="font-medium text-gray-900">{product.title}</span>
+	<div class="space-y-10">
+		<!-- Breadcrumb -->
+		<nav class="flex items-center gap-2 text-sm">
+			<a href="/merch" class="text-svelte-900 hover:underline">Merch</a>
+			<span class="text-slate-300">/</span>
+			<span class="font-medium text-slate-900">{product.title}</span>
 		</nav>
 
 		<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-			<!-- Images -->
+			<!-- Gallery -->
 			<div class="space-y-3">
 				{#if product.images && product.images.length > 0}
-					<div class="aspect-square overflow-hidden rounded-lg bg-zinc-100">
+					<div class="aspect-[4/5] overflow-hidden rounded-2xl bg-slate-50">
 						<img
-							src={product.images[0]}
+							src={product.images[selectedImage]}
 							alt={product.title}
 							class="h-full w-full object-cover"
 						/>
 					</div>
 					{#if product.images.length > 1}
 						<div class="grid grid-cols-4 gap-2">
-							{#each product.images.slice(1) as image}
-								<div class="aspect-square overflow-hidden rounded-lg bg-zinc-100">
+							{#each product.images as image, i (image)}
+								<button
+									type="button"
+									class="aspect-square overflow-hidden rounded-xl bg-slate-50 transition-all {selectedImage === i ? 'ring-svelte-900 ring-2' : 'ring-1 ring-slate-100 hover:ring-slate-300'}"
+									onclick={() => (selectedImage = i)}
+								>
 									<img src={image} alt={product.title} class="h-full w-full object-cover" />
-								</div>
+								</button>
 							{/each}
 						</div>
 					{/if}
 				{:else}
 					<div
-						class="flex aspect-square items-center justify-center rounded-lg bg-zinc-100 text-zinc-400"
+						class="flex aspect-[4/5] items-center justify-center rounded-2xl bg-slate-50 text-slate-300"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -72,54 +79,52 @@
 			<!-- Product Info -->
 			<div class="space-y-6">
 				<div>
-					<h1 class="text-2xl font-bold sm:text-3xl">{product.title}</h1>
+					<p class="text-svelte-500 text-xs font-medium uppercase tracking-[0.2em]">
+						Svelte Society
+					</p>
+					<h1 class="mt-2 text-2xl font-black tracking-tight sm:text-3xl">{product.title}</h1>
 					{#if product.description}
-						<p class="mt-2 text-gray-600" data-testid="product-description">
+						<p class="mt-3 leading-relaxed text-slate-500" data-testid="product-description">
 							{product.description}
 						</p>
 					{/if}
 				</div>
 
 				{#if product.marketing_features && product.marketing_features.length > 0}
-					<ul class="space-y-1.5" data-testid="marketing-features">
+					<ul class="space-y-2" data-testid="marketing-features">
 						{#each product.marketing_features as feature}
-							<li class="flex items-start gap-2 text-sm text-gray-600">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 20 20"
-									fill="currentColor"
-									class="mt-0.5 h-4 w-4 shrink-0 text-green-500"
-								>
-									<path
-										fill-rule="evenodd"
-										d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-										clip-rule="evenodd"
-									/>
-								</svg>
+							<li class="flex items-start gap-2.5 text-sm text-slate-600">
+								<span class="bg-svelte-900 mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"></span>
 								{feature}
 							</li>
 						{/each}
 					</ul>
 				{/if}
 
-				<div class="text-2xl font-bold">
+				<p class="text-svelte-900 text-3xl font-black tabular-nums">
 					{formatPrice(product.base_price_cents)}
-				</div>
+				</p>
 
-				<form {...addToCart}>
+				<form
+				{...addToCart.enhance(async ({ submit }) => {
+					await submit()
+				})}
+			>
 					<div class="space-y-5">
 						<input {...addToCart.fields.slug.as('hidden', page.params.slug!)} />
 						<input {...addToCart.fields.quantity.as('hidden', String(quantity))} />
 
 						{#if product.variant_options && product.variant_options.length > 0}
-							<div class="space-y-4">
-								{#each product.variant_options as option}
+							<div class="space-y-5">
+								{#each product.variant_options as option (option.name)}
 									<fieldset>
-										<legend class="mb-2 block text-sm font-medium">{option.name}</legend>
+										<legend class="mb-3 text-xs font-medium uppercase tracking-[0.15em] text-slate-500"
+											>{option.name}</legend
+										>
 										<div class="flex flex-wrap gap-2">
-											{#each option.values as value, i}
+											{#each option.values as value, i (value)}
 												<label
-													class="cursor-pointer rounded-lg bg-zinc-100 px-4 py-2 text-sm transition-colors hover:bg-zinc-200 has-[:checked]:bg-zinc-900 has-[:checked]:text-white"
+													class="cursor-pointer rounded-full border-2 border-slate-200 px-4 py-2 text-sm font-medium transition-all hover:border-slate-400 has-[:checked]:border-svelte-900 has-[:checked]:bg-svelte-900 has-[:checked]:text-white"
 													data-testid="variant-option-{option.name.toLowerCase()}-{value.toLowerCase()}"
 												>
 													<input
@@ -138,25 +143,30 @@
 
 						<!-- Quantity -->
 						<div>
-							<label class="mb-2 block text-sm font-medium">Quantity</label>
-							<div class="flex items-center gap-2">
+							<span
+								class="mb-3 block text-xs font-medium uppercase tracking-[0.15em] text-slate-500"
+								>Quantity</span
+							>
+							<div
+								class="inline-flex items-center gap-1 rounded-full border border-slate-200 px-1 py-1"
+							>
 								<button
 									type="button"
-									class="rounded-lg bg-zinc-100 px-3 py-2 text-sm font-medium transition-colors hover:bg-zinc-200"
+									class="flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100"
 									onclick={() => {
 										if (quantity > 1) quantity--
 									}}
 									data-testid="quantity-minus"
 								>
-									-
+									−
 								</button>
 								<span
-									class="w-10 text-center font-medium"
+									class="w-8 text-center text-sm font-bold tabular-nums"
 									data-testid="quantity-display">{quantity}</span
 								>
 								<button
 									type="button"
-									class="rounded-lg bg-zinc-100 px-3 py-2 text-sm font-medium transition-colors hover:bg-zinc-200"
+									class="flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100"
 									onclick={() => quantity++}
 									data-testid="quantity-plus"
 								>
@@ -166,9 +176,11 @@
 						</div>
 
 						<div class="space-y-3">
-							<button
+							<Button
 								type="submit"
-								class="bg-svelte-900 hover:bg-svelte-500 w-full rounded-lg px-6 py-3 font-semibold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+								variant="primary"
+								size="lg"
+								width="full"
 								disabled={!!addToCart.pending}
 								data-testid="add-to-cart"
 							>
@@ -179,20 +191,22 @@
 								{:else}
 									Add to Cart
 								{/if}
-							</button>
+							</Button>
 
 							{#if addToCart.result && !addToCart.result.success}
-								<p class="text-sm text-red-600">{addToCart.result.text}</p>
+								<p class="text-center text-sm text-red-600">{addToCart.result.text}</p>
 							{/if}
 
 							{#if cartSummary.itemCount > 0}
-								<a
+								<Button
 									href="/merch/cart"
-									class="block w-full rounded-lg bg-zinc-100 px-6 py-3 text-center font-semibold transition-colors hover:bg-zinc-200"
+									variant="secondary"
+									size="lg"
+									width="full"
 									data-testid="view-cart"
 								>
 									View Cart ({cartSummary.itemCount})
-								</a>
+								</Button>
 							{/if}
 						</div>
 					</div>
@@ -202,22 +216,26 @@
 
 		<!-- Size Guide -->
 		{#if product.size_guide && product.size_guide.headers.length > 0}
-			<div class="space-y-3" data-testid="size-guide">
-				<h2 class="text-lg font-semibold">Size Guide</h2>
-				<div class="overflow-hidden rounded-lg border border-zinc-200">
+			<div class="space-y-4" data-testid="size-guide">
+				<h2 class="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">Size Guide</h2>
+				<div class="overflow-hidden rounded-2xl border border-slate-100">
 					<table class="w-full text-left text-sm">
-						<thead class="bg-zinc-50">
-							<tr>
+						<thead>
+							<tr class="bg-slate-50">
 								{#each product.size_guide.headers as header}
-									<th class="px-4 py-2.5 font-medium text-zinc-700">{header}</th>
+									<th class="px-4 py-3 text-xs font-medium uppercase tracking-[0.1em] text-slate-500"
+										>{header}</th
+									>
 								{/each}
 							</tr>
 						</thead>
-						<tbody class="divide-y divide-zinc-200">
-							{#each product.size_guide.rows as row}
-								<tr>
+						<tbody class="divide-y divide-slate-100">
+							{#each product.size_guide.rows as row, rowIndex}
+								<tr class={rowIndex % 2 === 1 ? 'bg-slate-50/50' : ''}>
 									{#each row as cell, i}
-										<td class="px-4 py-2 {i === 0 ? 'font-medium' : 'text-zinc-600'}">{cell}</td>
+										<td class="px-4 py-2.5 {i === 0 ? 'font-semibold' : 'text-slate-500'}"
+											>{cell}</td
+										>
 									{/each}
 								</tr>
 							{/each}
@@ -228,9 +246,14 @@
 		{/if}
 	</div>
 {:else}
-	<div class="py-12 text-center">
-		<h1 class="text-2xl font-bold">Product not found</h1>
-		<p class="mt-2 text-gray-500">The product you're looking for doesn't exist.</p>
-		<a href="/merch" class="mt-4 inline-block hover:underline">Back to Merch</a>
+	<div class="py-16 text-center">
+		<p class="text-svelte-500 text-xs font-medium uppercase tracking-[0.2em]">Not Found</p>
+		<h1 class="mt-2 text-2xl font-black tracking-tight">Product not found</h1>
+		<p class="mt-3 text-slate-500">The product you're looking for doesn't exist.</p>
+		<a
+			href="/merch"
+			class="text-svelte-900 mt-6 inline-block text-sm font-medium hover:underline"
+			>&larr; Back to Merch</a
+		>
 	</div>
 {/if}

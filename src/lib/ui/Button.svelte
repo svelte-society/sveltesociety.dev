@@ -25,13 +25,13 @@
 
 {#if href}
 	<a
-		class={[buttonVariants({ variant, size, thickness }), className]}
+		class={[buttonVariants({ variant, size, width, thickness }), className]}
 		{href}
 		{...rest as HTMLAnchorAttributes}>{@render children()}</a
 	>
 {:else}
 	<button
-		class={[buttonVariants({ variant, size, thickness }), className]}
+		class={[buttonVariants({ variant, size, width, thickness }), className]}
 		{...rest as HTMLButtonAttributes}
 	>
 		{@render children()}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getMyOrders } from './data.remote'
+	import Button from '$lib/ui/Button.svelte'
 
 	let { orders, authenticated } = $derived(await getMyOrders())
 
@@ -23,21 +24,42 @@
 	function statusBadge(status: string): { class: string; label: string } {
 		switch (status) {
 			case 'pending':
-				return { class: 'bg-yellow-100 text-yellow-700', label: 'Pending' }
+				return {
+					class: 'border-yellow-200 bg-yellow-50 text-yellow-700',
+					label: 'Pending'
+				}
 			case 'submitted':
-				return { class: 'bg-blue-100 text-blue-700', label: 'Submitted' }
+				return {
+					class: 'border-blue-200 bg-blue-50 text-blue-700',
+					label: 'Submitted'
+				}
 			case 'in_production':
-				return { class: 'bg-purple-100 text-purple-700', label: 'In Production' }
+				return {
+					class: 'border-purple-200 bg-purple-50 text-purple-700',
+					label: 'In Production'
+				}
 			case 'shipped':
-				return { class: 'bg-green-100 text-green-700', label: 'Shipped' }
+				return {
+					class: 'border-green-200 bg-green-50 text-green-700',
+					label: 'Shipped'
+				}
 			case 'delivered':
-				return { class: 'bg-green-100 text-green-700', label: 'Delivered' }
+				return {
+					class: 'border-green-200 bg-green-50 text-green-700',
+					label: 'Delivered'
+				}
 			case 'cancelled':
-				return { class: 'bg-red-100 text-red-700', label: 'Cancelled' }
+				return { class: 'border-red-200 bg-red-50 text-red-700', label: 'Cancelled' }
 			case 'refunded':
-				return { class: 'bg-gray-100 text-gray-700', label: 'Refunded' }
+				return {
+					class: 'border-slate-200 bg-slate-50 text-slate-600',
+					label: 'Refunded'
+				}
 			default:
-				return { class: 'bg-gray-100 text-gray-600', label: 'Processing' }
+				return {
+					class: 'border-slate-200 bg-slate-50 text-slate-600',
+					label: 'Processing'
+				}
 		}
 	}
 </script>
@@ -46,58 +68,69 @@
 	<title>My Orders | Merch | Svelte Society</title>
 </svelte:head>
 
-<div class="space-y-6">
+<div class="space-y-8">
 	<div>
-		<h1 class="text-2xl font-bold text-gray-900">My Orders</h1>
-		<p class="mt-1 text-gray-500">Track your merch orders</p>
+		<p class="text-svelte-500 text-xs font-medium uppercase tracking-[0.2em]">Your</p>
+		<h1 class="mt-1 text-2xl font-black tracking-tight sm:text-3xl">Orders</h1>
+		<p class="mt-2 text-sm text-slate-400">Track your merch orders</p>
 	</div>
 
 	{#if !authenticated}
-		<div class="rounded-lg border border-gray-200 bg-white py-12 text-center">
-			<p class="text-gray-500">Please log in to view your orders</p>
+		<div class="grain rounded-2xl bg-svelte-50 py-16 text-center">
+			<p class="text-svelte-500 text-xs font-medium uppercase tracking-[0.2em]">Sign In</p>
+			<p class="mt-2 text-lg font-black tracking-tight">Please log in to view your orders</p>
 		</div>
 	{:else if orders.length > 0}
-		<div class="divide-y divide-gray-200 rounded-xl border border-gray-200 bg-white" data-testid="orders-list">
+		<div class="space-y-3" data-testid="orders-list">
 			{#each orders as order (order.sessionId)}
 				<a
 					href="/merch/orders/{order.sessionId}"
-					class="flex items-center justify-between p-4 transition-colors hover:bg-gray-50"
+					class="group flex items-center justify-between rounded-2xl border border-slate-100 bg-white p-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
 					data-testid="order-row"
 				>
 					<div>
-						<p class="font-medium text-gray-900">
+						<p class="font-bold tracking-tight">
 							{formatDate(order.created)}
 						</p>
-						<p class="text-sm text-gray-500">
+						<p class="mt-0.5 text-sm text-slate-400">
 							{order.itemCount} item{order.itemCount !== 1 ? 's' : ''}
 						</p>
 					</div>
 
 					<div class="flex items-center gap-4">
-						<span class="rounded-full px-2.5 py-0.5 text-xs font-medium {statusBadge(order.fulfillmentStatus).class}">
+						<span
+							class="rounded-full border px-3 py-1 text-xs font-medium {statusBadge(order.fulfillmentStatus).class}"
+						>
 							{statusBadge(order.fulfillmentStatus).label}
 						</span>
-						<span class="font-semibold text-gray-900">
+						<span class="font-black tabular-nums">
 							{formatPrice(order.amount, order.currency)}
 						</span>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
 							viewBox="0 0 24 24"
-							stroke-width="1.5"
+							stroke-width="2"
 							stroke="currentColor"
-							class="h-5 w-5 text-gray-400"
+							class="h-4 w-4 text-slate-300 transition-transform group-hover:translate-x-1"
 						>
-							<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M8.25 4.5l7.5 7.5-7.5 7.5"
+							/>
 						</svg>
 					</div>
 				</a>
 			{/each}
 		</div>
 	{:else}
-		<div class="rounded-lg border border-gray-200 bg-white py-12 text-center">
-			<p class="text-gray-500">No orders yet</p>
-			<a href="/merch" class="mt-4 inline-block text-orange-600 hover:underline">Browse Merch</a>
+		<div class="grain rounded-2xl bg-svelte-50 py-16 text-center">
+			<p class="text-svelte-500 text-xs font-medium uppercase tracking-[0.2em]">Nothing Yet</p>
+			<p class="mt-2 text-lg font-black tracking-tight">No orders yet</p>
+			<div class="mt-6">
+				<Button href="/merch" variant="primary" size="lg">Browse Merch</Button>
+			</div>
 		</div>
 	{/if}
 </div>

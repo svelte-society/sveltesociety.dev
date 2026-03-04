@@ -1,6 +1,7 @@
 import { form, getRequestEvent, query } from '$app/server'
 import { redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
+import { getCart } from '../cart/cart.remote'
 
 const productSlugSchema = z.object({
 	slug: z.string()
@@ -73,6 +74,7 @@ export const addToCart = form(
 		})
 
 		await getCartSummary().refresh()
+		await getCart().refresh()
 
 		return { success: true as const, text: 'Added to cart' }
 	}
