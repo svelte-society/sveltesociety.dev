@@ -490,7 +490,10 @@ async function handleMerchCheckoutCompleted(session: Stripe.Checkout.Session, lo
 		// 1. Create fulfillment record
 		const fulfillment = locals.merchFulfillmentService.createFulfillment(session.id, userId)
 
-		// 2. Build and submit Styria order
+		// 2. Clear the user's cart now that payment is confirmed
+		locals.merchCartService.clearCart(userId)
+
+		// 3. Build and submit Styria order
 		try {
 			const styriaItems = session.metadata?.styria_items
 			if (styriaItems) {
@@ -500,7 +503,9 @@ async function handleMerchCheckoutCompleted(session: Stripe.Checkout.Session, lo
 				}>
 
 				const shippingDetails =
-					(session as any).shipping_details || (session as any).customer_details
+					(session as any).collected_information?.shipping_details ||
+					(session as any).shipping_details ||
+					(session as any).customer_details
 				if (shippingDetails?.address) {
 					const address = shippingDetails.address
 					const styriaOrder = await locals.styriashirtsService.createOrder({

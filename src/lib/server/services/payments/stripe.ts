@@ -348,7 +348,15 @@ export class StripeService {
 	 * Create checkout session for merch with multiple line items + shipping
 	 */
 	async createMerchCheckoutSession(params: {
-		lineItems: Array<{ stripePriceId: string; quantity: number }>
+		lineItems: Array<{
+			stripePriceId: string
+			quantity: number
+			productName: string
+			variantLabel: string
+			unitAmount: number
+			currency: string
+			images?: string[]
+		}>
 		customerId: string
 		successUrl: string
 		cancelUrl: string
@@ -358,7 +366,14 @@ export class StripeService {
 			mode: 'payment',
 			customer: params.customerId,
 			line_items: params.lineItems.map((item) => ({
-				price: item.stripePriceId,
+				price_data: {
+					currency: item.currency,
+					unit_amount: item.unitAmount,
+					product_data: {
+						name: `${item.productName} — ${item.variantLabel}`,
+						images: item.images?.slice(0, 1)
+					}
+				},
 				quantity: item.quantity
 			})),
 			shipping_address_collection: {
@@ -445,7 +460,7 @@ export class StripeService {
 	 */
 	async getSessionWithLineItems(sessionId: string): Promise<Stripe.Checkout.Session> {
 		return this.stripe.checkout.sessions.retrieve(sessionId, {
-			expand: ['line_items', 'shipping_details', 'customer']
+			expand: ['line_items', 'collected_information.shipping_details', 'customer']
 		})
 	}
 }

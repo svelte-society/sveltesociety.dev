@@ -21,6 +21,8 @@
 		<h1 class="text-lg font-bold sm:text-xl">Shopping Cart</h1>
 		<p class="mt-1 text-sm text-gray-500">
 			{cartData.summary.itemCount} item{cartData.summary.itemCount !== 1 ? 's' : ''} in your cart
+			<span class="mx-1">&middot;</span>
+			<a href="/merch" class="text-svelte-900 hover:underline">Continue shopping</a>
 		</p>
 	</div>
 

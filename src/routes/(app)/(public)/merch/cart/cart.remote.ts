@@ -110,11 +110,20 @@ export const createMerchCheckout = form(z.object({}), async () => {
 			locals.userService.setStripeCustomerId(locals.user.id, stripeCustomerId)
 		}
 
-		// Build line items for Stripe (variant ID is the Stripe Price ID)
-		const lineItems = validatedItems.map((item) => ({
-			stripePriceId: item.variantId,
-			quantity: item.quantity
-		}))
+		// Build line items for Stripe with product name + variant label
+		const lineItems = validatedItems.map((item) => {
+			const variant = locals.merchProductService.getVariantById(item.variantId)!
+			const product = locals.merchProductService.getProductById(variant.product_id)!
+			return {
+				stripePriceId: item.variantId,
+				quantity: item.quantity,
+				productName: product.title,
+				variantLabel: variant.label,
+				unitAmount: variant.price_cents,
+				currency: product.currency,
+				images: product.images
+			}
+		})
 
 		// Build metadata
 		const variantQuantities = validatedItems.map((item) => ({
@@ -142,9 +151,8 @@ export const createMerchCheckout = form(z.object({}), async () => {
 			}
 		})
 
-		// Clear cart after successful session creation
-		locals.merchCartService.clearCart(locals.user.id)
-		await getCart().refresh()
+		// Cart is cleared after successful payment via the Stripe webhook,
+		// not here — so the cart survives if the user clicks back from checkout.
 
 		return { success: true as const, text: 'Redirecting to checkout...', url: session.url }
 	} catch (error) {

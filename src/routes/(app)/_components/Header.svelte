@@ -1,6 +1,7 @@
 <script>
 	import OmniSearch from './OmniSearch.svelte'
 	import UserMenu from './UserMenu.svelte'
+	import CartIcon from './CartIcon.svelte'
 
 	let { user, announcement } = $props()
 </script>
@@ -64,6 +65,7 @@
 
 		<nav class="ml-auto items-center space-x-4 md:flex">
 			{#if user}
+				<CartIcon />
 				<UserMenu
 					{user}
 					newsletterPreference={user.newsletter_preference}

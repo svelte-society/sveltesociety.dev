@@ -16,6 +16,9 @@
 	// Editing variant state
 	let editingVariantId = $state<string | null>(null)
 
+	// Track selected option values for the "Add Variant" dropdowns
+	let selectedOptions = $state<Record<string, string>>({})
+
 	function formatPrice(cents: number): string {
 		return new Intl.NumberFormat('en-US', {
 			style: 'currency',
@@ -31,14 +34,7 @@
 {#if product}
 	<div class="space-y-8">
 		<div class="flex items-center justify-between">
-			<div>
-				<nav class="mb-2 text-sm text-gray-500">
-					<a href="/admin/merch" class="hover:text-orange-600">Merch</a>
-					<span class="mx-2">/</span>
-					<span class="text-gray-900">{product.title}</span>
-				</nav>
-				<h1 class="text-2xl font-bold text-gray-900">Edit Product</h1>
-			</div>
+			<h1 class="text-2xl font-bold text-gray-900">Edit Product</h1>
 			<a
 				href="/merch/{product.slug}"
 				class="text-sm text-orange-600 hover:text-orange-700"
@@ -133,9 +129,7 @@
 				</div>
 			</form>
 
-			<div
-				class="mt-4 flex items-center gap-4 border-t border-gray-200 pt-4 text-sm text-gray-500"
-			>
+			<div class="mt-4 flex items-center gap-4 border-t border-gray-200 pt-4 text-sm text-gray-500">
 				<span>ID: {product.id}</span>
 				<span>Slug: {product.slug}</span>
 				<span
@@ -163,9 +157,7 @@
 							disabled={!!generateVariants.pending}
 							data-testid="generate-variants"
 						>
-							{generateVariants.pending
-								? 'Generating...'
-								: 'Generate Variants from Options'}
+							{generateVariants.pending ? 'Generating...' : 'Generate Variants from Options'}
 						</button>
 					</form>
 				{/if}
@@ -208,9 +200,7 @@
 										<td colspan="5" class="px-3 py-3">
 											<form {...editForm} class="flex flex-wrap items-end gap-3">
 												<input {...editForm.fields.id.as('hidden', variant.id)} />
-												<input
-													{...editForm.fields.product_id.as('hidden', product.id)}
-												/>
+												<input {...editForm.fields.product_id.as('hidden', product.id)} />
 												<div>
 													<span class="block text-xs text-gray-500">Label</span>
 													<span class="text-sm font-medium">{variant.label}</span>
@@ -236,9 +226,7 @@
 													/>
 												</div>
 												<div class="flex gap-2">
-													<button
-														type="submit"
-														class="text-xs text-green-600 hover:text-green-700"
+													<button type="submit" class="text-xs text-green-600 hover:text-green-700"
 														>Save</button
 													>
 													<button
@@ -261,9 +249,7 @@
 										</td>
 										<td class="px-3 py-2">{formatPrice(variant.price_cents)}</td>
 										<td class="px-3 py-2 text-gray-500">{variant.sku || '-'}</td>
-										<td class="px-3 py-2 text-gray-500"
-											>{variant.styria_product_code || '-'}</td
-										>
+										<td class="px-3 py-2 text-gray-500">{variant.styria_product_code || '-'}</td>
 										<td class="px-3 py-2">
 											<div class="flex gap-2">
 												<button
@@ -273,12 +259,9 @@
 												>
 												<form {...delForm} class="inline">
 													<input {...delForm.fields.id.as('hidden', variant.id)} />
-													<input
-														{...delForm.fields.product_id.as('hidden', product.id)}
-													/>
-													<button
-														type="submit"
-														class="text-xs text-red-600 hover:text-red-700">Delete</button
+													<input {...delForm.fields.product_id.as('hidden', product.id)} />
+													<button type="submit" class="text-xs text-red-600 hover:text-red-700"
+														>Delete</button
 													>
 												</form>
 											</div>
@@ -299,30 +282,48 @@
 						await submit()
 						if (createVariant.result?.success) {
 							formEl.reset()
+							selectedOptions = {}
 						}
 					})}
 					class="grid grid-cols-2 gap-3 md:grid-cols-3"
 				>
 					<input {...createVariant.fields.product_id.as('hidden', product.id)} />
-					<div>
-						<label class="mb-1 block text-xs text-gray-500">Label</label>
-						<input
-							{...createVariant.fields.label.as('text')}
-							placeholder="M / Black"
-							class="w-full rounded border border-gray-300 px-2 py-1.5 text-sm"
-							required
-							data-testid="variant-label"
-						/>
-					</div>
-					<div>
-						<label class="mb-1 block text-xs text-gray-500">Option Values (JSON)</label>
-						<input
-							{...createVariant.fields.option_values.as('text')}
-							placeholder={'{"Size":"M","Color":"Black"}'}
-							class="w-full rounded border border-gray-300 px-2 py-1.5 font-mono text-sm"
-							data-testid="variant-options"
-						/>
-					</div>
+
+					{#if product.variant_options && product.variant_options.length > 0}
+						<!-- Dropdowns for each variant option -->
+						{#each product.variant_options as option (option.name)}
+							<div>
+								<label class="mb-1 block text-xs text-gray-500">{option.name}</label>
+								<select
+									bind:value={selectedOptions[option.name]}
+									class="w-full rounded border border-gray-300 px-2 py-1.5 text-sm"
+									required
+									data-testid="variant-option-{option.name.toLowerCase()}"
+								>
+									<option value="">Select {option.name}</option>
+									{#each option.values as value}
+										<option {value}>{value}</option>
+									{/each}
+								</select>
+							</div>
+						{/each}
+
+						<!-- Server derives label from option_values -->
+						<input type="hidden" name="option_values" value={JSON.stringify(selectedOptions)} />
+					{:else}
+						<!-- Fallback: manual label when no variant options defined -->
+						<div>
+							<label class="mb-1 block text-xs text-gray-500">Label</label>
+							<input
+								{...createVariant.fields.label.as('text')}
+								placeholder="M / Black"
+								class="w-full rounded border border-gray-300 px-2 py-1.5 text-sm"
+								required
+								data-testid="variant-label"
+							/>
+						</div>
+					{/if}
+
 					<div>
 						<label class="mb-1 block text-xs text-gray-500">Price Override (EUR)</label>
 						<input
