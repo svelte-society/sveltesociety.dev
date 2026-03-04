@@ -517,9 +517,16 @@ export class ContentService {
 			if (updatedContent) {
 				// Get tag slugs for search index
 				const tagSlugs = updatedContent.tags?.map((tag) => tag.slug) || []
-				// Get author names for search index
-				const authorNames =
-					updatedContent.authors?.map((author) => author.name || author.username) || []
+				// Get author names for search index from junction table
+				const authorRows = this.db
+					.prepare(
+						`SELECT COALESCE(u.name, u.username) as author_name
+						FROM content_to_users cu
+						JOIN users u ON cu.user_id = u.id
+						WHERE cu.content_id = ?`
+					)
+					.all(data.id) as { author_name: string }[]
+				const authorNames = authorRows.map((a) => a.author_name)
 
 				this.searchService.update(data.id, {
 					id: updatedContent.id,
