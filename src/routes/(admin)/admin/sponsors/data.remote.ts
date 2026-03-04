@@ -3,6 +3,10 @@ import { getRequestEvent } from '$app/server'
 import { z } from 'zod/v4'
 import { checkAdminAuth } from '../authorization.remote'
 import type { SponsorStatus } from '$lib/server/services/sponsors'
+import { dev } from '$app/environment'
+
+// Use dev URL locally, production URL otherwise
+const BASE_URL = dev ? 'http://localhost:5173' : 'https://sveltesociety.dev'
 
 const sponsorFiltersSchema = z.object({
 	status: z.enum(['pending', 'active', 'paused', 'expired', 'cancelled', 'all']).default('all'),
@@ -168,6 +172,12 @@ export const activateSponsor = form(sponsorIdSchema, async (data) => {
 	const { locals, url } = getRequestEvent()
 
 	try {
+		// Get sponsor details before activation for the social event
+		const sponsor = locals.sponsorService.getSponsorById(data.id)
+		if (!sponsor) {
+			return { success: false, text: 'Sponsor not found' }
+		}
+
 		// Activate the sponsor
 		locals.sponsorService.activateSponsor(data.id)
 
@@ -200,6 +210,18 @@ export const activateSponsor = form(sponsorIdSchema, async (data) => {
 				sponsorId: data.id,
 				isPremium,
 				endDate: periodEnd
+			})
+		}
+
+		// Trigger social event handler for sponsor activated
+		if (locals.user) {
+			locals.socialEventHandler.handleSponsorActivated({
+				sponsor_id: data.id,
+				sponsor_name: sponsor.company_name,
+				sponsor_tagline: sponsor.tagline ?? undefined,
+				sponsor_url: sponsor.website_url ?? undefined,
+				link_url: sponsor.website_url || `${BASE_URL}/sponsors`,
+				triggered_by_user_id: locals.user.id
 			})
 		}
 

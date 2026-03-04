@@ -4,6 +4,10 @@ import { z } from 'zod/v4'
 import { checkAdminAuth } from '../authorization.remote'
 import { uploadImageFile } from '$lib/server/services/s3-storage'
 import { generateSlug } from '$lib/utils/slug'
+import { dev } from '$app/environment'
+
+// Use dev URL locally, production URL otherwise
+const BASE_URL = dev ? 'http://localhost:5173' : 'https://sveltesociety.dev'
 
 // Helper to transform comma-separated array values from form submission
 // When using hidden inputs with array values, they may serialize as "a,b,c" instead of ["a","b","c"]
@@ -210,6 +214,10 @@ export const updateContent = form(adminUpdateContentSchema, async (data) => {
 	checkAdminAuth()
 	const { locals } = getRequestEvent()
 
+	// Get previous content to check if status changed
+	const previousContent = locals.contentService.getContentById(data.id)
+	const wasPublished = previousContent?.status === 'published'
+
 	const contentData = {
 		id: data.id,
 		title: data.title,
@@ -251,6 +259,16 @@ export const updateContent = form(adminUpdateContentSchema, async (data) => {
 			seniority_level: content.metadata?.seniority_level || '',
 			remote_status: content.metadata?.remote_status || ''
 		})
+
+		// Trigger social event handler if content was just published
+		if (!wasPublished && data.status === 'published' && locals.user) {
+			const context = locals.socialEventHandler.buildContentContext(
+				content,
+				locals.user.id,
+				BASE_URL
+			)
+			locals.socialEventHandler.handleContentPublished(context)
+		}
 	}
 
 	return { success: true }
@@ -265,6 +283,7 @@ export const updateJob = form(adminUpdateJobSchema, async (data) => {
 	if (!existingContent) error(404, 'Job not found')
 	if (existingContent.type !== 'job') error(400, 'Content is not a job')
 
+	const wasPublished = existingContent.status === 'published'
 	const existingMetadata = existingContent.metadata || {}
 
 	// Upload new logo to S3 if provided, otherwise keep existing
@@ -310,6 +329,18 @@ export const updateJob = form(adminUpdateJobSchema, async (data) => {
 	}
 
 	await locals.contentService.updateContent(contentData)
+
+	// Trigger social event handler if job was just published
+	if (!wasPublished && data.status === 'published' && locals.user) {
+		locals.socialEventHandler.handleJobPublished({
+			job_id: data.id,
+			job_title: data.title,
+			job_company: data.company_name,
+			job_location: data.location ?? undefined,
+			link_url: `${BASE_URL}/job/${data.slug}`,
+			triggered_by_user_id: locals.user.id
+		})
+	}
 
 	return { success: true }
 })
@@ -363,6 +394,18 @@ export const approveJob = form(approveJobSchema, async (data) => {
 			companyName: metadata.company_name || 'Your company',
 			expiresAt,
 			jobUrl: `https://sveltesociety.dev/job/${job.slug}`
+		})
+	}
+
+	// Trigger social event handler for job published
+	if (locals.user) {
+		locals.socialEventHandler.handleJobPublished({
+			job_id: data.id,
+			job_title: job.title,
+			job_company: metadata.company_name ?? undefined,
+			job_location: metadata.location ?? undefined,
+			link_url: `${BASE_URL}/job/${job.slug}`,
+			triggered_by_user_id: locals.user.id
 		})
 	}
 
