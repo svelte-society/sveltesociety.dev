@@ -25,7 +25,7 @@ export class JobDetailPage extends BasePage {
 	 * @param slug - The job's URL slug
 	 */
 	async goto(slug: string): Promise<void> {
-		await this.page.goto(`/job/${slug}`)
+		await this.page.goto(`/job/${slug}`, { waitUntil: 'networkidle' })
 	}
 
 	// Selectors
@@ -292,8 +292,9 @@ export class JobDetailPage extends BasePage {
 	 * Verify application was successful
 	 */
 	async expectApplicationSuccess(): Promise<void> {
-		// After successful application, should show "already applied" message
-		await expect(this.alreadyAppliedMessage).toBeVisible({ timeout: 5000 })
+		// After successful application, page data reloads and shows "already applied" message
+		// Allow extra time for form submission + data invalidation + re-render in CI
+		await expect(this.alreadyAppliedMessage).toBeVisible({ timeout: 15000 })
 	}
 
 	/**

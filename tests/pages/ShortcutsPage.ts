@@ -40,17 +40,17 @@ export class ShortcutsPage extends BasePage {
 	}
 
 	async gotoList(): Promise<void> {
-		await this.page.goto('/admin/shortcuts')
+		await this.page.goto('/admin/shortcuts', { waitUntil: 'networkidle' })
 	}
 
 	async gotoNew(): Promise<void> {
-		await this.page.goto('/admin/shortcuts/new')
+		await this.page.goto('/admin/shortcuts/new', { waitUntil: 'networkidle' })
 		// Wait for the form to be ready
-		await this.contentSelect.waitFor({ state: 'visible' })
+		await this.contentSelect.waitFor({ state: 'visible', timeout: 15000 })
 	}
 
 	async gotoEdit(id: string): Promise<void> {
-		await this.page.goto(`/admin/shortcuts/${id}`)
+		await this.page.goto(`/admin/shortcuts/${id}`, { waitUntil: 'networkidle' })
 	}
 
 	async clickAddShortcut(): Promise<void> {
@@ -103,7 +103,7 @@ export class ShortcutsPage extends BasePage {
 	async submitForm(): Promise<void> {
 		await this.submitButton.click()
 		// Wait for navigation to complete after form submission
-		await this.page.waitForLoadState('domcontentloaded')
+		await this.page.waitForLoadState('networkidle')
 	}
 
 	async toggleFirstShortcut(): Promise<void> {

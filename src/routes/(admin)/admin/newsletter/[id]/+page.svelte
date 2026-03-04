@@ -45,6 +45,18 @@
 	// Check if campaign has been sent
 	const isSent = $derived(campaign?.status === 'sent')
 
+	// Handle send campaign result reactively
+	$effect(() => {
+		if (sendCampaign.result) {
+			if (sendCampaign.result.success) {
+				toast.success('Successfully sent campaign.')
+				sendDialogOpen = false
+			} else {
+				toast.error(sendCampaign.result.text || 'Something went wrong when trying to send the campaign.')
+			}
+		}
+	})
+
 	// Get campaign type
 	const campaignType = $derived(campaign?.campaign_type ?? selectedCampaignType)
 
@@ -166,9 +178,7 @@
 <!-- Send confirmation dialog -->
 {#snippet confirmSend()}
 	<form {...sendCampaign.for(campaignId)}>
-		<Button type="submit" disabled={!!sendCampaign.pending}>
-			{sendCampaign.pending ? 'Sending...' : 'Confirm'}
-		</Button>
+		<Button type="submit">Confirm</Button>
 	</form>
 {/snippet}
 

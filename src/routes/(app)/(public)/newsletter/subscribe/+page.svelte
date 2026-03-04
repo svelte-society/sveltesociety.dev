@@ -4,8 +4,6 @@
 	import { Envelope, CheckCircle } from 'phosphor-svelte'
 	import { subscribePageNewsletter, userDecline } from '$lib/ui/newsletter.remote'
 	import { getUser } from '../../../data.remote'
-
-	let user = $derived(await getUser())
 </script>
 
 <div class="space-y-4 max-w-lg mx-auto" data-testid="newsletter-subscribe-page">
@@ -60,22 +58,22 @@
 			>
 				{subscribePageNewsletter.pending ? 'Subscribing...' : 'Yes, subscribe me'}
 			</Button>
-			<p class="text-xs text-slate-500">
-				Newsletter data is processed by Plunk, our email service provider. See our <a
-					href="/privacy"
-					class="text-svelte-900 hover:text-svelte-500 underline">Privacy Policy</a
-				>.
-			</p>
 		</form>
-		<form {...userDecline} class="mt-2">
+		<form {...userDecline}>
 			<Button
-				type="submit"
 				variant="ghost"
+				type="submit"
 				disabled={!!userDecline.pending}
 				data-testid="newsletter-decline-btn"
 			>
 				No thanks
 			</Button>
 		</form>
+		<p class="text-xs text-slate-500">
+			Newsletter data is processed by Plunk, our email service provider. See our <a
+				href="/privacy"
+				class="text-svelte-900 hover:text-svelte-500 underline">Privacy Policy</a
+			>.
+		</p>
 	{/if}
 </div>

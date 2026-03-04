@@ -24,10 +24,10 @@
 
 <div data-testid="content-list" class="grid gap-6">
 	<Filters {sort} />
-	{#if count > 0}
-		{#each content as content, index (content.id)}
+	{#if content.length > 0}
+		{#each content as item, index (item.id)}
 			<div class="min-w-0">
-				<ContentCard {content} priority={index < 2 ? 'high' : 'auto'} />
+				<ContentCard content={item} priority={index < 2 ? 'high' : 'auto'} />
 			</div>
 		{/each}
 	{:else}
