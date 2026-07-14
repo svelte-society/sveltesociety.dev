@@ -160,6 +160,7 @@ rtk git commit -m 'fix: add synchronous admin authorization guard'
 ### Task 2: Protect every admin Remote Function with its approved role class
 
 **Files:**
+- Create: `src/routes/(admin)/admin/authorization-coverage.test.ts`
 - Modify: `src/routes/(admin)/admin/users/users.remote.ts`
 - Modify: `src/routes/(admin)/admin/sponsors/data.remote.ts`
 - Modify: `src/routes/(admin)/admin/newsletter/data.remote.ts`
@@ -177,7 +178,60 @@ rtk git commit -m 'fix: add synchronous admin authorization guard'
 - Consumes: `requireRoles(allowedRoles): void` and the three permission constants from Task 1.
 - Produces: 65 protected Remote Functions whose callbacks reject before service/database access.
 
-- [ ] **Step 1: Replace every old guard import and call using this exact module matrix**
+- [ ] **Step 1: Write a failing source-level security invariant test**
+
+```ts
+import { describe, expect, test } from 'bun:test'
+
+const modules = [
+	['users/users.remote.ts', 'ADMIN_ONLY'],
+	['sponsors/data.remote.ts', 'ADMIN_ONLY'],
+	['newsletter/data.remote.ts', 'ADMIN_ONLY'],
+	['newsletter/[id]/data.remote.ts', 'ADMIN_ONLY'],
+	['tags/tags.remote.ts', 'ADMIN_AND_MODERATOR'],
+	['announcements/announcements.remote.ts', 'ADMIN_AND_MODERATOR'],
+	['feed-builder/data.remote.ts', 'ADMIN_AND_MODERATOR'],
+	['shortcuts/shortcuts.remote.ts', 'ADMIN_AND_MODERATOR'],
+	['external-content/external-content.remote.ts', 'ADMIN_AND_MODERATOR'],
+	['bulk-import/bulk-import.remote.ts', 'ADMIN_AND_MODERATOR'],
+	['content/data.remote.ts', 'CONTENT_MANAGERS'],
+	['content/content.remote.ts', 'CONTENT_MANAGERS']
+] as const
+
+describe('admin Remote Function authorization coverage', () => {
+	for (const [relativePath, permission] of modules) {
+		test(`${relativePath} guards every export with ${permission}`, async () => {
+			const source = await Bun.file(new URL(relativePath, import.meta.url)).text()
+			expect(source).not.toContain('checkAdminAuth')
+			expect(source).not.toContain('authorization.remote')
+
+			const exports = [...source.matchAll(/^export const \w+\s*=\s*(?:query|form)\(/gm)]
+			expect(exports.length).toBeGreaterThan(0)
+
+			for (const [index, exported] of exports.entries()) {
+				const start = exported.index ?? 0
+				const end = exports[index + 1]?.index ?? source.length
+				const callback = source.slice(start, end)
+				const bodyStart = callback.indexOf('=> {')
+				expect(bodyStart).toBeGreaterThan(-1)
+				expect(
+					callback.slice(bodyStart + 4).trimStart().startsWith(`requireRoles(${permission})`)
+				).toBe(true)
+			}
+		})
+	}
+})
+```
+
+- [ ] **Step 2: Run the invariant test and verify it fails on the vulnerable call sites**
+
+```bash
+rtk proxy env PATH=/Users/kevin/.bun/bin:/usr/bin:/bin:/usr/sbin:/sbin /Users/kevin/.bun/bin/bun test 'src/routes/(admin)/admin/authorization-coverage.test.ts'
+```
+
+Expected: FAIL because the modules still use `checkAdminAuth`; `content/data.remote.ts` also exposes an unguarded callback.
+
+- [ ] **Step 3: Replace every old guard import and call using this exact module matrix**
 
 | Modules | Import and first callback statement |
 | --- | --- |
@@ -203,7 +257,7 @@ export const protectedMutation = form(schema, async (data) => {
 
 Nested `newsletter/[id]/data.remote.ts` imports from `../../authorization.server`; all other area modules import from `../authorization.server`.
 
-- [ ] **Step 2: Prove the vulnerable helper and unguarded callbacks are gone**
+- [ ] **Step 4: Prove the vulnerable helper and unguarded callbacks are gone**
 
 Run:
 
@@ -212,9 +266,9 @@ rtk proxy rg -n 'checkAdminAuth|authorization\.remote' 'src/routes/(admin)/admin
 rtk proxy rg -L 'requireRoles\(' 'src/routes/(admin)/admin' -g '*.remote.ts'
 ```
 
-Expected: both commands produce no file matches. Manually inspect every exported `query` and `form` so `requireRoles(...)` precedes `getRequestEvent()` and all service calls.
+Expected: both commands produce no file matches. Run the invariant test from Step 2 again; all 12 module cases must PASS, proving every exported `query` and `form` starts with the correct `requireRoles(...)` call.
 
-- [ ] **Step 3: Run the authorization tests and repository unit suite**
+- [ ] **Step 5: Run the authorization tests and repository unit suite**
 
 ```bash
 rtk proxy env PATH=/Users/kevin/.bun/bin:/usr/bin:/bin:/usr/sbin:/sbin /Users/kevin/.bun/bin/bun test 'src/routes/(admin)/admin/authorization.test.ts'
@@ -223,7 +277,7 @@ rtk proxy env PATH=/Users/kevin/.bun/bin:/usr/bin:/bin:/usr/sbin:/sbin /Users/ke
 
 Expected: authorization tests PASS and the existing unit suite has zero failures.
 
-- [ ] **Step 4: Commit the Remote Function migration**
+- [ ] **Step 6: Commit the Remote Function migration**
 
 ```bash
 rtk git add 'src/routes/(admin)/admin'
