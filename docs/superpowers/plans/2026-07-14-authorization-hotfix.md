@@ -32,12 +32,14 @@
 ### Task 1: Add the synchronous authorization boundary
 
 **Files:**
+
 - Create: `src/routes/(admin)/admin/authorization.ts`
 - Create: `src/routes/(admin)/admin/authorization.server.ts`
 - Create: `src/routes/(admin)/admin/authorization.test.ts`
 - Delete: `src/routes/(admin)/admin/authorization.remote.ts`
 
 **Interfaces:**
+
 - Consumes: `App.Locals.user`, `App.Locals.roleService.getRoleById(number)`, and SvelteKit `error(status, message)`.
 - Produces: `AdminRole`, `ADMIN_ONLY`, `ADMIN_AND_MODERATOR`, `CONTENT_MANAGERS`, `assertRoles(user, role, allowedRoles): void`, and `requireRoles(allowedRoles): void`.
 
@@ -107,7 +109,11 @@ import type { Role } from '$lib/server/services/role'
 export type AdminRole = 'admin' | 'moderator' | 'editor'
 export const ADMIN_ONLY = ['admin'] as const satisfies readonly AdminRole[]
 export const ADMIN_AND_MODERATOR = ['admin', 'moderator'] as const satisfies readonly AdminRole[]
-export const CONTENT_MANAGERS = ['admin', 'moderator', 'editor'] as const satisfies readonly AdminRole[]
+export const CONTENT_MANAGERS = [
+	'admin',
+	'moderator',
+	'editor'
+] as const satisfies readonly AdminRole[]
 
 type AuthenticatedUser = { role: number }
 type AuthorizationRole = Pick<Role, 'active' | 'value'>
@@ -160,6 +166,7 @@ rtk git commit -m 'fix: add synchronous admin authorization guard'
 ### Task 2: Protect every admin Remote Function with its approved role class
 
 **Files:**
+
 - Create: `src/routes/(admin)/admin/authorization-coverage.test.ts`
 - Modify: `src/routes/(admin)/admin/users/users.remote.ts`
 - Modify: `src/routes/(admin)/admin/sponsors/data.remote.ts`
@@ -175,6 +182,7 @@ rtk git commit -m 'fix: add synchronous admin authorization guard'
 - Modify: `src/routes/(admin)/admin/content/content.remote.ts`
 
 **Interfaces:**
+
 - Consumes: `requireRoles(allowedRoles): void` and the three permission constants from Task 1.
 - Produces: 65 protected Remote Functions whose callbacks reject before service/database access.
 
@@ -215,7 +223,10 @@ describe('admin Remote Function authorization coverage', () => {
 				const bodyStart = callback.indexOf('=> {')
 				expect(bodyStart).toBeGreaterThan(-1)
 				expect(
-					callback.slice(bodyStart + 4).trimStart().startsWith(`requireRoles(${permission})`)
+					callback
+						.slice(bodyStart + 4)
+						.trimStart()
+						.startsWith(`requireRoles(${permission})`)
 				).toBe(true)
 			}
 		})
@@ -233,11 +244,11 @@ Expected: FAIL because the modules still use `checkAdminAuth`; `content/data.rem
 
 - [ ] **Step 3: Replace every old guard import and call using this exact module matrix**
 
-| Modules | Import and first callback statement |
-| --- | --- |
-| `users/users.remote.ts`, `sponsors/data.remote.ts`, `newsletter/data.remote.ts`, `newsletter/[id]/data.remote.ts` | `import { ADMIN_ONLY, requireRoles } from '../authorization.server'` (adjust `../` depth for nested newsletter); `requireRoles(ADMIN_ONLY)` |
-| `tags/tags.remote.ts`, `announcements/announcements.remote.ts`, `feed-builder/data.remote.ts`, `shortcuts/shortcuts.remote.ts`, `external-content/external-content.remote.ts`, `bulk-import/bulk-import.remote.ts` | `import { ADMIN_AND_MODERATOR, requireRoles } from '../authorization.server'`; `requireRoles(ADMIN_AND_MODERATOR)` |
-| `content/data.remote.ts`, `content/content.remote.ts` | `import { CONTENT_MANAGERS, requireRoles } from '../authorization.server'`; `requireRoles(CONTENT_MANAGERS)` |
+| Modules                                                                                                                                                                                                            | Import and first callback statement                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `users/users.remote.ts`, `sponsors/data.remote.ts`, `newsletter/data.remote.ts`, `newsletter/[id]/data.remote.ts`                                                                                                  | `import { ADMIN_ONLY, requireRoles } from '../authorization.server'` (adjust `../` depth for nested newsletter); `requireRoles(ADMIN_ONLY)` |
+| `tags/tags.remote.ts`, `announcements/announcements.remote.ts`, `feed-builder/data.remote.ts`, `shortcuts/shortcuts.remote.ts`, `external-content/external-content.remote.ts`, `bulk-import/bulk-import.remote.ts` | `import { ADMIN_AND_MODERATOR, requireRoles } from '../authorization.server'`; `requireRoles(ADMIN_AND_MODERATOR)`                          |
+| `content/data.remote.ts`, `content/content.remote.ts`                                                                                                                                                              | `import { CONTENT_MANAGERS, requireRoles } from '../authorization.server'`; `requireRoles(CONTENT_MANAGERS)`                                |
 
 Every callback must begin in this form, including `getFilteredContent`, which currently has no guard:
 
@@ -287,6 +298,7 @@ rtk git commit -m 'fix: enforce roles in admin remote functions'
 ### Task 3: Align navigation policy and add HTTP regression coverage
 
 **Files:**
+
 - Modify: `src/hooks/protect_routes.ts`
 - Modify: `scripts/test-db-seed.ts`
 - Modify: `tests/fixtures/test-data.ts`
@@ -296,6 +308,7 @@ rtk git commit -m 'fix: enforce roles in admin remote functions'
 - Modify: `tests/helpers/auth.ts`
 
 **Interfaces:**
+
 - Consumes: generated Remote Function actions discovered through `UserManagementPage`, `loginAs`, and the isolated test database cookie.
 - Produces: representative admin/moderator/editor navigation coverage plus HTTP regressions showing omitted/spoofed path headers cannot expose a read or execute a mutation.
 
@@ -407,7 +420,9 @@ test('an unauthenticated read is rejected with omitted and spoofed path headers'
 	await page.goto('/admin/users/test_viewer_001')
 	const userPage = new UserManagementPage(page)
 	const endpoints = await discoverUserRemotes(page, await userPage.getRoleFormAction())
-	const isolatedDatabase = (await page.context().cookies()).find((cookie) => cookie.name === 'test_db')
+	const isolatedDatabase = (await page.context().cookies()).find(
+		(cookie) => cookie.name === 'test_db'
+	)
 	expect(isolatedDatabase).toBeTruthy()
 
 	for (const headers of [{}, { 'x-sveltekit-pathname': '/' }]) {
@@ -442,7 +457,9 @@ test('an unauthenticated role mutation is rejected without changing the user', a
 	const before = await page.getByTestId('select-role').inputValue()
 	const userPage = new UserManagementPage(page)
 	const endpoints = await discoverUserRemotes(page, await userPage.getRoleFormAction())
-	const isolatedDatabase = (await page.context().cookies()).find((cookie) => cookie.name === 'test_db')
+	const isolatedDatabase = (await page.context().cookies()).find(
+		(cookie) => cookie.name === 'test_db'
+	)
 	expect(isolatedDatabase).toBeTruthy()
 
 	const response = await request.post(endpoints.updateUserRole.href, {

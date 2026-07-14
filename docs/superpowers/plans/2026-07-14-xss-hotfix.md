@@ -34,12 +34,14 @@
 ### Task 1: Sanitize rendered Markdown on write
 
 **Files:**
+
 - Modify: `package.json`
 - Modify: `bun.lockb`
 - Modify: `src/lib/server/markdown.ts`
 - Create: `src/lib/server/markdown.test.ts`
 
 **Interfaces:**
+
 - Consumes: `DOMPurify.sanitize(html, config)` and existing async Shiki configuration.
 - Produces: `sanitizeHtml(html: string): string` and `renderMarkdown(markdown: string): Promise<string>` that never return unsanitized HTML.
 
@@ -54,7 +56,7 @@ Expected: only `isomorphic-dompurify` and its transitive lock entries change; re
 
 - [ ] **Step 2: Write failing sanitizer tests**
 
-```ts
+````ts
 import { describe, expect, test } from 'bun:test'
 import { renderMarkdown, sanitizeHtml } from './markdown'
 
@@ -82,7 +84,7 @@ describe('sanitizeHtml', () => {
 		expect(rendered).toContain('<span')
 	})
 })
-```
+````
 
 - [ ] **Step 3: Run the test and verify the unsafe cases fail**
 
@@ -146,10 +148,12 @@ rtk git commit -m 'fix: sanitize rendered markdown'
 ### Task 2: Sanitize legacy Markdown at the content read boundary
 
 **Files:**
+
 - Modify: `src/lib/server/services/content.ts`
 - Modify: `src/lib/server/services/content.test.ts`
 
 **Interfaces:**
+
 - Consumes: `sanitizeHtml(html: string): string` from Task 1.
 - Produces: `getContentById(id)` output with sanitized `rendered_body` for the parent and every populated collection child.
 
@@ -207,6 +211,7 @@ rtk git commit -m 'fix: sanitize legacy content on read'
 ### Task 3: Remove the OmniSearch HTML sink
 
 **Files:**
+
 - Create: `src/routes/(app)/_components/omni-search.ts`
 - Create: `src/routes/(app)/_components/omni-search.test.ts`
 - Modify: `src/routes/(app)/_components/OmniSearch.svelte`
@@ -216,6 +221,7 @@ rtk git commit -m 'fix: sanitize legacy content on read'
 - Modify: `tests/e2e/public/search.spec.ts`
 
 **Interfaces:**
+
 - Produces: `HighlightSegment = { text: string; highlighted: boolean }`, `splitHighlight(text: string, search: string): HighlightSegment[]`, and a browser fixture proving author labels remain text.
 - Consumes: normal Svelte interpolation and the existing `HomePage` POM; no raw HTML rendering.
 
@@ -228,19 +234,19 @@ import { splitHighlight } from './omni-search'
 describe('splitHighlight', () => {
 	test('preserves malicious markup as plain text segments', () => {
 		expect(splitHighlight('<img src=x onerror=alert(1)>Alice', 'ali')).toEqual([
-		{ text: '<img src=x onerror=alert(1)>', highlighted: false },
-		{ text: 'Ali', highlighted: true },
-		{ text: 'ce', highlighted: false }
-	])
+			{ text: '<img src=x onerror=alert(1)>', highlighted: false },
+			{ text: 'Ali', highlighted: true },
+			{ text: 'ce', highlighted: false }
+		])
 	})
 
 	test('matches case-insensitively and treats regex characters literally', () => {
 		expect(splitHighlight('Svelte [5] and [5]', '[5]')).toEqual([
-		{ text: 'Svelte ', highlighted: false },
-		{ text: '[5]', highlighted: true },
-		{ text: ' and ', highlighted: false },
-		{ text: '[5]', highlighted: true }
-	])
+			{ text: 'Svelte ', highlighted: false },
+			{ text: '[5]', highlighted: true },
+			{ text: ' and ', highlighted: false },
+			{ text: '[5]', highlighted: true }
+		])
 	})
 
 	test('returns one plain segment for an empty search', () => {
@@ -383,9 +389,11 @@ rtk git commit -m 'fix: render search highlights as escaped text'
 ### Task 4: Verify the complete security hotfix
 
 **Files:**
+
 - Verify only; do not broaden the change set.
 
 **Interfaces:**
+
 - Consumes: all authorization and XSS commits.
 - Produces: evidence that security regressions, unit tests, lint, and production build pass.
 

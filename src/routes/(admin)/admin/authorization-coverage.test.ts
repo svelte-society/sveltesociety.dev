@@ -1,4 +1,9 @@
 import { describe, expect, test } from 'bun:test'
+import { readdir } from 'node:fs/promises'
+import { relative, resolve, sep } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const adminDirectory = fileURLToPath(new URL('.', import.meta.url))
 
 const modules = [
 	['users/users.remote.ts', 'ADMIN_ONLY'],
@@ -16,10 +21,43 @@ const modules = [
 ] as const
 
 function findRemoteFunctionExports(source: string) {
-	return [...source.matchAll(/^export const \w+\s*=\s*(?:query|form|command)\(/gm)]
+	return [
+		...source.matchAll(/^export const \w+\s*=\s*(?:query(?:\.batch)?|form|command|prerender)\(/gm)
+	]
+}
+
+async function findRemoteModules(directory: string): Promise<string[]> {
+	const entries = await readdir(directory, { withFileTypes: true })
+	const nestedModules = await Promise.all(
+		entries.map(async (entry) => {
+			const path = resolve(directory, entry.name)
+
+			if (entry.isDirectory()) return findRemoteModules(path)
+			if (entry.isFile() && entry.name.endsWith('.remote.ts')) return [path]
+
+			return []
+		})
+	)
+
+	return nestedModules.flat()
 }
 
 describe('admin Remote Function authorization coverage', () => {
+	test('recognizes query.batch Remote Function exports', () => {
+		const source = `export const batched = query.batch('unchecked', async (inputs) => {})`
+
+		expect(findRemoteFunctionExports(source)).toHaveLength(1)
+	})
+
+	test('manifest includes every admin Remote Function module', async () => {
+		const manifest = modules.map(([relativePath]) => relativePath).sort()
+		const discovered = (await findRemoteModules(adminDirectory))
+			.map((path) => relative(adminDirectory, path).split(sep).join('/'))
+			.sort()
+
+		expect(discovered).toEqual(manifest)
+	})
+
 	test('covers exactly 65 Remote Function exports', async () => {
 		const sources = await Promise.all(
 			modules.map(([relativePath]) => Bun.file(new URL(relativePath, import.meta.url)).text())

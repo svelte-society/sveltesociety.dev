@@ -1,7 +1,22 @@
-import DOMPurify, { type Config } from 'isomorphic-dompurify'
+import DOMPurify, { type Config, type UponSanitizeAttributeHook } from 'isomorphic-dompurify'
 import { marked } from 'marked'
 import markedShiki from 'marked-shiki'
 import { createHighlighter, type Highlighter } from 'shiki'
+
+const DATA_URI_ATTRIBUTES = new Set(['href', 'src', 'xlink:href'])
+const URI_WHITESPACE = /[\u0000-\u0020\u007f-\u009f\u00a0\u1680\u180e\u2000-\u2029\u205f\u3000]/g
+const DATA_SCHEME = /^data:/i
+
+const removeDataUri: UponSanitizeAttributeHook = (_element, hookEvent) => {
+	if (
+		DATA_URI_ATTRIBUTES.has(hookEvent.attrName) &&
+		DATA_SCHEME.test(hookEvent.attrValue.replace(URI_WHITESPACE, ''))
+	) {
+		hookEvent.keepAttr = false
+	}
+}
+
+DOMPurify.addHook('uponSanitizeAttribute', removeDataUri)
 
 const SANITIZE_CONFIG: Config = {
 	USE_PROFILES: { html: true },

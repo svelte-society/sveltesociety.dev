@@ -12,6 +12,7 @@ const routePermissions: RoutePermission[] = [
 	{ path: '/admin/users', allowedRoles: ['admin'] },
 	{ path: '/admin/sponsors', allowedRoles: ['admin'] },
 	{ path: '/admin/newsletter', allowedRoles: ['admin'] },
+	{ path: '/admin/email-preview', allowedRoles: ['admin'] },
 	{ path: '/admin/roles', allowedRoles: ['admin'] },
 	{ path: '/admin/statistics', allowedRoles: ['admin'] },
 

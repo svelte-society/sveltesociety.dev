@@ -83,6 +83,46 @@ test.describe('Protected Routes - Role-Based Access Control', () => {
 		await expect(page).toHaveURL('/admin/content')
 	})
 
+	test('moderator is redirected from the email-preview page', async ({ page }) => {
+		await loginAs(page, 'contributor')
+		await page.goto('/admin/email-preview')
+
+		await expect(page).toHaveURL('/')
+	})
+
+	test('editor is redirected from the email-preview page', async ({ page }) => {
+		await loginAs(page, 'editor')
+		await page.goto('/admin/email-preview')
+
+		await expect(page).toHaveURL('/')
+	})
+
+	test('admin can access the email-preview page', async ({ page }) => {
+		await loginAs(page, 'admin')
+		const response = await page.goto('/admin/email-preview')
+
+		expect(response?.status()).toBe(200)
+		await expect(page).toHaveURL('/admin/email-preview')
+	})
+
+	for (const role of ['contributor', 'editor'] as const) {
+		test(`${role} cannot invoke the email-preview send-email action`, async ({ page }) => {
+			await loginAs(page, role)
+			const response = await page.request.post('/admin/email-preview?/send-email', {
+				form: {},
+				headers: { origin: 'http://localhost:4173' },
+				maxRedirects: 0
+			})
+
+			expect(response.status()).toBe(200)
+			await expect(response.json()).resolves.toEqual({
+				type: 'redirect',
+				status: 303,
+				location: '/'
+			})
+		})
+	}
+
 	for (const path of ['/admin/sponsors', '/admin/newsletter']) {
 		test(`moderator cannot access admin-only ${path}`, async ({ page }) => {
 			await loginAs(page, 'contributor')
