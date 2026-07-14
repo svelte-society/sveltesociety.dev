@@ -1,6 +1,34 @@
+import DOMPurify from 'isomorphic-dompurify'
 import { marked } from 'marked'
 import markedShiki from 'marked-shiki'
 import { createHighlighter, type Highlighter } from 'shiki'
+
+const SANITIZE_CONFIG = {
+	USE_PROFILES: { html: true },
+	FORBID_TAGS: [
+		'script',
+		'style',
+		'iframe',
+		'object',
+		'embed',
+		'form',
+		'input',
+		'button',
+		'textarea',
+		'select',
+		'option',
+		'template',
+		'base',
+		'link',
+		'meta'
+	],
+	FORBID_ATTR: ['formaction', 'srcdoc'],
+	SANITIZE_NAMED_PROPS: true
+} as const
+
+export function sanitizeHtml(html: string): string {
+	return DOMPurify.sanitize(html, SANITIZE_CONFIG)
+}
 
 let highlighter: Highlighter | null = null
 
@@ -42,5 +70,5 @@ async function configureMarked(): Promise<void> {
  */
 export async function renderMarkdown(markdown: string): Promise<string> {
 	await configureMarked()
-	return marked(markdown) as string
+	return sanitizeHtml(await marked(markdown))
 }
