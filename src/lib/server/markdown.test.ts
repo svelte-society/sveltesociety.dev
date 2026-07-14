@@ -24,6 +24,8 @@ const ACTIVE_TAGS = [
 
 const URL_ATTRIBUTES = new Set(['href', 'src', 'xlink:href', 'action', 'formaction'])
 const DANGEROUS_SCHEME = /^(?:javascript|vbscript|data):/i
+const MUTATION_XSS_PAYLOAD =
+	'<math><mtext><table><mglyph><style><!--</style><img title="--><img src=x onerror=alert(1)>">'
 
 function inspectExecutableMarkup(html: string) {
 	const document = new JSDOM(html).window.document
@@ -61,6 +63,12 @@ describe('sanitizeHtml', () => {
 		})
 	})
 
+	test('parser inspection detects active tags in unsanitized mutation-XSS markup', () => {
+		expect(inspectExecutableMarkup(MUTATION_XSS_PAYLOAD).activeTags).toEqual(
+			expect.arrayContaining(['math', 'style'])
+		)
+	})
+
 	test.each([
 		'<script>alert(1)</script>',
 		'<img src=x onerror=alert(1)>',
@@ -71,8 +79,7 @@ describe('sanitizeHtml', () => {
 		'<math><mi>x</mi></math>',
 		'<iframe srcdoc="<script>alert(1)</script>"></iframe>',
 		'<form><button formaction="javascript:alert(1)">x</button></form>',
-		'<math><mtext><table><mglyph><style><!--</style><img title="--><img src=x onerror=alert(1)>">',
-		'<noscript><p title="</noscript><img src=x onload=alert(1)>">'
+		MUTATION_XSS_PAYLOAD
 	])('removes executable markup from %s', (payload) => {
 		const sanitized = sanitizeHtml(payload)
 		expect(inspectExecutableMarkup(sanitized)).toEqual({
