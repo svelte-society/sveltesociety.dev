@@ -152,4 +152,3 @@ XSS release verification:
 - Playwright architecture changes beyond security regression coverage;
 - general service or component refactoring;
 - production mutation testing.
-
