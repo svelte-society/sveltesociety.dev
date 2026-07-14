@@ -14,50 +14,52 @@
 	const rem = $derived(removeFromCart.for(item.variant_id))
 </script>
 
-<div class="flex items-center gap-4 p-4" data-testid="cart-item">
+<div class="flex items-center gap-5 p-5" data-testid="cart-item">
 	{#if item.image}
-		<div class="h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-zinc-200">
+		<div class="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-slate-50">
 			<img src={item.image} alt={item.product_title} class="h-full w-full object-cover" />
 		</div>
 	{/if}
 
 	<div class="min-w-0 flex-1">
-		<h3 class="font-bold">{item.product_title}</h3>
-		<p class="text-sm text-gray-500">{item.variant_label}</p>
-		<p class="text-sm font-semibold">{formatPrice(item.price_cents)}</p>
+		<h3 class="font-bold tracking-tight">{item.product_title}</h3>
+		<p class="mt-0.5 text-sm text-slate-400">{item.variant_label}</p>
+		<p class="text-svelte-900 mt-1 font-black tabular-nums">{formatPrice(item.price_cents)}</p>
 	</div>
 
-	<div class="flex items-center gap-2">
-		<form {...dec}>
-			<input {...dec.fields.variant_id.as('hidden', item.variant_id)} />
-			<button
-				type="submit"
-				class="rounded-lg bg-zinc-200 px-2.5 py-1 text-sm font-medium transition-colors hover:bg-zinc-300"
-			>
-				-
-			</button>
-		</form>
-		<span class="w-8 text-center text-sm font-medium">{item.quantity}</span>
-		<form {...inc}>
-			<input {...inc.fields.variant_id.as('hidden', item.variant_id)} />
-			<button
-				type="submit"
-				class="rounded-lg bg-zinc-200 px-2.5 py-1 text-sm font-medium transition-colors hover:bg-zinc-300"
-			>
-				+
-			</button>
-		</form>
+	<div class="flex items-center">
+		<div class="inline-flex items-center gap-1 rounded-full border border-slate-200 px-1 py-1">
+			<form {...dec}>
+				<input {...dec.fields.variant_id.as('hidden', item.variant_id)} />
+				<button
+					type="submit"
+					class="flex h-7 w-7 items-center justify-center rounded-full text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100"
+				>
+					−
+				</button>
+			</form>
+			<span class="w-7 text-center text-sm font-bold tabular-nums">{item.quantity}</span>
+			<form {...inc}>
+				<input {...inc.fields.variant_id.as('hidden', item.variant_id)} />
+				<button
+					type="submit"
+					class="flex h-7 w-7 items-center justify-center rounded-full text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100"
+				>
+					+
+				</button>
+			</form>
+		</div>
 	</div>
 
 	<div class="text-right">
-		<p class="font-semibold">
+		<p class="font-black tabular-nums">
 			{formatPrice(item.price_cents * item.quantity)}
 		</p>
 		<form {...rem}>
 			<input {...rem.fields.variant_id.as('hidden', item.variant_id)} />
 			<button
 				type="submit"
-				class="mt-1 text-sm text-gray-500 hover:text-red-600"
+				class="mt-1 text-xs font-medium text-slate-400 transition-colors hover:text-red-600"
 				data-testid="cart-remove"
 			>
 				Remove

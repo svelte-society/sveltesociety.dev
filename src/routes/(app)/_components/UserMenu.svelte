@@ -3,8 +3,7 @@
 	import Avatar from '$lib/ui/Avatar.svelte'
 	import Dropdown from '$lib/ui/Dropdown.svelte'
 	import SignOut from 'phosphor-svelte/lib/SignOut'
-	import GearSix from 'phosphor-svelte/lib/GearSix'
-	import UserCircle from 'phosphor-svelte/lib/UserCircle'
+	import Package from 'phosphor-svelte/lib/Package'
 	import Envelope from 'phosphor-svelte/lib/Envelope'
 
 	let {
@@ -48,24 +47,14 @@
 	{/snippet}
 
 	<a
-		href="/account"
+		href="/merch/orders"
 		role="menuitem"
-		data-testid="account-settings-menu-item"
+		data-testid="your-orders-menu-item"
 		onclick={() => dropdownRef?.close()}
 		class="flex h-10 cursor-pointer items-center rounded-sm py-3 pr-1.5 pl-3 text-sm font-medium select-none hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
 	>
-		<GearSix class="mr-2 size-5" />
-		Account Settings
-	</a>
-	<a
-		href={`/user/${user.username}`}
-		role="menuitem"
-		data-testid="profile-menu-item"
-		onclick={() => dropdownRef?.close()}
-		class="flex h-10 cursor-pointer items-center rounded-sm py-3 pr-1.5 pl-3 text-sm font-medium select-none hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
-	>
-		<UserCircle class="mr-2 size-5" />
-		Profile
+		<Package class="mr-2 size-5" />
+		Your Orders
 	</a>
 	{#if newsletterPreference === 'subscribed' && plunkContactId}
 		<a

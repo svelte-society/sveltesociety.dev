@@ -64,8 +64,7 @@ export const getMyOrder = query(orderDetailSchema, async ({ sessionId }) => {
 		const fulfillment = locals.merchFulfillmentService.getByStripeSessionId(session.id)
 
 		const shippingDetails =
-			(session as any).collected_information?.shipping_details ||
-			(session as any).shipping_details
+			(session as any).collected_information?.shipping_details || (session as any).shipping_details
 		return {
 			sessionId: session.id,
 			amount: session.amount_total,

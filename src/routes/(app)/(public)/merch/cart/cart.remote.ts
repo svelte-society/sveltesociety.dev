@@ -145,6 +145,7 @@ export const createMerchCheckout = form(z.object({}), async () => {
 			successUrl: `${url.origin}/merch/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
 			cancelUrl: `${url.origin}/merch/cart`,
 			metadata: {
+				product_type: 'merch',
 				user_id: locals.user.id,
 				variant_quantities: JSON.stringify(variantQuantities),
 				styria_items: JSON.stringify(styriaItems)

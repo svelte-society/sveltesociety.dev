@@ -23,24 +23,42 @@
 		})
 	}
 
+	const timelineSteps = ['pending', 'received', 'in_production', 'quality_control', 'completed'] as const
+
+	const stepLabels: Record<string, string> = {
+		pending: 'Pending',
+		received: 'Received',
+		in_production: 'In Production',
+		quality_control: 'Quality Control',
+		completed: 'Completed'
+	}
+
+	function getStepIndex(status: string): number {
+		const idx = timelineSteps.indexOf(status as (typeof timelineSteps)[number])
+		return idx >= 0 ? idx : 0
+	}
+
 	function statusBadge(status: string): { class: string; label: string } {
 		switch (status) {
 			case 'pending':
-				return { class: 'bg-yellow-100 text-yellow-700', label: 'Pending' }
-			case 'submitted':
-				return { class: 'bg-blue-100 text-blue-700', label: 'Submitted' }
+				return { class: 'border-yellow-200 bg-yellow-50 text-yellow-700', label: 'Pending' }
+			case 'received':
+				return { class: 'border-blue-200 bg-blue-50 text-blue-700', label: 'Received' }
 			case 'in_production':
-				return { class: 'bg-purple-100 text-purple-700', label: 'In Production' }
-			case 'shipped':
-				return { class: 'bg-green-100 text-green-700', label: 'Shipped' }
-			case 'delivered':
-				return { class: 'bg-green-100 text-green-700', label: 'Delivered' }
+				return {
+					class: 'border-purple-200 bg-purple-50 text-purple-700',
+					label: 'In Production'
+				}
+			case 'quality_control':
+				return { class: 'border-indigo-200 bg-indigo-50 text-indigo-700', label: 'Quality Control' }
+			case 'completed':
+				return { class: 'border-green-200 bg-green-50 text-green-700', label: 'Completed' }
 			case 'cancelled':
-				return { class: 'bg-red-100 text-red-700', label: 'Cancelled' }
+				return { class: 'border-red-200 bg-red-50 text-red-700', label: 'Cancelled' }
 			case 'refunded':
-				return { class: 'bg-gray-100 text-gray-700', label: 'Refunded' }
+				return { class: 'border-slate-200 bg-slate-50 text-slate-600', label: 'Refunded' }
 			default:
-				return { class: 'bg-gray-100 text-gray-600', label: 'Processing' }
+				return { class: 'border-slate-200 bg-slate-50 text-slate-600', label: 'Processing' }
 		}
 	}
 </script>
@@ -50,92 +68,180 @@
 </svelte:head>
 
 {#if order}
-	<div class="space-y-6">
-		<nav class="text-sm text-gray-500">
-			<a href="/merch" class="hover:text-orange-600">Merch</a>
-			<span class="mx-2">/</span>
-			<a href="/merch/orders" class="hover:text-orange-600">Orders</a>
-			<span class="mx-2">/</span>
-			<span class="text-gray-900">Order Detail</span>
+	{@const currentStep = getStepIndex(order.fulfillmentStatus)}
+	{@const isCancelledOrRefunded =
+		order.fulfillmentStatus === 'cancelled' || order.fulfillmentStatus === 'refunded'}
+
+	<div class="space-y-8">
+		<!-- Breadcrumb -->
+		<nav class="flex items-center gap-2 text-sm">
+			<a href="/merch" class="text-svelte-900 hover:underline">Merch</a>
+			<span class="text-slate-300">/</span>
+			<a href="/merch/orders" class="text-svelte-900 hover:underline">Orders</a>
+			<span class="text-slate-300">/</span>
+			<span class="font-medium text-slate-900">Detail</span>
 		</nav>
 
+		<!-- Header -->
 		<div class="flex items-start justify-between">
 			<div>
-				<h1 class="text-2xl font-bold text-gray-900">Order Detail</h1>
-				<p class="mt-1 text-sm text-gray-500">{formatDate(order.created)}</p>
+				<p class="text-svelte-500 text-xs font-medium uppercase tracking-[0.2em]">Order</p>
+				<h1 class="mt-1 text-2xl font-black tracking-tight">Order Detail</h1>
+				<p class="mt-1 text-sm text-slate-400">{formatDate(order.created)}</p>
 			</div>
-			<span class="rounded-full px-3 py-1 text-sm font-medium {statusBadge(order.fulfillmentStatus).class}">
+			<span
+				class="rounded-full border px-3 py-1 text-xs font-medium {statusBadge(order.fulfillmentStatus).class}"
+			>
 				{statusBadge(order.fulfillmentStatus).label}
 			</span>
 		</div>
 
-		<!-- Line Items -->
-		<div class="rounded-xl border border-gray-200 bg-white">
-			<div class="border-b border-gray-200 px-4 py-3">
-				<h2 class="font-semibold text-gray-900">Items</h2>
-			</div>
-			<div class="divide-y divide-gray-200">
-				{#each order.lineItems as item}
-					<div class="flex items-center justify-between p-4">
-						<div>
-							<p class="font-medium text-gray-900">{item.description}</p>
-							<p class="text-sm text-gray-500">Qty: {item.quantity}</p>
+		<!-- Fulfillment Timeline -->
+		{#if !isCancelledOrRefunded}
+			<div class="rounded-2xl border border-slate-100 bg-white p-6">
+				<p class="mb-5 text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
+					Fulfillment Progress
+				</p>
+				<div class="flex items-center justify-between">
+					{#each timelineSteps as step, i}
+						<div class="flex flex-col items-center gap-2">
+							<div class="relative">
+								{#if i <= currentStep}
+									<div
+										class="bg-svelte-900 flex h-8 w-8 items-center justify-center rounded-full text-white {i === currentStep ? 'ring-svelte-100 ring-4' : ''}"
+									>
+										{#if i < currentStep}
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 20 20"
+												fill="currentColor"
+												class="h-4 w-4"
+											>
+												<path
+													fill-rule="evenodd"
+													d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+													clip-rule="evenodd"
+												/>
+											</svg>
+										{:else}
+											<div class="h-2 w-2 rounded-full bg-white"></div>
+										{/if}
+									</div>
+								{:else}
+									<div
+										class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-slate-200 bg-white"
+									>
+										<div class="h-2 w-2 rounded-full bg-slate-200"></div>
+									</div>
+								{/if}
+							</div>
+							<span
+								class="text-center text-[10px] font-medium uppercase tracking-[0.1em] {i <= currentStep ? 'text-svelte-900' : 'text-slate-400'}"
+							>
+								{stepLabels[step]}
+							</span>
 						</div>
-						<p class="font-semibold text-gray-900">
+						{#if i < timelineSteps.length - 1}
+							<div
+								class="mx-1 mb-6 h-0.5 flex-1 rounded-full {i < currentStep ? 'bg-svelte-900' : 'bg-slate-200'}"
+							></div>
+						{/if}
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Line Items -->
+		<div class="rounded-2xl border border-slate-100 bg-white">
+			<div class="border-b border-slate-100 px-5 py-4">
+				<h2 class="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">Items</h2>
+			</div>
+			<div class="divide-y divide-slate-100">
+				{#each order.lineItems as item}
+					<div class="flex items-center justify-between p-5">
+						<div>
+							<p class="font-bold tracking-tight">{item.description}</p>
+							<p class="mt-0.5 text-sm text-slate-400">Qty: {item.quantity}</p>
+						</div>
+						<p class="font-black tabular-nums">
 							{formatPrice(item.amountTotal, item.currency)}
 						</p>
 					</div>
 				{/each}
 			</div>
-			<div class="border-t border-gray-200 px-4 py-3">
-				<div class="flex items-center justify-between font-bold text-gray-900">
-					<span>Total</span>
-					<span>{formatPrice(order.amount, order.currency)}</span>
+			<div class="border-t border-slate-100 px-5 py-4">
+				<div class="flex items-center justify-between">
+					<span class="text-sm font-medium text-slate-500">Total</span>
+					<span class="text-svelte-900 text-lg font-black tabular-nums"
+						>{formatPrice(order.amount, order.currency)}</span
+					>
 				</div>
 			</div>
 		</div>
 
 		<!-- Shipping Address -->
 		{#if order.shippingAddress}
-			<div class="rounded-xl border border-gray-200 bg-white p-4">
-				<h2 class="mb-2 font-semibold text-gray-900">Shipping Address</h2>
-				<p class="text-gray-600">{order.shippingAddress.name}</p>
-				<p class="text-gray-600">{order.shippingAddress.line1}</p>
-				{#if order.shippingAddress.line2}
-					<p class="text-gray-600">{order.shippingAddress.line2}</p>
-				{/if}
-				<p class="text-gray-600">
-					{order.shippingAddress.city}{order.shippingAddress.state
-						? `, ${order.shippingAddress.state}`
-						: ''}
-					{order.shippingAddress.postalCode}
-				</p>
-				<p class="text-gray-600">{order.shippingAddress.country}</p>
+			<div class="rounded-2xl border border-slate-100 bg-white p-5">
+				<h2 class="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
+					Shipping Address
+				</h2>
+				<div class="space-y-0.5 text-sm text-slate-600">
+					<p class="font-medium text-slate-900">{order.shippingAddress.name}</p>
+					<p>{order.shippingAddress.line1}</p>
+					{#if order.shippingAddress.line2}
+						<p>{order.shippingAddress.line2}</p>
+					{/if}
+					<p>
+						{order.shippingAddress.city}{order.shippingAddress.state
+							? `, ${order.shippingAddress.state}`
+							: ''}
+						{order.shippingAddress.postalCode}
+					</p>
+					<p>{order.shippingAddress.country}</p>
+				</div>
 			</div>
 		{/if}
 
 		<!-- Tracking -->
 		{#if order.trackingNumber}
-			<div class="rounded-xl border border-gray-200 bg-white p-4">
-				<h2 class="mb-2 font-semibold text-gray-900">Tracking</h2>
-				<p class="text-gray-600">
-					Tracking Number: <code class="rounded bg-gray-100 px-2 py-0.5"
+			<div class="rounded-2xl border border-slate-100 bg-white p-5">
+				<h2 class="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
+					Tracking
+				</h2>
+				<p class="text-sm text-slate-600">
+					Tracking Number: <code class="rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-medium"
 						>{order.trackingNumber}</code
 					>
 				</p>
 			</div>
 		{/if}
 
-		<a href="/merch/orders" class="inline-block text-sm text-orange-600 hover:underline">
-			&larr; Back to Orders
+		<a
+			href="/merch/orders"
+			class="text-svelte-900 inline-flex items-center gap-1 text-sm font-medium hover:underline"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="2"
+				stroke="currentColor"
+				class="h-3.5 w-3.5"
+			>
+				<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+			</svg>
+			Back to Orders
 		</a>
 	</div>
 {:else}
-	<div class="py-12 text-center">
-		<h1 class="text-2xl font-bold text-gray-900">Order not found</h1>
-		<p class="mt-2 text-gray-500">This order doesn't exist or you don't have access to it.</p>
-		<a href="/merch/orders" class="mt-4 inline-block text-orange-600 hover:underline"
-			>Back to Orders</a
+	<div class="py-16 text-center">
+		<p class="text-svelte-500 text-xs font-medium uppercase tracking-[0.2em]">Not Found</p>
+		<h1 class="mt-2 text-2xl font-black tracking-tight">Order not found</h1>
+		<p class="mt-3 text-slate-500">This order doesn't exist or you don't have access to it.</p>
+		<a
+			href="/merch/orders"
+			class="text-svelte-900 mt-6 inline-block text-sm font-medium hover:underline"
+			>&larr; Back to Orders</a
 		>
 	</div>
 {/if}

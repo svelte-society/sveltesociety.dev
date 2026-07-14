@@ -1,12 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state'
-	import { getCart } from '../../cart/cart.remote'
 	import Button from '$lib/ui/Button.svelte'
 
 	const sessionId = $derived(page.url.searchParams.get('session_id'))
-
-	// Refresh cart so the CartIcon in the header clears
-	getCart().refresh()
 </script>
 
 <svelte:head>
