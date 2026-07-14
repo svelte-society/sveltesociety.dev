@@ -1,9 +1,9 @@
-import DOMPurify from 'isomorphic-dompurify'
+import DOMPurify, { type Config } from 'isomorphic-dompurify'
 import { marked } from 'marked'
 import markedShiki from 'marked-shiki'
 import { createHighlighter, type Highlighter } from 'shiki'
 
-const SANITIZE_CONFIG = {
+const SANITIZE_CONFIG: Config = {
 	USE_PROFILES: { html: true },
 	FORBID_TAGS: [
 		'script',
@@ -24,7 +24,7 @@ const SANITIZE_CONFIG = {
 	],
 	FORBID_ATTR: ['formaction', 'srcdoc'],
 	SANITIZE_NAMED_PROPS: true
-} as const
+}
 
 export function sanitizeHtml(html: string): string {
 	return DOMPurify.sanitize(html, SANITIZE_CONFIG)
