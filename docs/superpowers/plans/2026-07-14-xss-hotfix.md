@@ -210,11 +210,14 @@ rtk git commit -m 'fix: sanitize legacy content on read'
 - Create: `src/routes/(app)/_components/omni-search.ts`
 - Create: `src/routes/(app)/_components/omni-search.test.ts`
 - Modify: `src/routes/(app)/_components/OmniSearch.svelte`
+- Modify: `tests/fixtures/test-data.ts`
+- Modify: `tests/pages/HomePage.ts`
+- Modify: `tests/e2e/admin/user-management.spec.ts`
 - Modify: `tests/e2e/public/search.spec.ts`
 
 **Interfaces:**
-- Produces: `HighlightSegment = { text: string; highlighted: boolean }` and `splitHighlight(text: string, search: string): HighlightSegment[]`.
-- Consumes: normal Svelte interpolation; no raw HTML rendering.
+- Produces: `HighlightSegment = { text: string; highlighted: boolean }`, `splitHighlight(text: string, search: string): HighlightSegment[]`, and a browser fixture proving author labels remain text.
+- Consumes: normal Svelte interpolation and the existing `HomePage` POM; no raw HTML rendering.
 
 - [ ] **Step 1: Write the failing segment tests**
 
@@ -299,13 +302,60 @@ Import `splitHighlight`, delete `highlightMatch`, and replace the sink with:
 
 Normal interpolation must be the only path for `segment.text`. Do not retain a label-related `{@html}`.
 
-- [ ] **Step 5: Add the browser regression and run focused tests**
+- [ ] **Step 5: Add a malicious author fixture through the existing test seed**
 
-Seed or update a test user name to `<img data-testid="xss-probe" src=x onerror=alert(1)>Alice`, open OmniSearch, search `Alice`, then assert:
+Export and use a non-dialog payload so the browser test can prove both element creation and handler execution are absent:
 
 ```ts
-await expect(page.getByText('<img data-testid="xss-probe" src=x onerror=alert(1)>Alice')).toBeVisible()
-await expect(page.getByTestId('xss-probe')).toHaveCount(0)
+export const XSS_AUTHOR_NAME =
+	'<img data-testid="xss-probe" src=x onerror="document.body.dataset.xss=\'1\'">Alice'
+```
+
+Set the existing `TEST_USERS.editor.name` to `XSS_AUTHOR_NAME` and assign `content_resource_001.authorId` to `TEST_USERS.editor.id` (`test_editor_001`). This gives the maliciously named editor published content, so `getAuthorsWithContent()` includes the label without adding another fixture user.
+
+The prior editor fixture increased the seeded user count. Make the admin user-management assertion durable instead of hard-coding the old count:
+
+```ts
+import { TEST_USERS } from '../../fixtures/test-data'
+
+expect(userCount).toBe(Object.keys(TEST_USERS).length)
+```
+
+- [ ] **Step 6: Keep browser interactions in `HomePage` and add the browser regression**
+
+Add these POM helpers:
+
+```ts
+async typeOmniSearch(query: string): Promise<void> {
+	await expect(this.page.getByTestId('content-card').first()).toBeVisible()
+	await this.searchInput.click()
+	await this.searchInput.fill(query)
+	await expect(this.searchInput).toHaveValue(query)
+}
+
+authorSuggestion(label: string): Locator {
+	return this.page
+		.getByRole('link')
+		.filter({ hasText: label })
+		.filter({ hasText: 'in Authors' })
+}
+
+get xssProbe(): Locator {
+	return this.page.getByTestId('xss-probe')
+}
+```
+
+In `search.spec.ts`, open OmniSearch with the POM, search `Alice`, and assert:
+
+```ts
+const homePage = new HomePage(page)
+await homePage.goto()
+await homePage.typeOmniSearch('Alice')
+const suggestion = homePage.authorSuggestion('Alice')
+
+await expect(suggestion).toContainText(XSS_AUTHOR_NAME)
+await expect(homePage.xssProbe).toHaveCount(0)
+await expect(page.locator('body')).not.toHaveAttribute('data-xss')
 ```
 
 Run:
@@ -315,14 +365,18 @@ rtk proxy env PATH=/Users/kevin/.bun/bin:/usr/bin:/bin:/usr/sbin:/sbin /Users/ke
 rtk proxy env PATH=/Users/kevin/.bun/bin:/usr/bin:/bin:/usr/sbin:/sbin node node_modules/@playwright/test/cli.js test tests/e2e/public/search.spec.ts --workers=1
 ```
 
-Expected: helper and browser search tests PASS, with no created probe element.
+Expected: helper and browser search tests PASS, with no created probe element or executed handler.
 
-- [ ] **Step 6: Run the required Svelte autofixer and commit**
+- [ ] **Step 7: Run the required Svelte autofixer and commit**
 
-Run the `svelte-code-writer` analyzer/autofixer on `src/routes/(app)/_components/OmniSearch.svelte`, apply only relevant fixes, then rerun Step 5.
+Run this exact Svelte 5 async analysis, apply only findings caused by the change, then rerun Step 6:
 
 ```bash
-rtk git add 'src/routes/(app)/_components/omni-search.ts' 'src/routes/(app)/_components/omni-search.test.ts' 'src/routes/(app)/_components/OmniSearch.svelte' tests/e2e/public/search.spec.ts
+rtk proxy env PATH=/Users/kevin/.volta/bin:/Users/kevin/.bun/bin:/usr/bin:/bin:/usr/sbin:/sbin npx @sveltejs/mcp svelte-autofixer 'src/routes/(app)/_components/OmniSearch.svelte' --svelte-version 5 --async
+```
+
+```bash
+rtk git add 'src/routes/(app)/_components/omni-search.ts' 'src/routes/(app)/_components/omni-search.test.ts' 'src/routes/(app)/_components/OmniSearch.svelte' tests/fixtures/test-data.ts tests/pages/HomePage.ts tests/e2e/admin/user-management.spec.ts tests/e2e/public/search.spec.ts
 rtk git commit -m 'fix: render search highlights as escaped text'
 ```
 
