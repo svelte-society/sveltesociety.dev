@@ -1,19 +1,19 @@
 import { form, getRequestEvent, query } from '$app/server'
 import { z } from 'zod/v4'
-import { checkAdminAuth } from '../authorization.remote'
+import { ADMIN_ONLY, requireRoles } from '../authorization.server'
 
 const campaignIdSchema = z.object({
 	id: z.string().min(1, 'Campaign ID is required')
 })
 
 export const getCampaigns = query(() => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 	return locals.newsletterService.listCampaigns({}).campaigns
 })
 
 export const deleteCampaign = form(campaignIdSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 
 	try {

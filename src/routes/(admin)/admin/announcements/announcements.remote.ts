@@ -1,7 +1,7 @@
 import { form, getRequestEvent, query } from '$app/server'
 import { error, isRedirect, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
-import { checkAdminAuth } from '../authorization.remote'
+import { ADMIN_AND_MODERATOR, requireRoles } from '../authorization.server'
 
 const placementSchema = z.object({
 	content_id: z.string().min(1, 'Announcement is required'),
@@ -21,13 +21,13 @@ const deleteSchema = z.object({
 })
 
 export const getPlacements = query(() => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 	return locals.announcementService.getAllPlacements()
 })
 
 export const getPlacementById = query(z.string(), (id) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 	const placement = locals.announcementService.getPlacementById(id)
 	if (!placement) error(404, 'Placement not found')
@@ -35,7 +35,7 @@ export const getPlacementById = query(z.string(), (id) => {
 })
 
 export const getAnnouncements = query(() => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 	const announcements = locals.contentService.getFilteredContent({
 		type: 'announcement',
@@ -48,7 +48,7 @@ export const getAnnouncements = query(() => {
 })
 
 export const getLocations = query(() => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 	const locations = locals.announcementService.getActiveLocations()
 	return locations.map((l: { id: string; name: string }) => ({
@@ -58,7 +58,7 @@ export const getLocations = query(() => {
 })
 
 export const createPlacement = form(placementSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 
 	try {
@@ -103,7 +103,7 @@ export const updatePlacement = form(
 		is_active: z.coerce.boolean().default(true)
 	}),
 	async (data) => {
-		checkAdminAuth()
+		requireRoles(ADMIN_AND_MODERATOR)
 		const { locals } = getRequestEvent()
 
 		try {
@@ -138,7 +138,7 @@ export const updatePlacement = form(
 )
 
 export const togglePlacement = form(toggleSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 
 	try {
@@ -165,7 +165,7 @@ export const togglePlacement = form(toggleSchema, async (data) => {
 })
 
 export const deletePlacement = form(deleteSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 
 	try {

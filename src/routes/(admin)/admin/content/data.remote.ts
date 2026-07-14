@@ -1,7 +1,7 @@
 import { query, form } from '$app/server'
 import { getRequestEvent } from '$app/server'
 import { z } from 'zod/v4'
-import { checkAdminAuth } from '../authorization.remote'
+import { CONTENT_MANAGERS, requireRoles } from '../authorization.server'
 
 const contentFiltersSchema = z.object({
 	type: z.enum(['video', 'library', 'announcement', 'collection', 'recipe', 'resource']).optional(),
@@ -18,6 +18,7 @@ const contentIdSchema = z.object({
 })
 
 export const getFilteredContent = query(contentFiltersSchema, async (filters) => {
+	requireRoles(CONTENT_MANAGERS)
 	const { locals } = getRequestEvent()
 	const { page, perPage, search, type, status } = filters
 
@@ -78,7 +79,7 @@ function getFiltersFromUrl(url: URL) {
 }
 
 export const refreshMetadata = form(contentIdSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(CONTENT_MANAGERS)
 	const { locals, url } = getRequestEvent()
 
 	try {
@@ -114,7 +115,7 @@ export const refreshMetadata = form(contentIdSchema, async (data) => {
 })
 
 export const deleteContent = form(contentIdSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(CONTENT_MANAGERS)
 	const { locals, url } = getRequestEvent()
 
 	try {

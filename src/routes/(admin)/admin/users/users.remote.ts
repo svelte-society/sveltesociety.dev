@@ -7,11 +7,11 @@ import {
 	deleteUserSchema,
 	clearSessionsSchema
 } from '$lib/schema/users'
-import { checkAdminAuth } from '../authorization.remote'
+import { ADMIN_ONLY, requireRoles } from '../authorization.server'
 import { z } from 'zod/v4'
 
 export const getUsers = query(getUsersSchema, ({ page, perPage }) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 	const offset = (page - 1) * perPage
 
@@ -38,7 +38,7 @@ export const getUsers = query(getUsersSchema, ({ page, perPage }) => {
 })
 
 export const getUserById = query(z.string(), (id: string) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 	const user = locals.userService.getUser(id)
 	if (!user) error(404, 'User not found')
@@ -46,7 +46,7 @@ export const getUserById = query(z.string(), (id: string) => {
 })
 
 export const getRoleOptions = query(() => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 	const roles = locals.roleService.getActiveRoles()
 	if (!roles) error(404, 'Roles not found')
@@ -58,14 +58,14 @@ export const getRoleOptions = query(() => {
 })
 
 export const updateUser = form(updateUserSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 	locals.userService.updateUser(data.id, data)
 	redirect(303, '/admin/users')
 })
 
 export const updateUserRole = form(updateUserRoleSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 	locals.userService.updateUser(data.id, { role: data.role })
 	return { success: true, text: 'Role updated successfully!' }
@@ -76,7 +76,7 @@ function getPageFromUrl(url: URL) {
 }
 
 export const deleteUser = form(deleteUserSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals, url } = getRequestEvent()
 	const deleted = locals.userService.deleteUser(data.id)
 
@@ -89,7 +89,7 @@ export const deleteUser = form(deleteUserSchema, async (data) => {
 })
 
 export const clearUserSessions = form(clearSessionsSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals, url } = getRequestEvent()
 	const deletedCount = locals.sessionService.deleteSessionsByUserId(data.id)
 
