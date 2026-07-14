@@ -326,14 +326,23 @@ test('an unauthenticated read is rejected with omitted and spoofed path headers'
 	request
 }) => {
 	await loginAs(page, 'admin')
-	await page.goto('/admin/users')
-	const endpoint = await discoverRemoteEndpoint(page, 'getUsers')
-	const payload = encodeRemoteArgument({ page: 1, perPage: 1 })
+	await page.goto('/admin/users/test_viewer_001')
+	const endpoints = await discoverUserRemotes(page)
 
-	for (const headers of [{}, { 'x-sveltekit-pathname': '/admin/users' }, { 'x-sveltekit-pathname': '/' }]) {
-		const response = await request.get(`${endpoint}?${payload}`, { headers })
-		expect(response.status()).toBe(401)
-		expect(await response.text()).not.toContain('newsletter_preference')
+	for (const headers of [{}, { 'x-sveltekit-pathname': '/' }]) {
+		const url = new URL(endpoints.getUsers)
+		url.searchParams.set('payload', encodeRemoteArgument({ page: 1, perPage: 1 }))
+		const response = await request.get(url.href, {
+			headers: { 'content-type': 'application/json', ...headers }
+		})
+		const body = await response.text()
+		expect(response.status()).toBe(200)
+		expect(JSON.parse(body)).toMatchObject({
+			type: 'error',
+			status: 401,
+			error: { message: 'Authentication required' }
+		})
+		expect(body).not.toContain('newsletter_preference')
 	}
 })
 ```
@@ -346,21 +355,28 @@ test('an unauthenticated role mutation is rejected without changing the user', a
 	await loginAs(page, 'admin')
 	await page.goto('/admin/users/test_viewer_001')
 	const before = await page.getByTestId('select-role').inputValue()
-	const action = await page.locator('form').filter({ has: page.getByTestId('select-role') }).getAttribute('action')
-	expect(action).toBeTruthy()
+	const endpoints = await discoverUserRemotes(page)
 
-	const response = await request.post(new URL(action!, page.url()).toString(), {
-		form: { id: 'test_viewer_001', role: before === '1' ? '2' : '1' },
-		headers: { 'x-sveltekit-pathname': '/' }
+	const response = await request.post(endpoints.updateUserRole.href, {
+		form: { id: 'test_viewer_001', 'n:role': before === '1' ? '2' : '1' },
+		headers: {
+			origin: endpoints.updateUserRole.origin,
+			'x-sveltekit-pathname': '/'
+		}
 	})
-	expect(response.status()).toBe(401)
+	expect(response.status()).toBe(200)
+	expect(await response.json()).toMatchObject({
+		type: 'error',
+		status: 401,
+		error: { message: 'Authentication required' }
+	})
 
 	await page.reload()
 	await expect(page.getByTestId('select-role')).toHaveValue(before)
 })
 ```
 
-Implement `discoverRemoteEndpoint` from the generated URLs/actions present in the loaded page rather than hard-coding build hashes. Encode query arguments with the same `devalue.stringify` plus base64url representation used by the current SvelteKit client. If protocol discovery fails, fail the test rather than skipping it.
+Implement `discoverUserRemotes` by reading the unique form containing `data-testid="select-role"`, parsing its `?/remote=<module-id>/updateUserRole/...` action, and constructing direct `/_app/remote/<module-id>/getUsers` and `updateUserRole` URLs. Encode query arguments with `Buffer.from(devalue.stringify(value), 'utf8').toString('base64url')`. The SvelteKit Remote Function transport intentionally returns outer HTTP 200 with an inner `{ type: 'error', status: 401 }` envelope; assert both layers. Use the standalone Playwright `request` fixture so page cookies are not shared. If protocol discovery fails, fail the test rather than skipping it. Do not post to the page-relative native action, because the route hook could create a false positive before the Remote Function guard executes.
 
 - [ ] **Step 3: Run the focused tests serially**
 
