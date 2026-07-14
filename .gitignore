@@ -12,6 +12,7 @@ node_modules
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vscode
+/.codex/
 /local_event.db*
 /local.db*
 /test.db*
