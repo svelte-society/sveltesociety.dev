@@ -10,6 +10,11 @@ const merchFiltersSchema = z.object({
 
 export const getProducts = query(merchFiltersSchema, async (filters) => {
 	const { locals } = getRequestEvent()
+	const catalog = await locals.merchProductService.ensureCatalog()
+
+	if (!catalog.available) {
+		return { products: [], count: 0, catalogUnavailable: true, catalogStale: false }
+	}
 
 	const results = locals.merchSearchService.search({
 		query: filters.query || undefined,
@@ -22,6 +27,8 @@ export const getProducts = query(merchFiltersSchema, async (filters) => {
 
 	return {
 		products: results.hits.map((hit) => hit.document),
-		count: results.count
+		count: results.count,
+		catalogUnavailable: false,
+		catalogStale: catalog.stale
 	}
 })

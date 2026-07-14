@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getProducts } from './data.remote'
 
-	let { products } = $derived(
+	let { products, catalogUnavailable } = $derived(
 		await getProducts({
 			sort: 'created_at',
 			order: 'DESC'
@@ -30,7 +30,18 @@
 		<h1 class="mt-1 text-2xl font-black tracking-tight sm:text-3xl">Merch Store</h1>
 	</div>
 
-	{#if products.length > 0}
+	{#if catalogUnavailable}
+		<div
+			class="border-svelte-200 bg-svelte-50 border py-16 text-center"
+			data-testid="catalog-unavailable"
+		>
+			<p class="text-svelte-500 text-xs font-medium uppercase tracking-[0.2em]">Unavailable</p>
+			<p class="mt-2 text-lg font-black tracking-tight">
+				The merch store is temporarily unavailable
+			</p>
+			<p class="mt-2 text-sm text-slate-500">Please try again later.</p>
+		</div>
+	{:else if products.length > 0}
 		<!-- Featured Hero Product -->
 		{#if featured}
 			<a

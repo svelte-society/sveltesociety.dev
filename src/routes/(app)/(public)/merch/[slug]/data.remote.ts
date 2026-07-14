@@ -9,13 +9,14 @@ const productSlugSchema = z.object({
 
 export const getProduct = query(productSlugSchema, async ({ slug }) => {
 	const { locals } = getRequestEvent()
+	const catalog = await locals.merchProductService.ensureCatalog()
 
-	const product = locals.merchProductService.getProductBySlug(slug)
-	if (!product) {
-		return null
+	if (!catalog.available) {
+		return { product: null, catalogUnavailable: true }
 	}
 
-	return product
+	const product = locals.merchProductService.getProductBySlug(slug)
+	return { product, catalogUnavailable: false }
 })
 
 export const getCartSummary = query(async () => {
@@ -42,6 +43,10 @@ export const addToCart = form(
 		}
 
 		const quantity = Math.max(1, Math.floor(Number(quantityStr)))
+		const catalog = await locals.merchProductService.ensureCatalog()
+		if (!catalog.available) {
+			return { success: false as const, text: 'The merch store is temporarily unavailable' }
+		}
 
 		const product = locals.merchProductService.getProductBySlug(slug)
 		if (!product) {

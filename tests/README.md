@@ -26,10 +26,7 @@ bun test:integration --grep "search"
 
 ## Current Test Coverage
 
-**Total E2E Tests:** 103+ tests across 18 test files
-**Total Unit Tests:** 47 tests across 1 test file
-**Execution Time:** ~15-20 seconds E2E (with 4 parallel workers), <100ms unit tests
-**Success Rate:** 100% (0% flaky tests)
+The suites below cover public, authenticated, admin, payment, and service behavior. Use the commands above for the current test count and result.
 
 ### E2E Test Categories
 
@@ -42,10 +39,12 @@ bun test:integration --grep "search"
 - **SEO Endpoints** (29 tests) - robots.txt, sitemap.xml validation and resilience
 - **Sponsor Submission** (10 tests) - Sponsor form, tier selection, billing cycles
 - **Admin Sponsor Management** (14 tests) - List, filter, edit, activate/pause/cancel sponsors
+- **Admin Merch Orders** (6 tests) - Orders workspace, direct navigation, removed catalog routes, and authorization
 
 ### Unit Test Categories
 
 - **SEO Utils** (47 tests) - Meta tag generation, OG/Twitter Cards, helper functions
+- **Merch Catalog Cache** (4 tests) - Lazy loading, TTL reuse, stale fallback, and unavailable state
 
 ## Test Database & Isolation
 

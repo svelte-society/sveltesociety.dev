@@ -73,6 +73,11 @@ export const createMerchCheckout = form(z.object({}), async () => {
 			return { success: false as const, text: 'Your cart is empty' }
 		}
 
+		const catalog = await locals.merchProductService.ensureCatalog()
+		if (!catalog.available) {
+			return { success: false as const, text: 'The merch store is temporarily unavailable' }
+		}
+
 		// Validate cart items against product cache
 		const validatedItems: Array<{
 			variantId: string

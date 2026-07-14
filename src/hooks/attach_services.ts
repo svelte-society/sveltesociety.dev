@@ -178,9 +178,6 @@ export const attach_services: Handle = async ({ event, resolve }) => {
 	// Initialize database and services for this path
 	const services = initialize_db(dbPath)
 
-	// Initialize Stripe-backed merch service (promise guard ensures one-time init)
-	await services.merchProductService.initialize()
-
 	// Attach all services to event.locals
 	event.locals.db = services.db
 	event.locals.contentService = services.contentService

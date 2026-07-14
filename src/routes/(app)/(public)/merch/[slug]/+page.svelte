@@ -3,7 +3,7 @@
 	import { getProduct, getCartSummary, addToCart } from './data.remote'
 	import Button from '$lib/ui/Button.svelte'
 
-	let product = $derived(await getProduct({ slug: page.params.slug! }))
+	let { product, catalogUnavailable } = $derived(await getProduct({ slug: page.params.slug! }))
 	let cartSummary = $derived(await getCartSummary())
 
 	let quantity = $state(1)
@@ -21,7 +21,18 @@
 	<title>{product?.title || 'Product'} | Merch | Svelte Society</title>
 </svelte:head>
 
-{#if product}
+{#if catalogUnavailable}
+	<div
+		class="border-svelte-200 bg-svelte-50 border py-16 text-center"
+		data-testid="catalog-unavailable"
+	>
+		<p class="text-svelte-500 text-xs font-medium uppercase tracking-[0.2em]">Unavailable</p>
+		<h1 class="mt-2 text-2xl font-black tracking-tight">
+			The merch store is temporarily unavailable
+		</h1>
+		<p class="mt-3 text-slate-500">Please try again later.</p>
+	</div>
+{:else if product}
 	<div class="space-y-10">
 		<!-- Breadcrumb -->
 		<nav class="flex items-center gap-2 text-sm">
@@ -121,10 +132,10 @@
 										<legend class="mb-3 text-xs font-medium uppercase tracking-[0.15em] text-slate-500"
 											>{option.name}</legend
 										>
-										<div class="flex flex-wrap gap-2">
-											{#each option.values as value, i (value)}
-												<label
-													class="cursor-pointer rounded-full border-2 border-slate-200 px-4 py-2 text-sm font-medium transition-all hover:border-slate-400 has-[:checked]:border-svelte-900 has-[:checked]:bg-svelte-900 has-[:checked]:text-white"
+									<div class="flex flex-wrap gap-2">
+										{#each option.values as value, i (value)}
+											<label
+												class="cursor-pointer rounded-full border-2 border-slate-200 px-4 py-2 text-sm font-medium transition-all hover:border-slate-400 has-[:checked]:border-svelte-900 has-[:checked]:bg-svelte-900 has-[:checked]:text-white"
 													data-testid="variant-option-{option.name.toLowerCase()}-{value.toLowerCase()}"
 												>
 													<input

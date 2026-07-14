@@ -40,57 +40,82 @@ export interface MerchProductWithVariants extends MerchProduct {
 	variants: MerchVariant[]
 }
 
+export interface MerchCatalogState {
+	available: boolean
+	stale: boolean
+}
+
+interface MerchCatalogOptions {
+	cacheTtlMs?: number
+	now?: () => number
+}
+
 export class MerchProductService {
 	private products = new Map<string, MerchProductWithVariants>()
 	private slugIndex = new Map<string, string>()
-	private initialized = false
-	private initPromise: Promise<void> | null = null
+	private lastSuccessfulRefresh: number | null = null
+	private refreshPromise: Promise<MerchCatalogState> | null = null
 
 	constructor(
 		private stripe: Stripe,
-		private searchService: MerchSearchService
+		private searchService: MerchSearchService,
+		private options: MerchCatalogOptions = {}
 	) {}
 
-	async initialize(): Promise<void> {
-		if (this.initialized) return
-		if (this.initPromise) return this.initPromise
+	async ensureCatalog(): Promise<MerchCatalogState> {
+		const now = this.options.now?.() ?? Date.now()
+		const cacheTtlMs = this.options.cacheTtlMs ?? 60_000
 
-		this.initPromise = this._doInitialize()
+		if (this.lastSuccessfulRefresh !== null && now - this.lastSuccessfulRefresh < cacheTtlMs) {
+			return { available: true, stale: false }
+		}
+
+		if (this.refreshPromise) return this.refreshPromise
+
+		this.refreshPromise = this.refreshCatalog()
 		try {
-			await this.initPromise
-			this.initialized = true
-		} catch (err) {
-			this.initPromise = null
-			throw err
+			return await this.refreshPromise
+		} finally {
+			this.refreshPromise = null
 		}
 	}
 
-	private async _doInitialize(): Promise<void> {
-		const merchProducts: MerchProductWithVariants[] = []
+	private async refreshCatalog(): Promise<MerchCatalogState> {
+		try {
+			const merchProducts: MerchProductWithVariants[] = []
 
-		for await (const product of this.stripe.products.list({ limit: 100 })) {
-			if (product.metadata.product_type !== 'merch') continue
+			for await (const product of this.stripe.products.list({ limit: 100 })) {
+				if (product.metadata.product_type !== 'merch') continue
 
-			const prices: Stripe.Price[] = []
-			for await (const price of this.stripe.prices.list({
-				product: product.id,
-				limit: 100
-			})) {
-				prices.push(price)
+				const prices: Stripe.Price[] = []
+				for await (const price of this.stripe.prices.list({
+					product: product.id,
+					limit: 100
+				})) {
+					prices.push(price)
+				}
+
+				merchProducts.push(this.parseStripeProduct(product, prices))
 			}
 
-			merchProducts.push(this.parseStripeProduct(product, prices))
+			const products = new Map<string, MerchProductWithVariants>()
+			const slugIndex = new Map<string, string>()
+			for (const product of merchProducts) {
+				products.set(product.id, product)
+				slugIndex.set(product.slug, product.id)
+			}
+
+			this.searchService.loadFromProducts(merchProducts)
+			this.products = products
+			this.slugIndex = slugIndex
+			this.lastSuccessfulRefresh = this.options.now?.() ?? Date.now()
+
+			return { available: true, stale: false }
+		} catch (error) {
+			console.error('Unable to refresh the Stripe merch catalog:', error)
+			const available = this.lastSuccessfulRefresh !== null
+			return { available, stale: available }
 		}
-
-		this.products.clear()
-		this.slugIndex.clear()
-
-		for (const p of merchProducts) {
-			this.products.set(p.id, p)
-			this.slugIndex.set(p.slug, p.id)
-		}
-
-		this.searchService.loadFromProducts(merchProducts)
 	}
 
 	// --- Sync reads from cache ---
@@ -136,291 +161,6 @@ export class MerchProductService {
 		return null
 	}
 
-	// --- Async writes (Stripe API + cache update) ---
-
-	async createProduct(data: {
-		title: string
-		slug: string
-		description?: string
-		base_price_cents: number
-		currency?: string
-		images?: string[]
-		marketing_features?: string[]
-		variant_options?: Array<{ name: string; values: string[] }>
-		size_guide?: SizeGuide | null
-		active?: boolean
-		sort_order?: number
-	}): Promise<MerchProduct> {
-		const currency = data.currency || 'eur'
-
-		const stripeProduct = await this.stripe.products.create({
-			name: data.title,
-			description: data.description || undefined,
-			images: data.images?.slice(0, 8) || undefined,
-			marketing_features: data.marketing_features?.map((name) => ({ name })) || undefined,
-			active: data.active !== false,
-			metadata: {
-				product_type: 'merch',
-				slug: data.slug,
-				sort_order: String(data.sort_order || 0),
-				base_price_cents: String(data.base_price_cents),
-				currency,
-				variant_options: JSON.stringify(data.variant_options || []),
-				size_guide: data.size_guide ? JSON.stringify(data.size_guide) : ''
-			}
-		})
-
-		const product: MerchProductWithVariants = {
-			id: stripeProduct.id,
-			title: data.title,
-			slug: data.slug,
-			description: data.description || null,
-			base_price_cents: data.base_price_cents,
-			currency,
-			images: data.images || [],
-			marketing_features: data.marketing_features || [],
-			variant_options: data.variant_options || [],
-			size_guide: data.size_guide || null,
-			active: data.active !== false,
-			sort_order: data.sort_order || 0,
-			created_at: new Date(stripeProduct.created * 1000).toISOString(),
-			updated_at: new Date(stripeProduct.updated * 1000).toISOString(),
-			variants: []
-		}
-
-		this.products.set(product.id, product)
-		this.slugIndex.set(product.slug, product.id)
-		this.refreshSearchEntry(product)
-
-		return product
-	}
-
-	async updateProduct(
-		id: string,
-		data: Partial<{
-			title: string
-			slug: string
-			description: string
-			base_price_cents: number
-			currency: string
-			images: string[]
-			marketing_features: string[]
-			variant_options: Array<{ name: string; values: string[] }>
-			size_guide: SizeGuide | null
-			active: boolean
-			sort_order: number
-		}>
-	): Promise<MerchProduct | null> {
-		const existing = this.products.get(id)
-		if (!existing) return null
-
-		const updateParams: Stripe.ProductUpdateParams = {}
-		const metadataUpdates: Record<string, string> = {}
-
-		if (data.title !== undefined) updateParams.name = data.title
-		if (data.description !== undefined) updateParams.description = data.description
-		if (data.images !== undefined) updateParams.images = data.images.slice(0, 8)
-		if (data.marketing_features !== undefined)
-			updateParams.marketing_features = data.marketing_features.map((name) => ({ name }))
-		if (data.active !== undefined) updateParams.active = data.active
-
-		if (data.slug !== undefined) metadataUpdates.slug = data.slug
-		if (data.sort_order !== undefined) metadataUpdates.sort_order = String(data.sort_order)
-		if (data.base_price_cents !== undefined)
-			metadataUpdates.base_price_cents = String(data.base_price_cents)
-		if (data.currency !== undefined) metadataUpdates.currency = data.currency
-		if (data.variant_options !== undefined)
-			metadataUpdates.variant_options = JSON.stringify(data.variant_options)
-		if (data.size_guide !== undefined)
-			metadataUpdates.size_guide = data.size_guide ? JSON.stringify(data.size_guide) : ''
-
-		if (Object.keys(metadataUpdates).length > 0) {
-			updateParams.metadata = metadataUpdates
-		}
-
-		const stripeProduct = await this.stripe.products.update(id, updateParams)
-
-		const oldSlug = existing.slug
-		const updated: MerchProductWithVariants = {
-			...existing,
-			title: data.title ?? existing.title,
-			slug: data.slug ?? existing.slug,
-			description: data.description !== undefined ? data.description : existing.description,
-			base_price_cents: data.base_price_cents ?? existing.base_price_cents,
-			currency: data.currency ?? existing.currency,
-			images: data.images ?? existing.images,
-			marketing_features: data.marketing_features ?? existing.marketing_features,
-			variant_options: data.variant_options ?? existing.variant_options,
-			size_guide: data.size_guide !== undefined ? data.size_guide : existing.size_guide,
-			active: data.active ?? existing.active,
-			sort_order: data.sort_order ?? existing.sort_order,
-			updated_at: new Date(stripeProduct.updated * 1000).toISOString()
-		}
-
-		this.products.set(id, updated)
-
-		if (data.slug !== undefined && data.slug !== oldSlug) {
-			this.slugIndex.delete(oldSlug)
-			this.slugIndex.set(data.slug, id)
-		}
-
-		this.refreshSearchEntry(updated)
-		return updated
-	}
-
-	async deleteProduct(id: string): Promise<boolean> {
-		const existing = this.products.get(id)
-		if (!existing) return false
-
-		await this.stripe.products.update(id, { active: false })
-
-		// Mark inactive in cache (matches Stripe state)
-		const updated = { ...existing, active: false }
-		this.products.set(id, updated)
-		this.refreshSearchEntry(updated)
-
-		return true
-	}
-
-	// Variant CRUD
-
-	async createVariant(
-		productId: string,
-		data: {
-			option_values: Record<string, string>
-			label: string
-			price_cents: number
-			currency?: string
-			styria_product_code?: string
-			sku?: string
-			active?: boolean
-			sort_order?: number
-		}
-	): Promise<MerchVariant> {
-		const product = this.products.get(productId)
-		if (!product) throw new Error(`Product ${productId} not found`)
-
-		const price = await this.stripe.prices.create({
-			product: productId,
-			unit_amount: data.price_cents,
-			currency: data.currency || product.currency,
-			nickname: data.label,
-			active: data.active !== false,
-			metadata: {
-				product_type: 'merch',
-				option_values: JSON.stringify(data.option_values),
-				sku: data.sku || '',
-				styria_product_code: data.styria_product_code || '',
-				sort_order: String(data.sort_order || 0)
-			}
-		})
-
-		const variant: MerchVariant = {
-			id: price.id,
-			product_id: productId,
-			option_values: data.option_values,
-			label: data.label,
-			price_cents: data.price_cents,
-			styria_product_code: data.styria_product_code || null,
-			sku: data.sku || null,
-			active: data.active !== false,
-			sort_order: data.sort_order || 0,
-			created_at: new Date(price.created * 1000).toISOString()
-		}
-
-		product.variants.push(variant)
-		this.refreshSearchEntry(product)
-
-		return variant
-	}
-
-	async updateVariant(
-		variantId: string,
-		data: Partial<{
-			option_values: Record<string, string>
-			label: string
-			styria_product_code: string
-			sku: string
-			active: boolean
-			sort_order: number
-		}>
-	): Promise<MerchVariant | null> {
-		let product: MerchProductWithVariants | null = null
-		let variantIndex = -1
-
-		for (const p of this.products.values()) {
-			const idx = p.variants.findIndex((v) => v.id === variantId)
-			if (idx !== -1) {
-				product = p
-				variantIndex = idx
-				break
-			}
-		}
-
-		if (!product || variantIndex === -1) return null
-
-		const existing = product.variants[variantIndex]
-
-		const updateParams: Stripe.PriceUpdateParams = {}
-		const metadataUpdates: Record<string, string> = {}
-
-		if (data.label !== undefined) updateParams.nickname = data.label
-		if (data.active !== undefined) updateParams.active = data.active
-		if (data.option_values !== undefined)
-			metadataUpdates.option_values = JSON.stringify(data.option_values)
-		if (data.sku !== undefined) metadataUpdates.sku = data.sku
-		if (data.styria_product_code !== undefined)
-			metadataUpdates.styria_product_code = data.styria_product_code
-		if (data.sort_order !== undefined) metadataUpdates.sort_order = String(data.sort_order)
-
-		if (Object.keys(metadataUpdates).length > 0) {
-			updateParams.metadata = metadataUpdates
-		}
-
-		await this.stripe.prices.update(variantId, updateParams)
-
-		const updated: MerchVariant = {
-			...existing,
-			label: data.label ?? existing.label,
-			option_values: data.option_values ?? existing.option_values,
-			styria_product_code:
-				data.styria_product_code !== undefined
-					? data.styria_product_code
-					: existing.styria_product_code,
-			sku: data.sku !== undefined ? data.sku : existing.sku,
-			active: data.active ?? existing.active,
-			sort_order: data.sort_order ?? existing.sort_order
-		}
-
-		product.variants[variantIndex] = updated
-		this.refreshSearchEntry(product)
-
-		return updated
-	}
-
-	async deleteVariant(variantId: string): Promise<boolean> {
-		let product: MerchProductWithVariants | null = null
-		let variantIndex = -1
-
-		for (const p of this.products.values()) {
-			const idx = p.variants.findIndex((v) => v.id === variantId)
-			if (idx !== -1) {
-				product = p
-				variantIndex = idx
-				break
-			}
-		}
-
-		if (!product || variantIndex === -1) return false
-
-		await this.stripe.prices.update(variantId, { active: false })
-
-		product.variants.splice(variantIndex, 1)
-		this.refreshSearchEntry(product)
-
-		return true
-	}
-
 	// --- Helpers ---
 
 	private parseStripeProduct(
@@ -464,9 +204,13 @@ export class MerchProductService {
 				id: price.id,
 				product_id: product.id,
 				option_values: optionValues,
-				label: price.nickname || Object.values(optionValues).join(' / ') || 'Default',
+				label:
+					price.metadata.label ||
+					price.nickname ||
+					Object.values(optionValues).join(' / ') ||
+					'Default',
 				price_cents: price.unit_amount || 0,
-				styria_product_code: price.metadata.styria_product_code || null,
+				styria_product_code: price.metadata.pn || price.metadata.styria_product_code || null,
 				sku: price.metadata.sku || null,
 				active: price.active,
 				sort_order: parseInt(price.metadata.sort_order || '0'),
@@ -498,34 +242,6 @@ export class MerchProductService {
 			created_at: new Date(product.created * 1000).toISOString(),
 			updated_at: new Date(product.updated * 1000).toISOString(),
 			variants
-		}
-	}
-
-	private refreshSearchEntry(product: MerchProductWithVariants) {
-		const activeVariants = product.variants.filter((v) => v.active)
-		const prices = activeVariants.map((v) => v.price_cents)
-
-		const searchData = {
-			id: product.id,
-			title: product.title,
-			description: product.description || '',
-			slug: product.slug,
-			base_price_cents: product.base_price_cents,
-			min_price_cents: prices.length > 0 ? Math.min(...prices) : product.base_price_cents,
-			max_price_cents: prices.length > 0 ? Math.max(...prices) : product.base_price_cents,
-			currency: product.currency,
-			images: product.images,
-			variant_count: product.variants.length,
-			in_stock: true,
-			active: product.active,
-			created_at: product.created_at,
-			updated_at: product.updated_at
-		}
-
-		try {
-			this.searchService.update(product.id, searchData)
-		} catch {
-			this.searchService.add(searchData)
 		}
 	}
 }

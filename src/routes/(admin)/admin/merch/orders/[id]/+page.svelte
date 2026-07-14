@@ -82,9 +82,7 @@
 {#if fulfillment}
 	<div class="space-y-6">
 		<nav class="text-sm text-gray-500">
-			<a href="/admin/merch" class="hover:text-orange-600">Merch</a>
-			<span class="mx-2">/</span>
-			<a href="/admin/merch/orders" class="hover:text-orange-600">Orders</a>
+			<a href="/admin/merch/orders" class="hover:text-orange-600">Merch Orders</a>
 			<span class="mx-2">/</span>
 			<span class="text-gray-900">Fulfillment Detail</span>
 		</nav>

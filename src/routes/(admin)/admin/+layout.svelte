@@ -87,8 +87,8 @@
 			allowedRoles: ['admin']
 		},
 		{
-			href: '/admin/merch',
-			label: 'Merch',
+			href: '/admin/merch/orders',
+			label: 'Merch Orders',
 			icon: ShoppingBag,
 			allowedRoles: ['admin']
 		},
