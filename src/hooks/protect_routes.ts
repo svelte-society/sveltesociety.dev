@@ -10,12 +10,17 @@ interface RoutePermission {
 const routePermissions: RoutePermission[] = [
 	// Admin-only routes
 	{ path: '/admin/users', allowedRoles: ['admin'] },
+	{ path: '/admin/sponsors', allowedRoles: ['admin'] },
+	{ path: '/admin/newsletter', allowedRoles: ['admin'] },
 	{ path: '/admin/roles', allowedRoles: ['admin'] },
 	{ path: '/admin/statistics', allowedRoles: ['admin'] },
 
 	// Admin and Moderator routes
 	{ path: '/admin/moderation', allowedRoles: ['admin', 'moderator'] },
 	{ path: '/admin/tags', allowedRoles: ['admin', 'moderator'] },
+	{ path: '/admin/announcements', allowedRoles: ['admin', 'moderator'] },
+	{ path: '/admin/feed-builder', allowedRoles: ['admin', 'moderator'] },
+	{ path: '/admin/shortcuts', allowedRoles: ['admin', 'moderator'] },
 	{ path: '/admin/external-content', allowedRoles: ['admin', 'moderator'] },
 	{ path: '/admin/bulk-import', allowedRoles: ['admin', 'moderator'] },
 

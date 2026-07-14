@@ -30,6 +30,17 @@ export const TEST_USERS = {
 		bio: 'Contributor user for testing',
 		roleValue: 'moderator'
 	},
+	editor: {
+		id: 'test_editor_001',
+		email: 'editor@test.local',
+		username: 'test_editor',
+		name: 'Test Editor',
+		password: 'test_password_editor',
+		sessionToken: 'test_session_editor_token',
+		avatarUrl: 'https://avatars.githubusercontent.com/u/5?v=4',
+		bio: 'Editor user for testing',
+		roleValue: 'editor'
+	},
 	viewer: {
 		id: 'test_viewer_001',
 		email: 'viewer@test.local',
