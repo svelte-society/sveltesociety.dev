@@ -17,6 +17,7 @@ vite.config.ts.timestamp-*
 /test.db*
 /test-*.db*
 .state_directory
+/.worktrees/
 
 # Test output files
 test-output.log
