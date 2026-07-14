@@ -16,7 +16,8 @@
 		CloudArrowUp,
 		EnvelopeSimple,
 		Newspaper,
-		Handshake
+		Handshake,
+		ShareNetwork
 	} from 'phosphor-svelte'
 
 	let { data, children } = $props()
@@ -89,6 +90,12 @@
 			href: '/admin/newsletter',
 			label: 'Newsletter',
 			icon: Newspaper,
+			allowedRoles: ['admin']
+		},
+		{
+			href: '/admin/social',
+			label: 'Social Posts',
+			icon: ShareNetwork,
 			allowedRoles: ['admin']
 		},
 		{

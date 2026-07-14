@@ -21,3 +21,5 @@ export {
 } from './NewsletterPages'
 export { SponsorSubmitPage } from './SponsorSubmitPage'
 export { AdminSponsorsPage } from './AdminSponsorsPage'
+export { SocialPostsPage } from './SocialPostsPage'
+export { SocialCredentialsPage } from './SocialCredentialsPage'
