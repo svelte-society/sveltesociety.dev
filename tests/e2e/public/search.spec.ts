@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test'
 import { HomePage, ContentListPage } from '../../pages'
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
+import { XSS_AUTHOR_NAME } from '../../fixtures/test-data'
 
 test.describe('OmniSearch Suggestions', () => {
 	// Run serially - these tests involve focus state and async suggestion loading
@@ -46,6 +47,17 @@ test.describe('OmniSearch Suggestions', () => {
 		// Wait for category suggestion
 		const categorySuggestion = page.locator('a:has-text("in Categories")').first()
 		await expect(categorySuggestion).toBeVisible()
+	})
+
+	test('renders malicious author labels as text without executing markup', async ({ page }) => {
+		const homePage = new HomePage(page)
+		await homePage.goto()
+		await homePage.typeOmniSearch('Alice')
+		const suggestion = homePage.authorSuggestion('Alice')
+
+		await expect(suggestion).toContainText(XSS_AUTHOR_NAME)
+		await expect(homePage.xssProbe).toHaveCount(0)
+		await expect(page.locator('body')).not.toHaveAttribute('data-xss')
 	})
 
 	test('clicking a suggestion applies the filter', async ({ page }) => {

@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test'
 import { setupDatabaseIsolation } from '../../helpers/database-isolation'
 import { UserManagementPage } from '../../pages'
 import { loginAs } from '../../helpers/auth'
+import { TEST_USERS } from '../../fixtures/test-data'
 
 test.describe('Admin - User Management', () => {
 	test.beforeEach(async ({ page }) => {
@@ -26,7 +27,7 @@ test.describe('Admin - User Management', () => {
 		await userManagementPage.gotoUsersList()
 
 		const userCount = await userManagementPage.getUserCount()
-		expect(userCount).toBe(4) // admin, contributor, viewer, newsletter_new
+		expect(userCount).toBe(Object.keys(TEST_USERS).length)
 
 		const firstRole = await userManagementPage.getRoleByRow(0)
 		expect(firstRole.length).toBeGreaterThan(0)
