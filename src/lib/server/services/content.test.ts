@@ -3,6 +3,7 @@ import Database from 'bun:sqlite'
 import { ContentService } from './content'
 import { SearchService } from './search'
 import { createTestDatabase } from '../db/test-helpers'
+import type { ContentWithAuthor } from '$lib/types/content'
 
 describe('ContentService', () => {
 	let db: Database
@@ -153,6 +154,78 @@ describe('ContentService', () => {
 			expect(content?.id).toBe('content1')
 			expect(content?.title).toBe('Svelte Tutorial')
 			expect(content?.type).toBe('recipe')
+		})
+
+		test('should sanitize legacy rendered body without changing the stored value', () => {
+			const unsafeRenderedBody = '<img src=x onerror=alert(1)><p>safe</p>'
+			db.prepare(
+				`INSERT INTO content
+					(id, title, type, status, body, rendered_body, slug, description, published_at)
+				 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+			).run(
+				'legacy-xss',
+				'Legacy XSS',
+				'recipe',
+				'published',
+				'Legacy body',
+				unsafeRenderedBody,
+				'legacy-xss',
+				'Legacy unsafe rendered body',
+				'2025-03-16 20:33:26'
+			)
+
+			const result = contentService.getContentById('legacy-xss')
+
+			expect(result?.rendered_body).toBe('<img src="x"><p>safe</p>')
+			const stored = db
+				.prepare('SELECT rendered_body FROM content WHERE id = ?')
+				.get('legacy-xss') as { rendered_body: string }
+			expect(stored.rendered_body).toBe(unsafeRenderedBody)
+		})
+
+		test('should sanitize legacy rendered body for collection children without changing storage', () => {
+			const unsafeRenderedBody = '<a href="javascript:alert(1)">child</a>'
+			db.prepare(
+				`INSERT INTO content
+					(id, title, type, status, body, rendered_body, slug, description, published_at)
+				 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+			).run(
+				'legacy-child',
+				'Legacy Child',
+				'recipe',
+				'published',
+				'Legacy child body',
+				unsafeRenderedBody,
+				'legacy-child',
+				'Legacy unsafe collection child',
+				'2025-03-16 20:33:25'
+			)
+			db.prepare(
+				`INSERT INTO content
+					(id, title, type, status, body, rendered_body, slug, description, children, published_at)
+				 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+			).run(
+				'legacy-collection',
+				'Legacy Collection',
+				'collection',
+				'published',
+				'Legacy collection body',
+				'<p>Collection</p>',
+				'legacy-collection',
+				'Collection with unsafe legacy child',
+				JSON.stringify(['legacy-child']),
+				'2025-03-16 20:33:24'
+			)
+
+			const result = contentService.getContentById('legacy-collection')
+			const child = result?.children?.[0]
+
+			expect(typeof child).toBe('object')
+			expect((child as ContentWithAuthor).rendered_body).toBe('<a>child</a>')
+			const stored = db
+				.prepare('SELECT rendered_body FROM content WHERE id = ?')
+				.get('legacy-child') as { rendered_body: string }
+			expect(stored.rendered_body).toBe(unsafeRenderedBody)
 		})
 
 		test('should return null for non-existent id', () => {
