@@ -288,35 +288,113 @@ rtk git commit -m 'fix: enforce roles in admin remote functions'
 
 **Files:**
 - Modify: `src/hooks/protect_routes.ts`
+- Modify: `scripts/test-db-seed.ts`
+- Modify: `tests/fixtures/test-data.ts`
+- Modify: `tests/pages/UserManagementPage.ts`
 - Create: `tests/e2e/auth/remote-authorization.spec.ts`
+- Modify: `tests/e2e/auth/protected-routes.spec.ts`
 - Modify: `tests/helpers/auth.ts`
 
 **Interfaces:**
-- Consumes: generated Remote Function actions discovered from authenticated admin pages and existing `loginAs`/test database helpers.
-- Produces: HTTP regressions showing omitted/spoofed path headers cannot expose a read or execute a mutation.
+- Consumes: generated Remote Function actions discovered through `UserManagementPage`, `loginAs`, and the isolated test database cookie.
+- Produces: representative admin/moderator/editor navigation coverage plus HTTP regressions showing omitted/spoofed path headers cannot expose a read or execute a mutation.
 
-- [ ] **Step 1: Align explicit hook entries with the approved role matrix**
+- [ ] **Step 1: Add editor test support and expose the role form action through the existing POM**
+
+Add an `editor` entry to `TEST_USERS` with ID `test_editor_001`, session token `test_session_editor_token`, and `roleValue: 'editor'`. Add the editor role lookup to the seed script:
+
+```ts
+const roles = {
+	admin: db.prepare('SELECT id FROM roles WHERE value = ?').get('admin') as { id: number },
+	moderator: db.prepare('SELECT id FROM roles WHERE value = ?').get('moderator') as { id: number },
+	editor: db.prepare('SELECT id FROM roles WHERE value = ?').get('editor') as { id: number },
+	member: db.prepare('SELECT id FROM roles WHERE value = ?').get('member') as { id: number }
+}
+```
+
+Make `loginAs` accept every declared fixture key without duplicating the union:
+
+```ts
+export async function loginAs(page: Page, role: keyof typeof TEST_USERS): Promise<void> {
+	// existing implementation
+}
+```
+
+Add this interaction to `UserManagementPage` so the spec does not reach through page markup directly:
+
+```ts
+get roleForm(): Locator {
+	return this.page.locator('form').filter({ has: this.roleSelect })
+}
+
+async getRoleFormAction(): Promise<string> {
+	await expect(this.roleForm).toHaveCount(1)
+	const action = await this.roleForm.getAttribute('action')
+	if (!action) throw new Error('Role form is missing its Remote Function action')
+	return action
+}
+```
+
+- [ ] **Step 2: Write representative role-navigation regressions and verify the current hook fails**
+
+Extend `protected-routes.spec.ts` with separate tests proving:
+
+```ts
+test('moderator can access an admin/moderator route', async ({ page }) => {
+	await loginAs(page, 'contributor')
+	const response = await page.goto('/admin/tags')
+	expect(response?.status()).toBe(200)
+	await expect(page).toHaveURL('/admin/tags')
+})
+
+test('editor can access a content-manager route', async ({ page }) => {
+	await loginAs(page, 'editor')
+	const response = await page.goto('/admin/content')
+	expect(response?.status()).toBe(200)
+	await expect(page).toHaveURL('/admin/content')
+})
+
+for (const path of ['/admin/sponsors', '/admin/newsletter']) {
+	test(`moderator cannot access admin-only ${path}`, async ({ page }) => {
+		await loginAs(page, 'contributor')
+		await page.goto(path)
+		await expect(page).toHaveURL('/')
+	})
+}
+
+test('editor cannot access an admin/moderator route', async ({ page }) => {
+	await loginAs(page, 'editor')
+	await page.goto('/admin/tags')
+	await expect(page).toHaveURL('/')
+})
+```
+
+Also correct the existing test named `moderator role can access /admin dashboard` to call `loginAs(page, 'contributor')`; it currently authenticates as admin and does not exercise its stated role.
+
+Run the protected-route spec serially. Expected RED: at least the sponsor/newsletter denial tests fail because those paths currently fall through to the `/admin` catch-all.
+
+- [ ] **Step 3: Align explicit hook entries with the approved role matrix**
 
 Keep the existing redirect behavior, but ensure explicit prefixes use these exact values:
 
 ```ts
 const routePermissions = [
-	{ prefix: '/admin/users', roles: ['admin'] },
-	{ prefix: '/admin/sponsors', roles: ['admin'] },
-	{ prefix: '/admin/newsletter', roles: ['admin'] },
-	{ prefix: '/admin/tags', roles: ['admin', 'moderator'] },
-	{ prefix: '/admin/announcements', roles: ['admin', 'moderator'] },
-	{ prefix: '/admin/feed-builder', roles: ['admin', 'moderator'] },
-	{ prefix: '/admin/shortcuts', roles: ['admin', 'moderator'] },
-	{ prefix: '/admin/external-content', roles: ['admin', 'moderator'] },
-	{ prefix: '/admin/bulk-import', roles: ['admin', 'moderator'] },
-	{ prefix: '/admin/content', roles: ['admin', 'moderator', 'editor'] }
+	{ path: '/admin/users', allowedRoles: ['admin'] },
+	{ path: '/admin/sponsors', allowedRoles: ['admin'] },
+	{ path: '/admin/newsletter', allowedRoles: ['admin'] },
+	{ path: '/admin/tags', allowedRoles: ['admin', 'moderator'] },
+	{ path: '/admin/announcements', allowedRoles: ['admin', 'moderator'] },
+	{ path: '/admin/feed-builder', allowedRoles: ['admin', 'moderator'] },
+	{ path: '/admin/shortcuts', allowedRoles: ['admin', 'moderator'] },
+	{ path: '/admin/external-content', allowedRoles: ['admin', 'moderator'] },
+	{ path: '/admin/bulk-import', allowedRoles: ['admin', 'moderator'] },
+	{ path: '/admin/content', allowedRoles: ['admin', 'moderator', 'editor'] }
 ]
 ```
 
 Preserve any unrelated explicit routes and keep the `/admin` catch-all.
 
-- [ ] **Step 2: Write the HTTP boundary tests before relying on the implementation**
+- [ ] **Step 4: Write the HTTP boundary tests before relying on the implementation**
 
 The Playwright spec must:
 
@@ -327,13 +405,20 @@ test('an unauthenticated read is rejected with omitted and spoofed path headers'
 }) => {
 	await loginAs(page, 'admin')
 	await page.goto('/admin/users/test_viewer_001')
-	const endpoints = await discoverUserRemotes(page)
+	const userPage = new UserManagementPage(page)
+	const endpoints = await discoverUserRemotes(page, await userPage.getRoleFormAction())
+	const isolatedDatabase = (await page.context().cookies()).find((cookie) => cookie.name === 'test_db')
+	expect(isolatedDatabase).toBeTruthy()
 
 	for (const headers of [{}, { 'x-sveltekit-pathname': '/' }]) {
 		const url = new URL(endpoints.getUsers)
 		url.searchParams.set('payload', encodeRemoteArgument({ page: 1, perPage: 1 }))
 		const response = await request.get(url.href, {
-			headers: { 'content-type': 'application/json', ...headers }
+			headers: {
+				'content-type': 'application/json',
+				cookie: `test_db=${isolatedDatabase!.value}`,
+				...headers
+			}
 		})
 		const body = await response.text()
 		expect(response.status()).toBe(200)
@@ -355,12 +440,16 @@ test('an unauthenticated role mutation is rejected without changing the user', a
 	await loginAs(page, 'admin')
 	await page.goto('/admin/users/test_viewer_001')
 	const before = await page.getByTestId('select-role').inputValue()
-	const endpoints = await discoverUserRemotes(page)
+	const userPage = new UserManagementPage(page)
+	const endpoints = await discoverUserRemotes(page, await userPage.getRoleFormAction())
+	const isolatedDatabase = (await page.context().cookies()).find((cookie) => cookie.name === 'test_db')
+	expect(isolatedDatabase).toBeTruthy()
 
 	const response = await request.post(endpoints.updateUserRole.href, {
 		form: { id: 'test_viewer_001', 'n:role': before === '1' ? '2' : '1' },
 		headers: {
 			origin: endpoints.updateUserRole.origin,
+			cookie: `test_db=${isolatedDatabase!.value}`,
 			'x-sveltekit-pathname': '/'
 		}
 	})
@@ -376,9 +465,9 @@ test('an unauthenticated role mutation is rejected without changing the user', a
 })
 ```
 
-Implement `discoverUserRemotes` by reading the unique form containing `data-testid="select-role"`, parsing its `?/remote=<module-id>/updateUserRole/...` action, and constructing direct `/_app/remote/<module-id>/getUsers` and `updateUserRole` URLs. Encode query arguments with `Buffer.from(devalue.stringify(value), 'utf8').toString('base64url')`. The SvelteKit Remote Function transport intentionally returns outer HTTP 200 with an inner `{ type: 'error', status: 401 }` envelope; assert both layers. Use the standalone Playwright `request` fixture so page cookies are not shared. If protocol discovery fails, fail the test rather than skipping it. Do not post to the page-relative native action, because the route hook could create a false positive before the Remote Function guard executes.
+Implement `discoverUserRemotes` by parsing the POM-provided `?/remote=<module-id>/updateUserRole/...` action and constructing direct `/_app/remote/<module-id>/getUsers` and `updateUserRole` URLs. Encode query arguments with `Buffer.from(devalue.stringify(value), 'utf8').toString('base64url')`. The SvelteKit Remote Function transport intentionally returns outer HTTP 200 with an inner `{ type: 'error', status: 401 }` envelope; assert both layers. Use the standalone Playwright `request` fixture so the authenticated session cookie is not shared, but explicitly copy only the `test_db` cookie so the rejected mutation targets the same isolated database that is checked afterward. If protocol discovery fails, fail the test rather than skipping it. Do not post to the page-relative native action, because the route hook could create a false positive before the Remote Function guard executes.
 
-- [ ] **Step 3: Run the focused tests serially**
+- [ ] **Step 5: Run the focused tests serially**
 
 ```bash
 rtk proxy env PATH=/Users/kevin/.bun/bin:/usr/bin:/bin:/usr/sbin:/sbin NODE_ENV=test /Users/kevin/.bun/bin/bun run db:test:init
@@ -388,7 +477,7 @@ rtk proxy env PATH=/Users/kevin/.bun/bin:/usr/bin:/bin:/usr/sbin:/sbin node node
 
 Expected: all security and existing protected-route tests PASS; no test is skipped.
 
-- [ ] **Step 4: Run build and final static guard scan**
+- [ ] **Step 6: Run build and final static guard scan**
 
 ```bash
 rtk proxy env PATH=/Users/kevin/.bun/bin:/usr/bin:/bin:/usr/sbin:/sbin /Users/kevin/.bun/bin/bun run build
@@ -397,9 +486,9 @@ rtk proxy rg -n 'checkAdminAuth|authorization\.remote' src tests
 
 Expected: build exits 0 and the scan has no matches.
 
-- [ ] **Step 5: Commit the navigation and HTTP regressions**
+- [ ] **Step 7: Commit the navigation and HTTP regressions**
 
 ```bash
-rtk git add src/hooks/protect_routes.ts tests/e2e/auth/remote-authorization.spec.ts tests/helpers/auth.ts
+rtk git add src/hooks/protect_routes.ts scripts/test-db-seed.ts tests/fixtures/test-data.ts tests/pages/UserManagementPage.ts tests/e2e/auth/remote-authorization.spec.ts tests/e2e/auth/protected-routes.spec.ts tests/helpers/auth.ts
 rtk git commit -m 'test: cover admin remote authorization boundary'
 ```
