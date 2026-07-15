@@ -5,6 +5,7 @@
 	import { page } from '$app/state'
 	import { getSearchSuggestions, type SearchSuggestion } from '$lib/ui/filter/data.remote'
 	import { getCategoryFromRoute } from '$lib/ui/filter/url-helpers'
+	import { splitHighlight } from './omni-search'
 
 	let searchQuery = $state('')
 	let inputElement: HTMLInputElement | undefined
@@ -49,12 +50,6 @@
 		params.append(suggestion.paramName, suggestion.value)
 		params.delete('page')
 		return '/?' + params.toString()
-	}
-
-	function highlightMatch(text: string, search: string): string {
-		if (!search) return text
-		const regex = new RegExp(`(${search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi')
-		return text.replace(regex, '<mark class="bg-svelte-100 text-svelte-700 rounded-sm">$1</mark>')
 	}
 
 	const typeLabels: Record<string, string> = {
@@ -209,7 +204,15 @@
 								? 'bg-svelte-100'
 								: ''}"
 						>
-							<span>{@html highlightMatch(suggestion.label, searchQuery)}</span>
+							<span>
+								{#each splitHighlight(suggestion.label, searchQuery) as segment, segmentIndex (segmentIndex)}
+									{#if segment.highlighted}
+										<mark class="rounded-sm bg-svelte-100 text-svelte-700">{segment.text}</mark>
+									{:else}
+										{segment.text}
+									{/if}
+								{/each}
+							</span>
 							<span class="text-xs text-slate-600">{typeLabels[suggestion.type]}</span>
 						</a>
 					{/each}

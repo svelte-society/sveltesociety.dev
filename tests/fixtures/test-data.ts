@@ -7,6 +7,9 @@
 /**
  * Test user credentials for E2E tests
  */
+export const XSS_AUTHOR_NAME =
+	'<img data-testid="xss-probe" src=x onerror="document.body.dataset.xss=\'1\'">Alice'
+
 export const TEST_USERS = {
 	admin: {
 		id: 'test_admin_001',
@@ -29,6 +32,17 @@ export const TEST_USERS = {
 		avatarUrl: 'https://avatars.githubusercontent.com/u/2?v=4',
 		bio: 'Contributor user for testing',
 		roleValue: 'moderator'
+	},
+	editor: {
+		id: 'test_editor_001',
+		email: 'editor@test.local',
+		username: 'test_editor',
+		name: XSS_AUTHOR_NAME,
+		password: 'test_password_editor',
+		sessionToken: 'test_session_editor_token',
+		avatarUrl: 'https://avatars.githubusercontent.com/u/5?v=4',
+		bio: 'Editor user for testing',
+		roleValue: 'editor'
 	},
 	viewer: {
 		id: 'test_viewer_001',
@@ -185,7 +199,7 @@ export const TEST_CONTENT = [
 			link: 'https://svelte.dev',
 			image: 'https://svelte.dev/images/twitter-thumbnail.jpg'
 		},
-		authorId: 'test_admin_001',
+		authorId: TEST_USERS.editor.id,
 		tags: ['tag_svelte', 'tag_tutorial'],
 		published: true
 	}

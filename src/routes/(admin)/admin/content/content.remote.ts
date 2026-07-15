@@ -1,7 +1,7 @@
 import { form, query, getRequestEvent } from '$app/server'
 import { error, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
-import { checkAdminAuth } from '../authorization.remote'
+import { CONTENT_MANAGERS, requireRoles } from '../authorization.server'
 import { uploadImageFile } from '$lib/server/services/s3-storage'
 import { generateSlug } from '$lib/utils/slug'
 
@@ -63,7 +63,7 @@ const adminCreateContentSchema = z
 	})
 
 export const getTags = query(() => {
-	checkAdminAuth()
+	requireRoles(CONTENT_MANAGERS)
 	const { locals } = getRequestEvent()
 	const tags = locals.tagService.getAllTags()
 	return tags.map((tag: { id: string; name: string }) => ({
@@ -73,7 +73,7 @@ export const getTags = query(() => {
 })
 
 export const getAvailableChildren = query(() => {
-	checkAdminAuth()
+	requireRoles(CONTENT_MANAGERS)
 	const { locals } = getRequestEvent()
 	const content = locals.contentService
 		.getFilteredContent({ status: 'published' })
@@ -85,7 +85,7 @@ export const getAvailableChildren = query(() => {
 })
 
 export const createContent = form(adminCreateContentSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(CONTENT_MANAGERS)
 	const { locals } = getRequestEvent()
 
 	const contentData = {
@@ -110,7 +110,7 @@ const contentIdSchema = z.object({
 })
 
 export const getContentById = query(contentIdSchema, ({ id }) => {
-	checkAdminAuth()
+	requireRoles(CONTENT_MANAGERS)
 	const { locals } = getRequestEvent()
 	const content = locals.contentService.getContentById(id)
 	if (!content) error(404, 'Content not found')
@@ -118,7 +118,7 @@ export const getContentById = query(contentIdSchema, ({ id }) => {
 })
 
 export const getUsers = query(() => {
-	checkAdminAuth()
+	requireRoles(CONTENT_MANAGERS)
 	const { locals } = getRequestEvent()
 	const users = locals.userService.getUsers() as {
 		id: string
@@ -136,7 +136,7 @@ export const getUsers = query(() => {
 })
 
 export const getAvailableChildrenForEdit = query(contentIdSchema, ({ id }) => {
-	checkAdminAuth()
+	requireRoles(CONTENT_MANAGERS)
 	const { locals } = getRequestEvent()
 	const content = locals.contentService
 		.getFilteredContent({ status: 'all' })
@@ -207,7 +207,7 @@ const adminUpdateJobSchema = z.object({
 })
 
 export const updateContent = form(adminUpdateContentSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(CONTENT_MANAGERS)
 	const { locals } = getRequestEvent()
 
 	const contentData = {
@@ -257,7 +257,7 @@ export const updateContent = form(adminUpdateContentSchema, async (data) => {
 })
 
 export const updateJob = form(adminUpdateJobSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(CONTENT_MANAGERS)
 	const { locals } = getRequestEvent()
 
 	// Get existing content to preserve metadata fields we don't edit
@@ -322,7 +322,7 @@ const approveJobSchema = z.object({
  * Approve a job posting - publishes it and sends notification email to employer
  */
 export const approveJob = form(approveJobSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(CONTENT_MANAGERS)
 	const { locals } = getRequestEvent()
 
 	// Get the job
@@ -378,7 +378,7 @@ const rejectJobSchema = z.object({
  * Reject a job posting - archives it and sends notification email to employer
  */
 export const rejectJob = form(rejectJobSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(CONTENT_MANAGERS)
 	const { locals } = getRequestEvent()
 
 	// Get the job

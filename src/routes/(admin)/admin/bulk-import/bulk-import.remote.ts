@@ -1,6 +1,6 @@
 import { form, getRequestEvent } from '$app/server'
 import { z } from 'zod/v4'
-import { checkAdminAuth } from '../authorization.remote'
+import { ADMIN_AND_MODERATOR, requireRoles } from '../authorization.server'
 
 const bulkImportSchema = z.object({
 	urls: z.string().min(1, 'At least one URL is required'),
@@ -35,7 +35,7 @@ export type BulkImportResult = {
 }
 
 export const bulkImport = form(bulkImportSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const event = getRequestEvent()
 
 	const urlsString = String(data.urls)

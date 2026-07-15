@@ -1,6 +1,6 @@
 import { form, getRequestEvent, query } from '$app/server'
 import { z } from 'zod/v4'
-import { checkAdminAuth } from '../authorization.remote'
+import { ADMIN_AND_MODERATOR, requireRoles } from '../authorization.server'
 import { YouTubeImporter } from '$lib/server/services/importers/youtube'
 import { GitHubImporter } from '$lib/server/services/importers/github'
 
@@ -30,7 +30,7 @@ const deleteSchema = z.object({
 })
 
 export const getExternalContentData = query(() => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 
 	const youtubeContent = locals.externalContentService.getContentBySource('youtube')
@@ -62,7 +62,7 @@ export const getExternalContentData = query(() => {
 })
 
 export const importContent = form(importSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 
 	if (!locals.user) {
@@ -187,7 +187,7 @@ export const importContent = form(importSchema, async (data) => {
 })
 
 export const deleteContent = form(deleteSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 
 	if (!locals.user) {

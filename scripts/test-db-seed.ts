@@ -44,6 +44,7 @@ async function seedTestDatabase() {
 			moderator: db.prepare('SELECT id FROM roles WHERE value = ?').get('moderator') as {
 				id: number
 			},
+			editor: db.prepare('SELECT id FROM roles WHERE value = ?').get('editor') as { id: number },
 			member: db.prepare('SELECT id FROM roles WHERE value = ?').get('member') as { id: number }
 		}
 
@@ -324,7 +325,7 @@ async function seedTestDatabase() {
 		// Summary
 		console.log('\n✅ Test database seeded successfully!')
 		console.log('\n📊 Summary:')
-		console.log(`   Users: ${Object.keys(TEST_USERS).length} (admin, contributor, viewer)`)
+		console.log(`   Users: ${Object.keys(TEST_USERS).length} (admin, contributor, editor, viewer)`)
 		console.log(`   Tags: ${TEST_TAGS.length}`)
 		console.log(
 			`   Content: ${TEST_CONTENT.length} published + ${TEST_PENDING_CONTENT.length} pending`

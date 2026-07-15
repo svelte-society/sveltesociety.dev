@@ -46,6 +46,17 @@ export class UserManagementPage extends BasePage {
 		await this.page.goto(`/admin/users/${userId}`)
 	}
 
+	get roleForm(): Locator {
+		return this.page.locator('form').filter({ has: this.roleSelect })
+	}
+
+	async getRoleFormAction(): Promise<string> {
+		await expect(this.roleForm).toHaveCount(1)
+		const action = await this.roleForm.getAttribute('action')
+		if (!action) throw new Error('Role form is missing its Remote Function action')
+		return action
+	}
+
 	async getUserCount(): Promise<number> {
 		await this.usersTable.waitFor({ state: 'visible' })
 		return await this.userRow.count()

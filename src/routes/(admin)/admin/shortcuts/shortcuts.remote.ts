@@ -1,7 +1,7 @@
 import { command, form, getRequestEvent, query } from '$app/server'
 import { error, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
-import { checkAdminAuth } from '../authorization.remote'
+import { ADMIN_AND_MODERATOR, requireRoles } from '../authorization.server'
 
 const shortcutSchema = z.object({
 	content_id: z.string().min(1, 'Content is required'),
@@ -25,13 +25,13 @@ const searchContentSchema = z.object({
 })
 
 export const getShortcuts = query(() => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 	return locals.shortcutService.getAllShortcuts()
 })
 
 export const getShortcutById = query(z.string(), (id) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 	const shortcut = locals.shortcutService.getShortcutById(id)
 	if (!shortcut) error(404, 'Shortcut not found')
@@ -41,7 +41,7 @@ export const getShortcutById = query(z.string(), (id) => {
 export const searchAvailableContent = command(
 	searchContentSchema,
 	({ search, excludeShortcutId, limit }) => {
-		checkAdminAuth()
+		requireRoles(ADMIN_AND_MODERATOR)
 		const { locals } = getRequestEvent()
 
 		const content = locals.contentService.getFilteredContent({
@@ -66,7 +66,7 @@ export const searchAvailableContent = command(
 )
 
 export const createShortcut = form(shortcutSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 
 	let shortcut
@@ -109,7 +109,7 @@ export const updateShortcut = form(
 		is_active: z.coerce.boolean().default(true)
 	}),
 	(data) => {
-		checkAdminAuth()
+		requireRoles(ADMIN_AND_MODERATOR)
 		const { locals } = getRequestEvent()
 
 		let shortcut
@@ -142,7 +142,7 @@ export const updateShortcut = form(
 )
 
 export const toggleShortcut = form(toggleSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 
 	const result = locals.shortcutService.toggleShortcutStatus(data.id)
@@ -161,7 +161,7 @@ export const toggleShortcut = form(toggleSchema, async (data) => {
 })
 
 export const deleteShortcut = form(deleteSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 
 	const success = locals.shortcutService.deleteShortcut(data.id)

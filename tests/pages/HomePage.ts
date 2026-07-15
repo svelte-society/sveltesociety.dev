@@ -41,6 +41,14 @@ export class HomePage extends BasePage {
 		return this.page.getByTestId('omni-search-input')
 	}
 
+	authorSuggestion(label: string): Locator {
+		return this.page.getByRole('link').filter({ hasText: label }).filter({ hasText: 'in Authors' })
+	}
+
+	get xssProbe(): Locator {
+		return this.page.getByTestId('xss-probe')
+	}
+
 	/**
 	 * Recipes navigation link
 	 */
@@ -89,6 +97,13 @@ export class HomePage extends BasePage {
 		await this.searchInput.pressSequentially(query, { delay: 50 })
 		await expect(this.searchInput).toHaveValue(query)
 		await this.searchInput.press('Enter')
+	}
+
+	async typeOmniSearch(query: string): Promise<void> {
+		await expect(this.page.getByTestId('content-card').first()).toBeVisible()
+		await this.searchInput.click()
+		await this.searchInput.fill(query)
+		await expect(this.searchInput).toHaveValue(query)
 	}
 
 	/**

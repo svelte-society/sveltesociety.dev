@@ -8,7 +8,13 @@ import type {
 	ContentWithAuthor
 } from '$lib/types/content'
 import type { Tag } from '$lib/types/tags'
-import { renderMarkdown } from '../markdown'
+import { renderMarkdown, sanitizeHtml } from '../markdown'
+
+function sanitizeRenderedBody(content: ContentWithAuthor): void {
+	if (typeof content.rendered_body === 'string') {
+		content.rendered_body = sanitizeHtml(content.rendered_body)
+	}
+}
 
 export class ContentService {
 	constructor(
@@ -44,6 +50,8 @@ export class ContentService {
 				this.db.exec('ROLLBACK')
 				return null
 			}
+
+			sanitizeRenderedBody(content)
 
 			// Parse metadata if it's a string
 			if (typeof content.metadata === 'string') {
@@ -118,6 +126,7 @@ export class ContentService {
 									// Assign tags to each child content
 									childContent.tags = childTags || []
 									childContent.children = [] // Ensure all children have empty children arrays
+									sanitizeRenderedBody(childContent)
 
 									// Add to the children collection
 									childrenContent.push(childContent)

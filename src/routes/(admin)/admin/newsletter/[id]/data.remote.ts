@@ -1,7 +1,7 @@
 import { form, getRequestEvent, query } from '$app/server'
 import { error, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
-import { checkAdminAuth } from '../../authorization.remote'
+import { ADMIN_ONLY, requireRoles } from '../../authorization.server'
 import { getCampaigns } from '../data.remote'
 import type {
 	CampaignWithItems,
@@ -13,7 +13,7 @@ import type {
 import type { EmailService } from '$lib/server/services/email'
 
 export const getCampaign = query(z.string(), (id) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 	const campaign = locals.newsletterService.getCampaignWithItems(id)
 	if (!campaign) error(404, 'Campaign not found')
@@ -21,7 +21,7 @@ export const getCampaign = query(z.string(), (id) => {
 })
 
 export const getAvailableJobs = query(() => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 	return locals.newsletterService.getActiveJobs()
 })
@@ -171,7 +171,7 @@ function buildCreateCampaignData(
 }
 
 export const createCampaign = form(campaignSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 
 	const userId = locals.user?.id
@@ -237,7 +237,7 @@ function buildUpdateTypeData(data: z.infer<typeof campaignSchema>, campaignType:
 }
 
 export const updateCampaign = form(campaignSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 
 	if (!data.id) {
@@ -309,7 +309,7 @@ const sendCampaignSchema = z.object({
 })
 
 export const sendCampaign = form(sendCampaignSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 
 	try {
@@ -364,7 +364,7 @@ const copyCampaignSchema = z.object({
 })
 
 export const copyCampaign = form(copyCampaignSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 
 	const userId = locals.user?.id

@@ -1,7 +1,7 @@
 import { query, form } from '$app/server'
 import { getRequestEvent } from '$app/server'
 import { z } from 'zod/v4'
-import { checkAdminAuth } from '../authorization.remote'
+import { ADMIN_ONLY, requireRoles } from '../authorization.server'
 import type { SponsorStatus } from '$lib/server/services/sponsors'
 
 const sponsorFiltersSchema = z.object({
@@ -60,7 +60,7 @@ function getFiltersFromUrl(url: URL) {
 }
 
 export const getSponsors = query(sponsorFiltersSchema, async (filters) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 	const { page, perPage, search, status } = filters
 
@@ -111,7 +111,7 @@ export const getSponsors = query(sponsorFiltersSchema, async (filters) => {
 })
 
 export const getSponsor = query(sponsorIdSchema, async ({ id }) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals } = getRequestEvent()
 
 	const sponsor = locals.sponsorService.getSponsorById(id)
@@ -134,7 +134,7 @@ export const getSponsor = query(sponsorIdSchema, async ({ id }) => {
 })
 
 export const updateSponsor = form(updateSponsorSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals, url } = getRequestEvent()
 
 	try {
@@ -164,7 +164,7 @@ export const updateSponsor = form(updateSponsorSchema, async (data) => {
 })
 
 export const activateSponsor = form(sponsorIdSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals, url } = getRequestEvent()
 
 	try {
@@ -220,7 +220,7 @@ export const activateSponsor = form(sponsorIdSchema, async (data) => {
 })
 
 export const pauseSponsor = form(sponsorIdSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals, url } = getRequestEvent()
 
 	try {
@@ -253,7 +253,7 @@ export const pauseSponsor = form(sponsorIdSchema, async (data) => {
 })
 
 export const cancelSponsor = form(sponsorIdSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_ONLY)
 	const { locals, url } = getRequestEvent()
 
 	try {

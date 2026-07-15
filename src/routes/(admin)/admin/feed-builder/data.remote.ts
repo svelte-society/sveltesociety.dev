@@ -1,7 +1,7 @@
 import { form, getRequestEvent, query } from '$app/server'
 import { error, isRedirect, redirect } from '@sveltejs/kit'
 import { z } from 'zod/v4'
-import { checkAdminAuth } from '../authorization.remote'
+import { ADMIN_AND_MODERATOR, requireRoles } from '../authorization.server'
 
 const feedItemSchema = z
 	.object({
@@ -34,13 +34,13 @@ const deleteSchema = z.object({
 })
 
 export const getFeedItems = query(() => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 	return locals.feedItemService.getAllFeedItems()
 })
 
 export const getFeedItemById = query(z.object({ id: z.string() }), ({ id }) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 	const feedItem = locals.feedItemService.getFeedItemById(id)
 	if (!feedItem) error(404, 'Feed item not found')
@@ -48,7 +48,7 @@ export const getFeedItemById = query(z.object({ id: z.string() }), ({ id }) => {
 })
 
 export const getPublishedContent = query(() => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 	const content = locals.contentService.getFilteredContent({
 		status: 'published'
@@ -60,7 +60,7 @@ export const getPublishedContent = query(() => {
 })
 
 export const createFeedItem = form(feedItemSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 
 	try {
@@ -126,7 +126,7 @@ export const updateFeedItem = form(
 			path: ['position_range_min']
 		}),
 	async (data) => {
-		checkAdminAuth()
+		requireRoles(ADMIN_AND_MODERATOR)
 		const { locals } = getRequestEvent()
 
 		try {
@@ -169,7 +169,7 @@ export const updateFeedItem = form(
 )
 
 export const toggleFeedItem = form(toggleSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 
 	try {
@@ -196,7 +196,7 @@ export const toggleFeedItem = form(toggleSchema, async (data) => {
 })
 
 export const deleteFeedItem = form(deleteSchema, async (data) => {
-	checkAdminAuth()
+	requireRoles(ADMIN_AND_MODERATOR)
 	const { locals } = getRequestEvent()
 
 	try {
