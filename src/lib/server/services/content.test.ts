@@ -183,6 +183,31 @@ describe('ContentService', () => {
 			expect(stored.rendered_body).toBe(unsafeRenderedBody)
 		})
 
+		test('should omit rendered body when callers do not need it', () => {
+			const unsafeRenderedBody = '<img src=x onerror=alert(1)><p>safe</p>'
+			db.prepare(
+				`INSERT INTO content
+					(id, title, type, status, body, rendered_body, slug, description, published_at)
+				 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+			).run(
+				'listing-content',
+				'Listing Content',
+				'recipe',
+				'published',
+				'Body',
+				unsafeRenderedBody,
+				'listing-content',
+				'Listing content description',
+				'2025-03-16 20:33:26'
+			)
+
+			const result = contentService.getContentById('listing-content', {
+				includeRenderedBody: false
+			})
+
+			expect(result?.rendered_body).toBeUndefined()
+		})
+
 		test('should sanitize legacy rendered body for collection children without changing storage', () => {
 			const unsafeRenderedBody = '<a href="javascript:alert(1)">child</a>'
 			db.prepare(

@@ -10,7 +10,16 @@ import type {
 import type { Tag } from '$lib/types/tags'
 import { renderMarkdown, sanitizeHtml } from '../markdown'
 
-function sanitizeRenderedBody(content: ContentWithAuthor): void {
+type GetContentByIdOptions = {
+	includeRenderedBody?: boolean
+}
+
+function prepareRenderedBody(content: ContentWithAuthor, includeRenderedBody: boolean): void {
+	if (!includeRenderedBody) {
+		content.rendered_body = undefined
+		return
+	}
+
 	if (typeof content.rendered_body === 'string') {
 		content.rendered_body = sanitizeHtml(content.rendered_body)
 	}
@@ -22,7 +31,7 @@ export class ContentService {
 		private searchService?: SearchService
 	) {}
 
-	getContentById(id: string): ContentWithAuthor | null {
+	getContentById(id: string, options: GetContentByIdOptions = {}): ContentWithAuthor | null {
 		if (!id) {
 			console.error('Invalid content ID:', id)
 			return null
@@ -51,7 +60,8 @@ export class ContentService {
 				return null
 			}
 
-			sanitizeRenderedBody(content)
+			const includeRenderedBody = options.includeRenderedBody ?? true
+			prepareRenderedBody(content, includeRenderedBody)
 
 			// Parse metadata if it's a string
 			if (typeof content.metadata === 'string') {
@@ -126,7 +136,7 @@ export class ContentService {
 									// Assign tags to each child content
 									childContent.tags = childTags || []
 									childContent.children = [] // Ensure all children have empty children arrays
-									sanitizeRenderedBody(childContent)
+									prepareRenderedBody(childContent, includeRenderedBody)
 
 									// Add to the children collection
 									childrenContent.push(childContent)

@@ -216,7 +216,9 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 	})
 
 	let content = searchResults.hits
-		.map((hit) => locals.contentService.getContentById(hit.id))
+		.map((hit) =>
+			locals.contentService.getContentById(hit.id, { includeRenderedBody: false })
+		)
 		.filter((piece) => piece != null)
 
 	if (locals.user?.id) {
@@ -248,7 +250,9 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 			// For featured items, fetch full content
 			if (item.item_type === 'featured') {
 				if (!item.content_id) return null
-				const fullContent = locals.contentService.getContentById(item.content_id)
+				const fullContent = locals.contentService.getContentById(item.content_id, {
+					includeRenderedBody: false
+				})
 				if (!fullContent) return null
 				featuredContentIds.add(item.content_id)
 				return {
@@ -359,7 +363,9 @@ export const getCategoryData = query(categoryDataInputSchema, async ({ url, type
 	})
 
 	let content = searchResults.hits
-		.map((hit) => locals.contentService.getContentById(hit.id))
+		.map((hit) =>
+			locals.contentService.getContentById(hit.id, { includeRenderedBody: false })
+		)
 		.filter((piece) => piece != null)
 
 	if (locals.user?.id) {

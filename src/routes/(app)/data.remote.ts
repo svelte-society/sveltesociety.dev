@@ -97,7 +97,9 @@ export const getSidebarJobs = query(async () => {
 
 	// Get full job data
 	const jobs = searchResults.hits
-		.map((hit) => locals.contentService.getContentById(hit.id))
+		.map((hit) =>
+			locals.contentService.getContentById(hit.id, { includeRenderedBody: false })
+		)
 		.filter((job): job is NonNullable<typeof job> => job !== null)
 		// Sort by tier (premium first, then featured, then basic) and then by created_at
 		.sort((a, b) => {
