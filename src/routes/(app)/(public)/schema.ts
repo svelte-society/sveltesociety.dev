@@ -8,7 +8,7 @@ export const schema = z.object({
 	authors: z.array(z.string()).catch([]), // Author usernames
 	query: z.string().catch(''), // Search query
 	page: z.number().catch(1), // Pagination
-	sort: z.string().optional().catch(undefined), // Sort field
+	sort: z.enum(['published_at', 'likes', 'saves', 'stars']).optional().catch(undefined), // Sort field
 	order: z.enum(['ASC', 'DESC']).optional().catch(undefined), // Sort direction
 	// Job filters
 	remote: z.array(z.string()).catch([]), // Job location (remote, hybrid, on-site)

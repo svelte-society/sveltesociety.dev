@@ -41,8 +41,27 @@ const SANITIZE_CONFIG: Config = {
 	SANITIZE_NAMED_PROPS: true
 }
 
+const SANITIZE_CACHE_LIMIT = 500
+const sanitizeCache = new Map<string, string>()
+
 export function sanitizeHtml(html: string): string {
-	return DOMPurify.sanitize(html, SANITIZE_CONFIG)
+	const cached = sanitizeCache.get(html)
+	if (cached !== undefined) {
+		// Refresh insertion order so frequently read content remains cached.
+		sanitizeCache.delete(html)
+		sanitizeCache.set(html, cached)
+		return cached
+	}
+
+	const sanitized = DOMPurify.sanitize(html, SANITIZE_CONFIG)
+	sanitizeCache.set(html, sanitized)
+
+	if (sanitizeCache.size > SANITIZE_CACHE_LIMIT) {
+		const oldest = sanitizeCache.keys().next().value
+		if (oldest !== undefined) sanitizeCache.delete(oldest)
+	}
+
+	return sanitized
 }
 
 let highlighter: Highlighter | null = null
