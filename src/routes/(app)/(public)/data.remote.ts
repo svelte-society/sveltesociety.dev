@@ -194,32 +194,52 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 	const offset = (data.page - 1) * perPage
 	const pageNum = data.page
 
-	// Expand partial author names to all matching full names
-	const allAuthors = locals.userService.getAuthorsWithContent()
-	const expandedAuthors =
-		data.authors.length > 0 ? expandAuthorNames(data.authors, allAuthors) : undefined
+	const useSqliteListing =
+		!data.query &&
+		data.authors.length === 0 &&
+		data.type.length <= 1 &&
+		data.position.length === 0 &&
+		data.level.length === 0 &&
+		data.remote.length === 0 &&
+		(!data.sort || data.sort === 'published_at')
 
-	const searchResults = locals.searchService.search({
-		query: data.query || undefined,
-		tags: data.tags.length > 0 ? data.tags : undefined,
-		types: data.type.length > 0 ? data.type : undefined,
-		authors: expandedAuthors,
-		sort: data.sort || undefined,
-		order: data.order || undefined,
-		status: 'published',
-		limit: perPage,
-		offset,
-		// Job-specific filters (Orama will only return jobs when these are set)
-		position: data.position.length > 0 ? data.position : undefined,
-		level: data.level.length > 0 ? data.level : undefined,
-		remote: data.remote.length > 0 ? data.remote : undefined
-	})
+	let content: ContentWithAuthor[]
+	let contentCount: number
 
-	let content = searchResults.hits
-		.map((hit) =>
-			locals.contentService.getContentById(hit.id, { includeRenderedBody: false })
-		)
-		.filter((piece) => piece != null)
+	if (useSqliteListing) {
+		const filters = {
+			type: data.type[0],
+			tags: data.tags.length > 0 ? data.tags : undefined,
+			status: 'published',
+			limit: perPage,
+			offset,
+			sort: data.order === 'ASC' ? ('oldest' as const) : ('latest' as const)
+		}
+		content = locals.contentService.getFilteredContent(filters)
+		contentCount = locals.contentService.getFilteredContentCount(filters)
+	} else {
+		const allAuthors = locals.userService.getAuthorsWithContent()
+		const expandedAuthors =
+			data.authors.length > 0 ? expandAuthorNames(data.authors, allAuthors) : undefined
+		const searchResults = locals.searchService.search({
+			query: data.query || undefined,
+			tags: data.tags.length > 0 ? data.tags : undefined,
+			types: data.type.length > 0 ? data.type : undefined,
+			authors: expandedAuthors,
+			sort: data.sort || undefined,
+			order: data.order || undefined,
+			status: 'published',
+			limit: perPage,
+			offset,
+			position: data.position.length > 0 ? data.position : undefined,
+			level: data.level.length > 0 ? data.level : undefined,
+			remote: data.remote.length > 0 ? data.remote : undefined
+		})
+		content = searchResults.hits
+			.map((hit) => locals.contentService.getContentById(hit.id, { includeRenderedBody: false }))
+			.filter((piece) => piece != null)
+		contentCount = searchResults.count
+	}
 
 	if (locals.user?.id) {
 		const contentIds = content.map((piece) => piece.id)
@@ -237,7 +257,6 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 
 	// Build the unified feed with insertable items
 	const feedItems = locals.feedItemService.getActiveFeedItems()
-
 
 	// Collect content IDs that will be featured (to dedupe from regular feed)
 	const featuredContentIds = new Set<string>()
@@ -319,7 +338,7 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 
 	return {
 		feed,
-		count: searchResults.count,
+		count: contentCount,
 		meta: buildHomepageMeta(),
 		schemas: [generateOrganizationSchema(), generateWebSiteSchema()]
 	}
@@ -335,35 +354,51 @@ export const getCategoryData = query(categoryDataInputSchema, async ({ url, type
 	const perPage = 15
 	const offset = (data.page - 1) * perPage
 
-	// Expand partial author names to all matching full names
-	const allAuthors = locals.userService.getAuthorsWithContent()
-	const expandedAuthors =
-		data.authors.length > 0 ? expandAuthorNames(data.authors, allAuthors) : undefined
-
-	// Job-specific filters only apply on job category page
 	const isJobPage = type === 'job'
+	const useSqliteListing =
+		!data.query &&
+		data.authors.length === 0 &&
+		(!isJobPage ||
+			(data.position.length === 0 && data.level.length === 0 && data.remote.length === 0)) &&
+		(!data.sort || data.sort === 'published_at')
 
-	const searchResults = locals.searchService.search({
-		query: data.query || undefined,
-		tags: data.tags.length > 0 ? data.tags : undefined,
-		types: [type], // From path param
-		authors: expandedAuthors,
-		sort: data.sort || undefined,
-		order: data.order || undefined,
-		status: 'published',
-		limit: perPage,
-		offset,
-		// Job-specific filters (handled by Orama, only on job page)
-		position: isJobPage && data.position.length > 0 ? data.position : undefined,
-		level: isJobPage && data.level.length > 0 ? data.level : undefined,
-		remote: isJobPage && data.remote.length > 0 ? data.remote : undefined
-	})
+	let content: ContentWithAuthor[]
+	let contentCount: number
 
-	let content = searchResults.hits
-		.map((hit) =>
-			locals.contentService.getContentById(hit.id, { includeRenderedBody: false })
-		)
-		.filter((piece) => piece != null)
+	if (useSqliteListing) {
+		const filters = {
+			type,
+			tags: data.tags.length > 0 ? data.tags : undefined,
+			status: 'published',
+			limit: perPage,
+			offset,
+			sort: data.order === 'ASC' ? ('oldest' as const) : ('latest' as const)
+		}
+		content = locals.contentService.getFilteredContent(filters)
+		contentCount = locals.contentService.getFilteredContentCount(filters)
+	} else {
+		const allAuthors = locals.userService.getAuthorsWithContent()
+		const expandedAuthors =
+			data.authors.length > 0 ? expandAuthorNames(data.authors, allAuthors) : undefined
+		const searchResults = locals.searchService.search({
+			query: data.query || undefined,
+			tags: data.tags.length > 0 ? data.tags : undefined,
+			types: [type],
+			authors: expandedAuthors,
+			sort: data.sort || undefined,
+			order: data.order || undefined,
+			status: 'published',
+			limit: perPage,
+			offset,
+			position: isJobPage && data.position.length > 0 ? data.position : undefined,
+			level: isJobPage && data.level.length > 0 ? data.level : undefined,
+			remote: isJobPage && data.remote.length > 0 ? data.remote : undefined
+		})
+		content = searchResults.hits
+			.map((hit) => locals.contentService.getContentById(hit.id, { includeRenderedBody: false }))
+			.filter((piece) => piece != null)
+		contentCount = searchResults.count
+	}
 
 	if (locals.user?.id) {
 		const contentIds = content.map((piece) => piece.id)
@@ -381,7 +416,7 @@ export const getCategoryData = query(categoryDataInputSchema, async ({ url, type
 
 	return {
 		content,
-		count: searchResults.count,
+		count: contentCount,
 		meta: buildCategoryMeta(type, url.toString()),
 		schemas: undefined
 	}
