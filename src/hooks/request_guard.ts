@@ -53,7 +53,18 @@ export const request_guard: Handle = async ({ event, resolve }) => {
 	globalCount += 1
 	const isBrowserNavigation =
 		event.request.method === 'GET' && event.request.headers.get('accept')?.includes('text/html')
-	if (!isBrowserNavigation && globalCount > GLOBAL_SECOND_LIMIT) return rateLimited('1')
+	const isSameOriginBrowserRequest =
+		event.request.headers.get('origin') === event.url.origin &&
+		event.request.headers.get('sec-fetch-site') === 'same-origin'
+	const isWebhook = event.url.pathname.startsWith('/api/webhooks/')
+	if (
+		!isBrowserNavigation &&
+		!isSameOriginBrowserRequest &&
+		!isWebhook &&
+		globalCount > GLOBAL_SECOND_LIMIT
+	) {
+		return rateLimited('1')
+	}
 
 	if (now - lastCleanup >= WINDOW_MS) {
 		lastCleanup = now
