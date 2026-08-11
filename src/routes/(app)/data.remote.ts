@@ -39,19 +39,10 @@ export const getSidebarJobs = query(async () => {
 	const { locals } = getRequestEvent()
 
 
-	// Get published jobs (expired ones are now excluded by status)
-	const searchResults = locals.searchService.search({
-		types: ['job'],
-		status: 'published',
-		limit: 20 // Get more to filter and sort
-	})
-
-	// Get full job data
-	const jobs = searchResults.hits
-		.map((hit) =>
-			locals.contentService.getContentById(hit.id, { includeRenderedBody: false })
-		)
-		.filter((job): job is NonNullable<typeof job> => job !== null)
+	// Use SQLite for this high-traffic sidebar query. Repeated Orama searches caused
+	// unbounded memory growth under production request volume.
+	const jobs = locals.contentService
+		.getFilteredContent({ type: 'job', status: 'published', limit: 20, sort: 'latest' })
 		// Sort by tier (premium first, then featured, then basic) and then by created_at
 		.sort((a, b) => {
 			const tierOrder: Record<string, number> = { premium: 0, featured: 1, basic: 2 }

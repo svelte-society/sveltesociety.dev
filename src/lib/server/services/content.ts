@@ -268,7 +268,7 @@ export class ContentService {
 		const ids = this.db.prepare(query).all(...params) as { id: string }[]
 
 		return ids
-			.map(({ id }) => this.getContentById(id))
+			.map(({ id }) => this.getContentById(id, { includeRenderedBody: false }))
 			.filter((content): content is ContentWithAuthor => content !== null)
 	}
 
