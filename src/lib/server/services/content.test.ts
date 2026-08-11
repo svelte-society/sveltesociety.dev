@@ -176,7 +176,7 @@ describe('ContentService', () => {
 
 			const result = contentService.getContentById('legacy-xss')
 
-			expect(result?.rendered_body).toBe('<img src="x"><p>safe</p>')
+			expect(result?.rendered_body).toBe('<img src="x" /><p>safe</p>')
 			const stored = db
 				.prepare('SELECT rendered_body FROM content WHERE id = ?')
 				.get('legacy-xss') as { rendered_body: string }
@@ -206,6 +206,7 @@ describe('ContentService', () => {
 			})
 
 			expect(result?.rendered_body).toBeUndefined()
+			expect(result && 'body' in result ? result.body : undefined).toBeUndefined()
 		})
 
 		test('should sanitize legacy rendered body for collection children without changing storage', () => {

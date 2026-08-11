@@ -1,44 +1,28 @@
-import DOMPurify, { type Config, type UponSanitizeAttributeHook } from 'isomorphic-dompurify'
+import sanitizeHtmlLibrary from 'sanitize-html'
 import { marked } from 'marked'
 import markedShiki from 'marked-shiki'
 import { createHighlighter, type Highlighter } from 'shiki'
 
-const DATA_URI_ATTRIBUTES = new Set(['href', 'src', 'xlink:href'])
-const URI_WHITESPACE = /[\u0000-\u0020\u007f-\u009f\u00a0\u1680\u180e\u2000-\u2029\u205f\u3000]/g
-const DATA_SCHEME = /^data:/i
-
-const removeDataUri: UponSanitizeAttributeHook = (_element, hookEvent) => {
-	if (
-		DATA_URI_ATTRIBUTES.has(hookEvent.attrName) &&
-		DATA_SCHEME.test(hookEvent.attrValue.replace(URI_WHITESPACE, ''))
-	) {
-		hookEvent.keepAttr = false
-	}
-}
-
-DOMPurify.addHook('uponSanitizeAttribute', removeDataUri)
-
-const SANITIZE_CONFIG: Config = {
-	USE_PROFILES: { html: true },
-	FORBID_TAGS: [
-		'script',
-		'style',
-		'iframe',
-		'object',
-		'embed',
-		'form',
-		'input',
-		'button',
-		'textarea',
-		'select',
-		'option',
-		'template',
-		'base',
-		'link',
-		'meta'
+const SANITIZE_CONFIG: sanitizeHtmlLibrary.IOptions = {
+	allowedTags: [
+		...sanitizeHtmlLibrary.defaults.allowedTags,
+		'img',
+		'figure',
+		'figcaption'
 	],
-	FORBID_ATTR: ['formaction', 'srcdoc'],
-	SANITIZE_NAMED_PROPS: true
+	allowedAttributes: {
+		'*': ['class', 'style', 'title'],
+		a: ['href', 'target', 'rel'],
+		img: ['src', 'srcset', 'alt', 'width', 'height', 'loading'],
+		code: ['class'],
+		pre: ['class'],
+		span: ['class', 'style']
+	},
+	allowedSchemes: ['http', 'https', 'mailto', 'tel'],
+	allowedSchemesAppliedToAttributes: ['href', 'src', 'cite'],
+	allowProtocolRelative: true,
+	disallowedTagsMode: 'discard',
+	nonTextTags: ['style', 'script', 'textarea', 'option']
 }
 
 const SANITIZE_CACHE_LIMIT = 500
@@ -53,7 +37,7 @@ export function sanitizeHtml(html: string): string {
 		return cached
 	}
 
-	const sanitized = DOMPurify.sanitize(html, SANITIZE_CONFIG)
+	const sanitized = sanitizeHtmlLibrary(html, SANITIZE_CONFIG)
 	sanitizeCache.set(html, sanitized)
 
 	if (sanitizeCache.size > SANITIZE_CACHE_LIMIT) {

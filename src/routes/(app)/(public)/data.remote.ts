@@ -190,7 +190,7 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 	// Parse with zod-search-params - handles type coercion automatically
 	const data = parseSearchParams(schema, url.searchParams)
 
-	const perPage = 30
+	const perPage = 15
 	const offset = (data.page - 1) * perPage
 	const pageNum = data.page
 
@@ -332,7 +332,7 @@ export const getCategoryData = query(categoryDataInputSchema, async ({ url, type
 	// Parse with zod-search-params
 	const data = parseSearchParams(schema, url.searchParams)
 
-	const perPage = 30
+	const perPage = 15
 	const offset = (data.page - 1) * perPage
 
 	// Expand partial author names to all matching full names

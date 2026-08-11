@@ -17,6 +17,7 @@ type GetContentByIdOptions = {
 function prepareRenderedBody(content: ContentWithAuthor, includeRenderedBody: boolean): void {
 	if (!includeRenderedBody) {
 		content.rendered_body = undefined
+		if ('body' in content) content.body = undefined
 		return
 	}
 
