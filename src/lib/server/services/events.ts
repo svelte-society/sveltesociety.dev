@@ -82,17 +82,9 @@ export class EventsService {
 	) {}
 
 	// Fetch upcoming events from the remote API
-	async fetchUpcomingEventsFromAPI(guildSlug: string = this.GUILD_SLUG): Promise<GuildEvent[]> {
-		if (!this.cacheService) {
-			return this._fetchUpcomingEventsDirectly(guildSlug)
-		}
-
-		return this.cacheService.cachify({
-			key: `events:upcoming:${guildSlug}`,
-			getFreshValue: () => this._fetchUpcomingEventsDirectly(guildSlug),
-			ttl: 5 * 60 * 1000, // 5 minutes
-			swr: 60 * 60 * 1000 // 1 hour stale-while-revalidate
-		})
+	async fetchUpcomingEventsFromAPI(_guildSlug: string = this.GUILD_SLUG): Promise<GuildEvent[]> {
+		// Temporarily disabled: a stalled upstream request can block Bun's single server thread.
+		return []
 	}
 
 	private async _fetchUpcomingEventsDirectly(guildSlug: string): Promise<GuildEvent[]> {
