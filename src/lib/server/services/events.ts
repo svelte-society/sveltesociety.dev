@@ -99,7 +99,7 @@ export class EventsService {
 		try {
 			const url = `${this.apiBaseUrl}/${guildSlug}/events/upcoming`
 
-			const response = await fetch(url)
+			const response = await fetch(url, { signal: AbortSignal.timeout(2000) })
 
 			if (!response.ok) {
 				throw new Error(`Failed to fetch events: ${response.statusText}`)
@@ -131,7 +131,7 @@ export class EventsService {
 		try {
 			const url = `${this.apiBaseUrl}/${guildSlug}/events/past`
 
-			const response = await fetch(url)
+			const response = await fetch(url, { signal: AbortSignal.timeout(2000) })
 
 			if (!response.ok) {
 				throw new Error(`Failed to fetch events: ${response.statusText}`)
@@ -162,7 +162,7 @@ export class EventsService {
 	private async _fetchEventDirectly(eventSlug: string): Promise<GuildEvent | null> {
 		try {
 			const url = `${this.apiBaseUrl}/events/${eventSlug}`
-			const response = await fetch(url)
+			const response = await fetch(url, { signal: AbortSignal.timeout(2000) })
 
 			if (!response.ok) {
 				if (response.status === 404) {
