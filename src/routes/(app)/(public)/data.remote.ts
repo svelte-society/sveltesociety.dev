@@ -238,9 +238,6 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 	// Build the unified feed with insertable items
 	const feedItems = locals.feedItemService.getActiveFeedItems()
 
-	// Expire overdue sponsors and jobs
-	locals.sponsorService.expireOverdueSponsors()
-	locals.contentService.expireOverdueJobs()
 
 	// Collect content IDs that will be featured (to dedupe from regular feed)
 	const featuredContentIds = new Set<string>()

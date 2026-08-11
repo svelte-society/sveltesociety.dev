@@ -85,8 +85,6 @@ export const getSidebarShortcuts = query(() => {
 export const getSidebarJobs = query(async () => {
 	const { locals } = getRequestEvent()
 
-	// Expire any overdue jobs
-	locals.contentService.expireOverdueJobs()
 
 	// Get published jobs (expired ones are now excluded by status)
 	const searchResults = locals.searchService.search({
@@ -133,8 +131,6 @@ export const getSidebarJobs = query(async () => {
 export const getSidebarSponsors = query(async () => {
 	const { locals } = getRequestEvent()
 
-	// First, expire any overdue sponsors
-	locals.sponsorService.expireOverdueSponsors()
 
 	// Get active sponsors with tier info
 	const sponsors = locals.sponsorService.getActiveSponsorsWithTiers()
