@@ -1,8 +1,8 @@
 import type { Handle } from '@sveltejs/kit'
 
-const PER_IP_MINUTE_LIMIT = 30
-const PER_IP_SECOND_LIMIT = 4
-const GLOBAL_SECOND_LIMIT = 30
+const PER_IP_MINUTE_LIMIT = 300
+const PER_IP_SECOND_LIMIT = 20
+const GLOBAL_SECOND_LIMIT = 100
 const WINDOW_MS = 60_000
 
 type ClientWindow = {
