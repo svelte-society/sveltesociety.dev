@@ -72,7 +72,8 @@ const initialize_db = (dbPath: string) => {
 	db.run('PRAGMA journal_mode = WAL')
 	db.run('PRAGMA busy_timeout = 5000')
 	db.run('PRAGMA synchronous = NORMAL')
-	db.run('PRAGMA cache_size = 300000')
+	// Cap SQLite's page cache at roughly 64 MiB. A positive value is a page count and previously allowed ~1.2 GiB.
+	db.run('PRAGMA cache_size = -64000')
 	db.run('PRAGMA temp_store = MEMORY')
 	db.run('PRAGMA mmap_size = 3000000')
 	db.run('PRAGMA foreign_keys = ON')
