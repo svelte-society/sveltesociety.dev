@@ -51,7 +51,9 @@ export const request_guard: Handle = async ({ event, resolve }) => {
 		globalCount = 0
 	}
 	globalCount += 1
-	if (globalCount > GLOBAL_SECOND_LIMIT) return rateLimited('1')
+	const isBrowserNavigation =
+		event.request.method === 'GET' && event.request.headers.get('accept')?.includes('text/html')
+	if (!isBrowserNavigation && globalCount > GLOBAL_SECOND_LIMIT) return rateLimited('1')
 
 	if (now - lastCleanup >= WINDOW_MS) {
 		lastCleanup = now
