@@ -1,38 +1,57 @@
 import type { Handle } from '@sveltejs/kit'
 
-const PER_IP_LIMIT = 120
-const GLOBAL_LIMIT = 30
+const PER_IP_MINUTE_LIMIT = 30
+const PER_IP_SECOND_LIMIT = 4
+const GLOBAL_SECOND_LIMIT = 30
 const WINDOW_MS = 60_000
 
-const clients = new Map<string, { startedAt: number; count: number }>()
+type ClientWindow = {
+	startedAt: number
+	count: number
+	second: number
+	secondCount: number
+}
+
+const clients = new Map<string, ClientWindow>()
 let globalSecond = 0
 let globalCount = 0
 let lastCleanup = 0
 
+function rateLimited(retryAfter: string): Response {
+	return new Response('Too many requests', {
+		status: 429,
+		headers: { 'Retry-After': retryAfter }
+	})
+}
+
 export const request_guard: Handle = async ({ event, resolve }) => {
 	const now = Date.now()
 	const second = Math.floor(now / 1000)
+	const ip = event.request.headers.get('cf-connecting-ip') ?? event.getClientAddress()
+	let client = clients.get(ip)
+
+	if (!client || now - client.startedAt >= WINDOW_MS) {
+		client = { startedAt: now, count: 0, second, secondCount: 0 }
+		clients.set(ip, client)
+	}
+
+	if (client.second !== second) {
+		client.second = second
+		client.secondCount = 0
+	}
+	client.count += 1
+	client.secondCount += 1
+
+	// Reject abusive clients before they consume the shared origin allowance.
+	if (client.secondCount > PER_IP_SECOND_LIMIT) return rateLimited('1')
+	if (client.count > PER_IP_MINUTE_LIMIT) return rateLimited('60')
 
 	if (second !== globalSecond) {
 		globalSecond = second
 		globalCount = 0
 	}
 	globalCount += 1
-
-	if (globalCount > GLOBAL_LIMIT) {
-		return new Response('Too many requests', { status: 429, headers: { 'Retry-After': '1' } })
-	}
-
-	const ip = event.request.headers.get('cf-connecting-ip') ?? event.getClientAddress()
-	const existing = clients.get(ip)
-	if (!existing || now - existing.startedAt >= WINDOW_MS) {
-		clients.set(ip, { startedAt: now, count: 1 })
-	} else {
-		existing.count += 1
-		if (existing.count > PER_IP_LIMIT) {
-			return new Response('Too many requests', { status: 429, headers: { 'Retry-After': '60' } })
-		}
-	}
+	if (globalCount > GLOBAL_SECOND_LIMIT) return rateLimited('1')
 
 	if (now - lastCleanup >= WINDOW_MS) {
 		lastCleanup = now
