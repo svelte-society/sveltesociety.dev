@@ -35,46 +35,10 @@ export const getSidebarShortcuts = query(() => {
 	}))
 })
 
-export const getSidebarJobs = query(async () => {
-	const { locals } = getRequestEvent()
-
-
-	// Use SQLite for this high-traffic sidebar query. Repeated Orama searches caused
-	// unbounded memory growth under production request volume.
-	const jobs = locals.contentService
-		.getFilteredContent({ type: 'job', status: 'published', limit: 20, sort: 'latest' })
-		// Sort by tier (premium first, then featured, then basic) and then by created_at
-		.sort((a, b) => {
-			const tierOrder: Record<string, number> = { premium: 0, featured: 1, basic: 2 }
-			const aTier = tierOrder[a.metadata?.tier_name || 'basic'] ?? 2
-			const bTier = tierOrder[b.metadata?.tier_name || 'basic'] ?? 2
-			if (aTier !== bTier) return aTier - bTier
-			// Within same tier, sort by created_at (newest first)
-			return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-		})
-		// Limit to 5
-		.slice(0, 5)
-		// Transform to sidebar format
-		.map((job) => ({
-			id: job.id,
-			slug: job.slug,
-			title: job.title,
-			company_name: job.metadata?.company_name || 'Unknown Company',
-			company_logo: job.metadata?.company_logo || null,
-			remote_status: job.metadata?.remote_status || 'remote',
-			location: job.metadata?.location || null,
-			tier_name: job.metadata?.tier_name,
-			salary_min: job.metadata?.salary_min || null,
-			salary_max: job.metadata?.salary_max || null,
-			salary_currency: job.metadata?.salary_currency || null
-		}))
-
-	return jobs
-})
+export const getSidebarJobs = query(() => [])
 
 export const getSidebarSponsors = query(async () => {
 	const { locals } = getRequestEvent()
-
 
 	// Get active sponsors with tier info
 	const sponsors = locals.sponsorService.getActiveSponsorsWithTiers()
