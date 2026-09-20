@@ -71,6 +71,8 @@
 		"db:test:seed": "NODE_ENV=test bun run scripts/test-db-seed.ts",
 		"test:integration": "rm -f test-*.db* && NODE_ENV=test bun run db:test:init && bun run db:test:seed && playwright test",
 		"test": "bun test src/ tests/unit/",
+		"test:rate-limits": "bun test src/hooks/request_guard.test.ts",
+		"test:gateway": "bun test tests/gateway/",
 		"test:watch": "bun test src/ tests/unit/ --watch",
 		"test:coverage": "bun test src/ tests/unit/ --coverage",
 		"test:coverage:lcov": "bun test src/ tests/unit/ --coverage --coverage-reporter=lcov",

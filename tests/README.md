@@ -371,3 +371,9 @@ If you encounter issues:
 3. Run in headed mode to see browser: `bun run test:integration:headed`
 4. Check CI logs for similar failures
 5. Ask in team chat or create an issue
+
+## Origin rate-limit regressions
+
+`bun run test:rate-limits` checks the application guard with a controlled clock, including Cloudflare visitor isolation, same-origin browser reads during crawler saturation, and per-visitor/global limits.
+
+`NGINX_BIN=/path/to/nginx bun run test:gateway` starts the real Nginx gateway configuration against a local test upstream; `nginx` on PATH is the default. It tests visitor forwarding, limiter isolation, browser exemptions, and 429 responses without a database or external services. The dedicated rate-limit workflow runs both suites. See [Cloudflare deployment and investigation notes](../docs/cloudflare-rate-limits.md).

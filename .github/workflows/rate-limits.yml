@@ -1,0 +1,39 @@
+name: Rate limit regressions
+
+on:
+  push:
+    branches: [main, staging]
+    paths:
+      - 'src/hooks/request_guard*'
+      - 'src/hooks.server.ts'
+      - 'ops/**'
+      - 'tests/gateway/**'
+      - '.github/workflows/rate-limits.yml'
+      - 'package.json'
+  pull_request:
+    paths:
+      - 'src/hooks/request_guard*'
+      - 'src/hooks.server.ts'
+      - 'ops/**'
+      - 'tests/gateway/**'
+      - '.github/workflows/rate-limits.yml'
+      - 'package.json'
+
+permissions:
+  contents: read
+
+jobs:
+  rate-limits:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Install Nginx for gateway integration tests
+        run: sudo apt-get update && sudo apt-get install -y nginx
+      - name: Test application request guard
+        run: bun run test:rate-limits
+      - name: Test real Nginx gateway
+        run: bun run test:gateway
+        env:
+          NGINX_BIN: /usr/sbin/nginx
