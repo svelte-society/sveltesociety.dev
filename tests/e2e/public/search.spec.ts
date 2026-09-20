@@ -266,8 +266,12 @@ test.describe('Search Functionality', () => {
 		const contentList = new ContentListPage(page)
 		await contentList.expectContentDisplayed()
 
-		const titles = await contentList.getContentTitles()
-		expect(titles.some((title) => title.includes('Counter'))).toBeTruthy()
+		await expect
+			.poll(async () => {
+				const titles = await contentList.getContentTitles()
+				return titles.some((title) => title.includes('Counter'))
+			})
+			.toBeTruthy()
 	})
 
 	test('can search for content by description', async ({ page }) => {
