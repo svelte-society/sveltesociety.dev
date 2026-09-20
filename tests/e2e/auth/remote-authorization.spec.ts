@@ -3,8 +3,15 @@ import { expect, test, type Page } from '@playwright/test'
 import * as devalue from 'devalue'
 import { TEST_USERS } from '../../fixtures/test-data'
 import { loginAs } from '../../helpers/auth'
-import { setupDatabaseIsolation } from '../../helpers/database-isolation'
+import { createTestVisitorIp, setupDatabaseIsolation } from '../../helpers/database-isolation'
 import { UserManagementPage } from '../../pages/UserManagementPage'
+
+// The standalone API request fixture does not use browser-context routes.
+test.use({
+	extraHTTPHeaders: async ({ extraHTTPHeaders }, use) => {
+		await use({ ...extraHTTPHeaders, 'cf-connecting-ip': createTestVisitorIp() })
+	}
+})
 
 function encodeRemoteArgument(value: unknown): string {
 	return Buffer.from(devalue.stringify(value), 'utf8').toString('base64url')
@@ -46,7 +53,8 @@ test.describe('Remote Function authorization boundary', () => {
 		)
 		expect(isolatedDatabase).toBeTruthy()
 
-		for (const headers of [{}, { 'x-sveltekit-pathname': '/' }]) {
+		const pathHeaders: Record<string, string>[] = [{}, { 'x-sveltekit-pathname': '/' }]
+		for (const headers of pathHeaders) {
 			const url = new URL(endpoints.getUsers)
 			url.searchParams.set('payload', encodeRemoteArgument({ page: 1, perPage: 1 }))
 			const response = await request.get(url.href, {

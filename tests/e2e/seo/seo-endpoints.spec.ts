@@ -1,5 +1,12 @@
 import { test, expect } from '@playwright/test'
-import { setupDatabaseIsolation } from '../../helpers/database-isolation'
+import { createTestVisitorIp, setupDatabaseIsolation } from '../../helpers/database-isolation'
+
+// The standalone API request fixture does not use browser-context routes.
+test.use({
+	extraHTTPHeaders: async ({ extraHTTPHeaders }, use) => {
+		await use({ ...extraHTTPHeaders, 'cf-connecting-ip': createTestVisitorIp() })
+	}
+})
 
 test.describe('SEO Endpoints', () => {
 	test.beforeEach(async ({ page }) => {

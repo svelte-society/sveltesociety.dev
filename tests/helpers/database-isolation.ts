@@ -1,10 +1,37 @@
 import type { Page, BrowserContext } from '@playwright/test'
 import path from 'path'
-import { fileURLToPath } from 'url'
+import { randomBytes } from 'node:crypto'
+
+const visitorIsolation = new WeakMap<BrowserContext, Promise<void>>()
+
+export function createTestVisitorIp(): string {
+	return `2001:db8:${randomBytes(12).toString('hex').match(/.{4}/g)!.join(':')}`
+}
+
+function setupVisitorIsolation(context: BrowserContext): Promise<void> {
+	let setup = visitorIsolation.get(context)
+	if (!setup) {
+		// Each browser context represents a separate visitor, even though all E2E
+		// traffic reaches the server through localhost. Use a valid documentation IP.
+		const ip = createTestVisitorIp()
+		setup = context.route(
+			(url) => ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname),
+			async (route) => {
+				await route.fallback({
+					headers: { ...(await route.request().allHeaders()), 'cf-connecting-ip': ip }
+				})
+			}
+		)
+		visitorIsolation.set(context, setup)
+	}
+	return setup
+}
 
 /**
  * Sets up database isolation for a test file by setting a cookie
- * that tells the server to use a dedicated database copy.
+ * that tells the server to use a dedicated database copy. Each browser context
+ * also gets a distinct localhost visitor IP so parallel tests do not share
+ * the production per-client rate limit.
  *
  * This should be called in a beforeEach hook to ensure the cookie
  * is set for every test in the suite.
@@ -29,6 +56,8 @@ export async function setupDatabaseIsolation(page: Page, testFileName?: string):
 	if (!testFileName) {
 		testFileName = getCallerTestFileIdentifier()
 	}
+
+	await setupVisitorIsolation(page.context())
 
 	await page.context().addCookies([
 		{
