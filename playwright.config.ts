@@ -4,6 +4,8 @@ import { devices } from '@playwright/test'
 const config: PlaywrightTestConfig = {
 	testDir: './tests',
 	testMatch: /.*\.(test|spec)\.ts$/,
+	// The real Nginx regression suite runs with Bun, separately from browser tests.
+	testIgnore: '**/gateway/**',
 	// Maximum time one test can run
 	timeout: 30 * 1000,
 	// Test suite timeout

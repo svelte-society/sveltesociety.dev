@@ -8,8 +8,10 @@ describe('EventsService', () => {
 	let db: Database
 	let cacheService: CacheService
 	let eventsService: EventsService
+	let originalFetch: typeof global.fetch
 
 	beforeEach(() => {
+		originalFetch = global.fetch
 		// Create in-memory database with all migrations applied
 		db = createTestDatabase()
 		cacheService = new CacheService(db)
@@ -17,100 +19,25 @@ describe('EventsService', () => {
 	})
 
 	afterEach(() => {
+		global.fetch = originalFetch
 		db.close()
 	})
 
 	describe('fetchUpcomingEventsFromAPI', () => {
-		test('should fetch upcoming events from Guild API', async () => {
-			// Mock successful API response
-			global.fetch = mock(() =>
-				Promise.resolve({
-					ok: true,
-					json: () =>
-						Promise.resolve({
-							events: {
-								edges: [
-									{
-										node: {
-											slug: 'test-event',
-											title: 'Test Event',
-											description: 'A test event',
-											startTime: new Date(Date.now() + 86400000).toISOString(),
-											location: 'Online',
-											url: 'https://guild.host/events/test-event'
-										}
-									}
-								]
-							}
-						})
-				})
-			)
+		test.each([
+			['default guild', undefined],
+			['custom guild', 'another-guild']
+		])(
+			'should return no upcoming events without fetching while refresh is disabled (%s)',
+			async (_description, guildSlug) => {
+				const fetchMock = mock(() => Promise.reject(new Error('Unexpected upstream request')))
+				global.fetch = fetchMock
 
-			const events = await eventsService.fetchUpcomingEventsFromAPI()
-			expect(events).toBeDefined()
-			expect(Array.isArray(events)).toBe(true)
-			if (events.length > 0) {
-				expect(events[0].slug).toBe('test-event')
-				expect(events[0].title).toBe('Test Event')
+				expect(await eventsService.fetchUpcomingEventsFromAPI(guildSlug)).toEqual([])
+				expect(await eventsService.fetchUpcomingEventsFromAPI(guildSlug)).toEqual([])
+				expect(fetchMock).not.toHaveBeenCalled()
 			}
-		})
-
-		test('should handle API errors gracefully', async () => {
-			// Mock failed API response
-			global.fetch = mock(() =>
-				Promise.resolve({
-					ok: false,
-					statusText: 'Not Found'
-				})
-			)
-
-			const events = await eventsService.fetchUpcomingEventsFromAPI()
-			expect(events).toBeDefined()
-			expect(Array.isArray(events)).toBe(true)
-		})
-
-		test('should handle network errors', async () => {
-			// Mock network error
-			global.fetch = mock(() => Promise.reject(new Error('Network error')))
-
-			const events = await eventsService.fetchUpcomingEventsFromAPI()
-			expect(events).toBeDefined()
-			expect(Array.isArray(events)).toBe(true)
-			expect(events.length).toBe(0)
-		})
-
-		test('should use cache when available', async () => {
-			let fetchCount = 0
-			global.fetch = mock(() => {
-				fetchCount++
-				return Promise.resolve({
-					ok: true,
-					json: () =>
-						Promise.resolve({
-							events: {
-								edges: [
-									{
-										node: {
-											slug: 'cached-event',
-											title: 'Cached Event',
-											startTime: new Date(Date.now() + 86400000).toISOString()
-										}
-									}
-								]
-							}
-						})
-				})
-			})
-
-			// First call should fetch
-			const events1 = await eventsService.fetchUpcomingEventsFromAPI()
-			expect(fetchCount).toBe(1)
-
-			// Second call should use cache
-			const events2 = await eventsService.fetchUpcomingEventsFromAPI()
-			expect(fetchCount).toBe(1) // Should still be 1
-			expect(events2.length).toBe(events1.length)
-		})
+		)
 	})
 
 	describe('fetchPastEventsFromAPI', () => {
@@ -206,32 +133,13 @@ describe('EventsService', () => {
 	})
 
 	describe('service without cache', () => {
-		test('should work without cache service', async () => {
+		test('should keep upcoming event refresh disabled without cache service', async () => {
 			const noCacheService = new EventsService(db)
+			const fetchMock = mock(() => Promise.reject(new Error('Unexpected upstream request')))
+			global.fetch = fetchMock
 
-			global.fetch = mock(() =>
-				Promise.resolve({
-					ok: true,
-					json: () =>
-						Promise.resolve({
-							events: {
-								edges: [
-									{
-										node: {
-											slug: 'no-cache-event',
-											title: 'No Cache Event',
-											startTime: new Date(Date.now() + 86400000).toISOString()
-										}
-									}
-								]
-							}
-						})
-				})
-			)
-
-			const events = await noCacheService.fetchUpcomingEventsFromAPI()
-			expect(events).toBeDefined()
-			expect(Array.isArray(events)).toBe(true)
+			expect(await noCacheService.fetchUpcomingEventsFromAPI()).toEqual([])
+			expect(fetchMock).not.toHaveBeenCalled()
 		})
 	})
 })
