@@ -1,0 +1,63 @@
+name: Moderation source review
+
+on:
+  pull_request:
+    branches: [main, staging]
+    paths:
+      - 'src/lib/utils/content-sources*'
+      - 'src/routes/(admin)/admin/content/**'
+      - 'tests/e2e/admin/content-sources.spec.ts'
+      - 'tests/pages/ContentEditPage.ts'
+      - 'tests/fixtures/content-sources.ts'
+      - '.github/workflows/moderation.yml'
+  push:
+    branches: [main, staging]
+    paths:
+      - 'src/lib/utils/content-sources*'
+      - 'src/routes/(admin)/admin/content/**'
+      - 'tests/e2e/admin/content-sources.spec.ts'
+      - 'tests/pages/ContentEditPage.ts'
+      - 'tests/fixtures/content-sources.ts'
+      - '.github/workflows/moderation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  moderation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NODE_ENV: test
+      DB_PATH: test.db
+      GITHUB_CLIENT_ID: test_client
+      GITHUB_CLIENT_SECRET: test_secret
+      GITHUB_AUTHORIZATION_CALLBACK_URL: http://localhost:4173/auth/callback
+      SEED_DATABASE: none
+      ANTHROPIC_API_KEY: mock_anthropic_key
+      YOUTUBE_API_KEY: mock_youtube_key
+      GITHUB_TOKEN: mock_github_token
+      PLUNK_API_SECRET_KEY: mock_plunk_key
+      PLUNK_API_URL: http://localhost:3001
+      STRIPE_SECRET_KEY: sk_test_mock_stripe_key
+      STRIPE_WEBHOOK_SECRET: whsec_mock_webhook_secret
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Install Chromium
+        run: bunx playwright install --with-deps chromium
+      - name: Test source URL handling
+        run: bun test src/lib/utils/content-sources.test.ts
+      - name: Test moderation source links
+        run: bun run test:integration tests/e2e/admin/content-sources.spec.ts
+      - name: Upload browser test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: moderation-test-results
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

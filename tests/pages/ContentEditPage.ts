@@ -36,6 +36,22 @@ export class ContentEditPage extends BasePage {
 		this.authorSelect = page.getByTestId('select-author')
 	}
 
+	get reviewDetails(): Locator {
+		return this.page.getByTestId('content-review-details')
+	}
+
+	get sourceLinks(): Locator {
+		return this.reviewDetails.getByTestId('content-source-link')
+	}
+
+	get submitterNotes(): Locator {
+		return this.reviewDetails.getByTestId('content-submitter-notes')
+	}
+
+	get packagePath(): Locator {
+		return this.reviewDetails.getByTestId('content-package-path')
+	}
+
 	/**
 	 * Navigate to the edit page for a specific content item
 	 */
