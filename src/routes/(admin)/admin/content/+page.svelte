@@ -23,13 +23,14 @@
 		return REFRESHABLE_TYPES.includes(type)
 	}
 
-	let searchQuery = $state(page.url.searchParams.get('search') || '')
-	let selectedStatus = $state(page.url.searchParams.get('status') || 'all')
-	let selectedType = $state(page.url.searchParams.get('type') || '')
-	let currentPage = $state(parseInt(page.url.searchParams.get('page') || '1'))
+	// Keep URL navigation reactive while allowing immediate local filter edits.
+	let searchQuery = $derived(page.url.searchParams.get('search') || '')
+	let selectedStatus = $derived(page.url.searchParams.get('status') || 'all')
+	let selectedType = $derived(page.url.searchParams.get('type') || '')
+	let currentPage = $derived(parseInt(page.url.searchParams.get('page') || '1'))
 
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null
-	let debouncedSearch = $state(page.url.searchParams.get('search') || '')
+	let debouncedSearch = $derived(page.url.searchParams.get('search') || '')
 
 	const statusOptions = [
 		{ value: 'all', label: 'All Statuses' },
@@ -57,7 +58,6 @@
 		}
 
 		debounceTimer = setTimeout(() => {
-			debouncedSearch = value
 			currentPage = 1
 			updateURL()
 		}, 300)
@@ -76,6 +76,13 @@
 	}
 
 	function updateURL() {
+		// A filter change also commits any search text still waiting for its debounce.
+		if (debounceTimer) {
+			clearTimeout(debounceTimer)
+			debounceTimer = null
+		}
+		debouncedSearch = searchQuery
+
 		const params = new URLSearchParams()
 		if (debouncedSearch) params.set('search', debouncedSearch)
 		if (selectedStatus && selectedStatus !== 'all') params.set('status', selectedStatus)

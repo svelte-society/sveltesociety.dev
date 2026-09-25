@@ -1,4 +1,4 @@
-name: Moderation source review
+name: Moderation review
 
 on:
   pull_request:
@@ -7,8 +7,11 @@ on:
       - 'src/lib/utils/content-sources*'
       - 'src/routes/(admin)/admin/content/**'
       - 'tests/e2e/admin/content-sources.spec.ts'
+      - 'tests/e2e/admin/content-pagination.spec.ts'
       - 'tests/pages/ContentEditPage.ts'
+      - 'tests/pages/ContentManagementPage.ts'
       - 'tests/fixtures/content-sources.ts'
+      - 'tests/fixtures/content-pagination.ts'
       - '.github/workflows/moderation.yml'
   push:
     branches: [main, staging]
@@ -16,8 +19,11 @@ on:
       - 'src/lib/utils/content-sources*'
       - 'src/routes/(admin)/admin/content/**'
       - 'tests/e2e/admin/content-sources.spec.ts'
+      - 'tests/e2e/admin/content-pagination.spec.ts'
       - 'tests/pages/ContentEditPage.ts'
+      - 'tests/pages/ContentManagementPage.ts'
       - 'tests/fixtures/content-sources.ts'
+      - 'tests/fixtures/content-pagination.ts'
       - '.github/workflows/moderation.yml'
 
 permissions:
@@ -50,8 +56,8 @@ jobs:
         run: bunx playwright install --with-deps chromium
       - name: Test source URL handling
         run: bun test src/lib/utils/content-sources.test.ts
-      - name: Test moderation source links
-        run: bun run test:integration tests/e2e/admin/content-sources.spec.ts
+      - name: Test moderation source links and pagination
+        run: bun run test:integration tests/e2e/admin/content-sources.spec.ts tests/e2e/admin/content-pagination.spec.ts
       - name: Upload browser test results
         if: failure()
         uses: actions/upload-artifact@v4
