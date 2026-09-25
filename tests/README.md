@@ -37,6 +37,7 @@ bun test:integration --grep "search"
 - **Authentication Tests** (13 tests) - Login flows, protected routes, role-based access
 - **Content Submission** (9 tests) - Submit recipes, videos, libraries with validation
 - **Admin Content Management** (5 tests) - Edit, archive, publish content
+- **Moderation Source Details** (6 tests) - Review submitted links, monorepo paths, plain-text notes, import attribution, and unsafe URL filtering
 - **Admin User Management** (4 tests) - View users, edit profiles, manage roles
 - **Admin Sidebar Shortcuts** (6 tests) - Create, toggle, delete sidebar shortcuts
 - **SEO Endpoints** (29 tests) - robots.txt, sitemap.xml validation and resilience
@@ -46,6 +47,7 @@ bun test:integration --grep "search"
 ### Unit Test Categories
 
 - **SEO Utils** (47 tests) - Meta tag generation, OG/Twitter Cards, helper functions
+- **Moderation Source Links** - Source selection, URL validation, deduplication, and YouTube fallback
 
 ## Test Database & Isolation
 
