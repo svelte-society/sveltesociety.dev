@@ -217,21 +217,12 @@ export const submitLibrary = form(librarySchema, async (data) => {
 		}
 	}
 
-	// Try to fetch repository metadata from GitHub API (optional - don't fail if unavailable)
-	let stars = 0
-	try {
-		const metadata = await locals.metadataService.fetchGithubMetadata(githubUrl)
-		stars = metadata.stars || 0
-	} catch (error) {
-		console.error('Error fetching GitHub metadata:', error)
-		// Continue without metadata - moderator will see repo URL
-	}
-
+	let contentId: string
 	try {
 		const title = packagePath ? `${repo}/${packagePath}` : repo
 		const slug = generateSlug(title)
 
-		await locals.contentService.addContent(
+		contentId = await locals.contentService.addContent(
 			{
 				title,
 				type: 'library',
@@ -241,7 +232,7 @@ export const submitLibrary = form(librarySchema, async (data) => {
 				tags: data.tags,
 				metadata: {
 					github: githubUrl,
-					stars,
+					stars: 0,
 					githubOwner: owner,
 					githubRepo: repo,
 					packagePath: packagePath || undefined,
@@ -254,6 +245,15 @@ export const submitLibrary = form(librarySchema, async (data) => {
 	} catch (error) {
 		console.error('Error creating pending library content:', error)
 		return fail(500, { error: 'Failed to submit library' })
+	}
+
+	// Initialize the preview and GitHub stats through the same path as admin refresh.
+	// The pending submission remains successful if optional metadata cannot be fetched.
+	try {
+		const content = locals.contentService.getContentById(contentId)
+		if (content) await locals.metadataService.refreshMetadataForContent(content)
+	} catch (error) {
+		console.error('Error initializing library metadata:', error)
 	}
 
 	redirect(302, '/submit/thankyou')
