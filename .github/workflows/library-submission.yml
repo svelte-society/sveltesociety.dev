@@ -44,6 +44,8 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - name: Install dependencies
         run: bun install --frozen-lockfile
+      - name: Generate SvelteKit aliases
+        run: bunx svelte-kit sync
       - name: Test library preview initialization
         run: bun test 'src/routes/(app)/(public)/submit/submit-library.test.ts'
       - name: Install Chromium
