@@ -37,6 +37,7 @@ export class MetadataService {
 
 				// GitHub API requires a User-Agent header
 				const githubResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+					signal: AbortSignal.timeout(10000),
 					headers: {
 						'User-Agent': 'SvelteSociety-Metadata-Service',
 						Accept: 'application/vnd.github.v3+json',
@@ -227,7 +228,7 @@ export class MetadataService {
 			const ogImageUrl = `https://opengraph.githubassets.com/${hash}/${owner}/${repo}`
 
 			console.log(`[MetadataService] Fetching GitHub OG image from: ${ogImageUrl}`)
-			const response = await fetch(ogImageUrl)
+			const response = await fetch(ogImageUrl, { signal: AbortSignal.timeout(10000) })
 			console.log(
 				`[MetadataService] Response: status=${response.status}, content-type=${response.headers.get('content-type')}`
 			)
