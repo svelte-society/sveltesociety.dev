@@ -35,7 +35,8 @@ bun test:integration --grep "search"
 
 - **Public Tests** (13 tests) - Content browsing, search, detail pages
 - **Authentication Tests** (13 tests) - Login flows, protected routes, role-based access
-- **Content Submission** (9 tests) - Submit recipes, videos, libraries with validation
+- **Content Submission** - Submit recipes, videos, libraries with validation
+- **Library Submission** (7 tests) - Required fields, repository and monorepo submissions, package-path persistence, and debounced previews selecting the exact package instead of the repository root
 - **Admin Content Management** (5 tests) - Edit, archive, publish content
 - **Admin Content Pagination** (5 tests) - Client navigation, browser history, page resets, and preserving pending searches when filters change
 - **Moderation Source Details** (6 tests) - Review submitted links, monorepo paths, plain-text notes, import attribution, and unsafe URL filtering
