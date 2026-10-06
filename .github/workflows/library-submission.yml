@@ -6,6 +6,8 @@ on:
     paths:
       - 'src/routes/(app)/(public)/submit/**'
       - 'src/lib/server/services/metadata.ts'
+      - 'src/routes/(api)/api/preview/github/**'
+      - 'tests/fixtures/library-preview.ts'
       - 'tests/e2e/content/submit-library.spec.ts'
       - 'tests/pages/SubmitPage.ts'
       - '.github/workflows/library-submission.yml'
@@ -14,6 +16,8 @@ on:
     paths:
       - 'src/routes/(app)/(public)/submit/**'
       - 'src/lib/server/services/metadata.ts'
+      - 'src/routes/(api)/api/preview/github/**'
+      - 'tests/fixtures/library-preview.ts'
       - 'tests/e2e/content/submit-library.spec.ts'
       - 'tests/pages/SubmitPage.ts'
       - '.github/workflows/library-submission.yml'
@@ -48,6 +52,8 @@ jobs:
         run: bunx svelte-kit sync
       - name: Test library preview initialization
         run: bun test 'src/routes/(app)/(public)/submit/submit-library.test.ts'
+      - name: Test monorepo previews
+        run: bun test 'src/routes/(api)/api/preview/github/github-preview.test.ts'
       - name: Install Chromium
         run: bunx playwright install --with-deps chromium
       - name: Test library submission in the browser

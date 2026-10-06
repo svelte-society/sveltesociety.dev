@@ -23,11 +23,7 @@ export class SubmitPage extends BasePage {
 
 	// Navigation
 	async goto(type?: ContentType): Promise<void> {
-		if (type) {
-			await this.page.goto(`/submit/${type}`)
-		} else {
-			await this.page.goto('/submit')
-		}
+		await super.goto(type ? `/submit/${type}` : '/submit')
 	}
 
 	async selectContentType(type: ContentType): Promise<void> {
@@ -84,6 +80,10 @@ export class SubmitPage extends BasePage {
 
 	get libraryNotesField(): Locator {
 		return this.page.locator('[data-testid="library-notes-input"]')
+	}
+
+	libraryPreviewLink(title: string): Locator {
+		return this.page.getByRole('link', { name: title, exact: true })
 	}
 
 	// Resource form fields

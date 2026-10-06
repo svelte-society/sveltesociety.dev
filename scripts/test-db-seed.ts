@@ -322,6 +322,14 @@ async function seedTestDatabase() {
 			)
 		})
 
+		// Test isolation copies only test.db, so flush all seeded data out of the WAL first.
+		const checkpoint = db.prepare('PRAGMA wal_checkpoint(TRUNCATE)').get() as {
+			busy: number
+		} | null
+		if (!checkpoint || checkpoint.busy !== 0) {
+			throw new Error('Failed to checkpoint test database WAL before copying isolated databases')
+		}
+
 		// Summary
 		console.log('\n✅ Test database seeded successfully!')
 		console.log('\n📊 Summary:')

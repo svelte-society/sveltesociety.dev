@@ -1,5 +1,6 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
+import { parseGitHubRepo } from '../../../../(app)/(public)/submit/helpers'
 
 export const GET: RequestHandler = async ({ url, locals }) => {
 	// Require authentication
@@ -13,28 +14,13 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 		return json({ error: 'Repo parameter is required' }, { status: 400 })
 	}
 
-	// Parse GitHub repository info
-	let owner: string, repo: string
-
-	// Handle GitHub URL format
-	const urlPattern = /^https?:\/\/github\.com\/([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)/
-	const urlMatch = repoInput.match(urlPattern)
-	if (urlMatch) {
-		owner = urlMatch[1]
-		repo = urlMatch[2].replace(/\.git$/, '')
-	} else {
-		// Handle owner/repo format
-		const repoPattern = /^([a-zA-Z0-9-_.]+)\/([a-zA-Z0-9-_.]+)$/
-		const repoMatch = repoInput.match(repoPattern)
-		if (repoMatch) {
-			owner = repoMatch[1]
-			repo = repoMatch[2]
-		} else {
-			return json({ error: 'Invalid GitHub repository format' }, { status: 400 })
-		}
+	// Match the formats and package identity used by library submissions.
+	const { owner, repo, packagePath } = parseGitHubRepo(repoInput)
+	if (!owner || !repo) {
+		return json({ error: 'Invalid GitHub repository format' }, { status: 400 })
 	}
 
-	const repoId = `${owner}/${repo}`
+	const repoId = packagePath ? `${owner}/${repo}/${packagePath}` : `${owner}/${repo}`
 
 	// Check if already exists
 	const existingContent = locals.externalContentService.getContentByExternalId('github', repoId)
