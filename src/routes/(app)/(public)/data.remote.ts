@@ -190,7 +190,7 @@ export const getHomeData = query(homeDataInputSchema, async ({ url }) => {
 	// Parse with zod-search-params - handles type coercion automatically
 	const data = parseSearchParams(schema, url.searchParams)
 
-	const perPage = 5
+	const perPage = 15
 	const offset = (data.page - 1) * perPage
 	const pageNum = data.page
 

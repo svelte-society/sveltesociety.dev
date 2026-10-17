@@ -54,7 +54,7 @@
 			</div>
 		{/if}
 		{#if count > 0}
-			<Pagination {count} perPage={30} />
+			<Pagination {count} perPage={15} />
 		{/if}
 	</div>
 </div>
