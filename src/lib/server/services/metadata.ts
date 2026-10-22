@@ -227,20 +227,41 @@ export class MetadataService {
 				: Date.now().toString(36).padStart(12, '0')
 			const ogImageUrl = `https://opengraph.githubassets.com/${hash}/${owner}/${repo}`
 
-			console.log(`[MetadataService] Fetching GitHub OG image from: ${ogImageUrl}`)
-			const response = await fetch(ogImageUrl, { signal: AbortSignal.timeout(10000) })
-			console.log(
-				`[MetadataService] Response: status=${response.status}, content-type=${response.headers.get('content-type')}`
-			)
-			if (!response.ok || !response.headers.get('content-type')?.includes('image')) {
-				console.error(
-					`Failed to fetch GitHub OG image for ${owner}/${repo}: status=${response.status}, content-type=${response.headers.get('content-type')}`
-				)
-				return null
+			let thumbnailBuffer: Buffer | undefined
+			let extension = 'png'
+			// GitHub may need to generate the image on its first request. Recover from
+			// temporary upstream failures without making submission depend on a manual refresh.
+			for (let attempt = 0; attempt < 2; attempt++) {
+				try {
+					const response = await fetch(ogImageUrl, { signal: AbortSignal.timeout(5000) })
+					if (!response.ok) {
+						await response.body?.cancel()
+						const retryable = response.status === 429 || response.status >= 500
+						if (!retryable || attempt === 1) {
+							console.error(
+								`Failed to fetch GitHub image for ${owner}/${repo}: status=${response.status}`
+							)
+							return null
+						}
+					} else {
+						const contentType = response.headers.get('content-type') || ''
+						if (!contentType.startsWith('image/')) {
+							await response.body?.cancel()
+							return null
+						}
+						extension = contentType.split(';')[0].split('/')[1] || 'png'
+						thumbnailBuffer = Buffer.from(await response.arrayBuffer())
+						break
+					}
+				} catch (error) {
+					if (attempt === 1) {
+						console.error(`Error fetching GitHub image for ${owner}/${repo}:`, error)
+						return null
+					}
+				}
+				await new Promise((resolve) => setTimeout(resolve, 250))
 			}
-
-			const extension = response.headers.get('content-type')?.split('/').at(-1) || 'png'
-			const thumbnailBuffer = Buffer.from(await response.arrayBuffer())
+			if (!thumbnailBuffer) return null
 
 			if (isS3Enabled) {
 				const key = `gh/${owner}/${repo}/thumbnail.${extension}`

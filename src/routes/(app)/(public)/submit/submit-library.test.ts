@@ -92,10 +92,11 @@ if (scenario === 'anonymous' || scenario === 'duplicate') {
   assert(metadata.submitted_at)
   assert.equal(metadata.stars, ['api-error', 'refresh-error'].includes(scenario) ? 0 : 42)
   if (scenario !== 'refresh-error') {
-    assert.equal(requests.length, 2, 'Fetch repository stats only once, then its preview')
-    assert.deepEqual(timeouts, [10000, 10000])
+    assert.equal(requests.filter(url => url.startsWith('https://api.github.com/')).length, 1)
+    assert.equal(requests.length, ['image-error', 'image-timeout'].includes(scenario) ? 3 : 2)
+    assert(timeouts.every(ms => ms > 0 && ms <= 10000), 'Every upstream request must be bounded')
   }
-  if (['success', 'api-error'].includes(scenario)) {
+  if (['success', 'api-error', 'image-timeout'].includes(scenario)) {
     assert.equal(metadata.thumbnail, '/files/gh/preview-test/components/thumbnail.png')
     assert.equal(readFileSync(join(process.env.STATE_DIRECTORY, metadata.thumbnail), 'utf8'), 'preview-image')
   } else assert.equal(metadata.thumbnail, undefined)
